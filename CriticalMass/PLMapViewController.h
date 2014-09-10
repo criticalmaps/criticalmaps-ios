@@ -7,14 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Mapbox-iOS-SDK/Mapbox.h>
+#import <MapKit/MapKit.h>
 #import "PLData.h"
 
+@interface PLMapViewController : UIViewController<MKMapViewDelegate>
 
-@interface PLMapViewController : UIViewController
-
-@property PLData *data;
-@property RMMapView *map;
-
+@property (nonatomic, strong) PLData *data;
+@property (nonatomic, strong) MKMapView *map;
 
 @end

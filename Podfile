@@ -1,3 +1,2 @@
-platform :ios, '6.1'
+platform :ios, '7.0'
 pod 'AFNetworking'
-pod 'Mapbox-iOS-SDK'

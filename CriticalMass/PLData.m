@@ -19,7 +19,6 @@
     return sharedMyManager;
 }
 
-
 - (id)init {
     if (self = [super init]) {
         
@@ -33,7 +32,6 @@
     }
     return self;
 }
-
 
 #pragma mark - CLLocationManagerDelegate
 
@@ -55,27 +53,32 @@
         NSLog(@"latitude: %.8f", _currentLocation.coordinate.latitude);
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"positionChanged" object:self];
-        
-        
-        NSString *longitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.longitude];
-        NSString *latitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.latitude];
-        
-        NSDictionary *parameters = @{@"device" : @"1234", @"longitude" :  longitudeString, @"latitude" :  latitudeString};
-        
-        NSLog(@"parameters: %@", parameters);
-        
-        NSString *requestUrl = @"http://criticalmass.stephanlindauer.de/get.php";
-        
-        
-        
-        [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"JSON: %@", responseObject);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-        }];
-        
-
     }
 }
 
 @end
+
+
+
+
+
+
+/*
+ TODO
+ 
+ NSString *longitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.longitude];
+ NSString *latitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.latitude];
+ 
+ NSDictionary *parameters = @{@"device" : @"1234", @"longitude" :  longitudeString, @"latitude" :  latitudeString};
+ 
+ NSLog(@"parameters: %@", parameters);
+ 
+ NSString *requestUrl = @"http://criticalmass.stephanlindauer.de/get.php";
+ 
+ 
+ [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+ NSLog(@"JSON: %@", responseObject);
+ } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+ NSLog(@"Error: %@", error);
+ }];
+ */
