@@ -24,6 +24,7 @@
 		94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089219BDEC9C009FFF43 /* PLMapViewController.m */; };
 		94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089519BDECAE009FFF43 /* PLRulesViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
+		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		94CF089519BDECAE009FFF43 /* PLRulesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLRulesViewController.m; sourceTree = "<group>"; };
 		94CF089719BDF227009FFF43 /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
 		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
+		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
+		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +132,8 @@
 				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
 				94CF087119BDEAF2009FFF43 /* Images.xcassets */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
+				94F0304719C1E4EC00F86611 /* PLConstants.h */,
+				94F0304819C1E4EC00F86611 /* PLConstants.m */,
 				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
 				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
@@ -303,6 +308,7 @@
 			files = (
 				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLData.m in Sources */,
+				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,

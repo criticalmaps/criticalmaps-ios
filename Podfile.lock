@@ -20,11 +20,14 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - NSString-Hashes (1.2.2)
 
 DEPENDENCIES:
   - AFNetworking
+  - NSString-Hashes
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  NSString-Hashes: ddf6e856e93d3c83c5d4ef8fcdea2a96ed77c6bc
 
 COCOAPODS: 0.33.1

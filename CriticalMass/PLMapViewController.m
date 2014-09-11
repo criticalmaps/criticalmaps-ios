@@ -7,6 +7,7 @@
 //
 
 #import "PLMapViewController.h"
+#import "PLConstants.h"
 
 @interface PLMapViewController ()
 
@@ -18,6 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [self initObserver];
     }
     return self;
 }
@@ -28,18 +30,31 @@
     
     _data = [PLData sharedManager];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPositionChanged) name:@"positionChanged" object:_data];
-   
+    [self initMap];
+}
+
+- (void)initObserver
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPositionChanged) name:kNotificationPositionChanged object:_data];
+}
+
+- (void)initMap
+{
+    // Mapkit with OSM overlay
     _map = [[MKMapView alloc]initWithFrame:self.view.bounds];
     _map.showsUserLocation = YES;
     _map.mapType = MKMapTypeHybrid;
     _map.delegate = self;
     
-    NSString *template = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    NSString *template = kUrlTile;
     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
     overlay.canReplaceMapContent = YES;
     [_map addOverlay:overlay level:MKOverlayLevelAboveLabels];
-        
+    
+    if(kDebug && kDebugEnableTestLocation){
+        _map.centerCoordinate = CLLocationCoordinate2DMake(kTestLocationLatitude, kTestLocationLongitude);
+    }
+    
     [self.view addSubview:_map];
 }
 
@@ -48,14 +63,17 @@
     [super didReceiveMemoryWarning];
     
     _map = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"positionChanged" object:_data];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPositionChanged object:_data];
 }
+
+#pragma mark - Handler
 
 - (void)onPositionChanged
 {
-    _map.centerCoordinate = CLLocationCoordinate2DMake(_data.currentLocation.coordinate.latitude, _data.currentLocation.coordinate.longitude);
+    _map.centerCoordinate = _data.currentLocation.coordinate;
 }
 
+#pragma mark - Delegete methods
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[MKTileOverlay class]]) {

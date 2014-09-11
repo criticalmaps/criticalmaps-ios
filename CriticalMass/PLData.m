@@ -7,6 +7,8 @@
 //
 
 #import "PLData.h"
+#import "PLConstants.h"
+#import <NSString+Hashes.h>
 
 @implementation PLData
 
@@ -22,15 +24,46 @@
 - (id)init {
     if (self = [super init]) {
         
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [_locationManager startUpdatingLocation];
+        [self initUserId];
+        [self initLocationManager];
+        [self initHTTPRequestManager];
         
-        _requestManager = [AFHTTPRequestOperationManager manager];
-        _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     }
     return self;
+}
+
+- (void)initUserId
+{
+    NSString *deviceIdString = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
+    _uid = [NSString stringWithFormat:@"%@",[deviceIdString md5]];
+}
+
+- (void)initLocationManager
+{
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    if(kDebug && kDebugEnableTestLocation){
+        CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
+        _currentLocation = testLocation;
+    }else{
+        [_locationManager startUpdatingLocation];
+    }
+    
+    [self setupRequestInterval];
+}
+
+- (void)initHTTPRequestManager
+{
+    _requestManager = [AFHTTPRequestOperationManager manager];
+    _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+}
+
+- (void)setupRequestInterval
+{
+    [self onTimer];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -51,34 +84,32 @@
     if (_currentLocation != nil) {
         NSLog(@"longitude: %.8f", _currentLocation.coordinate.longitude);
         NSLog(@"latitude: %.8f", _currentLocation.coordinate.latitude);
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"positionChanged" object:self];
     }
 }
 
+- (void)sendChangeNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionChanged object:self];
+}
+
+
+#pragma mark - Handler
+- (void)onTimer
+{
+    NSString *longitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.longitude];
+    NSString *latitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.latitude];
+    
+    NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
+    
+    NSLog(@"parameters: %@", parameters);
+    
+    NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
+    
+    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
 @end
-
-
-
-
-
-
-/*
- TODO
- 
- NSString *longitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.longitude];
- NSString *latitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.latitude];
- 
- NSDictionary *parameters = @{@"device" : @"1234", @"longitude" :  longitudeString, @"latitude" :  latitudeString};
- 
- NSLog(@"parameters: %@", parameters);
- 
- NSString *requestUrl = @"http://criticalmass.stephanlindauer.de/get.php";
- 
- 
- [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
- NSLog(@"JSON: %@", responseObject);
- } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
- NSLog(@"Error: %@", error);
- }];
- */

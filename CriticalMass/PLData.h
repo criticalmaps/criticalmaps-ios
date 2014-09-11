@@ -10,7 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import "AFNetworking.h"
 
-@interface PLData : NSObject<CLLocationManagerDelegate>
+@interface PLData : NSObject<CLLocationManagerDelegate>{
+    NSTimer *_timer;
+    NSString *_uid;
+}
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, readonly) CLLocation *currentLocation;
