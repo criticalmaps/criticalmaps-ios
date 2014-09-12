@@ -30,8 +30,9 @@
     [super viewDidLoad];
     
     _data = [PLData sharedManager];
-    
+
     [self initMap];
+    [self addButtonNavigate];
 }
 
 - (void)initObserver
@@ -66,6 +67,19 @@
     [self.view addSubview:_map];
 }
 
+- (void)addButtonNavigate
+{
+    UIButton *btnNavigate = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    btnNavigate.layer.cornerRadius = 3;
+    [btnNavigate setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
+    btnNavigate.clipsToBounds = YES;
+    btnNavigate.center = CGPointMake(self.view.frame.size.width-40, self.view.frame.size.height-80);
+    [btnNavigate addTarget:self action:@selector(onClickNavigate) forControlEvents:UIControlEventTouchUpInside];
+    [btnNavigate setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.view addSubview:btnNavigate];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -95,6 +109,11 @@
 #pragma mark - Handler
 
 - (void)onInitialGpsDataReceived
+{
+    _map.centerCoordinate = _data.currentLocation.coordinate;
+}
+
+- (IBAction)onClickNavigate
 {
     _map.centerCoordinate = _data.currentLocation.coordinate;
 }

@@ -38,21 +38,33 @@
     [tabViewControllers addObject:viewController4];
     
     viewController1.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Map"
-                                  image:[UIImage imageNamed:@"Map"]
-                                    tag:1];
+    [[UITabBarItem alloc] initWithTitle:@"Map" image:nil tag:1];
     viewController2.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Rules"
-                                  image:[UIImage imageNamed:@"Map"]
-                                    tag:2];
+    [[UITabBarItem alloc] initWithTitle:@"Rules" image:nil tag:2];
     viewController3.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Social"
-                                  image:[UIImage imageNamed:@"Map"]
-                                    tag:2];
+    [[UITabBarItem alloc] initWithTitle:@"Social" image:nil tag:3];
     viewController4.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"About"
-                                  image:[UIImage imageNamed:@"Map"]
-                                    tag:2];
+    [[UITabBarItem alloc] initWithTitle:@"About" image:nil tag:4];
+    
+    /*
+     viewController1.tabBarItem =
+     [[UITabBarItem alloc] initWithTitle:@"Map"
+     image:[UIImage imageNamed:@"Map"]
+     tag:1];
+     viewController2.tabBarItem =
+     [[UITabBarItem alloc] initWithTitle:@"Rules"
+     image:[UIImage imageNamed:@"Map"]
+     tag:2];
+     viewController3.tabBarItem =
+     [[UITabBarItem alloc] initWithTitle:@"Social"
+     image:[UIImage imageNamed:@"Map"]
+     tag:3];
+     viewController4.tabBarItem =
+     [[UITabBarItem alloc] initWithTitle:@"About"
+     image:[UIImage imageNamed:@"Map"]
+     tag:4];
+     */
+    
     
     [self setViewControllers:tabViewControllers animated:NO];
 }

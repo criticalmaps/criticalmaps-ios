@@ -16,6 +16,7 @@
 BOOL const kDebug = YES;
 BOOL const kDebugEnableTestURL = YES;
 BOOL const kDebugEnableTestLocation = YES;
+BOOL const kDebugDisableHTTPRequests = YES;
 
 // Urls
 NSString *const kUrlTile = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";

@@ -52,7 +52,10 @@
         [_locationManager startUpdatingLocation];
     }
     
-    [self performSelector:@selector(setupRequestInterval) withObject:nil afterDelay:1.0];
+
+    if(!(kDebug && kDebugDisableHTTPRequests)){
+        [self performSelector:@selector(setupRequestInterval) withObject:nil afterDelay:1.0];
+    }
 }
 
 - (void)initHTTPRequestManager
@@ -98,8 +101,6 @@
 
 - (void)doRequest
 {
-    
-    
     NSString *longitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude];
     NSString *latitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude];
     
