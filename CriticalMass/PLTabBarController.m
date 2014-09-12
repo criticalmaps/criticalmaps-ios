@@ -67,6 +67,7 @@
     
     
     [self setViewControllers:tabViewControllers animated:NO];
+    
 }
 
 - (void)didReceiveMemoryWarning

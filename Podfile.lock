@@ -1,4 +1,5 @@
 PODS:
+  - AccordionView (0.0.4)
   - AFNetworking (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
@@ -23,10 +24,12 @@ PODS:
   - NSString-Hashes (1.2.2)
 
 DEPENDENCIES:
+  - AccordionView
   - AFNetworking
   - NSString-Hashes
 
 SPEC CHECKSUMS:
+  AccordionView: 73a85aa6a5355e53c38f9f01aa9e057ab0c9f00a
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   NSString-Hashes: ddf6e856e93d3c83c5d4ef8fcdea2a96ed77c6bc
 

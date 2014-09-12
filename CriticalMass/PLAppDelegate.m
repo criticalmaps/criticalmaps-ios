@@ -21,7 +21,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.tabBarController = [[PLTabBarController alloc] init];
     self.tabBarController.delegate = self;
-    [self.tabBarController setSelectedIndex:0];
+    [self.tabBarController setSelectedIndex:1];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
