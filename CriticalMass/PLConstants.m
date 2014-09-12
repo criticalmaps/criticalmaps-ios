@@ -14,7 +14,7 @@
 
 // Debug
 BOOL const kDebug = YES;
-BOOL const kDebugEnableTestURL = NO;
+BOOL const kDebugEnableTestURL = YES;
 BOOL const kDebugEnableTestLocation = YES;
 
 // Urls
@@ -23,7 +23,8 @@ NSString *const kUrlService = @"http://criticalmass.stephanlindauer.de/get.php";
 NSString *const kUrlServiceTest = @"http://criticalmass.stephanlindauer.de/test.php";
 
 // Notifications
-NSString *const kNotificationPositionChanged = @"positionChanged";
+NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";
+NSString *const kNotificationPositionOthersChanged = @"positionOthersChanged";
 
 // Misc
 NSTimeInterval const kRequestRepeatTime = 20.0;

@@ -8,6 +8,7 @@
 
 #import "PLMapViewController.h"
 #import "PLConstants.h"
+#import "PLUtils.h"
 
 @interface PLMapViewController ()
 
@@ -35,16 +36,23 @@
 
 - (void)initObserver
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPositionChanged) name:kNotificationPositionChanged object:_data];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitialGpsDataReceived) name:kNotificationInitialGpsDataReceived object:_data];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPositionOthersChanged) name:kNotificationPositionOthersChanged object:_data];
 }
 
 - (void)initMap
 {
     // Mapkit with OSM overlay
     _map = [[MKMapView alloc]initWithFrame:self.view.bounds];
-    _map.showsUserLocation = YES;
+    _map.zoomEnabled = YES;
     _map.mapType = MKMapTypeHybrid;
     _map.delegate = self;
+    
+    CLLocationCoordinate2D noLocation;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 10000, 10000);
+    MKCoordinateRegion adjustedRegion = [_map regionThatFits:viewRegion];
+    [_map setRegion:adjustedRegion animated:YES];
+    _map.showsUserLocation = YES;
     
     NSString *template = kUrlTile;
     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
@@ -63,14 +71,48 @@
     [super didReceiveMemoryWarning];
     
     _map = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPositionChanged object:_data];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationInitialGpsDataReceived object:_data];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPositionOthersChanged object:_data];
+}
+
+- (void)removeAllOthers
+{
+    NSInteger toRemoveCount = _map.annotations.count;
+    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
+    for (id annotation in _map.annotations)
+        if (annotation != _map.userLocation)
+            [toRemove addObject:annotation];
+    [_map removeAnnotations:toRemove];
+}
+
+- (void)addOther: (CLLocationCoordinate2D)coordinate
+{
+    MKPointAnnotation *point = [[MKPointAnnotation alloc]init];
+    point.coordinate = coordinate;
+    [_map addAnnotation:point];
 }
 
 #pragma mark - Handler
 
-- (void)onPositionChanged
+- (void)onInitialGpsDataReceived
 {
     _map.centerCoordinate = _data.currentLocation.coordinate;
+}
+
+- (void)onPositionOthersChanged
+{
+    [self removeAllOthers];
+    
+    for(id key in _data.otherLocations){
+        NSDictionary *dict = [_data.otherLocations objectForKey:key];
+        
+        double latitude = [PLUtils string2Locationdegrees:[dict objectForKey:@"latitude"]];
+        double longitude = [PLUtils string2Locationdegrees:[dict objectForKey:@"longitude"]];
+        
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        
+        [self addOther:coordinate];
+    }
 }
 
 #pragma mark - Delegete methods

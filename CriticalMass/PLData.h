@@ -13,10 +13,12 @@
 @interface PLData : NSObject<CLLocationManagerDelegate>{
     NSTimer *_timer;
     NSString *_uid;
+    NSUInteger _locationUpdate;
 }
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, readonly) CLLocation *currentLocation;
+@property (nonatomic, readonly) NSDictionary *otherLocations;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 
 + (id)sharedManager;

@@ -9,6 +9,7 @@
 #import "PLData.h"
 #import "PLConstants.h"
 #import <NSString+Hashes.h>
+#import "PLUtils.h"
 
 @implementation PLData
 
@@ -51,7 +52,7 @@
         [_locationManager startUpdatingLocation];
     }
     
-    [self setupRequestInterval];
+    [self performSelector:@selector(setupRequestInterval) withObject:nil afterDelay:1.0];
 }
 
 - (void)initHTTPRequestManager
@@ -66,6 +67,7 @@
     _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
 }
 
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -79,25 +81,27 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     NSLog(@"didUpdateToLocation: %@", newLocation);
+    
+    
     _currentLocation = newLocation;
     
     if (_currentLocation != nil) {
         NSLog(@"longitude: %.8f", _currentLocation.coordinate.longitude);
         NSLog(@"latitude: %.8f", _currentLocation.coordinate.latitude);
     }
+    
+    if(_locationUpdate == 0){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
+    }
+    _locationUpdate++;
 }
 
-- (void)sendChangeNotification
+- (void)doRequest
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionChanged object:self];
-}
-
-
-#pragma mark - Handler
-- (void)onTimer
-{
-    NSString *longitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.longitude];
-    NSString *latitudeString = [NSString stringWithFormat:@"%.8f", _currentLocation.coordinate.latitude];
+    
+    
+    NSString *longitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude];
+    NSString *latitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude];
     
     NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
     
@@ -107,9 +111,18 @@
     
     [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
+        _otherLocations = responseObject;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+    
+}
+
+#pragma mark - Handler
+- (void)onTimer
+{
+    [self doRequest];
 }
 
 @end
