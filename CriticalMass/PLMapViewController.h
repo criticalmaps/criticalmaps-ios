@@ -10,9 +10,11 @@
 #import <MapKit/MapKit.h>
 #import "PLData.h"
 
-@interface PLMapViewController : UIViewController<MKMapViewDelegate>
+@interface PLMapViewController : UIViewController<MKMapViewDelegate>{
+    PLData *_data;
+    MKMapView *_map;
+    UIButton *_btnGps;
+}
 
-@property (nonatomic, strong) PLData *data;
-@property (nonatomic, strong) MKMapView *map;
 
 @end

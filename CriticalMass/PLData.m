@@ -8,8 +8,8 @@
 
 #import "PLData.h"
 #import "PLConstants.h"
-#import <NSString+Hashes.h>
 #import "PLUtils.h"
+#import <NSString+Hashes.h>
 
 @implementation PLData
 
@@ -24,6 +24,8 @@
 
 - (id)init {
     if (self = [super init]) {
+        
+        _gpsEnabledUser = YES;
         
         [self initUserId];
         [self initLocationManager];
@@ -49,12 +51,12 @@
         CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
         _currentLocation = testLocation;
     }else{
-        [_locationManager startUpdatingLocation];
+        [self enableGps];
     }
     
 
     if(!(kDebug && kDebugDisableHTTPRequests)){
-        [self performSelector:@selector(setupRequestInterval) withObject:nil afterDelay:1.0];
+        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
     }
 }
 
@@ -64,12 +66,60 @@
     _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 }
 
-- (void)setupRequestInterval
+- (void)startRequestInterval
 {
+    NSLog(@"startRequestInterval");
+    [_timer invalidate];
+    _timer = nil;
+    
     [self onTimer];
     _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
 }
 
+- (void)stopRequestInterval
+{
+    NSLog(@"stopRequestInterval");
+    [_timer invalidate];
+    _timer = nil;
+}
+
+- (void)request
+{
+    NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"null";
+    NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"null";
+    
+    NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
+    
+    NSLog(@"parameters: %@", parameters);
+    
+    NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
+    
+    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        _otherLocations = responseObject;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+- (void)enableGps{
+    NSLog(@"enableGps");
+    [_locationManager startUpdatingLocation];
+    _gpsEnabled = YES;
+}
+
+- (void)disableGps{
+    NSLog(@"disableGps");
+    [_locationManager stopUpdatingLocation];
+    _gpsEnabled = NO;
+}
+
+#pragma mark - Handler
+- (void)onTimer
+{
+    [self request];
+}
 
 #pragma mark - CLLocationManagerDelegate
 
@@ -85,7 +135,6 @@
 {
     NSLog(@"didUpdateToLocation: %@", newLocation);
     
-    
     _currentLocation = newLocation;
     
     if (_currentLocation != nil) {
@@ -93,37 +142,12 @@
         NSLog(@"latitude: %.8f", _currentLocation.coordinate.latitude);
     }
     
-    if(_locationUpdate == 0){
+    if(_updateCount == 0){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
     }
-    _locationUpdate++;
+    _updateCount++;
 }
 
-- (void)doRequest
-{
-    NSString *longitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude];
-    NSString *latitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude];
-    
-    NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
-    
-    NSLog(@"parameters: %@", parameters);
-    
-    NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
-    
-    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        _otherLocations = responseObject;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-}
 
-#pragma mark - Handler
-- (void)onTimer
-{
-    [self doRequest];
-}
 
 @end

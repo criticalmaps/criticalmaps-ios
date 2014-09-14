@@ -11,17 +11,23 @@
 #import "AFNetworking.h"
 
 @interface PLData : NSObject<CLLocationManagerDelegate>{
+    
+    CLLocationManager *_locationManager;
+    AFHTTPRequestOperationManager *_requestManager;
     NSTimer *_timer;
     NSString *_uid;
-    NSUInteger _locationUpdate;
+    NSUInteger _updateCount;
 }
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, readonly) CLLocation *currentLocation;
 @property (nonatomic, readonly) NSDictionary *otherLocations;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
+@property (nonatomic, readonly) BOOL gpsEnabled;
+@property (nonatomic, assign) BOOL gpsEnabledUser;
 
 + (id)sharedManager;
-
+- (void)enableGps;
+- (void)disableGps;
+- (void)startRequestInterval;
+- (void)stopRequestInterval;
 
 @end

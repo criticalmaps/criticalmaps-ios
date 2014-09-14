@@ -28,7 +28,7 @@
     
     viewController1.title = @"Karte";
     viewController2.title = @"Rules";
-    viewController3.title = @"Social";
+    viewController3.title = @"Twitter";
     viewController4.title = @"About";
     
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];

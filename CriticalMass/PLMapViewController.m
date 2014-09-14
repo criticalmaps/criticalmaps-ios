@@ -33,6 +33,7 @@
 
     [self initMap];
     [self addButtonNavigate];
+    [self addButtonGps];
 }
 
 - (void)initObserver
@@ -43,7 +44,6 @@
 
 - (void)initMap
 {
-    // Mapkit with OSM overlay
     _map = [[MKMapView alloc]initWithFrame:self.view.bounds];
     _map.zoomEnabled = YES;
     _map.mapType = MKMapTypeHybrid;
@@ -55,6 +55,7 @@
     [_map setRegion:adjustedRegion animated:YES];
     _map.showsUserLocation = YES;
     
+    // OpenStreetMap overlay
     NSString *template = kUrlTile;
     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
     overlay.canReplaceMapContent = YES;
@@ -78,6 +79,19 @@
     [btnNavigate setBackgroundColor:[UIColor whiteColor]];
     
     [self.view addSubview:btnNavigate];
+}
+
+- (void)addButtonGps
+{
+    _btnGps = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    _btnGps.layer.cornerRadius = 3;
+    [_btnGps setImage:[UIImage imageNamed:@"Map"] forState:UIControlStateNormal];
+    _btnGps.clipsToBounds = YES;
+    _btnGps.center = CGPointMake(self.view.frame.size.width-90, self.view.frame.size.height-80);
+    [_btnGps addTarget:self action:@selector(onClickGps) forControlEvents:UIControlEventTouchUpInside];
+    [_btnGps setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.view addSubview:_btnGps];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,7 +129,15 @@
 
 - (IBAction)onClickNavigate
 {
-    _map.centerCoordinate = _data.currentLocation.coordinate;
+    [_map setCenterCoordinate:_data.currentLocation.coordinate animated:YES];
+}
+
+
+- (IBAction)onClickGps
+{
+    _data.gpsEnabledUser = !_data.gpsEnabledUser;
+    _data.gpsEnabledUser ? [_data enableGps] : [_data disableGps];
+    [_btnGps setAlpha:_data.gpsEnabled ? 1 : 0.5];
 }
 
 - (void)onPositionOthersChanged
@@ -134,7 +156,7 @@
     }
 }
 
-#pragma mark - Delegete methods
+#pragma mark - Map delegete methods
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[MKTileOverlay class]]) {
@@ -142,6 +164,5 @@
     }
     return nil;
 }
-
 
 @end

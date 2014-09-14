@@ -10,6 +10,8 @@
 #import "PLTabBarController.h"
 #import "PLMapViewController.h"
 #import "PLRulesViewController.h"
+#import "PLConstants.h"
+#import "PLData.h"
 
 @implementation PLAppDelegate
 
@@ -21,31 +23,44 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.tabBarController = [[PLTabBarController alloc] init];
     self.tabBarController.delegate = self;
-    [self.tabBarController setSelectedIndex:1];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
+    if(kDebug){
+        [self.tabBarController setSelectedIndex:kDebugInitialTabIndex];
+    }
     
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    NSLog(@"applicationWillResignActive");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    NSLog(@"applicationDidEnterBackground");
+    [[PLData sharedManager] disableGps];
+    [[PLData sharedManager] stopRequestInterval];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSLog(@"applicationWillEnterForeground");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    NSLog(@"applicationDidBecomeActive");
+    if([[PLData sharedManager] gpsEnabledUser])
+        [[PLData sharedManager] enableGps];
+    [[PLData sharedManager] startRequestInterval];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    NSLog(@"applicationWillTerminate");
 }
 
 @end
