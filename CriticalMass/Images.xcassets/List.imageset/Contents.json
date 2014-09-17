@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Map-1.png"
+      "filename" : "List.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Map@2x.png"
+      "filename" : "List@2x.png"
     }
   ],
   "info" : {

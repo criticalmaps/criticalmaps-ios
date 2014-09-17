@@ -41,21 +41,19 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     NSLog(@"applicationDidEnterBackground");
-    [[PLData sharedManager] disableGps];
-    [[PLData sharedManager] stopRequestInterval];
+    [[PLData sharedManager] setIsBackroundMode:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"applicationWillEnterForeground");
+    [[PLData sharedManager] setIsBackroundMode:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"applicationDidBecomeActive");
-    if([[PLData sharedManager] gpsEnabledUser])
-        [[PLData sharedManager] enableGps];
-    [[PLData sharedManager] startRequestInterval];
+    [[PLData sharedManager] setIsBackroundMode:NO];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

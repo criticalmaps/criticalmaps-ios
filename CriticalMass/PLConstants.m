@@ -13,11 +13,11 @@
 @end
 
 // Debug
-BOOL const kDebug = NO;
+BOOL const kDebug = YES;
 BOOL const kDebugEnableTestURL = YES;
 BOOL const kDebugEnableTestLocation = YES;
 BOOL const kDebugDisableHTTPRequests = YES;
-BOOL const kDebugInitialTabIndex = 0;
+BOOL const kDebugInitialTabIndex = 2;
 
 // Urls
 NSString *const kUrlTile = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -29,7 +29,7 @@ NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";
 NSString *const kNotificationPositionOthersChanged = @"positionOthersChanged";
 
 // Misc
-NSTimeInterval const kRequestRepeatTime = 20.0;
+NSTimeInterval const kRequestRepeatTime = 30.0;
 double const kTestLocationLatitude = +52.50266880;
 double const kTestLocationLongitude = +13.41227278;
 

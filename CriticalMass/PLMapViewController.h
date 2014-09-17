@@ -13,7 +13,6 @@
 @interface PLMapViewController : UIViewController<MKMapViewDelegate>{
     PLData *_data;
     MKMapView *_map;
-    UIButton *_btnGps;
 }
 
 

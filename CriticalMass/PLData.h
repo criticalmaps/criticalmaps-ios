@@ -23,6 +23,7 @@
 @property (nonatomic, readonly) NSDictionary *otherLocations;
 @property (nonatomic, readonly) BOOL gpsEnabled;
 @property (nonatomic, assign) BOOL gpsEnabledUser;
+@property (nonatomic, assign) BOOL isBackroundMode;
 
 + (id)sharedManager;
 - (void)enableGps;

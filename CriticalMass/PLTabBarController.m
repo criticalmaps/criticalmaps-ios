@@ -1,6 +1,7 @@
 #import "PLTabBarController.h"
 #import "PLMapViewController.h"
 #import "PLRulesViewController.h"
+#import "PLSettingsTableViewController.h"
 
 
 @interface PLTabBarController ()
@@ -23,51 +24,25 @@
     
     UIViewController *viewController1 = [[PLMapViewController alloc] init];
     UIViewController *viewController2 = [[PLRulesViewController alloc] init];
-    UIViewController *viewController3 = [[UIViewController alloc] init ];
-    UIViewController *viewController4 = [[UIViewController alloc] init ];
+    UIViewController *viewController3 = [[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     viewController1.title = @"Karte";
     viewController2.title = @"Rules";
-    viewController3.title = @"Twitter";
-    viewController4.title = @"About";
+    viewController3.title = @"Settings";
     
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
     [tabViewControllers addObject:viewController1];
     [tabViewControllers addObject:viewController2];
     [tabViewControllers addObject:viewController3];
-    [tabViewControllers addObject:viewController4];
     
     viewController1.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Map" image:nil tag:1];
+    [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"Map"] tag:1];
     viewController2.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Rules" image:nil tag:2];
+    [[UITabBarItem alloc] initWithTitle:@"Rules" image:[UIImage imageNamed:@"List"] tag:2];
     viewController3.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Social" image:nil tag:3];
-    viewController4.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"About" image:nil tag:4];
-    
-    /*
-     viewController1.tabBarItem =
-     [[UITabBarItem alloc] initWithTitle:@"Map"
-     image:[UIImage imageNamed:@"Map"]
-     tag:1];
-     viewController2.tabBarItem =
-     [[UITabBarItem alloc] initWithTitle:@"Rules"
-     image:[UIImage imageNamed:@"Map"]
-     tag:2];
-     viewController3.tabBarItem =
-     [[UITabBarItem alloc] initWithTitle:@"Social"
-     image:[UIImage imageNamed:@"Map"]
-     tag:3];
-     viewController4.tabBarItem =
-     [[UITabBarItem alloc] initWithTitle:@"About"
-     image:[UIImage imageNamed:@"Map"]
-     tag:4];
-     */
-    
+    [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"Settings"] tag:3];
     
     [self setViewControllers:tabViewControllers animated:NO];
-    
 }
 
 - (void)didReceiveMemoryWarning

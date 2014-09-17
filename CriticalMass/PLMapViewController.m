@@ -33,7 +33,6 @@
 
     [self initMap];
     [self addButtonNavigate];
-    [self addButtonGps];
 }
 
 - (void)initObserver
@@ -81,19 +80,6 @@
     [self.view addSubview:btnNavigate];
 }
 
-- (void)addButtonGps
-{
-    _btnGps = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    _btnGps.layer.cornerRadius = 3;
-    [_btnGps setImage:[UIImage imageNamed:@"Map"] forState:UIControlStateNormal];
-    _btnGps.clipsToBounds = YES;
-    _btnGps.center = CGPointMake(self.view.frame.size.width-90, self.view.frame.size.height-80);
-    [_btnGps addTarget:self action:@selector(onClickGps) forControlEvents:UIControlEventTouchUpInside];
-    [_btnGps setBackgroundColor:[UIColor whiteColor]];
-    
-    [self.view addSubview:_btnGps];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -132,14 +118,6 @@
     [_map setCenterCoordinate:_data.currentLocation.coordinate animated:YES];
 }
 
-
-- (IBAction)onClickGps
-{
-    _data.gpsEnabledUser = !_data.gpsEnabledUser;
-    _data.gpsEnabledUser ? [_data enableGps] : [_data disableGps];
-    [_btnGps setAlpha:_data.gpsEnabled ? 1 : 0.5];
-}
-
 - (void)onPositionOthersChanged
 {
     [self removeAllOthers];
@@ -156,7 +134,7 @@
     }
 }
 
-#pragma mark - Map delegete methods
+#pragma mark - Map delegate methods
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[MKTileOverlay class]]) {
