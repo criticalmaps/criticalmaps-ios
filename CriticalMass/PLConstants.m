@@ -13,11 +13,11 @@
 @end
 
 // Debug
-BOOL const kDebug = YES;
+BOOL const kDebug = NO;
 BOOL const kDebugEnableTestURL = YES;
 BOOL const kDebugEnableTestLocation = YES;
-BOOL const kDebugDisableHTTPRequests = YES;
-BOOL const kDebugInitialTabIndex = 2;
+BOOL const kDebugDisableHTTPRequests = NO;
+BOOL const kDebugInitialTabIndex = 0;
 
 // Urls
 NSString *const kUrlTile = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -27,6 +27,7 @@ NSString *const kUrlServiceTest = @"http://criticalmass.stephanlindauer.de/test.
 // Notifications
 NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";
 NSString *const kNotificationPositionOthersChanged = @"positionOthersChanged";
+NSString *const kNotificationGpsStateChanged = @"gpsStateChanged";
 
 // Misc
 NSTimeInterval const kRequestRepeatTime = 30.0;

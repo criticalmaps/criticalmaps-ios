@@ -25,6 +25,7 @@ FOUNDATION_EXPORT NSString *const kUrlServiceTest;
 // Notifications
 FOUNDATION_EXPORT NSString *const kNotificationInitialGpsDataReceived;
 FOUNDATION_EXPORT NSString *const kNotificationPositionOthersChanged;
+FOUNDATION_EXPORT NSString *const kNotificationGpsStateChanged;
 
 // Misc
 FOUNDATION_EXPORT NSTimeInterval const kRequestRepeatTime;

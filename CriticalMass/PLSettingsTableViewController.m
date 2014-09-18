@@ -83,15 +83,15 @@
     }else if (indexPath.section == 2){
         if(indexPath.row == 0){
             cell.textLabel.text = @"Logo Design";
-            cell.detailTextLabel.text = @"http://www.thomas-hollnack.de";
+            cell.detailTextLabel.text = @"www.thomas-hollnack.de";
         }
         if(indexPath.row == 1){
-            cell.textLabel.text = @"Github";
-            cell.detailTextLabel.text = @"https://github.com/headione/criticalmass-berlin";
+            cell.textLabel.text = @"Github Open Source";
+            cell.detailTextLabel.text = @"www.github.com/headione/criticalmass-berlin";
         }
         if(indexPath.row == 2){
             cell.textLabel.text = @"Website";
-            cell.detailTextLabel.text = @"http://www.criticalmass-berlin.org/";
+            cell.detailTextLabel.text = @"www.criticalmass-berlin.org";
         }
     }else if (indexPath.section == 3){
         if(indexPath.row == 0){

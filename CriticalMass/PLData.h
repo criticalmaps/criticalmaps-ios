@@ -28,7 +28,5 @@
 + (id)sharedManager;
 - (void)enableGps;
 - (void)disableGps;
-- (void)startRequestInterval;
-- (void)stopRequestInterval;
 
 @end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		90F46A24D8DB4FCAABF4CF34 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD3CAC801A84BBA8D151E5D /* libPods.a */; };
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
+		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
 		94A9C1AF19BF43AB0027C5DC /* PLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A9C1AE19BF43AB0027C5DC /* PLData.m */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
@@ -44,6 +45,8 @@
 		1FD3CAC801A84BBA8D151E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		942E2D8019C316BD00BF92D7 /* PLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLUtils.h; sourceTree = "<group>"; };
 		942E2D8119C316BD00BF92D7 /* PLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLUtils.m; sourceTree = "<group>"; };
+		94709B0019CA705A003E9583 /* PLInfoOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLInfoOverlayView.h; sourceTree = "<group>"; };
+		94709B0119CA705A003E9583 /* PLInfoOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLInfoOverlayView.m; sourceTree = "<group>"; };
 		9474656219CA3078005485BD /* PLSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLSettingsTableViewController.h; sourceTree = "<group>"; };
 		9474656319CA3078005485BD /* PLSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSettingsTableViewController.m; sourceTree = "<group>"; };
 		94A9C1AD19BF43AB0027C5DC /* PLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLData.h; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 				94A9C1AE19BF43AB0027C5DC /* PLData.m */,
 				942E2D8019C316BD00BF92D7 /* PLUtils.h */,
 				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
+				94709B0019CA705A003E9583 /* PLInfoOverlayView.h */,
+				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
+				94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */,
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLData.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,

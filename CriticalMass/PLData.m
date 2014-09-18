@@ -54,7 +54,7 @@
         [self enableGps];
     }
     
-
+    
     if(!(kDebug && kDebugDisableHTTPRequests)){
         [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
     }
@@ -106,13 +106,17 @@
 - (void)enableGps{
     NSLog(@"enableGps");
     [_locationManager startUpdatingLocation];
+    [self startRequestInterval];
     _gpsEnabled = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
 
 - (void)disableGps{
     NSLog(@"disableGps");
     [_locationManager stopUpdatingLocation];
+    [self stopRequestInterval];
     _gpsEnabled = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
 
 #pragma mark - Handler

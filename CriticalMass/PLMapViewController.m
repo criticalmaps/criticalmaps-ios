@@ -9,6 +9,7 @@
 #import "PLMapViewController.h"
 #import "PLConstants.h"
 #import "PLUtils.h"
+#import "PLInfoOverlayView.h"
 
 @interface PLMapViewController ()
 
@@ -33,12 +34,17 @@
 
     [self initMap];
     [self addButtonNavigate];
+    
+    _infoOverlay = [[PLInfoOverlayView alloc]initWithFrame:self.view.bounds];
+    _infoOverlay.hidden = YES;
+    [self.view addSubview:_infoOverlay];
 }
 
 - (void)initObserver
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitialGpsDataReceived) name:kNotificationInitialGpsDataReceived object:_data];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPositionOthersChanged) name:kNotificationPositionOthersChanged object:_data];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGpsStateChanged) name:kNotificationGpsStateChanged object:_data];
 }
 
 - (void)initMap
@@ -132,6 +138,11 @@
         
         [self addOther:coordinate];
     }
+}
+
+- (void)onGpsStateChanged
+{
+    _infoOverlay.hidden = _data.gpsEnabled;
 }
 
 #pragma mark - Map delegate methods
