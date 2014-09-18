@@ -29,6 +29,7 @@ FOUNDATION_EXPORT NSString *const kNotificationGpsStateChanged;
 
 // Misc
 FOUNDATION_EXPORT NSTimeInterval const kRequestRepeatTime;
+FOUNDATION_EXPORT NSUInteger const kMaxRequestsInBackground;
 FOUNDATION_EXPORT double const kTestLocationLatitude;
 FOUNDATION_EXPORT double const kTestLocationLongitude;
 

@@ -17,6 +17,7 @@
     NSTimer *_timer;
     NSString *_uid;
     NSUInteger _updateCount;
+    NSUInteger _requestCount;
 }
 
 @property (nonatomic, readonly) CLLocation *currentLocation;

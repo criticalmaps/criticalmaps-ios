@@ -50,13 +50,9 @@
     if(kDebug && kDebugEnableTestLocation){
         CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
         _currentLocation = testLocation;
+        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
     }else{
         [self enableGps];
-    }
-    
-    
-    if(!(kDebug && kDebugDisableHTTPRequests)){
-        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
     }
 }
 
@@ -85,6 +81,8 @@
 
 - (void)request
 {
+    _requestCount++;
+    
     NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
     NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"";
     
@@ -101,11 +99,16 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+    
+    if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
+        [self disableGps];
+    }
 }
 
 - (void)enableGps{
     NSLog(@"enableGps");
     _updateCount = 0;
+    [self stopRequestInterval];
     [_locationManager startUpdatingLocation];
     _gpsEnabled = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
@@ -149,12 +152,29 @@
     }
     
     if(_updateCount == 0){
-        [self startRequestInterval];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
+
+        if(!(kDebug && kDebugDisableHTTPRequests)){
+            [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+        }
     }
     _updateCount++;
 }
 
+-(void)setIsBackroundMode:(BOOL)isBackroundMode
+{
+    _isBackroundMode = isBackroundMode;
+    
+    if (_isBackroundMode) {
+        _requestCount = 0;
+    }else{
+        if(!_gpsEnabled && _gpsEnabledUser){
+            [self enableGps];
+        }
+    }
+    
+    NSLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
+}
 
 
 @end

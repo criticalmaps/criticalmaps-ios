@@ -53,7 +53,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"applicationDidBecomeActive");
-    [[PLData sharedManager] setIsBackroundMode:NO];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
