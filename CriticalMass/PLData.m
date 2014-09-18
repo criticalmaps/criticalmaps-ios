@@ -105,8 +105,8 @@
 
 - (void)enableGps{
     NSLog(@"enableGps");
+    _updateCount = 0;
     [_locationManager startUpdatingLocation];
-    [self startRequestInterval];
     _gpsEnabled = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
@@ -133,6 +133,8 @@
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
+    
+    [self disableGps];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -147,6 +149,7 @@
     }
     
     if(_updateCount == 0){
+        [self startRequestInterval];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
     }
     _updateCount++;

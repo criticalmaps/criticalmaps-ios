@@ -8,6 +8,7 @@
 
 #import "PLSettingsTableViewController.h"
 #import "PLData.h"
+#import "PLConstants.h"
 
 @interface PLSettingsTableViewController ()
 
@@ -15,6 +16,7 @@
 
 @implementation PLSettingsTableViewController{
     PLData *_data;
+    UISwitch *_gpsSwitch;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -22,6 +24,7 @@
     self = [super initWithStyle:style];
     if (self) {
         _data = [PLData sharedManager];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateGpsSwitch) name:kNotificationGpsStateChanged object:_data];
     }
     return self;
 }
@@ -37,6 +40,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationGpsStateChanged object:_data];
 }
 
 #pragma mark - Table view data source
@@ -69,10 +73,10 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.text = @"Enable GPS";
         
-        UISwitch *gpsSwitch = [[UISwitch alloc]init];
-        [gpsSwitch addTarget:self action:@selector(onSwitchGPS:) forControlEvents:UIControlEventTouchUpInside];
-        [gpsSwitch setOn:_data.gpsEnabledUser];
-        cell.accessoryView = gpsSwitch;
+        _gpsSwitch = [[UISwitch alloc]init];
+        [_gpsSwitch addTarget:self action:@selector(onSwitchGPS:) forControlEvents:UIControlEventTouchUpInside];
+        [_gpsSwitch setOn:_data.gpsEnabled];
+        cell.accessoryView = _gpsSwitch;
     }else if (indexPath.section == 1){
         if(indexPath.row == 0){
             cell.textLabel.text = @"Visit Facebook Fanpage";
@@ -136,6 +140,11 @@
     }
     
     return @"";
+}
+
+- (void)updateGpsSwitch
+{
+    [_gpsSwitch setOn: _data.gpsEnabled];
 }
 
 -(IBAction)onSwitchGPS:(id)sender

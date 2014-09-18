@@ -31,7 +31,7 @@
     [super viewDidLoad];
     
     _data = [PLData sharedManager];
-
+    
     [self initMap];
     [self addButtonNavigate];
     
@@ -93,6 +93,7 @@
     _map = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationInitialGpsDataReceived object:_data];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPositionOthersChanged object:_data];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationGpsStateChanged object:_data];
 }
 
 - (void)removeAllOthers
