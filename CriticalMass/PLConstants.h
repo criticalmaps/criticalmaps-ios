@@ -18,7 +18,7 @@ FOUNDATION_EXPORT BOOL const kDebugDisableHTTPRequests;
 FOUNDATION_EXPORT BOOL const kDebugInitialTabIndex;
 
 // Urls
-FOUNDATION_EXPORT NSString *const kUrlTile;
+//FOUNDATION_EXPORT NSString *const kUrlTile;
 FOUNDATION_EXPORT NSString *const kUrlService;
 FOUNDATION_EXPORT NSString *const kUrlServiceTest;
 

@@ -20,7 +20,7 @@ BOOL const kDebugDisableHTTPRequests = NO;
 BOOL const kDebugInitialTabIndex = 0;
 
 // Urls
-NSString *const kUrlTile = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";
+//NSString *const kUrlTile = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";
 NSString *const kUrlService = @"http://criticalmass.stephanlindauer.de/get.php";
 NSString *const kUrlServiceTest = @"http://criticalmass.stephanlindauer.de/test.php";
 

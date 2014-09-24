@@ -60,11 +60,13 @@
     [_map setRegion:adjustedRegion animated:YES];
     _map.showsUserLocation = YES;
     
+    /*
     // OpenStreetMap overlay
     NSString *template = kUrlTile;
     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
     overlay.canReplaceMapContent = YES;
     [_map addOverlay:overlay level:MKOverlayLevelAboveLabels];
+     */
     
     if(kDebug && kDebugEnableTestLocation){
         _map.centerCoordinate = CLLocationCoordinate2DMake(kTestLocationLatitude, kTestLocationLongitude);

@@ -44,6 +44,7 @@
 - (void)initLocationManager
 {
     _locationManager = [[CLLocationManager alloc] init];
+    [_locationManager requestAlwaysAuthorization];
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     
