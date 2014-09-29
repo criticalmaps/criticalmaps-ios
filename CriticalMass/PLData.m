@@ -147,11 +147,6 @@
     
     _currentLocation = newLocation;
     
-    if (_currentLocation != nil) {
-        NSLog(@"longitude: %.8f", _currentLocation.coordinate.longitude);
-        NSLog(@"latitude: %.8f", _currentLocation.coordinate.latitude);
-    }
-    
     if(_updateCount == 0){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
 

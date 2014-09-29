@@ -1,5 +1,5 @@
 //
-//  PLSecondViewController.m
+//  PLRulesViewController.m
 //  CriticalMass
 //
 //  Created by Norman Sander on 08.09.14.

@@ -1,5 +1,5 @@
 //
-//  PLFirstViewController.h
+//  PLMapViewController.h
 //  CriticalMass
 //
 //  Created by Norman Sander on 08.09.14.

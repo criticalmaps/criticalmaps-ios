@@ -1,5 +1,5 @@
 //
-//  PLFirstViewController.m
+//  PLMapViewController.m
 //  CriticalMass
 //
 //  Created by Norman Sander on 08.09.14.
@@ -59,6 +59,8 @@
     MKCoordinateRegion adjustedRegion = [_map regionThatFits:viewRegion];
     [_map setRegion:adjustedRegion animated:YES];
     _map.showsUserLocation = YES;
+    _map.mapType = MKMapTypeStandard;
+    _map.showsPointsOfInterest = NO;
     
     /*
     // OpenStreetMap overlay
@@ -66,6 +68,12 @@
     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
     overlay.canReplaceMapContent = YES;
     [_map addOverlay:overlay level:MKOverlayLevelAboveLabels];
+     */
+    
+    /*
+    MBXRasterTileOverlay *tile = [[MBXRasterTileOverlay alloc] initWithMapID:@"headione.jjball51"];
+    tile.canReplaceMapContent = YES;
+    [_map addOverlay:tile level:MKOverlayLevelAboveLabels];
      */
     
     if(kDebug && kDebugEnableTestLocation){
