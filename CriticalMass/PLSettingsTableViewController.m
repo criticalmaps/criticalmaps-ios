@@ -47,7 +47,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -59,7 +59,7 @@
     }else if(section == 2){
         return 3;
     }else if(section == 3){
-        return 1;
+        return 2;
     }
     return 0;
 }
@@ -99,8 +99,8 @@
         }
     }else if (indexPath.section == 3){
         if(indexPath.row == 0){
-            cell.imageView.image = [UIImage imageNamed:@"Paypal"];
-            cell.detailTextLabel.text = @"Please donate";
+            cell.imageView.image = [UIImage imageNamed:@"Donate"];
+            cell.detailTextLabel.text = @"Help finacing our tracking server";
         }
     }
     
@@ -126,6 +126,10 @@
         if(indexPath.row == 2){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.criticalmass-berlin.org"]];
         }
+    }else if (indexPath.section == 3){
+        if(indexPath.row == 0){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TQGCAK3G3Z9GQ"]];
+        }
     }
 }
 
@@ -137,8 +141,10 @@
         return @"Social Media";
     }else if (section == 2){
         return @"About";
+    }else if (section == 3){
+        return @"Please donate";
     }
-    
+
     return @"";
 }
 

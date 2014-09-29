@@ -63,17 +63,13 @@
     _map.showsPointsOfInterest = NO;
     
     /*
-    // OpenStreetMap overlay
-    NSString *template = kUrlTile;
-    MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
-    overlay.canReplaceMapContent = YES;
-    [_map addOverlay:overlay level:MKOverlayLevelAboveLabels];
-     */
-    
-    /*
-    MBXRasterTileOverlay *tile = [[MBXRasterTileOverlay alloc] initWithMapID:@"headione.jjball51"];
-    tile.canReplaceMapContent = YES;
-    [_map addOverlay:tile level:MKOverlayLevelAboveLabels];
+     No OSM yet.
+     
+     // OpenStreetMap overlay
+     NSString *template = kUrlTile;
+     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
+     overlay.canReplaceMapContent = YES;
+     [_map addOverlay:overlay level:MKOverlayLevelAboveLabels];
      */
     
     if(kDebug && kDebugEnableTestLocation){
