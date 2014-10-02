@@ -10,7 +10,6 @@
 #import "PLConstants.h"
 #import "PLUtils.h"
 #import "PLInfoOverlayView.h"
-#import "PLAnnotation.h"
 
 @interface PLMapViewController ()
 
@@ -55,10 +54,11 @@
     _map.mapType = MKMapTypeHybrid;
     _map.delegate = self;
     
-    CLLocationCoordinate2D noLocation;
+    CLLocationCoordinate2D noLocation = CLLocationCoordinate2DMake(0, 0);
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 10000, 10000);
     MKCoordinateRegion adjustedRegion = [_map regionThatFits:viewRegion];
     [_map setRegion:adjustedRegion animated:YES];
+    
     _map.showsUserLocation = YES;
     _map.mapType = MKMapTypeStandard;
     _map.showsPointsOfInterest = NO;

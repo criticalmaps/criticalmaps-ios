@@ -57,7 +57,7 @@
     }else if(section == 1){
         return 2;
     }else if(section == 2){
-        return 3;
+        return 4;
     }else if(section == 3){
         return 2;
     }
@@ -86,17 +86,20 @@
         }
     }else if (indexPath.section == 2){
         if(indexPath.row == 0){
+            cell.textLabel.text = @"Critical Mass Berlin";
+            cell.detailTextLabel.text = @"www.criticalmass-berlin.org";
+        }else if(indexPath.row == 1){
+            cell.textLabel.text = @"GitHub Open Source";
+            cell.detailTextLabel.text = @"www.github.com/headione/criticalmass-berlin";
+        }else if(indexPath.row == 2){
             cell.textLabel.text = @"Logo Design";
             cell.detailTextLabel.text = @"www.thomas-hollnack.de";
+        }else if(indexPath.row == 3){
+            cell.textLabel.text = @"Programmierung";
+            cell.detailTextLabel.text = @"www.pokuslabs.com";
         }
-        if(indexPath.row == 1){
-            cell.textLabel.text = @"Github Open Source";
-            cell.detailTextLabel.text = @"www.github.com/headione/criticalmass-berlin";
-        }
-        if(indexPath.row == 2){
-            cell.textLabel.text = @"Website";
-            cell.detailTextLabel.text = @"www.criticalmass-berlin.org";
-        }
+        
+        
     }else if (indexPath.section == 3){
         if(indexPath.row == 0){
             cell.imageView.image = [UIImage imageNamed:@"Donate"];
@@ -112,20 +115,20 @@
     if (indexPath.section == 1){
         if(indexPath.row == 0){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.facebook.com/pages/Critical-Mass-Berlin/74806304846"]];
-        }
-        if(indexPath.row == 1){
+        }else if(indexPath.row == 1){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://twitter.com/cmberlin"]];
         }
-    }else if (indexPath.section == 2){
+    }else if(indexPath.section == 2){
         if(indexPath.row == 0){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.thomas-hollnack.de"]];
-        }
-        if(indexPath.row == 1){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://github.com/headione/criticalmass-berlin"]];
-        }
-        if(indexPath.row == 2){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.criticalmass-berlin.org"]];
+        }else if(indexPath.row == 1){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://github.com/headione/criticalmass-berlin"]];
+        }else if(indexPath.row == 2){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.thomas-hollnack.de"]];
+        }else if(indexPath.row == 3){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.pokuslabs.com"]];
         }
+        
     }else if (indexPath.section == 3){
         if(indexPath.row == 0){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TQGCAK3G3Z9GQ"]];

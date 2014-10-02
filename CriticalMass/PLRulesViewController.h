@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTTAttributedLabel.h"
 
-@interface PLRulesViewController : UIViewController
+@interface PLRulesViewController : UIViewController<TTTAttributedLabelDelegate>
 
 @end

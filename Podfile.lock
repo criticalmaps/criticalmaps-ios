@@ -22,15 +22,18 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - NSString-Hashes (1.2.2)
+  - TTTAttributedLabel (1.10.1)
 
 DEPENDENCIES:
   - AccordionView
   - AFNetworking
   - NSString-Hashes
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AccordionView: 73a85aa6a5355e53c38f9f01aa9e057ab0c9f00a
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   NSString-Hashes: ddf6e856e93d3c83c5d4ef8fcdea2a96ed77c6bc
+  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
 COCOAPODS: 0.34.1
