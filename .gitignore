@@ -6,4 +6,5 @@ xcuserdata
 *.xccheckout
 
 Pods/
+Podfile.lock
 CriticalMass.xcodeproj

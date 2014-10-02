@@ -15,7 +15,7 @@
 // Debug
 BOOL const kDebug = YES;
 BOOL const kDebugEnableTestURL = YES;
-BOOL const kDebugEnableTestLocation = NO;
+BOOL const kDebugEnableTestLocation = YES;
 BOOL const kDebugDisableHTTPRequests = NO;
 BOOL const kDebugInitialTabIndex = 0;
 

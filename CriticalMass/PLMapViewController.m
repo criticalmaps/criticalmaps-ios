@@ -10,6 +10,7 @@
 #import "PLConstants.h"
 #import "PLUtils.h"
 #import "PLInfoOverlayView.h"
+#import "PLAnnotation.h"
 
 @interface PLMapViewController ()
 
@@ -160,5 +161,29 @@
     }
     return nil;
 }
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView
+            viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"BikeAnnotationView"];
+    
+    if (!annotationView)
+    {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                  reuseIdentifier:@"BikeAnnotationView"];
+        annotationView.image = [UIImage imageNamed:@"Bike"];
+    }
+    else
+        annotationView.annotation = annotation;
+    
+    return annotationView;
+}
+
+
+
 
 @end
