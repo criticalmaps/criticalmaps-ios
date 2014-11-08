@@ -169,11 +169,11 @@
         return nil;
     
     
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"BikeAnnotationView"];
+    MKAnnotationView *annotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"BikeAnnotationView"];
     
     if (!annotationView)
     {
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
                                                   reuseIdentifier:@"BikeAnnotationView"];
         annotationView.image = [UIImage imageNamed:@"Bike"];
     }
@@ -182,8 +182,5 @@
     
     return annotationView;
 }
-
-
-
 
 @end
