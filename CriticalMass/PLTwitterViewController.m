@@ -8,6 +8,7 @@
 
 #import "PLTwitterViewController.h"
 #import "STTWitter.h"
+#import "PLLabel.h"
 
 @interface PLTwitterViewController ()
 
@@ -18,11 +19,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGRect frame = CGRectMake(0, 140, self.view.frame.size.width, self.view.frame.size.height-190);
+    PLLabel *label = [[PLLabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    label.text = @"Latest Tweets of #cmberlin";
+    [label setFont: [UIFont fontWithName:@"HelveticaNeue-Medium" size:18.0f]];
+    [self.view addSubview:label];
+    
+    CGRect frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 120);
     
     _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
+    _tableView.rowHeight = 300;
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 70.0)];
+    [path addLineToPoint:CGPointMake(self.view.frame.size.width, 70.0)];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.path = [path CGPath];
+    shapeLayer.strokeColor = [[UIColor blackColor] CGColor];
+    shapeLayer.lineWidth = 1.0;
+    shapeLayer.fillColor = [[UIColor clearColor] CGColor];
+    
+    [self.view.layer addSublayer:shapeLayer];
     
     //[_tableVC.tableView registerClass:[HOTwoRowViewCell class] forCellReuseIdentifier:@"CustomCell"];
     //_tableVC.tableView.tableHeaderView = [self headerView];
@@ -82,7 +101,13 @@
     NSString *screenName = [status valueForKeyPath:@"user.screen_name"];
     NSString *dateString = [status valueForKey:@"created_at"];
     
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
+    CGRect rect = CGRectMake(0, 0, cell.frame.size.width, 100);
+    cell.textLabel.frame = rect;
     cell.textLabel.text = text;
+    cell.textLabel.layer.borderColor = [UIColor blackColor].CGColor;
+    cell.textLabel.layer.borderWidth = 4.0;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
     
     return cell;
