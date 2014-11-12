@@ -11,7 +11,7 @@
 @implementation PLLabel
 
 - (void)drawTextInRect:(CGRect)rect {
-    UIEdgeInsets insets = {10, 20, 10, 20};
+    UIEdgeInsets insets = {10, 15, 10, 15};
     [super drawTextInRect:UIEdgeInsetsInsetRect(rect, insets)];
 }
 

@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "STTWitter.h"
+#import "SAMLoadingView.h"
 
 @interface PLTwitterViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>{
+    STTwitterAPI *_twitter;
     UITableView *_tableView;
     NSArray *_statuses;
+    SAMLoadingView *_loadingView;
 }
 
 @end

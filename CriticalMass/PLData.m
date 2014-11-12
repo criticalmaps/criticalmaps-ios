@@ -96,8 +96,8 @@
     NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
     
     [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        _otherLocations = responseObject;
+        _otherLocations = [responseObject objectForKey:@"locations"];
+        NSLog(@"locations: %@", _otherLocations);
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

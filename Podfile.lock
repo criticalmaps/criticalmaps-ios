@@ -22,6 +22,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - NSString-Hashes (1.2.2)
+  - SAMLoadingView (0.1.0)
   - STTwitter (0.1.5)
   - TTTAttributedLabel (1.10.1)
 
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - AccordionView
   - AFNetworking
   - NSString-Hashes
+  - SAMLoadingView
   - STTwitter
   - TTTAttributedLabel
 
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   AccordionView: bc022d5ae3b05a96b0b1ccd41cf37cc6796161a7
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   NSString-Hashes: ddf6e856e93d3c83c5d4ef8fcdea2a96ed77c6bc
+  SAMLoadingView: 11b746311268140f6a2380723215fe96a6d15dee
   STTwitter: 60f28af91d622b9a3f74f28cd021413277d413bb
   TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
