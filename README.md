@@ -31,11 +31,11 @@ check: http://criticalmass-berlin.org/
 
 ## TODO
 
-[ ] localization
-[ ] reminder on every last friday
-[ ] better design
-[ ] individual fonts
-[x] twitterfeed
-[ ] feedback functionality
-[ ] share functionality
-[ ] zoom buttons
+- [ ] localization
+- [ ] reminder on every last friday
+- [ ] better design
+- [ ] individual fonts
+- [x] twitterfeed
+- [ ] feedback functionality
+- [ ] share functionality
+- [ ] zoom buttons
