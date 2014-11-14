@@ -21,10 +21,21 @@ yep! here: https://github.com/stephanlindauer/criticalmass-berlin
 
 ## contribute
 
-*   if you can code: just go ahead and send me a pull request.
-*   if you find bugs: file them in the github issue tracking system.
-*   if you have moneyz left to burn: help us finance the server.
+* if you can code: just go ahead and send me a pull request.
+* if you find bugs: file them in the github issue tracking system.
+* if you have moneyz left to burn: help us finance the server.
 
 ## can i haz more informations?
 
 check: http://criticalmass-berlin.org/
+
+## TODO
+
+[ ] localization
+[ ] reminder on every last friday
+[ ] better design
+[ ] individual fonts
+[x] twitterfeed
+[ ] feedback functionality
+[ ] share functionality
+[ ] zoom buttons
