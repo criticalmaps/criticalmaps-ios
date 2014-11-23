@@ -17,7 +17,7 @@ not released yet.
 
 ## is there a version for android devices?
                                                           
-yep! here: https://github.com/stephanlindauer/criticalmass-berlin
+yep! here: https://github.com/stephanlindauer/criticalmaps-android
 
 ## contribute
 
