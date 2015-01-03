@@ -10,6 +10,7 @@
 #import "PLLabel.h"
 #import "PLConstants.h"
 #import "PLTwitterTableViewCell.h"
+#import "HOButton.h"
 
 
 @interface PLTwitterViewController ()
@@ -21,14 +22,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    PLLabel *label = [[PLLabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 50)];
-    label.text = @"Latest Tweets of #criticalmass";
-    [label setFont: [UIFont fontWithName:@"HelveticaNeue-Medium" size:18.0f]];
+    PLLabel *label = [[PLLabel alloc] initWithFrame:CGRectMake(0, 19, self.view.frame.size.width, 50)];
+    label.text = @"Latest Tweets of #criticalmaps";
+    [label setFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f]];
     [self.view addSubview:label];
     
-    UIButton *reloadBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-52, 35, 22, 20)];
+    HOButton *reloadBtn = [[HOButton alloc] init];
     [reloadBtn setImage:[UIImage imageNamed:@"Reload"] forState:UIControlStateNormal];
+    reloadBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 9, 10, 9);
     [reloadBtn addTarget:self action:@selector(onClickReload:) forControlEvents:UIControlEventTouchUpInside];
+    reloadBtn.center = CGPointMake(self.view.frame.size.width-40, 40);
     [self.view addSubview:reloadBtn];
     
     CGRect frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 120);
@@ -77,6 +80,7 @@
                                       _statuses = statuses;
                                       [_tableView reloadData];
                                       [_loadingView setHidden:YES];
+                    
                                   } errorBlock:^(NSError *error) {
                                       // ...
                                   }];
@@ -122,6 +126,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
+        UIFont *myFont = [ UIFont fontWithName: @"Helvetica" size: 14.0 ];
+        cell.textLabel.font  = myFont;
     }
     
     NSDictionary *status = [_statuses objectAtIndex:indexPath.row];

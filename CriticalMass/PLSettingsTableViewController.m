@@ -34,7 +34,6 @@
     [super viewDidLoad];
     
     self.clearsSelectionOnViewWillAppear = YES;
-    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,7 +46,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -89,11 +88,11 @@
             cell.textLabel.text = @"Critical Mass Berlin";
             cell.detailTextLabel.text = @"www.criticalmass-berlin.org";
         }else if(indexPath.row == 1){
-            cell.textLabel.text = @"GitHub Open Source";
-            cell.detailTextLabel.text = @"www.github.com/headione/criticalmass-berlin";
+            cell.textLabel.text = @"Open Source";
+            cell.detailTextLabel.text = @"www.github.com/headione/criticalmaps-ios";
         }else if(indexPath.row == 2){
             cell.textLabel.text = @"Logo Design";
-            cell.detailTextLabel.text = @"www.thomas-hollnack.de";
+            cell.detailTextLabel.text = @"gitti la mar";
         }else if(indexPath.row == 3){
             cell.textLabel.text = @"Programmierung";
             cell.detailTextLabel.text = @"www.pokuslabs.com";
@@ -122,17 +121,11 @@
         if(indexPath.row == 0){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.criticalmass-berlin.org"]];
         }else if(indexPath.row == 1){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://github.com/headione/criticalmass-berlin"]];
-        }else if(indexPath.row == 2){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.thomas-hollnack.de"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://github.com/headione/criticalmaps-ios"]];
         }else if(indexPath.row == 3){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.pokuslabs.com"]];
         }
         
-    }else if (indexPath.section == 3){
-        if(indexPath.row == 0){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TQGCAK3G3Z9GQ"]];
-        }
     }
 }
 
@@ -144,8 +137,6 @@
         return @"Social Media";
     }else if (section == 2){
         return @"About";
-    }else if (section == 3){
-        return @"Please donate";
     }
 
     return @"";

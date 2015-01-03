@@ -10,6 +10,7 @@
 		90F46A24D8DB4FCAABF4CF34 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD3CAC801A84BBA8D151E5D /* libPods.a */; };
 		941511091A10004D0010205B /* PLTwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941511081A10004D0010205B /* PLTwitterViewController.m */; };
 		942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */; };
+		942B71B91A58080A00D02CA1 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B81A58080A00D02CA1 /* HOButton.m */; };
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
 		945441AE1A111A6A00C8024F /* PLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 945441AD1A111A6A00C8024F /* PLLabel.m */; };
 		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
@@ -50,6 +51,8 @@
 		941511081A10004D0010205B /* PLTwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterViewController.m; sourceTree = "<group>"; };
 		942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterTableViewCell.h; sourceTree = "<group>"; };
 		942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterTableViewCell.m; sourceTree = "<group>"; };
+		942B71B71A58080A00D02CA1 /* HOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HOButton.h; path = ../../../BpmTap/git/projectPlus/BpmCheck/HOButton.h; sourceTree = "<group>"; };
+		942B71B81A58080A00D02CA1 /* HOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HOButton.m; path = ../../../BpmTap/git/projectPlus/BpmCheck/HOButton.m; sourceTree = "<group>"; };
 		942E2D8019C316BD00BF92D7 /* PLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLUtils.h; sourceTree = "<group>"; };
 		942E2D8119C316BD00BF92D7 /* PLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLUtils.m; sourceTree = "<group>"; };
 		945441AC1A111A6A00C8024F /* PLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLLabel.h; sourceTree = "<group>"; };
@@ -60,20 +63,20 @@
 		9474656319CA3078005485BD /* PLSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSettingsTableViewController.m; sourceTree = "<group>"; };
 		94A9C1AD19BF43AB0027C5DC /* PLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLData.h; sourceTree = "<group>"; };
 		94A9C1AE19BF43AB0027C5DC /* PLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLData.m; sourceTree = "<group>"; };
-		94CF085C19BDEAF2009FFF43 /* CriticalMass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMass.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CF085F19BDEAF2009FFF43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		94CF086319BDEAF2009FFF43 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		94CF086719BDEAF2009FFF43 /* CriticalMass-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMass-Info.plist"; sourceTree = "<group>"; };
+		94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMaps-Info.plist"; sourceTree = "<group>"; };
 		94CF086919BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CF086B19BDEAF2009FFF43 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		94CF086D19BDEAF2009FFF43 /* CriticalMass-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMass-Prefix.pch"; sourceTree = "<group>"; };
+		94CF086D19BDEAF2009FFF43 /* CriticalMaps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Prefix.pch"; sourceTree = "<group>"; };
 		94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAppDelegate.h; sourceTree = "<group>"; };
 		94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PLAppDelegate.m; sourceTree = "<group>"; };
 		94CF087119BDEAF2009FFF43 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		94CF087719BDEAF2009FFF43 /* CriticalMassTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMassTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CF087819BDEAF2009FFF43 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		94CF088019BDEAF2009FFF43 /* CriticalMassTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMassTests-Info.plist"; sourceTree = "<group>"; };
+		94CF088019BDEAF2009FFF43 /* CriticalMapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMapsTests-Info.plist"; sourceTree = "<group>"; };
 		94CF088219BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CriticalMassTests.m; sourceTree = "<group>"; };
 		94CF089119BDEC9C009FFF43 /* PLMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLMapViewController.h; sourceTree = "<group>"; };
@@ -126,8 +129,8 @@
 		94CF085D19BDEAF2009FFF43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94CF085C19BDEAF2009FFF43 /* CriticalMass.app */,
-				94CF087719BDEAF2009FFF43 /* CriticalMassTests.xctest */,
+				94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */,
+				94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,10 +150,10 @@
 		94CF086519BDEAF2009FFF43 /* CriticalMass */ = {
 			isa = PBXGroup;
 			children = (
-				94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */,
-				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
 				94CF087119BDEAF2009FFF43 /* Images.xcassets */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
+				94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */,
+				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
 				94F0304719C1E4EC00F86611 /* PLConstants.h */,
 				94F0304819C1E4EC00F86611 /* PLConstants.m */,
 				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
@@ -173,6 +176,8 @@
 				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
 				945441AC1A111A6A00C8024F /* PLLabel.h */,
 				945441AD1A111A6A00C8024F /* PLLabel.m */,
+				942B71B71A58080A00D02CA1 /* HOButton.h */,
+				942B71B81A58080A00D02CA1 /* HOButton.m */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -180,10 +185,10 @@
 		94CF086619BDEAF2009FFF43 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94CF086719BDEAF2009FFF43 /* CriticalMass-Info.plist */,
+				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
 				94CF086B19BDEAF2009FFF43 /* main.m */,
-				94CF086D19BDEAF2009FFF43 /* CriticalMass-Prefix.pch */,
+				94CF086D19BDEAF2009FFF43 /* CriticalMaps-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -200,7 +205,7 @@
 		94CF087F19BDEAF2009FFF43 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94CF088019BDEAF2009FFF43 /* CriticalMassTests-Info.plist */,
+				94CF088019BDEAF2009FFF43 /* CriticalMapsTests-Info.plist */,
 				94CF088119BDEAF2009FFF43 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -218,9 +223,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94CF085B19BDEAF2009FFF43 /* CriticalMass */ = {
+		94CF085B19BDEAF2009FFF43 /* CriticalMaps */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMass" */;
+			buildConfigurationList = 94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMaps" */;
 			buildPhases = (
 				81DC3C4AE5D040719E1CA5FC /* Check Pods Manifest.lock */,
 				94CF085819BDEAF2009FFF43 /* Sources */,
@@ -232,14 +237,14 @@
 			);
 			dependencies = (
 			);
-			name = CriticalMass;
+			name = CriticalMaps;
 			productName = CriticalMass;
-			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMass.app */;
+			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
 			productType = "com.apple.product-type.application";
 		};
-		94CF087619BDEAF2009FFF43 /* CriticalMassTests */ = {
+		94CF087619BDEAF2009FFF43 /* CriticalMapsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94CF088B19BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMassTests" */;
+			buildConfigurationList = 94CF088B19BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMapsTests" */;
 			buildPhases = (
 				94CF087319BDEAF2009FFF43 /* Sources */,
 				94CF087419BDEAF2009FFF43 /* Frameworks */,
@@ -250,9 +255,9 @@
 			dependencies = (
 				94CF087D19BDEAF2009FFF43 /* PBXTargetDependency */,
 			);
-			name = CriticalMassTests;
+			name = CriticalMapsTests;
 			productName = CriticalMassTests;
-			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMassTests.xctest */;
+			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -278,7 +283,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 94CF085719BDEAF2009FFF43 /* Build configuration list for PBXProject "CriticalMass" */;
+			buildConfigurationList = 94CF085719BDEAF2009FFF43 /* Build configuration list for PBXProject "CriticalMaps" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -290,8 +295,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94CF085B19BDEAF2009FFF43 /* CriticalMass */,
-				94CF087619BDEAF2009FFF43 /* CriticalMassTests */,
+				94CF085B19BDEAF2009FFF43 /* CriticalMaps */,
+				94CF087619BDEAF2009FFF43 /* CriticalMapsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -362,6 +367,7 @@
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
+				942B71B91A58080A00D02CA1 /* HOButton.m in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
 				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
@@ -383,7 +389,7 @@
 /* Begin PBXTargetDependency section */
 		94CF087D19BDEAF2009FFF43 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94CF085B19BDEAF2009FFF43 /* CriticalMass */;
+			target = 94CF085B19BDEAF2009FFF43 /* CriticalMaps */;
 			targetProxy = 94CF087C19BDEAF2009FFF43 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -487,8 +493,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CriticalMass/CriticalMass-Prefix.pch";
-				INFOPLIST_FILE = "CriticalMass/CriticalMass-Info.plist";
+				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
+				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -504,8 +510,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CriticalMass/CriticalMass-Prefix.pch";
-				INFOPLIST_FILE = "CriticalMass/CriticalMass-Info.plist";
+				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
+				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -528,7 +534,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CriticalMassTests/CriticalMassTests-Info.plist";
+				INFOPLIST_FILE = "CriticalMassTests/CriticalMapsTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -546,7 +552,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMass-Prefix.pch";
-				INFOPLIST_FILE = "CriticalMassTests/CriticalMassTests-Info.plist";
+				INFOPLIST_FILE = "CriticalMassTests/CriticalMapsTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -556,7 +562,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94CF085719BDEAF2009FFF43 /* Build configuration list for PBXProject "CriticalMass" */ = {
+		94CF085719BDEAF2009FFF43 /* Build configuration list for PBXProject "CriticalMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94CF088619BDEAF2009FFF43 /* Debug */,
@@ -565,7 +571,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMass" */ = {
+		94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94CF088919BDEAF2009FFF43 /* Debug */,
@@ -574,7 +580,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94CF088B19BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMassTests" */ = {
+		94CF088B19BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMapsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94CF088C19BDEAF2009FFF43 /* Debug */,

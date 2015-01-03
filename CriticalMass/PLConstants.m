@@ -13,9 +13,9 @@
 @end
 
 // Debug
-BOOL const kDebug = NO;
-BOOL const kDebugEnableTestURL = NO;
-BOOL const kDebugEnableTestLocation = NO;
+BOOL const kDebug = YES;
+BOOL const kDebugEnableTestURL = YES;
+BOOL const kDebugEnableTestLocation = YES;
 BOOL const kDebugDisableHTTPRequests = NO;
 BOOL const kDebugInitialTabIndex = 0;
 
@@ -36,5 +36,5 @@ NSTimeInterval const kRequestRepeatTime = 30.0;
 NSUInteger const kMaxRequestsInBackground = 480;
 double const kTestLocationLatitude = +52.50266880;
 double const kTestLocationLongitude = +13.41227278;
-NSString *const kTwitterQuery = @"#criticalmass";
+NSString *const kTwitterQuery = @"#criticalmaps";
 
