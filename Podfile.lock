@@ -1,45 +1,50 @@
 PODS:
   - AccordionView (0.0.5)
-  - AFNetworking (2.4.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
+  - AFNetworking (2.5.0):
+    - AFNetworking/NSURLConnection (= 2.5.0)
+    - AFNetworking/NSURLSession (= 2.5.0)
+    - AFNetworking/Reachability (= 2.5.0)
+    - AFNetworking/Security (= 2.5.0)
+    - AFNetworking/Serialization (= 2.5.0)
+    - AFNetworking/UIKit (= 2.5.0)
+  - AFNetworking/NSURLConnection (2.5.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.4.1):
+  - AFNetworking/NSURLSession (2.5.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.4.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.4.1)
-  - AFNetworking/Security (2.4.1)
-  - AFNetworking/Serialization (2.4.1)
-  - AFNetworking/UIKit (2.4.1):
+  - AFNetworking/Reachability (2.5.0)
+  - AFNetworking/Security (2.5.0)
+  - AFNetworking/Serialization (2.5.0)
+  - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - NSString-Hashes (1.2.2)
   - SAMLoadingView (0.1.0)
-  - STTwitter (0.1.5)
-  - TTTAttributedLabel (1.10.1)
+  - SDWebImage (3.7.1):
+    - SDWebImage/Core (= 3.7.1)
+  - SDWebImage/Core (3.7.1)
+  - STTwitter (0.1.8)
+  - TTTAttributedLabel (1.13.0)
 
 DEPENDENCIES:
   - AccordionView
   - AFNetworking
   - NSString-Hashes
   - SAMLoadingView
+  - SDWebImage
   - STTwitter
   - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AccordionView: bc022d5ae3b05a96b0b1ccd41cf37cc6796161a7
-  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   NSString-Hashes: ddf6e856e93d3c83c5d4ef8fcdea2a96ed77c6bc
   SAMLoadingView: 11b746311268140f6a2380723215fe96a6d15dee
-  STTwitter: 60f28af91d622b9a3f74f28cd021413277d413bb
-  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  STTwitter: 15d299aeb63fe7aad6285d61dd058d0aaa778a82
+  TTTAttributedLabel: a847b59a75c92d59f4eabc9cc1745704cff2dc36
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.35.0

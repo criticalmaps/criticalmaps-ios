@@ -8,6 +8,9 @@
 
 #import "PLTwitterViewController.h"
 #import "PLLabel.h"
+#import "PLConstants.h"
+#import "PLTwitterTableViewCell.h"
+
 
 @interface PLTwitterViewController ()
 
@@ -19,7 +22,7 @@
     [super viewDidLoad];
     
     PLLabel *label = [[PLLabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 50)];
-    label.text = @"Latest Tweets of #cmberlin";
+    label.text = @"Latest Tweets of #criticalmass";
     [label setFont: [UIFont fontWithName:@"HelveticaNeue-Medium" size:18.0f]];
     [self.view addSubview:label];
     
@@ -69,7 +72,7 @@
         
         [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
             
-            [_twitter getSearchTweetsWithQuery:@"cmberlin"
+            [_twitter getSearchTweetsWithQuery: kTwitterQuery
                                   successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
                                       _statuses = statuses;
                                       [_tableView reloadData];
@@ -112,23 +115,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TwitterCell"];
+    PLTwitterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TwitterCell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TwitterCell"];
+        cell = [[PLTwitterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TwitterCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
     }
     
     NSDictionary *status = [_statuses objectAtIndex:indexPath.row];
+  
+    NSLog(@"%@", status);
     
+    NSString *profileImageURL = status[@"user"][@"profile_image_url"];
     NSString *text = [status valueForKey:@"text"];
     NSString *screenName = [status valueForKeyPath:@"user.screen_name"];
-    NSString *dateString = [status valueForKey:@"created_at"];
+    //NSString *dateString = [status valueForKey:@"created_at"];
     
-    cell.textLabel.text = text;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
+    [cell.imageView  sd_setImageWithURL:[NSURL URLWithString: profileImageURL]
+                       placeholderImage:[UIImage imageNamed:@"Twitter"]];
+     
+    cell.textLabel.text = [NSString stringWithFormat:@"@%@: %@", screenName, text];
+    //cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
     
     return cell;
 }
