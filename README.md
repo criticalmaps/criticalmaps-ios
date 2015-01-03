@@ -31,6 +31,7 @@ check: http://criticalmass-berlin.org/
 
 ## TODO
 
+- [x] twitter profile image
 - [ ] localization
 - [ ] reminder on every last friday
 - [ ] better design
