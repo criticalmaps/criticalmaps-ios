@@ -35,29 +35,29 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    NSLog(@"applicationWillResignActive");
+    DLog(@"applicationWillResignActive");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    NSLog(@"applicationDidEnterBackground");
+    DLog(@"applicationDidEnterBackground");
     [[PLData sharedManager] setIsBackroundMode:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"applicationWillEnterForeground");
+    DLog(@"applicationWillEnterForeground");
     [[PLData sharedManager] setIsBackroundMode:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    NSLog(@"applicationDidBecomeActive");
+    DLog(@"applicationDidBecomeActive");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    NSLog(@"applicationWillTerminate");
+    DLog(@"applicationWillTerminate");
 }
 
 @end

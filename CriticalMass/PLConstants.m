@@ -13,10 +13,10 @@
 @end
 
 // Debug
-BOOL const kDebug = NO;
+BOOL const kDebug = YES;
 BOOL const kDebugEnableTestURL = NO;
-BOOL const kDebugEnableTestLocation = NO;
-BOOL const kDebugDisableHTTPRequests = NO;
+BOOL const kDebugEnableTestLocation = YES;
+BOOL const kDebugDisableHTTPRequests = YES;
 BOOL const kDebugInitialTabIndex = 0;
 
 // Urls
@@ -37,4 +37,3 @@ NSUInteger const kMaxRequestsInBackground = 480;
 double const kTestLocationLatitude = +52.50266880;
 double const kTestLocationLongitude = +13.41227278;
 NSString *const kTwitterQuery = @"#criticalmaps";
-

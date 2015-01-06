@@ -71,7 +71,7 @@
     [_loadingView setHidden:NO];
     [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
         
-        NSLog(@"Access granted with %@", bearerToken);
+        DLog(@"Access granted with %@", bearerToken);
         
         [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
             
@@ -90,7 +90,7 @@
         }];
         
     } errorBlock:^(NSError *error) {
-        NSLog(@"-- error %@", error);
+        DLog(@"-- error %@", error);
     }];
     
 }
@@ -132,7 +132,7 @@
     
     NSDictionary *status = [_statuses objectAtIndex:indexPath.row];
   
-    NSLog(@"%@", status);
+    DLog(@"%@", status);
     
     NSString *profileImageURL = status[@"user"][@"profile_image_url"];
     NSString *text = [status valueForKey:@"text"];

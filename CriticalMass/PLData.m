@@ -67,7 +67,7 @@
 
 - (void)startRequestInterval
 {
-    NSLog(@"startRequestInterval");
+    DLog(@"startRequestInterval");
     [_timer invalidate];
     _timer = nil;
     
@@ -77,7 +77,7 @@
 
 - (void)stopRequestInterval
 {
-    NSLog(@"stopRequestInterval");
+    DLog(@"stopRequestInterval");
     [_timer invalidate];
     _timer = nil;
 }
@@ -91,16 +91,16 @@
     
     NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
     
-    NSLog(@"request() parameters: %@", parameters);
+    DLog(@"request() parameters: %@", parameters);
     
     NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
     
     [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         _otherLocations = [responseObject objectForKey:@"locations"];
-        NSLog(@"locations: %@", _otherLocations);
+        DLog(@"locations: %@", _otherLocations);
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        DLog(@"Error: %@", error);
     }];
     
     if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
@@ -109,7 +109,7 @@
 }
 
 - (void)enableGps{
-    NSLog(@"enableGps");
+    DLog(@"enableGps");
     _updateCount = 0;
     [self stopRequestInterval];
     [_locationManager startUpdatingLocation];
@@ -118,7 +118,7 @@
 }
 
 - (void)disableGps{
-    NSLog(@"disableGps");
+    DLog(@"disableGps");
     [_locationManager stopUpdatingLocation];
     [self stopRequestInterval];
     _gpsEnabled = NO;
@@ -135,7 +135,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+    DLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
@@ -145,7 +145,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
+    DLog(@"didUpdateToLocation: %@", newLocation);
     
     _currentLocation = newLocation;
     
@@ -171,7 +171,7 @@
         }
     }
     
-    NSLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
+    DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
 }
 
 
