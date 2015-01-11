@@ -522,14 +522,14 @@
 		94CF088C19BDEAF2009FFF43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMass.app/CriticalMass";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMass";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CriticalMass/CriticalMass-Prefix.pch";
+				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -544,14 +544,14 @@
 		94CF088D19BDEAF2009FFF43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMass.app/CriticalMass";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMass";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CriticalMass/CriticalMass-Prefix.pch";
+				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMassTests/CriticalMapsTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
