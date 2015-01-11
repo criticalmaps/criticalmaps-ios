@@ -10,11 +10,11 @@
 		90F46A24D8DB4FCAABF4CF34 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD3CAC801A84BBA8D151E5D /* libPods.a */; };
 		941511091A10004D0010205B /* PLTwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941511081A10004D0010205B /* PLTwitterViewController.m */; };
 		942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */; };
-		942B71B91A58080A00D02CA1 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B81A58080A00D02CA1 /* HOButton.m */; };
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
 		945441AE1A111A6A00C8024F /* PLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 945441AD1A111A6A00C8024F /* PLLabel.m */; };
 		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
+		9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9484E8021A62E63F0007F9F3 /* HOButton.m */; };
 		94A9C1AF19BF43AB0027C5DC /* PLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A9C1AE19BF43AB0027C5DC /* PLData.m */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */; };
@@ -51,8 +51,6 @@
 		941511081A10004D0010205B /* PLTwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterViewController.m; sourceTree = "<group>"; };
 		942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterTableViewCell.h; sourceTree = "<group>"; };
 		942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterTableViewCell.m; sourceTree = "<group>"; };
-		942B71B71A58080A00D02CA1 /* HOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HOButton.h; path = ../../../BpmTap/git/projectPlus/BpmCheck/HOButton.h; sourceTree = "<group>"; };
-		942B71B81A58080A00D02CA1 /* HOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HOButton.m; path = ../../../BpmTap/git/projectPlus/BpmCheck/HOButton.m; sourceTree = "<group>"; };
 		942E2D8019C316BD00BF92D7 /* PLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLUtils.h; sourceTree = "<group>"; };
 		942E2D8119C316BD00BF92D7 /* PLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLUtils.m; sourceTree = "<group>"; };
 		945441AC1A111A6A00C8024F /* PLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLLabel.h; sourceTree = "<group>"; };
@@ -61,6 +59,8 @@
 		94709B0119CA705A003E9583 /* PLInfoOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLInfoOverlayView.m; sourceTree = "<group>"; };
 		9474656219CA3078005485BD /* PLSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLSettingsTableViewController.h; sourceTree = "<group>"; };
 		9474656319CA3078005485BD /* PLSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSettingsTableViewController.m; sourceTree = "<group>"; };
+		9484E8011A62E63F0007F9F3 /* HOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOButton.h; sourceTree = "<group>"; };
+		9484E8021A62E63F0007F9F3 /* HOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOButton.m; sourceTree = "<group>"; };
 		94A9C1AD19BF43AB0027C5DC /* PLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLData.h; sourceTree = "<group>"; };
 		94A9C1AE19BF43AB0027C5DC /* PLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLData.m; sourceTree = "<group>"; };
 		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,8 +176,8 @@
 				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
 				945441AC1A111A6A00C8024F /* PLLabel.h */,
 				945441AD1A111A6A00C8024F /* PLLabel.m */,
-				942B71B71A58080A00D02CA1 /* HOButton.h */,
-				942B71B81A58080A00D02CA1 /* HOButton.m */,
+				9484E8011A62E63F0007F9F3 /* HOButton.h */,
+				9484E8021A62E63F0007F9F3 /* HOButton.m */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -367,7 +367,7 @@
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
-				942B71B91A58080A00D02CA1 /* HOButton.m in Sources */,
+				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
 				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
