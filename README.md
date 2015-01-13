@@ -13,7 +13,7 @@ this app helps all the critical mass participants to better organize the protest
 
 ## where can i get the app?
 
-not released yet.
+https://itunes.apple.com/de/app/critical-mass-berlin/id918669647
 
 ## is there a version for android devices?
                                                           
