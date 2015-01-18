@@ -27,7 +27,7 @@
     [self.window makeKeyAndVisible];
     
     if(kDebug){
-        [self.tabBarController setSelectedIndex:kDebugInitialTabIndex];
+        [(UITabBarController *) self.window.rootViewController setSelectedIndex: 2];
     }
     
     return YES;
