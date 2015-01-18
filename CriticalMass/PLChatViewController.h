@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HOButton.h"
 
 @interface PLChatViewController : UIViewController<UITableViewDataSource, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UIButton *btnSend;
 
 @end

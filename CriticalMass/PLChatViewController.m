@@ -16,8 +16,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-120)];
+    
+    // add table
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-120)];
     [self.view addSubview: self.tableView];
+    
+    // add textfield
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-120, 250, 70)];
+    self.textField.layer.borderWidth = 1.0;
+    [self.view addSubview: self.textField];
+    
+    // add button
+    self.btnSend = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.btnSend.frame = CGRectMake(250,  self.view.frame.size.height-120, 70, 70);
+    self.btnSend.layer.borderWidth = 1.0;
+    [self.btnSend setTitle:@"send" forState:UIControlStateNormal];
+    [self.view addSubview: self.btnSend];
 }
 
 - (void)didReceiveMemoryWarning {
