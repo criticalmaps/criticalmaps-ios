@@ -16,7 +16,8 @@
 		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
 		9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9484E8021A62E63F0007F9F3 /* HOButton.m */; };
-		94A9C1AF19BF43AB0027C5DC /* PLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A9C1AE19BF43AB0027C5DC /* PLData.m */; };
+		94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */; };
+		94AD50461A963D0600547B40 /* PLChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD50451A963D0600547B40 /* PLChatModel.m */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */; };
 		94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
@@ -64,8 +65,10 @@
 		9474656319CA3078005485BD /* PLSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSettingsTableViewController.m; sourceTree = "<group>"; };
 		9484E8011A62E63F0007F9F3 /* HOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOButton.h; sourceTree = "<group>"; };
 		9484E8021A62E63F0007F9F3 /* HOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOButton.m; sourceTree = "<group>"; };
-		94A9C1AD19BF43AB0027C5DC /* PLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLData.h; sourceTree = "<group>"; };
-		94A9C1AE19BF43AB0027C5DC /* PLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLData.m; sourceTree = "<group>"; };
+		94A9C1AD19BF43AB0027C5DC /* PLDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDataModel.h; sourceTree = "<group>"; };
+		94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLDataModel.m; sourceTree = "<group>"; };
+		94AD50441A963D0600547B40 /* PLChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatModel.h; sourceTree = "<group>"; };
+		94AD50451A963D0600547B40 /* PLChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLChatModel.m; sourceTree = "<group>"; };
 		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CF085F19BDEAF2009FFF43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -118,6 +121,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		94AD50471A963D1600547B40 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				94A9C1AD19BF43AB0027C5DC /* PLDataModel.h */,
+				94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */,
+				94AD50441A963D0600547B40 /* PLChatModel.h */,
+				94AD50451A963D0600547B40 /* PLChatModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		94AD50481A963DC800547B40 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9474656219CA3078005485BD /* PLSettingsTableViewController.h */,
+				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
+				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
+				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
+				94CF089519BDECAE009FFF43 /* PLRulesViewController.m */,
+				941511071A10004D0010205B /* PLTwitterViewController.h */,
+				941511081A10004D0010205B /* PLTwitterViewController.m */,
+				9474656319CA3078005485BD /* PLSettingsTableViewController.m */,
+				94591A691A6C67640080BCEC /* PLChatViewController.h */,
+				94591A6A1A6C67640080BCEC /* PLChatViewController.m */,
+				94CF089719BDF227009FFF43 /* PLTabBarController.h */,
+				94CF089819BDF227009FFF43 /* PLTabBarController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		94AD50491A963DFE00547B40 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9484E8011A62E63F0007F9F3 /* HOButton.h */,
+				9484E8021A62E63F0007F9F3 /* HOButton.m */,
+				945441AC1A111A6A00C8024F /* PLLabel.h */,
+				945441AD1A111A6A00C8024F /* PLLabel.m */,
+				942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */,
+				942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */,
+				94709B0019CA705A003E9583 /* PLInfoOverlayView.h */,
+				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		94AD504A1A963E4E00547B40 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */,
+				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
+				94F0304719C1E4EC00F86611 /* PLConstants.h */,
+				94F0304819C1E4EC00F86611 /* PLConstants.m */,
+				942E2D8019C316BD00BF92D7 /* PLUtils.h */,
+				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
+			);
+			name = Root;
+			sourceTree = "<group>";
+		};
 		94CF085319BDEAF2009FFF43 = {
 			isa = PBXGroup;
 			children = (
@@ -155,34 +216,6 @@
 			children = (
 				94CF087119BDEAF2009FFF43 /* Images.xcassets */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
-				94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */,
-				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
-				94F0304719C1E4EC00F86611 /* PLConstants.h */,
-				94F0304819C1E4EC00F86611 /* PLConstants.m */,
-				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
-				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
-				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
-				94CF089519BDECAE009FFF43 /* PLRulesViewController.m */,
-				941511071A10004D0010205B /* PLTwitterViewController.h */,
-				941511081A10004D0010205B /* PLTwitterViewController.m */,
-				942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */,
-				942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */,
-				9474656219CA3078005485BD /* PLSettingsTableViewController.h */,
-				9474656319CA3078005485BD /* PLSettingsTableViewController.m */,
-				94591A691A6C67640080BCEC /* PLChatViewController.h */,
-				94591A6A1A6C67640080BCEC /* PLChatViewController.m */,
-				94CF089719BDF227009FFF43 /* PLTabBarController.h */,
-				94CF089819BDF227009FFF43 /* PLTabBarController.m */,
-				94A9C1AD19BF43AB0027C5DC /* PLData.h */,
-				94A9C1AE19BF43AB0027C5DC /* PLData.m */,
-				942E2D8019C316BD00BF92D7 /* PLUtils.h */,
-				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
-				94709B0019CA705A003E9583 /* PLInfoOverlayView.h */,
-				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
-				945441AC1A111A6A00C8024F /* PLLabel.h */,
-				945441AD1A111A6A00C8024F /* PLLabel.m */,
-				9484E8011A62E63F0007F9F3 /* HOButton.h */,
-				9484E8021A62E63F0007F9F3 /* HOButton.m */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -190,6 +223,10 @@
 		94CF086619BDEAF2009FFF43 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				94AD504A1A963E4E00547B40 /* Root */,
+				94AD50471A963D1600547B40 /* Model */,
+				94AD50491A963DFE00547B40 /* View */,
+				94AD50481A963DC800547B40 /* Controller */,
 				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
 				94CF086B19BDEAF2009FFF43 /* main.m */,
@@ -369,7 +406,8 @@
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
 				94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */,
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
-				94A9C1AF19BF43AB0027C5DC /* PLData.m in Sources */,
+				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
+				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,

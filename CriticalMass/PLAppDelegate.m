@@ -11,7 +11,7 @@
 #import "PLMapViewController.h"
 #import "PLRulesViewController.h"
 #import "PLConstants.h"
-#import "PLData.h"
+#import "PLDataModel.h"
 
 @implementation PLAppDelegate
 
@@ -41,13 +41,13 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     DLog(@"applicationDidEnterBackground");
-    [[PLData sharedManager] setIsBackroundMode:YES];
+    [[PLDataModel sharedManager] setIsBackroundMode:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     DLog(@"applicationWillEnterForeground");
-    [[PLData sharedManager] setIsBackroundMode:NO];
+    [[PLDataModel sharedManager] setIsBackroundMode:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

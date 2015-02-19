@@ -10,16 +10,16 @@
 #import <CoreLocation/CoreLocation.h>
 #import "AFNetworking.h"
 
-@interface PLData : NSObject<CLLocationManagerDelegate>{
+@interface PLDataModel : NSObject<CLLocationManagerDelegate>{
     
     CLLocationManager *_locationManager;
     AFHTTPRequestOperationManager *_requestManager;
     NSTimer *_timer;
-    NSString *_uid;
     NSUInteger _updateCount;
     NSUInteger _requestCount;
 }
 
+@property (nonatomic, readonly) NSString *uid;
 @property (nonatomic, readonly) CLLocation *currentLocation;
 @property (nonatomic, readonly) NSDictionary *otherLocations;
 @property (nonatomic, readonly) BOOL gpsEnabled;

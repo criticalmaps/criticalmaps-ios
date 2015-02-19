@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Pokus Labs. All rights reserved.
 //
 
-#import "PLData.h"
+#import "PLDataModel.h"
 #import "PLConstants.h"
 #import "PLUtils.h"
 #import <NSString+Hashes.h>
 
-@implementation PLData
+@implementation PLDataModel
 
 + (id)sharedManager {
-    static PLData *sharedMyManager = nil;
+    static PLDataModel *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];

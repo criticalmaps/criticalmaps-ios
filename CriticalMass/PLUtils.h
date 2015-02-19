@@ -13,5 +13,6 @@
 
 +(NSString*)locationdegrees2String:(double)degrees;
 +(double)string2Locationdegrees:(NSString*)string;
++(NSString*)getTimestamp;
 
 @end

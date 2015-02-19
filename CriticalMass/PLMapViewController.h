@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "PLData.h"
+#import "PLDataModel.h"
 #import "PLInfoOverlayView.h"
 
 @interface PLMapViewController : UIViewController<MKMapViewDelegate>{
-    PLData *_data;
+    PLDataModel *_data;
     MKMapView *_map;
     UIView *_infoOverlay;
 }

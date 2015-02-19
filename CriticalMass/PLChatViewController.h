@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "HOButton.h"
+#import "PLDataModel.h"
+#import "PLChatModel.h"
 
 @interface PLChatViewController : UIViewController<UITableViewDataSource, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIButton *btnSend;
+@property (nonatomic, strong) PLChatModel *chatModel;
 
 @end
