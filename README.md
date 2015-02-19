@@ -27,7 +27,7 @@ yep! here: https://github.com/stephanlindauer/criticalmaps-android
 
 ## can i haz more informations?
 
-check: http://criticalmass-berlin.org/
+check: http://criticalmaps.net
 
 ## TODO
 
