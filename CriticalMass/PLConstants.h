@@ -20,8 +20,6 @@ FOUNDATION_EXPORT BOOL const kDebugInitialTabIndex;
 // Urls
 //FOUNDATION_EXPORT NSString *const kUrlTile;
 FOUNDATION_EXPORT NSString *const kUrlService;
-FOUNDATION_EXPORT NSString *const kUrlServiceTest;
-FOUNDATION_EXPORT NSString *const kUrlServiceChat;
 
 // Notifications
 FOUNDATION_EXPORT NSString *const kNotificationInitialGpsDataReceived;

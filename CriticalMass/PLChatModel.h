@@ -14,7 +14,10 @@
 
 @property(nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 @property(nonatomic, strong) PLDataModel *data;
+@property(nonatomic, strong) NSMutableArray *userMessages;
+@property(nonatomic, strong) NSMutableArray *allMessages;
 
 + (id)sharedManager;
+- (void)collectMessage:(NSString*) message;
 
 @end

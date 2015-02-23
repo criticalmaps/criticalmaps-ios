@@ -215,6 +215,10 @@
 			isa = PBXGroup;
 			children = (
 				94CF087119BDEAF2009FFF43 /* Images.xcassets */,
+				94AD504A1A963E4E00547B40 /* Root */,
+				94AD50471A963D1600547B40 /* Model */,
+				94AD50491A963DFE00547B40 /* View */,
+				94AD50481A963DC800547B40 /* Controller */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
 			);
 			path = CriticalMass;
@@ -223,10 +227,6 @@
 		94CF086619BDEAF2009FFF43 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94AD504A1A963E4E00547B40 /* Root */,
-				94AD50471A963D1600547B40 /* Model */,
-				94AD50491A963DFE00547B40 /* View */,
-				94AD50481A963DC800547B40 /* Controller */,
 				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
 				94CF086B19BDEAF2009FFF43 /* main.m */,

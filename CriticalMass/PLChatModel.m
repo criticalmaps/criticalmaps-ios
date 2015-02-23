@@ -24,8 +24,8 @@
 - (id)init {
     if (self = [super init]) {
         _data = [PLDataModel sharedManager];
+        _userMessages = [[NSMutableArray alloc] init];
         [self initHTTPRequestManager];
-        [self sendMessage: @"Critical Maps is awesome!"];
     }
     return self;
 }
@@ -36,7 +36,11 @@
     _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 }
 
-- (void)sendMessage:(NSString*) message {
+- (void)collectMessage:(NSString*) message {
+    
+    [_userMessages addObject:message];
+    
+    /*
     
     NSDictionary *messageJson = @ {
         @"timestamp": [PLUtils getTimestamp],
@@ -50,7 +54,7 @@
     
     DLog(@"Request Object: %@", params);
     
-    [_requestManager POST:kUrlServiceChat parameters:params
+    [kUrlService_requestManager POST:kUrlServiceChat parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
         DLog(@"JSON: %@", responseObject);
@@ -59,6 +63,7 @@
      ^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"Error: %@", error);
      }];
+     */
 }
 
 @end

@@ -16,13 +16,11 @@
 BOOL const kDebug = YES;
 BOOL const kDebugEnableTestURL = NO;
 BOOL const kDebugEnableTestLocation = YES;
-BOOL const kDebugDisableHTTPRequests = YES;
+BOOL const kDebugDisableHTTPRequests = NO;
 BOOL const kDebugInitialTabIndex = 4;
 
 // Urls
-NSString *const kUrlService = @"http://api.criticalmaps.net/get";
-NSString *const kUrlServiceTest = @"http://api.criticalmaps.net/test";
-NSString *const kUrlServiceChat = @"http://api.criticalmaps.net/postv2";
+NSString *const kUrlService = @"http://api.criticalmaps.net/postv2";
 
 // Notifications
 NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";

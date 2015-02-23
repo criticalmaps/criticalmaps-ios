@@ -89,23 +89,47 @@
     NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
     NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"";
     
-    NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
     
-    DLog(@"request() parameters: %@", parameters);
+    NSString *requestUrl = kUrlService;
     
-    NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
+    //    NSDictionary *messageJson = @ {
+    //        @"timestamp": [PLUtils getTimestamp],
+    //        @"identifier": _data.uid,
+    //        @"text": message
+    //    };
     
-    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        _otherLocations = [responseObject objectForKey:@"locations"];
-        DLog(@"locations: %@", _otherLocations);
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DLog(@"Error: %@", error);
-    }];
+    NSDictionary *params = @ {
+        @"device": _uid,
+        @"location" : @{
+                        @"longitude" :  longitudeString,
+                        @"latitude" :  latitudeString
+                        }
+        //@"messages": @[messageJson]
+    };
     
-    if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
-        [self disableGps];
-    }
+    DLog(@"Request Object: %@", params);
+    
+    [_requestManager POST:requestUrl parameters:params
+                  success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         DLog(@"JSON: %@", responseObject);
+     }
+                  failure:
+     ^(AFHTTPRequestOperation *operation, NSError *error) {
+         DLog(@"Error: %@", error);
+     }];
+    
+    //    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //        _otherLocations = [responseObject objectForKey:@"locations"];
+    //        DLog(@"locations: %@", _otherLocations);
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
+    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    //        DLog(@"Error: %@", error);
+    //    }];
+    //
+    //    if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
+    //        [self disableGps];
+    //    }
 }
 
 - (void)enableGps{
@@ -151,7 +175,7 @@
     
     if(_updateCount == 0){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
-
+        
         if(!(kDebug && kDebugDisableHTTPRequests)){
             [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
         }
