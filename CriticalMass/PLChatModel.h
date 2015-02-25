@@ -10,9 +10,10 @@
 #import "AFNetworking.h"
 #import "PLDataModel.h"
 
+@class PLDataModel;
+
 @interface PLChatModel : NSObject
 
-@property(nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 @property(nonatomic, strong) PLDataModel *data;
 @property(nonatomic, strong) NSMutableArray *userMessages;
 @property(nonatomic, strong) NSMutableArray *allMessages;

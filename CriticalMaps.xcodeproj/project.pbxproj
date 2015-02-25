@@ -33,6 +33,7 @@
 		94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089219BDEC9C009FFF43 /* PLMapViewController.m */; };
 		94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089519BDECAE009FFF43 /* PLRulesViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
+		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,8 @@
 		94CF089519BDECAE009FFF43 /* PLRulesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLRulesViewController.m; sourceTree = "<group>"; };
 		94CF089719BDF227009FFF43 /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
 		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
+		94DC348C1A9E5C39000E9D85 /* PLChatObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatObject.h; sourceTree = "<group>"; };
+		94DC348D1A9E5C39000E9D85 /* PLChatObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLChatObject.m; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
 		EB65E4E1C81486F82961461F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */,
 				94AD50441A963D0600547B40 /* PLChatModel.h */,
 				94AD50451A963D0600547B40 /* PLChatModel.m */,
+				94DC348C1A9E5C39000E9D85 /* PLChatObject.h */,
+				94DC348D1A9E5C39000E9D85 /* PLChatObject.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
 				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
+				94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
 				94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */,

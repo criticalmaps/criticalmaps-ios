@@ -7,6 +7,7 @@
 //
 
 #import "PLChatViewController.h"
+#import "PLChatObject.h"
 
 @interface PLChatViewController ()
 
@@ -52,6 +53,9 @@
     
     [_chatModel collectMessage: self.textField.text];
     self.textField.text = @"";
+    /*
+     TODO: reload on notification
+     */
     [self.tableView reloadData];
 }
 
@@ -78,9 +82,9 @@
     
 //    DLog(@"messages: %@", _chatModel.userMessages);
     
-    NSString *message = [_chatModel.userMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
+    PLChatObject *message = [_chatModel.userMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
 
-    cell.textLabel.text = message;
+    cell.textLabel.text = message.text;
 
     return cell;
 }

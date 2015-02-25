@@ -10,6 +10,7 @@
 #import "PLConstants.h"
 #import "PLUtils.h"
 #import <NSString+Hashes.h>
+#import "PLChatModel.h"
 
 @implementation PLDataModel
 
@@ -61,8 +62,10 @@
 
 - (void)initHTTPRequestManager
 {
-    _requestManager = [AFHTTPRequestOperationManager manager];
-    _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    _operationManager = [AFHTTPRequestOperationManager manager];
+    _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
 }
 
 - (void)startRequestInterval
@@ -92,44 +95,41 @@
     
     NSString *requestUrl = kUrlService;
     
-    //    NSDictionary *messageJson = @ {
-    //        @"timestamp": [PLUtils getTimestamp],
-    //        @"identifier": _data.uid,
-    //        @"text": message
-    //    };
+//        NSDictionary *messageJson = @ {
+//            @"timestamp": [PLUtils getTimestamp],
+//            @"identifier": _data.uid,
+//            @"text": message
+//        };
+    
+    /*
+     TODO: Fucked up shit
+     */
+    NSData *messageJson = [NSJSONSerialization dataWithJSONObject:_chatModel.userMessages[0] options:NSJSONWritingPrettyPrinted error:nil];
     
     NSDictionary *params = @ {
         @"device": _uid,
         @"location" : @{
                         @"longitude" :  longitudeString,
                         @"latitude" :  latitudeString
-                        }
-        //@"messages": @[messageJson]
+                        },
+        @"messages": @[messageJson]
     };
     
     DLog(@"Request Object: %@", params);
     
-    [_requestManager POST:requestUrl parameters:params
-                  success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         DLog(@"JSON: %@", responseObject);
-     }
-                  failure:
-     ^(AFHTTPRequestOperation *operation, NSError *error) {
-         DLog(@"Error: %@", error);
-     }];
+    [_operationManager POST:requestUrl parameters:params
+                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        _otherLocations = [responseObject objectForKey:@"locations"];
+                        DLog(@"locations: %@", _otherLocations);
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
+                    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+                        DLog(@"Error: %@", error);
+                    }];
     
-    //    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    //        _otherLocations = [responseObject objectForKey:@"locations"];
-    //        DLog(@"locations: %@", _otherLocations);
-    //        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
-    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //        DLog(@"Error: %@", error);
-    //    }];
-    //
-    //    if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
-    //        [self disableGps];
-    //    }
+    if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
+        [self disableGps];
+    }
 }
 
 - (void)enableGps{

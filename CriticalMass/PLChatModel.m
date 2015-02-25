@@ -9,6 +9,8 @@
 #import "PLChatModel.h"
 #import "PLUtils.h"
 #import "PLConstants.h"
+#import "PLChatObject.h"
+#import <NSString+Hashes.h>
 
 @implementation PLChatModel
 
@@ -25,45 +27,26 @@
     if (self = [super init]) {
         _data = [PLDataModel sharedManager];
         _userMessages = [[NSMutableArray alloc] init];
-        [self initHTTPRequestManager];
     }
     return self;
 }
 
-- (void)initHTTPRequestManager {
-    _requestManager = [AFHTTPRequestOperationManager manager];
-    _requestManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-}
 
 - (void)collectMessage:(NSString*) message {
     
-    [_userMessages addObject:message];
+    PLChatObject *chatObject = [[PLChatObject alloc] init];
     
-    /*
+    NSString *timestamp = [PLUtils getTimestamp];
+    NSString *messageId = [NSString stringWithFormat:@"%@%@", _data.uid, timestamp];
     
-    NSDictionary *messageJson = @ {
-        @"timestamp": [PLUtils getTimestamp],
-        @"identifier": _data.uid,
-        @"text": message
-    };
+    chatObject.text = message;
+    chatObject.identifier = [NSString stringWithFormat:@"%@",[messageId md5]];
+    chatObject.timestamp = timestamp;
     
-    NSDictionary *params = @ {
-        @"messages": @[messageJson]
-    };
+    [_userMessages addObject:chatObject];
     
-    DLog(@"Request Object: %@", params);
+    [_data request];
     
-    [kUrlService_requestManager POST:kUrlServiceChat parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
-        DLog(@"JSON: %@", responseObject);
-    }
-          failure:
-     ^(AFHTTPRequestOperation *operation, NSError *error) {
-        DLog(@"Error: %@", error);
-     }];
-     */
 }
 
 @end

@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "AFNetworking.h"
+#import "PLChatModel.h"
+
+@class PLChatModel;
 
 @interface PLDataModel : NSObject<CLLocationManagerDelegate>{
     
     CLLocationManager *_locationManager;
-    AFHTTPRequestOperationManager *_requestManager;
+    AFHTTPRequestOperationManager *_operationManager;
     NSTimer *_timer;
     NSUInteger _updateCount;
     NSUInteger _requestCount;
@@ -25,9 +28,11 @@
 @property (nonatomic, readonly) BOOL gpsEnabled;
 @property (nonatomic, assign) BOOL gpsEnabledUser;
 @property (nonatomic, assign) BOOL isBackroundMode;
+@property (nonatomic, strong) PLChatModel *chatModel;
 
 + (id)sharedManager;
 - (void)enableGps;
 - (void)disableGps;
+- (void)request;
 
 @end
