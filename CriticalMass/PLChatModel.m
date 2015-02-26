@@ -33,7 +33,6 @@
     return self;
 }
 
-
 - (void)collectMessage:(NSString*) text {
     
     NSString *timestamp = [PLUtils getTimestamp];
@@ -48,33 +47,27 @@
     
     [_userMessages setObject:chatObject forKey:messageIdHashed];
     
-    [_data request];
     
-}
-
-- (NSArray*)getMessagesArray {
-    NSMutableArray *ret = [[NSMutableArray alloc] init];
     
-    for (id key in _userMessages) {
-        
-        PLChatObject *chatObject = [_userMessages objectForKey:key];
-        
-        NSDictionary *messageJson = @ {
-            @"timestamp": chatObject.timestamp,
-            @"identifier": chatObject.identifier,
-            @"text": chatObject.text
-        };
-        [ret addObject:messageJson];
-    }
+//    [_data request];
     
-    return ret;
+    // concat dicts
+    [_allMessages addEntriesFromDictionary:_userMessages];
+    
+    // get keys
+    _allKeys = [_allMessages allKeys];
+    
+    // notify view
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
+    
 }
 
 - (void)setMessages: (NSDictionary*)messages {
-
-//    [_remoteMessages removeAllObjects];
+    
+    //    [_remoteMessages removeAllObjects];
     
     for(id key in messages){
+        
         NSDictionary *message = [messages objectForKey:key];
         
         // create chat object
@@ -95,9 +88,29 @@
     [_allMessages addEntriesFromDictionary:_userMessages];
     
     // get keys
-    _allKeys = [_allMessages allKeys];
+    _allKeys = [[_allMessages allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
     
     // notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
 }
+
+- (NSArray*)getMessagesArray {
+    NSMutableArray *ret = [[NSMutableArray alloc] init];
+    
+    for (id key in _userMessages) {
+        
+        PLChatObject *chatObject = [_userMessages objectForKey:key];
+        
+        NSDictionary *messageJson = @ {
+            @"timestamp": chatObject.timestamp,
+            @"identifier": chatObject.identifier,
+            @"text": chatObject.text
+        };
+        [ret addObject:messageJson];
+    }
+    
+    return ret;
+}
+
+
 @end

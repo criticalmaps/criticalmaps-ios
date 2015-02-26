@@ -57,10 +57,6 @@
     
     [_chatModel collectMessage: self.textField.text];
     self.textField.text = @"";
-    /*
-     TODO: reload on notification
-     */
-//    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -88,6 +84,10 @@
     PLChatObject *message = [_chatModel.allMessages objectForKey:_chatModel.allKeys[indexPath.row]];
 
     cell.textLabel.text = message.text;
+    
+    if(!message.isActive){
+        [cell.textLabel setTextColor:[UIColor redColor]];
+    }
 
     return cell;
 }
