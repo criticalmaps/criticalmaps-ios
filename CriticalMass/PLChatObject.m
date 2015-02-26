@@ -13,5 +13,6 @@
 @synthesize timestamp;
 @synthesize identifier;
 @synthesize text;
+@synthesize isActive;
 
 @end

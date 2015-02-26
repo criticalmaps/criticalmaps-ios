@@ -8,6 +8,7 @@
 
 #import "PLChatViewController.h"
 #import "PLChatObject.h"
+#import "PLConstants.h"
 
 @interface PLChatViewController ()
 
@@ -18,7 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _dataModel = [PLDataModel sharedManager];
     _chatModel = [PLChatModel sharedManager];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessagesReceived) name:kNotificationChatMessagesReceived object:_chatModel];
     
     // add table
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-140)];
@@ -56,7 +60,7 @@
     /*
      TODO: reload on notification
      */
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -72,20 +76,24 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
 
     
-    if(!_chatModel.userMessages){
+    if(!_chatModel.allMessages){
         return cell;
     }
     
-    if(!(_chatModel.userMessages.count > indexPath.row)){
+    if(!(_chatModel.allMessages.count > indexPath.row)){
         return cell;
     }
     
-//    
-//    PLChatObject *message = [_chatModel.userMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
-//
-//    cell.textLabel.text = message.text;
+//    PLChatObject *message = [_chatModel.allMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
+    PLChatObject *message = [_chatModel.allMessages objectForKey:_chatModel.allKeys[indexPath.row]];
+
+    cell.textLabel.text = message.text;
 
     return cell;
+}
+
+- (void)onMessagesReceived {
+    [self.tableView reloadData];
 }
 
 

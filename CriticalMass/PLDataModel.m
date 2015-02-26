@@ -25,14 +25,11 @@
 - (id)init {
     if (self = [super init]) {
         
-        
         _gpsEnabledUser = YES;
         
         [self initUserId];
         [self initLocationManager];
         [self initHTTPRequestManager];
-        
-        
     }
     return self;
 }

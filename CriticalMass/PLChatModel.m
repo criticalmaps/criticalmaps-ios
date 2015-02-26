@@ -26,7 +26,9 @@
 - (id)init {
     if (self = [super init]) {
         _data = [PLDataModel sharedManager];
+        _allMessages = [[NSMutableDictionary alloc] init];
         _userMessages = [[NSMutableDictionary alloc] init];
+        _allMessages = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -38,15 +40,11 @@
     NSString *messageId = [NSString stringWithFormat:@"%@%@", _data.uid, timestamp];
     NSString *messageIdHashed = [messageId md5];
     
-//    NSDictionary *message = @{
-//                             @"text": text,
-//                             @"timestamp": timestamp
-//                             };
-    
     PLChatObject *chatObject = [[PLChatObject alloc] init];
     chatObject.identifier = messageIdHashed;
     chatObject.timestamp = timestamp;
     chatObject.text = text;
+    chatObject.isActive = false;
     
     [_userMessages setObject:chatObject forKey:messageIdHashed];
     
@@ -74,11 +72,32 @@
 
 - (void)setMessages: (NSDictionary*)messages {
 
-    _allMessages = messages;
+//    [_remoteMessages removeAllObjects];
     
-    //remove local messages when id is approved
     for(id key in messages){
+        NSDictionary *message = [messages objectForKey:key];
+        
+        // create chat object
+        PLChatObject *co = [[PLChatObject alloc] init];
+        co.identifier = key;
+        co.timestamp = [message objectForKey:@"timestamp"];
+        co.text = [message objectForKey:@"message"];
+        co.isActive = true;
+        
+        // fill dict
+        [_allMessages setObject:co forKey:key];
+        
+        // remove local messages
         [_userMessages removeObjectForKey:key];
     }
+    
+    // concat dicts
+    [_allMessages addEntriesFromDictionary:_userMessages];
+    
+    // get keys
+    _allKeys = [_allMessages allKeys];
+    
+    // notify view
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
 }
 @end

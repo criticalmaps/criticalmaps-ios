@@ -16,8 +16,8 @@
 
 @property(nonatomic, strong) PLDataModel *data;
 @property(nonatomic, strong) NSMutableDictionary *userMessages;
-@property(nonatomic, strong) NSArray *userMessagesKeys;
-@property(nonatomic, strong) NSDictionary *allMessages;
+@property(nonatomic, strong) NSMutableDictionary *allMessages;
+@property(nonatomic, strong) NSArray *allKeys;
 
 + (id)sharedManager;
 - (void)collectMessage:(NSString*)message;

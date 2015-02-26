@@ -13,9 +13,10 @@
 
 @interface PLChatViewController : UIViewController<UITableViewDataSource, UITableViewDataSource>
 
+@property (nonatomic, strong) PLChatModel *chatModel;
+@property (nonatomic, strong) PLDataModel *dataModel;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIButton *btnSend;
-@property (nonatomic, strong) PLChatModel *chatModel;
 
 @end

@@ -26,6 +26,7 @@ NSString *const kUrlService = @"http://api.criticalmaps.net/postv2";
 NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";
 NSString *const kNotificationPositionOthersChanged = @"positionOthersChanged";
 NSString *const kNotificationGpsStateChanged = @"gpsStateChanged";
+NSString *const kNotificationChatMessagesReceived = @"chatMessagesReceived";
 
 // Misc
 NSTimeInterval const kRequestRepeatTime = 30.0;
