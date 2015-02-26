@@ -112,9 +112,12 @@
                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
                         DLog(@"Resonse Object: %@", responseObject);
-                        
                         _otherLocations = [responseObject objectForKey:@"locations"];
                         DLog(@"locations: %@", _otherLocations);
+                        
+                        NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
+                        [_chatModel setMessages: chatMessages];
+                        
                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
                     } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
                         DLog(@"Error: %@", error);

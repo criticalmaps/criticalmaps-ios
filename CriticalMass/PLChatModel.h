@@ -19,7 +19,8 @@
 @property(nonatomic, strong) NSMutableArray *allMessages;
 
 + (id)sharedManager;
-- (void)collectMessage:(NSString*) message;
+- (void)collectMessage:(NSString*)message;
 - (NSArray*)getMessagesArray;
+- (void)setMessages:(NSDictionary*)messages;
 
 @end

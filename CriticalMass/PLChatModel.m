@@ -64,4 +64,10 @@
     return ret;
 }
 
+- (void)setMessages: (NSDictionary*)messages {
+    
+//    for(id key in messages){
+//        
+//    }
+}
 @end
