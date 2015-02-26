@@ -49,4 +49,19 @@
     
 }
 
+- (NSArray*)getMessagesArray {
+    NSMutableArray *ret = [[NSMutableArray alloc] init];
+    
+    for (PLChatObject *chatObject in _userMessages) {
+        NSDictionary *messageJson = @ {
+            @"timestamp": chatObject.timestamp,
+            @"identifier": chatObject.identifier,
+            @"text": chatObject.text
+        };
+        [ret addObject:messageJson];
+    }
+    
+    return ret;
+}
+
 @end

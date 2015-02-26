@@ -20,5 +20,6 @@
 
 + (id)sharedManager;
 - (void)collectMessage:(NSString*) message;
+- (NSArray*)getMessagesArray;
 
 @end

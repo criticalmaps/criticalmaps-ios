@@ -10,7 +10,6 @@
 #import "PLConstants.h"
 #import "PLUtils.h"
 #import <NSString+Hashes.h>
-#import "PLChatModel.h"
 
 @implementation PLDataModel
 
@@ -26,11 +25,13 @@
 - (id)init {
     if (self = [super init]) {
         
+        
         _gpsEnabledUser = YES;
         
         [self initUserId];
         [self initLocationManager];
         [self initHTTPRequestManager];
+        
         
     }
     return self;
@@ -87,24 +88,14 @@
 
 - (void)request
 {
+    
+    _chatModel = [PLChatModel sharedManager];
+    
     _requestCount++;
     
     NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
     NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"";
-    
-    
     NSString *requestUrl = kUrlService;
-    
-//        NSDictionary *messageJson = @ {
-//            @"timestamp": [PLUtils getTimestamp],
-//            @"identifier": _data.uid,
-//            @"text": message
-//        };
-    
-    /*
-     TODO: Fucked up shit
-     */
-    NSData *messageJson = [NSJSONSerialization dataWithJSONObject:_chatModel.userMessages[0] options:NSJSONWritingPrettyPrinted error:nil];
     
     NSDictionary *params = @ {
         @"device": _uid,
@@ -112,13 +103,15 @@
                         @"longitude" :  longitudeString,
                         @"latitude" :  latitudeString
                         },
-        @"messages": @[messageJson]
+        @"messages": [_chatModel getMessagesArray]
     };
     
     DLog(@"Request Object: %@", params);
     
     [_operationManager POST:requestUrl parameters:params
                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        DLog(@"Resonse Object: %@", responseObject);
                         
                         _otherLocations = [responseObject objectForKey:@"locations"];
                         DLog(@"locations: %@", _otherLocations);

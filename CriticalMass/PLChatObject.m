@@ -10,4 +10,8 @@
 
 @implementation PLChatObject
 
+@synthesize timestamp;
+@synthesize identifier;
+@synthesize text;
+
 @end
