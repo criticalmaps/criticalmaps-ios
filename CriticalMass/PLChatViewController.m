@@ -68,6 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
 
     
@@ -79,12 +80,10 @@
         return cell;
     }
     
-    
-//    DLog(@"messages: %@", _chatModel.userMessages);
-    
-    PLChatObject *message = [_chatModel.userMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
-
-    cell.textLabel.text = message.text;
+//    
+//    PLChatObject *message = [_chatModel.userMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
+//
+//    cell.textLabel.text = message.text;
 
     return cell;
 }

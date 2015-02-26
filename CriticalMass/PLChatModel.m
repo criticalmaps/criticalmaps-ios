@@ -26,24 +26,29 @@
 - (id)init {
     if (self = [super init]) {
         _data = [PLDataModel sharedManager];
-        _userMessages = [[NSMutableArray alloc] init];
+        _userMessages = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 
-- (void)collectMessage:(NSString*) message {
-    
-    PLChatObject *chatObject = [[PLChatObject alloc] init];
+- (void)collectMessage:(NSString*) text {
     
     NSString *timestamp = [PLUtils getTimestamp];
     NSString *messageId = [NSString stringWithFormat:@"%@%@", _data.uid, timestamp];
+    NSString *messageIdHashed = [messageId md5];
     
-    chatObject.text = message;
-    chatObject.identifier = [NSString stringWithFormat:@"%@",[messageId md5]];
+//    NSDictionary *message = @{
+//                             @"text": text,
+//                             @"timestamp": timestamp
+//                             };
+    
+    PLChatObject *chatObject = [[PLChatObject alloc] init];
+    chatObject.identifier = messageIdHashed;
     chatObject.timestamp = timestamp;
+    chatObject.text = text;
     
-    [_userMessages addObject:chatObject];
+    [_userMessages setObject:chatObject forKey:messageIdHashed];
     
     [_data request];
     
@@ -52,7 +57,10 @@
 - (NSArray*)getMessagesArray {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
     
-    for (PLChatObject *chatObject in _userMessages) {
+    for (id key in _userMessages) {
+        
+        PLChatObject *chatObject = [_userMessages objectForKey:key];
+        
         NSDictionary *messageJson = @ {
             @"timestamp": chatObject.timestamp,
             @"identifier": chatObject.identifier,
@@ -65,9 +73,12 @@
 }
 
 - (void)setMessages: (NSDictionary*)messages {
+
+    _allMessages = messages;
     
-//    for(id key in messages){
-//        
-//    }
+    //remove local messages when id is approved
+    for(id key in messages){
+        [_userMessages removeObjectForKey:key];
+    }
 }
 @end

@@ -15,8 +15,9 @@
 @interface PLChatModel : NSObject
 
 @property(nonatomic, strong) PLDataModel *data;
-@property(nonatomic, strong) NSMutableArray *userMessages;
-@property(nonatomic, strong) NSMutableArray *allMessages;
+@property(nonatomic, strong) NSMutableDictionary *userMessages;
+@property(nonatomic, strong) NSArray *userMessagesKeys;
+@property(nonatomic, strong) NSDictionary *allMessages;
 
 + (id)sharedManager;
 - (void)collectMessage:(NSString*)message;
