@@ -113,7 +113,7 @@
                         DLog(@"locations: %@", _otherLocations);
                         
                         NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
-                        [_chatModel setMessages: chatMessages];
+                        [_chatModel addMessages: chatMessages];
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
                     } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {

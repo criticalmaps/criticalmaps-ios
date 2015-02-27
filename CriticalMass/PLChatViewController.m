@@ -63,7 +63,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _chatModel.messages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,16 +72,15 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
 
     
-    if(!_chatModel.allMessages){
+    if(!_chatModel.messages){
         return cell;
     }
     
-    if(!(_chatModel.allMessages.count > indexPath.row)){
+    if(!(_chatModel.messages.count > indexPath.row)){
         return cell;
     }
     
-//    PLChatObject *message = [_chatModel.allMessages objectAtIndex:_chatModel.userMessages.count - 1 - indexPath.row];
-    PLChatObject *message = [_chatModel.allMessages objectForKey:_chatModel.allKeys[indexPath.row]];
+    PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
 
     cell.textLabel.text = message.text;
     
@@ -94,6 +93,8 @@
 
 - (void)onMessagesReceived {
     [self.tableView reloadData];
+    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.messages.count-1 inSection: 0];
+    [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
 }
 
 
