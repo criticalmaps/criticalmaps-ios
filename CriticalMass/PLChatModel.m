@@ -67,7 +67,9 @@
             PLChatObject *co = [[PLChatObject alloc] init];
             co.identifier = key;
             co.timestamp = [message objectForKey:@"timestamp"];
-            co.text = [message objectForKey:@"message"];
+            co.text = [[[message objectForKey:@"message"]
+                        stringByReplacingOccurrencesOfString:@"+" withString:@" "]
+                        stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             co.isActive = true;
             
             // fill dict
