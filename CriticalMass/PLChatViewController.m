@@ -30,13 +30,16 @@
     [self.view addSubview: self.tableView];
     
     // add textfield
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-120, 250, 70)];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-110, 240, 50)];
     self.textField.layer.borderWidth = 1.0;
+    self.textField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.textField.layer.cornerRadius = 3;
+    
     [self.view addSubview: self.textField];
     
     // add button
-    self.btnSend = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.btnSend.frame = CGRectMake(250,  self.view.frame.size.height-120, 70, 70);
+    self.btnSend = [HOButton buttonWithType:UIButtonTypeRoundedRect];
+    self.btnSend.frame = CGRectMake(260,  self.view.frame.size.height-110, 50, 50);
     self.btnSend.layer.borderWidth = 1.0;
     [self.btnSend addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
     [self.btnSend setTitle:@"send" forState:UIControlStateNormal];
@@ -50,7 +53,7 @@
 
 - (void)onSend {
     DLog(@"send %@", self.textField.text);
-
+    
     if([self.textField.text isEqualToString: @""]){
         return;
     }
@@ -70,7 +73,6 @@
 {
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-
     
     if(!_chatModel.messages){
         return cell;
@@ -81,13 +83,14 @@
     }
     
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
-
+    
     cell.textLabel.text = message.text;
+    cell.imageView.image = [UIImage imageNamed:@"Arrow"];
     
     if(!message.isActive){
         [cell.textLabel setTextColor:[UIColor redColor]];
     }
-
+    
     return cell;
 }
 

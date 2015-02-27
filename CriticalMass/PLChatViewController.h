@@ -17,6 +17,6 @@
 @property (nonatomic, strong) PLDataModel *dataModel;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, strong) UIButton *btnSend;
+@property (nonatomic, strong) HOButton *btnSend;
 
 @end
