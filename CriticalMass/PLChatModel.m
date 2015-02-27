@@ -45,7 +45,7 @@
     
     [_messages addObject:co];
     
-    [_data request];
+//    [_data request];
     
     // notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];

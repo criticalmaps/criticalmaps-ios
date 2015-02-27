@@ -46,13 +46,16 @@
     [self.view addSubview: self.btnSend];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self.textField becomeFirstResponder];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (void)onSend {
-    DLog(@"send %@", self.textField.text);
     
     if([self.textField.text isEqualToString: @""]){
         return;
@@ -85,11 +88,27 @@
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
     
     cell.textLabel.text = message.text;
-    cell.imageView.image = [UIImage imageNamed:@"Arrow"];
+    cell.imageView.image = [UIImage imageNamed:@"Punk"];
+    cell.imageView.frame = CGRectMake(0,0,12,12);
     
-    if(!message.isActive){
-        [cell.textLabel setTextColor:[UIColor redColor]];
+    if(message.isActive){
+        return cell;
     }
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    // Spacer is a 1x1 transparent png
+    UIImage *spacer = [UIImage imageNamed:@"Spacer"];
+    
+    UIGraphicsBeginImageContext(spinner.frame.size);
+    
+    [spacer drawInRect:CGRectMake(0,0,spinner.frame.size.width,spinner.frame.size.height)];
+    UIImage* resizedSpacer = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    cell.imageView.image = resizedSpacer;
+    [cell.imageView addSubview:spinner];
+    [spinner startAnimating];
     
     return cell;
 }
