@@ -7,7 +7,7 @@
 //
 
 #import "PLSettingsTableViewController.h"
-#import "PLData.h"
+#import "PLDataModel.h"
 #import "PLConstants.h"
 
 @interface PLSettingsTableViewController ()
@@ -15,7 +15,7 @@
 @end
 
 @implementation PLSettingsTableViewController{
-    PLData *_data;
+    PLDataModel *_data;
     UISwitch *_gpsSwitch;
 }
 
@@ -23,7 +23,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        _data = [PLData sharedManager];
+        _data = [PLDataModel sharedManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateGpsSwitch) name:kNotificationGpsStateChanged object:_data];
     }
     return self;

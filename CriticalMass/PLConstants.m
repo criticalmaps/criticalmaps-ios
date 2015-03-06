@@ -16,20 +16,17 @@
 BOOL const kDebug = YES;
 BOOL const kDebugEnableTestURL = NO;
 BOOL const kDebugEnableTestLocation = YES;
-BOOL const kDebugDisableHTTPRequests = YES;
-BOOL const kDebugInitialTabIndex = 0;
+BOOL const kDebugDisableHTTPRequests = NO;
+BOOL const kDebugInitialTabIndex = 4;
 
 // Urls
-NSString *const kUrlService = @"http://api.criticalmaps.net/get";
-NSString *const kUrlServiceTest = @"http://api.criticalmaps.net/test";
-//NSString *const kUrlService = @"http://criticalmass.stephanlindauer.de/get.php";
-//NSString *const kUrlServiceTest = @"http://criticalmass.stephanlindauer.de/test.php";
-//NSString *const kUrlTile = @"http://tile.openstreetmap.org/{z}/{x}/{y}.png";
+NSString *const kUrlService = @"http://api.criticalmaps.net/postv2";
 
 // Notifications
 NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";
 NSString *const kNotificationPositionOthersChanged = @"positionOthersChanged";
 NSString *const kNotificationGpsStateChanged = @"gpsStateChanged";
+NSString *const kNotificationChatMessagesReceived = @"chatMessagesReceived";
 
 // Misc
 NSTimeInterval const kRequestRepeatTime = 30.0;

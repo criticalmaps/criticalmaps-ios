@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     
-    _data = [PLData sharedManager];
+    _data = [PLDataModel sharedManager];
     
     [self initMap];
     [self addButtonNavigate];
