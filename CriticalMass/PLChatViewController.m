@@ -27,41 +27,41 @@
     // add table
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-140)];
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     [self.view addSubview: self.tableView];
     
+    // add
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [self.tableView addGestureRecognizer:gesture];
+    
+    // add control
+    self.controlView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-110, self.view.frame.size.width, 50)];
+    [self.view addSubview:self.controlView];
+    
+    
     // add textfield
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-110, 240, 50)];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 240, 50)];
     self.textField.layer.borderWidth = 1.0;
     self.textField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.textField.layer.cornerRadius = 3;
-    
-    [self.view addSubview: self.textField];
+    self.textField.delegate = self;
+    [self.controlView addSubview: self.textField];
     
     // add button
     self.btnSend = [HOButton buttonWithType:UIButtonTypeRoundedRect];
-    self.btnSend.frame = CGRectMake(260,  self.view.frame.size.height-110, 50, 50);
+    self.btnSend.frame = CGRectMake(260,  0, 50, 50);
     self.btnSend.layer.borderWidth = 1.0;
     [self.btnSend addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
     [self.btnSend setTitle:@"send" forState:UIControlStateNormal];
-    [self.view addSubview: self.btnSend];
+    [self.controlView addSubview: self.btnSend];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-
+    
     [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessagesReceived) name:kNotificationChatMessagesReceived object:_chatModel];
     
-    // register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -71,78 +71,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kNotificationChatMessagesReceived
                                                   object:nil];
-    
-    // unregister for keyboard notifications while not visible.
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
 }
 
--(void)keyboardWillShow {
-    // Animate the current view out of the way
-    if (self.view.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)keyboardWillHide {
-    if (self.view.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)sender
-{
-    if ([sender isEqual:self.textField])
-    {
-        //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y >= 0)
-        {
-            [self setViewMovedUp:YES];
-        }
-    }
-}
-
-//method to move the view up/down whenever the keyboard is shown/dismissed
--(void)setViewMovedUp:(BOOL)movedUp
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+-(void)viewDidAppear:(BOOL)animated{
     
-    CGRect rect = self.view.frame;
-    CGRect rectTable = self.tableView.frame;
-    if (movedUp)
-    {
-        rectTable.origin.y += kOFFSET_FOR_KEYBOARD;
-        rectTable.size.height -= kOFFSET_FOR_KEYBOARD;
-        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rect.size.height += kOFFSET_FOR_KEYBOARD;
-    }
-    else
-    {
-        rectTable.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rectTable.size.height += kOFFSET_FOR_KEYBOARD;
-        rect.origin.y += kOFFSET_FOR_KEYBOARD;
-        rect.size.height -= kOFFSET_FOR_KEYBOARD;
-    }
-    self.view.frame = rect;
-    self.tableView.frame = rectTable;
+    [super viewDidAppear:animated];
+    [self.view endEditing:YES]; // Hide keyboard
     
-    [UIView commitAnimations];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -158,6 +93,30 @@
     
     [_chatModel collectMessage: self.textField.text];
     self.textField.text = @"";
+}
+
+- (void)moveContent:(BOOL)moveUp{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rectControl = self.controlView.frame;
+    CGRect rectTable = self.tableView.frame;
+    if (moveUp)
+    {
+        rectTable.size.height -= kOFFSET_FOR_KEYBOARD;
+        rectControl.origin.y -= kOFFSET_FOR_KEYBOARD;
+        
+    }
+    else
+    {
+        rectTable.size.height += kOFFSET_FOR_KEYBOARD;
+        rectControl.origin.y += kOFFSET_FOR_KEYBOARD;
+    }
+    
+    self.tableView.frame = rectTable;
+    self.controlView.frame = rectControl;
+    
+    [UIView commitAnimations];
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -208,10 +167,28 @@
     return cell;
 }
 
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self moveContent:YES];
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    [self moveContent:NO];
+}
+
+- (void)onTap:(UITapGestureRecognizer *)recognizer {
+    [self.view endEditing:YES]; // Hide keyboard
+}
+
 - (void)onMessagesReceived {
     [self.tableView reloadData];
-    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.messages.count-1 inSection: 0];
-    [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
+    //    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.messages.count-1 inSection: 0];
+    //    [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.textField resignFirstResponder];
 }
 
 
