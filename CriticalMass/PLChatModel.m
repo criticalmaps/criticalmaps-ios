@@ -41,7 +41,7 @@
     co.identifier = messageIdHashed;
     co.timestamp = timestamp;
     co.text = text;
-    co.isActive = false;
+    co.isActive = NO;
     
     [_messages addObject:co];
     
@@ -70,7 +70,7 @@
             co.text = [[[message objectForKey:@"message"]
                         stringByReplacingOccurrencesOfString:@"+" withString:@" "]
                         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            co.isActive = true;
+            co.isActive = YES;
             
             // fill dict
             [_messages addObject:co];
