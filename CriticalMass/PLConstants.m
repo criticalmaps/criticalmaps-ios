@@ -18,6 +18,8 @@ BOOL const kDebugEnableTestURL = NO;
 BOOL const kDebugEnableTestLocation = YES;
 BOOL const kDebugDisableHTTPRequests = NO;
 BOOL const kDebugInitialTabIndex = 4;
+BOOL const kDebugShowAppirater = NO;
+
 
 // Urls
 NSString *const kUrlService = @"http://api.criticalmaps.net/postv2";
