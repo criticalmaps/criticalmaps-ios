@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Pokus Labs. All rights reserved.
 //
 
-#import "PLData.h"
+#import "PLDataModel.h"
 #import "PLConstants.h"
 #import "PLUtils.h"
 #import <NSString+Hashes.h>
 
-@implementation PLData
+@implementation PLDataModel
 
 + (id)sharedManager {
-    static PLData *sharedMyManager = nil;
+    static PLDataModel *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];
@@ -30,7 +30,6 @@
         [self initUserId];
         [self initLocationManager];
         [self initHTTPRequestManager];
-        
     }
     return self;
 }
@@ -61,8 +60,10 @@
 
 - (void)initHTTPRequestManager
 {
-    _requestManager = [AFHTTPRequestOperationManager manager];
-    _requestManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    _operationManager = [AFHTTPRequestOperationManager manager];
+    _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
 }
 
 - (void)startRequestInterval
@@ -84,24 +85,40 @@
 
 - (void)request
 {
+    
+    _chatModel = [PLChatModel sharedManager];
+    
     _requestCount++;
     
     NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
     NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"";
+    NSString *requestUrl = kUrlService;
     
-    NSDictionary *parameters = @{@"device" : _uid, @"longitude" :  longitudeString, @"latitude" :  latitudeString};
+    NSDictionary *params = @ {
+        @"device": _uid,
+        @"location" : @{
+                        @"longitude" :  longitudeString,
+                        @"latitude" :  latitudeString
+                        },
+        @"messages": [_chatModel getMessagesArray]
+    };
     
-    DLog(@"request() parameters: %@", parameters);
+    DLog(@"Request Object: %@", params);
     
-    NSString *requestUrl = (kDebug && kDebugEnableTestURL) ? kUrlServiceTest : kUrlService;
-    
-    [_requestManager GET:requestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        _otherLocations = [responseObject objectForKey:@"locations"];
-        DLog(@"locations: %@", _otherLocations);
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DLog(@"Error: %@", error);
-    }];
+    [_operationManager POST:requestUrl parameters:params
+                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        
+                        DLog(@"Resonse Object: %@", responseObject);
+                        _otherLocations = [responseObject objectForKey:@"locations"];
+                        DLog(@"locations: %@", _otherLocations);
+                        
+                        NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
+                        [_chatModel addMessages: chatMessages];
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
+                    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+                        DLog(@"Error: %@", error);
+                    }];
     
     if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
         [self disableGps];
@@ -151,7 +168,7 @@
     
     if(_updateCount == 0){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
-
+        
         if(!(kDebug && kDebugDisableHTTPRequests)){
             [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
         }
