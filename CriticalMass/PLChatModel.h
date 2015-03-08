@@ -16,6 +16,7 @@
 
 @property(nonatomic, strong) PLDataModel *data;
 @property(nonatomic, strong) NSMutableArray *messages;
+@property(nonatomic, strong) NSArray *sortedMessages;
 
 + (id)sharedManager;
 - (void)collectMessage:(NSString*)message;
