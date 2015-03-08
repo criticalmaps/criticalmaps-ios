@@ -54,14 +54,16 @@
 
 - (void)addMessages: (NSDictionary*)messages {
     
+    // iterate obtained messages
     for(id key in messages){
         
-        PLChatObject *message = [self getMessage:key];
+        NSDictionary *message = [messages objectForKey:key];
+        PLChatObject *co = [self getMessage:key];
         
-        if(message){
-            message.isActive = YES;
+        if(co){
+            co.isActive = YES;
+            co.timestamp = [message objectForKey:@"timestamp"];
         }else{
-            NSDictionary *message = [messages objectForKey:key];
             
             // create chat object
             PLChatObject *co = [[PLChatObject alloc] init];
@@ -77,7 +79,27 @@
         }
     }
     
-    // notify view
+    // iterate existing messages and clear old
+    for (int i = 0; i < [_messages count]; i++) {
+        PLChatObject *co = [_messages objectAtIndex:i];
+        if(co.isActive){
+            if (![messages objectForKey:co.identifier]) {
+                [_messages removeObjectAtIndex:i];
+            }
+        }
+    }
+    
+    // sort
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp"
+                                                 ascending:YES];
+    
+    NSArray *sortDescriptors;
+    sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    _sortedMessages = [_messages sortedArrayUsingDescriptors:sortDescriptors];
+    
+    // Notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
 }
 

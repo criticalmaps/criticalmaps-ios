@@ -123,7 +123,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _chatModel.messages.count;
+    return _chatModel.sortedMessages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,15 +131,15 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     
-    if(!_chatModel.messages){
+    if(!_chatModel.sortedMessages){
         return cell;
     }
     
-    if(!(_chatModel.messages.count > indexPath.row)){
+    if(!(_chatModel.sortedMessages.count > indexPath.row)){
         return cell;
     }
     
-    PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
+    PLChatObject *message = [_chatModel.sortedMessages objectAtIndex:indexPath.row];
     
     cell.textLabel.text = message.text;
     cell.imageView.image = [UIImage imageNamed:@"Punk"];
@@ -182,7 +182,7 @@
 
 - (void)onMessagesReceived {
     [self.tableView reloadData];
-    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.messages.count-1 inSection: 0];
+    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.sortedMessages.count-1 inSection: 0];
     [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
 }
 
