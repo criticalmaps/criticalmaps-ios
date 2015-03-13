@@ -43,16 +43,14 @@
     co.text = text;
     co.isActive = NO;
     
-    // TODO: gucke
     [_messages addObject:co];
     
-    // sort
-    _sortedMessages = [self getSortedMessages]; //WARUM CRASHT DAT?
+    // TODO: sort not working here WTF
+//    [_messages sortUsingDescriptors:
+//     [NSArray arrayWithObjects:
+//      [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES], nil]];
     
-//    NSLog(@"%@",_messages); //WARUM CRASHT DAT?
-//    _sortedMessages = [_messages copy];
-    
-//    [_data request];
+    [_data request];
     
     // notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
@@ -83,7 +81,6 @@
             
             // fill dict
             
-            // TODO: gucke
             [_messages addObject:co];
         }
     }
@@ -99,7 +96,9 @@
     }
     
     // sort
-    _sortedMessages = [self getSortedMessages];
+    [_messages sortUsingDescriptors:
+     [NSArray arrayWithObjects:
+      [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES], nil]];
     
     // Notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
@@ -130,17 +129,6 @@
         }
     }
     return ret;
-}
-
-- (NSArray*)getSortedMessages {
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp"
-                                                 ascending:YES];
-    
-    NSArray *sortDescriptors;
-    sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    return [_messages sortedArrayUsingDescriptors:sortDescriptors];
 }
 
 @end
