@@ -45,6 +45,11 @@
     
     [_messages addObject:co];
     
+    // TODO: sort not working here WTF
+//    [_messages sortUsingDescriptors:
+//     [NSArray arrayWithObjects:
+//      [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES], nil]];
+    
     [_data request];
     
     // notify view
@@ -75,6 +80,7 @@
             co.isActive = YES;
             
             // fill dict
+            
             [_messages addObject:co];
         }
     }
@@ -90,14 +96,9 @@
     }
     
     // sort
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp"
-                                                 ascending:YES];
-    
-    NSArray *sortDescriptors;
-    sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    _sortedMessages = [_messages sortedArrayUsingDescriptors:sortDescriptors];
+    [_messages sortUsingDescriptors:
+     [NSArray arrayWithObjects:
+      [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES], nil]];
     
     // Notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
@@ -129,6 +130,5 @@
     }
     return ret;
 }
-
 
 @end
