@@ -43,9 +43,16 @@
     co.text = text;
     co.isActive = NO;
     
+    // TODO: gucke
     [_messages addObject:co];
     
-    [_data request];
+    // sort
+    _sortedMessages = [self getSortedMessages]; //WARUM CRASHT DAT?
+    
+//    NSLog(@"%@",_messages); //WARUM CRASHT DAT?
+//    _sortedMessages = [_messages copy];
+    
+//    [_data request];
     
     // notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
@@ -75,6 +82,8 @@
             co.isActive = YES;
             
             // fill dict
+            
+            // TODO: gucke
             [_messages addObject:co];
         }
     }
@@ -90,14 +99,7 @@
     }
     
     // sort
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp"
-                                                 ascending:YES];
-    
-    NSArray *sortDescriptors;
-    sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    _sortedMessages = [_messages sortedArrayUsingDescriptors:sortDescriptors];
+    _sortedMessages = [self getSortedMessages];
     
     // Notify view
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatMessagesReceived object:self];
@@ -130,5 +132,15 @@
     return ret;
 }
 
+- (NSArray*)getSortedMessages {
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp"
+                                                 ascending:YES];
+    
+    NSArray *sortDescriptors;
+    sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    return [_messages sortedArrayUsingDescriptors:sortDescriptors];
+}
 
 @end
