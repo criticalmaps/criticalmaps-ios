@@ -13,11 +13,11 @@
 @end
 
 // Debug
-BOOL const kDebug = YES;
+BOOL const kDebug = NO;
 BOOL const kDebugEnableTestURL = NO;
-BOOL const kDebugEnableTestLocation = YES;
+BOOL const kDebugEnableTestLocation = NO;
 BOOL const kDebugDisableHTTPRequests = NO;
-BOOL const kDebugInitialTabIndex = 4;
+BOOL const kDebugInitialTabIndex = 0;
 BOOL const kDebugShowAppirater = NO;
 
 
