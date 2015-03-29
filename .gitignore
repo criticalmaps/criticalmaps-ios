@@ -8,3 +8,6 @@ xcuserdata
 Pods/
 Podfile.lock
 CriticalMaps.xcodeproj
+
+PLAdditional.h
+PLAdditional.m

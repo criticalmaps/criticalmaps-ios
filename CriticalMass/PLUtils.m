@@ -28,7 +28,9 @@
 
 +(NSString*)getTwitterQueryByLocality:(NSString*)locality
 {
-    return [NSString stringWithFormat:@"#cm%@",[locality lowercaseString]];
+    NSString *ret = [NSString stringWithFormat:@"#cm%@",[locality lowercaseString]];
+    ret = [ret stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return ret;
 }
 
 @end
