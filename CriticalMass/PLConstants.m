@@ -35,4 +35,3 @@ NSTimeInterval const kRequestRepeatTime = 30.0;
 NSUInteger const kMaxRequestsInBackground = 480;
 double const kTestLocationLatitude = +52.50266880;
 double const kTestLocationLongitude = +13.41227278;
-NSString *const kTwitterQuery = @"#criticalmaps";

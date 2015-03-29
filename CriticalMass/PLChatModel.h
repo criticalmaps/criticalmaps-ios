@@ -14,8 +14,7 @@
 
 @interface PLChatModel : NSObject
 
-@property(nonatomic, strong) PLDataModel *data;
-@property(nonatomic, strong) NSMutableArray *messages;
+@property(nonatomic, readonly) NSMutableArray *messages;
 
 + (id)sharedManager;
 - (void)collectMessage:(NSString*)message;

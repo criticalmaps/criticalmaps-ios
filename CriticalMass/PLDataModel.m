@@ -11,6 +11,16 @@
 #import "PLUtils.h"
 #import <NSString+Hashes.h>
 
+@interface PLDataModel()
+
+@property(nonatomic, strong) CLLocationManager *locationManager;
+@property(nonatomic, strong) AFHTTPRequestOperationManager *operationManager;
+@property(nonatomic, strong) NSTimer *timer;
+@property(nonatomic, assign) NSUInteger updateCount;
+@property(nonatomic, assign) NSUInteger requestCount;
+
+@end
+
 @implementation PLDataModel
 
 + (id)sharedManager {
@@ -142,7 +152,21 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
 
-#pragma mark - Handler
+-(void)setIsBackroundMode:(BOOL)isBackroundMode
+{
+    _isBackroundMode = isBackroundMode;
+    
+    if (_isBackroundMode) {
+        _requestCount = 0;
+    }else{
+        if(!_gpsEnabled && _gpsEnabledUser){
+            [self enableGps];
+        }
+    }
+    
+    DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
+}
+
 - (void)onTimer
 {
     [self request];
@@ -173,23 +197,22 @@
             [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
         }
     }
-    _updateCount++;
-}
-
--(void)setIsBackroundMode:(BOOL)isBackroundMode
-{
-    _isBackroundMode = isBackroundMode;
     
-    if (_isBackroundMode) {
-        _requestCount = 0;
-    }else{
-        if(!_gpsEnabled && _gpsEnabledUser){
-            [self enableGps];
-        }
+    _updateCount++;
+    
+    if(_locality){
+        return;
     }
     
-    DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:_currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error){
+            NSLog(@"Geocode failed with error: %@", error);
+            return;
+        }
+        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+        _locality = [placemark locality];
+    }];
 }
-
 
 @end

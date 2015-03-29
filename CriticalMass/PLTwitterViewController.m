@@ -11,9 +11,18 @@
 #import "PLConstants.h"
 #import "PLTwitterTableViewCell.h"
 #import "HOButton.h"
+#import "PLUtils.h"
+#import "PLDataModel.h"
 
 
 @interface PLTwitterViewController ()
+
+@property(nonatomic,strong) STTwitterAPI *twitter;
+@property(nonatomic,strong) UITableView *tableView;
+@property(nonatomic,strong) NSArray *statuses;
+@property(nonatomic,strong) SAMLoadingView *loadingView;
+@property(nonatomic,strong) PLDataModel *data;
+@property(nonatomic,strong) NSString *twitterQuery;
 
 @end
 
@@ -22,8 +31,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _data = [PLDataModel sharedManager];
+    
+    if(_data.locality){
+        _twitterQuery = [PLUtils getTwitterQueryByLocality:_data.locality];
+    }else{
+        _twitterQuery = @"#criticalmaps";
+    }
+    
     PLLabel *label = [[PLLabel alloc] initWithFrame:CGRectMake(0, 19, self.view.frame.size.width, 50)];
-    label.text = @"Latest Tweets of #criticalmaps";
+    label.text = [NSString stringWithFormat:@"Latest Tweets of %@", _twitterQuery];
+    
     [label setFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f]];
     [self.view addSubview:label];
     
@@ -52,11 +70,7 @@
     
     [self.view.layer addSublayer:shapeLayer];
     
-    //[_tableVC.tableView registerClass:[HOTwoRowViewCell class] forCellReuseIdentifier:@"CustomCell"];
-    //_tableVC.tableView.tableHeaderView = [self headerView];
-    
     [self.view addSubview:_tableView];
-    
     
     _twitter = [STTwitterAPI twitterAPIAppOnlyWithConsumerKey:@"e0vyKNT3iC89SkUaIzEvX1oii" consumerSecret:@"151lpogCiUp4RhjRNZukl2tJSeGyskq37U8wmldFm9FDPfzBW8"];
     
@@ -75,7 +89,7 @@
         
         [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
             
-            [_twitter getSearchTweetsWithQuery: kTwitterQuery
+            [_twitter getSearchTweetsWithQuery: _twitterQuery
                                   successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
                                       _statuses = statuses;
                                       [_tableView reloadData];
@@ -108,6 +122,10 @@
 
 - (IBAction)onClickReload:(id)sender {
     [self loadTweets];
+}
+
+- (void)updateTwitterQuery {
+    
 }
 
 #pragma mark - Data source

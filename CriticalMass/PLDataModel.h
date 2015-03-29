@@ -13,16 +13,10 @@
 
 @class PLChatModel;
 
-@interface PLDataModel : NSObject<CLLocationManagerDelegate>{
-    
-    CLLocationManager *_locationManager;
-    AFHTTPRequestOperationManager *_operationManager;
-    NSTimer *_timer;
-    NSUInteger _updateCount;
-    NSUInteger _requestCount;
-}
+@interface PLDataModel : NSObject<CLLocationManagerDelegate>
 
 @property (nonatomic, readonly) NSString *uid;
+@property (nonatomic, readonly) NSString *locality;
 @property (nonatomic, readonly) CLLocation *currentLocation;
 @property (nonatomic, readonly) NSDictionary *otherLocations;
 @property (nonatomic, readonly) BOOL gpsEnabled;

@@ -12,6 +12,12 @@
 #import "PLChatObject.h"
 #import <NSString+Hashes.h>
 
+@interface PLChatModel()
+
+@property(nonatomic, strong) PLDataModel *data;
+
+@end
+
 @implementation PLChatModel
 
 + (id)sharedManager {
@@ -44,12 +50,6 @@
     co.isActive = NO;
     
     [_messages addObject:co];
-    
-    // TODO: sort not working here WTF
-//    [_messages sortUsingDescriptors:
-//     [NSArray arrayWithObjects:
-//      [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES], nil]];
-    
     [_data request];
     
     // notify view
