@@ -55,6 +55,7 @@
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = [[NSString stringWithFormat:@"%@", _twitterQuery] uppercaseString];
     navBar.items = @[ navItem ];
+    navBar.translucent = NO;
     [self.view addSubview:navBar];
     
     // refresh control
