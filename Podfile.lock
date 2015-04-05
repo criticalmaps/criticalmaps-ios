@@ -43,14 +43,14 @@ DEPENDENCIES:
   - TTTAttributedLabel
 
 SPEC CHECKSUMS:
-  AccordionView: bc022d5ae3b05a96b0b1ccd41cf37cc6796161a7
+  AccordionView: 4f82751476a96ec60985041a48bf4c94ac1ea5ab
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
-  Appirater: cbdb7f305562cfde585300bfff86da01ae559deb
-  GoogleAnalytics-iOS-SDK: 4377a29aa3e039030df30fd5c6075baeed3c916c
-  NSString-Hashes: ddf6e856e93d3c83c5d4ef8fcdea2a96ed77c6bc
-  SAMLoadingView: 11b746311268140f6a2380723215fe96a6d15dee
+  Appirater: 8783318c36414e8de3ea023443028df94c1b784b
+  GoogleAnalytics-iOS-SDK: 44a1874cccd8294a0376fd8ee136f7c898c151a5
+  NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
+  SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
-  STTwitter: 743ead8a65466ec0fe9b64cd2811de5590a0ed76
+  STTwitter: 4fda61d0a96c707f94df85677b1a4aedbcec6fcd
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.36.3

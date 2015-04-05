@@ -8,6 +8,7 @@
 
 #import "PLRulesViewController.h"
 #import "AccordionView.h"
+#import "UIColor+Helper.h"
 
 @interface PLRulesViewController ()
 
@@ -74,11 +75,17 @@
     [accordion setAllowsMultipleSelection:NO];
     [accordion setAllowsEmptySelection:YES];
     
-    
     // add link to cm hamburg
     TTTAttributedLabel *label = [[TTTAttributedLabel alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-80, self.view.frame.size.width-20, 30)];
     label.font = [UIFont systemFontOfSize:12.0f];
     NSString *labelText = @"Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+
+    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName
+                     , nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor magicColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], nil];
+    NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    label.linkAttributes = linkAttributes;
+    
     label.text = labelText;
     NSRange range = [labelText rangeOfString:@"criticalmass-hh.de"];
     [label addLinkToURL:[NSURL URLWithString:@"open-cmhamburg"] withRange:range];
