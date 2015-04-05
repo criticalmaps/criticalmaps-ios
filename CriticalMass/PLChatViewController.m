@@ -9,6 +9,7 @@
 #import "PLChatViewController.h"
 #import "PLChatObject.h"
 #import "PLConstants.h"
+#import "UIColor+Helper.h"
 
 @interface PLChatViewController ()
 
@@ -30,7 +31,7 @@
     self.tableView.delegate = self;
     [self.view addSubview: self.tableView];
     
-    // add
+    // add gesture recognizer
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self.tableView addGestureRecognizer:gesture];
     

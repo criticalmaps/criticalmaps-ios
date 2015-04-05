@@ -35,6 +35,7 @@
 		94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089519BDECAE009FFF43 /* PLRulesViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
+		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,8 @@
 		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
 		94DC348C1A9E5C39000E9D85 /* PLChatObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatObject.h; sourceTree = "<group>"; };
 		94DC348D1A9E5C39000E9D85 /* PLChatObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLChatObject.m; sourceTree = "<group>"; };
+		94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
+		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
 		EB65E4E1C81486F82961461F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,13 +146,13 @@
 		94AD50481A963DC800547B40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9474656219CA3078005485BD /* PLSettingsTableViewController.h */,
 				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
 				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
 				94CF089519BDECAE009FFF43 /* PLRulesViewController.m */,
 				941511071A10004D0010205B /* PLTwitterViewController.h */,
 				941511081A10004D0010205B /* PLTwitterViewController.m */,
+				9474656219CA3078005485BD /* PLSettingsTableViewController.h */,
 				9474656319CA3078005485BD /* PLSettingsTableViewController.m */,
 				94591A691A6C67640080BCEC /* PLChatViewController.h */,
 				94591A6A1A6C67640080BCEC /* PLChatViewController.m */,
@@ -185,6 +188,8 @@
 				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
 				940A9AEC1AC861C800F90DC3 /* PLAdditional.h */,
 				940A9AED1AC861C800F90DC3 /* PLAdditional.m */,
+				94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */,
+				94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
 				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,
+				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				940A9AEE1AC861C800F90DC3 /* PLAdditional.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,

@@ -10,5 +10,4 @@
 
 @interface PLSettingsTableViewController : UITableViewController
 
-
 @end

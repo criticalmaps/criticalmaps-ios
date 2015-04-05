@@ -13,6 +13,10 @@
 
 @interface PLMapViewController ()
 
+@property(nonatomic,strong) PLDataModel *data;
+@property(nonatomic,strong) MKMapView *map;
+@property(nonatomic,strong) UIView *infoOverlay;
+
 @end
 
 @implementation PLMapViewController
@@ -29,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     _data = [PLDataModel sharedManager];
     
     [self initMap];
@@ -62,16 +66,6 @@
     _map.showsUserLocation = YES;
     _map.mapType = MKMapTypeStandard;
     _map.showsPointsOfInterest = NO;
-    
-    /*
-     No OSM yet.
-     
-     // OpenStreetMap overlay
-     NSString *template = kUrlTile;
-     MKTileOverlay *overlay = [[MKTileOverlay alloc] initWithURLTemplate:template];
-     overlay.canReplaceMapContent = YES;
-     [_map addOverlay:overlay level:MKOverlayLevelAboveLabels];
-     */
     
     if(kDebug && kDebugEnableTestLocation){
         _map.centerCoordinate = CLLocationCoordinate2DMake(kTestLocationLatitude, kTestLocationLongitude);
@@ -167,7 +161,6 @@
 {
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
-    
     
     MKAnnotationView *annotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"BikeAnnotationView"];
     
