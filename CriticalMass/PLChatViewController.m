@@ -13,6 +13,13 @@
 
 @interface PLChatViewController ()
 
+@property (nonatomic, strong) PLChatModel *chatModel;
+@property (nonatomic, strong) PLDataModel *dataModel;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *controlView;
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) HOButton *btnSend;
+
 @end
 
 @implementation PLChatViewController
@@ -26,7 +33,7 @@
     _chatModel = [PLChatModel sharedManager];
     
     // add table
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-140)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height-190)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview: self.tableView];
@@ -38,7 +45,6 @@
     // add control
     self.controlView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-110, self.view.frame.size.width, 50)];
     [self.view addSubview:self.controlView];
-    
     
     // add textfield
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 240, 50)];
@@ -58,6 +64,15 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    // navbar
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = [@"Chat" uppercaseString];
+    navBar.items = @[ navItem ];
+    navBar.translucent = NO;
+    [self.view addSubview:navBar];
+    
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessagesReceived) name:kNotificationChatMessagesReceived object:_chatModel];
 }
@@ -116,6 +131,32 @@
 
 #pragma mark - UITableViewDataSource Methods
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+
+    if (_chatModel.messages.count) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        return 1;
+    } else {
+        
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No chat activity at the moment...";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    
+    return 0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _chatModel.messages.count;
@@ -123,21 +164,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-    
-    if(!_chatModel.messages){
-        return cell;
-    }
-    
-    if(!(_chatModel.messages.count > indexPath.row)){
-        return cell;
-    }
     
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
     
     cell.textLabel.text = message.text;
     cell.imageView.image = [UIImage imageNamed:@"Punk"];
+    cell.imageView.image = [cell.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    cell.imageView.tintColor = [UIColor magicColor];
     cell.imageView.frame = CGRectMake(0,0,12,12);
     
     if(message.isActive){
@@ -185,6 +219,5 @@
 {
     [self.textField resignFirstResponder];
 }
-
 
 @end

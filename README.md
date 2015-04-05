@@ -37,6 +37,7 @@ check: http://criticalmaps.net
 - [ ] better design
 - [ ] individual fonts
 - [x] twitterfeed
-- [ ] feedback functionality
-- [ ] share functionality
+- [ ] feedback mail composer
+- [ ] sharing
 - [ ] zoom buttons
+- [x] chat

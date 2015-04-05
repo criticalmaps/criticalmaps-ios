@@ -8,8 +8,6 @@
 
 #import "PLUtils.h"
 
-// TODO: move to category!
-
 @implementation PLUtils
 
 +(NSString*)locationdegrees2String:(double)degrees
