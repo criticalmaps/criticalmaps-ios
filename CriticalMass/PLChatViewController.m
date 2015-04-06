@@ -32,8 +32,17 @@
     _dataModel = [PLDataModel sharedManager];
     _chatModel = [PLChatModel sharedManager];
     
+    // navbar
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = [@"Chat" uppercaseString];
+    navBar.items = @[ navItem ];
+    navBar.translucent = NO;
+    [self.view addSubview:navBar];
+    
     // add table
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height-190)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 71, self.view.frame.size.width, self.view.frame.size.height-189)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview: self.tableView];
@@ -64,15 +73,6 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    // navbar
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
-    navBar.backgroundColor = [UIColor whiteColor];
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = [@"Chat" uppercaseString];
-    navBar.items = @[ navItem ];
-    navBar.translucent = NO;
-    [self.view addSubview:navBar];
-    
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessagesReceived) name:kNotificationChatMessagesReceived object:_chatModel];
 }
@@ -147,7 +147,7 @@
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
         [messageLabel sizeToFit];
         
         self.tableView.backgroundView = messageLabel;
