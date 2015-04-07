@@ -4,6 +4,7 @@
 #import "PLChatViewController.h"
 #import "PLTwitterViewController.h"
 #import "PLSettingsTableViewController.h"
+#import "UIColor+Helper.h"
 
 
 @interface PLTabBarController ()
@@ -12,21 +13,12 @@
 
 @implementation PLTabBarController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-        
-        
-        
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.tintColor = [UIColor magicColor];
     
     UIViewController *viewController1 = [[PLMapViewController alloc] init];
     UIViewController *viewController2 = [[PLRulesViewController alloc] init];

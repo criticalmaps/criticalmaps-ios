@@ -11,11 +11,6 @@
 #import "PLDataModel.h"
 #import "PLInfoOverlayView.h"
 
-@interface PLMapViewController : UIViewController<MKMapViewDelegate>{
-    PLDataModel *_data;
-    MKMapView *_map;
-    UIView *_infoOverlay;
-}
-
+@interface PLMapViewController : UIViewController<MKMapViewDelegate>
 
 @end

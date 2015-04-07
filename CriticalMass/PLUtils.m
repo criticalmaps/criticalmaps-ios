@@ -8,7 +8,6 @@
 
 #import "PLUtils.h"
 
-
 @implementation PLUtils
 
 +(NSString*)locationdegrees2String:(double)degrees
@@ -16,13 +15,21 @@
     return [[NSString stringWithFormat:@"%.06f", degrees] stringByReplacingOccurrencesOfString:@"." withString:@""];
 }
 
-+(double)string2Locationdegrees:(NSString*)string{
++(double)string2Locationdegrees:(NSString*)string
+{
     return (double)([string floatValue]/1000000);
 }
 
 +(NSString*)getTimestamp
 {
     return [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
+}
+
++(NSString*)getTwitterQueryByLocality:(NSString*)locality
+{
+    NSString *ret = [NSString stringWithFormat:@"#cm%@",[locality lowercaseString]];
+    ret = [ret stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return ret;
 }
 
 @end

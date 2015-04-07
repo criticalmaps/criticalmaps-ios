@@ -9,15 +9,16 @@
 #import "PLSettingsTableViewController.h"
 #import "PLDataModel.h"
 #import "PLConstants.h"
+#import "UIColor+Helper.h"
 
-@interface PLSettingsTableViewController ()
+@interface PLSettingsTableViewController()
+
+@property(nonatomic,strong) PLDataModel *data;
+@property(nonatomic,strong) UISwitch *gpsSwitch;
 
 @end
 
-@implementation PLSettingsTableViewController{
-    PLDataModel *_data;
-    UISwitch *_gpsSwitch;
-}
+@implementation PLSettingsTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.clearsSelectionOnViewWillAppear = YES;
 }
 
@@ -73,6 +74,7 @@
         cell.textLabel.text = @"Enable GPS";
         
         _gpsSwitch = [[UISwitch alloc]init];
+        _gpsSwitch.onTintColor = [UIColor magicColor];
         [_gpsSwitch addTarget:self action:@selector(onSwitchGPS:) forControlEvents:UIControlEventTouchUpInside];
         [_gpsSwitch setOn:_data.gpsEnabled];
         cell.accessoryView = _gpsSwitch;
@@ -105,7 +107,6 @@
             cell.detailTextLabel.text = @"Help finacing our tracking server";
         }
     }
-    
     return cell;
 }
 

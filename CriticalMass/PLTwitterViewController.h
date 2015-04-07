@@ -11,11 +11,6 @@
 #import "SAMLoadingView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface PLTwitterViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>{
-    STTwitterAPI *_twitter;
-    UITableView *_tableView;
-    NSArray *_statuses;
-    SAMLoadingView *_loadingView;
-}
+@interface PLTwitterViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @end

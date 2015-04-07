@@ -11,9 +11,19 @@
 #import "PLConstants.h"
 #import "PLTwitterTableViewCell.h"
 #import "HOButton.h"
+#import "PLUtils.h"
+#import "PLDataModel.h"
+#import "UIColor+Helper.h"
 
 
 @interface PLTwitterViewController ()
+
+@property(nonatomic,strong) STTwitterAPI *twitter;
+@property(nonatomic,strong) UITableViewController *tableVC;
+@property(nonatomic,strong) NSArray *statuses;
+@property(nonatomic,strong) PLDataModel *data;
+@property(nonatomic,strong) NSString *twitterQuery;
+@property(nonatomic,assign) NSArray *supportedLocalities;
 
 @end
 
@@ -22,65 +32,75 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    PLLabel *label = [[PLLabel alloc] initWithFrame:CGRectMake(0, 19, self.view.frame.size.width, 50)];
-    label.text = @"Latest Tweets of #criticalmaps";
-    [label setFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f]];
-    [self.view addSubview:label];
+    _supportedLocalities = @[
+                             @"berlin",
+                             @"wien",
+                             @"cambridge",
+                             @"hamburg",
+                             @"dresden",
+                             @"köln",
+                             @"potsdam"
+                             ];
     
-    HOButton *reloadBtn = [[HOButton alloc] init];
-    [reloadBtn setImage:[UIImage imageNamed:@"Reload"] forState:UIControlStateNormal];
-    reloadBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 9, 10, 9);
-    [reloadBtn addTarget:self action:@selector(onClickReload:) forControlEvents:UIControlEventTouchUpInside];
-    reloadBtn.center = CGPointMake(self.view.frame.size.width-40, 40);
-    [self.view addSubview:reloadBtn];
+    _data = [PLDataModel sharedManager];
     
+    if(_data.locality
+       && [_supportedLocalities containsObject:[_data.locality lowercaseString]]){
+        
+        _twitterQuery = [PLUtils getTwitterQueryByLocality:_data.locality];
+    }else{
+        _twitterQuery = @"#criticalmaps";
+    }
+    
+    // table
     CGRect frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 120);
-    
-    _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-    [_tableView setDelegate:self];
-    [_tableView setDataSource:self];
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(0, 70.0)];
-    [path addLineToPoint:CGPointMake(self.view.frame.size.width, 70.0)];
-    
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    shapeLayer.path = [path CGPath];
-    shapeLayer.strokeColor = [[UIColor blackColor] CGColor];
-    shapeLayer.lineWidth = 1.0;
-    shapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    
-    [self.view.layer addSublayer:shapeLayer];
-    
-    //[_tableVC.tableView registerClass:[HOTwoRowViewCell class] forCellReuseIdentifier:@"CustomCell"];
-    //_tableVC.tableView.tableHeaderView = [self headerView];
-    
-    [self.view addSubview:_tableView];
-    
+    _tableVC = [[UITableViewController alloc] init];
+    [_tableVC.tableView setDelegate:self];
+    [_tableVC.tableView setDataSource:self];
+    _tableVC.tableView.frame = frame;
+    [self.view addSubview:_tableVC.tableView];
     
     _twitter = [STTwitterAPI twitterAPIAppOnlyWithConsumerKey:@"e0vyKNT3iC89SkUaIzEvX1oii" consumerSecret:@"151lpogCiUp4RhjRNZukl2tJSeGyskq37U8wmldFm9FDPfzBW8"];
     
-    _loadingView = [[SAMLoadingView alloc] initWithFrame: frame];
-    _loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:_loadingView];
+    // navbar
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = [[NSString stringWithFormat:@"%@", _twitterQuery] uppercaseString];
+    navBar.items = @[ navItem ];
+    navBar.translucent = NO;
+    [self.view addSubview:navBar];
+    
+    // refresh control
+    _tableVC.refreshControl = [[UIRefreshControl alloc] init];
+    _tableVC.refreshControl.backgroundColor = [UIColor magicColor];
+    _tableVC.refreshControl.tintColor = [UIColor whiteColor];
+    [_tableVC.refreshControl addTarget:self
+                                action:@selector(onRefreshPull)
+                      forControlEvents:UIControlEventValueChanged];
     
     [self loadTweets];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_tableVC.tableView reloadData];
+}
+
+
 - (void)loadTweets {
-    [_loadingView setHidden:NO];
     [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
         
         DLog(@"Access granted with %@", bearerToken);
         
         [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
             
-            [_twitter getSearchTweetsWithQuery: kTwitterQuery
+            [_twitter getSearchTweetsWithQuery: _twitterQuery
                                   successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
                                       _statuses = statuses;
-                                      [_tableView reloadData];
-                                      [_loadingView setHidden:YES];
-                    
+                                      [_tableVC.tableView reloadData];
+                                      [_tableVC.refreshControl endRefreshing];
+                                      
                                   } errorBlock:^(NSError *error) {
                                       // ...
                                   }];
@@ -95,12 +115,6 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    [_tableView reloadData];
-}
-
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
@@ -110,7 +124,37 @@
     [self loadTweets];
 }
 
+- (void)onRefreshPull {
+    [self loadTweets];
+}
+
 #pragma mark - Data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    if (_statuses.count) {
+        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        tableView.backgroundView = nil;
+        return 1;
+    } else {
+        
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No data is currently available.\nPlease pull down to refresh.";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        //        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        tableView.backgroundView = messageLabel;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    
+    return 0;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -131,7 +175,7 @@
     }
     
     NSDictionary *status = [_statuses objectAtIndex:indexPath.row];
-  
+    
     DLog(@"%@", status);
     
     NSString *profileImageURL = status[@"user"][@"profile_image_url"];
@@ -141,17 +185,11 @@
     
     [cell.imageView  sd_setImageWithURL:[NSURL URLWithString: profileImageURL]
                        placeholderImage:[UIImage imageNamed:@"Twitter"]];
-     
+    
     cell.textLabel.text = [NSString stringWithFormat:@"@%@: %@", screenName, text];
     //cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
     
     return cell;
-}
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "PLRulesViewController.h"
 #import "AccordionView.h"
+#import "UIColor+Helper.h"
 
 @interface PLRulesViewController ()
 
@@ -23,35 +24,35 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _titles = [NSArray arrayWithObjects:
+        _titles = @[
                    @"Corken!?",
                    @"Gegenverkehr",
                    @"Sachte, Keule!",
                    @"Keine Vollbremsungen",
                    @"Vorne nur bei Grün",
                    @"Locker bleiben",
-                   @"Hab Spaß!",
-                   nil];
+                   @"Hab Spaß!"
+                   ];
         
-        _texts = [NSArray arrayWithObjects:
+        _texts = @[
                   @"Schütze Autofahrer vor sich selbst durch corken!",
                   @"Verzichte darauf auf der Gegenfahrbahn zu fahren.",
                   @"Vorne: nicht rasen!\nHinten, Lücken zufahren!",
                   @"Wenn's mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.",
                   @"Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün schaltet.",
                   @"Lass dich nicht provozieren. Sei freundlich zur Polizei und zu Autofahrern, auch wenn die's nicht sind.",
-                  @"Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!",
-                  nil];
+                  @"Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!"
+                  ];
         
-        _images = [NSArray arrayWithObjects:
+        _images = @[
                    @"Corken",
                    @"WrongLane",
                    @"Slowly",
                    @"Brake",
                    @"Green",
                    @"Friendly",
-                   @"Pose",
-                   nil];
+                   @"Pose"
+                   ];
     }
     return self;
 }
@@ -62,8 +63,16 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-120)];
+    // navbar
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = [@"KNIGGE" uppercaseString];
+    navBar.items = @[ navItem ];
+    navBar.translucent = NO;
+    [self.view addSubview:navBar];
     
+    AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 71, self.view.frame.size.width, self.view.frame.size.height-149)];
     [self.view addSubview:accordion];
     
     for (int i=0; i < [_images count]; i++) {
@@ -73,12 +82,19 @@
     [accordion setNeedsLayout];
     [accordion setAllowsMultipleSelection:NO];
     [accordion setAllowsEmptySelection:YES];
-    
+    accordion.startsClosed = YES;
     
     // add link to cm hamburg
     TTTAttributedLabel *label = [[TTTAttributedLabel alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-80, self.view.frame.size.width-20, 30)];
     label.font = [UIFont systemFontOfSize:12.0f];
     NSString *labelText = @"Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+
+    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName
+                     , nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor magicColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], nil];
+    NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    label.linkAttributes = linkAttributes;
+    
     label.text = labelText;
     NSRange range = [labelText rangeOfString:@"criticalmass-hh.de"];
     [label addLinkToURL:[NSURL URLWithString:@"open-cmhamburg"] withRange:range];
@@ -97,10 +113,11 @@
 {
     UIButton *header = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 38)];
     [header setTitle:_titles[index] forState:UIControlStateNormal];
-    header.titleLabel.font = [UIFont systemFontOfSize:20];
     [header setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    header.titleLabel.font = [UIFont systemFontOfSize:20];
     header.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     header.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    header.backgroundColor = [UIColor whiteColor];
     
     return header;
 }
