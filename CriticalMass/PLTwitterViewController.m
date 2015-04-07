@@ -23,6 +23,7 @@
 @property(nonatomic,strong) NSArray *statuses;
 @property(nonatomic,strong) PLDataModel *data;
 @property(nonatomic,strong) NSString *twitterQuery;
+@property(nonatomic,assign) NSArray *supportedLocalities;
 
 @end
 
@@ -31,9 +32,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _supportedLocalities = @[
+                             @"berlin",
+                             @"wien",
+                             @"cambridge",
+                             @"hamburg",
+                             @"dresden",
+                             @"köln",
+                             @"potsdam"
+                             ];
+    
     _data = [PLDataModel sharedManager];
     
-    if(_data.locality){
+    if(_data.locality
+       && [_supportedLocalities containsObject:[_data.locality lowercaseString]]){
+        
         _twitterQuery = [PLUtils getTwitterQueryByLocality:_data.locality];
     }else{
         _twitterQuery = @"#criticalmaps";
@@ -48,7 +61,7 @@
     [self.view addSubview:_tableVC.tableView];
     
     _twitter = [STTwitterAPI twitterAPIAppOnlyWithConsumerKey:@"e0vyKNT3iC89SkUaIzEvX1oii" consumerSecret:@"151lpogCiUp4RhjRNZukl2tJSeGyskq37U8wmldFm9FDPfzBW8"];
-
+    
     // navbar
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     navBar.backgroundColor = [UIColor whiteColor];
@@ -71,7 +84,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-     [_tableVC.tableView reloadData];
+    [_tableVC.tableView reloadData];
 }
 
 
@@ -133,7 +146,7 @@
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        //        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
         [messageLabel sizeToFit];
         
         tableView.backgroundView = messageLabel;

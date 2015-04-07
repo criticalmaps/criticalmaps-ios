@@ -73,7 +73,6 @@
     _operationManager = [AFHTTPRequestOperationManager manager];
     _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
 }
 
 - (void)startRequestInterval
@@ -95,9 +94,7 @@
 
 - (void)request
 {
-    
     _chatModel = [PLChatModel sharedManager];
-    
     _requestCount++;
     
     NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
@@ -210,7 +207,7 @@
             NSLog(@"Geocode failed with error: %@", error);
             return;
         }
-        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+        CLPlacemark *placemark = placemarks.firstObject;
         _locality = [placemark locality];
     }];
 }

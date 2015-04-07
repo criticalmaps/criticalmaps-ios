@@ -16,5 +16,4 @@
     return UIColorFromRGB(0x028a68);
 }
 
-
 @end
