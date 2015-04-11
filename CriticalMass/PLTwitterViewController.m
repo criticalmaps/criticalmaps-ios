@@ -34,6 +34,7 @@
     
     _supportedLocalities = @[
                              @"berlin",
+                             @"leipzig",
                              @"wien",
                              @"cambridge",
                              @"hamburg",

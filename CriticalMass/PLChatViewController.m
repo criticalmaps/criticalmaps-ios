@@ -67,8 +67,10 @@
     self.btnSend = [HOButton buttonWithType:UIButtonTypeRoundedRect];
     self.btnSend.frame = CGRectMake(260,  0, 50, 50);
     self.btnSend.layer.borderWidth = 1.0;
+    [self.btnSend setBackgroundColor:[UIColor magicColor]];
+    [self.btnSend setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.btnSend addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
-    [self.btnSend setTitle:@"send" forState:UIControlStateNormal];
+    [self.btnSend setTitle:@"SEND" forState:UIControlStateNormal];
     [self.controlView addSubview: self.btnSend];
 }
 
