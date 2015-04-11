@@ -13,7 +13,6 @@
 @end
 
 // Debug
-BOOL const kDebug = NO;
 BOOL const kDebugEnableTestURL = NO;
 BOOL const kDebugEnableTestLocation = NO;
 BOOL const kDebugDisableHTTPRequests = NO;

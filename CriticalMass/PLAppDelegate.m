@@ -21,6 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     // Set Appirater
     [Appirater setAppId:@"918669647"];
     [Appirater setDaysUntilPrompt:1];
@@ -28,9 +29,11 @@
     [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setTimeBeforeReminding:2];
     
-    if(kDebug && kDebugShowAppirater) {
+#ifdef DEBUG
+    if(kDebugShowAppirater) {
         [Appirater setDebug:YES];
     }
+#endif
     
     [PLAdditional setup];
     
@@ -41,9 +44,9 @@
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
-    if(kDebug){
-        [(UITabBarController *) self.window.rootViewController setSelectedIndex: 2];
-    }
+#ifdef DEBUG
+    [(UITabBarController *) self.window.rootViewController setSelectedIndex: 2];
+#endif
     
     [Appirater appLaunched:YES];
     

@@ -11,7 +11,6 @@
 @interface PLConstants : NSObject
 
 // Debug
-FOUNDATION_EXPORT BOOL const kDebug;
 FOUNDATION_EXPORT BOOL const kDebugEnableTestURL;
 FOUNDATION_EXPORT BOOL const kDebugEnableTestLocation;
 FOUNDATION_EXPORT BOOL const kDebugDisableHTTPRequests;
