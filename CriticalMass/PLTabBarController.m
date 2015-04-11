@@ -19,6 +19,7 @@
     [super viewDidLoad];
     
     self.view.tintColor = [UIColor magicColor];
+    
     [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
     [[UITabBar appearance] setTranslucent:NO];
     
@@ -42,15 +43,15 @@
     [tabViewControllers addObject:viewController5];
     
     viewController1.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"Map"] tag:1];
+    [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"Map"] tag:0];
     viewController2.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Knigge" image:[UIImage imageNamed:@"List"] tag:2];
+    [[UITabBarItem alloc] initWithTitle:@"Knigge" image:[UIImage imageNamed:@"List"] tag:1];
     viewController3.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Chat" image:[UIImage imageNamed:@"Bubble"] tag:3];
+    [[UITabBarItem alloc] initWithTitle:@"Chat" image:[UIImage imageNamed:@"Bubble"] tag:2];
     viewController4.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Twitter" image:[UIImage imageNamed:@"Twitter"] tag:4];
+    [[UITabBarItem alloc] initWithTitle:@"Twitter" image:[UIImage imageNamed:@"Twitter"] tag:3];
     viewController5.tabBarItem =
-    [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"Settings"] tag:5];
+    [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"Settings"] tag:4];
     
     [self setViewControllers:tabViewControllers animated:NO];
 }

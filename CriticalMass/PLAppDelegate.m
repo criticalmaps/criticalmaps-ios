@@ -45,7 +45,7 @@
     [self.window makeKeyAndVisible];
     
 #ifdef DEBUG
-    [(UITabBarController *) self.window.rootViewController setSelectedIndex: 2];
+    [(UITabBarController *) self.window.rootViewController setSelectedIndex: kDebugInitialTabIndex];
 #endif
     
     [Appirater appLaunched:YES];
