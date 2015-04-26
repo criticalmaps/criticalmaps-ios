@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		90F46A24D8DB4FCAABF4CF34 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD3CAC801A84BBA8D151E5D /* libPods.a */; };
-		940A9AEE1AC861C800F90DC3 /* PLAdditional.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A9AED1AC861C800F90DC3 /* PLAdditional.m */; };
 		941511091A10004D0010205B /* PLTwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941511081A10004D0010205B /* PLTwitterViewController.m */; };
 		942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */; };
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
@@ -52,8 +51,6 @@
 /* Begin PBXFileReference section */
 		1FD3CAC801A84BBA8D151E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F8D420591A3C7DB831663C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		940A9AEC1AC861C800F90DC3 /* PLAdditional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLAdditional.h; sourceTree = "<group>"; };
-		940A9AED1AC861C800F90DC3 /* PLAdditional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLAdditional.m; sourceTree = "<group>"; };
 		941511071A10004D0010205B /* PLTwitterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterViewController.h; sourceTree = "<group>"; };
 		941511081A10004D0010205B /* PLTwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterViewController.m; sourceTree = "<group>"; };
 		942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterTableViewCell.h; sourceTree = "<group>"; };
@@ -186,8 +183,6 @@
 				94F0304819C1E4EC00F86611 /* PLConstants.m */,
 				942E2D8019C316BD00BF92D7 /* PLUtils.h */,
 				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
-				940A9AEC1AC861C800F90DC3 /* PLAdditional.h */,
-				940A9AED1AC861C800F90DC3 /* PLAdditional.m */,
 				94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */,
 				94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */,
 			);
@@ -425,7 +420,6 @@
 				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,
 				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
-				940A9AEE1AC861C800F90DC3 /* PLAdditional.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,

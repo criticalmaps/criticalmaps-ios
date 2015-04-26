@@ -12,7 +12,6 @@
 #import "PLRulesViewController.h"
 #import "PLConstants.h"
 #import "PLDataModel.h"
-#import "PLAdditional.h"
 #import "Appirater.h"
 
 @implementation PLAppDelegate
@@ -34,8 +33,6 @@
         [Appirater setDebug:YES];
     }
 #endif
-    
-    [PLAdditional setup];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
