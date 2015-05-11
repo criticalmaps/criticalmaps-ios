@@ -38,7 +38,6 @@
 }
 
 - (void)collectMessage:(NSString*) text {
-    
     NSString *timestamp = [PLUtils getTimestamp];
     NSString *messageId = [NSString stringWithFormat:@"%@%@", _data.uid, timestamp];
     NSString *messageIdHashed = [messageId md5];
@@ -58,8 +57,7 @@
 }
 
 - (void)addMessages: (NSDictionary*)messages {
-    
-    // iterate obtained messages
+    // Iterate obtained messages
     for(id key in messages){
         
         NSDictionary *message = [messages objectForKey:key];
@@ -69,7 +67,6 @@
             co.isActive = YES;
             co.timestamp = [message objectForKey:@"timestamp"];
         }else{
-            
             // create chat object
             PLChatObject *co = [[PLChatObject alloc] init];
             co.identifier = key;
@@ -80,12 +77,11 @@
             co.isActive = YES;
             
             // fill dict
-            
             [_messages addObject:co];
         }
     }
     
-    // iterate existing messages and clear old
+    // Iterate existing messages and clear old
     for (int i = 0; i < [_messages count]; i++) {
         PLChatObject *co = [_messages objectAtIndex:i];
         if(co.isActive){
@@ -95,7 +91,7 @@
         }
     }
     
-    // sort
+    // Sort
     [_messages sortUsingDescriptors:
      [NSArray arrayWithObjects:
       [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES], nil]];
