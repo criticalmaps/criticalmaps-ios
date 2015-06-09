@@ -1,28 +1,27 @@
 PODS:
   - AccordionView (0.0.5)
-  - AFNetworking (2.5.2):
-    - AFNetworking/NSURLConnection (= 2.5.2)
-    - AFNetworking/NSURLSession (= 2.5.2)
-    - AFNetworking/Reachability (= 2.5.2)
-    - AFNetworking/Security (= 2.5.2)
-    - AFNetworking/Serialization (= 2.5.2)
-    - AFNetworking/UIKit (= 2.5.2)
-  - AFNetworking/NSURLConnection (2.5.2):
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.2):
+  - AFNetworking/NSURLSession (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.2)
-  - AFNetworking/Security (2.5.2)
-  - AFNetworking/Serialization (2.5.2)
-  - AFNetworking/UIKit (2.5.2):
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Appirater (2.0.4)
-  - GoogleAnalytics-iOS-SDK (3.0.3c)
+  - Appirater (2.0.5)
   - NSString-Hashes (1.2.2)
   - SAMLoadingView (0.1.0)
   - SDWebImage (3.7.2):
@@ -35,7 +34,6 @@ DEPENDENCIES:
   - AccordionView
   - AFNetworking
   - Appirater
-  - GoogleAnalytics-iOS-SDK (= 3.0.3c)
   - NSString-Hashes
   - SAMLoadingView
   - SDWebImage
@@ -44,13 +42,12 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AccordionView: 4f82751476a96ec60985041a48bf4c94ac1ea5ab
-  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
-  Appirater: 8783318c36414e8de3ea023443028df94c1b784b
-  GoogleAnalytics-iOS-SDK: 44a1874cccd8294a0376fd8ee136f7c898c151a5
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   STTwitter: 4fda61d0a96c707f94df85677b1a4aedbcec6fcd
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.37.1

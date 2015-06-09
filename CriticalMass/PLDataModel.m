@@ -59,13 +59,18 @@
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     
-    if(kDebug && kDebugEnableTestLocation){
+#ifdef DEBUG
+    if(kDebugEnableTestLocation){
         CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
         _currentLocation = testLocation;
         [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
     }else{
         [self enableGps];
     }
+#else
+    [self enableGps];
+#endif
+    
 }
 
 - (void)initHTTPRequestManager
@@ -190,9 +195,15 @@
     if(_updateCount == 0){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
         
-        if(!(kDebug && kDebugDisableHTTPRequests)){
+#ifdef DEBUG
+        if(!kDebugDisableHTTPRequests){
             [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
         }
+        
+#else
+        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+#endif
+        
     }
     
     _updateCount++;

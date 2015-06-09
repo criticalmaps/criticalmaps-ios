@@ -67,6 +67,8 @@
     self.btnSend = [HOButton buttonWithType:UIButtonTypeRoundedRect];
     self.btnSend.frame = CGRectMake(260,  0, 50, 50);
     self.btnSend.layer.borderWidth = 1.0;
+    [self.btnSend setBackgroundColor:[UIColor clearColor]];
+    [self.btnSend setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [self.btnSend addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
     [self.btnSend setTitle:@"send" forState:UIControlStateNormal];
     [self.controlView addSubview: self.btnSend];
@@ -92,7 +94,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)onSend {
@@ -105,7 +106,7 @@
     self.textField.text = @"";
 }
 
-- (void)moveContent:(BOOL)moveUp{
+- (void)moveContent:(BOOL)moveUp {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3]; // if you want to slide up the view
     
@@ -147,7 +148,6 @@
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
         [messageLabel sizeToFit];
         
         self.tableView.backgroundView = messageLabel;
@@ -168,7 +168,10 @@
     
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
     
+    cell.textLabel.font = [self fontForCell];
     cell.textLabel.text = message.text;
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.imageView.image = [UIImage imageNamed:@"Punk"];
     cell.imageView.image = [cell.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     cell.imageView.tintColor = [UIColor magicColor];
@@ -196,12 +199,24 @@
     return cell;
 }
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
+    NSString *cellText = message.text;
+    NSDictionary *attributes = @{NSFontAttributeName: [self fontForCell]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(self.view.frame.size.width, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil];
+    return rect.size.height + 20;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [self moveContent:YES];
     return YES;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     [self moveContent:NO];
 }
 
@@ -215,9 +230,12 @@
 //    [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.textField resignFirstResponder];
+}
+
+- (UIFont*)fontForCell {
+    return [UIFont systemFontOfSize:18.0];
 }
 
 @end

@@ -12,7 +12,6 @@
 #import "PLRulesViewController.h"
 #import "PLConstants.h"
 #import "PLDataModel.h"
-#import "PLAdditional.h"
 #import "Appirater.h"
 
 @implementation PLAppDelegate
@@ -21,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     // Set Appirater
     [Appirater setAppId:@"918669647"];
     [Appirater setDaysUntilPrompt:1];
@@ -28,11 +28,11 @@
     [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setTimeBeforeReminding:2];
     
-    if(kDebug && kDebugShowAppirater) {
+#ifdef DEBUG
+    if(kDebugShowAppirater) {
         [Appirater setDebug:YES];
     }
-    
-    [PLAdditional setup];
+#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -41,9 +41,9 @@
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
-    if(kDebug){
-        [(UITabBarController *) self.window.rootViewController setSelectedIndex: 2];
-    }
+#ifdef DEBUG
+    [(UITabBarController *) self.window.rootViewController setSelectedIndex: kDebugInitialTabIndex];
+#endif
     
     [Appirater appLaunched:YES];
     

@@ -67,9 +67,11 @@
     _map.mapType = MKMapTypeStandard;
     _map.showsPointsOfInterest = NO;
     
-    if(kDebug && kDebugEnableTestLocation){
+#ifdef DEBUG
+    if(kDebugEnableTestLocation){
         _map.centerCoordinate = CLLocationCoordinate2DMake(kTestLocationLatitude, kTestLocationLongitude);
     }
+#endif
     
     [self.view addSubview:_map];
 }

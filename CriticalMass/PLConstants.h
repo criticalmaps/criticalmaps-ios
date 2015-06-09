@@ -11,7 +11,6 @@
 @interface PLConstants : NSObject
 
 // Debug
-FOUNDATION_EXPORT BOOL const kDebug;
 FOUNDATION_EXPORT BOOL const kDebugEnableTestURL;
 FOUNDATION_EXPORT BOOL const kDebugEnableTestLocation;
 FOUNDATION_EXPORT BOOL const kDebugDisableHTTPRequests;
@@ -19,7 +18,6 @@ FOUNDATION_EXPORT BOOL const kDebugInitialTabIndex;
 FOUNDATION_EXPORT BOOL const kDebugShowAppirater;
 
 // Urls
-//FOUNDATION_EXPORT NSString *const kUrlTile;
 FOUNDATION_EXPORT NSString *const kUrlService;
 
 // Notifications

@@ -34,12 +34,16 @@
     
     _supportedLocalities = @[
                              @"berlin",
+                             @"leipzig",
                              @"wien",
                              @"cambridge",
                              @"hamburg",
                              @"dresden",
                              @"köln",
-                             @"potsdam"
+                             @"potsdam",
+                             @"stuttgart",
+                             @"münchen",
+                             @"frankfurt"
                              ];
     
     _data = [PLDataModel sharedManager];
