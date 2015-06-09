@@ -94,7 +94,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)onSend {
@@ -149,7 +148,6 @@
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
         [messageLabel sizeToFit];
         
         self.tableView.backgroundView = messageLabel;
@@ -170,7 +168,10 @@
     
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
     
+    cell.textLabel.font = [self fontForCell];
     cell.textLabel.text = message.text;
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.imageView.image = [UIImage imageNamed:@"Punk"];
     cell.imageView.image = [cell.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     cell.imageView.tintColor = [UIColor magicColor];
@@ -198,6 +199,18 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
+    NSString *cellText = message.text;
+    NSDictionary *attributes = @{NSFontAttributeName: [self fontForCell]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(self.view.frame.size.width, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil];
+    return rect.size.height + 20;
+}
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [self moveContent:YES];
     return YES;
@@ -220,6 +233,10 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.textField resignFirstResponder];
+}
+
+- (UIFont*)fontForCell {
+    return [UIFont systemFontOfSize:18.0];
 }
 
 @end
