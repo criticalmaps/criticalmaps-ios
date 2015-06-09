@@ -67,10 +67,11 @@
     }else{
         [self enableGps];
     }
-}
 #else
-[self enableGps];
+    [self enableGps];
 #endif
+    
+}
 
 - (void)initHTTPRequestManager
 {

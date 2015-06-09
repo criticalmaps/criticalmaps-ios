@@ -40,7 +40,10 @@
                              @"hamburg",
                              @"dresden",
                              @"köln",
-                             @"potsdam"
+                             @"potsdam",
+                             @"stuttgart",
+                             @"münchen",
+                             @"frankfurt"
                              ];
     
     _data = [PLDataModel sharedManager];
