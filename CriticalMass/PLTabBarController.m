@@ -21,7 +21,9 @@
     self.view.tintColor = [UIColor magicColor];
     
     [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
-    [[UITabBar appearance] setTranslucent:NO];
+    if ([[UITabBar appearance] respondsToSelector:@selector(setTranslucent:)]) {
+        [[UITabBar appearance] setTranslucent:NO];
+    }
     
     UIViewController *viewController1 = [[PLMapViewController alloc] init];
     UIViewController *viewController2 = [[PLRulesViewController alloc] init];
