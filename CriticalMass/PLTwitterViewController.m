@@ -150,7 +150,6 @@
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        //        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
         [messageLabel sizeToFit];
         
         tableView.backgroundView = messageLabel;
@@ -174,7 +173,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
-        UIFont *myFont = [ UIFont fontWithName: @"Helvetica" size: 14.0 ];
+        UIFont *myFont = [self fontForCell];
         cell.textLabel.font  = myFont;
     }
     
@@ -185,15 +184,33 @@
     NSString *profileImageURL = status[@"user"][@"profile_image_url"];
     NSString *text = [status valueForKey:@"text"];
     NSString *screenName = [status valueForKeyPath:@"user.screen_name"];
-    //NSString *dateString = [status valueForKey:@"created_at"];
+//    NSString *dateString = [status valueForKey:@"created_at"];
     
     [cell.imageView  sd_setImageWithURL:[NSURL URLWithString: profileImageURL]
                        placeholderImage:[UIImage imageNamed:@"Twitter"]];
     
     cell.textLabel.text = [NSString stringWithFormat:@"@%@: %@", screenName, text];
-    //cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
     
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *status = [_statuses objectAtIndex:indexPath.row];
+    NSString *cellText = [status valueForKey:@"text"];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [self fontForCell]};
+    CGRect rect = [cellText boundingRectWithSize:CGSizeMake(self.view.frame.size.width, CGFLOAT_MAX)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:attributes
+                                         context:nil];
+    return rect.size.height + 20;
+}
+
+- (UIFont*)fontForCell {
+    return [UIFont fontWithName: @"Helvetica" size: 14.0];
+}
+
 
 @end
