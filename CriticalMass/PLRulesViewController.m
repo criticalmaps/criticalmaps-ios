@@ -87,7 +87,7 @@
     // add link to cm hamburg
     TTTAttributedLabel *label = [[TTTAttributedLabel alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-80, self.view.frame.size.width-20, 30)];
     label.font = [UIFont systemFontOfSize:12.0f];
-    NSString *labelText = @"Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+    NSString *labelText = NSLocalizedString(@"rules.source", nil);
 
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName
                      , nil];
