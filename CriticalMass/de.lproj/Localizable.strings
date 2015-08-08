@@ -1,0 +1,105 @@
+/* No comment provided by engineer. */
+"chat.noChatActivity" = "Zurzeit keine Nachrichten...";
+
+/* No comment provided by engineer. */
+"chat.send" = "senden";
+
+/* No comment provided by engineer. */
+"chat.title" = "Chat";
+
+/* No comment provided by engineer. */
+"map.title" = "Map";
+
+/* No comment provided by engineer. */
+"map.layer.info" = "Sorry, you can't see others\nwhen your GPS is disabled.\n\nPlease enable GPS in settings.";
+
+/* No comment provided by engineer. */
+"rules.source" = "Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+
+/* No comment provided by engineer. */
+"rules.text.brake" = "Wenn's mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.";
+
+/* No comment provided by engineer. */
+"rules.text.contraflow" = "Verzichte darauf auf der Gegenfahrbahn zu fahren.";
+
+/* No comment provided by engineer. */
+"rules.text.cork" = "Schütze Autofahrer vor sich selbst durch corken!";
+
+/* No comment provided by engineer. */
+"rules.text.gently" = "Vorne: nicht rasen!\nHinten, Lücken zufahren!";
+
+/* No comment provided by engineer. */
+"rules.text.green" = "Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün schaltet.";
+
+/* No comment provided by engineer. */
+"rules.text.haveFun" = "Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!";
+
+/* No comment provided by engineer. */
+"rules.text.stayLoose" = "Lass dich nicht provozieren. Sei freundlich zur Polizei und zu Autofahrern, auch wenn die's nicht sind.";
+
+/* No comment provided by engineer. */
+"rules.title" = "Rules";
+
+/* No comment provided by engineer. */
+"rules.title.brake" = "Keine Vollbremsungen";
+
+/* No comment provided by engineer. */
+"rules.title.contraflow" = "Gegenverkehr";
+
+/* No comment provided by engineer. */
+"rules.title.cork" = "Corken!?";
+
+/* No comment provided by engineer. */
+"rules.title.gently" = "Sachte, Keule!";
+
+/* No comment provided by engineer. */
+"rules.title.green" = "Vorne nur bei Grün";
+
+/* No comment provided by engineer. */
+"rules.title.haveFun" = "Hab Spaß!";
+
+/* No comment provided by engineer. */
+"rules.title.stayLoose" = "Locker bleiben";
+
+/* No comment provided by engineer. */
+"settings.about" = "About";
+
+/* No comment provided by engineer. */
+"settings.cmBerlin" = "Critical Mass Berlin";
+
+/* No comment provided by engineer. */
+"settings.donate" = "Help finacing our tracking server";
+
+/* No comment provided by engineer. */
+"settings.enableGps" = "Enable GPS";
+
+/* No comment provided by engineer. */
+"settings.facebook" = "Facebook";
+
+/* No comment provided by engineer. */
+"settings.gpsSettings" = "GPS settings";
+
+/* No comment provided by engineer. */
+"settings.logoDesign" = "Logodesign";
+
+/* No comment provided by engineer. */
+"settings.openSource" = "Github";
+
+/* No comment provided by engineer. */
+"settings.programming" = "Programming";
+
+/* No comment provided by engineer. */
+"settings.socialMedia" = "Social Media";
+
+/* No comment provided by engineer. */
+"settings.title" = "Settings";
+
+/* No comment provided by engineer. */
+"settings.twitter" = "Twitter";
+
+/* No comment provided by engineer. */
+"twitter.noData" = "No data is currently available.\nPlease pull down to refresh.";
+
+/* No comment provided by engineer. */
+"twitter.title" = "Twitter";
+

@@ -16,6 +16,7 @@
 		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
 		9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9484E8021A62E63F0007F9F3 /* HOButton.m */; };
+		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
 		94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */; };
 		94AD50461A963D0600547B40 /* PLChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD50451A963D0600547B40 /* PLChatModel.m */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
@@ -67,6 +68,10 @@
 		9474656319CA3078005485BD /* PLSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSettingsTableViewController.m; sourceTree = "<group>"; };
 		9484E8011A62E63F0007F9F3 /* HOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOButton.h; sourceTree = "<group>"; };
 		9484E8021A62E63F0007F9F3 /* HOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOButton.m; sourceTree = "<group>"; };
+		9489D88A1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9489D88B1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9489D88D1B768274001E746C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9489D88F1B768279001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94A9C1AD19BF43AB0027C5DC /* PLDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLDataModel.h; sourceTree = "<group>"; };
 		94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLDataModel.m; sourceTree = "<group>"; };
 		94AD50441A963D0600547B40 /* PLChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatModel.h; sourceTree = "<group>"; };
@@ -241,6 +246,7 @@
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
 				94CF086B19BDEAF2009FFF43 /* main.m */,
 				94CF086D19BDEAF2009FFF43 /* CriticalMaps-Prefix.pch */,
+				9489D88E1B768274001E746C /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -341,6 +347,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
 			);
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
@@ -359,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
+				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,10 +459,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9489D88E1B768274001E746C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9489D88D1B768274001E746C /* en */,
+				9489D88F1B768279001E746C /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		94CF086819BDEAF2009FFF43 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				94CF086919BDEAF2009FFF43 /* en */,
+				9489D88A1B7681AF001E746C /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -463,6 +481,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				94CF088219BDEAF2009FFF43 /* en */,
+				9489D88B1B7681AF001E746C /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
