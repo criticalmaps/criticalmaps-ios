@@ -19,7 +19,7 @@
         UILabel *label = [[UILabel alloc]initWithFrame:frame];
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.numberOfLines = 0;
-        label.text = NSLocalizedString(@"maps.layer.info", nil);
+        label.text = NSLocalizedString(@"map.layer.info", nil);
         label.textColor = [UIColor whiteColor];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
