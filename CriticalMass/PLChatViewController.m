@@ -36,7 +36,7 @@
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = [@"Chat" uppercaseString];
+    navItem.title = [NSLocalizedString(@"chat.title", nil) uppercaseString];
     navBar.items = @[ navItem ];
     navBar.translucent = NO;
     [self.view addSubview:navBar];
@@ -70,7 +70,7 @@
     [self.btnSend setBackgroundColor:[UIColor clearColor]];
     [self.btnSend setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [self.btnSend addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
-    [self.btnSend setTitle:@"send" forState:UIControlStateNormal];
+    [self.btnSend setTitle:NSLocalizedString(@"chat.send", nil) forState:UIControlStateNormal];
     [self.controlView addSubview: self.btnSend];
 }
 
@@ -144,7 +144,7 @@
         // Display a message when the table is empty
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         
-        messageLabel.text = @"No chat activity at the moment...";
+        messageLabel.text = NSLocalizedString(@"chat.noChatActivity", nil);
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;

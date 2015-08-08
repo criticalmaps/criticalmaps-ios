@@ -14,34 +14,33 @@
 
 @end
 
-@implementation PLRulesViewController{
+@implementation PLRulesViewController {
     NSArray *_titles;
     NSArray *_texts;
     NSArray *_images;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _titles = @[
-                   @"Corken!?",
-                   @"Gegenverkehr",
-                   @"Sachte, Keule!",
-                   @"Keine Vollbremsungen",
-                   @"Vorne nur bei Grün",
-                   @"Locker bleiben",
-                   @"Hab Spaß!"
+                    NSLocalizedString(@"rules.title.cork", nil),
+                    NSLocalizedString(@"rules.title.contraflow", nil),
+                    NSLocalizedString(@"rules.title.gently", nil),
+                    NSLocalizedString(@"rules.title.brake", nil),
+                    NSLocalizedString(@"rules.title.green", nil),
+                    NSLocalizedString(@"rules.title.stayLoose", nil),
+                    NSLocalizedString(@"rules.title.haveFun", nil)
                    ];
         
         _texts = @[
-                  @"Schütze Autofahrer vor sich selbst durch corken!",
-                  @"Verzichte darauf auf der Gegenfahrbahn zu fahren.",
-                  @"Vorne: nicht rasen!\nHinten, Lücken zufahren!",
-                  @"Wenn's mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.",
-                  @"Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün schaltet.",
-                  @"Lass dich nicht provozieren. Sei freundlich zur Polizei und zu Autofahrern, auch wenn die's nicht sind.",
-                  @"Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!"
+                   NSLocalizedString(@"rules.text.cork", nil),
+                   NSLocalizedString(@"rules.text.contraflow", nil),
+                   NSLocalizedString(@"rules.text.gently", nil),
+                   NSLocalizedString(@"rules.text.brake", nil),
+                   NSLocalizedString(@"rules.text.green", nil),
+                   NSLocalizedString(@"rules.text.stayLoose", nil),
+                   NSLocalizedString(@"rules.text.haveFun", nil)
                   ];
         
         _images = @[
@@ -57,8 +56,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -67,7 +65,7 @@
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = [@"KNIGGE" uppercaseString];
+    navItem.title = [NSLocalizedString(@"rules.title", nil) uppercaseString];
     navBar.items = @[ navItem ];
     navBar.translucent = NO;
     [self.view addSubview:navBar];
@@ -87,7 +85,7 @@
     // add link to cm hamburg
     TTTAttributedLabel *label = [[TTTAttributedLabel alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-80, self.view.frame.size.width-20, 30)];
     label.font = [UIFont systemFontOfSize:12.0f];
-    NSString *labelText = @"Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+    NSString *labelText = NSLocalizedString(@"rules.source", nil);
 
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName
                      , nil];
@@ -103,14 +101,12 @@
     [self.view addSubview:label];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 
-- (UIButton*)getHeader:(NSInteger)index
-{
+- (UIButton*)getHeader:(NSInteger)index {
     UIButton *header = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 38)];
     [header setTitle:_titles[index] forState:UIControlStateNormal];
     [header setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -123,8 +119,7 @@
 }
 
 
-- (UIView*)getView:(NSInteger)index
-{
+- (UIView*)getView:(NSInteger)index {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250)];
     UILabel *label = [[UILabel alloc]initWithFrame: CGRectMake(10, 0, self.view.frame.size.width-20, 80)];
     label.font = [UIFont systemFontOfSize:14.0f];
@@ -143,7 +138,6 @@
 }
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.criticalmass-hh.de"]];
 }
 

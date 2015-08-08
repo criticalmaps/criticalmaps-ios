@@ -94,9 +94,7 @@
 
 - (void)loadTweets {
     [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
-        
         DLog(@"Access granted with %@", bearerToken);
-        
         [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
             
             [_twitter getSearchTweetsWithQuery: _twitterQuery
@@ -116,7 +114,6 @@
     } errorBlock:^(NSError *error) {
         DLog(@"-- error %@", error);
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,7 +143,7 @@
         // Display a message when the table is empty
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         
-        messageLabel.text = @"No data is currently available.\nPlease pull down to refresh.";
+        messageLabel.text = NSLocalizedString(@"twitter.noData", nil);
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
@@ -178,9 +175,6 @@
     }
     
     NSDictionary *status = [_statuses objectAtIndex:indexPath.row];
-    
-    DLog(@"%@", status);
-    
     NSString *profileImageURL = status[@"user"][@"profile_image_url"];
     NSString *text = [status valueForKey:@"text"];
     NSString *screenName = [status valueForKeyPath:@"user.screen_name"];
