@@ -8,10 +8,10 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
-"map.title" = "Map";
+"map.title" = "Karte";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Sorry, you can't see others\nwhen your GPS is disabled.\n\nPlease enable GPS in settings.";
+"map.layer.info" = "Sorry, du kannst die anderen nicht sehen,\nwenn dein GPS ausgeschalten ist.\n\nBitte aktiviere GPS in den Einstellungen.";
 
 /* No comment provided by engineer. */
 "rules.source" = "Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
@@ -38,7 +38,7 @@
 "rules.text.stayLoose" = "Lass dich nicht provozieren. Sei freundlich zur Polizei und zu Autofahrern, auch wenn die's nicht sind.";
 
 /* No comment provided by engineer. */
-"rules.title" = "Rules";
+"rules.title" = "Knigge";
 
 /* No comment provided by engineer. */
 "rules.title.brake" = "Keine Vollbremsungen";
@@ -68,16 +68,16 @@
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 /* No comment provided by engineer. */
-"settings.donate" = "Help finacing our tracking server";
+"settings.donate" = "Helfe unseren Server zu finanzieren";
 
 /* No comment provided by engineer. */
-"settings.enableGps" = "Enable GPS";
+"settings.enableGps" = "GPS aktivieren";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
 
 /* No comment provided by engineer. */
-"settings.gpsSettings" = "GPS settings";
+"settings.gpsSettings" = "GPS Einstellungen";
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Logodesign";
@@ -92,13 +92,13 @@
 "settings.socialMedia" = "Social Media";
 
 /* No comment provided by engineer. */
-"settings.title" = "Settings";
+"settings.title" = "Einstellungen";
 
 /* No comment provided by engineer. */
 "settings.twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"twitter.noData" = "No data is currently available.\nPlease pull down to refresh.";
+"twitter.noData" = "Momentan sind keine Tweets verfügbar.\nBitte ziehen um neue zu laden.";
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";

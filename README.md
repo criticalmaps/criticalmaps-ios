@@ -32,7 +32,7 @@ check: http://criticalmaps.net
 ## TODO
 
 - [x] twitter profile image
-- [ ] localization
+- [x] localization
 - [ ] reminder on every last friday
 - [ ] better design
 - [ ] individual fonts
@@ -40,4 +40,5 @@ check: http://criticalmaps.net
 - [ ] feedback mail composer
 - [ ] sharing
 - [ ] zoom buttons
+- [ ] change icon of current location
 - [x] chat
