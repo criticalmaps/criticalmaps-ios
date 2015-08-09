@@ -86,7 +86,7 @@
                                                   object:nil];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.view endEditing:YES]; // Hide keyboard
     
@@ -132,9 +132,7 @@
 
 #pragma mark - UITableViewDataSource Methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (_chatModel.messages.count) {
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.backgroundView = nil;
@@ -157,13 +155,15 @@
     return 0;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _chatModel.messages.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row >= [_chatModel.messages count]) {
+        return nil;
+    }
+    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
@@ -185,7 +185,6 @@
     
     // Spacer is a 1x1 transparent png
     UIImage *spacer = [UIImage imageNamed:@"Spacer"];
-    
     UIGraphicsBeginImageContext(spinner.frame.size);
     
     [spacer drawInRect:CGRectMake(0,0,spinner.frame.size.width,spinner.frame.size.height)];
@@ -199,8 +198,7 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     PLChatObject *message = [_chatModel.messages objectAtIndex:indexPath.row];
     NSString *cellText = message.text;
     NSDictionary *attributes = @{NSFontAttributeName: [self fontForCell]};
