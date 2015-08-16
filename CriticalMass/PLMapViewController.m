@@ -21,8 +21,7 @@
 
 @implementation PLMapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self initObserver];
@@ -30,8 +29,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     _data = [PLDataModel sharedManager];
@@ -44,15 +42,13 @@
     [self.view addSubview:_infoOverlay];
 }
 
-- (void)initObserver
-{
+- (void)initObserver {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInitialGpsDataReceived) name:kNotificationInitialGpsDataReceived object:_data];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPositionOthersChanged) name:kNotificationPositionOthersChanged object:_data];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGpsStateChanged) name:kNotificationGpsStateChanged object:_data];
 }
 
-- (void)initMap
-{
+- (void)initMap {
     _map = [[MKMapView alloc]initWithFrame:self.view.bounds];
     _map.zoomEnabled = YES;
     _map.mapType = MKMapTypeHybrid;
@@ -73,11 +69,13 @@
     }
 #endif
     
+    MKAnnotationView *userLocationView = [_map viewForAnnotation:_map.userLocation];
+    [userLocationView.superview bringSubviewToFront:userLocationView];
+    
     [self.view addSubview:_map];
 }
 
-- (void)addButtonNavigate
-{
+- (void)addButtonNavigate {
     UIButton *btnNavigate = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     btnNavigate.layer.cornerRadius = 3;
     [btnNavigate setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
@@ -89,8 +87,7 @@
     [self.view addSubview:btnNavigate];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
     _map = nil;
@@ -99,8 +96,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationGpsStateChanged object:_data];
 }
 
-- (void)removeAllOthers
-{
+- (void)removeAllOthers {
     NSInteger toRemoveCount = _map.annotations.count;
     NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
     for (id annotation in _map.annotations)
@@ -109,8 +105,7 @@
     [_map removeAnnotations:toRemove];
 }
 
-- (void)addOther: (CLLocationCoordinate2D)coordinate
-{
+- (void)addOther: (CLLocationCoordinate2D)coordinate {
     MKPointAnnotation *point = [[MKPointAnnotation alloc]init];
     point.coordinate = coordinate;
     [_map addAnnotation:point];
@@ -118,8 +113,7 @@
 
 #pragma mark - Handler
 
-- (void)onInitialGpsDataReceived
-{
+- (void)onInitialGpsDataReceived {
     _map.centerCoordinate = _data.currentLocation.coordinate;
 }
 
@@ -128,8 +122,7 @@
     [_map setCenterCoordinate:_data.currentLocation.coordinate animated:YES];
 }
 
-- (void)onPositionOthersChanged
-{
+- (void)onPositionOthersChanged {
     [self removeAllOthers];
     
     for(id key in _data.otherLocations){
@@ -144,8 +137,7 @@
     }
 }
 
-- (void)onGpsStateChanged
-{
+- (void)onGpsStateChanged {
     _infoOverlay.hidden = _data.gpsEnabled;
 }
 
@@ -158,18 +150,14 @@
     return nil;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView
-            viewForAnnotation:(id <MKAnnotation>)annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
     
     MKAnnotationView *annotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"BikeAnnotationView"];
     
-    if (!annotationView)
-    {
-        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                  reuseIdentifier:@"BikeAnnotationView"];
+    if (!annotationView) {
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"BikeAnnotationView"];
         annotationView.image = [UIImage imageNamed:@"Bike"];
     }
     else

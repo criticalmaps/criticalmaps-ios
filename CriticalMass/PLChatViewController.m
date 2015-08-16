@@ -56,7 +56,7 @@
     [self.view addSubview:self.controlView];
     
     // add textfield
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 240, 50)];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 220, 50)];
     self.textField.layer.borderWidth = 1.0;
     self.textField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.textField.layer.cornerRadius = 3;
@@ -65,7 +65,7 @@
     
     // add button
     self.btnSend = [HOButton buttonWithType:UIButtonTypeRoundedRect];
-    self.btnSend.frame = CGRectMake(260,  0, 50, 50);
+    self.btnSend.frame = CGRectMake(240,  0, 70, 50);
     self.btnSend.layer.borderWidth = 1.0;
     [self.btnSend setBackgroundColor:[UIColor clearColor]];
     [self.btnSend setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -97,7 +97,6 @@
 }
 
 - (void)onSend {
-    
     if([self.textField.text isEqualToString: @""]){
         return;
     }
