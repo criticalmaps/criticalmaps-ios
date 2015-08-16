@@ -108,7 +108,7 @@
 
 - (UIButton*)getHeader:(NSInteger)index {
     UIButton *header = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 38)];
-    [header setTitle:_titles[index] forState:UIControlStateNormal];
+    [header setTitle: [NSString stringWithFormat:@"> %@", _titles[index]] forState:UIControlStateNormal];
     [header setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     header.titleLabel.font = [UIFont systemFontOfSize:20];
     header.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
