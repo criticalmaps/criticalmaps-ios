@@ -101,8 +101,7 @@
     if([self.textField.text isEqualToString: @""]){
         return;
     }
-    
-    [_chatModel collectMessage: self.textField.text];
+    [_chatModel collectMessage: [NSString stringWithFormat:@"%@", self.textField.text]];
     self.textField.text = @"";
 }
 
