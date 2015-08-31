@@ -13,6 +13,7 @@
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
 		945441AE1A111A6A00C8024F /* PLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 945441AD1A111A6A00C8024F /* PLLabel.m */; };
 		94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94591A6A1A6C67640080BCEC /* PLChatViewController.m */; };
+		945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945AD4831B94FDF600C7B6E9 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
 		9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9484E8021A62E63F0007F9F3 /* HOButton.m */; };
@@ -62,6 +63,7 @@
 		945441AD1A111A6A00C8024F /* PLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLLabel.m; sourceTree = "<group>"; };
 		94591A691A6C67640080BCEC /* PLChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatViewController.h; sourceTree = "<group>"; };
 		94591A6A1A6C67640080BCEC /* PLChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLChatViewController.m; sourceTree = "<group>"; };
+		945AD4831B94FDF600C7B6E9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		94709B0019CA705A003E9583 /* PLInfoOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLInfoOverlayView.h; sourceTree = "<group>"; };
 		94709B0119CA705A003E9583 /* PLInfoOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLInfoOverlayView.m; sourceTree = "<group>"; };
 		9474656219CA3078005485BD /* PLSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLSettingsTableViewController.h; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				94AD50491A963DFE00547B40 /* View */,
 				94AD50481A963DC800547B40 /* Controller */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
+				945AD4831B94FDF600C7B6E9 /* Main.storyboard */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
+				945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
