@@ -22,7 +22,6 @@
 @property(nonatomic,strong) UITableViewController *tableVC;
 @property(nonatomic,strong) NSArray *statuses;
 @property(nonatomic,strong) PLDataModel *data;
-@property(nonatomic,strong) NSString *twitterQuery;
 @property(nonatomic,assign) NSArray *supportedLocalities;
 
 @end
@@ -32,29 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _supportedLocalities = @[
-                             @"berlin",
-                             @"leipzig",
-                             @"wien",
-                             @"cambridge",
-                             @"hamburg",
-                             @"dresden",
-                             @"köln",
-                             @"potsdam",
-                             @"stuttgart",
-                             @"münchen",
-                             @"frankfurt"
-                             ];
-    
     _data = [PLDataModel sharedManager];
-    
-    if(_data.locality
-       && [_supportedLocalities containsObject:[_data.locality lowercaseString]]){
-        
-        _twitterQuery = [PLUtils getTwitterQueryByLocality:_data.locality];
-    }else{
-        _twitterQuery = @"#criticalmaps";
-    }
     
     // table
     CGRect frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 120);
@@ -70,7 +47,7 @@
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = [[NSString stringWithFormat:@"%@", _twitterQuery] uppercaseString];
+    navItem.title = [[NSString stringWithFormat:@"%@", KTwitterQuery] uppercaseString];
     navBar.items = @[ navItem ];
     navBar.translucent = NO;
     [self.view addSubview:navBar];
@@ -86,7 +63,7 @@
     [self loadTweets];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [_tableVC.tableView reloadData];
 }
@@ -96,8 +73,7 @@
     [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
         DLog(@"Access granted with %@", bearerToken);
         [_twitter verifyCredentialsWithSuccessBlock:^(NSString *bearerToken) {
-            
-            [_twitter getSearchTweetsWithQuery: _twitterQuery
+            [_twitter getSearchTweetsWithQuery: KTwitterQuery
                                   successBlock:^(NSDictionary *searchMetadata, NSArray *statuses) {
                                       _statuses = statuses;
                                       [_tableVC.tableView reloadData];
@@ -131,8 +107,7 @@
 
 #pragma mark - Data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     if (_statuses.count) {
         tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -156,13 +131,11 @@
     return 0;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [_statuses count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PLTwitterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TwitterCell"];
     
     if (cell == nil) {
@@ -189,8 +162,7 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *status = [_statuses objectAtIndex:indexPath.row];
     NSString *cellText = [status valueForKey:@"text"];
     

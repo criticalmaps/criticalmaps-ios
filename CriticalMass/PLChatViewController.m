@@ -15,10 +15,10 @@
 
 @property (nonatomic, strong) PLChatModel *chatModel;
 @property (nonatomic, strong) PLDataModel *dataModel;
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UIButton *btnSend;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *controlView;
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) HOButton *btnSend;
 
 @end
 
@@ -32,12 +32,46 @@
     _dataModel = [PLDataModel sharedManager];
     _chatModel = [PLChatModel sharedManager];
     
+    // navbar
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = [NSLocalizedString(@"chat.title", nil) uppercaseString];
+    navBar.items = @[ navItem ];
+    navBar.translucent = NO;
+    [self.view addSubview:navBar];
+    
+    // add table
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 71, self.view.frame.size.width, self.view.frame.size.height-189)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    [self.view addSubview: self.tableView];
     
+    // add gesture recognizer
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self.tableView addGestureRecognizer:gesture];
     
+    // add control
+    self.controlView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-110, self.view.frame.size.width, 50)];
+    [self.view addSubview:self.controlView];
+    
+    // add textfield
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 220, 50)];
+    self.textField.layer.borderWidth = 1.0;
+    self.textField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.textField.layer.cornerRadius = 3;
+    self.textField.delegate = self;
+    [self.controlView addSubview: self.textField];
+    
+    // add button
+    self.btnSend = [HOButton buttonWithType:UIButtonTypeRoundedRect];
+    self.btnSend.frame = CGRectMake(240,  0, 70, 50);
+    self.btnSend.layer.borderWidth = 1.0;
+    [self.btnSend setBackgroundColor:[UIColor clearColor]];
+    [self.btnSend setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [self.btnSend addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnSend setTitle:NSLocalizedString(@"chat.send", nil) forState:UIControlStateNormal];
+    [self.controlView addSubview: self.btnSend];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -62,13 +96,36 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)onSend:(id)sender {
+- (void)onSend {
     if([self.textField.text isEqualToString: @""]){
         return;
     }
-    
-    [_chatModel collectMessage: self.textField.text];
+    [_chatModel collectMessage: [NSString stringWithFormat:@"%@", self.textField.text]];
     self.textField.text = @"";
+}
+
+- (void)moveContent:(BOOL)moveUp {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rectControl = self.controlView.frame;
+    CGRect rectTable = self.tableView.frame;
+    if (moveUp)
+    {
+        rectTable.size.height -= kOFFSET_FOR_KEYBOARD;
+        rectControl.origin.y -= kOFFSET_FOR_KEYBOARD;
+        
+    }
+    else
+    {
+        rectTable.size.height += kOFFSET_FOR_KEYBOARD;
+        rectControl.origin.y += kOFFSET_FOR_KEYBOARD;
+    }
+    
+    self.tableView.frame = rectTable;
+    self.controlView.frame = rectControl;
+    
+    [UIView commitAnimations];
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -151,10 +208,12 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self moveContent:YES];
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self moveContent:NO];
 }
 
 - (void)onTap:(UITapGestureRecognizer *)recognizer {
