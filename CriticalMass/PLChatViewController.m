@@ -10,6 +10,7 @@
 #import "PLChatObject.h"
 #import "PLConstants.h"
 #import "UIColor+Helper.h"
+#import "PLTabBarController.h"
 
 @interface PLChatViewController ()
 
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlsBottomConstraint;
 
 @end
 
@@ -43,6 +45,9 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessagesReceived) name:kNotificationChatMessagesReceived object:_chatModel];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -50,6 +55,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:kNotificationChatMessagesReceived
                                                   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -58,12 +66,8 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 - (IBAction)onSend:(id)sender {
-    if([self.textField.text isEqualToString: @""]){
+    if([self.textField.text isEqualToString: @""]) {
         return;
     }
     
@@ -150,13 +154,6 @@
     return rect.size.height + 20;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-}
-
 - (void)onTap:(UITapGestureRecognizer *)recognizer {
     [self.view endEditing:YES]; // Hide keyboard
 }
@@ -173,6 +170,20 @@
 
 - (UIFont*)fontForCell {
     return [UIFont systemFontOfSize:18.0];
+}
+
+#pragma mark - Notification Handlers
+
+- (void)keyboardWillShow:(NSNotification *)sender {
+    CGRect keyboardFrame = [sender.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat constraintHeight = keyboardFrame.size.height - self.tabBarController.tabBar.frame.size.height;
+    self.controlsBottomConstraint.constant = constraintHeight;
+    [self.view layoutIfNeeded];
+}
+
+- (void)keyboardWillHide:(NSNotification *)sender {
+    self.controlsBottomConstraint.constant = 0;
+    [self.view layoutIfNeeded];
 }
 
 @end

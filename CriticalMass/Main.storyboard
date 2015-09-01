@@ -69,6 +69,7 @@
                     </view>
                     <connections>
                         <outlet property="btnSend" destination="RdD-UJ-NQS" id="wZ2-lZ-vkk"/>
+                        <outlet property="controlsBottomConstraint" destination="uc6-El-cyJ" id="Ax9-AD-aSq"/>
                         <outlet property="tableView" destination="r12-qS-mBC" id="ERZ-6T-qgX"/>
                         <outlet property="textField" destination="RMy-0H-Xap" id="mQf-aa-eeW"/>
                     </connections>
