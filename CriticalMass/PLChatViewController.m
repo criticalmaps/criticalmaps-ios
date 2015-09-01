@@ -37,6 +37,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    [self.btnSend setTitle:NSLocalizedString(@"chat.send", nil) forState:UIControlStateNormal];
+    
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self.tableView addGestureRecognizer:gesture];
     
