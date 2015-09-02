@@ -62,7 +62,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     // navbar
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
     navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = [NSLocalizedString(@"rules.title", nil) uppercaseString];
@@ -70,7 +70,7 @@
     navBar.translucent = NO;
     [self.view addSubview:navBar];
     
-    AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 71, self.view.frame.size.width, self.view.frame.size.height-149)];
+    AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 61, self.view.frame.size.width, self.view.frame.size.height-139)];
     [self.view addSubview:accordion];
     
     for (int i=0; i < [_images count]; i++) {
@@ -84,7 +84,7 @@
     
     // add link to cm hamburg
     TTTAttributedLabel *label = [[TTTAttributedLabel alloc]initWithFrame:CGRectMake(10, self.view.frame.size.height-80, self.view.frame.size.width-20, 30)];
-    label.font = [UIFont systemFontOfSize:12.0f];
+    label.font = [UIFont systemFontOfSize:11.0f];
     NSString *labelText = NSLocalizedString(@"rules.source", nil);
 
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName
@@ -105,10 +105,9 @@
     [super didReceiveMemoryWarning];
 }
 
-
 - (UIButton*)getHeader:(NSInteger)index {
     UIButton *header = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 38)];
-    [header setTitle:_titles[index] forState:UIControlStateNormal];
+    [header setTitle: _titles[index] forState:UIControlStateNormal];
     [header setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     header.titleLabel.font = [UIFont systemFontOfSize:20];
     header.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

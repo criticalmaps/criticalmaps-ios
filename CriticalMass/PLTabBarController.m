@@ -18,9 +18,11 @@
         [[UITabBar appearance] setTranslucent:NO];
     }
     
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
     UIViewController *viewController1 = [[PLMapViewController alloc] init];
     UIViewController *viewController2 = [[PLRulesViewController alloc] init];
-    UIViewController *viewController3 = [[PLChatViewController alloc] init];
+    UIViewController *viewController3 = [storyBoard instantiateViewControllerWithIdentifier:NSStringFromClass([PLChatViewController class])];
     UIViewController *viewController4 = [[PLTwitterViewController alloc] init];
     UIViewController *viewController5 = [[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     

@@ -44,14 +44,12 @@
     return self;
 }
 
-- (void)initUserId
-{
+- (void)initUserId {
     NSString *deviceIdString = [[[UIDevice currentDevice] identifierForVendor]UUIDString];
     _uid = [NSString stringWithFormat:@"%@",[deviceIdString md5]];
 }
 
-- (void)initLocationManager
-{
+- (void)initLocationManager {
     _locationManager = [[CLLocationManager alloc] init];
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [_locationManager requestAlwaysAuthorization];
@@ -73,15 +71,13 @@
     
 }
 
-- (void)initHTTPRequestManager
-{
+- (void)initHTTPRequestManager {
     _operationManager = [AFHTTPRequestOperationManager manager];
     _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 }
 
-- (void)startRequestInterval
-{
+- (void)startRequestInterval {
     DLog(@"startRequestInterval");
     [_timer invalidate];
     _timer = nil;
@@ -90,15 +86,13 @@
     _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
 }
 
-- (void)stopRequestInterval
-{
+- (void)stopRequestInterval {
     DLog(@"stopRequestInterval");
     [_timer invalidate];
     _timer = nil;
 }
 
-- (void)request
-{
+- (void)request {
     _chatModel = [PLChatModel sharedManager];
     _requestCount++;
     
@@ -137,7 +131,7 @@
     }
 }
 
-- (void)enableGps{
+- (void)enableGps {
     DLog(@"enableGps");
     _updateCount = 0;
     [self stopRequestInterval];
@@ -146,7 +140,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
 
-- (void)disableGps{
+- (void)disableGps {
     DLog(@"disableGps");
     [_locationManager stopUpdatingLocation];
     [self stopRequestInterval];
@@ -154,8 +148,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
 
--(void)setIsBackroundMode:(BOOL)isBackroundMode
-{
+-(void)setIsBackroundMode:(BOOL)isBackroundMode {
     _isBackroundMode = isBackroundMode;
     
     if (_isBackroundMode) {
@@ -169,15 +162,13 @@
     DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
 }
 
-- (void)onTimer
-{
+- (void)onTimer {
     [self request];
 }
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     DLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -186,8 +177,7 @@
     [self disableGps];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     DLog(@"didUpdateToLocation: %@", newLocation);
     
     _currentLocation = newLocation;
