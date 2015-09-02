@@ -34,7 +34,7 @@
     _data = [PLDataModel sharedManager];
     
     // table
-    CGRect frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 120);
+    CGRect frame = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 110);
     _tableVC = [[UITableViewController alloc] init];
     [_tableVC.tableView setDelegate:self];
     [_tableVC.tableView setDataSource:self];
@@ -44,7 +44,7 @@
     _twitter = [STTwitterAPI twitterAPIAppOnlyWithConsumerKey:@"e0vyKNT3iC89SkUaIzEvX1oii" consumerSecret:@"151lpogCiUp4RhjRNZukl2tJSeGyskq37U8wmldFm9FDPfzBW8"];
     
     // navbar
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
     navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = [[NSString stringWithFormat:@"%@", KTwitterQuery] uppercaseString];

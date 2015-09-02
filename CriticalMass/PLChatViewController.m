@@ -17,6 +17,7 @@
 @property (nonatomic, strong) PLChatModel *chatModel;
 @property (nonatomic, strong) PLDataModel *dataModel;
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
@@ -33,6 +34,11 @@
     
     _dataModel = [PLDataModel sharedManager];
     _chatModel = [PLChatModel sharedManager];
+    
+    // navbar
+    self.navBar.backgroundColor = [UIColor whiteColor];
+    self.navBar.translucent = NO;
+    self.navBar.topItem.title = [NSLocalizedString(@"chat.title", nil) uppercaseString];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -75,9 +81,29 @@
     
     [_chatModel collectMessage: self.textField.text];
     self.textField.text = @"";
+    
+     [self.textField resignFirstResponder];
 }
 
-#pragma mark - UITableViewDataSource Methods
+- (void)onTap:(UITapGestureRecognizer *)recognizer {
+    [self.view endEditing:YES]; // Hide keyboard
+}
+
+- (void)onMessagesReceived {
+    [self.tableView reloadData];
+    //    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.sortedMessages.count-1 inSection: 0];
+    //    [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.textField resignFirstResponder];
+}
+
+- (UIFont*)fontForCell {
+    return [UIFont systemFontOfSize:18.0];
+}
+
+#pragma mark - UITableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (_chatModel.messages.count) {
@@ -154,24 +180,6 @@
                                            attributes:attributes
                                               context:nil];
     return rect.size.height + 20;
-}
-
-- (void)onTap:(UITapGestureRecognizer *)recognizer {
-    [self.view endEditing:YES]; // Hide keyboard
-}
-
-- (void)onMessagesReceived {
-    [self.tableView reloadData];
-//    NSIndexPath* ipath = [NSIndexPath indexPathForRow: _chatModel.sortedMessages.count-1 inSection: 0];
-//    [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self.textField resignFirstResponder];
-}
-
-- (UIFont*)fontForCell {
-    return [UIFont systemFontOfSize:18.0];
 }
 
 #pragma mark - Notification Handlers

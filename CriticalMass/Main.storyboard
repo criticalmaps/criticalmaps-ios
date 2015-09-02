@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r12-qS-mBC">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="540"/>
+                                <rect key="frame" x="0.0" y="60" width="600" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gb-ap-wa9" userLabel="Controls">
@@ -62,21 +62,40 @@
                                     <constraint firstAttribute="height" constant="60" id="aQw-2X-giJ"/>
                                 </constraints>
                             </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Uz-vr-QcY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="P7M-rl-eER"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="2KE-k9-uzM"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4Gb-ap-wa9" firstAttribute="top" secondItem="r12-qS-mBC" secondAttribute="bottom" id="3sh-db-JYo"/>
                             <constraint firstItem="r12-qS-mBC" firstAttribute="top" secondItem="mze-QU-wr5" secondAttribute="top" id="GsU-A0-23v"/>
+                            <constraint firstAttribute="trailing" secondItem="5Uz-vr-QcY" secondAttribute="trailing" id="U54-F5-5q8"/>
+                            <constraint firstItem="5Uz-vr-QcY" firstAttribute="top" secondItem="mze-QU-wr5" secondAttribute="top" id="Ydm-KC-qLT"/>
                             <constraint firstItem="4Gb-ap-wa9" firstAttribute="leading" secondItem="mze-QU-wr5" secondAttribute="leadingMargin" id="hGN-N8-kcb"/>
                             <constraint firstItem="r12-qS-mBC" firstAttribute="leading" secondItem="mze-QU-wr5" secondAttribute="leading" id="mnG-hM-dzK"/>
                             <constraint firstAttribute="trailing" secondItem="r12-qS-mBC" secondAttribute="trailing" id="nnn-Bv-fCQ"/>
                             <constraint firstItem="h8l-Bj-o3t" firstAttribute="top" secondItem="4Gb-ap-wa9" secondAttribute="bottom" id="uc6-El-cyJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4Gb-ap-wa9" secondAttribute="trailing" id="vrh-JK-IkX"/>
+                            <constraint firstItem="r12-qS-mBC" firstAttribute="top" secondItem="5Uz-vr-QcY" secondAttribute="bottom" id="wWc-tO-FKi"/>
+                            <constraint firstItem="5Uz-vr-QcY" firstAttribute="leading" secondItem="mze-QU-wr5" secondAttribute="leading" id="zqt-md-DpJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GsU-A0-23v"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="btnSend" destination="RdD-UJ-NQS" id="wZ2-lZ-vkk"/>
                         <outlet property="controlsBottomConstraint" destination="uc6-El-cyJ" id="Ax9-AD-aSq"/>
+                        <outlet property="navBar" destination="5Uz-vr-QcY" id="UsU-Ph-bek"/>
                         <outlet property="tableView" destination="r12-qS-mBC" id="ERZ-6T-qgX"/>
                         <outlet property="textField" destination="RMy-0H-Xap" id="mQf-aa-eeW"/>
                     </connections>
