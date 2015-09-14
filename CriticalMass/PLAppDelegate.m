@@ -13,6 +13,7 @@
 #import "PLConstants.h"
 #import "PLDataModel.h"
 #import "Appirater.h"
+#import "PLParse.h"
 #import <Parse/Parse.h>
 
 @implementation PLAppDelegate
@@ -21,21 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
-    // use Local Datastore features or want to use cachePolicy.
-    [Parse enableLocalDatastore];
-    [Parse setApplicationId:@"EnYQ8ovquhE2e5pgjln8XWt1lU5rD4VddJgr01on"
-                  clientKey:@"JcmKjiSY5beFVX9mk51VV5qkVWl3KgEnQyG2lYCI"];
-
-    [PFUser enableAutomaticUser];
     
-    PFACL *defaultACL = [PFACL ACL];
-    
-    // If you would like all objects to be private by default, remove this line.
-    [defaultACL setPublicReadAccess:YES];
-    
-    [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
-    
+    [PLParse setupParse];
     
     // Set Appirater
     [Appirater setAppId:@"918669647"];
@@ -133,19 +121,21 @@
     
     [PFPush subscribeToChannelInBackground:@"" block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            NSLog(@"ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
-        } else {
-            NSLog(@"ParseStarterProject failed to subscribe to push notifications on the broadcast channel.");
+            DLog(@"ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
+        }
+        else {
+            DLog(@"ParseStarterProject failed to subscribe to push notifications on the broadcast channel.");
         }
     }];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     if (error.code == 3010) {
-        NSLog(@"Push notifications are not supported in the iOS Simulator.");
-    } else {
+        DLog(@"Push notifications are not supported in the iOS Simulator.");
+    }
+    else {
         // show some alert or otherwise handle the failure to register.
-        NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+        DLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
     }
 }
 
