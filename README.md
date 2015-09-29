@@ -17,7 +17,7 @@ https://itunes.apple.com/de/app/critical-mass-berlin/id918669647
 
 ## is there a version for android devices?
                                                           
-yep! here: https://github.com/stephanlindauer/criticalmaps-android
+yep! here: https://github.com/CriticalMaps/criticalmaps-android
 
 ## contribute
 
