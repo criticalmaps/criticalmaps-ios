@@ -87,7 +87,7 @@
             cell.detailTextLabel.text = @"www.criticalmass-berlin.org";
         }else if(indexPath.row == 1){
             cell.textLabel.text = NSLocalizedString(@"settings.openSource", nil);
-            cell.detailTextLabel.text = @"www.github.com/headione/criticalmaps-ios";
+            cell.detailTextLabel.text = @"www.github.com/CriticalMaps/criticalmaps-ios";
         }else if(indexPath.row == 2){
             cell.textLabel.text = NSLocalizedString(@"settings.logoDesign", nil);
             cell.detailTextLabel.text = @"gitti la mar";
@@ -118,7 +118,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.criticalmass-berlin.org"]];
         }
         else if(indexPath.row == 1){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://github.com/headione/criticalmaps-ios"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://github.com/CriticalMaps/criticalmaps-ios"]];
         }
         else if(indexPath.row == 3){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.pokuslabs.com"]];
