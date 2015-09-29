@@ -3,7 +3,7 @@
 
 ## what's "critical mass"?
 
-> "Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement."
+>Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
 
 http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
