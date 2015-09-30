@@ -28,7 +28,7 @@
     // Set Appirater
     [Appirater setAppId:@"918669647"];
     [Appirater setDaysUntilPrompt:1];
-    [Appirater setUsesUntilPrompt:10];
+    [Appirater setUsesUntilPrompt:5];
     [Appirater setSignificantEventsUntilPrompt:-1];
     [Appirater setTimeBeforeReminding:2];
     
@@ -105,6 +105,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     DLog(@"applicationDidBecomeActive");
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
