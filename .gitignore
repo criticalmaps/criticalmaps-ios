@@ -9,3 +9,5 @@ Pods/
 Podfile.lock
 CriticalMaps.xcodeproj
 
+PLParse.h
+PLParse.m
