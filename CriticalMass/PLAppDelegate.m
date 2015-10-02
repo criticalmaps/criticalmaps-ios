@@ -105,7 +105,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     DLog(@"applicationDidBecomeActive");
-    application.applicationIconBadgeNumber = 0;
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
