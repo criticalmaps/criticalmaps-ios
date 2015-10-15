@@ -19,7 +19,7 @@
 }
 
 +(NSString*)getTimestamp {
-    return [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
+    return [NSString stringWithFormat:@"%lu",(long)[[NSDate date] timeIntervalSince1970]];
 }
 
 @end
