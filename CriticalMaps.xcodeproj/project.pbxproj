@@ -13,7 +13,7 @@
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
 		945441AE1A111A6A00C8024F /* PLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 945441AD1A111A6A00C8024F /* PLLabel.m */; };
 		94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94591A6A1A6C67640080BCEC /* PLChatViewController.m */; };
-		945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945AD4831B94FDF600C7B6E9 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
+		945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945AD4831B94FDF600C7B6E9 /* Main.storyboard */; };
 		94709B0219CA705A003E9583 /* PLInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94709B0119CA705A003E9583 /* PLInfoOverlayView.m */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
 		9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9484E8021A62E63F0007F9F3 /* HOButton.m */; };
@@ -36,7 +36,7 @@
 		94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089519BDECAE009FFF43 /* PLRulesViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
-		94DF3ECD1BA6F081006D9BFF /* PLParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF3ECC1BA6F081006D9BFF /* PLParse.m */; settings = {ASSET_TAGS = (); }; };
+		94DF3ECD1BA6F081006D9BFF /* PLParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF3ECC1BA6F081006D9BFF /* PLParse.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 /* End PBXBuildFile section */
