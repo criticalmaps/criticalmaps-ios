@@ -91,6 +91,8 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
 
+"settings.openSource" = "This is an open source project. Feel free to support us with coding for iOS, Android or Web:";
+
 /* No comment provided by engineer. */
 "settings.title" = "Einstellungen";
 

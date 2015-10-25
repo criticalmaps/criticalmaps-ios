@@ -10,15 +10,15 @@
 
 @implementation PLUtils
 
-+(NSString*)locationdegrees2String:(double)degrees {
++ (NSString*)locationdegrees2String:(double)degrees {
     return [[NSString stringWithFormat:@"%.06f", degrees] stringByReplacingOccurrencesOfString:@"." withString:@""];
 }
 
-+(double)string2Locationdegrees:(NSString*)string {
++ (double)string2Locationdegrees:(NSString*)string {
     return (double)([string floatValue]/1000000);
 }
 
-+(NSString*)getTimestamp {
++ (NSString*)getTimestamp {
     return [NSString stringWithFormat:@"%lu",(long)[[NSDate date] timeIntervalSince1970]];
 }
 
