@@ -143,6 +143,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
+        [cell.imageView setClipsToBounds:YES];
         UIFont *myFont = [self fontForCell];
         cell.textLabel.font  = myFont;
     }
@@ -154,7 +155,7 @@
 //    NSString *dateString = [status valueForKey:@"created_at"];
     
     [cell.imageView  sd_setImageWithURL:[NSURL URLWithString: profileImageURL]
-                       placeholderImage:[UIImage imageNamed:@"Twitter"]];
+                       placeholderImage:[UIImage imageNamed:@"Avatar"]];
     
     cell.textLabel.text = [NSString stringWithFormat:@"@%@: %@", screenName, text];
 //    cell.detailTextLabel.text = [NSString stringWithFormat:@"@%@ | %@", screenName, dateString];
