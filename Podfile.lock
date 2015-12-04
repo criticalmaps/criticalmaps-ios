@@ -1,31 +1,31 @@
 PODS:
   - AccordionView (0.0.5)
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
+  - AFNetworking/NSURLSession (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Appirater (2.0.5)
-  - Bolts/Tasks (1.2.2)
+  - Bolts/Tasks (1.5.0)
   - NSString-Hashes (1.2.2)
-  - Parse (1.8.3):
-    - Bolts/Tasks (>= 1.2.2)
+  - Parse (1.10.0):
+    - Bolts/Tasks (~> 1.5)
   - SAMLoadingView (0.1.0)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -46,14 +46,14 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AccordionView: 4f82751476a96ec60985041a48bf4c94ac1ea5ab
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
-  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
-  Parse: 4b251ac63b76d12b334a32579cc3b174446f0c39
+  Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   STTwitter: eb85d8770ddb0f8989f341cf41ea875e90ac6e7f
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.39.0
