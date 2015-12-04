@@ -153,7 +153,6 @@
 		94AD50481A963DC800547B40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
 				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
 				94CF089519BDECAE009FFF43 /* PLRulesViewController.m */,
@@ -179,6 +178,7 @@
 				942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */,
 				942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */,
 				94709B0019CA705A003E9583 /* PLInfoOverlayView.h */,
+				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
 			);
 			name = View;
@@ -298,6 +298,7 @@
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
 				0BC870EB377540C1A3ABAC42 /* Copy Pods Resources */,
+				1DCE72B03FFD1A26E54A62E7 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -337,13 +338,13 @@
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
 					94CF085B19BDEAF2009FFF43 = {
-						DevelopmentTeam = 5YLLXUZBZ2;
+						DevelopmentTeam = 9BY6RB4JL8;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -407,6 +408,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1DCE72B03FFD1A26E54A62E7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		81DC3C4AE5D040719E1CA5FC /* Check Pods Manifest.lock */ = {
@@ -586,7 +602,7 @@
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zutrinken.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -606,7 +622,7 @@
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zutrinken.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
