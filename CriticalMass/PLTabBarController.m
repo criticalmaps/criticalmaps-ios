@@ -13,9 +13,8 @@
     
     self.view.tintColor = [UIColor magicColor];
     
-    [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
     if ([[UITabBar appearance] respondsToSelector:@selector(setTranslucent:)]) {
-        [[UITabBar appearance] setTranslucent:NO];
+        [[UITabBar appearance] setTranslucent:YES];
     }
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
