@@ -2,7 +2,7 @@
 
 > Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
 > 
-> – _[Wikipedia](http://en.wikipedia.org/wiki/Critical_Mass_(cycling))_
+> – [Wikipedia](http://en.wikipedia.org/wiki/Critical_Mass_(cycling))
 
 This app helps all the critical mass participants to better organize the protest by tracking their location to share it with everyone else.
 
