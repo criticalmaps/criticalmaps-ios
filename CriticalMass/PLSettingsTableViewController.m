@@ -110,6 +110,9 @@
         }else if(indexPath.row == 2){
             cell.textLabel.text = NSLocalizedString(@"settings.programming", nil);
             cell.detailTextLabel.text = @"Norman Sander";
+        }else if(indexPath.row == 3){
+            cell.textLabel.text = NSLocalizedString(@"settings.kniggeImages", nil);
+            cell.detailTextLabel.text = @"criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
         }
     }
     return cell;
@@ -140,6 +143,10 @@
         else if(indexPath.row == 2){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
                                                         @"http://www.nsander.de"]];
+        }
+        else if(indexPath.row == 3){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                        @"http://criticalmass-hh.de"]];
         }
     }
 }
