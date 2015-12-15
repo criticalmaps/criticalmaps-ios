@@ -31,19 +31,19 @@ __Important:__ While `pod install` you will be asked for _ParseApplicationId_ an
 
 1. Fork, then clone the repo:
 
-	$ git clone REPO-URL
+        $ git clone REPO-URL
 
 2. Create your feature branch:
 
-	$ git checkout -b my-new-feature
+        $ git checkout -b my-new-feature
 
 3. Commit your changes:
 
-	$ git commit -am 'Added some feature'
+        $ git commit -am 'Added some feature'
 
 4. Push to the branch:
 
-	$ git push origin my-new-feature
+        $ git push origin my-new-feature
 
 5. Submit a new [pull request](https://github.com/CriticalMaps/criticalmaps-ios/compare).
 
