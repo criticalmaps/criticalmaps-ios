@@ -17,7 +17,6 @@
 @property (nonatomic, strong) PLChatModel *chatModel;
 @property (nonatomic, strong) PLDataModel *dataModel;
 
-@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
@@ -36,9 +35,7 @@
     _chatModel = [PLChatModel sharedManager];
     
     // navbar
-    self.navBar.backgroundColor = [UIColor whiteColor];
-    self.navBar.translucent = NO;
-    self.navBar.topItem.title = [NSLocalizedString(@"chat.title", nil) uppercaseString];
+    self.title = NSLocalizedString(@"chat.title", nil);
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

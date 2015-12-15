@@ -20,11 +20,11 @@
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    UIViewController *viewController1 = [[PLMapViewController alloc] init];
-    UIViewController *viewController2 = [[PLRulesViewController alloc] init];
-    UIViewController *viewController3 = [storyBoard instantiateViewControllerWithIdentifier:NSStringFromClass([PLChatViewController class])];
-    UIViewController *viewController4 = [[PLTwitterViewController alloc] init];
-    UIViewController *viewController5 = [[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UIViewController *viewController1 = [[UINavigationController alloc]initWithRootViewController:[[PLMapViewController alloc] init]];
+    UIViewController *viewController2 = [[UINavigationController alloc]initWithRootViewController:[[PLRulesViewController alloc] init]];
+    UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[storyBoard instantiateViewControllerWithIdentifier:NSStringFromClass([PLChatViewController class])]];;
+    UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[PLTwitterViewController alloc] init]];
+    UIViewController *viewController5 = [[UINavigationController alloc] initWithRootViewController:[[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped]];
     
     viewController1.title = NSLocalizedString(@"map.title", nil);
     viewController2.title = NSLocalizedString(@"rules.title", nil);

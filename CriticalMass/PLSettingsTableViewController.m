@@ -42,6 +42,7 @@
                     ];
     
     self.clearsSelectionOnViewWillAppear = YES;
+    self.title = NSLocalizedString(@"settings.title", nil);
 }
 
 - (void)didReceiveMemoryWarning {

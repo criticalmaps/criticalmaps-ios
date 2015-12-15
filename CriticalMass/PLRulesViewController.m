@@ -62,13 +62,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     // navbar
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
-    navBar.backgroundColor = [UIColor whiteColor];
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = [NSLocalizedString(@"rules.title", nil) uppercaseString];
-    navBar.items = @[ navItem ];
-    navBar.translucent = NO;
-    [self.view addSubview:navBar];
+    self.title = NSLocalizedString(@"rules.title", nil);
     
     AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 61, self.view.frame.size.width, self.view.frame.size.height-139)];
     [self.view addSubview:accordion];
