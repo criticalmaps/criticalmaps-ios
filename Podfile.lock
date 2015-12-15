@@ -23,6 +23,7 @@ PODS:
     - AFNetworking/NSURLSession
   - Appirater (2.0.5)
   - Bolts/Tasks (1.5.0)
+  - Keys (1.0.0)
   - NSString-Hashes (1.2.2)
   - Parse (1.10.0):
     - Bolts/Tasks (~> 1.5)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - AccordionView
   - AFNetworking
   - Appirater
+  - Keys (from `Pods/CocoaPodsKeys`)
   - NSString-Hashes
   - Parse
   - SAMLoadingView
@@ -44,11 +46,16 @@ DEPENDENCIES:
   - STTwitter
   - TTTAttributedLabel
 
+EXTERNAL SOURCES:
+  Keys:
+    :path: Pods/CocoaPodsKeys
+
 SPEC CHECKSUMS:
   AccordionView: 4f82751476a96ec60985041a48bf4c94ac1ea5ab
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
+  Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
   Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c

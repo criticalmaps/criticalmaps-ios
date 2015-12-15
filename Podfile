@@ -4,6 +4,14 @@ platform :ios, '7.0'
 
 xcodeproj 'CriticalMaps.xcodeproj'
 
+plugin 'cocoapods-keys', {
+  :project => "CriticalMaps",
+  :keys => [
+    "ParseApplicationId",
+    "ParseClientKey",
+  ]
+}
+
 pod 'AFNetworking'
 pod 'NSString-Hashes'
 pod 'AccordionView'
