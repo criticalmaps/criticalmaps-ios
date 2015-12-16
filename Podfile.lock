@@ -25,7 +25,7 @@ PODS:
   - Bolts/Tasks (1.5.0)
   - Keys (1.0.0)
   - NSString-Hashes (1.2.2)
-  - Parse (1.10.0):
+  - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
   - SAMLoadingView (0.1.0)
   - SDWebImage (3.7.3):
@@ -36,7 +36,7 @@ PODS:
 
 DEPENDENCIES:
   - AccordionView
-  - AFNetworking
+  - AFNetworking (~> 2.6.3)
   - Appirater
   - Keys (from `Pods/CocoaPodsKeys`)
   - NSString-Hashes
@@ -57,7 +57,7 @@ SPEC CHECKSUMS:
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
-  Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
+  Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   STTwitter: eb85d8770ddb0f8989f341cf41ea875e90ac6e7f

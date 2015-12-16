@@ -12,7 +12,7 @@ plugin 'cocoapods-keys', {
   ]
 }
 
-pod 'AFNetworking'
+pod 'AFNetworking', '~> 2.6.3'
 pod 'NSString-Hashes'
 pod 'AccordionView'
 pod 'TTTAttributedLabel'
