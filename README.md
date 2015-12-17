@@ -25,7 +25,7 @@ This app helps all the critical mass participants to better organize the protest
 	pod install
 	open CriticalMaps.xcworkspace
 
-__Important:__ While `pod install` you will be asked for _ParseApplicationId_ and _ParseClientKey_. You can enter a random key to make it build. To use the CriticalMaps network (Map and Chat) please contact us for working keys [info@pokuslabs.com](mailto:info@pokuslabs.com). To replace set keys take a look at [cocoapods-keys](https://github.com/orta/cocoapods-keys).
+__Important:__ While `pod install` you will be asked for _ParseApplicationId_ and _ParseClientKey_. You can enter a random key to make it build. To replace set keys take a look at [cocoapods-keys](https://github.com/orta/cocoapods-keys). If you have any questions for setting up the project please contact us [info@pokuslabs.com](mailto:info@pokuslabs.com).
 
 ### How to contribute
 
