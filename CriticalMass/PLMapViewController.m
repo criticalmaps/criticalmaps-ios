@@ -40,6 +40,7 @@
     _infoOverlay = [[PLInfoOverlayView alloc]initWithFrame:self.view.bounds];
     _infoOverlay.hidden = YES;
     [self.view addSubview:_infoOverlay];
+    self.title = NSLocalizedString(@"map.title", nil);
 }
 
 - (void)initObserver {

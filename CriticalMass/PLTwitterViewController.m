@@ -43,14 +43,8 @@
     
     _twitter = [STTwitterAPI twitterAPIAppOnlyWithConsumerKey:@"e0vyKNT3iC89SkUaIzEvX1oii" consumerSecret:@"151lpogCiUp4RhjRNZukl2tJSeGyskq37U8wmldFm9FDPfzBW8"];
     
-    // navbar
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
-    navBar.backgroundColor = [UIColor whiteColor];
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = [[NSString stringWithFormat:@"%@", KTwitterQuery] uppercaseString];
-    navBar.items = @[ navItem ];
-    navBar.translucent = NO;
-    [self.view addSubview:navBar];
+    self.title = [NSString stringWithFormat:@"%@", KTwitterQuery];
+
     
     // refresh control
     _tableVC.refreshControl = [[UIRefreshControl alloc] init];

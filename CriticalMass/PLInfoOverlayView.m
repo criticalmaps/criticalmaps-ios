@@ -23,8 +23,10 @@
         label.textColor = [UIColor whiteColor];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
+        
     }
     return self;
 }
+
 
 @end
