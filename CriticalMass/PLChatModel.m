@@ -65,12 +65,12 @@
         
         if(co){
             co.isActive = YES;
-            co.timestamp = [message objectForKey:@"timestamp"];
+            co.timestamp = [NSString stringWithFormat:@"%lu", (long)[message objectForKey:@"timestamp"]];
         }else{
             // create chat object
             PLChatObject *co = [[PLChatObject alloc] init];
             co.identifier = key;
-            co.timestamp = [message objectForKey:@"timestamp"];
+            co.timestamp = [NSString stringWithFormat:@"%lu", (long)[message objectForKey:@"timestamp"]];
             co.text = [[[message objectForKey:@"message"]
                         stringByReplacingOccurrencesOfString:@"+" withString:@" "]
                         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

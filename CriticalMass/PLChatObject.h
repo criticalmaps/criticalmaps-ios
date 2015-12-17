@@ -10,6 +10,8 @@
 
 @interface PLChatObject : NSData
 
+// TODO: Convert  timestamp to long integer
+
 @property (nonatomic, strong) NSString *timestamp;
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *text;

@@ -13,7 +13,7 @@
 @implementation UIColor (Helper)
 
 + (UIColor *)magicColor {
-    return UIColorFromRGB(0x51c9ec);
+    return UIColorFromRGB(0x037AFF);
 }
 
 @end

@@ -82,7 +82,7 @@
     [_chatModel collectMessage: self.textField.text];
     self.textField.text = @"";
     
-     [self.textField resignFirstResponder];
+    [self.textField resignFirstResponder];
 }
 
 - (void)onTap:(UITapGestureRecognizer *)recognizer {
