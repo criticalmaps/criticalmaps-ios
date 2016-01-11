@@ -80,7 +80,9 @@
 "settings.gpsSettings" = "GPS Einstellungen";
 
 /* No comment provided by engineer. */
-"settings.logoDesign" = "Logodesign";
+"settings.logoDesign" = "Logo design";
+
+"settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
