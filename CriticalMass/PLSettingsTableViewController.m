@@ -67,7 +67,7 @@
         return 1;
     }
     else if(section == 3){
-        return 4;
+        return 5;
     }
     return 0;
 }
@@ -103,14 +103,22 @@
         if(indexPath.row == 0){
             cell.textLabel.text = NSLocalizedString(@"settings.cmBerlin", nil);
             cell.detailTextLabel.text = @"www.criticalmass-berlin.org";
-        }else if(indexPath.row == 1){
+        }
+        else if(indexPath.row == 1){
             cell.textLabel.text = NSLocalizedString(@"settings.logoDesign", nil);
             cell.detailTextLabel.text = @"Gitti la mar";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }else if(indexPath.row == 2){
+        }
+        else if(indexPath.row == 2){
+            cell.textLabel.text = NSLocalizedString(@"settings.appDesign", nil);
+            cell.detailTextLabel.text = @"Peter Amende";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        else if(indexPath.row == 3){
             cell.textLabel.text = NSLocalizedString(@"settings.programming", nil);
             cell.detailTextLabel.text = @"Norman Sander";
-        }else if(indexPath.row == 3){
+        }
+        else if(indexPath.row == 4){
             cell.textLabel.text = NSLocalizedString(@"settings.kniggeImages", nil);
             cell.detailTextLabel.text = @"criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
         }
@@ -142,9 +150,13 @@
         }
         else if(indexPath.row == 2){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
-                                                        @"http://www.nsander.de"]];
+                                                        @"http://zutrinken.com/"]];
         }
         else if(indexPath.row == 3){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                        @"http://www.nsander.de"]];
+        }
+        else if(indexPath.row == 4){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
                                                         @"http://criticalmass-hh.de"]];
         }

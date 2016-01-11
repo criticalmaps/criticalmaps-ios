@@ -74,7 +74,7 @@
 - (void)initHTTPRequestManager {
     _operationManager = [AFHTTPRequestOperationManager manager];
     _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 }
 
 - (void)startRequestInterval {
