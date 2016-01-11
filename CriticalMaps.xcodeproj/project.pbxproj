@@ -338,7 +338,7 @@
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
 					94CF085B19BDEAF2009FFF43 = {
-						DevelopmentTeam = 9BY6RB4JL8;
+						DevelopmentTeam = 5YLLXUZBZ2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -602,7 +602,7 @@
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zutrinken.criticalmassberlin;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -622,7 +622,7 @@
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zutrinken.criticalmassberlin;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
