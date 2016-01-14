@@ -1,6 +1,6 @@
 language: objective-c
 
-before_install:
+install:
 - gem install cocoapods-keys
 - pod keys set ParseApplicationId XXXX
 - pod keys set ParseClientKey XXXX
