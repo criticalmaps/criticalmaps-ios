@@ -1,11 +1,5 @@
 language: objective-c
 
-before_install:
-- sudo apt-get install ruby
-
-install:
-- gem install cocoapods
-- gem install cocoapods-keys
-- pod install
-- pod keys set ParseApplicationId XXXX
-- pod keys set ParseClientKey XXXX
+env:
+  - ParseApplicationId=XXXX
+  - ParseClientKey=XXXX
