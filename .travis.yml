@@ -1,1 +1,5 @@
 language: objective-c
+
+before_install:
+- pod keys set ParseApplicationId XXXX
+- pod keys set ParseClientKey XXXX
