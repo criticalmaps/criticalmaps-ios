@@ -1,5 +1,8 @@
 language: objective-c
 
+before_install:
+- apt-get install ruby
+
 install:
 - gem install cocoapods
 - gem install cocoapods-keys
