@@ -1,4 +1,4 @@
-language: objective-c
+language: generic
 
 before_install:
 - rvm ruby-2.2.2
