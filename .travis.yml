@@ -2,6 +2,7 @@ language: objective-c
 
 before_install:
 - rvm install ruby-2.2.2
+- gem install cocoapods-keys
 - gem install cocoapods
 
 env:
