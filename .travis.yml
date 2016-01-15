@@ -8,3 +8,6 @@ before_install:
 env:
 - ParseApplicationId=XXXX
 - ParseClientKey=XXXX
+
+notifications:
+  slack: criticalmaps:kqEoZW8uAidSNHkWTh2uenaW
