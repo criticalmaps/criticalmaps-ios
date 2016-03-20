@@ -1,5 +1,7 @@
 # Critical Mass iOS App
 
+[![Build Status](https://travis-ci.org/criticalmaps/criticalmaps-ios.svg)](https://travis-ci.org/criticalmaps/criticalmaps-ios)
+
 > Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
 > 
 > – [Wikipedia](http://en.wikipedia.org/wiki/Critical_Mass_(cycling))
