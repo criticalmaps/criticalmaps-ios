@@ -86,7 +86,7 @@
     [self request];
     
     // Create backgroundtask
-    // TODO: extend time of task
+    // TODO: eventually extend time of task
     _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskIdentifier];
     }];
