@@ -82,8 +82,8 @@
     [_timer invalidate];
     _timer = nil;
     
-    [self onTimer];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+    [self request];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(request) userInfo:nil repeats:YES];
 }
 
 - (void)stopRequestInterval {
@@ -153,17 +153,12 @@
     
     if (_isBackroundMode) {
         _requestCount = 0;
-    }else{
+    } else {
         if(!_gpsEnabled && _gpsEnabledUser){
             [self enableGps];
         }
     }
-    
     DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
-}
-
-- (void)onTimer {
-    [self request];
 }
 
 #pragma mark - CLLocationManagerDelegate

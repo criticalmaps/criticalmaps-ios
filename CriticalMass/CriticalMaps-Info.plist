@@ -35,6 +35,7 @@
 	<string>GPS only used when app is active</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
