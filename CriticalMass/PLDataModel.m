@@ -18,6 +18,7 @@
 @property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) NSUInteger updateCount;
 @property(nonatomic, assign) NSUInteger requestCount;
+@property(nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @end
 
@@ -61,7 +62,7 @@
     if(kDebugEnableTestLocation){
         CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
         _currentLocation = testLocation;
-        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+        [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
     }else{
         [self enableGps];
     }
@@ -77,17 +78,24 @@
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 }
 
-- (void)startRequestInterval {
-    DLog(@"startRequestInterval");
+- (void)startRequestTimer {
+    DLog(@"startRequestTimer");
     [_timer invalidate];
     _timer = nil;
     
     [self request];
+    
+    // Create backgroundtask
+    // TODO: extend time of task
+    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskIdentifier];
+    }];
+    
     _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(request) userInfo:nil repeats:YES];
 }
 
-- (void)stopRequestInterval {
-    DLog(@"stopRequestInterval");
+- (void)stopRequestTimer {
+    DLog(@"stopRequestTimer");
     [_timer invalidate];
     _timer = nil;
 }
@@ -134,7 +142,7 @@
 - (void)enableGps {
     DLog(@"enableGps");
     _updateCount = 0;
-    [self stopRequestInterval];
+    [self stopRequestTimer];
     [_locationManager startUpdatingLocation];
     _gpsEnabled = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
@@ -143,7 +151,7 @@
 - (void)disableGps {
     DLog(@"disableGps");
     [_locationManager stopUpdatingLocation];
-    [self stopRequestInterval];
+    [self stopRequestTimer];
     _gpsEnabled = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
@@ -182,11 +190,11 @@
         
 #ifdef DEBUG
         if(!kDebugDisableHTTPRequests){
-            [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+            [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
         }
         
 #else
-        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+        [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
 #endif
         
     }
