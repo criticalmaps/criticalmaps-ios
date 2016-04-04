@@ -80,17 +80,10 @@
 
 - (void)startRequestTimer {
     DLog(@"startRequestTimer");
+    
     [_timer invalidate];
     _timer = nil;
-    
     [self request];
-    
-    // Create backgroundtask
-    // TODO: eventually extend time of task
-    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskIdentifier];
-    }];
-    
     _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(request) userInfo:nil repeats:YES];
 }
 
@@ -122,9 +115,8 @@
     [_operationManager POST:requestUrl parameters:params
                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         
-                        DLog(@"Resonse Object: %@", responseObject);
+                        DLog(@"Response Object: %@", responseObject);
                         _otherLocations = [responseObject objectForKey:@"locations"];
-                        DLog(@"locations: %@", _otherLocations);
                         
                         NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
                         [_chatModel addMessages: chatMessages];
@@ -161,6 +153,38 @@
     
     if (_isBackroundMode) {
         _requestCount = 0;
+        
+        UIApplication *application = [UIApplication sharedApplication];
+        
+#ifdef DEBUG
+        NSDate *methodStart = [NSDate date];
+#endif
+
+        self.backgroundTaskIdentifier = [application beginBackgroundTaskWithName:@"ContinueGPSTracking" expirationHandler:^{
+            // Clean up any unfinished task business by marking where you
+            // stopped or ending the task outright.
+            [application endBackgroundTask:self.backgroundTaskIdentifier];
+            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+            
+#ifdef DEBUG
+            NSDate *methodFinish = [NSDate date];
+            NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+            DLog(@"😱backgroundtask expired");
+            DLog(@"executionTime = %f", executionTime);
+#endif
+            
+        }];
+            
+//        // Start the long-running task and return immediately.
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                
+//            // Do the work associated with the task, preferably in chunks.
+//            [self startRequestTimer];
+//                
+//            [application endBackgroundTask:self.backgroundTaskIdentifier];
+//            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+//        });
+        
     } else {
         if(!_gpsEnabled && _gpsEnabledUser){
             [self enableGps];
