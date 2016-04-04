@@ -52,6 +52,15 @@
 
 - (void)initLocationManager {
     _locationManager = [[CLLocationManager alloc] init];
+    
+    // TODO: eventually automatic pause to help conserve power
+    // _locationManager.pausesLocationUpdatesAutomatically = YES;
+    
+    // Apple: If GPS-level accuracy isn’t critical for your app and you don’t need continuous tracking, you can use the significant-change location service. It’s crucial that you use the significant-change location service correctly, because it wakes the system and your app at least every 15 minutes, even if no location changes have occurred, and it runs continuously until you stop it.
+    
+    // it’s recommended that you always call the locationServicesEnabled class method of CLLocationManager before attempting to start either the standard or significant-change location services
+
+    
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [_locationManager requestAlwaysAuthorization];
     }
@@ -114,6 +123,9 @@
     
     [_operationManager POST:requestUrl parameters:params
                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                        if (self.isBackroundMode) {
+//                            [self extendBackgroundRunningTime];
+//                        }
                         
                         DLog(@"Response Object: %@", responseObject);
                         _otherLocations = [responseObject objectForKey:@"locations"];
@@ -152,40 +164,11 @@
     _isBackroundMode = isBackroundMode;
     
     if (_isBackroundMode) {
+        [self extendBackgroundRunningTime];
+//        [_locationManager startMonitoringSignificantLocationChanges];
         _requestCount = 0;
-        
-        UIApplication *application = [UIApplication sharedApplication];
-        
-#ifdef DEBUG
-        NSDate *methodStart = [NSDate date];
-#endif
-
-        self.backgroundTaskIdentifier = [application beginBackgroundTaskWithName:@"ContinueGPSTracking" expirationHandler:^{
-            // Clean up any unfinished task business by marking where you
-            // stopped or ending the task outright.
-            [application endBackgroundTask:self.backgroundTaskIdentifier];
-            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
-            
-#ifdef DEBUG
-            NSDate *methodFinish = [NSDate date];
-            NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-            DLog(@"😱backgroundtask expired");
-            DLog(@"executionTime = %f", executionTime);
-#endif
-            
-        }];
-            
-//        // Start the long-running task and return immediately.
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                
-//            // Do the work associated with the task, preferably in chunks.
-//            [self startRequestTimer];
-//                
-//            [application endBackgroundTask:self.backgroundTaskIdentifier];
-//            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
-//        });
-        
     } else {
+//        [_locationManager stopMonitoringSignificantLocationChanges];
         if(!_gpsEnabled && _gpsEnabledUser){
             [self enableGps];
         }
@@ -238,6 +221,36 @@
         CLPlacemark *placemark = placemarks.firstObject;
         _locality = [placemark locality];
     }];
+}
+
+- (void)extendBackgroundRunningTime {
+    if (_backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        // if we are in here, that means the background task is already running.
+        // don't restart it.
+        return;
+    }
+    NSLog(@"Attempting to extend background running time");
+    
+    __block Boolean self_terminate = YES;
+    
+    // Only 3 minutes of time to finish task
+    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"TrackGPS" expirationHandler:^{
+        DLog(@"Background task expired by iOS");
+        if (self_terminate) {
+            [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+            _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+        }
+    }];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"Background task started");
+        
+        while (true) {
+            NSLog(@"background time remaining: %8.2f", [UIApplication sharedApplication].backgroundTimeRemaining);
+            [NSThread sleepForTimeInterval:1];
+        }
+        
+    });
 }
 
 @end
