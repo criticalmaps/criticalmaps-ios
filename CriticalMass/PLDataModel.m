@@ -106,7 +106,6 @@
     
     NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
     NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"";
-    NSString *requestUrl = kUrlService;
     
     NSDictionary *params = @ {
         @"device": _uid,
@@ -119,7 +118,7 @@
     
     DLog(@"Request Object: %@", params);
     
-    [_operationManager POST:requestUrl parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+    [_operationManager POST:kUrlService parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         DLog(@"Response Object: %@", responseObject);
         _otherLocations = [responseObject objectForKey:@"locations"];
         
