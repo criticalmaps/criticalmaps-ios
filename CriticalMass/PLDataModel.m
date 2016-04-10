@@ -14,7 +14,7 @@
 @interface PLDataModel()
 
 @property(nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) AFHTTPRequestOperationManager *operationManager;
+@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
 @property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) NSUInteger updateCount;
 @property(nonatomic, assign) NSUInteger requestCount;
@@ -51,17 +51,25 @@
 
 - (void)initLocationManager {
     _locationManager = [[CLLocationManager alloc] init];
+    
+    if ([_locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
+        [_locationManager setAllowsBackgroundLocationUpdates:YES];
+    }
+    
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [_locationManager requestAlwaysAuthorization];
     }
-    _locationManager.delegate = self;
+    
+    _locationManager.pausesLocationUpdatesAutomatically = YES;
+    _locationManager.activityType = CLActivityTypeOtherNavigation;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    _locationManager.delegate = self;
     
 #ifdef DEBUG
     if(kDebugEnableTestLocation){
         CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
         _currentLocation = testLocation;
-        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+        [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
     }else{
         [self enableGps];
     }
@@ -72,22 +80,22 @@
 }
 
 - (void)initHTTPRequestManager {
-    _operationManager = [AFHTTPRequestOperationManager manager];
+    _operationManager = [AFHTTPSessionManager manager];
     _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 }
 
-- (void)startRequestInterval {
-    DLog(@"startRequestInterval");
+- (void)startRequestTimer {
+    DLog(@"startRequestTimer");
+    
     [_timer invalidate];
     _timer = nil;
-    
-    [self onTimer];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+    [self request];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(request) userInfo:nil repeats:YES];
 }
 
-- (void)stopRequestInterval {
-    DLog(@"stopRequestInterval");
+- (void)stopRequestTimer {
+    DLog(@"stopRequestTimer");
     [_timer invalidate];
     _timer = nil;
 }
@@ -111,20 +119,17 @@
     
     DLog(@"Request Object: %@", params);
     
-    [_operationManager POST:requestUrl parameters:params
-                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        
-                        DLog(@"Resonse Object: %@", responseObject);
-                        _otherLocations = [responseObject objectForKey:@"locations"];
-                        DLog(@"locations: %@", _otherLocations);
-                        
-                        NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
-                        [_chatModel addMessages: chatMessages];
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
-                    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                        DLog(@"Error: %@", error);
-                    }];
+    [_operationManager POST:requestUrl parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        DLog(@"Response Object: %@", responseObject);
+        _otherLocations = [responseObject objectForKey:@"locations"];
+        
+        NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
+        [_chatModel addMessages: chatMessages];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        DLog(@"Error: %@", error);
+    }];
     
     if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
         [self disableGps];
@@ -134,7 +139,7 @@
 - (void)enableGps {
     DLog(@"enableGps");
     _updateCount = 0;
-    [self stopRequestInterval];
+    [self stopRequestTimer];
     [_locationManager startUpdatingLocation];
     _gpsEnabled = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
@@ -143,7 +148,7 @@
 - (void)disableGps {
     DLog(@"disableGps");
     [_locationManager stopUpdatingLocation];
-    [self stopRequestInterval];
+    [self stopRequestTimer];
     _gpsEnabled = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
@@ -152,18 +157,15 @@
     _isBackroundMode = isBackroundMode;
     
     if (_isBackroundMode) {
+//        [_locationManager startMonitoringSignificantLocationChanges];
         _requestCount = 0;
-    }else{
+    } else {
+//        [_locationManager stopMonitoringSignificantLocationChanges];
         if(!_gpsEnabled && _gpsEnabledUser){
             [self enableGps];
         }
     }
-    
     DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
-}
-
-- (void)onTimer {
-    [self request];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -187,11 +189,11 @@
         
 #ifdef DEBUG
         if(!kDebugDisableHTTPRequests){
-            [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+            [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
         }
         
 #else
-        [self performSelector:@selector(startRequestInterval) withObject:nil afterDelay:1.0];
+        [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
 #endif
         
     }
