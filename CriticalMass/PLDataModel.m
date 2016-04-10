@@ -119,7 +119,7 @@
     
     DLog(@"Request Object: %@", params);
     
-    [_operationManager GET:requestUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+    [_operationManager POST:requestUrl parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         DLog(@"Response Object: %@", responseObject);
         _otherLocations = [responseObject objectForKey:@"locations"];
         
