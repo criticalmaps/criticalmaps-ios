@@ -14,7 +14,7 @@
 @interface PLDataModel()
 
 @property(nonatomic, strong) CLLocationManager *locationManager;
-@property(nonatomic, strong) AFHTTPRequestOperationManager *operationManager;
+@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
 @property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) NSUInteger updateCount;
 @property(nonatomic, assign) NSUInteger requestCount;
@@ -80,7 +80,7 @@
 }
 
 - (void)initHTTPRequestManager {
-    _operationManager = [AFHTTPRequestOperationManager manager];
+    _operationManager = [AFHTTPSessionManager manager];
     _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 }
@@ -119,18 +119,17 @@
     
     DLog(@"Request Object: %@", params);
     
-    [_operationManager POST:requestUrl parameters:params
-                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        DLog(@"Response Object: %@", responseObject);
-                        _otherLocations = [responseObject objectForKey:@"locations"];
-                        
-                        NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
-                        [_chatModel addMessages: chatMessages];
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
-                    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-                        DLog(@"Error: %@", error);
-                    }];
+    [_operationManager GET:requestUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        DLog(@"Response Object: %@", responseObject);
+        _otherLocations = [responseObject objectForKey:@"locations"];
+        
+        NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
+        [_chatModel addMessages: chatMessages];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        DLog(@"Error: %@", error);
+    }];
     
     if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
         [self disableGps];
