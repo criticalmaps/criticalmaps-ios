@@ -18,7 +18,6 @@
 @property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) NSUInteger updateCount;
 @property(nonatomic, assign) NSUInteger requestCount;
-@property(nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @end
 
@@ -53,19 +52,18 @@
 - (void)initLocationManager {
     _locationManager = [[CLLocationManager alloc] init];
     
-    // TODO: eventually automatic pause to help conserve power
-    // _locationManager.pausesLocationUpdatesAutomatically = YES;
-    
-    // Apple: If GPS-level accuracy isn’t critical for your app and you don’t need continuous tracking, you can use the significant-change location service. It’s crucial that you use the significant-change location service correctly, because it wakes the system and your app at least every 15 minutes, even if no location changes have occurred, and it runs continuously until you stop it.
-    
-    // it’s recommended that you always call the locationServicesEnabled class method of CLLocationManager before attempting to start either the standard or significant-change location services
-
+    if ([_locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
+        [_locationManager setAllowsBackgroundLocationUpdates:YES];
+    }
     
     if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [_locationManager requestAlwaysAuthorization];
     }
-    _locationManager.delegate = self;
+    
+    _locationManager.pausesLocationUpdatesAutomatically = YES;
+    _locationManager.activityType = CLActivityTypeOtherNavigation;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    _locationManager.delegate = self;
     
 #ifdef DEBUG
     if(kDebugEnableTestLocation){
@@ -123,10 +121,6 @@
     
     [_operationManager POST:requestUrl parameters:params
                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                        if (self.isBackroundMode) {
-//                            [self extendBackgroundRunningTime];
-//                        }
-                        
                         DLog(@"Response Object: %@", responseObject);
                         _otherLocations = [responseObject objectForKey:@"locations"];
                         
@@ -164,7 +158,6 @@
     _isBackroundMode = isBackroundMode;
     
     if (_isBackroundMode) {
-        [self extendBackgroundRunningTime];
 //        [_locationManager startMonitoringSignificantLocationChanges];
         _requestCount = 0;
     } else {
@@ -221,36 +214,6 @@
         CLPlacemark *placemark = placemarks.firstObject;
         _locality = [placemark locality];
     }];
-}
-
-- (void)extendBackgroundRunningTime {
-    if (_backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
-        // if we are in here, that means the background task is already running.
-        // don't restart it.
-        return;
-    }
-    NSLog(@"Attempting to extend background running time");
-    
-    __block Boolean self_terminate = YES;
-    
-    // Only 3 minutes of time to finish task
-    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"TrackGPS" expirationHandler:^{
-        DLog(@"Background task expired by iOS");
-        if (self_terminate) {
-            [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-            _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
-        }
-    }];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"Background task started");
-        
-        while (true) {
-            NSLog(@"background time remaining: %8.2f", [UIApplication sharedApplication].backgroundTimeRemaining);
-            [NSThread sleepForTimeInterval:1];
-        }
-        
-    });
 }
 
 @end
