@@ -13,8 +13,6 @@
 #import "PLConstants.h"
 #import "PLDataModel.h"
 #import "Appirater.h"
-#import "PLParse.h"
-#import <Parse/Parse.h>
 
 @implementation PLAppDelegate
 
@@ -22,9 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    [PLParse setupParse];
-    
     // Set Appirater
     [Appirater setAppId:@"918669647"];
     [Appirater setDaysUntilPrompt:1];
@@ -48,36 +43,6 @@
 #ifdef DEBUG
     [(UITabBarController *) self.window.rootViewController setSelectedIndex: kDebugInitialTabIndex];
 #endif
-    
-    // Parse
-    if (application.applicationState != UIApplicationStateBackground) {
-        // Track an app open here if we launch with a push, unless
-        // "content_available" was used to trigger a background push (introduced in iOS 7).
-        // In that case, we skip tracking here to avoid double counting the app-open.
-        BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
-        BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
-        BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
-            [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-        }
-    }
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                        UIUserNotificationTypeBadge |
-                                                        UIUserNotificationTypeSound);
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                                 categories:nil];
-        [application registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
-    } else
-#endif
-    {
-        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                         UIRemoteNotificationTypeAlert |
-                                                         UIRemoteNotificationTypeSound)];
-    }
     
     [Appirater appLaunched:YES];
     
@@ -105,51 +70,11 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     DLog(@"applicationDidBecomeActive");
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    if (currentInstallation.badge != 0) {
-        currentInstallation.badge = 0;
-        [currentInstallation saveEventually];
-    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     DLog(@"applicationWillTerminate");
-}
-
-#pragma mark Push Notifications
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackground];
-    
-    [PFPush subscribeToChannelInBackground:@"" block:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            DLog(@"ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
-        }
-        else {
-            DLog(@"ParseStarterProject failed to subscribe to push notifications on the broadcast channel.");
-        }
-    }];
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    if (error.code == 3010) {
-        DLog(@"Push notifications are not supported in the iOS Simulator.");
-    }
-    else {
-        // show some alert or otherwise handle the failure to register.
-        DLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
-    }
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [PFPush handlePush:userInfo];
-    
-    if (application.applicationState == UIApplicationStateInactive) {
-        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-    }
 }
 
 @end

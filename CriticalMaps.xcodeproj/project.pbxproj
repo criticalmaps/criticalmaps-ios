@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90F46A24D8DB4FCAABF4CF34 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD3CAC801A84BBA8D151E5D /* libPods.a */; };
+		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
 		941511091A10004D0010205B /* PLTwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941511081A10004D0010205B /* PLTwitterViewController.m */; };
 		942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */; };
 		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
@@ -36,7 +36,6 @@
 		94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089519BDECAE009FFF43 /* PLRulesViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
-		94DF3ECD1BA6F081006D9BFF /* PLParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF3ECC1BA6F081006D9BFF /* PLParse.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 /* End PBXBuildFile section */
@@ -52,8 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1FD3CAC801A84BBA8D151E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		42F8D420591A3C7DB831663C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.release.xcconfig"; sourceTree = "<group>"; };
+		91EC6282437633054D179F01 /* libPods-CriticalMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMaps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		941511071A10004D0010205B /* PLTwitterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterViewController.h; sourceTree = "<group>"; };
 		941511081A10004D0010205B /* PLTwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterViewController.m; sourceTree = "<group>"; };
 		942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterTableViewCell.h; sourceTree = "<group>"; };
@@ -103,13 +102,11 @@
 		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
 		94DC348C1A9E5C39000E9D85 /* PLChatObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatObject.h; sourceTree = "<group>"; };
 		94DC348D1A9E5C39000E9D85 /* PLChatObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLChatObject.m; sourceTree = "<group>"; };
-		94DF3ECB1BA6F081006D9BFF /* PLParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLParse.h; sourceTree = "<group>"; };
-		94DF3ECC1BA6F081006D9BFF /* PLParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLParse.m; sourceTree = "<group>"; };
 		94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
 		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
-		EB65E4E1C81486F82961461F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +117,7 @@
 				94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */,
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
-				90F46A24D8DB4FCAABF4CF34 /* libPods.a in Frameworks */,
+				8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +134,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82C1F2020C91392FCCBF8514 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */,
+				07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,8 +199,6 @@
 				94F0304819C1E4EC00F86611 /* PLConstants.m */,
 				942E2D8019C316BD00BF92D7 /* PLUtils.h */,
 				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
-				94DF3ECB1BA6F081006D9BFF /* PLParse.h */,
-				94DF3ECC1BA6F081006D9BFF /* PLParse.m */,
 				94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */,
 				94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */,
 			);
@@ -208,7 +212,7 @@
 				94CF087E19BDEAF2009FFF43 /* CriticalMassTests */,
 				94CF085E19BDEAF2009FFF43 /* Frameworks */,
 				94CF085D19BDEAF2009FFF43 /* Products */,
-				A39F313199528E253968AFD9 /* Pods */,
+				82C1F2020C91392FCCBF8514 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,7 +232,7 @@
 				94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */,
 				94CF086319BDEAF2009FFF43 /* UIKit.framework */,
 				94CF087819BDEAF2009FFF43 /* XCTest.framework */,
-				1FD3CAC801A84BBA8D151E5D /* libPods.a */,
+				91EC6282437633054D179F01 /* libPods-CriticalMaps.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -277,15 +281,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A39F313199528E253968AFD9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				42F8D420591A3C7DB831663C /* Pods.debug.xcconfig */,
-				EB65E4E1C81486F82961461F /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -293,12 +288,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMaps" */;
 			buildPhases = (
-				81DC3C4AE5D040719E1CA5FC /* Check Pods Manifest.lock */,
+				9CF225B8929C681EBE0A23D7 /* [CP] Check Pods Manifest.lock */,
 				94CF085819BDEAF2009FFF43 /* Sources */,
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
-				0BC870EB377540C1A3ABAC42 /* Copy Pods Resources */,
-				1DCE72B03FFD1A26E54A62E7 /* Embed Pods Frameworks */,
+				DD06EF18A12286512D5EF6C6 /* [CP] Embed Pods Frameworks */,
+				AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -395,49 +390,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BC870EB377540C1A3ABAC42 /* Copy Pods Resources */ = {
+		9CF225B8929C681EBE0A23D7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		1DCE72B03FFD1A26E54A62E7 /* Embed Pods Frameworks */ = {
+		AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		81DC3C4AE5D040719E1CA5FC /* Check Pods Manifest.lock */ = {
+		DD06EF18A12286512D5EF6C6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -447,7 +442,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94DF3ECD1BA6F081006D9BFF /* PLParse.m in Sources */,
 				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
 				94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */,
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
@@ -592,7 +586,7 @@
 		};
 		94CF088919BDEAF2009FFF43 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42F8D420591A3C7DB831663C /* Pods.debug.xcconfig */;
+			baseConfigurationReference = EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -612,7 +606,7 @@
 		};
 		94CF088A19BDEAF2009FFF43 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EB65E4E1C81486F82961461F /* Pods.release.xcconfig */;
+			baseConfigurationReference = 07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
