@@ -70,10 +70,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     DLog(@"applicationDidBecomeActive");
-    if (currentInstallation.badge != 0) {
-        currentInstallation.badge = 0;
-        [currentInstallation saveEventually];
-    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
