@@ -8,7 +8,7 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
-"map.title" = "Karte";
+"map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Sorry, du kannst die anderen nicht sehen,\nwenn dein GPS ausgeschalten ist.\n\nBitte aktiviere GPS in den Einstellungen.";
