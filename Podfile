@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '8.0'
 
-xcodeproj 'CriticalMaps.xcodeproj'
+project 'CriticalMaps.xcodeproj'
 
 plugin 'cocoapods-keys', {
   :project => "CriticalMaps",
@@ -21,3 +21,4 @@ pod 'SAMLoadingView'
 pod 'SDWebImage'
 pod 'Appirater'
 pod 'Parse'
+
