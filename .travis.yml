@@ -1,5 +1,7 @@
 language: objective-c
 
+xcode_project: CriticalMaps.xcodeproj
+
 before_install:
 - rvm install ruby-2.2.2
 - gem install cocoapods
