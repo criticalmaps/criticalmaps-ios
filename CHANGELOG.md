@@ -14,9 +14,6 @@ Changelog for Critical Maps iOS
 - Podfile
 
 
-### Added
-- Changelog
-
 
 [//]: ## [0.0.8] - 2015-02-17
 [//]: ### Changed
