@@ -2,9 +2,17 @@
 Changelog for Critical Maps iOS
 
 ## [Unreleased]
+### Added
+- Changelog
+
 ### Changed
+- Update pods
 - Remove parse
 - Change title on map screen to "Critical Maps"
+
+### Fixed
+- Podfile
+
 
 ### Added
 - Changelog
