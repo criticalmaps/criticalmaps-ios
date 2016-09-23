@@ -1,7 +1,7 @@
 # Change Log
 Changelog for Critical Maps iOS
 
-## [Unreleased]
+## [2.1.0] - 2016-09-24
 ### Added
 - Changelog
 
