@@ -18,11 +18,11 @@ PODS:
   - Appirater (2.0.5)
   - NSString-Hashes (1.2.2)
   - SAMLoadingView (0.1.0)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
-  - STTwitter (0.2.3)
-  - TTTAttributedLabel (1.13.4)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - STTwitter (0.2.5)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AccordionView
@@ -40,10 +40,10 @@ SPEC CHECKSUMS:
   Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  STTwitter: 77386cb6f1807fbfc0e321b9233bdecc9786195d
-  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  STTwitter: 5c157e8dcb4f0e4cf5b4374393021b7d7b7fd497
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 0ce3c947b53fe7f3a30e5c8e00e090f70ef64047
+PODFILE CHECKSUM: d0ff173bc6ec07b51790de9163b1ee4ca8b6b8fd
 
 COCOAPODS: 1.1.0.rc.1

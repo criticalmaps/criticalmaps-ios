@@ -159,6 +159,7 @@
 		94AD50481A963DC800547B40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
 				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
 				94CF089519BDECAE009FFF43 /* PLRulesViewController.m */,
@@ -184,7 +185,6 @@
 				942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */,
 				942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */,
 				94709B0019CA705A003E9583 /* PLInfoOverlayView.h */,
-				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94709B0119CA705A003E9583 /* PLInfoOverlayView.m */,
 			);
 			name = View;
