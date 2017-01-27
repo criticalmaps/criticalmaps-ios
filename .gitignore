@@ -9,3 +9,5 @@ Pods/
 Podfile.lock
 CriticalMaps.xcodeproj
 
+*.mov
+Gfx/appstore/
