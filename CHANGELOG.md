@@ -1,6 +1,11 @@
 # Change Log
 Changelog for Critical Maps iOS
 
+## [2.2.0] - 2017-01-27
+### Updated
+- Appirater 2.1.2 (was 2.0.5)
+- STTwitter 0.2.6 (was 0.2.5)
+
 ## [2.1.0] - 2016-09-24
 ### Added
 - Changelog
@@ -12,19 +17,3 @@ Changelog for Critical Maps iOS
 
 ### Fixed
 - Podfile
-
-
-
-[//]: ## [0.0.8] - 2015-02-17
-[//]: ### Changed
-[//]: - Update year to match in every README example.
-[//]: - Reluctantly stop making fun of Brits only, since most of the world
-[//]:   writes dates in a strange way.
-[//]:
-[//]: ### Fixed
-[//]: - Fix typos in recent README changes.
-[//]: - Update outdated unreleased diff link.
-[//]:
-[//]: ## [0.0.7] - 2015-02-16
-[//]: ### Added
-[//]: - Link, and make it obvious that date format is ISO 8601.
