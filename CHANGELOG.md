@@ -17,8 +17,6 @@ Changelog for Critical Maps iOS
 ### Updated
 - pods
 
-previous versions are not tracked
-
 ## [2.0.0] - 2016-01-15
 ### Changed
 - redesign by zutrinken
