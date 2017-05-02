@@ -4,9 +4,8 @@ xcode_project: CriticalMaps.xcodeproj
 
 before_install:
 - rvm use system
-# - rvm install ruby-2.2.2
-- sudo gem install cocoapods -v '0.39.0'
-# - gem install cocoapods
+- rvm install ruby-2.2.2
+- gem install cocoapods
 
 # notifications:
   # slack: criticalmaps:kqEoZW8uAidSNHkWTh2uenaW
