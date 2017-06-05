@@ -20,7 +20,7 @@ BOOL const kDebugInitialTabIndex = 0;
 BOOL const kDebugShowAppirater = NO;
 
 // Urls
-NSString *const kUrlService = @"http://api.criticalmaps.net/postv2";
+NSString *const kUrlService = @"https://criticalmaps-api.stephanlindauer.de/postv2";
 
 // Notifications
 NSString *const kNotificationInitialGpsDataReceived = @"initialGpsDataReceived";
