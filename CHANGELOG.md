@@ -1,8 +1,12 @@
 # Change Log
 Changelog for Critical Maps iOS
 
-## [2.2.0] - 2017-01-27
+## [2.2.0] - 2017-06-06
+### Changed
+- temporary API url
+
 ### Updated
+- SDWebImage 
 - Appirater 2.1.2 (was 2.0.5)
 - STTwitter 0.2.6 (was 0.2.5)
 

@@ -18,9 +18,9 @@ PODS:
   - Appirater (2.1.2)
   - NSString-Hashes (1.2.2)
   - SAMLoadingView (0.1.0)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
   - STTwitter (0.2.6)
   - TTTAttributedLabel (2.0.0)
 
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   Appirater: f1c9e53e8b612193e6256144f6a0fd2e31f4340d
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   STTwitter: 30ee2f79eff78c3d633a1edc869e97db9c9ead59
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
