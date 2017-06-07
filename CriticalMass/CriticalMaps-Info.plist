@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2.2.0.2</string>
+	<string>2.2.0.3</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -34,7 +34,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>GPS only used when app is active</string>
+	<string>This app needs the access to be able to share your location with other Critical Maps users.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
