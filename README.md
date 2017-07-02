@@ -9,7 +9,7 @@
 This app helps all the critical mass participants to better organize the protest by tracking their location to share it with everyone else.
 
 * __Website:__ http://criticalmaps.net
-* __iTunes:__ https://itunes.apple.com/de/app/critical-mass-berlin/id918669647
+* __iTunes:__ https://itunes.apple.com/app/critical-maps/id918669647
 * __Google Play:__ https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
 * __Android Project:__ https://github.com/CriticalMaps/criticalmaps-android
 
