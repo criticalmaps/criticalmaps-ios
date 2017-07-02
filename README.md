@@ -1,6 +1,6 @@
 # Critical Maps iOS
 
-App for Critical Mass.
+iOS App for Critical Mass.
 
 > Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
 > 
