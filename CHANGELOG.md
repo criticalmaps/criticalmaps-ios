@@ -1,6 +1,13 @@
 # Change Log
 Changelog for Critical Maps iOS
 
+## [2.3.0] - 2017-07-02
+### Changed
+- switch back to api.criticalmaps.net
+
+### Removed
+- Travis
+
 ## [2.2.1] - 2017-06-07
 ### Fixed
 - intended purpose of using the user's location while the app is in the background (NSLocationAlwaysUsageDescription)
