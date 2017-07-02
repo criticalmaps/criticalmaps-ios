@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '9.0'
+platform :ios, '9.1'
 
 project 'CriticalMaps.xcodeproj'
 
