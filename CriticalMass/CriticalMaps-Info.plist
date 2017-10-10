@@ -33,7 +33,11 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs the access to be able to share your location with other Critical Maps users.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs the access to be able to share your location with other Critical Maps users.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs the access to be able to share your location with other Critical Maps users.</string>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -41,7 +45,7 @@
 		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string></string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
