@@ -1,6 +1,10 @@
 # Change Log
 Changelog for Critical Maps iOS
 
+## [unreleased] - XXXX
+### Changed
+- less bike symbol opacity 
+
 ## [2.3.0] - 2017-07-02
 ### Changed
 - switch back to api.criticalmaps.net
