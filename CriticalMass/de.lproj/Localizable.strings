@@ -71,7 +71,7 @@
 "settings.donate" = "Helfe unseren Server zu finanzieren";
 
 /* No comment provided by engineer. */
-"settings.enableGps" = "GPS aktivieren";
+"settings.enableGps" = "Teile deinen Standort mit anderen";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -109,4 +109,3 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-

@@ -34,9 +34,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        
         _gpsEnabledUser = YES;
-        
         [self initUserId];
         [self initLocationManager];
         [self initHTTPRequestManager];
@@ -104,26 +102,26 @@
     _chatModel = [PLChatModel sharedManager];
     _requestCount++;
     
-    NSString *longitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude] : @"";
-    NSString *latitudeString = _gpsEnabled ? [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude] : @"";
-    
-    NSDictionary *params = @ {
-        @"device": _uid,
-        @"location" : @{
-                        @"longitude" :  longitudeString,
-                        @"latitude" :  latitudeString
-                        },
-        @"messages": [_chatModel getMessagesArray]
-    };
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:_uid forKey:@"device"];
+    [params setObject:[_chatModel getMessagesArray] forKey:@"messages"];
+
+    if (_gpsEnabled) {
+        NSString *longitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude];
+        NSString *latitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude];
+        
+        NSDictionary *location = @{@"longitude" :  longitudeString, @"latitude" :  latitudeString};
+        [params setObject: location forKey:@"location"];
+    }
     
     DLog(@"Request Object: %@", params);
     
     [_operationManager POST:kUrlService parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         DLog(@"Response Object: %@", responseObject);
-        _otherLocations = [responseObject objectForKey:@"locations"];
+        self->_otherLocations = [responseObject objectForKey:@"locations"];
         
         NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
-        [_chatModel addMessages: chatMessages];
+        [self->_chatModel addMessages: chatMessages];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
@@ -138,7 +136,7 @@
 - (void)enableGps {
     DLog(@"enableGps");
     _updateCount = 0;
-    [self stopRequestTimer];
+    //[self stopRequestTimer];
     [_locationManager startUpdatingLocation];
     _gpsEnabled = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
@@ -147,7 +145,7 @@
 - (void)disableGps {
     DLog(@"disableGps");
     [_locationManager stopUpdatingLocation];
-    [self stopRequestTimer];
+    // [self stopRequestTimer];
     _gpsEnabled = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
@@ -180,9 +178,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     DLog(@"didUpdateToLocation: %@", newLocation);
-    
     _currentLocation = newLocation;
-    
     if(_updateCount == 0){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
         
@@ -190,7 +186,6 @@
         if(!kDebugDisableHTTPRequests){
             [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
         }
-        
 #else
         [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
 #endif
@@ -210,7 +205,7 @@
             return;
         }
         CLPlacemark *placemark = placemarks.firstObject;
-        _locality = [placemark locality];
+        self->_locality = [placemark locality];
     }];
 }
 

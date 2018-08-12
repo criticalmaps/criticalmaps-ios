@@ -1,26 +1,26 @@
 PODS:
   - AccordionView (0.0.5)
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Appirater (2.1.2)
+  - Appirater (2.3.1)
   - NSString-Hashes (1.2.2)
   - SAMLoadingView (0.1.0)
-  - SDWebImage (4.0.0):
-    - SDWebImage/Core (= 4.0.0)
-  - SDWebImage/Core (4.0.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - STTwitter (0.2.6)
   - TTTAttributedLabel (2.0.0)
 
@@ -36,14 +36,14 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AccordionView: 4f82751476a96ec60985041a48bf4c94ac1ea5ab
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Appirater: f1c9e53e8b612193e6256144f6a0fd2e31f4340d
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
-  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   STTwitter: 30ee2f79eff78c3d633a1edc869e97db9c9ead59
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 4f153d41d60fd505b55d05d86a6e64923d073363
+PODFILE CHECKSUM: 5b232ed94a1bdef9c766a15fc802e603047f97bd
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.4.0

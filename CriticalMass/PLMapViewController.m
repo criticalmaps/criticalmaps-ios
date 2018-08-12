@@ -9,7 +9,6 @@
 #import "PLMapViewController.h"
 #import "PLConstants.h"
 #import "PLUtils.h"
-#import "PLInfoOverlayView.h"
 
 @interface PLMapViewController ()
 
@@ -31,15 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     _data = [PLDataModel sharedManager];
-    
     [self initMap];
     [self addButtonNavigate];
-    
-    _infoOverlay = [[PLInfoOverlayView alloc]initWithFrame:self.view.bounds];
-    _infoOverlay.hidden = YES;
-    [self.view addSubview:_infoOverlay];
     self.title = NSLocalizedString(@"map.title", nil);
 }
 
@@ -72,7 +65,6 @@
     
     MKAnnotationView *userLocationView = [_map viewForAnnotation:_map.userLocation];
     [userLocationView.superview bringSubviewToFront:userLocationView];
-    
     [self.view addSubview:_map];
 }
 
@@ -118,28 +110,22 @@
     _map.centerCoordinate = _data.currentLocation.coordinate;
 }
 
-- (IBAction)onClickNavigate
-{
+- (IBAction)onClickNavigate {
     [_map setCenterCoordinate:_data.currentLocation.coordinate animated:YES];
 }
 
 - (void)onPositionOthersChanged {
     [self removeAllOthers];
-    
     for(id key in _data.otherLocations){
         NSDictionary *dict = [_data.otherLocations objectForKey:key];
-        
         double latitude = [PLUtils string2Locationdegrees:[dict objectForKey:@"latitude"]];
         double longitude = [PLUtils string2Locationdegrees:[dict objectForKey:@"longitude"]];
-        
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        
         [self addOther:coordinate];
     }
 }
 
 - (void)onGpsStateChanged {
-    _infoOverlay.hidden = _data.gpsEnabled;
 }
 
 #pragma mark - Map delegate methods

@@ -1,7 +1,21 @@
 # Change Log
 Changelog for Critical Maps iOS
 
-## [unreleased] - XXXX
+## [2.5.0]
+### Added
+- italian translations
+
+### Changed
+- allow observing if GPS is disabled
+- english translations
+
+### Updated
+- XCode project to recommend settings
+- AFNetworking
+- Appirater
+- SDWebImage
+
+## [2.4.0] - 2017-08-01
 ### Changed
 - less bike symbol opacity 
 

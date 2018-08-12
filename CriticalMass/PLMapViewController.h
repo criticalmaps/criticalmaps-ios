@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "PLDataModel.h"
-#import "PLInfoOverlayView.h"
 
 @interface PLMapViewController : UIViewController<MKMapViewDelegate>
 
