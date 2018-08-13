@@ -55,6 +55,7 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 * [stephanlindauer](https://github.com/stephanlindauer)
 * [jkandzi](https://github.com/jkandzi)
 * [zutrinken](https://github.com/zutrinken)
+* [matteogamba](https://github.com/matteogamba)
 * [headione](https://github.com/headione)
 
 ## Copyright & License
