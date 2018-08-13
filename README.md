@@ -21,7 +21,7 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 
 * Please report bugs with GitHub [issues](https://github.com/CriticalMaps/criticalmaps-ios/issues).
 * If you can code please check the build & contribute guide below.
-* Okay, this is still a Objective-C codebase but we want to Switch to ::Swift:: now.
+* Okay, this is still a Objective-C codebase but we want to switch to Swift now.
 * If you have some coins left you can help to finance the server.
 
 ### How to build
