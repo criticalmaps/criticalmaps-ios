@@ -37,6 +37,7 @@
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
+		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
+		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +247,7 @@
 				94AD50481A963DC800547B40 /* Controller */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
 				945AD4831B94FDF600C7B6E9 /* Main.storyboard */,
+				98B480E121AB30700044D017 /* Launch Screen.storyboard */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -290,7 +293,6 @@
 				94CF085819BDEAF2009FFF43 /* Sources */,
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
-				DD06EF18A12286512D5EF6C6 /* [CP] Embed Pods Frameworks */,
 				AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -374,6 +376,7 @@
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
+				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
 				945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,21 +426,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DD06EF18A12286512D5EF6C6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
