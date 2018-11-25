@@ -33,23 +33,15 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 
 ### How to contribute
 
-1. Fork, then clone the repo:
+In general, we follow the "fork-and-pull" Git workflow.
 
-        $ git clone REPO-URL
+1.  **Fork** the repo on GitHub
+2.  **Clone** the project to your own machine
+3.  **Commit** changes to your own branch
+4.  **Push** your work back up to your fork
+5.  Submit a **Pull request** so that we can review your changes
 
-2. Create your feature branch:
-
-        $ git checkout -b my-new-feature
-
-3. Commit your changes:
-
-        $ git commit -am 'Added some feature'
-
-4. Push to the branch:
-
-        $ git push origin my-new-feature
-
-5. Submit a new [pull request](https://github.com/CriticalMaps/criticalmaps-ios/compare).
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ## Credits
 
