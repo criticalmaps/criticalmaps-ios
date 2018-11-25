@@ -35,8 +35,8 @@
     
     // table
     CGFloat navigationBarHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    CGFloat tabbarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
-    CGRect frame = CGRectMake(0, navigationBarHeight, self.view.frame.size.width, self.view.frame.size.height-navigationBarHeight-tabbarHeight);
+    CGFloat tabBarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
+    CGRect frame = CGRectMake(0, navigationBarHeight, self.view.frame.size.width, self.view.frame.size.height-navigationBarHeight-tabBarHeight);
     _tableVC = [[UITableViewController alloc] init];
     [_tableVC.tableView setDelegate:self];
     [_tableVC.tableView setDataSource:self];
