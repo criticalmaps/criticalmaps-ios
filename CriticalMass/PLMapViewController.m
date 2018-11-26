@@ -74,7 +74,7 @@
 - (void)addButtonNavigate {
     UIButton *btnNavigate = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     btnNavigate.layer.cornerRadius = 3;
-    [btnNavigate setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
+    [btnNavigate setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
     btnNavigate.clipsToBounds = YES;
     CGFloat tabBarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
     btnNavigate.center = CGPointMake(self.view.frame.size.width-40, self.view.frame.size.height-tabBarHeight - 40);
