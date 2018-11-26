@@ -1,6 +1,10 @@
 # Change Log
 Changelog for Critical Maps iOS
 
+## [2.5.1]
+### Fixed
+- Modern devices support
+
 ## [2.5.0]
 ### Added
 - italian translations

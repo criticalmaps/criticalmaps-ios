@@ -49,6 +49,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 * [jkandzi](https://github.com/jkandzi)
 * [zutrinken](https://github.com/zutrinken)
 * [matteogamba](https://github.com/matteogamba)
+* [lennet](https://github.com/lennet)
 * [headione](https://github.com/headione)
 
 ## Copyright & License
