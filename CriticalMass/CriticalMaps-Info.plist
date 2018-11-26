@@ -44,8 +44,8 @@
 		<string>fetch</string>
 		<string>location</string>
 	</array>
-	<key>UIMainStoryboardFile</key>
-	<string></string>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

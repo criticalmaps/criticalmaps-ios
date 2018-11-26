@@ -64,7 +64,9 @@
     // navbar
     self.title = NSLocalizedString(@"rules.title", nil);
     
-    AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 61, self.view.frame.size.width, self.view.frame.size.height-109)];
+    CGFloat navigationBarHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat tabBarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
+    AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, navigationBarHeight, self.view.frame.size.width, self.view.frame.size.height-navigationBarHeight-tabBarHeight)];
     [self.view addSubview:accordion];
     
     for (int i=0; i < [_images count]; i++) {

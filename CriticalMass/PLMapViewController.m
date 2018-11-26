@@ -43,7 +43,10 @@
 }
 
 - (void)initMap {
-    _map = [[MKMapView alloc]initWithFrame:self.view.bounds];
+    CGFloat navigationBarHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat tabBarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
+    CGRect frame = CGRectMake(0, navigationBarHeight, self.view.bounds.size.width, self.view.bounds.size.height - tabBarHeight - navigationBarHeight);
+    _map = [[MKMapView alloc]initWithFrame:frame];
     _map.zoomEnabled = YES;
     _map.mapType = MKMapTypeHybrid;
     _map.delegate = self;
@@ -73,7 +76,8 @@
     btnNavigate.layer.cornerRadius = 3;
     [btnNavigate setImage:[UIImage imageNamed:@"Arrow"] forState:UIControlStateNormal];
     btnNavigate.clipsToBounds = YES;
-    btnNavigate.center = CGPointMake(self.view.frame.size.width-40, self.view.frame.size.height-80);
+    CGFloat tabBarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
+    btnNavigate.center = CGPointMake(self.view.frame.size.width-40, self.view.frame.size.height-tabBarHeight - 40);
     [btnNavigate addTarget:self action:@selector(onClickNavigate) forControlEvents:UIControlEventTouchUpInside];
     [btnNavigate setBackgroundColor:[UIColor whiteColor]];
     
