@@ -8,25 +8,24 @@
 import UIKit
 
 class RulesDetailViewController: UIViewController {
-    
     private var rule: Rule
-    
+
     init(rule: Rule) {
         self.rule = rule
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = rule.title
+
+        title = rule.title
         configureTextView()
     }
-    
+
     private func configureTextView() {
         let textView = UITextView(frame: view.bounds)
         textView.text = rule.text
@@ -40,5 +39,4 @@ class RulesDetailViewController: UIViewController {
         }
         view.addSubview(textView)
     }
-
 }
