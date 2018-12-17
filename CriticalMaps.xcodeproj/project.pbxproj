@@ -37,6 +37,8 @@
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
+		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
+		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +109,9 @@
 		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
+		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
+		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
+		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +166,7 @@
 		94AD50481A963DC800547B40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				989F9FEF21C7E5FC00E71085 /* Rules */,
 				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
 				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
@@ -255,6 +261,7 @@
 		94CF086619BDEAF2009FFF43 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */,
 				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
 				94CF086B19BDEAF2009FFF43 /* main.m */,
@@ -280,6 +287,15 @@
 				94CF088119BDEAF2009FFF43 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		989F9FEF21C7E5FC00E71085 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				989F9FF121C7E62300E71085 /* RulesViewController.swift */,
+				989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */,
+			);
+			name = Rules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +350,7 @@
 				TargetAttributes = {
 					94CF085B19BDEAF2009FFF43 = {
 						DevelopmentTeam = 5YLLXUZBZ2;
+						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -439,6 +456,7 @@
 				94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */,
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
+				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,
 				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
@@ -450,6 +468,7 @@
 				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
 				94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
+				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
 				94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */,
 			);
@@ -612,15 +631,20 @@
 			baseConfigurationReference = EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CriticalMass/CriticalMaps-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -631,15 +655,19 @@
 			baseConfigurationReference = 07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CriticalMass/CriticalMaps-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -648,6 +676,7 @@
 		94CF088C19BDEAF2009FFF43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMass";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -671,6 +700,7 @@
 		94CF088D19BDEAF2009FFF43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMass";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
