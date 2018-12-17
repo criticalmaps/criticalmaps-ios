@@ -23,6 +23,7 @@ class RulesDetailViewController: UIViewController {
         super.viewDidLoad()
 
         title = rule.title
+        navigationController?.navigationBar.tintColor = .black
         configureTextView()
     }
 
