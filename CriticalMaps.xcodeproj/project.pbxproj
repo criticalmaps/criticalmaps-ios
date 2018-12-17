@@ -40,6 +40,8 @@
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
+		989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */; };
+		989F9FFC21C7F9AB00E71085 /* RuleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +116,8 @@
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
 		989F9FF721C7F13400E71085 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTableViewCell.swift; sourceTree = "<group>"; };
+		989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleTableViewCell.xib; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,6 +198,8 @@
 				945441AD1A111A6A00C8024F /* PLLabel.m */,
 				942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */,
 				942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */,
+				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
+				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -398,6 +404,7 @@
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
 				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
 				945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */,
+				989F9FFC21C7F9AB00E71085 /* RuleTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +467,7 @@
 				94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */,
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
+				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,

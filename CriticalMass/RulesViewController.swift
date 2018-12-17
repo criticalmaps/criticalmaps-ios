@@ -44,7 +44,7 @@ class RulesViewController: UITableViewController {
     }
     
     private func registerCell() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier:cellIdentifier)
+        tableView.register(UINib(nibName: "RuleTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
     
     // MARK: UITableViewDataSource
@@ -54,15 +54,14 @@ class RulesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
-        cell.textLabel?.text = rules[indexPath.row].title
-        cell.textLabel?.textColor = .rulesOverViewCell
-        cell.accessoryType = .disclosureIndicator
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! RuleTableViewCell
+        cell.label?.text = rules[indexPath.row].title
+        cell.label?.textColor = .rulesOverViewCell
         return cell
     }
     
     // MARK: UITableViewDataDelegate
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let rule = rules[indexPath.row]
         let detailViewController = RulesDetailViewController(rule: rule)
