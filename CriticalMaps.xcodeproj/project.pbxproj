@@ -32,7 +32,6 @@
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
 		94CF088519BDEAF2009FFF43 /* CriticalMassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */; };
 		94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089219BDEC9C009FFF43 /* PLMapViewController.m */; };
-		94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089519BDECAE009FFF43 /* PLRulesViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
@@ -99,8 +98,6 @@
 		94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CriticalMassTests.m; sourceTree = "<group>"; };
 		94CF089119BDEC9C009FFF43 /* PLMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLMapViewController.h; sourceTree = "<group>"; };
 		94CF089219BDEC9C009FFF43 /* PLMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLMapViewController.m; sourceTree = "<group>"; };
-		94CF089419BDECAE009FFF43 /* PLRulesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLRulesViewController.h; sourceTree = "<group>"; };
-		94CF089519BDECAE009FFF43 /* PLRulesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLRulesViewController.m; sourceTree = "<group>"; };
 		94CF089719BDF227009FFF43 /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
 		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
 		94DC348C1A9E5C39000E9D85 /* PLChatObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatObject.h; sourceTree = "<group>"; };
@@ -175,8 +172,6 @@
 				989F9FEF21C7E5FC00E71085 /* Rules */,
 				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
 				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
-				94CF089419BDECAE009FFF43 /* PLRulesViewController.h */,
-				94CF089519BDECAE009FFF43 /* PLRulesViewController.m */,
 				941511071A10004D0010205B /* PLTwitterViewController.h */,
 				941511081A10004D0010205B /* PLTwitterViewController.m */,
 				9474656219CA3078005485BD /* PLSettingsTableViewController.h */,
@@ -482,7 +477,6 @@
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
-				94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

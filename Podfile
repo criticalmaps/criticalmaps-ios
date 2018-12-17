@@ -7,7 +7,6 @@ project 'CriticalMaps.xcodeproj'
 target 'CriticalMaps' do
 	pod 'AFNetworking'
 	pod 'NSString-Hashes'
-	pod 'AccordionView'
 	pod 'TTTAttributedLabel'
 	pod 'STTwitter'
 	pod 'SAMLoadingView'

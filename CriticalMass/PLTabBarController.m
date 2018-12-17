@@ -1,6 +1,5 @@
 #import "PLTabBarController.h"
 #import "PLMapViewController.h"
-#import "PLRulesViewController.h"
 #import "PLChatViewController.h"
 #import "PLTwitterViewController.h"
 #import "PLSettingsTableViewController.h"
