@@ -32,8 +32,15 @@ class RulesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = NSLocalizedString("rules.title", comment: "")
+        configureNavigationBar()
         registerCell()
+    }
+    
+    private func configureNavigationBar() {
+        self.title = NSLocalizedString("rules.title", comment: "")
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
     }
     
     private func registerCell() {
