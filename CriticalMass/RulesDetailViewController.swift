@@ -24,11 +24,20 @@ class RulesDetailViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = rule.title
-
+        configureTextView()
+    }
+    
+    private func configureTextView() {
         let textView = UITextView(frame: view.bounds)
         textView.text = rule.text
+        textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         textView.isEditable = false
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.textColor = .rulesDetailText
+        if #available(iOS 10.0, *) {
+            textView.adjustsFontForContentSizeCategory = true
+        }
         view.addSubview(textView)
     }
 

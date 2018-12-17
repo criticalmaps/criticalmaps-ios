@@ -56,6 +56,7 @@ class RulesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
         cell.textLabel?.text = rules[indexPath.row].title
+        cell.textLabel?.textColor = .rulesOverViewCell
         cell.accessoryType = .disclosureIndicator
         return cell
     }
