@@ -1,6 +1,6 @@
 //
 //  ApiResponse.swift
-//  CriticalMapsWatch Extension
+//  CriticalMaps
 //
 //  Created by Leonard Thomas on 12/17/18.
 //

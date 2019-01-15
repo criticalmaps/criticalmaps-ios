@@ -5,18 +5,17 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
-    
     private let locationManager = CLLocationManager()
-    
+
     override init() {
         super.init()
         configure()
     }
-    
+
     func configure() {
         if #available(iOS 9.0, *) {
             locationManager.allowsBackgroundLocationUpdates = true
@@ -27,7 +26,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
-    
+
     func requestLocation() {
         if #available(iOS 9.0, *) {
             locationManager.requestLocation()
@@ -35,28 +34,22 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
     }
-    
+
     // MARK: CLLocationManagerDelegate
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        if #available(iOS 9.0, *) {
-            
-        } else {
-            locationManager.stopUpdatingLocation()
-        }
 
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_: CLLocationManager, didFailWithError _: Error) {
         if #available(iOS 9.0, *) {
-            
+            // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
         } else {
             locationManager.stopUpdatingLocation()
         }
     }
-    
-    
-    
+
+    func locationManager(_: CLLocationManager, didUpdateLocations _: [CLLocation]) {
+        if #available(iOS 9.0, *) {
+            // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
+        } else {
+            locationManager.stopUpdatingLocation()
+        }
+    }
 }
-
