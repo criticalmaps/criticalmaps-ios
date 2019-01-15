@@ -37,6 +37,8 @@
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
+		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
+		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
 		989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFD21C8035500E71085 /* ApiResponse.swift */; };
 		989FA00021C8036800E71085 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFF21C8036800E71085 /* ChatMessage.swift */; };
 		989FA00221C8038400E71085 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00121C8038400E71085 /* Location.swift */; };
@@ -112,6 +114,8 @@
 		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
+		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		989F9FFD21C8035500E71085 /* ApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		989F9FFF21C8036800E71085 /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		989FA00121C8038400E71085 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 				94DC348C1A9E5C39000E9D85 /* PLChatObject.h */,
 				94DC348D1A9E5C39000E9D85 /* PLChatObject.m */,
 				989FA00521C8154D00E71085 /* LocationManager.swift */,
+				9822A15121EDF1C5007F5994 /* DataStore.swift */,
+				9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -466,10 +472,12 @@
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,
+				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
 				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
 				94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
+				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
 				94CF089619BDECAE009FFF43 /* PLRulesViewController.m in Sources */,
 			);

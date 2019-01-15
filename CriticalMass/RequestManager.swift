@@ -8,19 +8,16 @@
 import Foundation
 
 class RequestManager {
-    let kRequestRepeatTime: TimeInterval = 12.0
-    let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
+    private let kRequestRepeatTime: TimeInterval = 12.0
+    private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
 
-    let session: URLSession
-    var lastResponse: ApiResponse? {
-        didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("positionOthersChanged"), object: lastResponse)
-        }
-    }
+    private let session: URLSession
 
     private var hasActiveRequest = false
+    private var dataStore: DataStore
 
-    init() {
+    init(dataStore: DataStore) {
+        self.dataStore = dataStore
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         session = URLSession(configuration: configuration)
@@ -35,7 +32,7 @@ class RequestManager {
         guard !hasActiveRequest else { return }
         updateData { response in
             if let response = response {
-                self.lastResponse = response
+                self.dataStore.update(with: response)
             }
         }
     }
