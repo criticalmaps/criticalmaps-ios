@@ -36,6 +36,7 @@
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
+		9822A15721EE0956007F5994 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15621EE0956007F5994 /* RuleTests.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
@@ -109,6 +110,8 @@
 		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
+		9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMapsTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		9822A15621EE0956007F5994 /* RuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTests.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +283,8 @@
 			children = (
 				94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */,
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
+				9822A15621EE0956007F5994 /* RuleTests.swift */,
+				9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 						};
 					};
 					94CF087619BDEAF2009FFF43 = {
+						LastSwiftMigration = 1010;
 						TestTargetID = 94CF085B19BDEAF2009FFF43;
 					};
 				};
@@ -485,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF088519BDEAF2009FFF43 /* CriticalMassTests.m in Sources */,
+				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,7 +690,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMass";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -696,9 +704,13 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CriticalMassTests/CriticalMapsTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "pokuslabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CriticalMassTests/CriticalMapsTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMaps";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -707,7 +719,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMass";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -716,9 +729,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CriticalMass/CriticalMaps-Prefix.pch";
 				INFOPLIST_FILE = "CriticalMassTests/CriticalMapsTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "pokuslabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CriticalMassTests/CriticalMapsTests-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CriticalMaps.app/CriticalMaps";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

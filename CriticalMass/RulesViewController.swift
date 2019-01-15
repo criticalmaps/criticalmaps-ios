@@ -23,6 +23,10 @@ enum Rule: String, CaseIterable {
     var text: String {
         return NSLocalizedString("rules.text.\(rawValue)", comment: "")
     }
+    
+    var artwork: UIImage? {
+        return UIImage(named: rawValue.prefix(1).uppercased() + rawValue.dropFirst())
+    }
 }
 
 class RulesViewController: UITableViewController {
