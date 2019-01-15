@@ -37,6 +37,11 @@
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
+		989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFD21C8035500E71085 /* ApiResponse.swift */; };
+		989FA00021C8036800E71085 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFF21C8036800E71085 /* ChatMessage.swift */; };
+		989FA00221C8038400E71085 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00121C8038400E71085 /* Location.swift */; };
+		989FA00421C8039A00E71085 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
+		989FA00621C8154D00E71085 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +112,11 @@
 		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
+		989F9FFD21C8035500E71085 /* ApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		989F9FFF21C8036800E71085 /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		989FA00121C8038400E71085 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		989FA00321C8039A00E71085 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,12 +158,17 @@
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				989FA00321C8039A00E71085 /* RequestManager.swift */,
+				989FA00121C8038400E71085 /* Location.swift */,
+				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
+				989F9FFF21C8036800E71085 /* ChatMessage.swift */,
 				94A9C1AD19BF43AB0027C5DC /* PLDataModel.h */,
 				94A9C1AE19BF43AB0027C5DC /* PLDataModel.m */,
 				94AD50441A963D0600547B40 /* PLChatModel.h */,
 				94AD50451A963D0600547B40 /* PLChatModel.m */,
 				94DC348C1A9E5C39000E9D85 /* PLChatObject.h */,
 				94DC348D1A9E5C39000E9D85 /* PLChatObject.m */,
+				989FA00521C8154D00E71085 /* LocationManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -436,14 +451,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
+				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
 				94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */,
+				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
+				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
+				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
 				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,
 				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
+				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
