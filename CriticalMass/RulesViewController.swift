@@ -23,12 +23,13 @@ enum Rule: String, CaseIterable {
     var text: String {
         return NSLocalizedString("rules.text.\(rawValue)", comment: "")
     }
-    
+
     var artwork: UIImage? {
         return UIImage(named: rawValue.prefix(1).uppercased() + rawValue.dropFirst())
     }
 }
 
+@objc(PLRulesViewController)
 class RulesViewController: UITableViewController {
     private let cellIdentifier = "CellIdentifier"
     private let rules = Rule.allCases
