@@ -54,4 +54,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ## Copyright & License
 
-Copyright (c) 2014-2018 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/master/LICENSE).
+Copyright (c) 2014-2019 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/master/LICENSE).
