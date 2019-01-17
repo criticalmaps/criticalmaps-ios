@@ -30,7 +30,6 @@
 		94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
-		94CF088519BDEAF2009FFF43 /* CriticalMassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */; };
 		94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089219BDEC9C009FFF43 /* PLMapViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
@@ -108,7 +107,6 @@
 		94CF087819BDEAF2009FFF43 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		94CF088019BDEAF2009FFF43 /* CriticalMapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMapsTests-Info.plist"; sourceTree = "<group>"; };
 		94CF088219BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CriticalMassTests.m; sourceTree = "<group>"; };
 		94CF089119BDEC9C009FFF43 /* PLMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLMapViewController.h; sourceTree = "<group>"; };
 		94CF089219BDEC9C009FFF43 /* PLMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLMapViewController.m; sourceTree = "<group>"; };
 		94CF089719BDF227009FFF43 /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 		94CF087E19BDEAF2009FFF43 /* CriticalMassTests */ = {
 			isa = PBXGroup;
 			children = (
-				94CF088419BDEAF2009FFF43 /* CriticalMassTests.m */,
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
 				9822A15621EE0956007F5994 /* RuleTests.swift */,
 				9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */,
@@ -537,7 +534,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9822A16621F11519007F5994 /* MemoryDataStoreTests.swift in Sources */,
-				94CF088519BDEAF2009FFF43 /* CriticalMassTests.m in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 			);

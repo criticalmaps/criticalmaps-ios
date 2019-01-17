@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Location: Codable {
+struct Location: Codable, Equatable {
     var longitude: Float
     var latitude: Float
     var timestamp: Float

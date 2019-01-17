@@ -21,15 +21,11 @@ struct NetworkOperator: NetworkLayer {
         dataTask(with: request, decodable: decodable, completion: completion)
     }
 
-    func post<T>(with url: URL, decodable: T.Type, body: [String: Any], completion: @escaping (T?) -> Void) where T: Decodable {
+    func post<T>(with url: URL, decodable: T.Type, bodyData: Data, completion: @escaping (T?) -> Void) where T: Decodable {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let data = try? JSONSerialization.data(withJSONObject: body, options: []) else {
-            completion(nil)
-            return
-        }
-        request.httpBody = data
+        request.httpBody = bodyData
         dataTask(with: request, decodable: decodable, completion: completion)
     }
 

@@ -19,43 +19,26 @@ class MockLocationProvider: LocationProvider {
 class MockNetworkLayer: NetworkLayer {
     var mockResponse: ApiResponse?
     var shouldReturnResponse = true
-    var numberOfRequests = 0
+    var lastUsedPostBody: [String: Any]?
+    var numberOfRequests: Int {
+        return numberOfGetCalled + numberOfPostCalled
+    }
+
+    var numberOfGetCalled = 0
+    var numberOfPostCalled = 0
     func get<T>(with _: URL, decodable _: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
-        numberOfRequests += 1
+        numberOfGetCalled += 1
         if shouldReturnResponse {
             completion(mockResponse as? T)
         }
     }
 
-    func post<T>(with _: URL, decodable _: T.Type, body _: [String: Any], completion: @escaping (T?) -> Void) where T: Decodable {
-        numberOfRequests += 1
+    func post<T>(with _: URL, decodable _: T.Type, bodyData: Data, completion: @escaping (T?) -> Void) where T: Decodable {
+        numberOfPostCalled += 1
+        lastUsedPostBody = try! JSONSerialization.jsonObject(with: bodyData, options: []) as! [String: Any]
         if shouldReturnResponse {
             completion(mockResponse as? T)
         }
-    }
-}
-
-extension Location: Equatable {
-    public static func == (lhs: Location, rhs: Location) -> Bool {
-        return lhs.latitude == rhs.latitude &&
-            lhs.longitude == rhs.longitude &&
-            lhs.name == rhs.name &&
-            lhs.timestamp == rhs.timestamp &&
-            lhs.color == rhs.color
-    }
-}
-
-extension ChatMessage: Equatable {
-    public static func == (lhs: ChatMessage, rhs: ChatMessage) -> Bool {
-        return lhs.message == rhs.message &&
-            lhs.timeStamp == rhs.timeStamp
-    }
-}
-
-extension ApiResponse: Equatable {
-    public static func == (lhs: ApiResponse, rhs: ApiResponse) -> Bool {
-        return lhs.chatMessages == rhs.chatMessages &&
-            lhs.locations == rhs.locations
     }
 }
 
@@ -75,11 +58,11 @@ extension XCTestCase {
 }
 
 class RequestManagerTests: XCTestCase {
-    func setup(interval: TimeInterval) -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer) {
+    func setup(interval: TimeInterval, deviceId: String = "") -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer) {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval), locationProvider, dataStore, networkLayer)
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId), locationProvider, dataStore, networkLayer)
     }
 
     func testNoRequestForActiveRequests() {
@@ -122,7 +105,19 @@ class RequestManagerTests: XCTestCase {
     }
 
     func testLocationProvider() {
-        // TODO: not implemented yet
-        XCTFail()
+        let deviceId = "123456789"
+        let testSetup = setup(interval: 0.1, deviceId: deviceId)
+        let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: nil, color: nil)
+        testSetup.locationProvider.mockLocation = testLocation
+        let expectedBody: [String: AnyHashable] = ["device": deviceId, "location": ["longitude": testLocation.longitude, "latitude": testLocation.latitude, "timestamp": 0]]
+        XCTAssertNil(testSetup.dataStore.storedData)
+        let exp = expectation(description: "Wait a second")
+        wait(interval: 1) {
+            XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
+            XCTAssertGreaterThan(testSetup.networkLayer.numberOfPostCalled, 1)
+            XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 2)
     }
 }
