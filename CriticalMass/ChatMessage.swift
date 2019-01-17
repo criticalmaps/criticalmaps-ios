@@ -8,6 +8,7 @@
 import Foundation
 
 struct ChatMessage: Codable, Equatable {
-    var message: String
-    var timeStamp: TimeInterval
+    var text: String
+    var timestamp: TimeInterval
+    var identifier: String
 }

@@ -91,7 +91,7 @@ class RequestManagerTests: XCTestCase {
     }
 
     func testStoredDataInDataStore() {
-        let expectedStorage = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: ["b": ChatMessage(message: "Hello", timeStamp: 1000)])
+        let expectedStorage = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: ["b": ChatMessage(text: "Hello", timestamp: 1000, identifier: "1234")])
         let setup = self.setup(interval: 0.1)
         setup.networkLayer.mockResponse = expectedStorage
         XCTAssertNil(setup.dataStore.storedData)
@@ -104,7 +104,7 @@ class RequestManagerTests: XCTestCase {
         wait(for: [exp], timeout: 2)
     }
 
-    func testLocationProvider() {
+    func testPostLocation() {
         let deviceId = "123456789"
         let testSetup = setup(interval: 0.1, deviceId: deviceId)
         let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: nil, color: nil)
@@ -119,5 +119,18 @@ class RequestManagerTests: XCTestCase {
             exp.fulfill()
         }
         wait(for: [exp], timeout: 2)
+    }
+
+    func testSendMessage() {
+        let deviceId = "123456789"
+        let testSetup = setup(interval: 0.1, deviceId: deviceId)
+        let testMessage = ChatMessage(text: "Hello", timestamp: 100, identifier: "1234")
+        let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["text": testMessage.text, "timestamp": testMessage.timestamp, "identifier": testMessage.identifier]] as! [[String: AnyHashable]]]
+        XCTAssertNil(testSetup.dataStore.storedData)
+        testSetup.requestManager.send(messages: [testMessage])
+
+        XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
+        XCTAssertEqual(testSetup.networkLayer.numberOfPostCalled, 1)
+        XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
     }
 }

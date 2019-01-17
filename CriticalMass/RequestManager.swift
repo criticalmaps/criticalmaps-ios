@@ -8,9 +8,14 @@
 import Foundation
 
 class RequestManager {
-    private struct PostBody: Codable {
+    private struct SendLocationPostBody: Codable {
         var device: String
         var location: Location
+    }
+
+    private struct SendMessagePostBody: Codable {
+        var device: String
+        var messages: [ChatMessage]
     }
 
     private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
@@ -50,7 +55,7 @@ class RequestManager {
 
         // We only use a post request if we have a location to post
         if let currentLocation = locationProvider.currentLocation {
-            let body = PostBody(device: deviceId, location: currentLocation)
+            let body = SendLocationPostBody(device: deviceId, location: currentLocation)
             guard let bodyData = try? JSONEncoder().encode(body) else {
                 completion(nil)
                 return
@@ -58,6 +63,21 @@ class RequestManager {
             networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData, completion: completion)
         } else {
             networkLayer.get(with: kBaseURL, decodable: ApiResponse.self, completion: completion)
+        }
+    }
+
+    public func send(messages: [ChatMessage]) {
+        guard hasActiveRequest == false else { return }
+        hasActiveRequest = true
+        let body = SendMessagePostBody(device: deviceId, messages: messages)
+        guard let bodyData = try? JSONEncoder().encode(body) else {
+            return
+        }
+        networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData) { response in
+            self.hasActiveRequest = false
+            if let response = response {
+                self.dataStore.update(with: response)
+            }
         }
     }
 }
