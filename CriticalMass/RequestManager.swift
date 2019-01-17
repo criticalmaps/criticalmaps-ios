@@ -8,7 +8,6 @@
 import Foundation
 
 class RequestManager {
-    private let kRequestRepeatTime: TimeInterval = 12.0
     private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
 
     private var hasActiveRequest = false
@@ -17,15 +16,15 @@ class RequestManager {
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer) {
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0) {
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
-        configureTimer()
+        configureTimer(with: interval)
     }
 
-    private func configureTimer() {
-        Timer.scheduledTimer(timeInterval: kRequestRepeatTime, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
+    private func configureTimer(with interval: TimeInterval) {
+        Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
     }
 
     @objc private func timerDidUpdate(timer _: Timer) {
