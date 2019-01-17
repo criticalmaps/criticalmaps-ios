@@ -42,11 +42,13 @@ class SocialViewController: UIViewController {
 
     private func configureSegmentedControl() {
         // TODO: move segmented control to the bottom of the navbar
-        let segment: UISegmentedControl = UISegmentedControl(items: Tab.allCases.map { $0.title })
-        segment.sizeToFit()
-        segment.selectedSegmentIndex = 0
-        segment.addTarget(self, action: #selector(socialSelectionDidChange(control:)), for: .valueChanged)
-        navigationItem.titleView = segment
+        let segmentedControl = UISegmentedControl(items: Tab.allCases.map { $0.title })
+        segmentedControl.sizeToFit()
+        segmentedControl.bounds.size.width = view.bounds.width
+        segmentedControl.tintColor = .socialTabControlTintColor
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(socialSelectionDidChange(control:)), for: .valueChanged)
+        navigationItem.titleView = segmentedControl
     }
 
     @objc private func socialSelectionDidChange(control: UISegmentedControl) {

@@ -23,4 +23,8 @@ extension UIColor {
     static var rulesOverViewCell: UIColor {
         return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
     }
+    
+    static var socialTabControlTintColor: UIColor {
+        return .black
+    }
 }
