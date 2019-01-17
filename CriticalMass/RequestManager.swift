@@ -11,16 +11,16 @@ class RequestManager {
     private let kRequestRepeatTime: TimeInterval = 12.0
     private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
 
-    private let session: URLSession
-
     private var hasActiveRequest = false
-    private var dataStore: DataStore
 
-    init(dataStore: DataStore) {
+    private var dataStore: DataStore
+    private var locationProvider: LocationProvider
+    private var networkLayer: NetworkLayer
+
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer) {
         self.dataStore = dataStore
-        let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
-        session = URLSession(configuration: configuration)
+        self.locationProvider = locationProvider
+        self.networkLayer = networkLayer
         configureTimer()
     }
 
@@ -29,29 +29,17 @@ class RequestManager {
     }
 
     @objc private func timerDidUpdate(timer _: Timer) {
-        guard !hasActiveRequest else { return }
-        updateData { response in
+        updateData()
+    }
+
+    private func updateData() {
+        guard hasActiveRequest == false else { return }
+        hasActiveRequest = true
+        networkLayer.get(with: kBaseURL, decodable: ApiResponse.self) { response in
+            self.hasActiveRequest = false
             if let response = response {
                 self.dataStore.update(with: response)
             }
         }
-    }
-
-    private func updateData(completion: @escaping (ApiResponse?) -> Void) {
-        hasActiveRequest = true
-        let url = kBaseURL
-        let request = URLRequest(url: url)
-        let task = session.dataTask(with: request) { data, _, _ in
-            defer {
-                self.hasActiveRequest = false
-            }
-            if let data = data {
-                let decodedResponse = try? JSONDecoder().decode(ApiResponse.self, from: data)
-                completion(decodedResponse)
-            } else {
-                completion(nil)
-            }
-        }
-        task.resume()
     }
 }

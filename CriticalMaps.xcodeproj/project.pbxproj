@@ -38,17 +38,20 @@
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
 		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
-		989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFD21C8035500E71085 /* ApiResponse.swift */; };
-		989FA00021C8036800E71085 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFF21C8036800E71085 /* ChatMessage.swift */; };
-		989FA00221C8038400E71085 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00121C8038400E71085 /* Location.swift */; };
-		989FA00421C8039A00E71085 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
-		989FA00621C8154D00E71085 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
 		9822A15721EE0956007F5994 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15621EE0956007F5994 /* RuleTests.swift */; };
+		9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15D21F10FCA007F5994 /* LocationProvider.swift */; };
+		9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15F21F11051007F5994 /* NetworkLayer.swift */; };
+		9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16121F110A3007F5994 /* NetworkOperator.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
 		989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */; };
 		989F9FFC21C7F9AB00E71085 /* RuleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */; };
+		989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFD21C8035500E71085 /* ApiResponse.swift */; };
+		989FA00021C8036800E71085 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFF21C8036800E71085 /* ChatMessage.swift */; };
+		989FA00221C8038400E71085 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00121C8038400E71085 /* Location.swift */; };
+		989FA00421C8039A00E71085 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
+		989FA00621C8154D00E71085 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -119,19 +122,22 @@
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
 		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
-		989F9FFD21C8035500E71085 /* ApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
-		989F9FFF21C8036800E71085 /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
-		989FA00121C8038400E71085 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		989FA00321C8039A00E71085 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
-		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMapsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		9822A15621EE0956007F5994 /* RuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTests.swift; sourceTree = "<group>"; };
+		9822A15D21F10FCA007F5994 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
+		9822A15F21F11051007F5994 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		9822A16121F110A3007F5994 /* NetworkOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperator.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
 		989F9FF721C7F13400E71085 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTableViewCell.swift; sourceTree = "<group>"; };
 		989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RuleTableViewCell.xib; sourceTree = "<group>"; };
+		989F9FFD21C8035500E71085 /* ApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		989F9FFF21C8036800E71085 /* ChatMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		989FA00121C8038400E71085 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		989FA00321C8039A00E71085 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				989FA00321C8039A00E71085 /* RequestManager.swift */,
+				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
 				989FA00121C8038400E71085 /* Location.swift */,
 				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
 				989F9FFF21C8036800E71085 /* ChatMessage.swift */,
@@ -186,6 +193,8 @@
 				989FA00521C8154D00E71085 /* LocationManager.swift */,
 				9822A15121EDF1C5007F5994 /* DataStore.swift */,
 				9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */,
+				9822A15F21F11051007F5994 /* NetworkLayer.swift */,
+				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -493,10 +502,13 @@
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
+				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
 				94A9C1AF19BF43AB0027C5DC /* PLDataModel.m in Sources */,
+				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
+				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
 				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,

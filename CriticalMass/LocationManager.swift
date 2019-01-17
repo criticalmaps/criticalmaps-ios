@@ -8,7 +8,20 @@
 import CoreLocation
 import Foundation
 
-class LocationManager: NSObject, CLLocationManagerDelegate {
+extension Location {
+    fileprivate init(_ clLocation: CLLocation, name: String? = nil, color: String? = nil) {
+        longitude = Float(clLocation.coordinate.longitude)
+        latitude = Float(clLocation.coordinate.latitude)
+        timestamp = Float(clLocation.timestamp.timeIntervalSince1970)
+        self.name = name
+        self.color = color
+    }
+}
+
+class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
+    private(set)
+    var currentLocation: Location?
+
     private let locationManager = CLLocationManager()
 
     override init() {
@@ -45,7 +58,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(_: CLLocationManager, didUpdateLocations _: [CLLocation]) {
+    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            currentLocation = Location(location)
+        }
         if #available(iOS 9.0, *) {
             // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
         } else {
