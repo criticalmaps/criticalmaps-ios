@@ -57,6 +57,7 @@ class RequestManager {
         if let currentLocation = locationProvider.currentLocation {
             let body = SendLocationPostBody(device: deviceId, location: currentLocation)
             guard let bodyData = try? JSONEncoder().encode(body) else {
+                hasActiveRequest = false
                 completion(nil)
                 return
             }
@@ -71,6 +72,7 @@ class RequestManager {
         hasActiveRequest = true
         let body = SendMessagePostBody(device: deviceId, messages: messages)
         guard let bodyData = try? JSONEncoder().encode(body) else {
+            hasActiveRequest = false
             return
         }
         networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData) { response in
