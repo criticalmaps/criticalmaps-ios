@@ -9,4 +9,5 @@ import Foundation
 
 protocol NetworkLayer {
     func get<T: Decodable>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void)
+    func post<T: Decodable>(with url: URL, decodable: T.Type, body: [String: Any], completion: @escaping (T?) -> Void)
 }

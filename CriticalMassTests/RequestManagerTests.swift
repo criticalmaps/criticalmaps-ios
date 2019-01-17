@@ -26,6 +26,13 @@ class MockNetworkLayer: NetworkLayer {
             completion(mockResponse as? T)
         }
     }
+
+    func post<T>(with _: URL, decodable _: T.Type, body _: [String: Any], completion: @escaping (T?) -> Void) where T: Decodable {
+        numberOfRequests += 1
+        if shouldReturnResponse {
+            completion(mockResponse as? T)
+        }
+    }
 }
 
 extension Location: Equatable {
