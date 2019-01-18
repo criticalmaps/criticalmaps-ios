@@ -16,6 +16,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             set {
                 coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(newValue.latitude / 1_000_000), longitude: CLLocationDegrees(newValue.longitude / 1_000_000))
             }
+            @available(*, unavailable)
             get {
                 fatalError("Not implemented")
             }
@@ -33,14 +34,38 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     private var mapView: MKMapView {
-        return self.view as! MKMapView
+        return view as! MKMapView
     }
+
+    private let followMeButton: UIButton = {
+        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
+        button.layer.cornerRadius = 3
+        button.setImage(UIImage(named: "Arrow"), for: .normal)
+        button.backgroundColor = .white
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNotifications()
         configureMapView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        configureFollowMeButton()
+    }
+
+    private func configureFollowMeButton() {
+        view.addSubview(followMeButton)
+
+        let tabBarHeight = tabBarController?.tabBar.bounds.height ?? 0
+
+        followMeButton.center = CGPoint(x: view.bounds.width - followMeButton.bounds.width, y: view.bounds.height - followMeButton.bounds.height - tabBarHeight)
+        followMeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
+        followMeButton.addTarget(self, action: #selector(didTapfollowMeButton), for: .touchUpInside)
     }
 
     private func configureNotifications() {
@@ -53,6 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         mapView.showsPointsOfInterest = false
         mapView.delegate = self
+        mapView.showsUserLocation = true
     }
 
     @objc private func positionsDidChange(notification: Notification) {
@@ -63,7 +89,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private func display(locations: [String: Location]) {
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
-        (mapView.annotations as? [IdentifiableAnnnotation])?.forEach({ annotation in
+        mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach({ annotation in
             if let location = unmatchedLocations[annotation.identifier] {
                 annotation.location = location
                 unmatchedLocations.removeValue(forKey: annotation.identifier)
@@ -76,9 +102,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.removeAnnotations(unmatchedAnnotations)
     }
 
+    @objc func didTapfollowMeButton() {
+        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+    }
+
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKUserLocation == false else {
+            return nil
+        }
         if #available(iOS 11.0, *) {
             return mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation)
         } else {
