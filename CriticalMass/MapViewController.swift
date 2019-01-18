@@ -14,7 +14,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         var location: Location {
             set {
-                coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(newValue.latitude / 1_000_000), longitude: CLLocationDegrees(newValue.longitude / 1_000_000))
+                coordinate = CLLocationCoordinate2D(latitude: newValue.latitude / 1_000_000, longitude: newValue.longitude / 1_000_000)
             }
             @available(*, unavailable)
             get {
@@ -70,6 +70,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: NSNotification.Name("initialGpsDataReceived"), object: nil)
     }
 
     private func configureMapView() {
@@ -79,11 +80,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.showsPointsOfInterest = false
         mapView.delegate = self
         mapView.showsUserLocation = true
-    }
-
-    @objc private func positionsDidChange(notification: Notification) {
-        guard let response = notification.object as? ApiResponse else { return }
-        display(locations: response.locations)
     }
 
     private func display(locations: [String: Location]) {
@@ -104,6 +100,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @objc func didTapfollowMeButton() {
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+    }
+
+    // MARK: Notifications
+
+    @objc private func positionsDidChange(notification: Notification) {
+        guard let response = notification.object as? ApiResponse else { return }
+        display(locations: response.locations)
+    }
+
+    @objc func didReceiveInitialLocation(notification: Notification) {
+        guard let location = notification.object as? Location else { return }
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), latitudinalMeters: 10000, longitudinalMeters: 10000)
+        let adjustedRegion = mapView.regionThatFits(region)
+        mapView.setRegion(adjustedRegion, animated: true)
     }
 
     // MARK: MKMapViewDelegate

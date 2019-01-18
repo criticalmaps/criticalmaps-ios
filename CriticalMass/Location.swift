@@ -8,8 +8,8 @@
 import Foundation
 
 struct Location: Codable, Equatable {
-    var longitude: Float
-    var latitude: Float
+    var longitude: Double
+    var latitude: Double
     var timestamp: Float
     var name: String?
     var color: String?

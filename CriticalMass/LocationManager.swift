@@ -10,8 +10,8 @@ import Foundation
 
 extension Location {
     init(_ clLocation: CLLocation, name: String? = nil, color: String? = nil) {
-        longitude = Float(clLocation.coordinate.longitude)
-        latitude = Float(clLocation.coordinate.latitude)
+        longitude = clLocation.coordinate.longitude
+        latitude = clLocation.coordinate.latitude
         timestamp = Float(clLocation.timestamp.timeIntervalSince1970)
         self.name = name
         self.color = color
@@ -19,8 +19,19 @@ extension Location {
 }
 
 class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
+    private var didSetInitialLocation = false
     private(set)
-    var currentLocation: Location?
+    var currentLocation: Location? {
+        didSet {
+            guard didSetInitialLocation == false else {
+                return
+            }
+            if let location = currentLocation {
+                didSetInitialLocation = true
+                NotificationCenter.default.post(name: NSNotification.Name("initialGpsDataReceived"), object: location)
+            }
+        }
+    }
 
     private let locationManager = CLLocationManager()
 
