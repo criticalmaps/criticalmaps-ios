@@ -8,7 +8,6 @@
 
 #import "PLAppDelegate.h"
 #import "PLTabBarController.h"
-#import "PLMapViewController.h"
 #import "PLConstants.h"
 #import "PLDataModel.h"
 #import "Appirater.h"

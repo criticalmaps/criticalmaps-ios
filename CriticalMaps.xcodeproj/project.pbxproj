@@ -30,7 +30,6 @@
 		94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
-		94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089219BDEC9C009FFF43 /* PLMapViewController.m */; };
 		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
 		94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC348D1A9E5C39000E9D85 /* PLChatObject.m */; };
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
@@ -111,8 +110,6 @@
 		94CF087819BDEAF2009FFF43 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		94CF088019BDEAF2009FFF43 /* CriticalMapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMapsTests-Info.plist"; sourceTree = "<group>"; };
 		94CF088219BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		94CF089119BDEC9C009FFF43 /* PLMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLMapViewController.h; sourceTree = "<group>"; };
-		94CF089219BDEC9C009FFF43 /* PLMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLMapViewController.m; sourceTree = "<group>"; };
 		94CF089719BDF227009FFF43 /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
 		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
 		94DC348C1A9E5C39000E9D85 /* PLChatObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLChatObject.h; sourceTree = "<group>"; };
@@ -214,8 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				989F9FEF21C7E5FC00E71085 /* Rules */,
-				94CF089119BDEC9C009FFF43 /* PLMapViewController.h */,
-				94CF089219BDEC9C009FFF43 /* PLMapViewController.m */,
 				941511071A10004D0010205B /* PLTwitterViewController.h */,
 				941511081A10004D0010205B /* PLTwitterViewController.m */,
 				9474656219CA3078005485BD /* PLSettingsTableViewController.h */,
@@ -536,7 +531,6 @@
 				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
-				94CF089319BDEC9C009FFF43 /* PLMapViewController.m in Sources */,
 				94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,

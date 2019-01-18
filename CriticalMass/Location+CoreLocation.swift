@@ -19,6 +19,7 @@ extension Location {
 
 extension CLLocationCoordinate2D {
     init(_ location: Location) {
+        self.init()
         longitude = location.longitude
         latitude = location.latitude
     }
