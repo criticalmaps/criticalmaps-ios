@@ -29,18 +29,18 @@ class RulesDetailViewController: UIViewController {
 
     private func configureTextView() {
         let textView = UITextView(frame: view.bounds)
-        
+
         let artworkAttachment = NSTextAttachment()
         let artWork = rule.artwork
         artworkAttachment.image = artWork
         let ratio = (artWork?.size.height ?? 1) / (artWork?.size.width ?? 1)
-        
+
         artworkAttachment.bounds.size = CGSize(width: view.bounds.size.width, height: view.bounds.size.width * ratio)
-        
+
         let attributedString = NSMutableAttributedString()
         attributedString.append(NSAttributedString(attachment: artworkAttachment))
         attributedString.append(NSAttributedString(string: rule.text))
-        
+
         textView.attributedText = attributedString
         textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         textView.isEditable = false

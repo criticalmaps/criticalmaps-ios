@@ -1,6 +1,13 @@
 # Change Log
 Changelog for Critical Maps iOS
 
+## [2.6.0] UNRELEASED
+### Added
+- Swift bridge
+
+### Changed
+- Rules with Swift 
+
 ## [2.5.1]
 ### Fixed
 - Modern devices support

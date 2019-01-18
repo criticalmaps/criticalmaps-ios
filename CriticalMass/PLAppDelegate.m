@@ -12,6 +12,13 @@
 #import "PLConstants.h"
 #import "PLDataModel.h"
 #import "Appirater.h"
+#import "CriticalMaps-Swift.h"
+
+@interface PLAppDelegate()
+
+@property (strong, nonatomic) PLRequestManager *requestManager;
+
+@end
 
 @implementation PLAppDelegate
 
@@ -19,6 +26,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.requestManager = [self getRequestManager];
     // Set Appirater
     [Appirater setAppId:@"918669647"];
     [Appirater setDaysUntilPrompt:1];
