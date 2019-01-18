@@ -48,6 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
         configureMapView()
     }
