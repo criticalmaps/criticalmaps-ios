@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct Location: Codable, Equatable {
+struct Location: Equatable {
     var longitude: Double
     var latitude: Double
     var timestamp: Float
     var name: String?
     var color: String?
+}
 
+extension Location: Codable {
     private enum CodingKeys: String, CodingKey {
         case longitude
         case latitude
@@ -35,8 +37,8 @@ struct Location: Codable, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(longitude * 1_000_000, forKey: .longitude)
         try container.encode(latitude * 1_000_000, forKey: .latitude)
-        try container.encode(color, forKey: .color)
         try container.encode(timestamp, forKey: .timestamp)
-        try container.encode(name, forKey: .name)
+        try container.encodeIfPresent(color, forKey: .color)
+        try container.encodeIfPresent(name, forKey: .name)
     }
 }

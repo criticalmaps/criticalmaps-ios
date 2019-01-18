@@ -78,20 +78,20 @@ class RequestManagerTests: XCTestCase {
     }
 
     func testRespectingRequestRepeatTime() {
-        let numberOfExpectedRequests: TimeInterval = 15
-        let interval: TimeInterval = 0.1
-        let setup = self.setup(interval: 0.1)
+        let numberOfExpectedRequests: TimeInterval = 2
+        let interval: TimeInterval = 0.3
+        let setup = self.setup(interval: interval)
         XCTAssertEqual(setup.networkLayer.numberOfRequests, 0)
         let exp = expectation(description: "Wait a second")
         wait(interval: interval * numberOfExpectedRequests) {
             XCTAssertEqual(Float(setup.networkLayer.numberOfRequests), Float(numberOfExpectedRequests), accuracy: 1)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testStoredDataInDataStore() {
-        let expectedStorage = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: ["b": ChatMessage(text: "Hello", timestamp: 1000, identifier: "1234")])
+        let expectedStorage = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         let setup = self.setup(interval: 0.1)
         setup.networkLayer.mockResponse = expectedStorage
         XCTAssertNil(setup.dataStore.storedData)
@@ -109,7 +109,7 @@ class RequestManagerTests: XCTestCase {
         let testSetup = setup(interval: 0.1, deviceId: deviceId)
         let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: nil, color: nil)
         testSetup.locationProvider.mockLocation = testLocation
-        let expectedBody: [String: AnyHashable] = ["device": deviceId, "location": ["longitude": testLocation.longitude, "latitude": testLocation.latitude, "timestamp": 0]]
+        let expectedBody: [String: AnyHashable] = ["device": deviceId, "location": ["longitude": testLocation.longitude * 1_000_000, "latitude": testLocation.latitude * 1_000_000, "timestamp": 0]]
         XCTAssertNil(testSetup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
         wait(interval: 1) {
@@ -124,8 +124,8 @@ class RequestManagerTests: XCTestCase {
     func testSendMessage() {
         let deviceId = "123456789"
         let testSetup = setup(interval: 0.1, deviceId: deviceId)
-        let testMessage = ChatMessage(text: "Hello", timestamp: 100, identifier: "1234")
-        let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["text": testMessage.text, "timestamp": testMessage.timestamp, "identifier": testMessage.identifier]] as! [[String: AnyHashable]]]
+        let testMessage = ChatMessage(message: "Hello", timestamp: 100)
+        let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["message": testMessage.message, "timestamp": testMessage.timestamp]] as! [[String: AnyHashable]]]
         XCTAssertNil(testSetup.dataStore.storedData)
         testSetup.requestManager.send(messages: [testMessage])
 
