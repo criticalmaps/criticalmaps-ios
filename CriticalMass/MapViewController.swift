@@ -14,7 +14,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         var location: Location {
             set {
-                coordinate = CLLocationCoordinate2D(latitude: newValue.latitude / 1_000_000, longitude: newValue.longitude / 1_000_000)
+                coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
             }
             @available(*, unavailable)
             get {
@@ -111,7 +111,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), latitudinalMeters: 10000, longitudinalMeters: 10000)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: 10000, longitudinalMeters: 10000)
         let adjustedRegion = mapView.regionThatFits(region)
         mapView.setRegion(adjustedRegion, animated: true)
     }
