@@ -1,5 +1,4 @@
 PODS:
-  - AccordionView (0.0.5)
   - AFNetworking (3.2.1):
     - AFNetworking/NSURLSession (= 3.2.1)
     - AFNetworking/Reachability (= 3.2.1)
@@ -25,7 +24,6 @@ PODS:
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
-  - AccordionView
   - AFNetworking
   - Appirater
   - NSString-Hashes
@@ -34,8 +32,17 @@ DEPENDENCIES:
   - STTwitter
   - TTTAttributedLabel
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - Appirater
+    - NSString-Hashes
+    - SAMLoadingView
+    - SDWebImage
+    - STTwitter
+    - TTTAttributedLabel
+
 SPEC CHECKSUMS:
-  AccordionView: 4f82751476a96ec60985041a48bf4c94ac1ea5ab
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
@@ -44,6 +51,6 @@ SPEC CHECKSUMS:
   STTwitter: 30ee2f79eff78c3d633a1edc869e97db9c9ead59
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 5b232ed94a1bdef9c766a15fc802e603047f97bd
+PODFILE CHECKSUM: bccc2210a5e9ad5fce496e33940c8a4602ead7e1
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

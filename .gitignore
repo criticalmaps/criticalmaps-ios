@@ -11,3 +11,5 @@ CriticalMaps.xcodeproj
 
 *.mov
 Gfx/appstore/
+report.xml
+fastlane/test_output

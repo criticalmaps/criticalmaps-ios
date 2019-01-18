@@ -1,0 +1,8 @@
+language: objective-c 
+osx_image: xcode10.1
+
+before_install:
+  - bundle update
+
+script:
+    - bundle exec fastlane test
