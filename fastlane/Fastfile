@@ -16,9 +16,12 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :test do
+  
+  before_all do
     cocoapods(use_bundle_exec: false)
+  end
+
+  lane :test do
     run_tests(scheme: "CriticalMaps")
   end
 end
