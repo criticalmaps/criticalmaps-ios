@@ -26,9 +26,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     private var didSetInitialLocation = false
+
+    private var _currentLocation: Location?
     private(set)
     var currentLocation: Location? {
-        didSet {
+        set {
+            _currentLocation = newValue
             guard didSetInitialLocation == false else {
                 return
             }
@@ -36,6 +39,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
                 didSetInitialLocation = true
                 NotificationCenter.default.post(name: NSNotification.Name("initialGpsDataReceived"), object: location)
             }
+        }
+        get {
+            guard accessPermission == .authorized else {
+                return nil
+            }
+            return _currentLocation
         }
     }
 
@@ -98,8 +107,5 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
         NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: accessPermission)
-        if accessPermission != .authorized {
-            currentLocation = nil
-        }
     }
 }
