@@ -46,6 +46,7 @@
 		9822A16A21F24E70007F5994 /* PLAppDelegate+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16921F24E70007F5994 /* PLAppDelegate+Swift.swift */; };
 		9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */; };
 		9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */; };
+		9822A17221F3349F007F5994 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A17121F3349F007F5994 /* Preferences.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
@@ -134,6 +135,7 @@
 		9822A16921F24E70007F5994 /* PLAppDelegate+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLAppDelegate+Swift.swift"; sourceTree = "<group>"; };
 		9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationView.swift; sourceTree = "<group>"; };
 		9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreLocation.swift"; sourceTree = "<group>"; };
+		9822A17121F3349F007F5994 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				9822A15F21F11051007F5994 /* NetworkLayer.swift */,
 				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
 				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
+				9822A17121F3349F007F5994 /* Preferences.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				94591A6B1A6C67640080BCEC /* PLChatViewController.m in Sources */,
 				9822A16A21F24E70007F5994 /* PLAppDelegate+Swift.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
+				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,

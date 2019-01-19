@@ -8,6 +8,23 @@
 import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
+    var accessPermission: LocationProviderPermission {
+        if Preferences.gpsEnabled {
+            switch CLLocationManager.authorizationStatus() {
+            case .authorizedAlways,
+                 .authorizedWhenInUse:
+                return .authorized
+            case .notDetermined:
+                return .unkown
+            case .restricted,
+                 .denied:
+                return .denied
+            }
+        } else {
+            return .denied
+        }
+    }
+
     private var didSetInitialLocation = false
     private(set)
     var currentLocation: Location? {
@@ -24,12 +41,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     private let locationManager = CLLocationManager()
 
-    override init() {
+    init(updateInterval: TimeInterval = 11) {
         super.init()
-        configure()
+        configureLocationManager()
+        configureTimer(with: updateInterval)
     }
 
-    func configure() {
+    func configureLocationManager() {
         if #available(iOS 9.0, *) {
             locationManager.allowsBackgroundLocationUpdates = true
         }
@@ -40,7 +58,16 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         locationManager.startUpdatingLocation()
     }
 
+    private func configureTimer(with interval: TimeInterval) {
+        Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
+    }
+
+    @objc private func timerDidUpdate(timer _: Timer) {
+        requestLocation()
+    }
+
     func requestLocation() {
+        guard accessPermission == .authorized else { return }
         if #available(iOS 9.0, *) {
             locationManager.requestLocation()
         } else {
@@ -66,6 +93,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
         } else {
             locationManager.stopUpdatingLocation()
+        }
+    }
+
+    func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
+        NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: accessPermission)
+        if accessPermission != .authorized {
+            currentLocation = nil
         }
     }
 }

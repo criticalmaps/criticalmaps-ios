@@ -48,7 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = NSLocalizedString("map.title", comment: "")
+        title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
         configureMapView()
     }
@@ -86,6 +86,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private func display(locations: [String: Location]) {
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
+        // update existing annotations
         mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach({ annotation in
             if let location = unmatchedLocations[annotation.identifier] {
                 annotation.location = location
@@ -96,6 +97,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         })
         let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
         mapView.addAnnotations(annotations)
+
+        // remove annotations that no longer exist
         mapView.removeAnnotations(unmatchedAnnotations)
     }
 
