@@ -16,5 +16,5 @@ enum LocationProviderPermission {
 
 protocol LocationProvider {
     var currentLocation: Location? { get }
-    var accessPermission: LocationProviderPermission { get }
+    static var accessPermission: LocationProviderPermission { get }
 }

@@ -45,18 +45,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return button
     }()
 
+    private let gpsDisabledOverlayView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        view.accessibilityViewIsModal = true
+        view.effect = UIBlurEffect(style: .light)
+        let label = UILabel()
+        label.text = NSLocalizedString("map.layer.info", comment: "")
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.sizeToFit()
+        view.contentView.addSubview(label)
+        label.center = view.center
+        label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
         configureMapView()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
         configureFollowMeButton()
+        condfigureGPSDisabledOverlayView()
     }
 
     private func configureFollowMeButton() {
@@ -69,9 +80,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         followMeButton.addTarget(self, action: #selector(didTapfollowMeButton), for: .touchUpInside)
     }
 
+    private func condfigureGPSDisabledOverlayView() {
+        view.addSubview(gpsDisabledOverlayView)
+
+        gpsDisabledOverlayView.frame = view.bounds
+        gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: NSNotification.Name("initialGpsDataReceived"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: NSNotification.Name("gpsStateChanged"), object: nil)
     }
 
     private func configureMapView() {
@@ -100,6 +119,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         // remove annotations that no longer exist
         mapView.removeAnnotations(unmatchedAnnotations)
+    }
+
+    @objc func updateGPSDisabledOverlayVisibility() {
+        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
 
     @objc func didTapfollowMeButton() {

@@ -9,8 +9,8 @@
 import XCTest
 
 class MockLocationProvider: LocationProvider {
-    var accessPermission: LocationProviderPermission = .authorized
-    
+    static var accessPermission: LocationProviderPermission = .authorized
+
     var mockLocation: Location?
 
     var currentLocation: Location? {

@@ -8,7 +8,7 @@
 import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
-    var accessPermission: LocationProviderPermission {
+    static var accessPermission: LocationProviderPermission {
         if Preferences.gpsEnabled {
             switch CLLocationManager.authorizationStatus() {
             case .authorizedAlways,
