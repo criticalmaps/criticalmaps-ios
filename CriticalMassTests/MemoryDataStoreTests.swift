@@ -14,7 +14,7 @@ class MemoryDataStoreTests: XCTestCase {
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         let notificationName = NSNotification.Name("positionOthersChanged")
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
-            return notification.object as AnyObject as! ApiResponse == expectedObject
+            notification.object as AnyObject as! ApiResponse == expectedObject
         }
         exp.expectedFulfillmentCount = 1
         store.update(with: ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)]))
