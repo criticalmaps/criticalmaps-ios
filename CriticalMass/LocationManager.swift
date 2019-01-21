@@ -41,7 +41,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             }
         }
         get {
-            guard accessPermission == .authorized else {
+            guard type(of: self).accessPermission == .authorized else {
                 return nil
             }
             return _currentLocation
@@ -76,7 +76,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func requestLocation() {
-        guard accessPermission == .authorized else { return }
+        guard type(of: self).accessPermission == .authorized else { return }
         if #available(iOS 9.0, *) {
             locationManager.requestLocation()
         } else {
@@ -106,6 +106,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
-        NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: accessPermission)
+        NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: type(of: self).accessPermission)
     }
 }
