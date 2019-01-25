@@ -13,3 +13,7 @@ target 'CriticalMaps' do
 	pod 'SDWebImage'
 	pod 'Appirater'
 end
+
+target 'CriticalMapsTests' do
+    pod 'NSString-Hashes'
+end

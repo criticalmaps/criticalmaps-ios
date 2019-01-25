@@ -10,6 +10,7 @@
 #import "PLDataModel.h"
 #import "PLConstants.h"
 #import "UIColor+Helper.h"
+#import "CriticalMaps-Swift.h"
 
 @interface PLSettingsTableViewController()
 
@@ -83,7 +84,7 @@
         _gpsSwitch = [[UISwitch alloc]init];
         _gpsSwitch.onTintColor = [UIColor magicColor];
         [_gpsSwitch addTarget:self action:@selector(onSwitchGPS:) forControlEvents:UIControlEventTouchUpInside];
-        [_gpsSwitch setOn:_data.gpsEnabled];
+        [_gpsSwitch setOn:[PLPreferences gpsEnabled]];
         cell.accessoryView = _gpsSwitch;
     }
     else if (indexPath.section == 1){
@@ -168,12 +169,11 @@
 }
 
 - (void)updateGpsSwitch {
-    [_gpsSwitch setOn: _data.gpsEnabled];
+    
 }
 
 -(IBAction)onSwitchGPS:(id)sender {
-    _data.gpsEnabledUser = [sender isOn];
-    _data.gpsEnabledUser ? [_data enableGps] : [_data disableGps];
+    [PLPreferences setGpsEnabled:[sender isOn]];
 }
 
 @end

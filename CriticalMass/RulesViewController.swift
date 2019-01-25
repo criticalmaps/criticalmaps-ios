@@ -61,7 +61,7 @@ class RulesViewController: UITableViewController {
         cell.label?.text = rules[indexPath.row].title
         if #available(iOS 10.0, *) {
             cell.label.adjustsFontForContentSizeCategory = true
-        } 
+        }
         cell.label?.textColor = .rulesOverViewCell
         return cell
     }

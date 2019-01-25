@@ -7,7 +7,9 @@
 
 import Foundation
 
-class RequestManager {
+// we need to inherit to NSObject because PLAppDelegate is currently in Objc and needs to hold a reference to this class
+@objc(PLRequestManager)
+public class RequestManager: NSObject {
     private struct SendLocationPostBody: Codable {
         var device: String
         var location: Location
@@ -32,6 +34,7 @@ class RequestManager {
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
+        super.init()
         configureTimer(with: interval)
     }
 
@@ -49,7 +52,9 @@ class RequestManager {
         let completion: (ApiResponse?) -> Void = { response in
             self.hasActiveRequest = false
             if let response = response {
-                self.dataStore.update(with: response)
+                DispatchQueue.main.async {
+                    self.dataStore.update(with: response)
+                }
             }
         }
 

@@ -1,5 +1,4 @@
 #import "PLTabBarController.h"
-#import "PLMapViewController.h"
 #import "PLChatViewController.h"
 #import "PLTwitterViewController.h"
 #import "PLSettingsTableViewController.h"
@@ -19,7 +18,7 @@
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    UIViewController *viewController1 = [[UINavigationController alloc]initWithRootViewController:[[PLMapViewController alloc] init]];
+    UIViewController *viewController1 = [[UINavigationController alloc]initWithRootViewController:[[MapViewController alloc] init]];
     UIViewController *viewController2 = [[UINavigationController alloc]initWithRootViewController:[[RulesViewController alloc] init]];
     UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[storyBoard instantiateViewControllerWithIdentifier:NSStringFromClass([PLChatViewController class])]];;
     UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[PLTwitterViewController alloc] init]];

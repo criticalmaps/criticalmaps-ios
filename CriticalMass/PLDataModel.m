@@ -13,9 +13,7 @@
 
 @interface PLDataModel()
 
-@property(nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) AFHTTPSessionManager *operationManager;
-@property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) NSUInteger updateCount;
 @property(nonatomic, assign) NSUInteger requestCount;
 
@@ -34,9 +32,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        _gpsEnabledUser = YES;
         [self initUserId];
-        [self initLocationManager];
         [self initHTTPRequestManager];
     }
     return self;
@@ -47,55 +43,10 @@
     _uid = [NSString stringWithFormat:@"%@",[deviceIdString md5]];
 }
 
-- (void)initLocationManager {
-    _locationManager = [[CLLocationManager alloc] init];
-    
-    if ([_locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
-        [_locationManager setAllowsBackgroundLocationUpdates:YES];
-    }
-    
-    if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-        [_locationManager requestAlwaysAuthorization];
-    }
-    
-    _locationManager.pausesLocationUpdatesAutomatically = YES;
-    _locationManager.activityType = CLActivityTypeOtherNavigation;
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-    _locationManager.delegate = self;
-    
-#ifdef DEBUG
-    if(kDebugEnableTestLocation){
-        CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:kTestLocationLatitude longitude:kTestLocationLongitude];
-        _currentLocation = testLocation;
-        [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
-    }else{
-        [self enableGps];
-    }
-#else
-    [self enableGps];
-#endif
-    
-}
-
 - (void)initHTTPRequestManager {
     _operationManager = [AFHTTPSessionManager manager];
     _operationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
-}
-
-- (void)startRequestTimer {
-    DLog(@"startRequestTimer");
-    
-    [_timer invalidate];
-    _timer = nil;
-    [self request];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(request) userInfo:nil repeats:YES];
-}
-
-- (void)stopRequestTimer {
-    DLog(@"stopRequestTimer");
-    [_timer invalidate];
-    _timer = nil;
 }
 
 - (void)request {
@@ -105,108 +56,26 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setValue:_uid forKey:@"device"];
     [params setObject:[_chatModel getMessagesArray] forKey:@"messages"];
-
-    if (_gpsEnabled) {
-        NSString *longitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.longitude];
-        NSString *latitudeString = [PLUtils locationdegrees2String:_currentLocation.coordinate.latitude];
-        
-        NSDictionary *location = @{@"longitude" :  longitudeString, @"latitude" :  latitudeString};
-        [params setObject: location forKey:@"location"];
-    }
     
     DLog(@"Request Object: %@", params);
     
     [_operationManager POST:kUrlService parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         DLog(@"Response Object: %@", responseObject);
-        self->_otherLocations = [responseObject objectForKey:@"locations"];
         
         NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
         [self->_chatModel addMessages: chatMessages];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         DLog(@"Error: %@", error);
     }];
     
-    if(_isBackroundMode && (_requestCount >= kMaxRequestsInBackground)){
-        [self disableGps];
-    }
-}
-
-- (void)enableGps {
-    DLog(@"enableGps");
-    _updateCount = 0;
-    //[self stopRequestTimer];
-    [_locationManager startUpdatingLocation];
-    _gpsEnabled = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
-}
-
-- (void)disableGps {
-    DLog(@"disableGps");
-    [_locationManager stopUpdatingLocation];
-    // [self stopRequestTimer];
-    _gpsEnabled = NO;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGpsStateChanged object:self];
 }
 
 -(void)setIsBackroundMode:(BOOL)isBackroundMode {
     _isBackroundMode = isBackroundMode;
     
     if (_isBackroundMode) {
-//        [_locationManager startMonitoringSignificantLocationChanges];
         _requestCount = 0;
-    } else {
-//        [_locationManager stopMonitoringSignificantLocationChanges];
-        if(!_gpsEnabled && _gpsEnabledUser){
-            [self enableGps];
-        }
     }
     DLog(@"backgroundMode: %@", _isBackroundMode ? @"YES" : @"NO");
 }
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    DLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
-    
-    [self disableGps];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    DLog(@"didUpdateToLocation: %@", newLocation);
-    _currentLocation = newLocation;
-    if(_updateCount == 0){
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationInitialGpsDataReceived object:self];
-        
-#ifdef DEBUG
-        if(!kDebugDisableHTTPRequests){
-            [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
-        }
-#else
-        [self performSelector:@selector(startRequestTimer) withObject:nil afterDelay:1.0];
-#endif
-        
-    }
-    
-    _updateCount++;
-    
-    if(_locality){
-        return;
-    }
-    
-    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder reverseGeocodeLocation:_currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (error){
-            NSLog(@"Geocode failed with error: %@", error);
-            return;
-        }
-        CLPlacemark *placemark = placemarks.firstObject;
-        self->_locality = [placemark locality];
-    }];
-}
-
 @end
