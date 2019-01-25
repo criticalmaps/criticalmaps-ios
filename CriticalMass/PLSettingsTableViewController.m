@@ -169,13 +169,11 @@
 }
 
 - (void)updateGpsSwitch {
-    [_gpsSwitch setOn: _data.gpsEnabled];
+    
 }
 
 -(IBAction)onSwitchGPS:(id)sender {
     [PLPreferences setGpsEnabled:[sender isOn]];
-    _data.gpsEnabledUser = [sender isOn];
-    _data.gpsEnabledUser ? [_data enableGps] : [_data disableGps];
 }
 
 @end
