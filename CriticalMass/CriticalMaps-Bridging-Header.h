@@ -3,3 +3,4 @@
 //
 
 #import "PLAppDelegate.h"
+#import <NSString+Hashes.h>
