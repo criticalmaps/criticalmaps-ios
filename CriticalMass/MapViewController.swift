@@ -85,6 +85,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         gpsDisabledOverlayView.frame = view.bounds
         gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        updateGPSDisabledOverlayVisibility()
     }
 
     private func configureNotifications() {
