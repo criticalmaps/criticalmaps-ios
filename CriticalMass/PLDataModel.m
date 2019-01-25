@@ -14,7 +14,6 @@
 @interface PLDataModel()
 
 @property(nonatomic, strong) AFHTTPSessionManager *operationManager;
-@property(nonatomic, strong) NSTimer *timer;
 @property(nonatomic, assign) NSUInteger updateCount;
 @property(nonatomic, assign) NSUInteger requestCount;
 
@@ -50,21 +49,6 @@
     _operationManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 }
 
-- (void)startRequestTimer {
-    DLog(@"startRequestTimer");
-    
-    [_timer invalidate];
-    _timer = nil;
-    [self request];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:kRequestRepeatTime target:self selector:@selector(request) userInfo:nil repeats:YES];
-}
-
-- (void)stopRequestTimer {
-    DLog(@"stopRequestTimer");
-    [_timer invalidate];
-    _timer = nil;
-}
-
 - (void)request {
     _chatModel = [PLChatModel sharedManager];
     _requestCount++;
@@ -80,8 +64,6 @@
         
         NSDictionary *chatMessages = [responseObject objectForKey:@"chatMessages"];
         [self->_chatModel addMessages: chatMessages];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPositionOthersChanged object:self];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         DLog(@"Error: %@", error);
     }];
