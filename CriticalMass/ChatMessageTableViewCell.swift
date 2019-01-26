@@ -15,7 +15,10 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
     }
 
     func setup(for message: ChatMessage) {
-        textLabel?.text = "\(message.timestamp)"
+        let date = Date(timeIntervalSince1970: message.timestamp)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        textLabel?.text = formatter.string(from: date)
         detailTextLabel?.text = message.message
     }
 
