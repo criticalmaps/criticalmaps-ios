@@ -1,5 +1,4 @@
 #import "PLTabBarController.h"
-#import "PLChatViewController.h"
 #import "PLTwitterViewController.h"
 #import "PLSettingsTableViewController.h"
 #import "CriticalMaps-Swift.h"

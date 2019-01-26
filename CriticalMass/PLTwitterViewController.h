@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "STTWitter.h"
-#import "SAMLoadingView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PLTwitterViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>

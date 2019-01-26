@@ -12,7 +12,6 @@
 #import "PLTwitterTableViewCell.h"
 #import "HOButton.h"
 #import "PLUtils.h"
-#import "PLDataModel.h"
 #import "UIColor+Helper.h"
 
 
@@ -21,7 +20,6 @@
 @property(nonatomic,strong) STTwitterAPI *twitter;
 @property(nonatomic,strong) UITableViewController *tableVC;
 @property(nonatomic,strong) NSArray *statuses;
-@property(nonatomic,strong) PLDataModel *data;
 @property(nonatomic,assign) NSArray *supportedLocalities;
 
 @end
@@ -30,8 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _data = [PLDataModel sharedManager];
     
     // table
     CGFloat navigationBarHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);

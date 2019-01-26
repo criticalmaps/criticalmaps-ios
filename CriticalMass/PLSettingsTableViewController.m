@@ -7,14 +7,12 @@
 //
 
 #import "PLSettingsTableViewController.h"
-#import "PLDataModel.h"
 #import "PLConstants.h"
 #import "UIColor+Helper.h"
 #import "CriticalMaps-Swift.h"
 
 @interface PLSettingsTableViewController()
 
-@property(nonatomic,strong) PLDataModel *data;
 @property(nonatomic,strong) UISwitch *gpsSwitch;
 @property(nonatomic,strong) NSArray *titles;
 
@@ -25,9 +23,7 @@
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        _data = [PLDataModel sharedManager];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateGpsSwitch)
-                                                     name:kNotificationGpsStateChanged object:_data];
+        
     }
     return self;
 }
@@ -44,11 +40,6 @@
     
     self.clearsSelectionOnViewWillAppear = YES;
     self.title = NSLocalizedString(@"settings.title", nil);
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationGpsStateChanged object:_data];
 }
 
 #pragma mark - Table view data source
