@@ -9,7 +9,7 @@ import Foundation
 
 @objc(PLChatManager)
 class ChatManager: NSObject {
-    private var cachedMessage: [ChatMessage] = []
+    private var cachedMessage: [ChatMessage]?
     private let requestManager: RequestManager
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
@@ -35,6 +35,11 @@ class ChatManager: NSObject {
     }
 
     public func getMessages() -> [ChatMessage] {
-        return cachedMessage
+        if cachedMessage == nil {
+            // force api request if message are requested but not available
+            requestManager.getData()
+            cachedMessage = []
+        }
+        return cachedMessage!
     }
 }
