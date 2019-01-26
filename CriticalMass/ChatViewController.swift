@@ -112,9 +112,9 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     // MARK: ChatInputDelegate
 
     func didTapSendButton(text: String) {
-        // TODO: show loading indicator
-        // TODO: fix bug
+        let indicator = LoadingIndicator.present(in: view)
         chatManager.send(message: text) { success in
+            indicator.dismiss()
             if success {
                 self.chatInput.resetInput()
             } else {

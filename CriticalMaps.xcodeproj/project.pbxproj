@@ -51,6 +51,7 @@
 		9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */; };
 		9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */; };
 		9822A17221F3349F007F5994 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A17121F3349F007F5994 /* Preferences.swift */; };
+		982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
@@ -143,6 +144,7 @@
 		9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationView.swift; sourceTree = "<group>"; };
 		9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreLocation.swift"; sourceTree = "<group>"; };
 		9822A17121F3349F007F5994 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
 				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
+				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
+				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
