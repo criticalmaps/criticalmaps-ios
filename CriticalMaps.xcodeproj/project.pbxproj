@@ -41,6 +41,7 @@
 		9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */; };
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
+		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
 		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
 		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
 		9822A15721EE0956007F5994 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15621EE0956007F5994 /* RuleTests.swift */; };
@@ -139,6 +140,7 @@
 		9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageTableViewCell.xib; sourceTree = "<group>"; };
 		9804176A21FC7AF30077D419 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		9804176C21FC87960077D419 /* SendChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatMessage.swift; sourceTree = "<group>"; };
+		9804178F21FCA2B40077D419 /* ChatManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManagerTests.swift; sourceTree = "<group>"; };
 		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMapsTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */,
 				9822A16321F113DC007F5994 /* RequestManagerTests.swift */,
 				9822A16521F11519007F5994 /* MemoryDataStoreTests.swift */,
+				9804178F21FCA2B40077D419 /* ChatManagerTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				9822A16621F11519007F5994 /* MemoryDataStoreTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
+				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
