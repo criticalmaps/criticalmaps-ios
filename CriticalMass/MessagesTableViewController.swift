@@ -28,6 +28,12 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
             tableView.reloadData()
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Setting the footerView hides seperators for empty cellls
+        tableView.tableFooterView = UIView()
+    }
 
     public func register(cellType: T.Type) {
         cellType.register(for: tableView)
