@@ -22,9 +22,10 @@ class ChatManager: NSObject {
 
     @objc private func didReceiveMessages(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
-        // TODO sort messages
-        cachedMessage = Array(response.chatMessages.values)
-        updateMessagesCallback?(cachedMessage)
+        cachedMessage = Array(response.chatMessages.values).sorted(by: { (a, b) -> Bool in
+            a.timestamp > b.timestamp
+        })
+        updateMessagesCallback?(cachedMessage ?? [])
     }
 
     public func send(message: String, completion: @escaping (Bool) -> Void) {
