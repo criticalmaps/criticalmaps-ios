@@ -90,4 +90,9 @@ class ChatInputView: UIView {
     public func resetInput() {
         textField.text = ""
     }
+
+    @discardableResult
+    override func resignFirstResponder() -> Bool {
+        return textField.resignFirstResponder()
+    }
 }

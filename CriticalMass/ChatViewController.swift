@@ -24,14 +24,25 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBar()
         configureChatInput()
         configureMessagesTableViewController()
+    }
+
+    private func configureNavigationBar() {
+        title = NSLocalizedString("chat.title", comment: "")
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
     }
 
     private func configureMessagesTableViewController() {
         messagesTableViewController.register(cellType: ChatMessageTableViewCell.self)
         messagesTableViewController.noContentMessage = NSLocalizedString("chat.noChatActivity", comment: "")
         messagesTableViewController.messages = chatManager.getMessages()
+
+        let tapGestureRecoognizer = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
+        messagesTableViewController.view.addGestureRecognizer(tapGestureRecoognizer)
         chatManager.updateMessagesCallback = { [weak self] messages in
             self?.messagesTableViewController.update(messages: messages)
         }
@@ -59,6 +70,10 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1, constant: 0),
         ])
+    }
+
+    @objc private func didTapTableView() {
+        chatInput.resignFirstResponder()
     }
 
     // MARK: ChatInputDelegate
