@@ -21,18 +21,35 @@ extension MessagesTableViewCell {
 }
 
 class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewController {
+    var noContentMessage: String?
     var cellType: T.Type?
     var messages: [T.MessageObject] = [] {
         didSet {
             // TODO: implement diffing to only reload cells that changed
             tableView.reloadData()
+            updateNoMessageCountIfNeeded()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setting the footerView hides seperators for empty cellls
         tableView.tableFooterView = UIView()
+    }
+
+    private func updateNoMessageCountIfNeeded() {
+        guard let noContentMessage = noContentMessage else {
+            return
+        }
+        if messages.count > 0 {
+            tableView.backgroundView = nil
+        } else if tableView.backgroundView == nil {
+            let noContentMessageLabel = UILabel()
+            noContentMessageLabel.textAlignment = .center
+            noContentMessageLabel.numberOfLines = 0
+            noContentMessageLabel.text = noContentMessage
+            tableView.backgroundView = noContentMessageLabel
+        }
     }
 
     public func register(cellType: T.Type) {
