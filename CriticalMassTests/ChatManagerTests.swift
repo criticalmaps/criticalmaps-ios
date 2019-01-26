@@ -101,7 +101,11 @@ class ChatManagerTests: XCTestCase {
         let expectedMessages = [ChatMessage(message: "Hello", timestamp: 1), ChatMessage(message: "World", timestamp: 2)]
 
         setup.chatManager.updateMessagesCallback = { messages in
-            XCTAssert(messages.elementsEqual(expectedMessages))
+            // iterating through the elements is more stable as the order of the elements may be different
+            XCTAssertEqual(messages.count, expectedMessages.count)
+            for message in messages {
+                XCTAssert(expectedMessages.contains(message))
+            }
             exp.fulfill()
         }
         setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": expectedMessages[0], "2": expectedMessages[1]]))
