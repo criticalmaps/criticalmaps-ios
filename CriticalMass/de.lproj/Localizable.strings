@@ -1,8 +1,14 @@
 /* No comment provided by engineer. */
+"error" = "Fehler";
+
+/* No comment provided by engineer. */
 "chat.noChatActivity" = "Zurzeit keine Nachrichten...";
 
 /* No comment provided by engineer. */
 "chat.send" = "senden";
+
+/* No comment provided by engineer. */
+"chat.send.error" = "Die Nachricht konnte nicht versendet werden. Bitte versuche es erneut.";
 
 /* No comment provided by engineer. */
 "chat.title" = "Chat";
