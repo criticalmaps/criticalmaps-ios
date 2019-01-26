@@ -7,9 +7,19 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, ChatInputDelegate {
     let chatInput = ChatInputView(frame: .zero)
     let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
+    let chatManager: ChatManager
+
+    @objc init(chatManager: ChatManager) {
+        self.chatManager = chatManager
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +45,7 @@ class ChatViewController: UIViewController {
     }
 
     private func configureChatInput() {
+        chatInput.delegate = self
         view.addSubview(chatInput)
 
         view.addConstraints([
@@ -43,5 +54,19 @@ class ChatViewController: UIViewController {
             NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1, constant: 0),
         ])
+    }
+
+    // MARK: ChatInputDelegate
+
+    func didTapSendButton(text: String) {
+        // TODO: show loading indicator
+        // TODO: fix bug
+        chatManager.send(message: text) { success in
+            if success {
+                self.chatInput.resetInput()
+            } else {
+                // TODO: present error
+            }
+        }
     }
 }

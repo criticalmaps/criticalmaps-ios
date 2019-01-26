@@ -13,12 +13,6 @@
 #import "Appirater.h"
 #import "CriticalMaps-Swift.h"
 
-@interface PLAppDelegate()
-
-@property (strong, nonatomic) PLRequestManager *requestManager;
-
-@end
-
 @implementation PLAppDelegate
 
 @synthesize tabBarController;

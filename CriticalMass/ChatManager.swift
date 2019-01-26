@@ -7,14 +7,18 @@
 
 import Foundation
 
-class ChatManager {
+@objc(PLChatManager)
+class ChatManager: NSObject {
     private let requestManager: RequestManager
 
-    init(requestManager: RequestManager) {
+    @objc init(requestManager: RequestManager) {
         self.requestManager = requestManager
+        super.init()
     }
 
-    public func send(message: String) {
-        requestManager.send(messages: [ChatMessage(message: message, timestamp: Date().timeIntervalSince1970)])
+    public func send(message: String, completion: @escaping (Bool) -> Void) {
+        requestManager.send(messages: [SendChatMessage(text: message, timestamp: Date().timeIntervalSince1970, identifier: UUID().uuidString.md5)]) { response in
+            completion(response != nil)
+        }
     }
 }

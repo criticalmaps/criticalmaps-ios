@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ChatInputDelegate: class {
+    func didTapSendButton(text: String)
+}
+
 class ChatInputView: UIView {
+    weak var delegate: ChatInputDelegate?
+
     private let textField: UITextField = {
         let textField = TextFieldWithInsets()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -48,6 +54,8 @@ class ChatInputView: UIView {
         addSubview(textField)
         addSubview(button)
         addSubview(separator)
+
+        button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         configureConstraints()
     }
 
@@ -73,5 +81,13 @@ class ChatInputView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         textField.layer.cornerRadius = textField.frame.height / 2
+    }
+
+    @objc func didTapSendButton() {
+        delegate?.didTapSendButton(text: textField.text ?? "")
+    }
+
+    public func resetInput() {
+        textField.text = ""
     }
 }

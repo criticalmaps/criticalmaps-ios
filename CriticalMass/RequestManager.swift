@@ -17,7 +17,7 @@ public class RequestManager: NSObject {
 
     private struct SendMessagePostBody: Codable {
         var device: String
-        var messages: [ChatMessage]
+        var messages: [SendChatMessage]
     }
 
     private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
@@ -72,7 +72,7 @@ public class RequestManager: NSObject {
         }
     }
 
-    public func send(messages: [ChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
+    public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
         guard hasActiveRequest == false else { return }
         hasActiveRequest = true
         let body = SendMessagePostBody(device: deviceId, messages: messages)
@@ -83,10 +83,14 @@ public class RequestManager: NSObject {
         networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData) { response in
             self.hasActiveRequest = false
             if let response = response {
-                self.dataStore.update(with: response)
-                completion?(response.chatMessages)
+                DispatchQueue.main.async {
+                    self.dataStore.update(with: response)
+                    completion?(response.chatMessages)
+                }
             } else {
-                completion?(nil)
+                DispatchQueue.main.async {
+                    completion?(nil)
+                }
             }
         }
     }
