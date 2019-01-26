@@ -8,6 +8,9 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"chat.placeholder" = "Nachricht ...";
+
+/* No comment provided by engineer. */
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */

@@ -20,7 +20,7 @@
     
     UIViewController *viewController1 = [[UINavigationController alloc]initWithRootViewController:[[MapViewController alloc] init]];
     UIViewController *viewController2 = [[UINavigationController alloc]initWithRootViewController:[[RulesViewController alloc] init]];
-    UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[storyBoard instantiateViewControllerWithIdentifier:NSStringFromClass([PLChatViewController class])]];;
+    UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[ChatViewController new]];;
     UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[PLTwitterViewController alloc] init]];
     UIViewController *viewController5 = [[UINavigationController alloc] initWithRootViewController:[[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped]];
     

@@ -23,4 +23,24 @@ extension UIColor {
     static var rulesOverViewCell: UIColor {
         return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
     }
+
+    static var chatInputBackground: UIColor {
+        return safeInit(red: 250, green: 250, blue: 250, alpha: 1)
+    }
+
+    static var chatInputTextfieldBackground: UIColor {
+        return safeInit(red: 218, green: 220, blue: 224, alpha: 1)
+    }
+
+    static var chatInputSendButton: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
+    }
+
+    static var chatInputSeparator: UIColor {
+        return safeInit(red: 218, green: 220, blue: 224, alpha: 1)
+    }
+
+    static var chatInputPlaceholder: UIColor {
+        return safeInit(red: 69, green: 71, blue: 77, alpha: 1)
+    }
 }
