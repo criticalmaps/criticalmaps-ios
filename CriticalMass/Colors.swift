@@ -43,4 +43,12 @@ extension UIColor {
     static var chatInputPlaceholder: UIColor {
         return safeInit(red: 69, green: 71, blue: 77, alpha: 1)
     }
+
+    static var chatMessageDate: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
+    }
+
+    static var chatMessageText: UIColor {
+        return safeInit(red: 69, green: 71, blue: 77, alpha: 1)
+    }
 }

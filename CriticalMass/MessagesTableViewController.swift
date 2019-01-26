@@ -11,6 +11,7 @@ protocol MessagesTableViewCell: class {
     associatedtype MessageObject
 
     func setup(for object: MessageObject)
+    static func register(for tableView: UITableView)
 }
 
 extension MessagesTableViewCell {
@@ -24,7 +25,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
     var messages: [T.MessageObject] = []
 
     public func register(cellType: T.Type) {
-        tableView.register(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
+        cellType.register(for: tableView)
         self.cellType = cellType
     }
 
