@@ -22,7 +22,12 @@ extension MessagesTableViewCell {
 
 class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewController {
     var cellType: T.Type?
-    var messages: [T.MessageObject] = []
+    var messages: [T.MessageObject] = [] {
+        didSet {
+            // TODO: implement diffing to only reload cells that changed
+            tableView.reloadData()
+        }
+    }
 
     public func register(cellType: T.Type) {
         cellType.register(for: tableView)
@@ -37,6 +42,10 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return messages.count
+    }
+
+    func update(messages: [T.MessageObject]) {
+        self.messages = messages
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

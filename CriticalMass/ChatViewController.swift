@@ -30,6 +30,10 @@ class ChatViewController: UIViewController, ChatInputDelegate {
 
     private func configureMessagesTableViewController() {
         messagesTableViewController.register(cellType: ChatMessageTableViewCell.self)
+        messagesTableViewController.messages = chatManager.getMessages()
+        chatManager.updateMessagesCallback = { [weak self] messages in
+            self?.messagesTableViewController.update(messages: messages)
+        }
 
         addChild(messagesTableViewController)
         view.addSubview(messagesTableViewController.view)
