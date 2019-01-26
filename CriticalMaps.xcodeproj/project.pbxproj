@@ -11,11 +11,7 @@
 		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
 		941511091A10004D0010205B /* PLTwitterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941511081A10004D0010205B /* PLTwitterViewController.m */; };
 		942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */; };
-		942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 942E2D8119C316BD00BF92D7 /* PLUtils.m */; };
-		945441AE1A111A6A00C8024F /* PLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 945441AD1A111A6A00C8024F /* PLLabel.m */; };
-		945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945AD4831B94FDF600C7B6E9 /* Main.storyboard */; };
 		9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9474656319CA3078005485BD /* PLSettingsTableViewController.m */; };
-		9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9484E8021A62E63F0007F9F3 /* HOButton.m */; };
 		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */; };
@@ -86,15 +82,8 @@
 		941511081A10004D0010205B /* PLTwitterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterViewController.m; sourceTree = "<group>"; };
 		942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTwitterTableViewCell.h; sourceTree = "<group>"; };
 		942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTwitterTableViewCell.m; sourceTree = "<group>"; };
-		942E2D8019C316BD00BF92D7 /* PLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLUtils.h; sourceTree = "<group>"; };
-		942E2D8119C316BD00BF92D7 /* PLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLUtils.m; sourceTree = "<group>"; };
-		945441AC1A111A6A00C8024F /* PLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLLabel.h; sourceTree = "<group>"; };
-		945441AD1A111A6A00C8024F /* PLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLLabel.m; sourceTree = "<group>"; };
-		945AD4831B94FDF600C7B6E9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9474656219CA3078005485BD /* PLSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLSettingsTableViewController.h; sourceTree = "<group>"; };
 		9474656319CA3078005485BD /* PLSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLSettingsTableViewController.m; sourceTree = "<group>"; };
-		9484E8011A62E63F0007F9F3 /* HOButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOButton.h; sourceTree = "<group>"; };
-		9484E8021A62E63F0007F9F3 /* HOButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOButton.m; sourceTree = "<group>"; };
 		9489D88A1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88B1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88D1B768274001E746C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -241,10 +230,7 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9484E8011A62E63F0007F9F3 /* HOButton.h */,
-				9484E8021A62E63F0007F9F3 /* HOButton.m */,
-				945441AC1A111A6A00C8024F /* PLLabel.h */,
-				945441AD1A111A6A00C8024F /* PLLabel.m */,
+				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				942B71B41A5770CA00D02CA1 /* PLTwitterTableViewCell.h */,
 				942B71B51A5770CA00D02CA1 /* PLTwitterTableViewCell.m */,
 				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
@@ -265,8 +251,6 @@
 				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
 				94F0304719C1E4EC00F86611 /* PLConstants.h */,
 				94F0304819C1E4EC00F86611 /* PLConstants.m */,
-				942E2D8019C316BD00BF92D7 /* PLUtils.h */,
-				942E2D8119C316BD00BF92D7 /* PLUtils.m */,
 				94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */,
 				94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */,
 				989F9FF721C7F13400E71085 /* Colors.swift */,
@@ -317,9 +301,7 @@
 				94AD50491A963DFE00547B40 /* View */,
 				94AD50481A963DC800547B40 /* Controller */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
-				945AD4831B94FDF600C7B6E9 /* Main.storyboard */,
 				98B480E121AB30700044D017 /* Launch Screen.storyboard */,
-				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -467,7 +449,6 @@
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
 				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
-				945AD4841B94FDF600C7B6E9 /* Main.storyboard in Resources */,
 				989F9FFC21C7F9AB00E71085 /* RuleTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,7 +540,6 @@
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				942B71B61A5770CA00D02CA1 /* PLTwitterTableViewCell.m in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
-				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
@@ -570,14 +550,12 @@
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
 				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
-				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
-				9484E8031A62E63F0007F9F3 /* HOButton.m in Sources */,
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
