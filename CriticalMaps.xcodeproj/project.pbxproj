@@ -36,6 +36,10 @@
 		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
 		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 		9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176221FBDD580077D419 /* TextFieldWithInsets.swift */; };
+		9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176421FC71770077D419 /* MessagesTableViewController.swift */; };
+		9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
+		9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */; };
+		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
 		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
 		9822A15721EE0956007F5994 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15621EE0956007F5994 /* RuleTests.swift */; };
@@ -129,6 +133,10 @@
 		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
 		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
 		9804176221FBDD580077D419 /* TextFieldWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithInsets.swift; sourceTree = "<group>"; };
+		9804176421FC71770077D419 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTableViewCell.swift; sourceTree = "<group>"; };
+		9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9804176A21FC7AF30077D419 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMapsTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -219,6 +227,7 @@
 				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
 				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
 				9822A17121F3349F007F5994 /* Preferences.swift */,
+				9804176A21FC7AF30077D419 /* ChatManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -237,6 +246,7 @@
 				94CF089819BDF227009FFF43 /* PLTabBarController.m */,
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
 				98401AF421FB79F400064DAE /* ChatViewController.swift */,
+				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -254,6 +264,8 @@
 				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
 				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
+				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
+				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -462,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
+				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
 				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
@@ -561,6 +574,7 @@
 				942E2D8219C316BD00BF92D7 /* PLUtils.m in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
+				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				94AD50461A963D0600547B40 /* PLChatModel.m in Sources */,
@@ -569,6 +583,7 @@
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
 				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
+				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
 				945441AE1A111A6A00C8024F /* PLLabel.m in Sources */,
 				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
@@ -580,6 +595,7 @@
 				9474656419CA3078005485BD /* PLSettingsTableViewController.m in Sources */,
 				94DC348E1A9E5C39000E9D85 /* PLChatObject.m in Sources */,
 				941511091A10004D0010205B /* PLTwitterViewController.m in Sources */,
+				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,

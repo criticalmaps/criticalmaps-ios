@@ -72,7 +72,7 @@ public class RequestManager: NSObject {
         }
     }
 
-    public func send(messages: [ChatMessage]) {
+    public func send(messages: [ChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
         guard hasActiveRequest == false else { return }
         hasActiveRequest = true
         let body = SendMessagePostBody(device: deviceId, messages: messages)
@@ -84,6 +84,9 @@ public class RequestManager: NSObject {
             self.hasActiveRequest = false
             if let response = response {
                 self.dataStore.update(with: response)
+                completion?(response.chatMessages)
+            } else {
+                completion?(nil)
             }
         }
     }
