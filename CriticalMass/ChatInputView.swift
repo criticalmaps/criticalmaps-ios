@@ -11,7 +11,7 @@ protocol ChatInputDelegate: class {
     func didTapSendButton(text: String)
 }
 
-class ChatInputView: UIView {
+class ChatInputView: UIView, UITextFieldDelegate {
     weak var delegate: ChatInputDelegate?
 
     private let textField: UITextField = {
@@ -20,6 +20,8 @@ class ChatInputView: UIView {
         textField.backgroundColor = .chatInputTextfieldBackground
         textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("chat.placeholder", comment: ""), attributes: [.foregroundColor: UIColor.chatInputPlaceholder])
         textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        textField.enablesReturnKeyAutomatically = true
+        textField.returnKeyType = .send
         return textField
     }()
 
@@ -55,6 +57,7 @@ class ChatInputView: UIView {
         addSubview(button)
         addSubview(separator)
 
+        textField.delegate = self
         button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         configureConstraints()
     }
@@ -94,5 +97,15 @@ class ChatInputView: UIView {
     @discardableResult
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
+    }
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField.text ?? "") != "" {
+            didTapSendButton()
+            return true
+        }
+        return false
     }
 }
