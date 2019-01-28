@@ -1,5 +1,4 @@
 #import "PLTabBarController.h"
-#import "PLChatViewController.h"
 #import "PLTwitterViewController.h"
 #import "PLSettingsTableViewController.h"
 #import "CriticalMaps-Swift.h"
@@ -16,11 +15,12 @@
         [[UITabBar appearance] setTranslucent:YES];
     }
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
     UIViewController *viewController1 = [[UINavigationController alloc]initWithRootViewController:[[MapViewController alloc] init]];
     UIViewController *viewController2 = [[UINavigationController alloc]initWithRootViewController:[[RulesViewController alloc] init]];
-    UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[storyBoard instantiateViewControllerWithIdentifier:NSStringFromClass([PLChatViewController class])]];;
+    
+    PLRequestManager *requestManager = ((PLAppDelegate *)UIApplication.sharedApplication.delegate).requestManager;
+    PLChatManager *chatManger = [[PLChatManager alloc] initWithRequestManager:requestManager];
+    UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[[ChatViewController alloc] initWithChatManager:chatManger]];
     UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[PLTwitterViewController alloc] init]];
     UIViewController *viewController5 = [[UINavigationController alloc] initWithRootViewController:[[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped]];
     

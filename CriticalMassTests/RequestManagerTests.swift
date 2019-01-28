@@ -126,8 +126,8 @@ class RequestManagerTests: XCTestCase {
     func testSendMessage() {
         let deviceId = "123456789"
         let testSetup = setup(interval: 0.1, deviceId: deviceId)
-        let testMessage = ChatMessage(message: "Hello", timestamp: 100)
-        let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["message": testMessage.message, "timestamp": testMessage.timestamp]] as! [[String: AnyHashable]]]
+        let testMessage = SendChatMessage(text: "Hello", timestamp: 100, identifier: UUID().uuidString)
+        let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["text": testMessage.text, "timestamp": testMessage.timestamp, "identifier": testMessage.identifier]] as! [[String: AnyHashable]]]
         XCTAssertNil(testSetup.dataStore.storedData)
         testSetup.requestManager.send(messages: [testMessage])
 

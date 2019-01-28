@@ -10,7 +10,12 @@ import Foundation
 class MemoryDataStore: DataStore {
     private var lastKnownResponse: ApiResponse? {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("positionOthersChanged"), object: lastKnownResponse)
+            if oldValue?.locations != lastKnownResponse?.locations {
+                NotificationCenter.default.post(name: NSNotification.Name("positionOthersChanged"), object: lastKnownResponse)
+            }
+            if oldValue?.chatMessages != lastKnownResponse?.chatMessages {
+                NotificationCenter.default.post(name: NSNotification.Name("chatMessagesReceived"), object: lastKnownResponse)
+            }
         }
     }
 

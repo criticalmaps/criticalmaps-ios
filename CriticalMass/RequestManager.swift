@@ -17,7 +17,7 @@ public class RequestManager: NSObject {
 
     private struct SendMessagePostBody: Codable {
         var device: String
-        var messages: [ChatMessage]
+        var messages: [SendChatMessage]
     }
 
     private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
@@ -46,33 +46,37 @@ public class RequestManager: NSObject {
         updateData()
     }
 
+    private func defaultCompletion(for response: ApiResponse?) {
+        hasActiveRequest = false
+        if let response = response {
+            DispatchQueue.main.async {
+                self.dataStore.update(with: response)
+            }
+        }
+    }
+
     private func updateData() {
         guard hasActiveRequest == false else { return }
         hasActiveRequest = true
-        let completion: (ApiResponse?) -> Void = { response in
-            self.hasActiveRequest = false
-            if let response = response {
-                DispatchQueue.main.async {
-                    self.dataStore.update(with: response)
-                }
-            }
-        }
-
         // We only use a post request if we have a location to post
         if let currentLocation = locationProvider.currentLocation {
             let body = SendLocationPostBody(device: deviceId, location: currentLocation)
             guard let bodyData = try? JSONEncoder().encode(body) else {
                 hasActiveRequest = false
-                completion(nil)
+                defaultCompletion(for: nil)
                 return
             }
-            networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData, completion: completion)
+            networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData, completion: defaultCompletion)
         } else {
-            networkLayer.get(with: kBaseURL, decodable: ApiResponse.self, completion: completion)
+            getData()
         }
     }
 
-    public func send(messages: [ChatMessage]) {
+    public func getData() {
+        networkLayer.get(with: kBaseURL, decodable: ApiResponse.self, completion: defaultCompletion)
+    }
+
+    public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
         guard hasActiveRequest == false else { return }
         hasActiveRequest = true
         let body = SendMessagePostBody(device: deviceId, messages: messages)
@@ -81,9 +85,9 @@ public class RequestManager: NSObject {
             return
         }
         networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData) { response in
-            self.hasActiveRequest = false
-            if let response = response {
-                self.dataStore.update(with: response)
+            self.defaultCompletion(for: response)
+            DispatchQueue.main.async {
+                completion?(response?.chatMessages)
             }
         }
     }

@@ -9,15 +9,8 @@
 #import "PLAppDelegate.h"
 #import "PLTabBarController.h"
 #import "PLConstants.h"
-#import "PLDataModel.h"
 #import "Appirater.h"
 #import "CriticalMaps-Swift.h"
-
-@interface PLAppDelegate()
-
-@property (strong, nonatomic) PLRequestManager *requestManager;
-
-@end
 
 @implementation PLAppDelegate
 
@@ -63,13 +56,11 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     DLog(@"applicationDidEnterBackground");
-    [[PLDataModel sharedManager] setIsBackroundMode:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     DLog(@"applicationWillEnterForeground");
-    [[PLDataModel sharedManager] setIsBackroundMode:NO];
     [Appirater appEnteredForeground:YES];
 }
 
