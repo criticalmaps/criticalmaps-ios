@@ -10,6 +10,13 @@ import UIKit
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
     @IBOutlet var dateLabel: UILabel!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        dateLabel.textColor = .twitterDate
+        detailTextLabel?.textColor = .twitterUsername
+        textLabel?.textColor = .twitterText
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView?.layer.cornerRadius = imageView!.bounds.width / 2
