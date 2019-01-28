@@ -36,7 +36,7 @@ class MockNetworkLayer: NetworkLayer {
         }
     }
 
-    func get<T>(with url: URL, decodable decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
+    func get<T>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
         get(with: url, decodable: decodable, customDateFormatter: nil, completion: completion)
     }
 
