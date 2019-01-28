@@ -6,7 +6,6 @@ project 'CriticalMaps.xcodeproj'
 
 target 'CriticalMaps' do
 	pod 'NSString-Hashes'
-	pod 'STTwitter'
 	pod 'SDWebImage'
 	pod 'Appirater'
 end
