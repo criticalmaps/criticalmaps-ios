@@ -33,12 +33,15 @@ class TwitterManager: NSObject {
         super.init()
     }
 
-    public func loadTweets() {
+    public func loadTweets(completion: (() -> Void)? = nil) {
         networkLayer.get(with: url, decodable: TwitterApiResponse.self, customDateFormatter: dateFormatter) { [weak self] response in
-            guard let response = response else {
-                return
-            }
             DispatchQueue.main.async {
+                defer {
+                    completion?()
+                }
+                guard let response = response else {
+                    return
+                }
                 self?.cachedTweets = response.statuses
             }
         }

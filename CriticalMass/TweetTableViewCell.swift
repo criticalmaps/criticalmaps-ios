@@ -9,9 +9,6 @@ import UIKit
 
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
     @IBOutlet var dateLabel: UILabel!
-    static func register(for tableView: UITableView) {
-        tableView.register(UINib(nibName: String(describing: self), bundle: nil), forCellReuseIdentifier: reuseIdentifier)
-    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

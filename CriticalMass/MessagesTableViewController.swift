@@ -11,7 +11,6 @@ protocol MessagesTableViewCell: class {
     associatedtype MessageObject
 
     func setup(for object: MessageObject)
-    static func register(for tableView: UITableView)
 }
 
 extension MessagesTableViewCell {
@@ -22,7 +21,14 @@ extension MessagesTableViewCell {
 
 class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewController {
     var noContentMessage: String?
-    var cellType: T.Type?
+    var pullToRefreshTrigger: (((() -> Void)?) -> Void)? {
+        didSet {
+            let control = UIRefreshControl()
+            refreshControl = control
+            refreshControl?.addTarget(self, action: #selector(didTriggerRefresh), for: .valueChanged)
+        }
+    }
+
     var messages: [T.MessageObject] = [] {
         didSet {
             // TODO: implement diffing to only reload cells that changed
@@ -54,8 +60,14 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
     }
 
     private func register(cellType: T.Type) {
-        cellType.register(for: tableView)
-        self.cellType = cellType
+        tableView.register(UINib(nibName: String(describing: cellType), bundle: nil), forCellReuseIdentifier: T.reuseIdentifier)
+    }
+
+    @objc private func didTriggerRefresh() {
+        refreshControl?.beginRefreshing()
+        pullToRefreshTrigger? { [weak self] in
+            self?.refreshControl?.endRefreshing()
+        }
     }
 
     // MARK: - Table view data source
@@ -73,10 +85,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = cellType else {
-            fatalError("No cell type registred")
-        }
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier, for: indexPath) as! T
+        let cell = tableView.dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
         cell.setup(for: messages[indexPath.row])
         return cell as! UITableViewCell
     }
