@@ -4,3 +4,4 @@
 
 #import "PLAppDelegate.h"
 #import <NSString+Hashes.h>
+#import <SDWebImage/UIImageView+WebCache.h>

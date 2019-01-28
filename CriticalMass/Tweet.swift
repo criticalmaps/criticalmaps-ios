@@ -7,4 +7,8 @@
 
 import Foundation
 
-struct Tweet: Codable {}
+struct Tweet: Codable {
+    var text: String
+    var created_at: Date
+    var user: TwitterUser
+}

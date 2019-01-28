@@ -16,6 +16,13 @@ class TwitterManager: NSObject {
         }
     }
 
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
+        return formatter
+    }()
+
     private let networkLayer: NetworkLayer
 
     var updateTweetsCallback: (([Tweet]) -> Void)?
@@ -27,12 +34,12 @@ class TwitterManager: NSObject {
     }
 
     public func loadTweets() {
-        networkLayer.get(with: url, decodable: [Tweet].self) { [weak self] tweets in
-            guard let tweets = tweets else {
+        networkLayer.get(with: url, decodable: TwitterApiResponse.self, customDateFormatter: dateFormatter) { [weak self] response in
+            guard let response = response else {
                 return
             }
             DispatchQueue.main.async {
-                self?.cachedTweets = tweets
+                self?.cachedTweets = response.statuses
             }
         }
     }
@@ -42,5 +49,12 @@ class TwitterManager: NSObject {
             loadTweets()
         }
         return cachedTweets
+    }
+}
+
+extension TwitterManager {
+    // workaround for now to create TwitterManager from Objc
+    @objc class func objcInit() -> TwitterManager {
+        return TwitterManager(networkLayer: NetworkOperator())
     }
 }
