@@ -98,9 +98,9 @@ class ChatInputView: UIView, UITextFieldDelegate {
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
-    
+
     // MARK: UITextFieldDelegate
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField.text ?? "") != "" {
             didTapSendButton()

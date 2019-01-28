@@ -35,6 +35,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         super.viewDidLoad()
         // Setting the footerView hides seperators for empty cellls
         tableView.tableFooterView = UIView()
+        register(cellType: T.self)
     }
 
     private func updateNoMessageCountIfNeeded() {
@@ -52,7 +53,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         }
     }
 
-    public func register(cellType: T.Type) {
+    private func register(cellType: T.Type) {
         cellType.register(for: tableView)
         self.cellType = cellType
     }
