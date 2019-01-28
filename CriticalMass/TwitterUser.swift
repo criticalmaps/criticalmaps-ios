@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TwitterUser: Codable {
+struct TwitterUser: Codable, Equatable {
     var screen_name: String
     var profile_image_url_https: String
 }

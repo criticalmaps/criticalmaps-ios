@@ -55,6 +55,7 @@
 		982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */; };
 		982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D021FF9F9100E2A51B /* TwitterApiResponse.swift */; };
 		982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D221FFA13800E2A51B /* TwitterUser.swift */; };
+		982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
@@ -148,6 +149,7 @@
 		982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TweetTableViewCell.xib; sourceTree = "<group>"; };
 		982DA8D021FF9F9100E2A51B /* TwitterApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterApiResponse.swift; sourceTree = "<group>"; };
 		982DA8D221FFA13800E2A51B /* TwitterUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
+		982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManagerTests.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				9822A16321F113DC007F5994 /* RequestManagerTests.swift */,
 				9822A16521F11519007F5994 /* MemoryDataStoreTests.swift */,
 				9804178F21FCA2B40077D419 /* ChatManagerTests.swift */,
+				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
+				982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
