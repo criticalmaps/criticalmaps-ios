@@ -69,7 +69,7 @@ class RequestManagerTests: XCTestCase {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId), locationProvider, dataStore, networkLayer)
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
     }
 
     func testNoRequestForActiveRequests() {

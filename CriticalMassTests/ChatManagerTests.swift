@@ -12,7 +12,7 @@ class ChatManagerTests: XCTestCase {
     func getSetup() -> (chatManager: ChatManager, networkLayer: MockNetworkLayer, dataStore: DataStore) {
         let networkLayer = MockNetworkLayer()
         let dataStore = MemoryDataStore()
-        let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, deviceId: UUID().uuidString)
+        let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, deviceId: UUID().uuidString, url: Constants.apiEndpoint)
         let chatManager = ChatManager(requestManager: requestManager)
         return (chatManager, networkLayer, dataStore)
     }
@@ -43,7 +43,7 @@ class ChatManagerTests: XCTestCase {
         }
 
         XCTAssertEqual(messageJSON["text"] as! String, "Hello World")
-        XCTAssertEqual(messageJSON["timestamp"] as! TimeInterval, timeInterval, accuracy: 0.001)
+        XCTAssertEqual(messageJSON["timestamp"] as! TimeInterval, timeInterval, accuracy: 0.01)
         XCTAssertNotNil(messageJSON["identifier"])
     }
 

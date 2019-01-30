@@ -27,7 +27,7 @@ class TwitterManager: NSObject {
 
     var updateTweetsCallback: (([Tweet]) -> Void)?
 
-    init(networkLayer: NetworkLayer, url: URL = URL(string: "https://api.criticalmaps.net/twitter")!) {
+    init(networkLayer: NetworkLayer, url: URL) {
         self.networkLayer = networkLayer
         self.url = url
         super.init()
@@ -58,6 +58,6 @@ class TwitterManager: NSObject {
 extension TwitterManager {
     // workaround for now to create TwitterManager from Objc
     @objc class func objcInit() -> TwitterManager {
-        return TwitterManager(networkLayer: NetworkOperator())
+        return TwitterManager(networkLayer: NetworkOperator(), url: Constants.twitterEndpoint)
     }
 }

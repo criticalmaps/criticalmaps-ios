@@ -11,7 +11,7 @@ import XCTest
 class TwitterManagerTests: XCTestCase {
     func getSetup() -> (twitterManager: TwitterManager, networkLayer: MockNetworkLayer) {
         let networkLayer = MockNetworkLayer()
-        let twitterManger = TwitterManager(networkLayer: networkLayer)
+        let twitterManger = TwitterManager(networkLayer: networkLayer, url: Constants.twitterEndpoint)
         return (twitterManger, networkLayer)
     }
 
@@ -19,7 +19,7 @@ class TwitterManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update Tweets callback called")
 
-        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(screen_name: "Bar", profile_image_url_https: "differentURL"))])
+        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Bar", screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(name: "foo", screen_name: "Bar", profile_image_url_https: "differentURL"))])
 
         setup.networkLayer.mockResponse = fakeResponse
 
@@ -45,7 +45,7 @@ class TwitterManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update Tweets callback called")
 
-        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(screen_name: "Bar", profile_image_url_https: "differentURL"))])
+        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"))])
 
         setup.networkLayer.mockResponse = fakeResponse
         setup.twitterManager.loadTweets {
