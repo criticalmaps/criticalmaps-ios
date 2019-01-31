@@ -67,8 +67,4 @@ extension UIColor {
     static var twitterDate: UIColor {
         return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
     }
-
-    static var twitterLink: UIColor {
-        return safeInit(red: 29, green: 161, blue: 242, alpha: 1)
-    }
 }

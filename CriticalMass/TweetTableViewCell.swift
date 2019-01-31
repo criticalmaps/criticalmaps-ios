@@ -34,6 +34,7 @@ class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
         super.awakeFromNib()
         dateLabel.textColor = .twitterDate
         textLabel?.textColor = .twitterUsername
+        detailTextLabel?.textColor = .twitterText
     }
 
     override func layoutSubviews() {
@@ -64,20 +65,10 @@ class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
         return usernameString
     }
 
-    private func attributedBodyString(for tweet: Tweet) -> NSAttributedString {
-        let text = tweet.text
-        let words = text.components(separatedBy: " ").filter { $0.hasPrefix("#") || $0.hasPrefix("@") }
-        let bodyString = NSMutableAttributedString(string: text)
-        for word in words {
-            bodyString.addAttribute(.foregroundColor, value: UIColor.twitterLink, range: NSRange(text.range(of: word)!, in: text))
-        }
-        return bodyString
-    }
-
     func setup(for tweet: Tweet) {
         dateLabel.text = dateString(for: tweet)
         textLabel?.attributedText = attributedUserNameString(for: tweet)
-        detailTextLabel?.attributedText = attributedBodyString(for: tweet)
+        detailTextLabel?.text = tweet.text
         imageView?.sd_setImage(with: URL(string: tweet.user.profile_image_url_https), placeholderImage: UIImage(named: "Avatar"))
     }
 }
