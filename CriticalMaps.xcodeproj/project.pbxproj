@@ -55,6 +55,9 @@
 		982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D221FFA13800E2A51B /* TwitterUser.swift */; };
 		982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */; };
 		982DA8D82202360800E2A51B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D72202360800E2A51B /* Constants.swift */; };
+		982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D92203842D00E2A51B /* SettingsViewController.swift */; };
+		982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */; };
+		982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
@@ -68,6 +71,10 @@
 		989FA00421C8039A00E71085 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
 		989FA00621C8154D00E71085 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
+		98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */; };
+		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
+		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
+		98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +153,9 @@
 		982DA8D221FFA13800E2A51B /* TwitterUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManagerTests.swift; sourceTree = "<group>"; };
 		982DA8D72202360800E2A51B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		982DA8D92203842D00E2A51B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGithubTableViewCellTableViewCell.swift; sourceTree = "<group>"; };
+		982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsGithubTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -160,6 +170,10 @@
 		989FA00321C8039A00E71085 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchTableViewCell.swift; sourceTree = "<group>"; };
+		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
+		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
+		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 		FE801F89A7EEED10486DC718 /* Pods-CriticalMapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,6 +249,7 @@
 				98401AF421FB79F400064DAE /* ChatViewController.swift */,
 				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
 				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
+				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
+				98E7338C22039511005F311F /* Settings */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -375,6 +391,19 @@
 			name = Rules;
 			sourceTree = "<group>";
 		};
+		98E7338C22039511005F311F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */,
+				982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */,
+				98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */,
+				98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */,
+				98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */,
+				98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -471,11 +500,14 @@
 			files = (
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
+				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
+				98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */,
 				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
 				989F9FFC21C7F9AB00E71085 /* RuleTableViewCell.xib in Resources */,
+				982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,8 +594,10 @@
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				9822A16A21F24E70007F5994 /* PLAppDelegate+Swift.swift in Sources */,
+				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
+				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
@@ -585,6 +619,7 @@
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
+				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
 				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
@@ -594,6 +629,7 @@
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
+				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
 				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

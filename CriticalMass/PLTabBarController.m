@@ -22,7 +22,7 @@
     UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[[ChatViewController alloc] initWithChatManager:chatManger]];
     PLTwitterManager *twitterManager = [PLTwitterManager objcInit];
     UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[TwitterViewController alloc] initWithTwitterManager:twitterManager]];
-    UIViewController *viewController5 = [[UINavigationController alloc] initWithRootViewController:[[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped]];
+    UIViewController *viewController5 = [[UINavigationController alloc] initWithRootViewController:[[SettingsViewController alloc] initWithStyle:UITableViewStylePlain]];
     
     viewController1.title = NSLocalizedString(@"map.title", nil);
     viewController2.title = NSLocalizedString(@"rules.title", nil);
