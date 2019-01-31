@@ -20,7 +20,7 @@ public class RequestManager: NSObject {
         var messages: [SendChatMessage]
     }
 
-    private let kBaseURL = URL(string: "https://api.criticalmaps.net/")!
+    private let endpoint = URL(string: "https://api.criticalmaps.net/")!
 
     private var hasActiveRequest = false
 
@@ -29,7 +29,7 @@ public class RequestManager: NSObject {
     private var networkLayer: NetworkLayer
     private var deviceId: String
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, deviceId: String) {
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, deviceId: String, url _: URL) {
         self.deviceId = deviceId
         self.dataStore = dataStore
         self.locationProvider = locationProvider
@@ -66,14 +66,14 @@ public class RequestManager: NSObject {
                 defaultCompletion(for: nil)
                 return
             }
-            networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData, completion: defaultCompletion)
+            networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData, completion: defaultCompletion)
         } else {
             getData()
         }
     }
 
     public func getData() {
-        networkLayer.get(with: kBaseURL, decodable: ApiResponse.self, completion: defaultCompletion)
+        networkLayer.get(with: endpoint, decodable: ApiResponse.self, completion: defaultCompletion)
     }
 
     public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
@@ -84,7 +84,7 @@ public class RequestManager: NSObject {
             hasActiveRequest = false
             return
         }
-        networkLayer.post(with: kBaseURL, decodable: ApiResponse.self, bodyData: bodyData) { response in
+        networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData) { response in
             self.defaultCompletion(for: response)
             DispatchQueue.main.async {
                 completion?(response?.chatMessages)

@@ -46,7 +46,6 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     }
 
     private func configureMessagesTableViewController() {
-        messagesTableViewController.register(cellType: ChatMessageTableViewCell.self)
         messagesTableViewController.noContentMessage = NSLocalizedString("chat.noChatActivity", comment: "")
         messagesTableViewController.messages = chatManager.getMessages()
 

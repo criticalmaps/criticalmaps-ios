@@ -51,4 +51,20 @@ extension UIColor {
     static var chatMessageText: UIColor {
         return safeInit(red: 69, green: 71, blue: 77, alpha: 1)
     }
+
+    static var twitterName: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
+    }
+
+    static var twitterUsername: UIColor {
+        return safeInit(red: 144, green: 147, blue: 153, alpha: 1)
+    }
+
+    static var twitterText: UIColor {
+        return safeInit(red: 69, green: 71, blue: 77, alpha: 1)
+    }
+
+    static var twitterDate: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
+    }
 }

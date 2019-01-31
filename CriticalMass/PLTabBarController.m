@@ -1,5 +1,4 @@
 #import "PLTabBarController.h"
-#import "PLTwitterViewController.h"
 #import "PLSettingsTableViewController.h"
 #import "CriticalMaps-Swift.h"
 #import "UIColor+Helper.h"
@@ -21,7 +20,8 @@
     PLRequestManager *requestManager = ((PLAppDelegate *)UIApplication.sharedApplication.delegate).requestManager;
     PLChatManager *chatManger = [[PLChatManager alloc] initWithRequestManager:requestManager];
     UIViewController *viewController3 = [[UINavigationController alloc]initWithRootViewController:[[ChatViewController alloc] initWithChatManager:chatManger]];
-    UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[PLTwitterViewController alloc] init]];
+    PLTwitterManager *twitterManager = [PLTwitterManager objcInit];
+    UIViewController *viewController4 = [[UINavigationController alloc]initWithRootViewController:[[TwitterViewController alloc] initWithTwitterManager:twitterManager]];
     UIViewController *viewController5 = [[UINavigationController alloc] initWithRootViewController:[[PLSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped]];
     
     viewController1.title = NSLocalizedString(@"map.title", nil);

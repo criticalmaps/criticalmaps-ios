@@ -21,8 +21,4 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
         textLabel?.text = formatter.string(from: date)
         detailTextLabel?.text = message.message
     }
-
-    static func register(for tableView: UITableView) {
-        tableView.register(UINib(nibName: String(describing: self), bundle: nil), forCellReuseIdentifier: reuseIdentifier)
-    }
 }

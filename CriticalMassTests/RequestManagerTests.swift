@@ -19,7 +19,7 @@ class MockLocationProvider: LocationProvider {
 }
 
 class MockNetworkLayer: NetworkLayer {
-    var mockResponse: ApiResponse?
+    var mockResponse: Codable?
     var shouldReturnResponse = true
     var lastUsedPostBody: [String: Any]?
     var numberOfRequests: Int {
@@ -28,11 +28,16 @@ class MockNetworkLayer: NetworkLayer {
 
     var numberOfGetCalled = 0
     var numberOfPostCalled = 0
-    func get<T>(with _: URL, decodable _: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
+
+    func get<T>(with _: URL, decodable _: T.Type, customDateFormatter _: DateFormatter?, completion: @escaping (T?) -> Void) where T: Decodable {
         numberOfGetCalled += 1
         if shouldReturnResponse {
             completion(mockResponse as? T)
         }
+    }
+
+    func get<T>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
+        get(with: url, decodable: decodable, customDateFormatter: nil, completion: completion)
     }
 
     func post<T>(with _: URL, decodable _: T.Type, bodyData: Data, completion: @escaping (T?) -> Void) where T: Decodable {
@@ -64,7 +69,7 @@ class RequestManagerTests: XCTestCase {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId), locationProvider, dataStore, networkLayer)
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
     }
 
     func testNoRequestForActiveRequests() {

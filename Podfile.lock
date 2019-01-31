@@ -4,27 +4,23 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
-  - STTwitter (0.2.6)
 
 DEPENDENCIES:
   - Appirater
   - NSString-Hashes
   - SDWebImage
-  - STTwitter
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Appirater
     - NSString-Hashes
     - SDWebImage
-    - STTwitter
 
 SPEC CHECKSUMS:
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  STTwitter: 30ee2f79eff78c3d633a1edc869e97db9c9ead59
 
-PODFILE CHECKSUM: 3906c457d6d614d6cf8aab0477da362acba5131f
+PODFILE CHECKSUM: 1888cad3edb8458c2dbc59b6362da2afcd9b291d
 
 COCOAPODS: 1.5.3
