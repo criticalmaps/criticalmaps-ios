@@ -50,9 +50,9 @@ class SettingsViewController: UITableViewController {
             case .github:
                 return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
             case .info:
-                return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "http://www.criticalmass-berlin.org")!)),
+                return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "https://www.criticalmaps.net")!)),
                         Model(title: NSLocalizedString("settings.twitter", comment: ""), action: .open(url: URL(string: "https://twitter.com/criticalmaps/")!)),
-                        Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/pages/Critical-Mass-Berlin/74806304846")!))]
+                        Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!))]
             }
         }
 
