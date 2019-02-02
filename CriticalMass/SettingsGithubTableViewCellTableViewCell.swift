@@ -27,7 +27,7 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell {
         titleLabel.textColor = .settingsOpenSourceForeground
         detailLabel.attributedText = attributed(string: NSLocalizedString("settings.opensource.detail", comment: ""), lineSpacing: 4)
         detailLabel.textColor = .settingsOpenSourceForeground
-        actionLabel.text = NSLocalizedString("settings.opensource.action", comment: "")
+        actionLabel.text = NSLocalizedString("settings.opensource.action", comment: "").uppercased()
         actionLabel.textColor = .settingsOpenSourceForeground
 
         backgroundImageView.image = UIImage(named: "GithubBanner")?.resizableImage(withCapInsets: UIEdgeInsets(top: 20, left: 20, bottom: 200, right: 200), resizingMode: .stretch)
