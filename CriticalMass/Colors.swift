@@ -67,4 +67,12 @@ extension UIColor {
     static var twitterDate: UIColor {
         return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
     }
+
+    static var settingsForeground: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
+    }
+
+    static var settingsOpenSourceForeground: UIColor {
+        return safeInit(red: 26, green: 26, blue: 26, alpha: 1)
+    }
 }

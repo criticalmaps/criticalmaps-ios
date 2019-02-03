@@ -1,8 +1,9 @@
-/* No comment provided by engineer. */
-"error" = "Fehler";
 
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Zurzeit keine Nachrichten...";
+
+/* No comment provided by engineer. */
+"chat.placeholder" = "Nachricht ...";
 
 /* No comment provided by engineer. */
 "chat.send" = "senden";
@@ -14,13 +15,13 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Nachricht ...";
-
-/* No comment provided by engineer. */
-"map.title" = "Critical Maps";
+"error" = "Fehler";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Sorry, du kannst die anderen nicht sehen,\nwenn dein GPS ausgeschalten ist.\n\nBitte aktiviere GPS in den Einstellungen.";
+
+/* No comment provided by engineer. */
+"map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
 "rules.source" = "Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
@@ -73,6 +74,9 @@
 /* No comment provided by engineer. */
 "settings.about" = "About";
 
+
+"settings.appDesign" = "Design";
+
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlin";
 
@@ -89,29 +93,40 @@
 "settings.gpsSettings" = "GPS Einstellungen";
 
 /* No comment provided by engineer. */
-"settings.logoDesign" = "Logo design";
+"settings.kniggeImages" = "Knigge Bilder";
 
-"settings.appDesign" = "Design";
+/* No comment provided by engineer. */
+"settings.logoDesign" = "Logo design";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
 
 /* No comment provided by engineer. */
+"settings.opensource.action" = "Projekt ansehen";
+
+/* No comment provided by engineer. */
+"settings.opensource.detail" = "Critical Maps ist ein Open Source Projekt und wir feuen uns über Entwickler*innen die an Critical Maps mitarbeiten wollen.";
+
+/* No comment provided by engineer. */
+"settings.opensource.title" = "Vermisst du Funktionen oder willst einen Bug fixen?";
+
+/* No comment provided by engineer. */
 "settings.programming" = "Development";
 
 /* No comment provided by engineer. */
-"settings.kniggeImages" = "Knigge Bilder";
+"settings.section.info" = "Info";
 
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
-
-"settings.openSource" = "This is an open source project. Feel free to support us with coding for iOS or Web:";
 
 /* No comment provided by engineer. */
 "settings.title" = "Einstellungen";
 
 /* No comment provided by engineer. */
 "settings.twitter" = "Twitter";
+
+/* No comment provided by engineer. */
+"settings.website" = "Website";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Momentan sind keine Tweets verfügbar.\nBitte ziehen um neue zu laden.";
