@@ -19,7 +19,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         NSLayoutConstraint(item: chatInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 64)
     }()
 
-    @objc init(chatManager: ChatManager) {
+    init(chatManager: ChatManager) {
         self.chatManager = chatManager
         super.init(nibName: nil, bundle: nil)
     }

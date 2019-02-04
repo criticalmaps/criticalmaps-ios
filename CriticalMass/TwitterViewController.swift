@@ -11,7 +11,7 @@ class TwitterViewController: UIViewController {
     private let messagesTableViewController = MessagesTableViewController<TweetTableViewCell>(style: .plain)
     private let twitterManager: TwitterManager
 
-    @objc init(twitterManager: TwitterManager) {
+    init(twitterManager: TwitterManager) {
         self.twitterManager = twitterManager
         super.init(nibName: nil, bundle: nil)
     }

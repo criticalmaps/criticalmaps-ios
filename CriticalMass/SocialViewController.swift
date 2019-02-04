@@ -7,7 +7,6 @@
 
 import UIKit
 
-@objc(PLSocialViewController)
 class SocialViewController: UIViewController {
     private var chatViewController: () -> UIViewController
     private var twitterController: () -> UIViewController

@@ -7,16 +7,14 @@
 
 import Foundation
 
-@objc(PLChatManager)
-class ChatManager: NSObject {
+class ChatManager {
     private var cachedMessage: [ChatMessage]?
     private let requestManager: RequestManager
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
 
-    @objc init(requestManager: RequestManager) {
+    init(requestManager: RequestManager) {
         self.requestManager = requestManager
-        super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessages(notification:)), name: NSNotification.Name("chatMessagesReceived"), object: nil)
     }
 

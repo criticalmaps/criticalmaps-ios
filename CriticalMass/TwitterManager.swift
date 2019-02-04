@@ -7,8 +7,7 @@
 
 import Foundation
 
-@objc(PLTwitterManager)
-class TwitterManager: NSObject {
+class TwitterManager {
     private let url: URL
     private var cachedTweets: [Tweet] = [] {
         didSet {
@@ -30,7 +29,6 @@ class TwitterManager: NSObject {
     init(networkLayer: NetworkLayer, url: URL) {
         self.networkLayer = networkLayer
         self.url = url
-        super.init()
     }
 
     public func loadTweets(completion: (() -> Void)? = nil) {
@@ -52,12 +50,5 @@ class TwitterManager: NSObject {
             loadTweets()
         }
         return cachedTweets
-    }
-}
-
-extension TwitterManager {
-    // workaround for now to create TwitterManager from Objc
-    @objc class func objcInit() -> TwitterManager {
-        return TwitterManager(networkLayer: NetworkOperator(), url: Constants.twitterEndpoint)
     }
 }

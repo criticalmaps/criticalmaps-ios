@@ -7,7 +7,6 @@
 
 import Foundation
 
-@objc(PLPreferences)
 class Preferences: NSObject {
     @objc static var gpsEnabled: Bool {
         get {
