@@ -37,14 +37,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return view as! MKMapView
     }
 
-    private let followMeButton: UIButton = {
-        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
-        button.layer.cornerRadius = 3
-        button.setImage(UIImage(named: "Arrow"), for: .normal)
-        button.backgroundColor = .white
-        return button
-    }()
-
     private let gpsDisabledOverlayView: UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.accessibilityViewIsModal = true
@@ -66,18 +58,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
         configureMapView()
-        configureFollowMeButton()
         condfigureGPSDisabledOverlayView()
-    }
-
-    private func configureFollowMeButton() {
-        view.addSubview(followMeButton)
-
-        let tabBarHeight = tabBarController?.tabBar.bounds.height ?? 0
-
-        followMeButton.center = CGPoint(x: view.bounds.width - followMeButton.bounds.width, y: view.bounds.height - followMeButton.bounds.height - tabBarHeight)
-        followMeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
-        followMeButton.addTarget(self, action: #selector(didTapfollowMeButton), for: .touchUpInside)
     }
 
     private func condfigureGPSDisabledOverlayView() {
@@ -126,7 +107,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
 
-    @objc func didTapfollowMeButton() {
+    public func didTapfollowMeButton() {
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
 

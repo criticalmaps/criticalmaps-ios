@@ -75,4 +75,16 @@ extension UIColor {
     static var settingsOpenSourceForeground: UIColor {
         return safeInit(red: 26, green: 26, blue: 26, alpha: 1)
     }
+
+    static var navigationOverlayBackground: UIColor {
+        return safeInit(red: 255, green: 255, blue: 255, alpha: 0.8)
+    }
+
+    static var navigationOverlayForeground: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 0.8)
+    }
+
+    static var navigationOverlaySeparator: UIColor {
+        return safeInit(red: 0, green: 0, blue: 0, alpha: 0.1)
+    }
 }
