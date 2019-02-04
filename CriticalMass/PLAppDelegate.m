@@ -7,7 +7,6 @@
 //
 
 #import "PLAppDelegate.h"
-#import "PLConstants.h"
 #import "Appirater.h"
 #import "CriticalMaps-Swift.h"
 
@@ -24,9 +23,7 @@
     [Appirater setTimeBeforeReminding:2];
     
 #ifdef DEBUG
-    if(kDebugShowAppirater) {
-        [Appirater setDebug:YES];
-    }
+    [Appirater setDebug:YES];
 #endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
