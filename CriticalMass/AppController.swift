@@ -22,12 +22,24 @@ class AppController: NSObject {
         ChatManager(requestManager: requestManager)
     }()
 
+    private lazy var twitterManager: TwitterManager = {
+        TwitterManager(networkLayer: NetworkOperator(), url: Constants.twitterEndpoint)
+    }()
+
     private func getRulesViewController() -> RulesViewController {
         return RulesViewController()
     }
 
     private func getChatViewController() -> ChatViewController {
         return ChatViewController(chatManager: chatManager)
+    }
+
+    private func getTwitterViewController() -> TwitterViewController {
+        return TwitterViewController(twitterManager: twitterManager)
+    }
+
+    private func getSocialViewController() -> SocialViewController {
+        return SocialViewController(chatViewController: getChatViewController, twitterViewController: getTwitterViewController)
     }
 
     private func getSettingsViewController() -> SettingsViewController {
@@ -39,7 +51,7 @@ class AppController: NSObject {
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             NavigationOverlayItem(action: .navigation(viewController: getRulesViewController), icon: UIImage(named: "Knigge")!),
-            NavigationOverlayItem(action: .navigation(viewController: getChatViewController), icon: UIImage(named: "Chat")!),
+            NavigationOverlayItem(action: .navigation(viewController: getSocialViewController), icon: UIImage(named: "Chat")!),
             NavigationOverlayItem(action: .navigation(viewController: getSettingsViewController), icon: UIImage(named: "Settings")!),
             NavigationOverlayItem(action: .action(rootViewController.didTapfollowMeButton), icon: UIImage(named: "Location")!),
         ])

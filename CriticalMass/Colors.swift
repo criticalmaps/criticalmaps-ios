@@ -87,4 +87,8 @@ extension UIColor {
     static var navigationOverlaySeparator: UIColor {
         return safeInit(red: 0, green: 0, blue: 0, alpha: 0.1)
     }
+
+    static var socialTabControlTintColor: UIColor {
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 0.8)
+    }
 }
