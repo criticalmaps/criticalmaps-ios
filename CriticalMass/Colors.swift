@@ -81,7 +81,7 @@ extension UIColor {
     }
 
     static var navigationOverlayForeground: UIColor {
-        return safeInit(red: 38, green: 38, blue: 38, alpha: 0.8)
+        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
     }
 
     static var navigationOverlaySeparator: UIColor {
