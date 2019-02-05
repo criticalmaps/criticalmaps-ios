@@ -32,7 +32,6 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         super.viewDidLoad()
 
         configureNotifications()
-        configureNavigationBar()
         configureChatInput()
         configureMessagesTableViewController()
     }
@@ -40,13 +39,6 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    private func configureNavigationBar() {
-        title = NSLocalizedString("chat.title", comment: "")
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
     }
 
     private func configureMessagesTableViewController() {

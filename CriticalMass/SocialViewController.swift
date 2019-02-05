@@ -7,14 +7,16 @@
 
 import UIKit
 
-class SocialViewController: UIViewController {
+class SocialViewController: UIViewController, UIToolbarDelegate {
     private var chatViewController: () -> UIViewController
     private var twitterController: () -> UIViewController
+    @IBOutlet var toolBar: UIToolbar!
+    @IBOutlet var contentView: UIView!
 
     init(chatViewController: @escaping () -> UIViewController, twitterViewController: @escaping () -> UIViewController) {
         self.chatViewController = chatViewController
         twitterController = twitterViewController
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "SocialViewController", bundle: nil)
     }
 
     required init?(coder _: NSCoder) {
@@ -32,26 +34,35 @@ class SocialViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
+        toolBar.delegate = self
+
         configureSegmentedControl()
+        configureNavigationBar()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         present(tab: Tab.allCases[0])
     }
 
     private func configureNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationController?.navigationItem.largeTitleDisplayMode = .never
+            // hide border
+            navigationController?.navigationBar.shadowImage = UIImage()
         }
     }
 
     private func configureSegmentedControl() {
-        // TODO: move segmented control to the bottom of the navbar
         let segmentedControl = UISegmentedControl(items: Tab.allCases.map { $0.title })
         segmentedControl.sizeToFit()
         segmentedControl.bounds.size.width = view.bounds.width
         segmentedControl.tintColor = .socialTabControlTintColor
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(socialSelectionDidChange(control:)), for: .valueChanged)
-        navigationItem.titleView = segmentedControl
+        segmentedControl.backgroundColor = .clear
+        toolBar.setItems([UIBarButtonItem(customView: segmentedControl)], animated: false)
     }
 
     @objc private func socialSelectionDidChange(control: UISegmentedControl) {
@@ -69,11 +80,20 @@ class SocialViewController: UIViewController {
         switch tab {
         case .chat:
             newViewController = chatViewController()
+            newViewController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleBottomMargin]
         case .twitter:
             newViewController = twitterController()
         }
         addChild(newViewController)
-        view.addSubview(newViewController.view)
+        newViewController.view.frame = contentView.bounds
+        contentView.addSubview(newViewController.view)
         newViewController.didMove(toParent: self)
+    }
+
+    // Mark: UIToolBarDelegate
+
+    func position(for _: UIBarPositioning) -> UIBarPosition {
+        // This delegate method is needed to define the border position
+        return .topAttached
     }
 }

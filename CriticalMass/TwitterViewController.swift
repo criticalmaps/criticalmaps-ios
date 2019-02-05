@@ -23,15 +23,7 @@ class TwitterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureNavigationBar()
         configureMessagesTableViewController()
-    }
-
-    private func configureNavigationBar() {
-        title = NSLocalizedString("twitter.title", comment: "")
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
     }
 
     private func configureMessagesTableViewController() {
