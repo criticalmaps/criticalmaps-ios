@@ -19,6 +19,8 @@ struct NavigationOverlayItem {
 
 class NavigationOverlayViewController: UIViewController {
     private var items: [NavigationOverlayItem]
+    private var itemViews: [UIView] = []
+    private var separatorViews: [UIView] = []
 
     init(navigationItems: [NavigationOverlayItem]) {
         items = navigationItems
@@ -30,21 +32,30 @@ class NavigationOverlayViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
+    let visualEffectView: UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
         view.layer.cornerRadius = 18
         view.layer.masksToBounds = true
+        return view
+    }()
 
-        view.layer.shadowOpacity = 0.8
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 4
-        self.view = view
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureViewBackground()
     }
 
-    var visualEffectView: UIVisualEffectView {
-        return view as! UIVisualEffectView
+    private func configureViewBackground() {
+        view.backgroundColor = .navigationOverlayBackground
+        view.layer.cornerRadius = 18
+        view.insertSubview(visualEffectView, at: 0)
+
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
     }
 
     private func configure(items: [NavigationOverlayItem]) {
@@ -54,15 +65,17 @@ class NavigationOverlayViewController: UIViewController {
             button.tintColor = .navigationOverlayForeground
             button.tag = index
             button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
-            visualEffectView.contentView.addSubview(button)
+            view.addSubview(button)
+            itemViews.append(button)
         }
 
-        (0 ..< items.count - 1)
+        separatorViews = (0 ..< items.count - 1)
             .map { _ in
                 let view = UIView()
                 view.backgroundColor = .navigationOverlaySeparator
                 return view
-            }.forEach(visualEffectView.contentView.addSubview)
+            }
+        separatorViews.forEach(view.addSubview)
     }
 
     @objc func didTapNavigationItem(button: UIButton) {
@@ -93,7 +106,7 @@ class NavigationOverlayViewController: UIViewController {
         view.center = CGPoint(x: superView.center.x, y: superView.frame.maxY - view.frame.size.height)
 
         let buttonSize = CGSize(width: view.bounds.width / CGFloat(items.count), height: view.bounds.height)
-        for (index, view) in visualEffectView.contentView.subviews.enumerated() {
+        for (index, view) in (itemViews + separatorViews).enumerated() {
             let newFrame: CGRect
             if index < items.count {
                 newFrame = CGRect(origin: CGPoint(x: CGFloat(index) * buttonSize.width, y: 0), size: buttonSize)
@@ -102,5 +115,6 @@ class NavigationOverlayViewController: UIViewController {
             }
             view.frame = newFrame
         }
+        visualEffectView.frame = view.bounds
     }
 }
