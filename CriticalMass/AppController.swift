@@ -53,7 +53,7 @@ class AppController: NSObject {
             NavigationOverlayItem(action: .action(rootViewController.didTapfollowMeButton), icon: UIImage(named: "Location")!),
             NavigationOverlayItem(action: .navigation(viewController: getRulesViewController), icon: UIImage(named: "Knigge")!),
             NavigationOverlayItem(action: .navigation(viewController: getSocialViewController), icon: UIImage(named: "Chat")!),
-            NavigationOverlayItem(action: .navigation(viewController: getSettingsViewController), icon: UIImage(named: "Settings")!)
+            NavigationOverlayItem(action: .navigation(viewController: getSettingsViewController), icon: UIImage(named: "Settings")!),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

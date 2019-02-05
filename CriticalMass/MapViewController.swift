@@ -29,6 +29,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    public var bottomContentOffset: CGFloat = 0 {
+        didSet {
+            mapView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomContentOffset, right: 0)
+        }
+    }
+
     override func loadView() {
         view = MKMapView(frame: .zero)
     }
