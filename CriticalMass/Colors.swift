@@ -89,6 +89,6 @@ extension UIColor {
     }
 
     static var socialTabControlTintColor: UIColor {
-        return safeInit(red: 38, green: 38, blue: 38, alpha: 0.8)
+        return .black
     }
 }
