@@ -13,6 +13,7 @@ struct NavigationOverlayItem {
         case action(() -> Void)
     }
 
+    let accessibilityLabel: String
     let action: Action
     let icon: UIImage
 }
@@ -65,6 +66,7 @@ class NavigationOverlayViewController: UIViewController {
             button.tintColor = .navigationOverlayForeground
             button.adjustsImageWhenHighlighted = false
             button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
+            button.accessibilityLabel = item.accessibilityLabel
             button.tag = index
             button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
             view.addSubview(button)
@@ -90,6 +92,7 @@ class NavigationOverlayViewController: UIViewController {
         case let .navigation(viewController: viewController):
             let navigationController = UINavigationController(rootViewController: viewController())
             let barbuttonItem = UIBarButtonItem(image: UIImage(named: "Close"), style: .done, target: self, action: #selector(didTapCloseButton(button:)))
+            barbuttonItem.accessibilityLabel = NSLocalizedString("close.button.label", comment: "")
             barbuttonItem.tintColor = .black
             navigationController.navigationBar.topItem?.setLeftBarButton(barbuttonItem, animated: false)
 

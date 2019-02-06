@@ -21,6 +21,9 @@
 "map.layer.info" = "Sorry, du kannst die anderen nicht sehen,\nwenn dein GPS ausgeschalten ist.\n\nBitte aktiviere GPS in den Einstellungen.";
 
 /* No comment provided by engineer. */
+"map.locationButton.label" = "Ortung";
+
+/* No comment provided by engineer. */
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
@@ -133,3 +136,6 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
+
+/* No comment provided by engineer. */
+"close.button.label" = "schließen"
