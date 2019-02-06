@@ -104,7 +104,9 @@ class NavigationOverlayViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
-        view.frame.size = CGSize(width: 340, height: 50)
+        let maxWidth = view.superview!.bounds.width * 0.9
+        let width: CGFloat = min(CGFloat(85 * items.count), maxWidth)
+        view.frame.size = CGSize(width: width, height: 56)
         let superView = view.superview!
         view.center = CGPoint(x: superView.center.x, y: superView.frame.maxY - view.frame.size.height)
 
