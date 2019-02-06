@@ -51,8 +51,8 @@ class AppController: NSObject {
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             NavigationOverlayItem(accessibilityLabel: NSLocalizedString("map.locationButton.label", comment: ""), action: .action(rootViewController.didTapfollowMeButton), icon: UIImage(named: "Location")!),
-            NavigationOverlayItem(accessibilityLabel: NSLocalizedString("rules.title", comment: ""), action: .navigation(viewController: getRulesViewController), icon: UIImage(named: "Knigge")!),
             NavigationOverlayItem(accessibilityLabel: NSLocalizedString("chat.title", comment: ""), action: .navigation(viewController: getSocialViewController), icon: UIImage(named: "Chat")!),
+            NavigationOverlayItem(accessibilityLabel: NSLocalizedString("rules.title", comment: ""), action: .navigation(viewController: getRulesViewController), icon: UIImage(named: "Knigge")!),
             NavigationOverlayItem(accessibilityLabel: NSLocalizedString("settings.title", comment: ""), action: .navigation(viewController: getSettingsViewController), icon: UIImage(named: "Settings")!),
         ])
         rootViewController.addChild(navigationOverlay)
