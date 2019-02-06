@@ -60,9 +60,11 @@ class NavigationOverlayViewController: UIViewController {
 
     private func configure(items: [NavigationOverlayItem]) {
         for (index, item) in items.enumerated() {
-            let button = UIButton(frame: .zero)
+            let button = CustomButton(frame: .zero)
             button.setImage(item.icon, for: .normal)
             button.tintColor = .navigationOverlayForeground
+            button.adjustsImageWhenHighlighted = false
+            button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
             button.tag = index
             button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
             view.addSubview(button)
@@ -79,6 +81,7 @@ class NavigationOverlayViewController: UIViewController {
     }
 
     @objc func didTapNavigationItem(button: UIButton) {
+        button.isHighlighted = false
         let selectedItem = items[button.tag]
 
         switch selectedItem.action {

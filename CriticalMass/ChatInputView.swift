@@ -30,6 +30,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         button.titleLabel?.textAlignment = .center
         button.setTitle(NSLocalizedString("chat.send", comment: ""), for: .normal)
         button.setTitleColor(.chatInputSendButton, for: .normal)
+        button.setTitleColor(UIColor.chatInputSendButton.withAlphaComponent(0.4), for: .highlighted)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
