@@ -21,6 +21,9 @@
 "map.layer.info" = "Sorry, you can't see others\nwhen your GPS is disabled.\n\nPlease enable GPS in settings.";
 
 /* No comment provided by engineer. */
+"map.locationButton.label" = "locating";
+
+/* No comment provided by engineer. */
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
@@ -133,3 +136,7 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
+
+/* No comment provided by engineer. */
+"close.button.label" = "close";
+

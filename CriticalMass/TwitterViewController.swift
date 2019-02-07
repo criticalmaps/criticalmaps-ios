@@ -11,7 +11,7 @@ class TwitterViewController: UIViewController {
     private let messagesTableViewController = MessagesTableViewController<TweetTableViewCell>(style: .plain)
     private let twitterManager: TwitterManager
 
-    @objc init(twitterManager: TwitterManager) {
+    init(twitterManager: TwitterManager) {
         self.twitterManager = twitterManager
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,15 +23,7 @@ class TwitterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureNavigationBar()
         configureMessagesTableViewController()
-    }
-
-    private func configureNavigationBar() {
-        title = NSLocalizedString("twitter.title", comment: "")
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
     }
 
     private func configureMessagesTableViewController() {
@@ -52,7 +44,7 @@ class TwitterViewController: UIViewController {
             NSLayoutConstraint(item: messagesTableViewController.view, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messagesTableViewController.view, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messagesTableViewController.view, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: messagesTableViewController.view, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0),
         ])
     }
 }

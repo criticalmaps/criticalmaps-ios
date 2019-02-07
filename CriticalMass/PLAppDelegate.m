@@ -7,18 +7,14 @@
 //
 
 #import "PLAppDelegate.h"
-#import "PLTabBarController.h"
-#import "PLConstants.h"
 #import "Appirater.h"
 #import "CriticalMaps-Swift.h"
 
 @implementation PLAppDelegate
 
-@synthesize tabBarController;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.requestManager = [self getRequestManager];
+    PLAppController *appController = [PLAppController new];
     // Set Appirater
     [Appirater setAppId:@"918669647"];
     [Appirater setDaysUntilPrompt:1];
@@ -27,21 +23,14 @@
     [Appirater setTimeBeforeReminding:2];
     
 #ifdef DEBUG
-    if(kDebugShowAppirater) {
-        [Appirater setDebug:YES];
-    }
+    [Appirater setDebug:YES];
 #endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.tabBarController = [[PLTabBarController alloc] init];
-    self.tabBarController.delegate = self;
-    self.window.rootViewController = self.tabBarController;
+    self.window.rootViewController = appController.rootViewController;
     [self.window makeKeyAndVisible];
-    
-#ifdef DEBUG
-    [(UITabBarController *) self.window.rootViewController setSelectedIndex: kDebugInitialTabIndex];
-#endif
+    self.appController = appController;
     
     [Appirater appLaunched:YES];
     

@@ -29,6 +29,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    public var bottomContentOffset: CGFloat = 0 {
+        didSet {
+            mapView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomContentOffset, right: 0)
+        }
+    }
+
     override func loadView() {
         view = MKMapView(frame: .zero)
     }
@@ -36,14 +42,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private var mapView: MKMapView {
         return view as! MKMapView
     }
-
-    private let followMeButton: UIButton = {
-        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
-        button.layer.cornerRadius = 3
-        button.setImage(UIImage(named: "Arrow"), for: .normal)
-        button.backgroundColor = .white
-        return button
-    }()
 
     private let gpsDisabledOverlayView: UIVisualEffectView = {
         let view = UIVisualEffectView()
@@ -66,18 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
         configureMapView()
-        configureFollowMeButton()
         condfigureGPSDisabledOverlayView()
-    }
-
-    private func configureFollowMeButton() {
-        view.addSubview(followMeButton)
-
-        let tabBarHeight = tabBarController?.tabBar.bounds.height ?? 0
-
-        followMeButton.center = CGPoint(x: view.bounds.width - followMeButton.bounds.width, y: view.bounds.height - followMeButton.bounds.height - tabBarHeight)
-        followMeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
-        followMeButton.addTarget(self, action: #selector(didTapfollowMeButton), for: .touchUpInside)
     }
 
     private func condfigureGPSDisabledOverlayView() {
@@ -126,7 +113,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
 
-    @objc func didTapfollowMeButton() {
+    public func didTapfollowMeButton() {
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
     }
 

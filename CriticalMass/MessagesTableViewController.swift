@@ -48,7 +48,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         guard let noContentMessage = noContentMessage else {
             return
         }
-        if messages.count > 0 {
+        if !messages.isEmpty {
             tableView.backgroundView = nil
         } else if tableView.backgroundView == nil {
             let noContentMessageLabel = UILabel()

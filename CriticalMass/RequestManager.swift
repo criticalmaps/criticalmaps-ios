@@ -7,9 +7,7 @@
 
 import Foundation
 
-// we need to inherit to NSObject because PLAppDelegate is currently in Objc and needs to hold a reference to this class
-@objc(PLRequestManager)
-public class RequestManager: NSObject {
+public class RequestManager {
     private struct SendLocationPostBody: Codable {
         var device: String
         var location: Location
@@ -34,7 +32,6 @@ public class RequestManager: NSObject {
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
-        super.init()
         configureTimer(with: interval)
     }
 

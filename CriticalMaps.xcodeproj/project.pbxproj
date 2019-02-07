@@ -21,9 +21,6 @@
 		94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
-		94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF089819BDF227009FFF43 /* PLTabBarController.m */; };
-		94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */; };
-		94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F0304819C1E4EC00F86611 /* PLConstants.m */; };
 		9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176221FBDD580077D419 /* TextFieldWithInsets.swift */; };
 		9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176421FC71770077D419 /* MessagesTableViewController.swift */; };
 		9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
@@ -31,6 +28,7 @@
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
+		98205F692207937100122EDA /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98205F682207937100122EDA /* AppController.swift */; };
 		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
 		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
 		9822A15721EE0956007F5994 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15621EE0956007F5994 /* RuleTests.swift */; };
@@ -40,7 +38,6 @@
 		9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16321F113DC007F5994 /* RequestManagerTests.swift */; };
 		9822A16621F11519007F5994 /* MemoryDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16521F11519007F5994 /* MemoryDataStoreTests.swift */; };
 		9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16721F24CA7007F5994 /* MapViewController.swift */; };
-		9822A16A21F24E70007F5994 /* PLAppDelegate+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16921F24E70007F5994 /* PLAppDelegate+Swift.swift */; };
 		9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */; };
 		9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */; };
 		9822A17221F3349F007F5994 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A17121F3349F007F5994 /* Preferences.swift */; };
@@ -59,6 +56,10 @@
 		982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
+		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
+		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
+		9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9897086D220A3E9E0073BB02 /* SocialViewController.xib */; };
+		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
@@ -110,15 +111,9 @@
 		94CF087819BDEAF2009FFF43 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		94CF088019BDEAF2009FFF43 /* CriticalMapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMapsTests-Info.plist"; sourceTree = "<group>"; };
 		94CF088219BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		94CF089719BDF227009FFF43 /* PLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLTabBarController.h; sourceTree = "<group>"; };
-		94CF089819BDF227009FFF43 /* PLTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLTabBarController.m; sourceTree = "<group>"; };
 		94E1FE4A212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E1FE4B212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94E1FE4C212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helper.h"; sourceTree = "<group>"; };
-		94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helper.m"; sourceTree = "<group>"; };
-		94F0304719C1E4EC00F86611 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConstants.h; sourceTree = "<group>"; };
-		94F0304819C1E4EC00F86611 /* PLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLConstants.m; sourceTree = "<group>"; };
 		9804176221FBDD580077D419 /* TextFieldWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithInsets.swift; sourceTree = "<group>"; };
 		9804176421FC71770077D419 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -126,6 +121,7 @@
 		9804176A21FC7AF30077D419 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		9804176C21FC87960077D419 /* SendChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatMessage.swift; sourceTree = "<group>"; };
 		9804178F21FCA2B40077D419 /* ChatManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManagerTests.swift; sourceTree = "<group>"; };
+		98205F682207937100122EDA /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMapsTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -136,7 +132,6 @@
 		9822A16321F113DC007F5994 /* RequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerTests.swift; sourceTree = "<group>"; };
 		9822A16521F11519007F5994 /* MemoryDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStoreTests.swift; sourceTree = "<group>"; };
 		9822A16721F24CA7007F5994 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		9822A16921F24E70007F5994 /* PLAppDelegate+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLAppDelegate+Swift.swift"; sourceTree = "<group>"; };
 		9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationView.swift; sourceTree = "<group>"; };
 		9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreLocation.swift"; sourceTree = "<group>"; };
 		9822A17121F3349F007F5994 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -155,6 +150,10 @@
 		982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsGithubTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
+		9897086C220A3E9E0073BB02 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
+		9897086D220A3E9E0073BB02 /* SocialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialViewController.xib; sourceTree = "<group>"; };
+		98970870220A4E180073BB02 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
@@ -238,13 +237,10 @@
 			isa = PBXGroup;
 			children = (
 				989F9FEF21C7E5FC00E71085 /* Rules */,
-				94CF089719BDF227009FFF43 /* PLTabBarController.h */,
-				94CF089819BDF227009FFF43 /* PLTabBarController.m */,
+				985E94BC220891F200AA991B /* Social */,
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
-				98401AF421FB79F400064DAE /* ChatViewController.swift */,
-				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
-				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
+				985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -263,6 +259,7 @@
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
 				98E7338C22039511005F311F /* Settings */,
+				98970870220A4E180073BB02 /* CustomButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -272,13 +269,9 @@
 			children = (
 				94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */,
 				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
-				94F0304719C1E4EC00F86611 /* PLConstants.h */,
-				94F0304819C1E4EC00F86611 /* PLConstants.m */,
-				94ECBDA41AD1B7CC00A8D75A /* UIColor+Helper.h */,
-				94ECBDA51AD1B7CC00A8D75A /* UIColor+Helper.m */,
 				989F9FF721C7F13400E71085 /* Colors.swift */,
-				9822A16921F24E70007F5994 /* PLAppDelegate+Swift.swift */,
 				982DA8D72202360800E2A51B /* Constants.swift */,
+				98205F682207937100122EDA /* AppController.swift */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -375,6 +368,18 @@
 				982DA8D221FFA13800E2A51B /* TwitterUser.swift */,
 			);
 			name = Twitter;
+			sourceTree = "<group>";
+		};
+		985E94BC220891F200AA991B /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				98401AF421FB79F400064DAE /* ChatViewController.swift */,
+				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
+				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
+				9897086C220A3E9E0073BB02 /* SocialViewController.swift */,
+				9897086D220A3E9E0073BB02 /* SocialViewController.xib */,
+			);
+			name = Social;
 			sourceTree = "<group>";
 		};
 		989F9FEF21C7E5FC00E71085 /* Rules */ = {
@@ -498,6 +503,7 @@
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
+				9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
 				98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */,
 				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
@@ -583,14 +589,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
+				985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */,
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
-				9822A16A21F24E70007F5994 /* PLAppDelegate+Swift.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
+				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
@@ -607,15 +614,14 @@
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
-				94ECBDA61AD1B7CC00A8D75A /* UIColor+Helper.m in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
+				98970871220A4E180073BB02 /* CustomButton.swift in Sources */,
+				98205F692207937100122EDA /* AppController.swift in Sources */,
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
-				94F0304919C1E4EC00F86611 /* PLConstants.m in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
-				94CF089919BDF227009FFF43 /* PLTabBarController.m in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,

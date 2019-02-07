@@ -12,10 +12,14 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
     private lazy var chatInputBottomConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1, constant: 0)
+        NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
 
-    @objc init(chatManager: ChatManager) {
+    private lazy var chatInputHeightConstraint = {
+        NSLayoutConstraint(item: chatInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 64)
+    }()
+
+    init(chatManager: ChatManager) {
         self.chatManager = chatManager
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,7 +32,6 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         super.viewDidLoad()
 
         configureNotifications()
-        configureNavigationBar()
         configureChatInput()
         configureMessagesTableViewController()
     }
@@ -36,13 +39,6 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    private func configureNavigationBar() {
-        title = NSLocalizedString("chat.title", comment: "")
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
     }
 
     private func configureMessagesTableViewController() {
@@ -73,11 +69,24 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         view.addSubview(chatInput)
 
         view.addConstraints([
-            NSLayoutConstraint(item: chatInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 64),
+            chatInputHeightConstraint,
             NSLayoutConstraint(item: chatInput, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
             chatInputBottomConstraint,
         ])
+    }
+
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        let bottomInset: CGFloat
+        if #available(iOS 11.0, *), chatInputBottomConstraint.constant == 0 {
+            bottomInset = view.safeAreaInsets.bottom
+        } else {
+            bottomInset = 0
+        }
+
+        chatInputHeightConstraint.constant = 64 + bottomInset
     }
 
     @objc private func didTapTableView() {
@@ -93,6 +102,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         let endFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 
         chatInputBottomConstraint.constant = (endFrame.minY - beginFrame.minY) + (view.frame.maxY - chatInput.frame.maxY)
+        view.setNeedsUpdateConstraints()
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve), animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -103,6 +113,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         let curve = notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
 
         chatInputBottomConstraint.constant = 0
+        view.setNeedsUpdateConstraints()
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve), animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
