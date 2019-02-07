@@ -12,6 +12,7 @@ Changelog for Critical Maps iOS
 - Migrate chat page to Swift
 - Migrate twitter page to Swift
 - Migrate settings page to Swift
+- New navigation
 
 ## [2.5.1]
 ### Fixed
