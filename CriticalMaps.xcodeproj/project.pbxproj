@@ -60,6 +60,26 @@
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
 		9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9897086D220A3E9E0073BB02 /* SocialViewController.xib */; };
 		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
+		989F3427220E0C5100B751DC /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989F3425220E0C5100B751DC /* Interface.storyboard */; };
+		989F3429220E0C5200B751DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 989F3428220E0C5200B751DC /* Assets.xcassets */; };
+		989F3430220E0C5200B751DC /* Critiical Maps Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 989F342F220E0C5200B751DC /* Critiical Maps Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		989F3435220E0C5200B751DC /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F3434220E0C5200B751DC /* InterfaceController.swift */; };
+		989F3437220E0C5200B751DC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F3436220E0C5200B751DC /* ExtensionDelegate.swift */; };
+		989F3439220E0C5300B751DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 989F3438220E0C5300B751DC /* Assets.xcassets */; };
+		989F343D220E0C5300B751DC /* Critiical Maps Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 989F3423220E0C5100B751DC /* Critiical Maps Watch.app */; };
+		989F3446220E0CBE00B751DC /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
+		989F3447220E0CBE00B751DC /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
+		989F3448220E0CBE00B751DC /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15D21F10FCA007F5994 /* LocationProvider.swift */; };
+		989F3449220E0CBE00B751DC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00121C8038400E71085 /* Location.swift */; };
+		989F344A220E0CBE00B751DC /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFD21C8035500E71085 /* ApiResponse.swift */; };
+		989F344B220E0CBE00B751DC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FFF21C8036800E71085 /* ChatMessage.swift */; };
+		989F344C220E0CBE00B751DC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
+		989F344D220E0CBE00B751DC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
+		989F344E220E0CBE00B751DC /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
+		989F344F220E0CBE00B751DC /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15F21F11051007F5994 /* NetworkLayer.swift */; };
+		989F3450220E0CBE00B751DC /* NetworkOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16121F110A3007F5994 /* NetworkOperator.swift */; };
+		989F3451220E0CBE00B751DC /* Location+CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */; };
+		989F3452220E0CBE00B751DC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A17121F3349F007F5994 /* Preferences.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
@@ -85,7 +105,46 @@
 			remoteGlobalIDString = 94CF085B19BDEAF2009FFF43;
 			remoteInfo = CriticalMass;
 		};
+		989F3431220E0C5200B751DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94CF085419BDEAF2009FFF43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 989F342E220E0C5200B751DC;
+			remoteInfo = "Critiical Maps Watch Extension";
+		};
+		989F343B220E0C5300B751DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94CF085419BDEAF2009FFF43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 989F3422220E0C5100B751DC;
+			remoteInfo = "Critiical Maps Watch";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		989F3443220E0C5300B751DC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				989F3430220E0C5200B751DC /* Critiical Maps Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		989F3445220E0C5300B751DC /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				989F343D220E0C5300B751DC /* Critiical Maps Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.release.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +213,15 @@
 		9897086C220A3E9E0073BB02 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		9897086D220A3E9E0073BB02 /* SocialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialViewController.xib; sourceTree = "<group>"; };
 		98970870220A4E180073BB02 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		989F3423220E0C5100B751DC /* Critiical Maps Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critiical Maps Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		989F3426220E0C5100B751DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		989F3428220E0C5200B751DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		989F342A220E0C5200B751DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		989F342F220E0C5200B751DC /* Critiical Maps Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Critiical Maps Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		989F3434220E0C5200B751DC /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		989F3436220E0C5200B751DC /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		989F3438220E0C5300B751DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		989F343A220E0C5300B751DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +262,13 @@
 				94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
 				94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		989F342C220E0C5200B751DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +356,8 @@
 			children = (
 				94CF086519BDEAF2009FFF43 /* CriticalMass */,
 				94CF087E19BDEAF2009FFF43 /* CriticalMassTests */,
+				989F3424220E0C5100B751DC /* Critiical Maps Watch */,
+				989F3433220E0C5200B751DC /* Critiical Maps Watch Extension */,
 				94CF085E19BDEAF2009FFF43 /* Frameworks */,
 				94CF085D19BDEAF2009FFF43 /* Products */,
 				82C1F2020C91392FCCBF8514 /* Pods */,
@@ -292,6 +369,8 @@
 			children = (
 				94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */,
 				94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */,
+				989F3423220E0C5100B751DC /* Critiical Maps Watch.app */,
+				989F342F220E0C5200B751DC /* Critiical Maps Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -382,6 +461,27 @@
 			name = Social;
 			sourceTree = "<group>";
 		};
+		989F3424220E0C5100B751DC /* Critiical Maps Watch */ = {
+			isa = PBXGroup;
+			children = (
+				989F3425220E0C5100B751DC /* Interface.storyboard */,
+				989F3428220E0C5200B751DC /* Assets.xcassets */,
+				989F342A220E0C5200B751DC /* Info.plist */,
+			);
+			path = "Critiical Maps Watch";
+			sourceTree = "<group>";
+		};
+		989F3433220E0C5200B751DC /* Critiical Maps Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				989F3434220E0C5200B751DC /* InterfaceController.swift */,
+				989F3436220E0C5200B751DC /* ExtensionDelegate.swift */,
+				989F3438220E0C5300B751DC /* Assets.xcassets */,
+				989F343A220E0C5300B751DC /* Info.plist */,
+			);
+			path = "Critiical Maps Watch Extension";
+			sourceTree = "<group>";
+		};
 		989F9FEF21C7E5FC00E71085 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,10 +516,12 @@
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
 				AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */,
+				989F3445220E0C5300B751DC /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				989F343C220E0C5300B751DC /* PBXTargetDependency */,
 			);
 			name = CriticalMaps;
 			productName = CriticalMass;
@@ -445,6 +547,40 @@
 			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		989F3422220E0C5100B751DC /* Critiical Maps Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 989F3444220E0C5300B751DC /* Build configuration list for PBXNativeTarget "Critiical Maps Watch" */;
+			buildPhases = (
+				989F3421220E0C5100B751DC /* Resources */,
+				989F3443220E0C5300B751DC /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				989F3432220E0C5200B751DC /* PBXTargetDependency */,
+			);
+			name = "Critiical Maps Watch";
+			productName = "Critiical Maps Watch";
+			productReference = 989F3423220E0C5100B751DC /* Critiical Maps Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		989F342E220E0C5200B751DC /* Critiical Maps Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 989F3442220E0C5300B751DC /* Build configuration list for PBXNativeTarget "Critiical Maps Watch Extension" */;
+			buildPhases = (
+				989F342B220E0C5200B751DC /* Sources */,
+				989F342C220E0C5200B751DC /* Frameworks */,
+				989F342D220E0C5200B751DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Critiical Maps Watch Extension";
+			productName = "Critiical Maps Watch Extension";
+			productReference = 989F342F220E0C5200B751DC /* Critiical Maps Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -452,6 +588,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PL;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
@@ -471,6 +608,15 @@
 						LastSwiftMigration = 1010;
 						TestTargetID = 94CF085B19BDEAF2009FFF43;
 					};
+					989F3422220E0C5100B751DC = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = 23Q9KTEYUV;
+						ProvisioningStyle = Automatic;
+					};
+					989F342E220E0C5200B751DC = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 94CF085719BDEAF2009FFF43 /* Build configuration list for PBXProject "CriticalMaps" */;
@@ -481,6 +627,7 @@
 				en,
 				de,
 				it,
+				Base,
 			);
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
@@ -489,6 +636,8 @@
 			targets = (
 				94CF085B19BDEAF2009FFF43 /* CriticalMaps */,
 				94CF087619BDEAF2009FFF43 /* CriticalMapsTests */,
+				989F3422220E0C5100B751DC /* Critiical Maps Watch */,
+				989F342E220E0C5200B751DC /* Critiical Maps Watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -517,6 +666,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		989F3421220E0C5100B751DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				989F3429220E0C5200B751DC /* Assets.xcassets in Resources */,
+				989F3427220E0C5100B751DC /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		989F342D220E0C5200B751DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				989F3439220E0C5300B751DC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +812,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		989F342B220E0C5200B751DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				989F344F220E0CBE00B751DC /* NetworkLayer.swift in Sources */,
+				989F3446220E0CBE00B751DC /* RequestManager.swift in Sources */,
+				989F3452220E0CBE00B751DC /* Preferences.swift in Sources */,
+				989F344B220E0CBE00B751DC /* ChatMessage.swift in Sources */,
+				989F3437220E0C5200B751DC /* ExtensionDelegate.swift in Sources */,
+				989F344D220E0CBE00B751DC /* DataStore.swift in Sources */,
+				989F3450220E0CBE00B751DC /* NetworkOperator.swift in Sources */,
+				989F3435220E0C5200B751DC /* InterfaceController.swift in Sources */,
+				989F344A220E0CBE00B751DC /* ApiResponse.swift in Sources */,
+				989F3451220E0CBE00B751DC /* Location+CoreLocation.swift in Sources */,
+				989F3447220E0CBE00B751DC /* SendChatMessage.swift in Sources */,
+				989F3449220E0CBE00B751DC /* Location.swift in Sources */,
+				989F3448220E0CBE00B751DC /* LocationProvider.swift in Sources */,
+				989F344C220E0CBE00B751DC /* LocationManager.swift in Sources */,
+				989F344E220E0CBE00B751DC /* MemoryDataStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -653,6 +841,16 @@
 			isa = PBXTargetDependency;
 			target = 94CF085B19BDEAF2009FFF43 /* CriticalMaps */;
 			targetProxy = 94CF087C19BDEAF2009FFF43 /* PBXContainerItemProxy */;
+		};
+		989F3432220E0C5200B751DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 989F342E220E0C5200B751DC /* Critiical Maps Watch Extension */;
+			targetProxy = 989F3431220E0C5200B751DC /* PBXContainerItemProxy */;
+		};
+		989F343C220E0C5300B751DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 989F3422220E0C5100B751DC /* Critiical Maps Watch */;
+			targetProxy = 989F343B220E0C5300B751DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -685,6 +883,14 @@
 				94E1FE4C212057AC0016BD4E /* it */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		989F3425220E0C5100B751DC /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				989F3426220E0C5100B751DC /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -898,6 +1104,130 @@
 			};
 			name = Release;
 		};
+		989F343E220E0C5300B751DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 23Q9KTEYUV;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = Critiical_Maps_Watch_Extension;
+				INFOPLIST_FILE = "Critiical Maps Watch/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Debug;
+		};
+		989F343F220E0C5300B751DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 23Q9KTEYUV;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = Critiical_Maps_Watch_Extension;
+				INFOPLIST_FILE = "Critiical Maps Watch/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Release;
+		};
+		989F3440220E0C5300B751DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Critiical Maps Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Debug;
+		};
+		989F3441220E0C5300B751DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Critiical Maps Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -924,6 +1254,24 @@
 			buildConfigurations = (
 				94CF088C19BDEAF2009FFF43 /* Debug */,
 				94CF088D19BDEAF2009FFF43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		989F3442220E0C5300B751DC /* Build configuration list for PBXNativeTarget "Critiical Maps Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				989F3440220E0C5300B751DC /* Debug */,
+				989F3441220E0C5300B751DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		989F3444220E0C5300B751DC /* Build configuration list for PBXNativeTarget "Critiical Maps Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				989F343E220E0C5300B751DC /* Debug */,
+				989F343F220E0C5300B751DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
