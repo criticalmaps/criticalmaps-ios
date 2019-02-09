@@ -57,6 +57,7 @@
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
+		98896DC8220F26B800AAF938 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D72202360800E2A51B /* Constants.swift */; };
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
 		9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9897086D220A3E9E0073BB02 /* SocialViewController.xib */; };
 		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
@@ -851,6 +852,7 @@
 				989F3435220E0C5200B751DC /* InterfaceController.swift in Sources */,
 				989F344A220E0CBE00B751DC /* ApiResponse.swift in Sources */,
 				989F3451220E0CBE00B751DC /* Location+CoreLocation.swift in Sources */,
+				98896DC8220F26B800AAF938 /* Constants.swift in Sources */,
 				98970875220F078C0073BB02 /* CoordinateBoundingBox+MKMapRect.swift in Sources */,
 				989F3447220E0CBE00B751DC /* SendChatMessage.swift in Sources */,
 				98970877220F12160073BB02 /* AnnotationRenderer.swift in Sources */,
