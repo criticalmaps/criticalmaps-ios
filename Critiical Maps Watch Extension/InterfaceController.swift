@@ -9,16 +9,22 @@ import Foundation
 import WatchKit
 
 class InterfaceController: WKInterfaceController, WKCrownDelegate {
+    let useMockData = true
     @IBOutlet var map: WKInterfaceMap!
     lazy var locationManager: LocationManager = {
         LocationManager(updateInterval: 1)
+    }()
+
+    let dataStore = MemoryDataStore()
+    lazy var requestManager: RequestManager = {
+        RequestManager(dataStore: dataStore, locationProvider: locationManager, networkLayer: NetworkOperator(), deviceId: UUID().uuidString, url: Constants.apiEndpoint)
     }()
 
     var currentZoomLevel: Double = 1
     var currentCoordinateOffset = CGPoint.zero
     var previousVisibleCoordinates: [Coordinate] = []
 
-    let allCoordinates: [Coordinate] = {
+    let mockCoordinates: [Coordinate] = {
         let path = Bundle.main.path(forResource: "testdata", ofType: "json")!
         let mockData = try! Data(contentsOf: URL(fileURLWithPath: path))
         let response = try! JSONDecoder().decode(ApiResponse.self, from: mockData)
@@ -28,8 +34,18 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
         }.map { Coordinate(latitude: $0.latitude, longitude: $0.longitude) }
     }()
 
+    var currentCoordinates: [Coordinate] {
+        if useMockData {
+            return mockCoordinates
+        } else {
+            return dataStore.lastKnownResponse?.locations.map { Coordinate(latitude: $0.value.latitude, longitude: $0.value.longitude) } ?? []
+        }
+    }
+
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
 
         Preferences.gpsEnabled = true
         crownSequencer.delegate = self
@@ -54,10 +70,15 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
         }
     }
 
-    func set(location _: Location, updatePins: Bool = true) {
-        let fakeLocation = Location(longitude: 9.993682, latitude: 53.551086, timestamp: 0, name: nil, color: nil)
+    func set(location: Location, updatePins: Bool = true) {
+        let center: CLLocationCoordinate2D
 
-        let center = CLLocationCoordinate2D(latitude: fakeLocation.latitude, longitude: fakeLocation.longitude)
+        if useMockData {
+            let fakeLocation = Location(longitude: 9.993682, latitude: 53.551086, timestamp: 0, name: nil, color: nil)
+            center = CLLocationCoordinate2D(latitude: fakeLocation.latitude, longitude: fakeLocation.longitude)
+        } else {
+            center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        }
 
         var point = MKMapPoint(center)
         point.x -= Double(currentCoordinateOffset.x)
@@ -65,11 +86,10 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
         let size = MKMapSize(width: 1000 * currentZoomLevel, height: 1000 * currentZoomLevel)
         let mapRect = MKMapRect(origin: point, size: size)
 
-        let visibleCoordinates = allCoordinates.filter { (coordinate) -> Bool in
-            mapRect.contains(MKMapPoint(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)))
-        }
-
         if updatePins {
+            let visibleCoordinates = currentCoordinates.filter { (coordinate) -> Bool in
+                mapRect.contains(MKMapPoint(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)))
+            }
             if visibleCoordinates != previousVisibleCoordinates {
                 // We are using a combination of grid and k-means clustering to first identify cluster points
                 // that don't overlap each other with grid clustering and second reducing
@@ -90,6 +110,12 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
         currentCoordinateOffset.y += translation.y * CGFloat(currentZoomLevel)
         if let location = locationManager.currentLocation {
             set(location: location, updatePins: gestureRecognizer.state == .ended)
+        }
+    }
+
+    @objc private func positionsDidChange(notification _: Notification) {
+        if let location = locationManager.currentLocation {
+            set(location: location)
         }
     }
 

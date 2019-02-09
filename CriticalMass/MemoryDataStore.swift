@@ -8,7 +8,7 @@
 import Foundation
 
 class MemoryDataStore: DataStore {
-    private var lastKnownResponse: ApiResponse? {
+    private(set) var lastKnownResponse: ApiResponse? {
         didSet {
             if oldValue?.locations != lastKnownResponse?.locations {
                 NotificationCenter.default.post(name: NSNotification.Name("positionOthersChanged"), object: lastKnownResponse)
