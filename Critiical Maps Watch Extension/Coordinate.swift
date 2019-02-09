@@ -12,11 +12,7 @@ struct Coordinate: Hashable {
     let longitude: Double
 }
 
-extension Coordinate: Strideable {
-    func advanced(by n: Double) -> Coordinate {
-        return Coordinate(latitude: latitude + n, longitude: longitude + n)
-    }
-
+extension Coordinate {
     func distance(to other: Coordinate) -> Double {
         func degreesToRadians(degrees: Double) -> Double {
             return degrees * Double.pi / 180
