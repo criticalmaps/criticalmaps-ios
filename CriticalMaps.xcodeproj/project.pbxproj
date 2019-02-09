@@ -60,6 +60,9 @@
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
 		9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9897086D220A3E9E0073BB02 /* SocialViewController.xib */; };
 		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
+		98970873220EE52C0073BB02 /* CoordinateBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970872220EE52C0073BB02 /* CoordinateBoundingBox.swift */; };
+		98970875220F078C0073BB02 /* CoordinateBoundingBox+MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970874220F078C0073BB02 /* CoordinateBoundingBox+MKMapRect.swift */; };
+		98970877220F12160073BB02 /* AnnotationRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970876220F12160073BB02 /* AnnotationRenderer.swift */; };
 		989F3427220E0C5100B751DC /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989F3425220E0C5100B751DC /* Interface.storyboard */; };
 		989F3429220E0C5200B751DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 989F3428220E0C5200B751DC /* Assets.xcassets */; };
 		989F3430220E0C5200B751DC /* Critiical Maps Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 989F342F220E0C5200B751DC /* Critiical Maps Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -80,6 +83,9 @@
 		989F3450220E0CBE00B751DC /* NetworkOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16121F110A3007F5994 /* NetworkOperator.swift */; };
 		989F3451220E0CBE00B751DC /* Location+CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */; };
 		989F3452220E0CBE00B751DC /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A17121F3349F007F5994 /* Preferences.swift */; };
+		989F3455220E0D8000B751DC /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 989F3454220E0D7F00B751DC /* testdata.json */; };
+		989F3457220E0EAA00B751DC /* CoordinateCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F3456220E0EAA00B751DC /* CoordinateCluster.swift */; };
+		989F345B220E1F9200B751DC /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F345A220E1F9200B751DC /* Coordinate.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
 		989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */; };
 		989F9FF821C7F13400E71085 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF721C7F13400E71085 /* Colors.swift */; };
@@ -213,6 +219,9 @@
 		9897086C220A3E9E0073BB02 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		9897086D220A3E9E0073BB02 /* SocialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialViewController.xib; sourceTree = "<group>"; };
 		98970870220A4E180073BB02 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		98970872220EE52C0073BB02 /* CoordinateBoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateBoundingBox.swift; sourceTree = "<group>"; };
+		98970874220F078C0073BB02 /* CoordinateBoundingBox+MKMapRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoordinateBoundingBox+MKMapRect.swift"; sourceTree = "<group>"; };
+		98970876220F12160073BB02 /* AnnotationRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationRenderer.swift; sourceTree = "<group>"; };
 		989F3423220E0C5100B751DC /* Critiical Maps Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critiical Maps Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		989F3426220E0C5100B751DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		989F3428220E0C5200B751DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -222,6 +231,9 @@
 		989F3436220E0C5200B751DC /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		989F3438220E0C5300B751DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		989F343A220E0C5300B751DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		989F3454220E0D7F00B751DC /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = SOURCE_ROOT; };
+		989F3456220E0EAA00B751DC /* CoordinateCluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateCluster.swift; sourceTree = "<group>"; };
+		989F345A220E1F9200B751DC /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Bridging-Header.h"; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewController.swift; sourceTree = "<group>"; };
@@ -474,10 +486,16 @@
 		989F3433220E0C5200B751DC /* Critiical Maps Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				989F3454220E0D7F00B751DC /* testdata.json */,
 				989F3434220E0C5200B751DC /* InterfaceController.swift */,
 				989F3436220E0C5200B751DC /* ExtensionDelegate.swift */,
 				989F3438220E0C5300B751DC /* Assets.xcassets */,
 				989F343A220E0C5300B751DC /* Info.plist */,
+				989F3456220E0EAA00B751DC /* CoordinateCluster.swift */,
+				989F345A220E1F9200B751DC /* Coordinate.swift */,
+				98970872220EE52C0073BB02 /* CoordinateBoundingBox.swift */,
+				98970874220F078C0073BB02 /* CoordinateBoundingBox+MKMapRect.swift */,
+				98970876220F12160073BB02 /* AnnotationRenderer.swift */,
 			);
 			path = "Critiical Maps Watch Extension";
 			sourceTree = "<group>";
@@ -616,6 +634,11 @@
 					989F342E220E0C5200B751DC = {
 						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes.watchos.extension = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -683,6 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				989F3439220E0C5300B751DC /* Assets.xcassets in Resources */,
+				989F3455220E0D8000B751DC /* testdata.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -819,6 +843,7 @@
 				989F344F220E0CBE00B751DC /* NetworkLayer.swift in Sources */,
 				989F3446220E0CBE00B751DC /* RequestManager.swift in Sources */,
 				989F3452220E0CBE00B751DC /* Preferences.swift in Sources */,
+				98970873220EE52C0073BB02 /* CoordinateBoundingBox.swift in Sources */,
 				989F344B220E0CBE00B751DC /* ChatMessage.swift in Sources */,
 				989F3437220E0C5200B751DC /* ExtensionDelegate.swift in Sources */,
 				989F344D220E0CBE00B751DC /* DataStore.swift in Sources */,
@@ -826,10 +851,14 @@
 				989F3435220E0C5200B751DC /* InterfaceController.swift in Sources */,
 				989F344A220E0CBE00B751DC /* ApiResponse.swift in Sources */,
 				989F3451220E0CBE00B751DC /* Location+CoreLocation.swift in Sources */,
+				98970875220F078C0073BB02 /* CoordinateBoundingBox+MKMapRect.swift in Sources */,
 				989F3447220E0CBE00B751DC /* SendChatMessage.swift in Sources */,
+				98970877220F12160073BB02 /* AnnotationRenderer.swift in Sources */,
+				989F3457220E0EAA00B751DC /* CoordinateCluster.swift in Sources */,
 				989F3449220E0CBE00B751DC /* Location.swift in Sources */,
 				989F3448220E0CBE00B751DC /* LocationProvider.swift in Sources */,
 				989F344C220E0CBE00B751DC /* LocationManager.swift in Sources */,
+				989F345B220E1F9200B751DC /* Coordinate.swift in Sources */,
 				989F344E220E0CBE00B751DC /* MemoryDataStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1133,7 +1162,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1166,7 +1195,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -1195,7 +1224,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1224,7 +1253,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};

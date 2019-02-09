@@ -38,6 +38,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             if let location = currentLocation {
                 didSetInitialLocation = true
                 NotificationCenter.default.post(name: NSNotification.Name("initialGpsDataReceived"), object: location)
+                updateLocationCallback?(location)
             }
         }
         get {
@@ -49,6 +50,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     private let locationManager = CLLocationManager()
+    public var updateLocationCallback: ((Location) -> Void)?
 
     init(updateInterval: TimeInterval = 11) {
         super.init()
