@@ -35,7 +35,7 @@ class RulesDetailViewController: UIViewController {
         artworkAttachment.image = artWork
         let ratio = (artWork?.size.height ?? 1) / (artWork?.size.width ?? 1)
 
-        artworkAttachment.bounds.size = CGSize(width: view.bounds.size.width, height: view.bounds.size.width * ratio)
+        artworkAttachment.bounds.size = CGSize(width: view.bounds.width - 30, height: (view.bounds.width - 30) * ratio)
 
         let attributedString = NSMutableAttributedString()
         attributedString.append(NSAttributedString(attachment: artworkAttachment))
