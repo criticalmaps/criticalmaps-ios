@@ -24,8 +24,4 @@ class CustomButton: UIButton {
             }
         }
     }
-
-    override var isSelected: Bool {
-        didSet {}
-    }
 }
