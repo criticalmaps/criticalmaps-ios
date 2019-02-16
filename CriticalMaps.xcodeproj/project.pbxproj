@@ -71,6 +71,7 @@
 		989FA00421C8039A00E71085 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
 		989FA00621C8154D00E71085 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
+		98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C4BEA02218518B0060E701 /* UserTrackingButton.swift */; };
 		98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */; };
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
 		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
@@ -166,6 +167,7 @@
 		989FA00321C8039A00E71085 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		98C4BEA02218518B0060E701 /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
 		98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
 				98E7338C22039511005F311F /* Settings */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
+				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
+				98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */,
 				985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */,
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,

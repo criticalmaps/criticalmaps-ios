@@ -50,10 +50,10 @@ class AppController: NSObject {
         let rootViewController = MapViewController()
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            NavigationOverlayItem(accessibilityLabel: NSLocalizedString("map.locationButton.label", comment: ""), action: .action(rootViewController.didTapfollowMeButton), icon: UIImage(named: "Location")!),
-            NavigationOverlayItem(accessibilityLabel: NSLocalizedString("chat.title", comment: ""), action: .navigation(viewController: getSocialViewController), icon: UIImage(named: "Chat")!),
-            NavigationOverlayItem(accessibilityLabel: NSLocalizedString("rules.title", comment: ""), action: .navigation(viewController: getRulesViewController), icon: UIImage(named: "Knigge")!),
-            NavigationOverlayItem(accessibilityLabel: NSLocalizedString("settings.title", comment: ""), action: .navigation(viewController: getSettingsViewController), icon: UIImage(named: "Settings")!),
+            rootViewController.follogMeNavigationOverlayItem,
+            .icon(UIImage(named: "Chat")!, action: .navigation(viewController: getSocialViewController), accessibilityLabel: NSLocalizedString("chat.title", comment: "")),
+            .icon(UIImage(named: "Knigge")!, action: .navigation(viewController: getRulesViewController), accessibilityLabel: NSLocalizedString("rules.title", comment: "")),
+            .icon(UIImage(named: "Settings")!, action: .navigation(viewController: getSettingsViewController), accessibilityLabel: NSLocalizedString("settings.title", comment: "")),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

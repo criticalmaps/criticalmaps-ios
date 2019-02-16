@@ -113,9 +113,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
 
-    public func didTapfollowMeButton() {
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
-    }
+    public lazy var follogMeNavigationOverlayItem: NavigationOverlayItem = {
+        let button = UserTrackingButton(mapView: mapView)
+        button.tintColor = .navigationOverlayForeground
+        return .view(button)
+    }()
 
     // MARK: Notifications
 
