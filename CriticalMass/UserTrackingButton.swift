@@ -14,7 +14,13 @@ class UserTrackingButton: CustomButton {
     }
 
     weak var mapView: MKMapView?
-    var currentMode: Mode = .none
+    var currentMode: Mode = .none {
+        didSet {
+            if currentMode != oldValue {
+                updateImage()
+            }
+        }
+    }
 
     override var tintColor: UIColor! {
         didSet {
@@ -43,7 +49,6 @@ class UserTrackingButton: CustomButton {
             currentMode = .none
             mapView?.setUserTrackingMode(.none, animated: true)
         }
-        updateImage()
     }
 
     private func updateImage() {
