@@ -7,12 +7,7 @@
 
 import Foundation
 
-@objc(PLAppController)
-class AppController: NSObject {
-    override init() {
-        super.init()
-    }
-
+class AppController {
     private lazy var requestManager: RequestManager = {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
@@ -46,7 +41,7 @@ class AppController: NSObject {
         return SettingsViewController()
     }
 
-    @objc lazy var rootViewController: UIViewController = {
+    lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController()
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [

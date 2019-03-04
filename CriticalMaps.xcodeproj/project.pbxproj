@@ -14,8 +14,6 @@
 		94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */; };
 		94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
 		94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF086819BDEAF2009FFF43 /* InfoPlist.strings */; };
-		94CF086C19BDEAF2009FFF43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF086B19BDEAF2009FFF43 /* main.m */; };
-		94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */; };
 		94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CF087119BDEAF2009FFF43 /* Images.xcassets */; };
 		94CF087919BDEAF2009FFF43 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF087819BDEAF2009FFF43 /* XCTest.framework */; };
 		94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
@@ -57,6 +55,7 @@
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
+		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
 		9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9897086D220A3E9E0073BB02 /* SocialViewController.xib */; };
 		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
@@ -102,10 +101,7 @@
 		94CF086319BDEAF2009FFF43 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMaps-Info.plist"; sourceTree = "<group>"; };
 		94CF086919BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		94CF086B19BDEAF2009FFF43 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		94CF086D19BDEAF2009FFF43 /* CriticalMaps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CriticalMaps-Prefix.pch"; sourceTree = "<group>"; };
-		94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PLAppDelegate.h; sourceTree = "<group>"; };
-		94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PLAppDelegate.m; sourceTree = "<group>"; };
 		94CF087119BDEAF2009FFF43 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CF087819BDEAF2009FFF43 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -151,6 +147,7 @@
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
+		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9897086C220A3E9E0073BB02 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		9897086D220A3E9E0073BB02 /* SocialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialViewController.xib; sourceTree = "<group>"; };
 		98970870220A4E180073BB02 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -267,8 +264,6 @@
 		94AD504A1A963E4E00547B40 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				94CF086E19BDEAF2009FFF43 /* PLAppDelegate.h */,
-				94CF086F19BDEAF2009FFF43 /* PLAppDelegate.m */,
 				989F9FF721C7F13400E71085 /* Colors.swift */,
 				982DA8D72202360800E2A51B /* Constants.swift */,
 				98205F682207937100122EDA /* AppController.swift */,
@@ -319,6 +314,7 @@
 				94AD50481A963DC800547B40 /* Controller */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
 				98B480E121AB30700044D017 /* Launch Screen.storyboard */,
+				98790020222DA7E600880334 /* AppDelegate.swift */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -329,7 +325,6 @@
 				989F9FF021C7E62300E71085 /* CriticalMaps-Bridging-Header.h */,
 				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
-				94CF086B19BDEAF2009FFF43 /* main.m */,
 				94CF086D19BDEAF2009FFF43 /* CriticalMaps-Prefix.pch */,
 				9489D88E1B768274001E746C /* Localizable.strings */,
 			);
@@ -588,7 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94CF087019BDEAF2009FFF43 /* PLAppDelegate.m in Sources */,
+				98790021222DA7E600880334 /* AppDelegate.swift in Sources */,
 				985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */,
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
@@ -630,7 +625,6 @@
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
-				94CF086C19BDEAF2009FFF43 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

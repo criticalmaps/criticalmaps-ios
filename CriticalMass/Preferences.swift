@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Preferences: NSObject {
-    @objc static var gpsEnabled: Bool {
+class Preferences {
+    static var gpsEnabled: Bool {
         get {
             return UserDefaults.standard.bool(forKey: #function)
         }
