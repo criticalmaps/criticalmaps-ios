@@ -32,4 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Appirater.appLaunched(true)
         return true
     }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        Appirater.appEnteredForeground(true)
+    }
 }
