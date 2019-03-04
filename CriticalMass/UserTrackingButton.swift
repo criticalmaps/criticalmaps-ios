@@ -11,6 +11,7 @@ class UserTrackingButton: CustomButton {
     enum Mode {
         case none
         case follow
+        case followWithHeading
     }
 
     weak var mapView: MKMapView?
@@ -46,8 +47,24 @@ class UserTrackingButton: CustomButton {
             currentMode = .follow
             mapView?.setUserTrackingMode(.follow, animated: true)
         case .follow:
-            currentMode = .none
-            mapView?.setUserTrackingMode(.none, animated: true)
+            transitionModeChangeWitScale(newMode: .followWithHeading) { _ in
+                self.mapView?.setUserTrackingMode(.followWithHeading, animated: true)
+            }
+        case .followWithHeading:
+            transitionModeChangeWitScale(newMode: .none) { _ in
+                self.mapView?.setUserTrackingMode(.none, animated: true)
+            }
+        }
+    }
+
+    private func transitionModeChangeWitScale(newMode: Mode, completion: @escaping (Bool) -> Void) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }) { _ in
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+                self.currentMode = newMode
+                self.transform = .identity
+            }, completion: completion)
         }
     }
 
@@ -58,6 +75,8 @@ class UserTrackingButton: CustomButton {
             image = UIImage(named: "Location")
         case .follow:
             image = UIImage(named: "LocationActive")
+        case .followWithHeading:
+            image = UIImage(named: "LocationHeading")
         }
 
         setImage(image, for: .normal)

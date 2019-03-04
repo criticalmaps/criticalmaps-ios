@@ -147,8 +147,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return annotationView
         }
     }
-    
-    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+
+    func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
         if mode == .none {
             followMeButton.currentMode = .none
         }
