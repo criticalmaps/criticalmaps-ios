@@ -21,15 +21,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="gPi-RF-tRv">
-                                <rect key="frame" x="149.5" y="212" width="76" height="76"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Background_Launch" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dHM-t8-oBs">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="0.83999999999999997" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Logo" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPi-RF-tRv">
+                                <rect key="frame" x="27" y="96" width="320" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="76" id="TUM-SN-1pH"/>
-                                    <constraint firstAttribute="height" constant="76" id="eoh-7W-ESf"/>
+                                    <constraint firstAttribute="width" constant="320" id="TUM-SN-1pH"/>
+                                    <constraint firstAttribute="height" constant="160" id="eoh-7W-ESf"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gPi-RF-tRv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.75" id="Xcc-l9-3QO"/>
                             <constraint firstItem="gPi-RF-tRv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ddb-5f-yex"/>
@@ -42,6 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo" width="76" height="76"/>
+        <image name="Background_Launch" width="375" height="667"/>
+        <image name="Logo" width="320" height="160"/>
     </resources>
 </document>
