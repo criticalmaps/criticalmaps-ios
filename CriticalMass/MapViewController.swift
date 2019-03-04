@@ -113,9 +113,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
 
-    public func didTapfollowMeButton() {
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
-    }
+    public lazy var followMeButton: UserTrackingButton = {
+        let button = UserTrackingButton(mapView: mapView)
+        button.tintColor = .navigationOverlayForeground
+        return button
+    }()
 
     // MARK: Notifications
 
@@ -143,6 +145,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) ?? BikeAnnoationView()
             annotationView.annotation = annotation
             return annotationView
+        }
+    }
+
+    func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
+        if mode == .none {
+            followMeButton.currentMode = .none
         }
     }
 }
