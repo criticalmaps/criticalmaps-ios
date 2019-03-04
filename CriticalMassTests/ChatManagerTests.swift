@@ -34,7 +34,7 @@ class ChatManagerTests: XCTestCase {
             XCTFail()
             return
         }
-        let messageJSONs = Array((lastUsedBody["messages"] as! [[String: Any]]))
+        let messageJSONs = Array(lastUsedBody["messages"] as! [[String: Any]])
         XCTAssertEqual(messageJSONs.count, 1)
 
         guard let messageJSON = messageJSONs.first else {
@@ -77,7 +77,7 @@ class ChatManagerTests: XCTestCase {
             XCTFail()
             return
         }
-        let messageJSON = Array((firstUsedBody["messages"] as! [[String: Any]]))[0]
+        let messageJSON = Array(firstUsedBody["messages"] as! [[String: Any]])[0]
 
         let secondExp = expectation(description: "Wait for response")
 
@@ -90,7 +90,7 @@ class ChatManagerTests: XCTestCase {
             XCTFail()
             return
         }
-        let secondMessageJSON = Array((secondUsedBody["messages"] as! [[String: Any]]))[0]
+        let secondMessageJSON = Array(secondUsedBody["messages"] as! [[String: Any]])[0]
         XCTAssertNotEqual(messageJSON["identifier"] as! String, secondMessageJSON["identifier"] as! String)
     }
 

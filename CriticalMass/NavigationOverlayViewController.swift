@@ -7,15 +7,14 @@
 
 import UIKit
 
-struct NavigationOverlayItem {
+enum NavigationOverlayItem {
     enum Action {
         case navigation(viewController: () -> UIViewController)
         case action(() -> Void)
     }
 
-    let accessibilityLabel: String
-    let action: Action
-    let icon: UIImage
+    case icon(_ icon: UIImage, action: Action, accessibilityLabel: String)
+    case view(_ view: UIView)
 }
 
 class NavigationOverlayViewController: UIViewController {
@@ -61,16 +60,22 @@ class NavigationOverlayViewController: UIViewController {
 
     private func configure(items: [NavigationOverlayItem]) {
         for (index, item) in items.enumerated() {
-            let button = CustomButton(frame: .zero)
-            button.setImage(item.icon, for: .normal)
-            button.tintColor = .navigationOverlayForeground
-            button.adjustsImageWhenHighlighted = false
-            button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
-            button.accessibilityLabel = item.accessibilityLabel
-            button.tag = index
-            button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
-            view.addSubview(button)
-            itemViews.append(button)
+            switch item {
+            case .icon(let icon, action: _, accessibilityLabel: let accessibilityLabel):
+                let button = CustomButton(frame: .zero)
+                button.setImage(icon, for: .normal)
+                button.tintColor = .navigationOverlayForeground
+                button.adjustsImageWhenHighlighted = false
+                button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
+                button.accessibilityLabel = accessibilityLabel
+                button.tag = index
+                button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
+                view.addSubview(button)
+                itemViews.append(button)
+            case let .view(view):
+                self.view.addSubview(view)
+                itemViews.append(view)
+            }
         }
 
         separatorViews = (0 ..< items.count - 1)
@@ -86,7 +91,10 @@ class NavigationOverlayViewController: UIViewController {
         button.isHighlighted = false
         let selectedItem = items[button.tag]
 
-        switch selectedItem.action {
+        guard case let .icon(_, action: action, accessibilityLabel: _) = selectedItem else {
+            return
+        }
+        switch action {
         case let .action(closure):
             closure()
         case let .navigation(viewController: viewController):
