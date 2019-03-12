@@ -10,6 +10,7 @@
 		0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */; };
 		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
 		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
+		949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BEF542237CAEC009AE6DF /* RoundableImageView.swift */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */; };
 		94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
@@ -97,6 +98,7 @@
 		9489D88B1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88D1B768274001E746C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9489D88F1B768279001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		949BEF542237CAEC009AE6DF /* RoundableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundableImageView.swift; sourceTree = "<group>"; };
 		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CF085F19BDEAF2009FFF43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -263,6 +265,7 @@
 				98E7338C22039511005F311F /* Settings */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
+				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
+				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
