@@ -42,6 +42,9 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         // Setting the footerView hides seperators for empty cellls
         tableView.tableFooterView = UIView()
         register(cellType: T.self)
+        // To use UITableViews dynamicHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 110.0
     }
 
     private func updateNoMessageCountIfNeeded() {
