@@ -52,6 +52,10 @@ extension UIColor {
         return safeInit(red: 69, green: 71, blue: 77, alpha: 1)
     }
 
+    static var twitterProfileInnerBorder: UIColor {
+        return safeInit(red: 55, green: 64, blue: 82, alpha: 0.18)
+    }
+
     static var twitterName: UIColor {
         return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
     }
