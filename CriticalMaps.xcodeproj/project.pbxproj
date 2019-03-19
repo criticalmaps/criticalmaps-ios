@@ -418,6 +418,8 @@
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
 				AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */,
+				946CDE0522412DDF0059F892 /* 📄 Generate Licenses */,
+				946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */,
 			);
 			buildRules = (
 			);
@@ -526,6 +528,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		946CDE0522412DDF0059F892 /* 📄 Generate Licenses */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "📄 Generate Licenses";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/license-plist --output-path ./Settings.bundle\nfi\n";
+		};
+		946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "🔖 Set BuildNumber and VersionNumber in App Settings ";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PLISTBUDDY=\"/usr/libexec/PlistBuddy\"\nINFO_PLIST=\"$CODESIGNING_FOLDER_PATH/Info.plist\"\nSETTINGS_PLIST=\"$CODESIGNING_FOLDER_PATH/Settings.bundle/Root.plist\"\nVERSION_NUMBER=\"`$PLISTBUDDY -c \\\"Print CFBundleShortVersionString\\\" \\\"$INFO_PLIST\\\"`\"\nBUILD_NUMBER=\"`$PLISTBUDDY -c \\\"Print CFBundleVersion\\\" \\\"$INFO_PLIST\\\"`\"\n\n$PLISTBUDDY -c \"Set :PreferenceSpecifiers:1:DefaultValue '$VERSION_NUMBER'\" \"$SETTINGS_PLIST\"\n$PLISTBUDDY -c \"Set :PreferenceSpecifiers:2:DefaultValue '$BUILD_NUMBER'\" \"$SETTINGS_PLIST\"\n";
+		};
 		98CF2B264286533A6FAE1D21 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
