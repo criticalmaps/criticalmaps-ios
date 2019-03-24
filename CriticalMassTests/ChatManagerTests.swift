@@ -43,7 +43,7 @@ class ChatManagerTests: XCTestCase {
         }
 
         XCTAssertEqual(messageJSON["text"] as! String, "Hello World")
-        XCTAssertEqual(messageJSON["timestamp"] as! TimeInterval, timeInterval, accuracy: 0.01)
+        XCTAssertEqual(messageJSON["timestamp"] as! TimeInterval, timeInterval, accuracy: 0.1)
         XCTAssertNotNil(messageJSON["identifier"])
     }
 

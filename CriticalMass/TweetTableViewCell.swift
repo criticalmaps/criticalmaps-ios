@@ -28,26 +28,19 @@ extension DateComponents {
 }
 
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
-    @IBOutlet var dateLabel: UILabel!
-
+    
+    @IBOutlet private var dateLabel: UILabel!
+    @IBOutlet private var tweetTextView: UITextView!
+    @IBOutlet private var handleLabel: UILabel!
+    @IBOutlet private var userImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         dateLabel.textColor = .twitterDate
-        textLabel?.textColor = .twitterUsername
-        detailTextLabel?.textColor = .twitterText
+        tweetTextView.textColor = .twitterUsername
+        handleLabel.textColor = .twitterText
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        imageView?.layer.cornerRadius = imageView!.bounds.width / 2
-        imageView?.layer.masksToBounds = true
-        imageView?.frame.origin.y = textLabel!.frame.origin.y
-
-        dateLabel.sizeToFit()
-        dateLabel.center = CGPoint(x: bounds.size.width - 16 - dateLabel.bounds.size.width / 2, y: textLabel!.center.y)
-        textLabel?.frame.size = CGSize(width: dateLabel.frame.minX - textLabel!.frame.origin.x - 12, height: textLabel!.frame.size.height)
-    }
-
+    
     private func dateString(for tweet: Tweet) -> String? {
         let components = Calendar.current.dateComponents([.minute, .hour, .day, .month], from: tweet.created_at, to: Date()).dateComponentFromBiggestComponent
         let formatter = DateComponentsFormatter()
@@ -67,8 +60,16 @@ class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
 
     func setup(for tweet: Tweet) {
         dateLabel.text = dateString(for: tweet)
-        textLabel?.attributedText = attributedUserNameString(for: tweet)
-        detailTextLabel?.text = tweet.text
-        imageView?.sd_setImage(with: URL(string: tweet.user.profile_image_url_https), placeholderImage: UIImage(named: "Avatar"))
+        tweetTextView.text = tweet.text
+        handleLabel.attributedText = attributedUserNameString(for: tweet)
+        userImageView.sd_setImage(with: URL(string: tweet.user.profile_image_url_https), placeholderImage: UIImage(named: "Avatar"))
+    }
+}
+
+extension TweetTableViewCell: UITextViewDelegate {
+    
+    // Opens a link in Safari
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return true
     }
 }
