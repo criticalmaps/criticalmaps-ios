@@ -57,9 +57,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func configureLocationManager() {
-        if #available(iOS 9.0, *) {
-            locationManager.allowsBackgroundLocationUpdates = true
-        }
+        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.requestAlwaysAuthorization()
         locationManager.activityType = .otherNavigation
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -77,32 +75,19 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     func requestLocation() {
         guard type(of: self).accessPermission == .authorized else { return }
-        if #available(iOS 9.0, *) {
-            locationManager.requestLocation()
-        } else {
-            locationManager.startUpdatingLocation()
-        }
+        locationManager.requestLocation()
     }
 
     // MARK: CLLocationManagerDelegate
-
     func locationManager(_: CLLocationManager, didFailWithError _: Error) {
-        if #available(iOS 9.0, *) {
-            // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
-        } else {
-            locationManager.stopUpdatingLocation()
-        }
+        locationManager.stopUpdatingLocation()
     }
 
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             currentLocation = Location(location)
         }
-        if #available(iOS 9.0, *) {
-            // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
-        } else {
-            locationManager.stopUpdatingLocation()
-        }
+        locationManager.stopUpdatingLocation()
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
