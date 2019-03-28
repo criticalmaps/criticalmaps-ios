@@ -69,7 +69,33 @@ class SettingsViewController: UITableViewController {
             let name = String(describing: cell)
             tableView.register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
         }
+        configureSettingsFooter()
         configureNavigationBar()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let footerView = tableView.tableFooterView else {
+            return
+        }
+        let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        var footerFrame = footerView.frame
+        if height != footerFrame.size.height {
+            footerFrame.size.height = height
+            footerView.frame = footerFrame
+            tableView.tableFooterView = footerView
+            tableView.layoutIfNeeded()
+        }
+    }
+    
+    private func configureSettingsFooter() {
+        var footer: SettingsFooterView? {
+            let settingsFooter = SettingsFooterView.fromNib()
+            settingsFooter?.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
+            settingsFooter?.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
+            return settingsFooter
+        }
+        tableView.tableFooterView = footer
     }
 
     private func configureNavigationBar() {
