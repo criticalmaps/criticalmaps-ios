@@ -14,7 +14,7 @@ version: 1.2.2
 
 name: SDWebImage, nameSpecified: 
 body: Copyright (c) 2009-2…
-version: 4.4.6
+version: 4.4.2
 
 add-version-numbers: false
 
