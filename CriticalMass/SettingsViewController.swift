@@ -118,7 +118,10 @@ class SettingsViewController: UITableViewController {
         case .none:
             return
         case let .open(url: url):
-            UIApplication.shared.openURL(url)
+            let application = UIApplication.shared
+            if application.canOpenURL(url) {
+                application.open(url, options: [:], completionHandler: nil)
+            }
         }
     }
 }
