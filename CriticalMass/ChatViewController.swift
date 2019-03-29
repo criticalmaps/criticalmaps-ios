@@ -128,7 +128,13 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             if success {
                 self.chatInput.resetInput()
             } else {
-                UIAlertView(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("chat.send.error", comment: ""), delegate: nil, cancelButtonTitle: "Ok").show()
+                let alert = UIAlertController(title: NSLocalizedString("error", comment: ""),
+                                              message: NSLocalizedString("chat.send.error", comment: ""),
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok",
+                                              style: .default,
+                                              handler: nil))
+                self.present(alert, animated: true)
             }
         }
     }
