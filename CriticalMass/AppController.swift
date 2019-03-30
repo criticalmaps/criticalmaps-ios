@@ -8,6 +8,11 @@
 import Foundation
 
 class AppController {
+    
+    init() {
+        loadInitialData()
+    }
+    
     private var requestManager: RequestManager = {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
@@ -56,4 +61,8 @@ class AppController {
 
         return rootViewController
     }()
+    
+    private func loadInitialData() {
+        requestManager.getData()
+    }
 }
