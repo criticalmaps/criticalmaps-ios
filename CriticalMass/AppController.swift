@@ -8,7 +8,7 @@
 import Foundation
 
 class AppController {
-    private lazy var requestManager: RequestManager = {
+    private var requestManager: RequestManager = {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
     }()
