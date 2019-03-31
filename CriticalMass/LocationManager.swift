@@ -19,6 +19,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             case .restricted,
                  .denied:
                 return .denied
+            @unknown default:
+                assertionFailure()
+                return .denied
             }
         } else {
             return .denied
