@@ -455,7 +455,7 @@
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
 					94CF085B19BDEAF2009FFF43 = {
-						DevelopmentTeam = 23Q9KTEYUV;
+						DevelopmentTeam = 5YLLXUZBZ2;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -569,7 +569,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Appirater/Appirater.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -578,7 +578,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -802,7 +802,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 23Q9KTEYUV;
+				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
@@ -827,7 +827,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 23Q9KTEYUV;
+				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
