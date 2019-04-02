@@ -58,7 +58,7 @@ extension UIColor {
     }
     
     static var gray400: UIColor {
-        return safeInit(red: 144, green: 147, blue: 153, alpha: 1)
+        return UIColor(red: 144 / 255.0, green: 147 / 255.0, blue: 153 / 255.0, alpha: 1)
     }
 
     static var twitterText: UIColor {
@@ -70,7 +70,7 @@ extension UIColor {
     }
     
     static var gray200: UIColor {
-        return safeInit(red: 38, green: 38, blue: 38, alpha: 1)
+        return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 38 / 255.0, alpha: 1)
     }
 
     static var settingsForeground: UIColor {
