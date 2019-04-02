@@ -24,16 +24,6 @@
 			<key>Key</key>
 			<string>preferences_version</string>
 		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>Build</string>
-			<key>DefaultValue</key>
-			<string>XXX</string>
-			<key>Key</key>
-			<string>preferences_buildno</string>
-		</dict>
 	</array>
 </dict>
 </plist>
