@@ -48,9 +48,7 @@ class RulesDetailViewController: UIViewController {
         textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.textColor = .rulesDetailText
-        if #available(iOS 10.0, *) {
-            textView.adjustsFontForContentSizeCategory = true
-        }
+        textView.adjustsFontForContentSizeCategory = true
         view.addSubview(textView)
     }
 }
