@@ -95,9 +95,7 @@ class SettingsViewController: UITableViewController {
         for subView in view.subviews {
             subView.backgroundColor = .white
             for case let label as UILabel in subView.subviews {
-                if #available(iOS 8.2, *) {
-                    label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-                }
+                label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
             }
         }
     }
@@ -120,7 +118,10 @@ class SettingsViewController: UITableViewController {
         case .none:
             return
         case let .open(url: url):
-            UIApplication.shared.openURL(url)
+            let application = UIApplication.shared
+            if application.canOpenURL(url) {
+                application.open(url, options: [:], completionHandler: nil)
+            }
         }
     }
 }

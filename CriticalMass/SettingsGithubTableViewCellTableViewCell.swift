@@ -17,11 +17,9 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        if #available(iOS 10.0, *) {
-            titleLabel.adjustsFontForContentSizeCategory = true
-            detailLabel.adjustsFontForContentSizeCategory = true
-            actionLabel.adjustsFontForContentSizeCategory = true
-        }
+        titleLabel.adjustsFontForContentSizeCategory = true
+        detailLabel.adjustsFontForContentSizeCategory = true
+        actionLabel.adjustsFontForContentSizeCategory = true
 
         titleLabel.attributedText = attributed(string: NSLocalizedString("settings.opensource.title", comment: ""), lineSpacing: 3.3)
         titleLabel.textColor = .settingsOpenSourceForeground
