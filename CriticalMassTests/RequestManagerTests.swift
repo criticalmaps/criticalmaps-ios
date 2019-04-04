@@ -121,7 +121,7 @@ class RequestManagerTests: XCTestCase {
         let exp = expectation(description: "Wait a second")
         wait(interval: 1) {
             XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
-            XCTAssertGreaterThan(testSetup.networkLayer.numberOfPostCalled, 1)
+            XCTAssertGreaterThanOrEqual(testSetup.networkLayer.numberOfPostCalled, 1)
             XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
             exp.fulfill()
         }
