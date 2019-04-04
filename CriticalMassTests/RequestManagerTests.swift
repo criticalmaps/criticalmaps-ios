@@ -58,7 +58,7 @@ class MockDataStore: DataStore {
 
 extension XCTestCase {
     func wait(interval: TimeInterval, completion: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+        Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
             completion()
         }
     }
