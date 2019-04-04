@@ -75,17 +75,7 @@ class SettingsViewController: UITableViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard let footerView = tableView.tableFooterView else {
-            return
-        }
-        let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        var footerFrame = footerView.frame
-        if height != footerFrame.size.height {
-            footerFrame.size.height = height
-            footerView.frame = footerFrame
-            tableView.tableFooterView = footerView
-            tableView.layoutIfNeeded()
-        }
+        sizeFooterToFit()
     }
     
     private func configureSettingsFooter() {
@@ -150,5 +140,16 @@ class SettingsViewController: UITableViewController {
             }
             application.open(url, options: [:], completionHandler: nil)
         }
+    }
+}
+
+extension UITableViewController {
+    
+    func sizeFooterToFit() {
+        guard let footerView = tableView.tableFooterView else {
+            return
+        }
+        let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        footerView.frame.size.height = height
     }
 }
