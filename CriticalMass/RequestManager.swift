@@ -46,12 +46,8 @@ public class RequestManager {
     private func defaultCompletion(for response: ApiResponse?) {
         hasActiveRequest = false
         if let response = response {
-            if Thread.isMainThread {
+            DispatchQueue.main.async {
                 self.dataStore.update(with: response)
-            } else {
-                DispatchQueue.main.async {
-                    self.dataStore.update(with: response)
-                }
             }
         }
     }
@@ -87,12 +83,8 @@ public class RequestManager {
         }
         networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData) { response in
             self.defaultCompletion(for: response)
-            if Thread.isMainThread {
+            DispatchQueue.main.async {
                 completion?(response?.chatMessages)
-            } else {
-                DispatchQueue.main.async {
-                    completion?(response?.chatMessages)
-                }
             }
         }
     }

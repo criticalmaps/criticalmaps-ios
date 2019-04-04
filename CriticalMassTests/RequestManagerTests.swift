@@ -77,7 +77,7 @@ class RequestManagerTests: XCTestCase {
         setup.networkLayer.shouldReturnResponse = false
         XCTAssertEqual(setup.networkLayer.numberOfRequests, 0)
         let exp = expectation(description: "Wait a second")
-        wait(interval: 1) {
+        wait(interval: 0.5) {
             XCTAssertEqual(setup.networkLayer.numberOfRequests, 1)
             exp.fulfill()
         }
