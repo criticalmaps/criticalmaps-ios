@@ -8,6 +8,7 @@ target 'CriticalMaps' do
 	pod 'NSString-Hashes'
 	pod 'SDWebImage'
 	pod 'Appirater'
+  pod 'SwiftFormat/CLI'
 end
 
 target 'CriticalMapsTests' do
