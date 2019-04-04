@@ -69,7 +69,23 @@ class SettingsViewController: UITableViewController {
             let name = String(describing: cell)
             tableView.register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
         }
+        configureSettingsFooter()
         configureNavigationBar()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        sizeFooterToFit()
+    }
+    
+    private func configureSettingsFooter() {
+        var footer: SettingsFooterView? {
+            let settingsFooter = SettingsFooterView.fromNib()
+            settingsFooter?.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
+            settingsFooter?.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
+            return settingsFooter
+        }
+        tableView.tableFooterView = footer
     }
 
     private func configureNavigationBar() {
@@ -119,9 +135,24 @@ class SettingsViewController: UITableViewController {
             return
         case let .open(url: url):
             let application = UIApplication.shared
-            if application.canOpenURL(url) {
-                application.open(url, options: [:], completionHandler: nil)
+            guard application.canOpenURL(url) else {
+                return
             }
+            application.open(url, options: [:], completionHandler: nil)
+        }
+    }
+}
+
+extension UITableViewController {
+    
+    func sizeFooterToFit() {
+        guard let footerView = tableView.tableFooterView else {
+            return
+        }
+        let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        let footerFrame = footerView.frame
+        if height != footerFrame.size.height {
+            footerView.frame.size.height = height
         }
     }
 }
