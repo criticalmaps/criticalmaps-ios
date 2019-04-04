@@ -8,16 +8,15 @@
 import UIKit
 
 class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
-    
-    @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var chatTextView: UITextView! {
+    @IBOutlet private var timeLabel: UILabel!
+    @IBOutlet private var chatTextView: UITextView! {
         didSet {
             // removes the padding from the textview
             let padding = chatTextView.textContainer.lineFragmentPadding
             chatTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         timeLabel?.textColor = .chatMessageDate

@@ -28,19 +28,18 @@ extension DateComponents {
 }
 
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
-    
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tweetTextView: UITextView!
     @IBOutlet private var handleLabel: UILabel!
     @IBOutlet private var userImageView: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         dateLabel.textColor = .twitterDate
         tweetTextView.textColor = .twitterUsername
         handleLabel.textColor = .twitterText
     }
-    
+
     private func dateString(for tweet: Tweet) -> String? {
         let components = Calendar.current.dateComponents([.minute, .hour, .day, .month], from: tweet.created_at, to: Date()).dateComponentFromBiggestComponent
         let formatter = DateComponentsFormatter()
@@ -67,9 +66,8 @@ class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
 }
 
 extension TweetTableViewCell: UITextViewDelegate {
-    
     // Opens a link in Safari
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+    func textView(_: UITextView, shouldInteractWith _: URL, in _: NSRange) -> Bool {
         return true
     }
 }

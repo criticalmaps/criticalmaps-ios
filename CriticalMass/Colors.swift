@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIColor {
-    
     static var rulesDetailText: UIColor {
         return UIColor(red: 69 / 255.0, green: 71 / 255.0, blue: 77 / 255.0, alpha: 1)
     }

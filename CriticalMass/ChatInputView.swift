@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ChatInputDelegate: class {
+protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String)
 }
 
