@@ -150,6 +150,9 @@ extension UITableViewController {
             return
         }
         let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        footerView.frame.size.height = height
+        let footerFrame = footerView.frame
+        if height != footerFrame.size.height {
+            footerView.frame.size.height = height
+        }
     }
 }
