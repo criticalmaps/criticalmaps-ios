@@ -81,7 +81,7 @@ class RequestManagerTests: XCTestCase {
             XCTAssertEqual(setup.networkLayer.numberOfRequests, 1)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testRespectingRequestRepeatTime() {
@@ -103,12 +103,12 @@ class RequestManagerTests: XCTestCase {
         setup.networkLayer.mockResponse = expectedStorage
         XCTAssertNil(setup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
-        wait(interval: 1) {
+        wait(interval: 0.5) {
             XCTAssertNotNil(setup.dataStore.storedData)
             XCTAssertEqual(setup.dataStore.storedData!, expectedStorage)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testPostLocation() {
@@ -119,13 +119,13 @@ class RequestManagerTests: XCTestCase {
         let expectedBody: [String: AnyHashable] = ["device": deviceId, "location": ["longitude": testLocation.longitude * 1_000_000, "latitude": testLocation.latitude * 1_000_000, "timestamp": 0]]
         XCTAssertNil(testSetup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
-        wait(interval: 1) {
+        wait(interval: 0.5) {
             XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
             XCTAssertGreaterThan(testSetup.networkLayer.numberOfPostCalled, 1)
             XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testSendMessage() {
