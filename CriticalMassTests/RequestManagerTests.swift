@@ -77,7 +77,7 @@ class RequestManagerTests: XCTestCase {
         setup.networkLayer.shouldReturnResponse = false
         XCTAssertEqual(setup.networkLayer.numberOfRequests, 0)
         let exp = expectation(description: "Wait a second")
-        wait(interval: 0.5) {
+        wait(interval: 1) {
             XCTAssertEqual(setup.networkLayer.numberOfRequests, 1)
             exp.fulfill()
         }
@@ -103,7 +103,7 @@ class RequestManagerTests: XCTestCase {
         setup.networkLayer.mockResponse = expectedStorage
         XCTAssertNil(setup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
-        wait(interval: 0.5) {
+        wait(interval: 1) {
             XCTAssertNotNil(setup.dataStore.storedData)
             XCTAssertEqual(setup.dataStore.storedData!, expectedStorage)
             exp.fulfill()
@@ -119,7 +119,7 @@ class RequestManagerTests: XCTestCase {
         let expectedBody: [String: AnyHashable] = ["device": deviceId, "location": ["longitude": testLocation.longitude * 1_000_000, "latitude": testLocation.latitude * 1_000_000, "timestamp": 0]]
         XCTAssertNil(testSetup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
-        wait(interval: 0.5) {
+        wait(interval: 1) {
             XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
             XCTAssertGreaterThan(testSetup.networkLayer.numberOfPostCalled, 1)
             XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
