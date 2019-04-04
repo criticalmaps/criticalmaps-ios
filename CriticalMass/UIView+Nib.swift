@@ -24,9 +24,6 @@ extension NibInstantiatable where Self: UIView {
     static func fromNib() -> Self? {
         let bundle = Bundle(for: self)
         let nib = bundle.loadNibNamed(nibName(), owner: self, options: nil)
-        guard let view = nib?.first as? Self else {
-            return nil
-        }
-        return view
+        return nib?.first as? Self
     }
 }
