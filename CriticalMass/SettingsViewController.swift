@@ -69,6 +69,8 @@ class SettingsViewController: UITableViewController {
             let name = String(describing: cell)
             tableView.register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
         }
+        tableView.rowHeight = UITableView.automaticDimension
+
         configureSettingsFooter()
         configureNavigationBar()
     }
@@ -105,6 +107,10 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Section.allCases[section].numberOfRows
+    }
+
+    override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        return 60
     }
 
     override func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection _: Int) {
