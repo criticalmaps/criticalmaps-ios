@@ -30,16 +30,14 @@ extension DateComponents {
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
     
     @IBOutlet private var dateLabel: UILabel!
-    @IBOutlet private var tweetTextView: UITextView!
+    @IBOutlet private var tweetTextView: UITextView! {
+        didSet {
+            tweetTextView.textContainerInset = UIEdgeInsets(top: 0.0, left: -5.0, bottom: 0.0,
+right: 0.0)
+        }
+    }
     @IBOutlet private var handleLabel: UILabel!
     @IBOutlet private var userImageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        dateLabel.textColor = .twitterDate
-        tweetTextView.textColor = .twitterUsername
-        handleLabel.textColor = .twitterText
-    }
     
     private func dateString(for tweet: Tweet) -> String? {
         let components = Calendar.current.dateComponents([.minute, .hour, .day, .month], from: tweet.created_at, to: Date()).dateComponentFromBiggestComponent
