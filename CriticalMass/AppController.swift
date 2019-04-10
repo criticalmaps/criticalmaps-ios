@@ -51,6 +51,7 @@ class AppController {
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .view(rootViewController.followMeButton),
+            .view(ChatNavigationButton(frame: .zero)),
             .icon(UIImage(named: "Chat")!, action: .navigation(viewController: getSocialViewController), accessibilityLabel: NSLocalizedString("chat.title", comment: "")),
             .icon(UIImage(named: "Knigge")!, action: .navigation(viewController: getRulesViewController), accessibilityLabel: NSLocalizedString("rules.title", comment: "")),
             .icon(UIImage(named: "Settings")!, action: .navigation(viewController: getSettingsViewController), accessibilityLabel: NSLocalizedString("settings.title", comment: "")),

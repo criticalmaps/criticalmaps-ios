@@ -27,6 +27,7 @@
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
+		981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C788E225E67350009FC3E /* ChatNavigationButton.swift */; };
 		98205F692207937100122EDA /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98205F682207937100122EDA /* AppController.swift */; };
 		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
 		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
@@ -119,6 +120,7 @@
 		9804176A21FC7AF30077D419 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		9804176C21FC87960077D419 /* SendChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatMessage.swift; sourceTree = "<group>"; };
 		9804178F21FCA2B40077D419 /* ChatManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManagerTests.swift; sourceTree = "<group>"; };
+		981C788E225E67350009FC3E /* ChatNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavigationButton.swift; sourceTree = "<group>"; };
 		98205F682207937100122EDA /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
+				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
 				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
 				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
@@ -599,6 +602,7 @@
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
+				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
