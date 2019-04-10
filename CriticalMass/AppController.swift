@@ -8,11 +8,10 @@
 import Foundation
 
 class AppController {
-    
     init() {
         loadInitialData()
     }
-    
+
     private var requestManager: RequestManager = {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
@@ -50,11 +49,10 @@ class AppController {
         let rootViewController = MapViewController()
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            .view(rootViewController.followMeButton),
-            .view(ChatNavigationButton(frame: .zero)),
-            .icon(UIImage(named: "Chat")!, action: .navigation(viewController: getSocialViewController), accessibilityLabel: NSLocalizedString("chat.title", comment: "")),
-            .icon(UIImage(named: "Knigge")!, action: .navigation(viewController: getRulesViewController), accessibilityLabel: NSLocalizedString("rules.title", comment: "")),
-            .icon(UIImage(named: "Settings")!, action: .navigation(viewController: getSettingsViewController), accessibilityLabel: NSLocalizedString("settings.title", comment: "")),
+            .init(representation: .view(rootViewController.followMeButton), action: .none),
+            .init(representation: .button(ChatNavigationButton(frame: .zero)), action: .navigation(viewController: getSocialViewController)),
+            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: NSLocalizedString("rules.title", comment: "")), action: .navigation(viewController: getRulesViewController)),
+            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: NSLocalizedString("settings.title", comment: "")), action: .navigation(viewController: getSettingsViewController)),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)
@@ -62,7 +60,7 @@ class AppController {
 
         return rootViewController
     }()
-    
+
     private func loadInitialData() {
         requestManager.getData()
     }
