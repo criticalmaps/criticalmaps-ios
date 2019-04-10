@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIColor {
+    
     static var rulesDetailText: UIColor {
         return UIColor(red: 69 / 255.0, green: 71 / 255.0, blue: 77 / 255.0, alpha: 1)
     }
@@ -55,7 +56,7 @@ extension UIColor {
     static var twitterUsername: UIColor {
         return UIColor(red: 144 / 255.0, green: 147 / 255.0, blue: 153 / 255.0, alpha: 1)
     }
-
+    
     static var gray400: UIColor {
         return UIColor(red: 144 / 255.0, green: 147 / 255.0, blue: 153 / 255.0, alpha: 1)
     }
@@ -67,7 +68,7 @@ extension UIColor {
     static var twitterDate: UIColor {
         return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 38 / 255.0, alpha: 1)
     }
-
+    
     static var gray200: UIColor {
         return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 38 / 255.0, alpha: 1)
     }
