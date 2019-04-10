@@ -10,9 +10,16 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    let appController = AppController()
+    lazy var appController = AppController()
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        #if DEBUG
+        guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
+            // We are in a XCTest and setting up the AppController would add Noise to the tests
+            return true
+        }
+        #endif
         // Set Appirater
         Appirater.setAppId("918669647")
         Appirater.setDaysUntilPrompt(1)
