@@ -140,3 +140,9 @@
 /* No comment provided by engineer. */
 "close.button.label" = "close";
 
+/* Dark Mode */
+"settings.theme.dark" = "Dark Mode";
+
+/* Light Mode */
+"settings.theme.light" = "Light Mode";
+
