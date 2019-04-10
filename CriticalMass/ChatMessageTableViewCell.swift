@@ -29,6 +29,6 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         timeLabel?.text = formatter.string(from: date)
-        chatTextView?.text = message.message
+        chatTextView?.text = message.decodedMessage
     }
 }
