@@ -9,7 +9,8 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     enum Section: CaseIterable {
-        case preferences
+        case gps
+        case darkMode
         case github
         case info
 
@@ -24,7 +25,8 @@ class SettingsViewController: UITableViewController {
 
         var secionTitle: String? {
             switch self {
-            case .preferences,
+            case .gps,
+                 .darkMode,
                  .github:
                 return nil
             case .info:
@@ -34,7 +36,9 @@ class SettingsViewController: UITableViewController {
 
         var cellClass: UITableViewCell.Type {
             switch self {
-            case .preferences:
+            case .gps:
+                return SettingsSwitchTableViewCell.self
+            case .darkMode:
                 return SettingsSwitchTableViewCell.self
             case .github:
                 return SettingsGithubTableViewCellTableViewCell.self
@@ -45,8 +49,10 @@ class SettingsViewController: UITableViewController {
 
         var models: [Model] {
             switch self {
-            case .preferences:
+            case .gps:
                 return [Model(title: NSLocalizedString("GPS", comment: ""), action: .none)]
+            case .darkMode:
+                return [Model(title: "Dark Mode", action: .none)]
             case .github:
                 return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
             case .info:
