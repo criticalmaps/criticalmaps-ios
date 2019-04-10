@@ -35,6 +35,12 @@ class RoundableImageView: UIImageView {
         }
     }
     
+    @IBInspectable var hasInnerShadow: Bool = true {
+        didSet {
+            self.addInnerShadow()
+        }
+    }
+    
     private func applyCornerRadius() {
         if self.circular {
             self.layer.cornerRadius = self.bounds.size.height / 2
@@ -47,6 +53,9 @@ class RoundableImageView: UIImageView {
     }
     
     private func addInnerShadow() {
+        guard self.hasInnerShadow else {
+            return
+        }
         let innerShadow = CALayer()
         innerShadow.frame = bounds
         let path = UIBezierPath(ovalIn: self.bounds.insetBy(dx: -1, dy: -1))

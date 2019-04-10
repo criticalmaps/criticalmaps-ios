@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */; };
 		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
+		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
+		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
+		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
+		9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9474E977224CF60500A812DC /* SettingsFooterView.xib */; };
+		9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E979224D027900A812DC /* Bundle+Version.swift */; };
+		9474E97C224D222F00A812DC /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E97B224D222F00A812DC /* UIView+Nib.swift */; };
 		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
 		949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BEF542237CAEC009AE6DF /* RoundableImageView.swift */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
@@ -94,6 +100,12 @@
 		2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMapsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71984CFABC6CBD21874A487C /* Pods-CriticalMapsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91EC6282437633054D179F01 /* libPods-CriticalMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMaps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9460B76A225A6EB200786E27 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
+		946CDE0322412DA60059F892 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
+		9474E975224CF58100A812DC /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
+		9474E977224CF60500A812DC /* SettingsFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsFooterView.xib; sourceTree = "<group>"; };
+		9474E979224D027900A812DC /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
+		9474E97B224D222F00A812DC /* UIView+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Nib.swift"; sourceTree = "<group>"; };
 		9489D88A1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88B1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88D1B768274001E746C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -213,6 +225,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9460B769225A6E9B00786E27 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9460B76A225A6EB200786E27 /* FormatDisplay.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +251,8 @@
 				9822A17121F3349F007F5994 /* Preferences.swift */,
 				9804176A21FC7AF30077D419 /* ChatManager.swift */,
 				982DA8D421FFA68B00E2A51B /* Twitter */,
+				9474E979224D027900A812DC /* Bundle+Version.swift */,
+				9474E97B224D222F00A812DC /* UIView+Nib.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -265,6 +287,8 @@
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
+				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
+				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -321,8 +345,10 @@
 				94AD50471A963D1600547B40 /* Model */,
 				94AD50491A963DFE00547B40 /* View */,
 				94AD50481A963DC800547B40 /* Controller */,
+				9460B769225A6E9B00786E27 /* Utility */,
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
 				98B480E121AB30700044D017 /* Launch Screen.storyboard */,
+				946CDE0322412DA60059F892 /* Settings.bundle */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -418,6 +444,8 @@
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
 				AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */,
+				946CDE0522412DDF0059F892 /* 📄 Generate Licenses */,
+				946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */,
 			);
 			buildRules = (
 			);
@@ -501,10 +529,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */,
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
+				946CDE0422412DA60059F892 /* Settings.bundle in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				9897086F220A3E9E0073BB02 /* SocialViewController.xib in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
@@ -526,6 +556,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		946CDE0522412DDF0059F892 /* 📄 Generate Licenses */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "📄 Generate Licenses";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/license-plist --output-path ./Settings.bundle\nfi\n";
+		};
+		946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "🔖 Set BuildNumber and VersionNumber in App Settings ";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PLISTBUDDY=\"/usr/libexec/PlistBuddy\"\nINFO_PLIST=\"$CODESIGNING_FOLDER_PATH/Info.plist\"\nSETTINGS_PLIST=\"$CODESIGNING_FOLDER_PATH/Settings.bundle/Root.plist\"\nVERSION_NUMBER=\"`$PLISTBUDDY -c \\\"Print CFBundleShortVersionString\\\" \\\"$INFO_PLIST\\\"`\"\nBUILD_NUMBER=\"`$PLISTBUDDY -c \\\"Print CFBundleVersion\\\" \\\"$INFO_PLIST\\\"`\"\n\n$PLISTBUDDY -c \"Set :PreferenceSpecifiers:1:DefaultValue '$VERSION_NUMBER ($BUILD_NUMBER)'\" \"$SETTINGS_PLIST\"\n";
+		};
 		98CF2B264286533A6FAE1D21 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -597,6 +663,7 @@
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
+				9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
@@ -615,6 +682,7 @@
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
+				9474E97C224D222F00A812DC /* UIView+Nib.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
@@ -627,6 +695,7 @@
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
+				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
 				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
@@ -634,6 +703,7 @@
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
+				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
 			);

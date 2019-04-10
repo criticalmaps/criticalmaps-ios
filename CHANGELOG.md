@@ -2,17 +2,19 @@
 Changelog for Critical Maps iOS
 
 ## [3.0.0] UNRELEASED
-### Added
-- Swift bridge
-- Tests
 
 ### Changed
+- Complete Redesign
 - Migrate map page to Swift
 - Migrate rules page to Swift
 - Migrate chat page to Swift
 - Migrate twitter page to Swift
 - Migrate settings page to Swift
 - New navigation
+
+### Added
+- Swift bridge
+- Tests
 
 ## [2.5.1]
 ### Fixed
