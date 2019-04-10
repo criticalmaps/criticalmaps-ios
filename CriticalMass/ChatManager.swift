@@ -13,7 +13,7 @@ class ChatManager {
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
     var updateUnreadMessagesCountCallback: ((UInt) -> Void)?
-    
+
     public private(set) var unreadMessagesCount: UInt = 0 {
         didSet {
             if oldValue != unreadMessagesCount {
@@ -32,7 +32,7 @@ class ChatManager {
         cachedMessages = Array(response.chatMessages.values).sorted(by: { (a, b) -> Bool in
             a.timestamp > b.timestamp
         })
-        unreadMessagesCount = UInt(cachedMessages?.lazy.filter{ $0.timestamp > Preferences.lastMessageReadTimeInterval }.count ?? 0)
+        unreadMessagesCount = UInt(cachedMessages?.lazy.filter { $0.timestamp > Preferences.lastMessageReadTimeInterval }.count ?? 0)
         updateMessagesCallback?(cachedMessages ?? [])
     }
 
@@ -50,9 +50,9 @@ class ChatManager {
         }
         return cachedMessages!
     }
-    
+
     public func markAllMessagesAsRead() {
-        if let timestamp = cachedMessages?.last?.timestamp {
+        if let timestamp = cachedMessages?.first?.timestamp {
             Preferences.lastMessageReadTimeInterval = timestamp
         }
         unreadMessagesCount = 0

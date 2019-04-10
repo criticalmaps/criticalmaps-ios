@@ -13,12 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var appController = AppController()
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         #if DEBUG
-        guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
-            // We are in a XCTest and setting up the AppController would add Noise to the tests
-            return true
-        }
+            guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
+                // We are in a XCTest and setting up the AppController would add Noise to the tests
+                return true
+            }
         #endif
         // Set Appirater
         Appirater.setAppId("918669647")

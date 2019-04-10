@@ -10,13 +10,18 @@ import UIKit
 class ChatNavigationButton: CustomButton {
     let unreadLabel = UILabel()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(chatManager: ChatManager) {
+        super.init(frame: .zero)
         setImage(UIImage(named: "Chat")!, for: .normal)
         tintColor = .navigationOverlayForeground
         adjustsImageWhenHighlighted = false
         highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
+        accessibilityLabel = NSLocalizedString("chat.title", comment: "")
         configureUnreadBubble()
+        updateUnreadBubble(unreadCount: chatManager.unreadMessagesCount)
+        chatManager.updateUnreadMessagesCountCallback = { [weak self] unreadCount in
+            self?.updateUnreadBubble(unreadCount: unreadCount)
+        }
     }
 
     required init?(coder _: NSCoder) {
@@ -32,9 +37,12 @@ class ChatNavigationButton: CustomButton {
         unreadLabel.layer.cornerRadius = unreadLabel.frame.size.width / 2
         unreadLabel.layer.masksToBounds = true
         unreadLabel.textAlignment = .center
-
-        unreadLabel.text = "3"
-
+        unreadLabel.isHidden = true
         addSubview(unreadLabel)
+    }
+
+    private func updateUnreadBubble(unreadCount: UInt) {
+        unreadLabel.isHidden = unreadCount == 0
+        unreadLabel.text = "\(unreadCount)"
     }
 }

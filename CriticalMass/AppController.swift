@@ -50,7 +50,7 @@ class AppController {
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
-            .init(representation: .button(ChatNavigationButton(frame: .zero)), action: .navigation(viewController: getSocialViewController)),
+            .init(representation: .button(ChatNavigationButton(chatManager: chatManager)), action: .navigation(viewController: getSocialViewController)),
             .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: NSLocalizedString("rules.title", comment: "")), action: .navigation(viewController: getRulesViewController)),
             .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: NSLocalizedString("settings.title", comment: "")), action: .navigation(viewController: getSettingsViewController)),
         ])

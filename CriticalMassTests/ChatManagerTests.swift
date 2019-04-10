@@ -16,10 +16,10 @@ class ChatManagerTests: XCTestCase {
         let chatManager = ChatManager(requestManager: requestManager)
         return (chatManager, networkLayer, dataStore)
     }
-    
+
     override func setUp() {
         super.setUp()
-        
+
         Preferences.lastMessageReadTimeInterval = 0
     }
 
@@ -118,27 +118,32 @@ class ChatManagerTests: XCTestCase {
 
         wait(for: [exp], timeout: 1)
     }
-    
+
     func testUpdateUnreadCountCallback() {
         let setup = getSetup()
         let exp = expectation(description: "Update message callback called")
-        
-        let expectedMessages = [ChatMessage(message: "Hello", timestamp: 1), ChatMessage(message: "World", timestamp: 2)]
+
         setup.chatManager.updateUnreadMessagesCountCallback = { unreadMessages in
             XCTAssertEqual(unreadMessages, 2)
             exp.fulfill()
         }
-        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": expectedMessages[0], "2": expectedMessages[1]]))
-        
+        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+
         wait(for: [exp], timeout: 1)
     }
-    
+
+    func testMessagesUnreadCountWithExistingTimeStamp() {
+        let setup = getSetup()
+        Preferences.lastMessageReadTimeInterval = 1
+        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+        XCTAssertEqual(setup.chatManager.unreadMessagesCount, 1)
+    }
+
     func testMarkAsRead() {
         let setup = getSetup()
         let exp = expectation(description: "Update message callback called")
-        
-        let expectedMessages = [ChatMessage(message: "Hello", timestamp: 1), ChatMessage(message: "World", timestamp: 2)]
-        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": expectedMessages[0], "2": expectedMessages[1]]))
+
+        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
         XCTAssertEqual(setup.chatManager.unreadMessagesCount, 2)
         setup.chatManager.updateUnreadMessagesCountCallback = { unreadMessages in
             XCTAssertEqual(unreadMessages, 0)
