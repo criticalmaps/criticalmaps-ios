@@ -8,7 +8,7 @@
 import MapKit
 import UIKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController {
     class IdentifiableAnnnotation: MKPointAnnotation {
         var identifier: String
 
@@ -29,20 +29,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    // MARK: Properties
+    public lazy var followMeButton: UserTrackingButton = {
+        let button = UserTrackingButton(mapView: mapView)
+        button.tintColor = .navigationOverlayForeground
+        return button
+    }()
     public var bottomContentOffset: CGFloat = 0 {
         didSet {
             mapView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomContentOffset, right: 0)
         }
     }
-
-    override func loadView() {
-        view = MKMapView(frame: .zero)
-    }
-
     private var mapView: MKMapView {
         return view as! MKMapView
     }
-
     private let gpsDisabledOverlayView: UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.accessibilityViewIsModal = true
@@ -57,19 +57,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
         return view
     }()
+    fileprivate var tileRenderer: MKTileOverlayRenderer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
+        configureTileRenderer()
         configureMapView()
         condfigureGPSDisabledOverlayView()
     }
 
+    override func loadView() {
+        view = MKMapView(frame: .zero)
+    }
+    
+    private func configureTileRenderer() {
+        let overlay = DarkModeMapOverlay()
+        overlay.canReplaceMapContent = true
+        self.mapView.addOverlay(overlay, level: .aboveLabels)
+        tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)
+    }
+    
     private func condfigureGPSDisabledOverlayView() {
         view.addSubview(gpsDisabledOverlayView)
-
         gpsDisabledOverlayView.frame = view.bounds
         gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         updateGPSDisabledOverlayVisibility()
@@ -113,14 +125,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
 
-    public lazy var followMeButton: UserTrackingButton = {
-        let button = UserTrackingButton(mapView: mapView)
-        button.tintColor = .navigationOverlayForeground
-        return button
-    }()
-
     // MARK: Notifications
-
     @objc private func positionsDidChange(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
         display(locations: response.locations)
@@ -132,9 +137,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let adjustedRegion = mapView.regionThatFits(region)
         mapView.setRegion(adjustedRegion, animated: true)
     }
+}
 
+extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
-
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKUserLocation == false else {
             return nil
@@ -150,5 +156,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
         followMeButton.currentMode = UserTrackingButton.Mode(mode)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let renderer = self.tileRenderer else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        return renderer
     }
 }
