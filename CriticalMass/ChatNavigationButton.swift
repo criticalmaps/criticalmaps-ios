@@ -8,9 +8,16 @@
 import UIKit
 
 class ChatNavigationButton: CustomButton {
-    let unreadLabel = UILabel()
+    private let unreadLabel = UILabel()
 
-    init(chatManager: ChatManager) {
+    public var unreadCount: UInt = 0 {
+        didSet {
+            unreadLabel.isHidden = unreadCount == 0
+            unreadLabel.text = "\(unreadCount)"
+        }
+    }
+
+    init() {
         super.init(frame: .zero)
         setImage(UIImage(named: "Chat")!, for: .normal)
         tintColor = .navigationOverlayForeground
@@ -18,10 +25,6 @@ class ChatNavigationButton: CustomButton {
         highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
         accessibilityLabel = NSLocalizedString("chat.title", comment: "")
         configureUnreadBubble()
-        updateUnreadBubble(unreadCount: chatManager.unreadMessagesCount)
-        chatManager.updateUnreadMessagesCountCallback = { [weak self] unreadCount in
-            self?.updateUnreadBubble(unreadCount: unreadCount)
-        }
     }
 
     required init?(coder _: NSCoder) {
@@ -39,10 +42,5 @@ class ChatNavigationButton: CustomButton {
         unreadLabel.textAlignment = .center
         unreadLabel.isHidden = true
         addSubview(unreadLabel)
-    }
-
-    private func updateUnreadBubble(unreadCount: UInt) {
-        unreadLabel.isHidden = unreadCount == 0
-        unreadLabel.text = "\(unreadCount)"
     }
 }
