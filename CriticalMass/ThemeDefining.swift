@@ -25,7 +25,7 @@ struct LightTheme: ThemeDefining {
         return NSLocalizedString("settings.theme.light", comment: "")
     }
     var tintColor: UIColor {
-        return .purple
+        return .black
     }
     var barStyle: UIBarStyle {
         return .default
@@ -34,7 +34,7 @@ struct LightTheme: ThemeDefining {
         return .default
     }
     var backgroundColor: UIColor {
-        return .purple
+        return .white
     }
     var secondaryBackgroundColor: UIColor {
         return .white
@@ -43,7 +43,7 @@ struct LightTheme: ThemeDefining {
         return .blue
     }
     var titleTextColor: UIColor {
-        return .white
+        return .black
     }
 }
 

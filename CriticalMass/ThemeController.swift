@@ -36,7 +36,8 @@ class ThemeController {
         let theme = currentTheme.style
         UIApplication.shared.delegate?.window??.tintColor = theme.backgroundColor
         UISegmentedControl.appearance().tintColor = theme.tintColor
-        UINavigationBar.appearance().barStyle = theme.barStyle
-        
+        // NavigationBar
+        UINavigationBar.appearance().barTintColor = theme.backgroundColor
+        UINavigationBar.appearance().tintColor = theme.tintColor
     }
 }
