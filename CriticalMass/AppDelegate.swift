@@ -37,9 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UISearchBar.appearance() // ??
         
-        let themeController = ThemeController()
-        themeController.applyTheme()
-        
+        ThemeController.shared.applyTheme()
+
         Appirater.appLaunched(true)
         return true
     }
