@@ -14,6 +14,10 @@ class ChatNavigationButton: CustomButton {
         didSet {
             unreadLabel.isHidden = unreadCount == 0
             unreadLabel.text = "\(unreadCount)"
+            unreadLabel.sizeToFit()
+            unreadLabel.frame.size.height = 16
+            unreadLabel.frame.size.width = max(16, unreadLabel.frame.size.width + 10)
+            unreadLabel.center = CGPoint(x: 55, y: 18)
         }
     }
 
@@ -32,12 +36,10 @@ class ChatNavigationButton: CustomButton {
     }
 
     private func configureUnreadBubble() {
-        unreadLabel.frame.size = CGSize(width: 16, height: 16)
-        unreadLabel.frame.origin = CGPoint(x: 40, y: 10)
         unreadLabel.backgroundColor = .red
         unreadLabel.textColor = .white
         unreadLabel.font = UIFont.systemFont(ofSize: 11, weight: .heavy)
-        unreadLabel.layer.cornerRadius = unreadLabel.frame.size.width / 2
+        unreadLabel.layer.cornerRadius = 8
         unreadLabel.layer.masksToBounds = true
         unreadLabel.textAlignment = .center
         unreadLabel.isHidden = true
