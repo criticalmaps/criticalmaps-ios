@@ -7,25 +7,27 @@
 
 import UIKit
 
-class SettingsSwitchTableViewCell: UITableViewCell {
-    private let switchControl = UISwitch()
+protocol SettingsSwitchCellConfigurable {
+    func configure(isOn: Bool, selector: Selector)
+}
 
+class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable {
+    
+    private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
 
     override var textLabel: UILabel? {
         return titleLabel
     }
 
+    func configure(isOn: Bool, selector: Selector) {
+        switchControl.isOn = isOn
+        switchControl.addTarget(nil, action: selector, for: .valueChanged)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.textColor = .settingsForeground
         accessoryView = switchControl
-        // we currently only use SettingsSwitchTableViewCell for the GPS switch. We should move the code to the model once we introduce more preferences that might use this cell
-        switchControl.isOn = Preferences.gpsEnabled
-        switchControl.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
-    }
-
-    @objc private func switchValueChanged() {
-        Preferences.gpsEnabled = switchControl.isOn
     }
 }

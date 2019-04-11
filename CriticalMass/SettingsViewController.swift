@@ -102,6 +102,17 @@ class SettingsViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
     }
+    
+    // MARK: Actions
+    @IBAction func gpsCellAction(_ sender: UISwitch) {
+        Preferences.gpsEnabled = sender.isOn
+    }
+    
+    @IBAction func darkModeCellAction(_ sender: UISwitch) {
+        let theme: Theme = sender.isOn ? .dark : .light
+        ThemeController.shared.changeTheme(to: theme)
+        ThemeController.shared.applyTheme()
+    }
 
     override func numberOfSections(in _: UITableView) -> Int {
         return Section.allCases.count
@@ -130,8 +141,7 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
-        let identifier = String(describing: section.cellClass)
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let cell = settingsCell(for: section, at: indexPath)
         cell.textLabel?.text = section.models[indexPath.row].title
         return cell
     }
@@ -155,15 +165,28 @@ class SettingsViewController: UITableViewController {
     }
 }
 
-extension UITableViewController {
-    func sizeFooterToFit() {
-        guard let footerView = tableView.tableFooterView else {
-            return
+extension SettingsViewController {
+    
+    fileprivate func settingsCell(for section: Section, at indexPath: IndexPath) -> UITableViewCell {
+        var cell: UITableViewCell
+        switch section {
+        case .gps:
+            guard let gpsSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
+                fatalError("Should be a SettingsSwitchCell")
+            }
+            let isGPSEnabled = Preferences.gpsEnabled
+            gpsSwitchCell.configure(isOn: isGPSEnabled, selector: #selector(SettingsViewController.gpsCellAction(_:)))
+            cell = gpsSwitchCell
+        case .darkMode:
+            guard let gpsSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
+                fatalError("Should be a SettingsSwitchCell")
+            }
+            let isDarkModeEnabled = ThemeController.shared.currentTheme == .dark ? true: false
+            gpsSwitchCell.configure(isOn: isDarkModeEnabled, selector: #selector(SettingsViewController.darkModeCellAction(_:)))
+            cell = gpsSwitchCell
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
         }
-        let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-        let footerFrame = footerView.frame
-        if height != footerFrame.size.height {
-            footerView.frame.size.height = height
-        }
+        return cell
     }
 }
