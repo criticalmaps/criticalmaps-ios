@@ -110,8 +110,9 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func darkModeCellAction(_ sender: UISwitch) {
         let theme: Theme = sender.isOn ? .dark : .light
-        ThemeController.shared.changeTheme(to: theme)
-        ThemeController.shared.applyTheme()
+        let themeController = ThemeController()
+        themeController.changeTheme(to: theme)
+        themeController.applyTheme()
     }
 
     override func numberOfSections(in _: UITableView) -> Int {
@@ -181,7 +182,7 @@ extension SettingsViewController {
             guard let gpsSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
                 fatalError("Should be a SettingsSwitchCell")
             }
-            let isDarkModeEnabled = ThemeController.shared.currentTheme == .dark ? true: false
+            let isDarkModeEnabled = ThemeController().currentTheme == .dark ? true: false
             gpsSwitchCell.configure(isOn: isDarkModeEnabled, selector: #selector(SettingsViewController.darkModeCellAction(_:)))
             cell = gpsSwitchCell
         default:

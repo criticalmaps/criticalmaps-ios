@@ -14,10 +14,8 @@ class ThemeController {
     private(set) lazy var currentTheme = loadTheme()
     private let store: ThemeStorable
     
-    static let shared = ThemeController()
-    
-    private init() {
-        self.store = ThemeSelectionStore()
+    init(store: ThemeStorable = ThemeSelectionStore()) {
+        self.store = store
     }
     
     func changeTheme(to theme: Theme) {
