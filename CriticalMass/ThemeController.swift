@@ -37,5 +37,7 @@ class ThemeController {
         // NavigationBar
         UINavigationBar.appearance().barTintColor = theme.backgroundColor
         UINavigationBar.appearance().tintColor = theme.tintColor
+        
+        UIApplication.shared.refreshAppearance(animated: false)
     }
 }
