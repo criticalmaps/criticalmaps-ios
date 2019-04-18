@@ -1,7 +1,7 @@
 # Change Log
 Changelog for Critical Maps iOS
 
-## [3.0.0] UNRELEASED
+## [3.0.0] - 2017-04-18
 
 ### Changed
 - Complete Redesign
