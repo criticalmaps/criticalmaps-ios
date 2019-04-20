@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
+    private let themeController = ThemeController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,6 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func darkModeCellAction(_ sender: UISwitch) {
         let theme: Theme = sender.isOn ? .dark : .light
-        let themeController = ThemeController()
         themeController.changeTheme(to: theme)
         themeController.applyTheme()
     }
