@@ -7,6 +7,16 @@
 
 import UIKit
 
+class RuleDetailTextView: UITextView {
+    
+    @objc
+    dynamic var ruleDetailTextColor: UIColor? {
+        didSet {
+            self.textColor = ruleDetailTextColor
+        }
+    }
+}
+
 class RulesDetailViewController: UIViewController {
     private var rule: Rule
 
@@ -28,7 +38,7 @@ class RulesDetailViewController: UIViewController {
     }
 
     private func configureTextView() {
-        let textView = UITextView(frame: view.bounds)
+        let textView = RuleDetailTextView(frame: view.bounds)
         textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
 
         let artworkAttachment = NSTextAttachment()
