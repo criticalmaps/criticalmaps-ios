@@ -8,6 +8,20 @@
 import UIKit
 
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
+    
+    @objc
+    dynamic var handleLabelTextColor: UIColor? {
+        didSet {
+            handleLabel.textColor = handleLabelTextColor
+        }
+    }
+    @objc
+    dynamic var dateLabelTextColor: UIColor? {
+        didSet {
+            dateLabel.textColor = dateLabelTextColor
+        }
+    }
+    
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tweetTextView: UITextView! {
         didSet {

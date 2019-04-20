@@ -24,6 +24,14 @@ struct NavigationOverlayItem {
 }
 
 class NavigationOverlayViewController: UIViewController {
+    
+    // UIAppearance
+    @objc dynamic var backgroundColor: UIColor? {
+        didSet {
+            self.view.backgroundColor = backgroundColor
+        }
+    }
+    
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
     private var separatorViews: [UIView] = []
@@ -109,7 +117,6 @@ class NavigationOverlayViewController: UIViewController {
             let navigationController = UINavigationController(rootViewController: viewController())
             let barbuttonItem = UIBarButtonItem(image: UIImage(named: "Close"), style: .done, target: self, action: #selector(didTapCloseButton(button:)))
             barbuttonItem.accessibilityLabel = NSLocalizedString("close.button.label", comment: "")
-            barbuttonItem.tintColor = .black
             navigationController.navigationBar.topItem?.setLeftBarButton(barbuttonItem, animated: false)
 
             present(navigationController, animated: true, completion: nil)

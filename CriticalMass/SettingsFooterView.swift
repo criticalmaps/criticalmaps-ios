@@ -9,17 +9,18 @@
 import UIKit
 
 class SettingsFooterView: UITableViewHeaderFooterView, NibInstantiatable {
-    @IBOutlet var versionNumberLabel: UILabel! {
-        didSet {
-            versionNumberLabel.textColor = .gray200
-        }
-    }
 
-    @IBOutlet var buildNumberLabel: UILabel! {
-        didSet {
-            buildNumberLabel.textColor = .gray400
-        }
+    /// UIAppearance compatible property
+    @objc
+    dynamic var versionTextColor: UIColor? { // UI_APPEARANCE_SELECTOR
+        didSet { versionNumberLabel.textColor = versionTextColor }
     }
-
-    @IBOutlet private var cmLogoImageView: UIImageView!
+    @objc
+    dynamic var buildTextColor: UIColor? { // UI_APPEARANCE_SELECTOR
+        didSet { buildNumberLabel.textColor = buildTextColor }
+    }
+    
+    @IBOutlet weak var versionNumberLabel: UILabel!
+    @IBOutlet weak var buildNumberLabel: UILabel!
+    @IBOutlet private weak var cmLogoImageView: UIImageView!
 }

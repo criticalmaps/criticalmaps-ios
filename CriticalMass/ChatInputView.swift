@@ -12,6 +12,21 @@ protocol ChatInputDelegate: AnyObject {
 }
 
 class ChatInputView: UIView, UITextFieldDelegate {
+    
+    @objc
+    dynamic var chatInputBackgroundColor: UIColor? {
+        didSet {
+            self.backgroundColor = chatInputBackgroundColor
+        }
+    }
+    @objc
+    dynamic var sendMessageButtonColor: UIColor? {
+        didSet {
+            button.setTitleColor(sendMessageButtonColor, for: .normal)
+            button.setTitleColor(sendMessageButtonColor?.withAlphaComponent(0.4), for: .highlighted)
+        }
+    }
+    
     weak var delegate: ChatInputDelegate?
 
     private let textField: UITextField = {
