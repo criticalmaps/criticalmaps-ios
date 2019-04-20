@@ -30,7 +30,6 @@ enum Rule: String, CaseIterable {
 }
 
 class RulesViewController: UITableViewController {
-    private let cellIdentifier = "CellIdentifier"
     private let rules = Rule.allCases
 
     override func viewDidLoad() {
@@ -48,7 +47,8 @@ class RulesViewController: UITableViewController {
     }
 
     private func registerCell() {
-        tableView.register(UINib(nibName: "RuleTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.register(RuleTableViewCell.nib,
+                           forCellReuseIdentifier: RuleTableViewCell.typeName)
     }
 
     // MARK: UITableViewDataSource
@@ -62,7 +62,7 @@ class RulesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! RuleTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: RuleTableViewCell.typeName) as! RuleTableViewCell
         cell.label?.text = rules[indexPath.row].title
         cell.label.adjustsFontForContentSizeCategory = true
         cell.label?.textColor = .rulesOverViewCell

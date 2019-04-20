@@ -11,7 +11,7 @@ protocol SettingsSwitchCellConfigurable {
     func configure(isOn: Bool, selector: Selector)
 }
 
-class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable {
+class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable, NibProviding {
     
     private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
