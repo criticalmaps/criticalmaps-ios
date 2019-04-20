@@ -1,7 +1,12 @@
 # Change Log
 Changelog for Critical Maps iOS
 
-## [3.0.0] - 2017-04-18
+## [UNRELEASED]
+
+### Added
+- Message Notification Bubble
+
+## [3.0.0] - 2019-04-18
 
 ### Changed
 - Complete Redesign

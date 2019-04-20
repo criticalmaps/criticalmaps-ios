@@ -33,6 +33,8 @@
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
+		981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C788E225E67350009FC3E /* ChatNavigationButton.swift */; };
+		981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */; };
 		98205F692207937100122EDA /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98205F682207937100122EDA /* AppController.swift */; };
 		9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15121EDF1C5007F5994 /* DataStore.swift */; };
 		9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */; };
@@ -131,6 +133,8 @@
 		9804176A21FC7AF30077D419 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		9804176C21FC87960077D419 /* SendChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatMessage.swift; sourceTree = "<group>"; };
 		9804178F21FCA2B40077D419 /* ChatManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManagerTests.swift; sourceTree = "<group>"; };
+		981C788E225E67350009FC3E /* ChatNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavigationButton.swift; sourceTree = "<group>"; };
+		981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavigationButtonController.swift; sourceTree = "<group>"; };
 		98205F682207937100122EDA /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		9822A15121EDF1C5007F5994 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
+				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
 				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
 				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
@@ -403,6 +408,7 @@
 				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
 				9897086C220A3E9E0073BB02 /* SocialViewController.swift */,
 				9897086D220A3E9E0073BB02 /* SocialViewController.xib */,
+				981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */,
 			);
 			name = Social;
 			sourceTree = "<group>";
@@ -666,6 +672,7 @@
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
+				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
@@ -700,6 +707,7 @@
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
+				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
 			);
@@ -878,9 +886,11 @@
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "CriticalMass/CriticalMaps-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -903,9 +913,11 @@
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CriticalMass/CriticalMaps-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -17,6 +17,12 @@ class ChatManagerTests: XCTestCase {
         return (chatManager, networkLayer, dataStore)
     }
 
+    override func setUp() {
+        super.setUp()
+
+        Preferences.lastMessageReadTimeInterval = 0
+    }
+
     func testSendMessage() {
         let setup = getSetup()
         let timeInterval = Date().timeIntervalSince1970
@@ -110,6 +116,40 @@ class ChatManagerTests: XCTestCase {
         }
         setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": expectedMessages[0], "2": expectedMessages[1]]))
 
+        wait(for: [exp], timeout: 1)
+    }
+
+    func testUpdateUnreadCountCallback() {
+        let setup = getSetup()
+        let exp = expectation(description: "Update message callback called")
+
+        setup.chatManager.updateUnreadMessagesCountCallback = { unreadMessages in
+            XCTAssertEqual(unreadMessages, 2)
+            exp.fulfill()
+        }
+        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+
+        wait(for: [exp], timeout: 1)
+    }
+
+    func testMessagesUnreadCountWithExistingTimeStamp() {
+        let setup = getSetup()
+        Preferences.lastMessageReadTimeInterval = 1
+        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+        XCTAssertEqual(setup.chatManager.unreadMessagesCount, 1)
+    }
+
+    func testMarkAsRead() {
+        let setup = getSetup()
+        let exp = expectation(description: "Update message callback called")
+
+        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+        XCTAssertEqual(setup.chatManager.unreadMessagesCount, 2)
+        setup.chatManager.updateUnreadMessagesCountCallback = { unreadMessages in
+            XCTAssertEqual(unreadMessages, 0)
+            exp.fulfill()
+        }
+        setup.chatManager.markAllMessagesAsRead()
         wait(for: [exp], timeout: 1)
     }
 }
