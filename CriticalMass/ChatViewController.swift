@@ -122,9 +122,6 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     // MARK: ChatInputDelegate
 
     func didTapSendButton(text: String) {
-        guard !text.isEmpty else {
-            return
-        }
         let indicator = LoadingIndicator.present(in: view)
         chatManager.send(message: text) { success in
             indicator.dismiss()
