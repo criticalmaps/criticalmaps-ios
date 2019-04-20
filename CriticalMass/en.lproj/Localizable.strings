@@ -146,3 +146,5 @@
 /* Light Mode */
 "settings.theme.light" = "Light Mode";
 
+/* Theme */
+"settings.theme" = "Night mode";
