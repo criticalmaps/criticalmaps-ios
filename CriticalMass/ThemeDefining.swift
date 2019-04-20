@@ -18,6 +18,7 @@ protocol ThemeDefining {
     var secondaryBackgroundColor: UIColor { get }
     var negativeBackgroundColor: UIColor { get }
     var titleTextColor: UIColor { get }
+    var switchTintColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -45,6 +46,9 @@ struct LightTheme: ThemeDefining {
     var titleTextColor: UIColor {
         return .black
     }
+    var switchTintColor: UIColor {
+        return UIColor(red: 0.30, green: 0.85, blue: 0.39, alpha: 1.00)
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -71,5 +75,8 @@ struct DarkTheme: ThemeDefining {
     }
     var titleTextColor: UIColor {
         return .white
+    }
+    var switchTintColor: UIColor {
+        return tintColor
     }
 }

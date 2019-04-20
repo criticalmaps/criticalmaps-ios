@@ -37,6 +37,8 @@ class ThemeController {
         // NavigationBar
         UINavigationBar.appearance().barTintColor = theme.backgroundColor
         UINavigationBar.appearance().tintColor = theme.tintColor
+        // UISwitch
+        UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
         
         UIApplication.shared.refreshAppearance(animated: false)
     }
