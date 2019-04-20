@@ -8,65 +8,7 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-    enum Section: CaseIterable {
-        case gps
-        case darkMode
-        case github
-        case info
 
-        struct Model {
-            var title: String?
-            var action: Action
-        }
-
-        var numberOfRows: Int {
-            return models.count
-        }
-
-        var secionTitle: String? {
-            switch self {
-            case .gps,
-                 .darkMode,
-                 .github:
-                return nil
-            case .info:
-                return NSLocalizedString("settings.section.info", comment: "")
-            }
-        }
-
-        var cellClass: UITableViewCell.Type {
-            switch self {
-            case .gps:
-                return SettingsSwitchTableViewCell.self
-            case .darkMode:
-                return SettingsSwitchTableViewCell.self
-            case .github:
-                return SettingsGithubTableViewCellTableViewCell.self
-            case .info:
-                return SettingsInfoTableViewCell.self
-            }
-        }
-
-        var models: [Model] {
-            switch self {
-            case .gps:
-                return [Model(title: NSLocalizedString("GPS", comment: ""), action: .none)]
-            case .darkMode:
-                return [Model(title: "Dark Mode", action: .none)]
-            case .github:
-                return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
-            case .info:
-                return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "https://www.criticalmaps.net")!)),
-                        Model(title: NSLocalizedString("settings.twitter", comment: ""), action: .open(url: URL(string: "https://twitter.com/criticalmaps/")!)),
-                        Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!))]
-            }
-        }
-
-        enum Action {
-            case open(url: URL)
-            case none
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
