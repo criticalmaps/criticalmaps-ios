@@ -58,7 +58,6 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         let segmentedControl = UISegmentedControl(items: Tab.allCases.map { $0.title })
         segmentedControl.sizeToFit()
         segmentedControl.bounds.size.width = view.bounds.width
-        segmentedControl.tintColor = .socialTabControlTintColor
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(socialSelectionDidChange(control:)), for: .valueChanged)
         segmentedControl.backgroundColor = .clear

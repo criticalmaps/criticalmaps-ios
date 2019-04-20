@@ -37,6 +37,9 @@ class ThemeController {
         // NavigationBar
         UINavigationBar.appearance().barTintColor = theme.backgroundColor
         UINavigationBar.appearance().tintColor = theme.tintColor
+        // UISegmentedControl
+        UISegmentedControl.appearance().backgroundColor = theme.backgroundColor
+        UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
         NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
