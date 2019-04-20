@@ -27,7 +27,6 @@ class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurab
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.textColor = .settingsForeground
         accessoryView = switchControl
     }
 }

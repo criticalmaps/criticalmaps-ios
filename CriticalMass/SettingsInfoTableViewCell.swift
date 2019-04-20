@@ -14,9 +14,4 @@ class SettingsInfoTableViewCell: UITableViewCell, NibProviding {
     override var textLabel: UILabel? {
         return titleLabel
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        titleLabel.textColor = .settingsForeground
-    }
 }
