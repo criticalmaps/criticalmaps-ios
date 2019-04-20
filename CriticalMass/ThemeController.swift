@@ -39,6 +39,7 @@ class ThemeController {
         UINavigationBar.appearance().tintColor = theme.tintColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
+        NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
         
         UIApplication.shared.refreshAppearance(animated: false)
     }
