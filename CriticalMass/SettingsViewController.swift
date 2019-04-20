@@ -21,6 +21,8 @@ class SettingsViewController: UITableViewController {
 
         configureSettingsFooter()
         configureNavigationBar()
+        
+        tableView.register(SettingsTableSectionHeader.nib, forHeaderFooterViewReuseIdentifier: SettingsTableSectionHeader.typeName)
     }
 
     override func viewDidLayoutSubviews() {
@@ -61,8 +63,18 @@ class SettingsViewController: UITableViewController {
         return Section.allCases.count
     }
 
-    override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Section.allCases[section].secionTitle
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsTableSectionHeader.typeName)
+        let header = cell as! SettingsTableSectionHeader
+        header.titleLabel.text = Section.allCases[section].secionTitle
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard section == Section.info.index else {
+            return 0.0
+        }
+        return 42.0
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,16 +84,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
-
-    override func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection _: Int) {
-        for subView in view.subviews {
-            subView.backgroundColor = .white
-            for case let label as UILabel in subView.subviews {
-                label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-            }
-        }
-    }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
         let cell = settingsCell(for: section, at: indexPath)
