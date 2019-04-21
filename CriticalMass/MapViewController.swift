@@ -95,7 +95,7 @@ class MapViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: NSNotification.Name("initialGpsDataReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: NSNotification.Name("gpsStateChanged"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.themeDidChange, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.themeDidChange, object: nil)
     }
 
     private func configureMapView() {
