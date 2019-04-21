@@ -36,7 +36,7 @@ In general, we follow the "fork-and-pull" Git workflow.
 
 1.  **Fork** the repo on GitHub
 2.  **Clone** the project to your own machine
-3.  **Commit** changes to your own branch
+3.  **Commit** changes to your own branch. Please add your changes also to the CHANGELOG. We're following the standard of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 4.  **Push** your work back up to your fork
 5.  Submit a **Pull request** so that we can review your changes
 
@@ -44,12 +44,21 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ## Credits
 
+### Coding
+
 * [stephanlindauer](https://github.com/stephanlindauer)
-* [jkandzi](https://github.com/jkandzi)
-* [zutrinken](https://github.com/zutrinken)
-* [matteogamba](https://github.com/matteogamba)
-* [lennet](https://github.com/lennet)
 * [headione](https://github.com/headione)
+* [jkandzi](https://github.com/jkandzi)
+* [lennet](https://github.com/lennet)
+* [mltbnz](https://github.com/mltbnz)
+
+### UX
+
+* [zutrinken](https://github.com/zutrinken)
+
+### Translations
+
+* [matteogamba](https://github.com/matteogamba)
 
 ## Copyright & License
 

@@ -35,6 +35,7 @@ class RulesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = UITableView.automaticDimension
         configureNavigationBar()
         registerCell()
     }
@@ -51,6 +52,10 @@ class RulesViewController: UITableViewController {
     }
 
     // MARK: UITableViewDataSource
+
+    override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        return 60
+    }
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return rules.count

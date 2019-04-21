@@ -149,8 +149,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
-        if mode == .none {
-            followMeButton.currentMode = .none
-        }
+        followMeButton.currentMode = UserTrackingButton.Mode(mode)
     }
 }

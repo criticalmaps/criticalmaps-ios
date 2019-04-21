@@ -21,6 +21,10 @@ class AppController {
         ChatManager(requestManager: requestManager)
     }()
 
+    private lazy var chatNavigationButtonController: ChatNavigationButtonController = {
+        ChatNavigationButtonController(chatManager: chatManager)
+    }()
+
     private lazy var twitterManager: TwitterManager = {
         TwitterManager(networkLayer: NetworkOperator(), url: Constants.twitterEndpoint)
     }()
@@ -49,10 +53,10 @@ class AppController {
         let rootViewController = MapViewController()
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            .view(rootViewController.followMeButton),
-            .icon(UIImage(named: "Chat")!, action: .navigation(viewController: getSocialViewController), accessibilityLabel: NSLocalizedString("chat.title", comment: "")),
-            .icon(UIImage(named: "Knigge")!, action: .navigation(viewController: getRulesViewController), accessibilityLabel: NSLocalizedString("rules.title", comment: "")),
-            .icon(UIImage(named: "Settings")!, action: .navigation(viewController: getSettingsViewController), accessibilityLabel: NSLocalizedString("settings.title", comment: "")),
+            .init(representation: .view(rootViewController.followMeButton), action: .none),
+            .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),
+            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: NSLocalizedString("rules.title", comment: "")), action: .navigation(viewController: getRulesViewController)),
+            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: NSLocalizedString("settings.title", comment: "")), action: .navigation(viewController: getSettingsViewController)),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

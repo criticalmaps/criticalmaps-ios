@@ -1,10 +1,10 @@
 PODS:
   - Appirater (2.3.1)
   - NSString-Hashes (1.2.2)
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
-  - SwiftFormat/CLI (0.40.4)
+  - SDWebImage (5.0.1):
+    - SDWebImage/Core (= 5.0.1)
+  - SDWebImage/Core (5.0.1)
+  - SwiftFormat/CLI (0.40.8)
 
 DEPENDENCIES:
   - Appirater
@@ -22,8 +22,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
   NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  SwiftFormat: cc36377840cffa5d0634782875dccf34dc02ff39
+  SDWebImage: 27dd2c9ea07a2252f94557c9fbb6105ee94b74c9
+  SwiftFormat: d9e5ca1aed735164fe9d26510ec508ddb8a93598
 
 PODFILE CHECKSUM: 31de0d00ccac7e3b9d69d0472034349fc84f2c9e
 

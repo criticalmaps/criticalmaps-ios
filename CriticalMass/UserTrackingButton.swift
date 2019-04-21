@@ -12,6 +12,20 @@ class UserTrackingButton: CustomButton {
         case none
         case follow
         case followWithHeading
+
+        init(_ mkUserTrackingMode: MKUserTrackingMode) {
+            switch mkUserTrackingMode {
+            case .follow:
+                self = .follow
+            case .followWithHeading:
+                self = .followWithHeading
+            case .none:
+                self = .none
+            @unknown default:
+                assertionFailure()
+                self = .none
+            }
+        }
     }
 
     weak var mapView: MKMapView?
