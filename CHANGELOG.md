@@ -5,6 +5,10 @@ Changelog for Critical Maps iOS
 
 ### Added
 - Message Notification Bubble
+- Swiftformat to the build phases
+
+### Updated
+- SDWebImage
 
 ## [3.0.0] - 2019-04-18
 
