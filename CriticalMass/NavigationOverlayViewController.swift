@@ -7,14 +7,20 @@
 
 import UIKit
 
-enum NavigationOverlayItem {
+struct NavigationOverlayItem {
     enum Action {
         case navigation(viewController: () -> UIViewController)
-        case action(() -> Void)
+        case none
     }
 
-    case icon(_ icon: UIImage, action: Action, accessibilityLabel: String)
-    case view(_ view: UIView)
+    enum Representation {
+        case icon(_ icon: UIImage, accessibilityLabel: String)
+        case view(_ view: UIView)
+        case button(_ button: UIButton)
+    }
+
+    let representation: Representation
+    let action: Action
 }
 
 class NavigationOverlayViewController: UIViewController {
@@ -60,8 +66,8 @@ class NavigationOverlayViewController: UIViewController {
 
     private func configure(items: [NavigationOverlayItem]) {
         for (index, item) in items.enumerated() {
-            switch item {
-            case .icon(let icon, action: _, accessibilityLabel: let accessibilityLabel):
+            switch item.representation {
+            case let .icon(icon, accessibilityLabel: accessibilityLabel):
                 let button = CustomButton(frame: .zero)
                 button.setImage(icon, for: .normal)
                 button.tintColor = .navigationOverlayForeground
@@ -75,6 +81,11 @@ class NavigationOverlayViewController: UIViewController {
             case let .view(view):
                 self.view.addSubview(view)
                 itemViews.append(view)
+            case let .button(button):
+                button.tag = index
+                button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
+                view.addSubview(button)
+                itemViews.append(button)
             }
         }
 
@@ -91,12 +102,9 @@ class NavigationOverlayViewController: UIViewController {
         button.isHighlighted = false
         let selectedItem = items[button.tag]
 
-        guard case let .icon(_, action: action, accessibilityLabel: _) = selectedItem else {
-            return
-        }
-        switch action {
-        case let .action(closure):
-            closure()
+        switch selectedItem.action {
+        case .none:
+            break
         case let .navigation(viewController: viewController):
             let navigationController = UINavigationController(rootViewController: viewController())
             let barbuttonItem = UIBarButtonItem(image: UIImage(named: "Close"), style: .done, target: self, action: #selector(didTapCloseButton(button:)))

@@ -2,13 +2,16 @@
 
 Changelog for Critical Maps iOS
 
-## [Unreleased]
+## [UNRELEASED]
+
+### Added
+- Message Notification Bubble
 
 ### Fixed
-
 - Users can not send empty chat messages anymore.
 
-## [3.0.0] - 2017-04-18
+## [3.0.0] - 2019-04-18
+
 
 ### Changed
 
