@@ -33,7 +33,6 @@ class MapViewController: UIViewController {
     private let nightThemeOverlay = DarkModeMapOverlay()
     public lazy var followMeButton: UserTrackingButton = {
         let button = UserTrackingButton(mapView: mapView)
-        button.tintColor = .navigationOverlayForeground
         return button
     }()
     public var bottomContentOffset: CGFloat = 0 {
