@@ -61,6 +61,12 @@ class ThemeController {
         TweetTableViewCell.appearance().handleLabelTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
+        // UILabel
+        UITableView.appearance().tintColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor // Settings: SectionHeader
         NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
         
         // NavigationOverlayItems
