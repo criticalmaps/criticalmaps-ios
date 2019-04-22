@@ -50,6 +50,8 @@ class ThemeController {
         UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
+        // UIToolBar
+        UIToolbar.appearance().barTintColor = theme.backgroundColor
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
