@@ -10,56 +10,55 @@ import UIKit
 
 @IBDesignable
 class RoundableImageView: UIImageView {
-    
-    @IBInspectable var cornerRadius : CGFloat = 0.0 {
+    @IBInspectable var cornerRadius: CGFloat = 0.0 {
         didSet {
-            self.applyCornerRadius()
+            applyCornerRadius()
         }
     }
-    
-    @IBInspectable var borderColor : UIColor = UIColor.clear {
+
+    @IBInspectable var borderColor: UIColor = UIColor.clear {
         didSet {
-            self.applyCornerRadius()
+            applyCornerRadius()
         }
     }
-    
-    @IBInspectable var borderWidth : Double = 0.0 {
+
+    @IBInspectable var borderWidth: Double = 0.0 {
         didSet {
-            self.applyCornerRadius()
+            applyCornerRadius()
         }
     }
-    
-    @IBInspectable var circular : Bool = false {
+
+    @IBInspectable var circular: Bool = false {
         didSet {
-            self.applyCornerRadius()
+            applyCornerRadius()
         }
     }
-    
+
     @IBInspectable var hasInnerShadow: Bool = true {
         didSet {
-            self.addInnerShadow()
+            addInnerShadow()
         }
     }
-    
+
     private func applyCornerRadius() {
-        if self.circular {
-            self.layer.cornerRadius = self.bounds.size.height / 2
+        if circular {
+            layer.cornerRadius = bounds.size.height / 2
         } else {
-            self.layer.cornerRadius = cornerRadius
+            layer.cornerRadius = cornerRadius
         }
-        self.layer.masksToBounds = true
-        self.layer.borderColor = self.borderColor.cgColor
-        self.layer.borderWidth = CGFloat(self.borderWidth)
+        layer.masksToBounds = true
+        layer.borderColor = borderColor.cgColor
+        layer.borderWidth = CGFloat(borderWidth)
     }
-    
+
     private func addInnerShadow() {
-        guard self.hasInnerShadow else {
+        guard hasInnerShadow else {
             return
         }
         let innerShadow = CALayer()
         innerShadow.frame = bounds
-        let path = UIBezierPath(ovalIn: self.bounds.insetBy(dx: -1, dy: -1))
-        let cutout = UIBezierPath(ovalIn: self.bounds).reversing()
+        let path = UIBezierPath(ovalIn: bounds.insetBy(dx: -1, dy: -1))
+        let cutout = UIBezierPath(ovalIn: bounds).reversing()
         path.append(cutout)
         innerShadow.shadowPath = path.cgPath
         innerShadow.masksToBounds = true
@@ -71,16 +70,16 @@ class RoundableImageView: UIImageView {
         // Add
         layer.addSublayer(innerShadow)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.applyCornerRadius()
-        self.addInnerShadow()
+        applyCornerRadius()
+        addInnerShadow()
     }
-    
+
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        self.applyCornerRadius()
-        self.addInnerShadow()
+        applyCornerRadius()
+        addInnerShadow()
     }
 }

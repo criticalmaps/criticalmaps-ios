@@ -17,6 +17,7 @@ class Preferences {
             NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: newValue)
         }
     }
+
     static var lastMessageReadTimeInterval: Double {
         get {
             return UserDefaults.standard.double(forKey: #function)

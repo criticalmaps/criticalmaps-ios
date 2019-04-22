@@ -28,6 +28,14 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/SwiftFormat</string>
+			<key>Title</key>
+			<string>SwiftFormat</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
 	</array>
 </dict>
 </plist>

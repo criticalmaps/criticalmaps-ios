@@ -74,12 +74,12 @@ class SettingsViewController: UITableViewController {
         configureSettingsFooter()
         configureNavigationBar()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         sizeFooterToFit()
     }
-    
+
     private func configureSettingsFooter() {
         var footer: SettingsFooterView? {
             let settingsFooter = SettingsFooterView.fromNib()
@@ -150,7 +150,6 @@ class SettingsViewController: UITableViewController {
 }
 
 extension UITableViewController {
-    
     func sizeFooterToFit() {
         guard let footerView = tableView.tableFooterView else {
             return

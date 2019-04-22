@@ -12,7 +12,7 @@ class UserTrackingButton: CustomButton {
         case none
         case follow
         case followWithHeading
-        
+
         init(_ mkUserTrackingMode: MKUserTrackingMode) {
             switch mkUserTrackingMode {
             case .follow:
@@ -20,7 +20,7 @@ class UserTrackingButton: CustomButton {
             case .followWithHeading:
                 self = .followWithHeading
             case .none:
-                self = .none                
+                self = .none
             @unknown default:
                 assertionFailure()
                 self = .none

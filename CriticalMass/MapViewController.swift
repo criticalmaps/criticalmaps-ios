@@ -94,14 +94,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
-        mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach({ annotation in
+        mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach { annotation in
             if let location = unmatchedLocations[annotation.identifier] {
                 annotation.location = location
                 unmatchedLocations.removeValue(forKey: annotation.identifier)
             } else {
                 unmatchedAnnotations.append(annotation)
             }
-        })
+        }
         let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
         mapView.addAnnotations(annotations)
 

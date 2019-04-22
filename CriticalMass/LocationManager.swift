@@ -82,6 +82,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     // MARK: CLLocationManagerDelegate
+
     func locationManager(_: CLLocationManager, didFailWithError _: Error) {
         locationManager.stopUpdatingLocation()
     }

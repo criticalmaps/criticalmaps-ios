@@ -8,17 +8,17 @@
 import UIKit
 
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
-    
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tweetTextView: UITextView! {
         didSet {
             tweetTextView.textContainerInset = UIEdgeInsets(top: 0.0, left: -5.0, bottom: 0.0,
-right: 0.0)
+                                                            right: 0.0)
         }
     }
+
     @IBOutlet private var handleLabel: UILabel!
     @IBOutlet private var userImageView: UIImageView!
-    
+
     private func attributedUserNameString(for tweet: Tweet) -> NSAttributedString {
         let boldFont = UIFont(descriptor: textLabel!.font.fontDescriptor.withSymbolicTraits(.traitBold)!, size: 0)
         let usernameString = NSMutableAttributedString(string: tweet.user.name, attributes: [.foregroundColor: UIColor.twitterName,
@@ -36,9 +36,8 @@ right: 0.0)
 }
 
 extension TweetTableViewCell: UITextViewDelegate {
-    
     // Opens a link in Safari
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+    func textView(_: UITextView, shouldInteractWith _: URL, in _: NSRange) -> Bool {
         return true
     }
 }

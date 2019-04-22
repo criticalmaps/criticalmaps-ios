@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MessagesTableViewCell: class {
+protocol MessagesTableViewCell: AnyObject {
     associatedtype MessageObject
 
     func setup(for object: MessageObject)

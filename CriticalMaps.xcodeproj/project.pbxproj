@@ -447,6 +447,7 @@
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
 				AE8C2169D48B35B543C49302 /* [CP] Copy Pods Resources */,
+				9819865E2256410800CC493F /* Swiftformat */,
 				946CDE0522412DDF0059F892 /* 📄 Generate Licenses */,
 				946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */,
 			);
@@ -559,6 +560,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9819865E2256410800CC493F /* Swiftformat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftformat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat .\n";
+		};
 		946CDE0522412DDF0059F892 /* 📄 Generate Licenses */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -6,6 +6,10 @@ Changelog for Critical Maps iOS
 
 ### Added
 - Message Notification Bubble
+- Swiftformat to the build phases
+
+### Updated
+- SDWebImage
 
 ### Fixed
 - Users can not send empty chat messages anymore.

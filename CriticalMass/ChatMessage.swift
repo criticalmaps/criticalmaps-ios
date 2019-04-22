@@ -10,7 +10,7 @@ import Foundation
 public struct ChatMessage: Codable, Equatable {
     var message: String
     var timestamp: TimeInterval
-    
+
     var decodedMessage: String? {
         return message
             .replacingOccurrences(of: "+", with: " ")

@@ -8,7 +8,7 @@
 
 import Foundation
 
-fileprivate extension DateComponents {
+private extension DateComponents {
     var dateomponentFromBiggestComponent: DateComponents {
         if let month = month,
             month != 0 {
@@ -29,7 +29,6 @@ fileprivate extension DateComponents {
 }
 
 enum FormatDisplay {
-    
     static func dateString(for tweet: Tweet) -> String? {
         let components = Calendar.current.dateComponents([.minute, .hour, .day, .month], from: tweet.created_at, to: Date()).dateomponentFromBiggestComponent
         let formatter = DateComponentsFormatter()

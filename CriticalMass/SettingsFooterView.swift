@@ -9,16 +9,17 @@
 import UIKit
 
 class SettingsFooterView: UITableViewHeaderFooterView, NibInstantiatable {
-
-    @IBOutlet weak var versionNumberLabel: UILabel! {
+    @IBOutlet var versionNumberLabel: UILabel! {
         didSet {
             versionNumberLabel.textColor = .gray200
         }
     }
-    @IBOutlet weak var buildNumberLabel: UILabel! {
+
+    @IBOutlet var buildNumberLabel: UILabel! {
         didSet {
             buildNumberLabel.textColor = .gray400
         }
     }
-    @IBOutlet private weak var cmLogoImageView: UIImageView!
+
+    @IBOutlet private var cmLogoImageView: UIImageView!
 }

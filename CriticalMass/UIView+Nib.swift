@@ -19,7 +19,6 @@ extension NibInstantiatable {
 }
 
 extension NibInstantiatable where Self: UIView {
-    
     @discardableResult
     static func fromNib() -> Self? {
         let bundle = Bundle(for: self)
