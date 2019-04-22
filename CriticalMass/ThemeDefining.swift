@@ -26,7 +26,7 @@ struct LightTheme: ThemeDefining {
         return NSLocalizedString("settings.theme.light", comment: "")
     }
     var tintColor: UIColor {
-        return .black
+        return .blue
     }
     var barStyle: UIBarStyle {
         return .default
