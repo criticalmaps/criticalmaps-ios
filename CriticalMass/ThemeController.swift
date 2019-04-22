@@ -39,6 +39,12 @@ class ThemeController {
         UINavigationBar.appearance().tintColor = theme.titleTextColor
         // UIBarButtonItem
         UIBarButtonItem.appearance().tintColor = theme.titleTextColor
+        // UITableView
+        UITableViewCell.appearance().backgroundColor = theme.backgroundColor
+        // UIScrollView
+        UIScrollView.appearance().backgroundColor = theme.backgroundColor
+        // UITableViewHeaderFooterView
+        UITableViewHeaderFooterView.appearance().backgroundColor = theme.backgroundColor
         // UISegmentedControl
         UISegmentedControl.appearance().backgroundColor = theme.backgroundColor
         UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
