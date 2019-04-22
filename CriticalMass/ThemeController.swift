@@ -35,8 +35,8 @@ class ThemeController {
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
         UITextField.appearance().keyboardAppearance = theme.keyboardAppearance
         // NavigationBar
-        UINavigationBar.appearance().barTintColor = theme.backgroundColor
-        UINavigationBar.appearance().tintColor = theme.tintColor
+        UINavigationBar.appearance().barStyle = theme.barStyle
+        UINavigationBar.appearance().tintColor = theme.titleTextColor
         // UISegmentedControl
         UISegmentedControl.appearance().backgroundColor = theme.backgroundColor
         UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
