@@ -33,6 +33,7 @@ class ThemeController {
     func applyTheme() {
         let theme = currentTheme.style
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
+        UITextField.appearance().keyboardAppearance = theme.keyboardAppearance
         // NavigationBar
         UINavigationBar.appearance().barTintColor = theme.backgroundColor
         UINavigationBar.appearance().tintColor = theme.tintColor
