@@ -53,12 +53,27 @@ class AppController {
 
     lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController()
-
+        
+        let kniggeButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.setImage(UIImage(named: "Knigge"), for: .normal)
+            return button
+        }()
+        let settingsButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.setImage(UIImage(named: "Settings"), for: .normal)
+            return button
+        }()
+        
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            .init(representation: .view(rootViewController.followMeButton), action: .none),
-            .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: NSLocalizedString("rules.title", comment: "")), action: .navigation(viewController: getRulesViewController)),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: NSLocalizedString("settings.title", comment: "")), action: .navigation(viewController: getSettingsViewController)),
+            .init(representation: NavigationOverlayItem.Representation(button: rootViewController.followMeButton),
+                  action: .none),
+            .init(representation: NavigationOverlayItem.Representation(button: chatNavigationButtonController.button),
+                  action: .navigation(viewController: getSocialViewController)),
+            .init(representation: NavigationOverlayItem.Representation(button:kniggeButton),
+                  action: .navigation(viewController: getRulesViewController)),
+            .init(representation: NavigationOverlayItem.Representation(button: settingsButton),
+                  action: .navigation(viewController: getSettingsViewController)),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

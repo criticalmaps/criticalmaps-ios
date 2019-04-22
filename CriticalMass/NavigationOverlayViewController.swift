@@ -13,10 +13,8 @@ struct NavigationOverlayItem {
         case none
     }
 
-    enum Representation {
-        case icon(_ icon: UIImage, accessibilityLabel: String)
-        case view(_ view: UIView)
-        case button(_ button: UIButton)
+    struct Representation {
+        let button: UIButton
     }
 
     let representation: Representation
@@ -74,27 +72,12 @@ class NavigationOverlayViewController: UIViewController {
 
     private func configure(items: [NavigationOverlayItem]) {
         for (index, item) in items.enumerated() {
-            switch item.representation {
-            case let .icon(icon, accessibilityLabel: accessibilityLabel):
-                let button = CustomButton(frame: .zero)
-                button.setImage(icon, for: .normal)
-                button.tintColor = .navigationOverlayForeground
-                button.adjustsImageWhenHighlighted = false
-                button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
-                button.accessibilityLabel = accessibilityLabel
-                button.tag = index
-                button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
-                view.addSubview(button)
-                itemViews.append(button)
-            case let .view(view):
-                self.view.addSubview(view)
-                itemViews.append(view)
-            case let .button(button):
-                button.tag = index
-                button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
-                view.addSubview(button)
-                itemViews.append(button)
-            }
+            let button = item.representation.button
+            button.tag = index
+            button.addTarget(self, action: #selector(didTapNavigationItem(button:)),
+                             for: .touchUpInside)
+            view.addSubview(button)
+            itemViews.append(button)
         }
 
         separatorViews = (0 ..< items.count - 1)
