@@ -17,6 +17,8 @@ class AppController {
         return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
     }()
 
+    private let themeController = ThemeController()
+    
     private lazy var chatManager: ChatManager = {
         ChatManager(requestManager: requestManager)
     }()

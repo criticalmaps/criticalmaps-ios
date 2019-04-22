@@ -9,8 +9,17 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
-    private let themeController = ThemeController()
-
+    private let themeController: ThemeController!
+    
+    init(themeController: ThemeController) {
+        self.themeController = themeController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
