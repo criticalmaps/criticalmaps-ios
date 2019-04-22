@@ -63,7 +63,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         addSubview(separator)
 
         textField.delegate = self
-        
+
         configureConstraints()
     }
 
@@ -103,13 +103,14 @@ class ChatInputView: UIView, UITextFieldDelegate {
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
-    
+
     @objc
-    func textFieldDidChange(_ textField : UITextField){
+    func textFieldDidChange(_ textField: UITextField) {
         if let text = textField.text {
             button.isEnabled = !text.isEmpty
         }
     }
+
     // MARK: UITextFieldDelegate
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
