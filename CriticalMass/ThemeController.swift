@@ -42,6 +42,7 @@ class ThemeController {
         UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
+        TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
         
         UIApplication.shared.refreshAppearance(animated: false)

@@ -21,6 +21,12 @@ class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
             dateLabel.textColor = dateLabelTextColor
         }
     }
+    @objc
+    dynamic var linkTintColor: UIColor? {
+        didSet {
+            tweetTextView.tintColor = linkTintColor
+        }
+    }
     
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tweetTextView: UITextView! {
