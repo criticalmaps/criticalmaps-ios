@@ -24,9 +24,7 @@ class ChatNavigationButton: CustomButton {
     init() {
         super.init(frame: .zero)
         setImage(UIImage(named: "Chat")!, for: .normal)
-        tintColor = .navigationOverlayForeground
         adjustsImageWhenHighlighted = false
-        highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
         accessibilityLabel = NSLocalizedString("chat.title", comment: "")
         configureUnreadBubble()
     }
