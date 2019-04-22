@@ -8,13 +8,15 @@
 import UIKit
 
 enum Rule: String, CaseIterable {
-    case cork
+    case communication
+    case vibes
     case contraflow
-    case gently
-    case brake
-    case green
-    case stayLoose
-    case haveFun
+    case pace
+    case mass
+    case emergency
+    case corking
+    case sidewalk
+    case police
 
     var title: String {
         return NSLocalizedString("rules.title.\(rawValue)", comment: "")

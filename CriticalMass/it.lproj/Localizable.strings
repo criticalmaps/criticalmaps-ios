@@ -30,49 +30,61 @@
 "rules.source" = "Immagini di criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
 
 /* No comment provided by engineer. */
-"rules.text.brake" = "Evita di fermarti all'improvviso. Se non c'è altro modo, cerca di mettere in guardia chi ti sta dietro con un gesto delle mani.";
-
-/* No comment provided by engineer. */
-"rules.text.contraflow" = "Fai attenzione a non guidare contromano!";
-
-/* No comment provided by engineer. */
-"rules.text.cork" = "Proteggi i motociclisti da se stessi, creando un ingorgo!\n\nPer mantenere la coesione del gruppo, blocca il traffico dalle strade laterali per fare in modo che la massa possa passare i semafori rossi senza interruzioni.";
-
-/* No comment provided by engineer. */
-"rules.text.gently" = "Quando sei in testa, non correre.\n\nSe invece sei dietro, chiudi i buchi!";
-
-/* No comment provided by engineer. */
-"rules.text.green" = "Se sei in testa al gruppo ed incontri un semaforo rosso, devi attendere che diventi verde.";
-
-/* No comment provided by engineer. */
-"rules.text.haveFun" = "Goditi le strade senza auto. Dai un'occhiata alle Sound Bikes. Scambia quattro chiacchere con automobilisti e pedoni, spiegando cosa sta succendendo.\n\nE la cosa più importante: divertiti!";
-
-/* No comment provided by engineer. */
-"rules.text.stayLoose" = "Non farti provocare. Sii amichevole con la polizia, gli automobilisti e chiunque altro, anche nel caso loro non lo fossero.";
-
-/* No comment provided by engineer. */
 "rules.title" = "Regole";
 
 /* No comment provided by engineer. */
-"rules.title.brake" = "Non frenare bruscamente!";
+"rules.title.communication" = "Communication";
 
 /* No comment provided by engineer. */
-"rules.title.contraflow" = "Fai attenzione al traffico in arrivo";
+"rules.title.vibes" = "Good Vibes";
 
 /* No comment provided by engineer. */
-"rules.title.cork" = "Ingorgo!?";
+"rules.title.contraflow" = "Oncoming Traffic";
 
 /* No comment provided by engineer. */
-"rules.title.gently" = "Guida con calma!";
+"rules.title.pace" = "Pace Yourself";
 
 /* No comment provided by engineer. */
-"rules.title.green" = "In testa al gruppo, solo col verde";
+"rules.title.mass" = "Unified Mass";
 
 /* No comment provided by engineer. */
-"rules.title.haveFun" = "Divertiti!";
+"rules.title.emergency" = "Police Escort";
 
 /* No comment provided by engineer. */
-"rules.title.stayLoose" = "Mantieni la calma";
+"rules.title.corking" = "Intersections (Corking)";
+
+/* No comment provided by engineer. */
+"rules.title.sidewalk" = "Sidewalk";
+
+/* No comment provided by engineer. */
+"rules.title.police" = "Police Escort";
+
+/* No comment provided by engineer. */
+"rules.text.communication" = "Good communication is essential for a proper Critical Mass. Remember that many of your fellow riders are there for the first time. Reach out and explain the rules of the mass if anyone seems unclear. Let people know when you are stopping or turning. Warn riders of any danger and give some thanks to those who are protecting the intersections (corking).";
+
+/* No comment provided by engineer. */
+"rules.text.vibes" = "The Critical Mass should be fun and safe for everyone. Some drivers get angry and aggressive. Try your best to explain the Critical Mass to bystanders and make allies out of them. Never escalate any aggression and always keep the situation chill.";
+
+/* No comment provided by engineer. */
+"rules.text.contraflow" = "The Critical Mass should look and act like one unified vehicle driving on the street. Stick to your own lane and never ride into the opposite lane of oncoming traffic. This can be incredibly dangerous for riders in the mass.";
+
+/* No comment provided by engineer. */
+"rules.text.pace" = "Keeping an even pace is essential to keeping one unified mass and avoiding any interference from competing traffic. To avoid cracks in the mass, don't ride too fast. If you see too much space starting to form, try to fill in immediately.";
+
+/* No comment provided by engineer. */
+"rules.text.mass" = "Never ride between standing cars at intersections. If a car gets itself stuck in the mass, just let it out. Blocking cars only causes more traffic to back up. Those leading the Critical Mass should only pass a traffic light if it is green. Once the mass is moving through an intersection, others should continue to follow, even when the light has turned red.";
+
+/* No comment provided by engineer. */
+"rules.text.emergency" = "Never block an emergency vehicle! Ride along the edges and create a lane where the vehicle can pass. Be absolutely sure the vehicle has safely passed before riding as usual.";
+
+/* No comment provided by engineer. */
+"rules.text.corking" = "Corking is protecting the Critical Mass at intersections. Stand at the intersection and use your bicycle to block cars from driving into the mass. Sometimes one bicycle is not enough. Work together to block the intersections with many bicycles and relieve those who have been corking for a long time. Some drivers get angry and aggressive for being blocked. Stop and help to calm the situation down. Explain the Critical Mass and traffic regulations calmly and factually.";
+
+/* No comment provided by engineer. */
+"rules.text.sidewalk" = "Never ride on the sidewalk! Pedestrians are the weakest link in the traffic chain, and we need to look out for them. Reclaim the streets, not the sidewalk.";
+
+/* No comment provided by engineer. */
+"rules.text.police" = "The Critical Mass will be escorted by the police quite often. They protect intersections and tame raging drivers. As the head of the Critical Mass it can be an advantage (depending on your mood and situation) to cooperate and communicate the desired route to the police.";
 
 /* No comment provided by engineer. */
 "settings.about" = "Crediti";

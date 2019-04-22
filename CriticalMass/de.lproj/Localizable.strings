@@ -30,49 +30,61 @@
 "rules.source" = "Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
 
 /* No comment provided by engineer. */
-"rules.text.brake" = "Wenn's mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.";
-
-/* No comment provided by engineer. */
-"rules.text.contraflow" = "Verzichte darauf auf der Gegenfahrbahn zu fahren.";
-
-/* No comment provided by engineer. */
-"rules.text.cork" = "Schütze Autofahrer vor sich selbst durch corken!";
-
-/* No comment provided by engineer. */
-"rules.text.gently" = "Vorne: nicht rasen!\nHinten, Lücken zufahren!";
-
-/* No comment provided by engineer. */
-"rules.text.green" = "Wenn du an der Spitze der Mass fährst, musst du warten bis die Ampel auf Grün schaltet.";
-
-/* No comment provided by engineer. */
-"rules.text.haveFun" = "Genieße autofreie Straßen. Fahr ein bisschen mit den Sound-Rädern mit. Check die Bikes deiner Mitfahrer aus. Quatsch Autofahrer, Passanten, Mitfahrer an. Hab Spaß!";
-
-/* No comment provided by engineer. */
-"rules.text.stayLoose" = "Lass dich nicht provozieren. Sei freundlich zur Polizei und zu Autofahrern, auch wenn die's nicht sind.";
-
-/* No comment provided by engineer. */
 "rules.title" = "Knigge";
 
 /* No comment provided by engineer. */
-"rules.title.brake" = "Keine Vollbremsungen";
+"rules.title.communication" = "Kommunikation";
+
+/* No comment provided by engineer. */
+"rules.title.vibes" = "Hab Spass";
 
 /* No comment provided by engineer. */
 "rules.title.contraflow" = "Gegenverkehr";
 
 /* No comment provided by engineer. */
-"rules.title.cork" = "Corken!?";
+"rules.title.pace" = "Geschwindigkeit";
 
 /* No comment provided by engineer. */
-"rules.title.gently" = "Sachte, Keule!";
+"rules.title.mass" = "Geschlossener Verband";
 
 /* No comment provided by engineer. */
-"rules.title.green" = "Vorne nur bei Grün";
+"rules.title.emergency" = "Blaulicht";
 
 /* No comment provided by engineer. */
-"rules.title.haveFun" = "Hab Spaß!";
+"rules.title.corking" = "Kreuzungen (Korken)";
 
 /* No comment provided by engineer. */
-"rules.title.stayLoose" = "Locker bleiben";
+"rules.title.sidewalk" = "Bürgersteig";
+
+/* No comment provided by engineer. */
+"rules.title.police" = "Polizeibegleitung";
+
+/* No comment provided by engineer. */
+"rules.text.communication" = "Gute Kommunikation ist essentiell für eine funktionierende Critical Mass. Viele Teilnehmer sind zum ersten mal dabei. Sprecht miteinander und erklärt ihnen die Verhaltensregeln. Informiert eure Mitfahrer wenn abgebogen oder gehalten wird. Warnt euch gegenseitig bei Gefahren und bedankt euch wenn Leute Kreuzungen sichern (korken).";
+
+/* No comment provided by engineer. */
+"rules.text.vibes" = "Die Critical Mass sollte sicher sein und Spass machen. Manche Fahrer werden wütend und aggressiv. Erklärt das Konzept umstehenden und macht Verbündete aus ihnen. Behaltet ein ruhiges Gemüt und lasst aggressive Situationen nicht eskalieren.";
+
+/* No comment provided by engineer. */
+"rules.text.contraflow" = "Die Critical Mass ist als ein Fahrzeug anzusehen. Bleibt auf eurer Fahrspur und fahrt nicht in den Gegenverkehr! Damit bringt ihr euch und andere Verkehrsteilnehmer in Gefahr.";
+
+/* No comment provided by engineer. */
+"rules.text.pace" = "Damit die Critical Mass nicht auseinander gerissen wird, ist es wichtig, ein gemäßigtes Tempo beizubehalten und vorne nicht zu schnell zu fahren. Das verhindert das Bilden von Lücken. Wenn doch mal eine Lücke entsteht, so versucht aufzuschließen!";
+
+/* No comment provided by engineer. */
+"rules.text.mass" = "Fahrt an Kreuzungen nie zwischen stehenden Autos hindurch, sondern wartet dahinter. Sollte doch mal ein Fahrzeug in der Critical Mass stecken, leitet es hinaus. Das Blockieren verursacht nur mehr Stau und stört die Weiterfahrt. Als Kopf der Critical Mass darfst du nur bei Grün über die Ampel. Sobald der Verband einmal die Kreuzung überquert hat, müssen alle folgenden Radfahrer auch bei Rot weiterfahren.";
+
+/* No comment provided by engineer. */
+"rules.text.emergency" = "Blockiert niemals Krankenwagen oder andere Einsatzfahrzeuge! Macht Platz, fahrt an den Rand und bildet eine Gasse. Prüft eure Umgebung und fahrt erst weiter wenn das Weiterkommen der Einsatzfahrzeuge gewährleistet ist.";
+
+/* No comment provided by engineer. */
+"rules.text.corking" = "Korken ist das Absichern der Critical Mass an Kreuzungen. Stellt euch mit eurem Rad direkt vor die Autos und versperrt ihnen den Weg in die Critical Mass. Ein Fahrrad ist meistens nicht genug. Arbeitet zusammen um die Kreuzungen gemeinsam mit anderen Radfahrern zu sichern und löst euch gegenseitig ab. Manche Autofahrer reagieren uneinsichtig und aggressiv. Haltet an und helft die Situation zu schlichten. Klärt sie ruhig und sachlich über die StVo und Critical Mass auf.";
+
+/* No comment provided by engineer. */
+"rules.text.sidewalk" = "Fahrt nicht auf dem Bürgersteig! Als schwächstes Glied im Netz der Verkehrsteilnehmer gilt den Fußgängern gegenüber besondere Rücksicht. Reclaim the Streets, nicht die Gehwege.";
+
+/* No comment provided by engineer. */
+"rules.text.police" = "Oft wird die Critical Mass von der Polizei begleitet. Sie sichern kritische Kreuzungen und zähmen wütende Autofahrer. Als Kopf der Critical Mass ist es vorteilhaft (je nach Laune und Situation) zu kooperieren und die gewünschte Route der Polizei mitzuteilen.";
 
 /* No comment provided by engineer. */
 "settings.about" = "About";
