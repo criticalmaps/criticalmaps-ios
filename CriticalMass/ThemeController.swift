@@ -63,6 +63,11 @@ class ThemeController {
         ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
         NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
         
+        // NavigationOverlayItems
+        UIView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.backgroundColor
+        UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor = theme.titleTextColor
+        UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).setTitleColor(theme.titleTextColor.withAlphaComponent(0.5), for: .highlighted)
+        
         UIApplication.shared.refreshAppearance(animated: false)
     }
 }
