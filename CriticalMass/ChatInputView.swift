@@ -22,6 +22,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .send
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return textField
     }()
 
@@ -31,7 +32,10 @@ class ChatInputView: UIView, UITextFieldDelegate {
         button.setTitle(NSLocalizedString("chat.send", comment: ""), for: .normal)
         button.setTitleColor(.chatInputSendButton, for: .normal)
         button.setTitleColor(UIColor.chatInputSendButton.withAlphaComponent(0.4), for: .highlighted)
+        button.setTitleColor(UIColor.chatInputSendButton.withAlphaComponent(0.4), for: .disabled)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
 
@@ -59,7 +63,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         addSubview(separator)
 
         textField.delegate = self
-        button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
+        
         configureConstraints()
     }
 
@@ -99,7 +103,13 @@ class ChatInputView: UIView, UITextFieldDelegate {
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
-
+    
+    @objc
+    func textFieldDidChange(_ textField : UITextField){
+        if let text = textField.text {
+            button.isEnabled = !text.isEmpty
+        }
+    }
     // MARK: UITextFieldDelegate
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
