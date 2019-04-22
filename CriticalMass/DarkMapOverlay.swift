@@ -9,6 +9,12 @@
 import MapKit
 
 class DarkModeMapOverlay: MKTileOverlay {
+    
+    init() {
+        super.init(urlTemplate: nil)
+        canReplaceMapContent = true
+    }
+    
     override func url(forTilePath path: MKTileOverlayPath) -> URL {
         let tileUrl = "https://a.basemaps.cartocdn.com/dark_all/\(path.z)/\(path.x)/\(path.y).png"
         return URL(string: tileUrl)!
