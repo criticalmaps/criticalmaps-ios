@@ -50,7 +50,15 @@ class ThemeController {
         UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
+        // Custom Views
+        SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
+        SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
+        RuleTableViewCell.appearance().ruleTextColor = theme.titleTextColor
+        RuleDetailTextView.appearance().ruleDetailTextColor = theme.titleTextColor
+        TweetTableViewCell.appearance().dateLabelTextColor = theme.titleTextColor
+        TweetTableViewCell.appearance().handleLabelTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
+        ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
         NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
         
         UIApplication.shared.refreshAppearance(animated: false)
