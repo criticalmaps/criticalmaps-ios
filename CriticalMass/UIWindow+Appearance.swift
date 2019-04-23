@@ -9,8 +9,8 @@
 import UIKit
 
 extension NSNotification.Name {
-    static let SwiftyAppearanceWillRefreshWindow = NSNotification.Name(rawValue: "SwiftyAppearanceWillRefreshWindowNotification")
-    static let SwiftyAppearanceDidRefreshWindow = NSNotification.Name(rawValue: "SwiftyAppearanceDidRefreshWindowNotification")
+    static let CMAppearanceWillRefreshWindow = NSNotification.Name(rawValue: "CMAppearanceWillRefreshWindowNotification")
+    static let CMAppearanceDidRefreshWindow = NSNotification.Name(rawValue: "CMAppearanceDidRefreshWindowNotification")
 }
 
 extension UIWindow {
@@ -29,11 +29,11 @@ extension UIWindow {
     ///
     /// - Parameter animated: if the refresh should be animated
     func refreshAppearance(animated: Bool) {
-        NotificationCenter.default.post(name: .SwiftyAppearanceWillRefreshWindow, object: self)
+        NotificationCenter.default.post(name: .CMAppearanceWillRefreshWindow, object: self)
         UIView.animate(withDuration: animated ? 0.25 : 0, animations: {
             self._refreshAppearance()
         }, completion: { _ in
-            NotificationCenter.default.post(name: .SwiftyAppearanceDidRefreshWindow, object: self)
+            NotificationCenter.default.post(name: .CMAppearanceDidRefreshWindow, object: self)
         })
     }
 }

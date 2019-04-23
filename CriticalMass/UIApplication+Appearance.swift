@@ -9,8 +9,8 @@
 import UIKit
 
 extension NSNotification.Name {
-    static let SwiftyAppearanceWillRefreshApplication = NSNotification.Name(rawValue: "SwiftyAppearanceWillRefreshApplicationNotification")
-    static let SwiftyAppearanceDidRefreshApplication = NSNotification.Name(rawValue: "SwiftyAppearanceDidRefreshApplicationNotification")
+    static let CMAppearanceWillRefreshApplication = NSNotification.Name(rawValue: "CMAppearanceWillRefreshApplicationNotification")
+    static let CMAppearanceDidRefreshApplication = NSNotification.Name(rawValue: "CMAppearanceDidRefreshApplicationNotification")
 }
 
 extension UIApplication {
@@ -25,11 +25,11 @@ extension UIApplication {
     ///
     /// - Parameter animated: if the refresh should be animated
     func refreshAppearance(animated: Bool) {
-        NotificationCenter.default.post(name: .SwiftyAppearanceWillRefreshApplication, object: self)
+        NotificationCenter.default.post(name: .CMAppearanceWillRefreshApplication, object: self)
         UIView.animate(withDuration: animated ? 0.25 : 0, animations: {
             self._refreshAppearance(animated: animated)
         }, completion: { _ in
-            NotificationCenter.default.post(name: .SwiftyAppearanceDidRefreshApplication, object: self)
+            NotificationCenter.default.post(name: .CMAppearanceDidRefreshApplication, object: self)
         })
     }
 }
