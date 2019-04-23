@@ -61,9 +61,11 @@ class ThemeController {
         TweetTableViewCell.appearance().handleLabelTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
-        
+        ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
+        ChatMessageTableViewCell.appearance().chatTextTextColor = theme.titleTextColor
+
         UIRefreshControl.appearance().tintColor = theme.refreshControlColor
-        
+
         UITextView.appearance().textColor = theme.titleTextColor
         // UILabel
         UITableView.appearance().tintColor = theme.titleTextColor

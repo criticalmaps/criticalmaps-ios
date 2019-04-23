@@ -8,6 +8,20 @@
 import UIKit
 
 class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
+    @objc
+    dynamic var timeLabelTextColor: UIColor? {
+        willSet {
+            timeLabel.textColor = newValue
+        }
+    }
+
+    @objc
+    dynamic var chatTextTextColor: UIColor? {
+        willSet {
+            chatTextView.textColor = newValue
+        }
+    }
+
     @IBOutlet private var timeLabel: UILabel!
     @IBOutlet private var chatTextView: UITextView! {
         didSet {
