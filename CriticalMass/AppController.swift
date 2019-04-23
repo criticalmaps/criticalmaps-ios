@@ -73,7 +73,7 @@ class AppController {
             .init(representation: NavigationOverlayItem.Representation(button:kniggeButton),
                   action: .navigation(viewController: getRulesViewController)),
             .init(representation: NavigationOverlayItem.Representation(button: settingsButton),
-                  action: .navigation(viewController: getSettingsViewController)),
+                  action: .navigation(viewController: getSettingsViewController))
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)
