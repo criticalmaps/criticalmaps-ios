@@ -56,10 +56,11 @@ class ThemeController {
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
         RuleTableViewCell.appearance().ruleTextColor = theme.titleTextColor
         RuleDetailTextView.appearance().ruleDetailTextColor = theme.titleTextColor
-        TweetTableViewCell.appearance().dateLabelTextColor = theme.titleTextColor
+        TweetTableViewCell.appearance().dateLabelTextColor = theme.secondaryTitleTextColor
         TweetTableViewCell.appearance().handleLabelTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
+        UITextView.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.secondaryTitleTextColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
         ChatMessageTableViewCell.appearance().chatTextTextColor = theme.titleTextColor
         SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
