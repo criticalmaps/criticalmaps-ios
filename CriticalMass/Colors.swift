@@ -56,10 +56,6 @@ extension UIColor {
         return UIColor(red: 144 / 255.0, green: 147 / 255.0, blue: 153 / 255.0, alpha: 1)
     }
 
-    static var gray400: UIColor {
-        return UIColor(red: 144 / 255.0, green: 147 / 255.0, blue: 153 / 255.0, alpha: 1)
-    }
-
     static var twitterText: UIColor {
         return UIColor(red: 69 / 255.0, green: 71 / 255.0, blue: 77 / 255.0, alpha: 1)
     }
@@ -68,8 +64,24 @@ extension UIColor {
         return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 38 / 255.0, alpha: 1)
     }
 
+    static var gray100: UIColor {
+        return UIColor(white: 26.0 / 255.0, alpha: 1.0)
+    }
+
     static var gray200: UIColor {
         return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 38 / 255.0, alpha: 1)
+    }
+
+    static var gray300: UIColor {
+        return UIColor(red: 69.0 / 255.0, green: 71.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
+    }
+
+    static var gray400: UIColor {
+        return UIColor(red: 144 / 255.0, green: 147 / 255.0, blue: 153 / 255.0, alpha: 1)
+    }
+
+    static var gray500: UIColor {
+        return UIColor(red: 218.0 / 255.0, green: 220.0 / 255.0, blue: 224.0 / 255.0, alpha: 1.0)
     }
 
     static var settingsForeground: UIColor {
@@ -95,7 +107,7 @@ extension UIColor {
     static var socialTabControlTintColor: UIColor {
         return .black
     }
-    
+
     static var yellow100: UIColor {
         return UIColor(red: 1.0, green: 214.0 / 255.0, blue: 51.0 / 255.0, alpha: 1.0)
     }
