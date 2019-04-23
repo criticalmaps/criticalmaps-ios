@@ -63,6 +63,8 @@ class ThemeController {
         ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
         ChatMessageTableViewCell.appearance().chatTextTextColor = theme.titleTextColor
+        SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
+        SeperatorView.appearance(whenContainedInInstancesOf: [ChatInputView.self]).backgroundColor = theme.navigationOverlaySeperatorColor
 
         UIRefreshControl.appearance().tintColor = theme.refreshControlColor
 

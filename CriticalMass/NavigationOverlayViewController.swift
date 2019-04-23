@@ -7,6 +7,8 @@
 
 import UIKit
 
+class SeperatorView: UIView {}
+
 struct NavigationOverlayItem {
     enum Action {
         case navigation(viewController: () -> UIViewController)
@@ -22,17 +24,16 @@ struct NavigationOverlayItem {
 }
 
 class NavigationOverlayViewController: UIViewController {
-    
     // UIAppearance
     @objc dynamic var backgroundColor: UIColor? {
         didSet {
-            self.view.backgroundColor = backgroundColor
+            view.backgroundColor = backgroundColor
         }
     }
-    
+
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
-    private var separatorViews: [UIView] = []
+    private var separatorViews: [SeperatorView] = []
 
     init(navigationItems: [NavigationOverlayItem]) {
         items = navigationItems
@@ -66,7 +67,7 @@ class NavigationOverlayViewController: UIViewController {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-        
+
         view.layer.cornerRadius = 18
         view.layer.masksToBounds = true
     }
@@ -83,8 +84,7 @@ class NavigationOverlayViewController: UIViewController {
 
         separatorViews = (0 ..< items.count - 1)
             .map { _ in
-                let view = UIView()
-                view.backgroundColor = .navigationOverlaySeparator
+                let view = SeperatorView()
                 return view
             }
         separatorViews.forEach(view.addSubview)
