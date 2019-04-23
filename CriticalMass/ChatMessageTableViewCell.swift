@@ -38,10 +38,7 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
     }
 
     func setup(for message: ChatMessage) {
-        let date = Date(timeIntervalSince1970: message.timestamp)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        timeLabel?.text = formatter.string(from: date)
+        timeLabel?.text = FormatDisplay.hoursAndMinutesDateString(from: message)
         chatTextView?.text = message.decodedMessage
     }
 }
