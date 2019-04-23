@@ -37,7 +37,7 @@ class RulesViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         configureNavigationBar()
         registerCell()
-        
+
         // remove empty cells
         tableView.tableFooterView = UIView()
     }

@@ -8,26 +8,27 @@
 import UIKit
 
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
-    
     @objc
     dynamic var handleLabelTextColor: UIColor? {
         didSet {
             handleLabel.textColor = handleLabelTextColor
         }
     }
+
     @objc
     dynamic var dateLabelTextColor: UIColor? {
         didSet {
             dateLabel.textColor = dateLabelTextColor
         }
     }
+
     @objc
     dynamic var linkTintColor: UIColor? {
         didSet {
             tweetTextView.tintColor = linkTintColor
         }
     }
-    
+
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var tweetTextView: UITextView! {
         didSet {
@@ -41,12 +42,12 @@ class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
     private func attributedUserNameString(for tweet: Tweet) -> NSAttributedString {
         let boldFont = UIFont(descriptor: textLabel!.font.fontDescriptor.withSymbolicTraits(.traitBold)!, size: 0)
         let usernameString = NSMutableAttributedString(string: tweet.user.name, attributes: [
-            .font: boldFont
+            .font: boldFont,
         ])
         usernameString.append(NSAttributedString(string: " @\(tweet.user.screen_name)", attributes: [:]))
         return usernameString
     }
-    
+
     func setup(for tweet: Tweet) {
         dateLabel.text = FormatDisplay.dateString(for: tweet)
         tweetTextView.text = tweet.text

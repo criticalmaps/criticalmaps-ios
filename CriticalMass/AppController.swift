@@ -18,7 +18,7 @@ class AppController {
     }()
 
     private let themeController = ThemeController()
-    
+
     private lazy var chatManager: ChatManager = {
         ChatManager(requestManager: requestManager)
     }()
@@ -53,7 +53,7 @@ class AppController {
 
     lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController()
-        
+
         let kniggeButton: UIButton = {
             let button = UIButton(type: .system)
             button.setImage(UIImage(named: "Knigge"), for: .normal)
@@ -64,16 +64,16 @@ class AppController {
             button.setImage(UIImage(named: "Settings"), for: .normal)
             return button
         }()
-        
+
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: NavigationOverlayItem.Representation(button: rootViewController.followMeButton),
                   action: .none),
             .init(representation: NavigationOverlayItem.Representation(button: chatNavigationButtonController.button),
                   action: .navigation(viewController: getSocialViewController)),
-            .init(representation: NavigationOverlayItem.Representation(button:kniggeButton),
+            .init(representation: NavigationOverlayItem.Representation(button: kniggeButton),
                   action: .navigation(viewController: getRulesViewController)),
             .init(representation: NavigationOverlayItem.Representation(button: settingsButton),
-                  action: .navigation(viewController: getSettingsViewController))
+                  action: .navigation(viewController: getSettingsViewController)),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

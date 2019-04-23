@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         UISearchBar.appearance() // ??
-        
+
         ThemeController().applyTheme()
 
         Appirater.appLaunched(true)
@@ -46,6 +46,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_: UIApplication) {
         Appirater.appEnteredForeground(true)
     }
-    
-    
 }

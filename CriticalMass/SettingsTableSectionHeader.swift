@@ -9,5 +9,5 @@
 import UIKit
 
 class SettingsTableSectionHeader: UITableViewHeaderFooterView, NibProviding {
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
 }

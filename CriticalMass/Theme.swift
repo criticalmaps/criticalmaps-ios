@@ -11,7 +11,7 @@ import Foundation
 enum Theme: Int {
     case light
     case dark
-    
+
     var style: ThemeDefining {
         switch self {
         case .light:
@@ -21,5 +21,3 @@ enum Theme: Int {
         }
     }
 }
-
-

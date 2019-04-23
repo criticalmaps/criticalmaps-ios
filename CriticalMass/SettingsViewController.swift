@@ -8,18 +8,17 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-
     private let themeController: ThemeController!
-    
+
     init(themeController: ThemeController) {
         self.themeController = themeController
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +30,7 @@ class SettingsViewController: UITableViewController {
 
         configureSettingsFooter()
         configureNavigationBar()
-        
+
         tableView.register(SettingsTableSectionHeader.nib, forHeaderFooterViewReuseIdentifier: SettingsTableSectionHeader.typeName)
     }
 
@@ -56,12 +55,13 @@ class SettingsViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
     }
-    
+
     // MARK: Actions
+
     @IBAction func gpsCellAction(_ sender: UISwitch) {
         Preferences.gpsEnabled = sender.isOn
     }
-    
+
     @IBAction func darkModeCellAction(_ sender: UISwitch) {
         let theme: Theme = sender.isOn ? .dark : .light
         themeController.changeTheme(to: theme)
@@ -72,14 +72,14 @@ class SettingsViewController: UITableViewController {
         return Section.allCases.count
     }
 
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsTableSectionHeader.typeName)
+    override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsTableSectionHeader.typeName)
         let header = cell as! SettingsTableSectionHeader
         header.titleLabel.text = Section.allCases[section].secionTitle
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+    override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section == Section.info.index else {
             return 0.0
         }
@@ -93,8 +93,8 @@ class SettingsViewController: UITableViewController {
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
         let cell = settingsCell(for: section, at: indexPath)
         cell.textLabel?.text = section.models[indexPath.row].title
@@ -121,7 +121,6 @@ class SettingsViewController: UITableViewController {
 }
 
 extension SettingsViewController {
-    
     fileprivate func settingsCell(for section: Section, at indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         switch section {
@@ -136,7 +135,7 @@ extension SettingsViewController {
             guard let gpsSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
                 fatalError("Should be a SettingsSwitchCell")
             }
-            let isDarkModeEnabled = ThemeController().currentTheme == .dark ? true: false
+            let isDarkModeEnabled = ThemeController().currentTheme == .dark ? true : false
             gpsSwitchCell.configure(isOn: isDarkModeEnabled, selector: #selector(SettingsViewController.darkModeCellAction(_:)))
             cell = gpsSwitchCell
         default:

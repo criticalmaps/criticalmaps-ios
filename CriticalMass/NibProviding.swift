@@ -17,6 +17,7 @@ extension NibProviding where Self: NSObject {
     static var typeName: String {
         return String(describing: Self.self)
     }
+
     static var nib: UINib {
         let nib = UINib(nibName: typeName, bundle: nil)
         return nib

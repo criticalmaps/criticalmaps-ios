@@ -14,7 +14,6 @@ extension NSNotification.Name {
 }
 
 extension UIWindow {
-
     @nonobjc private func _refreshAppearance() {
         let constraints = self.constraints
         removeConstraints(constraints)

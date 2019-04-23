@@ -14,14 +14,13 @@ protocol ThemeStorable {
 }
 
 class ThemeSelectionStore: ThemeStorable {
-    
     private let defaultsKey = "theme"
     private let defaults: UserDefaults
-    
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
-    
+
     /// Save Theme to UserDefaults
     ///
     /// - Parameter themeSelection: The Theme that will be saved.
@@ -29,7 +28,7 @@ class ThemeSelectionStore: ThemeStorable {
         defaults.set(themeSelection.rawValue, forKey: defaultsKey)
         defaults.synchronize()
     }
-    
+
     /// Fetches saved theme from the UserDefaults
     ///
     /// - Returns: Saved Theme from a previous session.

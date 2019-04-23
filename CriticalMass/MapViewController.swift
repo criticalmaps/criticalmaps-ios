@@ -11,7 +11,7 @@ import UIKit
 class MapViewController: UIViewController {
     class IdentifiableAnnnotation: MKPointAnnotation {
         var identifier: String
-        
+
         var location: Location {
             set {
                 coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
@@ -21,28 +21,32 @@ class MapViewController: UIViewController {
                 fatalError("Not implemented")
             }
         }
-        
+
         init(location: Location, identifier: String) {
             self.identifier = identifier
             super.init()
             self.location = location
         }
     }
-    
+
     // MARK: Properties
+
     private let nightThemeOverlay = DarkModeMapOverlay()
     public lazy var followMeButton: UserTrackingButton = {
         let button = UserTrackingButton(mapView: mapView)
         return button
     }()
+
     public var bottomContentOffset: CGFloat = 0 {
         didSet {
             mapView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomContentOffset, right: 0)
         }
     }
+
     private var mapView: MKMapView {
         return view as! MKMapView
     }
+
     private let gpsDisabledOverlayView: UIVisualEffectView = {
         let view = UIVisualEffectView()
         view.accessibilityViewIsModal = true
@@ -57,45 +61,46 @@ class MapViewController: UIViewController {
         label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
         return view
     }()
+
     private var tileRenderer: MKTileOverlayRenderer?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = NSLocalizedString("map.title", comment: "")
         configureNotifications()
         configureTileRenderer()
         configureMapView()
         condfigureGPSDisabledOverlayView()
     }
-    
+
     override func loadView() {
         view = MKMapView(frame: .zero)
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.themeDidChange, object: nil)
     }
-    
+
     private func configureTileRenderer() {
         tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
-        self.mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
+        mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
     }
-    
+
     private func condfigureGPSDisabledOverlayView() {
         view.addSubview(gpsDisabledOverlayView)
         gpsDisabledOverlayView.frame = view.bounds
         gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         updateGPSDisabledOverlayVisibility()
     }
-    
+
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: NSNotification.Name("initialGpsDataReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: NSNotification.Name("gpsStateChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.themeDidChange, object: nil)
     }
-    
+
     private func configureMapView() {
         if #available(iOS 11.0, *) {
             mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.identifier)
@@ -104,7 +109,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.showsUserLocation = true
     }
-    
+
     private func display(locations: [String: Location]) {
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
@@ -119,17 +124,18 @@ class MapViewController: UIViewController {
         }
         let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
         mapView.addAnnotations(annotations)
-        
+
         // remove annotations that no longer exist
         mapView.removeAnnotations(unmatchedAnnotations)
     }
-    
+
     @objc func updateGPSDisabledOverlayVisibility() {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
     }
-    
+
     // MARK: Notifications
-    @objc private func themeDidChange(notification: Notification) {
+
+    @objc private func themeDidChange() {
         let theme = ThemeController().currentTheme
         guard theme == .dark else {
             tileRenderer = nil
@@ -138,12 +144,12 @@ class MapViewController: UIViewController {
         }
         configureTileRenderer()
     }
-    
+
     @objc private func positionsDidChange(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
         display(locations: response.locations)
     }
-    
+
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: 10000, longitudinalMeters: 10000)
@@ -154,6 +160,7 @@ class MapViewController: UIViewController {
 
 extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKUserLocation == false else {
             return nil
@@ -166,12 +173,12 @@ extension MapViewController: MKMapViewDelegate {
             return annotationView
         }
     }
-    
+
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
         followMeButton.currentMode = UserTrackingButton.Mode(mode)
     }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+
+    func mapView(_: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let renderer = self.tileRenderer else {
             return MKOverlayRenderer(overlay: overlay)
         }

@@ -10,26 +10,25 @@ import Foundation
 import UIKit
 
 class ThemeController {
-    
     private(set) lazy var currentTheme = loadTheme()
     private let store: ThemeStorable
-    
+
     init(store: ThemeStorable = ThemeSelectionStore()) {
         self.store = store
     }
-    
+
     func changeTheme(to theme: Theme) {
         currentTheme = theme
         store.save(currentTheme)
     }
-    
+
     private func loadTheme() -> Theme {
         guard let theme = store.load() else {
             return .light
         }
         return theme
     }
-    
+
     func applyTheme() {
         let theme = currentTheme.style
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
@@ -76,12 +75,12 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor // Settings: SectionHeader
         NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
-        
+
         // NavigationOverlayItems
         UIView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.backgroundColor
         UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor = theme.titleTextColor
         UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).setTitleColor(theme.titleTextColor.withAlphaComponent(0.5), for: .highlighted)
-        
+
         UIApplication.shared.refreshAppearance(animated: false)
     }
 }

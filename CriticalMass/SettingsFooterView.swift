@@ -9,18 +9,18 @@
 import UIKit
 
 class SettingsFooterView: UITableViewHeaderFooterView, NibInstantiatable {
-
     /// UIAppearance compatible property
     @objc
     dynamic var versionTextColor: UIColor? { // UI_APPEARANCE_SELECTOR
         didSet { versionNumberLabel.textColor = versionTextColor }
     }
+
     @objc
     dynamic var buildTextColor: UIColor? { // UI_APPEARANCE_SELECTOR
         didSet { buildNumberLabel.textColor = buildTextColor }
     }
-    
-    @IBOutlet weak var versionNumberLabel: UILabel!
-    @IBOutlet weak var buildNumberLabel: UILabel!
-    @IBOutlet private weak var cmLogoImageView: UIImageView!
+
+    @IBOutlet var versionNumberLabel: UILabel!
+    @IBOutlet var buildNumberLabel: UILabel!
+    @IBOutlet private var cmLogoImageView: UIImageView!
 }

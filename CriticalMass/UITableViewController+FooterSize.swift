@@ -9,7 +9,6 @@
 import UIKit
 
 extension UITableViewController {
-    
     func sizeFooterToFit() {
         guard let footerView = tableView.tableFooterView else {
             return

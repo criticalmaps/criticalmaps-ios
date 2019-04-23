@@ -14,13 +14,12 @@ extension NSNotification.Name {
 }
 
 extension UIApplication {
-    
     @nonobjc private func _refreshAppearance(animated: Bool) {
         for window in windows {
             window.refreshAppearance(animated: animated)
         }
     }
-    
+
     /// Refreshes appearance for all windows in the application
     ///
     /// - Parameter animated: if the refresh should be animated

@@ -8,11 +8,10 @@
 import UIKit
 
 class RuleDetailTextView: UITextView {
-    
     @objc
     dynamic var ruleDetailTextColor: UIColor? {
         didSet {
-            self.textColor = ruleDetailTextColor
+            textColor = ruleDetailTextColor
         }
     }
 }

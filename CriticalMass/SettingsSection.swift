@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Hashable where Self : CaseIterable {
+extension Hashable where Self: CaseIterable {
     var index: Self.AllCases.Index {
         return type(of: self).allCases.firstIndex(of: self)!
     }
@@ -19,16 +19,16 @@ enum Section: Int, CaseIterable {
     case darkMode
     case github
     case info
-    
+
     struct Model {
         var title: String?
         var action: Action
     }
-    
+
     var numberOfRows: Int {
         return models.count
     }
-    
+
     var secionTitle: String? {
         switch self {
         case .gps,
@@ -39,7 +39,7 @@ enum Section: Int, CaseIterable {
             return NSLocalizedString("settings.section.info", comment: "")
         }
     }
-    
+
     var cellClass: UITableViewCell.Type {
         switch self {
         case .gps:
@@ -52,7 +52,7 @@ enum Section: Int, CaseIterable {
             return SettingsInfoTableViewCell.self
         }
     }
-    
+
     var models: [Model] {
         switch self {
         case .gps:
@@ -67,7 +67,7 @@ enum Section: Int, CaseIterable {
                     Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!))]
         }
     }
-    
+
     enum Action {
         case open(url: URL)
         case none

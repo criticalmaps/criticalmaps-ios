@@ -6,23 +6,22 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-import XCTest
 @testable import CriticalMaps
+import XCTest
 
 class ThemeControllerTests: XCTestCase {
-    
     var sut: ThemeController!
-    
+
     override func setUp() {
         super.setUp()
         sut = ThemeController(store: MockThemeStore())
     }
-    
+
     override func tearDown() {
         sut = nil
         super.tearDown()
     }
-    
+
     func testChangingTheme() {
         // given
         let theme = Theme.dark
@@ -31,14 +30,14 @@ class ThemeControllerTests: XCTestCase {
         // then
         XCTAssertEqual(sut.currentTheme, .dark)
     }
-    
+
     func testControllerShouldReturnLightThemeWhenLoadForTheFirstTime() {
         // when
         let theme = sut.currentTheme
         // then
         XCTAssertEqual(theme, sut.currentTheme)
     }
-    
+
     func testControllerShouldApplyDarkThemeWhenItWasSet() {
         // given
         let theme: Theme = .dark

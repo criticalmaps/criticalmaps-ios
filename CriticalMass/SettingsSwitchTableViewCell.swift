@@ -12,7 +12,6 @@ protocol SettingsSwitchCellConfigurable {
 }
 
 class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable, NibProviding {
-    
     private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
 
@@ -24,7 +23,7 @@ class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurab
         switchControl.isOn = isOn
         switchControl.addTarget(nil, action: selector, for: .valueChanged)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         accessoryView = switchControl
