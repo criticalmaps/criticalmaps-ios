@@ -132,12 +132,12 @@ extension SettingsViewController {
             gpsSwitchCell.configure(isOn: isGPSEnabled, selector: #selector(SettingsViewController.gpsCellAction(_:)))
             cell = gpsSwitchCell
         case .darkMode:
-            guard let gpsSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
+            guard let nightModeSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
                 fatalError("Should be a SettingsSwitchCell")
             }
-            let isDarkModeEnabled = ThemeController().currentTheme == .dark ? true : false
-            gpsSwitchCell.configure(isOn: isDarkModeEnabled, selector: #selector(SettingsViewController.darkModeCellAction(_:)))
-            cell = gpsSwitchCell
+            let isDarkModeEnabled = themeController.currentTheme == .dark ? true : false
+            nightModeSwitchCell.configure(isOn: isDarkModeEnabled, selector: #selector(SettingsViewController.darkModeCellAction(_:)))
+            cell = nightModeSwitchCell
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
         }
