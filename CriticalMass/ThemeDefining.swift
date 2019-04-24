@@ -59,7 +59,7 @@ struct LightTheme: ThemeDefining {
     }
 
     var secondaryTitleTextColor: UIColor {
-        return .gray300
+        return .gray500
     }
 
     var switchTintColor: UIColor {
@@ -71,7 +71,7 @@ struct LightTheme: ThemeDefining {
     }
 
     var chatMessageInputTextViewBackgroundColor: UIColor {
-        return .gray300
+        return .gray100
     }
 
     var navigationOverlaySeperatorColor: UIColor {

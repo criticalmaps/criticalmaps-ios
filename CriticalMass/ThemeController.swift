@@ -59,8 +59,11 @@ class ThemeController {
         TweetTableViewCell.appearance().dateLabelTextColor = theme.secondaryTitleTextColor
         TweetTableViewCell.appearance().handleLabelTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
-        ChatInputView.appearance().chatInputBackgroundColor = theme.backgroundColor
         UITextView.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.secondaryTitleTextColor
+        ChatInputView.appearance().backgroundColor = theme.backgroundColor
+        ChatInputView.appearance().textViewTextColor = theme.titleTextColor
+        ChatInputView.appearance().sendMessageButtonColor = theme.titleTextColor
+        TextFieldWithInsets.appearance().textFieldBackgroundColor = theme.chatMessageInputTextViewBackgroundColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
         ChatMessageTableViewCell.appearance().chatTextTextColor = theme.titleTextColor
         SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
