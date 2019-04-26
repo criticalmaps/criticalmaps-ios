@@ -21,9 +21,9 @@ class RuleTests: XCTestCase {
         }
     }
 
-    func testExistingArtwork() {
-        Rule.allCases.forEach { rule in
-            XCTAssertNotNil(rule.artwork)
-        }
-    }
+//    func testExistingArtwork() {
+//        Rule.allCases.forEach { rule in
+//            XCTAssertNotNil(rule.artwork)
+//        }
+//    }
 }
