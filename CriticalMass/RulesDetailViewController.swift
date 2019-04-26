@@ -31,16 +31,18 @@ class RulesDetailViewController: UIViewController {
         let textView = UITextView(frame: view.bounds)
         textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
 
-        let artworkAttachment = NSTextAttachment()
-        let artWork = rule.artwork
-        artworkAttachment.image = artWork
-        let ratio = (artWork?.size.height ?? 1) / (artWork?.size.width ?? 1)
-        let artworkPadding = textView.contentInset.left + textView.contentInset.right + textView.textContainer.lineFragmentPadding
-        let artworkWidth = view.bounds.width - artworkPadding
-        artworkAttachment.bounds.size = CGSize(width: artworkWidth, height: artworkWidth * ratio)
-
         let attributedString = NSMutableAttributedString()
-        attributedString.append(NSAttributedString(attachment: artworkAttachment))
+
+        if let artWork = rule.artwork {
+            let artworkAttachment = NSTextAttachment()
+            artworkAttachment.image = artWork
+            let ratio = artWork.size.height / artWork.size.width
+            let artworkPadding = textView.contentInset.left + textView.contentInset.right + textView.textContainer.lineFragmentPadding
+            let artworkWidth = view.bounds.width - artworkPadding
+            artworkAttachment.bounds.size = CGSize(width: artworkWidth, height: artworkWidth * ratio)
+            attributedString.append(NSAttributedString(attachment: artworkAttachment))
+        }
+
         attributedString.append(NSAttributedString(string: rule.text))
 
         textView.attributedText = attributedString
