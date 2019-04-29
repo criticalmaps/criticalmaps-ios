@@ -13,5 +13,9 @@ class RuleTableViewCell: UITableViewCell, NibProviding {
         didSet { label.textColor = ruleTextColor }
     }
 
-    @IBOutlet var label: UILabel!
+    @IBOutlet var label: UILabel! {
+        didSet {
+            label.adjustsFontForContentSizeCategory = true
+        }
+    }
 }

@@ -67,8 +67,6 @@ class RulesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RuleTableViewCell.typeName) as! RuleTableViewCell
         cell.label?.text = rules[indexPath.row].title
-        cell.label.adjustsFontForContentSizeCategory = true
-        cell.label?.textColor = .rulesOverViewCell
         return cell
     }
 
