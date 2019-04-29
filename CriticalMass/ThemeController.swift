@@ -40,6 +40,12 @@ class ThemeController {
         UIBarButtonItem.appearance().tintColor = theme.titleTextColor
         // UITableView
         UITableViewCell.appearance().backgroundColor = theme.backgroundColor
+        let cellSelectedBackgroundView: UIView = {
+            let view = UIView()
+            view.backgroundColor = theme.cellSelectedBackgroundViewColor
+            return view
+        }()
+        UITableViewCell.appearance().selectedBackgroundView = cellSelectedBackgroundView
         // UIScrollView
         UIScrollView.appearance().backgroundColor = theme.backgroundColor
         // UITableViewHeaderFooterView

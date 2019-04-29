@@ -23,6 +23,7 @@ protocol ThemeDefining {
     var refreshControlColor: UIColor { get }
     var chatMessageInputTextViewBackgroundColor: UIColor { get }
     var navigationOverlaySeperatorColor: UIColor { get }
+    var cellSelectedBackgroundViewColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -77,6 +78,10 @@ struct LightTheme: ThemeDefining {
     var navigationOverlaySeperatorColor: UIColor {
         return UIColor(red: 0.86, green: 0.88, blue: 0.85, alpha: 1.00)
     }
+
+    var cellSelectedBackgroundViewColor: UIColor {
+        return .gray500
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -130,5 +135,9 @@ struct DarkTheme: ThemeDefining {
 
     var navigationOverlaySeperatorColor: UIColor {
         return UIColor(red: 0.22, green: 0.22, blue: 0.22, alpha: 1.00)
+    }
+
+    var cellSelectedBackgroundViewColor: UIColor {
+        return .gray300
     }
 }
