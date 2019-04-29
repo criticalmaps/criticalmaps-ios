@@ -77,7 +77,7 @@ class ThemeController {
         SeperatorView.appearance(whenContainedInInstancesOf: [ChatInputView.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
 
-        UIRefreshControl.appearance().tintColor = theme.refreshControlColor
+        UIRefreshControl.appearance().tintColor = theme.titleTextColor
 
         UITextView.appearance().textColor = theme.titleTextColor
         // UILabel
