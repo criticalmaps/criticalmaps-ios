@@ -12,12 +12,12 @@ class SettingsFooterView: UITableViewHeaderFooterView, NibInstantiatable {
     /// UIAppearance compatible property
     @objc
     dynamic var versionTextColor: UIColor? { // UI_APPEARANCE_SELECTOR
-        didSet { versionNumberLabel.textColor = versionTextColor }
+        willSet { versionNumberLabel.textColor = newValue }
     }
 
     @objc
     dynamic var buildTextColor: UIColor? { // UI_APPEARANCE_SELECTOR
-        didSet { buildNumberLabel.textColor = buildTextColor }
+        willSet { buildNumberLabel.textColor = newValue }
     }
 
     @IBOutlet var versionNumberLabel: UILabel!

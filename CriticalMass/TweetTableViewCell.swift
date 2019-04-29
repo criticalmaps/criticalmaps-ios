@@ -10,22 +10,22 @@ import UIKit
 class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
     @objc
     dynamic var handleLabelTextColor: UIColor? {
-        didSet {
-            handleLabel.textColor = handleLabelTextColor
+        willSet {
+            handleLabel.textColor = newValue
         }
     }
 
     @objc
     dynamic var dateLabelTextColor: UIColor? {
-        didSet {
-            dateLabel.textColor = dateLabelTextColor
+        willSet {
+            dateLabel.textColor = newValue
         }
     }
 
     @objc
     dynamic var linkTintColor: UIColor? {
-        didSet {
-            tweetTextView.tintColor = linkTintColor
+        willSet {
+            tweetTextView.tintColor = newValue
         }
     }
 
