@@ -36,6 +36,7 @@ class ThemeController {
         // NavigationBar
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = theme.titleTextColor
+        UINavigationBar.appearance().isTranslucent = theme.navigationBarIsTranslucent
         // UIBarButtonItem
         UIBarButtonItem.appearance().tintColor = theme.titleTextColor
         // UITableView

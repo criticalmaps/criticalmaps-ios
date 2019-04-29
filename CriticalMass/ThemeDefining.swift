@@ -24,6 +24,7 @@ protocol ThemeDefining {
     var chatMessageInputTextViewBackgroundColor: UIColor { get }
     var navigationOverlaySeperatorColor: UIColor { get }
     var cellSelectedBackgroundViewColor: UIColor { get }
+    var navigationBarIsTranslucent: Bool { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -82,6 +83,10 @@ struct LightTheme: ThemeDefining {
     var cellSelectedBackgroundViewColor: UIColor {
         return .gray500
     }
+
+    var navigationBarIsTranslucent: Bool {
+        return true
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -139,5 +144,9 @@ struct DarkTheme: ThemeDefining {
 
     var cellSelectedBackgroundViewColor: UIColor {
         return .gray300
+    }
+
+    var navigationBarIsTranslucent: Bool {
+        return false
     }
 }
