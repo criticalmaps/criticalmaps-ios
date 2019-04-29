@@ -8,6 +8,14 @@
 import UIKit
 
 class ChatNavigationButton: CustomButton {
+    @objc
+    dynamic var unreadMessagesBackgroundColor: UIColor? {
+        willSet {
+            unreadLabel.backgroundColor = newValue
+            unreadLabel.layer.backgroundColor = newValue?.cgColor
+        }
+    }
+
     private let unreadLabel = UILabel()
 
     public var unreadCount: UInt = 0 {
@@ -34,8 +42,6 @@ class ChatNavigationButton: CustomButton {
     }
 
     private func configureUnreadBubble() {
-        unreadLabel.backgroundColor = .red
-        unreadLabel.textColor = .white
         unreadLabel.font = UIFont.systemFont(ofSize: 11, weight: .heavy)
         unreadLabel.layer.cornerRadius = 8
         unreadLabel.layer.masksToBounds = true

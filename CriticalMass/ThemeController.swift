@@ -75,6 +75,7 @@ class ThemeController {
         ChatMessageTableViewCell.appearance().chatTextTextColor = theme.titleTextColor
         SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         SeperatorView.appearance(whenContainedInInstancesOf: [ChatInputView.self]).backgroundColor = theme.navigationOverlaySeperatorColor
+        ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
 
         UIRefreshControl.appearance().tintColor = theme.refreshControlColor
 
@@ -82,6 +83,7 @@ class ThemeController {
         // UILabel
         UITableView.appearance().tintColor = theme.titleTextColor
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
