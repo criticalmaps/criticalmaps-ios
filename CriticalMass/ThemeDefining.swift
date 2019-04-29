@@ -65,7 +65,7 @@ struct LightTheme: ThemeDefining {
     }
 
     var switchTintColor: UIColor {
-        return UIColor(red: 0.30, green: 0.85, blue: 0.39, alpha: 1.00)
+        return .black
     }
 
     var refreshControlColor: UIColor {
