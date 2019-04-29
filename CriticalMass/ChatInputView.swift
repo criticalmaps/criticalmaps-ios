@@ -47,6 +47,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         let textField = TextFieldWithInsets()
         textField.isOpaque = false
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = NSLocalizedString("chat.placeholder", comment: "")
         textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .send

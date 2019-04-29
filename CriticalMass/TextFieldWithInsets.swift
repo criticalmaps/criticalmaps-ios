@@ -7,10 +7,25 @@
 
 import UIKit
 
+/// extension to colorize all subviews except the placeholderView
 private extension UITextField {
     func setEditorBackgroundColor(to color: UIColor?) {
         subviews.forEach { view in
+            if view is UILabel {
+                return
+            }
             view.backgroundColor = color
+        }
+    }
+
+    var placeholderColor: UIColor {
+        get {
+            return attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor ?? .clear
+        }
+        set {
+            guard let attributedPlaceholder = attributedPlaceholder else { return }
+            let attributes: [NSAttributedString.Key: UIColor] = [.foregroundColor: newValue]
+            self.attributedPlaceholder = NSAttributedString(string: attributedPlaceholder.string, attributes: attributes)
         }
     }
 }
@@ -25,6 +40,14 @@ class TextFieldWithInsets: UITextField {
         }
     }
 
+    @objc
+    dynamic var placeholderTextColor: UIColor! {
+        didSet {
+            placeholderColor = placeholderTextColor
+        }
+    }
+
+    // sets the backgroundColor when input begins
     override func becomeFirstResponder() -> Bool {
         let didBecomeFirstResponder = super.becomeFirstResponder()
         if didBecomeFirstResponder {
@@ -33,6 +56,7 @@ class TextFieldWithInsets: UITextField {
         return didBecomeFirstResponder
     }
 
+    // sets the backgroundColor when input ends
     override func resignFirstResponder() -> Bool {
         let canBecomeFirstResponder = super.canBecomeFirstResponder
         if canBecomeFirstResponder {
