@@ -51,7 +51,7 @@ class MapViewController: UIViewController {
         let view = UIVisualEffectView()
         view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
-        let label = UILabel()
+        let label = NoContentMessageLabel()
         label.text = NSLocalizedString("map.layer.info", comment: "")
         label.numberOfLines = 0
         label.textAlignment = .center
