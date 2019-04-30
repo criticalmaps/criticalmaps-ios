@@ -16,7 +16,7 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
     }
 
     @objc
-    dynamic var chatTextTextColor: UIColor? {
+    dynamic var chatTextColor: UIColor? {
         willSet {
             chatTextView.textColor = newValue
         }

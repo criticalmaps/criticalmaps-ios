@@ -73,7 +73,7 @@ class ThemeController {
         TextFieldWithInsets.appearance().textFieldBackgroundColor = theme.chatMessageInputTextViewBackgroundColor
         TextFieldWithInsets.appearance().placeholderTextColor = theme.placeholderTextColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
-        ChatMessageTableViewCell.appearance().chatTextTextColor = theme.titleTextColor
+        ChatMessageTableViewCell.appearance().chatTextColor = theme.titleTextColor
         SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         SeperatorView.appearance(whenContainedInInstancesOf: [ChatInputView.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
