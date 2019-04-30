@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */; };
 		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
+		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
+		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
 		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
 		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
@@ -114,6 +116,8 @@
 		2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMapsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71984CFABC6CBD21874A487C /* Pods-CriticalMapsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91EC6282437633054D179F01 /* libPods-CriticalMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMaps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
+		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
 		9460B76A225A6EB200786E27 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
 		946CDE0322412DA60059F892 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
 		9474E975224CF58100A812DC /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
@@ -408,6 +412,8 @@
 		94CF087E19BDEAF2009FFF43 /* CriticalMassTests */ = {
 			isa = PBXGroup;
 			children = (
+				943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */,
+				943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */,
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
 				9822A15621EE0956007F5994 /* RuleTests.swift */,
 				9822A15521EE0956007F5994 /* CriticalMapsTests-Bridging-Header.h */,
@@ -805,6 +811,8 @@
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
 				982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */,
+				943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */,
+				943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
