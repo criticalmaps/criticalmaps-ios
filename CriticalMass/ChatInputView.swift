@@ -23,7 +23,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
     dynamic var sendMessageButtonColor: UIColor? {
         willSet {
             button.setTitleColor(newValue, for: .normal)
-            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .highlighted)
+            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .disabled)
         }
     }
 
