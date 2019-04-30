@@ -46,6 +46,6 @@ class ThemeControllerTests: XCTestCase {
         sut.applyTheme()
         // then
         let navBarColor = UINavigationBar.appearance().tintColor
-        XCTAssertEqual(navBarColor!, Theme.dark.style.tintColor)
+        XCTAssertEqual(navBarColor!, Theme.dark.style.titleTextColor)
     }
 }
