@@ -134,7 +134,7 @@ class ThemeControllerTests: XCTestCase {
         sut.applyTheme()
         // then
         let barTintColor = UIToolbar.appearance().barTintColor
-        XCTAssertEqual(barTintColor, Theme.dark.style.backgroundColor)
+        XCTAssertEqual(barTintColor, Theme.dark.style.toolBarBackgroundColor)
     }
 
     func testSettingsFooterViewVersionTextColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {

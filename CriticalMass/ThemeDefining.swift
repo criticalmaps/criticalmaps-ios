@@ -22,6 +22,7 @@ protocol ThemeDefining {
     var cellSelectedBackgroundViewColor: UIColor { get }
     var navigationBarIsTranslucent: Bool { get }
     var placeholderTextColor: UIColor { get }
+    var toolBarBackgroundColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -72,6 +73,10 @@ struct LightTheme: ThemeDefining {
     var placeholderTextColor: UIColor {
         return .gray300
     }
+
+    var toolBarBackgroundColor: UIColor {
+        return backgroundColor
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -121,5 +126,9 @@ struct DarkTheme: ThemeDefining {
 
     var placeholderTextColor: UIColor {
         return .gray500
+    }
+
+    var toolBarBackgroundColor: UIColor {
+        return .black
     }
 }

@@ -57,7 +57,7 @@ class ThemeController {
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor // Settings switches
         // UIToolBar
-        UIToolbar.appearance().barTintColor = theme.backgroundColor
+        UIToolbar.appearance().barTintColor = theme.toolBarBackgroundColor
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
