@@ -10,17 +10,13 @@ import Foundation
 import UIKit
 
 protocol ThemeDefining {
-    var name: String { get }
     var tintColor: UIColor { get }
     var barStyle: UIBarStyle { get }
     var keyboardAppearance: UIKeyboardAppearance { get }
     var backgroundColor: UIColor { get }
-    var secondaryBackgroundColor: UIColor { get }
-    var negativeBackgroundColor: UIColor { get }
     var titleTextColor: UIColor { get }
     var secondaryTitleTextColor: UIColor { get }
     var switchTintColor: UIColor { get }
-    var refreshControlColor: UIColor { get }
     var chatMessageInputTextViewBackgroundColor: UIColor { get }
     var navigationOverlaySeperatorColor: UIColor { get }
     var cellSelectedBackgroundViewColor: UIColor { get }
@@ -29,10 +25,6 @@ protocol ThemeDefining {
 }
 
 struct LightTheme: ThemeDefining {
-    var name: String {
-        return NSLocalizedString("settings.theme.light", comment: "")
-    }
-
     var tintColor: UIColor {
         return .blue
     }
@@ -49,14 +41,6 @@ struct LightTheme: ThemeDefining {
         return .white
     }
 
-    var secondaryBackgroundColor: UIColor {
-        return .white
-    }
-
-    var negativeBackgroundColor: UIColor {
-        return .blue
-    }
-
     var titleTextColor: UIColor {
         return .black
     }
@@ -66,10 +50,6 @@ struct LightTheme: ThemeDefining {
     }
 
     var switchTintColor: UIColor {
-        return .black
-    }
-
-    var refreshControlColor: UIColor {
         return .black
     }
 
@@ -95,10 +75,6 @@ struct LightTheme: ThemeDefining {
 }
 
 struct DarkTheme: ThemeDefining {
-    var name: String {
-        return NSLocalizedString("settings.theme.dark", comment: "")
-    }
-
     var tintColor: UIColor {
         return .yellow100
     }
@@ -115,16 +91,8 @@ struct DarkTheme: ThemeDefining {
         return .gray200
     }
 
-    var secondaryBackgroundColor: UIColor {
-        return .black
-    }
-
     var secondaryTitleTextColor: UIColor {
         return .gray500
-    }
-
-    var negativeBackgroundColor: UIColor {
-        return .white
     }
 
     var titleTextColor: UIColor {
@@ -133,10 +101,6 @@ struct DarkTheme: ThemeDefining {
 
     var switchTintColor: UIColor {
         return tintColor
-    }
-
-    var refreshControlColor: UIColor {
-        return .yellow100
     }
 
     var chatMessageInputTextViewBackgroundColor: UIColor {
