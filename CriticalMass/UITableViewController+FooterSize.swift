@@ -17,6 +17,7 @@ extension UITableViewController {
         let footerFrame = footerView.frame
         if height != footerFrame.size.height {
             footerView.frame.size.height = height
+            tableView.tableFooterView = footerView
         }
     }
 }
