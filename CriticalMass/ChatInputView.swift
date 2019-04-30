@@ -24,6 +24,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         willSet {
             button.setTitleColor(newValue, for: .normal)
             button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .disabled)
+            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .highlighted)
         }
     }
 
