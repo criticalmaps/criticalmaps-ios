@@ -74,7 +74,9 @@ public class RequestManager {
     }
 
     public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
-        guard hasActiveRequest == false else { return }
+        let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
+            self.networkLayer.cancelActiveRequestIfNeeded()
+        }
         hasActiveRequest = true
         let body = SendMessagePostBody(device: deviceId, messages: messages)
         guard let bodyData = try? JSONEncoder().encode(body) else {
@@ -84,6 +86,7 @@ public class RequestManager {
         networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData) { response in
             self.defaultCompletion(for: response)
             DispatchQueue.main.async {
+                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
                 completion?(response?.chatMessages)
             }
         }
