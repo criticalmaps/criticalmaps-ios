@@ -77,10 +77,8 @@ public class RequestManager {
         let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
             self.networkLayer.cancelActiveRequestIfNeeded()
         }
-        hasActiveRequest = true
         let body = SendMessagePostBody(device: deviceId, messages: messages)
         guard let bodyData = try? JSONEncoder().encode(body) else {
-            hasActiveRequest = false
             return
         }
         networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData) { response in
