@@ -20,7 +20,11 @@ public class RequestManager {
 
     private let endpoint = URL(string: "https://api.criticalmaps.net/")!
 
-    private var hasActiveRequest = false
+    private var hasActiveRequest = false {
+        didSet {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = hasActiveRequest
+        }
+    }
 
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
@@ -44,9 +48,9 @@ public class RequestManager {
     }
 
     private func defaultCompletion(for response: ApiResponse?) {
-        hasActiveRequest = false
         if let response = response {
             DispatchQueue.main.async {
+                self.hasActiveRequest = false
                 self.dataStore.update(with: response)
             }
         }
