@@ -89,7 +89,7 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor // Settings: SectionHeader
-        NotificationCenter.default.post(name: NSNotification.themeDidChange, object: nil) // trigger map tileRenderer update
+        NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
 
         // NavigationOverlayItems
         UIView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.backgroundColor

@@ -78,10 +78,6 @@ class MapViewController: UIViewController {
         view = MKMapView(frame: .zero)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.themeDidChange, object: nil)
-    }
-
     private func configureTileRenderer() {
         tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
         mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
@@ -98,7 +94,7 @@ class MapViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: NSNotification.Name("initialGpsDataReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: NSNotification.Name("gpsStateChanged"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: NSNotification.themeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Notification.themeDidChange, object: nil)
     }
 
     private func configureMapView() {

@@ -8,6 +8,6 @@
 
 import Foundation
 
-extension NSNotification {
+extension Notification {
     static let themeDidChange = NSNotification.Name(rawValue: "themeDidChange")
 }
