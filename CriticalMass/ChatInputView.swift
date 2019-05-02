@@ -13,13 +13,6 @@ protocol ChatInputDelegate: AnyObject {
 
 class ChatInputView: UIView, UITextFieldDelegate {
     @objc
-    dynamic var chatInputBackgroundColor: UIColor? {
-        willSet {
-            backgroundColor = newValue
-        }
-    }
-
-    @objc
     dynamic var sendMessageButtonColor: UIColor? {
         willSet {
             button.setTitleColor(newValue, for: .normal)
@@ -32,13 +25,6 @@ class ChatInputView: UIView, UITextFieldDelegate {
     dynamic var textViewTextColor: UIColor? {
         willSet {
             textField.textColor = newValue
-        }
-    }
-
-    @objc
-    dynamic var seperatorColor: UIColor? {
-        willSet {
-            separator.backgroundColor = newValue
         }
     }
 

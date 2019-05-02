@@ -12,7 +12,6 @@ class ChatNavigationButton: CustomButton {
     dynamic var unreadMessagesBackgroundColor: UIColor? {
         willSet {
             unreadLabel.backgroundColor = newValue
-            unreadLabel.layer.backgroundColor = newValue?.cgColor
         }
     }
 

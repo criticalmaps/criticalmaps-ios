@@ -24,13 +24,6 @@ struct NavigationOverlayItem {
 }
 
 class NavigationOverlayViewController: UIViewController {
-    // UIAppearance
-    @objc dynamic var backgroundColor: UIColor? {
-        didSet {
-            view.backgroundColor = backgroundColor
-        }
-    }
-
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
     private var separatorViews: [SeperatorView] = []
