@@ -52,12 +52,14 @@ class SettingsViewController: UITableViewController {
             case .info:
                 return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "https://www.criticalmaps.net")!)),
                         Model(title: NSLocalizedString("settings.twitter", comment: ""), action: .open(url: URL(string: "https://twitter.com/criticalmaps/")!)),
-                        Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!))]
+                        Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!)),
+                        Model(title: NSLocalizedString("Follow friends", comment: ""), action: .push(viewController: FollowFriendsViewController.self))]
             }
         }
 
         enum Action {
             case open(url: URL)
+            case push(viewController: UIViewController.Type)
             case none
         }
     }
@@ -145,6 +147,9 @@ class SettingsViewController: UITableViewController {
                 return
             }
             application.open(url, options: [:], completionHandler: nil)
+        case let .push(viewController: viewController):
+            let controller = viewController.init()
+            navigationController?.pushViewController(controller, animated: true)
         }
     }
 }

@@ -12,9 +12,11 @@ class AppController {
         loadInitialData()
     }
 
-    private var requestManager: RequestManager = {
-        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
-        return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
+    private var idProvider: IDProvider = IDStore()
+    private var dataStore = MemoryDataStore()
+
+    private lazy var requestManager: RequestManager = {
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: NetworkOperator(), idProvider: idProvider, url: Constants.apiEndpoint)
     }()
 
     private lazy var chatManager: ChatManager = {
@@ -50,7 +52,7 @@ class AppController {
     }
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController()
+        let rootViewController = MapViewController(mapController: MapController(dataStore: dataStore))
 
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
@@ -67,5 +69,24 @@ class AppController {
 
     private func loadInitialData() {
         requestManager.getData()
+    }
+
+    public func handle(url: URL) -> Bool {
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+            let followPath = components.path,
+            followPath == "follow",
+            let params = components.queryItems else {
+            return false
+        }
+
+        if let id = params.first(where: { $0.name == "id" })?.value {
+            dataStore.addFriend(id: id)
+            let alertController = UIAlertController(title: "Added Friend", message: "Added Friend with id: \(id)", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            rootViewController.present(alertController, animated: true, completion: nil)
+            return true
+        } else {
+            return false
+        }
     }
 }

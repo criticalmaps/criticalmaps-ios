@@ -9,24 +9,15 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-    class IdentifiableAnnnotation: MKPointAnnotation {
-        var identifier: String
+    private var mapController: MapController!
 
-        var location: Location {
-            set {
-                coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
-            }
-            @available(*, unavailable)
-            get {
-                fatalError("Not implemented")
-            }
-        }
+    init(mapController: MapController) {
+        self.mapController = mapController
+        super.init(nibName: nil, bundle: nil)
+    }
 
-        init(location: Location, identifier: String) {
-            self.identifier = identifier
-            super.init()
-            self.location = location
-        }
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     public var bottomContentOffset: CGFloat = 0 {
@@ -139,14 +130,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         guard annotation is MKUserLocation == false else {
             return nil
         }
+        let annotationView: BikeAnnoationView
         if #available(iOS 11.0, *) {
-            return mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation)
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation) as! BikeAnnoationView
         } else {
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) ?? BikeAnnoationView()
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
             annotationView.annotation = annotation
-            return annotationView
         }
+
+        if let identifier = (annotation as? IdentifiableAnnnotation)?.identifier {
+            annotationView.isFriend = mapController.isFriend(string: identifier)
+        }
+        return annotationView
     }
+
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
         followMeButton.currentMode = UserTrackingButton.Mode(mode)
