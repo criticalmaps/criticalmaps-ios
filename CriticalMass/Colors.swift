@@ -59,4 +59,16 @@ extension UIColor {
     static var yellow100: UIColor {
         return UIColor(red: 1.0, green: 214.0 / 255.0, blue: 51.0 / 255.0, alpha: 1.0)
     }
+    
+    static var lightThemeToolBarBackgroundColor: UIColor {
+        return UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1.00)
+    }
+    
+    static var lightThemeNavigationOverlaySeperatorColor: UIColor {
+        return UIColor(red: 0.86, green: 0.88, blue: 0.85, alpha: 1.00)
+    }
+    
+    static var darkThemeNavigationOverlaySeperatorColor: UIColor {
+        return UIColor(red: 0.22, green: 0.22, blue: 0.22, alpha: 1.00)
+    }
 }

@@ -59,7 +59,7 @@ struct LightTheme: ThemeDefining {
     }
 
     var navigationOverlaySeperatorColor: UIColor {
-        return UIColor(red: 0.86, green: 0.88, blue: 0.85, alpha: 1.00)
+        return .lightThemeNavigationOverlaySeperatorColor
     }
 
     var cellSelectedBackgroundViewColor: UIColor {
@@ -75,7 +75,7 @@ struct LightTheme: ThemeDefining {
     }
 
     var toolBarBackgroundColor: UIColor {
-        return backgroundColor
+        return .lightThemeToolBarBackgroundColor
     }
 }
 
@@ -113,7 +113,7 @@ struct DarkTheme: ThemeDefining {
     }
 
     var navigationOverlaySeperatorColor: UIColor {
-        return UIColor(red: 0.22, green: 0.22, blue: 0.22, alpha: 1.00)
+        return .darkThemeNavigationOverlaySeperatorColor
     }
 
     var cellSelectedBackgroundViewColor: UIColor {
