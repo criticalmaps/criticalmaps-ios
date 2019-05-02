@@ -35,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = appController.rootViewController
         window?.makeKeyAndVisible()
 
-        UISearchBar.appearance() // ??
-
         ThemeController().applyTheme()
 
         Appirater.appLaunched(true)
