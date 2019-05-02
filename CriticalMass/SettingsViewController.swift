@@ -144,7 +144,7 @@ extension SettingsViewController {
             }
             nightModeSwitchCell.configure(isOn: isNightModeEnabled, handler: nightModeHandler)
             cell = nightModeSwitchCell
-        default:
+        case .info, .github:
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
         }
         return cell
