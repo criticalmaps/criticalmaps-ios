@@ -52,7 +52,7 @@ class AppController {
     }
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController()
+        let rootViewController = MapViewController(themeController: self.themeController)
 
         let kniggeButton: UIButton = {
             let button = UIButton(type: .system)

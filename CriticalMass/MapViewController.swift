@@ -62,7 +62,17 @@ class MapViewController: UIViewController {
         return view
     }()
 
+    private let themeController: ThemeController!
     private var tileRenderer: MKTileOverlayRenderer?
+
+    init(themeController: ThemeController) {
+        self.themeController = themeController
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +142,7 @@ class MapViewController: UIViewController {
     // MARK: Notifications
 
     @objc private func themeDidChange() {
-        let theme = ThemeController().currentTheme
+        let theme = themeController.currentTheme
         guard theme == .dark else {
             tileRenderer = nil
             mapView.removeOverlay(nightThemeOverlay)
