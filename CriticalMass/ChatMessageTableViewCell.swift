@@ -33,8 +33,8 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        timeLabel?.textColor = .chatMessageDate
-        chatTextView?.textColor = .chatMessageText
+        timeLabel?.textColor = .gray200
+        chatTextView?.textColor = .gray300
     }
 
     func setup(for message: ChatMessage) {
