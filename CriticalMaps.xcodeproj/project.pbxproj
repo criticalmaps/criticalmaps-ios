@@ -29,7 +29,7 @@
 		94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
 		94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */; };
-		94FCBD29226C57CA00F93F94 /* NSNotification+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD24226C57CA00F93F94 /* NSNotification+Static.swift */; };
+		94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD24226C57CA00F93F94 /* Notification+Static.swift */; };
 		94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */; };
 		94FCBD2B226C57CA00F93F94 /* NibProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD26226C57CA00F93F94 /* NibProviding.swift */; };
 		94FCBD2C226C57CA00F93F94 /* UIApplication+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */; };
@@ -144,7 +144,7 @@
 		94E1FE4B212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94E1FE4C212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+FooterSize.swift"; sourceTree = "<group>"; };
-		94FCBD24226C57CA00F93F94 /* NSNotification+Static.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSNotification+Static.swift"; sourceTree = "<group>"; };
+		94FCBD24226C57CA00F93F94 /* Notification+Static.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Static.swift"; sourceTree = "<group>"; };
 		94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Appearance.swift"; sourceTree = "<group>"; };
 		94FCBD26226C57CA00F93F94 /* NibProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibProviding.swift; sourceTree = "<group>"; };
 		94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Appearance.swift"; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				94FCBD26226C57CA00F93F94 /* NibProviding.swift */,
-				94FCBD24226C57CA00F93F94 /* NSNotification+Static.swift */,
+				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
 				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
 				94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */,
@@ -762,7 +762,7 @@
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
-				94FCBD29226C57CA00F93F94 /* NSNotification+Static.swift in Sources */,
+				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
