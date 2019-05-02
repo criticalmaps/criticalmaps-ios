@@ -26,7 +26,6 @@ class ThemeSelectionStore: ThemeStorable {
     /// - Parameter themeSelection: The Theme that will be saved.
     func save(_ themeSelection: Theme) {
         defaults.set(themeSelection.rawValue, forKey: defaultsKey)
-        defaults.synchronize()
     }
 
     /// Fetches saved theme from the UserDefaults
