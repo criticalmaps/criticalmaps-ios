@@ -124,26 +124,29 @@ extension SettingsViewController {
     fileprivate func settingsCell(for section: Section, at indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         switch section {
-        case .gps:
-            guard let gpsSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
+        case .preferences:
+            guard let switchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
                 fatalError("Should be a SettingsSwitchCell")
             }
-            let isGPSEnabled = Preferences.gpsEnabled
-            let gpsHandler: SettingsSwitchHandler = { [unowned self] settingsSwitch in
-                self.gpsCellAction(settingsSwitch)
+            let model = section.models[indexPath.row]
+            if model.title == String.gpsLocalizedString {
+                let isGPSEnabled = Preferences.gpsEnabled
+                let gpsHandler: SettingsSwitchHandler = { [unowned self] settingsSwitch in
+                    self.gpsCellAction(settingsSwitch)
+                }
+                switchCell.configure(isOn: isGPSEnabled, handler: gpsHandler)
+                cell = switchCell
+            } else if model.title == String.themeLocalizedString {
+                let isNightModeEnabled = themeController.currentTheme == .dark ? true : false
+                let nightModeHandler: (UISwitch) -> Void = { [unowned self] settingsSwitch in
+                    self.darkModeCellAction(settingsSwitch)
+                }
+                switchCell.configure(isOn: isNightModeEnabled, handler: nightModeHandler)
+                cell = switchCell
+            } else {
+                print("Title not found")
             }
-            gpsSwitchCell.configure(isOn: isGPSEnabled, handler: gpsHandler)
-            cell = gpsSwitchCell
-        case .darkMode:
-            guard let nightModeSwitchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
-                fatalError("Should be a SettingsSwitchCell")
-            }
-            let isNightModeEnabled = themeController.currentTheme == .dark ? true : false
-            let nightModeHandler: (UISwitch) -> Void = { [unowned self] settingsSwitch in
-                self.darkModeCellAction(settingsSwitch)
-            }
-            nightModeSwitchCell.configure(isOn: isNightModeEnabled, handler: nightModeHandler)
-            cell = nightModeSwitchCell
+            cell = switchCell
         case .info, .github:
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
         }

@@ -14,9 +14,13 @@ extension Hashable where Self: CaseIterable {
     }
 }
 
+extension String {
+    static let gpsLocalizedString = NSLocalizedString("GPS", comment: "")
+    static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
+}
+
 enum Section: Int, CaseIterable {
-    case gps
-    case darkMode
+    case preferences
     case github
     case info
 
@@ -31,8 +35,7 @@ enum Section: Int, CaseIterable {
 
     var secionTitle: String? {
         switch self {
-        case .gps,
-             .darkMode,
+        case .preferences,
              .github:
             return nil
         case .info:
@@ -42,9 +45,7 @@ enum Section: Int, CaseIterable {
 
     var cellClass: UITableViewCell.Type {
         switch self {
-        case .gps:
-            return SettingsSwitchTableViewCell.self
-        case .darkMode:
+        case .preferences:
             return SettingsSwitchTableViewCell.self
         case .github:
             return SettingsGithubTableViewCellTableViewCell.self
@@ -55,10 +56,11 @@ enum Section: Int, CaseIterable {
 
     var models: [Model] {
         switch self {
-        case .gps:
-            return [Model(title: NSLocalizedString("GPS", comment: ""), action: .none)]
-        case .darkMode:
-            return [Model(title: NSLocalizedString("settings.theme", comment: ""), action: .none)]
+        case .preferences:
+            return [
+                Model(title: String.gpsLocalizedString, action: .none),
+                Model(title: String.themeLocalizedString, action: .none),
+            ]
         case .github:
             return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
         case .info:
