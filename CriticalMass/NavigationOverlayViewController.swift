@@ -62,20 +62,16 @@ class NavigationOverlayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureViewBackground()
     }
 
     private func configureViewBackground() {
         view.insertSubview(visualEffectView, at: 0)
-
         view.layer.shadowOpacity = 0.2
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
-
         view.layer.cornerRadius = 18
-        view.layer.masksToBounds = true
     }
 
     private func configure(items: [NavigationOverlayItem]) {
