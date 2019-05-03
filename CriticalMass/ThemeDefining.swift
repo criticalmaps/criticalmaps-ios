@@ -15,6 +15,7 @@ protocol ThemeDefining {
     var keyboardAppearance: UIKeyboardAppearance { get }
     var backgroundColor: UIColor { get }
     var titleTextColor: UIColor { get }
+    var thirdTitleTextColor: UIColor { get }
     var secondaryTitleTextColor: UIColor { get }
     var switchTintColor: UIColor { get }
     var chatMessageInputTextViewBackgroundColor: UIColor { get }
@@ -48,7 +49,11 @@ struct LightTheme: ThemeDefining {
     }
 
     var secondaryTitleTextColor: UIColor {
-        return .gray500
+        return .gray300
+    }
+
+    var thirdTitleTextColor: UIColor {
+        return .gray400
     }
 
     var switchTintColor: UIColor {
@@ -78,7 +83,7 @@ struct LightTheme: ThemeDefining {
     var toolBarBackgroundColor: UIColor {
         return .lightThemeToolBarBackgroundColor
     }
-    
+
     var navigationOverlayBackgroundColor: UIColor {
         return backgroundColor.withAlphaComponent(0.6)
     }
@@ -103,6 +108,10 @@ struct DarkTheme: ThemeDefining {
 
     var secondaryTitleTextColor: UIColor {
         return .gray500
+    }
+
+    var thirdTitleTextColor: UIColor {
+        return .gray400
     }
 
     var titleTextColor: UIColor {
@@ -136,7 +145,7 @@ struct DarkTheme: ThemeDefining {
     var toolBarBackgroundColor: UIColor {
         return .black
     }
-    
+
     var navigationOverlayBackgroundColor: UIColor {
         return backgroundColor.withAlphaComponent(0.8)
     }

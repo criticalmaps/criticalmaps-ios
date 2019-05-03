@@ -28,7 +28,7 @@ class ThemeController {
         }
         return theme
     }
-    
+
     /// Applies the current selected theme to the apps UI components
     func applyTheme() {
         let theme = currentTheme.style
@@ -41,12 +41,12 @@ class ThemeController {
         NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
         UIApplication.shared.refreshAppearance(animated: false)
     }
-    
+
     private func styleRulesComponents(with theme: ThemeDefining) {
         RuleTableViewCell.appearance().ruleTextColor = theme.titleTextColor
         RuleDetailTextView.appearance().ruleDetailTextColor = theme.titleTextColor
     }
-    
+
     private func styleSettingsComponents(with theme: ThemeDefining) {
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
@@ -56,7 +56,7 @@ class ThemeController {
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
     }
-    
+
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
         UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor = theme.titleTextColor
         UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).setTitleColor(theme.titleTextColor.withAlphaComponent(0.5), for: .highlighted)
@@ -64,13 +64,14 @@ class ThemeController {
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
         OverlayView.appearance().overlayBackgroundColor = theme.navigationOverlayBackgroundColor
     }
-    
+
     private func styleSocialComponets(with theme: ThemeDefining) {
         // UISegmentedControl
         UISegmentedControl.appearance().backgroundColor = theme.backgroundColor
         UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
         TweetTableViewCell.appearance().dateLabelTextColor = theme.secondaryTitleTextColor
-        TweetTableViewCell.appearance().handleLabelTextColor = theme.titleTextColor
+        TweetTableViewCell.appearance().handleLabelTextColor = theme.thirdTitleTextColor
+        TweetTableViewCell.appearance().userameTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         UITextView.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
         ChatInputView.appearance().backgroundColor = theme.backgroundColor
@@ -79,12 +80,12 @@ class ThemeController {
         TextFieldWithInsets.appearance().textFieldBackgroundColor = theme.chatMessageInputTextViewBackgroundColor
         TextFieldWithInsets.appearance().placeholderTextColor = theme.placeholderTextColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
-        ChatMessageTableViewCell.appearance().chatTextColor = theme.titleTextColor
+        ChatMessageTableViewCell.appearance().chatTextColor = theme.secondaryTitleTextColor
         // UIToolBar
         UIToolbar.appearance().barTintColor = theme.toolBarBackgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
     }
-    
+
     private func styleGlobalComponents(with theme: ThemeDefining) {
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
         UITextField.appearance().keyboardAppearance = theme.keyboardAppearance

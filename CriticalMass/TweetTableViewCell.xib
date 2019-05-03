@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="22 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUC-AM-va2">
-                        <rect key="frame" x="255" y="18.5" width="49" height="16"/>
+                        <rect key="frame" x="255" y="27" width="49" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="r1h-dr-cxz"/>
                         </constraints>
@@ -28,11 +28,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-HT-wVd">
-                        <rect key="frame" x="72" y="20" width="232" height="142.5"/>
+                        <rect key="frame" x="72" y="52" width="232" height="110.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <attributedString key="attributedText">
-                            <fragment>
-                                <mutableString key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                            <fragment content="Hello world">
                                 <attributes>
                                     <color key="NSColor" red="0.27058823529411763" green="0.27843137254901962" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
@@ -60,22 +59,36 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="circular" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSx-M0-WiP">
-                        <rect key="frame" x="72" y="16" width="42" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Aak-iX-eSW">
+                        <rect key="frame" x="72" y="27" width="83.5" height="21"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSx-M0-WiP">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOf-5g-9YN">
+                                <rect key="frame" x="46" y="0.0" width="37.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="g5F-et-C8X"/>
+                        </constraints>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="vUC-AM-va2" firstAttribute="firstBaseline" secondItem="rSx-M0-WiP" secondAttribute="firstBaseline" constant="-1" id="6eR-kR-1jt"/>
-                    <constraint firstItem="LZA-HT-wVd" firstAttribute="top" secondItem="rSx-M0-WiP" secondAttribute="bottom" constant="4" id="CxK-fI-Mow"/>
+                    <constraint firstItem="vUC-AM-va2" firstAttribute="top" secondItem="Aak-iX-eSW" secondAttribute="top" id="Iqe-dM-Rqd"/>
                     <constraint firstAttribute="bottom" secondItem="LZA-HT-wVd" secondAttribute="bottom" constant="16" id="NVD-qT-w1I"/>
                     <constraint firstAttribute="trailing" secondItem="vUC-AM-va2" secondAttribute="trailing" constant="16" id="WMn-44-Reg"/>
+                    <constraint firstItem="Aak-iX-eSW" firstAttribute="leading" secondItem="HQC-VL-q4w" secondAttribute="trailing" constant="16" id="YL4-ex-aHB"/>
+                    <constraint firstItem="vUC-AM-va2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Aak-iX-eSW" secondAttribute="trailing" constant="141" id="Yt8-7X-HRR"/>
                     <constraint firstItem="HQC-VL-q4w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cPC-H2-SOW"/>
-                    <constraint firstItem="rSx-M0-WiP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="e6J-50-XYX"/>
-                    <constraint firstItem="vUC-AM-va2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rSx-M0-WiP" secondAttribute="trailing" constant="20" id="gdD-01-J3N"/>
-                    <constraint firstItem="rSx-M0-WiP" firstAttribute="leading" secondItem="HQC-VL-q4w" secondAttribute="trailing" constant="16" id="iHk-aa-BSC"/>
+                    <constraint firstItem="LZA-HT-wVd" firstAttribute="top" secondItem="Aak-iX-eSW" secondAttribute="bottom" constant="4" id="cZc-Gn-Xdh"/>
+                    <constraint firstItem="Aak-iX-eSW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="iWG-qz-um8"/>
                     <constraint firstItem="HQC-VL-q4w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="prl-8a-XaM"/>
                     <constraint firstItem="LZA-HT-wVd" firstAttribute="leading" secondItem="HQC-VL-q4w" secondAttribute="trailing" constant="16" id="rZV-7r-klI"/>
                     <constraint firstAttribute="trailing" secondItem="LZA-HT-wVd" secondAttribute="trailing" constant="16" id="sN2-bE-0Pd"/>
@@ -83,9 +96,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateLabel" destination="vUC-AM-va2" id="vCm-zR-Dmf"/>
-                <outlet property="handleLabel" destination="rSx-M0-WiP" id="1Vy-Ge-ua6"/>
+                <outlet property="handleLabel" destination="MOf-5g-9YN" id="nTU-6U-Txo"/>
                 <outlet property="tweetTextView" destination="LZA-HT-wVd" id="HXD-p2-atV"/>
                 <outlet property="userImageView" destination="HQC-VL-q4w" id="ZtK-0B-i4G"/>
+                <outlet property="userNameLabel" destination="rSx-M0-WiP" id="dWc-Wg-bWi"/>
             </connections>
             <point key="canvasLocation" x="140.80000000000001" y="-133.5832083958021"/>
         </tableViewCell>
