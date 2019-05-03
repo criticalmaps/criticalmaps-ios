@@ -17,7 +17,7 @@
 "error" = "Erreur";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Désolé, tu ne peux pas voir les autres \nsi to GPS est désactivé.\n\nTu peux activer ton GPS dans les réglages.";
+"map.layer.info" = "Désolé, tu ne peux pas voir les autres \nsi ton GPS est désactivé.\n\nTu peux activer ton GPS dans les réglages.";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "localisation";
@@ -117,7 +117,7 @@
 "settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs qui veulent collaborer";
 
 /* No comment provided by engineer. */
-"settings.opensource.title" = "Do you miss features or want to fix a bug?";
+"settings.opensource.title" = "Tu aimerais de nouvelles fonctionnalités ou signaler un bug ?";
 
 /* No comment provided by engineer. */
 "settings.programming" = "Développement";
