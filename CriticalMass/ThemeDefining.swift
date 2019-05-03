@@ -23,6 +23,7 @@ protocol ThemeDefining {
     var navigationBarIsTranslucent: Bool { get }
     var placeholderTextColor: UIColor { get }
     var toolBarBackgroundColor: UIColor { get }
+    var navigationOverlayBackgroundColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -77,6 +78,10 @@ struct LightTheme: ThemeDefining {
     var toolBarBackgroundColor: UIColor {
         return .lightThemeToolBarBackgroundColor
     }
+    
+    var navigationOverlayBackgroundColor: UIColor {
+        return backgroundColor.withAlphaComponent(0.6)
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -130,5 +135,9 @@ struct DarkTheme: ThemeDefining {
 
     var toolBarBackgroundColor: UIColor {
         return .black
+    }
+    
+    var navigationOverlayBackgroundColor: UIColor {
+        return backgroundColor.withAlphaComponent(0.8)
     }
 }

@@ -8,6 +8,14 @@
 import UIKit
 
 class SeperatorView: UIView {}
+class OverlayView: UIView {
+    @objc
+    dynamic var overlayBackgroundColor: UIColor? {
+        willSet {
+            backgroundColor = newValue
+        }
+    }
+}
 
 struct NavigationOverlayItem {
     enum Action {
@@ -32,6 +40,11 @@ class NavigationOverlayViewController: UIViewController {
         items = navigationItems
         super.init(nibName: nil, bundle: nil)
         configure(items: navigationItems)
+    }
+
+    override func loadView() {
+        super.loadView()
+        view = OverlayView()
     }
 
     required init?(coder _: NSCoder) {
