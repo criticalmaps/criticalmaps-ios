@@ -35,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = appController.rootViewController
         window?.makeKeyAndVisible()
 
-        ThemeController().applyTheme()
-
         Appirater.appLaunched(true)
         return true
     }

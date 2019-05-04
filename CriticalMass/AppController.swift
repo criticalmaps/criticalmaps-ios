@@ -9,7 +9,12 @@ import Foundation
 
 class AppController {
     init() {
+        onAppLaunch()
+    }
+
+    private func onAppLaunch() {
         loadInitialData()
+        themeController.applyTheme()
     }
 
     private var requestManager: RequestManager = {
