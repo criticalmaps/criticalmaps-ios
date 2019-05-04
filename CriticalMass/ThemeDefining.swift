@@ -25,6 +25,7 @@ protocol ThemeDefining {
     var placeholderTextColor: UIColor { get }
     var toolBarBackgroundColor: UIColor { get }
     var navigationOverlayBackgroundColor: UIColor { get }
+    var statusBarStyle: UIStatusBarStyle { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -87,6 +88,10 @@ struct LightTheme: ThemeDefining {
     var navigationOverlayBackgroundColor: UIColor {
         return backgroundColor.withAlphaComponent(0.6)
     }
+
+    var statusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -148,5 +153,9 @@ struct DarkTheme: ThemeDefining {
 
     var navigationOverlayBackgroundColor: UIColor {
         return backgroundColor.withAlphaComponent(0.8)
+    }
+
+    var statusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
