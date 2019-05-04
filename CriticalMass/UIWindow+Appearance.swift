@@ -14,6 +14,7 @@ extension NSNotification.Name {
 }
 
 extension UIWindow {
+    // This is needed to see the immediate effect of selecting a theme.
     @nonobjc private func _refreshAppearance() {
         let constraints = self.constraints
         removeConstraints(constraints)

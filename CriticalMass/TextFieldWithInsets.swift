@@ -48,6 +48,7 @@ class TextFieldWithInsets: UITextField {
     }
 
     // sets the backgroundColor when input begins
+    // kind of a hack sice the textField was always resetting its backgrundColor when it became firstResponder
     override func becomeFirstResponder() -> Bool {
         let didBecomeFirstResponder = super.becomeFirstResponder()
         if didBecomeFirstResponder {
@@ -57,6 +58,7 @@ class TextFieldWithInsets: UITextField {
     }
 
     // sets the backgroundColor when input ends
+    // kind of a hack sice the textField was always resetting its backgrundColor when it resigned firstResponder
     override func resignFirstResponder() -> Bool {
         let canBecomeFirstResponder = super.canBecomeFirstResponder
         if canBecomeFirstResponder {
