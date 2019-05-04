@@ -82,6 +82,8 @@ class MapViewController: UIViewController {
         configureTileRenderer()
         configureMapView()
         condfigureGPSDisabledOverlayView()
+
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     override func loadView() {
@@ -140,6 +142,10 @@ class MapViewController: UIViewController {
     }
 
     // MARK: Notifications
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return themeController.currentTheme.style.statusBarStyle
+    }
 
     @objc private func themeDidChange() {
         let theme = themeController.currentTheme
