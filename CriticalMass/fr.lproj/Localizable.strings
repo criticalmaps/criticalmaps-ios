@@ -1,27 +1,26 @@
-
 /* No comment provided by engineer. */
-"chat.noChatActivity" = "Nobody's chatting at the moment...\nwhy don't you start?";
+"chat.noChatActivity" = "Personnne ne discute pour l'instant...\nlance la conversation !";
 
 /* No comment provided by engineer. */
 "chat.placeholder" = "Message ...";
 
 /* No comment provided by engineer. */
-"chat.send" = "Send";
+"chat.send" = "Envoyer";
 
 /* No comment provided by engineer. */
-"chat.send.error" = "The message could not be sent. Please try again.";
+"chat.send.error" = "Le message n'a pas pu être envoyé. Merci de réessayer.";
 
 /* No comment provided by engineer. */
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
-"error" = "Error";
+"error" = "Erreur";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Sorry, you can't see others\nwhen your GPS is disabled.\n\nPlease enable GPS in settings.";
+"map.layer.info" = "Désolé, tu ne peux pas voir les autres \nsi ton GPS est désactivé.\n\nTu peux activer ton GPS dans les réglages.";
 
 /* No comment provided by engineer. */
-"map.locationButton.label" = "locating";
+"map.locationButton.label" = "localisation";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
@@ -30,52 +29,59 @@
 "rules.source" = "Images of criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
 
 /* No comment provided by engineer. */
-"rules.text.brake" = "Avoid sudden stops. If you really have to though, try to warn people behind you.";
+"rules.text.brake" = "Évite les arrêts soudains. Si tu dois vraiment t'arrêter, essaye de prévenir les gens derrière toi.";
 
 /* No comment provided by engineer. */
-"rules.text.contraflow" = "Refrain from driving in the opposite lane.";
+"rules.text.contraflow" = "Évite de rouler sur la voie opposée.";
+
 
 /* No comment provided by engineer. */
-"rules.text.cork" = "Protect motorists from themselves by corking!\n\nTo maintain the cohesion of the group, block traffic from side roads so that the mass can freely proceed through red lights without interruptions.";
+"rules.text.cork" = "Protège les automobilistes d'eux-mêmes en bloquant la rue!\n\nPour maintenir la cohésion du groupe, bloque le traffic des routes que l'on croise pour que le groupe puisse passer les feux rouges sans interruption.";
+
 
 /* No comment provided by engineer. */
-"rules.text.gently" = "When driving in the front: No speeding!\n\nWhen driving in the rear: Close gaps!";
+"rules.text.gently" = "Quand tu roules à l'avant : Pas trop vite!\n\nQuand tu roules à l'arrière : Ne te laisse pas distancer !";
 
 /* No comment provided by engineer. */
-"rules.text.green" = "When you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.";
+"rules.text.green" = "Quand tu es à l'avant de la masse critique et que tu arrives à un feu rouge, arrête toi au feu.";
 
 /* No comment provided by engineer. */
-"rules.text.haveFun" = "Enjoy reclaimed streets. Check out the Sound Bikes. Chat with motorists and pedestrian to let them know what's going on.\n\nAnd most importantly: Have fun!";
+"rules.text.haveFun" = "Profite de la rue sans voiture. Check les vélos qui passent de la musique. Discute avec les automobilistes et les piétons pour leur expliquer ce qui se passe.\n\nEt le plus important : Amuse toi!";
+
 
 /* No comment provided by engineer. */
-"rules.text.stayLoose" = "Don't allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.";
+"rules.text.stayLoose" = "Reste amical avec la police, les automobilistes et tous les autres mêmes quand ils ne le sont pas.";
+
+
+
 
 /* No comment provided by engineer. */
-"rules.title" = "Rules";
+"rules.title" = "Règles";
 
 /* No comment provided by engineer. */
-"rules.title.brake" = "No hard stops!";
+"rules.title.brake" = "Pas d'arrêt brutal !";
 
 /* No comment provided by engineer. */
-"rules.title.contraflow" = "Careful of oncoming traffic";
+"rules.title.contraflow" = "Attention au traffic";
 
 /* No comment provided by engineer. */
-"rules.title.cork" = "Corking!?";
+"rules.title.cork" = "Bloquer les voitures ?!";
 
 /* No comment provided by engineer. */
-"rules.title.gently" = "Hold your horses!";
+"rules.title.gently" = "C'est pas une course !";
 
 /* No comment provided by engineer. */
-"rules.title.green" = "When driving at the head: Stop at the redlights!";
+"rules.title.green" = "Quand tu es à l'avant : arrête toi aux feus !";
 
 /* No comment provided by engineer. */
-"rules.title.haveFun" = "Have fun!";
+"rules.title.haveFun" = "Profite !";
 
 /* No comment provided by engineer. */
-"rules.title.stayLoose" = "Hang loose";
+"rules.title.stayLoose" = "Reste calme";
 
 /* No comment provided by engineer. */
-"settings.about" = "About";
+"settings.about" = "À propos";
+
 
 
 "settings.appDesign" = "Design";
@@ -84,16 +90,16 @@
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 /* No comment provided by engineer. */
-"settings.donate" = "Help finacing our tracking server";
+"settings.donate" = "Fais un don pour soutenir nos serveurs GPS";
 
 /* No comment provided by engineer. */
-"settings.enableGps" = "Share your location with others";
+"settings.enableGps" = "Partage ta position avec les autres";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
 
 /* No comment provided by engineer. */
-"settings.gpsSettings" = "GPS settings";
+"settings.gpsSettings" = "Réglages GPS";
 
 /* No comment provided by engineer. */
 "settings.kniggeImages" = "Rules images";
@@ -105,25 +111,26 @@
 "settings.openSource" = "Github";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "View Project";
+"settings.opensource.action" = "Voir le Projet";
 
 /* No comment provided by engineer. */
-"settings.opensource.detail" = "Critical Maps is an open source project and we are looking forward to developers who want to work on critical maps.";
+"settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs qui veulent collaborer";
 
 /* No comment provided by engineer. */
-"settings.opensource.title" = "Do you miss features or want to fix a bug?";
+"settings.opensource.title" = "Tu aimerais de nouvelles fonctionnalités ou signaler un bug ?";
 
 /* No comment provided by engineer. */
-"settings.programming" = "Development";
+"settings.programming" = "Développement";
 
 /* No comment provided by engineer. */
 "settings.section.info" = "Info";
 
 /* No comment provided by engineer. */
-"settings.socialMedia" = "Social Media";
+"settings.socialMedia" = "Réseaux sociaux";
 
 /* No comment provided by engineer. */
-"settings.title" = "Settings";
+"settings.title" = "Réglages";
+
 
 /* No comment provided by engineer. */
 "settings.twitter" = "Twitter";
@@ -132,11 +139,10 @@
 "settings.website" = "Website";
 
 /* No comment provided by engineer. */
-"twitter.noData" = "No data is currently available.\nPlease pull down to refresh.";
+"twitter.noData" = "Pas de données disponibles.\nTire vers le bas pour rafraîchir.";
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
 
 /* No comment provided by engineer. */
 "close.button.label" = "close";
-
