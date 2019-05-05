@@ -13,8 +13,4 @@ class MapController {
     init(dataStore: DataStore) {
         self.dataStore = dataStore
     }
-
-    public func isFriend(string: String) -> Bool {
-        return dataStore.friends.contains(string)
-    }
 }

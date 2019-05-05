@@ -137,13 +137,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
             annotationView.annotation = annotation
         }
-
-        if let identifier = (annotation as? IdentifiableAnnnotation)?.identifier {
-            annotationView.isFriend = mapController.isFriend(string: identifier)
-        }
         return annotationView
     }
-
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
         followMeButton.currentMode = UserTrackingButton.Mode(mode)

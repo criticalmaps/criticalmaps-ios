@@ -49,6 +49,8 @@ class MockNetworkLayer: NetworkLayer {
     }
 }
 
+class MockIDProvider: IDProvider {}
+
 class MockDataStore: DataStore {
     var storedData: ApiResponse?
     func update(with response: ApiResponse) {

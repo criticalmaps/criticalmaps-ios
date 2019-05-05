@@ -7,11 +7,16 @@
 
 import Foundation
 
-class IDStore: IDProvider {
-    init() {
-        id = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+public class IDStore: IDProvider {
+    public init(currentDate: Date = Date()) {
+        let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dateString = format.string(from: currentDate)
+
+        id = (deviceID + dateString).md5
     }
 
-    private(set)
-    var id: String
+    public let id: String
 }

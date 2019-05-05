@@ -70,23 +70,4 @@ class AppController {
     private func loadInitialData() {
         requestManager.getData()
     }
-
-    public func handle(url: URL) -> Bool {
-        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
-            let followPath = components.path,
-            followPath == "follow",
-            let params = components.queryItems else {
-            return false
-        }
-
-        if let id = params.first(where: { $0.name == "id" })?.value {
-            dataStore.addFriend(id: id)
-            let alertController = UIAlertController(title: "Added Friend", message: "Added Friend with id: \(id)", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
-            rootViewController.present(alertController, animated: true, completion: nil)
-            return true
-        } else {
-            return false
-        }
-    }
 }
