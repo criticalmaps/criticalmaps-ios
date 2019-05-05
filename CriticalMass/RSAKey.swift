@@ -106,4 +106,18 @@ public class RSAKey {
             throw RSAKeyError.deletionFailed
         }
     }
+
+    public var privateKey: SecKey? {
+        if tag != nil {
+            return secKey
+        }
+        return nil
+    }
+
+    public var publicKey: SecKey? {
+        if tag != nil {
+            return SecKeyCopyPublicKey(secKey)
+        }
+        return secKey
+    }
 }

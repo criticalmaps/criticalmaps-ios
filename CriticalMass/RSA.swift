@@ -8,14 +8,14 @@
 
 import Foundation
 
-class RSA {
+public class RSA {
     enum RSAError: Error {
         case keyIsUnsupported
     }
 
-    let algorithm: SecKeyAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
+    static let algorithm: SecKeyAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
 
-    func sign(_ data: Data, privateKey: SecKey) throws -> Data {
+    public class func sign(_ data: Data, privateKey: SecKey) throws -> Data {
         guard SecKeyIsAlgorithmSupported(privateKey, .sign, algorithm) else {
             throw RSAError.keyIsUnsupported
         }
@@ -30,8 +30,8 @@ class RSA {
         return signature
     }
 
-    func verify(_ data: Data, publicKey: SecKey, signature: Data) throws -> Bool {
-        guard SecKeyIsAlgorithmSupported(publicKey, .sign, algorithm) else {
+    public class func verify(_ data: Data, publicKey: SecKey, signature: Data) throws -> Bool {
+        guard SecKeyIsAlgorithmSupported(publicKey, .verify, algorithm) else {
             throw RSAError.keyIsUnsupported
         }
 
