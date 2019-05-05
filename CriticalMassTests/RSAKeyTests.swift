@@ -16,15 +16,22 @@ class RSAKeyTests: XCTestCase {
         try? key?.delete()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCreateRandomKeyAndLoadFromKeychain() {
+        XCTAssertThrowsError(try RSAKey(fromKeychain: keychainTag))
+        XCTAssertNoThrow(try RSAKey(randomKey: keychainTag))
+        XCTAssertNoThrow(try RSAKey(fromKeychain: keychainTag))
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testDeleteKey() throws {
+        let key = try RSAKey(randomKey: keychainTag)
+        XCTAssertNoThrow(try RSAKey(fromKeychain: keychainTag))
+        try key.delete()
+        XCTAssertThrowsError(try RSAKey(fromKeychain: keychainTag))
+    }
+
+    func testRepresentToDataAndLoadFromData() throws {
+        let key = try RSAKey(randomKey: keychainTag)
+        let data = try key.publicKeyDataRepresentation()
+        XCTAssertNoThrow(try RSAKey(data: data))
     }
 }
