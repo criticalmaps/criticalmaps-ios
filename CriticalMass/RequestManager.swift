@@ -20,11 +20,7 @@ public class RequestManager {
 
     private let endpoint = URL(string: "https://api.criticalmaps.net/")!
 
-    private var hasActiveRequest = false {
-        didSet {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = hasActiveRequest
-        }
-    }
+    private var hasActiveRequest = false
 
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
