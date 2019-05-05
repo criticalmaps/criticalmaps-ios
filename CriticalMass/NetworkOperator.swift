@@ -49,7 +49,7 @@ struct NetworkOperator: NetworkLayer {
         task.resume()
     }
 
-    func cancelActiveRequestIfNeeded() {
+    func cancelActiveRequestsIfNeeded() {
         session.invalidateAndCancel()
     }
 }

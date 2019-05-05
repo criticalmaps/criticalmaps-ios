@@ -48,7 +48,7 @@ class MockNetworkLayer: NetworkLayer {
         }
     }
 
-    func cancelActiveRequestIfNeeded() {}
+    func cancelActiveRequestsIfNeeded() {}
 }
 
 class MockDataStore: DataStore {

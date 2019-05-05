@@ -76,7 +76,7 @@ public class RequestManager {
     public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
         let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
             completion?(nil)
-            self.networkLayer.cancelActiveRequestIfNeeded()
+            self.networkLayer.cancelActiveRequestsIfNeeded()
         }
         let body = SendMessagePostBody(device: deviceId, messages: messages)
         guard let bodyData = try? JSONEncoder().encode(body) else {
