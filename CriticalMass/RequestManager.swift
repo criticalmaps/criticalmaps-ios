@@ -44,9 +44,9 @@ public class RequestManager {
     }
 
     private func defaultCompletion(for response: ApiResponse?) {
-        hasActiveRequest = false
         if let response = response {
             DispatchQueue.main.async {
+                self.hasActiveRequest = false
                 self.dataStore.update(with: response)
             }
         }
