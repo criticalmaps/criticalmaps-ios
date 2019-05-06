@@ -183,6 +183,9 @@
 		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		98C13284227EFF9200291FCA /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
+		98C13286227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		98C13287227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		98C13288227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98C4BEA02218518B0060E701 /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
 		98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
@@ -519,6 +522,7 @@
 				de,
 				it,
 				Base,
+				fr,
 			);
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
@@ -765,6 +769,7 @@
 				9489D88D1B768274001E746C /* en */,
 				9489D88F1B768279001E746C /* de */,
 				94E1FE4B212057AC0016BD4E /* it */,
+				98C13287227F014000291FCA /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -775,6 +780,7 @@
 				94CF086919BDEAF2009FFF43 /* en */,
 				9489D88A1B7681AF001E746C /* de */,
 				94E1FE4A212057AC0016BD4E /* it */,
+				98C13286227F014000291FCA /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -785,6 +791,7 @@
 				94CF088219BDEAF2009FFF43 /* en */,
 				9489D88B1B7681AF001E746C /* de */,
 				94E1FE4C212057AC0016BD4E /* it */,
+				98C13288227F014000291FCA /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
