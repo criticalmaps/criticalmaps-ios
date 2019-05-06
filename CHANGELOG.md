@@ -7,6 +7,7 @@ Changelog for Critical Maps iOS
 ### Added
 - Message Notification Bubble
 - Swiftformat to the build phases
+- French localisation. Thanks Alban!
 
 ### Updated
 - SDWebImage
