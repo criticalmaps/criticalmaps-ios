@@ -10,7 +10,9 @@ import Foundation
 class NetworkActivityIndicatorHelper {
     private var requestCounter = 0 {
         didSet {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = requestCounter > 0
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = self.requestCounter > 0
+            }
         }
     }
 
