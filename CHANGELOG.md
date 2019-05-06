@@ -8,6 +8,7 @@ Changelog for Critical Maps iOS
 - Message Notification Bubble
 - Swiftformat to the build phases
 - The ID isn't constant anymore
+- French localisation. Thanks Alban!
 
 ### Updated
 - SDWebImage
