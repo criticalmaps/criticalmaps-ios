@@ -11,12 +11,16 @@ class AppController {
     init() {
         loadInitialData()
     }
-
+  
     private var idProvider: IDProvider = IDStore()
     private var dataStore = MemoryDataStore()
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: NetworkOperator(), idProvider: idProvider, url: Constants.apiEndpoint)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
+    }()
+  
+    private let networkOperator: NetworkOperator = {
+        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
     }()
 
     private lazy var chatManager: ChatManager = {
@@ -28,7 +32,7 @@ class AppController {
     }()
 
     private lazy var twitterManager: TwitterManager = {
-        TwitterManager(networkLayer: NetworkOperator(), url: Constants.twitterEndpoint)
+        TwitterManager(networkLayer: networkOperator, url: Constants.twitterEndpoint)
     }()
 
     private func getRulesViewController() -> RulesViewController {

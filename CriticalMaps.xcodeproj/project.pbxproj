@@ -84,6 +84,7 @@
 		98C13279227B8F6700291FCA /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13278227B8F6700291FCA /* MapController.swift */; };
 		98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */; };
 		98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13289227F05E700291FCA /* IDStoreTests.swift */; };
+		98C13285227EFF9200291FCA /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13284227EFF9200291FCA /* NetworkActivityIndicatorHelper.swift */; };
 		98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C4BEA02218518B0060E701 /* UserTrackingButton.swift */; };
 		98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */; };
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
@@ -191,6 +192,7 @@
 		98C13278227B8F6700291FCA /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableAnnnotation.swift; sourceTree = "<group>"; };
 		98C13289227F05E700291FCA /* IDStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStoreTests.swift; sourceTree = "<group>"; };
+		98C13284227EFF9200291FCA /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		98C13286227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98C13287227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		98C13288227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				98C13284227EFF9200291FCA /* NetworkActivityIndicatorHelper.swift */,
 				9460B76A225A6EB200786E27 /* FormatDisplay.swift */,
 				98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */,
 			);
@@ -706,6 +709,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98C13285227EFF9200291FCA /* NetworkActivityIndicatorHelper.swift in Sources */,
 				98790021222DA7E600880334 /* AppDelegate.swift in Sources */,
 				98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */,
 				985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */,
