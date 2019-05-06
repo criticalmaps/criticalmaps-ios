@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension NSNotification.Name {
-    static let CMAppearanceWillRefreshApplication = NSNotification.Name(rawValue: "CMAppearanceWillRefreshApplicationNotification")
-    static let CMAppearanceDidRefreshApplication = NSNotification.Name(rawValue: "CMAppearanceDidRefreshApplicationNotification")
+extension Notification.Name {
+    static let CMAppearanceWillRefreshApplication = Notification.Name(rawValue: "CMAppearanceWillRefreshApplicationNotification")
+    static let CMAppearanceDidRefreshApplication = Notification.Name(rawValue: "CMAppearanceDidRefreshApplicationNotification")
 }
 
 extension UIApplication {

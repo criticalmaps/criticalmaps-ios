@@ -9,5 +9,5 @@
 import Foundation
 
 extension Notification {
-    static let themeDidChange = NSNotification.Name(rawValue: "themeDidChange")
+    static let themeDidChange = Notification.Name(rawValue: "themeDidChange")
 }
