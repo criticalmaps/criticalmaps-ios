@@ -88,8 +88,6 @@ public class RSAKey {
         secKey = key
     }
 
-    class func loadFromKeychain(for _: String = keychainTag) {}
-
     public func publicKeyDataRepresentation() throws -> Data {
         guard let publicKey = SecKeyCopyPublicKey(secKey) else {
             throw RSAKeyError.copyingPublicKeyFailed

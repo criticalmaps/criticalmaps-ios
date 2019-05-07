@@ -34,9 +34,8 @@ class MapController {
                 }
             }
         } catch {
-            //
+            // TODO: improve error handling.  This method shouldn't stop if one of the stored keys isn't valid
         }
-//        return dataStore.friends.contains(string)
         return false
     }
 }
