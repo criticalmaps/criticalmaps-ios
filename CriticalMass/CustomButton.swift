@@ -8,7 +8,8 @@
 import UIKit
 
 class CustomButton: UIButton {
-    public var highlightedTintColor: UIColor?
+    @objc
+    public dynamic var highlightedTintColor: UIColor?
     private var defaultTintColor: UIColor?
 
     override var isHighlighted: Bool {
