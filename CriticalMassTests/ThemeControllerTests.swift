@@ -423,29 +423,29 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(color, Theme.dark.style.navigationOverlayBackgroundColor)
     }
 
-    func testUIButtonTintColorShouldChangeToTitleTextColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelected() {
+    func testCustomButtonTintColorShouldChangeToTitleTextColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelected() {
         // given
         let theme: Theme = .dark
         // when
         sut.changeTheme(to: theme)
         sut.applyTheme()
         // then
-        let color = UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
+        let color = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
         XCTAssertEqual(color, Theme.dark.style.titleTextColor)
     }
 
-    func testUIButtonTintColorShouldChangeToTitleTextColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelectedAndChangeAgainWhenLightThemeIsSelected() {
+    func testCustomButtonTintColorShouldChangeToTitleTextColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelectedAndChangeAgainWhenLightThemeIsSelected() {
         // given
         let nightTheme: Theme = .dark
         let lightTheme: Theme = .light
         // when
         sut.changeTheme(to: nightTheme)
         sut.applyTheme()
-        let nightColor = UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
+        let nightColor = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
 
         sut.changeTheme(to: lightTheme)
         sut.applyTheme()
-        let lightColor = UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
+        let lightColor = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
         // then
         XCTAssertEqual(nightColor, Theme.dark.style.titleTextColor)
         XCTAssertEqual(lightColor, Theme.light.style.titleTextColor)

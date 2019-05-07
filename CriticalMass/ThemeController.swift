@@ -58,8 +58,8 @@ class ThemeController {
     }
 
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
-        UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor = theme.titleTextColor
-        UIButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).setTitleColor(theme.titleTextColor.withAlphaComponent(0.5), for: .highlighted)
+        CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor = theme.titleTextColor
+        CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).highlightedTintColor = theme.titleTextColor.withAlphaComponent(0.6)
         SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
         OverlayView.appearance().overlayBackgroundColor = theme.navigationOverlayBackgroundColor
