@@ -91,6 +91,9 @@ class MapViewController: UIViewController {
     }
 
     private func configureTileRenderer() {
+        guard themeController.currentTheme == .dark else {
+            return
+        }
         tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
         mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
     }
