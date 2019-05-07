@@ -17,19 +17,13 @@ class FollowFriendsViewController: UIViewController {
 
     private func configureQRCodeView() {
         let view = QRCodeView()
-        let publicKey: Data
-        if let data = try? RSAKey(fromKeychain: RSAKey.keychainTag).publicKeyDataRepresentation() {
-            publicKey = data
-        } else if let data = try? RSAKey(randomKey: RSAKey.keychainTag).publicKeyDataRepresentation() {
-            publicKey = data
-        } else {
-            fatalError()
-        }
 
         do {
-            view.string = try FollowURLObject(queryObject: Friend(name: "TODO", key: publicKey)).asURL()
+            let publicKeyData = try RSAKey(tag: RSAKey.keychainTag).publicKeyDataRepresentation()
+            view.string = try FollowURLObject(queryObject: Friend(name: "TODO", key: publicKeyData)).asURL()
         } catch {
             // TODO: present error
+            fatalError()
         }
 
         view.frame = CGRect(x: 100, y: 200, width: 200, height: 200)

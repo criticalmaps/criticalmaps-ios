@@ -167,6 +167,11 @@ extension MapViewController: MKMapViewDelegate {
             annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
             annotationView.annotation = annotation
         }
+
+        if let identifiableAnnotation = (annotation as? IdentifiableAnnnotation),
+            let signature = identifiableAnnotation.location.name {
+            annotationView.isFriend = mapController.isFriend(id: identifiableAnnotation.identifier, signature: signature)
+        }
         return annotationView
     }
 

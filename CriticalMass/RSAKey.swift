@@ -58,6 +58,15 @@ public class RSAKey {
         secKey = item as! SecKey
     }
 
+    public convenience init(tag _: String) throws {
+        // TODO: add tests + documentation
+        if let _ = try? RSAKey(fromKeychain: RSAKey.keychainTag) {
+            try self.init(fromKeychain: RSAKey.keychainTag)
+        } else {
+            try self.init(randomKey: RSAKey.keychainTag)
+        }
+    }
+
     /// Creates a random key and stores it in keychain
     ///
     /// - Parameter tag: The tag will be used to store the key in the keychain and can be used later to retrieve the key from keychain

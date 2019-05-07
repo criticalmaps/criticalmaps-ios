@@ -52,6 +52,8 @@ class MockNetworkLayer: NetworkLayer {
 }
 
 class MockIDProvider: IDProvider {
+    var signature: String = "Hello World"
+
     var mockID: String?
     var id: String {
         if let mockID = mockID {
@@ -63,9 +65,11 @@ class MockIDProvider: IDProvider {
 }
 
 class MockDataStore: DataStore {
-    func addFriend(id: String) {
-        friends.insert(id)
+    func add(friend: Friend) {
+        friends.insert(friend)
     }
+
+    func addFriend(id _: String) {}
 
     var friends: Set<String> = []
 

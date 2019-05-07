@@ -9,4 +9,5 @@ import Foundation
 
 protocol IDProvider {
     var id: String { get }
+    var signature: String { get }
 }

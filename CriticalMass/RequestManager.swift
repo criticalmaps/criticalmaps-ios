@@ -10,6 +10,7 @@ import Foundation
 public class RequestManager {
     private struct SendLocationPostBody: Codable {
         var device: String
+        var name: String
         var location: Location
     }
 
@@ -57,7 +58,7 @@ public class RequestManager {
         hasActiveRequest = true
         // We only use a post request if we have a location to post
         if let currentLocation = locationProvider.currentLocation {
-            let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
+            let body = SendLocationPostBody(device: idProvider.id, name: idProvider.signature, location: currentLocation)
             guard let bodyData = try? JSONEncoder().encode(body) else {
                 hasActiveRequest = false
                 defaultCompletion(for: nil)
