@@ -11,6 +11,7 @@
 		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
+		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
 		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
 		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
@@ -118,6 +119,7 @@
 		91EC6282437633054D179F01 /* libPods-CriticalMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMaps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
+		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		9460B76A225A6EB200786E27 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
 		946CDE0322412DA60059F892 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
 		9474E975224CF58100A812DC /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				94FCBD26226C57CA00F93F94 /* NibProviding.swift */,
 				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
 				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
@@ -752,6 +755,7 @@
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
+				9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */,
 				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,

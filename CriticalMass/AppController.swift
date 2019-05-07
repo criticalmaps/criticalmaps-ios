@@ -17,9 +17,13 @@ class AppController {
         themeController.applyTheme()
     }
 
-    private var requestManager: RequestManager = {
+    private let networkOperator: NetworkOperator = {
+        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
+    }()
+
+    private lazy var requestManager: RequestManager = {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
-        return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: NetworkOperator(), deviceId: deviceId.md5, url: Constants.apiEndpoint)
+        return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: networkOperator, deviceId: deviceId.md5, url: Constants.apiEndpoint)
     }()
 
     private let themeController = ThemeController()
@@ -33,7 +37,7 @@ class AppController {
     }()
 
     private lazy var twitterManager: TwitterManager = {
-        TwitterManager(networkLayer: NetworkOperator(), url: Constants.twitterEndpoint)
+        TwitterManager(networkLayer: networkOperator, url: Constants.twitterEndpoint)
     }()
 
     private func getRulesViewController() -> RulesViewController {

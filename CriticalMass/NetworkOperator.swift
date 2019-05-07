@@ -9,11 +9,13 @@ import Foundation
 
 struct NetworkOperator: NetworkLayer {
     private let session: URLSession
+    private var networkIndicatorHelper: NetworkActivityIndicatorHelper
 
-    init() {
+    init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         session = URLSession(configuration: configuration)
+        self.networkIndicatorHelper = networkIndicatorHelper
     }
 
     func get<T>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
@@ -34,7 +36,9 @@ struct NetworkOperator: NetworkLayer {
     }
 
     private func dataTask<T>(with request: URLRequest, decodable: T.Type, customDateFormatter: DateFormatter?, completion: @escaping (T?) -> Void) where T: Decodable {
+        networkIndicatorHelper.didStartRequest()
         let task = session.dataTask(with: request) { data, _, _ in
+            self.networkIndicatorHelper.didEndRequest()
             if let data = data {
                 let decoder = JSONDecoder()
                 if let customDateFormatter = customDateFormatter {
@@ -47,5 +51,9 @@ struct NetworkOperator: NetworkLayer {
             }
         }
         task.resume()
+    }
+
+    func cancelActiveRequestsIfNeeded() {
+        session.invalidateAndCancel()
     }
 }

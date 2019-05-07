@@ -8,6 +8,7 @@ Changelog for Critical Maps iOS
 
 - Message Notification Bubble
 - Swiftformat to the build phases
+- Network activity indicator support
 - French localisation. Thanks Alban!
 - Night mode feature
 
@@ -18,6 +19,7 @@ Changelog for Critical Maps iOS
 ### Fixed
 
 - Users can not send empty chat messages anymore.
+- A bug that prevented sending messages if another network request is active
 
 ## [3.0.0] - 2019-04-18
 
