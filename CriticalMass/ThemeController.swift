@@ -62,6 +62,7 @@ class ThemeController {
         CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).defaultTintColor = theme.titleTextColor
         SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
+        ChatNavigationButton.appearance().unreadMessagesTextColor = .white
         OverlayView.appearance().overlayBackgroundColor = theme.navigationOverlayBackgroundColor
     }
 

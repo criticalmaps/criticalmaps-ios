@@ -15,6 +15,13 @@ class ChatNavigationButton: CustomButton {
         }
     }
 
+    @objc
+    dynamic var unreadMessagesTextColor: UIColor? {
+        willSet {
+            unreadLabel.textColor = newValue
+        }
+    }
+
     private let unreadLabel = UILabel()
 
     public var unreadCount: UInt = 0 {

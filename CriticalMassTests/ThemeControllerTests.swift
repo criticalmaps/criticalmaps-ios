@@ -434,6 +434,40 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(color, Theme.dark.style.titleTextColor)
     }
 
+    func testChatNavigationButtonTextColorShouldAlwaysBeWhite() {
+        // given
+        let nightTheme: Theme = .dark
+        let lightTheme: Theme = .light
+        // when
+        sut.changeTheme(to: nightTheme)
+        sut.applyTheme()
+        let darkColor = ChatNavigationButton.appearance().unreadMessagesTextColor
+
+        sut.changeTheme(to: lightTheme)
+        sut.applyTheme()
+        let lightColor = ChatNavigationButton.appearance().unreadMessagesTextColor
+        // then
+        XCTAssertEqual(darkColor, .white)
+        XCTAssertEqual(lightColor, .white)
+    }
+
+    func testChatNavigationButtonBackgroundColorShouldAlwaysBeRed() {
+        // given
+        let nightTheme: Theme = .dark
+        let lightTheme: Theme = .light
+        // when
+        sut.changeTheme(to: nightTheme)
+        sut.applyTheme()
+        let darkColor = ChatNavigationButton.appearance().unreadMessagesBackgroundColor
+
+        sut.changeTheme(to: lightTheme)
+        sut.applyTheme()
+        let lightColor = ChatNavigationButton.appearance().unreadMessagesBackgroundColor
+        // then
+        XCTAssertEqual(darkColor, .red)
+        XCTAssertEqual(lightColor, .red)
+    }
+
     func testCustomButtonTintColorShouldChangeToTitleTextColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelectedAndChangeAgainWhenLightThemeIsSelected() {
         // given
         let nightTheme: Theme = .dark
