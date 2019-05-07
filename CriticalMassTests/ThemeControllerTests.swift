@@ -430,7 +430,7 @@ class ThemeControllerTests: XCTestCase {
         sut.changeTheme(to: theme)
         sut.applyTheme()
         // then
-        let color = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
+        let color = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).defaultTintColor
         XCTAssertEqual(color, Theme.dark.style.titleTextColor)
     }
 
@@ -441,11 +441,11 @@ class ThemeControllerTests: XCTestCase {
         // when
         sut.changeTheme(to: nightTheme)
         sut.applyTheme()
-        let nightColor = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
+        let nightColor = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).defaultTintColor
 
         sut.changeTheme(to: lightTheme)
         sut.applyTheme()
-        let lightColor = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).tintColor
+        let lightColor = CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).defaultTintColor
         // then
         XCTAssertEqual(nightColor, Theme.dark.style.titleTextColor)
         XCTAssertEqual(lightColor, Theme.light.style.titleTextColor)
