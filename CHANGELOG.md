@@ -15,6 +15,7 @@ Changelog for Critical Maps iOS
 
 ### Fixed
 - Users can not send empty chat messages anymore.
+- A bug that prevented sending messages if another network request is active
 
 ## [3.0.0] - 2019-04-18
 
