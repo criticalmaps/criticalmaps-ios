@@ -31,7 +31,7 @@ class SettingsViewController: UITableViewController {
         configureSettingsFooter()
         configureNavigationBar()
 
-        tableView.register(SettingsTableSectionHeader.nib, forHeaderFooterViewReuseIdentifier: SettingsTableSectionHeader.typeName)
+        tableView.register(viewType: SettingsTableSectionHeader.self)
     }
 
     override func viewDidLayoutSubviews() {
@@ -73,10 +73,9 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsTableSectionHeader.typeName)
-        let header = cell as! SettingsTableSectionHeader
+        let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
         header.titleLabel.text = Section.allCases[section].secionTitle
-        return cell
+        return header
     }
 
     override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
