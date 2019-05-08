@@ -9,7 +9,12 @@ import Foundation
 
 class AppController {
     init() {
+        onAppLaunch()
+    }
+
+    private func onAppLaunch() {
         loadInitialData()
+        themeController.applyTheme()
     }
 
     private let networkOperator: NetworkOperator = {
@@ -20,6 +25,8 @@ class AppController {
         let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: networkOperator, deviceId: deviceId.md5, url: Constants.apiEndpoint)
     }()
+
+    private let themeController = ThemeController()
 
     private lazy var chatManager: ChatManager = {
         ChatManager(requestManager: requestManager)
@@ -50,12 +57,11 @@ class AppController {
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        return SettingsViewController()
+        return SettingsViewController(themeController: themeController)
     }
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController()
-
+        let rootViewController = MapViewController(themeController: self.themeController)
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
             .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),

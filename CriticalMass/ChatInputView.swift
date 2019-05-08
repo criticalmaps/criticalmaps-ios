@@ -12,17 +12,34 @@ protocol ChatInputDelegate: AnyObject {
 }
 
 class ChatInputView: UIView, UITextFieldDelegate {
+    @objc
+    dynamic var sendMessageButtonColor: UIColor? {
+        willSet {
+            button.setTitleColor(newValue, for: .normal)
+            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .disabled)
+            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .highlighted)
+        }
+    }
+
+    @objc
+    dynamic var textViewTextColor: UIColor? {
+        willSet {
+            textField.textColor = newValue
+        }
+    }
+
     weak var delegate: ChatInputDelegate?
 
     private let textField: UITextField = {
         let textField = TextFieldWithInsets()
+        textField.isOpaque = false
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.backgroundColor = .chatInputTextfieldBackground
-        textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("chat.placeholder", comment: ""), attributes: [.foregroundColor: UIColor.chatInputPlaceholder])
+        textField.placeholder = NSLocalizedString("chat.placeholder", comment: "")
         textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .send
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.layer.masksToBounds = true
         return textField
     }()
 
@@ -30,19 +47,15 @@ class ChatInputView: UIView, UITextFieldDelegate {
         let button = UIButton()
         button.titleLabel?.textAlignment = .center
         button.setTitle(NSLocalizedString("chat.send", comment: ""), for: .normal)
-        button.setTitleColor(.chatInputSendButton, for: .normal)
-        button.setTitleColor(UIColor.chatInputSendButton.withAlphaComponent(0.4), for: .highlighted)
-        button.setTitleColor(UIColor.chatInputSendButton.withAlphaComponent(0.4), for: .disabled)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         button.isEnabled = false
         return button
     }()
 
-    private let separator: UIView = {
-        let view = UIView()
+    private let separator: SeperatorView = {
+        let view = SeperatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .chatInputSeparator
         return view
     }()
 
@@ -57,7 +70,6 @@ class ChatInputView: UIView, UITextFieldDelegate {
     }
 
     private func commonInit() {
-        backgroundColor = .chatInputBackground
         addSubview(textField)
         addSubview(button)
         addSubview(separator)

@@ -139,3 +139,6 @@
 
 /* No comment provided by engineer. */
 "close.button.label" = "chiudere";
+
+/* Theme */
+"settings.theme" = "Modalità Notturna"; /*https://translate.google.de/#view=home&op=translate&sl=en&tl=it&text=night%20mode*/

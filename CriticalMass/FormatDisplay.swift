@@ -37,4 +37,11 @@ enum FormatDisplay {
         formatter.maximumUnitCount = 1
         return formatter.string(from: components)
     }
+
+    static func hoursAndMinutesDateString(from message: ChatMessage) -> String {
+        let date = Date(timeIntervalSince1970: message.timestamp)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
 }

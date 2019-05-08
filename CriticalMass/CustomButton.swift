@@ -8,20 +8,18 @@
 import UIKit
 
 class CustomButton: UIButton {
-    public var highlightedTintColor: UIColor?
-    private var defaultTintColor: UIColor?
+    @objc
+    public dynamic var highlightedTintColor: UIColor!
+    @objc
+    public dynamic var defaultTintColor: UIColor! {
+        willSet {
+            tintColor = newValue
+        }
+    }
 
     override var isHighlighted: Bool {
         didSet {
-            if let highlightedTintColor = highlightedTintColor, isHighlighted {
-                if defaultTintColor == nil {
-                    defaultTintColor = tintColor
-                }
-                tintColor = highlightedTintColor
-            } else if let defaultTintColor = defaultTintColor {
-                tintColor = defaultTintColor
-                self.defaultTintColor = nil
-            }
+            tintColor = isHighlighted ? highlightedTintColor : defaultTintColor
         }
     }
 }
