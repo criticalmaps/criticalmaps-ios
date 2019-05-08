@@ -38,7 +38,7 @@ enum Section: Int, CaseIterable {
         }
     }
 
-    var cellClass: UITableViewCell.Type {
+    var cellClass: IBConstructable.Type {
         switch self {
         case .preferences:
             return SettingsSwitchTableViewCell.self

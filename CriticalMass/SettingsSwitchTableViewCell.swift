@@ -13,7 +13,7 @@ protocol SettingsSwitchCellConfigurable {
 
 typealias SettingsSwitchHandler = (UISwitch) -> Void
 
-class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable, NibProviding {
+class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable, IBConstructable {
     private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
 

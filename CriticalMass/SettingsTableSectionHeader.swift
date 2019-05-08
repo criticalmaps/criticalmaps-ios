@@ -8,6 +8,6 @@
 
 import UIKit
 
-class SettingsTableSectionHeader: UITableViewHeaderFooterView, NibProviding {
+class SettingsTableSectionHeader: UITableViewHeaderFooterView, IBConstructable {
     @IBOutlet var titleLabel: UILabel!
 }

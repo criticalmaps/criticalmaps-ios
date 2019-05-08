@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RuleTableViewCell: UITableViewCell, NibProviding {
+class RuleTableViewCell: UITableViewCell, IBConstructable {
     @objc
     dynamic var ruleTextColor: UIColor? {
         didSet { label.textColor = ruleTextColor }

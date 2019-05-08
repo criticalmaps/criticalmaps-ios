@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsGithubTableViewCellTableViewCell: UITableViewCell, NibProviding {
+class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable {
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var detailLabel: UILabel!
