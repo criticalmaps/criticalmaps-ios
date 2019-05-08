@@ -1,5 +1,5 @@
 //
-//  NSNotification+Static.swift
+//  Notification+Static.swift
 //  CriticalMaps
 //
 //  Created by Malte Bünz on 19.04.19.
@@ -10,4 +10,8 @@ import Foundation
 
 extension Notification {
     static let themeDidChange = Notification.Name(rawValue: "themeDidChange")
+    static let initialGpsDataReceived = Notification.Name(rawValue: "initialGpsDataReceived")
+    static let gpsStateChanged = Notification.Name(rawValue: "gpsStateChanged")
+    static let positionOthersChanged = Notification.Name(rawValue: "positionOthersChanged")
+    static let chatMessagesReceived = Notification.Name(rawValue: "chatMessagesReceived")
 }

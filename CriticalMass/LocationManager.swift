@@ -40,7 +40,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             }
             if let location = currentLocation {
                 didSetInitialLocation = true
-                NotificationCenter.default.post(name: NSNotification.Name("initialGpsDataReceived"), object: location)
+                NotificationCenter.default.post(name: Notification.initialGpsDataReceived, object: location)
             }
         }
         get {
@@ -95,6 +95,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
-        NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: type(of: self).accessPermission)
+        NotificationCenter.default.post(name: Notification.gpsStateChanged, object: type(of: self).accessPermission)
     }
 }

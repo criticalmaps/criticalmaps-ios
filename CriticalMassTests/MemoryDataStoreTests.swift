@@ -12,7 +12,7 @@ class MemoryDataStoreTests: XCTestCase {
     func testNotificationAfterStoringLocations() {
         let store = MemoryDataStore()
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
-        let notificationName = NSNotification.Name("positionOthersChanged")
+        let notificationName = Notification.positionOthersChanged
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
         }
@@ -24,7 +24,7 @@ class MemoryDataStoreTests: XCTestCase {
     func testNotificationAfterStoringChatMessage() {
         let store = MemoryDataStore()
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
-        let notificationName = NSNotification.Name("positionOthersChanged")
+        let notificationName = Notification.positionOthersChanged
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
         }
@@ -36,7 +36,7 @@ class MemoryDataStoreTests: XCTestCase {
     func testNoNoDoublicatedNotificationAfterStoringOldLocations() {
         let store = MemoryDataStore()
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
-        let notificationName = NSNotification.Name("positionOthersChanged")
+        let notificationName = Notification.positionOthersChanged
         var notificationCount = 0
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
             notificationCount += 1
@@ -54,7 +54,7 @@ class MemoryDataStoreTests: XCTestCase {
         let store = MemoryDataStore()
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         var notificationCount = 0
-        let notificationName = NSNotification.Name("positionOthersChanged")
+        let notificationName = Notification.positionOthersChanged
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
             notificationCount += 1
             return notification.object as AnyObject as! ApiResponse == expectedObject
