@@ -57,11 +57,11 @@ enum Section: Int, CaseIterable {
                 Model(title: String.themeLocalizedString, action: .none),
             ]
         case .github:
-            return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
+            return [Model(title: nil, action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
-            return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "https://www.criticalmaps.net")!)),
-                    Model(title: NSLocalizedString("settings.twitter", comment: ""), action: .open(url: URL(string: "https://twitter.com/criticalmaps/")!)),
-                    Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!))]
+            return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
+                    Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
+                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage))]
         }
     }
 
