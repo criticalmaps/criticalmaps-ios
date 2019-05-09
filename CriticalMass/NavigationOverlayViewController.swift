@@ -117,9 +117,8 @@ class NavigationOverlayViewController: UIViewController {
         case let .navigation(viewController: viewController):
             let navigationController = UINavigationController(rootViewController: viewController())
             let barbuttonItem = UIBarButtonItem(image: UIImage(named: "Close"), style: .done, target: self, action: #selector(didTapCloseButton(button:)))
-            barbuttonItem.accessibilityLabel = NSLocalizedString("close.button.label", comment: "")
+            barbuttonItem.accessibilityLabel = String.closeButtonLabel
             navigationController.navigationBar.topItem?.setLeftBarButton(barbuttonItem, animated: false)
-
             present(navigationController, animated: true, completion: nil)
         }
     }

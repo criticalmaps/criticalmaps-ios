@@ -67,8 +67,8 @@ class AppController {
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
             .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: NSLocalizedString("rules.title", comment: "")), action: .navigation(viewController: getRulesViewController)),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: NSLocalizedString("settings.title", comment: "")), action: .navigation(viewController: getSettingsViewController)),
+            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: String.rulesTitle), action: .navigation(viewController: getRulesViewController)),
+            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: String.settingsTitle), action: .navigation(viewController: getSettingsViewController)),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

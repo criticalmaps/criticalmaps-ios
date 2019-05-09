@@ -14,11 +14,6 @@ extension Hashable where Self: CaseIterable {
     }
 }
 
-extension String {
-    static let gpsLocalizedString = NSLocalizedString("GPS", comment: "")
-    static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
-}
-
 enum Section: Int, CaseIterable {
     case preferences
     case github
@@ -39,7 +34,7 @@ enum Section: Int, CaseIterable {
              .github:
             return nil
         case .info:
-            return NSLocalizedString("settings.section.info", comment: "")
+            return String.settingsSectionInfo
         }
     }
 
