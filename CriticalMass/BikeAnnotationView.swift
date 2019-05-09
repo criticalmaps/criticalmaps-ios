@@ -6,7 +6,6 @@
 //
 
 import MapKit
-import UIKit
 
 class BikeAnnoationView: MKAnnotationView {
     static let identifier = "BikeAnnotationView"

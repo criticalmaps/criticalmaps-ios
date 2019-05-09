@@ -25,10 +25,10 @@ public class RequestManager {
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
-    private var deviceId: String
+    private var idProvider: IDProvider
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, deviceId: String, url _: URL) {
-        self.deviceId = deviceId
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url _: URL) {
+        self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
@@ -57,7 +57,7 @@ public class RequestManager {
         hasActiveRequest = true
         // We only use a post request if we have a location to post
         if let currentLocation = locationProvider.currentLocation {
-            let body = SendLocationPostBody(device: deviceId, location: currentLocation)
+            let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
             guard let bodyData = try? JSONEncoder().encode(body) else {
                 hasActiveRequest = false
                 defaultCompletion(for: nil)
@@ -78,7 +78,8 @@ public class RequestManager {
             completion?(nil)
             self.networkLayer.cancelActiveRequestsIfNeeded()
         }
-        let body = SendMessagePostBody(device: deviceId, messages: messages)
+        let body = SendMessagePostBody(device: idProvider.id, messages: messages)
+
         guard let bodyData = try? JSONEncoder().encode(body) else {
             completion?(nil)
             return

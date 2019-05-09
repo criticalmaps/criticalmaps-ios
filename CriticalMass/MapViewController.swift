@@ -9,24 +9,16 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController {
-    class IdentifiableAnnnotation: MKPointAnnotation {
-        var identifier: String
+    private let themeController: ThemeController!
+    private var tileRenderer: MKTileOverlayRenderer?
 
-        var location: Location {
-            set {
-                coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
-            }
-            @available(*, unavailable)
-            get {
-                fatalError("Not implemented")
-            }
-        }
+    init(themeController: ThemeController) {
+        self.themeController = themeController
+        super.init(nibName: nil, bundle: nil)
+    }
 
-        init(location: Location, identifier: String) {
-            self.identifier = identifier
-            super.init()
-            self.location = location
-        }
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Properties
@@ -61,18 +53,6 @@ class MapViewController: UIViewController {
         label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
         return view
     }()
-
-    private let themeController: ThemeController!
-    private var tileRenderer: MKTileOverlayRenderer?
-
-    init(themeController: ThemeController) {
-        self.themeController = themeController
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,13 +160,14 @@ extension MapViewController: MKMapViewDelegate {
         guard annotation is MKUserLocation == false else {
             return nil
         }
+        let annotationView: BikeAnnoationView
         if #available(iOS 11.0, *) {
-            return mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation)
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation) as! BikeAnnoationView
         } else {
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) ?? BikeAnnoationView()
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
             annotationView.annotation = annotation
-            return annotationView
         }
+        return annotationView
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {

@@ -51,6 +51,17 @@ class MockNetworkLayer: NetworkLayer {
     func cancelActiveRequestsIfNeeded() {}
 }
 
+class MockIDProvider: IDProvider {
+    var mockID: String?
+    var id: String {
+        if let mockID = mockID {
+            return mockID
+        } else {
+            return UUID().uuidString
+        }
+    }
+}
+
 class MockDataStore: DataStore {
     var storedData: ApiResponse?
     func update(with response: ApiResponse) {
@@ -71,7 +82,9 @@ class RequestManagerTests: XCTestCase {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
+        let mockIDProvider = MockIDProvider()
+        mockIDProvider.mockID = deviceId
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
     }
 
     func testNoRequestForActiveRequests() {

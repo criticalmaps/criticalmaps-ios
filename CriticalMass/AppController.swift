@@ -17,13 +17,15 @@ class AppController {
         themeController.applyTheme()
     }
 
-    private let networkOperator: NetworkOperator = {
-        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
-    }()
+    private var idProvider: IDProvider = IDStore()
+    private var dataStore = MemoryDataStore()
 
     private lazy var requestManager: RequestManager = {
-        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
-        return RequestManager(dataStore: MemoryDataStore(), locationProvider: LocationManager(), networkLayer: networkOperator, deviceId: deviceId.md5, url: Constants.apiEndpoint)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
+    }()
+
+    private let networkOperator: NetworkOperator = {
+        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
     }()
 
     private let themeController = ThemeController()
