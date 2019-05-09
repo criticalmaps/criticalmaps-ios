@@ -91,7 +91,7 @@ class AppController {
             rootViewController.present(alertController, animated: true, completion: nil)
             return true
         } catch {
-            // unkown or broken link
+            // unknown or broken link
             return false
         }
     }
