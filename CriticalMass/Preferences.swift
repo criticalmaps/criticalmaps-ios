@@ -14,7 +14,7 @@ class Preferences {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: #function)
-            NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: newValue)
+            NotificationCenter.default.post(name: Notification.gpsStateChanged, object: newValue)
         }
     }
 

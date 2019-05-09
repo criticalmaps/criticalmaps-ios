@@ -37,12 +37,6 @@ class UserTrackingButton: CustomButton {
         }
     }
 
-    override var tintColor: UIColor! {
-        didSet {
-            highlightedTintColor = tintColor.withAlphaComponent(0.4)
-        }
-    }
-
     init(mapView: MKMapView) {
         self.mapView = mapView
         super.init(frame: .zero)

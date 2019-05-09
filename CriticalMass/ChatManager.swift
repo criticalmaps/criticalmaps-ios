@@ -24,7 +24,7 @@ class ChatManager {
 
     init(requestManager: RequestManager) {
         self.requestManager = requestManager
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessages(notification:)), name: NSNotification.Name("chatMessagesReceived"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessages(notification:)), name: Notification.chatMessagesReceived, object: nil)
     }
 
     @objc private func didReceiveMessages(notification: Notification) {

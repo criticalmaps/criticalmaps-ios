@@ -8,6 +8,20 @@
 import UIKit
 
 class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
+    @objc
+    dynamic var timeLabelTextColor: UIColor? {
+        willSet {
+            timeLabel.textColor = newValue
+        }
+    }
+
+    @objc
+    dynamic var chatTextColor: UIColor? {
+        willSet {
+            chatTextView.textColor = newValue
+        }
+    }
+
     @IBOutlet private var timeLabel: UILabel!
     @IBOutlet private var chatTextView: UITextView! {
         didSet {
@@ -19,15 +33,12 @@ class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        timeLabel?.textColor = .chatMessageDate
-        chatTextView?.textColor = .chatMessageText
+        timeLabel?.textColor = .gray200
+        chatTextView?.textColor = .gray300
     }
 
     func setup(for message: ChatMessage) {
-        let date = Date(timeIntervalSince1970: message.timestamp)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        timeLabel?.text = formatter.string(from: date)
+        timeLabel?.text = FormatDisplay.hoursAndMinutesDateString(from: message)
         chatTextView?.text = message.decodedMessage
     }
 }

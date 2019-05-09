@@ -8,6 +8,20 @@
 import UIKit
 
 class ChatNavigationButton: CustomButton {
+    @objc
+    dynamic var unreadMessagesBackgroundColor: UIColor? {
+        willSet {
+            unreadLabel.backgroundColor = newValue
+        }
+    }
+
+    @objc
+    dynamic var unreadMessagesTextColor: UIColor? {
+        willSet {
+            unreadLabel.textColor = newValue
+        }
+    }
+
     private let unreadLabel = UILabel()
 
     public var unreadCount: UInt = 0 {
@@ -24,9 +38,7 @@ class ChatNavigationButton: CustomButton {
     init() {
         super.init(frame: .zero)
         setImage(UIImage(named: "Chat")!, for: .normal)
-        tintColor = .navigationOverlayForeground
         adjustsImageWhenHighlighted = false
-        highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
         accessibilityLabel = NSLocalizedString("chat.title", comment: "")
         configureUnreadBubble()
     }
@@ -36,8 +48,6 @@ class ChatNavigationButton: CustomButton {
     }
 
     private func configureUnreadBubble() {
-        unreadLabel.backgroundColor = .red
-        unreadLabel.textColor = .white
         unreadLabel.font = UIFont.systemFont(ofSize: 11, weight: .heavy)
         unreadLabel.layer.cornerRadius = 8
         unreadLabel.layer.masksToBounds = true

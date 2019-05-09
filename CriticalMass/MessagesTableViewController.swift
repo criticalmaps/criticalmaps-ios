@@ -7,6 +7,13 @@
 
 import UIKit
 
+class NoContentMessageLabel: UILabel {
+    @objc
+    dynamic var messageTextColor: UIColor! {
+        willSet { textColor = newValue }
+    }
+}
+
 protocol MessagesTableViewCell: AnyObject {
     associatedtype MessageObject
 
@@ -54,7 +61,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         if !messages.isEmpty {
             tableView.backgroundView = nil
         } else if tableView.backgroundView == nil {
-            let noContentMessageLabel = UILabel()
+            let noContentMessageLabel = NoContentMessageLabel()
             noContentMessageLabel.textAlignment = .center
             noContentMessageLabel.numberOfLines = 0
             noContentMessageLabel.text = noContentMessage

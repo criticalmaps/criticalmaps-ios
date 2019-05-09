@@ -47,6 +47,8 @@ class MockNetworkLayer: NetworkLayer {
             completion(mockResponse as? T)
         }
     }
+
+    func cancelActiveRequestsIfNeeded() {}
 }
 
 class MockIDProvider: IDProvider {

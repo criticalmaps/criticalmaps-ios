@@ -7,6 +7,16 @@
 
 import UIKit
 
+class SeperatorView: UIView {}
+class OverlayView: UIView {
+    @objc
+    dynamic var overlayBackgroundColor: UIColor? {
+        willSet {
+            backgroundColor = newValue
+        }
+    }
+}
+
 struct NavigationOverlayItem {
     enum Action {
         case navigation(viewController: () -> UIViewController)
@@ -26,12 +36,17 @@ struct NavigationOverlayItem {
 class NavigationOverlayViewController: UIViewController {
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
-    private var separatorViews: [UIView] = []
+    private var separatorViews: [SeperatorView] = []
 
     init(navigationItems: [NavigationOverlayItem]) {
         items = navigationItems
         super.init(nibName: nil, bundle: nil)
         configure(items: navigationItems)
+    }
+
+    override func loadView() {
+        super.loadView()
+        view = OverlayView()
     }
 
     required init?(coder _: NSCoder) {
@@ -49,19 +64,16 @@ class NavigationOverlayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureViewBackground()
     }
 
     private func configureViewBackground() {
-        view.backgroundColor = .navigationOverlayBackground
-        view.layer.cornerRadius = 18
         view.insertSubview(visualEffectView, at: 0)
-
         view.layer.shadowOpacity = 0.2
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
+        view.layer.cornerRadius = 18
     }
 
     private func configure(items: [NavigationOverlayItem]) {
@@ -70,9 +82,7 @@ class NavigationOverlayViewController: UIViewController {
             case let .icon(icon, accessibilityLabel: accessibilityLabel):
                 let button = CustomButton(frame: .zero)
                 button.setImage(icon, for: .normal)
-                button.tintColor = .navigationOverlayForeground
                 button.adjustsImageWhenHighlighted = false
-                button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
                 button.accessibilityLabel = accessibilityLabel
                 button.tag = index
                 button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
@@ -91,8 +101,7 @@ class NavigationOverlayViewController: UIViewController {
 
         separatorViews = (0 ..< items.count - 1)
             .map { _ in
-                let view = UIView()
-                view.backgroundColor = .navigationOverlaySeparator
+                let view = SeperatorView()
                 return view
             }
         separatorViews.forEach(view.addSubview)
@@ -109,7 +118,6 @@ class NavigationOverlayViewController: UIViewController {
             let navigationController = UINavigationController(rootViewController: viewController())
             let barbuttonItem = UIBarButtonItem(image: UIImage(named: "Close"), style: .done, target: self, action: #selector(didTapCloseButton(button:)))
             barbuttonItem.accessibilityLabel = NSLocalizedString("close.button.label", comment: "")
-            barbuttonItem.tintColor = .black
             navigationController.navigationBar.topItem?.setLeftBarButton(barbuttonItem, animated: false)
 
             present(navigationController, animated: true, completion: nil)

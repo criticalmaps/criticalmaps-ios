@@ -140,3 +140,5 @@
 /* No comment provided by engineer. */
 "close.button.label" = "close";
 
+/* Theme */
+"settings.theme" = "Night mode";
