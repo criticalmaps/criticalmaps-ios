@@ -13,12 +13,12 @@ extension String {
     static let rulesTitle = NSLocalizedString("rules.title", comment: "")
     static let gpsLocalizedString = NSLocalizedString("GPS", comment: "")
     static let error = NSLocalizedString("error", comment: "")
-    static let closeButtonLabel =  NSLocalizedString("close.button.label", comment: "")
+    static let closeButtonLabel = NSLocalizedString("close.button.label", comment: "")
     // Settings
     static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
     static let settingsTitle = NSLocalizedString("settings.title", comment: "")
     static let settingsSectionInfo = NSLocalizedString("settings.section.info", comment: "")
-    static let settingsWebsite =  NSLocalizedString("settings.website", comment: "")
+    static let settingsWebsite = NSLocalizedString("settings.website", comment: "")
     static let settingsTwitter = NSLocalizedString("settings.twitter", comment: "")
     static let settingsFacebook = NSLocalizedString("settings.facebook", comment: "")
     static let settingsOpenSourceTitle = NSLocalizedString("settings.opensource.title", comment: "")
@@ -31,6 +31,6 @@ extension String {
     static let chatTitle = NSLocalizedString("chat.title", comment: "")
     static let chatSendError = NSLocalizedString("chat.send.error", comment: "")
     // Map
-    static let mapLayerInfo =  NSLocalizedString("map.layer.info", comment: "")
+    static let mapLayerInfo = NSLocalizedString("map.layer.info", comment: "")
     static let mapTitle = NSLocalizedString("map.title", comment: "")
 }
