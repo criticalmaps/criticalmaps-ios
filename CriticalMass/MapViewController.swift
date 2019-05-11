@@ -10,10 +10,12 @@ import UIKit
 
 class MapViewController: UIViewController {
     private let themeController: ThemeController!
+    private let mapController: MapController
     private var tileRenderer: MKTileOverlayRenderer?
 
-    init(themeController: ThemeController) {
+    init(themeController: ThemeController, mapController: MapController) {
         self.themeController = themeController
+        self.mapController = mapController
         super.init(nibName: nil, bundle: nil)
     }
 

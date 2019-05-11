@@ -63,7 +63,7 @@ class AppController {
     }
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController(themeController: self.themeController)
+        let rootViewController = MapViewController(themeController: self.themeController, mapController: MapController(dataStore: dataStore))
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
             .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),
@@ -80,7 +80,7 @@ class AppController {
     private func loadInitialData() {
         requestManager.getData()
     }
-    
+
     public func handle(url: URL) -> Bool {
         do {
             let followURLObject = try FollowURLObject.decode(from: url.absoluteString)

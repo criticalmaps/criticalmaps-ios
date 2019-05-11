@@ -20,7 +20,7 @@ class FollowFriendsViewController: UIViewController {
 
         do {
             let publicKeyData = try RSAKey(tag: RSAKey.keychainTag).publicKeyDataRepresentation()
-            view.string = try FollowURLObject(queryObject: Friend(name: "TODO", key: publicKeyData)).asURL()
+            view.text = try FollowURLObject(queryObject: Friend(name: "TODO", key: publicKeyData)).asURL()
         } catch {
             // TODO: present error
             fatalError()
