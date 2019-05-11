@@ -50,7 +50,7 @@ class SettingsViewController: UITableViewController {
     }
 
     private func configureNavigationBar() {
-        title = NSLocalizedString("settings.title", comment: "")
+        title = String.settingsTitle
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }

@@ -34,7 +34,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         let textField = TextFieldWithInsets()
         textField.isOpaque = false
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = NSLocalizedString("chat.placeholder", comment: "")
+        textField.placeholder = String.chatPlaceholder
         textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .send
@@ -46,7 +46,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
     private let button: UIButton = {
         let button = UIButton()
         button.titleLabel?.textAlignment = .center
-        button.setTitle(NSLocalizedString("chat.send", comment: ""), for: .normal)
+        button.setTitle(String.chatSend, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         button.isEnabled = false

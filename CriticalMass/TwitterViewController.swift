@@ -27,7 +27,7 @@ class TwitterViewController: UIViewController {
     }
 
     private func configureMessagesTableViewController() {
-        messagesTableViewController.noContentMessage = NSLocalizedString("twitter.noData", comment: "")
+        messagesTableViewController.noContentMessage = String.twitterNoData
         messagesTableViewController.messages = twitterManager.getTweets()
         messagesTableViewController.pullToRefreshTrigger = twitterManager.loadTweets
 
