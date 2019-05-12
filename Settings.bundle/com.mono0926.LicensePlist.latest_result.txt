@@ -14,7 +14,7 @@ version: 1.2.2
 
 name: SDWebImage, nameSpecified: 
 body: Copyright (c) 2009-2…
-version: 5.0.1
+version: 5.0.2
 
 name: SwiftFormat, nameSpecified: 
 body: MIT License
