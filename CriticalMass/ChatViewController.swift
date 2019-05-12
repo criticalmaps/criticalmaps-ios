@@ -48,7 +48,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     }
 
     private func configureMessagesTableViewController() {
-        messagesTableViewController.noContentMessage = NSLocalizedString("chat.noChatActivity", comment: "")
+        messagesTableViewController.noContentMessage = String.chatNoChatActivity
         messagesTableViewController.messages = chatManager.getMessages()
 
         let tapGestureRecoognizer = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
@@ -134,8 +134,8 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             if success {
                 self.chatInput.resetInput()
             } else {
-                let alert = UIAlertController(title: NSLocalizedString("error", comment: ""),
-                                              message: NSLocalizedString("chat.send.error", comment: ""),
+                let alert = UIAlertController(title: String.error,
+                                              message: String.chatSendError,
                                               preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok",
                                               style: .default,

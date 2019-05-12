@@ -43,7 +43,7 @@ class RulesViewController: UITableViewController {
     }
 
     private func configureNavigationBar() {
-        title = NSLocalizedString("rules.title", comment: "")
+        title = String.rulesTitle
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
