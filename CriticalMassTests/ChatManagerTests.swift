@@ -152,4 +152,25 @@ class ChatManagerTests: XCTestCase {
         setup.chatManager.markAllMessagesAsRead()
         wait(for: [exp], timeout: 1)
     }
+
+    func testGetChatMessagesWithoutCache() {
+        let setup = getSetup()
+        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+        _ = setup.chatManager.getMessages()
+        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
+    }
+
+    func testGetChatMessagesWithCache() {
+        let setup = getSetup()
+
+        // inject mock message
+        let mockMessages = [ChatMessage(message: "hello", timestamp: 2), ChatMessage(message: "world", timestamp: 1)]
+        let apiResponse = ApiResponse(locations: [:], chatMessages: ["1": mockMessages[0], "2": mockMessages[1]])
+        NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: apiResponse)
+
+        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+        let result = setup.chatManager.getMessages()
+        XCTAssertEqual(result, mockMessages)
+        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+    }
 }
