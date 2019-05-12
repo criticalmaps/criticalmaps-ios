@@ -32,7 +32,7 @@ class ThemeSelectionStore: ThemeStorable {
     ///
     /// - Returns: Saved Theme from a previous session.
     func load() -> Theme? {
-        let storedTheme = UserDefaults.standard.integer(forKey: defaultsKey)
+        let storedTheme = defaults.integer(forKey: defaultsKey)
         return Theme(rawValue: storedTheme)
     }
 }
