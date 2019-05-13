@@ -23,8 +23,7 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
 
         for cell in Section.allCases.map({ $0.cellClass }) {
-            let name = String(describing: cell)
-            tableView.register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
+            tableView.register(cell.nib, forCellReuseIdentifier: cell.nibName)
         }
         tableView.rowHeight = UITableView.automaticDimension
 
@@ -42,8 +41,8 @@ class SettingsViewController: UITableViewController {
     private func configureSettingsFooter() {
         var footer: SettingsFooterView? {
             let settingsFooter = SettingsFooterView.fromNib()
-            settingsFooter?.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
-            settingsFooter?.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
+            settingsFooter.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
+            settingsFooter.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
             return settingsFooter
         }
         tableView.tableFooterView = footer
