@@ -8,14 +8,9 @@
 
 import UIKit
 
-extension UITableViewCell {
-    var reuseIdentifier: String? { return typeName }
-    static var reuseIdentifier: String { return typeName }
-}
-
 extension UITableView {
     func register<T: UITableViewCell>(cellType _: T.Type) where T: IBConstructable {
-        register(T.nib, forCellReuseIdentifier: T.reuseIdentifier)
+        register(T.nib, forCellReuseIdentifier: T.typeName)
     }
 
     func register<T: UITableViewHeaderFooterView>(viewType _: T.Type) where T: IBConstructable {
@@ -23,8 +18,8 @@ extension UITableView {
     }
 
     func dequeueReusableCell<T: UITableViewCell>(ofType _: T.Type) -> T {
-        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier) as? T else {
-            fatalError("Couldn't dequeue UITableViewCell with identifier: \"\(T.reuseIdentifier)\"")
+        guard let cell = dequeueReusableCell(withIdentifier: T.typeName) as? T else {
+            fatalError("Couldn't dequeue UITableViewCell with identifier: \"\(T.typeName)\"")
         }
         return cell
     }
