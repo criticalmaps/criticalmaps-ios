@@ -12,9 +12,9 @@ protocol MessageConfigurable: AnyObject {
     func setup(for object: Model)
 }
 
-typealias IBConstruableMessageTableViewCell = UITableViewCell & IBConstructable & MessageConfigurable
+typealias IBConstructableMessageTableViewCell = UITableViewCell & IBConstructable & MessageConfigurable
 
-class MessagesTableViewController<T: IBConstruableMessageTableViewCell>: UITableViewController {
+class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITableViewController {
     var noContentMessage: String?
     var pullToRefreshTrigger: (((() -> Void)?) -> Void)? {
         didSet {
