@@ -18,7 +18,7 @@ public class RequestManager {
         var messages: [SendChatMessage]
     }
 
-    private let endpoint = URL(string: "https://api.criticalmaps.net/")!
+    private let endpoint: URL
 
     private var hasActiveRequest = false
 
@@ -27,7 +27,8 @@ public class RequestManager {
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url _: URL) {
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
+        endpoint = url
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider

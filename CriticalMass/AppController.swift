@@ -8,11 +8,7 @@
 import Foundation
 
 class AppController {
-    init() {
-        onAppLaunch()
-    }
-
-    private func onAppLaunch() {
+    public func onAppLaunch() {
         loadInitialData()
         themeController.applyTheme()
     }
