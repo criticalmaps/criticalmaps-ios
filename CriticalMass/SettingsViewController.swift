@@ -39,13 +39,10 @@ class SettingsViewController: UITableViewController {
     }
 
     private func configureSettingsFooter() {
-        var footer: SettingsFooterView? {
-            let settingsFooter = SettingsFooterView.fromNib()
-            settingsFooter.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
-            settingsFooter.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
-            return settingsFooter
-        }
-        tableView.tableFooterView = footer
+        let settingsFooter = SettingsFooterView.fromNib()
+        settingsFooter.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
+        settingsFooter.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
+        tableView.tableFooterView = settingsFooter
     }
 
     private func configureNavigationBar() {
