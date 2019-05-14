@@ -23,4 +23,4 @@ public extension TypeNameProtocol {
     }
 }
 
-extension NSObject: TypeNameProtocol {}
+extension UIView: TypeNameProtocol {}

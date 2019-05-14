@@ -14,7 +14,7 @@ protocol IBConstructable {
     static var nib: UINib { get }
 }
 
-extension IBConstructable where Self: NSObject {
+extension IBConstructable where Self: UIView {
     static var nibName: String {
         return typeName
     }
