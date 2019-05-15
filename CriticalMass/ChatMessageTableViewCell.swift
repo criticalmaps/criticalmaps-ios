@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatMessageTableViewCell: UITableViewCell, MessagesTableViewCell {
+class ChatMessageTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable {
     @objc
     dynamic var timeLabelTextColor: UIColor? {
         willSet {

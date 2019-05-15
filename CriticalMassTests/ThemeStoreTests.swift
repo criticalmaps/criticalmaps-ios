@@ -24,7 +24,7 @@ class MockThemeStore: ThemeStorable {
     }
 }
 
-class ThemeStoreTests: XCTestCase {
+class MockThemeStoreTests: XCTestCase {
     var sut: ThemeStorable?
 
     override func setUp() {
@@ -34,6 +34,39 @@ class ThemeStoreTests: XCTestCase {
 
     override func tearDown() {
         sut = nil
+        super.tearDown()
+    }
+
+    func testStoreShouldReturnLightThemeWhenNothingIsSavedBefore() {
+        // given
+        let theme = sut!.load()
+        // then
+        XCTAssertEqual(theme, .light)
+    }
+
+    func testStoreShouldReturnDarkThemeWhenDarkIsSavedBefore() {
+        // given
+        let theme = Theme.dark
+        // when
+        sut?.save(theme)
+        let loadedTheme = sut!.load()
+        // then
+        XCTAssertEqual(loadedTheme, .dark)
+    }
+}
+
+class ThemeSelectionStoreTests: XCTestCase {
+    var sut: ThemeSelectionStore?
+    var userdefaults = UserDefaults(suiteName: "CriticalMaps-Tests")!
+
+    override func setUp() {
+        super.setUp()
+        sut = ThemeSelectionStore(defaults: userdefaults)
+    }
+
+    override func tearDown() {
+        sut = nil
+        userdefaults.removePersistentDomain(forName: "CriticalMaps-Tests")
         super.tearDown()
     }
 

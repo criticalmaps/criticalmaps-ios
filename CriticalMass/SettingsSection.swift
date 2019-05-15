@@ -14,11 +14,6 @@ extension Hashable where Self: CaseIterable {
     }
 }
 
-extension String {
-    static let gpsLocalizedString = NSLocalizedString("GPS", comment: "")
-    static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
-}
-
 enum Section: Int, CaseIterable {
     case preferences
     case github
@@ -39,11 +34,11 @@ enum Section: Int, CaseIterable {
              .github:
             return nil
         case .info:
-            return NSLocalizedString("settings.section.info", comment: "")
+            return String.settingsSectionInfo
         }
     }
 
-    var cellClass: UITableViewCell.Type {
+    var cellClass: IBConstructable.Type {
         switch self {
         case .preferences:
             return SettingsSwitchTableViewCell.self
@@ -62,12 +57,11 @@ enum Section: Int, CaseIterable {
                 Model(title: String.themeLocalizedString, action: .none),
             ]
         case .github:
-            return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
+            return [Model(title: nil, action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
-            return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "https://www.criticalmaps.net")!)),
-                    Model(title: NSLocalizedString("settings.twitter", comment: ""), action: .open(url: URL(string: "https://twitter.com/criticalmaps/")!)),
-                    Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!)),
-                    Model(title: "QR Code Pairing", action: .push(viewController: FollowFriendsViewController()))]
+            return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
+                    Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
+                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage)), Model(title: "QR Code Pairing", action: .push(viewController: FollowFriendsViewController()))]
         }
     }
 

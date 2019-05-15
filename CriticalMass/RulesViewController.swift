@@ -43,15 +43,14 @@ class RulesViewController: UITableViewController {
     }
 
     private func configureNavigationBar() {
-        title = NSLocalizedString("rules.title", comment: "")
+        title = String.rulesTitle
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
     }
 
     private func registerCell() {
-        tableView.register(RuleTableViewCell.nib,
-                           forCellReuseIdentifier: RuleTableViewCell.typeName)
+        tableView.register(cellType: RuleTableViewCell.self)
     }
 
     // MARK: UITableViewDataSource
@@ -65,7 +64,7 @@ class RulesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: RuleTableViewCell.typeName) as! RuleTableViewCell
+        let cell = tableView.dequeueReusableCell(ofType: RuleTableViewCell.self)
         cell.label?.text = rules[indexPath.row].title
         return cell
     }

@@ -46,7 +46,7 @@ class MapViewController: UIViewController {
         view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
         let label = NoContentMessageLabel()
-        label.text = NSLocalizedString("map.layer.info", comment: "")
+        label.text = String.mapLayerInfo
         label.numberOfLines = 0
         label.textAlignment = .center
         label.sizeToFit()
@@ -59,7 +59,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = NSLocalizedString("map.title", comment: "")
+        title = String.mapTitle
         configureNotifications()
         configureTileRenderer()
         configureMapView()
