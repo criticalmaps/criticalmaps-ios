@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsFooterView: UITableViewHeaderFooterView, NibInstantiatable {
+class SettingsFooterView: UITableViewHeaderFooterView, IBConstructable {
     /// UIAppearance compatible property
     @objc
     dynamic var versionTextColor: UIColor? { // UI_APPEARANCE_SELECTOR

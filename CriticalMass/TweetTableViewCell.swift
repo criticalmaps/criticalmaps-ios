@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TweetTableViewCell: UITableViewCell, MessagesTableViewCell {
+class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable {
     @objc
     dynamic var userameTextColor: UIColor? {
         willSet {

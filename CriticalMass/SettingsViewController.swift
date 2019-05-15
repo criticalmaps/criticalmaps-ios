@@ -23,15 +23,14 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
 
         for cell in Section.allCases.map({ $0.cellClass }) {
-            let name = String(describing: cell)
-            tableView.register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
+            tableView.register(cell.nib, forCellReuseIdentifier: cell.nibName)
         }
         tableView.rowHeight = UITableView.automaticDimension
 
         configureSettingsFooter()
         configureNavigationBar()
 
-        tableView.register(SettingsTableSectionHeader.nib, forHeaderFooterViewReuseIdentifier: SettingsTableSectionHeader.typeName)
+        tableView.register(viewType: SettingsTableSectionHeader.self)
     }
 
     override func viewDidLayoutSubviews() {
@@ -40,13 +39,10 @@ class SettingsViewController: UITableViewController {
     }
 
     private func configureSettingsFooter() {
-        var footer: SettingsFooterView? {
-            let settingsFooter = SettingsFooterView.fromNib()
-            settingsFooter?.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
-            settingsFooter?.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
-            return settingsFooter
-        }
-        tableView.tableFooterView = footer
+        let settingsFooter = SettingsFooterView.fromNib()
+        settingsFooter.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
+        settingsFooter.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
+        tableView.tableFooterView = settingsFooter
     }
 
     private func configureNavigationBar() {
@@ -73,10 +69,9 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsTableSectionHeader.typeName)
-        let header = cell as! SettingsTableSectionHeader
+        let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
         header.titleLabel.text = Section.allCases[section].secionTitle
-        return cell
+        return header
     }
 
     override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

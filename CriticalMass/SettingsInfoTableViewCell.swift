@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsInfoTableViewCell: UITableViewCell, NibProviding {
+class SettingsInfoTableViewCell: UITableViewCell, IBConstructable {
     @IBOutlet var titleLabel: UILabel!
 
     override var textLabel: UILabel? {

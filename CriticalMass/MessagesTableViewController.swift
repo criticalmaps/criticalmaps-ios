@@ -7,26 +7,14 @@
 
 import UIKit
 
-class NoContentMessageLabel: UILabel {
-    @objc
-    dynamic var messageTextColor: UIColor! {
-        willSet { textColor = newValue }
-    }
+protocol MessageConfigurable: AnyObject {
+    associatedtype Model
+    func setup(for object: Model)
 }
 
-protocol MessagesTableViewCell: AnyObject {
-    associatedtype MessageObject
+typealias IBConstructableMessageTableViewCell = UITableViewCell & IBConstructable & MessageConfigurable
 
-    func setup(for object: MessageObject)
-}
-
-extension MessagesTableViewCell {
-    static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-}
-
-class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewController {
+class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITableViewController {
     var noContentMessage: String?
     var pullToRefreshTrigger: (((() -> Void)?) -> Void)? {
         didSet {
@@ -36,7 +24,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         }
     }
 
-    var messages: [T.MessageObject] = [] {
+    var messages: [T.Model] = [] {
         didSet {
             // TODO: implement diffing to only reload cells that changed
             tableView.reloadData()
@@ -48,7 +36,7 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         super.viewDidLoad()
         // Setting the footerView hides seperators for empty cellls
         tableView.tableFooterView = UIView()
-        register(cellType: T.self)
+        tableView.register(cellType: T.self)
         // To use UITableViews dynamicHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 110.0
@@ -69,10 +57,6 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         }
     }
 
-    private func register(cellType: T.Type) {
-        tableView.register(UINib(nibName: String(describing: cellType), bundle: nil), forCellReuseIdentifier: T.reuseIdentifier)
-    }
-
     @objc private func didTriggerRefresh() {
         refreshControl?.beginRefreshing()
         pullToRefreshTrigger? { [weak self] in
@@ -90,13 +74,13 @@ class MessagesTableViewController<T: MessagesTableViewCell>: UITableViewControll
         return messages.count
     }
 
-    func update(messages: [T.MessageObject]) {
+    func update(messages: [T.Model]) {
         self.messages = messages
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
+        let cell = tableView.dequeueReusableCell(ofType: T.self)
         cell.setup(for: messages[indexPath.row])
-        return cell as! UITableViewCell
+        return cell
     }
 }
