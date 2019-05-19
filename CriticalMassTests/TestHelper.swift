@@ -69,9 +69,9 @@ class MockDataStore: DataStore {
     func add(friend: Friend) {
         friends.insert(friend)
     }
-    
+
     var friends: Set<Friend> = []
-    
+
     var storedData: ApiResponse?
     func update(with response: ApiResponse) {
         storedData = response
