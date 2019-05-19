@@ -52,7 +52,7 @@
 		98003D5122872C6300592D55 /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5022872C6300592D55 /* RSA.swift */; };
 		98003D5322872C7400592D55 /* RSAKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5222872C7400592D55 /* RSAKeyTests.swift */; };
 		98003D5522872C8100592D55 /* RSATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5422872C8100592D55 /* RSATests.swift */; };
-		98003D5822872CD200592D55 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5622872CA800592D55 /* MapController.swift */; };
+		98003D5822872CD200592D55 /* FriendsVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5622872CA800592D55 /* FriendsVerificationController.swift */; };
 		98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5922872DB300592D55 /* FollowFriendsViewController.swift */; };
 		98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5C22872E4300592D55 /* QRCodeView.swift */; };
 		98003D602287301000592D55 /* FollowURLObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5F2287301000592D55 /* FollowURLObjectTests.swift */; };
@@ -187,7 +187,7 @@
 		98003D5022872C6300592D55 /* RSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
 		98003D5222872C7400592D55 /* RSAKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAKeyTests.swift; sourceTree = "<group>"; };
 		98003D5422872C8100592D55 /* RSATests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSATests.swift; sourceTree = "<group>"; };
-		98003D5622872CA800592D55 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		98003D5622872CA800592D55 /* FriendsVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsVerificationController.swift; sourceTree = "<group>"; };
 		98003D5922872DB300592D55 /* FollowFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowFriendsViewController.swift; sourceTree = "<group>"; };
 		98003D5C22872E4300592D55 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		98003D5F2287301000592D55 /* FollowURLObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowURLObjectTests.swift; sourceTree = "<group>"; };
@@ -353,7 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				98003D5922872DB300592D55 /* FollowFriendsViewController.swift */,
-				98003D5622872CA800592D55 /* MapController.swift */,
+				98003D5622872CA800592D55 /* FriendsVerificationController.swift */,
 				989F9FEF21C7E5FC00E71085 /* Rules */,
 				985E94BC220891F200AA991B /* Social */,
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
@@ -823,7 +823,7 @@
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
 				9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */,
-				98003D5822872CD200592D55 /* MapController.swift in Sources */,
+				98003D5822872CD200592D55 /* FriendsVerificationController.swift in Sources */,
 				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9838F28E227B771F00744EDD /* IDStore.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,

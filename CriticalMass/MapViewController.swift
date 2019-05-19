@@ -10,12 +10,12 @@ import UIKit
 
 class MapViewController: UIViewController {
     private let themeController: ThemeController!
-    private let mapController: MapController
+    private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
 
-    init(themeController: ThemeController, mapController: MapController) {
+    init(themeController: ThemeController, friendsVerificationController: FriendsVerificationController) {
         self.themeController = themeController
-        self.mapController = mapController
+        self.friendsVerificationController = friendsVerificationController
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -172,7 +172,7 @@ extension MapViewController: MKMapViewDelegate {
 
         if let identifiableAnnotation = (annotation as? IdentifiableAnnnotation),
             let signature = identifiableAnnotation.location.name {
-            annotationView.isFriend = mapController.isFriend(id: identifiableAnnotation.identifier, signature: signature)
+            annotationView.isFriend = friendsVerificationController.isFriend(id: identifiableAnnotation.identifier, signature: signature)
         }
         return annotationView
     }

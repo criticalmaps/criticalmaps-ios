@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MapController {
+class FriendsVerificationController {
     private var dataStore: DataStore
 
     init(dataStore: DataStore) {
