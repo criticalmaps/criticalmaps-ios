@@ -36,6 +36,11 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         configureMessagesTableViewController()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        chatInput.resignFirstResponder()
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
