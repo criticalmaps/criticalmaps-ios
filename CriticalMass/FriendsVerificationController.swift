@@ -7,23 +7,21 @@
 
 import Foundation
 
-class FriendsVerificationController {
+public class FriendsVerificationController {
     private var dataStore: DataStore
 
-    init(dataStore: DataStore) {
+    public init(dataStore: DataStore) {
         self.dataStore = dataStore
     }
 
     public func isFriend(id: String, signature: String) -> Bool {
-        // TODO: write Tests!
-
         guard let idData = id.data(using: .utf8),
             let signatureData = Data(base64Encoded: signature) else {
             return false
         }
 
-        do {
-            for friend in dataStore.friends {
+        for friend in dataStore.friends {
+            do {
                 guard let key = try RSAKey(data: friend.key).publicKey else {
                     continue
                 }
@@ -32,9 +30,9 @@ class FriendsVerificationController {
                 if validSignature {
                     return true
                 }
+            } catch {
+                // TODO: improve error handling.
             }
-        } catch {
-            // TODO: improve error handling.  This method shouldn't stop if one of the stored keys isn't valid
         }
         return false
     }

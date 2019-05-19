@@ -58,12 +58,12 @@ public class RSAKey {
         secKey = item as! SecKey
     }
 
-    public convenience init(tag _: String) throws {
+    public convenience init(tag: String) throws {
         // TODO: add tests + documentation
-        if let _ = try? RSAKey(fromKeychain: RSAKey.keychainTag) {
-            try self.init(fromKeychain: RSAKey.keychainTag)
+        if let _ = try? RSAKey(fromKeychain: tag) {
+            try self.init(fromKeychain: tag)
         } else {
-            try self.init(randomKey: RSAKey.keychainTag)
+            try self.init(randomKey: tag)
         }
     }
 
@@ -71,13 +71,13 @@ public class RSAKey {
     ///
     /// - Parameter tag: The tag will be used to store the key in the keychain and can be used later to retrieve the key from keychain
     /// - Throws: an error if the creation failed
-    public init(randomKey tag: String) throws {
+    public init(randomKey tag: String, isPermament: Bool = true) throws {
         let tagData = tag.data(using: .utf8)!
         let attributes: [String: Any] =
             [kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
              kSecAttrKeySizeInBits as String: 2048,
              kSecPrivateKeyAttrs as String:
-                 [kSecAttrIsPermanent as String: true,
+                 [kSecAttrIsPermanent as String: isPermament,
                   kSecAttrApplicationTag as String: tagData]]
 
         var error: Unmanaged<CFError>?

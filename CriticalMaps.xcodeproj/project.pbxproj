@@ -119,6 +119,7 @@
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
 		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
 		98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */; };
+		98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,6 +260,7 @@
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
+		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 		FE801F89A7EEED10486DC718 /* Pods-CriticalMapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -480,6 +482,7 @@
 				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
 				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				981C92082288B47F00391FA9 /* TestHelper.swift */,
+				98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -897,6 +900,7 @@
 				98003D5522872C8100592D55 /* RSATests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
+				98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */,
 				982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */,
 				981C920A2288B49D00391FA9 /* TestHelper.swift in Sources */,
 				943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */,

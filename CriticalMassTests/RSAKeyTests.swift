@@ -34,4 +34,9 @@ class RSAKeyTests: XCTestCase {
         let data = try key.publicKeyDataRepresentation()
         XCTAssertNoThrow(try RSAKey(data: data))
     }
+
+    func testInitNonPermanentKey() throws {
+        let key = try RSAKey(randomKey: keychainTag, isPermament: false)
+        XCTAssertThrowsError(try key.delete())
+    }
 }
