@@ -21,7 +21,7 @@ Changelog for Critical Maps iOS
 
 - Users can not send empty chat messages anymore.
 - A bug that prevented sending messages if another network request is active
-- input dismissed when switching emoji keyboardcha
+- input dismissed when switching to the emoji keyboard
 
 ## [3.0.0] - 2019-04-18
 
