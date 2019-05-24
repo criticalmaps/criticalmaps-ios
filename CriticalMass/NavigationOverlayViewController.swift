@@ -123,10 +123,6 @@ class NavigationOverlayViewController: UIViewController {
         }
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-    }
-
     @objc func didTapCloseButton(button _: UIBarButtonItem) {
         presentedViewController?.dismiss(animated: true, completion: nil)
     }
