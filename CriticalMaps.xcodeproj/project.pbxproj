@@ -52,6 +52,8 @@
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
+		9810C382229830940011F718 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9810C381229830940011F718 /* RatingHelper.swift */; };
+		9810C384229831720011F718 /* RatingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9810C383229831720011F718 /* RatingHelperTests.swift */; };
 		981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C788E225E67350009FC3E /* ChatNavigationButton.swift */; };
 		981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */; };
 		981C920A2288B49D00391FA9 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C92082288B47F00391FA9 /* TestHelper.swift */; };
@@ -176,6 +178,8 @@
 		9804176A21FC7AF30077D419 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		9804176C21FC87960077D419 /* SendChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatMessage.swift; sourceTree = "<group>"; };
 		9804178F21FCA2B40077D419 /* ChatManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManagerTests.swift; sourceTree = "<group>"; };
+		9810C381229830940011F718 /* RatingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingHelper.swift; sourceTree = "<group>"; };
+		9810C383229831720011F718 /* RatingHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingHelperTests.swift; sourceTree = "<group>"; };
 		981C788E225E67350009FC3E /* ChatNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavigationButton.swift; sourceTree = "<group>"; };
 		981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNavigationButtonController.swift; sourceTree = "<group>"; };
 		981C92082288B47F00391FA9 /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
@@ -292,6 +296,7 @@
 				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
 				94092748228321E60034E46B /* UITableView+Register.swift */,
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
+				9810C381229830940011F718 /* RatingHelper.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -447,6 +452,7 @@
 				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
 				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				981C92082288B47F00391FA9 /* TestHelper.swift */,
+				9810C383229831720011F718 /* RatingHelperTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -828,6 +834,7 @@
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
 				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
+				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
@@ -849,6 +856,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9822A16621F11519007F5994 /* MemoryDataStoreTests.swift in Sources */,
+				9810C384229831720011F718 /* RatingHelperTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,

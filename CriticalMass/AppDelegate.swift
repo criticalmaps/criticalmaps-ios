@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = appController.rootViewController
         window?.makeKeyAndVisible()
 
-        Appirater.appLaunched(true)
+//        Appirater.appLaunched(true)
         appController.onAppLaunch()
         return true
     }
