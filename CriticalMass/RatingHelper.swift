@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StoreKit
 
 @available(iOS 10.3, *)
 extension SKStoreReviewController: RatingRequest {}
@@ -33,6 +34,14 @@ public class RatingHelper {
     }
 
     public func onLaunch() {
+        onEvent()
+    }
+
+    public func onEnterForeground() {
+        onEvent()
+    }
+
+    private func onEvent() {
         resetCounterIfneeded()
         increaseDaysCounterIfNeeded()
         usesCounter += 1
