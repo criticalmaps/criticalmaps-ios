@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SeperatorView: UIView {}
+class SeparatorView: UIView {}
 class OverlayView: UIView {
     @objc
     dynamic var overlayBackgroundColor: UIColor? {
@@ -36,7 +36,7 @@ struct NavigationOverlayItem {
 class NavigationOverlayViewController: UIViewController {
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
-    private var separatorViews: [SeperatorView] = []
+    private var separatorViews: [SeparatorView] = []
 
     init(navigationItems: [NavigationOverlayItem]) {
         items = navigationItems
@@ -101,7 +101,7 @@ class NavigationOverlayViewController: UIViewController {
 
         separatorViews = (0 ..< items.count - 1)
             .map { _ in
-                let view = SeperatorView()
+                let view = SeparatorView()
                 return view
             }
         separatorViews.forEach(view.addSubview)
@@ -121,6 +121,10 @@ class NavigationOverlayViewController: UIViewController {
             navigationController.navigationBar.topItem?.setLeftBarButton(barbuttonItem, animated: false)
             present(navigationController, animated: true, completion: nil)
         }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
     }
 
     @objc func didTapCloseButton(button _: UIBarButtonItem) {

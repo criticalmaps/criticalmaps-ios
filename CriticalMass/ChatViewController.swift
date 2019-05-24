@@ -9,7 +9,7 @@ import UIKit
 
 class ChatViewController: UIViewController, ChatInputDelegate {
     private let chatInputHeight: CGFloat = 64
-    
+
     private let chatInput = ChatInputView(frame: .zero)
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager

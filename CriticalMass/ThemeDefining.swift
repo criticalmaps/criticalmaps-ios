@@ -19,7 +19,7 @@ protocol ThemeDefining {
     var secondaryTitleTextColor: UIColor { get }
     var switchTintColor: UIColor { get }
     var chatMessageInputTextViewBackgroundColor: UIColor { get }
-    var navigationOverlaySeperatorColor: UIColor { get }
+    var separatorColor: UIColor { get }
     var cellSelectedBackgroundViewColor: UIColor { get }
     var navigationBarIsTranslucent: Bool { get }
     var placeholderTextColor: UIColor { get }
@@ -65,7 +65,7 @@ struct LightTheme: ThemeDefining {
         return .gray500
     }
 
-    var navigationOverlaySeperatorColor: UIColor {
+    var separatorColor: UIColor {
         return .lightThemeNavigationOverlaySeperatorColor
     }
 
@@ -131,7 +131,7 @@ struct DarkTheme: ThemeDefining {
         return .gray100
     }
 
-    var navigationOverlaySeperatorColor: UIColor {
+    var separatorColor: UIColor {
         return .darkThemeNavigationOverlaySeperatorColor
     }
 
