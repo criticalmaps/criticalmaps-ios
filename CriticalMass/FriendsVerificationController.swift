@@ -1,5 +1,5 @@
 //
-//  MapController.swift
+//  FriendsVerificationController.swift
 //  CriticalMaps
 //
 //  Created by Leonard Thomas on 5/2/19.
