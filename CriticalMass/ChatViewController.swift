@@ -113,7 +113,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         let curve = notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
         let endFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 
-        chatInputBottomConstraint.constant = endFrame.height - view.frame.height + chatInputHeight
+        chatInputBottomConstraint.constant = -endFrame.height
         view.setNeedsUpdateConstraints()
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve), animations: {
             self.view.layoutIfNeeded()
