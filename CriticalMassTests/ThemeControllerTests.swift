@@ -291,15 +291,15 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(chatTextColor, Theme.dark.style.secondaryTitleTextColor)
     }
 
-    func testSeperatorViewBackgroundColorShouldChangeToNavigationOverlaySeperatorColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelected() {
+    func testSeperatorViewBackgroundColorShouldChangeToNavigationOverlaySeperatorColorWhenNightModeWasSelected() {
         // given
         let theme: Theme = .dark
         // when
         sut.changeTheme(to: theme)
         sut.applyTheme()
         // then
-        let backgroundColor = SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor
-        XCTAssertEqual(backgroundColor, Theme.dark.style.navigationOverlaySeperatorColor)
+        let backgroundColor = SeparatorView.appearance().backgroundColor
+        XCTAssertEqual(backgroundColor, Theme.dark.style.separatorColor)
     }
 
     func testChatNavigationButtonUnreadMessagesBackgroundColorShouldChangeToRedWhenNightModeWasSelected() {

@@ -60,7 +60,6 @@ class ThemeController {
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
         CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).highlightedTintColor = theme.titleTextColor.withAlphaComponent(0.6)
         CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).defaultTintColor = theme.titleTextColor
-        SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
         ChatNavigationButton.appearance().unreadMessagesTextColor = .white
         OverlayView.appearance().overlayBackgroundColor = theme.navigationOverlayBackgroundColor
@@ -88,6 +87,7 @@ class ThemeController {
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
+        SeparatorView.appearance().backgroundColor = theme.separatorColor
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
         UITextField.appearance().keyboardAppearance = theme.keyboardAppearance
         // NavigationBar
