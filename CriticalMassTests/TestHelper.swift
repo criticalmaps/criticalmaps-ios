@@ -76,4 +76,10 @@ extension XCTestCase {
             completion()
         }
     }
+
+    func execute(times: UInt, _ function: @autoclosure () -> Void) {
+        (0 ..< times).forEach { _ in
+            function()
+        }
+    }
 }
