@@ -44,13 +44,12 @@ class MapViewController: UIViewController {
         view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
         let label = NoContentMessageLabel()
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.text = String.mapLayerInfo
-        label.numberOfLines = 0
-        label.textAlignment = .center
         label.sizeToFit()
-        view.contentView.addSubview(label)
         label.center = view.center
         label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+        view.contentView.addSubview(label)
         return view
     }()
 

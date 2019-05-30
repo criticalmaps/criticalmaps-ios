@@ -50,9 +50,8 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
             tableView.backgroundView = nil
         } else if tableView.backgroundView == nil {
             let noContentMessageLabel = NoContentMessageLabel()
-            noContentMessageLabel.textAlignment = .center
-            noContentMessageLabel.numberOfLines = 0
             noContentMessageLabel.text = noContentMessage
+            noContentMessageLabel.font = UIFont.preferredFont(forTextStyle: .body)
             tableView.backgroundView = noContentMessageLabel
         }
     }
