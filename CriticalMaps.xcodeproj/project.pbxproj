@@ -32,6 +32,8 @@
 		94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
 		94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF086319BDEAF2009FFF43 /* UIKit.framework */; };
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
+		94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D4016E229F20F6001524CC /* FontMetrics.swift */; };
+		94D40171229FE43C001524CC /* UIFont+DynamicFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */; };
 		94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */; };
 		94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD24226C57CA00F93F94 /* Notification+Static.swift */; };
 		94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */; };
@@ -156,6 +158,8 @@
 		94CF087819BDEAF2009FFF43 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		94CF088019BDEAF2009FFF43 /* CriticalMapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CriticalMapsTests-Info.plist"; sourceTree = "<group>"; };
 		94CF088219BDEAF2009FFF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		94D4016E229F20F6001524CC /* FontMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMetrics.swift; sourceTree = "<group>"; };
+		94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicFont.swift"; sourceTree = "<group>"; };
 		94E1FE4A212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E1FE4B212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94E1FE4C212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
 				9810C381229830940011F718 /* RatingHelper.swift */,
 				988B12AC22A271FE0010FAED /* Logger.swift */,
+				94D4016E229F20F6001524CC /* FontMetrics.swift */,
+				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -345,27 +351,27 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
-				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
-				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
-				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
-				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
-				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
-				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
-				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
+				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
 				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
-				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
-				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
-				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
-				98E7338C22039511005F311F /* Settings */,
+				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
-				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
+				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
+				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
+				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
+				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
+				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
+				98E7338C22039511005F311F /* Settings */,
 				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
 				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
-				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
+				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
+				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
+				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
+				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
+				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
+				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -796,6 +802,7 @@
 				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
+				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				94FCBD32226C57FA00F93F94 /* ThemeStore.swift in Sources */,
@@ -833,6 +840,7 @@
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
+				94D40171229FE43C001524CC /* UIFont+DynamicFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
