@@ -31,6 +31,6 @@ class NoContentMessageLabel: UILabel {
     private func configure() {
         textAlignment = .center
         numberOfLines = 0
-        font = UIFont.scalableSystemFont(fontSize: 17, weight: .regular)
+        font = UIFont.preferredFont(forTextStyle: .body)
     }
 }
