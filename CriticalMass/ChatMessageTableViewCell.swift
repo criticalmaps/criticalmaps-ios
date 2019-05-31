@@ -33,7 +33,6 @@ class ChatMessageTableViewCell: UITableViewCell, MessageConfigurable, IBConstruc
             // removes the padding from the textview
             let padding = chatTextView.textContainer.lineFragmentPadding
             chatTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
-            chatTextView.font = UIFont.scalableSystemFont(fontSize: 17, weight: .regular)
         }
     }
 
