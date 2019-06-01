@@ -49,17 +49,15 @@ public class RequestManager {
     }
 
     private func defaultCompletion(for response: ApiResponse?) {
-        if let response = response {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            defer {
                 self.hasActiveRequest = false
+            }
+            if let response = response {
                 self.dataStore.update(with: response)
 
                 Logger.log(.info, log: self.log, "Successfully finished API update")
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.hasActiveRequest = false
-
+            } else {
                 Logger.log(.error, log: self.log, "API update failed")
             }
         }
