@@ -64,7 +64,10 @@ public class RequestManager {
     }
 
     private func updateData() {
-        guard hasActiveRequest == false else { return }
+        guard hasActiveRequest == false else {
+            Logger.log(.info, log: self.log, "Don't attempt to request new data because because a request is still active")
+            return
+        }
         hasActiveRequest = true
         // We only use a post request if we have a location to post
         if let currentLocation = locationProvider.currentLocation {
