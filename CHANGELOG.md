@@ -4,6 +4,8 @@ Changelog for Critical Maps iOS
 
 ## [UNRELEASED]
 
+- Add Dynamic Type support
+
 ### Added
 
 ### Updated
