@@ -31,7 +31,7 @@ class RequestManagerTests: XCTestCase {
     }
 
     func testRespectingRequestRepeatTime() {
-        let numberOfExpectedRequests: TimeInterval = 2
+        let numberOfExpectedRequests: TimeInterval = 3
         let interval: TimeInterval = 0.3
         let setup = self.setup(interval: interval)
         XCTAssertEqual(setup.networkLayer.numberOfRequests, 0)

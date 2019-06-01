@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import os.log
 
 public class RequestManager {
     private struct SendLocationPostBody: Codable {
@@ -27,6 +28,8 @@ public class RequestManager {
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
 
+    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
+
     init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
         endpoint = url
         self.idProvider = idProvider
@@ -41,6 +44,7 @@ public class RequestManager {
     }
 
     @objc private func timerDidUpdate(timer _: Timer) {
+        Logger.log(.info, log: log, "Timer did update")
         updateData()
     }
 
@@ -49,6 +53,14 @@ public class RequestManager {
             DispatchQueue.main.async {
                 self.hasActiveRequest = false
                 self.dataStore.update(with: response)
+
+                Logger.log(.info, log: self.log, "Successfully finished API update")
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.hasActiveRequest = false
+
+                Logger.log(.error, log: self.log, "API update failed")
             }
         }
     }
