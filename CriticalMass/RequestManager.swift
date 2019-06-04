@@ -65,7 +65,7 @@ public class RequestManager {
 
     private func updateData() {
         guard hasActiveRequest == false else {
-            Logger.log(.info, log: self.log, "Don't attempt to request new data because because a request is still active")
+            Logger.log(.info, log: log, "Don't attempt to request new data because because a request is still active")
             return
         }
         hasActiveRequest = true
