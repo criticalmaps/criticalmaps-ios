@@ -2,6 +2,16 @@
 
 Changelog for Critical Maps iOS
 
+## [UNRELEASED]
+
+### Added
+
+### Updated
+
+### Fixed
+
+- A bug that stopped updating locations if one update request failed
+
 ## [3.1.0] - 2019-05-28
 
 ### Added
