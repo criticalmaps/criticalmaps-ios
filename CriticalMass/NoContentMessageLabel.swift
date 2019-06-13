@@ -19,8 +19,8 @@ class NoContentMessageLabel: UILabel {
         configure()
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     override func awakeFromNib() {

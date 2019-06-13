@@ -39,17 +39,9 @@ class MapViewController: UIViewController {
         return view as! MKMapView
     }
 
-    private let gpsDisabledOverlayView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        view.accessibilityViewIsModal = true
-        view.effect = UIBlurEffect(style: .light)
-        let label = NoContentMessageLabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.text = String.mapLayerInfo
-        label.sizeToFit()
-        label.center = view.center
-        label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
-        view.contentView.addSubview(label)
+    private let gpsDisabledOverlayView: BlurryOverlayView = {
+        let view = BlurryOverlayView.fromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -74,13 +66,17 @@ class MapViewController: UIViewController {
             return
         }
         tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
-        mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
+        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
     }
 
     private func condfigureGPSDisabledOverlayView() {
+        let gpsDisabledOverlayView = self.gpsDisabledOverlayView
+        gpsDisabledOverlayView.message = String.mapLayerInfo
         view.addSubview(gpsDisabledOverlayView)
-        gpsDisabledOverlayView.frame = view.bounds
-        gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        NSLayoutConstraint.activate([
+            gpsDisabledOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            gpsDisabledOverlayView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
         updateGPSDisabledOverlayVisibility()
     }
 

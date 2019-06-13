@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="svf-tf-w0Z">
-                                <rect key="frame" x="40" y="421" width="334" height="64.5"/>
+                                <rect key="frame" x="40" y="416" width="334" height="64.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, you can't see others\nwhen your GPS is disabled.\n\nPlease enable GPS in settings." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fma-gL-be5" customClass="NoContentMessageLabel" customModule="CriticalMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="64.5"/>
@@ -35,18 +35,20 @@
                             </stackView>
                         </subviews>
                     </view>
+                    <constraints>
+                        <constraint firstItem="svf-tf-w0Z" firstAttribute="leading" secondItem="Q99-X0-riz" secondAttribute="leading" constant="40" id="2Tp-Ea-tOc"/>
+                        <constraint firstItem="svf-tf-w0Z" firstAttribute="centerX" secondItem="Q99-X0-riz" secondAttribute="centerX" id="B4G-b7-tbc"/>
+                        <constraint firstItem="svf-tf-w0Z" firstAttribute="centerY" secondItem="Q99-X0-riz" secondAttribute="centerY" id="Hif-if-5HL"/>
+                        <constraint firstAttribute="trailing" secondItem="svf-tf-w0Z" secondAttribute="trailing" constant="40" id="wC7-gm-ODM"/>
+                    </constraints>
                     <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Q99-X0-riz" secondAttribute="bottom" id="42T-sp-dCl"/>
+                <constraint firstItem="Q99-X0-riz" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="34" id="3yt-H7-Unm"/>
                 <constraint firstItem="Q99-X0-riz" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Mft-S8-VOX"/>
-                <constraint firstItem="svf-tf-w0Z" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Upm-Yu-0Qm"/>
-                <constraint firstItem="Q99-X0-riz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fdU-m8-BPE"/>
-                <constraint firstItem="svf-tf-w0Z" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="gRw-qu-BId"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="svf-tf-w0Z" secondAttribute="trailing" constant="40" id="qSk-Pi-Y9e"/>
-                <constraint firstItem="svf-tf-w0Z" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="yeo-D1-oak"/>
+                <constraint firstItem="Q99-X0-riz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-44" id="fdU-m8-BPE"/>
                 <constraint firstItem="Q99-X0-riz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="zsv-VR-lbo"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
