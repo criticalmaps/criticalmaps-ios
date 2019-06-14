@@ -55,6 +55,7 @@ class ThemeController {
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
+        SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = theme.backgroundColor
     }
 
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {

@@ -18,87 +18,84 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="178.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="22 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUC-AM-va2">
-                        <rect key="frame" x="255" y="27" width="49" height="16"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="r1h-dr-cxz"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                        <color key="textColor" red="0.27058823529411763" green="0.27843137254901962" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-HT-wVd">
-                        <rect key="frame" x="72" y="52" width="232" height="110.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6va-Eo-N0h">
+                        <rect key="frame" x="16" y="20" width="288" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HQC-VL-q4w" customClass="RoundableImageView" customModule="CriticalMaps" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Qlz-Bs-MBu"/>
+                                    <constraint firstAttribute="width" constant="40" id="m0O-ym-SEQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasInnerShadow" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="circular" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="qIq-Be-qSx">
+                                <rect key="frame" x="56" y="0.0" width="232" height="40"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Aak-iX-eSW">
+                                        <rect key="frame" x="0.0" y="0.0" width="83.5" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSx-M0-WiP">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOf-5g-9YN">
+                                                <rect key="frame" x="46" y="0.0" width="37.5" height="40"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="22 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUC-AM-va2">
+                                        <rect key="frame" x="85.5" y="0.0" width="146.5" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                        <color key="textColor" red="0.27058823529411763" green="0.27843137254901962" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="999" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Hello world" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-HT-wVd">
+                        <rect key="frame" x="72" y="60" width="232" height="102.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <attributedString key="attributedText">
-                            <fragment content="Hello world">
-                                <attributes>
-                                    <color key="NSColor" red="0.27058823529411763" green="0.27843137254901962" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
+                        <color key="textColor" red="0.27058823529411763" green="0.27843137254901962" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                         <connections>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="YJP-lx-nz1"/>
                         </connections>
                     </textView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HQC-VL-q4w" customClass="RoundableImageView" customModule="CriticalMaps" customModuleProvider="target">
-                        <rect key="frame" x="16" y="20" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="Qlz-Bs-MBu"/>
-                            <constraint firstAttribute="width" constant="40" id="m0O-ym-SEQ"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasInnerShadow" value="YES"/>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="circular" value="YES"/>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Aak-iX-eSW">
-                        <rect key="frame" x="72" y="27" width="83.5" height="21"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSx-M0-WiP">
-                                <rect key="frame" x="0.0" y="0.0" width="40" height="18"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOf-5g-9YN">
-                                <rect key="frame" x="46" y="0.0" width="37.5" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="g5F-et-C8X"/>
-                        </constraints>
-                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="vUC-AM-va2" firstAttribute="top" secondItem="Aak-iX-eSW" secondAttribute="top" id="Iqe-dM-Rqd"/>
+                    <constraint firstAttribute="trailing" secondItem="6va-Eo-N0h" secondAttribute="trailing" constant="16" id="3e6-OE-QMa"/>
+                    <constraint firstItem="LZA-HT-wVd" firstAttribute="leading" secondItem="qIq-Be-qSx" secondAttribute="leading" id="9tu-Bb-Jiu"/>
+                    <constraint firstItem="LZA-HT-wVd" firstAttribute="top" secondItem="6va-Eo-N0h" secondAttribute="bottom" id="H9T-Ha-bYw"/>
+                    <constraint firstItem="6va-Eo-N0h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="JpN-A2-30a"/>
                     <constraint firstAttribute="bottom" secondItem="LZA-HT-wVd" secondAttribute="bottom" constant="16" id="NVD-qT-w1I"/>
-                    <constraint firstAttribute="trailing" secondItem="vUC-AM-va2" secondAttribute="trailing" constant="16" id="WMn-44-Reg"/>
-                    <constraint firstItem="Aak-iX-eSW" firstAttribute="leading" secondItem="HQC-VL-q4w" secondAttribute="trailing" constant="16" id="YL4-ex-aHB"/>
-                    <constraint firstItem="vUC-AM-va2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Aak-iX-eSW" secondAttribute="trailing" constant="141" id="Yt8-7X-HRR"/>
-                    <constraint firstItem="HQC-VL-q4w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cPC-H2-SOW"/>
-                    <constraint firstItem="LZA-HT-wVd" firstAttribute="top" secondItem="Aak-iX-eSW" secondAttribute="bottom" constant="4" id="cZc-Gn-Xdh"/>
-                    <constraint firstItem="Aak-iX-eSW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="iWG-qz-um8"/>
-                    <constraint firstItem="HQC-VL-q4w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="prl-8a-XaM"/>
-                    <constraint firstItem="LZA-HT-wVd" firstAttribute="leading" secondItem="HQC-VL-q4w" secondAttribute="trailing" constant="16" id="rZV-7r-klI"/>
+                    <constraint firstItem="6va-Eo-N0h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="eaF-8K-N12"/>
                     <constraint firstAttribute="trailing" secondItem="LZA-HT-wVd" secondAttribute="trailing" constant="16" id="sN2-bE-0Pd"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateLabel" destination="vUC-AM-va2" id="vCm-zR-Dmf"/>
                 <outlet property="handleLabel" destination="MOf-5g-9YN" id="nTU-6U-Txo"/>
+                <outlet property="nameAndHandleAndTimeStackView" destination="qIq-Be-qSx" id="7gD-XU-fON"/>
+                <outlet property="nameAndHandleStackView" destination="Aak-iX-eSW" id="ChJ-aB-v1I"/>
                 <outlet property="tweetTextView" destination="LZA-HT-wVd" id="HXD-p2-atV"/>
+                <outlet property="tweetTextViewTopConstraint" destination="H9T-Ha-bYw" id="3AO-MN-Rq4"/>
                 <outlet property="userImageView" destination="HQC-VL-q4w" id="ZtK-0B-i4G"/>
+                <outlet property="userImageViewHeightConstraint" destination="Qlz-Bs-MBu" id="qyN-K5-hvV"/>
                 <outlet property="userNameLabel" destination="rSx-M0-WiP" id="dWc-Wg-bWi"/>
             </connections>
             <point key="canvasLocation" x="140.80000000000001" y="-133.5832083958021"/>
