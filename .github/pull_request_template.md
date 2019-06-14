@@ -1,4 +1,6 @@
-One or two sentences _why_ this PR was made, and optionally what it adds/changes…
+## Thank you for your contribution! 
+
+Please add one or two sentences _why_ this PR was made, and optionally what it adds/changes…
 
 ## Checklist
 
