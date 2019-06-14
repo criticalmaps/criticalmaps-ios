@@ -75,7 +75,7 @@ class MapViewController: UIViewController {
             return
         }
         tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
-        mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
+        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
     }
 
     private func condfigureGPSDisabledOverlayView() {
