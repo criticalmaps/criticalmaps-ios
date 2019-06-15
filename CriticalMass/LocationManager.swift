@@ -9,21 +9,17 @@ import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     static var accessPermission: LocationProviderPermission {
-        if Preferences.gpsEnabled {
-            switch CLLocationManager.authorizationStatus() {
-            case .authorizedAlways,
-                 .authorizedWhenInUse:
-                return .authorized
-            case .notDetermined:
-                return .unkown
-            case .restricted,
-                 .denied:
-                return .denied
-            @unknown default:
-                assertionFailure()
-                return .denied
-            }
-        } else {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways,
+             .authorizedWhenInUse:
+            return .authorized
+        case .notDetermined:
+            return .unkown
+        case .restricted,
+             .denied:
+            return .denied
+        @unknown default:
+            assertionFailure()
             return .denied
         }
     }
@@ -44,7 +40,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             }
         }
         get {
-            guard type(of: self).accessPermission == .authorized else {
+            guard type(of: self).accessPermission == .authorized, !Preferences.obersavationModeEnabled else {
                 return nil
             }
             return _currentLocation
@@ -95,6 +91,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
-        NotificationCenter.default.post(name: Notification.gpsStateChanged, object: type(of: self).accessPermission)
+        NotificationCenter.default.post(name: Notification.observationModeChanged, object: type(of: self).accessPermission)
     }
 }

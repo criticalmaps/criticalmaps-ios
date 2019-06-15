@@ -117,7 +117,7 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
     }
-    
+
     private func styleBlurredOverlayComponents(with theme: ThemeDefining) {
         BlurryOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
         BlurryOverlayView.appearance().gradientEndColor = theme.gradientEndColor

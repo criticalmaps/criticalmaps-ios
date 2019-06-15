@@ -54,9 +54,7 @@ class SettingsViewController: UITableViewController {
 
     // MARK: Actions
 
-    @IBAction func gpsCellAction(_ sender: UISwitch) {
-        Preferences.gpsEnabled = sender.isOn
-    }
+    @IBAction func gpsCellAction(_: UISwitch) {}
 
     @IBAction func darkModeCellAction(_ sender: UISwitch) {
         let theme: Theme = sender.isOn ? .dark : .light
@@ -93,6 +91,7 @@ class SettingsViewController: UITableViewController {
         let section = Section.allCases[indexPath.section]
         let cell = settingsCell(for: section, at: indexPath)
         cell.textLabel?.text = section.models[indexPath.row].title
+        cell.detailTextLabel?.text = section.models[indexPath.row].subtitle
         return cell
     }
 
@@ -125,7 +124,7 @@ extension SettingsViewController {
             }
             let model = section.models[indexPath.row]
             if model.title == String.gpsLocalizedString {
-                let isGPSEnabled = Preferences.gpsEnabled
+                let isGPSEnabled = true
                 let gpsHandler: SettingsSwitchHandler = { [unowned self] settingsSwitch in
                     self.gpsCellAction(settingsSwitch)
                 }

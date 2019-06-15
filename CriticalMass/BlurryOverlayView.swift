@@ -42,6 +42,8 @@ class BlurryOverlayView: UIView, IBConstructable {
         }
     }
 
+    @IBOutlet var titleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet var settingsButton: RoundedButton!
     @IBOutlet private var messageLabel: UILabel!
     @IBOutlet var titlelabel: UILabel!
 
@@ -66,12 +68,18 @@ class BlurryOverlayView: UIView, IBConstructable {
         updateGradient()
     }
 
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if #available(iOS 11.0, *) {
+            titleLabelTopConstraint.constant = 54 + (window?.safeAreaInsets.top ?? 0)
+        }
+    }
+
     private func updateGradient() {
         guard let gradientLayer = self.layer as? CAGradientLayer else {
             return
         }
 
-//        gradientLayer.colors = [UIColor(red: 249 / 255.0, green: 244 / 255.0, blue: 236 / 255.0, alpha: 1).cgColor, UIColor(red: 250 / 255.0, green: 244 / 255.0, blue: 237 / 255.0, alpha: 0.75).cgColor]
         gradientLayer.colors = [gradientBeginColor.cgColor, gradientEndColor.cgColor]
     }
 }

@@ -21,7 +21,14 @@ enum Section: Int, CaseIterable {
 
     struct Model {
         var title: String?
+        var subtitle: String?
         var action: Action
+
+        init(title: String? = nil, subtitle: String? = nil, action: Action) {
+            self.title = title
+            self.subtitle = subtitle
+            self.action = action
+        }
     }
 
     var numberOfRows: Int {
@@ -53,11 +60,11 @@ enum Section: Int, CaseIterable {
         switch self {
         case .preferences:
             return [
-                Model(title: String.gpsLocalizedString, action: .none),
                 Model(title: String.themeLocalizedString, action: .none),
+                Model(title: String.gpsLocalizedString, subtitle: "Hello World", action: .none),
             ]
         case .github:
-            return [Model(title: nil, action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
+            return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
             return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
                     Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),

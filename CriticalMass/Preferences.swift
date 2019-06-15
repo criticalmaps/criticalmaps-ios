@@ -8,13 +8,13 @@
 import Foundation
 
 class Preferences {
-    static var gpsEnabled: Bool {
+    static var obersavationModeEnabled: Bool {
         get {
             return UserDefaults.standard.bool(forKey: #function)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: #function)
-            NotificationCenter.default.post(name: Notification.gpsStateChanged, object: newValue)
+            NotificationCenter.default.post(name: Notification.observationModeChanged, object: newValue)
         }
     }
 

@@ -20,19 +20,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPS Deactivated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JA9-Dq-ih8" customClass="NoContentTitleLabel" customModule="CriticalMaps" customModuleProvider="target">
-                            <rect key="frame" x="24" y="110" width="366" height="29"/>
+                            <rect key="frame" x="24" y="54" width="366" height="29"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, you can't see others\nwhen your GPS is disabled.\n\nPlease enable GPS in settings." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUg-Jx-Okv" customClass="NoContentMessageLabel" customModule="CriticalMaps" customModuleProvider="target">
-                            <rect key="frame" x="24" y="163" width="366" height="42.5"/>
+                            <rect key="frame" x="24" y="107" width="366" height="42.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3x-0B-uGU" customClass="RoundedButton" customModule="CriticalMaps" customModuleProvider="target">
-                            <rect key="frame" x="122" y="229.5" width="170" height="48"/>
+                            <rect key="frame" x="122" y="173.5" width="170" height="48"/>
                             <rect key="contentStretch" x="0.050000000000000003" y="0.0" width="1" height="1"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="W4d-sn-Zoo"/>
@@ -50,7 +50,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="JA9-Dq-ih8" firstAttribute="top" secondItem="MRp-GU-v6l" secondAttribute="top" constant="110" id="8CC-78-Jqw"/>
+                        <constraint firstItem="JA9-Dq-ih8" firstAttribute="top" secondItem="MRp-GU-v6l" secondAttribute="top" constant="54" id="8CC-78-Jqw"/>
                         <constraint firstItem="JA9-Dq-ih8" firstAttribute="leading" secondItem="MRp-GU-v6l" secondAttribute="leading" constant="24" id="I1D-Vr-FfY"/>
                         <constraint firstItem="J3x-0B-uGU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MRp-GU-v6l" secondAttribute="leading" priority="999" constant="24" id="KSe-Bw-4qW"/>
                         <constraint firstItem="uUg-Jx-Okv" firstAttribute="leading" secondItem="MRp-GU-v6l" secondAttribute="leading" constant="24" id="NMN-3B-HMU"/>
@@ -74,6 +74,8 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="messageLabel" destination="uUg-Jx-Okv" id="BBV-x0-P16"/>
+                <outlet property="settingsButton" destination="J3x-0B-uGU" id="9pP-hz-T4G"/>
+                <outlet property="titleLabelTopConstraint" destination="8CC-78-Jqw" id="U2L-5C-zrc"/>
                 <outlet property="titlelabel" destination="JA9-Dq-ih8" id="C06-As-DMU"/>
             </connections>
             <point key="canvasLocation" x="47.826086956521742" y="35.491071428571423"/>
