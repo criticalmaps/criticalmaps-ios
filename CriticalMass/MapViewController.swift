@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
 
     private func condfigureGPSDisabledOverlayView() {
         let gpsDisabledOverlayView = self.gpsDisabledOverlayView
-        gpsDisabledOverlayView.message = String.mapLayerInfo
+        gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
         view.addSubview(gpsDisabledOverlayView)
         NSLayoutConstraint.activate([
             gpsDisabledOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor),

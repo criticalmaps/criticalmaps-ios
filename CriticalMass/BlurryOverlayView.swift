@@ -42,30 +42,26 @@ class BlurryOverlayView: UIView, IBConstructable {
         }
     }
 
-    @IBOutlet var titleLabelTopConstraint: NSLayoutConstraint!
-    @IBOutlet var settingsButton: RoundedButton!
+    @IBOutlet private var titleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet private var settingsButton: RoundedButton!
     @IBOutlet private var messageLabel: UILabel!
-    @IBOutlet var titlelabel: UILabel!
+    @IBOutlet private var titlelabel: UILabel!
 
     override class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
 
-    public var message: String? {
-        didSet {
-            guard let text = message else {
-                return
-            }
-            messageLabel.text = text
-        }
-    }
-
-    @IBAction func didTapSettingsButton(_: Any) {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-    }
-
     override func awakeFromNib() {
         updateGradient()
+    }
+
+    public func set(title: String, message: String) {
+        titlelabel.text = title
+        messageLabel.text = message
+    }
+
+    @IBAction private func didTapSettingsButton(_: Any) {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
     }
 
     override func didMoveToWindow() {

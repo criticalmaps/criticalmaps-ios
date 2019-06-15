@@ -55,7 +55,7 @@ enum Section: Int, CaseIterable {
         case .preferences:
             return [
                 Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
-                Model(title: String.gpsLocalizedString, subtitle: "If you don’t take part yourself, but want to follow the Critical Mass.", action: .switch(ObservationModePreferenceStore.self)),
+                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self)),
             ]
         case .github:
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
