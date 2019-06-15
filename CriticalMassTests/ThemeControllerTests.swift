@@ -368,17 +368,6 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(color, UIColor.white)
     }
 
-    func testUILabelTextTextColorShouldChangeToTitleTextColorWhenContainedInUITableViewCellAndNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let color = UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor
-        XCTAssertEqual(color, Theme.dark.style.titleTextColor)
-    }
-
     func testUILabelTextTextColorShouldChangeToTitleTextColorWhenContainedInUITableViewHeaderFooterViewAndNightModeWasSelected() {
         // given
         let theme: Theme = .dark
