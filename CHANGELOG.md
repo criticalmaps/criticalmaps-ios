@@ -4,9 +4,10 @@ Changelog for Critical Maps iOS
 
 ## [UNRELEASED]
 
-- Add Dynamic Type support
-
 ### Added
+
+- Dynamic Type support
+- Observation Mode
 
 ### Updated
 
