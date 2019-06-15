@@ -34,3 +34,30 @@ class NoContentMessageLabel: UILabel {
         font = UIFont.preferredFont(forTextStyle: .body)
     }
 }
+
+class NoContentTitleLabel: UILabel {
+    @objc
+    dynamic var messageTextColor: UIColor! {
+        willSet { textColor = newValue }
+    }
+
+    init() {
+        super.init(frame: .zero)
+        configure()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configure()
+    }
+
+    private func configure() {
+        textAlignment = .center
+        numberOfLines = 0
+        font = UIFont.scalableSystemFont(fontSize: 24, weight: .bold)
+    }
+}

@@ -37,7 +37,9 @@ class ThemeController {
         styleRulesComponents(with: theme)
         styleSettingsComponents(with: theme)
         styleNavigationOverlayComponents(with: theme)
+        styleBlurredOverlayComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
+        NoContentTitleLabel.appearance().messageTextColor = theme.titleTextColor
         NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
         UIApplication.shared.refreshAppearance(animated: false)
     }
@@ -114,5 +116,10 @@ class ThemeController {
         UITableView.appearance().tintColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+    }
+    
+    private func styleBlurredOverlayComponents(with theme: ThemeDefining) {
+        BlurryOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
+        BlurryOverlayView.appearance().gradientEndColor = theme.gradientEndColor
     }
 }

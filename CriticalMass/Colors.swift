@@ -59,4 +59,20 @@ extension UIColor {
     static var darkThemeNavigationOverlaySeperatorColor: UIColor {
         return UIColor(white: 57.0 / 255.0, alpha: 1.00)
     }
+
+    static var lightThemeGradientBegin: UIColor {
+        return UIColor(red: 249.0 / 255.0, green: 244.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.00)
+    }
+
+    static var lightThemeGradientEnd: UIColor {
+        return UIColor(red: 250.0 / 255.0, green: 245.0 / 255.0, blue: 237.0 / 255.0, alpha: 0.75)
+    }
+
+    static var darkThemeGradientBegin: UIColor {
+        return UIColor(red: 43.0 / 255.0, green: 45.0 / 255.0, blue: 47.0 / 255.0, alpha: 1.00)
+    }
+
+    static var darkThemeGradientEnd: UIColor {
+        return UIColor(red: 43.0 / 255.0, green: 45.0 / 255.0, blue: 47.0 / 255.0, alpha: 0.75)
+    }
 }

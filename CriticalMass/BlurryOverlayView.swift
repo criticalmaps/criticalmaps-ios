@@ -8,8 +8,46 @@
 
 import UIKit
 
+@IBDesignable
+class RoundedButton: UIButton {
+    override func awakeFromNib() {
+        configureUI()
+    }
+
+    override func prepareForInterfaceBuilder() {
+        configureUI()
+    }
+
+    private func configureUI() {
+        setTitleColor(.black, for: .normal)
+        backgroundColor = .yellow100
+        layer.cornerRadius = 24
+        titleLabel?.font = UIFont.scalableSystemFont(fontSize: 17, weight: .bold)
+        titleLabel?.adjustsFontForContentSizeCategory = true
+    }
+}
+
 class BlurryOverlayView: UIView, IBConstructable {
+    @objc
+    dynamic var gradientBeginColor: UIColor = .black {
+        didSet {
+            updateGradient()
+        }
+    }
+
+    @objc
+    dynamic var gradientEndColor: UIColor = .white {
+        didSet {
+            updateGradient()
+        }
+    }
+
     @IBOutlet private var messageLabel: UILabel!
+    @IBOutlet var titlelabel: UILabel!
+
+    override class var layerClass: AnyClass {
+        return CAGradientLayer.self
+    }
 
     public var message: String? {
         didSet {
@@ -18,5 +56,22 @@ class BlurryOverlayView: UIView, IBConstructable {
             }
             messageLabel.text = text
         }
+    }
+
+    @IBAction func didTapSettingsButton(_: Any) {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    }
+
+    override func awakeFromNib() {
+        updateGradient()
+    }
+
+    private func updateGradient() {
+        guard let gradientLayer = self.layer as? CAGradientLayer else {
+            return
+        }
+
+//        gradientLayer.colors = [UIColor(red: 249 / 255.0, green: 244 / 255.0, blue: 236 / 255.0, alpha: 1).cgColor, UIColor(red: 250 / 255.0, green: 244 / 255.0, blue: 237 / 255.0, alpha: 0.75).cgColor]
+        gradientLayer.colors = [gradientBeginColor.cgColor, gradientEndColor.cgColor]
     }
 }
