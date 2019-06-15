@@ -50,14 +50,15 @@ class ThemeController {
     }
 
     private func styleSettingsComponents(with theme: ThemeDefining) {
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
-        SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = theme.backgroundColor
+        SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = .settingsOpenSourceForeground
+        UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
+        SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
+        SettingsSwitchTableViewCell.appearance().subtitleColor = theme.secondaryTitleTextColor
     }
 
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
@@ -87,6 +88,7 @@ class ThemeController {
         // UIToolBar
         UIToolbar.appearance().barTintColor = theme.toolBarBackgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
@@ -114,8 +116,8 @@ class ThemeController {
         UITextView.appearance().textColor = theme.titleTextColor
         // UILabel
         UITableView.appearance().tintColor = theme.titleTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
     }
 
     private func styleBlurredOverlayComponents(with theme: ThemeDefining) {

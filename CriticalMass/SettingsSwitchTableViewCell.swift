@@ -12,6 +12,20 @@ protocol Switchable {
 }
 
 class SettingsSwitchTableViewCell: UITableViewCell, IBConstructable {
+    @objc
+    dynamic var titleColor: UIColor? {
+        willSet {
+            titleLabel.textColor = newValue
+        }
+    }
+
+    @objc
+    dynamic var subtitleColor: UIColor? {
+        willSet {
+            subtitleLabel.textColor = newValue
+        }
+    }
+
     private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
