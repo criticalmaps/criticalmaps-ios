@@ -123,3 +123,15 @@ class ThemeController {
         BlurryOverlayView.appearance().gradientEndColor = theme.gradientEndColor
     }
 }
+
+extension ThemeController: Switchable {
+    var isEnabled: Bool {
+        get {
+            return currentTheme == .dark
+        }
+        set {
+            changeTheme(to: newValue ? .dark : .light)
+            applyTheme()
+        }
+    }
+}

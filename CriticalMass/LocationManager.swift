@@ -40,7 +40,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             }
         }
         get {
-            guard type(of: self).accessPermission == .authorized, !Preferences.obersavationModeEnabled else {
+            guard type(of: self).accessPermission == .authorized, !ObservationModePreferenceStore().isEnabled else {
                 return nil
             }
             return _currentLocation

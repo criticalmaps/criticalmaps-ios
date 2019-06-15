@@ -7,18 +7,16 @@
 
 import UIKit
 
-protocol SettingsSwitchCellConfigurable {
-    func configure(isOn: Bool, handler: SettingsSwitchHandler?)
+protocol Switchable {
+    var isEnabled: Bool { get set }
 }
 
-typealias SettingsSwitchHandler = (UISwitch) -> Void
-
-class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurable, IBConstructable {
+class SettingsSwitchTableViewCell: UITableViewCell, IBConstructable {
     private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
 
-    private var switchActionHandler: SettingsSwitchHandler?
+    private var switchable: Switchable?
 
     override var textLabel: UILabel? {
         return titleLabel
@@ -29,9 +27,9 @@ class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurab
         return subtitleLabel
     }
 
-    func configure(isOn: Bool, handler: SettingsSwitchHandler?) {
-        switchControl.isOn = isOn
-        switchActionHandler = handler
+    func configure(switchable: Switchable) {
+        switchControl.isOn = switchable.isEnabled
+        self.switchable = switchable
     }
 
     override func awakeFromNib() {
@@ -43,7 +41,7 @@ class SettingsSwitchTableViewCell: UITableViewCell, SettingsSwitchCellConfigurab
 
     @objc
     func switchControlAction(_ sender: UISwitch) {
-        switchActionHandler?(sender)
+        switchable?.isEnabled = sender.isOn
     }
 
     override func prepareForReuse() {

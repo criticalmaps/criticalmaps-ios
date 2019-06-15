@@ -8,12 +8,6 @@
 
 import Foundation
 
-extension Hashable where Self: CaseIterable {
-    var index: Self.AllCases.Index {
-        return type(of: self).allCases.firstIndex(of: self)!
-    }
-}
-
 enum Section: Int, CaseIterable {
     case preferences
     case github
@@ -35,7 +29,7 @@ enum Section: Int, CaseIterable {
         return models.count
     }
 
-    var secionTitle: String? {
+    var title: String? {
         switch self {
         case .preferences,
              .github:
@@ -60,8 +54,8 @@ enum Section: Int, CaseIterable {
         switch self {
         case .preferences:
             return [
-                Model(title: String.themeLocalizedString, action: .none),
-                Model(title: String.gpsLocalizedString, subtitle: "Hello World", action: .none),
+                Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
+                Model(title: String.gpsLocalizedString, subtitle: "Hello World", action: .switch(ObservationModePreferenceStore.self)),
             ]
         case .github:
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
@@ -74,6 +68,6 @@ enum Section: Int, CaseIterable {
 
     enum Action {
         case open(url: URL)
-        case none
+        case `switch`(_ switchtable: Switchable.Type)
     }
 }
