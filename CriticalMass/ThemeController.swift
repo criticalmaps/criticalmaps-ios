@@ -133,7 +133,10 @@ extension ThemeController: Switchable {
         }
         set {
             changeTheme(to: newValue ? .dark : .light)
-            applyTheme()
+            // This is a workaround to wait for the switch animation to finish before updating the UI
+            DispatchQueue.main.async {
+                self.applyTheme()
+            }
         }
     }
 }
