@@ -58,7 +58,7 @@ class ThemeController {
         SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = .settingsOpenSourceForeground
         UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
-        SettingsSwitchTableViewCell.appearance().subtitleColor = theme.secondaryTitleTextColor
+        SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
     }
 
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
