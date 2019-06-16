@@ -88,9 +88,9 @@ class SettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let section = Section.allCases[indexPath.section]
-        let acttion = section.models[indexPath.row].action
+        let action = section.models[indexPath.row].action
 
-        switch acttion {
+        switch action {
         case let .open(url: url):
             let application = UIApplication.shared
             guard application.canOpenURL(url) else {
