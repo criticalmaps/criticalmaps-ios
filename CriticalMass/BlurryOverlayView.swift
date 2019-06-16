@@ -60,8 +60,8 @@ class BlurryOverlayView: UIView, IBConstructable {
         messageLabel.text = message
     }
 
-    @IBAction private func didTapSettingsButton(_: Any) {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    public func addButtonTarget(_ taget: Any?, action: Selector) {
+        settingsButton.addTarget(taget, action: action, for: .touchUpInside)
     }
 
     override func didMoveToWindow() {

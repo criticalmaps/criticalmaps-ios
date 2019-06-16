@@ -44,9 +44,6 @@
                                     <integer key="value" value="16"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="didTapSettingsButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="Z3z-M1-AEr"/>
-                            </connections>
                         </button>
                     </subviews>
                     <constraints>

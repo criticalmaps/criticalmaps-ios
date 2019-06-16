@@ -72,6 +72,7 @@ class MapViewController: UIViewController {
     private func condfigureGPSDisabledOverlayView() {
         let gpsDisabledOverlayView = self.gpsDisabledOverlayView
         gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
+        gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
         view.addSubview(gpsDisabledOverlayView)
         NSLayoutConstraint.activate([
             gpsDisabledOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor),
@@ -117,6 +118,10 @@ class MapViewController: UIViewController {
 
         // remove annotations that no longer exist
         mapView.removeAnnotations(unmatchedAnnotations)
+    }
+
+    @objc func didTapGPSDisabledOverlayButton() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
     }
 
     @objc func updateGPSDisabledOverlayVisibility() {
