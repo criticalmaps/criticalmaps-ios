@@ -15,12 +15,12 @@ class ObservationModePreferenceStore: Switchable {
         self.defaults = defaults
     }
 
-    func save(_ isEnabled: Bool) {
+    private func save(_ isEnabled: Bool) {
         defaults.set(isEnabled, forKey: defaultsKey)
         NotificationCenter.default.post(name: Notification.observationModeChanged, object: isEnabled)
     }
 
-    func load() -> Bool? {
+    private func load() -> Bool? {
         return defaults.bool(forKey: defaultsKey)
     }
 
