@@ -4,12 +4,12 @@ Changelog for Critical Maps iOS
 
 ## [UNRELEASED]
 
+## [3.2.0] - 2019-06-18
+
 ### Added
 
 - Dynamic Type support
 - Observation Mode
-
-### Updated
 
 ### Fixed
 
