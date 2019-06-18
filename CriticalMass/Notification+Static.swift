@@ -11,7 +11,7 @@ import Foundation
 extension Notification {
     static let themeDidChange = Notification.Name(rawValue: "themeDidChange")
     static let initialGpsDataReceived = Notification.Name(rawValue: "initialGpsDataReceived")
-    static let gpsStateChanged = Notification.Name(rawValue: "gpsStateChanged")
+    static let observationModeChanged = Notification.Name(rawValue: "observationModeChanged")
     static let positionOthersChanged = Notification.Name(rawValue: "positionOthersChanged")
     static let chatMessagesReceived = Notification.Name(rawValue: "chatMessagesReceived")
 }

@@ -71,19 +71,21 @@ class MapViewController: UIViewController {
 
     private func condfigureGPSDisabledOverlayView() {
         let gpsDisabledOverlayView = self.gpsDisabledOverlayView
-        gpsDisabledOverlayView.message = String.mapLayerInfo
+        gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
+        gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
         view.addSubview(gpsDisabledOverlayView)
         NSLayoutConstraint.activate([
             gpsDisabledOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor),
             gpsDisabledOverlayView.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
+
         updateGPSDisabledOverlayVisibility()
     }
 
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: Notification.initialGpsDataReceived, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.gpsStateChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.observationModeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Notification.themeDidChange, object: nil)
     }
 
@@ -97,6 +99,9 @@ class MapViewController: UIViewController {
     }
 
     private func display(locations: [String: Location]) {
+        guard LocationManager.accessPermission == .authorized else {
+            return
+        }
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
@@ -115,8 +120,12 @@ class MapViewController: UIViewController {
         mapView.removeAnnotations(unmatchedAnnotations)
     }
 
+    @objc func didTapGPSDisabledOverlayButton() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    }
+
     @objc func updateGPSDisabledOverlayVisibility() {
-        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
+        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission != .denied
     }
 
     // MARK: Notifications

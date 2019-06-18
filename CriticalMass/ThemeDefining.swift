@@ -26,6 +26,8 @@ protocol ThemeDefining {
     var toolBarBackgroundColor: UIColor { get }
     var navigationOverlayBackgroundColor: UIColor { get }
     var statusBarStyle: UIStatusBarStyle { get }
+    var gradientBeginColor: UIColor { get }
+    var gradientEndColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -92,6 +94,14 @@ struct LightTheme: ThemeDefining {
     var statusBarStyle: UIStatusBarStyle {
         return .default
     }
+
+    var gradientBeginColor: UIColor {
+        return .lightThemeGradientBegin
+    }
+
+    var gradientEndColor: UIColor {
+        return .lightThemeGradientEnd
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -157,5 +167,13 @@ struct DarkTheme: ThemeDefining {
 
     var statusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+
+    var gradientBeginColor: UIColor {
+        return .darkThemeGradientBegin
+    }
+
+    var gradientEndColor: UIColor {
+        return .darkThemeGradientEnd
     }
 }
