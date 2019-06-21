@@ -25,10 +25,9 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 
 ## Where can I get the app?
 
-- **Website:** https://criticalmaps.net
 - **iTunes:** https://itunes.apple.com/app/critical-maps/id918669647
-- **Google Play:** https://play.google.com/store/apps/details?id=de.stephanlindauer.criticalmaps
-- **Android Project:** https://github.com/CriticalMaps/criticalmaps-android
+- **TestFlight** https://testflight.apple.com/join/nyGeQVxk
+- **Website:** https://criticalmaps.net
 
 ## Contribute
 
