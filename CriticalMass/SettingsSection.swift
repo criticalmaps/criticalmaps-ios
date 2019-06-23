@@ -56,6 +56,7 @@ enum Section: Int, CaseIterable {
             return [
                 Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
                 Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self)),
+                Model(title: "Disable auto sleep", action: .switch(DisableSleepTimerPreferenceStore.self)),
             ]
         case .github:
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]

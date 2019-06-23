@@ -9,8 +9,9 @@ import Foundation
 
 class AppController {
     public func onAppLaunch() {
-        loadInitialData()
+        requestManager.getData()
         themeController.applyTheme()
+        DisableSleepTimerPreferenceStore().updateTimerPreference()
         if #available(iOS 10.3, *) {
             RatingHelper().onLaunch()
         }
@@ -81,8 +82,4 @@ class AppController {
 
         return rootViewController
     }()
-
-    private func loadInitialData() {
-        requestManager.getData()
-    }
 }

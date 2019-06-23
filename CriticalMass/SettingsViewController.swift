@@ -111,6 +111,8 @@ extension SettingsViewController {
                 switchCell.configure(switchable: ObservationModePreferenceStore())
             } else if switchableType == ThemeController.self {
                 switchCell.configure(switchable: themeController)
+            } else if switchableType == DisableSleepTimerPreferenceStore.self {
+                switchCell.configure(switchable: DisableSleepTimerPreferenceStore())
             } else {
                 assertionFailure("Switchable not found")
             }
