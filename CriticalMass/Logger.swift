@@ -9,6 +9,12 @@
 import Foundation
 import os.log
 
+extension OSLog {
+    private static var subsystem = Bundle.main.bundleIdentifier!
+
+    static let network = OSLog(subsystem: subsystem, category: "Network")
+}
+
 class Logger {
     static func log(_ type: OSLogType, log: OSLog, _ message: StaticString) {
         if #available(iOS 12.0, *) {
