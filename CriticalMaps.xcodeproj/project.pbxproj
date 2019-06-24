@@ -12,6 +12,7 @@
 		94092749228321E60034E46B /* UITableView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092748228321E60034E46B /* UITableView+Register.swift */; };
 		9409274B228322FD0034E46B /* TypeNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274A228322FC0034E46B /* TypeNameProtocol.swift */; };
 		9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* String+LocalizedStrings.swift */; };
+		941F894B22C0B6A80078AD9D /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941F894A22C0B6A80078AD9D /* ApiError.swift */; };
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
 		943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */; };
@@ -135,6 +136,7 @@
 		94092748228321E60034E46B /* UITableView+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Register.swift"; sourceTree = "<group>"; };
 		9409274A228322FC0034E46B /* TypeNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeNameProtocol.swift; sourceTree = "<group>"; };
 		9409274C22841E160034E46B /* String+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedStrings.swift"; sourceTree = "<group>"; };
+		941F894A22C0B6A80078AD9D /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
 		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				982DA8D421FFA68B00E2A51B /* Twitter */,
 				94FCBD2D226C57E000F93F94 /* Theme */,
 				9474E979224D027900A812DC /* Bundle+Version.swift */,
+				941F894A22C0B6A80078AD9D /* ApiError.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 				9838F28E227B771F00744EDD /* IDStore.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
+				941F894B22C0B6A80078AD9D /* ApiError.swift in Sources */,
 				94FCBD37226C580D00F93F94 /* SettingsSection.swift in Sources */,
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
