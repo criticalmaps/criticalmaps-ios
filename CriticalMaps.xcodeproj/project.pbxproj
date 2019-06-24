@@ -95,7 +95,6 @@
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
-		989472D922C15EA800BB79ED /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989472D822C15EA800BB79ED /* CriticalMapsUITests.swift */; };
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
 		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
@@ -112,6 +111,10 @@
 		98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */; };
 		98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13289227F05E700291FCA /* IDStoreTests.swift */; };
 		98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C4BEA02218518B0060E701 /* UserTrackingButton.swift */; };
+		98CFC4AE22C165370009F7CB /* LocationPermissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFC4AD22C165370009F7CB /* LocationPermissionUITests.swift */; };
+		98CFC4B122C165770009F7CB /* XCTest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFC4B022C165770009F7CB /* XCTest+Extension.swift */; };
+		98CFC4B322C165900009F7CB /* SpringBoardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFC4B222C165900009F7CB /* SpringBoardHelper.swift */; };
+		98CFC4B522C1685E0009F7CB /* ChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CFC4B422C1685E0009F7CB /* ChatUITests.swift */; };
 		98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */; };
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
 		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
@@ -236,7 +239,6 @@
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		988B12AC22A271FE0010FAED /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		989472D622C15EA800BB79ED /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		989472D822C15EA800BB79ED /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		989472DA22C15EA800BB79ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9897086C220A3E9E0073BB02 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		98970870220A4E180073BB02 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -258,6 +260,10 @@
 		98C13288227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98C13289227F05E700291FCA /* IDStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStoreTests.swift; sourceTree = "<group>"; };
 		98C4BEA02218518B0060E701 /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
+		98CFC4AD22C165370009F7CB /* LocationPermissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionUITests.swift; sourceTree = "<group>"; };
+		98CFC4B022C165770009F7CB /* XCTest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extension.swift"; sourceTree = "<group>"; };
+		98CFC4B222C165900009F7CB /* SpringBoardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpringBoardHelper.swift; sourceTree = "<group>"; };
+		98CFC4B422C1685E0009F7CB /* ChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUITests.swift; sourceTree = "<group>"; };
 		98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -548,8 +554,10 @@
 		989472D722C15EA800BB79ED /* CriticalMapsUITests */ = {
 			isa = PBXGroup;
 			children = (
-				989472D822C15EA800BB79ED /* CriticalMapsUITests.swift */,
+				98CFC4AF22C1656B0009F7CB /* Helper */,
 				989472DA22C15EA800BB79ED /* Info.plist */,
+				98CFC4AD22C165370009F7CB /* LocationPermissionUITests.swift */,
+				98CFC4B422C1685E0009F7CB /* ChatUITests.swift */,
 			);
 			path = CriticalMapsUITests;
 			sourceTree = "<group>";
@@ -561,6 +569,15 @@
 				989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */,
 			);
 			name = Rules;
+			sourceTree = "<group>";
+		};
+		98CFC4AF22C1656B0009F7CB /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				98CFC4B022C165770009F7CB /* XCTest+Extension.swift */,
+				98CFC4B222C165900009F7CB /* SpringBoardHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		98E7338C22039511005F311F /* Settings */ = {
@@ -626,6 +643,7 @@
 				989472D222C15EA800BB79ED /* Sources */,
 				989472D322C15EA800BB79ED /* Frameworks */,
 				989472D422C15EA800BB79ED /* Resources */,
+				98E521DE22C1376300F3543A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -810,6 +828,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		98E521DE22C1376300F3543A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcrun simctl uninstall booted de.pokuslabs.criticalmassberlin\n";
+		};
 		9CF225B8929C681EBE0A23D7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -934,7 +969,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				989472D922C15EA800BB79ED /* CriticalMapsUITests.swift in Sources */,
+				98CFC4B322C165900009F7CB /* SpringBoardHelper.swift in Sources */,
+				98CFC4B522C1685E0009F7CB /* ChatUITests.swift in Sources */,
+				98CFC4B122C165770009F7CB /* XCTest+Extension.swift in Sources */,
+				98CFC4AE22C165370009F7CB /* LocationPermissionUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,6 +40,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         textField.returnKeyType = .send
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.layer.masksToBounds = true
+        textField.accessibilityIdentifier = "ChatInputTextField"
         return textField
     }()
 
@@ -50,6 +51,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         button.isEnabled = false
+        button.accessibilityIdentifier = "SendButton"
         return button
     }()
 

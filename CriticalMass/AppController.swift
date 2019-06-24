@@ -14,6 +14,7 @@ class AppController {
         if #available(iOS 10.3, *) {
             RatingHelper().onLaunch()
         }
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
     }
 
     public func onWillEnterForeground() {
@@ -68,7 +69,7 @@ class AppController {
     }
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController(themeController: self.themeController)
+        let rootViewController = MapViewController(themeController: themeController)
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
             .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),

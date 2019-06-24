@@ -53,6 +53,7 @@ class BlurryOverlayView: UIView, IBConstructable {
 
     override func awakeFromNib() {
         updateGradient()
+        settingsButton.accessibilityIdentifier = "SettingsButton"
     }
 
     public func set(title: String, message: String) {
