@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias ResultCallback<T> = (Result<T, Error>) -> Void
+
 protocol NetworkLayer {
     func get<T: Decodable>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void)
     func get<T: Decodable>(with url: URL, decodable: T.Type, customDateFormatter: DateFormatter?, completion: @escaping (T?) -> Void)
