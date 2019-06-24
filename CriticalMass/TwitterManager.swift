@@ -9,11 +9,7 @@ import Foundation
 
 class TwitterManager {
     private let url: URL
-    private var cachedTweets: [Tweet] = [] {
-        didSet {
-            updateTweetsCallback?(cachedTweets)
-        }
-    }
+    private var cachedTweets: [Tweet] = []
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -24,31 +20,21 @@ class TwitterManager {
 
     private let networkLayer: NetworkLayer
 
-    var updateTweetsCallback: (([Tweet]) -> Void)?
-
     init(networkLayer: NetworkLayer, url: URL) {
         self.networkLayer = networkLayer
         self.url = url
     }
 
-    public func loadTweets(completion: (() -> Void)? = nil) {
+    public func loadTweets(_ result: @escaping ResultCallback<[Tweet]>) {
         networkLayer.get(with: url, decodable: TwitterApiResponse.self, customDateFormatter: dateFormatter) { [weak self] response in
             DispatchQueue.main.async {
-                defer {
-                    completion?()
-                }
                 guard let response = response else {
+                    result(.failure(ApiError.couldFetchData))
                     return
                 }
                 self?.cachedTweets = response.statuses
+                result(.success(response.statuses))
             }
         }
-    }
-
-    public func getTweets() -> [Tweet] {
-        if cachedTweets.isEmpty {
-            loadTweets()
-        }
-        return cachedTweets
     }
 }
