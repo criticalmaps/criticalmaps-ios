@@ -12,7 +12,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     private var twitterController: UIViewController
 
     private lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: Tab.allCases.map { $0.title })
+        let control = UISegmentedControl(items: SocialSegments.allCases.map { $0.title })
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(socialSelectionDidChange(control:)),
                           for: .valueChanged)
@@ -31,7 +31,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    enum Tab: String, CaseIterable {
+    enum SocialSegments: String, CaseIterable {
         case chat
         case twitter
 
@@ -48,7 +48,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        present(tab: .chat)
+        present(segment: .chat)
     }
 
     private func configureNavigationBar() {
@@ -70,11 +70,11 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     }
 
     @objc private func socialSelectionDidChange(control: UISegmentedControl) {
-        present(tab: Tab.allCases[control.selectedSegmentIndex])
+        present(segment: SocialSegments.allCases[control.selectedSegmentIndex])
     }
 
-    private func present(tab: Tab) {
-        switch tab {
+    private func present(segment: SocialSegments) {
+        switch segment {
         case .chat:
             remove(child: twitterController)
             add(child: chatViewController)
