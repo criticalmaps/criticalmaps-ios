@@ -13,6 +13,7 @@ Changelog for Critical Maps iOS
 
 ### Fixed
 
+- SocialSegment sliding under NavigationBar bug in iOS 10
 - A bug that stopped updating locations if one update request failed
 
 ## [3.1.0] - 2019-05-28
