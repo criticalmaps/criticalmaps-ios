@@ -240,8 +240,6 @@
 		989FA00121C8038400E71085 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		989FA00321C8039A00E71085 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		98B0C28922C00E9F00BAEB5C /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
-		98B0C28B22C00E9F00BAEB5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableAnnnotation.swift; sourceTree = "<group>"; };
 		98C13286227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -400,7 +398,6 @@
 			children = (
 				94CF086519BDEAF2009FFF43 /* CriticalMass */,
 				94CF087E19BDEAF2009FFF43 /* CriticalMassTests */,
-				98B0C28822C00E9F00BAEB5C /* CriticalMapsUITests */,
 				94CF085E19BDEAF2009FFF43 /* Frameworks */,
 				94CF085D19BDEAF2009FFF43 /* Products */,
 				82C1F2020C91392FCCBF8514 /* Pods */,
@@ -535,15 +532,6 @@
 				989F9FF321C7E64900E71085 /* RulesDetailViewController.swift */,
 			);
 			name = Rules;
-			sourceTree = "<group>";
-		};
-		98B0C28822C00E9F00BAEB5C /* CriticalMapsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				98B0C28922C00E9F00BAEB5C /* CriticalMapsUITests.swift */,
-				98B0C28B22C00E9F00BAEB5C /* Info.plist */,
-			);
-			path = CriticalMapsUITests;
 			sourceTree = "<group>";
 		};
 		98E7338C22039511005F311F /* Settings */ = {
