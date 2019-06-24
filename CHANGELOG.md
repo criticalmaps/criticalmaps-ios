@@ -4,6 +4,10 @@ Changelog for Critical Maps iOS
 
 ## [UNRELEASED]
 
+### Fixed
+
+- A bug that made the app unusable with assistive technologies like Switch Control or VoiceOver
+
 ## [3.2.0] - 2019-06-18
 
 ### Added

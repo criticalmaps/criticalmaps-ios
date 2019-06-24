@@ -55,7 +55,6 @@ class NavigationOverlayViewController: UIViewController {
 
     let visualEffectView: UIVisualEffectView = {
         let view = UIVisualEffectView()
-        view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
         view.layer.cornerRadius = 18
         view.layer.masksToBounds = true
