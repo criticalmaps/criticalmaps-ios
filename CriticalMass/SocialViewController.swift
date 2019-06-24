@@ -8,12 +8,12 @@
 import UIKit
 
 class SocialViewController: UIViewController, UIToolbarDelegate {
-    private var chatViewController: () -> UIViewController
-    private var twitterController: () -> UIViewController
     @IBOutlet var toolBar: UIToolbar!
     @IBOutlet var contentView: UIView!
 
-    init(chatViewController: @escaping () -> UIViewController, twitterViewController: @escaping () -> UIViewController) {
+    private var chatViewController: UIViewController
+    private var twitterController: UIViewController
+    init(chatViewController: UIViewController, twitterViewController: UIViewController) {
         self.chatViewController = chatViewController
         twitterController = twitterViewController
         super.init(nibName: "SocialViewController", bundle: nil)
