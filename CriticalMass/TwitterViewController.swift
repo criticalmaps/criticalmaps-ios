@@ -22,19 +22,30 @@ class TwitterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureMessagesTableViewController()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchTweets()
+    }
+
+    private func fetchTweets() {
+        twitterManager.loadTweets { [weak self] result in
+            self?.messagesTableViewController.refreshControl?.endRefreshing()
+            switch result {
+            case let .failure(error):
+                Logger.log(.error, log: .network, "Failed loading the data")
+                debugPrint(error.localizedDescription) // TODO: Handle error
+            case let .success(tweets):
+                self?.messagesTableViewController.update(messages: tweets)
+            }
+        }
     }
 
     private func configureMessagesTableViewController() {
         messagesTableViewController.noContentMessage = String.twitterNoData
-        messagesTableViewController.messages = twitterManager.getTweets()
-        messagesTableViewController.pullToRefreshTrigger = twitterManager.loadTweets
-
-        twitterManager.updateTweetsCallback = { [weak self] tweets in
-            self?.messagesTableViewController.update(messages: tweets)
-        }
-
+        messagesTableViewController.pullToRefreshTrigger = fetchTweets
         addChild(messagesTableViewController)
         view.addSubview(messagesTableViewController.view)
         messagesTableViewController.didMove(toParent: self)
