@@ -16,7 +16,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     init(chatViewController: UIViewController, twitterViewController: UIViewController) {
         self.chatViewController = chatViewController
         twitterController = twitterViewController
-        super.init(nibName: "SocialViewController", bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder _: NSCoder) {
