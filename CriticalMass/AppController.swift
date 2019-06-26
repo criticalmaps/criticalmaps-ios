@@ -60,7 +60,7 @@ class AppController {
     }
 
     private func getSocialViewController() -> SocialViewController {
-        return SocialViewController(chatViewController: getChatViewController, twitterViewController: getTwitterViewController)
+        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
     }
 
     private func getSettingsViewController() -> SettingsViewController {
