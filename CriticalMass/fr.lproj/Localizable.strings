@@ -1,3 +1,4 @@
+
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Personnne ne discute pour l'instant...\nlance la conversation !";
 
@@ -20,7 +21,7 @@
 "map.layer.info.title" = "GPS désactivé";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Critical Maps doit utiliser votre GPS pour montrer la carte avec d'autres utilisateurs actifs";
+"map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "localisation";
@@ -37,10 +38,8 @@
 /* No comment provided by engineer. */
 "rules.text.contraflow" = "Évite de rouler sur la voie opposée.";
 
-
 /* No comment provided by engineer. */
 "rules.text.cork" = "Protège les automobilistes d'eux-mêmes en bloquant la rue!\n\nPour maintenir la cohésion du groupe, bloque le traffic des routes que l'on croise pour que le groupe puisse passer les feux rouges sans interruption.";
-
 
 /* No comment provided by engineer. */
 "rules.text.gently" = "Quand tu roules à l'avant : Pas trop vite!\n\nQuand tu roules à l'arrière : Ne te laisse pas distancer !";
@@ -51,12 +50,8 @@
 /* No comment provided by engineer. */
 "rules.text.haveFun" = "Profite de la rue sans voiture. Check les vélos qui passent de la musique. Discute avec les automobilistes et les piétons pour leur expliquer ce qui se passe.\n\nEt le plus important : Amuse toi!";
 
-
 /* No comment provided by engineer. */
 "rules.text.stayLoose" = "Reste amical avec la police, les automobilistes et tous les autres mêmes quand ils ne le sont pas.";
-
-
-
 
 /* No comment provided by engineer. */
 "rules.title" = "Règles";
@@ -86,7 +81,6 @@
 "settings.about" = "À propos";
 
 
-
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -96,16 +90,16 @@
 "settings.donate" = "Fais un don pour soutenir nos serveurs GPS";
 
 /* No comment provided by engineer. */
-"settings.enableGps" = "Partage ta position avec les autres";
+"settings.observationmode.title" = "Mode observateur";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
 
 /* No comment provided by engineer. */
-"settings.observationmode.title" = "Mode d'observation";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "Si vous ne participez pas vous-même, mais que vous voulez suivre la Critical Mass.";
+"settings.gpsSettings" = "Paramètres GPS";
 
 /* No comment provided by engineer. */
 "settings.kniggeImages" = "Rules images";
@@ -120,7 +114,7 @@
 "settings.opensource.action" = "Voir le Projet";
 
 /* No comment provided by engineer. */
-"settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs qui veulent collaborer";
+"settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs pour collaborer";
 
 /* No comment provided by engineer. */
 "settings.opensource.title" = "Tu aimerais de nouvelles fonctionnalités ou signaler un bug ?";
@@ -137,7 +131,6 @@
 /* No comment provided by engineer. */
 "settings.title" = "Réglages";
 
-
 /* No comment provided by engineer. */
 "settings.twitter" = "Twitter";
 
@@ -151,4 +144,7 @@
 "twitter.title" = "Twitter";
 
 /* No comment provided by engineer. */
-"close.button.label" = "close";
+"close.button.label" = "Fermer";
+
+/* Theme */
+"settings.theme" = "Mode nuit";
