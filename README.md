@@ -79,6 +79,7 @@ However, **please do not ship this app** under your own account. Paid or free.
 ### Translations
 
 - [matteogamba](https://github.com/matteogamba)
+- [AlbanSagouis](https://github.com/AlbanSagouis)
 
 ## Copyright & License
 
