@@ -6,6 +6,7 @@ Changelog for Critical Maps iOS
 
 ### Fixed
 
+- A bug that made the app unusable with assistive technologies like Switch Control or VoiceOver
 - SocialSegment sliding under NavigationBar bug in iOS 10
 
 ## [3.2.0] - 2019-06-18

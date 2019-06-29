@@ -35,9 +35,7 @@ class MapViewController: UIViewController {
         }
     }
 
-    private var mapView: MKMapView {
-        return view as! MKMapView
-    }
+    private var mapView = MKMapView(frame: .zero)
 
     private let gpsDisabledOverlayView: BlurryOverlayView = {
         let view = BlurryOverlayView.fromNib()
@@ -55,10 +53,6 @@ class MapViewController: UIViewController {
         condfigureGPSDisabledOverlayView()
 
         setNeedsStatusBarAppearanceUpdate()
-    }
-
-    override func loadView() {
-        view = MKMapView(frame: .zero)
     }
 
     private func configureTileRenderer() {
@@ -90,6 +84,15 @@ class MapViewController: UIViewController {
     }
 
     private func configureMapView() {
+        view.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            NSLayoutConstraint(item: mapView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 1),
+            NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+        ])
+
         if #available(iOS 11.0, *) {
             mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.identifier)
         }
