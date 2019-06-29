@@ -36,17 +36,9 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
         }
     }
 
-    @IBOutlet private var userNameLabel: UILabel! {
-        didSet {
-            userNameLabel.font = UIFont.scalableSystemFont(fontSize: 15, weight: .bold)
-        }
-    }
+    @IBOutlet private var userNameLabel: UILabel!
 
-    @IBOutlet private var dateLabel: UILabel! {
-        didSet {
-            dateLabel.font = UIFont.scalableSystemFont(fontSize: 13, weight: .medium)
-        }
-    }
+    @IBOutlet private var dateLabel: UILabel!
 
     @IBOutlet private var tweetTextView: UITextView! {
         didSet {
