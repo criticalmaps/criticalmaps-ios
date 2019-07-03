@@ -643,7 +643,6 @@
 				989472D222C15EA800BB79ED /* Sources */,
 				989472D322C15EA800BB79ED /* Frameworks */,
 				989472D422C15EA800BB79ED /* Resources */,
-				98E521DE22C1376300F3543A /* Reset Simulator */,
 			);
 			buildRules = (
 			);
@@ -827,24 +826,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		98E521DE22C1376300F3543A /* Reset Simulator */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Reset Simulator";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "xcrun simctl uninstall booted de.pokuslabs.criticalmassberlin\n";
 		};
 		9CF225B8929C681EBE0A23D7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
