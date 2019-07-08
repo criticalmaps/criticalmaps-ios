@@ -111,6 +111,8 @@ class SettingsViewController: UITableViewController {
                 return
             }
             application.open(url, options: [:], completionHandler: nil)
+        case let .push(viewController: viewController):
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }

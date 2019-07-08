@@ -61,12 +61,13 @@ enum Section: Int, CaseIterable {
         case .info:
             return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
                     Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
-                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage))]
+                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage)), Model(title: "QR Code Pairing", action: .push(viewController: FollowFriendsViewController()))]
         }
     }
 
     enum Action {
         case open(url: URL)
+        case push(viewController: UIViewController)
         case none
     }
 }

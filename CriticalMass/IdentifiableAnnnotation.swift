@@ -11,18 +11,14 @@ class IdentifiableAnnnotation: MKPointAnnotation {
     var identifier: String
 
     var location: Location {
-        set {
-            coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
-        }
-        @available(*, unavailable)
-        get {
-            fatalError("Not implemented")
+        didSet {
+            coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
         }
     }
 
     init(location: Location, identifier: String) {
         self.identifier = identifier
-        super.init()
         self.location = location
+        super.init()
     }
 }

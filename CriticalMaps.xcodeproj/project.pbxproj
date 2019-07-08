@@ -45,6 +45,17 @@
 		94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */; };
 		94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */; };
 		94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */; };
+		98003D4922872C1800592D55 /* URLCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4822872C1700592D55 /* URLCodable.swift */; };
+		98003D4B22872C2A00592D55 /* FollowURLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4A22872C2A00592D55 /* FollowURLObject.swift */; };
+		98003D4D22872C3500592D55 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4C22872C3500592D55 /* Friend.swift */; };
+		98003D4F22872C5400592D55 /* RSAKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4E22872C5400592D55 /* RSAKey.swift */; };
+		98003D5122872C6300592D55 /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5022872C6300592D55 /* RSA.swift */; };
+		98003D5322872C7400592D55 /* RSAKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5222872C7400592D55 /* RSAKeyTests.swift */; };
+		98003D5522872C8100592D55 /* RSATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5422872C8100592D55 /* RSATests.swift */; };
+		98003D5822872CD200592D55 /* FriendsVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5622872CA800592D55 /* FriendsVerificationController.swift */; };
+		98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5922872DB300592D55 /* FollowFriendsViewController.swift */; };
+		98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5C22872E4300592D55 /* QRCodeView.swift */; };
+		98003D602287301000592D55 /* FollowURLObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5F2287301000592D55 /* FollowURLObjectTests.swift */; };
 		9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176221FBDD580077D419 /* TextFieldWithInsets.swift */; };
 		9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176421FC71770077D419 /* MessagesTableViewController.swift */; };
 		9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
@@ -108,6 +119,7 @@
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
 		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
 		98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */; };
+		98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +181,17 @@
 		94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkMapOverlay.swift; sourceTree = "<group>"; };
 		94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableSectionHeader.xib; sourceTree = "<group>"; };
 		94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableSectionHeader.swift; sourceTree = "<group>"; };
+		98003D4822872C1700592D55 /* URLCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCodable.swift; sourceTree = "<group>"; };
+		98003D4A22872C2A00592D55 /* FollowURLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowURLObject.swift; sourceTree = "<group>"; };
+		98003D4C22872C3500592D55 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		98003D4E22872C5400592D55 /* RSAKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAKey.swift; sourceTree = "<group>"; };
+		98003D5022872C6300592D55 /* RSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
+		98003D5222872C7400592D55 /* RSAKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAKeyTests.swift; sourceTree = "<group>"; };
+		98003D5422872C8100592D55 /* RSATests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSATests.swift; sourceTree = "<group>"; };
+		98003D5622872CA800592D55 /* FriendsVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsVerificationController.swift; sourceTree = "<group>"; };
+		98003D5922872DB300592D55 /* FollowFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowFriendsViewController.swift; sourceTree = "<group>"; };
+		98003D5C22872E4300592D55 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		98003D5F2287301000592D55 /* FollowURLObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowURLObjectTests.swift; sourceTree = "<group>"; };
 		9804176221FBDD580077D419 /* TextFieldWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithInsets.swift; sourceTree = "<group>"; };
 		9804176421FC71770077D419 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -237,6 +260,7 @@
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
+		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
 		FE801F89A7EEED10486DC718 /* Pods-CriticalMapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,6 +305,9 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				98003D5022872C6300592D55 /* RSA.swift */,
+				98003D4E22872C5400592D55 /* RSAKey.swift */,
+				98003D4822872C1700592D55 /* URLCodable.swift */,
 				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
 				94FCBD26226C57CA00F93F94 /* IBConstructable.swift */,
@@ -299,6 +326,8 @@
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				98003D4C22872C3500592D55 /* Friend.swift */,
+				98003D4A22872C2A00592D55 /* FollowURLObject.swift */,
 				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
 				989FA00321C8039A00E71085 /* RequestManager.swift */,
 				9838F28F227B772500744EDD /* DeviceID */,
@@ -325,6 +354,8 @@
 		94AD50481A963DC800547B40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				98003D5922872DB300592D55 /* FollowFriendsViewController.swift */,
+				98003D5622872CA800592D55 /* FriendsVerificationController.swift */,
 				989F9FEF21C7E5FC00E71085 /* Rules */,
 				985E94BC220891F200AA991B /* Social */,
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
@@ -357,6 +388,7 @@
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
 				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
+				98003D5C22872E4300592D55 /* QRCodeView.swift */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 			);
 			name = View;
@@ -436,6 +468,9 @@
 		94CF087E19BDEAF2009FFF43 /* CriticalMassTests */ = {
 			isa = PBXGroup;
 			children = (
+				98003D5F2287301000592D55 /* FollowURLObjectTests.swift */,
+				98003D5422872C8100592D55 /* RSATests.swift */,
+				98003D5222872C7400592D55 /* RSAKeyTests.swift */,
 				943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */,
 				943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */,
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
@@ -447,6 +482,7 @@
 				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
 				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				981C92082288B47F00391FA9 /* TestHelper.swift */,
+				98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -790,6 +826,7 @@
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
 				9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */,
+				98003D5822872CD200592D55 /* FriendsVerificationController.swift in Sources */,
 				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9838F28E227B771F00744EDD /* IDStore.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
@@ -797,11 +834,14 @@
 				94FCBD37226C580D00F93F94 /* SettingsSection.swift in Sources */,
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
+				98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
+				98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
+				98003D5122872C6300592D55 /* RSA.swift in Sources */,
 				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
@@ -816,6 +856,8 @@
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
+				98003D4B22872C2A00592D55 /* FollowURLObject.swift in Sources */,
+				98003D4D22872C3500592D55 /* Friend.swift in Sources */,
 				98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */,
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
@@ -833,12 +875,14 @@
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
+				98003D4F22872C5400592D55 /* RSAKey.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */,
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
+				98003D4922872C1800592D55 /* URLCodable.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
 			);
@@ -849,10 +893,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9822A16621F11519007F5994 /* MemoryDataStoreTests.swift in Sources */,
+				98003D602287301000592D55 /* FollowURLObjectTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
+				98003D5322872C7400592D55 /* RSAKeyTests.swift in Sources */,
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
+				98003D5522872C8100592D55 /* RSATests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
+				98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */,
 				982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */,
 				981C920A2288B49D00391FA9 /* TestHelper.swift in Sources */,
 				943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */,

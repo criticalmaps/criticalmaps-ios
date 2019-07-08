@@ -22,4 +22,11 @@ class MemoryDataStore: DataStore {
     func update(with response: ApiResponse) {
         lastKnownResponse = response
     }
+
+    func add(friend: Friend) {
+        friends.insert(friend)
+    }
+
+    private(set)
+    var friends: Set<Friend> = []
 }

@@ -59,7 +59,7 @@ class AppController {
     }
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController(themeController: self.themeController)
+        let rootViewController = MapViewController(themeController: self.themeController, friendsVerificationController: FriendsVerificationController(dataStore: dataStore))
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton), action: .none),
             .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),
@@ -75,5 +75,20 @@ class AppController {
 
     private func loadInitialData() {
         requestManager.getData()
+    }
+
+    public func handle(url: URL) -> Bool {
+        do {
+            let followURLObject = try FollowURLObject.decode(from: url.absoluteString)
+
+            dataStore.add(friend: followURLObject.queryObject)
+            let alertController = UIAlertController(title: "Added Friend", message: "Added \(followURLObject.queryObject.name)", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            rootViewController.present(alertController, animated: true, completion: nil)
+            return true
+        } catch {
+            // unknown or broken link
+            return false
+        }
     }
 }
