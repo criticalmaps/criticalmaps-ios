@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="19A501i" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14865.6" systemVersion="19A501i" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1.0">
     <entity name="StoredFriend" representedClassName="StoredFriend" syncable="YES" codeGenerationType="class">
-        <attribute name="keyReference" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="keyReference" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
     </entity>
     <elements>
-        <element name="StoredFriend" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="StoredFriend" positionX="-63" positionY="-18" width="128" height="73"/>
     </elements>
 </model>
