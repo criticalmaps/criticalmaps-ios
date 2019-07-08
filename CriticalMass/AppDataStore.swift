@@ -42,6 +42,8 @@ class AppDataStore: DataStore {
     }
 
     func remove(friend: Friend) {
+        // We reload freids to make sure that fetch results controller and friends indeces are in sync
+        loadFriends()
         guard let index = friends.firstIndex(of: friend) else {
             return
         }
@@ -61,21 +63,19 @@ class AppDataStore: DataStore {
         let fetchRequest: NSFetchRequest<StoredFriend> = StoredFriend.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
         let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: "MainCache")
-
-        try? resultsController.performFetch()
         return resultsController
     }()
 
     private func loadFriends() {
-        friendsFetchResultsController.fetchedObjects?.forEach { storedFriend in
+        try? friendsFetchResultsController.performFetch()
+        friends = friendsFetchResultsController.fetchedObjects?.compactMap { storedFriend in
             guard let name = storedFriend.name,
                 let keyRef = storedFriend.keyReference,
                 let keyData = try? KeychainHelper.load(with: keyRef) else {
-                return
+                return nil
             }
-            let friend = Friend(name: name, key: keyData)
-            self.friends.append(friend)
-        }
+            return Friend(name: name, key: keyData)
+        } ?? []
     }
 
     // MARK: CoreData

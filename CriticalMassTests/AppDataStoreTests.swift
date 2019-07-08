@@ -66,4 +66,48 @@ class AppDataStoreTests: XCTestCase {
 
         XCTAssertEqual(notificationCount, 1)
     }
+
+    func testAddAndLoadFriends() {
+        let store = AppDataStore()
+
+        XCTAssertEqual(store.friends.count, 0)
+
+        let friend = Friend(name: "Jan Ullrich", key: try! RSAKey(randomKey: "Test", isPermament: false).publicKeyDataRepresentation())
+        store.add(friend: friend)
+
+        XCTAssertEqual(store.friends.count, 1)
+        XCTAssertEqual(store.friends[0], friend)
+
+        let newStore = AppDataStore()
+        XCTAssertEqual(newStore.friends.count, 1)
+        XCTAssertEqual(newStore.friends[0], friend)
+
+        // clean up store for future tests
+        newStore.remove(friend: friend)
+    }
+
+    func testAddAndDeleteFriends() {
+        let store = AppDataStore()
+
+        XCTAssertEqual(store.friends.count, 0)
+
+        let friend = Friend(name: "Jan Ullrich", key: try! RSAKey(randomKey: "Test", isPermament: false).publicKeyDataRepresentation())
+        let friend2 = Friend(name: "Jana Ullrich", key: try! RSAKey(randomKey: "Test", isPermament: false).publicKeyDataRepresentation())
+
+        store.add(friend: friend)
+        store.add(friend: friend2)
+
+        XCTAssertEqual(store.friends.count, 2)
+
+        store.remove(friend: friend2)
+        XCTAssertEqual(store.friends.count, 1)
+        XCTAssertEqual(store.friends[0], friend)
+
+        let newStore = AppDataStore()
+        XCTAssertEqual(newStore.friends.count, 1)
+        XCTAssertEqual(newStore.friends[0], friend)
+
+        store.remove(friend: friend)
+        XCTAssertEqual(store.friends.count, 0)
+    }
 }
