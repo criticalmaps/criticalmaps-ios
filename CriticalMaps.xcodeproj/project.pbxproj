@@ -92,6 +92,7 @@
 		982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D92203842D00E2A51B /* SettingsViewController.swift */; };
 		982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */; };
 		982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */; };
+		98329A1D22D3796300A157EE /* CriticalMaps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98329A1B22D3796300A157EE /* CriticalMaps.xcdatamodeld */; };
 		9838F28C227B768A00744EDD /* IDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28B227B768A00744EDD /* IDProvider.swift */; };
 		9838F28E227B771F00744EDD /* IDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28D227B771F00744EDD /* IDStore.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
@@ -229,6 +230,7 @@
 		982DA8D92203842D00E2A51B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGithubTableViewCellTableViewCell.swift; sourceTree = "<group>"; };
 		982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsGithubTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
+		98329A1C22D3796300A157EE /* CriticalMaps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CriticalMaps.xcdatamodel; sourceTree = "<group>"; };
 		9838F28B227B768A00744EDD /* IDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDProvider.swift; sourceTree = "<group>"; };
 		9838F28D227B771F00744EDD /* IDStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStore.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				94CF086619BDEAF2009FFF43 /* Supporting Files */,
 				98B480E121AB30700044D017 /* Launch Screen.storyboard */,
 				946CDE0322412DA60059F892 /* Settings.bundle */,
+				98329A1B22D3796300A157EE /* CriticalMaps.xcdatamodeld */,
 			);
 			path = CriticalMass;
 			sourceTree = "<group>";
@@ -877,6 +880,7 @@
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				98003D4F22872C5400592D55 /* RSAKey.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
+				98329A1D22D3796300A157EE /* CriticalMaps.xcdatamodeld in Sources */,
 				94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */,
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
@@ -1197,6 +1201,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		98329A1B22D3796300A157EE /* CriticalMaps.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				98329A1C22D3796300A157EE /* CriticalMaps.xcdatamodel */,
+			);
+			currentVersion = 98329A1C22D3796300A157EE /* CriticalMaps.xcdatamodel */;
+			path = CriticalMaps.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 94CF085419BDEAF2009FFF43 /* Project object */;
 }
