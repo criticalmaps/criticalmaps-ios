@@ -67,10 +67,10 @@ class MockIDProvider: IDProvider {
 
 class MockDataStore: DataStore {
     func add(friend: Friend) {
-        friends.insert(friend)
+        friends.append(friend)
     }
 
-    var friends: Set<Friend> = []
+    var friends: [Friend] = []
 
     var storedData: ApiResponse?
     func update(with response: ApiResponse) {

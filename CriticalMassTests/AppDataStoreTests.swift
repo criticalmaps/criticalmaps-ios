@@ -1,5 +1,5 @@
 //
-//  MemoryDataStoreTests.swift
+//  AppDataStoreTests.swift
 //  CriticalMapsTests
 //
 //  Created by Leonard Thomas on 1/17/19.
@@ -8,9 +8,9 @@
 @testable import CriticalMaps
 import XCTest
 
-class MemoryDataStoreTests: XCTestCase {
+class AppDataStoreTests: XCTestCase {
     func testNotificationAfterStoringLocations() {
-        let store = MemoryDataStore()
+        let store = AppDataStore()
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
         let notificationName = Notification.positionOthersChanged
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
@@ -22,7 +22,7 @@ class MemoryDataStoreTests: XCTestCase {
     }
 
     func testNotificationAfterStoringChatMessage() {
-        let store = MemoryDataStore()
+        let store = AppDataStore()
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         let notificationName = Notification.positionOthersChanged
         let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
@@ -34,7 +34,7 @@ class MemoryDataStoreTests: XCTestCase {
     }
 
     func testNoNoDoublicatedNotificationAfterStoringOldLocations() {
-        let store = MemoryDataStore()
+        let store = AppDataStore()
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
         let notificationName = Notification.positionOthersChanged
         var notificationCount = 0
@@ -51,7 +51,7 @@ class MemoryDataStoreTests: XCTestCase {
     }
 
     func testNoNoDoublicatedNotificationAfterStoringOldMessages() {
-        let store = MemoryDataStore()
+        let store = AppDataStore()
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         var notificationCount = 0
         let notificationName = Notification.positionOthersChanged
