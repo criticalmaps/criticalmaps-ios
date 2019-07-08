@@ -35,7 +35,7 @@ class AppDataStore: DataStore {
         storedFriend.name = friend.name
 
         let keyReference = UUID().uuidString
-        try? KeychainHelper.save(data: friend.key, with: keyReference)
+        try? KeychainHelper.save(keyData: friend.key, with: keyReference)
         storedFriend.keyReference = keyReference
 
         saveContext()

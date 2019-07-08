@@ -94,6 +94,7 @@
 		982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */; };
 		98329A1D22D3796300A157EE /* CriticalMaps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98329A1B22D3796300A157EE /* CriticalMaps.xcdatamodeld */; };
 		98329A1F22D3BEA000A157EE /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98329A1E22D3BEA000A157EE /* KeychainHelper.swift */; };
+		98329A2322D3CADB00A157EE /* KeychainHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */; };
 		9838F28C227B768A00744EDD /* IDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28B227B768A00744EDD /* IDProvider.swift */; };
 		9838F28E227B771F00744EDD /* IDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28D227B771F00744EDD /* IDStore.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
@@ -233,6 +234,7 @@
 		982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsGithubTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		98329A1C22D3796300A157EE /* CriticalMaps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CriticalMaps.xcdatamodel; sourceTree = "<group>"; };
 		98329A1E22D3BEA000A157EE /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
 		9838F28B227B768A00744EDD /* IDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDProvider.swift; sourceTree = "<group>"; };
 		9838F28D227B771F00744EDD /* IDStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStore.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				981C92082288B47F00391FA9 /* TestHelper.swift */,
 				98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */,
+				98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
 				98003D5522872C8100592D55 /* RSATests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
+				98329A2322D3CADB00A157EE /* KeychainHelperTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
 				98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */,
 				982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */,

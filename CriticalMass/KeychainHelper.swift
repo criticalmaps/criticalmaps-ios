@@ -8,22 +8,26 @@
 
 import Foundation
 
-class KeychainHelper {
+public class KeychainHelper {
     enum KeychainError: Error {
         case cantFindMatchingKey
-        case storeKey
+        case storeKeyFailed
         case deletionFailed
     }
 
-    class func save(data: Data, with keyReference: String) throws {
+    public class func save(keyData: Data, with keyReference: String) throws {
+        let secKey = try RSAKey(data: keyData).secKey
         let addquery: [String: Any] = [kSecClass as String: kSecClassKey,
                                        kSecAttrApplicationTag as String: keyReference,
-                                       kSecValueRef as String: data]
+                                       kSecValueRef as String: secKey]
+
         let status = SecItemAdd(addquery as CFDictionary, nil)
-        guard status == errSecSuccess else { throw KeychainError.storeKey }
+        guard status == errSecSuccess else {
+            throw KeychainError.storeKeyFailed
+        }
     }
 
-    class func load(with keyReference: String) throws -> Data {
+    public class func load(with keyReference: String) throws -> Data {
         let getquery: [String: Any] = [kSecClass as String: kSecClassKey,
                                        kSecAttrApplicationTag as String: keyReference,
                                        kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
@@ -40,14 +44,14 @@ class KeychainHelper {
         return data as Data
     }
 
-    class func delete(with keyReference: String) throws {
+    public class func delete(with keyReference: String) throws {
         let deleteQuery: [String: Any] = [kSecClass as String: kSecClassKey,
                                           kSecAttrApplicationTag as String: keyReference,
                                           kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
                                           kSecReturnRef as String: true]
 
         let status = SecItemDelete(deleteQuery as CFDictionary)
-        guard status == errSecSuccess else {
+        guard status == errSecSuccess || status == errSecItemNotFound else {
             throw KeychainError.deletionFailed
         }
     }
