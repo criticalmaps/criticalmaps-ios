@@ -35,7 +35,7 @@ class AppDataStore: DataStore {
         storedFriend.name = friend.name
 
         let keyReference = UUID().uuidString
-        KeychainHelper.save(data: friend.key, with: keyReference)
+        try? KeychainHelper.save(data: friend.key, with: keyReference)
         storedFriend.keyReference = keyReference
 
         saveContext()
@@ -49,7 +49,7 @@ class AppDataStore: DataStore {
         guard let storedFriend = friendsFetchResultsController.fetchedObjects?[index] else {
             return
         }
-
+        try? KeychainHelper.delete(with: storedFriend.keyReference!)
         persistentContainer.viewContext.delete(storedFriend)
         saveContext()
     }
@@ -70,7 +70,7 @@ class AppDataStore: DataStore {
         friendsFetchResultsController.fetchedObjects?.forEach { storedFriend in
             guard let name = storedFriend.name,
                 let keyRef = storedFriend.keyReference,
-                let keyData = KeychainHelper.load(with: keyRef) else {
+                let keyData = try? KeychainHelper.load(with: keyRef) else {
                 return
             }
             let friend = Friend(name: name, key: keyData)
