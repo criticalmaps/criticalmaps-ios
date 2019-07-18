@@ -11,5 +11,5 @@ public protocol DataStore {
     func update(with response: ApiResponse)
 
     func add(friend: Friend)
-    var friends: Set<Friend> { get }
+    var friends: [Friend] { get }
 }

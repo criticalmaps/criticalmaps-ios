@@ -11,7 +11,7 @@ import XCTest
 class ChatManagerTests: XCTestCase {
     func getSetup() -> (chatManager: ChatManager, networkLayer: MockNetworkLayer, dataStore: DataStore) {
         let networkLayer = MockNetworkLayer()
-        let dataStore = MemoryDataStore()
+        let dataStore = AppDataStore()
         let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, idProvider: MockIDProvider(), url: Constants.apiEndpoint)
         let chatManager = ChatManager(requestManager: requestManager)
         return (chatManager, networkLayer, dataStore)

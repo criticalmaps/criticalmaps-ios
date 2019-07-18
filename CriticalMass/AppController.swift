@@ -14,7 +14,7 @@ class AppController {
     }
 
     private var idProvider: IDProvider = IDStore()
-    private var dataStore = MemoryDataStore()
+    private var dataStore = AppDataStore()
 
     private lazy var requestManager: RequestManager = {
         RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
