@@ -357,6 +357,8 @@
 			isa = PBXGroup;
 			children = (
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
+				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
+				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
 				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
@@ -377,8 +379,6 @@
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
 				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
-				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
-				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
