@@ -29,7 +29,7 @@ class TwitterManager {
         networkLayer.get(with: url, decodable: TwitterApiResponse.self, customDateFormatter: dateFormatter) { [weak self] response in
             DispatchQueue.main.async {
                 guard let response = response else {
-                    result(.failure(ApiError.couldFetchData))
+                    result(.failure(ApiError.loadError))
                     return
                 }
                 self?.cachedTweets = response.statuses
