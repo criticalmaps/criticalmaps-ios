@@ -9,14 +9,14 @@
 import Foundation
 
 enum ApiError: Error {
-    case couldFetchData
+    case loadError
 }
 
 extension ApiError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        case .couldFetchData:
-            return "Could load data from the server"
+        case .loadError:
+            return "Could not load data from the server"
         }
     }
 }
