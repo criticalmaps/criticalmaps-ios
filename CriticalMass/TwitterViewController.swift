@@ -31,8 +31,11 @@ class TwitterViewController: UIViewController {
     }
 
     private func fetchTweets() {
+        let loadingViewController = LoadingViewController()
+        add(loadingViewController)
         twitterManager.loadTweets { [weak self] result in
             self?.messagesTableViewController.refreshControl?.endRefreshing()
+            loadingViewController.remove()
             switch result {
             case let .failure(error):
                 Logger.log(.error, log: .network, "Failed loading the data")
