@@ -14,11 +14,10 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
     private lazy var chatInputBottomConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        chatInput.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     }()
-
     private lazy var chatInputHeightConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: chatInputHeight)
+        chatInput.heightAnchor.constraint(equalToConstant: chatInputHeight)
     }()
 
     init(chatManager: ChatManager) {
@@ -70,10 +69,10 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         messagesTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
         view.addConstraints([
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: chatInput, attribute: .top, multiplier: 1, constant: 0),
+            messagesTableViewController.view.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            messagesTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
+            messagesTableViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messagesTableViewController.view.bottomAnchor.constraint(equalTo: chatInput.topAnchor),
         ])
     }
 
@@ -83,8 +82,8 @@ class ChatViewController: UIViewController, ChatInputDelegate {
 
         view.addConstraints([
             chatInputHeightConstraint,
-            NSLayoutConstraint(item: chatInput, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            chatInput.widthAnchor.constraint(equalTo: view.widthAnchor),
+            chatInput.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             chatInputBottomConstraint,
         ])
     }
