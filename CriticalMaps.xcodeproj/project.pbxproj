@@ -17,6 +17,8 @@
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
 		943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */; };
 		943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */; };
+		94415DC222E3640000C5DC38 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94415DC022E3640000C5DC38 /* LoadingViewController.swift */; };
+		94415DC522E3643400C5DC38 /* CMLogoActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94415DC422E3643400C5DC38 /* CMLogoActivityView.swift */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
 		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
@@ -141,6 +143,8 @@
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
 		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
 		943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryOverlayView.xib; sourceTree = "<group>"; };
+		94415DC022E3640000C5DC38 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		94415DC422E3643400C5DC38 /* CMLogoActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMLogoActivityView.swift; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		9460B76A225A6EB200786E27 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
 		946CDE0322412DA60059F892 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
@@ -297,22 +301,22 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
-				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
-				94FCBD26226C57CA00F93F94 /* IBConstructable.swift */,
-				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
-				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
-				94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */,
+				94D4016E229F20F6001524CC /* FontMetrics.swift */,
 				9460B76A225A6EB200786E27 /* FormatDisplay.swift */,
+				94FCBD26226C57CA00F93F94 /* IBConstructable.swift */,
 				98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */,
+				988B12AC22A271FE0010FAED /* Logger.swift */,
+				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
+				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
+				9810C381229830940011F718 /* RatingHelper.swift */,
 				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
+				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
+				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
+				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				94092748228321E60034E46B /* UITableView+Register.swift */,
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
-				9810C381229830940011F718 /* RatingHelper.swift */,
-				988B12AC22A271FE0010FAED /* Logger.swift */,
-				94D4016E229F20F6001524CC /* FontMetrics.swift */,
-				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
+				94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -320,26 +324,26 @@
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
-				989FA00321C8039A00E71085 /* RequestManager.swift */,
-				9838F28F227B772500744EDD /* DeviceID */,
-				9804176C21FC87960077D419 /* SendChatMessage.swift */,
-				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
-				989FA00121C8038400E71085 /* Location.swift */,
+				941F894A22C0B6A80078AD9D /* ApiError.swift */,
 				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
+				9474E979224D027900A812DC /* Bundle+Version.swift */,
+				9804176A21FC7AF30077D419 /* ChatManager.swift */,
 				989F9FFF21C8036800E71085 /* ChatMessage.swift */,
-				989FA00521C8154D00E71085 /* LocationManager.swift */,
 				9822A15121EDF1C5007F5994 /* DataStore.swift */,
+				9838F28F227B772500744EDD /* DeviceID */,
+				989FA00121C8038400E71085 /* Location.swift */,
+				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
+				989FA00521C8154D00E71085 /* LocationManager.swift */,
+				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
 				9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */,
 				9822A15F21F11051007F5994 /* NetworkLayer.swift */,
 				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
-				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
 				9822A17121F3349F007F5994 /* Preferences.swift */,
-				9804176A21FC7AF30077D419 /* ChatManager.swift */,
-				982DA8D421FFA68B00E2A51B /* Twitter */,
+				989FA00321C8039A00E71085 /* RequestManager.swift */,
+				9804176C21FC87960077D419 /* SendChatMessage.swift */,
+				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
 				94FCBD2D226C57E000F93F94 /* Theme */,
-				9474E979224D027900A812DC /* Bundle+Version.swift */,
-				941F894A22C0B6A80078AD9D /* ApiError.swift */,
+				982DA8D421FFA68B00E2A51B /* Twitter */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -352,6 +356,7 @@
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
 				985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */,
+				94415DC022E3640000C5DC38 /* LoadingViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -360,10 +365,13 @@
 			isa = PBXGroup;
 			children = (
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
+				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
+				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
 				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
 				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
+				94415DC422E3643400C5DC38 /* CMLogoActivityView.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
@@ -380,8 +388,6 @@
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
 				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
-				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
-				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -841,6 +847,7 @@
 				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
 				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
+				94415DC222E3640000C5DC38 /* LoadingViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
@@ -848,6 +855,7 @@
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */,
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
+				94415DC522E3643400C5DC38 /* CMLogoActivityView.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
