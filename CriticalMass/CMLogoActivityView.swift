@@ -32,13 +32,13 @@ import UIKit
                                          userInfo: nil,
                                          repeats: true)
         } else {
-            print("Animation Already running")
+            debugPrint("Animation Already running")
         }
     }
 
     @objc
     private func updateViewParameter() {
-        angle += 1.0
+        angle -= 2.0
         setNeedsDisplay()
     }
 }
