@@ -55,7 +55,6 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
     }
 
     @IBOutlet private var handleLabel: UILabel!
-
     @IBOutlet var tweetTextViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var userImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var userImageView: UIImageView!
