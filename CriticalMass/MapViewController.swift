@@ -59,8 +59,15 @@ class MapViewController: UIViewController {
         guard themeController.currentTheme == .dark else {
             return
         }
-        tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
-        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
+        if #available(iOS 13.0, *) {
+            // This is a workaround to make the compiler with Xcode 10 happy
+            #if canImport(SwiftUI)
+                mapView.overrideUserInterfaceStyle = .dark
+            #endif
+        } else {
+            tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
+            mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
+        }
     }
 
     private func condfigureGPSDisabledOverlayView() {
@@ -140,8 +147,15 @@ class MapViewController: UIViewController {
     @objc private func themeDidChange() {
         let theme = themeController.currentTheme
         guard theme == .dark else {
-            tileRenderer = nil
-            mapView.removeOverlay(nightThemeOverlay)
+            if #available(iOS 13.0, *) {
+                // This is a workaround to make the compiler with Xcode 10 happy
+                #if canImport(SwiftUI)
+                    mapView.overrideUserInterfaceStyle = .unspecified
+                #endif
+            } else {
+                tileRenderer = nil
+                mapView.removeOverlay(nightThemeOverlay)
+            }
             return
         }
         configureTileRenderer()

@@ -150,7 +150,12 @@ struct DarkTheme: ThemeDefining {
     }
 
     var navigationBarIsTranslucent: Bool {
-        return false
+        if #available(iOS 13.0, *) {
+            // FIXME: Returning false would make the navigationbar transparent on iOS 13
+            return true
+        } else {
+            return false
+        }
     }
 
     var placeholderTextColor: UIColor {
