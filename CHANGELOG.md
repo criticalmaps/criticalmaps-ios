@@ -4,6 +4,9 @@ Changelog for Critical Maps iOS
 
 ## [UNRELEASED]
 
+### Added
+- iOS 13 support
+
 ### Fixed
 
 - A bug that made the app unusable with assistive technologies like Switch Control or VoiceOver
