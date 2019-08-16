@@ -15,13 +15,6 @@ class TwitterManager {
         }
     }
 
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
-        return formatter
-    }()
-
     private let networkLayer: NetworkLayer
 
     var updateTweetsCallback: (([Tweet]) -> Void)?
@@ -31,16 +24,19 @@ class TwitterManager {
         self.url = url
     }
 
-    public func loadTweets(completion: (() -> Void)? = nil) {
-        networkLayer.get(with: url, decodable: TwitterApiResponse.self, customDateFormatter: dateFormatter) { [weak self] response in
-            DispatchQueue.main.async {
-                defer {
-                    completion?()
+    public func loadTweets(completion _: (() -> Void)? = nil) {
+        let getTweetsRequest = TwitterRequest(baseUrl: Constants.apiEndpoint,
+                                              paths: ["twitter"],
+                                              headers: nil)
+        networkLayer.get(request: getTweetsRequest) { [weak self] result in
+            guard let self = self else { return }
+            onMain {
+                switch result {
+                case let .failure(error):
+                    ErrorHandler.default.handleError(error)
+                case let .success(response):
+                    self.cachedTweets = response.statuses
                 }
-                guard let response = response else {
-                    return
-                }
-                self?.cachedTweets = response.statuses
             }
         }
     }
