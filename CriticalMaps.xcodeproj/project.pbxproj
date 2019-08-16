@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */; };
 		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
+		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
+		940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CF23071F3200AB1BCB /* ErrorHandler.swift */; };
+		940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */; };
+		940643D62307266700AB1BCB /* PostLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D52307266700AB1BCB /* PostLocationRequest.swift */; };
+		940643D82307270B00AB1BCB /* GCD+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D72307270B00AB1BCB /* GCD+Util.swift */; };
 		94092749228321E60034E46B /* UITableView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092748228321E60034E46B /* UITableView+Register.swift */; };
 		9409274B228322FD0034E46B /* TypeNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274A228322FC0034E46B /* TypeNameProtocol.swift */; };
 		9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* String+LocalizedStrings.swift */; };
@@ -24,6 +29,9 @@
 		9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E979224D027900A812DC /* Bundle+Version.swift */; };
 		948509A322C09F9A0034FAF1 /* UIViewController+Management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */; };
 		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
+		9491720D23009EB3008B98AD /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491720C23009EB3008B98AD /* APIRequest.swift */; };
+		9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491720E23009ED0008B98AD /* TwitterRequest.swift */; };
+		949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949172102300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift */; };
 		949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BEF542237CAEC009AE6DF /* RoundableImageView.swift */; };
 		94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
@@ -132,6 +140,11 @@
 		2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMapsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71984CFABC6CBD21874A487C /* Pods-CriticalMapsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91EC6282437633054D179F01 /* libPods-CriticalMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMaps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		940643CD23071F1200AB1BCB /* Codable+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Sugar.swift"; sourceTree = "<group>"; };
+		940643CF23071F3200AB1BCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChatMessagesRequest.swift; sourceTree = "<group>"; };
+		940643D52307266700AB1BCB /* PostLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationRequest.swift; sourceTree = "<group>"; };
+		940643D72307270B00AB1BCB /* GCD+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GCD+Util.swift"; sourceTree = "<group>"; };
 		94092748228321E60034E46B /* UITableView+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Register.swift"; sourceTree = "<group>"; };
 		9409274A228322FC0034E46B /* TypeNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeNameProtocol.swift; sourceTree = "<group>"; };
 		9409274C22841E160034E46B /* String+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedStrings.swift"; sourceTree = "<group>"; };
@@ -150,6 +163,9 @@
 		9489D88B1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88D1B768274001E746C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9489D88F1B768279001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9491720C23009EB3008B98AD /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		9491720E23009ED0008B98AD /* TwitterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterRequest.swift; sourceTree = "<group>"; };
+		949172102300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationsAndChatMessagesRequest.swift; sourceTree = "<group>"; };
 		949BEF542237CAEC009AE6DF /* RoundableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundableImageView.swift; sourceTree = "<group>"; };
 		94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentMessageLabel.swift; sourceTree = "<group>"; };
 		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +308,29 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		940643D12307253100AB1BCB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
+				989F9FFF21C8036800E71085 /* ChatMessage.swift */,
+				9804176C21FC87960077D419 /* SendChatMessage.swift */,
+				982DA8C821FF65F700E2A51B /* Tweet.swift */,
+				982DA8D021FF9F9100E2A51B /* TwitterApiResponse.swift */,
+				982DA8D221FFA13800E2A51B /* TwitterUser.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		940643D2230725B100AB1BCB /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
+				989FA00521C8154D00E71085 /* LocationManager.swift */,
+				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,32 +350,52 @@
 				94D4016E229F20F6001524CC /* FontMetrics.swift */,
 				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
+				940643D72307270B00AB1BCB /* GCD+Util.swift */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		9491720A23009E93008B98AD /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				940643CD23071F1200AB1BCB /* Codable+Sugar.swift */,
+				940643CF23071F3200AB1BCB /* ErrorHandler.swift */,
+				940643D12307253100AB1BCB /* Models */,
+				9822A15F21F11051007F5994 /* NetworkLayer.swift */,
+				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
+				989FA00321C8039A00E71085 /* RequestManager.swift */,
+				9491720B23009E9C008B98AD /* Requests */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		9491720B23009E9C008B98AD /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				9491720C23009EB3008B98AD /* APIRequest.swift */,
+				9491720E23009ED0008B98AD /* TwitterRequest.swift */,
+				949172102300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift */,
+				940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */,
+				940643D52307266700AB1BCB /* PostLocationRequest.swift */,
+			);
+			name = Requests;
 			sourceTree = "<group>";
 		};
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
-				989FA00321C8039A00E71085 /* RequestManager.swift */,
-				9838F28F227B772500744EDD /* DeviceID */,
-				9804176C21FC87960077D419 /* SendChatMessage.swift */,
-				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
-				989FA00121C8038400E71085 /* Location.swift */,
-				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
-				989F9FFF21C8036800E71085 /* ChatMessage.swift */,
-				989FA00521C8154D00E71085 /* LocationManager.swift */,
-				9822A15121EDF1C5007F5994 /* DataStore.swift */,
-				9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */,
-				9822A15F21F11051007F5994 /* NetworkLayer.swift */,
-				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
-				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
-				9822A17121F3349F007F5994 /* Preferences.swift */,
-				9804176A21FC7AF30077D419 /* ChatManager.swift */,
-				982DA8D421FFA68B00E2A51B /* Twitter */,
-				94FCBD2D226C57E000F93F94 /* Theme */,
 				9474E979224D027900A812DC /* Bundle+Version.swift */,
+				9804176A21FC7AF30077D419 /* ChatManager.swift */,
+				9822A15121EDF1C5007F5994 /* DataStore.swift */,
+				9838F28F227B772500744EDD /* DeviceID */,
+				989FA00121C8038400E71085 /* Location.swift */,
+				940643D2230725B100AB1BCB /* Location */,
+				9822A15321EDF1D8007F5994 /* MemoryDataStore.swift */,
+				9491720A23009E93008B98AD /* Networking */,
+				9822A17121F3349F007F5994 /* Preferences.swift */,
+				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
+				94FCBD2D226C57E000F93F94 /* Theme */,
+				982DA8D421FFA68B00E2A51B /* Twitter */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -497,9 +556,6 @@
 			isa = PBXGroup;
 			children = (
 				982DA8C621FF652700E2A51B /* TwitterManager.swift */,
-				982DA8C821FF65F700E2A51B /* Tweet.swift */,
-				982DA8D021FF9F9100E2A51B /* TwitterApiResponse.swift */,
-				982DA8D221FFA13800E2A51B /* TwitterUser.swift */,
 			);
 			name = Twitter;
 			sourceTree = "<group>";
@@ -602,7 +658,7 @@
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
 					94CF085B19BDEAF2009FFF43 = {
-						DevelopmentTeam = 5YLLXUZBZ2;
+						DevelopmentTeam = BP8836JVQR;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -781,6 +837,7 @@
 				985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */,
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */,
+				9491720D23009EB3008B98AD /* APIRequest.swift in Sources */,
 				988B12AD22A271FE0010FAED /* Logger.swift in Sources */,
 				94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */,
 				94092749228321E60034E46B /* UITableView+Register.swift in Sources */,
@@ -801,19 +858,24 @@
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
 				94FCBD37226C580D00F93F94 /* SettingsSection.swift in Sources */,
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
+				940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
+				9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
 				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
+				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
+				949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */,
 				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
+				940643D82307270B00AB1BCB /* GCD+Util.swift in Sources */,
 				94FCBD32226C57FA00F93F94 /* ThemeStore.swift in Sources */,
 				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
 				94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */,
@@ -830,6 +892,7 @@
 				98205F692207937100122EDA /* AppController.swift in Sources */,
 				9838F28C227B768A00744EDD /* IDProvider.swift in Sources */,
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
+				940643D62307266700AB1BCB /* PostLocationRequest.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
@@ -841,6 +904,7 @@
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
+				940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */,
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
@@ -1028,7 +1092,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
+				DEVELOPMENT_TEAM = BP8836JVQR;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
@@ -1055,7 +1119,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
+				DEVELOPMENT_TEAM = BP8836JVQR;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
