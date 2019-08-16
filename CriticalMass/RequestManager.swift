@@ -48,16 +48,20 @@ public class RequestManager {
         updateData()
     }
 
-    private func defaultCompletion(for response: ApiResponse?) {
-        DispatchQueue.main.async {
+    private func defaultCompletion(for result: ResultCallback<ApiResponse>) {
+        onMain { [weak self] in
+            guard let self = self else {
+                return
+            }
             defer {
                 self.hasActiveRequest = false
             }
-            if let response = response {
+            switch result {
+            case let .success(response):
                 self.dataStore.update(with: response)
-
                 Logger.log(.info, log: self.log, "Successfully finished API update")
-            } else {
+            case let .failure(error):
+                ErrorHandler.default.handleError(error)
                 Logger.log(.error, log: self.log, "API update failed")
             }
         }
@@ -70,21 +74,32 @@ public class RequestManager {
         }
         hasActiveRequest = true
         // We only use a post request if we have a location to post
-        if let currentLocation = locationProvider.currentLocation {
-            let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
-            guard let bodyData = try? JSONEncoder().encode(body) else {
-                hasActiveRequest = false
-                defaultCompletion(for: nil)
+        guard let currentLocation = locationProvider.currentLocation else {
+            getData()
+            return
+        }
+        let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
+        guard let bodyData = try? body.encoded() else {
+            hasActiveRequest = false
+            return
+        }
+        let request = PostLocationRequest(baseUrl: Constants.apiEndpoint,
+                                          paths: [],
+                                          headers: .contentTypeApplicationJSON)
+        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
+            guard let self = self else {
                 return
             }
-            networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData, completion: defaultCompletion)
-        } else {
-            getData()
+            self.defaultCompletion(for: result)
         }
     }
 
     public func getData() {
-        networkLayer.get(with: endpoint, decodable: ApiResponse.self, completion: defaultCompletion)
+        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest(baseUrl: Constants.apiEndpoint, paths: [], headers: nil)
+        networkLayer.get(request: locationsAndMessagesRequest) { [weak self] result in
+            guard let self = self else { return }
+            self.defaultCompletion(for: result)
+        }
     }
 
     public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
@@ -93,16 +108,21 @@ public class RequestManager {
             self.networkLayer.cancelActiveRequestsIfNeeded()
         }
         let body = SendMessagePostBody(device: idProvider.id, messages: messages)
-
-        guard let bodyData = try? JSONEncoder().encode(body) else {
+        guard let bodyData = try? body.encoded() else {
             completion?(nil)
             return
         }
-        networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData) { response in
-            self.defaultCompletion(for: response)
-            DispatchQueue.main.async {
+        let request = PostChatMessagesRequest(baseUrl: Constants.apiEndpoint, paths: [], headers: .contentTypeApplicationJSON)
+        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            self.defaultCompletion(for: result)
+            onMain {
                 UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-                completion?(response?.chatMessages)
+                if case let .success(messages) = result {
+                    completion?(messages.chatMessages)
+                }
             }
         }
     }
