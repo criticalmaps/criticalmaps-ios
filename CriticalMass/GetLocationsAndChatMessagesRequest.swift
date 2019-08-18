@@ -12,10 +12,6 @@ struct GetLocationsAndChatMessagesRequest: APIRequestDefining {
     typealias ResponseDataType = ApiResponse
     var baseUrl: URL
     var paths: [String]
-    var httpMethod: HTTPMethod { return .get }
     var headers: HTTPHeaders?
-
-    func parseResponse(data: Data) throws -> ResponseDataType {
-        return try data.decoded()
-    }
+    var httpMethod: HTTPMethod { return .get }
 }

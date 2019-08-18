@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 struct ErrorHandler {
     static let `default` = ErrorHandler()
