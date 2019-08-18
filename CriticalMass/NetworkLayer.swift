@@ -18,10 +18,10 @@ enum HTTPMethod: String {
     case post = "POST"
 }
 
-typealias ResultCallback<Value> = Result<Value, NetworkError>
+typealias ResultCallback<Value> = (Result<Value, NetworkError>) -> Void
 
 protocol NetworkLayer {
-    func get<T: APIRequestDefining>(request: T, completion: @escaping (ResultCallback<T.ResponseDataType>) -> Void)
-    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping (ResultCallback<T.ResponseDataType>) -> Void)
+    func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>)
+    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>)
     func cancelActiveRequestsIfNeeded()
 }

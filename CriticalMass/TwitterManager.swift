@@ -24,7 +24,7 @@ class TwitterManager {
         self.url = url
     }
 
-    public func loadTweets(completion _: (() -> Void)? = nil) {
+    public func loadTweets(_ completion: (() -> Void)? = nil) {
         let getTweetsRequest = TwitterRequest(baseUrl: Constants.apiEndpoint,
                                               paths: ["twitter"],
                                               headers: nil)
@@ -38,6 +38,7 @@ class TwitterManager {
                     self.cachedTweets = response.statuses
                 }
             }
+            completion?()
         }
     }
 

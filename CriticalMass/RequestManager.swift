@@ -48,14 +48,10 @@ public class RequestManager {
         updateData()
     }
 
-    private func defaultCompletion(for result: ResultCallback<ApiResponse>) {
+    private func defaultCompletion(for result: Result<ApiResponse, NetworkError>) {
         onMain { [weak self] in
-            guard let self = self else {
-                return
-            }
-            defer {
-                self.hasActiveRequest = false
-            }
+            guard let self = self else { return }
+            defer { self.hasActiveRequest = false }
             switch result {
             case let .success(response):
                 self.dataStore.update(with: response)
@@ -87,9 +83,7 @@ public class RequestManager {
                                           paths: [],
                                           headers: .contentTypeApplicationJSON)
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             self.defaultCompletion(for: result)
         }
     }
@@ -102,26 +96,27 @@ public class RequestManager {
         }
     }
 
-    public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
+    func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
         let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
-            completion?(nil)
+            completion(.failure(NetworkError.unknownError))
             self.networkLayer.cancelActiveRequestsIfNeeded()
         }
         let body = SendMessagePostBody(device: idProvider.id, messages: messages)
         guard let bodyData = try? body.encoded() else {
-            completion?(nil)
+            completion(.failure(NetworkError.parseError))
             return
         }
         let request = PostChatMessagesRequest(baseUrl: Constants.apiEndpoint, paths: [], headers: .contentTypeApplicationJSON)
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             self.defaultCompletion(for: result)
             onMain {
                 UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-                if case let .success(messages) = result {
-                    completion?(messages.chatMessages)
+                switch result {
+                case let .success(messages):
+                    completion(.success(messages.chatMessages))
+                case let .failure(error):
+                    completion(.failure(error))
                 }
             }
         }

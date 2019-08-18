@@ -135,11 +135,12 @@ class ChatViewController: UIViewController, ChatInputDelegate {
 
     func didTapSendButton(text: String) {
         let indicator = LoadingIndicator.present(in: view)
-        chatManager.send(message: text) { success in
+        chatManager.send(message: text) { result in
             indicator.dismiss()
-            if success {
+            switch result {
+            case .success:
                 self.chatInput.resetInput()
-            } else {
+            case .failure:
                 let alert = UIAlertController(title: String.error,
                                               message: String.chatSendError,
                                               preferredStyle: .alert)

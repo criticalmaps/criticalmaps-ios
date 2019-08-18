@@ -18,7 +18,7 @@ struct NetworkOperator: NetworkLayer {
         self.networkIndicatorHelper = networkIndicatorHelper
     }
 
-    func get<T: APIRequestDefining>(request: T, completion: @escaping (ResultCallback<T.ResponseDataType>) -> Void) {
+    func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
         let urlRequest = request.makeRequest()
         dataTask(with: urlRequest) { result in
             switch result {
@@ -35,7 +35,7 @@ struct NetworkOperator: NetworkLayer {
         }
     }
 
-    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping (ResultCallback<T.ResponseDataType>) -> Void) {
+    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
         var urlRequest = request.makeRequest()
         urlRequest.httpBody = bodyData
         dataTask(with: urlRequest) { result in
