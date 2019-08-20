@@ -10,8 +10,7 @@ import Foundation
 
 struct GetLocationsAndChatMessagesRequest: APIRequestDefining {
     typealias ResponseDataType = ApiResponse
-    var baseUrl: URL
-    var paths: [String]
+    var endpoint: Endpoint = .default
     var headers: HTTPHeaders?
     var httpMethod: HTTPMethod { return .get }
 }

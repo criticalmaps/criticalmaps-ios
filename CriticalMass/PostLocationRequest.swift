@@ -10,8 +10,7 @@ import Foundation
 
 struct PostLocationRequest: APIRequestDefining {
     typealias ResponseDataType = ApiResponse
-    var baseUrl: URL
-    var paths: [String]
-    var headers: HTTPHeaders?
+    var endpoint: Endpoint = .default
+    var headers: HTTPHeaders? = .contentTypeApplicationJSON
     var httpMethod: HTTPMethod { return .post }
 }

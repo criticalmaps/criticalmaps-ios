@@ -1,15 +1,8 @@
 import Foundation
 
-public typealias HTTPHeaders = [String: String]
-
-extension HTTPHeaders {
-    static let contentTypeApplicationJSON: HTTPHeaders = ["application/json": "Content-Type"]
-}
-
 protocol APIRequestDefining {
     associatedtype ResponseDataType: Decodable
-    var baseUrl: URL { get }
-    var paths: [String] { get }
+    var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
     func makeRequest() -> URLRequest
@@ -18,11 +11,7 @@ protocol APIRequestDefining {
 
 extension APIRequestDefining {
     func makeRequest() -> URLRequest {
-        var url = baseUrl
-        paths.forEach { path in
-            url.appendPathComponent(path)
-        }
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: endpoint.url)
         request.httpMethod = httpMethod.rawValue
         request.addHeaders(headers)
         return request
@@ -33,7 +22,7 @@ extension APIRequestDefining {
     }
 }
 
-extension URLRequest {
+private extension URLRequest {
     mutating func addHeaders(_ httpHeaders: HTTPHeaders?) {
         guard let headers = httpHeaders else {
             return
