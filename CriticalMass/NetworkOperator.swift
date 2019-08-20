@@ -10,6 +10,7 @@ import Foundation
 struct NetworkOperator: NetworkLayer {
     private let session: URLSession
     private var networkIndicatorHelper: NetworkActivityIndicatorHelper
+    private static let validHttpResponseCodes = 200 ..< 300
 
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
@@ -54,7 +55,7 @@ struct NetworkOperator: NetworkLayer {
     }
 
     private func dataTask(with request: URLRequest,
-                          completion: @escaping (Result<Data, NetworkError>) -> Void) {
+                          completion: @escaping ResultCallback<Data>) {
         networkIndicatorHelper.didStartRequest()
         let task = session.dataTask(with: request) { data, response, error in
             self.networkIndicatorHelper.didEndRequest()
@@ -63,7 +64,7 @@ struct NetworkOperator: NetworkLayer {
             } else if
                 let data = data,
                 let response = response as? HTTPURLResponse,
-                response.statusCode == 200 {
+                NetworkOperator.validHttpResponseCodes ~= response.statusCode {
                 completion(.success(data))
             } else {
                 completion(.failure(NetworkError.unknownError))
