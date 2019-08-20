@@ -79,9 +79,7 @@ public class RequestManager {
             hasActiveRequest = false
             return
         }
-        let request = PostLocationRequest(baseUrl: Constants.apiEndpoint,
-                                          paths: [],
-                                          headers: .contentTypeApplicationJSON)
+        let request = PostLocationRequest()
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
             guard let self = self else { return }
             self.defaultCompletion(for: result)
@@ -89,7 +87,7 @@ public class RequestManager {
     }
 
     public func getData() {
-        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest(baseUrl: Constants.apiEndpoint, paths: [], headers: nil)
+        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest()
         networkLayer.get(request: locationsAndMessagesRequest) { [weak self] result in
             guard let self = self else { return }
             self.defaultCompletion(for: result)
@@ -106,7 +104,7 @@ public class RequestManager {
             completion(.failure(NetworkError.parseError))
             return
         }
-        let request = PostChatMessagesRequest(baseUrl: Constants.apiEndpoint, paths: [], headers: .contentTypeApplicationJSON)
+        let request = PostChatMessagesRequest()
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
             guard let self = self else { return }
             self.defaultCompletion(for: result)

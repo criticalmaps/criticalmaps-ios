@@ -25,9 +25,7 @@ class TwitterManager {
     }
 
     public func loadTweets(_ completion: (() -> Void)? = nil) {
-        let getTweetsRequest = TwitterRequest(baseUrl: Constants.apiEndpoint,
-                                              paths: ["twitter"],
-                                              headers: nil)
+        let getTweetsRequest = TwitterRequest()
         networkLayer.get(request: getTweetsRequest) { [weak self] result in
             guard let self = self else { return }
             onMain {
