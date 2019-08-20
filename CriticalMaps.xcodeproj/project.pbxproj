@@ -22,6 +22,8 @@
 		943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */; };
 		943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
+		945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */; };
+		945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
 		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
 		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
@@ -153,6 +155,8 @@
 		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
 		943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryOverlayView.xib; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
+		945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
 		9460B76A225A6EB200786E27 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
 		946CDE0322412DA60059F892 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
 		9474E975224CF58100A812DC /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
@@ -373,10 +377,12 @@
 			isa = PBXGroup;
 			children = (
 				9491720C23009EB3008B98AD /* APIRequest.swift */,
-				9491720E23009ED0008B98AD /* TwitterRequest.swift */,
+				945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */,
 				949172102300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift */,
+				945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */,
 				940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */,
 				940643D52307266700AB1BCB /* PostLocationRequest.swift */,
+				9491720E23009ED0008B98AD /* TwitterRequest.swift */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -873,6 +879,7 @@
 				949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */,
 				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
+				945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				940643D82307270B00AB1BCB /* GCD+Util.swift in Sources */,
@@ -901,6 +908,7 @@
 				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
+				945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */,
 				9822A15421EDF1D8007F5994 /* MemoryDataStore.swift in Sources */,
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
