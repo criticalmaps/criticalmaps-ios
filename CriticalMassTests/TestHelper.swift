@@ -20,7 +20,7 @@ class MockLocationProvider: LocationProvider {
 }
 
 class MockNetworkLayer: NetworkLayer {
-    var mockResponse: Codable?
+    var mockResponse: Decodable?
     var shouldReturnResponse = true
     var lastUsedPostBody: [String: Any]?
     var numberOfRequests: Int {
@@ -30,22 +30,26 @@ class MockNetworkLayer: NetworkLayer {
     var numberOfGetCalled = 0
     var numberOfPostCalled = 0
 
-    func get<T>(with _: URL, decodable _: T.Type, customDateFormatter _: DateFormatter?, completion: @escaping (T?) -> Void) where T: Decodable {
+    func get<T: APIRequestDefining>(request _: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
         numberOfGetCalled += 1
         if shouldReturnResponse {
-            completion(mockResponse as? T)
+            guard let response = mockResponse as? T.ResponseDataType else {
+                completion(.failure(NetworkError.unknownError))
+                return
+            }
+            completion(.success(response))
         }
     }
 
-    func get<T>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
-        get(with: url, decodable: decodable, customDateFormatter: nil, completion: completion)
-    }
-
-    func post<T>(with _: URL, decodable _: T.Type, bodyData: Data, completion: @escaping (T?) -> Void) where T: Decodable {
+    func post<T: APIRequestDefining>(request _: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
         numberOfPostCalled += 1
         lastUsedPostBody = try! JSONSerialization.jsonObject(with: bodyData, options: []) as! [String: Any]
         if shouldReturnResponse {
-            completion(mockResponse as? T)
+            guard let response = mockResponse as? T.ResponseDataType else {
+                completion(.failure(NetworkError.unknownError))
+                return
+            }
+            completion(.success(response))
         }
     }
 

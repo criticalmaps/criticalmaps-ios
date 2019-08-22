@@ -10,6 +10,7 @@ import Foundation
 struct NetworkOperator: NetworkLayer {
     private let session: URLSession
     private var networkIndicatorHelper: NetworkActivityIndicatorHelper
+    private static let validHttpResponseCodes = 200 ..< 300
 
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
@@ -18,36 +19,55 @@ struct NetworkOperator: NetworkLayer {
         self.networkIndicatorHelper = networkIndicatorHelper
     }
 
-    func get<T>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
-        get(with: url, decodable: decodable, customDateFormatter: nil, completion: completion)
-    }
-
-    func get<T>(with url: URL, decodable: T.Type, customDateFormatter: DateFormatter?, completion: @escaping (T?) -> Void) where T: Decodable {
-        let request = URLRequest(url: url)
-        dataTask(with: request, decodable: decodable, customDateFormatter: customDateFormatter, completion: completion)
-    }
-
-    func post<T>(with url: URL, decodable: T.Type, bodyData: Data, completion: @escaping (T?) -> Void) where T: Decodable {
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = bodyData
-        dataTask(with: request, decodable: decodable, customDateFormatter: nil, completion: completion)
-    }
-
-    private func dataTask<T>(with request: URLRequest, decodable: T.Type, customDateFormatter: DateFormatter?, completion: @escaping (T?) -> Void) where T: Decodable {
-        networkIndicatorHelper.didStartRequest()
-        let task = session.dataTask(with: request) { data, _, _ in
-            self.networkIndicatorHelper.didEndRequest()
-            if let data = data {
-                let decoder = JSONDecoder()
-                if let customDateFormatter = customDateFormatter {
-                    decoder.dateDecodingStrategy = .formatted(customDateFormatter)
+    func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
+        let urlRequest = request.makeRequest()
+        dataTask(with: urlRequest) { result in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(data):
+                do {
+                    let responseData = try request.parseResponse(data: data)
+                    completion(.success(responseData))
+                } catch {
+                    completion(.failure(NetworkError.parseError))
                 }
-                let decodedResponse = try? decoder.decode(decodable, from: data)
-                completion(decodedResponse)
+            }
+        }
+    }
+
+    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
+        var urlRequest = request.makeRequest()
+        urlRequest.httpBody = bodyData
+        dataTask(with: urlRequest) { result in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(data):
+                do {
+                    let responseData = try request.parseResponse(data: data)
+                    completion(.success(responseData))
+                } catch {
+                    completion(.failure(NetworkError.parseError))
+                }
+            }
+        }
+    }
+
+    private func dataTask(with request: URLRequest,
+                          completion: @escaping ResultCallback<Data>) {
+        networkIndicatorHelper.didStartRequest()
+        let task = session.dataTask(with: request) { data, response, error in
+            self.networkIndicatorHelper.didEndRequest()
+            if let error = error {
+                completion(.failure(NetworkError.fetchFailed(error)))
+            } else if
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                NetworkOperator.validHttpResponseCodes ~= response.statusCode {
+                completion(.success(data))
             } else {
-                completion(nil)
+                completion(.failure(NetworkError.unknownError))
             }
         }
         task.resume()

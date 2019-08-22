@@ -36,9 +36,18 @@ class ChatManager {
         updateMessagesCallback?(cachedMessages ?? [])
     }
 
-    public func send(message: String, completion: @escaping (Bool) -> Void) {
-        requestManager.send(messages: [SendChatMessage(text: message, timestamp: Date().timeIntervalSince1970, identifier: UUID().uuidString.md5)]) { response in
-            completion(response != nil)
+    public func send(message: String, completion: @escaping ResultCallback<[String: ChatMessage]>) {
+        let messages = [SendChatMessage(text: message,
+                                        timestamp: Date().timeIntervalSince1970,
+                                        identifier: UUID().uuidString.md5)]
+        requestManager.send(messages: messages) { result in
+            switch result {
+            case let .success(messages):
+                completion(.success(messages))
+            case let .failure(error):
+                ErrorHandler.default.handleError(error)
+                completion(.failure(NetworkError.fetchFailed(error)))
+            }
         }
     }
 
