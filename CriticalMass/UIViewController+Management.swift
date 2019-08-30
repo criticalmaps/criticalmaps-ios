@@ -27,3 +27,29 @@ extension UIViewController {
         removeFromParent()
     }
 }
+
+extension UIViewController {
+    func layout(_ viewController: UIViewController) {
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        var topAnchor: NSLayoutConstraint {
+            if #available(iOS 11.0, *) {
+                return viewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            } else {
+                return viewController.view.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor)
+            }
+        }
+        var bottomAnchor: NSLayoutConstraint {
+            if #available(iOS 11.0, *) {
+                return viewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            } else {
+                return viewController.view.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
+            }
+        }
+        NSLayoutConstraint.activate([
+            topAnchor,
+            bottomAnchor,
+            viewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            viewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ])
+    }
+}
