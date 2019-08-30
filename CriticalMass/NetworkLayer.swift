@@ -9,8 +9,11 @@ import Foundation
 
 enum NetworkError: Error {
     case fetchFailed(Error?)
-    case unknownError
-    case parseError
+    case unknownError(message: String)
+    case decodingError(Error)
+    case encodingError(Encodable)
+    case noData(Error?)
+    case invalidResponse
 }
 
 enum HTTPMethod: String {

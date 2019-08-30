@@ -29,8 +29,8 @@ struct NetworkOperator: NetworkLayer {
                 do {
                     let responseData = try request.parseResponse(data: data)
                     completion(.success(responseData))
-                } catch {
-                    completion(.failure(NetworkError.parseError))
+                } catch let decodingError {
+                    completion(.failure(NetworkError.decodingError(decodingError)))
                 }
             }
         }
@@ -47,8 +47,8 @@ struct NetworkOperator: NetworkLayer {
                 do {
                     let responseData = try request.parseResponse(data: data)
                     completion(.success(responseData))
-                } catch {
-                    completion(.failure(NetworkError.parseError))
+                } catch let decodingError {
+                    completion(.failure(NetworkError.decodingError(decodingError)))
                 }
             }
         }
