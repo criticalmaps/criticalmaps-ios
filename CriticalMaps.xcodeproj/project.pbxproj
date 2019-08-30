@@ -32,6 +32,8 @@
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
 		943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */; };
 		943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */; };
+		943D100923198D5F001C10AD /* CMLogoActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943D100823198D5F001C10AD /* CMLogoActivityView.swift */; };
+		943D100B23198E2B001C10AD /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943D100A23198E2A001C10AD /* LoadingViewController.swift */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
 		945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */; };
 		945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */; };
@@ -199,6 +201,8 @@
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
 		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
 		943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryOverlayView.xib; sourceTree = "<group>"; };
+		943D100823198D5F001C10AD /* CMLogoActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMLogoActivityView.swift; sourceTree = "<group>"; };
+		943D100A23198E2A001C10AD /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
@@ -513,6 +517,7 @@
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
 				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
+				943D100823198D5F001C10AD /* CMLogoActivityView.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
@@ -669,11 +674,12 @@
 		985E94BC220891F200AA991B /* Social */ = {
 			isa = PBXGroup;
 			children = (
-				98401AF421FB79F400064DAE /* ChatViewController.swift */,
-				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
-				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
-				9897086C220A3E9E0073BB02 /* SocialViewController.swift */,
 				981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */,
+				98401AF421FB79F400064DAE /* ChatViewController.swift */,
+				943D100A23198E2A001C10AD /* LoadingViewController.swift */,
+				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
+				9897086C220A3E9E0073BB02 /* SocialViewController.swift */,
+				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
 			);
 			name = Social;
 			sourceTree = "<group>";
@@ -1009,6 +1015,7 @@
 				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9838F28E227B771F00744EDD /* IDStore.swift in Sources */,
 				9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */,
+				943D100923198D5F001C10AD /* CMLogoActivityView.swift in Sources */,
 				982DA8D321FFA13800E2A51B /* TwitterUser.swift in Sources */,
 				94FCBD37226C580D00F93F94 /* SettingsSection.swift in Sources */,
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
@@ -1018,6 +1025,7 @@
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
+				943D100B23198E2B001C10AD /* LoadingViewController.swift in Sources */,
 				9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
