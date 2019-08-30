@@ -48,7 +48,7 @@ class TwitterManagerTests: XCTestCase {
         let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"))])
 
         setup.networkLayer.mockResponse = fakeResponse
-        setup.twitterManager.loadTweets {
+        setup.twitterManager.loadTweets { _ in
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1)
@@ -60,7 +60,7 @@ class TwitterManagerTests: XCTestCase {
         let exp = expectation(description: "Update Tweets callback called")
 
         setup.networkLayer.mockResponse = nil
-        setup.twitterManager.loadTweets {
+        setup.twitterManager.loadTweets { _ in
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1)
