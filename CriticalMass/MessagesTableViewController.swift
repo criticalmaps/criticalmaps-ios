@@ -16,7 +16,7 @@ typealias IBConstructableMessageTableViewCell = UITableViewCell & IBConstructabl
 
 class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITableViewController {
     var noContentMessage: String?
-    var pullToRefreshTrigger: (((() -> Void)?) -> Void)? {
+    var pullToRefreshTrigger: ((ResultCallback<[Tweet]>?) -> Void)? {
         didSet {
             let control = UIRefreshControl()
             refreshControl = control
@@ -58,7 +58,7 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
 
     @objc private func didTriggerRefresh() {
         refreshControl?.beginRefreshing()
-        pullToRefreshTrigger? { [weak self] in
+        pullToRefreshTrigger? { [weak self] _ in
             self?.refreshControl?.endRefreshing()
         }
     }
