@@ -11,13 +11,19 @@ class TwitterManager {
     private let url: URL
     private var cachedTweets: [Tweet] = [] {
         didSet {
-            updateTweetsCallback?(cachedTweets)
+            updateContentStateCallback?(.results(cachedTweets))
+        }
+    }
+
+    private var contentState: ContentState<[Tweet]> = .loading(.cmLoadingController) {
+        didSet {
+            updateContentStateCallback?(contentState)
         }
     }
 
     private let networkLayer: NetworkLayer
 
-    var updateTweetsCallback: (([Tweet]) -> Void)?
+    var updateContentStateCallback: ((ContentState<[Tweet]>) -> Void)?
 
     init(networkLayer: NetworkLayer, url: URL) {
         self.networkLayer = networkLayer
@@ -41,10 +47,8 @@ class TwitterManager {
         }
     }
 
-    public func getTweets() -> [Tweet] {
-        if cachedTweets.isEmpty {
-            loadTweets()
-        }
-        return cachedTweets
+    public func getTweets() {
+        contentState = .loading(.cmLoadingController)
+        loadTweets()
     }
 }
