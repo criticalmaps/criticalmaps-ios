@@ -9,34 +9,14 @@
 import UIKit
 
 class LoadingViewController: UIViewController {
-    private lazy var activityView: CMLogoActivityView = {
-        let view = CMLogoActivityView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
-        return view
-    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        layoutViews()
-    }
+    @IBOutlet var logoView: CMLogoActivityView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        activityView.startAnimating()
-    }
-
-    private func layoutViews() {
-        view.addSubview(activityView)
-        NSLayoutConstraint.activate([
-            activityView.widthAnchor.constraint(equalToConstant: 80),
-            activityView.heightAnchor.constraint(equalToConstant: 80),
-            activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
+        logoView.startAnimating()
     }
 }
 
 extension LoadingViewController {
-    static let cmLoadingController = LoadingViewController()
+    static let cmLoadingController = LoadingViewController(nibName: String(describing: LoadingViewController.self), bundle: Bundle(for: LoadingViewController.self))
 }
