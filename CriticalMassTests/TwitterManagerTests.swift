@@ -18,25 +18,31 @@ class TwitterManagerTests: XCTestCase {
     func testUpdateMessagesCallback() {
         let setup = getSetup()
         let exp = expectation(description: "Update Tweets callback called")
+        var cachedTweets: [Tweet]!
 
         let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Bar", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(name: "foo", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")])
 
         setup.networkLayer.mockResponse = fakeResponse
 
-        setup.twitterManager.updateTweetsCallback = { tweets in
+        setup.twitterManager.updateContentStateCallback = { contentState in
             // iterating through the elements is more stable as the order of the elements may be different
-            XCTAssertEqual(tweets.count, 2)
-            for tweet in tweets {
-                XCTAssert(fakeResponse.statuses.contains(tweet))
+            switch contentState {
+            case let .results(tweets):
+                cachedTweets = tweets
+                XCTAssertEqual(tweets.count, 2)
+                for tweet in tweets {
+                    XCTAssert(fakeResponse.statuses.contains(tweet))
+                }
+                exp.fulfill()
+            default:
+                XCTFail("contentState is not a result")
             }
-            exp.fulfill()
         }
         setup.twitterManager.loadTweets()
         wait(for: [exp], timeout: 1)
 
-        let getTweetsResult = setup.twitterManager.getTweets()
-        XCTAssertEqual(fakeResponse.statuses.count, getTweetsResult.count)
-        for tweet in getTweetsResult {
+        XCTAssertEqual(fakeResponse.statuses.count, cachedTweets.count)
+        for tweet in cachedTweets {
             XCTAssert(fakeResponse.statuses.contains(tweet))
         }
     }
