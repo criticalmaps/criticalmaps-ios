@@ -10,7 +10,7 @@ import Foundation
 struct NetworkOperator: NetworkLayer {
     private let session: URLSession
     private var networkIndicatorHelper: NetworkActivityIndicatorHelper
-    private static let validHttpResponseCodes = 200 ..< 300
+    private static let validHttpResponseCodes = 200 ..< 299
 
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
