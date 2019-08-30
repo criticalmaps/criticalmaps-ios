@@ -25,9 +25,10 @@ extension ContentStatePresentable where Self: UIViewController {
         let contentStateView = viewController.view!
         contentStateView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentStateView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            contentStateView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            contentStateView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            contentStateView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentStateView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
         ])
     }
 }

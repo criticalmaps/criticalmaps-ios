@@ -8,8 +8,6 @@
 import UIKit
 
 class ChatViewController: UIViewController, ChatInputDelegate {
-    private let chatInputHeight: CGFloat = 64
-
     private let chatInput = ChatInputView(frame: .zero)
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
@@ -17,8 +15,9 @@ class ChatViewController: UIViewController, ChatInputDelegate {
         NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
 
+    private let chatInputHeight: CGFloat = 64
     private lazy var chatInputHeightConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: chatInputHeight)
+        chatInput.heightAnchor.constraint(equalToConstant: chatInputHeight)
     }()
 
     init(chatManager: ChatManager) {
