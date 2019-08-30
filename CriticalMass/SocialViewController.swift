@@ -74,9 +74,11 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         case .chat:
             twitterController.remove()
             add(chatViewController)
+            layout(chatViewController)
         case .twitter:
             chatViewController.remove()
             add(twitterController)
+            layout(twitterController)
         }
     }
 }

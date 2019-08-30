@@ -58,13 +58,7 @@ class TwitterViewController: UIViewController, ContentStatePresentable {
         }
 
         add(messagesTableViewController)
-        messagesTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraints([
-            messagesTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            messagesTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
-            messagesTableViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            messagesTableViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        layout(messagesTableViewController)
         // inset tableView seperator
         messagesTableViewController.tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 73.0, bottom: 0.0, right: 0.0)
     }
