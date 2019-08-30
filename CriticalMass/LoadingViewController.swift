@@ -36,3 +36,7 @@ class LoadingViewController: UIViewController {
         ])
     }
 }
+
+extension LoadingViewController {
+    static let cmLoadingController = LoadingViewController()
+}
