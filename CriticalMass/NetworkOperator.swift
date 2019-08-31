@@ -10,7 +10,7 @@ import Foundation
 struct NetworkOperator: NetworkLayer {
     private let session: URLSession
     private var networkIndicatorHelper: NetworkActivityIndicatorHelper
-    private static let validHttpResponseCodes = 200 ..< 300
+    private static let validHttpResponseCodes = 200 ..< 299
 
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
@@ -29,8 +29,8 @@ struct NetworkOperator: NetworkLayer {
                 do {
                     let responseData = try request.parseResponse(data: data)
                     completion(.success(responseData))
-                } catch {
-                    completion(.failure(NetworkError.parseError))
+                } catch let decodingError {
+                    completion(.failure(NetworkError.decodingError(decodingError)))
                 }
             }
         }
@@ -47,8 +47,8 @@ struct NetworkOperator: NetworkLayer {
                 do {
                     let responseData = try request.parseResponse(data: data)
                     completion(.success(responseData))
-                } catch {
-                    completion(.failure(NetworkError.parseError))
+                } catch let decodingError {
+                    completion(.failure(NetworkError.decodingError(decodingError)))
                 }
             }
         }
@@ -59,16 +59,18 @@ struct NetworkOperator: NetworkLayer {
         networkIndicatorHelper.didStartRequest()
         let task = session.dataTask(with: request) { data, response, error in
             self.networkIndicatorHelper.didEndRequest()
-            if let error = error {
-                completion(.failure(NetworkError.fetchFailed(error)))
-            } else if
-                let data = data,
-                let response = response as? HTTPURLResponse,
-                NetworkOperator.validHttpResponseCodes ~= response.statusCode {
-                completion(.success(data))
-            } else {
-                completion(.failure(NetworkError.unknownError))
+            guard let data = data else {
+                completion(.failure(NetworkError.noData(error)))
+                return
             }
+            guard
+                let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                NetworkOperator.validHttpResponseCodes ~= statusCode
+            else {
+                completion(.failure(NetworkError.invalidResponse))
+                return
+            }
+            completion(.success(data))
         }
         task.resume()
     }

@@ -34,7 +34,7 @@ class MockNetworkLayer: NetworkLayer {
         numberOfGetCalled += 1
         if shouldReturnResponse {
             guard let response = mockResponse as? T.ResponseDataType else {
-                completion(.failure(NetworkError.unknownError))
+                completion(.failure(NetworkError.unknownError(message: "Should be ResponseDataType")))
                 return
             }
             completion(.success(response))
@@ -46,7 +46,7 @@ class MockNetworkLayer: NetworkLayer {
         lastUsedPostBody = try! JSONSerialization.jsonObject(with: bodyData, options: []) as! [String: Any]
         if shouldReturnResponse {
             guard let response = mockResponse as? T.ResponseDataType else {
-                completion(.failure(NetworkError.unknownError))
+                completion(.failure(NetworkError.unknownError(message: "Should be ResponseDataType")))
                 return
             }
             completion(.success(response))

@@ -46,7 +46,7 @@ class ChatManager {
                 completion(.success(messages))
             case let .failure(error):
                 ErrorHandler.default.handleError(error)
-                completion(.failure(NetworkError.fetchFailed(error)))
+                completion(.failure(error))
             }
         }
     }
