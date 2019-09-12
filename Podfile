@@ -5,13 +5,10 @@ platform :ios, '10.3'
 project 'CriticalMaps.xcodeproj'
 
 target 'CriticalMaps' do
-	pod 'NSString-Hashes'
-	pod 'SDWebImage'
     pod 'SwiftFormat/CLI'
 end
 
 target 'CriticalMapsTests' do
-    pod 'NSString-Hashes'
 end
 
 post_install do |pi|

@@ -1,26 +1,16 @@
 PODS:
-  - NSString-Hashes (1.2.2)
-  - SDWebImage (5.0.1):
-    - SDWebImage/Core (= 5.0.1)
-  - SDWebImage/Core (5.0.1)
   - SwiftFormat/CLI (0.40.8)
 
 DEPENDENCIES:
-  - NSString-Hashes
-  - SDWebImage
   - SwiftFormat/CLI
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - NSString-Hashes
-    - SDWebImage
     - SwiftFormat
 
 SPEC CHECKSUMS:
-  NSString-Hashes: c3848d809e92650e4fb17db5d8cc4bd2aa1eaddd
-  SDWebImage: 27dd2c9ea07a2252f94557c9fbb6105ee94b74c9
   SwiftFormat: d9e5ca1aed735164fe9d26510ec508ddb8a93598
 
-PODFILE CHECKSUM: 171ea0ef7b5f937ba934e986759086ad08214642
+PODFILE CHECKSUM: c8cc858d36f74b9849c225f88ada165ba069bf1e
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.1
