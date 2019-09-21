@@ -25,7 +25,12 @@ class ThemeController {
 
     private func loadTheme() -> Theme {
         guard let theme = store.load() else {
-            return .light
+            if #available(iOS 13.0, *) {
+                let theme = Theme(userInterfaceStyle: UITraitCollection.current.userInterfaceStyle)
+                return theme
+            } else {
+                return .light
+            }
         }
         return theme
     }
