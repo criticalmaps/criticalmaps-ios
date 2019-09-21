@@ -10,11 +10,12 @@ import Foundation
 import UIKit
 
 class ThemeController {
-    private(set) lazy var currentTheme = loadTheme()
+    private(set) var currentTheme: Theme!
     private let store: ThemeStorable
 
     init(store: ThemeStorable = ThemeSelectionStore()) {
         self.store = store
+        currentTheme = loadTheme()
     }
 
     func changeTheme(to theme: Theme) {
