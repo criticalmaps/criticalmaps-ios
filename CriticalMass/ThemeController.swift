@@ -47,6 +47,15 @@ class ThemeController {
     private func styleRulesComponents(with theme: ThemeDefining) {
         RuleTableViewCell.appearance().ruleTextColor = theme.titleTextColor
         RuleDetailTextView.appearance().ruleDetailTextColor = theme.titleTextColor
+
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = theme.backgroundColor
+            appearance.largeTitleTextAttributes = [.foregroundColor: theme.titleTextColor]
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UINavigationBar.appearance().standardAppearance = appearance
+        }
     }
 
     private func styleSettingsComponents(with theme: ThemeDefining) {
@@ -71,8 +80,14 @@ class ThemeController {
 
     private func styleSocialComponets(with theme: ThemeDefining) {
         // UISegmentedControl
-        UISegmentedControl.appearance().backgroundColor = theme.backgroundColor
-        UISegmentedControl.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = theme.titleTextColor
+        if #available(iOS 13.0, *) {
+            UISegmentedControl.appearance().selectedSegmentTintColor = theme.titleTextColor
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: theme.backgroundColor], for: .selected)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: theme.titleTextColor], for: .normal)
+        } else {
+            UISegmentedControl.appearance().backgroundColor = theme.backgroundColor
+            UISegmentedControl.appearance().tintColor = theme.titleTextColor
+        }
         TweetTableViewCell.appearance().dateLabelTextColor = theme.secondaryTitleTextColor
         TweetTableViewCell.appearance().handleLabelTextColor = theme.thirdTitleTextColor
         TweetTableViewCell.appearance().userameTextColor = theme.titleTextColor
