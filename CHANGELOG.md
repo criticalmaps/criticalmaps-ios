@@ -2,6 +2,10 @@
 
 Changelog for Critical Maps iOS
 
+## [Unreleased]
+
+- Set userStyle as Theme under iOS 13
+
 ## [3.3.0] - 2019-09-01
 
 ### Added
