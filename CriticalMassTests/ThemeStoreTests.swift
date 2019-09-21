@@ -70,11 +70,11 @@ class ThemeSelectionStoreTests: XCTestCase {
         super.tearDown()
     }
 
-    func testStoreShouldReturnLightThemeWhenNothingIsSavedBefore() {
+    func testStoreShouldReturnNilThemeWhenNothingIsSavedBefore() {
         // given
         let theme = sut!.load()
         // then
-        XCTAssertEqual(theme, .light)
+        XCTAssertNil(theme)
     }
 
     func testStoreShouldReturnDarkThemeWhenDarkIsSavedBefore() {
