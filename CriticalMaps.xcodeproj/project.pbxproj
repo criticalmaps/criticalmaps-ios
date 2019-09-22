@@ -133,6 +133,8 @@
 		989FA00621C8154D00E71085 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00521C8154D00E71085 /* LocationManager.swift */; };
 		98AAD08F2337FF90001519C7 /* ManageFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AAD08D2337FF8F001519C7 /* ManageFriendsViewController.swift */; };
 		98AAD0902337FF90001519C7 /* ManageFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AAD08E2337FF8F001519C7 /* ManageFriendsViewController.xib */; };
+		98AAD09523380200001519C7 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AAD09323380200001519C7 /* FriendTableViewCell.swift */; };
+		98AAD0962338035E001519C7 /* FriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AAD09423380200001519C7 /* FriendTableViewCell.xib */; };
 		98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B480E121AB30700044D017 /* Launch Screen.storyboard */; };
 		98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */; };
 		98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13289227F05E700291FCA /* IDStoreTests.swift */; };
@@ -293,6 +295,8 @@
 		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98AAD08D2337FF8F001519C7 /* ManageFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriendsViewController.swift; sourceTree = "<group>"; };
 		98AAD08E2337FF8F001519C7 /* ManageFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageFriendsViewController.xib; sourceTree = "<group>"; };
+		98AAD09323380200001519C7 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FriendTableViewCell.swift; path = "/Users/leonardthomas/criticalmaps-ios/CriticalMass/FriendTableViewCell.swift"; sourceTree = "<absolute>"; };
+		98AAD09423380200001519C7 /* FriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendTableViewCell.xib; path = "/Users/leonardthomas/criticalmaps-ios/CriticalMass/FriendTableViewCell.xib"; sourceTree = "<absolute>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableAnnnotation.swift; sourceTree = "<group>"; };
 		98C13286227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -651,6 +655,8 @@
 				98003D5622872CA800592D55 /* FriendsVerificationController.swift */,
 				98AAD08D2337FF8F001519C7 /* ManageFriendsViewController.swift */,
 				98AAD08E2337FF8F001519C7 /* ManageFriendsViewController.xib */,
+				98AAD09323380200001519C7 /* FriendTableViewCell.swift */,
+				98AAD09423380200001519C7 /* FriendTableViewCell.xib */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -770,6 +776,7 @@
 				9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */,
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */,
+				98AAD0962338035E001519C7 /* FriendTableViewCell.xib in Resources */,
 				943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
@@ -904,6 +911,7 @@
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */,
 				9491720D23009EB3008B98AD /* APIRequest.swift in Sources */,
+				98AAD09523380200001519C7 /* FriendTableViewCell.swift in Sources */,
 				988B12AD22A271FE0010FAED /* Logger.swift in Sources */,
 				94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */,
 				94092749228321E60034E46B /* UITableView+Register.swift in Sources */,

@@ -8,10 +8,20 @@
 
 import UIKit
 
-class ManageFriendsViewController: UIViewController, IBConstructable {
+class ManageFriendsViewController: UIViewController, IBConstructable, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet var tableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tableView.register(cellType: FriendTableViewCell.self)
+    }
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        return 100
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(ofType: FriendTableViewCell.self, for: indexPath)
     }
 }
