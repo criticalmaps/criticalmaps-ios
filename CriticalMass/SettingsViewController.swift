@@ -22,9 +22,7 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        for cell in Section.allCases.map({ $0.cellClass }) {
-            tableView.register(cell.nib, forCellReuseIdentifier: cell.nibName)
-        }
+        Section.allCellClasses.forEach { tableView.register($0.nib, forCellReuseIdentifier: $0.nibName) }
         tableView.rowHeight = UITableView.automaticDimension
 
         configureSettingsFooter()
@@ -79,8 +77,9 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
-        configure(cell, for: section.models[indexPath.row])
+        let model = section.models[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass(action: model.action)), for: indexPath)
+        configure(cell, for: model)
         return cell
     }
 
@@ -99,6 +98,9 @@ class SettingsViewController: UITableViewController {
             application.open(url, options: [:], completionHandler: nil)
         case .switch:
             break
+        case let .navigate(toViewController):
+            let viewController = toViewController.init()
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }
