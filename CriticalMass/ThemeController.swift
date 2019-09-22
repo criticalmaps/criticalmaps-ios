@@ -37,7 +37,9 @@ class ThemeController {
         styleRulesComponents(with: theme)
         styleSettingsComponents(with: theme)
         styleNavigationOverlayComponents(with: theme)
+        styleBlurredOverlayComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
+        NoContentTitleLabel.appearance().messageTextColor = theme.titleTextColor
         NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
         UIApplication.shared.refreshAppearance(animated: false)
     }
@@ -48,19 +50,20 @@ class ThemeController {
     }
 
     private func styleSettingsComponents(with theme: ThemeDefining) {
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         // UISwitch
         UISwitch.appearance().onTintColor = theme.switchTintColor
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
+        SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = .settingsOpenSourceForeground
+        UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
+        SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
+        SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
     }
 
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
         CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).highlightedTintColor = theme.titleTextColor.withAlphaComponent(0.6)
         CustomButton.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).defaultTintColor = theme.titleTextColor
-        SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor = theme.navigationOverlaySeperatorColor
         ChatNavigationButton.appearance().unreadMessagesBackgroundColor = .red
         ChatNavigationButton.appearance().unreadMessagesTextColor = .white
         OverlayView.appearance().overlayBackgroundColor = theme.navigationOverlayBackgroundColor
@@ -85,9 +88,11 @@ class ThemeController {
         // UIToolBar
         UIToolbar.appearance().barTintColor = theme.toolBarBackgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
+        SeparatorView.appearance().backgroundColor = theme.separatorColor
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
         UITextField.appearance().keyboardAppearance = theme.keyboardAppearance
         // NavigationBar
@@ -111,7 +116,27 @@ class ThemeController {
         UITextView.appearance().textColor = theme.titleTextColor
         // UILabel
         UITableView.appearance().tintColor = theme.titleTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
+    }
+
+    private func styleBlurredOverlayComponents(with theme: ThemeDefining) {
+        BlurryOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
+        BlurryOverlayView.appearance().gradientEndColor = theme.gradientEndColor
+    }
+}
+
+extension ThemeController: Switchable {
+    var isEnabled: Bool {
+        get {
+            return currentTheme == .dark
+        }
+        set {
+            changeTheme(to: newValue ? .dark : .light)
+            // This is a workaround to wait for the switch animation to finish before updating the UI
+            onMain {
+                self.applyTheme()
+            }
+        }
     }
 }

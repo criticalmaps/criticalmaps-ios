@@ -16,7 +16,7 @@ typealias IBConstructableMessageTableViewCell = UITableViewCell & IBConstructabl
 
 class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITableViewController {
     var noContentMessage: String?
-    var pullToRefreshTrigger: (((() -> Void)?) -> Void)? {
+    var pullToRefreshTrigger: ((ResultCallback<[Tweet]>?) -> Void)? {
         didSet {
             let control = UIRefreshControl()
             refreshControl = control
@@ -50,16 +50,15 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
             tableView.backgroundView = nil
         } else if tableView.backgroundView == nil {
             let noContentMessageLabel = NoContentMessageLabel()
-            noContentMessageLabel.textAlignment = .center
-            noContentMessageLabel.numberOfLines = 0
             noContentMessageLabel.text = noContentMessage
+            noContentMessageLabel.font = UIFont.preferredFont(forTextStyle: .body)
             tableView.backgroundView = noContentMessageLabel
         }
     }
 
     @objc private func didTriggerRefresh() {
         refreshControl?.beginRefreshing()
-        pullToRefreshTrigger? { [weak self] in
+        pullToRefreshTrigger? { [weak self] _ in
             self?.refreshControl?.endRefreshing()
         }
     }

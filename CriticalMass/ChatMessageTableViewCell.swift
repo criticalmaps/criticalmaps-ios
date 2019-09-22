@@ -22,19 +22,18 @@ class ChatMessageTableViewCell: UITableViewCell, MessageConfigurable, IBConstruc
         }
     }
 
-    @IBOutlet private var timeLabel: UILabel!
+    @IBOutlet private var timeLabel: UILabel! {
+        didSet {
+            timeLabel.font = UIFont.scalableSystemFont(fontSize: 15, weight: .bold)
+        }
+    }
+
     @IBOutlet private var chatTextView: UITextView! {
         didSet {
             // removes the padding from the textview
             let padding = chatTextView.textContainer.lineFragmentPadding
             chatTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
         }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        timeLabel?.textColor = .gray200
-        chatTextView?.textColor = .gray300
     }
 
     func setup(for message: ChatMessage) {

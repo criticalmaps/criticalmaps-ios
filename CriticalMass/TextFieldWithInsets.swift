@@ -57,16 +57,6 @@ class TextFieldWithInsets: UITextField {
         return didBecomeFirstResponder
     }
 
-    // sets the backgroundColor when input ends
-    // kind of a hack sice the textField was always resetting its backgrundColor when it resigned firstResponder
-    override func resignFirstResponder() -> Bool {
-        let canBecomeFirstResponder = super.canBecomeFirstResponder
-        if canBecomeFirstResponder {
-            setEditorBackgroundColor(to: textFieldBackgroundColor)
-        }
-        return canBecomeFirstResponder
-    }
-
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: insets)
     }

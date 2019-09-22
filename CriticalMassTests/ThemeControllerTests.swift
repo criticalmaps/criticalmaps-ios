@@ -291,15 +291,15 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(chatTextColor, Theme.dark.style.secondaryTitleTextColor)
     }
 
-    func testSeperatorViewBackgroundColorShouldChangeToNavigationOverlaySeperatorColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelected() {
+    func testSeperatorViewBackgroundColorShouldChangeToNavigationOverlaySeperatorColorWhenNightModeWasSelected() {
         // given
         let theme: Theme = .dark
         // when
         sut.changeTheme(to: theme)
         sut.applyTheme()
         // then
-        let backgroundColor = SeperatorView.appearance(whenContainedInInstancesOf: [NavigationOverlayViewController.self]).backgroundColor
-        XCTAssertEqual(backgroundColor, Theme.dark.style.navigationOverlaySeperatorColor)
+        let backgroundColor = SeparatorView.appearance().backgroundColor
+        XCTAssertEqual(backgroundColor, Theme.dark.style.separatorColor)
     }
 
     func testChatNavigationButtonUnreadMessagesBackgroundColorShouldChangeToRedWhenNightModeWasSelected() {
@@ -366,17 +366,6 @@ class ThemeControllerTests: XCTestCase {
         // then
         let color = UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor
         XCTAssertEqual(color, UIColor.white)
-    }
-
-    func testUILabelTextTextColorShouldChangeToTitleTextColorWhenContainedInUITableViewCellAndNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let color = UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor
-        XCTAssertEqual(color, Theme.dark.style.titleTextColor)
     }
 
     func testUILabelTextTextColorShouldChangeToTitleTextColorWhenContainedInUITableViewHeaderFooterViewAndNightModeWasSelected() {

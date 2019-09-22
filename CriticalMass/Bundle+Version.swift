@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension Bundle {
+public extension Bundle {
     var versionNumber: String {
         return infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }

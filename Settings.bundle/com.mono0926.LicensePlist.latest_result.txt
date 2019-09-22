@@ -1,7 +1,3 @@
-name: Appirater, nameSpecified: 
-body: Copyright 2017. Aras…
-version: 2.3.1
-
 name: NSString-Hashes, nameSpecified: 
 body: Public Domain
 …

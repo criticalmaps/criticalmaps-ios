@@ -6,11 +6,11 @@
 //
 
 import Foundation
+import os.log
 
 public class RequestManager {
     private struct SendLocationPostBody: Codable {
         var device: String
-        var name: String
         var location: Location
     }
 
@@ -28,6 +28,8 @@ public class RequestManager {
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
 
+    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
+
     init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
         endpoint = url
         self.idProvider = idProvider
@@ -42,55 +44,78 @@ public class RequestManager {
     }
 
     @objc private func timerDidUpdate(timer _: Timer) {
+        Logger.log(.info, log: log, "Timer did update")
         updateData()
     }
 
-    private func defaultCompletion(for response: ApiResponse?) {
-        if let response = response {
-            DispatchQueue.main.async {
-                self.hasActiveRequest = false
+    private func defaultCompletion(for result: Result<ApiResponse, NetworkError>) {
+        onMain { [weak self] in
+            guard let self = self else { return }
+            defer { self.hasActiveRequest = false }
+            switch result {
+            case let .success(response):
                 self.dataStore.update(with: response)
+                Logger.log(.info, log: self.log, "Successfully finished API update")
+            case let .failure(error):
+                ErrorHandler.default.handleError(error)
+                Logger.log(.error, log: self.log, "API update failed")
             }
         }
     }
 
     private func updateData() {
-        guard hasActiveRequest == false else { return }
+        guard hasActiveRequest == false else {
+            Logger.log(.info, log: log, "Don't attempt to request new data because because a request is still active")
+            return
+        }
         hasActiveRequest = true
         // We only use a post request if we have a location to post
-        if let currentLocation = locationProvider.currentLocation {
-            let body = SendLocationPostBody(device: idProvider.id, name: idProvider.signature, location: currentLocation)
-            guard let bodyData = try? JSONEncoder().encode(body) else {
-                hasActiveRequest = false
-                defaultCompletion(for: nil)
-                return
-            }
-            networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData, completion: defaultCompletion)
-        } else {
+        guard let currentLocation = locationProvider.currentLocation else {
             getData()
+            return
+        }
+        let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
+        guard let bodyData = try? body.encoded() else {
+            hasActiveRequest = false
+            return
+        }
+        let request = PostLocationRequest()
+        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
+            guard let self = self else { return }
+            self.defaultCompletion(for: result)
         }
     }
 
     public func getData() {
-        networkLayer.get(with: endpoint, decodable: ApiResponse.self, completion: defaultCompletion)
+        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest()
+        networkLayer.get(request: locationsAndMessagesRequest) { [weak self] result in
+            guard let self = self else { return }
+            self.defaultCompletion(for: result)
+        }
     }
 
-    public func send(messages: [SendChatMessage], completion: (([String: ChatMessage]?) -> Void)? = nil) {
+    func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
         let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
-            completion?(nil)
+            completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
             self.networkLayer.cancelActiveRequestsIfNeeded()
         }
         let body = SendMessagePostBody(device: idProvider.id, messages: messages)
-
-        guard let bodyData = try? JSONEncoder().encode(body) else {
-            completion?(nil)
+        guard let bodyData = try? body.encoded() else {
+            completion(.failure(NetworkError.encodingError(body)))
             return
         }
-        networkLayer.post(with: endpoint, decodable: ApiResponse.self, bodyData: bodyData) { response in
-            self.defaultCompletion(for: response)
-            DispatchQueue.main.async {
+        let request = PostChatMessagesRequest()
+        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
+            guard let self = self else { return }
+            self.defaultCompletion(for: result)
+            onMain {
                 UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-                completion?(response?.chatMessages)
+                switch result {
+                case let .success(messages):
+                    completion(.success(messages.chatMessages))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
             }
         }
     }

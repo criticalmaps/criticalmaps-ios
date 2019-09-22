@@ -19,28 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return true
             }
         #endif
-        // Set Appirater
-        Appirater.setAppId("918669647")
-        Appirater.setDaysUntilPrompt(1)
-        Appirater.setUsesUntilPrompt(5)
-        Appirater.setSignificantEventsUntilPrompt(-1)
-        Appirater.setTimeBeforeReminding(2)
-
-        #if DEBUG
-            Appirater.setDebug(true)
-        #endif
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.backgroundColor = .white
         window?.rootViewController = appController.rootViewController
         window?.makeKeyAndVisible()
 
-        Appirater.appLaunched(true)
         appController.onAppLaunch()
         return true
     }
 
     func applicationWillEnterForeground(_: UIApplication) {
-        Appirater.appEnteredForeground(true)
+        appController.onWillEnterForeground()
     }
 }

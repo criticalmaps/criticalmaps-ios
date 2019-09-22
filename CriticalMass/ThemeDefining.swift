@@ -19,13 +19,15 @@ protocol ThemeDefining {
     var secondaryTitleTextColor: UIColor { get }
     var switchTintColor: UIColor { get }
     var chatMessageInputTextViewBackgroundColor: UIColor { get }
-    var navigationOverlaySeperatorColor: UIColor { get }
+    var separatorColor: UIColor { get }
     var cellSelectedBackgroundViewColor: UIColor { get }
     var navigationBarIsTranslucent: Bool { get }
     var placeholderTextColor: UIColor { get }
     var toolBarBackgroundColor: UIColor { get }
     var navigationOverlayBackgroundColor: UIColor { get }
     var statusBarStyle: UIStatusBarStyle { get }
+    var gradientBeginColor: UIColor { get }
+    var gradientEndColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -65,7 +67,7 @@ struct LightTheme: ThemeDefining {
         return .gray500
     }
 
-    var navigationOverlaySeperatorColor: UIColor {
+    var separatorColor: UIColor {
         return .lightThemeNavigationOverlaySeperatorColor
     }
 
@@ -91,6 +93,14 @@ struct LightTheme: ThemeDefining {
 
     var statusBarStyle: UIStatusBarStyle {
         return .default
+    }
+
+    var gradientBeginColor: UIColor {
+        return .lightThemeGradientBegin
+    }
+
+    var gradientEndColor: UIColor {
+        return .lightThemeGradientEnd
     }
 }
 
@@ -131,7 +141,7 @@ struct DarkTheme: ThemeDefining {
         return .gray100
     }
 
-    var navigationOverlaySeperatorColor: UIColor {
+    var separatorColor: UIColor {
         return .darkThemeNavigationOverlaySeperatorColor
     }
 
@@ -140,7 +150,12 @@ struct DarkTheme: ThemeDefining {
     }
 
     var navigationBarIsTranslucent: Bool {
-        return false
+        if #available(iOS 13.0, *) {
+            // FIXME: Returning false would make the navigationbar transparent on iOS 13
+            return true
+        } else {
+            return false
+        }
     }
 
     var placeholderTextColor: UIColor {
@@ -157,5 +172,13 @@ struct DarkTheme: ThemeDefining {
 
     var statusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+
+    var gradientBeginColor: UIColor {
+        return .darkThemeGradientBegin
+    }
+
+    var gradientEndColor: UIColor {
+        return .darkThemeGradientEnd
     }
 }

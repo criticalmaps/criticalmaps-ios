@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SeperatorView: UIView {}
+class SeparatorView: UIView {}
 class OverlayView: UIView {
     @objc
     dynamic var overlayBackgroundColor: UIColor? {
@@ -36,7 +36,7 @@ struct NavigationOverlayItem {
 class NavigationOverlayViewController: UIViewController {
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
-    private var separatorViews: [SeperatorView] = []
+    private var separatorViews: [SeparatorView] = []
 
     init(navigationItems: [NavigationOverlayItem]) {
         items = navigationItems
@@ -55,7 +55,6 @@ class NavigationOverlayViewController: UIViewController {
 
     let visualEffectView: UIVisualEffectView = {
         let view = UIVisualEffectView()
-        view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
         view.layer.cornerRadius = 18
         view.layer.masksToBounds = true
@@ -101,7 +100,7 @@ class NavigationOverlayViewController: UIViewController {
 
         separatorViews = (0 ..< items.count - 1)
             .map { _ in
-                let view = SeperatorView()
+                let view = SeparatorView()
                 return view
             }
         separatorViews.forEach(view.addSubview)

@@ -31,7 +31,7 @@ class RequestManagerTests: XCTestCase {
     }
 
     func testRespectingRequestRepeatTime() {
-        let numberOfExpectedRequests: TimeInterval = 2
+        let numberOfExpectedRequests: TimeInterval = 3
         let interval: TimeInterval = 0.3
         let setup = self.setup(interval: interval)
         XCTAssertEqual(setup.networkLayer.numberOfRequests, 0)
@@ -81,7 +81,7 @@ class RequestManagerTests: XCTestCase {
         let testMessage = SendChatMessage(text: "Hello", timestamp: 100, identifier: UUID().uuidString)
         let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["text": testMessage.text, "timestamp": testMessage.timestamp, "identifier": testMessage.identifier]] as! [[String: AnyHashable]]]
         XCTAssertNil(testSetup.dataStore.storedData)
-        testSetup.requestManager.send(messages: [testMessage])
+        testSetup.requestManager.send(messages: [testMessage]) { _ in }
 
         XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
         XCTAssertEqual(testSetup.networkLayer.numberOfPostCalled, 1)

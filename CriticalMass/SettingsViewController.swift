@@ -52,30 +52,18 @@ class SettingsViewController: UITableViewController {
         }
     }
 
-    // MARK: Actions
-
-    @IBAction func gpsCellAction(_ sender: UISwitch) {
-        Preferences.gpsEnabled = sender.isOn
-    }
-
-    @IBAction func darkModeCellAction(_ sender: UISwitch) {
-        let theme: Theme = sender.isOn ? .dark : .light
-        themeController.changeTheme(to: theme)
-        themeController.applyTheme()
-    }
-
     override func numberOfSections(in _: UITableView) -> Int {
         return Section.allCases.count
     }
 
     override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
-        header.titleLabel.text = Section.allCases[section].secionTitle
+        header.titleLabel.text = Section.allCases[section].title
         return header
     }
 
     override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard section == Section.info.index else {
+        guard Section.allCases[section].title != nil else {
             return 0.0
         }
         return 42.0
@@ -91,8 +79,8 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
-        let cell = settingsCell(for: section, at: indexPath)
-        cell.textLabel?.text = section.models[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
+        configure(cell, for: section.models[indexPath.row])
         return cell
     }
 
@@ -100,53 +88,34 @@ class SettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let section = Section.allCases[indexPath.section]
-        let acttion = section.models[indexPath.row].action
+        let action = section.models[indexPath.row].action
 
-        switch acttion {
-        case .none:
-            return
+        switch action {
         case let .open(url: url):
             let application = UIApplication.shared
             guard application.canOpenURL(url) else {
                 return
             }
             application.open(url, options: [:], completionHandler: nil)
-        case let .push(viewController: viewController):
-            navigationController?.pushViewController(viewController, animated: true)
+        case .switch:
+            break
         }
     }
 }
 
 extension SettingsViewController {
-    fileprivate func settingsCell(for section: Section, at indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-        switch section {
-        case .preferences:
-            guard let switchCell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath) as? SettingsSwitchTableViewCell else {
-                fatalError("Should be a SettingsSwitchCell")
-            }
-            let model = section.models[indexPath.row]
-            if model.title == String.gpsLocalizedString {
-                let isGPSEnabled = Preferences.gpsEnabled
-                let gpsHandler: SettingsSwitchHandler = { [unowned self] settingsSwitch in
-                    self.gpsCellAction(settingsSwitch)
-                }
-                switchCell.configure(isOn: isGPSEnabled, handler: gpsHandler)
-                cell = switchCell
-            } else if model.title == String.themeLocalizedString {
-                let isNightModeEnabled = themeController.currentTheme == .dark ? true : false
-                let nightModeHandler: (UISwitch) -> Void = { [unowned self] settingsSwitch in
-                    self.darkModeCellAction(settingsSwitch)
-                }
-                switchCell.configure(isOn: isNightModeEnabled, handler: nightModeHandler)
-                cell = switchCell
+    fileprivate func configure(_ cell: UITableViewCell, for model: Section.Model) {
+        if let switchCell = cell as? SettingsSwitchTableViewCell,
+            case let .switch(switchableType) = model.action {
+            if switchableType == ObservationModePreferenceStore.self {
+                switchCell.configure(switchable: ObservationModePreferenceStore())
+            } else if switchableType == ThemeController.self {
+                switchCell.configure(switchable: themeController)
             } else {
-                print("Title not found")
+                assertionFailure("Switchable not found")
             }
-            cell = switchCell
-        case .info, .github:
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
         }
-        return cell
+        cell.textLabel?.text = model.title
+        cell.detailTextLabel?.text = model.subtitle
     }
 }
