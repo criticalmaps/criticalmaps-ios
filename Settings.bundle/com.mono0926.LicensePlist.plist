@@ -3,31 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>PreferenceSpecifiers</key>
-	<array>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/NSString-Hashes</string>
-			<key>Title</key>
-			<string>NSString-Hashes</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/SDWebImage</string>
-			<key>Title</key>
-			<string>SDWebImage</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/SwiftFormat</string>
-			<key>Title</key>
-			<string>SwiftFormat</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-	</array>
+	<array/>
 </dict>
 </plist>

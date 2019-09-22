@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */; };
-		8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91EC6282437633054D179F01 /* libPods-CriticalMaps.a */; };
 		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
 		940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CF23071F3200AB1BCB /* ErrorHandler.swift */; };
 		940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */; };
@@ -141,10 +139,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.release.xcconfig"; sourceTree = "<group>"; };
-		2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMapsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		71984CFABC6CBD21874A487C /* Pods-CriticalMapsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.debug.xcconfig"; sourceTree = "<group>"; };
-		91EC6282437633054D179F01 /* libPods-CriticalMaps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CriticalMaps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		940643CD23071F1200AB1BCB /* Codable+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Sugar.swift"; sourceTree = "<group>"; };
 		940643CF23071F3200AB1BCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChatMessagesRequest.swift; sourceTree = "<group>"; };
@@ -272,8 +266,6 @@
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
-		EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMaps/Pods-CriticalMaps.debug.xcconfig"; sourceTree = "<group>"; };
-		FE801F89A7EEED10486DC718 /* Pods-CriticalMapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CriticalMapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CriticalMapsTests/Pods-CriticalMapsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,7 +277,6 @@
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
 				98F1D92B232AB1DA000F4E82 /* SwiftHash in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
-				8699EC9F4022B090262049D1 /* libPods-CriticalMaps.a in Frameworks */,
 				98F1D928232AB029000F4E82 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,7 +288,6 @@
 				94CF087919BDEAF2009FFF43 /* XCTest.framework in Frameworks */,
 				94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
 				94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
-				0C2BD59F9813F04F7CDF34E6 /* libPods-CriticalMapsTests.a in Frameworks */,
 				98F1D92F232AB477000F4E82 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,17 +295,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		82C1F2020C91392FCCBF8514 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */,
-				07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */,
-				71984CFABC6CBD21874A487C /* Pods-CriticalMapsTests.debug.xcconfig */,
-				FE801F89A7EEED10486DC718 /* Pods-CriticalMapsTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		940643D12307253100AB1BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,7 +449,6 @@
 				94CF087E19BDEAF2009FFF43 /* CriticalMassTests */,
 				94CF085E19BDEAF2009FFF43 /* Frameworks */,
 				94CF085D19BDEAF2009FFF43 /* Products */,
-				82C1F2020C91392FCCBF8514 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -490,8 +468,6 @@
 				94CF086119BDEAF2009FFF43 /* CoreGraphics.framework */,
 				94CF086319BDEAF2009FFF43 /* UIKit.framework */,
 				94CF087819BDEAF2009FFF43 /* XCTest.framework */,
-				91EC6282437633054D179F01 /* libPods-CriticalMaps.a */,
-				2317F0770B48B2944D03CBE1 /* libPods-CriticalMapsTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -618,7 +594,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMaps" */;
 			buildPhases = (
-				9CF225B8929C681EBE0A23D7 /* [CP] Check Pods Manifest.lock */,
 				94CF085819BDEAF2009FFF43 /* Sources */,
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
@@ -643,7 +618,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94CF088B19BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMapsTests" */;
 			buildPhases = (
-				98CF2B264286533A6FAE1D21 /* [CP] Check Pods Manifest.lock */,
 				94CF087319BDEAF2009FFF43 /* Sources */,
 				94CF087419BDEAF2009FFF43 /* Frameworks */,
 				94CF087519BDEAF2009FFF43 /* Resources */,
@@ -801,47 +775,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat .\n";
-		};
-		98CF2B264286533A6FAE1D21 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CriticalMapsTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9CF225B8929C681EBE0A23D7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CriticalMaps-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/license-plist --output-path ./Settings.bundle\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1107,7 +1041,6 @@
 		};
 		94CF088919BDEAF2009FFF43 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EABC16C259C48FC560C79864 /* Pods-CriticalMaps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1136,7 +1069,6 @@
 		};
 		94CF088A19BDEAF2009FFF43 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07303299525BE9DE73397506 /* Pods-CriticalMaps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1164,7 +1096,6 @@
 		};
 		94CF088C19BDEAF2009FFF43 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71984CFABC6CBD21874A487C /* Pods-CriticalMapsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1197,7 +1128,6 @@
 		};
 		94CF088D19BDEAF2009FFF43 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE801F89A7EEED10486DC718 /* Pods-CriticalMapsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
