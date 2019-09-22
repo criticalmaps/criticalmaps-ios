@@ -8,12 +8,6 @@
 
 import Foundation
 
-extension Hashable where Self: CaseIterable {
-    var index: Self.AllCases.Index {
-        return type(of: self).allCases.firstIndex(of: self)!
-    }
-}
-
 enum Section: Int, CaseIterable {
     case preferences
     case github
@@ -21,14 +15,21 @@ enum Section: Int, CaseIterable {
 
     struct Model {
         var title: String?
+        var subtitle: String?
         var action: Action
+
+        init(title: String? = nil, subtitle: String? = nil, action: Action) {
+            self.title = title
+            self.subtitle = subtitle
+            self.action = action
+        }
     }
 
     var numberOfRows: Int {
         return models.count
     }
 
-    var secionTitle: String? {
+    var title: String? {
         switch self {
         case .preferences,
              .github:
@@ -53,21 +54,20 @@ enum Section: Int, CaseIterable {
         switch self {
         case .preferences:
             return [
-                Model(title: String.gpsLocalizedString, action: .none),
-                Model(title: String.themeLocalizedString, action: .none),
+                Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
+                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self)),
             ]
         case .github:
-            return [Model(title: nil, action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
+            return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
             return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
                     Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
-                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage)), Model(title: "QR Code Pairing", action: .push(viewController: FollowFriendsViewController()))]
+                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage))]
         }
     }
 
     enum Action {
         case open(url: URL)
-        case push(viewController: UIViewController)
-        case none
+        case `switch`(_ switchtable: Switchable.Type)
     }
 }

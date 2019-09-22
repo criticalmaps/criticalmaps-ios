@@ -30,10 +30,10 @@ class ChatManagerTests: XCTestCase {
 
         let exp = expectation(description: "Wait for response")
 
-        setup.chatManager.send(message: "Hello World") { success in
-
-            XCTAssertTrue(success)
-            exp.fulfill()
+        setup.chatManager.send(message: "Hello World") { result in
+            if case .success = result {
+                exp.fulfill()
+            }
         }
         wait(for: [exp], timeout: 1)
         guard let lastUsedBody = setup.networkLayer.lastUsedPostBody else {
@@ -56,13 +56,11 @@ class ChatManagerTests: XCTestCase {
     func testSendMessageFails() {
         let setup = getSetup()
         setup.networkLayer.mockResponse = nil
-
         let exp = expectation(description: "Wait for response")
-
-        setup.chatManager.send(message: "Hello World") { success in
-
-            XCTAssertFalse(success)
-            exp.fulfill()
+        setup.chatManager.send(message: "Hello World!") { result in
+            if case .failure = result {
+                exp.fulfill()
+            }
         }
         wait(for: [exp], timeout: 1)
     }
@@ -74,9 +72,10 @@ class ChatManagerTests: XCTestCase {
 
         let firstExp = expectation(description: "Wait for response")
 
-        setup.chatManager.send(message: "Hello World") { success in
-            XCTAssertTrue(success)
-            firstExp.fulfill()
+        setup.chatManager.send(message: "Hello World") { result in
+            if case .success = result {
+                firstExp.fulfill()
+            }
         }
         wait(for: [firstExp], timeout: 1)
         guard let firstUsedBody = setup.networkLayer.lastUsedPostBody else {
@@ -87,9 +86,10 @@ class ChatManagerTests: XCTestCase {
 
         let secondExp = expectation(description: "Wait for response")
 
-        setup.chatManager.send(message: "Hello World") { success in
-            XCTAssertTrue(success)
-            secondExp.fulfill()
+        setup.chatManager.send(message: "Hello World") { result in
+            if case .success = result {
+                secondExp.fulfill()
+            }
         }
         wait(for: [secondExp], timeout: 1)
         guard let secondUsedBody = setup.networkLayer.lastUsedPostBody else {

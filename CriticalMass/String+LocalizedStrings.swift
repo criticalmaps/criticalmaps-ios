@@ -11,11 +11,12 @@ import Foundation
 extension String {
     static let twitterNoData = NSLocalizedString("twitter.noData", comment: "")
     static let rulesTitle = NSLocalizedString("rules.title", comment: "")
-    static let gpsLocalizedString = NSLocalizedString("GPS", comment: "")
     static let error = NSLocalizedString("error", comment: "")
     static let closeButtonLabel = NSLocalizedString("close.button.label", comment: "")
     // Settings
     static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
+    static let obversationModeTitle = NSLocalizedString("settings.observationmode.title", comment: "")
+    static let obversationModeDetail = NSLocalizedString("settings.observationmode.detail", comment: "")
     static let settingsTitle = NSLocalizedString("settings.title", comment: "")
     static let settingsSectionInfo = NSLocalizedString("settings.section.info", comment: "")
     static let settingsWebsite = NSLocalizedString("settings.website", comment: "")
@@ -32,5 +33,6 @@ extension String {
     static let chatSendError = NSLocalizedString("chat.send.error", comment: "")
     // Map
     static let mapLayerInfo = NSLocalizedString("map.layer.info", comment: "")
+    static let mapLayerInfoTitle = NSLocalizedString("map.layer.info.title", comment: "")
     static let mapTitle = NSLocalizedString("map.title", comment: "")
 }

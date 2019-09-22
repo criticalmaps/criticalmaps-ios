@@ -2,7 +2,29 @@
 
 Changelog for Critical Maps iOS
 
-## [UNRELEASED]
+## [3.3.0] - 2019-09-01
+
+### Added
+- iOS 13 support
+
+### Fixed
+
+- A bug that made the app unusable with assistive technologies like Switch Control or VoiceOver
+- SocialSegment sliding under NavigationBar bug in iOS 10
+- Dynamic Type Layout issues
+
+## [3.2.0] - 2019-06-18
+
+### Added
+
+- Dynamic Type support
+- Observation Mode
+
+### Fixed
+
+- A bug that stopped updating locations if one update request failed
+
+## [3.1.0] - 2019-05-28
 
 ### Added
 
@@ -21,6 +43,7 @@ Changelog for Critical Maps iOS
 
 - Users can not send empty chat messages anymore.
 - A bug that prevented sending messages if another network request is active
+- input dismissed when switching to the emoji keyboard
 
 ## [3.0.0] - 2019-04-18
 

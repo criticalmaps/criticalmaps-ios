@@ -11,6 +11,15 @@ class AppController {
     public func onAppLaunch() {
         loadInitialData()
         themeController.applyTheme()
+        if #available(iOS 10.3, *) {
+            RatingHelper().onLaunch()
+        }
+    }
+
+    public func onWillEnterForeground() {
+        if #available(iOS 10.3, *) {
+            RatingHelper().onEnterForeground()
+        }
     }
 
     private var idProvider: IDProvider = IDStore()
@@ -51,7 +60,7 @@ class AppController {
     }
 
     private func getSocialViewController() -> SocialViewController {
-        return SocialViewController(chatViewController: getChatViewController, twitterViewController: getTwitterViewController)
+        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
     }
 
     private func getSettingsViewController() -> SettingsViewController {

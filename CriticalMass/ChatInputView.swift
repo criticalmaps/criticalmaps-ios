@@ -53,8 +53,8 @@ class ChatInputView: UIView, UITextFieldDelegate {
         return button
     }()
 
-    private let separator: SeperatorView = {
-        let view = SeperatorView()
+    private let separator: SeparatorView = {
+        let view = SeparatorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

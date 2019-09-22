@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.43"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,59 +18,63 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="233.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GithubBanner" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-gu-JtL">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GithubBanner" translatesAutoresizingMaskIntoConstraints="NO" id="VXc-gu-JtL">
                         <rect key="frame" x="16" y="16" width="368" height="193.5"/>
                     </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="b5G-Gd-zcX">
+                        <rect key="frame" x="36" y="36" width="328" height="153.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Vermisst du Funktionen oder willst einen Bug fixen?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fii-3b-jwj">
+                                <rect key="frame" x="0.0" y="0.0" width="327" height="42.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Critical Maps ist ein Open Source Projekt und wir feuen uns über Entwickler*innen die an Critical Maps mitarbeiten wollen." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q47-2o-kHV">
+                                <rect key="frame" x="0.0" y="54.5" width="313.5" height="69"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yjg-8l-o9D">
+                                <rect key="frame" x="0.0" y="135.5" width="165" height="18"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="PROJEKT ANSEHEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xr-Tp-a5U">
+                                        <rect key="frame" x="0.0" y="0.0" width="139" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ArrowButton" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MCh-Zj-FA7">
+                                        <rect key="frame" x="149" y="0.0" width="16" height="18"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dIQ-Qg-C4y">
                         <rect key="frame" x="16" y="16" width="368" height="193.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Critical Maps ist ein Open Source Projekt und wir feuen uns über Entwickler*innen die an Critical Maps mitarbeiten wollen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q47-2o-kHV">
-                        <rect key="frame" x="36" y="94" width="324" height="59.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Vermisst du Funktionen oder willst einen Bug fixen?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fii-3b-jwj">
-                        <rect key="frame" x="36" y="36" width="328" height="48"/>
-                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="PROJEKT ANSEHEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xr-Tp-a5U">
-                        <rect key="frame" x="36" y="167.5" width="146.5" height="18"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ArrowButton" translatesAutoresizingMaskIntoConstraints="NO" id="MCh-Zj-FA7">
-                        <rect key="frame" x="192.5" y="168.5" width="16" height="16"/>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="2xr-Tp-a5U" firstAttribute="top" secondItem="Q47-2o-kHV" secondAttribute="bottom" constant="14" id="0Oe-8R-G8i"/>
                     <constraint firstItem="VXc-gu-JtL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="1cO-Pc-VF5"/>
-                    <constraint firstItem="VXc-gu-JtL" firstAttribute="trailing" secondItem="Fii-3b-jwj" secondAttribute="trailing" constant="20" id="DcU-rt-rWL"/>
+                    <constraint firstItem="b5G-Gd-zcX" firstAttribute="trailing" secondItem="VXc-gu-JtL" secondAttribute="trailing" constant="-20" id="6v9-fv-Pag"/>
+                    <constraint firstItem="b5G-Gd-zcX" firstAttribute="bottom" secondItem="VXc-gu-JtL" secondAttribute="bottom" constant="-20" id="844-Bg-9do"/>
                     <constraint firstAttribute="trailing" secondItem="VXc-gu-JtL" secondAttribute="trailing" constant="16" id="DhZ-iM-VLn"/>
-                    <constraint firstItem="2xr-Tp-a5U" firstAttribute="leading" secondItem="VXc-gu-JtL" secondAttribute="leading" constant="20" id="E4B-hP-BDM"/>
-                    <constraint firstItem="MCh-Zj-FA7" firstAttribute="leading" secondItem="2xr-Tp-a5U" secondAttribute="trailing" constant="10" id="TAW-q9-brB"/>
+                    <constraint firstItem="b5G-Gd-zcX" firstAttribute="leading" secondItem="VXc-gu-JtL" secondAttribute="leading" constant="20" id="SJn-aa-L6c"/>
                     <constraint firstItem="dIQ-Qg-C4y" firstAttribute="centerY" secondItem="VXc-gu-JtL" secondAttribute="centerY" id="XO2-TJ-lmy"/>
-                    <constraint firstItem="Q47-2o-kHV" firstAttribute="leading" secondItem="VXc-gu-JtL" secondAttribute="leading" constant="20" id="f7S-Xh-fOe"/>
-                    <constraint firstItem="MCh-Zj-FA7" firstAttribute="centerY" secondItem="2xr-Tp-a5U" secondAttribute="centerY" id="gCh-SG-XKw"/>
-                    <constraint firstItem="Fii-3b-jwj" firstAttribute="top" secondItem="VXc-gu-JtL" secondAttribute="firstBaseline" constant="20" id="h7a-mp-7KW"/>
-                    <constraint firstItem="Q47-2o-kHV" firstAttribute="top" secondItem="Fii-3b-jwj" secondAttribute="baseline" constant="15" id="iqY-F0-swP"/>
                     <constraint firstAttribute="bottom" secondItem="VXc-gu-JtL" secondAttribute="bottom" priority="750" constant="24" id="mUb-Ns-eK0"/>
+                    <constraint firstItem="b5G-Gd-zcX" firstAttribute="top" secondItem="VXc-gu-JtL" secondAttribute="top" constant="20" id="pfy-A1-els"/>
                     <constraint firstItem="dIQ-Qg-C4y" firstAttribute="centerX" secondItem="VXc-gu-JtL" secondAttribute="centerX" id="sBs-TX-Sj2"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Q47-2o-kHV" secondAttribute="trailing" constant="20" id="sy8-1s-V5w"/>
-                    <constraint firstItem="Fii-3b-jwj" firstAttribute="leading" secondItem="VXc-gu-JtL" secondAttribute="leading" constant="20" id="tqu-rg-p9N"/>
                     <constraint firstItem="dIQ-Qg-C4y" firstAttribute="height" secondItem="VXc-gu-JtL" secondAttribute="height" id="vn1-vq-IH7"/>
                     <constraint firstItem="VXc-gu-JtL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="x48-OJ-seQ"/>
-                    <constraint firstItem="VXc-gu-JtL" firstAttribute="bottom" secondItem="2xr-Tp-a5U" secondAttribute="bottom" constant="24" id="yv2-A8-ZHP"/>
                     <constraint firstItem="dIQ-Qg-C4y" firstAttribute="width" secondItem="VXc-gu-JtL" secondAttribute="width" id="zCl-Mn-Do7"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="actionLabel" destination="2xr-Tp-a5U" id="iUe-Ci-GAj"/>
+                <outlet property="arrowImageView" destination="MCh-Zj-FA7" id="zd6-qc-OXP"/>
                 <outlet property="backgroundImageView" destination="VXc-gu-JtL" id="78B-ud-q5T"/>
                 <outlet property="detailLabel" destination="Q47-2o-kHV" id="z7n-4w-sRO"/>
                 <outlet property="selectionOverlay" destination="dIQ-Qg-C4y" id="Rzj-Vh-Ldb"/>

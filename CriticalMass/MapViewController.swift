@@ -37,22 +37,11 @@ class MapViewController: UIViewController {
         }
     }
 
-    private var mapView: MKMapView {
-        return view as! MKMapView
-    }
+    private var mapView = MKMapView(frame: .zero)
 
-    private let gpsDisabledOverlayView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        view.accessibilityViewIsModal = true
-        view.effect = UIBlurEffect(style: .light)
-        let label = NoContentMessageLabel()
-        label.text = String.mapLayerInfo
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.sizeToFit()
-        view.contentView.addSubview(label)
-        label.center = view.center
-        label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+    private let gpsDisabledOverlayView: BlurryOverlayView = {
+        let view = BlurryOverlayView.fromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -68,33 +57,52 @@ class MapViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    override func loadView() {
-        view = MKMapView(frame: .zero)
-    }
-
     private func configureTileRenderer() {
         guard themeController.currentTheme == .dark else {
             return
         }
-        tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
-        mapView.addOverlay(nightThemeOverlay, level: .aboveLabels)
+
+        // This is a workaround to make the compiler with Xcode 10 happy
+        #if canImport(SwiftUI)
+            if #available(iOS 13.0, *) {
+                mapView.overrideUserInterfaceStyle = .dark
+            } else {
+                addTileRenderer()
+            }
+        #endif
+        addTileRenderer()
     }
 
     private func condfigureGPSDisabledOverlayView() {
+        let gpsDisabledOverlayView = self.gpsDisabledOverlayView
+        gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
+        gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
         view.addSubview(gpsDisabledOverlayView)
-        gpsDisabledOverlayView.frame = view.bounds
-        gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        NSLayoutConstraint.activate([
+            gpsDisabledOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            gpsDisabledOverlayView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
+
         updateGPSDisabledOverlayVisibility()
     }
 
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: Notification.initialGpsDataReceived, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.gpsStateChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.observationModeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Notification.themeDidChange, object: nil)
     }
 
     private func configureMapView() {
+        view.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            NSLayoutConstraint(item: mapView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 1),
+            NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+        ])
+
         if #available(iOS 11.0, *) {
             mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.identifier)
         }
@@ -104,6 +112,9 @@ class MapViewController: UIViewController {
     }
 
     private func display(locations: [String: Location]) {
+        guard LocationManager.accessPermission == .authorized else {
+            return
+        }
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
@@ -122,8 +133,12 @@ class MapViewController: UIViewController {
         mapView.removeAnnotations(unmatchedAnnotations)
     }
 
+    @objc func didTapGPSDisabledOverlayButton() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    }
+
     @objc func updateGPSDisabledOverlayVisibility() {
-        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
+        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission != .denied
     }
 
     // MARK: Notifications
@@ -135,11 +150,29 @@ class MapViewController: UIViewController {
     @objc private func themeDidChange() {
         let theme = themeController.currentTheme
         guard theme == .dark else {
-            tileRenderer = nil
-            mapView.removeOverlay(nightThemeOverlay)
+            // This is a workaround to make the compiler with Xcode 10 happy
+            #if canImport(SwiftUI)
+                if #available(iOS 13.0, *) {
+                    mapView.overrideUserInterfaceStyle = .unspecified
+                } else {
+                    removeTileRenderer()
+                }
+            #else
+                removeTileRenderer()
+            #endif
             return
         }
         configureTileRenderer()
+    }
+
+    private func removeTileRenderer() {
+        tileRenderer = nil
+        mapView.removeOverlay(nightThemeOverlay)
+    }
+
+    private func addTileRenderer() {
+        tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
+        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
     }
 
     @objc private func positionsDidChange(notification: Notification) {
