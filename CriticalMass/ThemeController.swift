@@ -53,6 +53,7 @@ class ThemeController {
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = theme.backgroundColor
             appearance.largeTitleTextAttributes = [.foregroundColor: theme.titleTextColor]
+            appearance.titleTextAttributes = [.foregroundColor: theme.titleTextColor]
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
             UINavigationBar.appearance().standardAppearance = appearance
         }
