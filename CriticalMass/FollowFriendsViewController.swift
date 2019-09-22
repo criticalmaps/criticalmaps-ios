@@ -14,6 +14,8 @@ class FollowFriendsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
+        configureNavigationBar()
+
         do {
             let publicKeyData = try RSAKey(tag: RSAKey.keychainTag).publicKeyDataRepresentation()
             urlString = try FollowURLObject(queryObject: Friend(name: "TODO", key: publicKeyData)).asURL()
@@ -24,6 +26,12 @@ class FollowFriendsViewController: UIViewController {
 
         configureQRCodeView()
         configureShareLinkButton()
+    }
+
+    private func configureNavigationBar() {
+        title = "Friends"
+        let addFriendBarButtonItem = UIBarButtonItem(title: "Add Friend", style: .plain, target: self, action: #selector(addFriendButtonTapped))
+        navigationItem.rightBarButtonItem = addFriendBarButtonItem
     }
 
     private func configureShareLinkButton() {
@@ -47,5 +55,10 @@ class FollowFriendsViewController: UIViewController {
     @objc func shareLinkButtonTapped() {
         let activityViewController = UIActivityViewController(activityItems: [urlString!], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
+    }
+
+    @objc func addFriendButtonTapped() {
+        let viewController = ManageFriendsViewController.fromNib()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
