@@ -75,7 +75,7 @@ class MockDataStore: DataStore {
     }
 
     var friends: [Friend] = []
-    var userName: String = "Jan Ulrich"
+    var userName: String = "Jan Ullrich"
 
     var storedData: ApiResponse?
     func update(with response: ApiResponse) {

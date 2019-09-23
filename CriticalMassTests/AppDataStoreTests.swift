@@ -130,7 +130,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testStoreUsername() {
-        let newName = "Jan Ulrich"
+        let newName = "Jan Ullrich"
         XCTAssertNotEqual(sut.userName, newName)
         sut.userName = newName
         XCTAssertEqual(sut.userName, newName)
