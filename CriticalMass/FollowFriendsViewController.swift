@@ -43,10 +43,15 @@ class FollowFriendsViewController: UIViewController {
     }
 
     private func configureQRCodeView() {
-        let view = QRCodeView()
+        let backgroundView = QRCodeBackgroundView(frame: CGRect(origin: .zero, size: CGSize(width: 280, height: 280)))
+        backgroundView.center = self.view.center
+        backgroundView.backgroundColor = .clear
+
+        self.view.addSubview(backgroundView)
+
+        let view = QRCodeView(frame: CGRect(origin: .zero, size: CGSize(width: 247, height: 247)))
         view.backgroundColor = .clear
         view.text = urlString
-        view.frame.size = CGSize(width: 200, height: 200)
         view.center = self.view.center
         self.view.addSubview(view)
     }

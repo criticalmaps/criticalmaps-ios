@@ -9,6 +9,14 @@
 import UIKit
 
 class QRCodeView: UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     var text: String? {
         didSet {
             filter.setValue(text?.data(using: .utf8), forKey: "inputMessage")
@@ -29,5 +37,33 @@ class QRCodeView: UIView {
         let scaleY = rect.size.height / qrCodeImage.extent.size.height
         ciContext.draw(qrCodeImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY)),
                        in: rect, from: rect)
+    }
+}
+
+class QRCodeBackgroundView: UIView {
+    override func draw(_ rect: CGRect) {
+        let borderLength: CGFloat = 32
+        let lineWidth: CGFloat = 4
+
+        let path = UIBezierPath(roundedRect: rect.inset(by: UIEdgeInsets(top: lineWidth, left: lineWidth, bottom: lineWidth, right: lineWidth)), cornerRadius: 4)
+
+        let clipPath = UIBezierPath()
+
+        clipPath.append(UIBezierPath(rect: CGRect(origin: .zero, size: CGSize(width: borderLength, height: borderLength))))
+
+        clipPath.append(UIBezierPath(rect: CGRect(origin: CGPoint(x: bounds.width - borderLength, y: 0), size: CGSize(width: borderLength, height: borderLength))))
+
+        clipPath.append(UIBezierPath(rect: CGRect(origin: CGPoint(x: bounds.width - borderLength, y: bounds.height - borderLength), size: CGSize(width: borderLength, height: borderLength))))
+
+        clipPath.append(UIBezierPath(rect: CGRect(origin: CGPoint(x: 0, y: bounds.height - borderLength), size: CGSize(width: borderLength, height: borderLength))))
+
+        clipPath.addClip()
+
+        path.lineWidth = lineWidth
+        path.lineJoinStyle = .round
+
+        UIGraphicsGetCurrentContext()?.setStrokeColor(UIColor.yellow80.cgColor)
+
+        path.stroke()
     }
 }
