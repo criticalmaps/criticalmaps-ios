@@ -5,4 +5,4 @@ before_install:
   - bundle update
 
 script:
-    - bundle exec fastlane test
+  - bundle exec fastlane test
