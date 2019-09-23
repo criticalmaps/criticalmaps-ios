@@ -52,7 +52,6 @@ class FollowFriendsViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        title = "Friends"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareLinkButtonTapped))
     }
 
