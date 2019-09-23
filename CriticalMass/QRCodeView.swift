@@ -19,9 +19,11 @@ class QRCodeView: UIView {
 
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext(),
-            let qrCodeImage = filter.outputImage else {
+            let qrCodeImage = filter.outputImage?.applyingFilter("CIFalseColor", parameters: ["inputColor0": CIColor.black,
+                                                                                              "inputColor1": CIColor.clear]) else {
             return
         }
+
         let ciContext = CIContext(cgContext: context, options: nil)
         let scaleX = rect.size.width / qrCodeImage.extent.size.width
         let scaleY = rect.size.height / qrCodeImage.extent.size.height

@@ -14,7 +14,19 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBar()
         tableView.register(cellType: FriendTableViewCell.self)
+    }
+
+    private func configureNavigationBar() {
+        title = "Friends"
+        let addFriendBarButtonItem = UIBarButtonItem(title: "Add Friend", style: .plain, target: self, action: #selector(addFriendButtonTapped))
+        navigationItem.rightBarButtonItem = addFriendBarButtonItem
+    }
+
+    @objc func addFriendButtonTapped() {
+        let viewController = FollowFriendsViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {

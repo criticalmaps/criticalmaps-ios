@@ -8,11 +8,16 @@
 import UIKit
 
 class FriendTableViewCell: UITableViewCell, IBConstructable {
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var onlineIndicatorView: UIView!
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var onlineIndicatorView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         onlineIndicatorView.layer.cornerRadius = 8
+    }
+
+    public func configure(name _: String, isOnline: Bool) {
+        nameLabel.text = "name"
+        onlineIndicatorView.isHidden = !isOnline
     }
 }
