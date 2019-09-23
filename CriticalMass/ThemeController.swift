@@ -10,11 +10,12 @@ import Foundation
 import UIKit
 
 class ThemeController {
-    private(set) lazy var currentTheme = loadTheme()
+    private(set) var currentTheme: Theme!
     private let store: ThemeStorable
 
     init(store: ThemeStorable = ThemeSelectionStore()) {
         self.store = store
+        currentTheme = loadTheme()
     }
 
     func changeTheme(to theme: Theme) {
@@ -24,7 +25,12 @@ class ThemeController {
 
     private func loadTheme() -> Theme {
         guard let theme = store.load() else {
-            return .light
+            if #available(iOS 13.0, *) {
+                let theme = Theme(userInterfaceStyle: UITraitCollection.current.userInterfaceStyle)
+                return theme
+            } else {
+                return .light
+            }
         }
         return theme
     }
