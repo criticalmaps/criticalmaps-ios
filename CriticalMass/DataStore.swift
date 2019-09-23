@@ -12,4 +12,5 @@ public protocol DataStore {
 
     func add(friend: Friend)
     var friends: [Friend] { get }
+    var userName: String { get set }
 }
