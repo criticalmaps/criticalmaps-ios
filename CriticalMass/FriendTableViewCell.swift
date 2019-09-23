@@ -17,8 +17,8 @@ class FriendTableViewCell: UITableViewCell, IBConstructable {
         onlineIndicatorView.backgroundColor = .onlineGreen
     }
 
-    public func configure(name _: String, isOnline: Bool) {
-        nameLabel.text = "name"
+    public func configure(name: String, isOnline: Bool) {
+        nameLabel.text = name
         onlineIndicatorView.isHidden = !isOnline
     }
 }
