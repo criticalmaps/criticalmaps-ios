@@ -10,9 +10,11 @@ import UIKit
 class FollowFriendsViewController: UIViewController {
     private var urlString: String?
     private var name: String
+    private var oldBrightness: CGFloat
 
     init(name: String) {
         self.name = name
+        oldBrightness = UIScreen.main.brightness
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -35,6 +37,18 @@ class FollowFriendsViewController: UIViewController {
         }
 
         configureQRCodeView()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIScreen.main.brightness = 100
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        UIScreen.main.brightness = oldBrightness
     }
 
     private func configureNavigationBar() {
