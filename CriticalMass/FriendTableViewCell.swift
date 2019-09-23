@@ -14,6 +14,7 @@ class FriendTableViewCell: UITableViewCell, IBConstructable {
     override func awakeFromNib() {
         super.awakeFromNib()
         onlineIndicatorView.layer.cornerRadius = 8
+        onlineIndicatorView.backgroundColor = .onlineGreen
     }
 
     public func configure(name _: String, isOnline: Bool) {

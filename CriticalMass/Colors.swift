@@ -75,4 +75,8 @@ extension UIColor {
     static var darkThemeGradientEnd: UIColor {
         return UIColor(red: 43.0 / 255.0, green: 45.0 / 255.0, blue: 47.0 / 255.0, alpha: 0.75)
     }
+
+    static var onlineGreen: UIColor {
+        return UIColor(red: 20.0 / 255.0, green: 204.0 / 255.0, blue: 51.0 / 255.0, alpha: 1)
+    }
 }

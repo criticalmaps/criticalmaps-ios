@@ -10,6 +10,16 @@ import UIKit
 
 class ManageFriendsViewController: UIViewController, IBConstructable, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
+    private var dataStore: DataStore!
+
+    init(dataStore: DataStore) {
+        self.dataStore = dataStore
+        super.init(nibName: ManageFriendsViewController.nibName, bundle: ManageFriendsViewController.bundle)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +40,14 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 100
+        return dataStore.friends.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(ofType: FriendTableViewCell.self, for: indexPath)
+        let cell = tableView.dequeueReusableCell(ofType: FriendTableViewCell.self, for: indexPath)
+        let friend = dataStore.friends[indexPath.row]
+        // isOnline isn't supported yet
+        cell.configure(name: friend.name, isOnline: false)
+        return cell
     }
 }

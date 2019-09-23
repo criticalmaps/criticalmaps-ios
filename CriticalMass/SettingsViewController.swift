@@ -9,9 +9,11 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     private let themeController: ThemeController!
+    private let dataStore: DataStore
 
-    init(themeController: ThemeController) {
+    init(themeController: ThemeController, dataStore: DataStore) {
         self.themeController = themeController
+        self.dataStore = dataStore
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -99,8 +101,18 @@ class SettingsViewController: UITableViewController {
         case .switch:
             break
         case let .navigate(toViewController):
-            let viewController = toViewController.init()
+            let viewController = createViewController(type: toViewController)
             navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+
+    private func createViewController(type: UIViewController.Type) -> UIViewController {
+        // Perform dependency injection if needed
+        switch type {
+        case _ as ManageFriendsViewController.Type:
+            return ManageFriendsViewController(dataStore: dataStore)
+        default:
+            return type.init()
         }
     }
 }
