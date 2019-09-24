@@ -33,6 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        appController.handle(url: url)
+        return appController.handle(url: url)
     }
 }
