@@ -299,7 +299,7 @@
 		989FA00521C8154D00E71085 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		98AAD08D2337FF8F001519C7 /* ManageFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFriendsViewController.swift; sourceTree = "<group>"; };
 		98AAD08E2337FF8F001519C7 /* ManageFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageFriendsViewController.xib; sourceTree = "<group>"; };
-		98AAD09323380200001519C7 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FriendTableViewCell.swift; path = "/Users/leonardthomas/criticalmaps-ios/CriticalMass/FriendTableViewCell.swift"; sourceTree = "<absolute>"; };
+		98AAD09323380200001519C7 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		98AAD09423380200001519C7 /* FriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendTableViewCell.xib; path = "/Users/leonardthomas/criticalmaps-ios/CriticalMass/FriendTableViewCell.xib"; sourceTree = "<absolute>"; };
 		98B480E121AB30700044D017 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableAnnnotation.swift; sourceTree = "<group>"; };

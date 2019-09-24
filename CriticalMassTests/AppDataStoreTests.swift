@@ -15,6 +15,9 @@ class AppDataStoreTests: XCTestCase {
     override func setUp() {
         super.setUp()
         sut = AppDataStore(userDefaults: userdefaults)
+        for friend in sut.friends {
+            sut.remove(friend: friend)
+        }
     }
 
     override func tearDown() {
