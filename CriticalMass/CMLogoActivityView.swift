@@ -38,7 +38,7 @@ import UIKit
 
     @objc
     private func updateViewParameter() {
-        angle += 1.0
+        angle -= 1.0
         setNeedsDisplay()
     }
 }
