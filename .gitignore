@@ -2,11 +2,8 @@
 *.swp
 *~.nib
 
-xcuserdata
 *.xccheckout
 
-Pods/
-Podfile.lock
 CriticalMaps.xcodeproj
 
 *.mov

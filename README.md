@@ -40,8 +40,7 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 ```sh
     git clone REPO-URL
     cd criticalmaps-ios
-    pod install
-    open CriticalMaps.xcworkspace
+    open CriticalMaps.xcodeproj
 ```
 
 ### How to contribute

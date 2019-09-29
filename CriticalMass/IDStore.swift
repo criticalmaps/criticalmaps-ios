@@ -5,7 +5,8 @@
 //  Created by Leonard Thomas on 5/2/19.
 //
 
-import Foundation
+import SwiftHash
+import UIKit
 
 public class IDStore: IDProvider {
     public init(currentDate: Date = Date()) {
@@ -15,7 +16,7 @@ public class IDStore: IDProvider {
         format.dateFormat = "yyyy-MM-dd"
         let dateString = format.string(from: currentDate)
 
-        id = (deviceID + dateString).md5
+        id = MD5(deviceID + dateString)
     }
 
     public let id: String

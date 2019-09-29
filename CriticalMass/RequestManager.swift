@@ -5,8 +5,8 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
-import Foundation
 import os.log
+import UIKit
 
 public class RequestManager {
     private struct SendLocationPostBody: Codable {
