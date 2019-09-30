@@ -15,6 +15,15 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     enum Section: Int, CaseIterable {
         case friends
         case settings
+
+        var title: String? {
+            switch self {
+            case .friends:
+                return nil
+            case .settings:
+                return "Settings"
+            }
+        }
     }
 
     init(dataStore: DataStore) {
@@ -64,14 +73,12 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch Section(rawValue: section)! {
-        case .friends:
+        guard let title = Section(rawValue: section)?.title else {
             return nil
-        case .settings:
-            let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
-            header.titleLabel.text = "Settings"
-            return header
         }
+        let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
+        header.titleLabel.text = "Settings"
+        return header
     }
 
     func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
