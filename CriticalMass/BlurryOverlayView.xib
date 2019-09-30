@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,12 +45,13 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="JA9-Dq-ih8" firstAttribute="top" secondItem="MRp-GU-v6l" secondAttribute="top" constant="54" id="8CC-78-Jqw"/>
+                        <constraint firstItem="JA9-Dq-ih8" firstAttribute="top" secondItem="MRp-GU-v6l" secondAttribute="top" priority="999" constant="54" id="8CC-78-Jqw"/>
+                        <constraint firstItem="JA9-Dq-ih8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MRp-GU-v6l" secondAttribute="top" constant="16" id="H1I-Ni-gBJ"/>
                         <constraint firstItem="JA9-Dq-ih8" firstAttribute="leading" secondItem="MRp-GU-v6l" secondAttribute="leading" constant="24" id="I1D-Vr-FfY"/>
                         <constraint firstItem="J3x-0B-uGU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MRp-GU-v6l" secondAttribute="leading" priority="999" constant="24" id="KSe-Bw-4qW"/>
                         <constraint firstItem="uUg-Jx-Okv" firstAttribute="leading" secondItem="MRp-GU-v6l" secondAttribute="leading" constant="24" id="NMN-3B-HMU"/>
                         <constraint firstItem="uUg-Jx-Okv" firstAttribute="top" secondItem="JA9-Dq-ih8" secondAttribute="bottom" constant="24" id="Ol6-2A-cZ0"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J3x-0B-uGU" secondAttribute="bottom" constant="144" id="cRB-sm-UOV"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J3x-0B-uGU" secondAttribute="bottom" priority="999" constant="24" id="cRB-sm-UOV"/>
                         <constraint firstItem="J3x-0B-uGU" firstAttribute="centerX" secondItem="MRp-GU-v6l" secondAttribute="centerX" id="gHP-eq-oAn"/>
                         <constraint firstAttribute="trailing" secondItem="uUg-Jx-Okv" secondAttribute="trailing" constant="24" id="il5-kK-nX1"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="J3x-0B-uGU" secondAttribute="trailing" priority="999" constant="24" id="tre-wN-a1q"/>
