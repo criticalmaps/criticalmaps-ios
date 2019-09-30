@@ -83,7 +83,6 @@ class RulesDetailViewController: UIViewController {
         attributedString.append(NSAttributedString(string: rule.text))
         
         textView.attributedText = attributedString
-        
     }
     
     override func viewDidLayoutSubviews() {
