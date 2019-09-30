@@ -97,4 +97,11 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             return cell
         }
     }
+
+    func tableView(_: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            dataStore.remove(friend: dataStore.friends[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
