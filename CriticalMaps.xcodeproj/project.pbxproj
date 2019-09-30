@@ -118,6 +118,7 @@
 		9838F28E227B771F00744EDD /* IDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28D227B771F00744EDD /* IDStore.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
+		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
@@ -281,6 +282,7 @@
 		9838F28D227B771F00744EDD /* IDStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStore.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		9844438023429354005468B2 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		988B12AC22A271FE0010FAED /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				940643D72307270B00AB1BCB /* GCD+Util.swift */,
+				9844438023429354005468B2 /* UIView+Autolayout.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1002,6 +1005,7 @@
 				940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				98329A1D22D3796300A157EE /* CriticalMaps.xcdatamodeld in Sources */,
+				9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */,
 				94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */,
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
 				98329A1F22D3BEA000A157EE /* KeychainHelper.swift in Sources */,

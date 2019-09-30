@@ -56,17 +56,18 @@ class FollowFriendsViewController: UIViewController {
     }
 
     private func configureQRCodeView() {
-        let backgroundView = QRCodeBackgroundView(frame: CGRect(origin: .zero, size: CGSize(width: 280, height: 280)))
-        backgroundView.center = self.view.center
+        let backgroundView = QRCodeBackgroundView(frame: .zero)
         backgroundView.backgroundColor = .clear
 
-        self.view.addSubview(backgroundView)
+        view.addSubview(backgroundView)
 
-        let view = QRCodeView(frame: CGRect(origin: .zero, size: CGSize(width: 247, height: 247)))
-        view.backgroundColor = .clear
-        view.text = urlString
-        view.center = self.view.center
-        self.view.addSubview(view)
+        let qrCodeView = QRCodeView(frame: .zero)
+        qrCodeView.backgroundColor = .clear
+        qrCodeView.text = urlString
+        view.addSubview(qrCodeView)
+
+        backgroundView.addLayoutsCenter(in: view, size: CGSize(width: 280, height: 280))
+        qrCodeView.addLayoutsCenter(in: view, size: CGSize(width: 247, height: 247))
     }
 
     @objc func shareLinkButtonTapped() {

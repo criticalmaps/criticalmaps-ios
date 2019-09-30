@@ -77,7 +77,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             return nil
         }
         let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
-        header.titleLabel.text = "Settings"
+        header.titleLabel.text = title
         return header
     }
 
