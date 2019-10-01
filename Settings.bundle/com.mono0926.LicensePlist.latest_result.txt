@@ -4,4 +4,4 @@ name: SwiftHash, nameSpecified: , owner: onmyway133, version: 2.0.2
 
 add-version-numbers: false
 
-LicensePlist Version: 1.8.3
+LicensePlist Version: 2.7.1
