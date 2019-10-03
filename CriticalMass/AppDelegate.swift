@@ -31,4 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_: UIApplication) {
         appController.onWillEnterForeground()
     }
+
+    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return appController.handle(url: url)
+    }
 }
