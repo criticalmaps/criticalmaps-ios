@@ -4,7 +4,13 @@ Changelog for Critical Maps iOS
 
 ## [Unreleased]
 
+### Added
+
+- Landscape support
 - Set userStyle as Theme under iOS 13
+
+### Fixed
+
 - Fix: NavigationBar Colors under iOS 13 
 - Open Twitter tapping on tweet
 
