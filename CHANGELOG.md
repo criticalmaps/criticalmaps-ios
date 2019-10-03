@@ -12,6 +12,7 @@ Changelog for Critical Maps iOS
 ### Fixed
 
 - Fix: NavigationBar Colors under iOS 13 
+- Fix: Ambiguous auto layout constraints for Settings screen
 
 ## [3.3.0] - 2019-09-01
 
