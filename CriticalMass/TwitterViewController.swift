@@ -30,6 +30,9 @@ class TwitterViewController: UIViewController {
         messagesTableViewController.noContentMessage = String.twitterNoData
         messagesTableViewController.messages = twitterManager.getTweets()
         messagesTableViewController.pullToRefreshTrigger = twitterManager.loadTweets
+        messagesTableViewController.selectMessageTrigger = { [weak self] selectedTweet in
+            self?.openTweet(selectedTweet)
+        }
 
         twitterManager.updateTweetsCallback = { [weak self] tweets in
             self?.messagesTableViewController.update(messages: tweets)
