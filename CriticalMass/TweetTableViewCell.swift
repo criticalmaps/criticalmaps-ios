@@ -49,7 +49,7 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
         }
     }
 
-    @IBOutlet private var tweetTextView: UITextView! {
+    @IBOutlet private var tweetTextView: LinkResponsiveTextView! {
         didSet {
             tweetTextView.textContainerInset = UIEdgeInsets(top: 0.0, left: -5.0, bottom: 0.0, right: 0.0)
         }
