@@ -6,6 +6,7 @@ Changelog for Critical Maps iOS
 
 - Set userStyle as Theme under iOS 13
 - Fix: NavigationBar Colors under iOS 13 
+- Open Twitter tapping on tweet
 
 ## [3.3.0] - 2019-09-01
 
