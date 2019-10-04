@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		757C7F682347ED4800FFEC6E /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 757C7F672347ED4800FFEC6E /* SnapshotTesting */; };
 		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
 		940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CF23071F3200AB1BCB /* ErrorHandler.swift */; };
 		940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */; };
@@ -276,6 +277,7 @@
 				94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */,
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
 				98F1D92B232AB1DA000F4E82 /* SwiftHash in Frameworks */,
+				757C7F682347ED4800FFEC6E /* SnapshotTesting in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				98F1D928232AB029000F4E82 /* SDWebImage in Frameworks */,
 			);
@@ -609,6 +611,7 @@
 			packageProductDependencies = (
 				98F1D927232AB029000F4E82 /* SDWebImage */,
 				98F1D92A232AB1DA000F4E82 /* SwiftHash */,
+				757C7F672347ED4800FFEC6E /* SnapshotTesting */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -679,6 +682,7 @@
 			packageReferences = (
 				98F1D926232AB029000F4E82 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				98F1D929232AB1DA000F4E82 /* XCRemoteSwiftPackageReference "SwiftHash" */,
+				757C7F662347ED4800FFEC6E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
 			projectDirPath = "";
@@ -1186,6 +1190,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		757C7F662347ED4800FFEC6E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
+			};
+		};
 		98F1D926232AB029000F4E82 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -1205,6 +1217,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		757C7F672347ED4800FFEC6E /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 757C7F662347ED4800FFEC6E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
 		98F1D927232AB029000F4E82 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98F1D926232AB029000F4E82 /* XCRemoteSwiftPackageReference "SDWebImage" */;
