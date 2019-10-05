@@ -8,6 +8,7 @@ Changelog for Critical Maps iOS
 
 - Landscape support
 - Set userStyle as Theme under iOS 13
+- Add infrastructure for Snapshot tests
 
 ### Fixed
 
