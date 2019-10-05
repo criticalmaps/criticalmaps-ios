@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		757C7F682347ED4800FFEC6E /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 757C7F672347ED4800FFEC6E /* SnapshotTesting */; };
+		757C7F702347EDC300FFEC6E /* TweetTableViewCellSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C7F6F2347EDC300FFEC6E /* TweetTableViewCellSnapshotTests.swift */; };
 		75892A0A2348EDF100B039FF /* MockThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75892A092348EDF100B039FF /* MockThemeController.swift */; };
 		75892A0C2348F11F00B039FF /* XCTestCase+SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75892A0B2348F11F00B039FF /* XCTestCase+SnapshotTests.swift */; };
 		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
@@ -150,6 +151,7 @@
 
 /* Begin PBXFileReference section */
 		757C7F6D2347EDC300FFEC6E /* CriticalMapsSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		757C7F6F2347EDC300FFEC6E /* TweetTableViewCellSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCellSnapshotTests.swift; sourceTree = "<group>"; };
 		757C7F712347EDC300FFEC6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75892A092348EDF100B039FF /* MockThemeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockThemeController.swift; sourceTree = "<group>"; };
 		75892A0B2348F11F00B039FF /* XCTestCase+SnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+SnapshotTests.swift"; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		757C7F6E2347EDC300FFEC6E /* CriticalMapsSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				757C7F6F2347EDC300FFEC6E /* TweetTableViewCellSnapshotTests.swift */,
 				757C7F712347EDC300FFEC6E /* Info.plist */,
 				75892A092348EDF100B039FF /* MockThemeController.swift */,
 				75892A0B2348F11F00B039FF /* XCTestCase+SnapshotTests.swift */,
@@ -851,6 +854,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75892A0A2348EDF100B039FF /* MockThemeController.swift in Sources */,
+				757C7F702347EDC300FFEC6E /* TweetTableViewCellSnapshotTests.swift in Sources */,
 				75892A0C2348F11F00B039FF /* XCTestCase+SnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
