@@ -53,7 +53,9 @@ In general, we follow the "fork-and-pull" Git workflow.
 4.  **Push** your work back up to your fork
 5.  Submit a **Pull request** so that we can review your changes
 
-NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+NOTES: 
+- Be sure to merge the latest from "upstream" before making a pull request!
+- Please use "iPhone 5s (iOS 12.2)" simulator for snapshot testing (because Travis is running the tests with this device)
 
 ### Open Source & Copying
 
