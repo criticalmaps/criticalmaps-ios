@@ -12,6 +12,7 @@ Changelog for Critical Maps iOS
 ### Fixed
 
 - Fix: NavigationBar Colors under iOS 13 
+- Fix: UITableViewHeaderFooterView backgroundColor deprecation warning
 
 ## [3.3.0] - 2019-09-01
 

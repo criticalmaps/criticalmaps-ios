@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */; };
 		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
 		940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CF23071F3200AB1BCB /* ErrorHandler.swift */; };
 		940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */; };
@@ -139,6 +140,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+BackgroundColor.swift"; sourceTree = "<group>"; };
 		940643CD23071F1200AB1BCB /* Codable+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Sugar.swift"; sourceTree = "<group>"; };
 		940643CF23071F3200AB1BCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChatMessagesRequest.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
 				94092748228321E60034E46B /* UITableView+Register.swift */,
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
+				75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */,
 				9810C381229830940011F718 /* RatingHelper.swift */,
 				988B12AC22A271FE0010FAED /* Logger.swift */,
 				94D4016E229F20F6001524CC /* FontMetrics.swift */,
@@ -852,6 +855,7 @@
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
 				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
+				75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */,
 				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
