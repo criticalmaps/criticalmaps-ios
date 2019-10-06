@@ -14,7 +14,6 @@
 # update_fastlane
 
 Target_Folder_Name = 'build' 
-DerivedDataPath = 'DerivedData'
 
 Scheme = 'CriticalMaps'
 Scheme_UnitTests = 'CriticalMapsTests'
