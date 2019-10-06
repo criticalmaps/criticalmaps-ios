@@ -7,6 +7,11 @@
 
 import UIKit
 
-class RuleTableViewCell: UITableViewCell {
+class RuleTableViewCell: UITableViewCell, IBConstructable {
+    @objc
+    dynamic var ruleTextColor: UIColor? {
+        didSet { label.textColor = ruleTextColor }
+    }
+
     @IBOutlet var label: UILabel!
 }

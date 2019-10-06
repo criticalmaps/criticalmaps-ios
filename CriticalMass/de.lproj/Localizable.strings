@@ -18,7 +18,10 @@
 "error" = "Fehler";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Sorry, du kannst die anderen nicht sehen,\nwenn dein GPS ausgeschalten ist.\n\nBitte aktiviere GPS in den Einstellungen.";
+"map.layer.info.title" = "GPS deaktiviert";
+
+/* No comment provided by engineer. */
+"map.layer.info" = "Critical Maps muss dein GPS verwenden, um die Karte anderen aktiven Benutzer anzuzeigen";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "Ortung";
@@ -87,7 +90,10 @@
 "settings.donate" = "Helfe unseren Server zu finanzieren";
 
 /* No comment provided by engineer. */
-"settings.enableGps" = "Teile deinen Standort mit anderen";
+"settings.observationmode.title" = "Beobachtungsmodus";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Wenn du nicht selbst teilnimmst, aber trotzdem der Critical Mass folgen möchtest.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -139,3 +145,6 @@
 
 /* No comment provided by engineer. */
 "close.button.label" = "schließen";
+
+/* Theme */
+"settings.theme" = "Nachtmodus";

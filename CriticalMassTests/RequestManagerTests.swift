@@ -8,68 +8,14 @@
 @testable import CriticalMaps
 import XCTest
 
-class MockLocationProvider: LocationProvider {
-    static var accessPermission: LocationProviderPermission = .authorized
-
-    var mockLocation: Location?
-
-    var currentLocation: Location? {
-        return mockLocation
-    }
-}
-
-class MockNetworkLayer: NetworkLayer {
-    var mockResponse: Codable?
-    var shouldReturnResponse = true
-    var lastUsedPostBody: [String: Any]?
-    var numberOfRequests: Int {
-        return numberOfGetCalled + numberOfPostCalled
-    }
-
-    var numberOfGetCalled = 0
-    var numberOfPostCalled = 0
-
-    func get<T>(with _: URL, decodable _: T.Type, customDateFormatter _: DateFormatter?, completion: @escaping (T?) -> Void) where T: Decodable {
-        numberOfGetCalled += 1
-        if shouldReturnResponse {
-            completion(mockResponse as? T)
-        }
-    }
-
-    func get<T>(with url: URL, decodable: T.Type, completion: @escaping (T?) -> Void) where T: Decodable {
-        get(with: url, decodable: decodable, customDateFormatter: nil, completion: completion)
-    }
-
-    func post<T>(with _: URL, decodable _: T.Type, bodyData: Data, completion: @escaping (T?) -> Void) where T: Decodable {
-        numberOfPostCalled += 1
-        lastUsedPostBody = try! JSONSerialization.jsonObject(with: bodyData, options: []) as! [String: Any]
-        if shouldReturnResponse {
-            completion(mockResponse as? T)
-        }
-    }
-}
-
-class MockDataStore: DataStore {
-    var storedData: ApiResponse?
-    func update(with response: ApiResponse) {
-        storedData = response
-    }
-}
-
-extension XCTestCase {
-    func wait(interval: TimeInterval, completion: @escaping () -> Void) {
-        Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
-            completion()
-        }
-    }
-}
-
 class RequestManagerTests: XCTestCase {
     func setup(interval: TimeInterval, deviceId: String = "") -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer) {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, deviceId: deviceId, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
+        let mockIDProvider = MockIDProvider()
+        mockIDProvider.mockID = deviceId
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
     }
 
     func testNoRequestForActiveRequests() {
@@ -81,11 +27,11 @@ class RequestManagerTests: XCTestCase {
             XCTAssertEqual(setup.networkLayer.numberOfRequests, 1)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testRespectingRequestRepeatTime() {
-        let numberOfExpectedRequests: TimeInterval = 2
+        let numberOfExpectedRequests: TimeInterval = 3
         let interval: TimeInterval = 0.3
         let setup = self.setup(interval: interval)
         XCTAssertEqual(setup.networkLayer.numberOfRequests, 0)
@@ -108,7 +54,7 @@ class RequestManagerTests: XCTestCase {
             XCTAssertEqual(setup.dataStore.storedData!, expectedStorage)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testPostLocation() {
@@ -121,11 +67,11 @@ class RequestManagerTests: XCTestCase {
         let exp = expectation(description: "Wait a second")
         wait(interval: 1) {
             XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
-            XCTAssertGreaterThan(testSetup.networkLayer.numberOfPostCalled, 1)
+            XCTAssertGreaterThanOrEqual(testSetup.networkLayer.numberOfPostCalled, 1)
             XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
             exp.fulfill()
         }
-        wait(for: [exp], timeout: 2)
+        wait(for: [exp], timeout: 4)
     }
 
     func testSendMessage() {
@@ -134,7 +80,7 @@ class RequestManagerTests: XCTestCase {
         let testMessage = SendChatMessage(text: "Hello", timestamp: 100, identifier: UUID().uuidString)
         let expectedBody: [String: AnyHashable] = ["device": deviceId, "messages": [["text": testMessage.text, "timestamp": testMessage.timestamp, "identifier": testMessage.identifier]] as! [[String: AnyHashable]]]
         XCTAssertNil(testSetup.dataStore.storedData)
-        testSetup.requestManager.send(messages: [testMessage])
+        testSetup.requestManager.send(messages: [testMessage]) { _ in }
 
         XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
         XCTAssertEqual(testSetup.networkLayer.numberOfPostCalled, 1)

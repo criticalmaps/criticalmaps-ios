@@ -30,39 +30,42 @@ enum Rule: String, CaseIterable {
 }
 
 class RulesViewController: UITableViewController {
-    private let cellIdentifier = "CellIdentifier"
     private let rules = Rule.allCases
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = UITableView.automaticDimension
         configureNavigationBar()
         registerCell()
+
+        // remove empty cells
+        tableView.tableFooterView = UIView()
     }
 
     private func configureNavigationBar() {
-        title = NSLocalizedString("rules.title", comment: "")
+        title = String.rulesTitle
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
     }
 
     private func registerCell() {
-        tableView.register(UINib(nibName: "RuleTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.register(cellType: RuleTableViewCell.self)
     }
 
     // MARK: UITableViewDataSource
+
+    override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        return 60
+    }
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return rules.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! RuleTableViewCell
+        let cell = tableView.dequeueReusableCell(ofType: RuleTableViewCell.self)
         cell.label?.text = rules[indexPath.row].title
-        if #available(iOS 10.0, *) {
-            cell.label.adjustsFontForContentSizeCategory = true
-        }
-        cell.label?.textColor = .rulesOverViewCell
         return cell
     }
 

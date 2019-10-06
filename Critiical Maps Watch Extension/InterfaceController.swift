@@ -17,7 +17,7 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
 
     let dataStore = MemoryDataStore()
     lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: locationManager, networkLayer: NetworkOperator(), deviceId: UUID().uuidString, url: Constants.apiEndpoint)
+        RequestManager(dataStore: dataStore, locationProvider: locationManager, networkLayer: NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper()), idProvider: IDStore(), url: Constants.apiEndpoint)
     }()
 
     var currentZoomLevel: Double = 1
@@ -47,17 +47,18 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
 
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
 
-        Preferences.gpsEnabled = true
         crownSequencer.delegate = self
     }
 
     override func didAppear() {
         super.didAppear()
         crownSequencer.focus()
-
-        locationManager.updateLocationCallback = { location in
-            self.set(location: location)
-        }
+        
+  
+//
+//        locationManager.updateLocationCallback = { location in
+//            self.set(location: location)
+//        }
     }
 
     func present(cluster: [CoordinateCluster.Cluster]) {

@@ -1,0 +1,7 @@
+name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.1.1
+
+name: SwiftHash, nameSpecified: , owner: onmyway133, version: 2.0.2
+
+add-version-numbers: false
+
+LicensePlist Version: 2.7.1

@@ -7,25 +7,55 @@
 
 import UIKit
 
-class SettingsSwitchTableViewCell: UITableViewCell {
-    private let switchControl = UISwitch()
+class SettingsSwitchTableViewCell: UITableViewCell, IBConstructable {
+    @objc
+    dynamic var titleColor: UIColor? {
+        willSet {
+            titleLabel.textColor = newValue
+        }
+    }
 
+    @objc
+    dynamic var subtitleColor: UIColor? {
+        willSet {
+            subtitleLabel.textColor = newValue
+        }
+    }
+
+    private let switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var subtitleLabel: UILabel!
+
+    private var switchable: Switchable?
 
     override var textLabel: UILabel? {
         return titleLabel
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        titleLabel.textColor = .settingsForeground
-        accessoryView = switchControl
-        // we currently only use SettingsSwitchTableViewCell for the GPS switch. We should move the code to the model once we introduce more preferences that might use this cell
-        switchControl.isOn = Preferences.gpsEnabled
-        switchControl.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
+    override var detailTextLabel: UILabel? {
+        subtitleLabel.isHidden = false
+        return subtitleLabel
     }
 
-    @objc private func switchValueChanged() {
-        Preferences.gpsEnabled = switchControl.isOn
+    func configure(switchable: Switchable) {
+        switchControl.isOn = switchable.isEnabled
+        self.switchable = switchable
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        subtitleLabel.isHidden = true
+        accessoryView = switchControl
+        switchControl.addTarget(self, action: #selector(switchControlAction(_:)), for: .valueChanged)
+    }
+
+    @objc
+    func switchControlAction(_ sender: UISwitch) {
+        switchable?.isEnabled = sender.isOn
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        subtitleLabel.isHidden = true
     }
 }

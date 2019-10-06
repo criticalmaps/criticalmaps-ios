@@ -1,0 +1,150 @@
+
+/* No comment provided by engineer. */
+"chat.noChatActivity" = "Personnne ne discute pour l'instant...\nlance la conversation !";
+
+/* No comment provided by engineer. */
+"chat.placeholder" = "Message ...";
+
+/* No comment provided by engineer. */
+"chat.send" = "Envoyer";
+
+/* No comment provided by engineer. */
+"chat.send.error" = "Le message n'a pas pu être envoyé. Merci de réessayer.";
+
+/* No comment provided by engineer. */
+"chat.title" = "Chat";
+
+/* No comment provided by engineer. */
+"error" = "Erreur";
+
+/* No comment provided by engineer. */
+"map.layer.info.title" = "GPS désactivé";
+
+/* No comment provided by engineer. */
+"map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
+
+/* No comment provided by engineer. */
+"map.locationButton.label" = "localisation";
+
+/* No comment provided by engineer. */
+"map.title" = "Critical Maps";
+
+/* No comment provided by engineer. */
+"rules.source" = "Images of criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+
+/* No comment provided by engineer. */
+"rules.text.brake" = "Évite les arrêts soudains. Si tu dois vraiment t'arrêter, essaye de prévenir les gens derrière toi.";
+
+/* No comment provided by engineer. */
+"rules.text.contraflow" = "Évite de rouler sur la voie opposée.";
+
+/* No comment provided by engineer. */
+"rules.text.cork" = "Protège les automobilistes d'eux-mêmes en bloquant la rue!\n\nPour maintenir la cohésion du groupe, bloque le traffic des routes que l'on croise pour que le groupe puisse passer les feux rouges sans interruption.";
+
+/* No comment provided by engineer. */
+"rules.text.gently" = "Quand tu roules à l'avant : Pas trop vite!\n\nQuand tu roules à l'arrière : Ne te laisse pas distancer !";
+
+/* No comment provided by engineer. */
+"rules.text.green" = "Quand tu es à l'avant de la masse critique et que tu arrives à un feu rouge, arrête toi au feu.";
+
+/* No comment provided by engineer. */
+"rules.text.haveFun" = "Profite de la rue sans voiture. Check les vélos qui passent de la musique. Discute avec les automobilistes et les piétons pour leur expliquer ce qui se passe.\n\nEt le plus important : Amuse toi!";
+
+/* No comment provided by engineer. */
+"rules.text.stayLoose" = "Reste amical avec la police, les automobilistes et tous les autres mêmes quand ils ne le sont pas.";
+
+/* No comment provided by engineer. */
+"rules.title" = "Règles";
+
+/* No comment provided by engineer. */
+"rules.title.brake" = "Pas d'arrêt brutal !";
+
+/* No comment provided by engineer. */
+"rules.title.contraflow" = "Attention au traffic";
+
+/* No comment provided by engineer. */
+"rules.title.cork" = "Bloquer les voitures ?!";
+
+/* No comment provided by engineer. */
+"rules.title.gently" = "C'est pas une course !";
+
+/* No comment provided by engineer. */
+"rules.title.green" = "Quand tu es à l'avant : arrête toi aux feus !";
+
+/* No comment provided by engineer. */
+"rules.title.haveFun" = "Profite !";
+
+/* No comment provided by engineer. */
+"rules.title.stayLoose" = "Reste calme";
+
+/* No comment provided by engineer. */
+"settings.about" = "À propos";
+
+
+"settings.appDesign" = "Design";
+
+/* No comment provided by engineer. */
+"settings.cmBerlin" = "Critical Mass Berlin";
+
+/* No comment provided by engineer. */
+"settings.donate" = "Fais un don pour soutenir nos serveurs GPS";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Mode observateur";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
+
+/* No comment provided by engineer. */
+"settings.facebook" = "Facebook";
+
+/* No comment provided by engineer. */
+"settings.gpsSettings" = "Paramètres GPS";
+
+/* No comment provided by engineer. */
+"settings.kniggeImages" = "Rules images";
+
+/* No comment provided by engineer. */
+"settings.logoDesign" = "Logo design";
+
+/* No comment provided by engineer. */
+"settings.openSource" = "Github";
+
+/* No comment provided by engineer. */
+"settings.opensource.action" = "Voir le Projet";
+
+/* No comment provided by engineer. */
+"settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs pour collaborer";
+
+/* No comment provided by engineer. */
+"settings.opensource.title" = "Tu aimerais de nouvelles fonctionnalités ou signaler un bug ?";
+
+/* No comment provided by engineer. */
+"settings.programming" = "Développement";
+
+/* No comment provided by engineer. */
+"settings.section.info" = "Info";
+
+/* No comment provided by engineer. */
+"settings.socialMedia" = "Réseaux sociaux";
+
+/* No comment provided by engineer. */
+"settings.title" = "Réglages";
+
+/* No comment provided by engineer. */
+"settings.twitter" = "Twitter";
+
+/* No comment provided by engineer. */
+"settings.website" = "Website";
+
+/* No comment provided by engineer. */
+"twitter.noData" = "Pas de données disponibles.\nTire vers le bas pour rafraîchir.";
+
+/* No comment provided by engineer. */
+"twitter.title" = "Twitter";
+
+/* No comment provided by engineer. */
+"close.button.label" = "Fermer";
+
+/* Theme */
+"settings.theme" = "Mode nuit";

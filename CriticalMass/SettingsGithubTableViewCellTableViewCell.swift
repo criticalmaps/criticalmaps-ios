@@ -7,38 +7,55 @@
 
 import UIKit
 
-class SettingsGithubTableViewCellTableViewCell: UITableViewCell {
-    @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var detailLabel: UILabel!
-    @IBOutlet var actionLabel: UILabel!
-
-    @IBOutlet var selectionOverlay: UIView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        if #available(iOS 10.0, *) {
-            titleLabel.adjustsFontForContentSizeCategory = true
-            detailLabel.adjustsFontForContentSizeCategory = true
-            actionLabel.adjustsFontForContentSizeCategory = true
+class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable {
+    @objc
+    dynamic var arrowTintColor: UIColor? {
+        willSet {
+            arrowImageView.tintColor = arrowTintColor
         }
-
-        titleLabel.attributedText = attributed(string: NSLocalizedString("settings.opensource.title", comment: ""), lineSpacing: 3.3)
-        titleLabel.textColor = .settingsOpenSourceForeground
-        detailLabel.attributedText = attributed(string: NSLocalizedString("settings.opensource.detail", comment: ""), lineSpacing: 4)
-        detailLabel.textColor = .settingsOpenSourceForeground
-        actionLabel.text = NSLocalizedString("settings.opensource.action", comment: "").uppercased()
-        actionLabel.textColor = .settingsOpenSourceForeground
-
-        backgroundImageView.image = UIImage(named: "GithubBanner")?.resizableImage(withCapInsets: UIEdgeInsets(top: 20, left: 20, bottom: 200, right: 200), resizingMode: .stretch)
-        selectionOverlay.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
-        selectionOverlay.layer.cornerRadius = 16
     }
 
-    private func attributed(string: String, lineSpacing: Float) -> NSAttributedString {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = CGFloat(lineSpacing)
-        return NSAttributedString(string: string, attributes: [.paragraphStyle: paragraphStyle])
+    @IBOutlet var backgroundImageView: UIImageView! {
+        didSet {
+            backgroundImageView.layer.cornerRadius = 16.0
+        }
+    }
+
+    @IBOutlet var titleLabel: UILabel! {
+        didSet {
+            titleLabel.font = UIFont.scalableSystemFont(fontSize: 20.0, weight: .heavy)
+            titleLabel.textColor = .settingsOpenSourceForeground
+        }
+    }
+
+    @IBOutlet var detailLabel: UILabel! {
+        didSet {
+            detailLabel.textColor = .settingsOpenSourceForeground
+            detailLabel.font = UIFont.scalableSystemFont(fontSize: 15.0, weight: .medium)
+        }
+    }
+
+    @IBOutlet var actionLabel: UILabel! {
+        didSet {
+            actionLabel.textColor = .settingsOpenSourceForeground
+            actionLabel.font = UIFont.scalableSystemFont(fontSize: 15.0, weight: .bold)
+        }
+    }
+
+    @IBOutlet var selectionOverlay: UIView! {
+        didSet {
+            selectionOverlay.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
+            selectionOverlay.layer.cornerRadius = 16
+        }
+    }
+
+    @IBOutlet var arrowImageView: UIImageView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        titleLabel.text = String.settingsOpenSourceTitle
+        detailLabel.text = String.settingsOpenSourceDetail
+        actionLabel.text = String.settingsOpenSourceAction.uppercased()
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {

@@ -8,26 +8,26 @@
 import MapKit
 import UIKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
-    class IdentifiableAnnnotation: MKPointAnnotation {
-        var identifier: String
+class MapViewController: UIViewController {
+    private let themeController: ThemeController!
+    private var tileRenderer: MKTileOverlayRenderer?
 
-        var location: Location {
-            set {
-                coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
-            }
-            @available(*, unavailable)
-            get {
-                fatalError("Not implemented")
-            }
-        }
-
-        init(location: Location, identifier: String) {
-            self.identifier = identifier
-            super.init()
-            self.location = location
-        }
+    init(themeController: ThemeController) {
+        self.themeController = themeController
+        super.init(nibName: nil, bundle: nil)
     }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Properties
+
+    private let nightThemeOverlay = DarkModeMapOverlay()
+    public lazy var followMeButton: UserTrackingButton = {
+        let button = UserTrackingButton(mapView: mapView)
+        return button
+    }()
 
     public var bottomContentOffset: CGFloat = 0 {
         didSet {
@@ -35,53 +35,71 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
-    override func loadView() {
-        view = MKMapView(frame: .zero)
-    }
+    private var mapView = MKMapView(frame: .zero)
 
-    private var mapView: MKMapView {
-        return view as! MKMapView
-    }
-
-    private let gpsDisabledOverlayView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        view.accessibilityViewIsModal = true
-        view.effect = UIBlurEffect(style: .light)
-        let label = UILabel()
-        label.text = NSLocalizedString("map.layer.info", comment: "")
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.sizeToFit()
-        view.contentView.addSubview(label)
-        label.center = view.center
-        label.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]
+    private let gpsDisabledOverlayView: BlurryOverlayView = {
+        let view = BlurryOverlayView.fromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = NSLocalizedString("map.title", comment: "")
+        title = String.mapTitle
         configureNotifications()
+        configureTileRenderer()
         configureMapView()
         condfigureGPSDisabledOverlayView()
+
+        setNeedsStatusBarAppearanceUpdate()
+    }
+
+    private func configureTileRenderer() {
+        guard themeController.currentTheme == .dark else {
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .light
+            }
+            return
+        }
+
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .dark
+        } else {
+            addTileRenderer()
+        }
     }
 
     private func condfigureGPSDisabledOverlayView() {
+        let gpsDisabledOverlayView = self.gpsDisabledOverlayView
+        gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
+        gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
         view.addSubview(gpsDisabledOverlayView)
+        NSLayoutConstraint.activate([
+            gpsDisabledOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            gpsDisabledOverlayView.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
 
-        gpsDisabledOverlayView.frame = view.bounds
-        gpsDisabledOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         updateGPSDisabledOverlayVisibility()
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: NSNotification.Name("positionOthersChanged"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: NSNotification.Name("initialGpsDataReceived"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: NSNotification.Name("gpsStateChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: Notification.initialGpsDataReceived, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.observationModeChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Notification.themeDidChange, object: nil)
     }
 
     private func configureMapView() {
+        view.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            NSLayoutConstraint(item: mapView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 1),
+            NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+        ])
+
         if #available(iOS 11.0, *) {
             mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.identifier)
         }
@@ -91,17 +109,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     private func display(locations: [String: Location]) {
+        guard LocationManager.accessPermission == .authorized else {
+            return
+        }
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
-        mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach({ annotation in
+        mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach { annotation in
             if let location = unmatchedLocations[annotation.identifier] {
                 annotation.location = location
                 unmatchedLocations.removeValue(forKey: annotation.identifier)
             } else {
                 unmatchedAnnotations.append(annotation)
             }
-        })
+        }
         let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
         mapView.addAnnotations(annotations)
 
@@ -109,15 +130,42 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.removeAnnotations(unmatchedAnnotations)
     }
 
-    @objc func updateGPSDisabledOverlayVisibility() {
-        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission == .authorized
+    @objc func didTapGPSDisabledOverlayButton() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
     }
 
-    public func didTapfollowMeButton() {
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+    @objc func updateGPSDisabledOverlayVisibility() {
+        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission != .denied
     }
 
     // MARK: Notifications
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return themeController.currentTheme.style.statusBarStyle
+    }
+
+    @objc private func themeDidChange() {
+        let theme = themeController.currentTheme
+        guard theme == .dark else {
+                if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .light
+                } else {
+                    removeTileRenderer()
+                }
+            return
+        }
+        configureTileRenderer()
+    }
+
+    private func removeTileRenderer() {
+        tileRenderer = nil
+        mapView.removeOverlay(nightThemeOverlay)
+    }
+
+    private func addTileRenderer() {
+        tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
+        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
+    }
 
     @objc private func positionsDidChange(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
@@ -130,19 +178,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let adjustedRegion = mapView.regionThatFits(region)
         mapView.setRegion(adjustedRegion, animated: true)
     }
+}
 
+extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKUserLocation == false else {
             return nil
         }
+        let annotationView: BikeAnnoationView
         if #available(iOS 11.0, *) {
-            return mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation)
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation) as! BikeAnnoationView
         } else {
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) ?? BikeAnnoationView()
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
             annotationView.annotation = annotation
-            return annotationView
         }
+        return annotationView
+    }
+
+    func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
+        followMeButton.currentMode = UserTrackingButton.Mode(mode)
+    }
+
+    func mapView(_: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let renderer = self.tileRenderer else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        return renderer
     }
 }

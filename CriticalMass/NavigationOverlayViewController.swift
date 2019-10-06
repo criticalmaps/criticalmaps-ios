@@ -7,26 +7,47 @@
 
 import UIKit
 
+class SeparatorView: UIView {}
+class OverlayView: UIView {
+    @objc
+    dynamic var overlayBackgroundColor: UIColor? {
+        willSet {
+            backgroundColor = newValue
+        }
+    }
+}
+
 struct NavigationOverlayItem {
     enum Action {
         case navigation(viewController: () -> UIViewController)
-        case action(() -> Void)
+        case none
     }
 
-    let accessibilityLabel: String
+    enum Representation {
+        case icon(_ icon: UIImage, accessibilityLabel: String)
+        case view(_ view: UIView)
+        case button(_ button: UIButton)
+    }
+
+    let representation: Representation
     let action: Action
-    let icon: UIImage
+    let accessibilityIdentifier: String
 }
 
 class NavigationOverlayViewController: UIViewController {
     private var items: [NavigationOverlayItem]
     private var itemViews: [UIView] = []
-    private var separatorViews: [UIView] = []
+    private var separatorViews: [SeparatorView] = []
 
     init(navigationItems: [NavigationOverlayItem]) {
         items = navigationItems
         super.init(nibName: nil, bundle: nil)
         configure(items: navigationItems)
+    }
+
+    override func loadView() {
+        super.loadView()
+        view = OverlayView()
     }
 
     required init?(coder _: NSCoder) {
@@ -35,7 +56,6 @@ class NavigationOverlayViewController: UIViewController {
 
     let visualEffectView: UIVisualEffectView = {
         let view = UIVisualEffectView()
-        view.accessibilityViewIsModal = true
         view.effect = UIBlurEffect(style: .light)
         view.layer.cornerRadius = 18
         view.layer.masksToBounds = true
@@ -44,39 +64,47 @@ class NavigationOverlayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureViewBackground()
     }
 
     private func configureViewBackground() {
-        view.backgroundColor = .navigationOverlayBackground
-        view.layer.cornerRadius = 18
         view.insertSubview(visualEffectView, at: 0)
-
         view.layer.shadowOpacity = 0.2
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
+        view.layer.cornerRadius = 18
     }
 
     private func configure(items: [NavigationOverlayItem]) {
         for (index, item) in items.enumerated() {
-            let button = CustomButton(frame: .zero)
-            button.setImage(item.icon, for: .normal)
-            button.tintColor = .navigationOverlayForeground
-            button.adjustsImageWhenHighlighted = false
-            button.highlightedTintColor = UIColor.navigationOverlayForeground.withAlphaComponent(0.4)
-            button.accessibilityLabel = item.accessibilityLabel
-            button.tag = index
-            button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
-            view.addSubview(button)
-            itemViews.append(button)
+            switch item.representation {
+            case let .icon(icon, accessibilityLabel: accessibilityLabel):
+                let button = CustomButton(frame: .zero)
+                button.setImage(icon, for: .normal)
+                button.adjustsImageWhenHighlighted = false
+                button.accessibilityLabel = accessibilityLabel
+                button.accessibilityIdentifier = item.accessibilityIdentifier
+                button.tag = index
+                button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
+                view.addSubview(button)
+                itemViews.append(button)
+            case let .view(view):
+                view.accessibilityIdentifier = item.accessibilityIdentifier
+                self.view.addSubview(view)
+                itemViews.append(view)
+            case let .button(button):
+                button.tag = index
+                button.accessibilityIdentifier = item.accessibilityIdentifier
+                button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
+                view.addSubview(button)
+                itemViews.append(button)
+            }
         }
 
         separatorViews = (0 ..< items.count - 1)
             .map { _ in
-                let view = UIView()
-                view.backgroundColor = .navigationOverlaySeparator
+                let view = SeparatorView()
                 return view
             }
         separatorViews.forEach(view.addSubview)
@@ -87,15 +115,13 @@ class NavigationOverlayViewController: UIViewController {
         let selectedItem = items[button.tag]
 
         switch selectedItem.action {
-        case let .action(closure):
-            closure()
+        case .none:
+            break
         case let .navigation(viewController: viewController):
             let navigationController = UINavigationController(rootViewController: viewController())
             let barbuttonItem = UIBarButtonItem(image: UIImage(named: "Close"), style: .done, target: self, action: #selector(didTapCloseButton(button:)))
-            barbuttonItem.accessibilityLabel = NSLocalizedString("close.button.label", comment: "")
-            barbuttonItem.tintColor = .black
+            barbuttonItem.accessibilityLabel = String.closeButtonLabel
             navigationController.navigationBar.topItem?.setLeftBarButton(barbuttonItem, animated: false)
-
             present(navigationController, animated: true, completion: nil)
         }
     }

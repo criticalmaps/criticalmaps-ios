@@ -9,18 +9,17 @@ import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     static var accessPermission: LocationProviderPermission {
-        if Preferences.gpsEnabled {
-            switch CLLocationManager.authorizationStatus() {
-            case .authorizedAlways,
-                 .authorizedWhenInUse:
-                return .authorized
-            case .notDetermined:
-                return .unkown
-            case .restricted,
-                 .denied:
-                return .denied
-            }
-        } else {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways,
+             .authorizedWhenInUse:
+            return .authorized
+        case .notDetermined:
+            return .unkown
+        case .restricted,
+             .denied:
+            return .denied
+        @unknown default:
+            assertionFailure()
             return .denied
         }
     }
@@ -37,12 +36,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             }
             if let location = currentLocation {
                 didSetInitialLocation = true
-                NotificationCenter.default.post(name: NSNotification.Name("initialGpsDataReceived"), object: location)
+                NotificationCenter.default.post(name: Notification.initialGpsDataReceived, object: location)
                 updateLocationCallback?(location)
             }
         }
         get {
-            guard type(of: self).accessPermission == .authorized else {
+            guard type(of: self).accessPermission == .authorized, !ObservationModePreferenceStore().isEnabled else {
                 return nil
             }
             return _currentLocation
@@ -59,9 +58,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func configureLocationManager() {
-        if #available(iOS 9.0, *) {
-            locationManager.allowsBackgroundLocationUpdates = true
-        }
+        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.requestAlwaysAuthorization()
         locationManager.activityType = .otherNavigation
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -79,35 +76,23 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     func requestLocation() {
         guard type(of: self).accessPermission == .authorized else { return }
-        if #available(iOS 9.0, *) {
-            locationManager.requestLocation()
-        } else {
-            locationManager.startUpdatingLocation()
-        }
+        locationManager.requestLocation()
     }
 
     // MARK: CLLocationManagerDelegate
 
     func locationManager(_: CLLocationManager, didFailWithError _: Error) {
-        if #available(iOS 9.0, *) {
-            // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
-        } else {
-            locationManager.stopUpdatingLocation()
-        }
+        locationManager.stopUpdatingLocation()
     }
 
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             currentLocation = Location(location)
         }
-        if #available(iOS 9.0, *) {
-            // we don't need to call stopUpdatingLocation as we are using requestLocation() on iOS 9 and later
-        } else {
-            locationManager.stopUpdatingLocation()
-        }
+        locationManager.stopUpdatingLocation()
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
-        NotificationCenter.default.post(name: NSNotification.Name("gpsStateChanged"), object: type(of: self).accessPermission)
+        NotificationCenter.default.post(name: Notification.observationModeChanged, object: type(of: self).accessPermission)
     }
 }

@@ -8,72 +8,45 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-    enum Section: CaseIterable {
-        case preferences
-        case github
-        case info
+    private let themeController: ThemeController!
 
-        struct Model {
-            var title: String?
-            var action: Action
-        }
+    init(themeController: ThemeController) {
+        self.themeController = themeController
+        super.init(nibName: nil, bundle: nil)
+    }
 
-        var numberOfRows: Int {
-            return models.count
-        }
-
-        var secionTitle: String? {
-            switch self {
-            case .preferences,
-                 .github:
-                return nil
-            case .info:
-                return NSLocalizedString("settings.section.info", comment: "")
-            }
-        }
-
-        var cellClass: UITableViewCell.Type {
-            switch self {
-            case .preferences:
-                return SettingsSwitchTableViewCell.self
-            case .github:
-                return SettingsGithubTableViewCellTableViewCell.self
-            case .info:
-                return SettingsInfoTableViewCell.self
-            }
-        }
-
-        var models: [Model] {
-            switch self {
-            case .preferences:
-                return [Model(title: NSLocalizedString("GPS", comment: ""), action: .none)]
-            case .github:
-                return [Model(title: nil, action: .open(url: URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!))]
-            case .info:
-                return [Model(title: NSLocalizedString("settings.website", comment: ""), action: .open(url: URL(string: "https://www.criticalmaps.net")!)),
-                        Model(title: NSLocalizedString("settings.twitter", comment: ""), action: .open(url: URL(string: "https://twitter.com/criticalmaps/")!)),
-                        Model(title: NSLocalizedString("settings.facebook", comment: ""), action: .open(url: URL(string: "https://www.facebook.com/criticalmaps")!))]
-            }
-        }
-
-        enum Action {
-            case open(url: URL)
-            case none
-        }
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         for cell in Section.allCases.map({ $0.cellClass }) {
-            let name = String(describing: cell)
-            tableView.register(UINib(nibName: name, bundle: nil), forCellReuseIdentifier: name)
+            tableView.register(cell.nib, forCellReuseIdentifier: cell.nibName)
         }
+        tableView.rowHeight = UITableView.automaticDimension
+
+        configureSettingsFooter()
         configureNavigationBar()
+
+        tableView.register(viewType: SettingsTableSectionHeader.self)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        sizeFooterToFit()
+    }
+
+    private func configureSettingsFooter() {
+        let settingsFooter = SettingsFooterView.fromNib()
+        settingsFooter.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
+        settingsFooter.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
+        tableView.tableFooterView = settingsFooter
     }
 
     private func configureNavigationBar() {
-        title = NSLocalizedString("settings.title", comment: "")
+        title = String.settingsTitle
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
@@ -83,30 +56,31 @@ class SettingsViewController: UITableViewController {
         return Section.allCases.count
     }
 
-    override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Section.allCases[section].secionTitle
+    override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
+        header.titleLabel.text = Section.allCases[section].title
+        return header
+    }
+
+    override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard Section.allCases[section].title != nil else {
+            return 0.0
+        }
+        return 42.0
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Section.allCases[section].numberOfRows
     }
 
-    override func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection _: Int) {
-        for subView in view.subviews {
-            subView.backgroundColor = .white
-            for case let label as UILabel in subView.subviews {
-                if #available(iOS 8.2, *) {
-                    label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-                }
-            }
-        }
+    override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        return 60
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
-        let identifier = String(describing: section.cellClass)
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        cell.textLabel?.text = section.models[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass), for: indexPath)
+        configure(cell, for: section.models[indexPath.row])
         return cell
     }
 
@@ -114,13 +88,34 @@ class SettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let section = Section.allCases[indexPath.section]
-        let acttion = section.models[indexPath.row].action
+        let action = section.models[indexPath.row].action
 
-        switch acttion {
-        case .none:
-            return
+        switch action {
         case let .open(url: url):
-            UIApplication.shared.openURL(url)
+            let application = UIApplication.shared
+            guard application.canOpenURL(url) else {
+                return
+            }
+            application.open(url, options: [:], completionHandler: nil)
+        case .switch:
+            break
         }
+    }
+}
+
+extension SettingsViewController {
+    fileprivate func configure(_ cell: UITableViewCell, for model: Section.Model) {
+        if let switchCell = cell as? SettingsSwitchTableViewCell,
+            case let .switch(switchableType) = model.action {
+            if switchableType == ObservationModePreferenceStore.self {
+                switchCell.configure(switchable: ObservationModePreferenceStore())
+            } else if switchableType == ThemeController.self {
+                switchCell.configure(switchable: themeController)
+            } else {
+                assertionFailure("Switchable not found")
+            }
+        }
+        cell.textLabel?.text = model.title
+        cell.detailTextLabel?.text = model.subtitle
     }
 }

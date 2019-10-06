@@ -8,22 +8,30 @@
 import UIKit
 
 class SocialViewController: UIViewController, UIToolbarDelegate {
-    private var chatViewController: () -> UIViewController
-    private var twitterController: () -> UIViewController
-    @IBOutlet var toolBar: UIToolbar!
-    @IBOutlet var contentView: UIView!
+    private var chatViewController: UIViewController
+    private var twitterController: UIViewController
 
-    init(chatViewController: @escaping () -> UIViewController, twitterViewController: @escaping () -> UIViewController) {
+    private lazy var segmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: SocialSegments.allCases.map { $0.title })
+        control.selectedSegmentIndex = 0
+        control.addTarget(self, action: #selector(socialSelectionDidChange(control:)),
+                          for: .valueChanged)
+        control.backgroundColor = .clear
+        control.translatesAutoresizingMaskIntoConstraints = false
+        return control
+    }()
+
+    init(chatViewController: UIViewController, twitterViewController: UIViewController) {
         self.chatViewController = chatViewController
         twitterController = twitterViewController
-        super.init(nibName: "SocialViewController", bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    enum Tab: String, CaseIterable {
+    enum SocialSegments: String, CaseIterable {
         case chat
         case twitter
 
@@ -34,15 +42,13 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        toolBar.delegate = self
-
         configureSegmentedControl()
         configureNavigationBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        present(tab: Tab.allCases[0])
+        present(segment: .chat)
     }
 
     private func configureNavigationBar() {
@@ -55,45 +61,26 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     }
 
     private func configureSegmentedControl() {
-        let segmentedControl = UISegmentedControl(items: Tab.allCases.map { $0.title })
-        segmentedControl.sizeToFit()
-        segmentedControl.bounds.size.width = view.bounds.width
-        segmentedControl.tintColor = .socialTabControlTintColor
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(socialSelectionDidChange(control:)), for: .valueChanged)
-        segmentedControl.backgroundColor = .clear
-        toolBar.setItems([UIBarButtonItem(customView: segmentedControl)], animated: false)
+        navigationItem.titleView = segmentedControl
+        NSLayoutConstraint.activate([
+            segmentedControl.centerXAnchor.constraint(equalTo: self.navigationItem.titleView!.centerXAnchor),
+            segmentedControl.heightAnchor.constraint(equalTo: navigationItem.titleView!.heightAnchor),
+            segmentedControl.widthAnchor.constraint(equalToConstant: 180.0),
+        ])
     }
 
     @objc private func socialSelectionDidChange(control: UISegmentedControl) {
-        present(tab: Tab.allCases[control.selectedSegmentIndex])
+        present(segment: SocialSegments.allCases[control.selectedSegmentIndex])
     }
 
-    private func present(tab: Tab) {
-        children.forEach { viewController in
-            viewController.willMove(toParent: nil)
-            viewController.view.removeFromSuperview()
-            viewController.removeFromParent()
-        }
-        let newViewController: UIViewController
-
-        switch tab {
+    private func present(segment: SocialSegments) {
+        switch segment {
         case .chat:
-            newViewController = chatViewController()
-            newViewController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleBottomMargin]
+            remove(child: twitterController)
+            add(child: chatViewController)
         case .twitter:
-            newViewController = twitterController()
+            remove(child: chatViewController)
+            add(child: twitterController)
         }
-        addChild(newViewController)
-        newViewController.view.frame = contentView.bounds
-        contentView.addSubview(newViewController.view)
-        newViewController.didMove(toParent: self)
-    }
-
-    // Mark: UIToolBarDelegate
-
-    func position(for _: UIBarPositioning) -> UIBarPosition {
-        // This delegate method is needed to define the border position
-        return .topAttached
     }
 }
