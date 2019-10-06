@@ -6,7 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public protocol TypeNameProtocol {
     static var typeName: String { get }

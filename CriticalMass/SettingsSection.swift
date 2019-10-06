@@ -6,7 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Section: Int, CaseIterable {
     case preferences

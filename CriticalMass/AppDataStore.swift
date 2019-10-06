@@ -6,7 +6,7 @@
 //
 
 import CoreData
-import Foundation
+import UIKit
 
 class AppDataStore: DataStore {
     private var userDefaults: UserDefaults

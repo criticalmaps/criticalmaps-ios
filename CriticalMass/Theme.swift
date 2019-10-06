@@ -6,11 +6,23 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Theme: Int {
     case light
     case dark
+
+    @available(iOS 12.0, *)
+    init(userInterfaceStyle: UIUserInterfaceStyle) {
+        switch userInterfaceStyle {
+        case .dark:
+            self = .dark
+        case .light, .unspecified:
+            self = .light
+        @unknown default:
+            self = .light
+        }
+    }
 
     var style: ThemeDefining {
         switch self {

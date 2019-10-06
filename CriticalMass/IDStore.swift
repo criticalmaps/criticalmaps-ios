@@ -5,7 +5,8 @@
 //  Created by Leonard Thomas on 5/2/19.
 //
 
-import Foundation
+import SwiftHash
+import UIKit
 
 public class IDStore: IDProvider {
     public init(currentDate: Date = Date()) {
@@ -16,7 +17,7 @@ public class IDStore: IDProvider {
         let dateString = format.string(from: currentDate)
 
         // TODO: cleanup
-        let realID = (deviceID + dateString).md5!
+        let realID = MD5(deviceID + dateString)
         let key = try! RSAKey(tag: RSAKey.keychainTag)
         id = realID
         signature = try! RSA.sign(realID.data(using: .utf8)!, privateKey: key.privateKey!).base64EncodedString()

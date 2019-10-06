@@ -6,6 +6,8 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
+import UIKit
+
 extension UIView {
     func addLayoutsCenter(in view: UIView, size: CGSize) {
         translatesAutoresizingMaskIntoConstraints = false

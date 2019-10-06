@@ -6,6 +6,7 @@
 //
 
 @testable import CriticalMaps
+import UIKit
 import XCTest
 
 class AppDataStoreTests: XCTestCase {
