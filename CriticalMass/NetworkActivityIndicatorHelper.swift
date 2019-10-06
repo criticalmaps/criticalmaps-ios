@@ -5,7 +5,7 @@
 //  Created by Leonard Thomas on 5/5/19.
 //
 
-import Foundation
+import UIKit
 
 class NetworkActivityIndicatorHelper {
     private var requestCounter = 0 {

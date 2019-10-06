@@ -13,12 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var appController = AppController()
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        #if DEBUG
-            guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
-                // We are in a XCTest and setting up the AppController would add Noise to the tests
-                return true
-            }
-        #endif
+
+        // Test Configuration
+        if let shouldEarlyExitForTests = configureAppForTests() {
+            return shouldEarlyExitForTests
+        }
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = appController.rootViewController
@@ -30,5 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_: UIApplication) {
         appController.onWillEnterForeground()
+    }
+
+    private func configureAppForTests() -> Bool? {
+        #if DEBUG
+            guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
+                // We are in a XCTest and setting up the AppController would add Noise to the tests
+                return true
+            }
+
+            if ProcessInfo.processInfo.arguments.contains("SKIP_ANIMATIONS") {
+                UIView.setAnimationsEnabled(false)
+            }
+            return nil
+        #endif
     }
 }

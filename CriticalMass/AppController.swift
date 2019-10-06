@@ -5,7 +5,7 @@
 //  Created by Leonard Thomas on 2/3/19.
 //
 
-import Foundation
+import UIKit
 
 class AppController {
     public func onAppLaunch() {
@@ -70,10 +70,18 @@ class AppController {
     lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController(themeController: self.themeController, friendsVerificationController: FriendsVerificationController(dataStore: dataStore))
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            .init(representation: .view(rootViewController.followMeButton), action: .none),
-            .init(representation: .button(chatNavigationButtonController.button), action: .navigation(viewController: getSocialViewController)),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: String.rulesTitle), action: .navigation(viewController: getRulesViewController)),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: String.settingsTitle), action: .navigation(viewController: getSettingsViewController)),
+            .init(representation: .view(rootViewController.followMeButton),
+                  action: .none,
+                  accessibilityIdentifier: "Follow"),
+            .init(representation: .button(chatNavigationButtonController.button),
+                  action: .navigation(viewController: getSocialViewController),
+                  accessibilityIdentifier: "Chat"),
+            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: String.rulesTitle),
+                  action: .navigation(viewController: getRulesViewController),
+                  accessibilityIdentifier: "Rules"),
+            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: String.settingsTitle),
+                  action: .navigation(viewController: getSettingsViewController),
+                  accessibilityIdentifier: "Settings"),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)
