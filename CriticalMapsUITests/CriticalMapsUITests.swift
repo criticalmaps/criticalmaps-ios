@@ -17,6 +17,12 @@ class CriticalMapsUITests: XCTestCase {
         let app = XCUIApplication()
         setupSnapshot(app, waitForAnimations: false)
         app.launch()
+
+        addUIInterruptionMonitor(withDescription: "Allow location permissions") { alert in
+            alert.buttons["Allow While Using App"].tap()
+            return true
+        }
+        app.tap()
     }
 
     func testScreenshots() {
