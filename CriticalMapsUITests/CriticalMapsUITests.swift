@@ -15,6 +15,9 @@ class CriticalMapsUITests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
+        app.launchArguments += [
+            "SKIP_ANIMATIONS"
+        ]
         setupSnapshot(app, waitForAnimations: false)
         app.launch()
 

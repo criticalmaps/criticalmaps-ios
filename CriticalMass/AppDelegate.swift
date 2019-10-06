@@ -25,10 +25,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         appController.onAppLaunch()
+        handleLaunchArguments()
         return true
     }
 
     func applicationWillEnterForeground(_: UIApplication) {
         appController.onWillEnterForeground()
+    }
+
+    private func handleLaunchArguments() {
+        #if DEBUG
+        let arguments = ProcessInfo().arguments
+
+        if arguments.contains("SKIP_ANIMATIONS") {
+            UIView.setAnimationsEnabled(false)
+        }
+        #endif
     }
 }
