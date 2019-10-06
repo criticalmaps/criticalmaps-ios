@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appController.onWillEnterForeground()
     }
 
-    func configureAppForTests() -> Bool? {
+    private func configureAppForTests() -> Bool? {
         #if DEBUG
             guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
                 // We are in a XCTest and setting up the AppController would add Noise to the tests
