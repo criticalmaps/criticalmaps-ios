@@ -35,20 +35,10 @@ platform :ios do
   
   desc 'Make screenshots of app'
   lane :screenshots do
-    run_tests(
-      clean: true,
-      build_for_testing: true,
-      derived_data_path: DerivedDataPath,
-      scheme: Scheme
-    )
-
     capture_ios_screenshots(
       app_identifier: 'de.pokuslabs.criticalmassberlin',
-      configuration: 'Debug',
-      derived_data_path: DerivedDataPath,
       output_directory: 'build/screenshots',
-      scheme: Scheme_UITests,
-      test_without_building: true
+      scheme: Scheme_UITests
     )
   end
 end
