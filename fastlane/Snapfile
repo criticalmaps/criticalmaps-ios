@@ -5,12 +5,13 @@ devices([
   "iPhone 8",
   "iPhone 8 Plus",
   "iPhone SE",
-  "iPhone X"
+  "iPhone X",
+  "iPhone 11 Pro Max"
 ])
 
 languages([
   "en-US",
-  "de-DE"
-#   "it-IT",
-#   ["pt", "pt_BR"] # Portuguese with Brazilian locale
+  "de-DE",
+  "fr-FR",
+  "it-IT"
 ])
