@@ -1,4 +1,4 @@
-name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.1.1
+name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.2.2
 
 name: SwiftHash, nameSpecified: , owner: onmyway133, version: 2.0.2
 
