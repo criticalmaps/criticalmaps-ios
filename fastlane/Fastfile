@@ -37,6 +37,7 @@ platform :ios do
   lane :screenshots do
     capture_ios_screenshots(
       app_identifier: 'de.pokuslabs.criticalmassberlin',
+      configuration: 'Debug',
       output_directory: 'build/screenshots',
       scheme: Scheme_UITests
     )
