@@ -48,16 +48,6 @@
                ReferencedContainer = "container:CriticalMaps.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3F137FAE2349CB8C006B26AB"
-               BuildableName = "CriticalMapsUITests.xctest"
-               BlueprintName = "CriticalMapsUITests"
-               ReferencedContainer = "container:CriticalMaps.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
