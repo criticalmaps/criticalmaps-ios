@@ -54,11 +54,10 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
         super.didAppear()
         crownSequencer.focus()
         
-  
-//
-//        locationManager.updateLocationCallback = { location in
-//            self.set(location: location)
-//        }
+        
+        locationManager.updateLocationCallback = { location in
+            self.set(location: location)
+        }
     }
 
     func present(cluster: [CoordinateCluster.Cluster]) {

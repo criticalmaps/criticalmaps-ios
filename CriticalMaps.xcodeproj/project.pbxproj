@@ -139,7 +139,6 @@
 		989F3435220E0C5200B751DC /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F3434220E0C5200B751DC /* InterfaceController.swift */; };
 		989F3437220E0C5200B751DC /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F3436220E0C5200B751DC /* ExtensionDelegate.swift */; };
 		989F3439220E0C5300B751DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 989F3438220E0C5300B751DC /* Assets.xcassets */; };
-		989F343D220E0C5300B751DC /* Critiical Maps Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 989F3423220E0C5100B751DC /* Critiical Maps Watch.app */; };
 		989F3446220E0CBE00B751DC /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA00321C8039A00E71085 /* RequestManager.swift */; };
 		989F3447220E0CBE00B751DC /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		989F3448220E0CBE00B751DC /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15D21F10FCA007F5994 /* LocationProvider.swift */; };
@@ -201,13 +200,6 @@
 			remoteGlobalIDString = 989F342E220E0C5200B751DC;
 			remoteInfo = "Critiical Maps Watch Extension";
 		};
-		989F343B220E0C5300B751DC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 94CF085419BDEAF2009FFF43 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 989F3422220E0C5100B751DC;
-			remoteInfo = "Critiical Maps Watch";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -220,17 +212,6 @@
 				989F3430220E0C5200B751DC /* Critiical Maps Watch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		989F3445220E0C5300B751DC /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				989F343D220E0C5300B751DC /* Critiical Maps Watch.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -793,7 +774,6 @@
 				94CF085819BDEAF2009FFF43 /* Sources */,
 				94CF085919BDEAF2009FFF43 /* Frameworks */,
 				94CF085A19BDEAF2009FFF43 /* Resources */,
-				989F3445220E0C5300B751DC /* Embed Watch Content */,
 				9819865E2256410800CC493F /* Swiftformat */,
 				946CDE0522412DDF0059F892 /* 📄 Generate Licenses */,
 				946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */,
@@ -801,7 +781,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				989F343C220E0C5300B751DC /* PBXTargetDependency */,
 			);
 			name = CriticalMaps;
 			packageProductDependencies = (
@@ -1246,11 +1225,6 @@
 			isa = PBXTargetDependency;
 			target = 989F342E220E0C5200B751DC /* Critiical Maps Watch Extension */;
 			targetProxy = 989F3431220E0C5200B751DC /* PBXContainerItemProxy */;
-		};
-		989F343C220E0C5300B751DC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 989F3422220E0C5100B751DC /* Critiical Maps Watch */;
-			targetProxy = 989F343B220E0C5300B751DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
