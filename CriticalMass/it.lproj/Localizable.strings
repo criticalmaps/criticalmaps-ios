@@ -9,7 +9,7 @@
 "chat.send" = "Invia";
 
 /* No comment provided by engineer. */
-"chat.send.error" = "Il messaggio non ha potuto essere inviato. Si prega di riprovare.";
+"chat.send.error" = "Il messaggio non è stato potuto essere inviato. Si prega di riprovare.";
 
 /* No comment provided by engineer. */
 "chat.title" = "Chat";
@@ -93,7 +93,7 @@
 "settings.observationmode.title" = "Modalità di osservazione";
 
 /* No comment provided by engineer. */
-"settings.observationmode.detail" = "Se non partecipi da solo, ma vuoi seguire la Critical Mass.";
+"settings.observationmode.detail" = "Se non partecipi, ma vuoi seguire la Critical Mass.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -114,7 +114,7 @@
 "settings.opensource.action" = "Guarda il progetto";
 
 /* No comment provided by engineer. */
-"settings.opensource.detail" = "Critical Maps è un progetto open source e non vediamo l'ora di sviluppatori che vogliono lavorare su mappe critiche.";
+"settings.opensource.detail" = "Critical Maps è un progetto open source e non vediamo l'ora di vedere sviluppatori che vogliono lavorare su mappe critiche.";
 
 /* No comment provided by engineer. */
 "settings.opensource.title" = "Ti mancano le funzionalità o vuoi correggere un bug?";
