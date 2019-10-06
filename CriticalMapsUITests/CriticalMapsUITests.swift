@@ -21,24 +21,24 @@ class CriticalMapsUITests: XCTestCase {
 
     func testScreenshots() {
         let app = XCUIApplication()
-        snapshot("map")
+        snapshot("01_map")
 
         let closeButton = app.navigationBars.buttons.element(boundBy: 0).firstMatch
         let backButton = closeButton
 
         XCTContext.runActivity(named: "Show Chat") { _ in
             app.buttons["Chat"].tap()
-            snapshot("chat")
+            snapshot("02_chat")
             closeButton.tap()
         }
 
         XCTContext.runActivity(named: "Show Rules") { _ in
             app.buttons["Rules"].tap()
-            snapshot("rules")
+            snapshot("03_rules")
 
             let firstCell = app.tables.element(boundBy: 0).cells.element(boundBy: 0).firstMatch
             firstCell.tap()
-            snapshot("rules_corken")
+            snapshot("04_rules_corken")
 
             backButton.tap()
             closeButton.tap()
@@ -46,7 +46,7 @@ class CriticalMapsUITests: XCTestCase {
 
         XCTContext.runActivity(named: "Show Settings") { _ in
             app.buttons["Settings"].tap()
-            snapshot("settings")
+            snapshot("05_settings")
             closeButton.tap()
         }
     }
