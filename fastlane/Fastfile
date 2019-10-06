@@ -13,10 +13,42 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+Target_Folder_Name = 'build' 
+DerivedDataPath = 'DerivedData'
+
+Scheme = 'CriticalMaps'
+Scheme_UnitTests = 'CriticalMapsTests'
+Scheme_UITests = 'CriticalMapsUITests'
+
+skip_docs
+
 default_platform(:ios)
 
 platform :ios do
+
+  desc 'Run unit tests'
   lane :test do
-    run_tests(scheme: "CriticalMaps")
+    run_tests(
+      scheme: Scheme_UnitTests
+    )
+  end
+  
+  desc 'Make screenshots of app'
+  lane :screenshots do
+    run_tests(
+      clean: true,
+      build_for_testing: true,
+      derived_data_path: DerivedDataPath,
+      scheme: Scheme
+    )
+
+    capture_ios_screenshots(
+      app_identifier: 'de.pokuslabs.criticalmassberlin',
+      configuration: 'Debug',
+      derived_data_path: DerivedDataPath,
+      output_directory: 'build/screenshots',
+      scheme: Scheme_UITests,
+      test_without_building: true
+    )
   end
 end
