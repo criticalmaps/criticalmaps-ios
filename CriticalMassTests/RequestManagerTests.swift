@@ -61,9 +61,13 @@ class RequestManagerTests: XCTestCase {
         let deviceId = "123456789"
         let signature = "Hello World"
         let testSetup = setup(interval: 0.1, deviceId: deviceId)
-        let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: nil, color: nil)
+        let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: signature, color: nil)
         testSetup.locationProvider.mockLocation = testLocation
-        let expectedBody: [String: AnyHashable] = ["device": deviceId, "name": signature, "location": ["longitude": testLocation.longitude * 1_000_000, "latitude": testLocation.latitude * 1_000_000, "timestamp": 0]]
+        let expectedBody: [String: AnyHashable] = ["device": deviceId,
+                                                   "location": ["longitude": testLocation.longitude * 1_000_000,
+                                                                "latitude": testLocation.latitude * 1_000_000,
+                                                                "timestamp": 0,
+                                                                "name": signature as AnyHashable]]
         XCTAssertNil(testSetup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
         wait(interval: 1) {

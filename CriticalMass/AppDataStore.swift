@@ -6,10 +6,13 @@
 //
 
 import CoreData
-import Foundation
+import UIKit
 
 class AppDataStore: DataStore {
-    init() {
+    private var userDefaults: UserDefaults
+
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
         loadFriends()
     }
 
@@ -21,6 +24,18 @@ class AppDataStore: DataStore {
             if oldValue?.chatMessages != lastKnownResponse?.chatMessages {
                 NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: lastKnownResponse)
             }
+        }
+    }
+
+    var userName: String {
+        set {
+            if !newValue.isEmpty {
+                userDefaults.set(newValue, forKey: #function)
+            }
+        }
+
+        get {
+            return userDefaults.string(forKey: #function) ?? UIDevice.current.name
         }
     }
 

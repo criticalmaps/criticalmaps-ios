@@ -6,7 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Section: Int, CaseIterable {
     case preferences
@@ -39,13 +39,17 @@ enum Section: Int, CaseIterable {
         }
     }
 
-    var cellClass: IBConstructable.Type {
-        switch self {
-        case .preferences:
+    static var allCellClasses: [IBConstructable.Type] {
+        return [SettingsSwitchTableViewCell.self, SettingsGithubTableViewCellTableViewCell.self, SettingsInfoTableViewCell.self]
+    }
+
+    func cellClass(action: Action) -> IBConstructable.Type {
+        switch (self, action) {
+        case (_, .switch(_)):
             return SettingsSwitchTableViewCell.self
-        case .github:
+        case (.github, _):
             return SettingsGithubTableViewCellTableViewCell.self
-        case .info:
+        default:
             return SettingsInfoTableViewCell.self
         }
     }
@@ -54,6 +58,7 @@ enum Section: Int, CaseIterable {
         switch self {
         case .preferences:
             return [
+                Model(title: "Friends", subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self)),
                 Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
                 Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self)),
             ]
@@ -67,6 +72,7 @@ enum Section: Int, CaseIterable {
     }
 
     enum Action {
+        case navigate(toViewController: UIViewController.Type)
         case open(url: URL)
         case `switch`(_ switchtable: Switchable.Type)
     }

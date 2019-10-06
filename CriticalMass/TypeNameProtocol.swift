@@ -24,3 +24,4 @@ public extension TypeNameProtocol {
 }
 
 extension UIView: TypeNameProtocol {}
+extension UIViewController: TypeNameProtocol {}
