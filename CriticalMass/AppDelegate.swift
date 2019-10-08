@@ -43,5 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             return nil
         #endif
+        return false
     }
 }
