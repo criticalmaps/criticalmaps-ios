@@ -31,14 +31,7 @@ class FollowFriendsViewController: UIViewController {
         configureNavigationBar()
 
         do {
-            enum EncodingError: Error {
-                case encodingFailed
-            }
-            
-            guard let tokenData = token.data(using: .utf8) else {
-                throw EncodingError.encodingFailed
-            }
-            urlString = try FollowURLObject(queryObject: Friend(name: name, token: tokenData)).asURL()
+            urlString = try FollowURLObject(queryObject: Friend(name: name, token: token)).asURL()
         } catch {
             // TODO: present error
             fatalError()

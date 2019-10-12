@@ -20,10 +20,7 @@ public class FriendsVerificationController {
         friendsTokens.removeAll()
 
         for friend in dataStore.friends {
-            guard let tokenString = String(data: friend.token, encoding: .utf8) else {
-                continue
-            }
-            let expectedId =  IDStore.hash(id: tokenString)
+            let expectedId =  IDStore.hash(id: friend.token)
             friendsTokens.insert(expectedId)
         }
     }

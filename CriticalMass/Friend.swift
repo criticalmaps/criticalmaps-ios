@@ -10,10 +10,15 @@ import Foundation
 
 public struct Friend: Codable, Equatable, Hashable {
     let name: String
-    let token: Data
+    let token: String
+    var location: Location?
+    var isOnline: Bool {
+        return location != nil
+    }
 
-    public init(name: String, token: Data) {
+    public init(name: String, token: String, location: Location? = nil) {
         self.name = name
         self.token = token
+        self.location = location
     }
 }

@@ -16,16 +16,7 @@ public class AppDataStore: DataStore {
         loadFriends()
     }
 
-    private var lastKnownResponse: ApiResponse? {
-        didSet {
-            if oldValue?.locations != lastKnownResponse?.locations {
-                NotificationCenter.default.post(name: Notification.positionOthersChanged, object: lastKnownResponse)
-            }
-            if oldValue?.chatMessages != lastKnownResponse?.chatMessages {
-                NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: lastKnownResponse)
-            }
-        }
-    }
+    private var lastKnownResponse: ApiResponse?
 
     public var userName: String {
         set {
@@ -40,6 +31,13 @@ public class AppDataStore: DataStore {
     }
 
     public func update(with response: ApiResponse) {
+        if lastKnownResponse?.locations != response.locations {
+            NotificationCenter.default.post(name: Notification.positionOthersChanged, object: response)
+            updateFriedLocations(locations: response.locations)
+        }
+        if lastKnownResponse?.chatMessages != response.chatMessages {
+            NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: response)
+        }
         lastKnownResponse = response
     }
 
@@ -50,7 +48,7 @@ public class AppDataStore: DataStore {
         storedFriend.name = friend.name
 
         let keyReference = UUID().uuidString
-        try? KeychainHelper.save(keyData: friend.token, with: keyReference)
+        try? KeychainHelper.save(keyData: friend.token.data(using: .utf8)!, with: keyReference)
         storedFriend.keyReference = keyReference
 
         saveContext()
@@ -71,6 +69,14 @@ public class AppDataStore: DataStore {
         saveContext()
     }
 
+    func updateFriedLocations(locations: [String: Location]) {
+        friends = friends.map { friend in
+            let hash = IDStore.hash(id: friend.token)
+            let location = locations[hash]
+            return Friend(name: friend.name, token: friend.token, location: location)
+        }
+    }
+
     private(set)
     public var friends: [Friend] = []
 
@@ -86,10 +92,11 @@ public class AppDataStore: DataStore {
         friends = friendsFetchResultsController.fetchedObjects?.compactMap { storedFriend in
             guard let name = storedFriend.name,
                 let keyRef = storedFriend.keyReference,
-                let keyData = try? KeychainHelper.load(with: keyRef) else {
+                let keyData = try? KeychainHelper.load(with: keyRef),
+                let token = String(bytes: keyData, encoding: .utf8) else {
                 return nil
             }
-            return Friend(name: name, token: keyData)
+            return Friend(name: name, token: token)
         } ?? []
     }
 
