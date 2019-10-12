@@ -104,8 +104,10 @@ class MapViewController: UIViewController {
         ])
 
         if #available(iOS 11.0, *) {
-            mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.identifier)
+            mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.reuseIdentifier)
+            mapView.register(FriendAnnotationView.self, forAnnotationViewWithReuseIdentifier: FriendAnnotationView.reuseIdentifier)
         }
+
         mapView.showsPointsOfInterest = false
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -116,15 +118,22 @@ class MapViewController: UIViewController {
             return
         }
         var unmatchedLocations = locations
-        var unmatchedAnnotations: [MKAnnotation] = []
+        var unmatchedAnnotations: [IdentifiableAnnnotation] = []
         // update existing annotations
-        mapView.annotations.compactMap { $0 as? IdentifiableAnnnotation }.forEach { annotation in
-            if let location = unmatchedLocations[annotation.identifier] {
-                annotation.location = location
-                unmatchedLocations.removeValue(forKey: annotation.identifier)
-            } else {
-                unmatchedAnnotations.append(annotation)
+        mapView.annotations
+            .compactMap {
+                $0 as? IdentifiableAnnnotation
             }
+            .forEach { annotation in
+                if let signature = annotation.location.name {
+                    annotation.type = friendsVerificationController.isFriend(id: annotation.identifier, signature: signature) ? .friend : .user
+                }
+                if let location = unmatchedLocations[annotation.identifier] {
+                    annotation.location = location
+                    unmatchedLocations.removeValue(forKey: annotation.identifier)
+                } else {
+                    unmatchedAnnotations.append(annotation)
+                }
         }
         let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
         mapView.addAnnotations(annotations)
@@ -196,21 +205,40 @@ extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKUserLocation == false else {
+        guard let userAnnotation = annotation as? IdentifiableAnnnotation else {
+            debugPrint("⚠️ Not a UserAnnotation.")
             return nil
         }
-        let annotationView: BikeAnnoationView
-        if #available(iOS 11.0, *) {
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation) as! BikeAnnoationView
-        } else {
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
-            annotationView.annotation = annotation
+        var view: MKAnnotationView
+        switch userAnnotation.type {
+        case .friend:
+            if #available(iOS 11.0, *) {
+                if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: FriendAnnotationView.reuseIdentifier, for: userAnnotation) as? FriendAnnotationView {
+                    dequedView.annotation = userAnnotation
+                    view = dequedView
+                } else {
+                    view = FriendAnnotationView(annotation: userAnnotation,
+                                                reuseIdentifier: FriendAnnotationView.reuseIdentifier)
+                }
+            } else {
+                view = FriendAnnotationView(annotation: userAnnotation,
+                reuseIdentifier: FriendAnnotationView.reuseIdentifier)
+            }
+        case .user:
+            if #available(iOS 11.0, *) {
+                if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.reuseIdentifier, for: userAnnotation) as? BikeAnnoationView {
+                    dequedView.annotation = userAnnotation
+                    view = dequedView
+                } else {
+                    view = BikeAnnoationView(annotation: userAnnotation,
+                                             reuseIdentifier: BikeAnnoationView.reuseIdentifier)
+                }
+            } else {
+                view = BikeAnnoationView(annotation: userAnnotation,
+                reuseIdentifier: BikeAnnoationView.reuseIdentifier)
+            }
         }
-
-        if let identifiableAnnotation = (annotation as? IdentifiableAnnnotation) {
-            annotationView.isFriend = friendsVerificationController.isFriend(id: identifiableAnnotation.identifier)
-        }
-        return annotationView
+        return view
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
