@@ -197,9 +197,8 @@ extension MapViewController: MKMapViewDelegate {
             annotationView.annotation = annotation
         }
 
-        if let identifiableAnnotation = (annotation as? IdentifiableAnnnotation),
-            let signature = identifiableAnnotation.location.name {
-            annotationView.isFriend = friendsVerificationController.isFriend(id: identifiableAnnotation.identifier, signature: signature)
+        if let identifiableAnnotation = (annotation as? IdentifiableAnnnotation) {
+            annotationView.isFriend = friendsVerificationController.isFriend(id: identifiableAnnotation.identifier)
         }
         return annotationView
     }

@@ -57,7 +57,7 @@ class MockNetworkLayer: NetworkLayer {
 }
 
 class MockIDProvider: IDProvider {
-    var signature: String = "Hello World"
+    var token: String = "MockTocken"
 
     var mockID: String?
     var id: String {

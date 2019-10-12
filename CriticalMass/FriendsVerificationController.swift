@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftHash
 
 public class FriendsVerificationController {
     private var dataStore: DataStore
@@ -14,24 +15,17 @@ public class FriendsVerificationController {
         self.dataStore = dataStore
     }
 
-    public func isFriend(id: String, signature: String) -> Bool {
-        guard let idData = id.data(using: .utf8),
-            let signatureData = Data(base64Encoded: signature) else {
-            return false
-        }
-
+    public func isFriend(id: String) -> Bool {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dateString = format.string(from: Date())
+        
+        // TODO: cleanup
+        // FIXME: move to SHA1
+        
         for friend in dataStore.friends {
-            do {
-//                guard let key = try RSAKey(data: friend.key).publicKey else {
-//                    continue
-//                }
-//                // TODO: cache!
-//                let validSignature = try RSA.verify(idData, publicKey: key, signature: signatureData)
-//                if validSignature {
-//                    return true
-//                }
-            } catch {
-                // TODO: improve error handling.
+            if id == MD5(String(data: friend.token, encoding: .utf8)! + dateString) {
+                return true
             }
         }
         return false

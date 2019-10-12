@@ -31,11 +31,11 @@ class FollowFriendsViewController: UIViewController {
         configureNavigationBar()
 
         do {
-            guard let idData = token.data(using: .utf8) else {
+            guard let tokenData = token.data(using: .utf8) else {
                 // FIXME: 
                 fatalError()
             }
-            urlString = try FollowURLObject(queryObject: Friend(name: name, key: idData)).asURL()
+            urlString = try FollowURLObject(queryObject: Friend(name: name, token: tokenData)).asURL()
         } catch {
             // TODO: present error
             fatalError()
