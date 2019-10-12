@@ -14,6 +14,7 @@ enum NetworkError: Error {
     case encodingError(Encodable)
     case noData(Error?)
     case invalidResponse
+    case offline
 }
 
 extension NetworkError: LocalizedError {
@@ -31,6 +32,8 @@ extension NetworkError: LocalizedError {
             return "Response is not vaild."
         case let .unknownError(message):
             return "UnknownError: \(message)"
+        case .offline:
+            return "Offline"
         }
     }
 }
