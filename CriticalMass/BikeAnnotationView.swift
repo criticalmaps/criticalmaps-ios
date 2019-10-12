@@ -7,26 +7,47 @@
 
 import MapKit
 
-class BikeAnnoationView: MKAnnotationView {
-    static let identifier = "BikeAnnotationView"
+extension Friend {
+    static let testFriend = Friend.init(name: "Klaus",
+                                        key: "VGVzdEtleQ%3D%3D".data(using: .utf8)!)
+}
 
-    var isFriend: Bool = false {
-        didSet {
-            updateImage()
-        }
-    }
+class BikeAnnoationView: MKAnnotationView {
+    static let reuseIdentifier = "BikeAnnotationView"
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        updateImage()
-        canShowCallout = false
+        commonInit()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        commonInit()
     }
 
-    private func updateImage() {
-        image = isFriend ? UIImage(named: "Punk") : UIImage(named: "Bike")
+    private func commonInit() {
+        image = UIImage(named: "Bike")
+        canShowCallout = false
+    }
+}
+
+class FriendAnnotationView: MKAnnotationView {
+    static let reuseIdentifier = "FriendAnnotationView"
+
+    var friend: Friend = Friend.testFriend
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+
+    private func commonInit() {
+        canShowCallout = false
+        image = #imageLiteral(resourceName: "Twitter_Active")
     }
 }
