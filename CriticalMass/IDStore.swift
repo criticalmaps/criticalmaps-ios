@@ -9,6 +9,10 @@ import SwiftHash
 import UIKit
 
 public class IDStore: IDProvider {
+    
+    public let id: String
+    public let token: String
+    
     public init(currentDate: Date = Date()) {
         let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
 
@@ -17,12 +21,9 @@ public class IDStore: IDProvider {
         let dateString = format.string(from: currentDate)
 
         // TODO: cleanup
+        // FIXME: move to SHA1
         let realID = MD5(deviceID + dateString)
-        let key = try! RSAKey(tag: RSAKey.keychainTag)
         id = realID
-        signature = try! RSA.sign(realID.data(using: .utf8)!, privateKey: key.privateKey!).base64EncodedString()
+        token = deviceID
     }
-
-    public let signature: String
-    public let id: String
 }

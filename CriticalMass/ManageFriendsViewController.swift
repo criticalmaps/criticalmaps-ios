@@ -11,6 +11,7 @@ import UIKit
 class ManageFriendsViewController: UIViewController, IBConstructable, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
     private var dataStore: DataStore!
+    private var idProvider: IDProvider!
 
     enum Section: Int, CaseIterable {
         case friends
@@ -26,8 +27,9 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         }
     }
 
-    init(dataStore: DataStore) {
+    init(dataStore: DataStore, idProvider: IDProvider) {
         self.dataStore = dataStore
+        self.idProvider = idProvider
         super.init(nibName: ManageFriendsViewController.nibName, bundle: ManageFriendsViewController.bundle)
     }
 
@@ -51,7 +53,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     @objc func addFriendButtonTapped() {
-        let viewController = FollowFriendsViewController(name: dataStore.userName)
+        let viewController = FollowFriendsViewController(name: dataStore.userName, token: idProvider.token)
         navigationController?.pushViewController(viewController, animated: true)
     }
 

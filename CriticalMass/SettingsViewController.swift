@@ -10,10 +10,12 @@ import UIKit
 class SettingsViewController: UITableViewController {
     private let themeController: ThemeController!
     private let dataStore: DataStore
+    private let idProvider: IDProvider
 
-    init(themeController: ThemeController, dataStore: DataStore) {
+    init(themeController: ThemeController, dataStore: DataStore, idProvider: IDProvider) {
         self.themeController = themeController
         self.dataStore = dataStore
+        self.idProvider = idProvider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -110,7 +112,7 @@ class SettingsViewController: UITableViewController {
         // Perform dependency injection if needed
         switch type {
         case _ as ManageFriendsViewController.Type:
-            return ManageFriendsViewController(dataStore: dataStore)
+            return ManageFriendsViewController(dataStore: dataStore, idProvider: idProvider)
         default:
             return type.init()
         }

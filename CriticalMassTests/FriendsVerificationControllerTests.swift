@@ -7,37 +7,40 @@
 //
 
 import CriticalMaps
+import SwiftHash
 import XCTest
 
 class FriendsVerificationControllerTests: XCTestCase {
     func testVerifyFriend() throws {
-        let key = try RSAKey(randomKey: "", isPermament: false)
-        let publicKey = try key.publicKeyDataRepresentation()
-        let friend = Friend(name: "Jan Ullrich", key: publicKey)
-        let store = MockDataStore()
+        let token = UUID().uuidString
+
+        let friend = Friend(name: "Jan Ullrich", token: token.data(using: .utf8)!)
+        let store = AppDataStore()
         store.add(friend: friend)
 
-        let id = UUID().uuidString
-        let signature = try RSA.sign(id.data(using: .utf8)!, privateKey: key.privateKey!)
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dateString = format.string(from: Date())
+
+        // TODO: cleanup
+        // FIXME: move to SHA1
+        let realToken = MD5(token + dateString)
 
         let friendsVerificationController = FriendsVerificationController(dataStore: store)
-        let result = friendsVerificationController.isFriend(id: id, signature: signature.base64EncodedString())
+        let result = friendsVerificationController.isFriend(id: realToken)
         XCTAssertTrue(result)
     }
 
     func testVerifyNoFriend() throws {
-        let key = try RSAKey(randomKey: "", isPermament: false)
-        let publicKey = try key.publicKeyDataRepresentation()
-        let friend = Friend(name: "Jan Ullrich", key: publicKey)
-        let store = MockDataStore()
+        let token = UUID().uuidString
+        let friend = Friend(name: "Jan Ullrich", token: token.data(using: .utf8)!)
+        let store = AppDataStore()
         store.add(friend: friend)
 
         let id = UUID().uuidString
-        let otherKey = try RSAKey(randomKey: "", isPermament: false)
-        let signature = try RSA.sign(id.data(using: .utf8)!, privateKey: otherKey.privateKey!)
 
         let friendsVerificationController = FriendsVerificationController(dataStore: store)
-        let result = friendsVerificationController.isFriend(id: id, signature: signature.base64EncodedString())
+        let result = friendsVerificationController.isFriend(id: id)
         XCTAssertFalse(result)
     }
 }

@@ -14,42 +14,35 @@ public class KeychainHelper {
         case storeKeyFailed
         case deletionFailed
     }
-
+    
     public class func save(keyData: Data, with keyReference: String) throws {
-        let secKey = try RSAKey(data: keyData).secKey
-        let addquery: [String: Any] = [kSecClass as String: kSecClassKey,
-                                       kSecAttrApplicationTag as String: keyReference,
-                                       kSecValueRef as String: secKey]
-
+        let addquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                       kSecAttrAccount as String: keyReference,
+                                       kSecValueData as String: keyData]
+        
+        SecItemDelete(addquery as CFDictionary)
         let status = SecItemAdd(addquery as CFDictionary, nil)
         guard status == errSecSuccess else {
             throw KeychainError.storeKeyFailed
         }
     }
-
+    
     public class func load(with keyReference: String) throws -> Data {
-        let getquery: [String: Any] = [kSecClass as String: kSecClassKey,
-                                       kSecAttrApplicationTag as String: keyReference,
-                                       kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
-                                       kSecReturnRef as String: true]
+        let getquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                       kSecAttrAccount as String: keyReference,
+                                       kSecReturnData as String  : kCFBooleanTrue!,
+                                       kSecMatchLimit as String  : kSecMatchLimitOne]
         var item: CFTypeRef?
         let status = SecItemCopyMatching(getquery as CFDictionary, &item)
         guard status == errSecSuccess else { throw KeychainError.cantFindMatchingKey }
-        let key = item as! SecKey
-
-        var error: Unmanaged<CFError>?
-        guard let data = SecKeyCopyExternalRepresentation(key, &error) else {
-            throw error!.takeRetainedValue() as Error
-        }
-        return data as Data
+        
+        return item as! Data
     }
-
+    
     public class func delete(with keyReference: String) throws {
-        let deleteQuery: [String: Any] = [kSecClass as String: kSecClassKey,
-                                          kSecAttrApplicationTag as String: keyReference,
-                                          kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
-                                          kSecReturnRef as String: true]
-
+        let deleteQuery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                          kSecAttrAccount as String: keyReference]
+        
         let status = SecItemDelete(deleteQuery as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw KeychainError.deletionFailed

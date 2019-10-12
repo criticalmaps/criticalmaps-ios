@@ -8,10 +8,10 @@
 import CoreData
 import UIKit
 
-class AppDataStore: DataStore {
+public class AppDataStore: DataStore {
     private var userDefaults: UserDefaults
 
-    init(userDefaults: UserDefaults = .standard) {
+    public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
         loadFriends()
     }
@@ -27,7 +27,7 @@ class AppDataStore: DataStore {
         }
     }
 
-    var userName: String {
+    public var userName: String {
         set {
             if !newValue.isEmpty {
                 userDefaults.set(newValue, forKey: #function)
@@ -39,24 +39,24 @@ class AppDataStore: DataStore {
         }
     }
 
-    func update(with response: ApiResponse) {
+    public func update(with response: ApiResponse) {
         lastKnownResponse = response
     }
 
-    func add(friend: Friend) {
+    public func add(friend: Friend) {
         friends.append(friend)
 
         let storedFriend = StoredFriend(context: persistentContainer.viewContext)
         storedFriend.name = friend.name
 
         let keyReference = UUID().uuidString
-        try? KeychainHelper.save(keyData: friend.key, with: keyReference)
+        try? KeychainHelper.save(keyData: friend.token, with: keyReference)
         storedFriend.keyReference = keyReference
 
         saveContext()
     }
 
-    func remove(friend: Friend) {
+    public func remove(friend: Friend) {
         // We reload freids to make sure that fetch results controller and friends indeces are in sync
         loadFriends()
         guard let index = friends.firstIndex(of: friend) else {
@@ -72,7 +72,7 @@ class AppDataStore: DataStore {
     }
 
     private(set)
-    var friends: [Friend] = []
+    public var friends: [Friend] = []
 
     private lazy var friendsFetchResultsController: NSFetchedResultsController<StoredFriend> = {
         let fetchRequest: NSFetchRequest<StoredFriend> = StoredFriend.fetchRequest()
@@ -89,7 +89,7 @@ class AppDataStore: DataStore {
                 let keyData = try? KeychainHelper.load(with: keyRef) else {
                 return nil
             }
-            return Friend(name: name, key: keyData)
+            return Friend(name: name, token: keyData)
         } ?? []
     }
 

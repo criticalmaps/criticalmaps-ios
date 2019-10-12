@@ -10,10 +10,12 @@ import UIKit
 class FollowFriendsViewController: UIViewController {
     private var urlString: String?
     private var name: String
+    private var token: String
     private var oldBrightness: CGFloat
 
-    init(name: String) {
+    init(name: String, token: String) {
         self.name = name
+        self.token = token
         oldBrightness = UIScreen.main.brightness
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,8 +31,11 @@ class FollowFriendsViewController: UIViewController {
         configureNavigationBar()
 
         do {
-            let publicKeyData = try RSAKey(tag: RSAKey.keychainTag).publicKeyDataRepresentation()
-            urlString = try FollowURLObject(queryObject: Friend(name: name, key: publicKeyData)).asURL()
+            guard let tokenData = token.data(using: .utf8) else {
+                // FIXME: 
+                fatalError()
+            }
+            urlString = try FollowURLObject(queryObject: Friend(name: name, token: tokenData)).asURL()
         } catch {
             // TODO: present error
             fatalError()

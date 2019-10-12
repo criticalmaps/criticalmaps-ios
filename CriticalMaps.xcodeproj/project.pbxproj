@@ -64,10 +64,6 @@
 		98003D4922872C1800592D55 /* URLCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4822872C1700592D55 /* URLCodable.swift */; };
 		98003D4B22872C2A00592D55 /* FollowURLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4A22872C2A00592D55 /* FollowURLObject.swift */; };
 		98003D4D22872C3500592D55 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4C22872C3500592D55 /* Friend.swift */; };
-		98003D4F22872C5400592D55 /* RSAKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4E22872C5400592D55 /* RSAKey.swift */; };
-		98003D5122872C6300592D55 /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5022872C6300592D55 /* RSA.swift */; };
-		98003D5322872C7400592D55 /* RSAKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5222872C7400592D55 /* RSAKeyTests.swift */; };
-		98003D5522872C8100592D55 /* RSATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5422872C8100592D55 /* RSATests.swift */; };
 		98003D5822872CD200592D55 /* FriendsVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5622872CA800592D55 /* FriendsVerificationController.swift */; };
 		98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5922872DB300592D55 /* FollowFriendsViewController.swift */; };
 		98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5C22872E4300592D55 /* QRCodeView.swift */; };
@@ -238,10 +234,6 @@
 		98003D4822872C1700592D55 /* URLCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCodable.swift; sourceTree = "<group>"; };
 		98003D4A22872C2A00592D55 /* FollowURLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowURLObject.swift; sourceTree = "<group>"; };
 		98003D4C22872C3500592D55 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
-		98003D4E22872C5400592D55 /* RSAKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAKey.swift; sourceTree = "<group>"; };
-		98003D5022872C6300592D55 /* RSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
-		98003D5222872C7400592D55 /* RSAKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAKeyTests.swift; sourceTree = "<group>"; };
-		98003D5422872C8100592D55 /* RSATests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSATests.swift; sourceTree = "<group>"; };
 		98003D5622872CA800592D55 /* FriendsVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsVerificationController.swift; sourceTree = "<group>"; };
 		98003D5922872DB300592D55 /* FollowFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowFriendsViewController.swift; sourceTree = "<group>"; };
 		98003D5C22872E4300592D55 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
@@ -393,8 +385,6 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				98003D5022872C6300592D55 /* RSA.swift */,
-				98003D4E22872C5400592D55 /* RSAKey.swift */,
 				98003D4822872C1700592D55 /* URLCodable.swift */,
 				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
@@ -464,7 +454,6 @@
 				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
 				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
 				940643D2230725B100AB1BCB /* Location */,
-				9822A15321EDF1D8007F5994 /* AppDataStore.swift */,
 				9491720A23009E93008B98AD /* Networking */,
 				9822A17121F3349F007F5994 /* Preferences.swift */,
 				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
@@ -592,8 +581,6 @@
 			isa = PBXGroup;
 			children = (
 				98003D5F2287301000592D55 /* FollowURLObjectTests.swift */,
-				98003D5422872C8100592D55 /* RSATests.swift */,
-				98003D5222872C7400592D55 /* RSAKeyTests.swift */,
 				943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */,
 				943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */,
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
@@ -779,7 +766,6 @@
 						TestTargetID = 94CF085B19BDEAF2009FFF43;
 					};
 					94CF085B19BDEAF2009FFF43 = {
-						DevelopmentTeam = 5YLLXUZBZ2;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -975,7 +961,6 @@
 				98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
-				98003D5122872C6300592D55 /* RSA.swift in Sources */,
 				98AAD08F2337FF90001519C7 /* ManageFriendsViewController.swift in Sources */,
 				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
@@ -1020,9 +1005,7 @@
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
-				98003D4F22872C5400592D55 /* RSAKey.swift in Sources */,
 				945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */,
-				9822A15421EDF1D8007F5994 /* AppDataStore.swift in Sources */,
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */,
@@ -1051,9 +1034,7 @@
 				9822A16621F11519007F5994 /* AppDataStoreTests.swift in Sources */,
 				9810C384229831720011F718 /* RatingHelperTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
-				98003D5322872C7400592D55 /* RSAKeyTests.swift in Sources */,
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
-				98003D5522872C8100592D55 /* RSATests.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				98329A2322D3CADB00A157EE /* KeychainHelperTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
@@ -1300,6 +1281,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1313,6 +1295,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CriticalMaps/CriticalMaps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
@@ -1328,6 +1311,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

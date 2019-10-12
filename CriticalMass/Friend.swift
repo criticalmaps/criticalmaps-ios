@@ -10,10 +10,10 @@ import Foundation
 
 public struct Friend: Codable, Equatable, Hashable {
     let name: String
-    let key: Data
+    let token: Data
 
-    public init(name: String, key: Data) {
+    public init(name: String, token: Data) {
         self.name = name
-        self.key = key
+        self.token = token
     }
 }

@@ -11,8 +11,8 @@ import XCTest
 
 class KeychainHelperTests: XCTestCase {
     var keychainReference = "SomeKey"
-    var testData = try! RSAKey(randomKey: "RandomKey", isPermament: false).publicKeyDataRepresentation()
-
+    var testData = "RandomKey".data(using: .utf8)!
+    
     override func tearDown() {
         try? KeychainHelper.delete(with: keychainReference)
     }
