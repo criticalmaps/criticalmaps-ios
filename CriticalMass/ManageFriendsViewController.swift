@@ -98,7 +98,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             let cell = tableView.dequeueReusableCell(ofType: FriendTableViewCell.self, for: indexPath)
             let friend = dataStore.friends[indexPath.row]
             // isOnline isn't supported yet
-            cell.configure(name: friend.name, isOnline: false)
+            cell.configure(name: friend.name, isOnline: friend.isOnline)
             return cell
         case .settings:
             let cell = tableView.dequeueReusableCell(ofType: FriendSettingsTableViewCell.self, for: indexPath)

@@ -13,7 +13,7 @@ class FriendsVerificationControllerTests: XCTestCase {
     func testVerifyFriend() throws {
         let token = UUID().uuidString
 
-        let friend = Friend(name: "Jan Ullrich", token: token.data(using: .utf8)!)
+        let friend = Friend(name: "Jan Ullrich", token: token)
         let store = AppDataStore()
         store.add(friend: friend)
 
@@ -26,7 +26,7 @@ class FriendsVerificationControllerTests: XCTestCase {
 
     func testVerifyNoFriend() throws {
         let token = UUID().uuidString
-        let friend = Friend(name: "Jan Ullrich", token: token.data(using: .utf8)!)
+        let friend = Friend(name: "Jan Ullrich", token: token)
         let store = AppDataStore()
         store.add(friend: friend)
 

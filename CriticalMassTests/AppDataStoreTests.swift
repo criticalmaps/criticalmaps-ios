@@ -85,12 +85,34 @@ class AppDataStoreTests: XCTestCase {
         XCTAssertEqual(notificationCount, 1)
     }
 
+    func testUpdateFriendLocation() {
+        let sut = AppDataStore()
+
+        XCTAssertEqual(sut.friends.count, 0)
+
+        let friend = Friend(name: "Jan Ullrich", token: "1234")
+        sut.add(friend: friend)
+
+        XCTAssertEqual(sut.friends.count, 1)
+        XCTAssertEqual(sut.friends[0], friend)
+        XCTAssertFalse(sut.friends[0].isOnline)
+
+        let token = IDStore.hash(id: "1234")
+        let location = Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")
+        let response = [token: location]
+
+        sut.updateFriedLocations(locations: response)
+
+        XCTAssertTrue(sut.friends[0].isOnline)
+        XCTAssertEqual(sut.friends[0].location, location)
+    }
+
     func testAddAndLoadFriends() {
         let sut = AppDataStore()
 
         XCTAssertEqual(sut.friends.count, 0)
 
-        let friend = Friend(name: "Jan Ullrich", token: UUID().uuidString.data(using: .utf8)!)
+        let friend = Friend(name: "Jan Ullrich", token: UUID().uuidString)
         sut.add(friend: friend)
 
         XCTAssertEqual(sut.friends.count, 1)
@@ -109,8 +131,8 @@ class AppDataStoreTests: XCTestCase {
 
         XCTAssertEqual(sut.friends.count, 0)
 
-        let friend = Friend(name: "Jan Ullrich", token: UUID().uuidString.data(using: .utf8)!)
-        let friend2 = Friend(name: "Jana Ullrich", token: UUID().uuidString.data(using: .utf8)!)
+        let friend = Friend(name: "Jan Ullrich", token: UUID().uuidString)
+        let friend2 = Friend(name: "Jana Ullrich", token: UUID().uuidString)
 
         sut.add(friend: friend)
         sut.add(friend: friend2)
