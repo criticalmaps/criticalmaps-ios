@@ -125,9 +125,7 @@ class MapViewController: UIViewController {
                 $0 as? IdentifiableAnnnotation
             }
             .forEach { annotation in
-                if let signature = annotation.location.name {
-                    annotation.type = friendsVerificationController.isFriend(id: annotation.identifier, signature: signature) ? .friend : .user
-                }
+                annotation.type = friendsVerificationController.isFriend(id: annotation.identifier) ? .friend : .user
                 if let location = unmatchedLocations[annotation.identifier] {
                     annotation.location = location
                     unmatchedLocations.removeValue(forKey: annotation.identifier)
