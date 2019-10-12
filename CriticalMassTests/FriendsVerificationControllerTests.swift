@@ -7,7 +7,6 @@
 //
 
 import CriticalMaps
-import SwiftHash
 import XCTest
 
 class FriendsVerificationControllerTests: XCTestCase {
@@ -18,13 +17,7 @@ class FriendsVerificationControllerTests: XCTestCase {
         let store = AppDataStore()
         store.add(friend: friend)
 
-        let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dateString = format.string(from: Date())
-
-        // TODO: cleanup
-        // FIXME: move to SHA1
-        let realToken = MD5(token + dateString)
+        let realToken = IDStore.hash(id: token)
 
         let friendsVerificationController = FriendsVerificationController(dataStore: store)
         let result = friendsVerificationController.isFriend(id: realToken)

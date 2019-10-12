@@ -116,6 +116,7 @@
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
+		986749F8235230CB00BF5D6E /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 986749F7235230CB00BF5D6E /* Crypto */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
@@ -145,7 +146,6 @@
 		98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */; };
 		98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */; };
 		98F1D928232AB029000F4E82 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98F1D927232AB029000F4E82 /* SDWebImage */; };
-		98F1D92B232AB1DA000F4E82 /* SwiftHash in Frameworks */ = {isa = PBXBuildFile; productRef = 98F1D92A232AB1DA000F4E82 /* SwiftHash */; };
 		98F1D92F232AB477000F4E82 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98F1D92E232AB477000F4E82 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
@@ -333,7 +333,7 @@
 			files = (
 				94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */,
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
-				98F1D92B232AB1DA000F4E82 /* SwiftHash in Frameworks */,
+				986749F8235230CB00BF5D6E /* Crypto in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				98F1D928232AB029000F4E82 /* SDWebImage in Frameworks */,
 			);
@@ -723,7 +723,7 @@
 			name = CriticalMaps;
 			packageProductDependencies = (
 				98F1D927232AB029000F4E82 /* SDWebImage */,
-				98F1D92A232AB1DA000F4E82 /* SwiftHash */,
+				986749F7235230CB00BF5D6E /* Crypto */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -796,7 +796,7 @@
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			packageReferences = (
 				98F1D926232AB029000F4E82 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				98F1D929232AB1DA000F4E82 /* XCRemoteSwiftPackageReference "SwiftHash" */,
+				986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */,
 			);
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
 			projectDirPath = "";
@@ -1420,6 +1420,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/Crypto";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
 		98F1D926232AB029000F4E82 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -1428,26 +1436,18 @@
 				minimumVersion = 5.1.1;
 			};
 		};
-		98F1D929232AB1DA000F4E82 /* XCRemoteSwiftPackageReference "SwiftHash" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onmyway133/SwiftHash";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		986749F7235230CB00BF5D6E /* Crypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */;
+			productName = Crypto;
+		};
 		98F1D927232AB029000F4E82 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98F1D926232AB029000F4E82 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
-		};
-		98F1D92A232AB1DA000F4E82 /* SwiftHash */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 98F1D929232AB1DA000F4E82 /* XCRemoteSwiftPackageReference "SwiftHash" */;
-			productName = SwiftHash;
 		};
 		98F1D92E232AB477000F4E82 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
