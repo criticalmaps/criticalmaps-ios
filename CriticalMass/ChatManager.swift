@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftHash
+import Crypto
 
 class ChatManager {
     private var cachedMessages: [ChatMessage]?
@@ -40,7 +40,7 @@ class ChatManager {
     public func send(message: String, completion: @escaping ResultCallback<[String: ChatMessage]>) {
         let messages = [SendChatMessage(text: message,
                                         timestamp: Date().timeIntervalSince1970,
-                                        identifier: MD5(UUID().uuidString))]
+                                        identifier: UUID().uuidString.sha256!)]
         requestManager.send(messages: messages) { result in
             switch result {
             case let .success(messages):

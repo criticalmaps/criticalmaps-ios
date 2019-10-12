@@ -6,28 +6,29 @@
 //
 
 import Foundation
-import SwiftHash
 
 public class FriendsVerificationController {
     private var dataStore: DataStore
+    private var friendsTokens = Set<String>()
 
     public init(dataStore: DataStore) {
         self.dataStore = dataStore
+        updateFriendsTokens()
+    }
+    
+    private func updateFriendsTokens() {
+        friendsTokens.removeAll()
+
+        for friend in dataStore.friends {
+            guard let tokenString = String(data: friend.token, encoding: .utf8) else {
+                continue
+            }
+            let expectedId =  IDStore.hash(id: tokenString)
+            friendsTokens.insert(expectedId)
+        }
     }
 
     public func isFriend(id: String) -> Bool {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dateString = format.string(from: Date())
-        
-        // TODO: cleanup
-        // FIXME: move to SHA1
-        
-        for friend in dataStore.friends {
-            if id == MD5(String(data: friend.token, encoding: .utf8)! + dateString) {
-                return true
-            }
-        }
-        return false
+        return friendsTokens.contains(id)
     }
 }

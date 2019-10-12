@@ -5,8 +5,8 @@
 //  Created by Leonard Thomas on 5/2/19.
 //
 
-import SwiftHash
 import UIKit
+import Crypto
 
 public class IDStore: IDProvider {
     
@@ -16,14 +16,15 @@ public class IDStore: IDProvider {
     public init(currentDate: Date = Date()) {
         let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
 
+        id = IDStore.hash(id: deviceID, currentDate: currentDate)
+        token = deviceID
+    }
+
+    static public func hash(id: String, currentDate: Date = Date()) -> String {
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dateString = format.string(from: currentDate)
-
-        // TODO: cleanup
-        // FIXME: move to SHA1
-        let realID = MD5(deviceID + dateString)
-        id = realID
-        token = deviceID
+        
+        return String(id + dateString).sha256!
     }
 }
