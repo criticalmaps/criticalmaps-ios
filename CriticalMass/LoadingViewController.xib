@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,18 +20,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="2Cp-ge-oPh">
-                    <rect key="frame" x="156" y="389" width="102.5" height="118.5"/>
+                    <rect key="frame" x="156" y="379" width="102.5" height="138.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGx-az-6en" customClass="CMLogoActivityView" customModule="CriticalMaps" customModuleProvider="target">
-                            <rect key="frame" x="11" y="0.0" width="80" height="80"/>
+                            <rect key="frame" x="1" y="0.0" width="100" height="100"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="QUb-0X-AJ7"/>
-                                <constraint firstAttribute="height" constant="80" id="fnH-4B-pYq"/>
+                                <constraint firstAttribute="width" secondItem="TGx-az-6en" secondAttribute="height" multiplier="1:1" id="NXp-W5-VmY"/>
+                                <constraint firstAttribute="width" constant="100" id="QUb-0X-AJ7"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOZ-jA-I3F">
-                            <rect key="frame" x="0.0" y="92" width="102.5" height="26.5"/>
+                            <rect key="frame" x="0.0" y="112" width="102.5" height="26.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -47,6 +45,7 @@
                 <constraint firstItem="2Cp-ge-oPh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kFm-fB-vab"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="139" y="98"/>
         </view>
     </objects>
 </document>
