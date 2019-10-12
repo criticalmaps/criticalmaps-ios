@@ -8,6 +8,12 @@
 import MapKit
 
 class IdentifiableAnnnotation: MKPointAnnotation {
+    enum UserType: Int, Decodable {
+        case friend
+        case user
+    }
+
+    var type: UserType = .user
     var identifier: String
 
     var location: Location {
