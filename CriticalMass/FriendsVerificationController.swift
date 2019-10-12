@@ -22,14 +22,14 @@ public class FriendsVerificationController {
 
         for friend in dataStore.friends {
             do {
-                guard let key = try RSAKey(data: friend.key).publicKey else {
-                    continue
-                }
-                // TODO: cache!
-                let validSignature = try RSA.verify(idData, publicKey: key, signature: signatureData)
-                if validSignature {
-                    return true
-                }
+//                guard let key = try RSAKey(data: friend.key).publicKey else {
+//                    continue
+//                }
+//                // TODO: cache!
+//                let validSignature = try RSA.verify(idData, publicKey: key, signature: signatureData)
+//                if validSignature {
+//                    return true
+//                }
             } catch {
                 // TODO: improve error handling.
             }

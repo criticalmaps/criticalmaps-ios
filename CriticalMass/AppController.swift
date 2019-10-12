@@ -64,7 +64,7 @@ class AppController {
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        return SettingsViewController(themeController: themeController, dataStore: dataStore)
+        return SettingsViewController(themeController: themeController, dataStore: dataStore, idProvider: idProvider)
     }
 
     lazy var rootViewController: UIViewController = {

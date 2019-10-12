@@ -16,15 +16,8 @@ public class KeychainHelper {
     }
 
     public class func save(keyData: Data, with keyReference: String) throws {
-        let secKey = try RSAKey(data: keyData).secKey
-        let addquery: [String: Any] = [kSecClass as String: kSecClassKey,
-                                       kSecAttrApplicationTag as String: keyReference,
-                                       kSecValueRef as String: secKey]
-
-        let status = SecItemAdd(addquery as CFDictionary, nil)
-        guard status == errSecSuccess else {
-            throw KeychainError.storeKeyFailed
-        }
+        // TODO
+        
     }
 
     public class func load(with keyReference: String) throws -> Data {
