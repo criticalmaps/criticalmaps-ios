@@ -90,7 +90,7 @@ class AppDataStoreTests: XCTestCase {
 
         XCTAssertEqual(sut.friends.count, 0)
 
-        let friend = Friend(name: "Jan Ullrich", key: try! RSAKey(randomKey: "Test", isPermament: false).publicKeyDataRepresentation())
+        let friend = Friend(name: "Jan Ullrich", token: UUID().uuidString.data(using: .utf8)!)
         sut.add(friend: friend)
 
         XCTAssertEqual(sut.friends.count, 1)
@@ -109,8 +109,8 @@ class AppDataStoreTests: XCTestCase {
 
         XCTAssertEqual(sut.friends.count, 0)
 
-        let friend = Friend(name: "Jan Ullrich", key: try! RSAKey(randomKey: "Test", isPermament: false).publicKeyDataRepresentation())
-        let friend2 = Friend(name: "Jana Ullrich", key: try! RSAKey(randomKey: "Test", isPermament: false).publicKeyDataRepresentation())
+        let friend = Friend(name: "Jan Ullrich", token: UUID().uuidString.data(using: .utf8)!)
+        let friend2 = Friend(name: "Jana Ullrich", token: UUID().uuidString.data(using: .utf8)!)
 
         sut.add(friend: friend)
         sut.add(friend: friend2)
