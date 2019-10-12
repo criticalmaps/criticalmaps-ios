@@ -9,7 +9,7 @@ import MapKit
 
 extension Friend {
     static let testFriend = Friend.init(name: "Klaus",
-                                        key: "VGVzdEtleQ%3D%3D".data(using: .utf8)!)
+                                        token: "VGVzdEtleQ%3D%3D".data(using: .utf8)!)
 }
 
 class BikeAnnoationView: MKAnnotationView {
