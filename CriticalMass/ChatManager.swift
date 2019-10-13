@@ -38,9 +38,10 @@ class ChatManager {
     }
 
     public func send(message: String, completion: @escaping ResultCallback<[String: ChatMessage]>) {
+        // TODO: use sha256 after the server supports it
         let messages = [SendChatMessage(text: message,
                                         timestamp: Date().timeIntervalSince1970,
-                                        identifier: UUID().uuidString.sha256!)]
+                                        identifier: UUID().uuidString.md5!)]
         requestManager.send(messages: messages) { result in
             switch result {
             case let .success(messages):
