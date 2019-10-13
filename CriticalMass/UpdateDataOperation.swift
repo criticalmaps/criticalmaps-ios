@@ -18,7 +18,7 @@ final class UpdateDataOperation: AsyncOperation {
     private let idProvider: IDProvider
     private let networkLayer: NetworkLayer
 
-    var onCompletion: ((Result<ApiResponse, NetworkError>) -> Void)?
+    var result: (Result<ApiResponse, NetworkError>)?
 
     init(locationProvider: LocationProvider, idProvider: IDProvider, networkLayer: NetworkLayer) {
         self.locationProvider = locationProvider
@@ -33,7 +33,7 @@ final class UpdateDataOperation: AsyncOperation {
             networkLayer.get(request: request) { [weak self] result in
                 guard let self = self else { return }
 
-                self.onCompletion?(result)
+                self.result = result
                 self.completeOperation()
             }
 
@@ -50,7 +50,7 @@ final class UpdateDataOperation: AsyncOperation {
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
             guard let self = self else { return }
 
-            self.onCompletion?(result)
+            self.result = result
             self.completeOperation()
         }
     }
