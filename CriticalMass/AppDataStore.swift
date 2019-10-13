@@ -52,6 +52,8 @@ public class AppDataStore: DataStore {
         storedFriend.keyReference = keyReference
 
         saveContext()
+
+        NotificationCenter.default.post(name: Notification.positionOthersChanged, object: nil)
     }
 
     public func remove(friend: Friend) {

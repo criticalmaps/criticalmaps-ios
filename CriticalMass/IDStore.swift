@@ -20,7 +20,8 @@ public class IDStore: IDProvider {
         token = deviceID
     }
 
-    static public func hash(id: String, currentDate: Date = Date()) -> String {        let format = DateFormatter()
+    static public func hash(id: String, currentDate: Date = Date()) -> String {
+        let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dateString = format.string(from: currentDate)
         
