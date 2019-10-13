@@ -9,11 +9,6 @@ import os.log
 import UIKit
 
 public class RequestManager {
-    private struct SendLocationPostBody: Codable {
-        var device: String
-        var location: Location
-    }
-
     private struct SendMessagePostBody: Codable {
         var device: String
         var messages: [SendChatMessage]
@@ -21,37 +16,60 @@ public class RequestManager {
 
     private let endpoint: URL
 
-    private var hasActiveRequest = false
-
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
 
+    private let operationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+
+        return queue
+    }()
+
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 6.0, idProvider: IDProvider, url: URL) {
         endpoint = url
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
-        configureTimer(with: interval)
+        
+        addUpdateOperation(with: interval)
     }
 
-    private func configureTimer(with interval: TimeInterval) {
-        Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
-    }
+    private func addUpdateOperation(with interval: TimeInterval) {
+        let operation = UpdateDataOperation(locationProvider: locationProvider,
+                                            idProvider: idProvider,
+                                            networkLayer: networkLayer)
+        let taskIdentifier = UIApplication.shared.beginBackgroundTask {
+            self.networkLayer.cancelActiveRequestsIfNeeded()
+            operation.cancel()
+        }
 
-    @objc private func timerDidUpdate(timer _: Timer) {
-        Logger.log(.info, log: log, "Timer did update")
-        updateData()
+        operation.completionBlock = { [weak self] in
+            guard let self = self else { return }
+            
+            if let result = operation.result {
+                self.defaultCompletion(for: result)
+            }
+
+            UIApplication.shared.endBackgroundTask(taskIdentifier)
+
+            let waitOperation = WaitOperation(with: interval)
+            self.operationQueue.addOperation(waitOperation)
+
+            self.addUpdateOperation(with: interval)
+        }
+
+        operationQueue.addOperation(operation)
     }
 
     private func defaultCompletion(for result: Result<ApiResponse, NetworkError>) {
         onMain { [weak self] in
             guard let self = self else { return }
-            defer { self.hasActiveRequest = false }
             switch result {
             case let .success(response):
                 self.dataStore.update(with: response)
@@ -60,29 +78,6 @@ public class RequestManager {
                 ErrorHandler.default.handleError(error)
                 Logger.log(.error, log: self.log, "API update failed")
             }
-        }
-    }
-
-    private func updateData() {
-        guard hasActiveRequest == false else {
-            Logger.log(.info, log: log, "Don't attempt to request new data because because a request is still active")
-            return
-        }
-        hasActiveRequest = true
-        // We only use a post request if we have a location to post
-        guard let currentLocation = locationProvider.currentLocation else {
-            getData()
-            return
-        }
-        let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
-        guard let bodyData = try? body.encoded() else {
-            hasActiveRequest = false
-            return
-        }
-        let request = PostLocationRequest()
-        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
         }
     }
 
