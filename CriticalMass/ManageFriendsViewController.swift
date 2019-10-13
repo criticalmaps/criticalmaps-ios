@@ -41,6 +41,8 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         super.viewDidLoad()
 
         configureNavigationBar()
+        configureNotifications()
+
         tableView.register(cellType: FriendTableViewCell.self)
         tableView.register(cellType: FriendSettingsTableViewCell.self)
         tableView.register(viewType: SettingsTableSectionHeader.self)
@@ -73,7 +75,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     @objc private func onNewData() {
-        tableView.reloadSections(IndexSet(integer: Section.allCases.firstIndex(of: .friends)!), with: .automatic)
+        tableView.reloadSections(IndexSet(integer: Section.friends.rawValue), with: .automatic)
     }
 
     func numberOfSections(in _: UITableView) -> Int {
