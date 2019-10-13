@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
+		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */; };
@@ -149,6 +151,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
+		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,6 +375,7 @@
 				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				940643D72307270B00AB1BCB /* GCD+Util.swift */,
+				21859FAD2352B6AA00B942AA /* AsyncOperation.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -385,6 +390,7 @@
 				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
 				989FA00321C8039A00E71085 /* RequestManager.swift */,
 				9491720B23009E9C008B98AD /* Requests */,
+				21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -896,6 +902,7 @@
 				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,
+				21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */,
 				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
@@ -935,6 +942,7 @@
 				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
 				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */,
+				21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */,
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
