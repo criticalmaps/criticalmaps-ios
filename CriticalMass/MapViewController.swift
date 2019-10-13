@@ -125,7 +125,13 @@ class MapViewController: UIViewController {
                 $0 as? IdentifiableAnnnotation
             }
             .forEach { annotation in
-                annotation.type = friendsVerificationController.isFriend(id: annotation.identifier) ? .friend : .user
+                if friendsVerificationController.isFriend(id: annotation.identifier) {
+                    annotation.type = .friend
+                    annotation.friend = friendsVerificationController.friend(for: annotation.identifier)
+                } else {
+                    annotation.type = .user
+                    annotation.friend = nil
+                }
                 if let location = unmatchedLocations[annotation.identifier] {
                     annotation.location = location
                     unmatchedLocations.removeValue(forKey: annotation.identifier)
@@ -222,6 +228,8 @@ extension MapViewController: MKMapViewDelegate {
                 view = FriendAnnotationView(annotation: userAnnotation,
                 reuseIdentifier: FriendAnnotationView.reuseIdentifier)
             }
+            
+            (view as? FriendAnnotationView)?.friend = userAnnotation.friend
         case .user:
             if #available(iOS 11.0, *) {
                 if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.reuseIdentifier, for: userAnnotation) as? BikeAnnoationView {

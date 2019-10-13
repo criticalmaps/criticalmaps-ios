@@ -7,11 +7,6 @@
 
 import MapKit
 
-extension Friend {
-    static let testFriend = Friend.init(name: "Jan Ulrich",
-                                        token: "125EB903-60B7-4B24-82BD-D7909C2E0F94")
-}
-
 class BikeAnnoationView: MKAnnotationView {
     static let reuseIdentifier = "BikeAnnotationView"
 
@@ -34,7 +29,7 @@ class BikeAnnoationView: MKAnnotationView {
 class FriendAnnotationView: MKAnnotationView {
     static let reuseIdentifier = "FriendAnnotationView"
 
-    var friend: Friend = Friend.testFriend
+    var friend: Friend?
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -50,7 +45,7 @@ class FriendAnnotationView: MKAnnotationView {
 
         let friendView = FriendVie(frame: .init(x: 0, y: 0, width: 109, height: 23))
         friendView.backgroundColor = .clear
-        friendView.name = friend.name
+        friendView.name = friend?.name ?? ""
         addSubview(friendView)
     }
 }
