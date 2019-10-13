@@ -27,8 +27,7 @@ final class UpdateDataOperation: AsyncOperation {
         super.init()
     }
 
-    private func updateData() {
-        // We only use a post request if we have a location to post
+    override func main() {
         guard let currentLocation = locationProvider.currentLocation else {
             let request = GetLocationsAndChatMessagesRequest()
             networkLayer.get(request: request) { [weak self] result in

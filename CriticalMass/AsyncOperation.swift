@@ -42,17 +42,17 @@ class AsyncOperation: Operation {
     }
     
     func completeOperation() {
-        _isExecuting = false
-        _isFinished = true
+        isExecuting = false
+        isFinished = true
     }
     
     override func start() {
         if isCancelled {
-            _isFinished = true
+            isFinished = true
             return
         }
         
-        _isExecuting = true
+        isExecuting = true
         main()
     }
 }
