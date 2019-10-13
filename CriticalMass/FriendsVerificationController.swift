@@ -28,4 +28,14 @@ public class FriendsVerificationController {
     public func isFriend(id: String) -> Bool {
         return friendsTokens.contains(id)
     }
+    
+    public func friend(for id: String) -> Friend? {
+        for friend in dataStore.friends {
+            let expectedId =  IDStore.hash(id: friend.token)
+            if expectedId == id {
+                return friend
+            }
+        }
+        return nil
+    }
 }
