@@ -45,7 +45,12 @@ class AsyncOperation: Operation {
         isExecuting = false
         isFinished = true
     }
-    
+
+    override func cancel() {
+        super.cancel()
+        completeOperation()
+    }
+
     override func start() {
         if isCancelled {
             isFinished = true
