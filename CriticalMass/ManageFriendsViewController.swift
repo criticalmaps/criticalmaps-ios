@@ -48,7 +48,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
 
     private func configureNavigationBar() {
         title = "Friends"
-        let addFriendBarButtonItem = UIBarButtonItem(title: "Add Friend", style: .plain, target: self, action: #selector(addFriendButtonTapped))
+        let addFriendBarButtonItem = UIBarButtonItem(title: "Show ID", style: .plain, target: self, action: #selector(addFriendButtonTapped))
         navigationItem.rightBarButtonItem = addFriendBarButtonItem
     }
 
@@ -97,7 +97,6 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         case .friends:
             let cell = tableView.dequeueReusableCell(ofType: FriendTableViewCell.self, for: indexPath)
             let friend = dataStore.friends[indexPath.row]
-            // isOnline isn't supported yet
             cell.configure(name: friend.name, isOnline: friend.isOnline)
             return cell
         case .settings:
@@ -111,6 +110,16 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         if editingStyle == .delete {
             dataStore.remove(friend: dataStore.friends[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let friend = dataStore.friends[indexPath.row]
+        if friend.isOnline {
+            NotificationCenter.default.post(name: Notification.focusLocation, object: friend.location)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 }

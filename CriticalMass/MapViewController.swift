@@ -90,6 +90,7 @@ class MapViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: Notification.initialGpsDataReceived, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.observationModeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Notification.themeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveFocusNotification(notification:)), name: Notification.focusLocation, object: nil)
     }
 
     private func configureMapView() {
@@ -176,7 +177,16 @@ class MapViewController: UIViewController {
 
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: 10000, longitudinalMeters: 10000)
+        focusOnLocation(location: location)
+    }
+
+    @objc func didReceiveFocusNotification(notification: Notification) {
+        guard let location = notification.object as? Location else { return }
+        focusOnLocation(location: location, zoomArea: 1000)
+    }
+
+    func focusOnLocation(location: Location, zoomArea: Double = 10000) {
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: zoomArea, longitudinalMeters: zoomArea)
         let adjustedRegion = mapView.regionThatFits(region)
         mapView.setRegion(adjustedRegion, animated: true)
     }
