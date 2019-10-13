@@ -14,6 +14,7 @@ Changelog for Critical Maps iOS
 
 - Fix: NavigationBar Colors under iOS 13 
 - Fix: UITableViewHeaderFooterView backgroundColor deprecation warning
+- Fix: Dynamic poll rate
 
 ## [3.3.0] - 2019-09-01
 
