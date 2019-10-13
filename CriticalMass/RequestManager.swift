@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import Network
 
 public class RequestManager {
     private struct SendMessagePostBody: Codable {
@@ -20,6 +21,8 @@ public class RequestManager {
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
+
+    private var pathMonitorRef: AnyObject?
 
     private let operationQueue: OperationQueue = {
         let queue = OperationQueue()
@@ -37,6 +40,9 @@ public class RequestManager {
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
         
+        if #available(iOS 12.0, *) {
+            setupPathMonitor()
+        }
         addUpdateOperation(with: interval)
     }
 
@@ -111,6 +117,28 @@ public class RequestManager {
                 case let .failure(error):
                     completion(.failure(error))
                 }
+            }
+        }
+    }
+}
+
+@available(iOS 12.0, *)
+private extension RequestManager {
+    func setupPathMonitor() {
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { [weak self] path in
+            self?.handlePathUpdate(path)
+        }
+        monitor.start(queue: .main)
+        
+        pathMonitorRef = monitor
+    }
+
+    func handlePathUpdate(_ path: NWPath) {
+        if path.status == .satisfied {
+            let operation = operationQueue.operations.first
+            if operation is WaitOperation {
+                operation?.cancel()
             }
         }
     }
