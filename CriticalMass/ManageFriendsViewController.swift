@@ -55,6 +55,10 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         navigationItem.rightBarButtonItem = addFriendBarButtonItem
     }
 
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onNewData), name: Notification.positionOthersChanged, object: nil)
+    }
+
     @objc private func addFriendButtonTapped() {
         let viewController = FollowFriendsViewController(name: dataStore.userName, token: idProvider.token)
         navigationController?.pushViewController(viewController, animated: true)
@@ -66,6 +70,10 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
 
     private func update(name: String) {
         dataStore.userName = name
+    }
+
+    @objc private func onNewData() {
+        tableView.reloadSections(IndexSet(integer: Section.allCases.firstIndex(of: .friends)!), with: .automatic)
     }
 
     func numberOfSections(in _: UITableView) -> Int {
