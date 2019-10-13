@@ -44,6 +44,9 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         tableView.register(cellType: FriendTableViewCell.self)
         tableView.register(cellType: FriendSettingsTableViewCell.self)
         tableView.register(viewType: SettingsTableSectionHeader.self)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
 
     private func configureNavigationBar() {
@@ -52,9 +55,13 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         navigationItem.rightBarButtonItem = addFriendBarButtonItem
     }
 
-    @objc func addFriendButtonTapped() {
+    @objc private func addFriendButtonTapped() {
         let viewController = FollowFriendsViewController(name: dataStore.userName, token: idProvider.token)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc private func handleTap() {
+        view.endEditing(true)
     }
 
     private func update(name: String) {
