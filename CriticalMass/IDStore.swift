@@ -23,7 +23,7 @@ public class IDStore: IDProvider {
     static public func hash(id: String, currentDate: Date = Date()) -> String {        let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dateString = format.string(from: currentDate)
-        // TODO: use sha256 after the server supports it
+        
         return String(id + dateString).md5!
     }
 }
