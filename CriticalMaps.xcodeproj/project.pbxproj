@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
+		21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FB12352CBD300B942AA /* WaitOperation.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */; };
@@ -153,6 +154,7 @@
 /* Begin PBXFileReference section */
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		21859FB12352CBD300B942AA /* WaitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOperation.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -376,6 +378,7 @@
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				940643D72307270B00AB1BCB /* GCD+Util.swift */,
 				21859FAD2352B6AA00B942AA /* AsyncOperation.swift */,
+				21859FB12352CBD300B942AA /* WaitOperation.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -915,6 +918,7 @@
 				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
 				94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */,
 				94FCBD2C226C57CA00F93F94 /* UIApplication+Appearance.swift in Sources */,
+				21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
