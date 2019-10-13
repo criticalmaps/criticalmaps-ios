@@ -28,8 +28,13 @@ class BikeAnnoationView: MKAnnotationView {
 
 class FriendAnnotationView: MKAnnotationView {
     static let reuseIdentifier = "FriendAnnotationView"
+    var friendView: FriendView?
 
-    var friend: Friend?
+    var friend: Friend? {
+        didSet {
+            friendView?.name = friend?.name ?? ""
+        }
+    }
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -40,17 +45,18 @@ class FriendAnnotationView: MKAnnotationView {
         super.init(coder: aDecoder)
         commonInit()
     }
+
     private func commonInit() {
         canShowCallout = false
 
-        let friendView = FriendVie(frame: .init(x: 0, y: 0, width: 109, height: 23))
-        friendView.backgroundColor = .clear
-        friendView.name = friend?.name ?? ""
-        addSubview(friendView)
+        friendView = FriendView(frame: .init(x: 0, y: 0, width: 109, height: 23))
+        friendView!.backgroundColor = .clear
+        friendView!.name = friend?.name ?? ""
+        addSubview(friendView!)
     }
 }
 
-class FriendVie: UIView {
+class FriendView: UIView {
     var name: String!
 
     override func draw(_ rect: CGRect) {

@@ -46,9 +46,10 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         tableView.register(cellType: FriendTableViewCell.self)
         tableView.register(cellType: FriendSettingsTableViewCell.self)
         tableView.register(viewType: SettingsTableSectionHeader.self)
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        view.addGestureRecognizer(tapGestureRecognizer)
+
+        //TODO: Fix collision with tableview gesture recognizer
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+//        view.addGestureRecognizer(tapGestureRecognizer)
     }
 
     private func configureNavigationBar() {
