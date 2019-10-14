@@ -131,7 +131,8 @@ private extension RequestManager {
         pathMonitor.pathUpdateHandler = { [weak self] path in
             self?.handlePathUpdate(path)
         }
-        pathMonitor.start(queue: .main)
+        let queue = DispatchQueue(label: "Monitor")
+        pathMonitor.start(queue: queue)
         
         pathMonitorRef = pathMonitor
     }
