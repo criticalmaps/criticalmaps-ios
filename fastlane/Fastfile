@@ -30,7 +30,8 @@ platform :ios do
   desc 'Run unit tests'
   lane :test do
     run_tests(
-      scheme: Scheme_UnitTests
+      scheme: Scheme_UnitTests,
+      code_coverage: true
     )
   end
   
