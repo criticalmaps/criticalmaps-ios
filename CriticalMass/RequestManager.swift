@@ -33,16 +33,19 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
 
+    @available(iOS 12.0, *)
+    convenience init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 6.0, idProvider: IDProvider, url: URL, pathMonitor: NWPathMonitor) {
+        self.init(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: idProvider, url: url)
+        setup(pathMonitor: pathMonitor)
+    }
+
     init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 6.0, idProvider: IDProvider, url: URL) {
         endpoint = url
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
-        
-        if #available(iOS 12.0, *) {
-            setupPathMonitor()
-        }
+
         addUpdateOperation(with: interval)
     }
 
@@ -124,14 +127,13 @@ public class RequestManager {
 
 @available(iOS 12.0, *)
 private extension RequestManager {
-    func setupPathMonitor() {
-        let monitor = NWPathMonitor()
-        monitor.pathUpdateHandler = { [weak self] path in
+    func setup(pathMonitor: NWPathMonitor) {
+        pathMonitor.pathUpdateHandler = { [weak self] path in
             self?.handlePathUpdate(path)
         }
-        monitor.start(queue: .main)
+        pathMonitor.start(queue: .main)
         
-        pathMonitorRef = monitor
+        pathMonitorRef = pathMonitor
     }
 
     func handlePathUpdate(_ path: NWPath) {

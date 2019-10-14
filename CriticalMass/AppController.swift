@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 class AppController {
     public func onAppLaunch() {
@@ -26,7 +27,10 @@ class AppController {
     private var dataStore = MemoryDataStore()
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
+        if #available(iOS 12.0, *) {
+            return RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint, pathMonitor: NWPathMonitor())
+        }
+        return RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
     }()
 
     private let networkOperator: NetworkOperator = {
