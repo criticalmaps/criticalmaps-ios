@@ -2,17 +2,19 @@
 
 Changelog for Critical Maps iOS
 
-## [Unreleased]
+## [3.4.0] - 2019-10-08
 
 ### Added
 
 - Landscape support
 - Set userStyle as Theme under iOS 13
+- Add infrastructure for UITests to easily generate automated screenshots with different languages and devices
+- Open Twitter tapping on tweet
 
 ### Fixed
 
 - Fix: NavigationBar Colors under iOS 13 
-- Open Twitter tapping on tweet
+- Fix: UITableViewHeaderFooterView backgroundColor deprecation warning
 
 ## [3.3.0] - 2019-09-01
 

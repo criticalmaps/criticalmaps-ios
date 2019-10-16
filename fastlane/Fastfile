@@ -13,10 +13,46 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+Scheme = 'CriticalMaps'
+Scheme_UnitTests = 'CriticalMapsTests'
+Scheme_UITests = 'CriticalMapsUITests'
+
+Screenshots_Output = 'build/screenshots' 
+
+AppIdentifier = 'de.pokuslabs.criticalmassberlin'
+
+skip_docs
+
 default_platform(:ios)
 
 platform :ios do
+
+  desc 'Run unit tests'
   lane :test do
-    run_tests(scheme: "CriticalMaps")
+    run_tests(
+      scheme: Scheme_UnitTests
+    )
+  end
+  
+  desc 'Make screenshots with all languages and different devices'
+  lane :screenshots_complete do
+    capture_ios_screenshots(
+      app_identifier: AppIdentifier,
+      configuration: 'Debug',
+      output_directory: Screenshots_Output,
+      scheme: Scheme_UITests
+    )
+  end
+
+  desc 'Make screenshots in English and iPhone 8'
+  lane :screenshots_limited do
+    capture_ios_screenshots(
+      app_identifier: AppIdentifier,
+      configuration: 'Debug',
+      output_directory: Screenshots_Output,
+      scheme: Scheme_UITests,
+      languages: [ "en-US" ],
+      devices: [ "iPhone 8" ]
+    )
   end
 end
