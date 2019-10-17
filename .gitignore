@@ -10,3 +10,6 @@ CriticalMaps.xcodeproj
 Gfx/appstore/
 report.xml
 fastlane/test_output
+
+## Build generated
+build/

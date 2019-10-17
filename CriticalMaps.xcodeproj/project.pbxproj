@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
+		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
+		75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */; };
 		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
 		940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CF23071F3200AB1BCB /* ErrorHandler.swift */; };
 		940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */; };
@@ -129,6 +132,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3F137FB42349CB8C006B26AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94CF085419BDEAF2009FFF43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94CF085B19BDEAF2009FFF43;
+			remoteInfo = CriticalMaps;
+		};
 		94CF087C19BDEAF2009FFF43 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 94CF085419BDEAF2009FFF43 /* Project object */;
@@ -139,6 +149,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
+		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F137FB92349CD71006B26AB /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+BackgroundColor.swift"; sourceTree = "<group>"; };
 		940643CD23071F1200AB1BCB /* Codable+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Sugar.swift"; sourceTree = "<group>"; };
 		940643CF23071F3200AB1BCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		940643D32307265400AB1BCB /* PostChatMessagesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChatMessagesRequest.swift; sourceTree = "<group>"; };
@@ -269,6 +284,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3F137FAC2349CB8C006B26AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94CF085919BDEAF2009FFF43 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -295,6 +317,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F137FA22349CADC006B26AB /* CriticalMapsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3F137FA52349CADC006B26AB /* Info.plist */,
+				3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */,
+				3F137FB92349CD71006B26AB /* SnapshotHelper.swift */,
+			);
+			path = CriticalMapsUITests;
+			sourceTree = "<group>";
+		};
 		940643D12307253100AB1BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +364,7 @@
 				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
 				94092748228321E60034E46B /* UITableView+Register.swift */,
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
+				75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */,
 				9810C381229830940011F718 /* RatingHelper.swift */,
 				988B12AC22A271FE0010FAED /* Logger.swift */,
 				94D4016E229F20F6001524CC /* FontMetrics.swift */,
@@ -447,6 +480,7 @@
 			children = (
 				94CF086519BDEAF2009FFF43 /* CriticalMass */,
 				94CF087E19BDEAF2009FFF43 /* CriticalMassTests */,
+				3F137FA22349CADC006B26AB /* CriticalMapsUITests */,
 				94CF085E19BDEAF2009FFF43 /* Frameworks */,
 				94CF085D19BDEAF2009FFF43 /* Products */,
 			);
@@ -457,6 +491,7 @@
 			children = (
 				94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */,
 				94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */,
+				3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -590,6 +625,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3F137FAE2349CB8C006B26AB /* CriticalMapsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F137FB62349CB8C006B26AB /* Build configuration list for PBXNativeTarget "CriticalMapsUITests" */;
+			buildPhases = (
+				3F137FAB2349CB8C006B26AB /* Sources */,
+				3F137FAC2349CB8C006B26AB /* Frameworks */,
+				3F137FAD2349CB8C006B26AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F137FB52349CB8C006B26AB /* PBXTargetDependency */,
+			);
+			name = CriticalMapsUITests;
+			productName = CriticalMapsUITests;
+			productReference = 3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		94CF085B19BDEAF2009FFF43 /* CriticalMaps */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94CF088819BDEAF2009FFF43 /* Build configuration list for PBXNativeTarget "CriticalMaps" */;
@@ -642,10 +695,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PL;
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
+					3F137FAE2349CB8C006B26AB = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 94CF085B19BDEAF2009FFF43;
+					};
 					94CF085B19BDEAF2009FFF43 = {
 						DevelopmentTeam = 5YLLXUZBZ2;
 						LastSwiftMigration = 1020;
@@ -686,11 +743,19 @@
 			targets = (
 				94CF085B19BDEAF2009FFF43 /* CriticalMaps */,
 				94CF087619BDEAF2009FFF43 /* CriticalMapsTests */,
+				3F137FAE2349CB8C006B26AB /* CriticalMapsUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3F137FAD2349CB8C006B26AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94CF085A19BDEAF2009FFF43 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -780,6 +845,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3F137FAB2349CB8C006B26AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */,
+				3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94CF085819BDEAF2009FFF43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -852,6 +926,7 @@
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
 				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
+				75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */,
 				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
@@ -892,6 +967,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3F137FB52349CB8C006B26AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94CF085B19BDEAF2009FFF43 /* CriticalMaps */;
+			targetProxy = 3F137FB42349CB8C006B26AB /* PBXContainerItemProxy */;
+		};
 		94CF087D19BDEAF2009FFF43 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 94CF085B19BDEAF2009FFF43 /* CriticalMaps */;
@@ -936,6 +1016,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3F137FB72349CB8C006B26AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CriticalMapsUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pokuslabs.CriticalMapsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CriticalMaps;
+			};
+			name = Debug;
+		};
+		3F137FB82349CB8C006B26AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CriticalMapsUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pokuslabs.CriticalMapsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CriticalMaps;
+			};
+			name = Release;
+		};
 		94CF088619BDEAF2009FFF43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1046,6 +1186,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1055,6 +1196,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.4.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1074,6 +1216,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1083,6 +1226,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.4.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1156,6 +1300,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3F137FB62349CB8C006B26AB /* Build configuration list for PBXNativeTarget "CriticalMapsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F137FB72349CB8C006B26AB /* Debug */,
+				3F137FB82349CB8C006B26AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		94CF085719BDEAF2009FFF43 /* Build configuration list for PBXProject "CriticalMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

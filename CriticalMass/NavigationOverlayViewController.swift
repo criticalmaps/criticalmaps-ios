@@ -31,6 +31,7 @@ struct NavigationOverlayItem {
 
     let representation: Representation
     let action: Action
+    let accessibilityIdentifier: String
 }
 
 class NavigationOverlayViewController: UIViewController {
@@ -83,15 +84,18 @@ class NavigationOverlayViewController: UIViewController {
                 button.setImage(icon, for: .normal)
                 button.adjustsImageWhenHighlighted = false
                 button.accessibilityLabel = accessibilityLabel
+                button.accessibilityIdentifier = item.accessibilityIdentifier
                 button.tag = index
                 button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
                 view.addSubview(button)
                 itemViews.append(button)
             case let .view(view):
+                view.accessibilityIdentifier = item.accessibilityIdentifier
                 self.view.addSubview(view)
                 itemViews.append(view)
             case let .button(button):
                 button.tag = index
+                button.accessibilityIdentifier = item.accessibilityIdentifier
                 button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
                 view.addSubview(button)
                 itemViews.append(button)
