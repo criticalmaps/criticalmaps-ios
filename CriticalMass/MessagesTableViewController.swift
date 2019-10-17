@@ -87,7 +87,8 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
     
     // MARK: - Table view delegate
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         selectMessageTrigger?(messages[indexPath.row])
     }
 }
