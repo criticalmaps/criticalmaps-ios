@@ -2,7 +2,7 @@ language: objective-c
 osx_image: xcode11.2
 
 before_install:
-  - bundle update
+  - bundle install
 
 jobs:
   include:
