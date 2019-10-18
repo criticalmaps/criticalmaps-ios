@@ -31,7 +31,6 @@ platform :ios do
   lane :test do
     run_tests(
       build_for_testing: true,
-      clean: true,
       device: 'iPhone 8',
       scheme: Scheme_UnitTests
     )
