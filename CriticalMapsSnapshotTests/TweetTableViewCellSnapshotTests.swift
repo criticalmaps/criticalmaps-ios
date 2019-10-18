@@ -10,14 +10,11 @@
 import XCTest
 
 class TweetTableViewCellSnapshotTests: XCTestCase {
-    private let tableViewController = UITableViewController()
     private let size = CGSize(width: 320, height: 100)
     // use constant date in the past
-    private let tweetDate = Date(timeIntervalSince1970: 1530230956)
-    private let CellReuseIdentifier = "Cell"
+    private let tweetDate = Date(timeIntervalSince1970: 1530230956)    
     
     override func setUp() {
-        tableViewController.tableView.register(TweetTableViewCell.nib, forCellReuseIdentifier: CellReuseIdentifier)
         // use constant date in the past
         FormatDisplay.currentDate = Date(timeIntervalSince1970: 1530240956)
     }
@@ -29,7 +26,7 @@ class TweetTableViewCellSnapshotTests: XCTestCase {
                           user: TwitterUser(name: "Bar",
                                             screen_name: "Foo",
                                             profile_image_url_https: "haa"))
-        let cell = tableViewController.tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier) as! TweetTableViewCell
+        let cell = TweetTableViewCell.fromNib()
         
         // when
         cell.setup(for: tweet)
