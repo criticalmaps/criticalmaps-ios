@@ -55,7 +55,7 @@ In general, we follow the "fork-and-pull" Git workflow.
 
 NOTES: 
 - Be sure to merge the latest from "upstream" before making a pull request!
-- Please use "iPhone 5s (iOS 12.2)" simulator for snapshot testing (because Travis is running the tests with this device)
+- Please use the simulator specified in Fastfile ("snapshot_test" lane) to run snapshot tests
 
 ### Open Source & Copying
 
