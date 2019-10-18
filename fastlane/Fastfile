@@ -16,6 +16,7 @@
 Scheme = 'CriticalMaps'
 Scheme_UnitTests = 'CriticalMapsTests'
 Scheme_UITests = 'CriticalMapsUITests'
+Scheme_SnapshotTests = 'CriticalMapsSnapshotTests'
 
 Screenshots_Output = 'build/screenshots' 
 
@@ -31,6 +32,14 @@ platform :ios do
   lane :test do
     run_tests(
       scheme: Scheme_UnitTests
+    )
+  end
+
+  desc 'Run snapshot tests'
+  lane :snapshot_test do
+    run_tests(
+      scheme: Scheme_SnapshotTests,
+      device: "iPhone 5s"
     )
   end
   
