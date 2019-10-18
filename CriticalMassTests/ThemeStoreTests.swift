@@ -9,18 +9,6 @@
 @testable import CriticalMaps
 import XCTest
 
-class MockThemeStore: ThemeStorable {
-    private var currentTheme: Theme?
-
-    func load() -> Theme? {
-        return currentTheme
-    }
-
-    func save(_ themeSelection: Theme) {
-        currentTheme = themeSelection
-    }
-}
-
 class ThemeSelectionStoreTests: XCTestCase {
     var sut: ThemeSelectionStore?
     var userdefaults = UserDefaults(suiteName: "CriticalMaps-Tests")!

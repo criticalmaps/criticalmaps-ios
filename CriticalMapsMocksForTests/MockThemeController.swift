@@ -19,7 +19,6 @@ class MockThemeController: ThemeController {
     }
 }
 
-//TODO: move MockThemeStore class to shared file for both CriticalMassTests and CriticalMapsSnapshotTests targets
 class MockThemeStore: ThemeStorable {
     private var currentTheme: Theme?
 
