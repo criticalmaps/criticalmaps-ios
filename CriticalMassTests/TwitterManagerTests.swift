@@ -19,7 +19,7 @@ class TwitterManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update Tweets callback called")
 
-        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Bar", screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(name: "foo", screen_name: "Bar", profile_image_url_https: "differentURL"))])
+        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Bar", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(name: "foo", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")])
 
         setup.networkLayer.mockResponse = fakeResponse
 
@@ -45,7 +45,7 @@ class TwitterManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update Tweets callback called")
 
-        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa")), Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"))])
+        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"), Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")])
 
         setup.networkLayer.mockResponse = fakeResponse
         setup.twitterManager.loadTweets { _ in
