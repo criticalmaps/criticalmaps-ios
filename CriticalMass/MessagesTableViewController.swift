@@ -31,6 +31,8 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
             updateNoMessageCountIfNeeded()
         }
     }
+    
+    var selectMessageTrigger: ((T.Model) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,5 +83,12 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         let cell = tableView.dequeueReusableCell(ofType: T.self)
         cell.setup(for: messages[indexPath.row])
         return cell
+    }
+    
+    // MARK: - Table view delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectMessageTrigger?(messages[indexPath.row])
     }
 }
