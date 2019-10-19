@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if ProcessInfo.processInfo.arguments.contains("SKIP_ANIMATIONS") {
                 UIView.setAnimationsEnabled(false)
             }
-            return nil
         #endif
+        return nil
     }
 
     func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {

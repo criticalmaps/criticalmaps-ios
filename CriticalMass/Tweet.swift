@@ -11,4 +11,5 @@ struct Tweet: Codable, Equatable {
     var text: String
     var created_at: Date
     var user: TwitterUser
+    var id_str: String
 }
