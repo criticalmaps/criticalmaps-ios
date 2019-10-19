@@ -7,8 +7,6 @@
 //
 
 @testable import CriticalMaps
-import SnapshotTesting
-import XCTest
 
 class MockThemeController: ThemeController {
     static let shared = MockThemeController()

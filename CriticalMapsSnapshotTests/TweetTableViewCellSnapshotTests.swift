@@ -25,7 +25,8 @@ class TweetTableViewCellSnapshotTests: XCTestCase {
                           created_at: tweetDate,
                           user: TwitterUser(name: "Bar",
                                             screen_name: "Foo",
-                                            profile_image_url_https: "haa"))
+                                            profile_image_url_https: "haa"),
+                          id_str: "test_id")
         let cell = TweetTableViewCell.fromNib()
         
         // when
