@@ -123,6 +123,15 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        switch Section(rawValue: indexPath.section)! {
+        case .friends:
+            return true
+        case .settings:
+            return false
+        }
+    }
 
     func tableView(_: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -132,12 +141,17 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let friend = dataStore.friends[indexPath.row]
-        if friend.isOnline {
-            NotificationCenter.default.post(name: Notification.focusLocation, object: friend.location)
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            tableView.deselectRow(at: indexPath, animated: true)
+        switch Section(rawValue: indexPath.section)! {
+        case .friends:
+            let friend = dataStore.friends[indexPath.row]
+            if friend.isOnline {
+                NotificationCenter.default.post(name: Notification.focusLocation, object: friend.location)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+        case .settings:
+            break
         }
     }
 }
