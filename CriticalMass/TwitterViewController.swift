@@ -30,6 +30,9 @@ class TwitterViewController: UIViewController {
         messagesTableViewController.noContentMessage = String.twitterNoData
         messagesTableViewController.messages = twitterManager.getTweets()
         messagesTableViewController.pullToRefreshTrigger = twitterManager.loadTweets
+        messagesTableViewController.selectMessageTrigger = { [weak self] selectedTweet in
+            self?.openTweet(selectedTweet)
+        }
 
         twitterManager.updateTweetsCallback = { [weak self] tweets in
             self?.messagesTableViewController.update(messages: tweets)
@@ -48,5 +51,21 @@ class TwitterViewController: UIViewController {
         ])
         // inset tableView seperator
         messagesTableViewController.tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 73.0, bottom: 0.0, right: 0.0)
+    }
+}
+
+private extension TwitterViewController {
+    func openTweet(_ tweet: Tweet) {
+        if let webURL = tweet.webURL, UIApplication.shared.canOpenURL(webURL) {
+            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
+        } else {
+            //Do nothing
+        }        
+    }
+}
+
+private extension Tweet {
+    var webURL: URL? {
+        return URL(string: "https://twitter.com/\(user.screen_name)/status/\(id_str)")
     }
 }

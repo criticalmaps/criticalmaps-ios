@@ -29,7 +29,15 @@ platform :ios do
 
   desc 'Run unit tests'
   lane :test do
+
+    # Workaround to Resolve SPM Package Dependencies
+    # found here: https://github.com/fastlane/fastlane/issues/15454#issuecomment-543761561
+    # should be removed again, when Fastlane has fixed this
+    sh "cd .. && xcodebuild -resolvePackageDependencies"
+
     run_tests(
+      build_for_testing: true,
+      device: 'iPhone 8',
       scheme: Scheme_UnitTests
     )
   end
