@@ -1,6 +1,7 @@
 language: objective-c 
 osx_image: xcode11.1
-
+cache:
+  - bundler
 install:
   - bundle install
 
