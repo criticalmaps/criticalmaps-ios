@@ -41,8 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if ProcessInfo.processInfo.arguments.contains("SKIP_ANIMATIONS") {
                 UIView.setAnimationsEnabled(false)
             }
-            return nil
         #endif
-        return false
+        return nil
     }
 }
