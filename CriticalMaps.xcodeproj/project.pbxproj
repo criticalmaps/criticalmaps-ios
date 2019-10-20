@@ -1273,7 +1273,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 19;
-				DEVELOPMENT_TEAM = P33TK2RVAJ;
+				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";

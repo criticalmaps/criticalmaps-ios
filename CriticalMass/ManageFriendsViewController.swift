@@ -46,12 +46,10 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         tableView.register(cellType: FriendTableViewCell.self)
         tableView.register(cellType: FriendSettingsTableViewCell.self)
         tableView.register(viewType: SettingsTableSectionHeader.self)
-
-        //TODO: Fix collision with tableview gesture recognizer
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
-        
     }
 
     private func configureNavigationBar() {
@@ -69,7 +67,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    @objc private func handleTap(_ tap: UITapGestureRecognizer) {
+    @objc private func handleTap() {
         view.endEditing(true)
     }
 
