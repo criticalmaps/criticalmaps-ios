@@ -16,6 +16,7 @@ Changelog for Critical Maps iOS
 - Fix: NavigationBar Colors under iOS 13 
 - Fix: UITableViewHeaderFooterView backgroundColor deprecation warning
 - Fix: Ambiguous auto layout constraints for Settings screen
+- Fix: Manage Friends tap to dismiss on name editing
 
 ## [3.3.0] - 2019-09-01
 
