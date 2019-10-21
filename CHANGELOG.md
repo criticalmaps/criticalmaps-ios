@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+## [3.5.0] - DATE
+
+### Fixed
+
+- iOS 13 compatibility
+
 ## [3.4.0] - 2019-10-08
 
 ### Added
