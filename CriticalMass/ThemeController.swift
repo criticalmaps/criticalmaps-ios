@@ -42,6 +42,7 @@ class ThemeController {
         styleSocialComponets(with: theme)
         styleRulesComponents(with: theme)
         styleSettingsComponents(with: theme)
+        styleFriendsComponents(with: theme)
         styleNavigationOverlayComponents(with: theme)
         styleBlurredOverlayComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
@@ -140,6 +141,13 @@ class ThemeController {
         UITableView.appearance().tintColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
+    }
+    
+    private func styleFriendsComponents(with theme: ThemeDefining) {
+        FriendSettingsTableViewCell.appearance().titleLabelColor = theme.titleTextColor
+        FriendSettingsTableViewCell.appearance().placeholderColor = theme.settingsPlaceholderColor
+        FriendTableViewCell.appearance().nameColor = theme.titleTextColor
+        
     }
 
     private func styleBlurredOverlayComponents(with theme: ThemeDefining) {

@@ -83,4 +83,8 @@ extension UIColor {
     static var onlineGreen: UIColor {
         return UIColor(red: 20.0 / 255.0, green: 204.0 / 255.0, blue: 51.0 / 255.0, alpha: 1)
     }
+    
+    static var settingsPlaceholderColor: UIColor {
+        return UIColor(red: 216.0 / 255.0, green: 216.0 / 255.0, blue: 216.0 / 255.0, alpha: 1)
+    }
 }

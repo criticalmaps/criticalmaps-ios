@@ -10,6 +10,13 @@ import UIKit
 class FriendTableViewCell: UITableViewCell, IBConstructable {
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var onlineIndicatorView: UIView!
+    
+    @objc
+    dynamic var nameColor: UIColor? {
+        willSet {
+            nameLabel.textColor = newValue
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
