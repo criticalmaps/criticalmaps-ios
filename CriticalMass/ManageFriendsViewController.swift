@@ -43,9 +43,6 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         configureNavigationBar()
         configureNotifications()
         
-        if let backgroundColor = ThemeController().currentTheme?.style.backgroundColor{
-             tableView.backgroundColor = backgroundColor
-        }
         tableView.register(cellType: FriendTableViewCell.self)
         tableView.register(cellType: FriendSettingsTableViewCell.self)
         tableView.register(viewType: SettingsTableSectionHeader.self)
@@ -53,6 +50,14 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let backgroundColor = ThemeController().currentTheme?.style.backgroundColor{
+            tableView.backgroundColor = backgroundColor
+            self.view.backgroundColor = backgroundColor
+        }
     }
 
     private func configureNavigationBar() {
