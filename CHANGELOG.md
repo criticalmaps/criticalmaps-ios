@@ -7,6 +7,7 @@ Changelog for Critical Maps iOS
 ### Fixed
 
 - Fix: Don't update content when slightly swipe down in Social Modal
+- Fix whitespace only chat message can not be send anymore.
 
 ## [3.4.0] - 2019-10-08
 
@@ -19,13 +20,14 @@ Changelog for Critical Maps iOS
 
 ### Fixed
 
-- Fix: NavigationBar Colors under iOS 13 
+- Fix: NavigationBar Colors under iOS 13
 - Fix: UITableViewHeaderFooterView backgroundColor deprecation warning
 - Fix: Ambiguous auto layout constraints for Settings screen
 
 ## [3.3.0] - 2019-09-01
 
 ### Added
+
 - iOS 13 support
 
 ### Fixed
