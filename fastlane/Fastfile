@@ -41,6 +41,18 @@ platform :ios do
       scheme: Scheme_UnitTests
     )
   end
+
+
+  desc 'Run UITests'
+  lane :ui_test do
+    sh "cd .. && xcodebuild -resolvePackageDependencies"
+
+    run_tests(
+      build_for_testing: true,
+      device: 'iPhone 8',
+      scheme: Scheme_UITests
+    )
+  end
   
   desc 'Make screenshots with all languages and different devices'
   lane :screenshots_complete do
