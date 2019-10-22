@@ -120,7 +120,7 @@ class ChatInputView: UIView, UITextFieldDelegate {
 
     @discardableResult
     override func resignFirstResponder() -> Bool {
-        return messageTextField.resignFirstResponder()
+        messageTextField.resignFirstResponder()
     }
 
     @objc
@@ -133,6 +133,6 @@ class ChatInputView: UIView, UITextFieldDelegate {
 
 private extension String {
     var canBeSent: Bool {
-        return !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
