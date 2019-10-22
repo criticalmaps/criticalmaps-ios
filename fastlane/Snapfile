@@ -3,7 +3,7 @@
 # A list of devices you want to take the screenshots from
 
 # We need to check if the iPhone SE is installed which is not the case on current Travis environments, but we still wanna keep it if possible
-if `xcrun simctl list | grep "SE"`.length > 0
+if `xcrun simctl list | grep "iPhone SE"`.length > 0
   devices([
     "iPhone 8",
     "iPhone 8 Plus",
