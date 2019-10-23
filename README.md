@@ -5,12 +5,12 @@
 ## Critical Maps iOS App
 
 <a href="https://travis-ci.org/criticalmaps/criticalmaps-ios">
-		<img src="https://travis-ci.org/criticalmaps/criticalmaps-ios.svg?branch=master"
-					alt="Build Status">
+        <img src="https://travis-ci.org/criticalmaps/criticalmaps-ios.svg?branch=master"
+                    alt="Build Status">
 </a>
 <a href="https://testflight.apple.com/join/nyGeQVxk">
-	<img src="https://img.shields.io/badge/Join-TestFlight-blue.svg"
-				alt="Join TestFlight" />
+    <img src="https://img.shields.io/badge/Join-TestFlight-blue.svg"
+                alt="Join TestFlight" />
 </a>
 
 ## What's "Critical Mass"?
@@ -48,8 +48,8 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 In general, we follow the "fork-and-pull" Git workflow.
 
 1.  **Fork** the repo on GitHub
-2.  **Clone** the project to your own machine
-3.  **Commit** changes to your own branch. Please add your changes also to the CHANGELOG. We're following the standard of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+2.  **Clone** the project to your machine
+3.  **Commit** changes to your branch. Please add your changes also to the CHANGELOG. We're following the standard of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 4.  **Push** your work back up to your fork
 5.  Submit a **Pull request** so that we can review your changes
 
@@ -57,9 +57,9 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 ### Open Source & Copying
 
-We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use my code in your app, if you choose.
+We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use my code in your app if you choose.
 
-However, **please do not ship this app** under your own account. Paid or free.
+However, **please do not ship this app** under your account. Paid or free.
 
 ## Credits
 
