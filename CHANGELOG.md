@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+## [Unreleased]
+
+### Fixed
+
+- Fix: Don't update content when slightly swipe down in Social Modal
+
 ## [3.4.0] - 2019-10-08
 
 ### Added
