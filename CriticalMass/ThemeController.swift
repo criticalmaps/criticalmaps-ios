@@ -145,8 +145,10 @@ class ThemeController {
     
     private func styleFriendsComponents(with theme: ThemeDefining) {
         FriendSettingsTableViewCell.appearance().titleLabelColor = theme.titleTextColor
-        FriendSettingsTableViewCell.appearance().placeholderColor = theme.settingsPlaceholderColor
+        FriendSettingsTableViewCell.appearance().placeholderColor = UIColor.settingsPlaceholderColor
+        FriendSettingsTableViewCell.appearance().textFieldColor = theme.titleTextColor
         FriendTableViewCell.appearance().nameColor = theme.titleTextColor
+        ManageFriendsViewController.backgroundAndTableViewColor = theme.backgroundColor
         
     }
 

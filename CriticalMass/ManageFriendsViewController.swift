@@ -26,6 +26,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             }
         }
     }
+    static var backgroundAndTableViewColor: UIColor?
 
     init(dataStore: DataStore, idProvider: IDProvider) {
         self.dataStore = dataStore
@@ -54,7 +55,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let backgroundColor = ThemeController().currentTheme?.style.backgroundColor{
+        if let backgroundColor = ManageFriendsViewController.backgroundAndTableViewColor {
             tableView.backgroundColor = backgroundColor
             self.view.backgroundColor = backgroundColor
         }

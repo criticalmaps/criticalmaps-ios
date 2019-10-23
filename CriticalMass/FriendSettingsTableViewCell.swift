@@ -22,12 +22,14 @@ class FriendSettingsTableViewCell: UITableViewCell, IBConstructable, UITextField
     }
     
     @objc
-    dynamic var placeholderColor: UIColor? {
+    dynamic var textFieldColor: UIColor? {
         willSet {
-            textField.attributedPlaceholder =  NSAttributedString(string: "Jan Ullrich",
-                attributes: [NSAttributedString.Key.foregroundColor: newValue as Any])
+            textField.textColor = newValue
         }
     }
+    
+    @objc
+    dynamic var placeholderColor: UIColor?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +38,8 @@ class FriendSettingsTableViewCell: UITableViewCell, IBConstructable, UITextField
     }
 
     public func configure(name: String, nameChanged: @escaping (String) -> Void) {
-        textField.placeholder = name
+        textField.attributedPlaceholder = NSAttributedString(string: name,
+        attributes: [NSAttributedString.Key.foregroundColor: placeholderColor as Any])
         self.nameChanged = nameChanged
     }
 

@@ -28,13 +28,6 @@ protocol ThemeDefining {
     var statusBarStyle: UIStatusBarStyle { get }
     var gradientBeginColor: UIColor { get }
     var gradientEndColor: UIColor { get }
-    var settingsPlaceholderColor: UIColor { get }
-}
-
-extension ThemeDefining {
-    var settingsPlaceholderColor: UIColor {
-        return .settingsPlaceholderColor
-    }
 }
 
 struct LightTheme: ThemeDefining {
