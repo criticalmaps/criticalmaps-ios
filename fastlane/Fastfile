@@ -48,7 +48,6 @@ platform :ios do
     sh "cd .. && xcodebuild -resolvePackageDependencies"
 
     run_tests(
-      build_for_testing: true,
       device: 'iPhone 8',
       scheme: Scheme_UITests
     )
