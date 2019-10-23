@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+## [Unreleased]
+
+### Fixed
+
+- Fix: Don't update content when slightly swipe down in Social Modal
+
 ## [3.4.0] - 2019-10-08
 
 ### Added
@@ -16,7 +22,6 @@ Changelog for Critical Maps iOS
 - Fix: NavigationBar Colors under iOS 13 
 - Fix: UITableViewHeaderFooterView backgroundColor deprecation warning
 - Fix: Ambiguous auto layout constraints for Settings screen
-- Fix: Don't update content when slightly swipe down in Social Modal
 
 ## [3.3.0] - 2019-09-01
 
