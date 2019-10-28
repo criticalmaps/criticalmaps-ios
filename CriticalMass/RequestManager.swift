@@ -34,12 +34,12 @@ public class RequestManager {
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
 
     @available(iOS 12.0, *)
-    convenience init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 6.0, idProvider: IDProvider, url: URL, pathMonitor: NWPathMonitor) {
+    convenience init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL, pathMonitor: NWPathMonitor) {
         self.init(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: idProvider, url: url)
         setup(pathMonitor: pathMonitor)
     }
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 6.0, idProvider: IDProvider, url: URL) {
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
         endpoint = url
         self.idProvider = idProvider
         self.dataStore = dataStore
