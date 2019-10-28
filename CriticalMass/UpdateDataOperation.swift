@@ -35,7 +35,7 @@ final class UpdateDataOperation: AsyncOperation {
         
         let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
         guard let bodyData = try? body.encoded() else {
-            completeOperation()
+            state = .finished
             return
         }
 
@@ -44,7 +44,7 @@ final class UpdateDataOperation: AsyncOperation {
             guard let self = self else { return }
 
             self.result = result
-            self.completeOperation()
+            self.state = .finished
         }
     }
 }
@@ -56,7 +56,7 @@ private extension UpdateDataOperation {
             guard let self = self else { return }
 
             self.result = result
-            self.completeOperation()
+            self.state = .finished
         }
     }
 }

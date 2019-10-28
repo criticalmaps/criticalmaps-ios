@@ -18,7 +18,7 @@ final class WaitOperation: AsyncOperation {
     
     override func main() {
         DispatchQueue.main.asyncAfter(deadline: .now() + interval) { [weak self] in
-            self?.completeOperation()
+            self?.state = .finished
         }
     }
 }
