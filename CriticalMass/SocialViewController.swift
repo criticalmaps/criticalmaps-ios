@@ -44,10 +44,6 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         super.viewDidLoad()
         configureSegmentedControl()
         configureNavigationBar()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         present(segment: .chat)
     }
 
