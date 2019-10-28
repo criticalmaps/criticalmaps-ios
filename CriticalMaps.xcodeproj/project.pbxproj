@@ -10,6 +10,7 @@
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
 		21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FB12352CBD300B942AA /* WaitOperation.swift */; };
+		75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */; };
@@ -155,6 +156,7 @@
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		21859FB12352CBD300B942AA /* WaitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOperation.swift; sourceTree = "<group>"; };
+		75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkResponsiveTextView.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -455,6 +457,7 @@
 				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
+				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
@@ -909,6 +912,7 @@
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */,
 				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
+				75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
