@@ -29,14 +29,7 @@ final class UpdateDataOperation: AsyncOperation {
 
     override func main() {
         guard let currentLocation = locationProvider.currentLocation else {
-            let request = GetLocationsAndChatMessagesRequest()
-            networkLayer.get(request: request) { [weak self] result in
-                guard let self = self else { return }
-
-                self.result = result
-                self.completeOperation()
-            }
-
+            getLocationsAndChatMessages()
             return
         }
         
@@ -48,6 +41,18 @@ final class UpdateDataOperation: AsyncOperation {
 
         let request = PostLocationRequest()
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
+            guard let self = self else { return }
+
+            self.result = result
+            self.completeOperation()
+        }
+    }
+}
+
+private extension UpdateDataOperation {
+    private func getLocationsAndChatMessages() {
+        let request = GetLocationsAndChatMessagesRequest()
+        networkLayer.get(request: request) { [weak self] result in
             guard let self = self else { return }
 
             self.result = result
