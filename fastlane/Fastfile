@@ -48,7 +48,7 @@ platform :ios do
     
     run_tests(
       scheme: Scheme_SnapshotTests,
-      device: "iPhone 5s"
+      device: "iPhone 8"
     )
   end
 
