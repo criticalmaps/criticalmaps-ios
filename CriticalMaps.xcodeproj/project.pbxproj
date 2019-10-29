@@ -133,6 +133,7 @@
 		98F1D928232AB029000F4E82 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98F1D927232AB029000F4E82 /* SDWebImage */; };
 		98F1D92F232AB477000F4E82 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98F1D92E232AB477000F4E82 /* SDWebImage */; };
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
+		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -901,6 +902,7 @@
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
 				940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */,
 				98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */,
+				98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
