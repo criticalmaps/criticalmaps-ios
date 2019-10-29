@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIColor {
+    static var cmYellow: UIColor {
+        UIColor(red: 1.000, green: 0.835, blue: 0.192, alpha: 1.000)
+    }
+
     static var twitterProfileInnerBorder: UIColor {
         return UIColor(red: 55 / 255.0, green: 64 / 255.0, blue: 82 / 255.0, alpha: 0.18)
     }
