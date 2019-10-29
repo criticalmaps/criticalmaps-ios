@@ -12,9 +12,9 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>com.mono0926.LicensePlist/NSString-Hashes</string>
+			<string>com.mono0926.LicensePlist/Crypto</string>
 			<key>Title</key>
-			<string>NSString-Hashes</string>
+			<string>Crypto</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -23,22 +23,6 @@
 			<string>com.mono0926.LicensePlist/SDWebImage</string>
 			<key>Title</key>
 			<string>SDWebImage</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/SwiftFormat</string>
-			<key>Title</key>
-			<string>SwiftFormat</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/SwiftHash</string>
-			<key>Title</key>
-			<string>SwiftHash</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
