@@ -44,14 +44,32 @@ import UIKit
 }
 
 public struct CriticalMapsLoader {
-    static func drawCMLogo(rotation angle: CGFloat = 0) {
+    static func drawCMLogo(rotation angle: CGFloat = 0, isMonochrome: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
-        let yellowFill = UIColor(red: 1.000, green: 0.835, blue: 0.192, alpha: 1.000)
-        let fillColor2 = UIColor.white
-        let fillColor3 = UIColor.black
+        var yellowFill: UIColor {
+            if isMonochrome {
+                return UIColor.clear
+            } else {
+                return .cmYellow
+            }
+        }
+        var whiteFill: UIColor {
+            if isMonochrome {
+                return UIColor.clear
+            } else {
+                return .white
+            }
+        }
+        var blackFill: UIColor {
+            if isMonochrome {
+                return .gray
+            } else {
+                return .black
+            }
+        }
 
         //// cm-logo.ai Group
         //// Oval Drawing
@@ -79,7 +97,7 @@ public struct CriticalMapsLoader {
         bezierPath.addLine(to: CGPoint(x: 34.17, y: 91.6))
         bezierPath.close()
         bezierPath.usesEvenOddFillRule = true
-        fillColor2.setFill()
+        whiteFill.setFill()
         bezierPath.fill()
 
 
@@ -142,7 +160,7 @@ public struct CriticalMapsLoader {
         bezier2Path.addLine(to: CGPoint(x: 48.1, y: 46.3))
         bezier2Path.addLine(to: CGPoint(x: 50.89, y: 42.28))
         bezier2Path.close()
-        fillColor3.setFill()
+        blackFill.setFill()
         bezier2Path.fill()
 
 
@@ -185,7 +203,7 @@ public struct CriticalMapsLoader {
         bezier3Path.addCurve(to: CGPoint(x: 3.12, y: 39.69), controlPoint1: CGPoint(x: 1.73, y: 36.56), controlPoint2: CGPoint(x: 3.12, y: 37.96))
         bezier3Path.addCurve(to: CGPoint(x: -0, y: 42.81), controlPoint1: CGPoint(x: 3.12, y: 41.41), controlPoint2: CGPoint(x: 1.73, y: 42.81))
         bezier3Path.close()
-        fillColor2.setFill()
+        whiteFill.setFill()
         bezier3Path.fill()
 
 
@@ -399,7 +417,7 @@ public struct CriticalMapsLoader {
         bezier4Path.addCurve(to: CGPoint(x: -21.05, y: -33.76), controlPoint1: CGPoint(x: -20.42, y: -30.75), controlPoint2: CGPoint(x: -20.14, y: -32.5))
         bezier4Path.addCurve(to: CGPoint(x: -24.98, y: -34.38), controlPoint1: CGPoint(x: -21.97, y: -35.02), controlPoint2: CGPoint(x: -23.72, y: -35.3))
         bezier4Path.close()
-        fillColor3.setFill()
+        blackFill.setFill()
         bezier4Path.fill()
 
         context.restoreGState()
