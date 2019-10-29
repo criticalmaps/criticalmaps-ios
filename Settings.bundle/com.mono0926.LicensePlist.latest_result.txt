@@ -1,24 +1,4 @@
-name: NSString-Hashes, nameSpecified: 
-body: Public Domain
-…
-version: 1.2.2
-
-name: NSString-Hashes, nameSpecified: 
-body: Public Domain
-…
-version: 1.2.2
-
-name: SDWebImage, nameSpecified: 
-body: Copyright (c) 2009-2…
-version: 5.0.1
-
-name: SwiftFormat, nameSpecified: 
-body: MIT License
-
-Copyrig…
-version: 0.40.8
-
-name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.2.2
+name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.2.5
 
 name: SwiftHash, nameSpecified: , owner: onmyway133, version: 2.0.2
 

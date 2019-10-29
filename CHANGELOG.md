@@ -8,6 +8,7 @@ Changelog for Critical Maps iOS
 
 - Fix: Don't update content when slightly swipe down in Social Modal
 - Fix whitespace only chat message can not be send anymore.
+- Fix: Action indicator visibility in Dark Mode
 
 ## [3.4.0] - 2019-10-08
 
