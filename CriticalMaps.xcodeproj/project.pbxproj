@@ -56,7 +56,6 @@
 		94FCBD2C226C57CA00F93F94 /* UIApplication+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */; };
 		94FCBD32226C57FA00F93F94 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD2E226C57F900F93F94 /* ThemeStore.swift */; };
 		94FCBD33226C57FA00F93F94 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD2F226C57F900F93F94 /* Theme.swift */; };
-		94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD31226C57FA00F93F94 /* ThemeController.swift */; };
 		94FCBD37226C580D00F93F94 /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD36226C580D00F93F94 /* SettingsSection.swift */; };
 		94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */; };
@@ -65,7 +64,6 @@
 		98003D4922872C1800592D55 /* URLCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D4822872C1700592D55 /* URLCodable.swift */; };
 		9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176221FBDD580077D419 /* TextFieldWithInsets.swift */; };
 		9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176421FC71770077D419 /* MessagesTableViewController.swift */; };
-		9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */; };
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
@@ -711,7 +709,7 @@
 			attributes = {
 				CLASSPREFIX = PL;
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
 					3F137FAE2349CB8C006B26AB = {
@@ -719,6 +717,7 @@
 						TestTargetID = 94CF085B19BDEAF2009FFF43;
 					};
 					94CF085B19BDEAF2009FFF43 = {
+						DevelopmentTeam = 5YLLXUZBZ2;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -946,11 +945,7 @@
 				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
 				982DA8D121FF9F9100E2A51B /* TwitterApiResponse.swift in Sources */,
-				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
-				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */,
-				94FCBD34226C57FA00F93F94 /* ThemeDefining.swift in Sources */,
-				9804176821FC74D90077D419 /* ChatMessageTableViewCell.swift in Sources */,
 				940643D42307265400AB1BCB /* PostChatMessagesRequest.swift in Sources */,
 				9822A15221EDF1C5007F5994 /* DataStore.swift in Sources */,
 				9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */,
@@ -1236,7 +1231,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = CriticalMaps/CriticalMaps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 19;
