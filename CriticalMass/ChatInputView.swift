@@ -14,6 +14,8 @@ protocol ChatInputDelegate: AnyObject {
 class ChatInputView: UIView, UITextFieldDelegate {
     struct Constants {
         static let textFieldHeight = CGFloat(46.0)
+        static let sendButtonWidth = CGFloat(65.0)
+        static let messageTextFieldInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 
     @objc
@@ -39,12 +41,12 @@ class ChatInputView: UIView, UITextFieldDelegate {
         textField.isOpaque = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = String.chatPlaceholder
-        textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        textField.insets = Constants.messageTextFieldInsets
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .send
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.layer.masksToBounds = true
-        textField.layer.cornerRadius = ChatInputView.Constants.textFieldHeight / 2.0
+        textField.layer.cornerRadius = Constants.textFieldHeight / 2.0
         return textField
     }()
 
@@ -95,7 +97,8 @@ class ChatInputView: UIView, UITextFieldDelegate {
         translatesAutoresizingMaskIntoConstraints = false
 
         addConstraints([
-            messageTextField.heightAnchor.constraint(equalToConstant: ChatInputView.Constants.textFieldHeight),
+            sendButton.widthAnchor.constraint(equalToConstant: Constants.sendButtonWidth),
+            messageTextField.heightAnchor.constraint(equalToConstant: Constants.textFieldHeight),
             chatStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             chatStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             chatStack.centerYAnchor.constraint(equalTo: centerYAnchor),
