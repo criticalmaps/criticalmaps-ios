@@ -16,6 +16,7 @@ Changelog for Critical Maps iOS
 - Landscape support
 - Set userStyle as Theme under iOS 13
 - Add infrastructure for UITests to easily generate automated screenshots with different languages and devices
+- Infrastructure for Snapshot tests
 - Open Twitter tapping on tweet
 
 ### Fixed

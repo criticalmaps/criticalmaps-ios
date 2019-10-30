@@ -11,3 +11,5 @@ jobs:
       name: UnitTests
     - script: bundle exec fastlane ui_test
       name: UITests
+    - script: bundle exec fastlane snapshot_test
+      name: SnapshotTests
