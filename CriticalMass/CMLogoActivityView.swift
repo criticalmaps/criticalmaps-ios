@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@IBDesignable public class CMLogoActivityView: UIView {
+@IBDesignable public class CMLogoActivityView: UIView, IBConstructable {
     private var timer: Timer?
     private var angle: CGFloat = 0
 
