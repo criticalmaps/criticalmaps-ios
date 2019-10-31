@@ -112,7 +112,6 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
         UIView.appearance(whenContainedInInstancesOf: [LoadingViewController.self]).backgroundColor = theme.backgroundColor
-        UILabel.appearance(whenContainedInInstancesOf: [LoadingViewController.self]).textColor = theme.titleTextColor
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
