@@ -29,12 +29,9 @@ class RulesDetailViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
+    private lazy var descriptionLabel: RuleDescriptionLabel = {
+        let label = RuleDescriptionLabel()
         label.text = rule.text
-        label.numberOfLines = 0
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
