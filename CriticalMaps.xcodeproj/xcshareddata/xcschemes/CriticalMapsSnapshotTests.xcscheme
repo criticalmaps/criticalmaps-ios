@@ -32,26 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "94CF087619BDEAF2009FFF43"
-               BuildableName = "CriticalMapsTests.xctest"
-               BlueprintName = "CriticalMapsTests"
-               ReferencedContainer = "container:CriticalMaps.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3F137FAE2349CB8C006B26AB"
-               BuildableName = "CriticalMapsUITests.xctest"
-               BlueprintName = "CriticalMapsUITests"
-               ReferencedContainer = "container:CriticalMaps.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "7530E38F235A3CA100F5E55C"
                BuildableName = "CriticalMapsSnapshotTests.xctest"
                BlueprintName = "CriticalMapsSnapshotTests"
@@ -70,16 +50,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "94CF085B19BDEAF2009FFF43"
-            BuildableName = "CriticalMaps.app"
-            BlueprintName = "CriticalMaps"
-            ReferencedContainer = "container:CriticalMaps.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -87,8 +57,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "94CF085B19BDEAF2009FFF43"
@@ -96,7 +65,7 @@
             BlueprintName = "CriticalMaps"
             ReferencedContainer = "container:CriticalMaps.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
