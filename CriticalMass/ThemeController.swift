@@ -52,7 +52,7 @@ class ThemeController {
 
     private func styleRulesComponents(with theme: ThemeDefining) {
         RuleTableViewCell.appearance().ruleTextColor = theme.titleTextColor
-        RuleDetailTextView.appearance().ruleDetailTextColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [RulesDetailViewController.self]).textColor = theme.titleTextColor
 
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
