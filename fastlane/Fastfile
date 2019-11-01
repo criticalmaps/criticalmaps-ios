@@ -16,6 +16,7 @@
 Scheme = 'CriticalMaps'
 Scheme_UnitTests = 'CriticalMapsTests'
 Scheme_UITests = 'CriticalMapsUITests'
+Scheme_SnapshotTests = 'CriticalMapsSnapshotTests'
 
 Screenshots_Output = 'build/screenshots' 
 
@@ -36,9 +37,28 @@ platform :ios do
     sh "cd .. && xcodebuild -resolvePackageDependencies"
 
     run_tests(
-      build_for_testing: true,
       device: 'iPhone 8',
       scheme: Scheme_UnitTests
+    )
+  end
+
+  desc 'Run snapshot tests'
+  lane :snapshot_test do
+    sh "cd .. && xcodebuild -resolvePackageDependencies"
+    
+    run_tests(
+      scheme: Scheme_SnapshotTests,
+      device: "iPhone 8"
+    )
+  end
+
+  desc 'Run UITests'
+  lane :ui_test do
+    sh "cd .. && xcodebuild -resolvePackageDependencies"
+
+    run_tests(
+      device: 'iPhone 8',
+      scheme: Scheme_UITests
     )
   end
   

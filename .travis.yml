@@ -9,5 +9,7 @@ jobs:
   include:
     - script: bundle exec fastlane test
       name: UnitTests
-    - script: bundle exec fastlane screenshots_limited
+    - script: bundle exec fastlane ui_test
       name: UITests
+    - script: bundle exec fastlane snapshot_test
+      name: SnapshotTests
