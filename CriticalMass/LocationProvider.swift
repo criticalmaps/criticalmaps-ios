@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum LocationProviderPermission {
+public enum LocationProviderPermission {
     case authorized
     case denied
     case disabled
     case unkown
 }
 
-protocol LocationProvider {
+public protocol LocationProvider {
     var currentLocation: Location? { get }
     static var accessPermission: LocationProviderPermission { get }
 }

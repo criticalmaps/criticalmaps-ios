@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ApiResponse: Codable, Equatable {
-    let locations: [String: Location]
-    let chatMessages: [String: ChatMessage]
+public struct ApiResponse: Codable, Equatable {
+    public let locations: [String: Location]
+    public let chatMessages: [String: ChatMessage]
 }

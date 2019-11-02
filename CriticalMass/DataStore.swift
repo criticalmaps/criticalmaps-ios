@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol DataStore {
+public protocol DataStore {
     func update(with response: ApiResponse)
 }

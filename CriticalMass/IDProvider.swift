@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol IDProvider {
+public protocol IDProvider {
     var id: String { get }
 }

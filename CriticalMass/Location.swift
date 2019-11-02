@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Location: Equatable {
-    var longitude: Double
-    var latitude: Double
-    var timestamp: Float
-    var name: String?
-    var color: String?
+public struct Location: Equatable {
+    public var longitude: Double
+    public var latitude: Double
+    public var timestamp: Float
+    public var name: String?
+    public var color: String?
 }
 
 extension Location: Codable {
@@ -24,7 +24,7 @@ extension Location: Codable {
         case color
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try latitude = container.decode(Double.self, forKey: .latitude) / 1_000_000
         try longitude = container.decode(Double.self, forKey: .longitude) / 1_000_000
@@ -33,7 +33,7 @@ extension Location: Codable {
         try color = container.decodeIfPresent(String.self, forKey: .color)
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(longitude * 1_000_000, forKey: .longitude)
         try container.encode(latitude * 1_000_000, forKey: .latitude)

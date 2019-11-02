@@ -1,6 +1,6 @@
 import Foundation
 
-protocol APIRequestDefining {
+public protocol APIRequestDefining {
     associatedtype ResponseDataType: Decodable
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
