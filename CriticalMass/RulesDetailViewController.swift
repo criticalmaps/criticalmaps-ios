@@ -17,8 +17,10 @@ class RulesDetailViewController: UIViewController {
 
     private lazy var ruleStack: UIStackView = {
         let view = UIStackView(arrangedSubviews: [ruleImageView, descriptionLabel])
-        view.axis = .vertical
-        view.distribution = .fill
+        let isLandscape = traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact
+        view.axis = isLandscape ? .horizontal : .vertical
+        view.distribution = .fillProportionally
+        view.alignment = .top
         view.spacing = 2 * spacing
         return view
     }()
@@ -32,6 +34,7 @@ class RulesDetailViewController: UIViewController {
     private lazy var descriptionLabel: RuleDescriptionLabel = {
         let label = RuleDescriptionLabel()
         label.text = rule.text
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -77,21 +80,12 @@ class RulesDetailViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
 
         // Constraints for scroll view
-        if #available(iOS 11.0, *) {
-            NSLayoutConstraint.activate([
-                scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor)
+        ])
 
         ruleImageView.translatesAutoresizingMaskIntoConstraints = false
         ruleStack.translatesAutoresizingMaskIntoConstraints = false
@@ -107,5 +101,16 @@ class RulesDetailViewController: UIViewController {
             scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: ruleStack.bottomAnchor, constant: spacing),
             ruleStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: spacing)
         ])
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        let isCompactVerticalSizeClass = traitCollection.verticalSizeClass == .compact
+        let wasCompactVerticalSizeClass = previousTraitCollection?.verticalSizeClass == .compact
+
+        guard isCompactVerticalSizeClass != wasCompactVerticalSizeClass else { return }
+
+        ruleStack.axis = isCompactVerticalSizeClass ? .horizontal : .vertical
     }
 }
