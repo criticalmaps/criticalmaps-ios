@@ -11,7 +11,7 @@ import XCTest
 
 class NetworkOperatorTests: XCTestCase {
     
-    struct ResponseData: Codable {
+    struct ResponseData: Codable, Equatable {
         var content: String
     }
     
@@ -54,7 +54,7 @@ class NetworkOperatorTests: XCTestCase {
             case (.failure(let lhsError), .failure(let rhsError)):
                 XCTAssert(lhsError == rhsError, line: line)
             case (.success(let lhsResponse), .success(let rhsResponse)):
-                XCTAssert(lhsResponse.content == rhsResponse.content, line: line)
+                XCTAssert(lhsResponse == rhsResponse, line: line)
             default:
                 XCTAssert(false, line: line)
             }
