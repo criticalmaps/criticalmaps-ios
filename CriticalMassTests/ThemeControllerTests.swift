@@ -170,15 +170,15 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(ruleTextColor, Theme.dark.style.titleTextColor)
     }
 
-    func testRuleDetailTextViewCellRuleDetailTextColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {
+    func testRuleDetailTextColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {
         // given
         let theme: Theme = .dark
         // when
         sut.changeTheme(to: theme)
         sut.applyTheme()
         // then
-        let ruleDetailTextColor = RuleDetailTextView.appearance().ruleDetailTextColor
-        XCTAssertEqual(ruleDetailTextColor, Theme.dark.style.titleTextColor)
+        let ruleDescriptionTextColor = RuleDescriptionLabel.appearance().descriptionTextColor
+        XCTAssertEqual(ruleDescriptionTextColor, Theme.dark.style.titleTextColor)
     }
 
     func testTweetTableViewCellHandleLabelTextColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {
