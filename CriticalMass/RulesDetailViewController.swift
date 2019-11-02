@@ -40,7 +40,7 @@ class RulesDetailViewController: UIViewController {
         if let artwork = rule.artwork {
             aspectRatio = artwork.size.height / artwork.size.width
         } else {
-            aspectRatio = 0.6
+            aspectRatio = 0
         }
 
         return NSLayoutConstraint(
