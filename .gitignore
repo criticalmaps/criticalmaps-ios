@@ -13,3 +13,4 @@ fastlane/test_output
 
 ## Build generated
 build/
+.build
