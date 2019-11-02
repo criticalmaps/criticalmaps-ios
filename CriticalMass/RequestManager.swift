@@ -34,7 +34,7 @@ public class RequestManager {
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
 
-    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
+    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
 
     public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
         endpoint = url

@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "SimulationSnapshots",
+    platforms: [
+        .macOS(.v10_12)
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(path:  "../../")

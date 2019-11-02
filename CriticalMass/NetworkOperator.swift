@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct NetworkOperator: NetworkLayer {
+public struct NetworkOperator: NetworkLayer {
     private let session: URLSession
-    private var networkIndicatorHelper: NetworkActivityIndicatorHelper
+    private var networkIndicatorHelper: NetworkActivityIndicatorHelper?
     private static let validHttpResponseCodes = 200 ..< 299
 
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
@@ -18,8 +18,14 @@ struct NetworkOperator: NetworkLayer {
         session = URLSession(configuration: configuration)
         self.networkIndicatorHelper = networkIndicatorHelper
     }
+    
+    public init() {
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        session = URLSession(configuration: configuration)
+    }
 
-    func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
+    public func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
         let urlRequest = request.makeRequest()
         dataTask(with: urlRequest) { result in
             switch result {
@@ -36,7 +42,7 @@ struct NetworkOperator: NetworkLayer {
         }
     }
 
-    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
+    public func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
         var urlRequest = request.makeRequest()
         urlRequest.httpBody = bodyData
         dataTask(with: urlRequest) { result in
@@ -56,9 +62,9 @@ struct NetworkOperator: NetworkLayer {
 
     private func dataTask(with request: URLRequest,
                           completion: @escaping ResultCallback<Data>) {
-        networkIndicatorHelper.didStartRequest()
+        networkIndicatorHelper?.didStartRequest()
         let task = session.dataTask(with: request) { data, response, error in
-            self.networkIndicatorHelper.didEndRequest()
+            self.networkIndicatorHelper?.didEndRequest()
             guard let data = data else {
                 completion(.failure(NetworkError.noData(error)))
                 return
@@ -75,7 +81,7 @@ struct NetworkOperator: NetworkLayer {
         task.resume()
     }
 
-    func cancelActiveRequestsIfNeeded() {
+    public func cancelActiveRequestsIfNeeded() {
         session.invalidateAndCancel()
     }
 }
