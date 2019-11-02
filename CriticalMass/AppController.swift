@@ -30,7 +30,11 @@ class AppController {
     }()
 
     private let networkOperator: NetworkOperator = {
-        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        let session = URLSession(configuration: configuration)
+        
+        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: session)
     }()
 
     private let themeController = ThemeController()
@@ -44,7 +48,7 @@ class AppController {
     }()
 
     private lazy var twitterManager: TwitterManager = {
-        TwitterManager(networkLayer: networkOperator, url: Constants.twitterEndpoint)
+        TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
 
     private func getRulesViewController() -> RulesViewController {
