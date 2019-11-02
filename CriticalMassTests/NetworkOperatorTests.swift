@@ -67,7 +67,6 @@ class NetworkOperatorTests: XCTestCase {
         // Post
         networkOperator.post(request: TestRequest(), bodyData: "Foo".data(using: .utf8)!, completion: resultCallback)
         
-        
         wait(for: [exp], timeout: 1)
     }
     
