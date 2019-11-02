@@ -35,7 +35,7 @@ class RulesDetailViewController: UIViewController {
         return label
     }()
 
-    private lazy var imageViewHeightConstraint = { () -> NSLayoutConstraint in
+    private lazy var imageViewHeightConstraint: NSLayoutConstraint = {
         let aspectRatio: CGFloat
         if let artwork = rule.artwork {
             aspectRatio = artwork.size.height / artwork.size.width
