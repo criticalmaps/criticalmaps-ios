@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
+		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
+		3F749B29236C641400C4A125 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 3F749B28236C641400C4A125 /* __Snapshots__ */; };
+		3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */; };
 		75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */; };
 		7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */; };
 		7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */; };
@@ -171,6 +174,9 @@
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F137FB92349CD71006B26AB /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		3F749B28236C641400C4A125 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleDescriptionLabel.swift; sourceTree = "<group>"; };
 		75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkResponsiveTextView.swift; sourceTree = "<group>"; };
 		7530E390235A3CA100F5E55C /* CriticalMapsSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7530E394235A3CA100F5E55C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -368,9 +374,11 @@
 		7530E391235A3CA100F5E55C /* CriticalMapsSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				3F749B28236C641400C4A125 /* __Snapshots__ */,
+				7530E394235A3CA100F5E55C /* Info.plist */,
+				3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */,
 				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
 				7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */,
-				7530E394235A3CA100F5E55C /* Info.plist */,
 			);
 			path = CriticalMapsSnapshotTests;
 			sourceTree = "<group>";
@@ -498,10 +506,8 @@
 			children = (
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
 				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
-				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
-				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
 				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
@@ -510,16 +516,26 @@
 				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
 				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 				98E7338C22039511005F311F /* Settings */,
+				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
+				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
+				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
+				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
+				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
 				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
-				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
 				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
-				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
 				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
 				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
+				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
+				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
+				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
+				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
+				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
+				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
+				98E7338C22039511005F311F /* Settings */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -852,6 +868,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F749B29236C641400C4A125 /* __Snapshots__ in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -960,6 +977,7 @@
 				75E26995235A4BA5000F2D0A /* MockThemeController.swift in Sources */,
 				7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */,
 				7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */,
+				3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,6 +994,7 @@
 				9491720D23009EB3008B98AD /* APIRequest.swift in Sources */,
 				988B12AD22A271FE0010FAED /* Logger.swift in Sources */,
 				94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */,
+				3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */,
 				94092749228321E60034E46B /* UITableView+Register.swift in Sources */,
 				9409274B228322FD0034E46B /* TypeNameProtocol.swift in Sources */,
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
