@@ -77,6 +77,8 @@
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
+		980EA850236F460900E9EF18 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 980EA84F236F460900E9EF18 /* SDWebImage */; };
+		980EA852236F460F00E9EF18 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 980EA851236F460F00E9EF18 /* SDWebImage */; };
 		9810C382229830940011F718 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9810C381229830940011F718 /* RatingHelper.swift */; };
 		9810C384229831720011F718 /* RatingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9810C383229831720011F718 /* RatingHelperTests.swift */; };
 		981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C788E225E67350009FC3E /* ChatNavigationButton.swift */; };
@@ -330,6 +332,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				980EA852236F460F00E9EF18 /* SDWebImage in Frameworks */,
 				7530E3A6235A400900F5E55C /* XCTest.framework in Frameworks */,
 				7530E3A4235A3FFE00F5E55C /* SnapshotTesting in Frameworks */,
 			);
@@ -354,6 +357,7 @@
 			files = (
 				94CF087919BDEAF2009FFF43 /* XCTest.framework in Frameworks */,
 				94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
+				980EA850236F460900E9EF18 /* SDWebImage in Frameworks */,
 				94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,6 +737,7 @@
 			name = CriticalMapsSnapshotTests;
 			packageProductDependencies = (
 				7530E3A3235A3FFE00F5E55C /* SnapshotTesting */,
+				980EA851236F460F00E9EF18 /* SDWebImage */,
 			);
 			productName = CriticalMapsSnapshotTests;
 			productReference = 7530E390235A3CA100F5E55C /* CriticalMapsSnapshotTests.xctest */;
@@ -777,6 +782,7 @@
 			);
 			name = CriticalMapsTests;
 			packageProductDependencies = (
+				980EA84F236F460900E9EF18 /* SDWebImage */,
 			);
 			productName = CriticalMassTests;
 			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */;
@@ -1566,6 +1572,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
+		};
+		980EA84F236F460900E9EF18 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		980EA851236F460F00E9EF18 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 		9831A53F236CC52300BEB0C9 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
