@@ -474,3 +474,15 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(lightColor, Theme.light.style.titleTextColor)
     }
 }
+
+class MockThemeStore: ThemeStorable {
+    private var currentTheme: Theme?
+
+    func load() -> Theme? {
+        return currentTheme
+    }
+
+    func save(_ themeSelection: Theme) {
+        currentTheme = themeSelection
+    }
+}
