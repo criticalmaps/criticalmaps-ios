@@ -11,7 +11,7 @@ import UIKit
 enum ContentState<T> {
     case loading(LoadingViewController)
     case results(T)
-    case error
+    case error(ErrorStateViewController)
 }
 
 protocol ContentStatePresentable {
