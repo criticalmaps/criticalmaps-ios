@@ -15,6 +15,7 @@ struct NetworkOperator: NetworkLayer {
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.timeoutIntervalForRequest = 15.0
         session = URLSession(configuration: configuration)
         self.networkIndicatorHelper = networkIndicatorHelper
     }
