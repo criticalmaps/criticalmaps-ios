@@ -48,7 +48,7 @@ class TwitterManager {
     }
 
     public func getTweets() {
-        contentState = .loading(.cmLoadingController)
+        contentState = .loading(.default)
         loadTweets()
     }
 }
