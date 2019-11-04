@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="errorMessage" destination="OQh-eU-erb" id="2EH-fA-MZ4"/>
                 <outlet property="errorTitle" destination="bzI-1N-7XW" id="RGD-du-IvS"/>
+                <outlet property="retryButton" destination="lsd-Oe-RGd" id="NAS-K7-t57"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
