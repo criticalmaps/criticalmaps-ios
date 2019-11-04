@@ -11,11 +11,14 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     private let chatInput = ChatInputView(frame: .zero)
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
-    private lazy var chatInputBottomConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+    private lazy var chatInputBottomConstraint: NSLayoutConstraint = {
+        if #available(iOS 11.0, *) {
+            return chatInput.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        } else {
+            return chatInput.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        }
     }()
 
-    private let chatInputHeight: CGFloat = 64
     private lazy var chatInputHeightConstraint = {
         chatInput.heightAnchor.constraint(equalToConstant: chatInputHeight)
     }()
@@ -31,7 +34,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureNotifications()
         configureChatInput()
         configureMessagesTableViewController()
@@ -63,28 +66,24 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             self?.messagesTableViewController.update(messages: messages)
         }
 
-        addChild(messagesTableViewController)
-        view.addSubview(messagesTableViewController.view)
-        messagesTableViewController.didMove(toParent: self)
+        add(messagesTableViewController)
         messagesTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addConstraints([
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: chatInput, attribute: .top, multiplier: 1, constant: 0),
+        NSLayoutConstraint.activate([
+            messagesTableViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            messagesTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
+            messagesTableViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messagesTableViewController.view.bottomAnchor.constraint(equalTo: chatInput.topAnchor)
         ])
     }
 
     private func configureChatInput() {
         chatInput.delegate = self
         view.addSubview(chatInput)
-
-        view.addConstraints([
+        NSLayoutConstraint.activate([
             chatInputHeightConstraint,
-            NSLayoutConstraint(item: chatInput, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
             chatInputBottomConstraint,
+            chatInput.widthAnchor.constraint(equalTo: view.widthAnchor),
+            chatInput.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
@@ -98,21 +97,27 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             bottomInset = 0
         }
 
-        chatInputHeightConstraint.constant = chatInputHeight + bottomInset
+        chatInputHeightConstraint.constant = Constants.chatInputHeight + bottomInset
     }
 
+    // MARK: Keyboard Handling
     @objc private func didTapTableView() {
         chatInput.resignFirstResponder()
     }
 
-    // MARK: Keyboard Handling
-
     @objc private func keyboardWillShow(notification: Notification) {
         let duration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
         let curve = notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
-        let endFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let endFrameHeight: CGFloat = {
+            if #available(iOS 11.0, *) {
+                let bottomHeight = view.safeAreaInsets.bottom
+                return (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height - bottomHeight
+            } else {
+                return (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
+            }
+        }()
 
-        chatInputBottomConstraint.constant = -endFrame.height
+        chatInputBottomConstraint.constant = -endFrameHeight
         view.setNeedsUpdateConstraints()
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve), animations: {
             self.view.layoutIfNeeded()
