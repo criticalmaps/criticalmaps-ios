@@ -52,8 +52,11 @@ class TwitterViewController: UIViewController, ContentStatePresentable {
                 self?.contentStateViewController = nil
             case let .loading(loadingViewController):
                 self?.contentStateViewController = loadingViewController
-            case .error:
-                self?.contentStateViewController = nil
+            case let .error(errorStateViewController):
+                errorStateViewController.reloadHandler = { [weak self] in
+                    self?.twitterManager.getTweets()
+                }
+                self?.contentStateViewController = errorStateViewController
             }
         }
 
