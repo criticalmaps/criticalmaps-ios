@@ -18,5 +18,5 @@ class LoadingViewController: UIViewController {
 }
 
 extension LoadingViewController {
-    static let cmLoadingController = LoadingViewController(nibName: String(describing: LoadingViewController.self), bundle: Bundle(for: LoadingViewController.self))
+    static let `default` = LoadingViewController(nibName: String(describing: LoadingViewController.self), bundle: Bundle(for: LoadingViewController.self))
 }
