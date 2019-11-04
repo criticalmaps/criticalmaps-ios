@@ -41,13 +41,3 @@ extension ErrorStateViewController {
 
     static let `default` = createErrorStateController(with: .default)
 }
-
-struct ErrorStateModel {
-    let errorTitle: String
-    let errorMessage: String
-}
-
-extension ErrorStateModel {
-    static let `default` = ErrorStateModel(errorTitle: String.errorStateTitle,
-                                           errorMessage: String.errorStateMessage)
-}
