@@ -11,11 +11,11 @@ class TwitterManager {
     private let url: URL
     private var cachedTweets: [Tweet] = [] {
         didSet {
-            updateContentStateCallback?(.results(cachedTweets))
+            contentState = .results(cachedTweets)
         }
     }
 
-    private var contentState: ContentState<[Tweet]> = .loading(.cmLoadingController) {
+    private var contentState: ContentState<[Tweet]> = .loading(.default) {
         didSet {
             updateContentStateCallback?(contentState)
         }
@@ -37,8 +37,9 @@ class TwitterManager {
             onMain {
                 switch result {
                 case let .failure(error):
-                    completion?(.failure(error))
                     ErrorHandler.default.handleError(error)
+                    self.contentState = .error(.default)
+                    completion?(.failure(error))
                 case let .success(response):
                     self.cachedTweets = response.statuses
                     completion?(.success(response.statuses))
