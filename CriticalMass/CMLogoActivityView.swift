@@ -36,62 +36,9 @@ import UIKit
 }
 
 public struct CriticalMapsLoader {
-    static func drawCMLogo(rotation angle: CGFloat = 0, isMonochrome: Bool = true) {
+    static func drawCMLogo(rotation angle: CGFloat = 0, fillColor: UIColor = .gray) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-
-        //// Color Declarations
-        var yellowFill: UIColor {
-            if isMonochrome {
-                return UIColor.clear
-            } else {
-                return .cmYellow
-            }
-        }
-        var whiteFill: UIColor {
-            if isMonochrome {
-                return UIColor.clear
-            } else {
-                return .white
-            }
-        }
-        var blackFill: UIColor {
-            if isMonochrome {
-                return .gray
-            } else {
-                return .black
-            }
-        }
-
-        //// cm-logo.ai Group
-        //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: 5, y: 5, width: 90, height: 90))
-        yellowFill.setFill()
-        ovalPath.fill()
-
-
-        //// Bezier Drawing
-        let bezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: 34.17, y: 91.6))
-        bezierPath.addLine(to: CGPoint(x: 37.69, y: 69.01))
-        bezierPath.addLine(to: CGPoint(x: 25.56, y: 49.06))
-        bezierPath.addLine(to: CGPoint(x: 34.17, y: 31.5))
-        bezierPath.addLine(to: CGPoint(x: 37.69, y: 33.09))
-        bezierPath.addLine(to: CGPoint(x: 45.89, y: 22.98))
-        bezierPath.addLine(to: CGPoint(x: 57.46, y: 28.24))
-        bezierPath.addLine(to: CGPoint(x: 71.26, y: 45.76))
-        bezierPath.addLine(to: CGPoint(x: 66.36, y: 53.09))
-        bezierPath.addLine(to: CGPoint(x: 68.45, y: 62.85))
-        bezierPath.addLine(to: CGPoint(x: 61.24, y: 70.7))
-        bezierPath.addLine(to: CGPoint(x: 66.36, y: 91.6))
-        bezierPath.addLine(to: CGPoint(x: 55.49, y: 95.2))
-        bezierPath.addLine(to: CGPoint(x: 45.89, y: 95.2))
-        bezierPath.addLine(to: CGPoint(x: 34.17, y: 91.6))
-        bezierPath.close()
-        bezierPath.usesEvenOddFillRule = true
-        whiteFill.setFill()
-        bezierPath.fill()
-
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -152,52 +99,13 @@ public struct CriticalMapsLoader {
         bezier2Path.addLine(to: CGPoint(x: 48.1, y: 46.3))
         bezier2Path.addLine(to: CGPoint(x: 50.89, y: 42.28))
         bezier2Path.close()
-        blackFill.setFill()
+        fillColor.setFill()
         bezier2Path.fill()
-
 
         //// gear
         context.saveGState()
         context.translateBy(x: 50, y: 50)
         context.rotate(by: -angle * CGFloat.pi/180)
-
-
-
-        //// Bezier 3 Drawing
-        let bezier3Path = UIBezierPath()
-        bezier3Path.move(to: CGPoint(x: 20.8, y: -33.94))
-        bezier3Path.addCurve(to: CGPoint(x: 25.16, y: -34.64), controlPoint1: CGPoint(x: 21.81, y: -35.34), controlPoint2: CGPoint(x: 23.77, y: -35.65))
-        bezier3Path.addCurve(to: CGPoint(x: 25.86, y: -30.27), controlPoint1: CGPoint(x: 26.56, y: -33.62), controlPoint2: CGPoint(x: 26.87, y: -31.67))
-        bezier3Path.addCurve(to: CGPoint(x: 21.49, y: -29.58), controlPoint1: CGPoint(x: 24.84, y: -28.87), controlPoint2: CGPoint(x: 22.89, y: -28.57))
-        bezier3Path.addCurve(to: CGPoint(x: 20.8, y: -33.94), controlPoint1: CGPoint(x: 20.09, y: -30.59), controlPoint2: CGPoint(x: 19.78, y: -32.55))
-        bezier3Path.close()
-        bezier3Path.move(to: CGPoint(x: -40.72, y: 13.23))
-        bezier3Path.addCurve(to: CGPoint(x: -38.71, y: 9.29), controlPoint1: CGPoint(x: -41.25, y: 11.59), controlPoint2: CGPoint(x: -40.35, y: 9.83))
-        bezier3Path.addCurve(to: CGPoint(x: -34.77, y: 11.3), controlPoint1: CGPoint(x: -37.07, y: 8.76), controlPoint2: CGPoint(x: -35.31, y: 9.66))
-        bezier3Path.addCurve(to: CGPoint(x: -36.78, y: 15.24), controlPoint1: CGPoint(x: -34.24, y: 12.94), controlPoint2: CGPoint(x: -35.14, y: 14.7))
-        bezier3Path.addCurve(to: CGPoint(x: -40.72, y: 13.23), controlPoint1: CGPoint(x: -38.42, y: 15.77), controlPoint2: CGPoint(x: -40.18, y: 14.87))
-        bezier3Path.close()
-        bezier3Path.move(to: CGPoint(x: -21.49, y: -29.58))
-        bezier3Path.addCurve(to: CGPoint(x: -25.86, y: -30.27), controlPoint1: CGPoint(x: -22.89, y: -28.57), controlPoint2: CGPoint(x: -24.84, y: -28.87))
-        bezier3Path.addCurve(to: CGPoint(x: -25.16, y: -34.64), controlPoint1: CGPoint(x: -26.87, y: -31.67), controlPoint2: CGPoint(x: -26.56, y: -33.62))
-        bezier3Path.addCurve(to: CGPoint(x: -20.8, y: -33.94), controlPoint1: CGPoint(x: -23.77, y: -35.65), controlPoint2: CGPoint(x: -21.81, y: -35.34))
-        bezier3Path.addCurve(to: CGPoint(x: -21.49, y: -29.58), controlPoint1: CGPoint(x: -19.79, y: -32.55), controlPoint2: CGPoint(x: -20.09, y: -30.59))
-        bezier3Path.close()
-        bezier3Path.move(to: CGPoint(x: 36.78, y: 15.24))
-        bezier3Path.addCurve(to: CGPoint(x: 34.77, y: 11.3), controlPoint1: CGPoint(x: 35.14, y: 14.7), controlPoint2: CGPoint(x: 34.24, y: 12.94))
-        bezier3Path.addCurve(to: CGPoint(x: 38.71, y: 9.29), controlPoint1: CGPoint(x: 35.31, y: 9.66), controlPoint2: CGPoint(x: 37.07, y: 8.76))
-        bezier3Path.addCurve(to: CGPoint(x: 40.72, y: 13.23), controlPoint1: CGPoint(x: 40.35, y: 9.83), controlPoint2: CGPoint(x: 41.25, y: 11.59))
-        bezier3Path.addCurve(to: CGPoint(x: 36.78, y: 15.24), controlPoint1: CGPoint(x: 40.18, y: 14.87), controlPoint2: CGPoint(x: 38.42, y: 15.77))
-        bezier3Path.close()
-        bezier3Path.move(to: CGPoint(x: -0, y: 42.81))
-        bezier3Path.addCurve(to: CGPoint(x: -3.13, y: 39.69), controlPoint1: CGPoint(x: -1.73, y: 42.81), controlPoint2: CGPoint(x: -3.13, y: 41.41))
-        bezier3Path.addCurve(to: CGPoint(x: -0, y: 36.56), controlPoint1: CGPoint(x: -3.13, y: 37.96), controlPoint2: CGPoint(x: -1.73, y: 36.56))
-        bezier3Path.addCurve(to: CGPoint(x: 3.12, y: 39.69), controlPoint1: CGPoint(x: 1.73, y: 36.56), controlPoint2: CGPoint(x: 3.12, y: 37.96))
-        bezier3Path.addCurve(to: CGPoint(x: -0, y: 42.81), controlPoint1: CGPoint(x: 3.12, y: 41.41), controlPoint2: CGPoint(x: 1.73, y: 42.81))
-        bezier3Path.close()
-        whiteFill.setFill()
-        bezier3Path.fill()
-
 
         //// Bezier 4 Drawing
         context.saveGState()
@@ -409,7 +317,7 @@ public struct CriticalMapsLoader {
         bezier4Path.addCurve(to: CGPoint(x: -21.05, y: -33.76), controlPoint1: CGPoint(x: -20.42, y: -30.75), controlPoint2: CGPoint(x: -20.14, y: -32.5))
         bezier4Path.addCurve(to: CGPoint(x: -24.98, y: -34.38), controlPoint1: CGPoint(x: -21.97, y: -35.02), controlPoint2: CGPoint(x: -23.72, y: -35.3))
         bezier4Path.close()
-        blackFill.setFill()
+        fillColor.setFill()
         bezier4Path.fill()
 
         context.restoreGState()
