@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoadingViewController: UIViewController {
+class LoadingViewController: UIViewController, IBConstructable {
     @IBOutlet var logoView: CMLogoActivityView!
 
     override func viewWillAppear(_ animated: Bool) {
@@ -18,5 +18,5 @@ class LoadingViewController: UIViewController {
 }
 
 extension LoadingViewController {
-    static let `default` = LoadingViewController(nibName: String(describing: LoadingViewController.self), bundle: Bundle(for: LoadingViewController.self))
+    static let `default` = LoadingViewController.fromNib()
 }
