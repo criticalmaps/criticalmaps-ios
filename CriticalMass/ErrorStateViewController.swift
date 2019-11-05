@@ -8,12 +8,14 @@
 
 import UIKit
 
+typealias ReloadHandler = () -> Void
+
 class ErrorStateViewController: UIViewController {
     @IBOutlet private weak var errorTitle: UILabel!
     @IBOutlet private weak var errorMessage: UILabel!
     @IBOutlet private weak var retryButton: UIButton!
 
-    var reloadHandler: () -> Void = {}
+    var reloadHandler: ReloadHandler?
     var errorStateModel: ErrorStateModel!
 
     override func viewDidLoad() {
@@ -27,7 +29,7 @@ class ErrorStateViewController: UIViewController {
     }
 
     @IBAction func reload(_ sender: Any) {
-        reloadHandler()
+        reloadHandler?()
     }
 }
 
@@ -39,5 +41,5 @@ extension ErrorStateViewController {
         return controller
     }
 
-    static let `default` = createErrorStateController(with: .default)
+    static let fallback = createErrorStateController(with: .fallback)
 }

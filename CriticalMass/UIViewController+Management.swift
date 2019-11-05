@@ -16,9 +16,8 @@ extension UIViewController {
     }
 
     func remove() {
-        // Just to be safe, we check that this view controller
-        // is actually added to a parent before removing it.
         guard parent != nil else {
+            Logger.log(.debug, log: .viewManagement, "Expected to have parent", parameter: String(describing: self))
             return
         }
 

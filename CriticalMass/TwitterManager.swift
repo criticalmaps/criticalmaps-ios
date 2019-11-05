@@ -38,7 +38,7 @@ class TwitterManager {
                 switch result {
                 case let .failure(error):
                     ErrorHandler.default.handleError(error)
-                    self.contentState = .error(.default)
+                    self.contentState = .error(.fallback)
                     completion?(.failure(error))
                 case let .success(response):
                     self.cachedTweets = response.statuses

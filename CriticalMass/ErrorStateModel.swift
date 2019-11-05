@@ -14,6 +14,6 @@ struct ErrorStateModel {
 }
 
 extension ErrorStateModel {
-    static let `default` = ErrorStateModel(errorTitle: String.errorStateTitle,
-                                           errorMessage: String.errorStateMessage)
+    static let fallback = ErrorStateModel(errorTitle: String.errorStateTitle,
+                                          errorMessage: String.errorStateMessage)
 }
