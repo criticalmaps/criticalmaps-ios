@@ -20,8 +20,7 @@ class TwitterManagerTests: XCTestCase {
         let exp = expectation(description: "Update Tweets callback called")
         var cachedTweets: [Tweet]!
 
-        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Bar", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"), Tweet(text: "Test TEst", created_at: Date(), user: TwitterUser(name: "foo", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")])
-
+        let fakeResponse = TwitterApiResponse.TestData.fakeResponse
         setup.networkLayer.mockResponse = fakeResponse
 
         setup.twitterManager.updateContentStateCallback = { contentState in
@@ -29,7 +28,7 @@ class TwitterManagerTests: XCTestCase {
             switch contentState {
             case let .results(tweets):
                 cachedTweets = tweets
-                XCTAssertEqual(tweets.count, 2)
+                XCTAssertEqual(tweets.count, Tweet.TestData.fakeTweets.count)
                 for tweet in tweets {
                     XCTAssert(fakeResponse.statuses.contains(tweet))
                 }
@@ -51,9 +50,7 @@ class TwitterManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update Tweets callback called")
 
-        let fakeResponse = TwitterApiResponse(statuses: [Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"), Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")])
-
-        setup.networkLayer.mockResponse = fakeResponse
+        setup.networkLayer.mockResponse = TwitterApiResponse.TestData.fakeResponse
         setup.twitterManager.loadTweets { _ in
             exp.fulfill()
         }
@@ -71,5 +68,93 @@ class TwitterManagerTests: XCTestCase {
         }
         wait(for: [exp], timeout: 1)
         XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
+    }
+
+    func testLoadTweetsCompletionOnSuccessShouldProduceContentState() {
+        // given
+        let setup = getSetup()
+        let tweetCallbackExpectation = expectation(description: "Update Tweets callback called")
+        let contentStateExpectation = expectation(description: "ContentStateCallback succeded")
+        setup.networkLayer.mockResponse = TwitterApiResponse.TestData.fakeResponse
+        var contentStateCallback: ContentState<[Tweet]>?
+
+        // when
+        setup.twitterManager.updateContentStateCallback = { state in
+            contentStateCallback = state
+            contentStateExpectation.fulfill()
+        }
+        setup.twitterManager.loadTweets { _ in
+            tweetCallbackExpectation.fulfill()
+        }
+        // then
+        wait(for: [tweetCallbackExpectation, contentStateExpectation], timeout: 1)
+        XCTAssertNotNil(contentStateCallback)
+    }
+
+    func testLoadTweetsCompletionOnSuccessShouldProduceResultContentState() {
+        // given
+        let setup = getSetup()
+        let tweetCallbackExpectation = expectation(description: "Update Tweets callback called")
+        let contentStateExpectation = expectation(description: "ContentStateCallback succeded")
+        setup.networkLayer.mockResponse = TwitterApiResponse.TestData.fakeResponse
+        var contentStateCallback: ContentState<[Tweet]>?
+
+        // when
+        setup.twitterManager.updateContentStateCallback = { state in
+            contentStateCallback = state
+            contentStateExpectation.fulfill()
+        }
+        setup.twitterManager.loadTweets { _ in
+            tweetCallbackExpectation.fulfill()
+        }
+        // then
+        wait(for: [tweetCallbackExpectation, contentStateExpectation], timeout: 1)
+        switch contentStateCallback! {
+        case .results:
+            break // means success
+        default:
+            XCTFail()
+        }
+    }
+
+    func testLoadTweetsCompletionOnSuccessShouldProduceErrorContentState() {
+        // given
+        let setup = getSetup()
+        let tweetCallbackExpectation = expectation(description: "Update Tweets callback called")
+        let contentStateExpectation = expectation(description: "ContentStateCallback succeded")
+        setup.networkLayer.mockResponse = nil
+        var contentStateCallback: ContentState<[Tweet]>?
+
+        // when
+        setup.twitterManager.updateContentStateCallback = { state in
+            contentStateCallback = state
+            contentStateExpectation.fulfill()
+        }
+        setup.twitterManager.loadTweets { _ in
+            tweetCallbackExpectation.fulfill()
+        }
+        // then
+        wait(for: [tweetCallbackExpectation, contentStateExpectation], timeout: 1)
+        switch contentStateCallback! {
+        case .error:
+            break // means success
+        default:
+            XCTFail()
+        }
+    }
+}
+
+private extension TwitterApiResponse {
+    struct TestData {
+        static let fakeResponse = TwitterApiResponse(statuses: Tweet.TestData.fakeTweets)
+    }
+}
+
+private extension Tweet {
+    struct TestData {
+        static let fakeTweets: [Tweet] = [
+            Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"),
+            Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")
+        ]
     }
 }
