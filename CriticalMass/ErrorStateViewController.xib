@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="H2H-j7-oQT">
-                    <rect key="frame" x="24" y="407" width="366" height="82"/>
+                    <rect key="frame" x="24" y="357" width="366" height="82"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzI-1N-7XW">
                             <rect key="frame" x="143" y="0.0" width="80" height="29"/>
@@ -39,7 +39,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsd-Oe-RGd">
-                    <rect key="frame" x="122" y="539" width="170" height="48"/>
+                    <rect key="frame" x="122" y="489" width="170" height="48"/>
                     <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="170" id="WfC-02-hN8"/>
@@ -64,7 +64,7 @@
                 <constraint firstItem="H2H-j7-oQT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="9M3-qB-rou"/>
                 <constraint firstItem="H2H-j7-oQT" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-24" id="MJX-2y-AKG"/>
                 <constraint firstItem="lsd-Oe-RGd" firstAttribute="centerX" secondItem="H2H-j7-oQT" secondAttribute="centerX" id="VSF-Ex-uaD"/>
-                <constraint firstItem="H2H-j7-oQT" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hdl-1b-3wM"/>
+                <constraint firstItem="H2H-j7-oQT" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="hdl-1b-3wM"/>
                 <constraint firstItem="lsd-Oe-RGd" firstAttribute="top" secondItem="H2H-j7-oQT" secondAttribute="bottom" constant="50" id="l6q-sc-WrG"/>
                 <constraint firstItem="H2H-j7-oQT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oIx-VV-ZoM"/>
             </constraints>

@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="2Cp-ge-oPh">
-                    <rect key="frame" x="157" y="398" width="100" height="100"/>
+                    <rect key="frame" x="157" y="348" width="100" height="100"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGx-az-6en" customClass="CMLogoActivityView" customModule="CriticalMaps" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -35,7 +35,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="2Cp-ge-oPh" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bSt-qt-cEx"/>
+                <constraint firstItem="2Cp-ge-oPh" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-50" id="bSt-qt-cEx"/>
                 <constraint firstItem="2Cp-ge-oPh" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kFm-fB-vab"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
