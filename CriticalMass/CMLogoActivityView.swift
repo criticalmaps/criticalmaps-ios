@@ -10,35 +10,27 @@ import Foundation
 import UIKit
 
 @IBDesignable public class CMLogoActivityView: UIView, IBConstructable {
-    private var timer: Timer?
     private var angle: CGFloat = 0
+    private lazy var displayLink: CADisplayLink = {
+        return CADisplayLink(target: self, selector: #selector(updateViewParameter))
+    }()
 
     public override func draw(_: CGRect) {
         CriticalMapsLoader.drawCMLogo(rotation: angle)
     }
 
     public func stopAnimating() {
-        timer?.invalidate()
-        timer = nil
-        angle = 0
+        displayLink.invalidate()
         setNeedsDisplay()
     }
 
     public func startAnimating() {
-        if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: 0.04,
-                                         target: self,
-                                         selector: #selector(updateViewParameter),
-                                         userInfo: nil,
-                                         repeats: true)
-        } else {
-            print("Animation Already running")
-        }
+        displayLink.add(to: .main, forMode: .common)
     }
 
     @objc
     private func updateViewParameter() {
-        angle -= 1.0
+        angle -= 0.42
         setNeedsDisplay()
     }
 }
