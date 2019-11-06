@@ -11,22 +11,28 @@ protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String)
 }
 
-class ChatInputView: UIView {
-    struct Constants {
-        static let textFieldHeight = CGFloat(46.0)
-        static let sendButtonWidth = CGFloat(65.0)
+class ChatInputView: UIView, IBConstructable {
+    private enum Constants {
         static let messageTextFieldInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 
     @objc
     dynamic var sendMessageButtonColor: UIColor? {
         willSet {
-            sendButton.setTitleColor(newValue, for: .normal)
-            sendButton.setTitleColor(newValue?.withAlphaComponent(0.4), for: .disabled)
-            sendButton.setTitleColor(newValue?.withAlphaComponent(0.4), for: .highlighted)
+            sendButton.tintColor = newValue
         }
     }
-
+    @objc
+    dynamic var sendMessageButtonBGColor: UIColor? {
+        willSet {
+            sendButton.backgroundColor = newValue
+            var highLightBackgroundColor: UIColor {
+                return newValue == .white ? .lightGray : .darkGray
+            }
+            sendButton.setBackgroundColor(color: highLightBackgroundColor,
+                                          forState: .disabled)
+        }
+    }
     @objc
     dynamic var textViewTextColor: UIColor? {
         willSet {
@@ -34,86 +40,25 @@ class ChatInputView: UIView {
         }
     }
 
+    @IBOutlet weak var messageTextField: TextFieldWithInsets! {
+        didSet {
+            messageTextField.isOpaque = true
+            messageTextField.placeholder = String.chatPlaceholder
+            messageTextField.insets = Constants.messageTextFieldInsets
+            messageTextField.enablesReturnKeyAutomatically = true
+            messageTextField.layer.masksToBounds = true
+        }
+    }
+    @IBOutlet weak var sendButton: UIButton!
+
     weak var delegate: ChatInputDelegate?
-
-    private let messageTextField: UITextField = {
-        let textField = TextFieldWithInsets()
-        textField.isOpaque = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = String.chatPlaceholder
-        textField.insets = Constants.messageTextFieldInsets
-        textField.enablesReturnKeyAutomatically = true
-        textField.returnKeyType = .send
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        textField.layer.masksToBounds = true
-        textField.layer.cornerRadius = Constants.textFieldHeight / 2.0
-        return textField
-    }()
-
-    private let sendButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.textAlignment = .center
-        button.setTitle(String.chatSend, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
-        button.isEnabled = false
-        return button
-    }()
-
-    private let separator: SeparatorView = {
-        let view = SeparatorView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private lazy var chatStack: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [messageTextField, sendButton])
-        view.distribution = .fillProportionally
-        view.spacing = 4.0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        commonInit()
-    }
-
-    private func commonInit() {
-        addSubview(chatStack)
-        addSubview(separator)
-
-        messageTextField.addTarget(self, action: #selector(didTapSendButton), for: .editingDidEndOnExit)
-
-        configureConstraints()
-    }
-
-    private func configureConstraints() {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        addConstraints([
-            sendButton.widthAnchor.constraint(equalToConstant: Constants.sendButtonWidth),
-            messageTextField.heightAnchor.constraint(equalToConstant: Constants.textFieldHeight),
-            chatStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            chatStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            chatStack.centerYAnchor.constraint(equalTo: centerYAnchor),
-            separator.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separator.topAnchor.constraint(equalTo: topAnchor),
-            separator.heightAnchor.constraint(equalToConstant: 1),
-        ])
-    }
-
-    @objc func didTapSendButton() {
-        guard let text = messageTextField.text, text.canBeSent else {
-            return
-        }
-        delegate?.didTapSendButton(text: text)
     }
 
     public func resetInput() {
@@ -126,9 +71,16 @@ class ChatInputView: UIView {
         messageTextField.resignFirstResponder()
     }
 
-    @objc
-    func textFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text {
+    // MARK: - Actions
+    @IBAction func didTapSendButton() {
+        guard let text = messageTextField.text, text.canBeSent else {
+            return
+        }
+        delegate?.didTapSendButton(text: text)
+    }
+
+    @IBAction func editingChanged(_ sender: UITextField) {
+        if let text = sender.text {
             sendButton.isEnabled = text.canBeSent
         }
     }
@@ -137,5 +89,19 @@ class ChatInputView: UIView {
 private extension String {
     var canBeSent: Bool {
         !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
+private extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
     }
 }
