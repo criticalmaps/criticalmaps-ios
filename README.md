@@ -13,7 +13,7 @@
 				alt="Join TestFlight" />
 </a>
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/critical-maps">
-	<img src="https://badges.crowdin.net/critical-maps/localized.svg" alt="Join TestFlight" />
+	<img src="https://badges.crowdin.net/critical-maps/localized.svg" alt="Localized Status" />
 </a>
 
 ## What's "Critical Mass"?
