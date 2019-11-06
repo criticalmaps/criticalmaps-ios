@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChatInputView" customModule="CriticalMaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mcI-5l-6Qb">
+                    <rect key="frame" x="16" y="8" width="382" height="46"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OdD-y5-xfI" customClass="TextFieldWithInsets" customModule="CriticalMaps" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="338" height="46"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="46" id="sJb-wX-g8b"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="23"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="editingChanged:" destination="iN0-l3-epB" eventType="editingChanged" id="6FC-zU-Yhh"/>
+                            </connections>
+                        </textField>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN">
+                            <rect key="frame" x="342" y="3" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Lt4-S8-mss"/>
+                                <constraint firstAttribute="width" secondItem="ok1-Cv-1uN" secondAttribute="height" multiplier="1:1" id="Obz-Yv-vIp"/>
+                            </constraints>
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <state key="normal" image="icon-send"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="didTapSendButton" destination="iN0-l3-epB" eventType="touchUpInside" id="20V-jf-Hvs"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzQ-c3-Sos" customClass="SeparatorView" customModule="CriticalMaps" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="JxY-XE-cHf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="mcI-5l-6Qb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Qqo-Ji-SHY"/>
+                <constraint firstAttribute="trailing" secondItem="mcI-5l-6Qb" secondAttribute="trailing" constant="16" id="Vrf-4m-KZL"/>
+                <constraint firstItem="SzQ-c3-Sos" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YQE-Eg-LRG"/>
+                <constraint firstAttribute="trailing" secondItem="SzQ-c3-Sos" secondAttribute="trailing" id="j8H-b2-JMw"/>
+                <constraint firstItem="SzQ-c3-Sos" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jHc-m4-mJT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mcI-5l-6Qb" secondAttribute="bottom" constant="6" id="kYs-u8-E0Y"/>
+                <constraint firstItem="mcI-5l-6Qb" firstAttribute="top" secondItem="SzQ-c3-Sos" secondAttribute="bottom" constant="7" id="oW2-du-egS"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="messageTextField" destination="OdD-y5-xfI" id="kbM-ec-MDy"/>
+                <outlet property="sendButton" destination="ok1-Cv-1uN" id="J2E-C6-LBr"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="434.59821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon-send" width="24" height="24"/>
+    </resources>
+</document>
