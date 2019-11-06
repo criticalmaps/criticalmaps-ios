@@ -145,13 +145,13 @@ class TwitterManagerTests: XCTestCase {
 }
 
 private extension TwitterApiResponse {
-    struct TestData {
+    enum TestData {
         static let fakeResponse = TwitterApiResponse(statuses: Tweet.TestData.fakeTweets)
     }
 }
 
 private extension Tweet {
-    struct TestData {
+    enum TestData {
         static let fakeTweets: [Tweet] = [
             Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"),
             Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")
