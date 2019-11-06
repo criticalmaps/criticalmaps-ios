@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String, completionHandler: ChatViewController.CompletionHandler?)
 }
