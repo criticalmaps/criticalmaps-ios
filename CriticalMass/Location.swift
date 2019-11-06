@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Location: Equatable, Hashable {
+public struct Location: Hashable {
     var longitude: Double
     var latitude: Double
     var timestamp: Float
