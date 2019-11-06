@@ -4,6 +4,11 @@ Changelog for Critical Maps iOS
 
 ## [Unreleased]
 
+### Added
+
+- Replace send text button in ChatInputView with an icon button
+- Accessability support for chat input textview
+
 ## [3.6.0] - 2019-11-28
 
 ### Fixed
@@ -14,7 +19,7 @@ Changelog for Critical Maps iOS
 
 ### Added
 
-- Loading and ErrorStateView for Twitter section
+- Loading and ErrorStateView for Twitter and Chat section
 
 ## [3.4.0] - 2019-10-08
 
