@@ -4,13 +4,16 @@
 
 ## Critical Maps iOS App
 
-<a href="https://travis-ci.org/criticalmaps/criticalmaps-ios">
+<a title="Travis" target="_blank" href="https://travis-ci.org/criticalmaps/criticalmaps-ios">
 		<img src="https://travis-ci.org/criticalmaps/criticalmaps-ios.svg?branch=master"
 					alt="Build Status">
 </a>
-<a href="https://testflight.apple.com/join/nyGeQVxk">
+<a title="TestFlight" target="_blank" href="https://testflight.apple.com/join/nyGeQVxk">
 	<img src="https://img.shields.io/badge/Join-TestFlight-blue.svg"
 				alt="Join TestFlight" />
+</a>
+<a title="Crowdin" target="_blank" href="https://crowdin.com/project/critical-maps">
+	<img src="https://badges.crowdin.net/critical-maps/localized.svg" alt="Join TestFlight" />
 </a>
 
 ## What's "Critical Mass"?
