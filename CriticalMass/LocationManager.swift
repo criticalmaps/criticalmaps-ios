@@ -24,6 +24,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         }
     }
 
+    private let operationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+
+        return queue
+    }()
+
     private var didSetInitialLocation = false
 
     private var _currentLocation: Location?
@@ -52,7 +59,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     init(updateInterval: TimeInterval = 11) {
         super.init()
         configureLocationManager()
-        configureTimer(with: updateInterval)
+        setupLocationUpdate(with: updateInterval)
     }
 
     func configureLocationManager() {
@@ -64,17 +71,25 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         locationManager.startUpdatingLocation()
     }
 
-    private func configureTimer(with interval: TimeInterval) {
-        Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
+    private func setupLocationUpdate(with interval: TimeInterval) {
+        let operation = LocationRequestOperation(locationManager: locationManager)
+        operation.completionBlock = { [weak self] in
+            guard let self = self else { return }
+
+            let waitOperation = self.makeWaitOperation(with: interval)
+            self.operationQueue.addOperation(waitOperation)
+        }
+
+        operationQueue.addOperation(operation)
     }
 
-    @objc private func timerDidUpdate(timer _: Timer) {
-        requestLocation()
-    }
+    private func makeWaitOperation(with interval: TimeInterval) -> Operation {
+        let operation = WaitOperation(with: interval)
+        operation.completionBlock = { [weak self] in
+            self?.setupLocationUpdate(with: interval)
+        }
 
-    func requestLocation() {
-        guard type(of: self).accessPermission == .authorized else { return }
-        locationManager.requestLocation()
+        return operation
     }
 
     // MARK: CLLocationManagerDelegate
