@@ -17,6 +17,14 @@ class AsyncOperation: Operation {
         }
     }
 
+    override var isExecuting: Bool {
+        state == .executing
+    }
+
+    override var isFinished: Bool {
+        state == .finished
+    }
+
     override var isAsynchronous: Bool {
         true
     }
