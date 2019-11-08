@@ -8,6 +8,9 @@
 import UIKit
 
 class ChatViewController: UIViewController, ChatInputDelegate {
+    private enum Constants {
+        static let chatInputHeight: CGFloat = 64
+    }
     private let chatInput = ChatInputView(frame: .zero)
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
@@ -16,7 +19,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     }()
 
     private lazy var chatInputHeightConstraint = {
-        chatInput.heightAnchor.constraint(equalToConstant: chatInputHeight)
+        chatInput.heightAnchor.constraint(equalToConstant: Constants.chatInputHeight)
     }()
 
     init(chatManager: ChatManager) {
@@ -97,7 +100,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             bottomInset = 0
         }
 
-        chatInputHeightConstraint.constant = chatInputHeight + bottomInset
+        chatInputHeightConstraint.constant = Constants.chatInputHeight + bottomInset
     }
 
     @objc private func didTapTableView() {
