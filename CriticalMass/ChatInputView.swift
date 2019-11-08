@@ -25,12 +25,10 @@ class ChatInputView: UIView, IBConstructable {
     @objc
     dynamic var sendMessageButtonBGColor: UIColor? {
         willSet {
-            sendButton.backgroundColor = newValue
-            var highLightBackgroundColor: UIColor {
-                return newValue == .white ? .lightGray : .darkGray
-            }
-            sendButton.setBackgroundColor(color: highLightBackgroundColor,
+            sendButton.setBackgroundColor(color: .gray,
                                           forState: .disabled)
+            sendButton.setBackgroundColor(color: newValue ?? .black,
+                                          forState: .normal)
         }
     }
     @objc
