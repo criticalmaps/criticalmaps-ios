@@ -59,6 +59,13 @@ class ChatInputView: UIView, IBConstructable {
         super.init(coder: aDecoder)
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if sendButton.cornerRadius != sendButton.bounds.height / 2 {
+            sendButton.cornerRadius = sendButton.bounds.height / 2
+        }
+    }
+
     public func resetInput() {
         messageTextField.text?.removeAll()
         messageTextField.sendActions(for: .editingChanged)
