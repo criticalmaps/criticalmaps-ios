@@ -14,48 +14,35 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mcI-5l-6Qb">
-                    <rect key="frame" x="16" y="8" width="382" height="46"/>
-                    <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OdD-y5-xfI" customClass="TextFieldWithInsets" customModule="CriticalMaps" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="338" height="46"/>
-                            <accessibility key="accessibilityConfiguration" label="chat message textfield">
-                                <accessibilityTraits key="traits" none="YES"/>
-                            </accessibility>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="46" id="sJb-wX-g8b"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="23"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="editingChanged:" destination="iN0-l3-epB" eventType="editingChanged" id="6FC-zU-Yhh"/>
-                            </connections>
-                        </textField>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN">
-                            <rect key="frame" x="342" y="3" width="40" height="40"/>
-                            <accessibility key="accessibilityConfiguration" hint="Sends the chat message" label="send message button"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="Lt4-S8-mss"/>
-                                <constraint firstAttribute="width" secondItem="ok1-Cv-1uN" secondAttribute="height" multiplier="1:1" id="Obz-Yv-vIp"/>
-                            </constraints>
-                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <state key="normal" image="icon-send"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="20"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="didTapSendButton" destination="iN0-l3-epB" eventType="touchUpInside" id="20V-jf-Hvs"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                </stackView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OdD-y5-xfI" customClass="TextFieldWithInsets" customModule="CriticalMaps" customModuleProvider="target">
+                    <rect key="frame" x="12" y="8" width="342" height="45"/>
+                    <accessibility key="accessibilityConfiguration" label="chat message textfield">
+                        <accessibilityTraits key="traits" none="YES"/>
+                    </accessibility>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="23"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="editingChanged:" destination="iN0-l3-epB" eventType="editingChanged" id="6FC-zU-Yhh"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN">
+                    <rect key="frame" x="362" y="10.5" width="40" height="40"/>
+                    <accessibility key="accessibilityConfiguration" hint="Sends the chat message" label="send message button"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Lt4-S8-mss"/>
+                        <constraint firstAttribute="width" secondItem="ok1-Cv-1uN" secondAttribute="height" multiplier="1:1" id="Obz-Yv-vIp"/>
+                    </constraints>
+                    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <state key="normal" image="icon-send"/>
+                    <connections>
+                        <action selector="didTapSendButton" destination="iN0-l3-epB" eventType="touchUpInside" id="20V-jf-Hvs"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzQ-c3-Sos" customClass="SeparatorView" customModule="CriticalMaps" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -66,13 +53,15 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="mcI-5l-6Qb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Qqo-Ji-SHY"/>
-                <constraint firstAttribute="trailing" secondItem="mcI-5l-6Qb" secondAttribute="trailing" constant="16" id="Vrf-4m-KZL"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ok1-Cv-1uN" secondAttribute="trailing" constant="12" id="4op-pe-0zr"/>
+                <constraint firstItem="OdD-y5-xfI" firstAttribute="top" secondItem="SzQ-c3-Sos" secondAttribute="bottom" constant="7" id="8jp-x3-pL7"/>
+                <constraint firstItem="OdD-y5-xfI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="Cep-U7-tiL"/>
+                <constraint firstItem="ok1-Cv-1uN" firstAttribute="centerY" secondItem="OdD-y5-xfI" secondAttribute="centerY" id="ExM-4s-GZU"/>
+                <constraint firstItem="ok1-Cv-1uN" firstAttribute="leading" secondItem="OdD-y5-xfI" secondAttribute="trailing" constant="8" id="Jst-io-Lnk"/>
                 <constraint firstItem="SzQ-c3-Sos" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YQE-Eg-LRG"/>
                 <constraint firstAttribute="trailing" secondItem="SzQ-c3-Sos" secondAttribute="trailing" id="j8H-b2-JMw"/>
                 <constraint firstItem="SzQ-c3-Sos" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jHc-m4-mJT"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mcI-5l-6Qb" secondAttribute="bottom" constant="6" id="kYs-u8-E0Y"/>
-                <constraint firstItem="mcI-5l-6Qb" firstAttribute="top" secondItem="SzQ-c3-Sos" secondAttribute="bottom" constant="7" id="oW2-du-egS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OdD-y5-xfI" secondAttribute="bottom" constant="7" id="wrx-CB-kvi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
