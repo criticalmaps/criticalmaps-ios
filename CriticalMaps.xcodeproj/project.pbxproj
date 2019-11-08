@@ -41,6 +41,13 @@
 		9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9474E977224CF60500A812DC /* SettingsFooterView.xib */; };
 		9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E979224D027900A812DC /* Bundle+Version.swift */; };
 		948509A322C09F9A0034FAF1 /* UIViewController+Management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */; };
+		9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9485A92E23756A53006DC7B5 /* LoadingViewController.xib */; };
+		9485A93323756A53006DC7B5 /* ErrorStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485A92F23756A53006DC7B5 /* ErrorStateViewController.swift */; };
+		9485A93423756A53006DC7B5 /* ErrorStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9485A93023756A53006DC7B5 /* ErrorStateViewController.xib */; };
+		9485A93523756A53006DC7B5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485A93123756A53006DC7B5 /* LoadingViewController.swift */; };
+		9485A93923756A71006DC7B5 /* ErrorStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485A93723756A71006DC7B5 /* ErrorStateModel.swift */; };
+		9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485A93823756A71006DC7B5 /* ContentState.swift */; };
+		9485A93C23756A81006DC7B5 /* CMLogoActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485A93B23756A81006DC7B5 /* CMLogoActivityView.swift */; };
 		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
 		9491720D23009EB3008B98AD /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491720C23009EB3008B98AD /* APIRequest.swift */; };
 		9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491720E23009ED0008B98AD /* TwitterRequest.swift */; };
@@ -208,6 +215,13 @@
 		9474E977224CF60500A812DC /* SettingsFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsFooterView.xib; sourceTree = "<group>"; };
 		9474E979224D027900A812DC /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
 		948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Management.swift"; sourceTree = "<group>"; };
+		9485A92E23756A53006DC7B5 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		9485A92F23756A53006DC7B5 /* ErrorStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorStateViewController.swift; sourceTree = "<group>"; };
+		9485A93023756A53006DC7B5 /* ErrorStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorStateViewController.xib; sourceTree = "<group>"; };
+		9485A93123756A53006DC7B5 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		9485A93723756A71006DC7B5 /* ErrorStateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorStateModel.swift; sourceTree = "<group>"; };
+		9485A93823756A71006DC7B5 /* ContentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentState.swift; sourceTree = "<group>"; };
+		9485A93B23756A81006DC7B5 /* CMLogoActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMLogoActivityView.swift; sourceTree = "<group>"; };
 		9489D88A1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88B1B7681AF001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9489D88D1B768274001E746C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -442,6 +456,26 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
+		9485A92D23756A3B006DC7B5 /* ContentState */ = {
+			isa = PBXGroup;
+			children = (
+				9485A92F23756A53006DC7B5 /* ErrorStateViewController.swift */,
+				9485A93023756A53006DC7B5 /* ErrorStateViewController.xib */,
+				9485A93123756A53006DC7B5 /* LoadingViewController.swift */,
+				9485A92E23756A53006DC7B5 /* LoadingViewController.xib */,
+			);
+			name = ContentState;
+			sourceTree = "<group>";
+		};
+		9485A93623756A60006DC7B5 /* ContentState */ = {
+			isa = PBXGroup;
+			children = (
+				9485A93823756A71006DC7B5 /* ContentState.swift */,
+				9485A93723756A71006DC7B5 /* ErrorStateModel.swift */,
+			);
+			name = ContentState;
+			sourceTree = "<group>";
+		};
 		9491720A23009E93008B98AD /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,20 +505,21 @@
 		94AD50471A963D1600547B40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */,
+				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
 				9474E979224D027900A812DC /* Bundle+Version.swift */,
 				9804176A21FC7AF30077D419 /* ChatManager.swift */,
-				9838F28F227B772500744EDD /* DeviceID */,
-				989FA00121C8038400E71085 /* Location.swift */,
-				989F9FFD21C8035500E71085 /* ApiResponse.swift */,
 				989F9FFF21C8036800E71085 /* ChatMessage.swift */,
-				989FA00521C8154D00E71085 /* LocationManager.swift */,
+				9485A93623756A60006DC7B5 /* ContentState */,
 				9822A15121EDF1C5007F5994 /* DataStore.swift */,
+				9838F28F227B772500744EDD /* DeviceID */,
+				940643D2230725B100AB1BCB /* Location */,
+				989FA00121C8038400E71085 /* Location.swift */,
+				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
+				989FA00521C8154D00E71085 /* LocationManager.swift */,
+				987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */,
+				9491720A23009E93008B98AD /* Networking */,
 				9822A15F21F11051007F5994 /* NetworkLayer.swift */,
 				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
-				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
-				940643D2230725B100AB1BCB /* Location */,
-				9491720A23009E93008B98AD /* Networking */,
 				9822A17121F3349F007F5994 /* Preferences.swift */,
 				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
 				94FCBD2D226C57E000F93F94 /* Theme */,
@@ -496,6 +531,7 @@
 		94AD50481A963DC800547B40 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9485A92D23756A3B006DC7B5 /* ContentState */,
 				989F9FEF21C7E5FC00E71085 /* Rules */,
 				985E94BC220891F200AA991B /* Social */,
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
@@ -510,29 +546,30 @@
 			children = (
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
 				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
+				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
+				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
 				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
+				9485A93B23756A81006DC7B5 /* CMLogoActivityView.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
+				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
+				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
 				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
+				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
+				98E7338C22039511005F311F /* Settings */,
+				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
+				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
 				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
+				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
 				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
-				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
-				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
-				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
-				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
-				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
-				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
-				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
-				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
-				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
-				98E7338C22039511005F311F /* Settings */,
+				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -878,9 +915,11 @@
 				9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */,
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */,
+				9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */,
 				943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
+				9485A93423756A53006DC7B5 /* ErrorStateViewController.xib in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
 				946CDE0422412DA60059F892 /* Settings.bundle in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
@@ -1014,6 +1053,7 @@
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
 				940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */,
 				98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */,
+				9485A93923756A71006DC7B5 /* ErrorStateModel.swift in Sources */,
 				98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
@@ -1027,6 +1067,7 @@
 				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */,
+				9485A93323756A53006DC7B5 /* ErrorStateViewController.swift in Sources */,
 				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
 				75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
@@ -1039,6 +1080,8 @@
 				94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */,
 				94FCBD2C226C57CA00F93F94 /* UIApplication+Appearance.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
+				9485A93523756A53006DC7B5 /* LoadingViewController.swift in Sources */,
+				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
@@ -1072,6 +1115,7 @@
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
 				98003D4922872C1800592D55 /* URLCodable.swift in Sources */,
+				9485A93C23756A81006DC7B5 /* CMLogoActivityView.swift in Sources */,
 				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
 				94D40171229FE43C001524CC /* UIFont+DynamicFont.swift in Sources */,

@@ -15,6 +15,7 @@ struct NetworkOperator: NetworkLayer {
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper) {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.timeoutIntervalForRequest = 15.0
         session = URLSession(configuration: configuration)
         self.networkIndicatorHelper = networkIndicatorHelper
     }
@@ -59,6 +60,10 @@ struct NetworkOperator: NetworkLayer {
         networkIndicatorHelper.didStartRequest()
         let task = session.dataTask(with: request) { data, response, error in
             self.networkIndicatorHelper.didEndRequest()
+            guard (error as? URLError)?.code != URLError.notConnectedToInternet else {
+                completion(.failure(NetworkError.offline))
+                return
+            }
             guard let data = data else {
                 completion(.failure(NetworkError.noData(error)))
                 return
