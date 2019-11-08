@@ -29,10 +29,6 @@ extension IBConstructable where Self: UIView {
 }
 
 extension IBConstructable where Self: UIViewController {
-    static var nibName: String { typeName }
-    static var bundle: Bundle { Bundle(for: Self.self) }
-    static var nib: UINib { UINib(nibName: nibName, bundle: bundle) }
-
     static func fromNib() -> Self {
         self.init(nibName: nibName, bundle: bundle)
     }
