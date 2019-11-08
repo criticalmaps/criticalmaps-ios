@@ -19,6 +19,9 @@
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OdD-y5-xfI" customClass="TextFieldWithInsets" customModule="CriticalMaps" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="46"/>
+                            <accessibility key="accessibilityConfiguration" label="chat message textfield">
+                                <accessibilityTraits key="traits" none="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="sJb-wX-g8b"/>
                             </constraints>
@@ -33,8 +36,9 @@
                                 <action selector="editingChanged:" destination="iN0-l3-epB" eventType="editingChanged" id="6FC-zU-Yhh"/>
                             </connections>
                         </textField>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN">
                             <rect key="frame" x="342" y="3" width="40" height="40"/>
+                            <accessibility key="accessibilityConfiguration" hint="Sends the chat message" label="send message button"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="Lt4-S8-mss"/>
                                 <constraint firstAttribute="width" secondItem="ok1-Cv-1uN" secondAttribute="height" multiplier="1:1" id="Obz-Yv-vIp"/>
