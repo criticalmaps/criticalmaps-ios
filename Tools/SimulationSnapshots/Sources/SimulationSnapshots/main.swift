@@ -48,6 +48,7 @@ class SaveToDiskStore: DataStore {
             
             snapshotCount += 1
             outputStream.write("💾 Saved snapshot nr. \(snapshotCount)")
+            outputStream.write("\n")
         } catch {
             errorStream.write("Saving data to disk failed with error: \(error.localizedDescription)")
         }
@@ -62,7 +63,7 @@ class GenerateSnapshotCommand: Command {
 
     @Argument(documentation: "The output path")
     var output: String
-
+    
     // TODO: add support for timeframes and other arguments
     
     func run(outputStream: inout TextOutputStream, errorStream: inout TextOutputStream) throws {
