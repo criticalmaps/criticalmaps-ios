@@ -35,4 +35,7 @@ extension String {
     static let mapLayerInfo = NSLocalizedString("map.layer.info", comment: "")
     static let mapLayerInfoTitle = NSLocalizedString("map.layer.info.title", comment: "")
     static let mapTitle = NSLocalizedString("map.title", comment: "")
+    // ErrorState
+    static let errorStateTitle = NSLocalizedString("errorState.title", comment: "")
+    static let errorStateMessage = NSLocalizedString("errorState.message", comment: "")
 }

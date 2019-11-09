@@ -17,7 +17,13 @@ extension UITableView {
         register(T.nib, forHeaderFooterViewReuseIdentifier: T.typeName)
     }
 
-    func dequeueReusableCell<T: UITableViewCell>(ofType _: T.Type) -> T {
+    func dequeueReusableCell<T: UITableViewCell>(ofType _: T.Type, for indexPath: IndexPath? = nil) -> T {
+        if let indexPath = indexPath {
+            guard let cell = dequeueReusableCell(withIdentifier: T.typeName, for: indexPath) as? T else {
+                fatalError("Couldn't dequeue UITableViewCell with identifier: \"\(T.typeName)\"")
+            }
+            return cell
+        }
         guard let cell = dequeueReusableCell(withIdentifier: T.typeName) as? T else {
             fatalError("Couldn't dequeue UITableViewCell with identifier: \"\(T.typeName)\"")
         }

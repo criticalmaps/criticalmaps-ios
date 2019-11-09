@@ -57,6 +57,8 @@ class MockNetworkLayer: NetworkLayer {
 }
 
 class MockIDProvider: IDProvider {
+    var token: String = "MockTocken"
+
     var mockID: String?
     var id: String {
         if let mockID = mockID {
@@ -64,6 +66,10 @@ class MockIDProvider: IDProvider {
         } else {
             return UUID().uuidString
         }
+    }
+    
+    static func hash(id: String, currentDate: Date) -> String {
+        return id
     }
 }
 

@@ -52,7 +52,7 @@ class ThemeController {
 
     private func styleRulesComponents(with theme: ThemeDefining) {
         RuleTableViewCell.appearance().ruleTextColor = theme.titleTextColor
-        RuleDetailTextView.appearance().ruleDetailTextColor = theme.titleTextColor
+        RuleDescriptionLabel.appearance().descriptionTextColor = theme.titleTextColor
 
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
@@ -111,6 +111,9 @@ class ThemeController {
         UIToolbar.appearance().barTintColor = theme.toolBarBackgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [ChatNavigationButton.self]).textColor = .white
+        UIView.appearance(whenContainedInInstancesOf: [LoadingViewController.self]).backgroundColor = theme.backgroundColor
+        UIView.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = theme.backgroundColor
+        UIButton.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = .cmYellow
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {

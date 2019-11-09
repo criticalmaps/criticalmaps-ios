@@ -11,7 +11,7 @@ protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String)
 }
 
-class ChatInputView: UIView, UITextFieldDelegate {
+class ChatInputView: UIView {
     struct Constants {
         static let textFieldHeight = CGFloat(46.0)
         static let sendButtonWidth = CGFloat(65.0)
