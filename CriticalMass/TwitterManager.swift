@@ -11,13 +11,19 @@ class TwitterManager {
     private let request: TwitterRequest
     private var cachedTweets: [Tweet] = [] {
         didSet {
-            updateTweetsCallback?(cachedTweets)
+            contentState = .results(cachedTweets)
+        }
+    }
+
+    private var contentState: ContentState<[Tweet]> = .loading(.default) {
+        didSet {
+            updateContentStateCallback?(contentState)
         }
     }
 
     private let networkLayer: NetworkLayer
 
-    var updateTweetsCallback: (([Tweet]) -> Void)?
+    var updateContentStateCallback: ((ContentState<[Tweet]>) -> Void)?
 
     init(networkLayer: NetworkLayer, request: TwitterRequest) {
         self.networkLayer = networkLayer
@@ -30,8 +36,9 @@ class TwitterManager {
             onMain {
                 switch result {
                 case let .failure(error):
-                    completion?(.failure(error))
                     ErrorHandler.default.handleError(error)
+                    self.contentState = .error(.fallback)
+                    completion?(.failure(error))
                 case let .success(response):
                     self.cachedTweets = response.statuses
                     completion?(.success(response.statuses))
@@ -40,10 +47,8 @@ class TwitterManager {
         }
     }
 
-    public func getTweets() -> [Tweet] {
-        if cachedTweets.isEmpty {
-            loadTweets()
-        }
-        return cachedTweets
+    public func getTweets() {
+        contentState = .loading(.default)
+        loadTweets()
     }
 }

@@ -32,8 +32,9 @@ class AppController {
     private let networkOperator: NetworkOperator = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.timeoutIntervalForRequest = 15.0
         let session = URLSession(configuration: configuration)
-        
+
         return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: session)
     }()
 

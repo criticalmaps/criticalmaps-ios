@@ -14,23 +14,26 @@ enum NetworkError: Error {
     case encodingError(Encodable)
     case noData(Error?)
     case invalidResponse
+    case offline
 }
 
 extension NetworkError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case let .noData(error):
-            return "Data is nil: Error:\(error)"
+            return "Data is nil: Error:\(String(describing: error))"
         case let .decodingError(error):
             return "Failed to decode data. Error: \(error)"
         case let .encodingError(error):
             return "Failed to encode body. Error: \(error)"
         case let .fetchFailed(error):
-            return "Fetch Failed with error: \(error)"
+            return "Fetch Failed with error: \(String(describing: error))"
         case .invalidResponse:
             return "Response is not vaild."
         case let .unknownError(message):
             return "UnknownError: \(message)"
+        case .offline:
+            return "Offline"
         }
     }
 }

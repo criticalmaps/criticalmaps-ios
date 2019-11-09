@@ -48,6 +48,10 @@ struct NetworkOperator: NetworkLayer {
         networkIndicatorHelper.didStartRequest()
         dataProvider.dataTask(with: request) { data, response, error in
             self.networkIndicatorHelper.didEndRequest()
+            guard (error as? URLError)?.code != URLError.notConnectedToInternet else {
+                completion(.failure(NetworkError.offline))
+                return
+            }
             guard let data = data else {
                 completion(.failure(NetworkError.noData(error)))
                 return
