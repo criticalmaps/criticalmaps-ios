@@ -12,6 +12,7 @@ import os.log
 extension OSLog {
     private static var subsystem = Bundle.main.bundleIdentifier!
 
+    @available(OSX 10.12, *)
     static let viewManagement = OSLog(subsystem: subsystem, category: "viewManagement")
 }
 
@@ -25,7 +26,7 @@ class Logger {
     }
 
     static func log(_ type: OSLogType, log: OSLog, _ message: StaticString, parameter: String) {
-        if #available(iOS 12.0, *) {
+        if #available(iOS 12.0, macOS 10.14, *) {
             let logMessage = "\(message): \(parameter)"
             os_log(type, log: log, "%@", logMessage)
         } else {
