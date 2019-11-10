@@ -38,6 +38,7 @@ let package = Package(
                       "LocationProvider.swift",
                       "Logger.swift",
                       "NetworkActivityIndicatorHelper.swift",
+                      "NetworkDataProvider.swift",
                       "NetworkLayer.swift",
                       "NetworkOperator.swift",
                       "PostChatMessagesRequest.swift",

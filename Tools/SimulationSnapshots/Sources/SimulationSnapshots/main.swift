@@ -69,7 +69,12 @@ class GenerateSnapshotCommand: Command {
     func run(outputStream: inout TextOutputStream, errorStream: inout TextOutputStream) throws {
         let store = SaveToDiskStore(outputPath: output, outputStream: outputStream,  errorStream: errorStream)
         
-        _ = RequestManager(dataStore: store, locationProvider: NoLocationProvider(), networkLayer: NetworkOperator(), idProvider: NoIdProvider(), url: Constants.apiEndpoint)
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.timeoutIntervalForRequest = 15.0
+        let session = URLSession(configuration: configuration)
+
+        _ = RequestManager(dataStore: store, locationProvider: NoLocationProvider(), networkLayer: NetworkOperator(dataProvider: session), idProvider: NoIdProvider())
         RunLoop.main.run()
     }
 }

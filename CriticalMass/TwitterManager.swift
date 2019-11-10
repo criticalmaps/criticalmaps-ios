@@ -8,7 +8,7 @@
 import Foundation
 
 class TwitterManager {
-    private let url: URL
+    private let request: TwitterRequest
     private var cachedTweets: [Tweet] = [] {
         didSet {
             contentState = .results(cachedTweets)
@@ -25,14 +25,13 @@ class TwitterManager {
 
     var updateContentStateCallback: ((ContentState<[Tweet]>) -> Void)?
 
-    init(networkLayer: NetworkLayer, url: URL) {
+    init(networkLayer: NetworkLayer, request: TwitterRequest) {
         self.networkLayer = networkLayer
-        self.url = url
+        self.request = request
     }
 
     public func loadTweets(_ completion: ResultCallback<[Tweet]>? = nil) {
-        let getTweetsRequest = TwitterRequest()
-        networkLayer.get(request: getTweetsRequest) { [weak self] result in
+        networkLayer.get(request: request) { [weak self] result in
             guard let self = self else { return }
             onMain {
                 switch result {
