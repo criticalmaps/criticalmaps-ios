@@ -8,29 +8,19 @@
 import UIKit
 
 class AppController {
-    public func onAppLaunch() {
-        loadInitialData()
-        themeController.applyTheme()
-        if #available(iOS 10.3, *) {
-            RatingHelper().onLaunch()
-        }
-    }
-
-    public func onWillEnterForeground() {
-        if #available(iOS 10.3, *) {
-            RatingHelper().onEnterForeground()
-        }
-    }
-
     private var idProvider: IDProvider = IDStore()
     private var dataStore = MemoryDataStore()
+    private var simulationModeEnabled =   false
 
     private lazy var requestManager: RequestManager = {
         RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
     }()
 
-    private let networkOperator: NetworkOperator = {
-        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
+    private lazy var networkOperator: NetworkOperator = {
+        if simulationModeEnabled {
+            // TODO:
+        }
+        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
     }()
 
     private let themeController = ThemeController()
@@ -46,27 +36,7 @@ class AppController {
     private lazy var twitterManager: TwitterManager = {
         TwitterManager(networkLayer: networkOperator, url: Constants.twitterEndpoint)
     }()
-
-    private func getRulesViewController() -> RulesViewController {
-        return RulesViewController()
-    }
-
-    private func getChatViewController() -> ChatViewController {
-        return ChatViewController(chatManager: chatManager)
-    }
-
-    private func getTwitterViewController() -> TwitterViewController {
-        return TwitterViewController(twitterManager: twitterManager)
-    }
-
-    private func getSocialViewController() -> SocialViewController {
-        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
-    }
-
-    private func getSettingsViewController() -> SettingsViewController {
-        return SettingsViewController(themeController: themeController)
-    }
-
+    
     lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController(themeController: self.themeController)
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
@@ -89,6 +59,44 @@ class AppController {
 
         return rootViewController
     }()
+
+    public func onAppLaunch() {
+        loadInitialData()
+        themeController.applyTheme()
+        if #available(iOS 10.3, *) {
+            RatingHelper().onLaunch()
+        }
+    }
+    
+    public func onWillEnterForeground() {
+        if #available(iOS 10.3, *) {
+            RatingHelper().onEnterForeground()
+        }
+    }
+
+    public func enableSimulationMode() {
+        simulationModeEnabled = true
+    }
+    
+    private func getRulesViewController() -> RulesViewController {
+        return RulesViewController()
+    }
+
+    private func getChatViewController() -> ChatViewController {
+        return ChatViewController(chatManager: chatManager)
+    }
+
+    private func getTwitterViewController() -> TwitterViewController {
+        return TwitterViewController(twitterManager: twitterManager)
+    }
+
+    private func getSocialViewController() -> SocialViewController {
+        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
+    }
+
+    private func getSettingsViewController() -> SettingsViewController {
+        return SettingsViewController(themeController: themeController)
+    }
 
     private func loadInitialData() {
         requestManager.getData()
