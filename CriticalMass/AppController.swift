@@ -17,15 +17,17 @@ class AppController {
     }()
 
     private lazy var networkOperator: NetworkOperator = {
+        let networkDataProvider: NetworkDataProvider
         if simulationModeEnabled {
-            // TODO:
+            networkDataProvider  = SimulationNetworkDataProvider()
+        } else {
+            let configuration = URLSessionConfiguration.default
+            configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+            configuration.timeoutIntervalForRequest = 15.0
+            networkDataProvider = URLSession(configuration: configuration)
         }
-        let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
-        configuration.timeoutIntervalForRequest = 15.0
-        let session = URLSession(configuration: configuration)
 
-        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: session)
+        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: networkDataProvider)
     }()
 
     private let themeController = ThemeController()
