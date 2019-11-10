@@ -15,10 +15,11 @@ class SimulationNetworkDataProvider: NetworkDataProvider {
         guard let url = request.url,
             url == Constants.apiEndpoint else {
                 // only the base API is supported
+                completionHandler(nil, nil, nil)
                 return
         }
         
-        if let asset = NSDataAsset(name: "snapshot_\(currentFrame).json") {
+        if let asset = NSDataAsset(name: "snapshot_\(currentFrame)") {
             currentFrame += 1
             let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             completionHandler(asset.data, response, nil)
