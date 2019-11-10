@@ -11,7 +11,7 @@ import XCTest
 class TwitterManagerTests: XCTestCase {
     func getSetup() -> (twitterManager: TwitterManager, networkLayer: MockNetworkLayer) {
         let networkLayer = MockNetworkLayer()
-        let twitterManger = TwitterManager(networkLayer: networkLayer, url: Constants.twitterEndpoint)
+        let twitterManger = TwitterManager(networkLayer: networkLayer, request: TwitterRequest())
         return (twitterManger, networkLayer)
     }
 

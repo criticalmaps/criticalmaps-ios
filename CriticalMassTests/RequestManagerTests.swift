@@ -15,7 +15,7 @@ class RequestManagerTests: XCTestCase {
         let networkLayer = MockNetworkLayer()
         let mockIDProvider = MockIDProvider()
         mockIDProvider.mockID = deviceId
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider, url: Constants.apiEndpoint), locationProvider, dataStore, networkLayer)
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider), locationProvider, dataStore, networkLayer)
     }
 
     func testNoRequestForActiveRequests() {

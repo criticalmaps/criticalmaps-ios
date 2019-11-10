@@ -26,11 +26,16 @@ class AppController {
     private var dataStore = MemoryDataStore()
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider)
     }()
 
     private let networkOperator: NetworkOperator = {
-        NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.timeoutIntervalForRequest = 15.0
+        let session = URLSession(configuration: configuration)
+
+        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: session)
     }()
 
     private let themeController = ThemeController()
@@ -44,7 +49,7 @@ class AppController {
     }()
 
     private lazy var twitterManager: TwitterManager = {
-        TwitterManager(networkLayer: networkOperator, url: Constants.twitterEndpoint)
+        TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
 
     private func getRulesViewController() -> RulesViewController {
