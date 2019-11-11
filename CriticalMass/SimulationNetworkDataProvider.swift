@@ -10,12 +10,18 @@ import UIKit
 
 class SimulationNetworkDataProvider: NetworkDataProvider {
     private var currentFrame = 0
+    private var realNetworkDataProvider: NetworkDataProvider
+    
+    init(realNetworkDataProvider: NetworkDataProvider) {
+        self.realNetworkDataProvider = realNetworkDataProvider
+    }
     
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         guard let url = request.url,
             url == Constants.apiEndpoint else {
                 // only the base API is supported
-                completionHandler(nil, nil, nil)
+                // We are falling back to the real NetworkDataProvider
+                realNetworkDataProvider.dataTask(with: request, completionHandler: completionHandler)
                 return
         }
         
@@ -30,6 +36,6 @@ class SimulationNetworkDataProvider: NetworkDataProvider {
     }
     
     func invalidateAndCancel() {
-        
+        realNetworkDataProvider.invalidateAndCancel()
     }
 }
