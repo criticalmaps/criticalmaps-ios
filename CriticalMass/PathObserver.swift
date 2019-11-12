@@ -17,9 +17,20 @@ final class PathObserver: NetworkObserver {
     var statusUpdateHandler: ((NetworkStatus) -> Void)?
 
     private let monitor: NWPathMonitor = NWPathMonitor()
+    private var lastStatus: NWPath.Status
 
     init() {
         let queue = DispatchQueue(label: "Monitor")
         monitor.start(queue: queue)
+
+        lastStatus = monitor.currentPath.status
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self = self else { return }
+
+            if self.lastStatus != path.status {
+                self.statusUpdateHandler?(self.status)
+            }
+            self.lastStatus = path.status
+        }
     }
 }
