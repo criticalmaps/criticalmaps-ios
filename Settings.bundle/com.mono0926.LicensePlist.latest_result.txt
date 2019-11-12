@@ -1,4 +1,4 @@
-name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.2.2
+name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.2.3
 
 name: swift-snapshot-testing, nameSpecified: , owner: pointfreeco, version: 1.6.0
 

@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2176242723744F3400F7885E /* LocationRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* LocationRequestOperation.swift */; };
+		2176242723744F3400F7885E /* RequestLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* RequestLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
 		21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FB12352CBD300B942AA /* WaitOperation.swift */; };
-		75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
@@ -172,11 +171,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2176242623744F3400F7885E /* LocationRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequestOperation.swift; sourceTree = "<group>"; };
+		2176242623744F3400F7885E /* RequestLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		21859FB12352CBD300B942AA /* WaitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOperation.swift; sourceTree = "<group>"; };
-		75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkResponsiveTextView.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -414,7 +412,7 @@
 				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
 				989FA00521C8154D00E71085 /* LocationManager.swift */,
 				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
-				2176242623744F3400F7885E /* LocationRequestOperation.swift */,
+				2176242623744F3400F7885E /* RequestLocationOperation.swift */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -1052,7 +1050,7 @@
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
 				940643D62307266700AB1BCB /* PostLocationRequest.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
-				2176242723744F3400F7885E /* LocationRequestOperation.swift in Sources */,
+				2176242723744F3400F7885E /* RequestLocationOperation.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
