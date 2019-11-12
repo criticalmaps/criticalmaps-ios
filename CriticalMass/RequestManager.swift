@@ -57,12 +57,11 @@ public class RequestManager {
             }
 
             UIApplication.shared.endBackgroundTask(taskIdentifier)
-
-            let waitOperation = WaitOperation(with: interval)
-            self.operationQueue.addOperation(waitOperation)
-
             self.addUpdateOperation(with: interval)
         }
+
+        let waitOperation = WaitOperation(with: interval)
+        operationQueue.addOperation(waitOperation)
 
         operationQueue.addOperation(operation)
     }
