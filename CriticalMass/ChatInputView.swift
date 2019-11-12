@@ -11,39 +11,46 @@ protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String)
 }
 
-class ChatInputView: UIView, UITextFieldDelegate {
+class ChatInputView: UIView {
+    struct Constants {
+        static let textFieldHeight = CGFloat(46.0)
+        static let sendButtonWidth = CGFloat(65.0)
+        static let messageTextFieldInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+
     @objc
     dynamic var sendMessageButtonColor: UIColor? {
         willSet {
-            button.setTitleColor(newValue, for: .normal)
-            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .disabled)
-            button.setTitleColor(newValue?.withAlphaComponent(0.4), for: .highlighted)
+            sendButton.setTitleColor(newValue, for: .normal)
+            sendButton.setTitleColor(newValue?.withAlphaComponent(0.4), for: .disabled)
+            sendButton.setTitleColor(newValue?.withAlphaComponent(0.4), for: .highlighted)
         }
     }
 
     @objc
     dynamic var textViewTextColor: UIColor? {
         willSet {
-            textField.textColor = newValue
+            messageTextField.textColor = newValue
         }
     }
 
     weak var delegate: ChatInputDelegate?
 
-    private let textField: UITextField = {
+    private let messageTextField: UITextField = {
         let textField = TextFieldWithInsets()
         textField.isOpaque = false
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = String.chatPlaceholder
-        textField.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        textField.insets = Constants.messageTextFieldInsets
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .send
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.layer.masksToBounds = true
+        textField.layer.cornerRadius = Constants.textFieldHeight / 2.0
         return textField
     }()
 
-    private let button: UIButton = {
+    private let sendButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.textAlignment = .center
         button.setTitle(String.chatSend, for: .normal)
@@ -59,6 +66,14 @@ class ChatInputView: UIView, UITextFieldDelegate {
         return view
     }()
 
+    private lazy var chatStack: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [messageTextField, sendButton])
+        view.distribution = .fillProportionally
+        view.spacing = 4.0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -70,11 +85,10 @@ class ChatInputView: UIView, UITextFieldDelegate {
     }
 
     private func commonInit() {
-        addSubview(textField)
-        addSubview(button)
+        addSubview(chatStack)
         addSubview(separator)
 
-        textField.delegate = self
+        messageTextField.addTarget(self, action: #selector(didTapSendButton), for: .editingDidEndOnExit)
 
         configureConstraints()
     }
@@ -83,53 +97,45 @@ class ChatInputView: UIView, UITextFieldDelegate {
         translatesAutoresizingMaskIntoConstraints = false
 
         addConstraints([
-            NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 9),
-            NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: textField, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.7, constant: -8),
-            NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leadingMargin, multiplier: 1, constant: 8),
-            NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.3, constant: 0),
-            NSLayoutConstraint(item: button, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 9),
-            NSLayoutConstraint(item: button, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: button, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailingMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: separator, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: separator, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 1),
-            NSLayoutConstraint(item: separator, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: separator, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+            sendButton.widthAnchor.constraint(equalToConstant: Constants.sendButtonWidth),
+            messageTextField.heightAnchor.constraint(equalToConstant: Constants.textFieldHeight),
+            chatStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            chatStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            chatStack.centerYAnchor.constraint(equalTo: centerYAnchor),
+            separator.leadingAnchor.constraint(equalTo: leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            separator.topAnchor.constraint(equalTo: topAnchor),
+            separator.heightAnchor.constraint(equalToConstant: 1),
         ])
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        textField.layer.cornerRadius = textField.frame.height / 2
-    }
-
     @objc func didTapSendButton() {
-        delegate?.didTapSendButton(text: textField.text ?? "")
+        guard let text = messageTextField.text, text.canBeSent else {
+            return
+        }
+        delegate?.didTapSendButton(text: text)
     }
 
     public func resetInput() {
-        textField.text = ""
+        messageTextField.text?.removeAll()
+        messageTextField.sendActions(for: .editingChanged)
     }
 
     @discardableResult
     override func resignFirstResponder() -> Bool {
-        return textField.resignFirstResponder()
+        messageTextField.resignFirstResponder()
     }
 
     @objc
     func textFieldDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            button.isEnabled = !text.isEmpty
+            sendButton.isEnabled = text.canBeSent
         }
     }
+}
 
-    // MARK: UITextFieldDelegate
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField.text ?? "") != "" {
-            didTapSendButton()
-            return true
-        }
-        return false
+private extension String {
+    var canBeSent: Bool {
+        !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

@@ -1,12 +1,15 @@
 language: objective-c 
 osx_image: xcode11
-
-before_install:
-  - bundle update
+cache:
+  - bundler
+install:
+  - bundle install
 
 jobs:
   include:
     - script: bundle exec fastlane test
       name: UnitTests
-    - script: bundle exec fastlane screenshots_limited
+    - script: bundle exec fastlane ui_test
       name: UITests
+    - script: bundle exec fastlane snapshot_test
+      name: SnapshotTests

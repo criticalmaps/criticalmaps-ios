@@ -19,8 +19,6 @@ public class RequestManager {
         var messages: [SendChatMessage]
     }
 
-    private let endpoint: URL
-
     private var hasActiveRequest = false
 
     private var dataStore: DataStore
@@ -30,8 +28,7 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
-        endpoint = url
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider

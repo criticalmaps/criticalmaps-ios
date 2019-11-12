@@ -7,19 +7,55 @@
 
 import UIKit
 
-class RuleDetailTextView: UITextView {
-    @objc
-    dynamic var ruleDetailTextColor: UIColor? {
-        willSet {
-            textColor = newValue
-        }
-    }
-}
-
 class RulesDetailViewController: UIViewController {
     private var rule: Rule
-    private var textView = RuleDetailTextView(frame: .zero)
-    
+    private let spacing: CGFloat = 12
+
+    private lazy var scrollView: UIScrollView = {
+        UIScrollView()
+    }()
+
+    private lazy var ruleStack: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [ruleImageView, descriptionLabel])
+        let isLandscape = traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact
+        view.axis = isLandscape ? .horizontal : .vertical
+        view.distribution = .fillProportionally
+        view.alignment = .top
+        view.spacing = 2 * spacing
+        return view
+    }()
+
+    private lazy var ruleImageView: UIImageView = {
+        let imageView = UIImageView(image: rule.artwork)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    private lazy var descriptionLabel: RuleDescriptionLabel = {
+        let label = RuleDescriptionLabel()
+        label.text = rule.text
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        return label
+    }()
+
+    private lazy var imageViewHeightConstraint: NSLayoutConstraint = {
+        let aspectRatio: CGFloat
+        if let artwork = rule.artwork {
+            aspectRatio = artwork.size.height / artwork.size.width
+        } else {
+            aspectRatio = 0
+        }
+
+        return NSLayoutConstraint(
+            item: ruleImageView,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: ruleImageView,
+            attribute: .width,
+            multiplier: aspectRatio,
+            constant: 0)
+    }()
+
     init(rule: Rule) {
         self.rule = rule
         super.init(nibName: nil, bundle: nil)
@@ -33,62 +69,48 @@ class RulesDetailViewController: UIViewController {
         super.viewDidLoad()
         
         title = rule.title
-        navigationController?.navigationBar.tintColor = .black
-        configureTextView()
-    }
-    
-    private func configureTextView() {
-        textView.frame = view.bounds
-        
-        textView.isEditable = false
-        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.textColor = .gray300
-        textView.adjustsFontForContentSizeCategory = true
-        view.addSubview(textView)
-        
-        updateContentInset()
-        updateTextViewContent()
-    }
-    
-    private func updateContentInset() {
-        let additionalLeadingInsets: CGFloat
-        let additionalTrailingInsets: CGFloat
         if #available(iOS 11.0, *) {
-            additionalLeadingInsets = view.safeAreaInsets.left
-            additionalTrailingInsets = view.safeAreaInsets.right
-        } else {
-            additionalLeadingInsets = 0
-            additionalTrailingInsets = 0
+            navigationItem.largeTitleDisplayMode = .never
         }
-        
-        textView.contentInset = UIEdgeInsets(top: 12, left: 12 + additionalLeadingInsets, bottom: 12, right: 12 + additionalTrailingInsets)
+        configureConstraints()
     }
     
-    private func updateTextViewContent() {
-        let attributedString = NSMutableAttributedString()
-        
-        if let artWork = rule.artwork {
-            let artworkAttachment = NSTextAttachment()
-            artworkAttachment.image = artWork
-            let ratio = artWork.size.height / artWork.size.width
-            let artworkPadding = textView.contentInset.left +
-                textView.contentInset.right +
-                textView.textContainer.lineFragmentPadding
-            let artworkWidth = view.bounds.width - artworkPadding
-            artworkAttachment.bounds.size = CGSize(width: artworkWidth, height: artworkWidth * ratio)
-            
-            attributedString.append(NSAttributedString(attachment: artworkAttachment))
-        }
-        attributedString.append(NSAttributedString(string: rule.text))
-        
-        textView.attributedText = attributedString
+    private func configureConstraints() {
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Constraints for scroll view
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor)
+        ])
+
+        ruleImageView.translatesAutoresizingMaskIntoConstraints = false
+        ruleStack.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(ruleStack)
+
+        // Constraints for stack view and image view
+        NSLayoutConstraint.activate([
+            imageViewHeightConstraint,
+            ruleStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
+            ruleStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ruleStack.leadingAnchor.constraint(greaterThanOrEqualTo: scrollView.leadingAnchor, constant: spacing),
+            ruleStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: spacing),
+            scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: ruleStack.bottomAnchor, constant: spacing),
+            ruleStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: spacing)
+        ])
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        updateContentInset()
-        updateTextViewContent()
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        let isCompactVerticalSizeClass = traitCollection.verticalSizeClass == .compact
+        let wasCompactVerticalSizeClass = previousTraitCollection?.verticalSizeClass == .compact
+
+        guard isCompactVerticalSizeClass != wasCompactVerticalSizeClass else { return }
+
+        ruleStack.axis = isCompactVerticalSizeClass ? .horizontal : .vertical
     }
 }

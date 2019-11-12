@@ -44,10 +44,6 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         super.viewDidLoad()
         configureSegmentedControl()
         configureNavigationBar()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         present(segment: .chat)
     }
 
@@ -76,11 +72,13 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     private func present(segment: SocialSegments) {
         switch segment {
         case .chat:
-            remove(child: twitterController)
-            add(child: chatViewController)
+            twitterController.remove()
+            add(chatViewController)
+            layout(chatViewController)
         case .twitter:
-            remove(child: chatViewController)
-            add(child: twitterController)
+            chatViewController.remove()
+            add(twitterController)
+            layout(twitterController)
         }
     }
 }

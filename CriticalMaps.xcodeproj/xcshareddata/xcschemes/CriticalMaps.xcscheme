@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1110"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -45,6 +45,16 @@
                BlueprintIdentifier = "3F137FAE2349CB8C006B26AB"
                BuildableName = "CriticalMapsUITests.xctest"
                BlueprintName = "CriticalMapsUITests"
+               ReferencedContainer = "container:CriticalMaps.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7530E38F235A3CA100F5E55C"
+               BuildableName = "CriticalMapsSnapshotTests.xctest"
+               BlueprintName = "CriticalMapsSnapshotTests"
                ReferencedContainer = "container:CriticalMaps.xcodeproj">
             </BuildableReference>
          </TestableReference>
