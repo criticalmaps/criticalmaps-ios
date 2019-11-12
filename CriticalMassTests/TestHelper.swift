@@ -80,6 +80,16 @@ class MockDataStore: DataStore {
     }
 }
 
+class MockNetworkObserver: NetworkObserver {
+    var status: NetworkStatus = .none
+    var statusUpdateHandler: ((NetworkStatus) -> Void)?
+
+    func update(with status: NetworkStatus) {
+        self.status = status
+        self.statusUpdateHandler?(status)
+    }
+}
+
 extension XCTestCase {
     func wait(interval: TimeInterval, completion: @escaping () -> Void) {
         Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
