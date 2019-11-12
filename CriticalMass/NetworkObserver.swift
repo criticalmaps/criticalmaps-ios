@@ -10,7 +10,7 @@ enum NetworkStatus {
     case satisfied, none
 }
 
-protocol NetworkStatusObserver {
-    var networkStatus: NetworkStatus { get }
+protocol NetworkObserver {
+    var status: NetworkStatus { get }
     var statusUpdateHandler: ((NetworkStatus) -> Void)? { get set }
 }

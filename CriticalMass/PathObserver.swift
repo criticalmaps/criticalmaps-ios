@@ -9,8 +9,8 @@
 import Network
 
 @available(iOS 12.0, *)
-final class PathObserver: NetworkStatusObserver {
-    var networkStatus: NetworkStatus {
+final class PathObserver: NetworkObserver {
+    var status: NetworkStatus {
         monitor.currentPath.status == .satisfied ? .satisfied : .none
     }
 
