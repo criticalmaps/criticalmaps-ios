@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210367BA237AACC6001F2A84 /* NetworkStatusObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367B9237AACC6001F2A84 /* NetworkStatusObserver.swift */; };
 		2176242723744F3400F7885E /* RequestLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* RequestLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
@@ -171,6 +172,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		210367B9237AACC6001F2A84 /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		2176242623744F3400F7885E /* RequestLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				940643D72307270B00AB1BCB /* GCD+Util.swift */,
 				21859FAD2352B6AA00B942AA /* AsyncOperation.swift */,
 				21859FB12352CBD300B942AA /* WaitOperation.swift */,
+				210367B9237AACC6001F2A84 /* NetworkStatusObserver.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1028,6 +1031,7 @@
 				75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */,
+				210367BA237AACC6001F2A84 /* NetworkStatusObserver.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				940643D82307270B00AB1BCB /* GCD+Util.swift in Sources */,
