@@ -14,6 +14,12 @@ public class RequestManager {
         var messages: [SendChatMessage]
     }
 
+<<<<<<< HEAD
+    private let endpoint: URL
+=======
+    private var hasActiveRequest = false
+>>>>>>> upstream/master
+
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
@@ -29,7 +35,12 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, networkObserver: NetworkObserver? = nil) {
+<<<<<<< HEAD
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL, networkObserver: NetworkObserver?) {
+        endpoint = url
+=======
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider) {
+>>>>>>> upstream/master
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider

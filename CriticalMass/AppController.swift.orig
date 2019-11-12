@@ -27,7 +27,11 @@ class AppController {
     private var dataStore = MemoryDataStore()
 
     private lazy var requestManager: RequestManager = {
+<<<<<<< HEAD
+        return RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint, networkObserver: networkObserver)
+=======
         RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider)
+>>>>>>> upstream/master
     }()
 
     private let networkOperator: NetworkOperator = {

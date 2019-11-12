@@ -10,6 +10,10 @@ Changelog for Critical Maps iOS
 - Fix whitespace only chat message can not be send anymore.
 - Fix dark mode for Rules Detail
 
+### Added
+
+- Loading and ErrorStateView for Twitter section
+
 ## [3.4.0] - 2019-10-08
 
 ### Added

@@ -148,3 +148,7 @@
 
 /* Theme */
 "settings.theme" = "Nachtmodus";
+
+/* ErrorState */
+"errorState.title" = "Error";
+"errorState.message" = "Entschuldige, irgendwas ging schief";

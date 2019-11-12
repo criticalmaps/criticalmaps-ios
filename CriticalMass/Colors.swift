@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIColor {
+    static var cmYellow: UIColor {
+        UIColor(red: 1.000, green: 0.835, blue: 0.192, alpha: 1.000)
+    }
+
     static var twitterProfileInnerBorder: UIColor {
         return UIColor(red: 55 / 255.0, green: 64 / 255.0, blue: 82 / 255.0, alpha: 0.18)
     }
@@ -44,6 +48,10 @@ extension UIColor {
         return UIColor(red: 255.0 / 255.0, green: 214.0 / 255.0, blue: 51.0 / 255.0, alpha: 1.0)
     }
 
+    static var yellow80: UIColor {
+        return UIColor(red: 230.0 / 255.0, green: 184.0 / 255.0, blue: 0 / 255.0, alpha: 1.0)
+    }
+
     static var gray600: UIColor {
         return UIColor(white: 250.0 / 255.0, alpha: 1.0)
     }
@@ -74,5 +82,9 @@ extension UIColor {
 
     static var darkThemeGradientEnd: UIColor {
         return UIColor(red: 43.0 / 255.0, green: 45.0 / 255.0, blue: 47.0 / 255.0, alpha: 0.75)
+    }
+
+    static var onlineGreen: UIColor {
+        return UIColor(red: 20.0 / 255.0, green: 204.0 / 255.0, blue: 51.0 / 255.0, alpha: 1)
     }
 }
