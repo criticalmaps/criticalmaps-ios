@@ -7,7 +7,6 @@
 
 import os.log
 import UIKit
-import Network
 
 public class RequestManager {
     private struct SendMessagePostBody: Codable {
@@ -21,8 +20,7 @@ public class RequestManager {
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
-
-    private var pathMonitorRef: AnyObject?
+    private var networkObserver: NetworkObserver?
 
     private let operationQueue: OperationQueue = {
         let queue = OperationQueue()
@@ -33,19 +31,15 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
 
-    @available(iOS 12.0, *)
-    convenience init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL, pathMonitor: NWPathMonitor) {
-        self.init(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: idProvider, url: url)
-        setup(pathMonitor: pathMonitor)
-    }
-
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL) {
+    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, url: URL, networkObserver: NetworkObserver?) {
         endpoint = url
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
+        self.networkObserver = networkObserver
 
+        setupNetworkObserver()
         addUpdateOperation(with: interval)
     }
 
@@ -125,21 +119,14 @@ public class RequestManager {
     }
 }
 
-@available(iOS 12.0, *)
 private extension RequestManager {
-    func setup(pathMonitor: NWPathMonitor) {
-        pathMonitor.pathUpdateHandler = { [weak self] path in
-            self?.handlePathUpdate(path)
-        }
-        let queue = DispatchQueue(label: "Monitor")
-        pathMonitor.start(queue: queue)
-        
-        pathMonitorRef = pathMonitor
-    }
+    func setupNetworkObserver() {
+        networkObserver?.statusUpdateHandler = { [weak self] status in
+            guard let self = self, status == .satisfied else {
+                return
+            }
 
-    func handlePathUpdate(_ path: NWPath) {
-        if path.status == .satisfied {
-            let operation = operationQueue.operations.first
+            let operation = self.operationQueue.operations.first
             if operation is WaitOperation {
                 operation?.cancel()
             }

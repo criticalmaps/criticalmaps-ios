@@ -27,14 +27,19 @@ class AppController {
     private var dataStore = MemoryDataStore()
 
     private lazy var requestManager: RequestManager = {
-        if #available(iOS 12.0, *) {
-            return RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint, pathMonitor: NWPathMonitor())
-        }
-        return RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint)
+        return RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, url: Constants.apiEndpoint, networkObserver: networkObserver)
     }()
 
     private let networkOperator: NetworkOperator = {
         NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper())
+    }()
+
+    private let networkObserver: NetworkObserver? = {
+        if #available(iOS 12.0, *) {
+            return PathObserver()
+        } else {
+            return nil
+        }
     }()
 
     private let themeController = ThemeController()
