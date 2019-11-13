@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatInputViewController" customModule="CriticalMaps" customModuleProvider="target">
+            <connections>
+                <outlet property="inputTextView" destination="kk6-lS-phi" id="ikR-wk-9h9"/>
+                <outlet property="sendButton" destination="ok1-Cv-1uN" id="utH-Yw-EiP"/>
+                <outlet property="view" destination="iN0-l3-epB" id="gis-IU-Ulx"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzQ-c3-Sos" customClass="SeparatorView" customModule="CriticalMaps" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="JxY-XE-cHf"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bce-sC-EWb">
+                    <rect key="frame" x="12" y="9" width="390" height="42"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" bouncesZoom="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kk6-lS-phi">
+                            <rect key="frame" x="0.0" y="4" width="348" height="38"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="999" constant="38" id="kX9-Co-fmB"/>
+                            </constraints>
+                            <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="50"/>
+                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="19"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="lNh-fE-Jtu"/>
+                            </connections>
+                        </textView>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN" customClass="SendButton" customModule="CriticalMaps" customModuleProvider="target">
+                            <rect key="frame" x="356" y="8" width="34" height="34"/>
+                            <accessibility key="accessibilityConfiguration" hint="Sends the chat message" label="send message button"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="Lt4-S8-mss"/>
+                                <constraint firstAttribute="width" secondItem="ok1-Cv-1uN" secondAttribute="height" multiplier="1:1" id="Obz-Yv-vIp"/>
+                            </constraints>
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <state key="normal" image="icon-send"/>
+                            <connections>
+                                <action selector="didTapSendButton" destination="-1" eventType="touchUpInside" id="6eu-D2-8Tt"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bce-sC-EWb" secondAttribute="bottom" constant="9" id="A5V-ow-MeF"/>
+                <constraint firstItem="bce-sC-EWb" firstAttribute="top" secondItem="SzQ-c3-Sos" secondAttribute="bottom" constant="8" id="E1C-bR-guG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bce-sC-EWb" secondAttribute="trailing" constant="12" id="TUU-F6-CcB"/>
+                <constraint firstItem="SzQ-c3-Sos" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YQE-Eg-LRG"/>
+                <constraint firstAttribute="trailing" secondItem="SzQ-c3-Sos" secondAttribute="trailing" id="j8H-b2-JMw"/>
+                <constraint firstItem="SzQ-c3-Sos" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jHc-m4-mJT"/>
+                <constraint firstItem="bce-sC-EWb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="mQp-U3-aK3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="434.59821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon-send" width="24" height="24"/>
+    </resources>
+</document>
