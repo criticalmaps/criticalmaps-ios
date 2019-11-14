@@ -92,17 +92,8 @@ class MapViewController: UIViewController {
 
     private func configureMapView() {
         view.addSubview(mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraints([
-            NSLayoutConstraint(item: mapView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 1),
-            NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
-        ])
-
-        if #available(iOS 11.0, *) {
-            mapView.register(BikeAnnoationView.self, forAnnotationViewWithReuseIdentifier: BikeAnnoationView.identifier)
-        }
+        mapView.addLayoutsSameSizeAndOrigin(in: view)
+        mapView.register(annotationType: BikeAnnoationView.self)
         mapView.showsPointsOfInterest = false
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -129,6 +120,8 @@ class MapViewController: UIViewController {
         // remove annotations that no longer exist
         mapView.removeAnnotations(unmatchedAnnotations)
     }
+    
+    // GPS Disabled Overlay
 
     @objc func didTapGPSDisabledOverlayButton() {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
@@ -187,14 +180,8 @@ extension MapViewController: MKMapViewDelegate {
         guard annotation is MKUserLocation == false else {
             return nil
         }
-        let annotationView: BikeAnnoationView
-        if #available(iOS 11.0, *) {
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier, for: annotation) as! BikeAnnoationView
-        } else {
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.identifier) as? BikeAnnoationView ?? BikeAnnoationView()
-            annotationView.annotation = annotation
-        }
-        return annotationView
+
+        return mapView.dequeueReusableAnnotationView(ofType: BikeAnnoationView.self, with: annotation)
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
