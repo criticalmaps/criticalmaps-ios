@@ -1,0 +1,15 @@
+{
+    "locations": {
+        "1": {
+            "timestamp": 1573377792,
+            "longitude": 13425000,
+            "latitude": 52503600
+        }
+    },
+    "chatMessages": {
+        "1": {
+            "message": "1. Message",
+            "timestamp": 1573376930
+        }
+    }
+}

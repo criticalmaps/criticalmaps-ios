@@ -6,8 +6,14 @@
 //
 
 import os.log
-import UIKit
 
+#if canImport(UIKit)
+    import UIKit
+#else
+    import Foundation
+#endif
+
+@available(macOS 10.12, *)
 public class RequestManager {
     private struct SendLocationPostBody: Codable {
         var device: String
@@ -26,9 +32,9 @@ public class RequestManager {
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
 
-    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
+    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider) {
+    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
@@ -92,10 +98,12 @@ public class RequestManager {
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
+        #if canImport(UIKit)
         let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
             completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
             self.networkLayer.cancelActiveRequestsIfNeeded()
         }
+        #endif
         let body = SendMessagePostBody(device: idProvider.id, messages: messages)
         guard let bodyData = try? body.encoded() else {
             completion(.failure(NetworkError.encodingError(body)))
@@ -106,7 +114,10 @@ public class RequestManager {
             guard let self = self else { return }
             self.defaultCompletion(for: result)
             onMain {
+               #if canImport(UIKit)
                 UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+                
+                #endif
                 switch result {
                 case let .success(messages):
                     completion(.success(messages.chatMessages))
