@@ -10,7 +10,7 @@ import UIKit
 class AppController {
     private var idProvider: IDProvider = IDStore()
     private var dataStore = MemoryDataStore()
-    private var simulationModeEnabled =   false
+    private var simulationModeEnabled = false
 
     private lazy var requestManager: RequestManager = {
         RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider)
