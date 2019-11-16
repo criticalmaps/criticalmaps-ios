@@ -14,6 +14,8 @@ class ChatManagerTests: XCTestCase {
         let dataStore = MemoryDataStore()
         let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, idProvider: MockIDProvider())
         let chatManager = ChatManager(requestManager: requestManager)
+        networkLayer.numberOfPostCalled = 0
+        networkLayer.numberOfGetCalled = 0
         return (chatManager, networkLayer, dataStore)
     }
 
