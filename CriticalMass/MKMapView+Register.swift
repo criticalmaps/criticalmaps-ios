@@ -21,7 +21,6 @@ extension MKMapView {
         }
     }
 
-    
     func dequeueReusableAnnotationView<T: MKAnnotationView>(ofType annotationType: T.Type, for indexPath: IndexPath? = nil, with annotation: MKAnnotation) -> T {
         let annotationView: T
         if #available(iOS 11.0, *) {
@@ -32,6 +31,4 @@ extension MKMapView {
         }
         return annotationView
     }
-
 }
-
