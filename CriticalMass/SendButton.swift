@@ -26,7 +26,23 @@ class SendButton: UIButton {
         }
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        commonInit()
+    }
+
+    private func commonInit() {
+        layer.cornerRadius = bounds.height / 2
+    }
 }
 
 private extension UIButton {
