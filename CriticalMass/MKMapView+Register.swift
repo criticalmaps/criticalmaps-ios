@@ -15,9 +15,9 @@ extension MKAnnotationView {
 }
 
 extension MKMapView {
-    func register<T: MKAnnotationView>(annotationType: T.Type) {
+    func register<T: MKAnnotationView>(annotationViewType: T.Type) {
         if #available(iOS 11.0, *) {
-            register(annotationType, forAnnotationViewWithReuseIdentifier: annotationType.reuseIdentifier)
+            register(annotationViewType, forAnnotationViewWithReuseIdentifier: annotationViewType.reuseIdentifier)
         }
     }
 

@@ -12,8 +12,6 @@ class BikeAnnotation: IdentifiableAnnnotation {}
 
 class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoationView> {
     public override func setup() {
-        mapView.register(annotationType: BikeAnnoationView.self)
-
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
     }
 
@@ -42,9 +40,5 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
 
         // remove annotations that no longer exist
         mapView.removeAnnotations(unmatchedAnnotations)
-    }
-    
-    override func prepareAnnotationView(annotation: BikeAnnotation) -> BikeAnnoationView? {
-        mapView.dequeueReusableAnnotationView(ofType: BikeAnnoationView.self, with: annotation)
     }
 }

@@ -56,7 +56,9 @@ class MapViewController: UIViewController {
         configureMapView()
         condfigureGPSDisabledOverlayView()
         
-        annotationController.forEach { $0.setup() }
+        annotationController
+            .map{ $0.annotationViewType }
+            .forEach(mapView.register)
         
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -161,8 +163,8 @@ extension MapViewController: MKMapViewDelegate {
         guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {
             return nil
         }
-
-        return matchingController.prepareAnnotationView(annotation: unsafeDowncast(annotation, to: matchingController.annotationType))
+        
+        return mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
     }
     
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {

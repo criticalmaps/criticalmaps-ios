@@ -8,21 +8,15 @@
 
 import MapKit
 
-class AnnotationController<T: IdentifiableAnnnotation, K: MKAnnotationView>: NSObject {
+class AnnotationController<T: IdentifiableAnnnotation, K: MKAnnotationView> {
     var mapView: MKMapView
     let annotationType = T.self
     let annotationViewType = K.self
 
     required init(mapView: MKMapView) {
         self.mapView = mapView
-        super.init()
-    }
-
-    open func setup() {
-        mapView.register(annotationType: BikeAnnoationView.self)
+        setup()
     }
     
-    open func prepareAnnotationView(annotation:T) -> K? {
-        return nil
-    }
+    open func setup() {}
 }
