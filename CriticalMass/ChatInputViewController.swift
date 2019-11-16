@@ -13,23 +13,20 @@ final class ChatInputViewController: UIViewController, IBConstructable {
         static let textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         static let maxTextViewHeight: CGFloat = 150.0
     }
-    @IBOutlet weak var inputTextView: UITextView! {
+    @IBOutlet weak var inputTextView: GrowingTextView! {
         didSet {
             inputTextView.layer.masksToBounds = true
             inputTextView.textContainerInset = Constants.textContainerInset
-            inputTextView.contentInset = Constants.textContainerInset
         }
     }
-    @IBOutlet weak var sendButton: UIButton! {
-        didSet {
-            sendButton.cornerRadius = sendButton.bounds.height / 2
-        }
-    }
+    @IBOutlet weak var sendButton: UIButton!
 
     weak var delegate: ChatInputDelegate?
+    var themeController: ThemeController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setKeyboardTheme()
     }
 
     @discardableResult
@@ -37,8 +34,19 @@ final class ChatInputViewController: UIViewController, IBConstructable {
         inputTextView.resignFirstResponder()
     }
 
-    public func resetInput() {
-        inputTextView.text?.removeAll()
+    private func setKeyboardTheme() {
+        let theme = themeController.currentTheme
+        theme.flatMap {
+            inputTextView.keyboardAppearance = $0.style.keyboardAppearance
+        }
+    }
+
+    private func resetInput() {
+        inputTextView.text = ""
+    }
+
+    private func updateSendButton(_ enabled: Bool) {
+        sendButton.isEnabled = enabled
     }
 
     // MARK: - Actions
@@ -46,26 +54,24 @@ final class ChatInputViewController: UIViewController, IBConstructable {
         guard let text = inputTextView.text, text.canBeSent else {
             return
         }
-        delegate?.didTapSendButton(text: text)
+        delegate?.didTapSendButton(text: text) { [weak self] wasSent in
+            guard let self = self else { return }
+            if wasSent {
+                self.resetInput()
+                self.textViewDidChange(self.inputTextView)
+            } else {
+                Logger.log(.debug, log: .default, "Could not send chat message")
+            }
+        }
     }
 }
 
 extension ChatInputViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        textView.text.flatMap { sendButton.isEnabled = $0.canBeSent }
-        let size = CGSize(width: inputTextView.bounds.width - (Constants.textContainerInset.left * 2),
-                          height: .infinity)
-        let estimatedHeight = textView.sizeThatFits(size).height
-        if estimatedHeight < Constants.maxTextViewHeight {
-            inputTextView.isScrollEnabled = false
-            inputTextView.constraints.forEach { constraint in
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedHeight
-                }
-            }
-        } else {
-            inputTextView.isScrollEnabled = true
+        guard let text = textView.text else {
+            return
         }
+        updateSendButton(text.canBeSent)
     }
 }
 
@@ -74,3 +80,5 @@ private extension String {
         !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
+
+class ChatBackGroundView: UIView {}
