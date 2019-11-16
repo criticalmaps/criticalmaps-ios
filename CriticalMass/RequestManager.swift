@@ -40,6 +40,9 @@ public class RequestManager {
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
         configureTimer(with: interval)
+        
+        // load initial data
+        updateData()
     }
 
     private func configureTimer(with interval: TimeInterval) {

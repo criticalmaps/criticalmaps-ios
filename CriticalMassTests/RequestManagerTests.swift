@@ -9,13 +9,18 @@
 import XCTest
 
 class RequestManagerTests: XCTestCase {
-    func setup(interval: TimeInterval, deviceId: String = "") -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer) {
+    func setup(interval: TimeInterval, deviceId: String = "", resetRequestCountAfterSetup: Bool = true) -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer) {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
         let mockIDProvider = MockIDProvider()
         mockIDProvider.mockID = deviceId
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider), locationProvider, dataStore, networkLayer)
+        let result = (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider), locationProvider, dataStore, networkLayer)
+        if resetRequestCountAfterSetup {
+            networkLayer.numberOfGetCalled = 0
+            networkLayer.numberOfPostCalled = 0
+        }
+        return result
     }
 
     func testNoRequestForActiveRequests() {
@@ -85,5 +90,10 @@ class RequestManagerTests: XCTestCase {
         XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
         XCTAssertEqual(testSetup.networkLayer.numberOfPostCalled, 1)
         XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
+    }
+    
+    func testLoadInitialData() {
+        let setup = self.setup(interval: 100000, resetRequestCountAfterSetup: false)
+        XCTAssertEqual(setup.networkLayer.numberOfRequests, 1)
     }
 }
