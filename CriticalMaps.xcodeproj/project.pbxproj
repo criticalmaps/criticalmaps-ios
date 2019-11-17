@@ -110,7 +110,6 @@
 		9822A17221F3349F007F5994 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A17121F3349F007F5994 /* Preferences.swift */; };
 		982371242377753A009D6F05 /* Data.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 982371232377753A009D6F05 /* Data.xcassets */; };
 		9823712623781D53009D6F05 /* SimulationNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823712523781D53009D6F05 /* SimulationNetworkDataProvider.swift */; };
-		982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */; };
 		982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8C621FF652700E2A51B /* TwitterManager.swift */; };
 		982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8C821FF65F700E2A51B /* Tweet.swift */; };
 		982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8CA21FF673500E2A51B /* TwitterViewController.swift */; };
@@ -306,7 +305,6 @@
 		9822A17121F3349F007F5994 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		982371232377753A009D6F05 /* Data.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Data.xcassets; sourceTree = "<group>"; };
 		9823712523781D53009D6F05 /* SimulationNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationNetworkDataProvider.swift; sourceTree = "<group>"; };
-		982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		982DA8C621FF652700E2A51B /* TwitterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
 		982DA8C821FF65F700E2A51B /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		982DA8CA21FF673500E2A51B /* TwitterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterViewController.swift; sourceTree = "<group>"; };
@@ -593,7 +591,6 @@
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
-				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
@@ -1186,7 +1183,6 @@
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
 				98003D4922872C1800592D55 /* URLCodable.swift in Sources */,
 				9485A93C23756A81006DC7B5 /* CMLogoActivityView.swift in Sources */,
-				982DA87C21FCECCF00E2A51B /* LoadingIndicator.swift in Sources */,
 				98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */,
 				94D40171229FE43C001524CC /* UIFont+DynamicFont.swift in Sources */,
 			);

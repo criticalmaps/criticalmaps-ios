@@ -145,9 +145,7 @@ class ChatViewController: UIViewController {
 // MARK: ChatInputDelegate
 extension ChatViewController: ChatInputDelegate {
     func didTapSendButton(text: String, completionHandler: CompletionHandler? = nil) {
-        let indicator = LoadingIndicator.present(in: view)
         chatManager.send(message: text) { result in
-            indicator.dismiss()
             switch result {
             case .success:
                 completionHandler?(true)
