@@ -36,12 +36,17 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+    }
+
+    private func setupTableView() {
         // Setting the footerView hides seperators for empty cellls
         tableView.tableFooterView = UIView()
         tableView.register(cellType: T.self)
         // To use UITableViews dynamicHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 110.0
+        tableView.separatorColor = .gray300
     }
 
     private func updateNoMessageCountIfNeeded() {
