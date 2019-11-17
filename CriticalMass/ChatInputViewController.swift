@@ -22,7 +22,7 @@ final class ChatInputViewController: UIViewController, IBConstructable {
     @IBOutlet private weak var sendButton: UIButton!
 
     weak var delegate: ChatInputDelegate?
-    var themeController: ThemeController!
+    private let themeController = ThemeController()
 
     override func viewDidLoad() {
         super.viewDidLoad()

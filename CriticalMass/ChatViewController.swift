@@ -40,9 +40,8 @@ class ChatViewController: UIViewController, ContentStatePresentable {
         }
     }
 
-    init(chatManager: ChatManager, chatInputViewController: ChatInputViewController) {
+    init(chatManager: ChatManager) {
         self.chatManager = chatManager
-        self.chatInputViewController = chatInputViewController
         super.init(nibName: nil, bundle: nil)
         self.chatInputViewController.delegate = self
     }

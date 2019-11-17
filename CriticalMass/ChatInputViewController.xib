@@ -52,7 +52,7 @@
                         </textView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok1-Cv-1uN" customClass="SendButton" customModule="CriticalMaps" customModuleProvider="target">
                             <rect key="frame" x="352" y="4" width="38" height="38"/>
-                            <accessibility key="accessibilityConfiguration" hint="Sends the chat message" label="send message button"/>
+                            <accessibility key="accessibilityConfiguration" hint="Sends the chat message" label="send"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="Lt4-S8-mss"/>
                                 <constraint firstAttribute="width" secondItem="ok1-Cv-1uN" secondAttribute="height" multiplier="1:1" id="Obz-Yv-vIp"/>
