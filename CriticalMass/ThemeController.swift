@@ -112,7 +112,6 @@ class ThemeController {
         UIButton.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = .cmYellow
         SendButton.appearance().sendMessageButtonBGColor = theme.titleTextColor
         ChatBackGroundView.appearance().backgroundColor = theme.chatInputBackgroundColor
-
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
