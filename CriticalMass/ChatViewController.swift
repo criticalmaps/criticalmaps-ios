@@ -22,7 +22,7 @@ class ChatViewController: UIViewController {
     private let chatManager: ChatManager
     private let chatInput: ChatInputViewController
     private lazy var chatInputBottomConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        NSLayoutConstraint(item: chatInput.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
 
     private lazy var chatInputHeightConstraint = {
@@ -83,18 +83,19 @@ class ChatViewController: UIViewController {
             NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: chatInput, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: chatInput.view!, attribute: .top, multiplier: 1, constant: 0),
         ])
     }
 
     private func configureChatInput() {
         chatInput.delegate = self
-        view.addSubview(chatInput)
+        chatInput.view.translatesAutoresizingMaskIntoConstraints = false
+        add(chatInput)
 
         view.addConstraints([
             chatInputHeightConstraint,
-            NSLayoutConstraint(item: chatInput, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: chatInput.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: chatInput.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
             chatInputBottomConstraint,
         ])
     }
