@@ -49,17 +49,6 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(navBarColor!, Theme.dark.style.titleTextColor)
     }
 
-    func testKeyboardStyleShouldChangeToDarkWhenNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let keyboard = UITextField.appearance().keyboardAppearance
-        XCTAssertEqual(keyboard, Theme.dark.style.keyboardAppearance)
-    }
-
     func testUINavigationBarStyleShouldChangeToBlackWhenNightModeWasSelected() {
         // given
         let theme: Theme = .dark
