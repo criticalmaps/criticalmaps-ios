@@ -13,13 +13,13 @@ final class ChatInputViewController: UIViewController, IBConstructable {
         static let textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         static let maxTextViewHeight: CGFloat = 150.0
     }
-    @IBOutlet weak var inputTextView: GrowingTextView! {
+    @IBOutlet private weak var inputTextView: GrowingTextView! {
         didSet {
             inputTextView.layer.masksToBounds = true
             inputTextView.textContainerInset = Constants.textContainerInset
         }
     }
-    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet private weak var sendButton: UIButton!
 
     weak var delegate: ChatInputDelegate?
     var themeController: ThemeController!
@@ -35,8 +35,7 @@ final class ChatInputViewController: UIViewController, IBConstructable {
     }
 
     private func setKeyboardTheme() {
-        let theme = themeController.currentTheme
-        theme.flatMap {
+        themeController.currentTheme.flatMap {
             inputTextView.keyboardAppearance = $0.style.keyboardAppearance
         }
     }

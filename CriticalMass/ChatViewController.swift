@@ -19,20 +19,20 @@ class ChatViewController: UIViewController {
 
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
-    private let chatInput: ChatInputViewController
+    private let chatInputViewController: ChatInputViewController
     private lazy var chatInputBottomConstraint = {
-        NSLayoutConstraint(item: chatInput.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        NSLayoutConstraint(item: chatInputViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
 
     private lazy var chatInputHeightConstraint = {
-        NSLayoutConstraint(item: chatInput.view!, attribute: .height, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: Constants.chatInputHeight)
+        chatInputViewController.view!.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.chatInputHeight)
     }()
 
     init(chatManager: ChatManager, chatInputViewController: ChatInputViewController) {
         self.chatManager = chatManager
-        self.chatInput = chatInputViewController
+        self.chatInputViewController = chatInputViewController
         super.init(nibName: nil, bundle: nil)
-        self.chatInput.delegate = self
+        self.chatInputViewController.delegate = self
     }
 
     required init?(coder _: NSCoder) {
@@ -49,7 +49,7 @@ class ChatViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        chatInput.resignFirstResponder()
+        chatInputViewController.resignFirstResponder()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -73,28 +73,26 @@ class ChatViewController: UIViewController {
             self?.messagesTableViewController.update(messages: messages)
         }
 
-        addChild(messagesTableViewController)
-        view.addSubview(messagesTableViewController.view)
-        messagesTableViewController.didMove(toParent: self)
+        add(messagesTableViewController)
         messagesTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
         view.addConstraints([
             NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: chatInput.view!, attribute: .top, multiplier: 1, constant: 0),
+            messagesTableViewController.view!.widthAnchor.constraint(equalTo: view.widthAnchor),
+            messagesTableViewController.view!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messagesTableViewController.view!.bottomAnchor.constraint(equalTo: chatInputViewController.view!.topAnchor)
         ])
     }
 
     private func configureChatInput() {
-        chatInput.delegate = self
-        chatInput.view.translatesAutoresizingMaskIntoConstraints = false
-        add(chatInput)
+        chatInputViewController.delegate = self
+        chatInputViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        add(chatInputViewController)
 
         view.addConstraints([
             chatInputHeightConstraint,
-            NSLayoutConstraint(item: chatInput.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: chatInput.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            chatInputViewController.view!.widthAnchor.constraint(equalTo: view.widthAnchor),
+            chatInputViewController.view!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             chatInputBottomConstraint,
         ])
     }
@@ -113,7 +111,7 @@ class ChatViewController: UIViewController {
     }
 
     @objc private func didTapTableView() {
-        chatInput.resignFirstResponder()
+        chatInputViewController.resignFirstResponder()
     }
 
     // MARK: Keyboard Handling
