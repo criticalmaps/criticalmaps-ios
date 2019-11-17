@@ -8,11 +8,11 @@
 import Foundation
 
 public struct Location: Hashable {
-    var longitude: Double
-    var latitude: Double
-    var timestamp: Float
-    var name: String?
-    var color: String?
+    public var longitude: Double
+    public var latitude: Double
+    public var timestamp: Float
+    public var name: String?
+    public var color: String?
 }
 
 extension Location: Codable {

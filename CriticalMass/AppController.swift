@@ -9,34 +9,27 @@ import UIKit
 import Network
 
 class AppController {
-    public func onAppLaunch() {
-        loadInitialData()
-        themeController.applyTheme()
-        if #available(iOS 10.3, *) {
-            RatingHelper().onLaunch()
-        }
-    }
-
-    public func onWillEnterForeground() {
-        if #available(iOS 10.3, *) {
-            RatingHelper().onEnterForeground()
-        }
-    }
-
     private var idProvider: IDProvider = IDStore()
     private var dataStore = MemoryDataStore()
+    private var simulationModeEnabled = false
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, networkObserver: networkObserver)
     }()
 
-    private let networkOperator: NetworkOperator = {
+    private lazy var networkOperator: NetworkOperator = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         configuration.timeoutIntervalForRequest = 15.0
         let session = URLSession(configuration: configuration)
 
-        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: session)
+        let networkDataProvider: NetworkDataProvider
+        if simulationModeEnabled {
+            networkDataProvider  = SimulationNetworkDataProvider(realNetworkDataProvider: session)
+        } else {
+            networkDataProvider = session
+        }
+        return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: networkDataProvider)
     }()
 
     private let networkObserver: NetworkObserver? = {
@@ -60,27 +53,7 @@ class AppController {
     private lazy var twitterManager: TwitterManager = {
         TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
-
-    private func getRulesViewController() -> RulesViewController {
-        return RulesViewController()
-    }
-
-    private func getChatViewController() -> ChatViewController {
-        return ChatViewController(chatManager: chatManager)
-    }
-
-    private func getTwitterViewController() -> TwitterViewController {
-        return TwitterViewController(twitterManager: twitterManager)
-    }
-
-    private func getSocialViewController() -> SocialViewController {
-        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
-    }
-
-    private func getSettingsViewController() -> SettingsViewController {
-        return SettingsViewController(themeController: themeController)
-    }
-
+    
     lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController(themeController: self.themeController)
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
@@ -103,6 +76,44 @@ class AppController {
 
         return rootViewController
     }()
+
+    public func onAppLaunch() {
+        loadInitialData()
+        themeController.applyTheme()
+        if #available(iOS 10.3, *) {
+            RatingHelper().onLaunch()
+        }
+    }
+    
+    public func onWillEnterForeground() {
+        if #available(iOS 10.3, *) {
+            RatingHelper().onEnterForeground()
+        }
+    }
+
+    public func enableSimulationMode() {
+        simulationModeEnabled = true
+    }
+    
+    private func getRulesViewController() -> RulesViewController {
+        return RulesViewController()
+    }
+
+    private func getChatViewController() -> ChatViewController {
+        return ChatViewController(chatManager: chatManager)
+    }
+
+    private func getTwitterViewController() -> TwitterViewController {
+        return TwitterViewController(twitterManager: twitterManager)
+    }
+
+    private func getSocialViewController() -> SocialViewController {
+        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
+    }
+
+    private func getSettingsViewController() -> SettingsViewController {
+        return SettingsViewController(themeController: themeController)
+    }
 
     private func loadInitialData() {
         requestManager.getData()

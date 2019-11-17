@@ -8,6 +8,6 @@
 import Foundation
 
 public struct ApiResponse: Codable, Equatable {
-    let locations: [String: Location]
-    let chatMessages: [String: ChatMessage]
+    public let locations: [String: Location]
+    public let chatMessages: [String: ChatMessage]
 }

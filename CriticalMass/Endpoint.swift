@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Endpoint {
-    let path: String?
+public struct Endpoint {
+    public let path: String?
 }
 
 extension Endpoint {

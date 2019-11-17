@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkError: Error {
+public enum NetworkError: Error {
     case fetchFailed(Error?)
     case unknownError(message: String)
     case decodingError(Error)
@@ -18,7 +18,7 @@ enum NetworkError: Error {
 }
 
 extension NetworkError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case let .noData(error):
             return "Data is nil: Error:\(String(describing: error))"
@@ -38,14 +38,14 @@ extension NetworkError: LocalizedError {
     }
 }
 
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
 }
 
-typealias ResultCallback<Value> = (Result<Value, NetworkError>) -> Void
+public typealias ResultCallback<Value> = (Result<Value, NetworkError>) -> Void
 
-protocol NetworkLayer {
+public protocol NetworkLayer {
     func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>)
     func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>)
     func cancelActiveRequestsIfNeeded()

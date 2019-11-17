@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol NetworkDataProvider {
+public protocol NetworkDataProvider {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
     func invalidateAndCancel()
 }
 
 extension URLSession: NetworkDataProvider {
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         let task: URLSessionDataTask = dataTask(with: request, completionHandler: completionHandler)
         task.resume()
     }

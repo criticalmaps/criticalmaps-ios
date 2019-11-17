@@ -6,11 +6,11 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-enum NetworkStatus {
+public enum NetworkStatus {
     case satisfied, none
 }
 
-protocol NetworkObserver {
+public protocol NetworkObserver {
     var status: NetworkStatus { get }
     var statusUpdateHandler: ((NetworkStatus) -> Void)? { get set }
 }
