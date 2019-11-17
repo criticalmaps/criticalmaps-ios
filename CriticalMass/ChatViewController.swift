@@ -7,25 +7,33 @@
 
 import UIKit
 
-class ChatViewController: UIViewController, ChatInputDelegate {
+
+protocol ChatInputDelegate: AnyObject {
+    func didTapSendButton(text: String, completionHandler: ChatViewController.CompletionHandler?)
+}
+
+class ChatViewController: UIViewController {
+    typealias CompletionHandler = (Bool) -> Void
     private enum Constants {
-        static let chatInputHeight: CGFloat = 64
+        static let chatInputHeight: CGFloat = 180
     }
 
-    private let chatInput = ChatInputView(frame: .zero)
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
+    private let chatInput: ChatInputViewController
     private lazy var chatInputBottomConstraint = {
         NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
 
     private lazy var chatInputHeightConstraint = {
-        chatInput.heightAnchor.constraint(equalToConstant: Constants.chatInputHeight)
+        NSLayoutConstraint(item: chatInput.view!, attribute: .height, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: Constants.chatInputHeight)
     }()
 
-    init(chatManager: ChatManager) {
+    init(chatManager: ChatManager, chatInputViewController: ChatInputViewController) {
         self.chatManager = chatManager
+        self.chatInput = chatInputViewController
         super.init(nibName: nil, bundle: nil)
+        self.chatInput.delegate = self
     }
 
     required init?(coder _: NSCoder) {
@@ -132,17 +140,19 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+}
 
-    // MARK: ChatInputDelegate
-
-    func didTapSendButton(text: String) {
+// MARK: ChatInputDelegate
+extension ChatViewController: ChatInputDelegate {
+    func didTapSendButton(text: String, completionHandler: CompletionHandler? = nil) {
         let indicator = LoadingIndicator.present(in: view)
         chatManager.send(message: text) { result in
             indicator.dismiss()
             switch result {
             case .success:
-                self.chatInput.resetInput()
+                completionHandler?(true)
             case .failure:
+                completionHandler?(false)
                 let alert = UIAlertController(title: String.error,
                                               message: String.chatSendError,
                                               preferredStyle: .alert)
