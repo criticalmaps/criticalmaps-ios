@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Network
 
 class AppController {
     private var idProvider: IDProvider = IDStore()
