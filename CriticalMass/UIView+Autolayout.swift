@@ -27,10 +27,10 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         view.addConstraints([
-            NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 1),
-            NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+            heightAnchor.constraint(equalTo: view.heightAnchor),
+            widthAnchor.constraint(equalTo: view.widthAnchor),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topAnchor.constraint(equalTo: view.topAnchor)
         ])
     }
 }
