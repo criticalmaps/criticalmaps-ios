@@ -99,10 +99,10 @@ public class RequestManager {
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
         #if canImport(UIKit)
-        let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
-            completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
-            self.networkLayer.cancelActiveRequestsIfNeeded()
-        }
+            let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
+                completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
+                self.networkLayer.cancelActiveRequestsIfNeeded()
+            }
         #endif
         let body = SendMessagePostBody(device: idProvider.id, messages: messages)
         guard let bodyData = try? body.encoded() else {
@@ -114,9 +114,9 @@ public class RequestManager {
             guard let self = self else { return }
             self.defaultCompletion(for: result)
             onMain {
-               #if canImport(UIKit)
-                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-                
+                #if canImport(UIKit)
+                    UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+
                 #endif
                 switch result {
                 case let .success(messages):

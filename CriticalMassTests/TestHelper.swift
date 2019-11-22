@@ -67,8 +67,8 @@ class MockIDProvider: IDProvider {
             return UUID().uuidString
         }
     }
-    
-    static func hash(id: String, currentDate: Date) -> String {
+
+    static func hash(id: String, currentDate _: Date) -> String {
         return id
     }
 }

@@ -11,9 +11,9 @@ import UIKit
 typealias ReloadHandler = () -> Void
 
 class ErrorStateViewController: UIViewController, IBConstructable {
-    @IBOutlet private weak var errorTitle: UILabel!
-    @IBOutlet private weak var errorMessage: UILabel!
-    @IBOutlet private weak var retryButton: UIButton!
+    @IBOutlet private var errorTitle: UILabel!
+    @IBOutlet private var errorMessage: UILabel!
+    @IBOutlet private var retryButton: UIButton!
 
     var reloadHandler: ReloadHandler?
     var errorStateModel: ErrorStateModel!
@@ -28,7 +28,7 @@ class ErrorStateViewController: UIViewController, IBConstructable {
         errorMessage.text = errorStateModel.errorMessage
     }
 
-    @IBAction func reload(_ sender: Any) {
+    @IBAction func reload(_: Any) {
         reloadHandler?()
     }
 }

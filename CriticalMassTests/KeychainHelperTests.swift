@@ -12,7 +12,7 @@ import XCTest
 class KeychainHelperTests: XCTestCase {
     var keychainReference = "SomeKey"
     var testData = "RandomKey".data(using: .utf8)!
-    
+
     override func tearDown() {
         try? KeychainHelper.delete(with: keychainReference)
     }

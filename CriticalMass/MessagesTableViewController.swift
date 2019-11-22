@@ -31,7 +31,7 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
             updateNoMessageCountIfNeeded()
         }
     }
-    
+
     var selectMessageTrigger: ((T.Model) -> Void)?
 
     override func viewDidLoad() {
@@ -84,9 +84,9 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         cell.setup(for: messages[indexPath.row])
         return cell
     }
-    
+
     // MARK: - Table view delegate
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectMessageTrigger?(messages[indexPath.row])

@@ -5,8 +5,8 @@
 //  Created by Leonard Thomas on 1/26/19.
 //
 
-import Foundation
 import Crypto
+import Foundation
 
 class ChatManager {
     private var cachedMessages: [ChatMessage]?

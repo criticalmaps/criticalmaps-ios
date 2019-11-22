@@ -10,7 +10,7 @@
 
 class MockThemeController: ThemeController {
     static let shared = MockThemeController()
-    
+
     private init() {
         let store = MockThemeStore()
         super.init(store: store)

@@ -16,7 +16,7 @@ public struct NetworkOperator: NetworkLayer {
         self.dataProvider = dataProvider
         self.networkIndicatorHelper = networkIndicatorHelper
     }
-    
+
     public init(dataProvider: NetworkDataProvider) {
         self.dataProvider = dataProvider
     }
@@ -30,8 +30,8 @@ public struct NetworkOperator: NetworkLayer {
         urlRequest.httpBody = bodyData
         dataTaskHandler(request: request, urlRequest: urlRequest, completion: completion)
     }
-    
-    private func dataTaskHandler<T: APIRequestDefining>(request: T,urlRequest: URLRequest,  completion: @escaping ResultCallback<T.ResponseDataType>) {
+
+    private func dataTaskHandler<T: APIRequestDefining>(request: T, urlRequest: URLRequest, completion: @escaping ResultCallback<T.ResponseDataType>) {
         dataTask(with: urlRequest) { result in
             switch result {
             case let .failure(error):
