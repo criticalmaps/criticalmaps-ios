@@ -124,10 +124,13 @@
 		9838F28E227B771F00744EDD /* IDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28D227B771F00744EDD /* IDStore.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF621FBCA1100064DAE /* ChatInputView.swift */; };
+		9841B477237E9239000A4922 /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841B476237E9239000A4922 /* AnnotationController.swift */; };
 		9843FAA1236CD7F000457930 /* NetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA0236CD7F000457930 /* NetworkDataProvider.swift */; };
 		9843FAA3236CDC0D00457930 /* NetworkOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */; };
 		9843FAA5236CDC6E00457930 /* MockNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA4236CDC6E00457930 /* MockNetworkDataProvider.swift */; };
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
+		9853B50F237E0E8D00F46AB6 /* MKMapView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */; };
+		9853B511237E101300F46AB6 /* BikeAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9853B510237E101300F46AB6 /* BikeAnnotationController.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		986749F8235230CB00BF5D6E /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 986749F7235230CB00BF5D6E /* Crypto */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
@@ -310,10 +313,13 @@
 		9838F28D227B771F00744EDD /* IDStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStore.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		98401AF621FBCA1100064DAE /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		9841B476237E9239000A4922 /* AnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationController.swift; sourceTree = "<group>"; };
 		9843FAA0236CD7F000457930 /* NetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataProvider.swift; sourceTree = "<group>"; };
 		9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperatorTests.swift; sourceTree = "<group>"; };
 		9843FAA4236CDC6E00457930 /* MockNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkDataProvider.swift; sourceTree = "<group>"; };
 		9844438023429354005468B2 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
+		9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKMapView+Register.swift"; sourceTree = "<group>"; };
+		9853B510237E101300F46AB6 /* BikeAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationController.swift; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
@@ -463,6 +469,7 @@
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				940643D72307270B00AB1BCB /* GCD+Util.swift */,
 				9844438023429354005468B2 /* UIView+Autolayout.swift */,
+				9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -547,7 +554,7 @@
 				9485A92D23756A3B006DC7B5 /* ContentState */,
 				989F9FEF21C7E5FC00E71085 /* Rules */,
 				985E94BC220891F200AA991B /* Social */,
-				9822A16721F24CA7007F5994 /* MapViewController.swift */,
+				9841B475237E9229000A4922 /* Map */,
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
 				985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */,
 			);
@@ -724,6 +731,16 @@
 				9838F28D227B771F00744EDD /* IDStore.swift */,
 			);
 			name = DeviceID;
+			sourceTree = "<group>";
+		};
+		9841B475237E9229000A4922 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9822A16721F24CA7007F5994 /* MapViewController.swift */,
+				9853B510237E101300F46AB6 /* BikeAnnotationController.swift */,
+				9841B476237E9239000A4922 /* AnnotationController.swift */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		985E94BC220891F200AA991B /* Social */ = {
@@ -1054,6 +1071,7 @@
 				9823712623781D53009D6F05 /* SimulationNetworkDataProvider.swift in Sources */,
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
 				94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */,
+				9853B511237E101300F46AB6 /* BikeAnnotationController.swift in Sources */,
 				9491720D23009EB3008B98AD /* APIRequest.swift in Sources */,
 				988B12AD22A271FE0010FAED /* Logger.swift in Sources */,
 				94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */,
@@ -1082,6 +1100,7 @@
 				98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */,
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
+				9841B477237E9239000A4922 /* AnnotationController.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
@@ -1138,6 +1157,7 @@
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
 				98329A1F22D3BEA000A157EE /* KeychainHelper.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
+				9853B50F237E0E8D00F46AB6 /* MKMapView+Register.swift in Sources */,
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
 				98003D4922872C1800592D55 /* URLCodable.swift in Sources */,

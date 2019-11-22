@@ -22,4 +22,15 @@ extension UIView {
             widthAnchor.constraint(equalToConstant: size.width)
         ])
     }
+    
+    func addLayoutsSameSizeAndOrigin(in view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addConstraints([
+            heightAnchor.constraint(equalTo: view.heightAnchor),
+            widthAnchor.constraint(equalTo: view.widthAnchor),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topAnchor.constraint(equalTo: view.topAnchor)
+        ])
+    }
 }
