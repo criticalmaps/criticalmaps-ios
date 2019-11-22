@@ -11,15 +11,14 @@ protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String, completionHandler: ChatViewController.CompletionHandler?)
 }
 
-class ChatViewController: UIViewController, ContentStatePresentable {
+class ChatViewController: UIViewController {
     typealias CompletionHandler = (Bool) -> Void
     private enum Constants {
         static let chatInputHeight: CGFloat = 180
-        static let loadingViewTopAnchorMargin: CGFloat = -150
     }
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
-    private let chatInputViewController: ChatInputViewController
+    private let chatInputViewController = ChatInputViewController.fromNib()
     private lazy var chatInputBottomConstraint = {
         NSLayoutConstraint(item: chatInputViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
@@ -27,18 +26,7 @@ class ChatViewController: UIViewController, ContentStatePresentable {
         chatInputViewController.view!.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.chatInputHeight)
     }()
     // ContentState
-    private let loadingViewController: UIViewController = {
-        let controller = LoadingViewController.default
-        controller.view.backgroundColor = .clear
-        return controller
-    }()
-    var contentStateViewController: UIViewController? {
-        willSet {
-            contentStateViewController?.remove()
-            guard let viewController = newValue else { return }
-            addAndLayoutStateView(viewController, in: view, topAnchorMargin: Constants.loadingViewTopAnchorMargin)
-        }
-    }
+    weak var chatMessageActivityDelegate: ChatMessageActivityDelegate?
 
     init(chatManager: ChatManager) {
         self.chatManager = chatManager
@@ -154,9 +142,9 @@ class ChatViewController: UIViewController, ContentStatePresentable {
 // MARK: ChatInputDelegate
 extension ChatViewController: ChatInputDelegate {
     func didTapSendButton(text: String, completionHandler: CompletionHandler? = nil) {
-        contentStateViewController = loadingViewController
+        chatMessageActivityDelegate?.isSendingChatMessage(true)
         chatManager.send(message: text) { [weak self] result in
-            self?.contentStateViewController = nil
+            self?.chatMessageActivityDelegate?.isSendingChatMessage(false)
             switch result {
             case .success:
                 completionHandler?(true)
