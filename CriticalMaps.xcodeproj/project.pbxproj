@@ -1648,7 +1648,7 @@
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 5.2.5;
+				minimumVersion = 5.3.0;
 			};
 		};
 		986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */ = {

@@ -1,6 +1,6 @@
 name: Crypto, nameSpecified: , owner: soffes, version: 0.6.0
 
-name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.2.5
+name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.3.2
 
 name: swift-snapshot-testing, nameSpecified: , owner: pointfreeco, version: 1.6.0
 
