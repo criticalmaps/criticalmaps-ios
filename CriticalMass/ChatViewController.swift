@@ -11,22 +11,34 @@ protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String, completionHandler: ChatViewController.CompletionHandler?)
 }
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, ContentStatePresentable {
     typealias CompletionHandler = (Bool) -> Void
     private enum Constants {
         static let chatInputHeight: CGFloat = 180
+        static let loadingViewTopAnchorMargin: CGFloat = -150
     }
-
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
     private let chatInputViewController: ChatInputViewController
     private lazy var chatInputBottomConstraint = {
         NSLayoutConstraint(item: chatInputViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
-
     private lazy var chatInputHeightConstraint = {
         chatInputViewController.view!.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.chatInputHeight)
     }()
+    // ContentState
+    private let loadingViewController: UIViewController = {
+        let controller = LoadingViewController.default
+        controller.view.backgroundColor = .clear
+        return controller
+    }()
+    var contentStateViewController: UIViewController? {
+        willSet {
+            contentStateViewController?.remove()
+            guard let viewController = newValue else { return }
+            addAndLayoutStateView(viewController, in: view, topAnchorMargin: Constants.loadingViewTopAnchorMargin)
+        }
+    }
 
     init(chatManager: ChatManager, chatInputViewController: ChatInputViewController) {
         self.chatManager = chatManager
@@ -143,7 +155,9 @@ class ChatViewController: UIViewController {
 // MARK: ChatInputDelegate
 extension ChatViewController: ChatInputDelegate {
     func didTapSendButton(text: String, completionHandler: CompletionHandler? = nil) {
-        chatManager.send(message: text) { result in
+        contentStateViewController = loadingViewController
+        chatManager.send(message: text) { [weak self] result in
+            self?.contentStateViewController = nil
             switch result {
             case .success:
                 completionHandler?(true)
@@ -155,7 +169,7 @@ extension ChatViewController: ChatInputDelegate {
                 alert.addAction(UIAlertAction(title: "Ok",
                                               style: .default,
                                               handler: nil))
-                self.present(alert, animated: true)
+                self?.present(alert, animated: true)
             }
         }
     }
