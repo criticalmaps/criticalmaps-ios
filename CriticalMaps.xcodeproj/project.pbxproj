@@ -44,6 +44,9 @@
 		94829419238A926200338E7F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94829414238A926200338E7F /* Images.xcassets */; };
 		9482941B238A92BE00338E7F /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482941A238A92BE00338E7F /* Strings.swift */; };
 		9482941D238A930000338E7F /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482941C238A930000338E7F /* Assets.swift */; };
+		94829421238AA30100338E7F /* BikeAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482941E238AA30100338E7F /* BikeAnnotationController.swift */; };
+		94829422238AA30100338E7F /* MKMapView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482941F238AA30100338E7F /* MKMapView+Register.swift */; };
+		94829423238AA30100338E7F /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94829420238AA30100338E7F /* AnnotationController.swift */; };
 		948509A322C09F9A0034FAF1 /* UIViewController+Management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */; };
 		9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9485A92E23756A53006DC7B5 /* LoadingViewController.xib */; };
 		9485A93323756A53006DC7B5 /* ErrorStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485A92F23756A53006DC7B5 /* ErrorStateViewController.swift */; };
@@ -230,6 +233,9 @@
 		94829416238A926200338E7F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9482941A238A92BE00338E7F /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		9482941C238A930000338E7F /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		9482941E238AA30100338E7F /* BikeAnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeAnnotationController.swift; sourceTree = "<group>"; };
+		9482941F238AA30100338E7F /* MKMapView+Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKMapView+Register.swift"; sourceTree = "<group>"; };
+		94829420238AA30100338E7F /* AnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationController.swift; sourceTree = "<group>"; };
 		948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Management.swift"; sourceTree = "<group>"; };
 		9485A92E23756A53006DC7B5 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		9485A92F23756A53006DC7B5 /* ErrorStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorStateViewController.swift; sourceTree = "<group>"; };
@@ -578,6 +584,8 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				94829420238AA30100338E7F /* AnnotationController.swift */,
+				9482941E238AA30100338E7F /* BikeAnnotationController.swift */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
 				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
 				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
@@ -590,6 +598,7 @@
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
+				9482941F238AA30100338E7F /* MKMapView+Register.swift */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
@@ -1112,12 +1121,14 @@
 				985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */,
 				9823712623781D53009D6F05 /* SimulationNetworkDataProvider.swift in Sources */,
 				98401AF721FBCA1100064DAE /* ChatInputView.swift in Sources */,
+				94829421238AA30100338E7F /* BikeAnnotationController.swift in Sources */,
 				94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */,
 				9491720D23009EB3008B98AD /* APIRequest.swift in Sources */,
 				988B12AD22A271FE0010FAED /* Logger.swift in Sources */,
 				94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */,
 				3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */,
 				94092749228321E60034E46B /* UITableView+Register.swift in Sources */,
+				94829423238AA30100338E7F /* AnnotationController.swift in Sources */,
 				9409274B228322FD0034E46B /* TypeNameProtocol.swift in Sources */,
 				989FA00621C8154D00E71085 /* LocationManager.swift in Sources */,
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
@@ -1173,6 +1184,7 @@
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
 				98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */,
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
+				94829422238AA30100338E7F /* MKMapView+Register.swift in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
 				98970871220A4E180073BB02 /* CustomButton.swift in Sources */,
 				987E3BD82368C6E100BAEFE7 /* MemoryDataStore.swift in Sources */,
