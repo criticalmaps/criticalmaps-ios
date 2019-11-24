@@ -1,0 +1,23 @@
+[update]
+tasks = ["interfaces", "transform", "normalize"]
+
+[update.interfaces]
+path = "./CriticalMass"
+
+[update.transform]
+codePath = "./CriticalMass"
+localizablePath = "./CriticalMass/Resources"
+transformer = "swiftgenStructured"
+supportedLanguageEnumPath = "."
+typeName = "BartyCrouch"
+
+[update.normalize]
+path = "./CriticalMass"
+sourceLocale = "en"
+harmonizeWithSource = true
+sortByKeys = true
+
+[lint]
+path = "./CriticalMass"
+duplicateKeys = true
+emptyValues = true
