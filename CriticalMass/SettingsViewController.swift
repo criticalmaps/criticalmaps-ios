@@ -44,7 +44,7 @@ class SettingsViewController: UITableViewController {
     }
 
     private func configureNavigationBar() {
-        title = String.settingsTitle
+        title = L10n.Settings.title
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }

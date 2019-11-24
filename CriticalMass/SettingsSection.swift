@@ -35,7 +35,7 @@ enum Section: Int, CaseIterable {
              .github:
             return nil
         case .info:
-            return String.settingsSectionInfo
+            return L10n.Settings.Section.info
         }
     }
 
@@ -58,15 +58,15 @@ enum Section: Int, CaseIterable {
         switch self {
         case .preferences:
             return [
-                Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
-                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self))
+                Model(title: L10n.Settings.theme, action: .switch(ThemeController.self)),
+                Model(title: L10n.Settings.Observationmode.title, subtitle: L10n.Settings.Observationmode.detail, action: .switch(ObservationModePreferenceStore.self)),
             ]
         case .github:
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
-            return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
-                    Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
-                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage))]
+            return [Model(title: L10n.Settings.website, action: .open(url: Constants.criticalMapsWebsite)),
+                    Model(title: L10n.Settings.twitter, action: .open(url: Constants.criticalMapsTwitterPage)),
+                    Model(title: L10n.Settings.facebook, action: .open(url: Constants.criticalMapsFacebookPage))]
         }
     }
 

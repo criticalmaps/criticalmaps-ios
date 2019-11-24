@@ -80,11 +80,11 @@ class UserTrackingButton: CustomButton {
         let image: UIImage?
         switch currentMode {
         case .none:
-            image = UIImage(named: "Location")
+            image = Asset.location.image
         case .follow:
-            image = UIImage(named: "LocationActive")
+            image = Asset.locationActive.image
         case .followWithHeading:
-            image = UIImage(named: "LocationHeading")
+            image = Asset.locationHeading.image
         }
 
         setImage(image, for: .normal)

@@ -37,9 +37,9 @@ class ChatNavigationButton: CustomButton {
 
     init() {
         super.init(frame: .zero)
-        setImage(UIImage(named: "Chat")!, for: .normal)
+        setImage(Asset.chat.image, for: .normal)
         adjustsImageWhenHighlighted = false
-        accessibilityLabel = String.chatTitle
+        accessibilityLabel = L10n.Chat.title
         configureUnreadBubble()
     }
 

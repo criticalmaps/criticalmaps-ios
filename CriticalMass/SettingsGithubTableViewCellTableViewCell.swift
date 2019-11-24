@@ -53,9 +53,9 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.text = String.settingsOpenSourceTitle
-        detailLabel.text = String.settingsOpenSourceDetail
-        actionLabel.text = String.settingsOpenSourceAction.uppercased()
+        titleLabel.text =  L10n.Settings.Opensource.title
+        detailLabel.text = L10n.Settings.Opensource.detail
+        actionLabel.text = L10n.Settings.Opensource.action.uppercased()
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {

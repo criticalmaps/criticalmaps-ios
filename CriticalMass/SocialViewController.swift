@@ -61,7 +61,10 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         case twitter
 
         var title: String {
-            NSLocalizedString(rawValue + ".title", comment: "")
+            switch self {
+            case .chat: return L10n.Chat.title
+            case .twitter: return L10n.Twitter.title
+            }
         }
     }
 

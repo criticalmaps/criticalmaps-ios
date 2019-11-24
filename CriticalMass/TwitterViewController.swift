@@ -39,7 +39,7 @@ class TwitterViewController: UIViewController, ContentStatePresentable {
     }
 
     private func configureMessagesTableViewController() {
-        messagesTableViewController.noContentMessage = String.twitterNoData
+        messagesTableViewController.noContentMessage = L10n.Twitter.noData
         messagesTableViewController.pullToRefreshTrigger = twitterManager.loadTweets
         messagesTableViewController.selectMessageTrigger = { [weak self] selectedTweet in
             self?.openTweet(selectedTweet)

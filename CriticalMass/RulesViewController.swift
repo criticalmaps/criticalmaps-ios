@@ -17,11 +17,27 @@ enum Rule: String, CaseIterable {
     case haveFun
 
     var title: String {
-        NSLocalizedString("rules.title.\(rawValue)", comment: "")
+        switch self {
+        case .cork: return L10n.Rules.Title.cork
+        case .contraflow: return L10n.Rules.Title.contraflow
+        case .gently: return L10n.Rules.Title.gently
+        case .brake: return L10n.Rules.Title.brake
+        case .green: return L10n.Rules.Title.green
+        case .stayLoose: return L10n.Rules.Title.stayLoose
+        case .haveFun: return L10n.Rules.Title.haveFun
+        }
     }
 
     var text: String {
-        NSLocalizedString("rules.text.\(rawValue)", comment: "")
+        switch self {
+        case .cork: return L10n.Rules.Text.cork
+        case .contraflow: return L10n.Rules.Text.contraflow
+        case .gently: return L10n.Rules.Text.gently
+        case .brake: return L10n.Rules.Text.brake
+        case .green: return L10n.Rules.Text.green
+        case .stayLoose: return L10n.Rules.Text.stayLoose
+        case .haveFun: return L10n.Rules.Text.haveFun
+        }
     }
 
     var artwork: UIImage? {
@@ -43,7 +59,7 @@ class RulesViewController: UITableViewController {
     }
 
     private func configureNavigationBar() {
-        title = String.rulesTitle
+        title = L10n.Rules.title
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }

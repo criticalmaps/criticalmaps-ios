@@ -62,12 +62,12 @@ class AppController {
             .init(representation: .button(chatNavigationButtonController.button),
                   action: .navigation(viewController: getSocialViewController),
                   accessibilityIdentifier: "Chat"),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: String.rulesTitle),
+            .init(representation: .icon(Asset.knigge.image, accessibilityLabel: L10n.Rules.title),
                   action: .navigation(viewController: getRulesViewController),
-                  accessibilityIdentifier: "Rules"),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: String.settingsTitle),
+                  accessibilityIdentifier: L10n.Rules.title),
+            .init(representation: .icon(Asset.settings.image, accessibilityLabel: L10n.Settings.title),
                   action: .navigation(viewController: getSettingsViewController),
-                  accessibilityIdentifier: "Settings"),
+                  accessibilityIdentifier: L10n.Settings.title),
         ])
         rootViewController.addChild(navigationOverlay)
         rootViewController.view.addSubview(navigationOverlay.view)

@@ -12,7 +12,7 @@ class BikeAnnoationView: MKAnnotationView {
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        image = UIImage(named: "Bike")
+        image = Asset.bike.image
         canShowCallout = false
     }
 
