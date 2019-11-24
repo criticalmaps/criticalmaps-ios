@@ -24,7 +24,7 @@ class AppController {
 
         let networkDataProvider: NetworkDataProvider
         if simulationModeEnabled {
-            networkDataProvider  = SimulationNetworkDataProvider(realNetworkDataProvider: session)
+            networkDataProvider = SimulationNetworkDataProvider(realNetworkDataProvider: session)
         } else {
             networkDataProvider = session
         }
@@ -44,7 +44,7 @@ class AppController {
     private lazy var twitterManager: TwitterManager = {
         TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
-    
+
     lazy var rootViewController: UIViewController = {
         let rootViewController = MapViewController(themeController: self.themeController)
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
@@ -75,7 +75,7 @@ class AppController {
             RatingHelper().onLaunch()
         }
     }
-    
+
     public func onWillEnterForeground() {
         if #available(iOS 10.3, *) {
             RatingHelper().onEnterForeground()
@@ -85,7 +85,7 @@ class AppController {
     public func enableSimulationMode() {
         simulationModeEnabled = true
     }
-    
+
     private func getRulesViewController() -> RulesViewController {
         return RulesViewController()
     }

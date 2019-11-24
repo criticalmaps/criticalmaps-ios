@@ -9,41 +9,40 @@
 import UIKit
 
 class LinkResponsiveTextView: UITextView {
-    
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        self.initialize()
+        initialize()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initialize()
+        initialize()
     }
-    
+
     private func initialize() {
-        self.delaysContentTouches = false
+        delaysContentTouches = false
         // required for tap to pass through on to superview & for links to work
-        self.isScrollEnabled = false
-        self.isEditable = false
-        self.isUserInteractionEnabled = true
-        self.isSelectable = true
+        isScrollEnabled = false
+        isEditable = false
+        isUserInteractionEnabled = true
+        isSelectable = true
     }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+
+    override func hitTest(_ point: CGPoint, with _: UIEvent?) -> UIView? {
         // location of the tap
         var location = point
-        location.x -= self.textContainerInset.left
-        location.y -= self.textContainerInset.top
-        
+        location.x -= textContainerInset.left
+        location.y -= textContainerInset.top
+
         // find the character that's been tapped
-        let characterIndex = self.layoutManager.characterIndex(for: location, in: self.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
-        if characterIndex < self.textStorage.length {
+        let characterIndex = layoutManager.characterIndex(for: location, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        if characterIndex < textStorage.length {
             // if the character is a link, handle the tap as UITextView normally would
-            if (self.textStorage.attribute(NSAttributedString.Key.link, at: characterIndex, effectiveRange: nil) != nil) {
+            if textStorage.attribute(NSAttributedString.Key.link, at: characterIndex, effectiveRange: nil) != nil {
                 return self
             }
         }
-        
+
         // otherwise return nil so the tap goes on to the next receiver
         return nil
     }

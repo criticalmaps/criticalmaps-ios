@@ -1035,7 +1035,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/license-plist --output-path ./Settings.bundle\nfi\n";
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/swiftformat .\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

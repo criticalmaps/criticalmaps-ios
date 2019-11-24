@@ -21,7 +21,7 @@ extension MKMapView {
         }
     }
 
-    func dequeueReusableAnnotationView<T: MKAnnotationView>(ofType annotationType: T.Type, for indexPath: IndexPath? = nil, with annotation: MKAnnotation) -> T {
+    func dequeueReusableAnnotationView<T: MKAnnotationView>(ofType annotationType: T.Type, for _: IndexPath? = nil, with annotation: MKAnnotation) -> T {
         let annotationView: T
         if #available(iOS 11.0, *) {
             annotationView = dequeueReusableAnnotationView(withIdentifier: annotationType.reuseIdentifier, for: annotation) as! T

@@ -72,8 +72,8 @@ private extension TwitterViewController {
         if let webURL = tweet.webURL, UIApplication.shared.canOpenURL(webURL) {
             UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
         } else {
-            //Do nothing
-        }        
+            // Do nothing
+        }
     }
 }
 

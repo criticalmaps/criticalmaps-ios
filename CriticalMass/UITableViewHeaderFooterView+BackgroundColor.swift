@@ -17,7 +17,7 @@ extension UITableViewHeaderFooterView {
             customBackgroundView.backgroundColor = newValue
         }
     }
-    
+
     private var customBackgroundView: UIView {
         guard let backgroundView = self.backgroundView else {
             let customView = UIView()

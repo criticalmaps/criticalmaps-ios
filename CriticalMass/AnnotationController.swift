@@ -17,6 +17,6 @@ class AnnotationController<T: IdentifiableAnnnotation, K: MKAnnotationView> {
         self.mapView = mapView
         setup()
     }
-    
+
     open func setup() {}
 }
