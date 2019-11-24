@@ -1,0 +1,12 @@
+strings:
+  inputs: CriticalMass/Resources/de.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift4
+      output: CriticalMass/Resources/Generated/Strings.swift
+
+xcassets:
+  - inputs: 
+    - CriticalMass/Resources/Images.xcassets
+    outputs:
+      - templateName: swift4
+        output: CriticalMass/Resources/Generated/Assets.swift
