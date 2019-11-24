@@ -15,13 +15,16 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"close.button.label" = "chiudere";
+
+/* No comment provided by engineer. */
 "error" = "Errore";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS disattivato";
+"map.layer.info" = "Critical Maps deve utilizzare il GPS per mostrare la mappa con altri utenti attivi";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Critical Maps deve utilizzare il GPS per mostrare la mappa con altri utenti attivi";
+"map.layer.info.title" = "GPS disattivato";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "posizionamento";
@@ -80,7 +83,6 @@
 /* No comment provided by engineer. */
 "settings.about" = "Crediti";
 
-
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -88,12 +90,6 @@
 
 /* No comment provided by engineer. */
 "settings.donate" = "Supporta i costi del server";
-
-/* No comment provided by engineer. */
-"settings.observationmode.title" = "Modalità di osservazione";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "Se non partecipi, ma vuoi seguire la Critical Mass.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -106,6 +102,12 @@
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Design del logo";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Se non partecipi, ma vuoi seguire la Critical Mass.";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Modalità di osservazione";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
@@ -128,6 +130,9 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
 
+/* https://translate.google.de/#view=home&op=translate&sl=en&tl=it&text=night%20mode */
+"settings.theme" = "Modalità Notturna";
+
 /* No comment provided by engineer. */
 "settings.title" = "Impostazioni";
 
@@ -144,7 +149,16 @@
 "twitter.title" = "Twitter";
 
 /* No comment provided by engineer. */
-"close.button.label" = "chiudere";
+".title" = "";
 
-/* Theme */
-"settings.theme" = "Modalità Notturna"; /*https://translate.google.de/#view=home&op=translate&sl=en&tl=it&text=night%20mode*/
+/* No comment provided by engineer. */
+"errorState.message" = "";
+
+/* No comment provided by engineer. */
+"errorState.title" = "";
+
+/* No comment provided by engineer. */
+"rules.text.\(rawValue)" = "";
+
+/* No comment provided by engineer. */
+"rules.title.\(rawValue)" = "";

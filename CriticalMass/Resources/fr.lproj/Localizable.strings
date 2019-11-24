@@ -15,13 +15,16 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"close.button.label" = "Fermer";
+
+/* No comment provided by engineer. */
 "error" = "Erreur";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS désactivé";
+"map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
 
 /* No comment provided by engineer. */
-"map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
+"map.layer.info.title" = "GPS désactivé";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "localisation";
@@ -80,7 +83,6 @@
 /* No comment provided by engineer. */
 "settings.about" = "À propos";
 
-
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -88,12 +90,6 @@
 
 /* No comment provided by engineer. */
 "settings.donate" = "Fais un don pour soutenir nos serveurs GPS";
-
-/* No comment provided by engineer. */
-"settings.observationmode.title" = "Mode observateur";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -106,6 +102,12 @@
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Logo design";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Mode observateur";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
@@ -128,6 +130,9 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Réseaux sociaux";
 
+/* Theme */
+"settings.theme" = "Mode nuit";
+
 /* No comment provided by engineer. */
 "settings.title" = "Réglages";
 
@@ -144,7 +149,16 @@
 "twitter.title" = "Twitter";
 
 /* No comment provided by engineer. */
-"close.button.label" = "Fermer";
+".title" = "";
 
-/* Theme */
-"settings.theme" = "Mode nuit";
+/* No comment provided by engineer. */
+"errorState.message" = "";
+
+/* No comment provided by engineer. */
+"errorState.title" = "";
+
+/* No comment provided by engineer. */
+"rules.text.\(rawValue)" = "";
+
+/* No comment provided by engineer. */
+"rules.title.\(rawValue)" = "";

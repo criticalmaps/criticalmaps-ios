@@ -15,13 +15,22 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"close.button.label" = "schließen";
+
+/* No comment provided by engineer. */
 "error" = "Fehler";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS deaktiviert";
+"errorState.message" = "Entschuldige, irgendwas ging schief";
+
+/* ErrorState */
+"errorState.title" = "Error";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps muss dein GPS verwenden, um die Karte anderen aktiven Benutzer anzuzeigen";
+
+/* No comment provided by engineer. */
+"map.layer.info.title" = "GPS deaktiviert";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "Ortung";
@@ -80,7 +89,6 @@
 /* No comment provided by engineer. */
 "settings.about" = "About";
 
-
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -88,12 +96,6 @@
 
 /* No comment provided by engineer. */
 "settings.donate" = "Helfe unseren Server zu finanzieren";
-
-/* No comment provided by engineer. */
-"settings.observationmode.title" = "Beobachtungsmodus";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "Wenn du nicht selbst teilnimmst, aber trotzdem der Critical Mass folgen möchtest.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -106,6 +108,12 @@
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Logo design";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Wenn du nicht selbst teilnimmst, aber trotzdem der Critical Mass folgen möchtest.";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Beobachtungsmodus";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
@@ -128,6 +136,9 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
 
+/* Theme */
+"settings.theme" = "Nachtmodus";
+
 /* No comment provided by engineer. */
 "settings.title" = "Einstellungen";
 
@@ -144,14 +155,10 @@
 "twitter.title" = "Twitter";
 
 /* No comment provided by engineer. */
-"close.button.label" = "schließen";
+".title" = "";
 
 /* No comment provided by engineer. */
-"loading.barButton.label" = "lade";
+"rules.text.\(rawValue)" = "";
 
-/* Theme */
-"settings.theme" = "Nachtmodus";
-
-/* ErrorState */
-"errorState.title" = "Error";
-"errorState.message" = "Entschuldige, irgendwas ging schief";
+/* No comment provided by engineer. */
+"rules.title.\(rawValue)" = "";
