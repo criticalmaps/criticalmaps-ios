@@ -10,6 +10,13 @@
 import XCTest
 
 class MockLocationProvider: LocationProvider {
+    func updateLocation() {
+        locationUpdateHandler?()
+    }
+
+    var locationUpdateHandler: (() -> Void)?
+    var locationErrorHandler: (() -> Void)?
+
     static var accessPermission: LocationProviderPermission = .authorized
 
     var mockLocation: Location?
@@ -86,7 +93,7 @@ class MockNetworkObserver: NetworkObserver {
 
     func update(with status: NetworkStatus) {
         self.status = status
-        self.statusUpdateHandler?(status)
+        statusUpdateHandler?(status)
     }
 }
 
