@@ -115,4 +115,26 @@ class RequestManagerTests: XCTestCase {
         }
         wait(for: [exp], timeout: 4)
     }
+
+    func testRegainingNetworkAcccess() {
+        let setup = self.setup(interval: 4)
+        setup.networkObserver.update(with: .none)
+
+        let exp = expectation(description: "Wait a second")
+        wait(interval: 1) {
+            XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+            XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
+
+            setup.networkObserver.update(with: .satisfied)
+            self.wait(interval: 1) {
+                setup.networkObserver.update(with: .satisfied)
+
+                XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
+                XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
+
+                exp.fulfill()
+            }
+        }
+        wait(for: [exp], timeout: 4)
+    }
 }
