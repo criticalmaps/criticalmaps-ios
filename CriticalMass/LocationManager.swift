@@ -27,7 +27,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     var locationUpdateHandler: (() -> Void)?
     var locationErrorHandler: (() -> Void)?
 
-    func requestLocation() {
+    func updateLocation() {
         locationManager.requestLocation()
     }
 
