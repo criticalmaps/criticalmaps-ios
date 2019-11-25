@@ -47,18 +47,18 @@ public class RequestManager {
     }
 
     private func addUpdateOperation(with interval: TimeInterval) {
-        let operation = UpdateDataOperation(locationProvider: locationProvider,
-                                            idProvider: idProvider,
-                                            networkLayer: networkLayer)
+        let updateDataOperation = UpdateDataOperation(locationProvider: locationProvider,
+                                                      idProvider: idProvider,
+                                                      networkLayer: networkLayer)
         let taskIdentifier = UIApplication.shared.beginBackgroundTask {
             self.networkLayer.cancelActiveRequestsIfNeeded()
-            operation.cancel()
+            updateDataOperation.cancel()
         }
 
-        operation.completionBlock = { [weak self] in
+        updateDataOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
             
-            if let result = operation.result {
+            if let result = updateDataOperation.result {
                 self.defaultCompletion(for: result)
             }
 
@@ -69,7 +69,10 @@ public class RequestManager {
         let waitOperation = WaitOperation(with: interval)
         operationQueue.addOperation(waitOperation)
 
-        operationQueue.addOperation(operation)
+        let locationUpdateOperation = LocationUpdateOperation(locationProvider: locationProvider)
+        operationQueue.addOperation(locationUpdateOperation)
+
+        operationQueue.addOperation(updateDataOperation)
     }
 
     private func defaultCompletion(for result: Result<ApiResponse, NetworkError>) {
