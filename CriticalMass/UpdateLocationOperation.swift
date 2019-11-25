@@ -1,5 +1,5 @@
 //
-//  LocationUpdateOperation.swift
+//  UpdateLocationOperation.swift
 //  CriticalMaps
 //
 //  Created by Илья Глущук on 07/11/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class LocationUpdateOperation: AsyncOperation {
+final class UpdateLocationOperation: AsyncOperation {
     private var locationProvider: LocationProvider
 
     init(locationProvider: LocationProvider) {

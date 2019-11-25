@@ -69,8 +69,8 @@ public class RequestManager {
         let waitOperation = WaitOperation(with: interval)
         operationQueue.addOperation(waitOperation)
 
-        let locationUpdateOperation = LocationUpdateOperation(locationProvider: locationProvider)
-        operationQueue.addOperation(locationUpdateOperation)
+        let updateLocationOperation = UpdateLocationOperation(locationProvider: locationProvider)
+        operationQueue.addOperation(updateLocationOperation)
 
         operationQueue.addOperation(updateDataOperation)
     }

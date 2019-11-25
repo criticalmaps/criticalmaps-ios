@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367B9237AACC6001F2A84 /* NetworkObserver.swift */; };
 		210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367BB237AAE2F001F2A84 /* PathObserver.swift */; };
-		2176242723744F3400F7885E /* LocationUpdateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* LocationUpdateOperation.swift */; };
+		2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* UpdateLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
 		21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FB12352CBD300B942AA /* WaitOperation.swift */; };
@@ -195,7 +195,7 @@
 /* Begin PBXFileReference section */
 		210367B9237AACC6001F2A84 /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		210367BB237AAE2F001F2A84 /* PathObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathObserver.swift; sourceTree = "<group>"; };
-		2176242623744F3400F7885E /* LocationUpdateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateOperation.swift; sourceTree = "<group>"; };
+		2176242623744F3400F7885E /* UpdateLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		21859FB12352CBD300B942AA /* WaitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOperation.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				9822A15D21F10FCA007F5994 /* LocationProvider.swift */,
-				2176242623744F3400F7885E /* LocationUpdateOperation.swift */,
+				2176242623744F3400F7885E /* UpdateLocationOperation.swift */,
 			);
 			name = Location;
 			sourceTree = "<group>";
@@ -1163,7 +1163,7 @@
 				940643D62307266700AB1BCB /* PostLocationRequest.swift in Sources */,
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
-				2176242723744F3400F7885E /* LocationUpdateOperation.swift in Sources */,
+				2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
