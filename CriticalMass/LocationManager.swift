@@ -24,12 +24,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         }
     }
 
-    private let operationQueue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
+    var locationUpdateHandler: (() -> Void)?
+    var locationErrorHandler: (() -> Void)?
 
-        return queue
-    }()
+    func requestLocation() {
+        locationManager.requestLocation()
+    }
 
     private var didSetInitialLocation = false
 
@@ -56,10 +56,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     private let locationManager = CLLocationManager()
 
-    init(updateInterval: TimeInterval = 11) {
+    override init() {
         super.init()
         configureLocationManager()
-        setupLocationUpdate(with: updateInterval)
     }
 
     func configureLocationManager() {
@@ -71,31 +70,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         locationManager.startUpdatingLocation()
     }
 
-    private func setupLocationUpdate(with interval: TimeInterval) {
-        let operation = LocationRequestOperation(locationManager: locationManager)
-        operation.completionBlock = { [weak self] in
-            guard let self = self else { return }
-
-            let waitOperation = self.makeWaitOperation(with: interval)
-            self.operationQueue.addOperation(waitOperation)
-        }
-
-        operationQueue.addOperation(operation)
-    }
-
-    private func makeWaitOperation(with interval: TimeInterval) -> Operation {
-        let operation = WaitOperation(with: interval)
-        operation.completionBlock = { [weak self] in
-            self?.setupLocationUpdate(with: interval)
-        }
-
-        return operation
-    }
-
     // MARK: CLLocationManagerDelegate
 
     func locationManager(_: CLLocationManager, didFailWithError _: Error) {
         locationManager.stopUpdatingLocation()
+        locationErrorHandler?()
     }
 
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -103,6 +82,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             currentLocation = Location(location)
         }
         locationManager.stopUpdatingLocation()
+        locationUpdateHandler?()
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
