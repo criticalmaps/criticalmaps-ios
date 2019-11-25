@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum LocationProviderPermission {
+public enum LocationProviderPermission: String {
     case authorized
     case denied
     case disabled

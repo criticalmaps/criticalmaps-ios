@@ -14,35 +14,35 @@ public class KeychainHelper {
         case storeKeyFailed
         case deletionFailed
     }
-    
+
     public class func save(keyData: Data, with keyReference: String) throws {
         let addquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                        kSecAttrAccount as String: keyReference,
                                        kSecValueData as String: keyData]
-        
+
         SecItemDelete(addquery as CFDictionary)
         let status = SecItemAdd(addquery as CFDictionary, nil)
         guard status == errSecSuccess else {
             throw KeychainError.storeKeyFailed
         }
     }
-    
+
     public class func load(with keyReference: String) throws -> Data {
         let getquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                        kSecAttrAccount as String: keyReference,
-                                       kSecReturnData as String  : kCFBooleanTrue!,
-                                       kSecMatchLimit as String  : kSecMatchLimitOne]
+                                       kSecReturnData as String: kCFBooleanTrue!,
+                                       kSecMatchLimit as String: kSecMatchLimitOne]
         var item: CFTypeRef?
         let status = SecItemCopyMatching(getquery as CFDictionary, &item)
         guard status == errSecSuccess else { throw KeychainError.cantFindMatchingKey }
-        
+
         return item as! Data
     }
-    
+
     public class func delete(with keyReference: String) throws {
         let deleteQuery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                           kSecAttrAccount as String: keyReference]
-        
+
         let status = SecItemDelete(deleteQuery as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw KeychainError.deletionFailed

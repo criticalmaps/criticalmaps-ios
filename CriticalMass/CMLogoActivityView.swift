@@ -12,7 +12,7 @@ import UIKit
 @IBDesignable public class CMLogoActivityView: UIView, IBConstructable {
     private var angle: CGFloat = 0
     private lazy var displayLink: CADisplayLink = {
-        return CADisplayLink(target: self, selector: #selector(updateViewParameter))
+        CADisplayLink(target: self, selector: #selector(updateViewParameter))
     }()
 
     public override func draw(_: CGRect) {
@@ -105,7 +105,7 @@ public struct CriticalMapsLoader {
         //// gear
         context.saveGState()
         context.translateBy(x: 50, y: 50)
-        context.rotate(by: -angle * CGFloat.pi/180)
+        context.rotate(by: -angle * CGFloat.pi / 180)
 
         //// Bezier 4 Drawing
         context.saveGState()

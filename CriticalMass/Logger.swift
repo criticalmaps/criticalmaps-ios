@@ -14,6 +14,9 @@ extension OSLog {
 
     @available(OSX 10.12, *)
     static let viewManagement = OSLog(subsystem: subsystem, category: "viewManagement")
+
+    @available(OSX 10.12, *)
+    static let map = OSLog(subsystem: subsystem, category: "Map")
 }
 
 class Logger {

@@ -10,66 +10,64 @@
 import XCTest
 
 class NetworkOperatorTests: XCTestCase {
-    
     struct ResponseData: Codable, Equatable {
         var content: String
     }
-    
+
     struct TestRequest: APIRequestDefining {
         var endpoint: Endpoint = .default
         var httpMethod: HTTPMethod = .get
-        var headers: HTTPHeaders? = nil
+        var headers: HTTPHeaders?
         typealias ResponseDataType = ResponseData
     }
-    
+
     func testNoData() {
         XCTAssertRequest(dataProvider: mockDataProvider(statusCode: 201), expectedResult: .failure(.noData(nil)))
     }
-    
+
     func testInvalidStatusCode() {
         XCTAssertRequest(dataProvider: mockDataProvider(data: "foo", statusCode: 404), expectedResult: .failure(.invalidResponse))
     }
-    
+
     func testDecodingError() {
-        enum FooError: Error  {
+        enum FooError: Error {
             case f
         }
-        
+
         XCTAssertRequest(dataProvider: mockDataProvider(rawData: "foo".data(using: .utf8), statusCode: 201), expectedResult: .failure(.decodingError(FooError.f)))
     }
-    
+
     func testSuccess() {
-        XCTAssertRequest(dataProvider: mockDataProvider(data: "foo", statusCode: 201), expectedResult: .success(ResponseData(content:"foo")))
+        XCTAssertRequest(dataProvider: mockDataProvider(data: "foo", statusCode: 201), expectedResult: .success(ResponseData(content: "foo")))
     }
-    
-    private func XCTAssertRequest(dataProvider: MockNetworkDataProvider , expectedResult: Result<ResponseData, NetworkError>, line: UInt = #line) {
-        
+
+    private func XCTAssertRequest(dataProvider: MockNetworkDataProvider, expectedResult: Result<ResponseData, NetworkError>, line: UInt = #line) {
         let exp = expectation(description: "wait for response")
         exp.expectedFulfillmentCount = 2
-        
+
         let networkOperator = NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: dataProvider)
-        
+
         let resultCallback: ResultCallback<ResponseData> = { result in
             switch (result, expectedResult) {
-            case (.failure(let lhsError), .failure(let rhsError)):
+            case let (.failure(lhsError), .failure(rhsError)):
                 XCTAssert(lhsError == rhsError, line: line)
-            case (.success(let lhsResponse), .success(let rhsResponse)):
+            case let (.success(lhsResponse), .success(rhsResponse)):
                 XCTAssert(lhsResponse == rhsResponse, line: line)
             default:
                 XCTAssert(false, line: line)
             }
             exp.fulfill()
         }
-        
+
         // GET
         networkOperator.get(request: TestRequest(), completion: resultCallback)
-        
+
         // Post
         networkOperator.post(request: TestRequest(), bodyData: "Foo".data(using: .utf8)!, completion: resultCallback)
-        
+
         wait(for: [exp], timeout: 1)
     }
-    
+
     private func mockDataProvider(data: String? = nil, rawData: Data? = nil, statusCode: Int = 200) -> MockNetworkDataProvider {
         let responseData: Data? = data != nil ? try! ResponseData(content: data!).encoded() : nil
         return MockNetworkDataProvider(data: responseData ?? rawData,

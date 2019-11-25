@@ -136,6 +136,6 @@ class ChatInputView: UIView {
 
 private extension String {
     var canBeSent: Bool {
-        !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

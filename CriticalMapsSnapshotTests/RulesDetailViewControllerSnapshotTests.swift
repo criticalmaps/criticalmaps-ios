@@ -10,7 +10,6 @@
 import XCTest
 
 class RulesDetailViewControllerSnapshotTests: XCTestCase {
-
     func testGeneralAppearance() {
         // Given
         let viewController = RulesDetailViewController(rule: Rule.cork)
