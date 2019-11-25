@@ -10,12 +10,12 @@ import UIKit
 
 final class WaitOperation: AsyncOperation {
     private let interval: TimeInterval
-    
+
     init(with interval: TimeInterval) {
         self.interval = interval
         super.init()
     }
-    
+
     override func main() {
         DispatchQueue.main.asyncAfter(deadline: .now() + interval) { [weak self] in
             self?.state = .finished

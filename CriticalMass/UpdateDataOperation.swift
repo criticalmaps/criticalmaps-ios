@@ -32,7 +32,7 @@ final class UpdateDataOperation: AsyncOperation {
             getLocationsAndChatMessages()
             return
         }
-        
+
         let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
         guard let bodyData = try? body.encoded() else {
             state = .finished

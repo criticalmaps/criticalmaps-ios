@@ -30,14 +30,14 @@ class AsyncOperation: Operation {
     }
 
     var state = State.ready {
-      willSet {
-        willChangeValue(forKey: newValue.keyPath)
-        willChangeValue(forKey: state.keyPath)
-      }
-      didSet {
-        didChangeValue(forKey: oldValue.keyPath)
-        didChangeValue(forKey: state.keyPath)
-      }
+        willSet {
+            willChangeValue(forKey: newValue.keyPath)
+            willChangeValue(forKey: state.keyPath)
+        }
+        didSet {
+            didChangeValue(forKey: oldValue.keyPath)
+            didChangeValue(forKey: state.keyPath)
+        }
     }
 
     override func cancel() {
@@ -50,7 +50,7 @@ class AsyncOperation: Operation {
             state = .finished
             return
         }
-        
+
         state = .executing
         main()
     }

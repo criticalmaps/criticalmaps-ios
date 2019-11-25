@@ -57,7 +57,7 @@ public class RequestManager {
 
         updateDataOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
-            
+
             if let result = updateDataOperation.result {
                 self.defaultCompletion(for: result)
             }
