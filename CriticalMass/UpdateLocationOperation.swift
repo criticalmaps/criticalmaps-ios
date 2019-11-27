@@ -22,14 +22,8 @@ final class UpdateLocationOperation: AsyncOperation {
             return
         }
 
-        locationProvider.locationUpdateHandler = { [weak self] in
+        locationProvider.updateLocation { [weak self] _ in
             self?.state = .finished
         }
-
-        locationProvider.locationErrorHandler = { [weak self] in
-            self?.state = .finished
-        }
-
-        locationProvider.updateLocation()
     }
 }

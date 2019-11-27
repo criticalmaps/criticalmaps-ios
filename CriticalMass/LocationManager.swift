@@ -24,10 +24,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         }
     }
 
-    var locationUpdateHandler: (() -> Void)?
-    var locationErrorHandler: (() -> Void)?
+    private var updateLocationCompletion: ((Result<Location, Error>) -> Void)?
 
-    func updateLocation() {
+    func updateLocation(completion: ((Result<Location, Error>) -> Void)?) {
+        updateLocationCompletion = completion
         locationManager.requestLocation()
     }
 
@@ -72,17 +72,24 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     // MARK: CLLocationManagerDelegate
 
-    func locationManager(_: CLLocationManager, didFailWithError _: Error) {
+    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
-        locationErrorHandler?()
+        updateLocationCompletion?(.failure(error))
+        updateLocationCompletion = nil
     }
 
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            currentLocation = Location(location)
+        if let lastLocation = locations.last {
+            let location = Location(lastLocation)
+
+            currentLocation = location
+            updateLocationCompletion?(.success(location))
+        } else {
+            updateLocationCompletion?(.failure(LocationManagerError.locationRetrieveError))
         }
+
         locationManager.stopUpdatingLocation()
-        locationUpdateHandler?()
+        updateLocationCompletion = nil
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {

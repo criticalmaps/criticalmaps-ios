@@ -10,12 +10,14 @@
 import XCTest
 
 class MockLocationProvider: LocationProvider {
-    func updateLocation() {
-        locationUpdateHandler?()
+    func updateLocation(completion: ((Result<Location, Error>) -> Void)?) {
+        if let location = mockLocation {
+            completion?(.success(location))
+        } else {
+            let error = NSError()
+            completion?(.failure(error))
+        }
     }
-
-    var locationUpdateHandler: (() -> Void)?
-    var locationErrorHandler: (() -> Void)?
 
     static var accessPermission: LocationProviderPermission = .authorized
 
