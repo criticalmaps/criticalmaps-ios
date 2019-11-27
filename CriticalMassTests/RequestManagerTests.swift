@@ -127,8 +127,6 @@ class RequestManagerTests: XCTestCase {
 
             setup.networkObserver.update(with: .satisfied)
             self.wait(interval: 1) {
-                setup.networkObserver.update(with: .satisfied)
-
                 XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
                 XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
 
