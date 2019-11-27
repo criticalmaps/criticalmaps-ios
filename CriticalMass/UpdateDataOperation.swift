@@ -35,6 +35,7 @@ final class UpdateDataOperation: AsyncOperation {
 
         let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
         guard let bodyData = try? body.encoded() else {
+            result = .failure(.encodingError(body))
             state = .finished
             return
         }
