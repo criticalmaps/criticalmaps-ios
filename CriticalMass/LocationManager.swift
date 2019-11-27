@@ -24,9 +24,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         }
     }
 
-    private var updateLocationCompletion: ((Result<Location, Error>) -> Void)?
+    private var updateLocationCompletion: ResultCallback<Location>?
 
-    func updateLocation(completion: ((Result<Location, Error>) -> Void)?) {
+    func updateLocation(completion: ResultCallback<Location>?) {
         updateLocationCompletion = completion
         locationManager.requestLocation()
     }
@@ -74,7 +74,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
-        updateLocationCompletion?(.failure(error))
+        updateLocationCompletion?(.failure(.fetchFailed(error)))
         updateLocationCompletion = nil
     }
 
@@ -85,7 +85,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             currentLocation = location
             updateLocationCompletion?(.success(location))
         } else {
-            updateLocationCompletion?(.failure(LocationManagerError.locationRetrieveError))
+            updateLocationCompletion?(.failure(.noData(nil)))
         }
 
         locationManager.stopUpdatingLocation()

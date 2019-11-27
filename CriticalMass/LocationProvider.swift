@@ -18,5 +18,5 @@ public protocol LocationProvider {
     var currentLocation: Location? { get }
     static var accessPermission: LocationProviderPermission { get }
 
-    func updateLocation(completion: ((Result<Location, Error>) -> Void)?)
+    func updateLocation(completion: ResultCallback<Location>?)
 }

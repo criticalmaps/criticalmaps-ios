@@ -10,12 +10,11 @@
 import XCTest
 
 class MockLocationProvider: LocationProvider {
-    func updateLocation(completion: ((Result<Location, Error>) -> Void)?) {
+    func updateLocation(completion: ResultCallback<Location>?) {
         if let location = mockLocation {
             completion?(.success(location))
         } else {
-            let error = NSError()
-            completion?(.failure(error))
+            completion?(.failure(.noData(nil)))
         }
     }
 

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367B9237AACC6001F2A84 /* NetworkObserver.swift */; };
 		210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367BB237AAE2F001F2A84 /* PathObserver.swift */; };
-		2148CEFB238E7CE100F75F39 /* LocationManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2148CEFA238E7CE000F75F39 /* LocationManagerError.swift */; };
 		2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* UpdateLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
@@ -196,7 +195,6 @@
 /* Begin PBXFileReference section */
 		210367B9237AACC6001F2A84 /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		210367BB237AAE2F001F2A84 /* PathObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathObserver.swift; sourceTree = "<group>"; };
-		2148CEFA238E7CE000F75F39 /* LocationManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerError.swift; sourceTree = "<group>"; };
 		2176242623744F3400F7885E /* UpdateLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
@@ -489,7 +487,6 @@
 				210367BB237AAE2F001F2A84 /* PathObserver.swift */,
 				9844438023429354005468B2 /* UIView+Autolayout.swift */,
 				9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */,
-				2148CEFA238E7CE000F75F39 /* LocationManagerError.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1156,7 +1153,6 @@
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
 				98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */,
-				2148CEFB238E7CE100F75F39 /* LocationManagerError.swift in Sources */,
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
 				98970871220A4E180073BB02 /* CustomButton.swift in Sources */,
