@@ -53,7 +53,7 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.text =  L10n.Settings.Opensource.title
+        titleLabel.text = L10n.Settings.Opensource.title
         detailLabel.text = L10n.Settings.Opensource.detail
         actionLabel.text = L10n.Settings.Opensource.action.uppercased()
     }
