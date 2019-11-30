@@ -40,10 +40,18 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 
 ### How to build
 
+Install [SwiftGen](https://github.com/SwiftGen/SwiftGen) via [Homebrew](https://brew.sh), simply use
+
 ```sh
-    git clone REPO-URL
-    cd criticalmaps-ios
-    open CriticalMaps.xcodeproj
+$ brew update
+$ brew install swiftgen
+```
+
+Then run these instructions:
+```sh
+ $ git clone REPO-URL
+ $ cd criticalmaps-ios
+ $ open CriticalMaps.xcodeproj
 ```
 
 ### How to contribute
