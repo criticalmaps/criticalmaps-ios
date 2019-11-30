@@ -215,6 +215,9 @@
 		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
 		943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryOverlayView.xib; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
+		945B092F2392EEF400BC3EFF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		945B09302392EEF400BC3EFF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		945B09312392EEF400BC3EFF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
 		9460B76A225A6EB200786E27 /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
@@ -926,6 +929,7 @@
 				it,
 				Base,
 				fr,
+				es,
 			);
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			packageReferences = (
@@ -1268,6 +1272,7 @@
 				94829410238A926200338E7F /* en */,
 				94829412238A926200338E7F /* it */,
 				94829415238A926200338E7F /* fr */,
+				945B092F2392EEF400BC3EFF /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1279,6 +1284,7 @@
 				94829411238A926200338E7F /* en */,
 				94829413238A926200338E7F /* it */,
 				94829416238A926200338E7F /* fr */,
+				945B09302392EEF400BC3EFF /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1290,6 +1296,7 @@
 				9489D88B1B7681AF001E746C /* de */,
 				94E1FE4C212057AC0016BD4E /* it */,
 				98C13288227F014000291FCA /* fr */,
+				945B09312392EEF400BC3EFF /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1525,6 +1532,7 @@
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1557,6 +1565,7 @@
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = "CriticalMass/CriticalMaps-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
