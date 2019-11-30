@@ -21,6 +21,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
                                               width: loadingIndicatorSize.width,
                                               height: loadingIndicatorSize.height)
     }
+
     private var chatViewController: ChatViewController
     private var twitterController: UIViewController
 
@@ -33,6 +34,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
+
     private lazy var loadingBarButton: UIBarButtonItem = {
         let loadingIndicator = CMLogoActivityView(frame: Constants.logoActivityFrame)
         loadingIndicator.backgroundColor = .clear

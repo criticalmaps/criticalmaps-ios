@@ -13,13 +13,15 @@ final class ChatInputViewController: UIViewController, IBConstructable {
         static let textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         static let maxTextViewHeight: CGFloat = 150.0
     }
-    @IBOutlet private weak var inputTextView: GrowingTextView! {
+
+    @IBOutlet private var inputTextView: GrowingTextView! {
         didSet {
             inputTextView.layer.masksToBounds = true
             inputTextView.textContainerInset = Constants.textContainerInset
         }
     }
-    @IBOutlet private weak var sendButton: UIButton!
+
+    @IBOutlet private var sendButton: UIButton!
 
     weak var delegate: ChatInputDelegate?
     private let themeController = ThemeController()
@@ -49,6 +51,7 @@ final class ChatInputViewController: UIViewController, IBConstructable {
     }
 
     // MARK: - Actions
+
     @IBAction func didTapSendButton() {
         guard let text = inputTextView.text, text.canBeSent else {
             return
@@ -76,7 +79,7 @@ extension ChatInputViewController: UITextViewDelegate {
 
 private extension String {
     var canBeSent: Bool {
-        !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 

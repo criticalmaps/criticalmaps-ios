@@ -16,22 +16,25 @@ class ChatViewController: UIViewController {
     private enum Constants {
         static let chatInputHeight: CGFloat = 180
     }
+
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
     private let chatInputViewController = ChatInputViewController.fromNib()
     private lazy var chatInputBottomConstraint = {
         NSLayoutConstraint(item: chatInputViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
+
     private lazy var chatInputHeightConstraint = {
         chatInputViewController.view!.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.chatInputHeight)
     }()
+
     // ContentState
     weak var chatMessageActivityDelegate: ChatMessageActivityDelegate?
 
     init(chatManager: ChatManager) {
         self.chatManager = chatManager
         super.init(nibName: nil, bundle: nil)
-        self.chatInputViewController.delegate = self
+        chatInputViewController.delegate = self
     }
 
     required init?(coder _: NSCoder) {
@@ -79,7 +82,7 @@ class ChatViewController: UIViewController {
             NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
             messagesTableViewController.view!.widthAnchor.constraint(equalTo: view.widthAnchor),
             messagesTableViewController.view!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            messagesTableViewController.view!.bottomAnchor.constraint(equalTo: chatInputViewController.view!.topAnchor)
+            messagesTableViewController.view!.bottomAnchor.constraint(equalTo: chatInputViewController.view!.topAnchor),
         ])
     }
 
@@ -140,6 +143,7 @@ class ChatViewController: UIViewController {
 }
 
 // MARK: ChatInputDelegate
+
 extension ChatViewController: ChatInputDelegate {
     func didTapSendButton(text: String, completionHandler: CompletionHandler? = nil) {
         chatMessageActivityDelegate?.isSendingChatMessage(true)
