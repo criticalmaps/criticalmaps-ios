@@ -1,8 +1,5 @@
 [update]
-tasks = ["interfaces", "transform", "normalize"]
-
-[update.interfaces]
-path = "./CriticalMass"
+tasks = ["transform", "normalize"]
 
 [update.transform]
 codePath = "./CriticalMass"
