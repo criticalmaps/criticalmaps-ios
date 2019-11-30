@@ -11,8 +11,6 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
-  /// 
-  internal static let title = L10n.tr("Localizable", ".title")
   /// Fehler
   internal static let error = L10n.tr("Localizable", "error")
 
@@ -63,13 +61,9 @@ internal enum L10n {
   }
 
   internal enum Rules {
-    /// Bilder von criticalmass-hh.de (CC BY-NC-ND 3.0 DE)
-    internal static let source = L10n.tr("Localizable", "rules.source")
     /// Knigge
     internal static let title = L10n.tr("Localizable", "rules.title")
     internal enum Text {
-      /// 
-      internal static let rawValue = L10n.tr("Localizable", "rules.text.(rawValue)")
       /// Wenn's mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.
       internal static let brake = L10n.tr("Localizable", "rules.text.brake")
       /// Verzichte darauf auf der Gegenfahrbahn zu fahren.
@@ -86,8 +80,6 @@ internal enum L10n {
       internal static let stayLoose = L10n.tr("Localizable", "rules.text.stayLoose")
     }
     internal enum Title {
-      /// 
-      internal static let rawValue = L10n.tr("Localizable", "rules.title.(rawValue)")
       /// Keine Vollbremsungen
       internal static let brake = L10n.tr("Localizable", "rules.title.brake")
       /// Gegenverkehr
