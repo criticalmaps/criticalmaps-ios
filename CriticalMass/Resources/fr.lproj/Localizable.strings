@@ -21,6 +21,12 @@
 "error" = "Erreur";
 
 /* No comment provided by engineer. */
+"errorState.message" = "Désolé, quelque chose s'est mal passé";
+
+/* ErrorState */
+"errorState.title" = "Erreur";
+
+/* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
 
 /* No comment provided by engineer. */
@@ -31,9 +37,6 @@
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
-
-/* No comment provided by engineer. */
-"rules.source" = "Images of criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
 
 /* No comment provided by engineer. */
 "rules.text.brake" = "Évite les arrêts soudains. Si tu dois vraiment t'arrêter, essaye de prévenir les gens derrière toi.";
@@ -101,7 +104,7 @@
 "settings.kniggeImages" = "Rules images";
 
 /* No comment provided by engineer. */
-"settings.logoDesign" = "Logo design";
+"settings.logoDesign" = "Design du logo";
 
 /* No comment provided by engineer. */
 "settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
@@ -110,7 +113,7 @@
 "settings.observationmode.title" = "Mode observateur";
 
 /* No comment provided by engineer. */
-"settings.openSource" = "Github";
+"settings.openSource" = "GitHub";
 
 /* No comment provided by engineer. */
 "settings.opensource.action" = "Voir le Projet";
@@ -125,7 +128,7 @@
 "settings.programming" = "Développement";
 
 /* No comment provided by engineer. */
-"settings.section.info" = "Info";
+"settings.section.info" = "Infos";
 
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Réseaux sociaux";
@@ -140,25 +143,10 @@
 "settings.twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"settings.website" = "Website";
+"settings.website" = "Site Web";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Pas de données disponibles.\nTire vers le bas pour rafraîchir.";
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-
-/* No comment provided by engineer. */
-".title" = "";
-
-/* No comment provided by engineer. */
-"errorState.message" = "";
-
-/* No comment provided by engineer. */
-"errorState.title" = "";
-
-/* No comment provided by engineer. */
-"rules.text.\(rawValue)" = "";
-
-/* No comment provided by engineer. */
-"rules.title.\(rawValue)" = "";

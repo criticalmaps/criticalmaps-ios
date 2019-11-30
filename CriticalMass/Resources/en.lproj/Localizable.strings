@@ -39,9 +39,6 @@
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
-"rules.source" = "Images of criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
-
-/* No comment provided by engineer. */
 "rules.text.brake" = "Avoid sudden stops. If you really have to though, try to warn people behind you.";
 
 /* No comment provided by engineer. */
@@ -153,12 +150,3 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-
-/* No comment provided by engineer. */
-".title" = "";
-
-/* No comment provided by engineer. */
-"rules.text.\(rawValue)" = "";
-
-/* No comment provided by engineer. */
-"rules.title.\(rawValue)" = "";

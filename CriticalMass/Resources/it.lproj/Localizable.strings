@@ -6,7 +6,7 @@
 "chat.placeholder" = "Messaggio ...";
 
 /* No comment provided by engineer. */
-"chat.send" = "Invia";
+"chat.send" = "invia";
 
 /* No comment provided by engineer. */
 "chat.send.error" = "Il messaggio non è stato potuto essere inviato. Si prega di riprovare.";
@@ -21,25 +21,28 @@
 "error" = "Errore";
 
 /* No comment provided by engineer. */
+"errorState.message" = "Spiacente, qualcosa è andato storto";
+
+/* ErrorState */
+"errorState.title" = "Errore";
+
+/* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps deve utilizzare il GPS per mostrare la mappa con altri utenti attivi";
 
 /* No comment provided by engineer. */
 "map.layer.info.title" = "GPS disattivato";
 
 /* No comment provided by engineer. */
-"map.locationButton.label" = "posizionamento";
+"map.locationButton.label" = "Posizionamento";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
-"rules.source" = "Immagini di criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
-
-/* No comment provided by engineer. */
 "rules.text.brake" = "Evita di fermarti all'improvviso. Se non c'è altro modo, cerca di mettere in guardia chi ti sta dietro con un gesto delle mani.";
 
 /* No comment provided by engineer. */
-"rules.text.contraflow" = "Fai attenzione a non guidare contromano!";
+"rules.text.contraflow" = "Fai attenzione a non guidare contromano.";
 
 /* No comment provided by engineer. */
 "rules.text.cork" = "Proteggi i motociclisti da se stessi, creando un ingorgo!\n\nPer mantenere la coesione del gruppo, blocca il traffico dalle strade laterali per fare in modo che la massa possa passare i semafori rossi senza interruzioni.";
@@ -60,7 +63,7 @@
 "rules.title" = "Regole";
 
 /* No comment provided by engineer. */
-"rules.title.brake" = "Non frenare bruscamente!";
+"rules.title.brake" = "Non frenare bruscamente";
 
 /* No comment provided by engineer. */
 "rules.title.contraflow" = "Fai attenzione al traffico in arrivo";
@@ -83,7 +86,7 @@
 /* No comment provided by engineer. */
 "settings.about" = "Crediti";
 
-"settings.appDesign" = "Design";
+"settings.appDesign" = "Conception";
 
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlino";
@@ -130,7 +133,7 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
 
-/* https://translate.google.de/#view=home&op=translate&sl=en&tl=it&text=night%20mode */
+/* Theme */
 "settings.theme" = "Modalità Notturna";
 
 /* No comment provided by engineer. */
@@ -147,18 +150,3 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-
-/* No comment provided by engineer. */
-".title" = "";
-
-/* No comment provided by engineer. */
-"errorState.message" = "";
-
-/* No comment provided by engineer. */
-"errorState.title" = "";
-
-/* No comment provided by engineer. */
-"rules.text.\(rawValue)" = "";
-
-/* No comment provided by engineer. */
-"rules.title.\(rawValue)" = "";
