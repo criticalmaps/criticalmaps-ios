@@ -87,23 +87,23 @@ class AppController {
     }
 
     private func getRulesViewController() -> RulesViewController {
-        return RulesViewController()
+        RulesViewController()
     }
 
     private func getChatViewController() -> ChatViewController {
-        return ChatViewController(chatManager: chatManager)
+        ChatViewController(chatManager: chatManager)
     }
 
     private func getTwitterViewController() -> TwitterViewController {
-        return TwitterViewController(twitterManager: twitterManager)
+        TwitterViewController(twitterManager: twitterManager)
     }
 
     private func getSocialViewController() -> SocialViewController {
-        return SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
+        SocialViewController(chatViewController: getChatViewController(), twitterViewController: getTwitterViewController())
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        return SettingsViewController(themeController: themeController)
+        SettingsViewController(themeController: themeController)
     }
 
     private func loadInitialData() {

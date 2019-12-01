@@ -51,7 +51,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func numberOfSections(in _: UITableView) -> Int {
-        return Section.allCases.count
+        Section.allCases.count
     }
 
     override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -68,11 +68,11 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Section.allCases[section].numberOfRows
+        Section.allCases[section].numberOfRows
     }
 
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
-        return 60
+        60
     }
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

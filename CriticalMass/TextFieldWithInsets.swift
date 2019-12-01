@@ -58,14 +58,14 @@ class TextFieldWithInsets: UITextField {
     }
 
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: insets)
+        bounds.inset(by: insets)
     }
 
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: insets)
+        bounds.inset(by: insets)
     }
 
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: insets)
+        bounds.inset(by: insets)
     }
 }

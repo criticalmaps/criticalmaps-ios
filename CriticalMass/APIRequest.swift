@@ -18,7 +18,7 @@ extension APIRequestDefining {
     }
 
     func parseResponse(data: Data) throws -> ResponseDataType {
-        return try data.decoded()
+        try data.decoded()
     }
 }
 
