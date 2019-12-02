@@ -50,10 +50,12 @@ public class RequestManager {
         let updateDataOperation = UpdateDataOperation(locationProvider: locationProvider,
                                                       idProvider: idProvider,
                                                       networkLayer: networkLayer)
-        let taskIdentifier = UIApplication.shared.beginBackgroundTask {
-            self.networkLayer.cancelActiveRequestsIfNeeded()
-            updateDataOperation.cancel()
-        }
+        #if canImport(UIKit)
+            let taskIdentifier = UIApplication.shared.beginBackgroundTask {
+                self.networkLayer.cancelActiveRequestsIfNeeded()
+                updateDataOperation.cancel()
+            }
+        #endif
 
         updateDataOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
@@ -62,7 +64,9 @@ public class RequestManager {
                 self.defaultCompletion(for: result)
             }
 
-            UIApplication.shared.endBackgroundTask(taskIdentifier)
+            #if canImport(UIKit)
+                UIApplication.shared.endBackgroundTask(taskIdentifier)
+            #endif
             self.addUpdateOperation(with: interval)
         }
 

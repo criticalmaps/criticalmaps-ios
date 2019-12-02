@@ -6,7 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 final class WaitOperation: AsyncOperation {
     private let interval: TimeInterval
