@@ -6,6 +6,10 @@ Changelog for Critical Maps iOS
 
 ### Added
 
+- Spanish localization
+
+### Changed
+
 - Replace send text button in ChatInputView with an icon button
 - Accessability support for chat input textview
 
