@@ -12,5 +12,5 @@ struct PostChatMessagesRequest: APIRequestDefining {
     typealias ResponseDataType = ApiResponse
     var endpoint: Endpoint = .default
     var headers: HTTPHeaders? = .contentTypeApplicationJSON
-    var httpMethod: HTTPMethod { return .post }
+    var httpMethod: HTTPMethod { .post }
 }

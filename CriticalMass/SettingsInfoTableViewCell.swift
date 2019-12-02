@@ -11,6 +11,6 @@ class SettingsInfoTableViewCell: UITableViewCell, IBConstructable {
     @IBOutlet var titleLabel: UILabel!
 
     override var textLabel: UILabel? {
-        return titleLabel
+        titleLabel
     }
 }

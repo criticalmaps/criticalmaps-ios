@@ -15,11 +15,11 @@ public protocol TypeNameProtocol {
 
 public extension TypeNameProtocol {
     static var typeName: String {
-        return String(describing: self)
+        String(describing: self)
     }
 
     var typeName: String {
-        return type(of: self).typeName
+        type(of: self).typeName
     }
 }
 

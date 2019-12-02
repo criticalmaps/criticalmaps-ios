@@ -4,10 +4,10 @@ struct TwitterRequest: APIRequestDefining {
     typealias ResponseDataType = TwitterApiResponse
     var endpoint: Endpoint = .twitter
     var headers: HTTPHeaders?
-    var httpMethod: HTTPMethod { return .get }
+    var httpMethod: HTTPMethod { .get }
 
     func parseResponse(data: Data) throws -> ResponseDataType {
-        return try JSONDecoder.twitterDecoder.decode(ResponseDataType.self, from: data)
+        try JSONDecoder.twitterDecoder.decode(ResponseDataType.self, from: data)
     }
 }
 

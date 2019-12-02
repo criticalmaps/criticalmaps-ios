@@ -12,7 +12,7 @@ public struct ChatMessage: Codable, Equatable {
     var timestamp: TimeInterval
 
     var decodedMessage: String? {
-        return message
+        message
             .replacingOccurrences(of: "+", with: " ")
             .removingPercentEncoding
     }

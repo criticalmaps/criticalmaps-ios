@@ -23,7 +23,7 @@ class MockLocationProvider: LocationProvider {
     var mockLocation: Location?
 
     var currentLocation: Location? {
-        return mockLocation
+        mockLocation
     }
 }
 
@@ -32,7 +32,7 @@ class MockNetworkLayer: NetworkLayer {
     var shouldReturnResponse = true
     var lastUsedPostBody: [String: Any]?
     var numberOfRequests: Int {
-        return numberOfGetCalled + numberOfPostCalled
+        numberOfGetCalled + numberOfPostCalled
     }
 
     var numberOfGetCalled = 0
@@ -77,7 +77,7 @@ class MockIDProvider: IDProvider {
     }
 
     static func hash(id: String, currentDate _: Date) -> String {
-        return id
+        id
     }
 }
 
