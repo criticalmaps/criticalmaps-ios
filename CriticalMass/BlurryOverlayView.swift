@@ -48,7 +48,7 @@ class BlurryOverlayView: UIView, IBConstructable {
     @IBOutlet private var titlelabel: UILabel!
 
     override class var layerClass: AnyClass {
-        return CAGradientLayer.self
+        CAGradientLayer.self
     }
 
     override func awakeFromNib() {

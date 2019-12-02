@@ -89,7 +89,7 @@ public class RatingHelper {
     }
 
     private var shouldPromptRatingRequest: Bool {
-        return daysCounter >= daysUntilPrompt &&
+        daysCounter >= daysUntilPrompt &&
             usesCounter >= usesUntilPrompt &&
             currentVersion != lastRatedVersion
     }

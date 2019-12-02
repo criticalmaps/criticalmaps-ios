@@ -12,5 +12,5 @@ struct GetLocationsAndChatMessagesRequest: APIRequestDefining {
     typealias ResponseDataType = ApiResponse
     var endpoint: Endpoint = .default
     var headers: HTTPHeaders?
-    var httpMethod: HTTPMethod { return .get }
+    var httpMethod: HTTPMethod { .get }
 }

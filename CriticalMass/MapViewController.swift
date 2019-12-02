@@ -118,7 +118,7 @@ class MapViewController: UIViewController {
     // MARK: Notifications
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return themeController.currentTheme.style.statusBarStyle
+        themeController.currentTheme.style.statusBarStyle
     }
 
     @objc private func themeDidChange() {

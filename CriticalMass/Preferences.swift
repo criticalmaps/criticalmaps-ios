@@ -21,7 +21,7 @@ class ObservationModePreferenceStore: Switchable {
     }
 
     private func load() -> Bool? {
-        return defaults.bool(forKey: defaultsKey)
+        defaults.bool(forKey: defaultsKey)
     }
 
     var isEnabled: Bool {

@@ -26,7 +26,7 @@ enum Section: Int, CaseIterable {
     }
 
     var numberOfRows: Int {
-        return models.count
+        models.count
     }
 
     var title: String? {
@@ -40,7 +40,7 @@ enum Section: Int, CaseIterable {
     }
 
     static var allCellClasses: [IBConstructable.Type] {
-        return [SettingsSwitchTableViewCell.self, SettingsGithubTableViewCellTableViewCell.self, SettingsInfoTableViewCell.self]
+        [SettingsSwitchTableViewCell.self, SettingsGithubTableViewCellTableViewCell.self, SettingsInfoTableViewCell.self]
     }
 
     func cellClass(action: Action) -> IBConstructable.Type {
@@ -59,7 +59,7 @@ enum Section: Int, CaseIterable {
         case .preferences:
             return [
                 Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
-                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self)),
+                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self))
             ]
         case .github:
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]

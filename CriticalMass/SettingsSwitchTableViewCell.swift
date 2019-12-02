@@ -33,7 +33,7 @@ class SettingsSwitchTableViewCell: UITableViewCell, IBConstructable {
     private var switchable: Switchable?
 
     override var textLabel: UILabel? {
-        return titleLabel
+        titleLabel
     }
 
     override var detailTextLabel: UILabel? {

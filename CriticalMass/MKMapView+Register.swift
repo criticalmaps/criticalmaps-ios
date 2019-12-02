@@ -10,7 +10,7 @@ import MapKit
 
 extension MKAnnotationView {
     fileprivate class var reuseIdentifier: String {
-        return String(describing: self)
+        String(describing: self)
     }
 }
 

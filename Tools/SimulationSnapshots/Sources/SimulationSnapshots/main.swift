@@ -6,7 +6,7 @@ struct NoLocationProvider: LocationProvider {
     var currentLocation: Location?
 
     static var accessPermission: LocationProviderPermission {
-        return .disabled
+        .disabled
     }
 }
 
@@ -14,7 +14,7 @@ struct NoIdProvider: IDProvider {
     var token: String = ""
 
     static func hash(id: String, currentDate _: Date) -> String {
-        return id
+        id
     }
 
     var id: String = ""
