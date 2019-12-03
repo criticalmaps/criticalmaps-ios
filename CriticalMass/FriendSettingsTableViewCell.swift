@@ -39,7 +39,7 @@ class FriendSettingsTableViewCell: UITableViewCell, IBConstructable, UITextField
 
     public func configure(name: String, nameChanged: @escaping (String) -> Void) {
         textField.attributedPlaceholder = NSAttributedString(string: name,
-        attributes: [NSAttributedString.Key.foregroundColor: placeholderColor as Any])
+        attributes: [.foregroundColor: UIColor.settingsPlaceholderColor])
         self.nameChanged = nameChanged
     }
 
