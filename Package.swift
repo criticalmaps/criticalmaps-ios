@@ -45,7 +45,13 @@ let package = Package(
                       "PostChatMessagesRequest.swift",
                       "PostLocationRequest.swift",
                       "RequestManager.swift",
-                      "SendChatMessage.swift"]
+                      "SendChatMessage.swift",
+                      "NetworkObserver.swift",
+                      "WaitOperation.swift",
+                      "UpdateLocationOperation.swift",
+                      "UpdateDataOperation.swift",
+                      "AsyncOperation.swift"
+            ]
         ),
     ]
 )

@@ -13,7 +13,7 @@ class AppController {
     private var simulationModeEnabled = false
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, networkObserver: networkObserver)
     }()
 
     private lazy var networkOperator: NetworkOperator = {
@@ -29,6 +29,14 @@ class AppController {
             networkDataProvider = session
         }
         return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: networkDataProvider)
+    }()
+
+    private let networkObserver: NetworkObserver? = {
+        if #available(iOS 12.0, *) {
+            return PathObserver()
+        } else {
+            return nil
+        }
     }()
 
     private let themeController = ThemeController()
