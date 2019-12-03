@@ -133,6 +133,7 @@ public class RequestManager {
     }
 }
 
+@available(macOS 10.12, *)
 private extension RequestManager {
     func setupNetworkObserver() {
         networkObserver?.statusUpdateHandler = { [weak self] status in
