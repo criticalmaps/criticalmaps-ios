@@ -58,6 +58,7 @@ enum Section: Int, CaseIterable {
         switch self {
         case .preferences:
             return [
+                Model(title: "Friends", subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self)),
                 Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
                 Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self))
             ]

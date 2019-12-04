@@ -10,10 +10,12 @@ import UIKit
 
 class MapViewController: UIViewController {
     private let themeController: ThemeController!
+    private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
 
-    init(themeController: ThemeController) {
+    init(themeController: ThemeController, friendsVerificationController: FriendsVerificationController) {
         self.themeController = themeController
+        self.friendsVerificationController = friendsVerificationController
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -95,6 +97,7 @@ class MapViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: Notification.initialGpsDataReceived, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: Notification.observationModeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: Notification.themeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveFocusNotification(notification:)), name: Notification.focusLocation, object: nil)
     }
 
     private func configureMapView() {
@@ -105,7 +108,38 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
     }
 
-    // GPS Disabled Overlay
+    private func display(locations: [String: Location]) {
+        guard LocationManager.accessPermission == .authorized else {
+            return
+        }
+        var unmatchedLocations = locations
+        var unmatchedAnnotations: [IdentifiableAnnnotation] = []
+        // update existing annotations
+        mapView.annotations
+            .compactMap {
+                $0 as? IdentifiableAnnnotation
+            }
+            .forEach { annotation in
+                if friendsVerificationController.isFriend(id: annotation.identifier) {
+                    annotation.type = .friend
+                    annotation.friend = friendsVerificationController.friend(for: annotation.identifier)
+                } else {
+                    annotation.type = .user
+                    annotation.friend = nil
+                }
+                if let location = unmatchedLocations[annotation.identifier] {
+                    annotation.location = location
+                    unmatchedLocations.removeValue(forKey: annotation.identifier)
+                } else {
+                    unmatchedAnnotations.append(annotation)
+                }
+            }
+        let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
+        mapView.addAnnotations(annotations)
+
+        // remove annotations that no longer exist
+        mapView.removeAnnotations(unmatchedAnnotations)
+    }
 
     @objc func didTapGPSDisabledOverlayButton() {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
@@ -146,7 +180,16 @@ class MapViewController: UIViewController {
 
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: 10000, longitudinalMeters: 10000)
+        focusOnLocation(location: location)
+    }
+
+    @objc func didReceiveFocusNotification(notification: Notification) {
+        guard let location = notification.object as? Location else { return }
+        focusOnLocation(location: location, zoomArea: 1000)
+    }
+
+    func focusOnLocation(location: Location, zoomArea: Double = 10000) {
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: zoomArea, longitudinalMeters: zoomArea)
         let adjustedRegion = mapView.regionThatFits(region)
         mapView.setRegion(adjustedRegion, animated: true)
     }
@@ -156,15 +199,42 @@ extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKUserLocation == false else {
+        guard let userAnnotation = annotation as? IdentifiableAnnnotation else {
+            debugPrint("⚠️ Not a UserAnnotation.")
             return nil
         }
+        var view: MKAnnotationView
+        switch userAnnotation.type {
+        case .friend:
+            if #available(iOS 11.0, *) {
+                if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: FriendAnnotationView.reuseIdentifier, for: userAnnotation) as? FriendAnnotationView {
+                    dequedView.annotation = userAnnotation
+                    view = dequedView
+                } else {
+                    view = FriendAnnotationView(annotation: userAnnotation,
+                                                reuseIdentifier: FriendAnnotationView.reuseIdentifier)
+                }
+            } else {
+                view = FriendAnnotationView(annotation: userAnnotation,
+                                            reuseIdentifier: FriendAnnotationView.reuseIdentifier)
+            }
 
-        guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {
-            return nil
+            (view as? FriendAnnotationView)?.friend = userAnnotation.friend
+        case .user:
+            if #available(iOS 11.0, *) {
+                if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.reuseIdentifier, for: userAnnotation) as? BikeAnnoationView {
+                    dequedView.annotation = userAnnotation
+                    view = dequedView
+                } else {
+                    view = BikeAnnoationView(annotation: userAnnotation,
+                                             reuseIdentifier: BikeAnnoationView.reuseIdentifier)
+                }
+            } else {
+                view = BikeAnnoationView(annotation: userAnnotation,
+                                         reuseIdentifier: BikeAnnoationView.reuseIdentifier)
+            }
         }
-
-        return mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
+        return view
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
