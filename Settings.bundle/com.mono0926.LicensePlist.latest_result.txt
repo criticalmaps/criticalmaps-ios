@@ -2,6 +2,8 @@ name: BartyCrouch, nameSpecified: , owner: Flinesoft, version: 4.0.2
 
 name: Crypto, nameSpecified: , owner: soffes, version: 0.6.0
 
+name: GrowingTextView, nameSpecified: , owner: mltbnz, version: 0.7.2
+
 name: HandySwift, nameSpecified: , owner: Flinesoft, version: 2.8.0
 
 name: Microya, nameSpecified: , owner: Flinesoft, version: 0.1.1
