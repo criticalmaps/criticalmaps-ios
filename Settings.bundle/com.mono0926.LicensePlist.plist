@@ -12,6 +12,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>com.mono0926.LicensePlist/BartyCrouch</string>
+			<key>Title</key>
+			<string>BartyCrouch</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>com.mono0926.LicensePlist/Crypto</string>
 			<key>Title</key>
 			<string>Crypto</string>
@@ -20,9 +28,33 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>com.mono0926.LicensePlist/GrowingTextView</string>
+			<string>com.mono0926.LicensePlist/HandySwift</string>
 			<key>Title</key>
-			<string>GrowingTextView</string>
+			<string>HandySwift</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/Microya</string>
+			<key>Title</key>
+			<string>Microya</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/MungoHealer</string>
+			<key>Title</key>
+			<string>MungoHealer</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/Rainbow</string>
+			<key>Title</key>
+			<string>Rainbow</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -39,6 +71,30 @@
 			<string>com.mono0926.LicensePlist/swift-snapshot-testing</string>
 			<key>Title</key>
 			<string>swift-snapshot-testing</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/swift-syntax</string>
+			<key>Title</key>
+			<string>swift-syntax</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/swift-toml</string>
+			<key>Title</key>
+			<string>swift-toml</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>com.mono0926.LicensePlist/SwiftCLI</string>
+			<key>Title</key>
+			<string>SwiftCLI</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

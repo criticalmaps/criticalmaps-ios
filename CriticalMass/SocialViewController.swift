@@ -42,7 +42,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
                                            y: Constants.scaleFactor)
         loadingIndicator.startAnimating()
         let barButtonItem = UIBarButtonItem(customView: loadingIndicator)
-        barButtonItem.accessibilityLabel = String.loadingButtonLabel
+        barButtonItem.accessibilityLabel = "Loading"
         return barButtonItem
     }()
 

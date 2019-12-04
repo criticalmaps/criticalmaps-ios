@@ -45,7 +45,11 @@ class BlurryOverlayView: UIView, IBConstructable {
     @IBOutlet private var titleLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet private var settingsButton: RoundedButton!
     @IBOutlet private var messageLabel: UILabel!
-    @IBOutlet private var titlelabel: UILabel!
+    @IBOutlet private var titlelabel: UILabel! {
+        didSet {
+            titlelabel.font = UIFont.scalableSystemFont(fontSize: 24, weight: .bold)
+        }
+    }
 
     override class var layerClass: AnyClass {
         CAGradientLayer.self

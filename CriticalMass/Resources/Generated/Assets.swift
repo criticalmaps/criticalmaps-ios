@@ -53,6 +53,7 @@ internal enum Asset {
     internal static let stayLoose = ImageAsset(name: "StayLoose")
     internal static let twitter = ImageAsset(name: "Twitter")
     internal static let twitterActive = ImageAsset(name: "Twitter_Active")
+    internal static let iconSend = ImageAsset(name: "icon-send")
 }
 
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
@@ -64,7 +65,7 @@ internal struct ColorAsset {
 
     @available(iOS 11.0, tvOS 11.0, watchOS 4.0, OSX 10.13, *)
     internal var color: AssetColorTypeAlias {
-        return AssetColorTypeAlias(asset: self)
+        AssetColorTypeAlias(asset: self)
     }
 }
 
@@ -88,7 +89,7 @@ internal struct DataAsset {
     #if os(iOS) || os(tvOS) || os(OSX)
         @available(iOS 9.0, tvOS 9.0, OSX 10.11, *)
         internal var data: NSDataAsset {
-            return NSDataAsset(asset: self)
+            NSDataAsset(asset: self)
         }
     #endif
 }

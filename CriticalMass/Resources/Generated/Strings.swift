@@ -15,22 +15,19 @@ internal enum L10n {
     internal static let error = L10n.tr("Localizable", "error")
 
     internal enum Chat {
-        /// Zurzeit keine Nachrichten...
+        /// Niemand chattet derzeit...\nWarum fängt du nicht an?
         internal static let noChatActivity = L10n.tr("Localizable", "chat.noChatActivity")
         /// Nachricht ...
         internal static let placeholder = L10n.tr("Localizable", "chat.placeholder")
-        /// senden
+        /// Senden
         internal static let send = L10n.tr("Localizable", "chat.send")
         /// Chat
         internal static let title = L10n.tr("Localizable", "chat.title")
         internal enum Send {
-            /// Die Nachricht konnte nicht versendet werden. Bitte versuche es erneut.
+            /// Deine Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.
             internal static let error = L10n.tr("Localizable", "chat.send.error")
         }
     }
-    internal enum Section {
-      /// Info
-      internal static let info = L10n.tr("Localizable", "settings.section.info")
 
     internal enum Close {
         internal enum Button {
@@ -38,18 +35,11 @@ internal enum L10n {
             internal static let label = L10n.tr("Localizable", "close.button.label")
         }
     }
-  }
 
-  internal enum Twitter {
-    /// Momentan sind keine Tweets verfügbar.\nBitte ziehen um neue zu laden.
-    internal static let noData = L10n.tr("Localizable", "twitter.noData")
-    /// Twitter
-    internal static let title = L10n.tr("Localizable", "twitter.title")
-  }
     internal enum ErrorState {
         /// Entschuldige, irgendwas ging schief
         internal static let message = L10n.tr("Localizable", "errorState.message")
-        /// Error
+        /// Fehler
         internal static let title = L10n.tr("Localizable", "errorState.title")
     }
 
@@ -57,7 +47,7 @@ internal enum L10n {
         /// Critical Maps
         internal static let title = L10n.tr("Localizable", "map.title")
         internal enum Layer {
-            /// Critical Maps muss dein GPS verwenden, um die Karte anderen aktiven Benutzer anzuzeigen
+            /// Critical Maps muss dein GPS verwenden, um die Karte anderen aktiven Benutzern anzuzeigen
             internal static let info = L10n.tr("Localizable", "map.layer.info")
             internal enum Info {
                 /// GPS deaktiviert
@@ -66,7 +56,7 @@ internal enum L10n {
         }
 
         internal enum LocationButton {
-            /// Ortung
+            /// lokalisiere
             internal static let label = L10n.tr("Localizable", "map.locationButton.label")
         }
     }
@@ -79,7 +69,7 @@ internal enum L10n {
             internal static let brake = L10n.tr("Localizable", "rules.text.brake")
             /// Verzichte darauf auf der Gegenfahrbahn zu fahren.
             internal static let contraflow = L10n.tr("Localizable", "rules.text.contraflow")
-            /// Schütze Autofahrer vor sich selbst durch corken!
+            /// Schützen Sie die Autofahrer vor sich selbst!\n\nUm den Zusammenhalt der Gruppe aufrechtzuerhalten, blockiere den Verkehr von Nebenstraßen, so dass die Mass frei durch rote Ampeln ohne Unterbrechungen fahren kann.
             internal static let cork = L10n.tr("Localizable", "rules.text.cork")
             /// Vorne: nicht rasen!\nHinten, Lücken zufahren!
             internal static let gently = L10n.tr("Localizable", "rules.text.gently")
@@ -92,15 +82,15 @@ internal enum L10n {
         }
 
         internal enum Title {
-            /// Keine Vollbremsungen
+            /// Keine Vollbremsungen!
             internal static let brake = L10n.tr("Localizable", "rules.title.brake")
-            /// Gegenverkehr
+            /// Vorsicht vor Gegenverkehr
             internal static let contraflow = L10n.tr("Localizable", "rules.title.contraflow")
             /// Corken!?
             internal static let cork = L10n.tr("Localizable", "rules.title.cork")
             /// Sachte, Keule!
             internal static let gently = L10n.tr("Localizable", "rules.title.gently")
-            /// Vorne nur bei Grün
+            /// Beim fahren an der Spitze: Stoppe an der roten Ampel!
             internal static let green = L10n.tr("Localizable", "rules.title.green")
             /// Hab Spaß!
             internal static let haveFun = L10n.tr("Localizable", "rules.title.haveFun")
@@ -126,7 +116,7 @@ internal enum L10n {
         internal static let kniggeImages = L10n.tr("Localizable", "settings.kniggeImages")
         /// Logo design
         internal static let logoDesign = L10n.tr("Localizable", "settings.logoDesign")
-        /// Github
+        /// GitHub
         internal static let openSource = L10n.tr("Localizable", "settings.openSource")
         /// Development
         internal static let programming = L10n.tr("Localizable", "settings.programming")
@@ -150,7 +140,7 @@ internal enum L10n {
         internal enum Opensource {
             /// Projekt ansehen
             internal static let action = L10n.tr("Localizable", "settings.opensource.action")
-            /// Critical Maps ist ein Open Source Projekt und wir feuen uns über Entwickler*innen die an Critical Maps mitarbeiten wollen.
+            /// Critical Maps ist ein Open Source Projekt und wir freuen uns über Entwickler*innen die an Critical Maps mitarbeiten wollen.
             internal static let detail = L10n.tr("Localizable", "settings.opensource.detail")
             /// Vermisst du Funktionen oder willst einen Bug fixen?
             internal static let title = L10n.tr("Localizable", "settings.opensource.title")
@@ -163,7 +153,7 @@ internal enum L10n {
     }
 
     internal enum Twitter {
-        /// Momentan sind keine Tweets verfügbar.\nBitte ziehen um neue zu laden.
+        /// Derzeit sind keine Daten verfügbar.\nBitte herunterziehen, um zu aktualisieren.
         internal static let noData = L10n.tr("Localizable", "twitter.noData")
         /// Twitter
         internal static let title = L10n.tr("Localizable", "twitter.title")
