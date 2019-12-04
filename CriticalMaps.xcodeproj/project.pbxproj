@@ -41,6 +41,7 @@
 		945366FB2397ECE200DA09E5 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945366F52397ECE200DA09E5 /* NetworkObserver.swift */; };
 		945366FC2397ECE200DA09E5 /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945366F62397ECE200DA09E5 /* UpdateDataOperation.swift */; };
 		945366FD2397ECE200DA09E5 /* UpdateLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945366F72397ECE200DA09E5 /* UpdateLocationOperation.swift */; };
+		945367002397FD9300DA09E5 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 945366FF2397FD9300DA09E5 /* GrowingTextView */; };
 		945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */; };
 		945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
@@ -395,6 +396,7 @@
 				986749F8235230CB00BF5D6E /* Crypto in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				98F1D928232AB029000F4E82 /* (null) in Frameworks */,
+				945367002397FD9300DA09E5 /* GrowingTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -873,6 +875,7 @@
 			packageProductDependencies = (
 				986749F7235230CB00BF5D6E /* Crypto */,
 				9831A53F236CC52300BEB0C9 /* SDWebImage */,
+				945366FF2397FD9300DA09E5 /* GrowingTextView */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -955,6 +958,7 @@
 				7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				94829408238A8E6400338E7F /* XCRemoteSwiftPackageReference "BartyCrouch" */,
+				945366FE2397FD9300DA09E5 /* XCRemoteSwiftPackageReference "GrowingTextView" */,
 			);
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
 			projectDirPath = "";
@@ -1727,6 +1731,14 @@
 				minimumVersion = 1.6.0;
 			};
 		};
+		945366FE2397FD9300DA09E5 /* XCRemoteSwiftPackageReference "GrowingTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mltbnz/GrowingTextView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.2;
+			};
+		};
 		94829408238A8E6400338E7F /* XCRemoteSwiftPackageReference "BartyCrouch" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Flinesoft/BartyCrouch";
@@ -1758,6 +1770,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
+		};
+		945366FF2397FD9300DA09E5 /* GrowingTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 945366FE2397FD9300DA09E5 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
+			productName = GrowingTextView;
 		};
 		980EA84F236F460900E9EF18 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
