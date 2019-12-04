@@ -65,7 +65,7 @@ enum Section: Int, CaseIterable {
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
             return [Model(title: L10n.Settings.website, action: .open(url: Constants.criticalMapsWebsite)),
-                    Model(title: L10n.Settings.twitter, action: .open(url: Constants.criticalMapsTwitterPage)),
+                    Model(title: L10n.Twitter.title, action: .open(url: Constants.criticalMapsTwitterPage)),
                     Model(title: L10n.Settings.facebook, action: .open(url: Constants.criticalMapsFacebookPage))]
         }
     }

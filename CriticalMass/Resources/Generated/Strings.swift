@@ -126,8 +126,6 @@ internal enum L10n {
         internal static let theme = L10n.tr("Localizable", "settings.theme")
         /// Einstellungen
         internal static let title = L10n.tr("Localizable", "settings.title")
-        /// Twitter
-        internal static let twitter = L10n.tr("Localizable", "settings.twitter")
         /// Website
         internal static let website = L10n.tr("Localizable", "settings.website")
         internal enum Observationmode {
