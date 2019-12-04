@@ -1,12 +1,12 @@
 
 /* No comment provided by engineer. */
-"chat.noChatActivity" = "No hay noticias por el momento...";
+"chat.noChatActivity" = "Nadie está charlando en este momento...\n¿por qué no empezas?";
 
 /* No comment provided by engineer. */
 "chat.placeholder" = "Mensaje ...";
 
 /* No comment provided by engineer. */
-"chat.send" = "enviar";
+"chat.send" = "Enviar";
 
 /* No comment provided by engineer. */
 "chat.send.error" = "El mensaje no pudo ser enviado. Por favor intente nuevamente.";
@@ -30,7 +30,7 @@
 "map.layer.info" = "Los mapas críticos deben usar su GPS para mostrar el mapa a otros usuarios activos";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS deshabilitado";
+"map.layer.info.title" = "GPS desactivado";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "Localización";
@@ -63,19 +63,19 @@
 "rules.title" = "Normas";
 
 /* No comment provided by engineer. */
-"rules.title.brake" = "Sin pausas";
+"rules.title.brake" = "¡No hay paradas duras!";
 
 /* No comment provided by engineer. */
 "rules.title.contraflow" = "Doble circulación";
 
 /* No comment provided by engineer. */
-"rules.title.cork" = "Corken!?";
+"rules.title.cork" = "Bloqueos!?";
 
 /* No comment provided by engineer. */
 "rules.title.gently" = "Siempre tranquilo, amigo!";
 
 /* No comment provided by engineer. */
-"rules.title.green" = "Frente solo en verde";
+"rules.title.green" = "Cuando vayas en la cabecera: Para en los semáforos en rojo!";
 
 /* No comment provided by engineer. */
 "rules.title.haveFun" = "Diviértete!";
@@ -101,7 +101,7 @@
 "settings.gpsSettings" = "Ajustes de GPS";
 
 /* No comment provided by engineer. */
-"settings.kniggeImages" = "Imágenes Knigge";
+"settings.kniggeImages" = "Imágenes de reglas";
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Logo Design";
