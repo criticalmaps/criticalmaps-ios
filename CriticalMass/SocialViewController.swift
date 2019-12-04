@@ -7,8 +7,22 @@
 
 import UIKit
 
+protocol ChatMessageActivityDelegate: AnyObject {
+    func isSendingChatMessage(_ sending: Bool)
+}
+
 class SocialViewController: UIViewController, UIToolbarDelegate {
-    private var chatViewController: UIViewController
+    private enum Constants {
+        static let loadingIndicatorSize = CGSize(width: 30,
+                                                 height: 30)
+        static let scaleFactor = loadingIndicatorSize.width / 100
+        static let logoActivityFrame = CGRect(x: 0,
+                                              y: 0,
+                                              width: loadingIndicatorSize.width,
+                                              height: loadingIndicatorSize.height)
+    }
+
+    private var chatViewController: ChatViewController
     private var twitterController: UIViewController
 
     private lazy var segmentedControl: UISegmentedControl = {
@@ -21,7 +35,18 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         return control
     }()
 
-    init(chatViewController: UIViewController, twitterViewController: UIViewController) {
+    private lazy var loadingBarButton: UIBarButtonItem = {
+        let loadingIndicator = CMLogoActivityView(frame: Constants.logoActivityFrame)
+        loadingIndicator.backgroundColor = .clear
+        loadingIndicator.transform = .init(scaleX: Constants.scaleFactor,
+                                           y: Constants.scaleFactor)
+        loadingIndicator.startAnimating()
+        let barButtonItem = UIBarButtonItem(customView: loadingIndicator)
+        barButtonItem.accessibilityLabel = String.loadingButtonLabel
+        return barButtonItem
+    }()
+
+    init(chatViewController: ChatViewController, twitterViewController: UIViewController) {
         self.chatViewController = chatViewController
         twitterController = twitterViewController
         super.init(nibName: nil, bundle: nil)
@@ -42,8 +67,9 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSegmentedControl()
+        chatViewController.chatMessageActivityDelegate = self
         configureNavigationBar()
+        configureSegmentedControl()
         present(segment: .chat)
     }
 
@@ -54,6 +80,8 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
             // hide border
             navigationController?.navigationBar.shadowImage = UIImage()
         }
+        loadingBarButton.isHidden = true
+        navigationItem.setRightBarButton(loadingBarButton, animated: false)
     }
 
     private func configureSegmentedControl() {
@@ -79,6 +107,30 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
             chatViewController.remove()
             add(twitterController)
             layout(twitterController)
+        }
+    }
+}
+
+extension SocialViewController: ChatMessageActivityDelegate {
+    func isSendingChatMessage(_ sending: Bool) {
+        loadingBarButton.isHidden = !sending
+    }
+}
+
+private extension UIBarButtonItem {
+    var isHidden: Bool {
+        get {
+            return tintColor == UIColor.clear
+        }
+        set(hide) {
+            customView?.isHidden = hide
+            if hide {
+                isEnabled = false
+                tintColor = UIColor.clear
+            } else {
+                isEnabled = true
+                tintColor = nil // This sets the tinColor back to the default. If you have a custom color, use that instead
+            }
         }
     }
 }

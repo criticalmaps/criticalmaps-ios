@@ -28,6 +28,7 @@ protocol ThemeDefining {
     var statusBarStyle: UIStatusBarStyle { get }
     var gradientBeginColor: UIColor { get }
     var gradientEndColor: UIColor { get }
+    var chatInputBackgroundColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -102,6 +103,10 @@ struct LightTheme: ThemeDefining {
     var gradientEndColor: UIColor {
         .lightThemeGradientEnd
     }
+
+    var chatInputBackgroundColor: UIColor {
+        .gray500
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -175,5 +180,9 @@ struct DarkTheme: ThemeDefining {
 
     var gradientEndColor: UIColor {
         .darkThemeGradientEnd
+    }
+
+    var chatInputBackgroundColor: UIColor {
+        .gray100
     }
 }

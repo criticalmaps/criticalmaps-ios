@@ -146,6 +146,9 @@
 /* No comment provided by engineer. */
 "close.button.label" = "schließen";
 
+/* No comment provided by engineer. */
+"loading.barButton.label" = "lade";
+
 /* Theme */
 "settings.theme" = "Nachtmodus";
 
