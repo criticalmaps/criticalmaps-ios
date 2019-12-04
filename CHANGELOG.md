@@ -12,6 +12,7 @@ Changelog for Critical Maps iOS
 
 - Replace send text button in ChatInputView with an icon button
 - Accessability support for chat input textview
+- Updated Lokalizations. Adding synced Lokalizations from crowdin.
 
 ## [3.6.0] - 2019-11-28
 
