@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
+import GrowingTextView
 import UIKit
 
 final class ChatInputViewController: UIViewController, IBConstructable {
