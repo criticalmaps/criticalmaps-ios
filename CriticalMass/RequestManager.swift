@@ -5,13 +5,8 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
+import Foundation
 import os.log
-
-#if canImport(UIKit)
-    import UIKit
-#else
-    import Foundation
-#endif
 
 @available(macOS 10.12, *)
 public class RequestManager {
@@ -50,13 +45,6 @@ public class RequestManager {
         let updateDataOperation = UpdateDataOperation(locationProvider: locationProvider,
                                                       idProvider: idProvider,
                                                       networkLayer: networkLayer)
-        #if canImport(UIKit)
-            let taskIdentifier = UIApplication.shared.beginBackgroundTask {
-                self.networkLayer.cancelActiveRequestsIfNeeded()
-                updateDataOperation.cancel()
-            }
-        #endif
-
         updateDataOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
 
@@ -64,9 +52,6 @@ public class RequestManager {
                 self.defaultCompletion(for: result)
             }
 
-            #if canImport(UIKit)
-                UIApplication.shared.endBackgroundTask(taskIdentifier)
-            #endif
             self.addUpdateOperation(with: interval)
         }
 
@@ -102,12 +87,6 @@ public class RequestManager {
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
-        #if canImport(UIKit)
-            let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
-                completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
-                self.networkLayer.cancelActiveRequestsIfNeeded()
-            }
-        #endif
         let body = SendMessagePostBody(device: idProvider.id, messages: messages)
         guard let bodyData = try? body.encoded() else {
             completion(.failure(NetworkError.encodingError(body)))
@@ -118,10 +97,6 @@ public class RequestManager {
             guard let self = self else { return }
             self.defaultCompletion(for: result)
             onMain {
-                #if canImport(UIKit)
-                    UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-
-                #endif
                 switch result {
                 case let .success(messages):
                     completion(.success(messages.chatMessages))

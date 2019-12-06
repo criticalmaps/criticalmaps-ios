@@ -60,8 +60,6 @@ class MockNetworkLayer: NetworkLayer {
             completion(.success(response))
         }
     }
-
-    func cancelActiveRequestsIfNeeded() {}
 }
 
 class MockIDProvider: IDProvider {
