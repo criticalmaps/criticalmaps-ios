@@ -9,38 +9,36 @@
 import Foundation
 
 final class UpdateDataOperation: AsyncOperation {
-    private struct SendLocationPostBody: Encodable {
+    private struct SendLocationAndChatMessagesPostBody: Encodable {
         let device: String
-        let location: Location
+        let location: Location?
+        var messages: [SendChatMessage]?
     }
 
-    private let locationProvider: LocationProvider
+    private let locationProvider: LocationProvider?
     private let idProvider: IDProvider
     private let networkLayer: NetworkLayer
+    private var messages: [SendChatMessage]?
 
     var result: (Result<ApiResponse, NetworkError>)?
 
-    init(locationProvider: LocationProvider, idProvider: IDProvider, networkLayer: NetworkLayer) {
+    init(locationProvider: LocationProvider?, idProvider: IDProvider, networkLayer: NetworkLayer, messages: [SendChatMessage]? = nil) {
         self.locationProvider = locationProvider
         self.idProvider = idProvider
         self.networkLayer = networkLayer
+        self.messages = messages
         super.init()
     }
 
     override func main() {
-        guard let currentLocation = locationProvider.currentLocation else {
-            getLocationsAndChatMessages()
-            return
-        }
-
-        let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
+        let body = SendLocationAndChatMessagesPostBody(device: idProvider.id, location: locationProvider?.currentLocation, messages: messages)
         guard let bodyData = try? body.encoded() else {
             result = .failure(.encodingError(body))
             state = .finished
             return
         }
 
-        let request = PostLocationRequest()
+        let request = PostLocationAndChatMessagesRequest()
         networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
             guard let self = self else { return }
 
@@ -50,14 +48,11 @@ final class UpdateDataOperation: AsyncOperation {
     }
 }
 
-private extension UpdateDataOperation {
-    private func getLocationsAndChatMessages() {
-        let request = GetLocationsAndChatMessagesRequest()
-        networkLayer.get(request: request) { [weak self] result in
-            guard let self = self else { return }
-
-            self.result = result
-            self.state = .finished
+extension UpdateDataOperation {
+    func performWithoutQueue(completion: ((Result<ApiResponse, NetworkError>) -> Void)?) {
+        completionBlock = {
+            completion?(self.result!)
         }
+        start()
     }
 }

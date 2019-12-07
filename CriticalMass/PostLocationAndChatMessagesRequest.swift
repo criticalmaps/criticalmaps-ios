@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PostLocationRequest: APIRequestDefining {
+struct PostLocationAndChatMessagesRequest: APIRequestDefining {
     typealias ResponseDataType = ApiResponse
     var endpoint: Endpoint = .default
     var headers: HTTPHeaders? = .contentTypeApplicationJSON

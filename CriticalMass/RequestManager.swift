@@ -10,11 +10,6 @@ import os.log
 
 @available(macOS 10.12, *)
 public class RequestManager {
-    private struct SendMessagePostBody: Codable {
-        var device: String
-        var messages: [SendChatMessage]
-    }
-
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
@@ -79,32 +74,28 @@ public class RequestManager {
     }
 
     public func getData() {
-        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest()
-        networkLayer.get(request: locationsAndMessagesRequest) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-        }
+        UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer)
+            .performWithoutQueue { [weak self] result in
+                guard let self = self else { return }
+                self.defaultCompletion(for: result)
+            }
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
-        let body = SendMessagePostBody(device: idProvider.id, messages: messages)
-        guard let bodyData = try? body.encoded() else {
-            completion(.failure(NetworkError.encodingError(body)))
-            return
-        }
-        let request = PostChatMessagesRequest()
-        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-            onMain {
-                switch result {
-                case let .success(messages):
-                    completion(.success(messages.chatMessages))
-                case let .failure(error):
-                    completion(.failure(error))
+        UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer, messages: messages)
+            .performWithoutQueue { [weak self] result in
+                guard let self = self else { return }
+
+                self.defaultCompletion(for: result)
+                onMain {
+                    switch result {
+                    case let .success(messages):
+                        completion(.success(messages.chatMessages))
+                    case let .failure(error):
+                        completion(.failure(error))
+                    }
                 }
             }
-        }
     }
 }
 
