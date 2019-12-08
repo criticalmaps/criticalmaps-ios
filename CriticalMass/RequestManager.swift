@@ -5,21 +5,11 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
+import Foundation
 import os.log
-
-#if canImport(UIKit)
-    import UIKit
-#else
-    import Foundation
-#endif
 
 @available(macOS 10.12, *)
 public class RequestManager {
-    private struct SendMessagePostBody: Codable {
-        var device: String
-        var messages: [SendChatMessage]
-    }
-
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
@@ -50,13 +40,6 @@ public class RequestManager {
         let updateDataOperation = UpdateDataOperation(locationProvider: locationProvider,
                                                       idProvider: idProvider,
                                                       networkLayer: networkLayer)
-        #if canImport(UIKit)
-            let taskIdentifier = UIApplication.shared.beginBackgroundTask {
-                self.networkLayer.cancelActiveRequestsIfNeeded()
-                updateDataOperation.cancel()
-            }
-        #endif
-
         updateDataOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
 
@@ -64,9 +47,6 @@ public class RequestManager {
                 self.defaultCompletion(for: result)
             }
 
-            #if canImport(UIKit)
-                UIApplication.shared.endBackgroundTask(taskIdentifier)
-            #endif
             self.addUpdateOperation(with: interval)
         }
 
@@ -94,42 +74,28 @@ public class RequestManager {
     }
 
     public func getData() {
-        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest()
-        networkLayer.get(request: locationsAndMessagesRequest) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-        }
+        UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer)
+            .performWithoutQueue { [weak self] result in
+                guard let self = self else { return }
+                self.defaultCompletion(for: result)
+            }
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
-        #if canImport(UIKit)
-            let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
-                completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
-                self.networkLayer.cancelActiveRequestsIfNeeded()
-            }
-        #endif
-        let body = SendMessagePostBody(device: idProvider.id, messages: messages)
-        guard let bodyData = try? body.encoded() else {
-            completion(.failure(NetworkError.encodingError(body)))
-            return
-        }
-        let request = PostChatMessagesRequest()
-        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-            onMain {
-                #if canImport(UIKit)
-                    UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+        UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer, messages: messages)
+            .performWithoutQueue { [weak self] result in
+                guard let self = self else { return }
 
-                #endif
-                switch result {
-                case let .success(messages):
-                    completion(.success(messages.chatMessages))
-                case let .failure(error):
-                    completion(.failure(error))
+                self.defaultCompletion(for: result)
+                onMain {
+                    switch result {
+                    case let .success(messages):
+                        completion(.success(messages.chatMessages))
+                    case let .failure(error):
+                        completion(.failure(error))
+                    }
                 }
             }
-        }
     }
 }
 

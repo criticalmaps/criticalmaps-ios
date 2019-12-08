@@ -48,5 +48,4 @@ public typealias ResultCallback<Value> = (Result<Value, NetworkError>) -> Void
 public protocol NetworkLayer {
     func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>)
     func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>)
-    func cancelActiveRequestsIfNeeded()
 }

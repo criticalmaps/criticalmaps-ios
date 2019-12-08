@@ -5,11 +5,16 @@ public protocol APIRequestDefining {
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
+    var requiresBackgroundTask: Bool { get }
     func makeRequest() -> URLRequest
     func parseResponse(data: Data) throws -> ResponseDataType
 }
 
 extension APIRequestDefining {
+    var requiresBackgroundTask: Bool {
+        false
+    }
+
     func makeRequest() -> URLRequest {
         var request = URLRequest(url: endpoint.url)
         request.httpMethod = httpMethod.rawValue
