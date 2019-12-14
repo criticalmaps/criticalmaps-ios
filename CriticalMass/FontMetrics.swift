@@ -18,7 +18,7 @@ enum FontMetrics {
     /// available.
     ///
     static var scaler: CGFloat {
-        return UIFont.preferredFont(forTextStyle: .body).pointSize / 17.0
+        UIFont.preferredFont(forTextStyle: .body).pointSize / 17.0
     }
 
     /// Returns a version of the specified font that adopts the current font metrics.

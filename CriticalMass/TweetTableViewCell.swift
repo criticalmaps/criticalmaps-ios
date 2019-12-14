@@ -96,7 +96,7 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
 extension TweetTableViewCell: UITextViewDelegate {
     // Opens a link in Safari
     func textView(_: UITextView, shouldInteractWith _: URL, in _: NSRange) -> Bool {
-        return true
+        true
     }
 }
 

@@ -13,6 +13,7 @@ extension String {
     static let rulesTitle = NSLocalizedString("rules.title", comment: "")
     static let error = NSLocalizedString("error", comment: "")
     static let closeButtonLabel = NSLocalizedString("close.button.label", comment: "")
+    static let loadingButtonLabel = NSLocalizedString("loading.barButton.label", comment: "")
     // Settings
     static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
     static let obversationModeTitle = NSLocalizedString("settings.observationmode.title", comment: "")

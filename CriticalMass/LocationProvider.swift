@@ -17,4 +17,6 @@ public enum LocationProviderPermission: String {
 public protocol LocationProvider {
     var currentLocation: Location? { get }
     static var accessPermission: LocationProviderPermission { get }
+
+    func updateLocation(completion: ResultCallback<Location>?)
 }

@@ -32,7 +32,6 @@ let package = Package(
                       "Endpoint.swift",
                       "ErrorHandler.swift",
                       "GCD+Util.swift",
-                      "GetLocationsAndChatMessagesRequest.swift",
                       "HTTPHeaders.swift",
                       "IDProvider.swift",
                       "Location.swift",
@@ -42,10 +41,14 @@ let package = Package(
                       "NetworkDataProvider.swift",
                       "NetworkLayer.swift",
                       "NetworkOperator.swift",
-                      "PostChatMessagesRequest.swift",
-                      "PostLocationRequest.swift",
+                      "PostLocationAndChatMessagesRequest.swift",
                       "RequestManager.swift",
-                      "SendChatMessage.swift"]
+                      "SendChatMessage.swift",
+                      "NetworkObserver.swift",
+                      "WaitOperation.swift",
+                      "UpdateLocationOperation.swift",
+                      "UpdateDataOperation.swift",
+                      "AsyncOperation.swift"]
         ),
     ]
 )

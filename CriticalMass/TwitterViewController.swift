@@ -79,6 +79,6 @@ private extension TwitterViewController {
 
 private extension Tweet {
     var webURL: URL? {
-        return URL(string: "https://twitter.com/\(user.screen_name)/status/\(id_str)")
+        URL(string: "https://twitter.com/\(user.screen_name)/status/\(id_str)")
     }
 }

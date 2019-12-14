@@ -10,12 +10,20 @@
 import XCTest
 
 class MockLocationProvider: LocationProvider {
+    func updateLocation(completion: ResultCallback<Location>?) {
+        if let location = mockLocation {
+            completion?(.success(location))
+        } else {
+            completion?(.failure(.noData(nil)))
+        }
+    }
+
     static var accessPermission: LocationProviderPermission = .authorized
 
     var mockLocation: Location?
 
     var currentLocation: Location? {
-        return mockLocation
+        mockLocation
     }
 }
 
@@ -24,7 +32,7 @@ class MockNetworkLayer: NetworkLayer {
     var shouldReturnResponse = true
     var lastUsedPostBody: [String: Any]?
     var numberOfRequests: Int {
-        return numberOfGetCalled + numberOfPostCalled
+        numberOfGetCalled + numberOfPostCalled
     }
 
     var numberOfGetCalled = 0
@@ -52,8 +60,6 @@ class MockNetworkLayer: NetworkLayer {
             completion(.success(response))
         }
     }
-
-    func cancelActiveRequestsIfNeeded() {}
 }
 
 class MockIDProvider: IDProvider {
@@ -69,7 +75,7 @@ class MockIDProvider: IDProvider {
     }
 
     static func hash(id: String, currentDate _: Date) -> String {
-        return id
+        id
     }
 }
 
@@ -77,6 +83,16 @@ class MockDataStore: DataStore {
     var storedData: ApiResponse?
     func update(with response: ApiResponse) {
         storedData = response
+    }
+}
+
+class MockNetworkObserver: NetworkObserver {
+    var status: NetworkStatus = .none
+    var statusUpdateHandler: ((NetworkStatus) -> Void)?
+
+    func update(with status: NetworkStatus) {
+        self.status = status
+        statusUpdateHandler?(status)
     }
 }
 

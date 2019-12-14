@@ -7,25 +7,34 @@
 
 import UIKit
 
-class ChatViewController: UIViewController, ChatInputDelegate {
+protocol ChatInputDelegate: AnyObject {
+    func didTapSendButton(text: String, completionHandler: ChatViewController.CompletionHandler?)
+}
+
+class ChatViewController: UIViewController {
+    typealias CompletionHandler = (Bool) -> Void
     private enum Constants {
-        static let chatInputHeight: CGFloat = 64
+        static let chatInputHeight: CGFloat = 180
     }
 
-    private let chatInput = ChatInputView(frame: .zero)
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>(style: .plain)
     private let chatManager: ChatManager
+    private let chatInputViewController = ChatInputViewController.fromNib()
     private lazy var chatInputBottomConstraint = {
-        NSLayoutConstraint(item: chatInput, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        NSLayoutConstraint(item: chatInputViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
 
     private lazy var chatInputHeightConstraint = {
-        chatInput.heightAnchor.constraint(equalToConstant: Constants.chatInputHeight)
+        chatInputViewController.view!.heightAnchor.constraint(lessThanOrEqualToConstant: Constants.chatInputHeight)
     }()
+
+    // ContentState
+    weak var chatMessageActivityDelegate: ChatMessageActivityDelegate?
 
     init(chatManager: ChatManager) {
         self.chatManager = chatManager
         super.init(nibName: nil, bundle: nil)
+        chatInputViewController.delegate = self
     }
 
     required init?(coder _: NSCoder) {
@@ -42,7 +51,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        chatInput.resignFirstResponder()
+        chatInputViewController.resignFirstResponder()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -66,27 +75,26 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             self?.messagesTableViewController.update(messages: messages)
         }
 
-        addChild(messagesTableViewController)
-        view.addSubview(messagesTableViewController.view)
-        messagesTableViewController.didMove(toParent: self)
+        add(messagesTableViewController)
         messagesTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
         view.addConstraints([
             NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .topMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messagesTableViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: chatInput, attribute: .top, multiplier: 1, constant: 0),
+            messagesTableViewController.view!.widthAnchor.constraint(equalTo: view.widthAnchor),
+            messagesTableViewController.view!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messagesTableViewController.view!.bottomAnchor.constraint(equalTo: chatInputViewController.view!.topAnchor),
         ])
     }
 
     private func configureChatInput() {
-        chatInput.delegate = self
-        view.addSubview(chatInput)
+        chatInputViewController.delegate = self
+        chatInputViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        add(chatInputViewController)
 
         view.addConstraints([
             chatInputHeightConstraint,
-            NSLayoutConstraint(item: chatInput, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: chatInput, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            chatInputViewController.view!.widthAnchor.constraint(equalTo: view.widthAnchor),
+            chatInputViewController.view!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             chatInputBottomConstraint,
         ])
     }
@@ -105,7 +113,7 @@ class ChatViewController: UIViewController, ChatInputDelegate {
     }
 
     @objc private func didTapTableView() {
-        chatInput.resignFirstResponder()
+        chatInputViewController.resignFirstResponder()
     }
 
     // MARK: Keyboard Handling
@@ -132,24 +140,27 @@ class ChatViewController: UIViewController, ChatInputDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+}
 
-    // MARK: ChatInputDelegate
+// MARK: ChatInputDelegate
 
-    func didTapSendButton(text: String) {
-        let indicator = LoadingIndicator.present(in: view)
-        chatManager.send(message: text) { result in
-            indicator.dismiss()
+extension ChatViewController: ChatInputDelegate {
+    func didTapSendButton(text: String, completionHandler: CompletionHandler? = nil) {
+        chatMessageActivityDelegate?.isSendingChatMessage(true)
+        chatManager.send(message: text) { [weak self] result in
+            self?.chatMessageActivityDelegate?.isSendingChatMessage(false)
             switch result {
             case .success:
-                self.chatInput.resetInput()
+                completionHandler?(true)
             case .failure:
+                completionHandler?(false)
                 let alert = UIAlertController(title: String.error,
                                               message: String.chatSendError,
                                               preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok",
                                               style: .default,
                                               handler: nil))
-                self.present(alert, animated: true)
+                self?.present(alert, animated: true)
             }
         }
     }

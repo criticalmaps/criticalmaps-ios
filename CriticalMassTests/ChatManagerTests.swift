@@ -12,7 +12,7 @@ class ChatManagerTests: XCTestCase {
     func getSetup() -> (chatManager: ChatManager, networkLayer: MockNetworkLayer, dataStore: DataStore) {
         let networkLayer = MockNetworkLayer()
         let dataStore = MemoryDataStore()
-        let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, idProvider: MockIDProvider())
+        let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, idProvider: MockIDProvider(), networkObserver: nil)
         let chatManager = ChatManager(requestManager: requestManager)
         return (chatManager, networkLayer, dataStore)
     }
@@ -155,9 +155,9 @@ class ChatManagerTests: XCTestCase {
 
     func testGetChatMessagesWithoutCache() {
         let setup = getSetup()
-        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+        XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
         _ = setup.chatManager.getMessages()
-        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
+        XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 1)
     }
 
     func testGetChatMessagesWithCache() {

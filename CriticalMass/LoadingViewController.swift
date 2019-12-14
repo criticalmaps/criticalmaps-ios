@@ -9,7 +9,11 @@
 import UIKit
 
 class LoadingViewController: UIViewController, IBConstructable {
-    @IBOutlet var logoView: CMLogoActivityView!
+    @IBOutlet var logoView: CMLogoActivityView! {
+        didSet {
+            logoView.layer.masksToBounds = true
+        }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

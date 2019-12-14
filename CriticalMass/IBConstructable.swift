@@ -16,15 +16,15 @@ protocol IBConstructable {
 
 extension IBConstructable where Self: UIView {
     static var nibName: String {
-        return typeName
+        typeName
     }
 
     static var bundle: Bundle {
-        return Bundle(for: Self.self)
+        Bundle(for: Self.self)
     }
 
     static var nib: UINib {
-        return UINib(nibName: nibName, bundle: bundle)
+        UINib(nibName: nibName, bundle: bundle)
     }
 }
 
@@ -34,15 +34,15 @@ extension IBConstructable where Self: UIViewController {
     }
 
     static var nibName: String {
-        return typeName
+        typeName
     }
 
     static var bundle: Bundle {
-        return Bundle(for: Self.self)
+        Bundle(for: Self.self)
     }
 
     static var nib: UINib {
-        return UINib(nibName: nibName, bundle: bundle)
+        UINib(nibName: nibName, bundle: bundle)
     }
 }
 

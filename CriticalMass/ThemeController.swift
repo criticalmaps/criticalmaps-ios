@@ -100,11 +100,7 @@ class ThemeController {
         TweetTableViewCell.appearance().userameTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         UITextView.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
-        ChatInputView.appearance().backgroundColor = theme.backgroundColor
-        ChatInputView.appearance().textViewTextColor = theme.titleTextColor
-        ChatInputView.appearance().sendMessageButtonColor = theme.titleTextColor
-        TextFieldWithInsets.appearance().textFieldBackgroundColor = theme.chatMessageInputTextViewBackgroundColor
-        TextFieldWithInsets.appearance().placeholderTextColor = theme.placeholderTextColor
+        UIButton.appearance(whenContainedInInstancesOf: [ChatInputViewController.self]).tintColor = theme.backgroundColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
         ChatMessageTableViewCell.appearance().chatTextColor = theme.secondaryTitleTextColor
         // UIToolBar
@@ -114,12 +110,13 @@ class ThemeController {
         UIView.appearance(whenContainedInInstancesOf: [LoadingViewController.self]).backgroundColor = theme.backgroundColor
         UIView.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = theme.backgroundColor
         UIButton.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = .cmYellow
+        SendButton.appearance().sendMessageButtonBGColor = theme.titleTextColor
+        ChatBackGroundView.appearance().backgroundColor = theme.chatInputBackgroundColor
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
         SeparatorView.appearance().backgroundColor = theme.separatorColor
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
-        UITextField.appearance().keyboardAppearance = theme.keyboardAppearance
         // NavigationBar
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = theme.titleTextColor
