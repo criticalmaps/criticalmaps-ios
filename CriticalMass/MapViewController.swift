@@ -61,6 +61,8 @@ class MapViewController: UIViewController {
             .forEach(mapView.register)
 
         setNeedsStatusBarAppearanceUpdate()
+
+        presentMapInfo(with: MapInfoView.Configuration(title: "Foo", style: .info))
     }
 
     private func configureTileRenderer() {

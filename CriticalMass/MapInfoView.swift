@@ -23,10 +23,20 @@ class MapInfoView: UIView, IBConstructable {
     @IBOutlet private var label: UILabel!
 
     @objc
-    dynamic var mapInfoForegroundColor: UIColor = .black
+    dynamic var mapInfoForegroundColor: UIColor = .black {
+        didSet {
+            updateStyle()
+        }
+    }
 
     @objc
-    dynamic var mapInfoBackgroundColor: UIColor = .white
+    dynamic var mapInfoBackgroundColor: UIColor = .white {
+        didSet {
+            updateStyle()
+        }
+    }
+
+    private var configuration: Configuration?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,11 +51,19 @@ class MapInfoView: UIView, IBConstructable {
     }
 
     func configure(with configuration: Configuration) {
+        self.configuration = configuration
         label.text = configuration.title
 
         imageView.image = UIImage(named: configuration.style.rawValue)
 
         accessibilityValue = configuration.title
+        updateStyle()
+    }
+
+    private func updateStyle() {
+        guard let configuration = configuration else {
+            return
+        }
         let foregroundColor: UIColor
         switch configuration.style {
         case .alert:
@@ -55,6 +73,7 @@ class MapInfoView: UIView, IBConstructable {
         case .info:
             foregroundColor = mapInfoForegroundColor
             backgroundColor = mapInfoBackgroundColor
+            accessibilityLabel = ""
         }
         imageView.tintColor = foregroundColor
         label.textColor = foregroundColor
