@@ -43,7 +43,7 @@ class ThemeController {
         styleRulesComponents(with: theme)
         styleSettingsComponents(with: theme)
         styleNavigationOverlayComponents(with: theme)
-        styleBlurredOverlayComponents(with: theme)
+        styleMapComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
         NoContentTitleLabel.appearance().messageTextColor = theme.titleTextColor
         NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
@@ -145,9 +145,12 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
     }
 
-    private func styleBlurredOverlayComponents(with theme: ThemeDefining) {
-        BlurryOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
-        BlurryOverlayView.appearance().gradientEndColor = theme.gradientEndColor
+    private func styleMapComponents(with theme: ThemeDefining) {
+        BlurryFullscreenOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
+        BlurryFullscreenOverlayView.appearance().gradientEndColor = theme.gradientEndColor
+
+        MapInfoView.appearance().mapInfoForegroundColor = theme.mapInfoForegroundColor
+        MapInfoView.appearance().mapInfoBackgroundColor = theme.mapInfoBackgroundColor
     }
 }
 

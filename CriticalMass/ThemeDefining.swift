@@ -28,6 +28,8 @@ protocol ThemeDefining {
     var statusBarStyle: UIStatusBarStyle { get }
     var gradientBeginColor: UIColor { get }
     var gradientEndColor: UIColor { get }
+    var mapInfoForegroundColor: UIColor { get }
+    var mapInfoBackgroundColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -102,6 +104,14 @@ struct LightTheme: ThemeDefining {
     var gradientEndColor: UIColor {
         return .lightThemeGradientEnd
     }
+
+    var mapInfoBackgroundColor: UIColor {
+        return .gray600
+    }
+
+    var mapInfoForegroundColor: UIColor {
+        return .gray200
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -175,5 +185,13 @@ struct DarkTheme: ThemeDefining {
 
     var gradientEndColor: UIColor {
         return .darkThemeGradientEnd
+    }
+
+    var mapInfoBackgroundColor: UIColor {
+        return .gray300
+    }
+
+    var mapInfoForegroundColor: UIColor {
+        return .white
     }
 }

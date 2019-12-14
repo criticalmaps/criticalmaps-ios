@@ -30,8 +30,8 @@
 		9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* String+LocalizedStrings.swift */; };
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
-		943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */; };
-		943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */; };
+		943B2DC622B22EB300B67827 /* BlurryFullscreenOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryFullscreenOverlayView.swift */; };
+		943B2DC722B22EB300B67827 /* BlurryFullscreenOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943B2DC522B22EB300B67827 /* BlurryFullscreenOverlayView.xib */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
 		945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */; };
 		945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */; };
@@ -134,6 +134,8 @@
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		986749F8235230CB00BF5D6E /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 986749F7235230CB00BF5D6E /* Crypto */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
+		987C57A123A425CF0060499B /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A023A425CF0060499B /* MapInfoView.swift */; };
+		987C57A323A425EA0060499B /* MapInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A223A425EA0060499B /* MapInfoView.xib */; };
 		987E3BD82368C6E100BAEFE7 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */; };
 		987E3BDB2368C7E700BAEFE7 /* MemoryDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E3BD92368C79D00BAEFE7 /* MemoryDataStoreTests.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
@@ -212,8 +214,8 @@
 		9409274C22841E160034E46B /* String+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
-		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
-		943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryOverlayView.xib; sourceTree = "<group>"; };
+		943B2DC422B22EB300B67827 /* BlurryFullscreenOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryFullscreenOverlayView.swift; sourceTree = "<group>"; };
+		943B2DC522B22EB300B67827 /* BlurryFullscreenOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryFullscreenOverlayView.xib; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
@@ -322,6 +324,8 @@
 		9853B510237E101300F46AB6 /* BikeAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationController.swift; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		987C57A023A425CF0060499B /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
+		987C57A223A425EA0060499B /* MapInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapInfoView.xib; sourceTree = "<group>"; };
 		987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		987E3BD92368C79D00BAEFE7 /* MemoryDataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStoreTests.swift; sourceTree = "<group>"; };
 		988B12AC22A271FE0010FAED /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -564,32 +568,17 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
-				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
-				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
-				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
-				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
-				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
-				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
+				987C579F23A424BA0060499B /* Map */,
+				987C579E23A424A40060499B /* Social */,
 				9485A93B23756A81006DC7B5 /* CMLogoActivityView.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
-				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
-				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
-				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
-				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
+				987C579D23A4248F0060499B /* Rules */,
 				98E7338C22039511005F311F /* Settings */,
-				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
-				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
-				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
-				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
 				9804176221FBDD580077D419 /* TextFieldWithInsets.swift */,
-				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
-				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
-				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -755,6 +744,43 @@
 			name = Social;
 			sourceTree = "<group>";
 		};
+		987C579D23A4248F0060499B /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
+				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
+				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
+			);
+			name = Rules;
+			sourceTree = "<group>";
+		};
+		987C579E23A424A40060499B /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				98401AF621FBCA1100064DAE /* ChatInputView.swift */,
+				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
+				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
+				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
+				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
+				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
+			);
+			name = Social;
+			sourceTree = "<group>";
+		};
+		987C579F23A424BA0060499B /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
+				943B2DC422B22EB300B67827 /* BlurryFullscreenOverlayView.swift */,
+				943B2DC522B22EB300B67827 /* BlurryFullscreenOverlayView.xib */,
+				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
+				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
+				987C57A023A425CF0060499B /* MapInfoView.swift */,
+				987C57A223A425EA0060499B /* MapInfoView.xib */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
 		989F9FEF21C7E5FC00E71085 /* Rules */ = {
 			isa = PBXGroup;
 			children = (
@@ -767,6 +793,10 @@
 		98E7338C22039511005F311F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
+				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
+				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
+				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
 				982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */,
 				982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */,
 				98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */,
@@ -956,9 +986,10 @@
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */,
 				9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */,
-				943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */,
+				943B2DC722B22EB300B67827 /* BlurryFullscreenOverlayView.xib in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
+				987C57A323A425EA0060499B /* MapInfoView.xib in Resources */,
 				9485A93423756A53006DC7B5 /* ErrorStateViewController.xib in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
 				946CDE0422412DA60059F892 /* Settings.bundle in Resources */,
@@ -1113,7 +1144,7 @@
 				9804176321FBDD580077D419 /* TextFieldWithInsets.swift in Sources */,
 				949172112300A6AB008B98AD /* GetLocationsAndChatMessagesRequest.swift in Sources */,
 				9485A93323756A53006DC7B5 /* ErrorStateViewController.swift in Sources */,
-				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
+				943B2DC622B22EB300B67827 /* BlurryFullscreenOverlayView.swift in Sources */,
 				75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */,
@@ -1157,6 +1188,7 @@
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
 				98329A1F22D3BEA000A157EE /* KeychainHelper.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
+				987C57A123A425CF0060499B /* MapInfoView.swift in Sources */,
 				9853B50F237E0E8D00F46AB6 /* MKMapView+Register.swift in Sources */,
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,

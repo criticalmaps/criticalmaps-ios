@@ -27,7 +27,7 @@ class RoundedButton: UIButton {
     }
 }
 
-class BlurryOverlayView: UIView, IBConstructable {
+class BlurryFullscreenOverlayView: UIView, IBConstructable {
     @objc
     dynamic var gradientBeginColor: UIColor = .black {
         didSet {
