@@ -111,11 +111,11 @@ struct LightTheme: ThemeDefining {
     }
 
     var mapInfoBackgroundColor: UIColor {
-        return .gray600
+        .gray600
     }
 
     var mapInfoForegroundColor: UIColor {
-        return .gray200
+        .gray200
     }
 }
 
@@ -197,10 +197,10 @@ struct DarkTheme: ThemeDefining {
     }
 
     var mapInfoBackgroundColor: UIColor {
-        return .gray300
+        .gray300
     }
 
     var mapInfoForegroundColor: UIColor {
-        return .white
+        .white
     }
 }
