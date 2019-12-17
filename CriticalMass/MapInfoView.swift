@@ -40,12 +40,7 @@ class MapInfoView: UIView, IBConstructable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 18
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.2
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-
+        layer.setupMapOverlayConfiguration()
         label.isAccessibilityElement = false
         label.adjustsFontForContentSizeCategory = true
     }

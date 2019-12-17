@@ -144,6 +144,7 @@
 		987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A523A4EAF80060499B /* MapInfoView.xib */; };
 		987C57AA23A4EB290060499B /* BlurryFullscreenOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */; };
 		987C57AB23A4EB290060499B /* BlurryFullscreenOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */; };
+		987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57AC23A941A60060499B /* CALayer+Shadow.swift */; };
 		987E3BD82368C6E100BAEFE7 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */; };
 		987E3BDB2368C7E700BAEFE7 /* MemoryDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E3BD92368C79D00BAEFE7 /* MemoryDataStoreTests.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
@@ -341,6 +342,7 @@
 		987C57A523A4EAF80060499B /* MapInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapInfoView.xib; sourceTree = "<group>"; };
 		987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryFullscreenOverlayView.swift; sourceTree = "<group>"; };
 		987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryFullscreenOverlayView.xib; sourceTree = "<group>"; };
+		987C57AC23A941A60060499B /* CALayer+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		987E3BD92368C79D00BAEFE7 /* MemoryDataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStoreTests.swift; sourceTree = "<group>"; };
 		988B12AC22A271FE0010FAED /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				210367BB237AAE2F001F2A84 /* PathObserver.swift */,
 				9844438023429354005468B2 /* UIView+Autolayout.swift */,
 				9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */,
+				987C57AC23A941A60060499B /* CALayer+Shadow.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1177,6 +1180,7 @@
 				98205F692207937100122EDA /* AppController.swift in Sources */,
 				9838F28C227B768A00744EDD /* IDProvider.swift in Sources */,
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
+				987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */,
 				987C57AA23A4EB290060499B /* BlurryFullscreenOverlayView.swift in Sources */,
 				940643D62307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift in Sources */,
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
