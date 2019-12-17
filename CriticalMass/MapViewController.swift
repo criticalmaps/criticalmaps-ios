@@ -91,10 +91,9 @@ class MapViewController: UIViewController {
         dismissMapInfo()
 
         let view = MapInfoView.fromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.configure(with: configuration)
         self.view.addSubview(view)
-
-        view.translatesAutoresizingMaskIntoConstraints = false
 
         let topAnchor: NSLayoutYAxisAnchor
         if #available(iOS 11.0, *) {
