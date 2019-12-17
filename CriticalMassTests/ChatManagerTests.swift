@@ -155,9 +155,9 @@ class ChatManagerTests: XCTestCase {
 
     func testGetChatMessagesWithoutCache() {
         let setup = getSetup()
-        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+        XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
         _ = setup.chatManager.getMessages()
-        XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
+        XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 1)
     }
 
     func testGetChatMessagesWithCache() {

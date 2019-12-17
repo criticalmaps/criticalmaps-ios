@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if canImport(UIKit)
+    import UIKit
+#endif
+
 public struct NetworkOperator: NetworkLayer {
     private let dataProvider: NetworkDataProvider
     private var networkIndicatorHelper: NetworkActivityIndicatorHelper?
@@ -32,7 +36,16 @@ public struct NetworkOperator: NetworkLayer {
     }
 
     private func dataTaskHandler<T: APIRequestDefining>(request: T, urlRequest: URLRequest, completion: @escaping ResultCallback<T.ResponseDataType>) {
+        #if canImport(UIKit)
+            let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
+                completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
+                self.cancelActiveRequestsIfNeeded()
+            }
+        #endif
         dataTask(with: urlRequest) { result in
+            #if canImport(UIKit)
+                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+            #endif
             switch result {
             case let .failure(error):
                 completion(.failure(error))

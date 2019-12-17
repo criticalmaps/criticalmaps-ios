@@ -99,8 +99,8 @@ class RequestManagerTests: XCTestCase {
 
         let exp = expectation(description: "Wait a second")
         wait(interval: 1) {
-            XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
-            XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
+            XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+            XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 1)
 
             exp.fulfill()
         }
@@ -132,8 +132,8 @@ class RequestManagerTests: XCTestCase {
 
             setup.networkObserver.update(with: .satisfied)
             self.wait(interval: 1) {
-                XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 1)
-                XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
+                XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+                XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 1)
 
                 exp.fulfill()
             }
