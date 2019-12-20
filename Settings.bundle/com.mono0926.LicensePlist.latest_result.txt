@@ -1,6 +1,6 @@
 name: Crypto, nameSpecified: , owner: soffes, version: 0.6.0
 
-name: GrowingTextView, nameSpecified: , owner: mltbnz, version: 0.7.2
+name: GrowingTextView, nameSpecified: , owner: KennethTsang, version: 0.7.2
 
 name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.3.3
 
