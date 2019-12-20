@@ -28,6 +28,8 @@ protocol ThemeDefining {
     var statusBarStyle: UIStatusBarStyle { get }
     var gradientBeginColor: UIColor { get }
     var gradientEndColor: UIColor { get }
+    var mapInfoForegroundColor: UIColor { get }
+    var mapInfoBackgroundColor: UIColor { get }
     var chatInputBackgroundColor: UIColor { get }
 }
 
@@ -107,6 +109,14 @@ struct LightTheme: ThemeDefining {
     var chatInputBackgroundColor: UIColor {
         .gray500
     }
+
+    var mapInfoBackgroundColor: UIColor {
+        .gray600
+    }
+
+    var mapInfoForegroundColor: UIColor {
+        .gray200
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -184,5 +194,13 @@ struct DarkTheme: ThemeDefining {
 
     var chatInputBackgroundColor: UIColor {
         .gray100
+    }
+
+    var mapInfoBackgroundColor: UIColor {
+        .gray300
+    }
+
+    var mapInfoForegroundColor: UIColor {
+        .white
     }
 }
