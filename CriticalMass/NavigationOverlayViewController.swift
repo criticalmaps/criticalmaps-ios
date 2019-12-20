@@ -74,6 +74,7 @@ class NavigationOverlayViewController: UIViewController {
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
         view.layer.cornerRadius = 18
+        view.accessibilityTraits.insert(.tabBar)
     }
 
     private func configure(items: [NavigationOverlayItem]) {
