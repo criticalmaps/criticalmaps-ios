@@ -40,10 +40,10 @@
 		9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */; };
 		9455CE8F2397ACE200DED561 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8C2397ACE200DED561 /* SendButton.swift */; };
 		9455CE902397ACE300DED561 /* ChatInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */; };
-		9455CE932397AD0B00DED561 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 9455CE922397AD0B00DED561 /* GrowingTextView */; };
 		945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */; };
 		945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
+		9468D5C323ACFB0B002AABD0 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 9468D5C223ACFB0B002AABD0 /* GrowingTextView */; };
 		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
 		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
 		9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9474E977224CF60500A812DC /* SettingsFooterView.xib */; };
@@ -400,7 +400,7 @@
 				986749F8235230CB00BF5D6E /* Crypto in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				98F1D928232AB029000F4E82 /* (null) in Frameworks */,
-				9455CE932397AD0B00DED561 /* GrowingTextView in Frameworks */,
+				9468D5C323ACFB0B002AABD0 /* GrowingTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,7 +874,7 @@
 			packageProductDependencies = (
 				986749F7235230CB00BF5D6E /* Crypto */,
 				9831A53F236CC52300BEB0C9 /* SDWebImage */,
-				9455CE922397AD0B00DED561 /* GrowingTextView */,
+				9468D5C223ACFB0B002AABD0 /* GrowingTextView */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -955,7 +955,7 @@
 				986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */,
 				7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				9455CE912397AD0B00DED561 /* XCRemoteSwiftPackageReference "GrowingTextView" */,
+				9468D5C123ACFB0B002AABD0 /* XCRemoteSwiftPackageReference "GrowingTextView" */,
 			);
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
 			projectDirPath = "";
@@ -1689,9 +1689,9 @@
 				minimumVersion = 1.6.0;
 			};
 		};
-		9455CE912397AD0B00DED561 /* XCRemoteSwiftPackageReference "GrowingTextView" */ = {
+		9468D5C123ACFB0B002AABD0 /* XCRemoteSwiftPackageReference "GrowingTextView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mltbnz/GrowingTextView";
+			repositoryURL = "https://github.com/KennethTsang/GrowingTextView";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.7.2;
@@ -1721,9 +1721,9 @@
 			package = 7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
 		};
-		9455CE922397AD0B00DED561 /* GrowingTextView */ = {
+		9468D5C223ACFB0B002AABD0 /* GrowingTextView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9455CE912397AD0B00DED561 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
+			package = 9468D5C123ACFB0B002AABD0 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
 			productName = GrowingTextView;
 		};
 		980EA84F236F460900E9EF18 /* SDWebImage */ = {
