@@ -15,3 +15,15 @@ jobs:
       name: SnapshotTests
     - script: swift build
       name: SPM
+      - script: bundle exec fastlane test
+      name: UnitTests1
+    - script: bundle exec fastlane test
+      name: UnitTests2
+    - script: bundle exec fastlane test
+      name: UnitTests3
+    - script: bundle exec fastlane test
+      name: UnitTests4
+    - script: bundle exec fastlane test
+      name: UnitTests5
+    - script: bundle exec fastlane test
+      name: UnitTests6
