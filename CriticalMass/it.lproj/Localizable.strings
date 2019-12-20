@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Al momento nessuno sta chattando... comincia tu!";
 
@@ -6,7 +5,7 @@
 "chat.placeholder" = "Messaggio ...";
 
 /* No comment provided by engineer. */
-"chat.send" = "Invia";
+"chat.send" = "invia";
 
 /* No comment provided by engineer. */
 "chat.send.error" = "Il messaggio non è stato potuto essere inviato. Si prega di riprovare.";
@@ -15,28 +14,34 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"close.button.label" = "chiudere";
+
+/* No comment provided by engineer. */
 "error" = "Errore";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS disattivato";
+"errorState.message" = "Spiacente, qualcosa è andato storto";
+
+/* ErrorState */
+"errorState.title" = "Errore";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps deve utilizzare il GPS per mostrare la mappa con altri utenti attivi";
 
 /* No comment provided by engineer. */
-"map.locationButton.label" = "posizionamento";
+"map.layer.info.title" = "GPS disattivato";
+
+/* No comment provided by engineer. */
+"map.locationButton.label" = "Posizionamento";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
-"rules.source" = "Immagini di criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
-
-/* No comment provided by engineer. */
 "rules.text.brake" = "Evita di fermarti all'improvviso. Se non c'è altro modo, cerca di mettere in guardia chi ti sta dietro con un gesto delle mani.";
 
 /* No comment provided by engineer. */
-"rules.text.contraflow" = "Fai attenzione a non guidare contromano!";
+"rules.text.contraflow" = "Fai attenzione a non guidare contromano.";
 
 /* No comment provided by engineer. */
 "rules.text.cork" = "Proteggi i motociclisti da se stessi, creando un ingorgo!\n\nPer mantenere la coesione del gruppo, blocca il traffico dalle strade laterali per fare in modo che la massa possa passare i semafori rossi senza interruzioni.";
@@ -57,7 +62,7 @@
 "rules.title" = "Regole";
 
 /* No comment provided by engineer. */
-"rules.title.brake" = "Non frenare bruscamente!";
+"rules.title.brake" = "Non frenare bruscamente";
 
 /* No comment provided by engineer. */
 "rules.title.contraflow" = "Fai attenzione al traffico in arrivo";
@@ -69,7 +74,7 @@
 "rules.title.gently" = "Guida con calma!";
 
 /* No comment provided by engineer. */
-"rules.title.green" = "In testa al gruppo, solo col verde";
+"rules.title.green" = "In testa al gruppo, solo col verde!";
 
 /* No comment provided by engineer. */
 "rules.title.haveFun" = "Divertiti!";
@@ -80,20 +85,13 @@
 /* No comment provided by engineer. */
 "settings.about" = "Crediti";
 
-
-"settings.appDesign" = "Design";
+"settings.appDesign" = "Conception";
 
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlino";
 
 /* No comment provided by engineer. */
 "settings.donate" = "Supporta i costi del server";
-
-/* No comment provided by engineer. */
-"settings.observationmode.title" = "Modalità di osservazione";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "Se non partecipi, ma vuoi seguire la Critical Mass.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -106,6 +104,12 @@
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Design del logo";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "Se non partecipi, ma vuoi seguire la Critical Mass.";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Modalità di osservazione";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
@@ -128,6 +132,9 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
 
+/* Theme */
+"settings.theme" = "Modalità Notturna";
+
 /* No comment provided by engineer. */
 "settings.title" = "Impostazioni";
 
@@ -142,9 +149,3 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-
-/* No comment provided by engineer. */
-"close.button.label" = "chiudere";
-
-/* Theme */
-"settings.theme" = "Modalità Notturna"; /*https://translate.google.de/#view=home&op=translate&sl=en&tl=it&text=night%20mode*/
