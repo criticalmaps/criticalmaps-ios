@@ -48,8 +48,6 @@
 		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
 		9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9474E977224CF60500A812DC /* SettingsFooterView.xib */; };
 		9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E979224D027900A812DC /* Bundle+Version.swift */; };
-		94829427238AA39C00338E7F /* BikeAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94829424238AA39C00338E7F /* BikeAnnotationController.swift */; };
-		94829428238AA39C00338E7F /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94829425238AA39C00338E7F /* AnnotationController.swift */; };
 		94829429238AA39D00338E7F /* MKMapView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94829426238AA39C00338E7F /* MKMapView+Register.swift */; };
 		948509A322C09F9A0034FAF1 /* UIViewController+Management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */; };
 		9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9485A92E23756A53006DC7B5 /* LoadingViewController.xib */; };
@@ -136,7 +134,6 @@
 		9843FAA3236CDC0D00457930 /* NetworkOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */; };
 		9843FAA5236CDC6E00457930 /* MockNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA4236CDC6E00457930 /* MockNetworkDataProvider.swift */; };
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
-		9853B50F237E0E8D00F46AB6 /* MKMapView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */; };
 		9853B511237E101300F46AB6 /* BikeAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9853B510237E101300F46AB6 /* BikeAnnotationController.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		986749F8235230CB00BF5D6E /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 986749F7235230CB00BF5D6E /* Crypto */; };
@@ -485,7 +482,6 @@
 				98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */,
 				98329A1E22D3BEA000A157EE /* KeychainHelper.swift */,
 				988B12AC22A271FE0010FAED /* Logger.swift */,
-				9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */,
 				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				210367B9237AACC6001F2A84 /* NetworkObserver.swift */,
 				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
@@ -913,7 +909,7 @@
 			attributes = {
 				CLASSPREFIX = PL;
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Pokus Labs";
 				TargetAttributes = {
 					3F137FAE2349CB8C006B26AB = {
@@ -1163,7 +1159,6 @@
 				210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
-				94829428238AA39C00338E7F /* AnnotationController.swift in Sources */,
 				940643D82307270B00AB1BCB /* GCD+Util.swift in Sources */,
 				94FCBD32226C57FA00F93F94 /* ThemeStore.swift in Sources */,
 				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
@@ -1176,7 +1171,6 @@
 				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
-				94829427238AA39C00338E7F /* BikeAnnotationController.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
 				98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */,
@@ -1211,7 +1205,6 @@
 				94FCBD3D226C583F00F93F94 /* SettingsTableSectionHeader.swift in Sources */,
 				98329A1F22D3BEA000A157EE /* KeychainHelper.swift in Sources */,
 				989F9FF421C7E64900E71085 /* RulesDetailViewController.swift in Sources */,
-				9853B50F237E0E8D00F46AB6 /* MKMapView+Register.swift in Sources */,
 				9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */,
 				981C7893225F95900009FC3E /* ChatNavigationButtonController.swift in Sources */,
 				98003D4922872C1800592D55 /* URLCodable.swift in Sources */,
