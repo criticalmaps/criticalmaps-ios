@@ -70,6 +70,7 @@ class NavigationOverlayViewController: UIViewController {
     private func configureViewBackground() {
         view.insertSubview(visualEffectView, at: 0)
         view.layer.setupMapOverlayConfiguration()
+        view.accessibilityTraits.insert(.tabBar)
     }
 
     private func configure(items: [NavigationOverlayItem]) {
