@@ -15,7 +15,7 @@ jobs:
       name: SnapshotTests
     - script: swift build
       name: SPM
-      - script: bundle exec fastlane test
+    - script: bundle exec fastlane test
       name: UnitTests1
     - script: bundle exec fastlane test
       name: UnitTests2
