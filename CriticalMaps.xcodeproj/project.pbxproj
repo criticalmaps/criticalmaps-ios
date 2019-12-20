@@ -35,8 +35,6 @@
 		9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* String+LocalizedStrings.swift */; };
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
-		943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */; };
-		943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
 		9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */; };
 		9455CE8F2397ACE200DED561 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8C2397ACE200DED561 /* SendButton.swift */; };
@@ -142,6 +140,12 @@
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		986749F8235230CB00BF5D6E /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 986749F7235230CB00BF5D6E /* Crypto */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
+		987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A423A4EAF80060499B /* MapInfoView.swift */; };
+		987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A523A4EAF80060499B /* MapInfoView.xib */; };
+		987C57AA23A4EB290060499B /* BlurryFullscreenOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */; };
+		987C57AB23A4EB290060499B /* BlurryFullscreenOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */; };
+		987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57AC23A941A60060499B /* CALayer+Shadow.swift */; };
+		987C57AF23A952AC0060499B /* MapInfoViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */; };
 		987E3BD82368C6E100BAEFE7 /* MemoryDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */; };
 		987E3BDB2368C7E700BAEFE7 /* MemoryDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987E3BD92368C79D00BAEFE7 /* MemoryDataStoreTests.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
@@ -225,8 +229,6 @@
 		9409274C22841E160034E46B /* String+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
-		943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryOverlayView.swift; sourceTree = "<group>"; };
-		943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryOverlayView.xib; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInputViewController.xib; sourceTree = "<group>"; };
 		9455CE8C2397ACE200DED561 /* SendButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
@@ -337,6 +339,12 @@
 		9853B510237E101300F46AB6 /* BikeAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationController.swift; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		987C57A423A4EAF80060499B /* MapInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
+		987C57A523A4EAF80060499B /* MapInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapInfoView.xib; sourceTree = "<group>"; };
+		987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurryFullscreenOverlayView.swift; sourceTree = "<group>"; };
+		987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlurryFullscreenOverlayView.xib; sourceTree = "<group>"; };
+		987C57AC23A941A60060499B /* CALayer+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
+		987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoViewSnapshotTests.swift; sourceTree = "<group>"; };
 		987E3BD72368C6E100BAEFE7 /* MemoryDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStore.swift; sourceTree = "<group>"; };
 		987E3BD92368C79D00BAEFE7 /* MemoryDataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDataStoreTests.swift; sourceTree = "<group>"; };
 		988B12AC22A271FE0010FAED /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -428,6 +436,7 @@
 				7530E394235A3CA100F5E55C /* Info.plist */,
 				3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */,
 				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
+				987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */,
 				7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */,
 			);
 			path = CriticalMapsSnapshotTests;
@@ -491,6 +500,7 @@
 				210367BB237AAE2F001F2A84 /* PathObserver.swift */,
 				9844438023429354005468B2 /* UIView+Autolayout.swift */,
 				9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */,
+				987C57AC23A941A60060499B /* CALayer+Shadow.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -584,11 +594,13 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */,
+				987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */,
+				987C57A423A4EAF80060499B /* MapInfoView.swift */,
+				987C57A523A4EAF80060499B /* MapInfoView.xib */,
 				94829425238AA39C00338E7F /* AnnotationController.swift */,
 				94829424238AA39C00338E7F /* BikeAnnotationController.swift */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
-				943B2DC422B22EB300B67827 /* BlurryOverlayView.swift */,
-				943B2DC522B22EB300B67827 /* BlurryOverlayView.xib */,
 				9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */,
 				9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
@@ -981,14 +993,15 @@
 				9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */,
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */,
+				987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */,
 				9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */,
-				943B2DC722B22EB300B67827 /* BlurryOverlayView.xib in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
 				9485A93423756A53006DC7B5 /* ErrorStateViewController.xib in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
 				946CDE0422412DA60059F892 /* Settings.bundle in Resources */,
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
+				987C57AB23A4EB290060499B /* BlurryFullscreenOverlayView.xib in Resources */,
 				94CF087219BDEAF2009FFF43 /* Images.xcassets in Resources */,
 				98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */,
 				982371242377753A009D6F05 /* Data.xcassets in Resources */,
@@ -1083,6 +1096,7 @@
 				7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */,
 				7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */,
 				3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */,
+				987C57AF23A952AC0060499B /* MapInfoViewSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,6 +1125,7 @@
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
+				987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
 				9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */,
 				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
@@ -1138,7 +1153,6 @@
 				21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */,
 				9455CE902397ACE300DED561 /* ChatInputViewController.swift in Sources */,
 				9485A93323756A53006DC7B5 /* ErrorStateViewController.swift in Sources */,
-				943B2DC622B22EB300B67827 /* BlurryOverlayView.swift in Sources */,
 				75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */,
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */,
@@ -1170,6 +1184,8 @@
 				98205F692207937100122EDA /* AppController.swift in Sources */,
 				9838F28C227B768A00744EDD /* IDProvider.swift in Sources */,
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
+				987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */,
+				987C57AA23A4EB290060499B /* BlurryFullscreenOverlayView.swift in Sources */,
 				940643D62307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift in Sources */,
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
