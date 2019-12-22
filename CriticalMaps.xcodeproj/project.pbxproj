@@ -256,6 +256,9 @@
 		9489D88F1B768279001E746C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9491720C23009EB3008B98AD /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		9491720E23009ED0008B98AD /* TwitterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterRequest.swift; sourceTree = "<group>"; };
+		9496B0A723AD38ED00831385 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9496B0A823AD38ED00831385 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9496B0A923AD38ED00831385 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		949BEF542237CAEC009AE6DF /* RoundableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundableImageView.swift; sourceTree = "<group>"; };
 		94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentMessageLabel.swift; sourceTree = "<group>"; };
 		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -949,6 +952,7 @@
 				it,
 				Base,
 				fr,
+				es,
 			);
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			packageReferences = (
@@ -1263,6 +1267,7 @@
 				9489D88F1B768279001E746C /* de */,
 				94E1FE4B212057AC0016BD4E /* it */,
 				98C13287227F014000291FCA /* fr */,
+				9496B0A823AD38ED00831385 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1274,6 +1279,7 @@
 				9489D88A1B7681AF001E746C /* de */,
 				94E1FE4A212057AC0016BD4E /* it */,
 				98C13286227F014000291FCA /* fr */,
+				9496B0A723AD38ED00831385 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1285,6 +1291,7 @@
 				9489D88B1B7681AF001E746C /* de */,
 				94E1FE4C212057AC0016BD4E /* it */,
 				98C13288227F014000291FCA /* fr */,
+				9496B0A923AD38ED00831385 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

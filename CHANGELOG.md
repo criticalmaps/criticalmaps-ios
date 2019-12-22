@@ -9,6 +9,7 @@ Changelog for Critical Maps iOS
 - Replace send text button in ChatInputView with an icon button
 - Accessability support for chat input textview
 - VoiceOver improvements for the Navigation TabBar
+- Spanish translations
 
 ## [3.6.0] - 2019-11-28
 
