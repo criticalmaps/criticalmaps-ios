@@ -16,12 +16,12 @@
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
-		3F63A9F823B0DF4E00B33403 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F723B0DF4E00B33403 /* SnapshotTesting */; };
 		3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FA23B0DF5D00B33403 /* GrowingTextView */; };
-		3F63A9FE23B0DF7E00B33403 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FD23B0DF7E00B33403 /* SDWebImage */; };
-		3F63AA0023B0DF7E00B33403 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FF23B0DF7E00B33403 /* SDWebImageMapKit */; };
 		3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C5674239861E200A6B552 /* SDWebImage */; };
 		3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7530E3A5235A400900F5E55C /* XCTest.framework */; };
+		3F7419EC23B0E29600E8E593 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EB23B0E29600E8E593 /* SDWebImage */; };
+		3F7419EE23B0E2A200E8E593 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419ED23B0E2A200E8E593 /* SDWebImage */; };
+		3F7419F023B0E2A600E8E593 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EF23B0E2A600E8E593 /* SnapshotTesting */; };
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
 		3F749B29236C641400C4A125 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 3F749B28236C641400C4A125 /* __Snapshots__ */; };
 		3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */; };
@@ -415,6 +415,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7419F023B0E2A600E8E593 /* SnapshotTesting in Frameworks */,
+				3F7419EE23B0E2A200E8E593 /* SDWebImage in Frameworks */,
 				3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,9 +430,6 @@
 				3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */,
-				3F63AA0023B0DF7E00B33403 /* SDWebImageMapKit in Frameworks */,
-				3F63A9FE23B0DF7E00B33403 /* SDWebImage in Frameworks */,
-				3F63A9F823B0DF4E00B33403 /* SnapshotTesting in Frameworks */,
 				3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +440,7 @@
 			files = (
 				94CF087919BDEAF2009FFF43 /* XCTest.framework in Frameworks */,
 				94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
+				3F7419EC23B0E29600E8E593 /* SDWebImage in Frameworks */,
 				94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -901,6 +901,8 @@
 			);
 			name = CriticalMapsSnapshotTests;
 			packageProductDependencies = (
+				3F7419ED23B0E2A200E8E593 /* SDWebImage */,
+				3F7419EF23B0E2A600E8E593 /* SnapshotTesting */,
 			);
 			productName = CriticalMapsSnapshotTests;
 			productReference = 7530E390235A3CA100F5E55C /* CriticalMapsSnapshotTests.xctest */;
@@ -924,10 +926,7 @@
 			name = CriticalMaps;
 			packageProductDependencies = (
 				3F63A9F423B0DF2D00B33403 /* Crypto */,
-				3F63A9F723B0DF4E00B33403 /* SnapshotTesting */,
 				3F63A9FA23B0DF5D00B33403 /* GrowingTextView */,
-				3F63A9FD23B0DF7E00B33403 /* SDWebImage */,
-				3F63A9FF23B0DF7E00B33403 /* SDWebImageMapKit */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -948,6 +947,7 @@
 			);
 			name = CriticalMapsTests;
 			packageProductDependencies = (
+				3F7419EB23B0E29600E8E593 /* SDWebImage */,
 			);
 			productName = CriticalMassTests;
 			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */;
@@ -1797,30 +1797,30 @@
 			package = 3F63A9F323B0DF2D00B33403 /* XCRemoteSwiftPackageReference "Crypto" */;
 			productName = Crypto;
 		};
-		3F63A9F723B0DF4E00B33403 /* SnapshotTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
-			productName = SnapshotTesting;
-		};
 		3F63A9FA23B0DF5D00B33403 /* GrowingTextView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
 			productName = GrowingTextView;
 		};
-		3F63A9FD23B0DF7E00B33403 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		3F63A9FF23B0DF7E00B33403 /* SDWebImageMapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImageMapKit;
-		};
 		3F6C5674239861E200A6B552 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		3F7419EB23B0E29600E8E593 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		3F7419ED23B0E2A200E8E593 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		3F7419EF23B0E2A600E8E593 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 /* End XCSwiftPackageProductDependency section */
 
