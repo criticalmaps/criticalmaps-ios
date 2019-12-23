@@ -123,8 +123,8 @@ class AppController {
             let followURLObject = try FollowURLObject.decode(from: url.absoluteString)
 
             dataStore.add(friend: followURLObject.queryObject)
-            let alertController = UIAlertController(title: "Added Friend", message: "Added \(followURLObject.queryObject.name)", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+            let alertController = UIAlertController(title: .settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + .settingsAddFriendDescription, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: .ok, style: .destructive, handler: nil))
             rootViewController.present(alertController, animated: true, completion: nil)
             return true
         } catch {

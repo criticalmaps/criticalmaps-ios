@@ -38,6 +38,9 @@
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
+"ok" = "OK";
+
+/* No comment provided by engineer. */
 "rules.text.brake" = "Si no hay otra forma, intente advertir a los demás con señales manuales.";
 
 /* No comment provided by engineer. */
@@ -104,6 +107,12 @@
 
 /* No comment provided by engineer. */
 "settings.friends.showID" = "Mostrar ID";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendTitle" = "Amigo agregado";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendDescription" = "agregado";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "Ajustes de GPS";
