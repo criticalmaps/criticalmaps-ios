@@ -57,11 +57,15 @@ enum Section: Int, CaseIterable {
     var models: [Model] {
         switch self {
         case .preferences:
-            return [
-                Model(title: "Friends", subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self)),
+            var models = [
                 Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
                 Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self))
             ]
+            if Feature.friends.isActive {
+                let friendsModel = Model(title: "Friends", subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self))
+                models.insert(friendsModel, at: 0)
+            }
+            return models
         case .github:
             return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
         case .info:
