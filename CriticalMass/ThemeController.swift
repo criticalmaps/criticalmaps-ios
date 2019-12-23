@@ -154,7 +154,7 @@ class ThemeController {
 extension ThemeController: Switchable {
     var isEnabled: Bool {
         get {
-            return currentTheme == .dark
+            currentTheme == .dark
         }
         set {
             changeTheme(to: newValue ? .dark : .light)

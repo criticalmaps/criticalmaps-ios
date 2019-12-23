@@ -120,7 +120,7 @@ extension SocialViewController: ChatMessageActivityDelegate {
 private extension UIBarButtonItem {
     var isHidden: Bool {
         get {
-            return tintColor == UIColor.clear
+            tintColor == UIColor.clear
         }
         set(hide) {
             customView?.isHidden = hide

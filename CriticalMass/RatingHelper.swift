@@ -66,7 +66,7 @@ public class RatingHelper {
             userDefaults.set(newValue, forKey: #function)
         }
         get {
-            return userDefaults.integer(forKey: #function)
+            userDefaults.integer(forKey: #function)
         }
     }
 
@@ -75,7 +75,7 @@ public class RatingHelper {
             userDefaults.set(newValue, forKey: #function)
         }
         get {
-            return userDefaults.integer(forKey: #function)
+            userDefaults.integer(forKey: #function)
         }
     }
 
@@ -84,7 +84,7 @@ public class RatingHelper {
             userDefaults.set(newValue, forKey: #function)
         }
         get {
-            return userDefaults.string(forKey: #function)
+            userDefaults.string(forKey: #function)
         }
     }
 

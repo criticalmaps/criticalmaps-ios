@@ -1,1 +1,2 @@
 --disable trailingCommas
+--exclude CriticalMapsUITests/SnapshotHelper.swift
