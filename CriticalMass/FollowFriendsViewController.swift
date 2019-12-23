@@ -32,12 +32,10 @@ class FollowFriendsViewController: UIViewController {
 
         do {
             urlString = try FollowURLObject(queryObject: Friend(name: name, token: token)).asURL()
+            configureQRCodeView()
         } catch {
-            // TODO: present error
-            fatalError()
+            ErrorHandler.default.handleError(error)
         }
-
-        configureQRCodeView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
