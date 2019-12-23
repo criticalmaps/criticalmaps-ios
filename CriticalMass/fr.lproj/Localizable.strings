@@ -97,6 +97,15 @@
 "settings.facebook" = "Facebook";
 
 /* No comment provided by engineer. */
+"settings.friends" = "Amis";
+
+/* No comment provided by engineer. */
+"settings.friends.settings" = "Paramètres";
+
+/* No comment provided by engineer. */
+"settings.friends.showID" = "Montrer id";
+
+/* No comment provided by engineer. */
 "settings.gpsSettings" = "Paramètres GPS";
 
 /* No comment provided by engineer. */
