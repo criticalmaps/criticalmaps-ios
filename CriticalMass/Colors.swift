@@ -91,4 +91,8 @@ extension UIColor {
     static var errorRed: UIColor {
         UIColor(red: 255.0 / 255.0, green: 51.0 / 255.0, blue: 85.0 / 255.0, alpha: 1)
     }
+
+    static var settingsPlaceholderColor: UIColor {
+        UIColor(red: 216.0 / 255.0, green: 216.0 / 255.0, blue: 216.0 / 255.0, alpha: 1)
+    }
 }

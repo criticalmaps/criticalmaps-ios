@@ -27,6 +27,8 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         }
     }
 
+    static var backgroundAndTableViewColor: UIColor?
+
     init(dataStore: DataStore, idProvider: IDProvider) {
         self.dataStore = dataStore
         self.idProvider = idProvider
@@ -50,6 +52,14 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let backgroundColor = ManageFriendsViewController.backgroundAndTableViewColor {
+            tableView.backgroundColor = backgroundColor
+            view.backgroundColor = backgroundColor
+        }
     }
 
     private func configureNavigationBar() {
