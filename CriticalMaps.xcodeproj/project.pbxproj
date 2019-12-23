@@ -15,14 +15,17 @@
 		21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FB12352CBD300B942AA /* WaitOperation.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
+		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
+		3F63A9F823B0DF4E00B33403 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F723B0DF4E00B33403 /* SnapshotTesting */; };
+		3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FA23B0DF5D00B33403 /* GrowingTextView */; };
+		3F63A9FE23B0DF7E00B33403 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FD23B0DF7E00B33403 /* SDWebImage */; };
+		3F63AA0023B0DF7E00B33403 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FF23B0DF7E00B33403 /* SDWebImageMapKit */; };
 		3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C5674239861E200A6B552 /* SDWebImage */; };
 		3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7530E3A5235A400900F5E55C /* XCTest.framework */; };
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
 		3F749B29236C641400C4A125 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 3F749B28236C641400C4A125 /* __Snapshots__ */; };
 		3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */; };
 		3F997955239D9DD5006DB96B /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997954239D9DD5006DB96B /* Feature.swift */; };
-		3FA24A012398623300A3B6F4 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7530E3A3235A3FFE00F5E55C /* SnapshotTesting */; };
-		3FA24A022398623300A3B6F4 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 980EA851236F460F00E9EF18 /* SDWebImage */; };
 		75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */; };
 		7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */; };
 		7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */; };
@@ -45,7 +48,6 @@
 		945CAF9B230BD7F200E8B7E8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9A230BD7F200E8B7E8 /* Endpoint.swift */; };
 		945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */; };
 		9460B76B225A6EB200786E27 /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9460B76A225A6EB200786E27 /* FormatDisplay.swift */; };
-		9468D5C323ACFB0B002AABD0 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 9468D5C223ACFB0B002AABD0 /* GrowingTextView */; };
 		946CDE0422412DA60059F892 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 946CDE0322412DA60059F892 /* Settings.bundle */; };
 		9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E975224CF58100A812DC /* SettingsFooterView.swift */; };
 		9474E978224CF60500A812DC /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9474E977224CF60500A812DC /* SettingsFooterView.xib */; };
@@ -99,7 +101,6 @@
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
 		9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176C21FC87960077D419 /* SendChatMessage.swift */; };
 		9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804178F21FCA2B40077D419 /* ChatManagerTests.swift */; };
-		980EA850236F460900E9EF18 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 980EA84F236F460900E9EF18 /* SDWebImage */; };
 		9810C382229830940011F718 /* RatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9810C381229830940011F718 /* RatingHelper.swift */; };
 		9810C384229831720011F718 /* RatingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9810C383229831720011F718 /* RatingHelperTests.swift */; };
 		981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C788E225E67350009FC3E /* ChatNavigationButton.swift */; };
@@ -146,7 +147,6 @@
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
 		9853B511237E101300F46AB6 /* BikeAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9853B510237E101300F46AB6 /* BikeAnnotationController.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
-		986749F8235230CB00BF5D6E /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 986749F7235230CB00BF5D6E /* Crypto */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A423A4EAF80060499B /* MapInfoView.swift */; };
 		987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A523A4EAF80060499B /* MapInfoView.xib */; };
@@ -181,7 +181,6 @@
 		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
 		98E7339022039665005F311F /* SettingsInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */; };
 		98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */; };
-		98F1D928232AB029000F4E82 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -416,9 +415,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FA24A022398623300A3B6F4 /* SDWebImage in Frameworks */,
 				3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */,
-				3FA24A012398623300A3B6F4 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,11 +425,13 @@
 			files = (
 				94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */,
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
-				986749F8235230CB00BF5D6E /* Crypto in Frameworks */,
 				3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
-				98F1D928232AB029000F4E82 /* (null) in Frameworks */,
-				9468D5C323ACFB0B002AABD0 /* GrowingTextView in Frameworks */,
+				3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */,
+				3F63AA0023B0DF7E00B33403 /* SDWebImageMapKit in Frameworks */,
+				3F63A9FE23B0DF7E00B33403 /* SDWebImage in Frameworks */,
+				3F63A9F823B0DF4E00B33403 /* SnapshotTesting in Frameworks */,
+				3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +441,6 @@
 			files = (
 				94CF087919BDEAF2009FFF43 /* XCTest.framework in Frameworks */,
 				94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
-				980EA850236F460900E9EF18 /* SDWebImage in Frameworks */,
 				94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -903,8 +901,6 @@
 			);
 			name = CriticalMapsSnapshotTests;
 			packageProductDependencies = (
-				7530E3A3235A3FFE00F5E55C /* SnapshotTesting */,
-				980EA851236F460F00E9EF18 /* SDWebImage */,
 			);
 			productName = CriticalMapsSnapshotTests;
 			productReference = 7530E390235A3CA100F5E55C /* CriticalMapsSnapshotTests.xctest */;
@@ -927,8 +923,11 @@
 			);
 			name = CriticalMaps;
 			packageProductDependencies = (
-				986749F7235230CB00BF5D6E /* Crypto */,
-				9468D5C223ACFB0B002AABD0 /* GrowingTextView */,
+				3F63A9F423B0DF2D00B33403 /* Crypto */,
+				3F63A9F723B0DF4E00B33403 /* SnapshotTesting */,
+				3F63A9FA23B0DF5D00B33403 /* GrowingTextView */,
+				3F63A9FD23B0DF7E00B33403 /* SDWebImage */,
+				3F63A9FF23B0DF7E00B33403 /* SDWebImageMapKit */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -949,7 +948,6 @@
 			);
 			name = CriticalMapsTests;
 			packageProductDependencies = (
-				980EA84F236F460900E9EF18 /* SDWebImage */,
 			);
 			productName = CriticalMassTests;
 			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */;
@@ -1004,10 +1002,10 @@
 			);
 			mainGroup = 94CF085319BDEAF2009FFF43;
 			packageReferences = (
-				986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */,
-				7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
-				9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				9468D5C123ACFB0B002AABD0 /* XCRemoteSwiftPackageReference "GrowingTextView" */,
+				3F63A9F323B0DF2D00B33403 /* XCRemoteSwiftPackageReference "Crypto" */,
+				3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */,
+				3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
 			projectDirPath = "";
@@ -1751,6 +1749,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3F63A9F323B0DF2D00B33403 /* XCRemoteSwiftPackageReference "Crypto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/Crypto";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
+		3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.1;
+			};
+		};
+		3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KennethTsang/GrowingTextView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.2;
+			};
+		};
+		3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
 		3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -1759,70 +1789,38 @@
 				minimumVersion = 5.3.3;
 			};
 		};
-		7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.0;
-			};
-		};
-		9468D5C123ACFB0B002AABD0 /* XCRemoteSwiftPackageReference "GrowingTextView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/KennethTsang/GrowingTextView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.7.2;
-			};
-		};
-		9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 5.3.0;
-			};
-		};
-		986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/soffes/Crypto";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.6.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3F63A9F423B0DF2D00B33403 /* Crypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9F323B0DF2D00B33403 /* XCRemoteSwiftPackageReference "Crypto" */;
+			productName = Crypto;
+		};
+		3F63A9F723B0DF4E00B33403 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		3F63A9FA23B0DF5D00B33403 /* GrowingTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
+			productName = GrowingTextView;
+		};
+		3F63A9FD23B0DF7E00B33403 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		3F63A9FF23B0DF7E00B33403 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
 		3F6C5674239861E200A6B552 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
-		};
-		7530E3A3235A3FFE00F5E55C /* SnapshotTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7530E39A235A3D7400F5E55C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
-			productName = SnapshotTesting;
-		};
-		9468D5C223ACFB0B002AABD0 /* GrowingTextView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9468D5C123ACFB0B002AABD0 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
-			productName = GrowingTextView;
-		};
-		980EA84F236F460900E9EF18 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		980EA851236F460F00E9EF18 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9831A53E236CC52300BEB0C9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		986749F7235230CB00BF5D6E /* Crypto */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 986749F6235230CB00BF5D6E /* XCRemoteSwiftPackageReference "Crypto" */;
-			productName = Crypto;
 		};
 /* End XCSwiftPackageProductDependency section */
 
