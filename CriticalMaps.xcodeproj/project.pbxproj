@@ -629,13 +629,11 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */,
-				987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */,
-				987C57A423A4EAF80060499B /* MapInfoView.swift */,
-				987C57A523A4EAF80060499B /* MapInfoView.xib */,
 				94829425238AA39C00338E7F /* AnnotationController.swift */,
 				94829424238AA39C00338E7F /* BikeAnnotationController.swift */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
+				987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */,
+				987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */,
 				9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */,
 				9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
@@ -646,22 +644,24 @@
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
+				987C57A423A4EAF80060499B /* MapInfoView.swift */,
+				987C57A523A4EAF80060499B /* MapInfoView.xib */,
 				94829426238AA39C00338E7F /* MKMapView+Register.swift */,
+				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
+				98003D5C22872E4300592D55 /* QRCodeView.swift */,
+				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
 				989F9FF921C7F9AB00E71085 /* RuleTableViewCell.swift */,
 				989F9FFA21C7F9AB00E71085 /* RuleTableViewCell.xib */,
 				9455CE8C2397ACE200DED561 /* SendButton.swift */,
 				98E7338C22039511005F311F /* Settings */,
+				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
+				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
 				94FCBD3A226C583E00F93F94 /* SettingsTableSectionHeader.swift */,
 				94FCBD39226C583E00F93F94 /* SettingsTableSectionHeader.xib */,
 				982DA8CC21FF67FC00E2A51B /* TweetTableViewCell.swift */,
 				982DA8CD21FF67FC00E2A51B /* TweetTableViewCell.xib */,
 				98C4BEA02218518B0060E701 /* UserTrackingButton.swift */,
-				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
-				9474E975224CF58100A812DC /* SettingsFooterView.swift */,
-				9474E977224CF60500A812DC /* SettingsFooterView.xib */,
-				98003D5C22872E4300592D55 /* QRCodeView.swift */,
-				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -843,13 +843,13 @@
 			isa = PBXGroup;
 			children = (
 				98003D5922872DB300592D55 /* FollowFriendsViewController.swift */,
-				98003D5622872CA800592D55 /* FriendsVerificationController.swift */,
-				98AAD08D2337FF8F001519C7 /* ManageFriendsViewController.swift */,
-				98AAD08E2337FF8F001519C7 /* ManageFriendsViewController.xib */,
-				98AAD09323380200001519C7 /* FriendTableViewCell.swift */,
-				98AAD09423380200001519C7 /* FriendTableViewCell.xib */,
 				982B579F23395A7300886CAC /* FriendSettingsTableViewCell.swift */,
 				982B57A023395A7300886CAC /* FriendSettingsTableViewCell.xib */,
+				98003D5622872CA800592D55 /* FriendsVerificationController.swift */,
+				98AAD09323380200001519C7 /* FriendTableViewCell.swift */,
+				98AAD09423380200001519C7 /* FriendTableViewCell.xib */,
+				98AAD08D2337FF8F001519C7 /* ManageFriendsViewController.swift */,
+				98AAD08E2337FF8F001519C7 /* ManageFriendsViewController.xib */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
