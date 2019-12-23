@@ -1,6 +1,5 @@
-
 /* No comment provided by engineer. */
-"chat.noChatActivity" = "Personnne ne discute pour l'instant...\nlance la conversation !";
+"chat.noChatActivity" = "Personne ne discute pour l'instant...\nLance la conversation !";
 
 /* No comment provided by engineer. */
 "chat.placeholder" = "Message ...";
@@ -15,22 +14,28 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"close.button.label" = "fermer";
+
+/* No comment provided by engineer. */
 "error" = "Erreur";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS désactivé";
+"errorState.message" = "Désolé, quelque chose s'est mal passé";
+
+/* ErrorState */
+"errorState.title" = "Erreur";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
+
+/* No comment provided by engineer. */
+"map.layer.info.title" = "GPS désactivé";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "localisation";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
-
-/* No comment provided by engineer. */
-"rules.source" = "Images of criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
 
 /* No comment provided by engineer. */
 "rules.text.brake" = "Évite les arrêts soudains. Si tu dois vraiment t'arrêter, essaye de prévenir les gens derrière toi.";
@@ -80,7 +85,6 @@
 /* No comment provided by engineer. */
 "settings.about" = "À propos";
 
-
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -88,12 +92,6 @@
 
 /* No comment provided by engineer. */
 "settings.donate" = "Fais un don pour soutenir nos serveurs GPS";
-
-/* No comment provided by engineer. */
-"settings.observationmode.title" = "Mode observateur";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -105,16 +103,22 @@
 "settings.kniggeImages" = "Rules images";
 
 /* No comment provided by engineer. */
-"settings.logoDesign" = "Logo design";
+"settings.logoDesign" = "Design du logo";
 
 /* No comment provided by engineer. */
-"settings.openSource" = "Github";
+"settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Mode observateur";
+
+/* No comment provided by engineer. */
+"settings.openSource" = "GitHub";
 
 /* No comment provided by engineer. */
 "settings.opensource.action" = "Voir le Projet";
 
 /* No comment provided by engineer. */
-"settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs pour collaborer";
+"settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs pour collaborer.";
 
 /* No comment provided by engineer. */
 "settings.opensource.title" = "Tu aimerais de nouvelles fonctionnalités ou signaler un bug ?";
@@ -123,10 +127,13 @@
 "settings.programming" = "Développement";
 
 /* No comment provided by engineer. */
-"settings.section.info" = "Info";
+"settings.section.info" = "Infos";
 
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Réseaux sociaux";
+
+/* Theme */
+"settings.theme" = "Mode nuit";
 
 /* No comment provided by engineer. */
 "settings.title" = "Réglages";
@@ -135,16 +142,10 @@
 "settings.twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"settings.website" = "Website";
+"settings.website" = "Site Web";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Pas de données disponibles.\nTire vers le bas pour rafraîchir.";
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-
-/* No comment provided by engineer. */
-"close.button.label" = "Fermer";
-
-/* Theme */
-"settings.theme" = "Mode nuit";
