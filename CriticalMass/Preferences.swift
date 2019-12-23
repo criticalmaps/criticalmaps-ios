@@ -26,7 +26,7 @@ class ObservationModePreferenceStore: Switchable {
 
     var isEnabled: Bool {
         get {
-            return load() ?? false
+            load() ?? false
         } set {
             save(newValue)
         }
@@ -36,7 +36,7 @@ class ObservationModePreferenceStore: Switchable {
 class Preferences {
     static var lastMessageReadTimeInterval: Double {
         get {
-            return UserDefaults.standard.double(forKey: #function)
+            UserDefaults.standard.double(forKey: #function)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: #function)

@@ -26,7 +26,7 @@ public class AppDataStore: DataStore {
         }
 
         get {
-            return userDefaults.string(forKey: #function) ?? UIDevice.current.name
+            userDefaults.string(forKey: #function) ?? UIDevice.current.name
         }
     }
 
