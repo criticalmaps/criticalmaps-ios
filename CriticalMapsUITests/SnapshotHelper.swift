@@ -52,7 +52,7 @@ enum SnapshotError: Error, CustomDebugStringConvertible {
             return "Couldn't find Snapshot configuration files - can't detect `Users` dir"
         case .cannotFindSimulatorHomeDirectory:
             return "Couldn't find simulator home location. Please, check SIMULATOR_HOST_HOME env variable."
-        case let .cannotAccessSimulatorHomeDirectory(simulatorHostHome):
+        case .cannotAccessSimulatorHomeDirectory(let simulatorHostHome):
             return "Can't prepare environment. Simulator home location is inaccessible. Does \(simulatorHostHome) exist?"
         case .cannotRunOnPhysicalDevice:
             return "Can't use Snapshot on a physical device."
@@ -66,10 +66,11 @@ open class Snapshot: NSObject {
     static var waitForAnimations = true
     static var cacheDirectory: URL?
     static var screenshotsDirectory: URL? {
-        cacheDirectory?.appendingPathComponent("screenshots", isDirectory: true)
+        return cacheDirectory?.appendingPathComponent("screenshots", isDirectory: true)
     }
 
     open class func setupSnapshot(_ app: XCUIApplication, waitForAnimations: Bool = true) {
+
         Snapshot.app = app
         Snapshot.waitForAnimations = waitForAnimations
 
@@ -79,7 +80,7 @@ open class Snapshot: NSObject {
             setLanguage(app)
             setLocale(app)
             setLaunchArguments(app)
-        } catch {
+        } catch let error {
             NSLog(error.localizedDescription)
         }
     }
@@ -116,7 +117,7 @@ open class Snapshot: NSObject {
             NSLog("Couldn't detect/set locale...")
         }
 
-        if locale.isEmpty, !deviceLanguage.isEmpty {
+        if locale.isEmpty && !deviceLanguage.isEmpty {
             locale = Locale(identifier: deviceLanguage).identifier
         }
 
@@ -183,7 +184,7 @@ open class Snapshot: NSObject {
 
                 let path = screenshotsDir.appendingPathComponent("\(simulator)-\(name).png")
                 try screenshot.pngRepresentation.write(to: path)
-            } catch {
+            } catch let error {
                 NSLog("Problem writing screenshot: \(name) to \(screenshotsDir)/\(simulator)-\(name).png")
                 NSLog(error.localizedDescription)
             }
@@ -265,13 +266,13 @@ private extension XCUIElementAttributes {
 
 private extension XCUIElementQuery {
     var networkLoadingIndicators: XCUIElementQuery {
-        let isNetworkLoadingIndicator = NSPredicate { evaluatedObject, _ in
+        let isNetworkLoadingIndicator = NSPredicate { (evaluatedObject, _) in
             guard let element = evaluatedObject as? XCUIElementAttributes else { return false }
 
             return element.isNetworkLoadingIndicator
         }
 
-        return containing(isNetworkLoadingIndicator)
+        return self.containing(isNetworkLoadingIndicator)
     }
 
     var deviceStatusBars: XCUIElementQuery {
@@ -281,19 +282,19 @@ private extension XCUIElementQuery {
 
         let deviceWidth = app.windows.firstMatch.frame.width
 
-        let isStatusBar = NSPredicate { evaluatedObject, _ in
+        let isStatusBar = NSPredicate { (evaluatedObject, _) in
             guard let element = evaluatedObject as? XCUIElementAttributes else { return false }
 
             return element.isStatusBar(deviceWidth)
         }
 
-        return containing(isStatusBar)
+        return self.containing(isStatusBar)
     }
 }
 
 private extension CGFloat {
     func isBetween(_ numberA: CGFloat, and numberB: CGFloat) -> Bool {
-        numberA ... numberB ~= self
+        return numberA...numberB ~= self
     }
 }
 
