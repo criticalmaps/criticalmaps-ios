@@ -15,6 +15,10 @@ class AppDataStoreTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
+        var feature = Feature.friends
+        feature.isActive = true
+
         sut = AppDataStore(userDefaults: userdefaults)
         for friend in sut.friends {
             sut.remove(friend: friend)
