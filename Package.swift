@@ -31,6 +31,7 @@ let package = Package(
                       "DataStore.swift",
                       "Endpoint.swift",
                       "ErrorHandler.swift",
+                      "Friend.swift",
                       "GCD+Util.swift",
                       "HTTPHeaders.swift",
                       "IDProvider.swift",
