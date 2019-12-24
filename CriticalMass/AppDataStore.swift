@@ -13,7 +13,10 @@ public class AppDataStore: DataStore {
 
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
-        loadFriends()
+
+        if Feature.friends.isActive {
+            loadFriends()
+        }
     }
 
     private var lastKnownResponse: ApiResponse?
