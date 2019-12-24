@@ -138,39 +138,6 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
     }
 
-    private func display(locations: [String: Location]) {
-        guard LocationManager.accessPermission == .authorized else {
-            return
-        }
-        var unmatchedLocations = locations
-        var unmatchedAnnotations: [IdentifiableAnnnotation] = []
-        // update existing annotations
-        mapView.annotations
-            .compactMap {
-                $0 as? IdentifiableAnnnotation
-            }
-            .forEach { annotation in
-                if friendsVerificationController.isFriend(id: annotation.identifier) {
-                    annotation.type = .friend
-                    annotation.friend = friendsVerificationController.friend(for: annotation.identifier)
-                } else {
-                    annotation.type = .user
-                    annotation.friend = nil
-                }
-                if let location = unmatchedLocations[annotation.identifier] {
-                    annotation.location = location
-                    unmatchedLocations.removeValue(forKey: annotation.identifier)
-                } else {
-                    unmatchedAnnotations.append(annotation)
-                }
-            }
-        let annotations = unmatchedLocations.map { IdentifiableAnnnotation(location: $0.value, identifier: $0.key) }
-        mapView.addAnnotations(annotations)
-
-        // remove annotations that no longer exist
-        mapView.removeAnnotations(unmatchedAnnotations)
-    }
-
     @objc func didTapGPSDisabledOverlayButton() {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
     }
@@ -229,42 +196,15 @@ extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let userAnnotation = annotation as? IdentifiableAnnnotation else {
-            debugPrint("⚠️ Not a UserAnnotation.")
+        guard annotation is MKUserLocation == false else {
             return nil
         }
-        var view: MKAnnotationView
-        switch userAnnotation.type {
-        case .friend:
-            if #available(iOS 11.0, *) {
-                if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: FriendAnnotationView.reuseIdentifier, for: userAnnotation) as? FriendAnnotationView {
-                    dequedView.annotation = userAnnotation
-                    view = dequedView
-                } else {
-                    view = FriendAnnotationView(annotation: userAnnotation,
-                                                reuseIdentifier: FriendAnnotationView.reuseIdentifier)
-                }
-            } else {
-                view = FriendAnnotationView(annotation: userAnnotation,
-                                            reuseIdentifier: FriendAnnotationView.reuseIdentifier)
-            }
 
-            (view as? FriendAnnotationView)?.friend = userAnnotation.friend
-        case .user:
-            if #available(iOS 11.0, *) {
-                if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: BikeAnnoationView.reuseIdentifier, for: userAnnotation) as? BikeAnnoationView {
-                    dequedView.annotation = userAnnotation
-                    view = dequedView
-                } else {
-                    view = BikeAnnoationView(annotation: userAnnotation,
-                                             reuseIdentifier: BikeAnnoationView.reuseIdentifier)
-                }
-            } else {
-                view = BikeAnnoationView(annotation: userAnnotation,
-                                         reuseIdentifier: BikeAnnoationView.reuseIdentifier)
-            }
+        guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {
+            return nil
         }
-        return view
+
+        return mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
