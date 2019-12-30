@@ -47,4 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         return nil
     }
+
+    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        appController.handle(url: url)
+    }
 }

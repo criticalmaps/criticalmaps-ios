@@ -39,6 +39,9 @@
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
+"ok" = "OK";
+
+/* No comment provided by engineer. */
 "rules.text.brake" = "Avoid sudden stops. If you really have to though, try to warn people behind you.";
 
 /* No comment provided by engineer. */
@@ -98,6 +101,21 @@
 "settings.facebook" = "Facebook";
 
 /* No comment provided by engineer. */
+"settings.friends" = "Friends";
+
+/* No comment provided by engineer. */
+"settings.friends.settings" = "Settings";
+
+/* No comment provided by engineer. */
+"settings.friends.showID" = "Show ID";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendTitle" = "Added Friend";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendDescription" = "added";
+
+/* No comment provided by engineer. */
 "settings.gpsSettings" = "GPS settings";
 
 /* No comment provided by engineer. */
@@ -138,6 +156,9 @@
 
 /* No comment provided by engineer. */
 "settings.title" = "Settings";
+
+/* No comment provided by engineer. */
+"settings.twitter" = "Twitter";
 
 /* No comment provided by engineer. */
 "settings.website" = "Website";

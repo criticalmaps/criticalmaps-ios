@@ -14,4 +14,5 @@ extension Notification {
     static let observationModeChanged = Notification.Name(rawValue: "observationModeChanged")
     static let positionOthersChanged = Notification.Name(rawValue: "positionOthersChanged")
     static let chatMessagesReceived = Notification.Name(rawValue: "chatMessagesReceived")
+    static let focusLocation = Notification.Name("focusLocation")
 }

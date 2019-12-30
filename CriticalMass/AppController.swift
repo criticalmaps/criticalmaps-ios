@@ -9,7 +9,7 @@ import UIKit
 
 class AppController {
     private var idProvider: IDProvider = IDStore()
-    private var dataStore = MemoryDataStore()
+    private var dataStore = AppDataStore()
     private var simulationModeEnabled = false
 
     private lazy var requestManager: RequestManager = {
@@ -54,7 +54,7 @@ class AppController {
     }()
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController(themeController: self.themeController)
+        let rootViewController = MapViewController(themeController: self.themeController, friendsVerificationController: FriendsVerificationController(dataStore: dataStore))
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton),
                   action: .none,
@@ -111,10 +111,29 @@ class AppController {
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        SettingsViewController(themeController: themeController)
+        SettingsViewController(themeController: themeController, dataStore: dataStore, idProvider: idProvider)
     }
 
     private func loadInitialData() {
         requestManager.getData()
+    }
+
+    public func handle(url: URL) -> Bool {
+        if Feature.friends.isActive {
+            do {
+                let followURLObject = try FollowURLObject.decode(from: url.absoluteString)
+
+                dataStore.add(friend: followURLObject.queryObject)
+                let alertController = UIAlertController(title: .settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + .settingsAddFriendDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: .ok, style: .destructive, handler: nil))
+                rootViewController.present(alertController, animated: true, completion: nil)
+                return true
+            } catch {
+                // unknown or broken link
+                return false
+            }
+        } else {
+            return false
+        }
     }
 }

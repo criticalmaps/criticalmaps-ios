@@ -38,6 +38,9 @@
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
+"ok" = "OK";
+
+/* No comment provided by engineer. */
 "rules.text.brake" = "Evita di fermarti all'improvviso. Se non c'è altro modo, cerca di mettere in guardia chi ti sta dietro con un gesto delle mani.";
 
 /* No comment provided by engineer. */
@@ -95,6 +98,21 @@
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
+
+/* No comment provided by engineer. */
+"settings.friends" = "Amici";
+
+/* No comment provided by engineer. */
+"settings.friends.settings" = "Impostazioni";
+
+/* No comment provided by engineer. */
+"settings.friends.showID" = "Mostra ID";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendTitle" = "Amico aggiunto";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendDescription" = "aggiunto";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "Impostazioni GPS";
