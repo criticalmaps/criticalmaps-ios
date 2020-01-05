@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 1/31/19.
 //
 
+import CriticalMapsKit
 import UIKit
 
 class SettingsViewController: UITableViewController {

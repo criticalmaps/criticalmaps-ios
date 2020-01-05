@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct TwitterApiResponse: Codable {
-    var statuses: [Tweet]
+public struct TwitterApiResponse: Codable {
+    public var statuses: [Tweet]
 }

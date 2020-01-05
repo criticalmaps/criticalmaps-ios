@@ -15,6 +15,7 @@ public class RequestManager {
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
+    private var errorHandler: ErrorHandler
     private var networkObserver: NetworkObserver?
 
     private let operationQueue: OperationQueue = {
@@ -26,12 +27,13 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
 
-    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, networkObserver: NetworkObserver?) {
+    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, errorHandler: ErrorHandler, networkObserver: NetworkObserver?) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
         self.networkObserver = networkObserver
+        self.errorHandler = errorHandler
 
         setupNetworkObserver()
         addUpdateOperation(with: interval)
@@ -68,7 +70,7 @@ public class RequestManager {
                 self.dataStore.update(with: response)
                 Logger.log(.info, log: self.log, "Successfully finished API update")
             case let .failure(error):
-                ErrorHandler.default.handleError(error)
+                self.errorHandler.handleError(error)
                 Logger.log(.error, log: self.log, "API update failed")
             }
         }
@@ -82,7 +84,7 @@ public class RequestManager {
             }
     }
 
-    func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
+    public func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
         UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer, messages: messages)
             .performWithoutQueue { [weak self] result in
                 guard let self = self else { return }

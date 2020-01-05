@@ -6,9 +6,10 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
+import CriticalMapsKit
 import Foundation
 
-struct ErrorHandler {
+struct ErrorHandler: CriticalMapsKit.ErrorHandler {
     static let `default` = ErrorHandler()
 
     let genericErrorMessage = "Sorry, something went wrong"

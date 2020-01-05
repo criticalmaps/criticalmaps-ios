@@ -9,10 +9,10 @@
 import Foundation
 
 public struct Friend: Codable, Equatable, Hashable {
-    let name: String
-    let token: String
-    var location: Location?
-    var isOnline: Bool {
+    public let name: String
+    public let token: String
+    public var location: Location?
+    public var isOnline: Bool {
         location != nil
     }
 

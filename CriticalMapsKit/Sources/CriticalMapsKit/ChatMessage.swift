@@ -9,9 +9,9 @@ import Foundation
 
 public struct ChatMessage: Codable, Equatable {
     var message: String
-    var timestamp: TimeInterval
+    public var timestamp: TimeInterval
 
-    var decodedMessage: String? {
+    public var decodedMessage: String? {
         message
             .replacingOccurrences(of: "+", with: " ")
             .removingPercentEncoding

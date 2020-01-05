@@ -11,4 +11,10 @@ public struct SendChatMessage: Codable, Equatable {
     var text: String
     var timestamp: TimeInterval
     var identifier: String
+
+    public init(text: String, timestamp: TimeInterval, identifier: String) {
+        self.text = text
+        self.timestamp = timestamp
+        self.identifier = identifier
+    }
 }

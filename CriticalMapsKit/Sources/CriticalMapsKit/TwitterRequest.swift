@@ -1,15 +1,17 @@
 import CriticalMapsFoundation
 import Foundation
 
-struct TwitterRequest: APIRequestDefining {
-    typealias ResponseDataType = TwitterApiResponse
-    var endpoint: Endpoint = .twitter
-    var headers: HTTPHeaders?
-    var httpMethod: HTTPMethod = .get
+public struct TwitterRequest: APIRequestDefining {
+    public typealias ResponseDataType = TwitterApiResponse
+    public var endpoint: Endpoint = .twitter
+    public var headers: HTTPHeaders?
+    public var httpMethod: HTTPMethod = .get
 
-    func parseResponse(data: Data) throws -> ResponseDataType {
+    public func parseResponse(data: Data) throws -> ResponseDataType {
         try JSONDecoder.twitterDecoder.decode(ResponseDataType.self, from: data)
     }
+
+    public init() {}
 }
 
 private extension DateFormatter {

@@ -6,6 +6,7 @@
 //
 
 import CriticalMapsFoundation
+import CriticalMapsKit
 import UIKit
 
 protocol MessageConfigurable: AnyObject {

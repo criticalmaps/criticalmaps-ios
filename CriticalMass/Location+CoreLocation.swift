@@ -6,14 +6,11 @@
 //
 
 import CoreLocation
+import CriticalMapsKit
 
 extension Location {
     init(_ clLocation: CLLocation, name: String? = nil, color: String? = nil) {
-        longitude = clLocation.coordinate.longitude
-        latitude = clLocation.coordinate.latitude
-        timestamp = Float(clLocation.timestamp.timeIntervalSince1970)
-        self.name = name
-        self.color = color
+        self.init(longitude: clLocation.coordinate.longitude, latitude: clLocation.coordinate.latitude, timestamp: Float(clLocation.timestamp.timeIntervalSince1970), name: name, color: color)
     }
 }
 

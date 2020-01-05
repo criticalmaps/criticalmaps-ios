@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
+import CriticalMapsKit
 import Network
 
 @available(iOS 12.0, *)

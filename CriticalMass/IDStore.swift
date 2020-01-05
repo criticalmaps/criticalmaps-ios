@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 5/2/19.
 //
 
+import CriticalMapsKit
 import Crypto
 import UIKit
 

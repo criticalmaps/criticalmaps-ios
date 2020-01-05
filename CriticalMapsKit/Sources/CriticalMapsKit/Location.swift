@@ -13,6 +13,14 @@ public struct Location: Equatable, Hashable {
     public var timestamp: Float
     public var name: String?
     public var color: String?
+
+    public init(longitude: Double, latitude: Double, timestamp: Float, name: String?, color: String?) {
+        self.longitude = longitude
+        self.latitude = latitude
+        self.timestamp = timestamp
+        self.name = name
+        self.color = color
+    }
 }
 
 extension Location: Codable {

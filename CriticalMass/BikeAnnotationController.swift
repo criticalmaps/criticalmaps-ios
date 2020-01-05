@@ -7,6 +7,7 @@
 //
 
 import CriticalMapsFoundation
+import CriticalMapsKit
 import MapKit
 
 class BikeAnnotation: IdentifiableAnnnotation {}

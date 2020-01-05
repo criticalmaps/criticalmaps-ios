@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 2/3/19.
 //
 
+import CriticalMapsKit
 import UIKit
 
 class AppController {
@@ -13,7 +14,7 @@ class AppController {
     private var simulationModeEnabled = false
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, networkObserver: networkObserver)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, errorHandler: ErrorHandler.default, networkObserver: networkObserver)
     }()
 
     private lazy var networkOperator: NetworkOperator = {

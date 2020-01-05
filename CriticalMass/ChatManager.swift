@@ -6,6 +6,7 @@
 //
 
 import CriticalMapsFoundation
+import CriticalMapsKit
 import Crypto
 import Foundation
 

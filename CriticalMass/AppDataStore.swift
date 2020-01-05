@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import CriticalMapsKit
 import UIKit
 
 public class AppDataStore: DataStore {
