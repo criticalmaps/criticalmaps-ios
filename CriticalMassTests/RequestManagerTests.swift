@@ -6,6 +6,7 @@
 //
 
 @testable import CriticalMaps
+@testable import CriticalMapsKit
 import XCTest
 
 class RequestManagerTests: XCTestCase {
@@ -16,7 +17,7 @@ class RequestManagerTests: XCTestCase {
         let mockIDProvider = MockIDProvider()
         let networkObserver = MockNetworkObserver()
         mockIDProvider.mockID = deviceId
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider, networkObserver: networkObserver), locationProvider, dataStore, networkLayer, networkObserver)
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider, errorHandler: ErrorHandler.default, networkObserver: networkObserver), locationProvider, dataStore, networkLayer, networkObserver)
     }
 
     func testNoRequestForActiveRequests() {

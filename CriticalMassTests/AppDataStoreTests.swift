@@ -6,6 +6,7 @@
 //
 
 @testable import CriticalMaps
+@testable import CriticalMapsKit
 import UIKit
 import XCTest
 

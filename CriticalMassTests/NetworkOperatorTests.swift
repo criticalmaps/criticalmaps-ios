@@ -7,6 +7,7 @@
 //
 
 @testable import CriticalMaps
+import CriticalMapsFoundation
 import XCTest
 
 class NetworkOperatorTests: XCTestCase {

@@ -7,6 +7,7 @@
 //
 
 @testable import CriticalMaps
+@testable import CriticalMapsKit
 import XCTest
 
 class TweetTableViewCellSnapshotTests: XCTestCase {

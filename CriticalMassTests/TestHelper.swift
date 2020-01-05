@@ -7,6 +7,8 @@
 //
 
 @testable import CriticalMaps
+import CriticalMapsFoundation
+import CriticalMapsKit
 import XCTest
 
 class MockLocationProvider: LocationProvider {

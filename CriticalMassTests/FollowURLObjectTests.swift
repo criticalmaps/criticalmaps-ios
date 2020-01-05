@@ -7,6 +7,7 @@
 //
 
 @testable import CriticalMaps
+import CriticalMapsKit
 import XCTest
 
 class FollowURLObjectTests: XCTestCase {

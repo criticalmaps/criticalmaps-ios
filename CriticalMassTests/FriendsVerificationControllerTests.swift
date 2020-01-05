@@ -7,6 +7,7 @@
 //
 
 import CriticalMaps
+@testable import CriticalMapsKit
 import XCTest
 
 class FriendsVerificationControllerTests: XCTestCase {
