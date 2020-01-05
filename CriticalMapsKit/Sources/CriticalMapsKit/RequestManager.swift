@@ -15,7 +15,7 @@ public class RequestManager {
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
-    private var errorHandler: ErrorHandler
+    private var errorHandler: ErrorHandler?
     private var networkObserver: NetworkObserver?
 
     private let operationQueue: OperationQueue = {
@@ -27,7 +27,7 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
 
-    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, errorHandler: ErrorHandler, networkObserver: NetworkObserver?) {
+    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, errorHandler: ErrorHandler?, networkObserver: NetworkObserver?) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
@@ -70,7 +70,7 @@ public class RequestManager {
                 self.dataStore.update(with: response)
                 Logger.log(.info, log: self.log, "Successfully finished API update")
             case let .failure(error):
-                self.errorHandler.handleError(error)
+                self.errorHandler?.handleError(error)
                 Logger.log(.error, log: self.log, "API update failed")
             }
         }

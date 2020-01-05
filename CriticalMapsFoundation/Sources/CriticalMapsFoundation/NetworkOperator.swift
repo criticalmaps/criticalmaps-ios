@@ -5,7 +5,6 @@
 //  Created by Leonard Thomas on 1/17/19.
 //
 
-import CriticalMapsFoundation
 import Foundation
 
 #if canImport(UIKit)
@@ -17,7 +16,7 @@ public struct NetworkOperator: NetworkLayer {
     private var networkIndicatorHelper: NetworkActivityIndicatorHelper?
     private static let validHttpResponseCodes = 200 ..< 299
 
-    init(networkIndicatorHelper: NetworkActivityIndicatorHelper, dataProvider: NetworkDataProvider) {
+    public init(networkIndicatorHelper: NetworkActivityIndicatorHelper, dataProvider: NetworkDataProvider) {
         self.dataProvider = dataProvider
         self.networkIndicatorHelper = networkIndicatorHelper
     }

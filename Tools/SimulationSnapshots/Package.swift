@@ -10,7 +10,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(path: "../../"),
+        .package(path: "../../CriticalMapsKit/"),
         .package(url: "https://github.com/hartbit/Yaap.git", from: "1.0.0"),
     ],
     targets: [

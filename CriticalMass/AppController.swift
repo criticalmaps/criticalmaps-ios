@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 2/3/19.
 //
 
+import CriticalMapsFoundation
 import CriticalMapsKit
 import UIKit
 

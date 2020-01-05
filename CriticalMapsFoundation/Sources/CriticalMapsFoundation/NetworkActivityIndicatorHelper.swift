@@ -8,9 +8,10 @@
 #if canImport(UIKit)
     import UIKit
 #endif
-import CriticalMapsFoundation
 
-class NetworkActivityIndicatorHelper {
+public class NetworkActivityIndicatorHelper {
+    public init() {}
+
     private var requestCounter = 0 {
         didSet {
             onMain {

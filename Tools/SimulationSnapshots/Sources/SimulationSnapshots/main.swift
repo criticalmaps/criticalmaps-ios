@@ -1,3 +1,4 @@
+import CriticalMapsFoundation
 import CriticalMapsKit
 import Foundation
 import Yaap
@@ -8,6 +9,8 @@ struct NoLocationProvider: LocationProvider {
     static var accessPermission: LocationProviderPermission {
         .disabled
     }
+
+    func updateLocation(completion _: ResultCallback<Location>?) {}
 }
 
 struct NoIdProvider: IDProvider {
@@ -21,6 +24,7 @@ struct NoIdProvider: IDProvider {
 }
 
 class SaveToDiskStore: DataStore {
+    var userName: String = ""
     var outputPath: String
     var outputStream: TextOutputStream
     var errorStream: TextOutputStream
@@ -53,6 +57,12 @@ class SaveToDiskStore: DataStore {
             errorStream.write("Saving data to disk failed with error: \(error.localizedDescription)")
         }
     }
+
+    func add(friend _: Friend) {}
+
+    func remove(friend _: Friend) {}
+
+    var friends: [Friend] = []
 }
 
 class GenerateSnapshotCommand: Command {
@@ -74,7 +84,7 @@ class GenerateSnapshotCommand: Command {
         configuration.timeoutIntervalForRequest = 15.0
         let session = URLSession(configuration: configuration)
 
-        _ = RequestManager(dataStore: store, locationProvider: NoLocationProvider(), networkLayer: NetworkOperator(dataProvider: session), idProvider: NoIdProvider())
+        _ = RequestManager(dataStore: store, locationProvider: NoLocationProvider(), networkLayer: NetworkOperator(dataProvider: session), idProvider: NoIdProvider(), errorHandler: nil, networkObserver: nil)
         RunLoop.main.run()
     }
 }

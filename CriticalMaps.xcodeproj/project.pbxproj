@@ -33,7 +33,6 @@
 		9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* String+LocalizedStrings.swift */; };
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
-		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
 		9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */; };
 		9455CE8F2397ACE200DED561 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8C2397ACE200DED561 /* SendButton.swift */; };
 		9455CE902397ACE300DED561 /* ChatInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */; };
@@ -94,7 +93,6 @@
 		981C920A2288B49D00391FA9 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C92082288B47F00391FA9 /* TestHelper.swift */; };
 		98205F692207937100122EDA /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98205F682207937100122EDA /* AppController.swift */; };
 		9822A15721EE0956007F5994 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A15621EE0956007F5994 /* RuleTests.swift */; };
-		9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16121F110A3007F5994 /* NetworkOperator.swift */; };
 		9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16321F113DC007F5994 /* RequestManagerTests.swift */; };
 		9822A16621F11519007F5994 /* AppDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16521F11519007F5994 /* AppDataStoreTests.swift */; };
 		9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822A16721F24CA7007F5994 /* MapViewController.swift */; };
@@ -119,7 +117,6 @@
 		9838F28E227B771F00744EDD /* IDStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838F28D227B771F00744EDD /* IDStore.swift */; };
 		98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98401AF421FB79F400064DAE /* ChatViewController.swift */; };
 		9841B477237E9239000A4922 /* AnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841B476237E9239000A4922 /* AnnotationController.swift */; };
-		9843FAA1236CD7F000457930 /* NetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA0236CD7F000457930 /* NetworkDataProvider.swift */; };
 		9843FAA3236CDC0D00457930 /* NetworkOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */; };
 		9843FAA5236CDC6E00457930 /* MockNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA4236CDC6E00457930 /* MockNetworkDataProvider.swift */; };
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
@@ -208,7 +205,6 @@
 		9409274C22841E160034E46B /* String+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
-		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
 		9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInputViewController.xib; sourceTree = "<group>"; };
 		9455CE8C2397ACE200DED561 /* SendButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputViewController.swift; sourceTree = "<group>"; };
@@ -284,7 +280,6 @@
 		981C92082288B47F00391FA9 /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		98205F682207937100122EDA /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		9822A15621EE0956007F5994 /* RuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTests.swift; sourceTree = "<group>"; };
-		9822A16121F110A3007F5994 /* NetworkOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperator.swift; sourceTree = "<group>"; };
 		9822A16321F113DC007F5994 /* RequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerTests.swift; sourceTree = "<group>"; };
 		9822A16521F11519007F5994 /* AppDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataStoreTests.swift; sourceTree = "<group>"; };
 		9822A16721F24CA7007F5994 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -310,7 +305,6 @@
 		9838F28D227B771F00744EDD /* IDStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStore.swift; sourceTree = "<group>"; };
 		98401AF421FB79F400064DAE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		9841B476237E9239000A4922 /* AnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationController.swift; sourceTree = "<group>"; };
-		9843FAA0236CD7F000457930 /* NetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataProvider.swift; sourceTree = "<group>"; };
 		9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperatorTests.swift; sourceTree = "<group>"; };
 		9843FAA4236CDC6E00457930 /* MockNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkDataProvider.swift; sourceTree = "<group>"; };
 		9844438023429354005468B2 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
@@ -448,7 +442,6 @@
 				94FCBD26226C57CA00F93F94 /* IBConstructable.swift */,
 				98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */,
 				98329A1E22D3BEA000A157EE /* KeychainHelper.swift */,
-				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
 				210367BB237AAE2F001F2A84 /* PathObserver.swift */,
 				9810C381229830940011F718 /* RatingHelper.swift */,
@@ -494,7 +487,6 @@
 			children = (
 				98003D4A22872C2A00592D55 /* FollowURLObject.swift */,
 				940643CF23071F3200AB1BCB /* ErrorHandler.swift */,
-				9843FAA0236CD7F000457930 /* NetworkDataProvider.swift */,
 				9823712523781D53009D6F05 /* SimulationNetworkDataProvider.swift */,
 			);
 			name = Networking;
@@ -512,7 +504,6 @@
 				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
 				989FA00521C8154D00E71085 /* LocationManager.swift */,
 				9491720A23009E93008B98AD /* Networking */,
-				9822A16121F110A3007F5994 /* NetworkOperator.swift */,
 				9822A17121F3349F007F5994 /* Preferences.swift */,
 				94FCBD36226C580D00F93F94 /* SettingsSection.swift */,
 				94FCBD2D226C57E000F93F94 /* Theme */,
@@ -1090,7 +1081,6 @@
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */,
-				9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */,
 				98003D5822872CD200592D55 /* FriendsVerificationController.swift in Sources */,
 				981C788F225E67350009FC3E /* ChatNavigationButton.swift in Sources */,
 				9838F28E227B771F00744EDD /* IDStore.swift in Sources */,
@@ -1107,7 +1097,6 @@
 				98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */,
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
 				98AAD08F2337FF90001519C7 /* ManageFriendsViewController.swift in Sources */,
-				9843FAA1236CD7F000457930 /* NetworkDataProvider.swift in Sources */,
 				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,
@@ -1127,7 +1116,6 @@
 				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
-				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
 				98A17F0D234A807700796618 /* AppDataStore.swift in Sources */,
 				98003D4B22872C2A00592D55 /* FollowURLObject.swift in Sources */,
