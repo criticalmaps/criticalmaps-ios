@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pokus Labs. All rights reserved.
 //
 
+import CriticalMapsFoundation
 import UIKit
 
 enum Section: Int, CaseIterable {

@@ -10,7 +10,7 @@ public protocol APIRequestDefining {
     func parseResponse(data: Data) throws -> ResponseDataType
 }
 
-extension APIRequestDefining {
+public extension APIRequestDefining {
     var requiresBackgroundTask: Bool {
         false
     }

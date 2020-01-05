@@ -8,7 +8,7 @@
 
 import Foundation
 
-func onMain(_ closure: @escaping () -> Void) {
+public func onMain(_ closure: @escaping () -> Void) {
     if Thread.isMainThread {
         closure()
     } else {

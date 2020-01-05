@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 1/26/19.
 //
 
+import CriticalMapsFoundation
 import Crypto
 import Foundation
 

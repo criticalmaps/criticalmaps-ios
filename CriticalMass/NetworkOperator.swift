@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 1/17/19.
 //
 
+import CriticalMapsFoundation
 import Foundation
 
 #if canImport(UIKit)

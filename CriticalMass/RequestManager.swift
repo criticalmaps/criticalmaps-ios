@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
+import CriticalMapsFoundation
 import Foundation
 import os.log
 

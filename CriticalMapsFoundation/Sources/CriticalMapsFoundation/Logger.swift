@@ -9,18 +9,16 @@
 import Foundation
 import os.log
 
-extension OSLog {
+public extension OSLog {
     private static var subsystem = Bundle.main.bundleIdentifier!
 
-    @available(OSX 10.12, *)
     static let viewManagement = OSLog(subsystem: subsystem, category: "viewManagement")
 
-    @available(OSX 10.12, *)
     static let map = OSLog(subsystem: subsystem, category: "Map")
 }
 
-class Logger {
-    static func log(_ type: OSLogType, log: OSLog, _ message: StaticString) {
+public class Logger {
+    public static func log(_ type: OSLogType, log: OSLog, _ message: StaticString) {
         if #available(iOS 12.0, macOS 10.14, *) {
             os_log(type, log: log, message)
         } else {
@@ -28,7 +26,7 @@ class Logger {
         }
     }
 
-    static func log(_ type: OSLogType, log: OSLog, _ message: StaticString, parameter: String) {
+    public static func log(_ type: OSLogType, log: OSLog, _ message: StaticString, parameter: String) {
         if #available(iOS 12.0, macOS 10.14, *) {
             let logMessage = "\(message): \(parameter)"
             os_log(type, log: log, "%@", logMessage)

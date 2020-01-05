@@ -1,3 +1,4 @@
+import CriticalMapsFoundation
 import Foundation
 
 struct TwitterRequest: APIRequestDefining {

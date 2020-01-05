@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import CriticalMapsFoundation
 
 class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     static var accessPermission: LocationProviderPermission {

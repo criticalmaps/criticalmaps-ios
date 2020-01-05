@@ -8,13 +8,13 @@
 
 import Foundation
 
-extension Encodable {
+public extension Encodable {
     func encoded() throws -> Data {
         try JSONEncoder().encode(self)
     }
 }
 
-extension Data {
+public extension Data {
     func decoded<T: Decodable>() throws -> T {
         try JSONDecoder().decode(T.self, from: self)
     }

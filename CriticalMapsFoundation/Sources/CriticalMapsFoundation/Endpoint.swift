@@ -27,7 +27,7 @@ extension Endpoint {
     }
 }
 
-extension Endpoint {
+public extension Endpoint {
     static let `default` = Endpoint()
     static let twitter = Endpoint(path: "twitter")
 }
