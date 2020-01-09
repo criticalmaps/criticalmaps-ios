@@ -9,13 +9,14 @@
 import XCTest
 
 class RequestManagerTests: XCTestCase {
-    func setup(interval: TimeInterval, deviceId: String = "") -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer) {
+    func setup(interval: TimeInterval, deviceId: String = "") -> (requestManager: RequestManager, locationProvider: MockLocationProvider, dataStore: MockDataStore, networkLayer: MockNetworkLayer, networkObserver: MockNetworkObserver) {
         let dataStore = MockDataStore()
         let locationProvider = MockLocationProvider()
         let networkLayer = MockNetworkLayer()
         let mockIDProvider = MockIDProvider()
+        let networkObserver = MockNetworkObserver()
         mockIDProvider.mockID = deviceId
-        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider), locationProvider, dataStore, networkLayer)
+        return (RequestManager(dataStore: dataStore, locationProvider: locationProvider, networkLayer: networkLayer, interval: interval, idProvider: mockIDProvider, networkObserver: networkObserver), locationProvider, dataStore, networkLayer, networkObserver)
     }
 
     func testNoRequestForActiveRequests() {
@@ -59,10 +60,15 @@ class RequestManagerTests: XCTestCase {
 
     func testPostLocation() {
         let deviceId = "123456789"
+        let signature = "Hello World"
         let testSetup = setup(interval: 0.1, deviceId: deviceId)
-        let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: nil, color: nil)
+        let testLocation = Location(longitude: 100, latitude: 101, timestamp: 0, name: signature, color: nil)
         testSetup.locationProvider.mockLocation = testLocation
-        let expectedBody: [String: AnyHashable] = ["device": deviceId, "location": ["longitude": testLocation.longitude * 1_000_000, "latitude": testLocation.latitude * 1_000_000, "timestamp": 0]]
+        let expectedBody: [String: AnyHashable] = ["device": deviceId,
+                                                   "location": ["longitude": testLocation.longitude * 1_000_000,
+                                                                "latitude": testLocation.latitude * 1_000_000,
+                                                                "timestamp": 0,
+                                                                "name": signature as AnyHashable]]
         XCTAssertNil(testSetup.dataStore.storedData)
         let exp = expectation(description: "Wait a second")
         wait(interval: 1) {
@@ -85,5 +91,53 @@ class RequestManagerTests: XCTestCase {
         XCTAssertEqual(testSetup.networkLayer.numberOfGetCalled, 0)
         XCTAssertEqual(testSetup.networkLayer.numberOfPostCalled, 1)
         XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
+    }
+
+    func testNetworkSatisfiedStatusUpdate() {
+        let setup = self.setup(interval: 4)
+        setup.networkObserver.update(with: .satisfied)
+
+        let exp = expectation(description: "Wait a second")
+        wait(interval: 1) {
+            XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+            XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 1)
+
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 4)
+    }
+
+    func testNetworkNoneStatusUpdate() {
+        let setup = self.setup(interval: 4)
+        setup.networkObserver.update(with: .none)
+
+        let exp = expectation(description: "Wait a second")
+        wait(interval: 1) {
+            XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+            XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
+
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 4)
+    }
+
+    func testRegainingNetworkAcccess() {
+        let setup = self.setup(interval: 4)
+        setup.networkObserver.update(with: .none)
+
+        let exp = expectation(description: "Wait a second")
+        wait(interval: 1) {
+            XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+            XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 0)
+
+            setup.networkObserver.update(with: .satisfied)
+            self.wait(interval: 1) {
+                XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
+                XCTAssertEqual(setup.networkLayer.numberOfPostCalled, 1)
+
+                exp.fulfill()
+            }
+        }
+        wait(for: [exp], timeout: 4)
     }
 }

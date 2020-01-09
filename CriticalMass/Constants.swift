@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Constants {
+public enum Constants {
     static let apiEndpoint = URL(string: "https://api.criticalmaps.net/")!
     static let criticalMapsiOSGitHubEndpoint = URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!
     static let criticalMapsWebsite = URL(string: "https://www.criticalmaps.net")!

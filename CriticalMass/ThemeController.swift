@@ -42,8 +42,9 @@ class ThemeController {
         styleSocialComponets(with: theme)
         styleRulesComponents(with: theme)
         styleSettingsComponents(with: theme)
+        styleFriendsComponents(with: theme)
         styleNavigationOverlayComponents(with: theme)
-        styleBlurredOverlayComponents(with: theme)
+        styleMapComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
         NoContentTitleLabel.appearance().messageTextColor = theme.titleTextColor
         NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
@@ -100,11 +101,7 @@ class ThemeController {
         TweetTableViewCell.appearance().userameTextColor = theme.titleTextColor
         TweetTableViewCell.appearance().linkTintColor = theme.tintColor
         UITextView.appearance(whenContainedInInstancesOf: [TweetTableViewCell.self]).textColor = theme.titleTextColor
-        ChatInputView.appearance().backgroundColor = theme.backgroundColor
-        ChatInputView.appearance().textViewTextColor = theme.titleTextColor
-        ChatInputView.appearance().sendMessageButtonColor = theme.titleTextColor
-        TextFieldWithInsets.appearance().textFieldBackgroundColor = theme.chatMessageInputTextViewBackgroundColor
-        TextFieldWithInsets.appearance().placeholderTextColor = theme.placeholderTextColor
+        UIButton.appearance(whenContainedInInstancesOf: [ChatInputViewController.self]).tintColor = theme.backgroundColor
         ChatMessageTableViewCell.appearance().timeLabelTextColor = theme.titleTextColor
         ChatMessageTableViewCell.appearance().chatTextColor = theme.secondaryTitleTextColor
         // UIToolBar
@@ -114,12 +111,13 @@ class ThemeController {
         UIView.appearance(whenContainedInInstancesOf: [LoadingViewController.self]).backgroundColor = theme.backgroundColor
         UIView.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = theme.backgroundColor
         UIButton.appearance(whenContainedInInstancesOf: [ErrorStateViewController.self]).backgroundColor = .cmYellow
+        SendButton.appearance().sendMessageButtonBGColor = theme.titleTextColor
+        ChatBackGroundView.appearance().backgroundColor = theme.chatInputBackgroundColor
     }
 
     private func styleGlobalComponents(with theme: ThemeDefining) {
         SeparatorView.appearance().backgroundColor = theme.separatorColor
         UIApplication.shared.delegate?.window??.tintColor = theme.tintColor
-        UITextField.appearance().keyboardAppearance = theme.keyboardAppearance
         // NavigationBar
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = theme.titleTextColor
@@ -145,16 +143,27 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
     }
 
-    private func styleBlurredOverlayComponents(with theme: ThemeDefining) {
-        BlurryOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
-        BlurryOverlayView.appearance().gradientEndColor = theme.gradientEndColor
+    private func styleFriendsComponents(with theme: ThemeDefining) {
+        FriendSettingsTableViewCell.appearance().titleLabelColor = theme.titleTextColor
+        FriendSettingsTableViewCell.appearance().placeholderColor = theme.settingsPlaceholderColor
+        FriendSettingsTableViewCell.appearance().textFieldColor = theme.titleTextColor
+        FriendTableViewCell.appearance().nameColor = theme.titleTextColor
+        ManageFriendsViewController.backgroundAndTableViewColor = theme.backgroundColor
+    }
+
+    private func styleMapComponents(with theme: ThemeDefining) {
+        BlurryFullscreenOverlayView.appearance().gradientBeginColor = theme.gradientBeginColor
+        BlurryFullscreenOverlayView.appearance().gradientEndColor = theme.gradientEndColor
+
+        MapInfoView.appearance().mapInfoForegroundColor = theme.mapInfoForegroundColor
+        MapInfoView.appearance().mapInfoBackgroundColor = theme.mapInfoBackgroundColor
     }
 }
 
 extension ThemeController: Switchable {
     var isEnabled: Bool {
         get {
-            return currentTheme == .dark
+            currentTheme == .dark
         }
         set {
             changeTheme(to: newValue ? .dark : .light)

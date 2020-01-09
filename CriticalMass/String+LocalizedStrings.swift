@@ -13,6 +13,8 @@ extension String {
     static let rulesTitle = NSLocalizedString("rules.title", comment: "")
     static let error = NSLocalizedString("error", comment: "")
     static let closeButtonLabel = NSLocalizedString("close.button.label", comment: "")
+    static let loadingButtonLabel = NSLocalizedString("loading.barButton.label", comment: "")
+    static let ok = NSLocalizedString("ok", comment: "")
     // Settings
     static let themeLocalizedString = NSLocalizedString("settings.theme", comment: "")
     static let obversationModeTitle = NSLocalizedString("settings.observationmode.title", comment: "")
@@ -25,6 +27,11 @@ extension String {
     static let settingsOpenSourceTitle = NSLocalizedString("settings.opensource.title", comment: "")
     static let settingsOpenSourceDetail = NSLocalizedString("settings.opensource.detail", comment: "")
     static let settingsOpenSourceAction = NSLocalizedString("settings.opensource.action", comment: "")
+    static let settingsFriends = NSLocalizedString("settings.friends", comment: "")
+    static let settingsFriendsSettings = NSLocalizedString("settings.friends.settings", comment: "")
+    static let settingsFriendsShowID = NSLocalizedString("settings.friends.showID", comment: "")
+    static let settingsAddFriendTitle = NSLocalizedString("settings.friends.addFriendTitle", comment: "")
+    static let settingsAddFriendDescription = NSLocalizedString("settings.friends.addFriendDescription", comment: "")
     // Chat
     static let chatNoChatActivity = NSLocalizedString("chat.noChatActivity", comment: "")
     static let chatPlaceholder = NSLocalizedString("chat.placeholder", comment: "")

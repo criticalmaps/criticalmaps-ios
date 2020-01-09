@@ -49,17 +49,6 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(navBarColor!, Theme.dark.style.titleTextColor)
     }
 
-    func testKeyboardStyleShouldChangeToDarkWhenNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let keyboard = UITextField.appearance().keyboardAppearance
-        XCTAssertEqual(keyboard, Theme.dark.style.keyboardAppearance)
-    }
-
     func testUINavigationBarStyleShouldChangeToBlackWhenNightModeWasSelected() {
         // given
         let theme: Theme = .dark
@@ -225,48 +214,15 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(textViewTextColor, Theme.dark.style.titleTextColor)
     }
 
-    func testChatInputViewBackgroundColorShouldChangeToBackgroundColorWhenNightModeWasSelected() {
+    func testChatInputViewSendMessageBGButtonColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {
         // given
         let theme: Theme = .dark
         // when
         sut.changeTheme(to: theme)
         sut.applyTheme()
         // then
-        let chatInputViewBackgroundColor = ChatInputView.appearance().backgroundColor
-        XCTAssertEqual(chatInputViewBackgroundColor, Theme.dark.style.backgroundColor)
-    }
-
-    func testChatInputViewSendMessageButtonColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let chatInputViewSendMessageColor = ChatInputView.appearance().sendMessageButtonColor
+        let chatInputViewSendMessageColor = SendButton.appearance().sendMessageButtonBGColor
         XCTAssertEqual(chatInputViewSendMessageColor, Theme.dark.style.titleTextColor)
-    }
-
-    func testTextFieldWithInsetsViewTextFieldBackgroundColorShouldChangeToChatMessageInputTextViewBackgroundColorWhenNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let textFieldBackgroundColor = TextFieldWithInsets.appearance().textFieldBackgroundColor
-        XCTAssertEqual(textFieldBackgroundColor, Theme.dark.style.chatMessageInputTextViewBackgroundColor)
-    }
-
-    func testTextFieldWithInsetsViewPlaceholderTextColorShouldChangeToPlaceholderTextColorWhenNightModeWasSelected() {
-        // given
-        let theme: Theme = .dark
-        // when
-        sut.changeTheme(to: theme)
-        sut.applyTheme()
-        // then
-        let placeholderTextColor = TextFieldWithInsets.appearance().placeholderTextColor
-        XCTAssertEqual(placeholderTextColor, Theme.dark.style.placeholderTextColor)
     }
 
     func testChatMessageTableViewCellTimeLabelTextColorShouldChangeToTitleTextColorWhenNightModeWasSelected() {

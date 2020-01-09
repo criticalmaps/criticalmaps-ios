@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var appController = AppController()
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         // Test Configuration
         if let shouldEarlyExitForTests = configureAppForTests() {
             return shouldEarlyExitForTests
@@ -41,7 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if ProcessInfo.processInfo.arguments.contains("SKIP_ANIMATIONS") {
                 UIView.setAnimationsEnabled(false)
             }
+
+            if ProcessInfo.processInfo.arguments.contains("SIMULATION_MODE") {
+                appController.enableSimulationMode()
+            }
         #endif
         return nil
+    }
+
+    func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        appController.handle(url: url)
     }
 }

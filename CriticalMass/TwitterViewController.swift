@@ -72,13 +72,13 @@ private extension TwitterViewController {
         if let webURL = tweet.webURL, UIApplication.shared.canOpenURL(webURL) {
             UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
         } else {
-            //Do nothing
-        }        
+            // Do nothing
+        }
     }
 }
 
 private extension Tweet {
     var webURL: URL? {
-        return URL(string: "https://twitter.com/\(user.screen_name)/status/\(id_str)")
+        URL(string: "https://twitter.com/\(user.screen_name)/status/\(id_str)")
     }
 }

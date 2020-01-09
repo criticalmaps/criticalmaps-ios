@@ -9,14 +9,13 @@
 import XCTest
 
 class CriticalMapsUITests: XCTestCase {
-
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
 
         let app = XCUIApplication()
         app.launchArguments += [
-            "SKIP_ANIMATIONS"
+            "SKIP_ANIMATIONS",
         ]
         setupSnapshot(app, waitForAnimations: false)
         app.launch()

@@ -29,6 +29,11 @@
                                 <constraint firstAttribute="width" secondItem="TGx-az-6en" secondAttribute="height" multiplier="1:1" id="NXp-W5-VmY"/>
                                 <constraint firstAttribute="width" constant="100" id="QUb-0X-AJ7"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="50"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                 </stackView>

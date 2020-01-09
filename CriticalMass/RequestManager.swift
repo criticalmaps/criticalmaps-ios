@@ -5,50 +5,63 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
+import Foundation
 import os.log
-import UIKit
 
+@available(macOS 10.12, *)
 public class RequestManager {
-    private struct SendLocationPostBody: Codable {
-        var device: String
-        var location: Location
-    }
-
-    private struct SendMessagePostBody: Codable {
-        var device: String
-        var messages: [SendChatMessage]
-    }
-
-    private var hasActiveRequest = false
-
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
+    private var networkObserver: NetworkObserver?
 
-    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "RequestManager")
+    private let operationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
 
-    init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider) {
+        return queue
+    }()
+
+    private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
+
+    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, networkObserver: NetworkObserver?) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
-        configureTimer(with: interval)
+        self.networkObserver = networkObserver
+
+        setupNetworkObserver()
+        addUpdateOperation(with: interval)
     }
 
-    private func configureTimer(with interval: TimeInterval) {
-        Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
-    }
+    private func addUpdateOperation(with interval: TimeInterval) {
+        let updateDataOperation = UpdateDataOperation(locationProvider: locationProvider,
+                                                      idProvider: idProvider,
+                                                      networkLayer: networkLayer)
+        updateDataOperation.completionBlock = { [weak self] in
+            guard let self = self else { return }
 
-    @objc private func timerDidUpdate(timer _: Timer) {
-        Logger.log(.info, log: log, "Timer did update")
-        updateData()
+            if let result = updateDataOperation.result {
+                self.defaultCompletion(for: result)
+            }
+
+            self.addUpdateOperation(with: interval)
+        }
+
+        let waitOperation = WaitOperation(with: interval)
+        operationQueue.addOperation(waitOperation)
+
+        let updateLocationOperation = UpdateLocationOperation(locationProvider: locationProvider)
+        operationQueue.addOperation(updateLocationOperation)
+
+        operationQueue.addOperation(updateDataOperation)
     }
 
     private func defaultCompletion(for result: Result<ApiResponse, NetworkError>) {
         onMain { [weak self] in
             guard let self = self else { return }
-            defer { self.hasActiveRequest = false }
             switch result {
             case let .success(response):
                 self.dataStore.update(with: response)
@@ -60,59 +73,43 @@ public class RequestManager {
         }
     }
 
-    private func updateData() {
-        guard hasActiveRequest == false else {
-            Logger.log(.info, log: log, "Don't attempt to request new data because because a request is still active")
-            return
-        }
-        hasActiveRequest = true
-        // We only use a post request if we have a location to post
-        guard let currentLocation = locationProvider.currentLocation else {
-            getData()
-            return
-        }
-        let body = SendLocationPostBody(device: idProvider.id, location: currentLocation)
-        guard let bodyData = try? body.encoded() else {
-            hasActiveRequest = false
-            return
-        }
-        let request = PostLocationRequest()
-        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-        }
-    }
-
     public func getData() {
-        let locationsAndMessagesRequest = GetLocationsAndChatMessagesRequest()
-        networkLayer.get(request: locationsAndMessagesRequest) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-        }
+        UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer)
+            .performWithoutQueue { [weak self] result in
+                guard let self = self else { return }
+                self.defaultCompletion(for: result)
+            }
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
-        let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
-            completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
-            self.networkLayer.cancelActiveRequestsIfNeeded()
-        }
-        let body = SendMessagePostBody(device: idProvider.id, messages: messages)
-        guard let bodyData = try? body.encoded() else {
-            completion(.failure(NetworkError.encodingError(body)))
-            return
-        }
-        let request = PostChatMessagesRequest()
-        networkLayer.post(request: request, bodyData: bodyData) { [weak self] result in
-            guard let self = self else { return }
-            self.defaultCompletion(for: result)
-            onMain {
-                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
-                switch result {
-                case let .success(messages):
-                    completion(.success(messages.chatMessages))
-                case let .failure(error):
-                    completion(.failure(error))
+        UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer, messages: messages)
+            .performWithoutQueue { [weak self] result in
+                guard let self = self else { return }
+
+                self.defaultCompletion(for: result)
+                onMain {
+                    switch result {
+                    case let .success(messages):
+                        completion(.success(messages.chatMessages))
+                    case let .failure(error):
+                        completion(.failure(error))
+                    }
                 }
+            }
+    }
+}
+
+@available(macOS 10.12, *)
+private extension RequestManager {
+    func setupNetworkObserver() {
+        networkObserver?.statusUpdateHandler = { [weak self] status in
+            guard let self = self, status == .satisfied else {
+                return
+            }
+
+            let operation = self.operationQueue.operations.first
+            if operation is WaitOperation {
+                operation?.cancel()
             }
         }
     }

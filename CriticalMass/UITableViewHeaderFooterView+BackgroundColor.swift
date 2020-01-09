@@ -11,13 +11,13 @@ import UIKit
 extension UITableViewHeaderFooterView {
     open override var backgroundColor: UIColor? {
         get {
-            return customBackgroundView.backgroundColor
+            customBackgroundView.backgroundColor
         }
         set {
             customBackgroundView.backgroundColor = newValue
         }
     }
-    
+
     private var customBackgroundView: UIView {
         guard let backgroundView = self.backgroundView else {
             let customView = UIView()

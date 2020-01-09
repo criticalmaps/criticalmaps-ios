@@ -154,7 +154,7 @@ private extension Tweet {
     enum TestData {
         static let fakeTweets: [Tweet] = [
             Tweet(text: "Hello World", created_at: Date(), user: TwitterUser(name: "Test", screen_name: "Foo", profile_image_url_https: "haa"), id_str: "12345"),
-            Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890")
+            Tweet(text: "Test Test", created_at: Date(), user: TwitterUser(name: "Hello World", screen_name: "Bar", profile_image_url_https: "differentURL"), id_str: "67890"),
         ]
     }
 }

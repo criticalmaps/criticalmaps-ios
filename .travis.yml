@@ -1,5 +1,5 @@
 language: objective-c 
-osx_image: xcode11
+osx_image: xcode11.2
 cache:
   - bundler
 install:
@@ -13,3 +13,5 @@ jobs:
       name: UITests
     - script: bundle exec fastlane snapshot_test
       name: SnapshotTests
+    - script: swift build
+      name: SPM

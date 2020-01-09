@@ -8,14 +8,20 @@
 
 import UIKit
 
-@IBDesignable
-class RoundableImageView: UIImageView {
-    @IBInspectable var cornerRadius: CGFloat = 0.0 {
-        didSet {
-            applyCornerRadius()
+extension UIView {
+    @IBInspectable
+    var cornerRadius: CGFloat {
+        get {
+            layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
         }
     }
+}
 
+@IBDesignable
+class RoundableImageView: UIImageView {
     @IBInspectable var borderColor: UIColor = UIColor.clear {
         didSet {
             applyCornerRadius()

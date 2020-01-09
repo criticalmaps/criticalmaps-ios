@@ -24,6 +24,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         }
     }
 
+    private var updateLocationCompletion: ResultCallback<Location>?
+
+    func updateLocation(completion: ResultCallback<Location>?) {
+        updateLocationCompletion = completion
+        locationManager.requestLocation()
+    }
+
     private var didSetInitialLocation = false
 
     private var _currentLocation: Location?
@@ -49,10 +56,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
 
     private let locationManager = CLLocationManager()
 
-    init(updateInterval: TimeInterval = 11) {
+    override init() {
         super.init()
         configureLocationManager()
-        configureTimer(with: updateInterval)
     }
 
     func configureLocationManager() {
@@ -64,30 +70,26 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         locationManager.startUpdatingLocation()
     }
 
-    private func configureTimer(with interval: TimeInterval) {
-        Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(timerDidUpdate(timer:)), userInfo: nil, repeats: true)
-    }
-
-    @objc private func timerDidUpdate(timer _: Timer) {
-        requestLocation()
-    }
-
-    func requestLocation() {
-        guard type(of: self).accessPermission == .authorized else { return }
-        locationManager.requestLocation()
-    }
-
     // MARK: CLLocationManagerDelegate
 
-    func locationManager(_: CLLocationManager, didFailWithError _: Error) {
+    func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
+        updateLocationCompletion?(.failure(.fetchFailed(error)))
+        updateLocationCompletion = nil
     }
 
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            currentLocation = Location(location)
+        if let lastLocation = locations.last {
+            let location = Location(lastLocation)
+
+            currentLocation = location
+            updateLocationCompletion?(.success(location))
+        } else {
+            updateLocationCompletion?(.failure(.noData(nil)))
         }
+
         locationManager.stopUpdatingLocation()
+        updateLocationCompletion = nil
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {

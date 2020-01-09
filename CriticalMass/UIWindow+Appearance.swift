@@ -8,11 +8,6 @@
 
 import UIKit
 
-extension Notification.Name {
-    static let CMAppearanceWillRefreshWindow = Notification.Name(rawValue: "CMAppearanceWillRefreshWindowNotification")
-    static let CMAppearanceDidRefreshWindow = Notification.Name(rawValue: "CMAppearanceDidRefreshWindowNotification")
-}
-
 extension UIWindow {
     // This is needed to see the immediate effect of selecting a theme.
     @nonobjc private func _refreshAppearance() {
@@ -29,11 +24,8 @@ extension UIWindow {
     ///
     /// - Parameter animated: if the refresh should be animated
     func refreshAppearance(animated: Bool) {
-        NotificationCenter.default.post(name: .CMAppearanceWillRefreshWindow, object: self)
         UIView.animate(withDuration: animated ? 0.25 : 0, animations: {
             self._refreshAppearance()
-        }, completion: { _ in
-            NotificationCenter.default.post(name: .CMAppearanceDidRefreshWindow, object: self)
         })
     }
 }

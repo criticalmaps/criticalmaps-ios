@@ -15,13 +15,22 @@
 "chat.title" = "Chat";
 
 /* No comment provided by engineer. */
+"close.button.label" = "close";
+
+/* No comment provided by engineer. */
 "error" = "Error";
 
 /* No comment provided by engineer. */
-"map.layer.info.title" = "GPS deactivated";
+"errorState.message" = "Sorry, something went wrong";
+
+/* ErrorState */
+"errorState.title" = "Error";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps needs to use your GPS to show the map with other active user";
+
+/* No comment provided by engineer. */
+"map.layer.info.title" = "GPS deactivated";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "locating";
@@ -30,7 +39,7 @@
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
-"rules.source" = "Images of criticalmass-hh.de (CC BY-NC-ND 3.0 DE)";
+"ok" = "OK";
 
 /* No comment provided by engineer. */
 "rules.text.brake" = "Avoid sudden stops. If you really have to though, try to warn people behind you.";
@@ -80,7 +89,6 @@
 /* No comment provided by engineer. */
 "settings.about" = "About";
 
-
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -90,13 +98,22 @@
 "settings.donate" = "Help finacing our tracking server";
 
 /* No comment provided by engineer. */
-"settings.observationmode.title" = "Observation Mode";
-
-/* No comment provided by engineer. */
-"settings.observationmode.detail" = "If you don’t take part yourself, but want to follow the Critical Mass.";
-
-/* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
+
+/* No comment provided by engineer. */
+"settings.friends" = "Friends";
+
+/* No comment provided by engineer. */
+"settings.friends.settings" = "Settings";
+
+/* No comment provided by engineer. */
+"settings.friends.showID" = "Show ID";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendTitle" = "Added Friend";
+
+/* No comment provided by engineer. */
+"settings.friends.addFriendDescription" = "added";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "GPS settings";
@@ -106,6 +123,12 @@
 
 /* No comment provided by engineer. */
 "settings.logoDesign" = "Logo design";
+
+/* No comment provided by engineer. */
+"settings.observationmode.detail" = "If you don’t take part yourself, but want to follow the Critical Mass.";
+
+/* No comment provided by engineer. */
+"settings.observationmode.title" = "Observation Mode";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "Github";
@@ -128,6 +151,9 @@
 /* No comment provided by engineer. */
 "settings.socialMedia" = "Social Media";
 
+/* Theme */
+"settings.theme" = "Night mode";
+
 /* No comment provided by engineer. */
 "settings.title" = "Settings";
 
@@ -142,13 +168,3 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
-
-/* No comment provided by engineer. */
-"close.button.label" = "close";
-
-/* Theme */
-"settings.theme" = "Night mode";
-
-/* ErrorState */
-"errorState.title" = "Error";
-"errorState.message" = "Sorry, something went wrong";

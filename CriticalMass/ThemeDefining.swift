@@ -28,152 +28,188 @@ protocol ThemeDefining {
     var statusBarStyle: UIStatusBarStyle { get }
     var gradientBeginColor: UIColor { get }
     var gradientEndColor: UIColor { get }
+    var mapInfoForegroundColor: UIColor { get }
+    var mapInfoBackgroundColor: UIColor { get }
+    var chatInputBackgroundColor: UIColor { get }
+    var settingsPlaceholderColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
     var tintColor: UIColor {
-        return .blue
+        .blue
     }
 
     var barStyle: UIBarStyle {
-        return .default
+        .default
     }
 
     var keyboardAppearance: UIKeyboardAppearance {
-        return .default
+        .default
     }
 
     var backgroundColor: UIColor {
-        return .white
+        .white
     }
 
     var titleTextColor: UIColor {
-        return .black
+        .black
     }
 
     var secondaryTitleTextColor: UIColor {
-        return .gray300
+        .gray300
     }
 
     var thirdTitleTextColor: UIColor {
-        return .gray400
+        .gray400
     }
 
     var switchTintColor: UIColor {
-        return .black
+        .black
     }
 
     var chatMessageInputTextViewBackgroundColor: UIColor {
-        return .gray500
+        .gray500
     }
 
     var separatorColor: UIColor {
-        return .lightThemeNavigationOverlaySeperatorColor
+        .lightThemeNavigationOverlaySeperatorColor
     }
 
     var cellSelectedBackgroundViewColor: UIColor {
-        return .gray500
+        .gray500
     }
 
     var navigationBarIsTranslucent: Bool {
-        return false
+        false
     }
 
     var placeholderTextColor: UIColor {
-        return .gray300
+        .gray300
     }
 
     var toolBarBackgroundColor: UIColor {
-        return .lightThemeToolBarBackgroundColor
+        .lightThemeToolBarBackgroundColor
     }
 
     var navigationOverlayBackgroundColor: UIColor {
-        return backgroundColor.withAlphaComponent(0.6)
+        backgroundColor.withAlphaComponent(0.6)
     }
 
     var statusBarStyle: UIStatusBarStyle {
-        return .default
+        .default
     }
 
     var gradientBeginColor: UIColor {
-        return .lightThemeGradientBegin
+        .lightThemeGradientBegin
     }
 
     var gradientEndColor: UIColor {
-        return .lightThemeGradientEnd
+        .lightThemeGradientEnd
+    }
+
+    var chatInputBackgroundColor: UIColor {
+        .gray500
+    }
+
+    var mapInfoBackgroundColor: UIColor {
+        .gray600
+    }
+
+    var mapInfoForegroundColor: UIColor {
+        .gray200
+    }
+
+    var settingsPlaceholderColor: UIColor {
+        .lightThemedSettingsPlaceholderColor
     }
 }
 
 struct DarkTheme: ThemeDefining {
     var tintColor: UIColor {
-        return .yellow100
+        .yellow100
     }
 
     var barStyle: UIBarStyle {
-        return .black
+        .black
     }
 
     var keyboardAppearance: UIKeyboardAppearance {
-        return .dark
+        .dark
     }
 
     var backgroundColor: UIColor {
-        return .gray200
+        .gray200
     }
 
     var secondaryTitleTextColor: UIColor {
-        return .gray500
+        .gray500
     }
 
     var thirdTitleTextColor: UIColor {
-        return .gray400
+        .gray400
     }
 
     var titleTextColor: UIColor {
-        return .white
+        .white
     }
 
     var switchTintColor: UIColor {
-        return tintColor
+        tintColor
     }
 
     var chatMessageInputTextViewBackgroundColor: UIColor {
-        return .gray100
+        .gray100
     }
 
     var separatorColor: UIColor {
-        return .darkThemeNavigationOverlaySeperatorColor
+        .darkThemeNavigationOverlaySeperatorColor
     }
 
     var cellSelectedBackgroundViewColor: UIColor {
-        return .gray300
+        .gray300
     }
 
     var navigationBarIsTranslucent: Bool {
-        return false
+        false
     }
 
     var placeholderTextColor: UIColor {
-        return .gray500
+        .gray500
     }
 
     var toolBarBackgroundColor: UIColor {
-        return .black
+        .black
     }
 
     var navigationOverlayBackgroundColor: UIColor {
-        return backgroundColor.withAlphaComponent(0.8)
+        backgroundColor.withAlphaComponent(0.8)
     }
 
     var statusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
 
     var gradientBeginColor: UIColor {
-        return .darkThemeGradientBegin
+        .darkThemeGradientBegin
     }
 
     var gradientEndColor: UIColor {
-        return .darkThemeGradientEnd
+        .darkThemeGradientEnd
+    }
+
+    var chatInputBackgroundColor: UIColor {
+        .gray100
+    }
+
+    var mapInfoBackgroundColor: UIColor {
+        .gray300
+    }
+
+    var mapInfoForegroundColor: UIColor {
+        .white
+    }
+
+    var settingsPlaceholderColor: UIColor {
+        .darkThemedSettingsPlaceholderColor
     }
 }

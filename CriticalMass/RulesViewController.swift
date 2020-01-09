@@ -17,15 +17,15 @@ enum Rule: String, CaseIterable {
     case haveFun
 
     var title: String {
-        return NSLocalizedString("rules.title.\(rawValue)", comment: "")
+        NSLocalizedString("rules.title.\(rawValue)", comment: "")
     }
 
     var text: String {
-        return NSLocalizedString("rules.text.\(rawValue)", comment: "")
+        NSLocalizedString("rules.text.\(rawValue)", comment: "")
     }
 
     var artwork: UIImage? {
-        return UIImage(named: rawValue.prefix(1).uppercased() + rawValue.dropFirst())
+        UIImage(named: rawValue.prefix(1).uppercased() + rawValue.dropFirst())
     }
 }
 
@@ -56,11 +56,11 @@ class RulesViewController: UITableViewController {
     // MARK: UITableViewDataSource
 
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
-        return 60
+        60
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return rules.count
+        rules.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

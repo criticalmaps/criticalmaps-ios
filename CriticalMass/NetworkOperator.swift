@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct NetworkOperator: NetworkLayer {
+#if canImport(UIKit)
+    import UIKit
+#endif
+
+public struct NetworkOperator: NetworkLayer {
     private let dataProvider: NetworkDataProvider
-    private var networkIndicatorHelper: NetworkActivityIndicatorHelper
+    private var networkIndicatorHelper: NetworkActivityIndicatorHelper?
     private static let validHttpResponseCodes = 200 ..< 299
 
     init(networkIndicatorHelper: NetworkActivityIndicatorHelper, dataProvider: NetworkDataProvider) {
@@ -17,18 +21,31 @@ struct NetworkOperator: NetworkLayer {
         self.networkIndicatorHelper = networkIndicatorHelper
     }
 
-    func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
+    public init(dataProvider: NetworkDataProvider) {
+        self.dataProvider = dataProvider
+    }
+
+    public func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
         dataTaskHandler(request: request, urlRequest: request.makeRequest(), completion: completion)
     }
 
-    func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
+    public func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
         var urlRequest = request.makeRequest()
         urlRequest.httpBody = bodyData
         dataTaskHandler(request: request, urlRequest: urlRequest, completion: completion)
     }
-    
-    private func dataTaskHandler<T: APIRequestDefining>(request: T,urlRequest: URLRequest,  completion: @escaping ResultCallback<T.ResponseDataType>) {
+
+    private func dataTaskHandler<T: APIRequestDefining>(request: T, urlRequest: URLRequest, completion: @escaping ResultCallback<T.ResponseDataType>) {
+        #if canImport(UIKit)
+            let backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
+                completion(.failure(NetworkError.unknownError(message: "Send message: backgroundTask failed")))
+                self.cancelActiveRequestsIfNeeded()
+            }
+        #endif
         dataTask(with: urlRequest) { result in
+            #if canImport(UIKit)
+                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+            #endif
             switch result {
             case let .failure(error):
                 completion(.failure(error))
@@ -45,9 +62,9 @@ struct NetworkOperator: NetworkLayer {
 
     private func dataTask(with request: URLRequest,
                           completion: @escaping ResultCallback<Data>) {
-        networkIndicatorHelper.didStartRequest()
+        networkIndicatorHelper?.didStartRequest()
         dataProvider.dataTask(with: request) { data, response, error in
-            self.networkIndicatorHelper.didEndRequest()
+            self.networkIndicatorHelper?.didEndRequest()
             guard (error as? URLError)?.code != URLError.notConnectedToInternet else {
                 completion(.failure(NetworkError.offline))
                 return
@@ -67,7 +84,7 @@ struct NetworkOperator: NetworkLayer {
         }
     }
 
-    func cancelActiveRequestsIfNeeded() {
+    public func cancelActiveRequestsIfNeeded() {
         dataProvider.invalidateAndCancel()
     }
 }

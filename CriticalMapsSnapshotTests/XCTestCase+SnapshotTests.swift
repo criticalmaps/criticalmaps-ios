@@ -12,14 +12,14 @@ import XCTest
 
 extension XCTestCase {
     func assertViewSnapshot(for themes: [Theme] = [.light, .dark],
-                              matching value: UIView,
-                              with size: CGSize? = nil,
-                              file: StaticString = #file,
-                              testName: String = #function,
-                              line: UInt = #line) {
+                            matching value: UIView,
+                            with size: CGSize? = nil,
+                            file: StaticString = #file,
+                            testName: String = #function,
+                            line: UInt = #line) {
         themes.forEach { theme in
             MockThemeController.shared.changeTheme(to: theme)
-            MockThemeController.shared.applyTheme()            
+            MockThemeController.shared.applyTheme()
             assertSnapshot(matching: value,
                            as: .image(size: size),
                            named: theme.displayName,

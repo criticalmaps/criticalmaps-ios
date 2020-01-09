@@ -7,14 +7,16 @@
 
 import Foundation
 
-enum LocationProviderPermission {
+public enum LocationProviderPermission: String {
     case authorized
     case denied
     case disabled
     case unkown
 }
 
-protocol LocationProvider {
+public protocol LocationProvider {
     var currentLocation: Location? { get }
     static var accessPermission: LocationProviderPermission { get }
+
+    func updateLocation(completion: ResultCallback<Location>?)
 }

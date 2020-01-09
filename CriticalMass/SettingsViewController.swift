@@ -9,9 +9,13 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     private let themeController: ThemeController!
+    private let dataStore: DataStore
+    private let idProvider: IDProvider
 
-    init(themeController: ThemeController) {
+    init(themeController: ThemeController, dataStore: DataStore, idProvider: IDProvider) {
         self.themeController = themeController
+        self.dataStore = dataStore
+        self.idProvider = idProvider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -51,7 +55,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func numberOfSections(in _: UITableView) -> Int {
-        return Section.allCases.count
+        Section.allCases.count
     }
 
     override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -68,11 +72,11 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Section.allCases[section].numberOfRows
+        Section.allCases[section].numberOfRows
     }
 
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
-        return 60
+        60
     }
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,6 +111,8 @@ class SettingsViewController: UITableViewController {
     private func createViewController(type: UIViewController.Type) -> UIViewController {
         // Perform dependency injection if needed
         switch type {
+        case _ as ManageFriendsViewController.Type:
+            return ManageFriendsViewController(dataStore: dataStore, idProvider: idProvider)
         default:
             return type.init()
         }

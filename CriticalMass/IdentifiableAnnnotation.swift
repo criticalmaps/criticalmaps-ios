@@ -8,21 +8,24 @@
 import MapKit
 
 class IdentifiableAnnnotation: MKPointAnnotation {
+    enum UserType: Int, Decodable {
+        case friend
+        case user
+    }
+
+    var type: UserType = .user
     var identifier: String
+    var friend: Friend?
 
     var location: Location {
-        set {
-            coordinate = CLLocationCoordinate2D(latitude: newValue.latitude, longitude: newValue.longitude)
-        }
-        @available(*, unavailable)
-        get {
-            fatalError("Not implemented")
+        didSet {
+            coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
         }
     }
 
     init(location: Location, identifier: String) {
         self.identifier = identifier
-        super.init()
         self.location = location
+        super.init()
     }
 }

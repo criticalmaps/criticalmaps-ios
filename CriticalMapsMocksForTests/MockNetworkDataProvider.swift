@@ -13,10 +13,10 @@ struct MockNetworkDataProvider: NetworkDataProvider {
     var data: Data?
     var response: URLResponse?
     var error: Error?
-    
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+
+    func dataTask(with _: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         completionHandler(data, response, error)
     }
-    
+
     func invalidateAndCancel() {}
 }

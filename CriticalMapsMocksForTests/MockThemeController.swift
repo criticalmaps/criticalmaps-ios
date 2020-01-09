@@ -10,7 +10,7 @@
 
 class MockThemeController: ThemeController {
     static let shared = MockThemeController()
-    
+
     private init() {
         let store = MockThemeStore()
         super.init(store: store)
@@ -21,7 +21,7 @@ class MockThemeStore: ThemeStorable {
     private var currentTheme: Theme?
 
     func load() -> Theme? {
-        return currentTheme
+        currentTheme
     }
 
     func save(_ themeSelection: Theme) {

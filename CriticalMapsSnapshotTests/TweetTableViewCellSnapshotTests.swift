@@ -12,11 +12,11 @@ import XCTest
 class TweetTableViewCellSnapshotTests: XCTestCase {
     private let size = CGSize(width: 320, height: 100)
     // use constant date in the past
-    private let tweetDate = Date(timeIntervalSince1970: 1530230956)    
-    
+    private let tweetDate = Date(timeIntervalSince1970: 1_530_230_956)
+
     override func setUp() {
         // use constant date in the past
-        FormatDisplay.currentDate = Date(timeIntervalSince1970: 1530240956)
+        FormatDisplay.currentDate = Date(timeIntervalSince1970: 1_530_240_956)
     }
 
     func testTweetTableViewCell() {
@@ -28,10 +28,10 @@ class TweetTableViewCellSnapshotTests: XCTestCase {
                                             profile_image_url_https: "haa"),
                           id_str: "test_id")
         let cell = TweetTableViewCell.fromNib()
-        
+
         // when
         cell.setup(for: tweet)
-        
+
         // then
         assertViewSnapshot(matching: cell, with: size)
     }
