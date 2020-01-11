@@ -1,0 +1,60 @@
+name: CI
+
+on: [push]
+
+jobs:
+  unit_tests:
+    name: Unit Tests
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install Gem Dependencies
+      run: bundle install
+
+    - name: Run UnitTests
+      run: bundle exec fastlane test
+
+  ui_tests:
+    name: UI Tests
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install Gem Dependencies
+      run: bundle install
+
+    - name: Run UnitTests
+      run: bundle exec fastlane ui_test
+
+  snapshot_tests:
+    name: Snapshot Tests
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install Gem Dependencies
+      run: bundle install
+
+    - name: Run SnapshotTests
+      run: bundle exec fastlane snapshot_test
+
+  spm:
+    name: SPM
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install Gem Dependencies
+      run: bundle install
+
+    - name: Run Swift Build
+      run: swift build
