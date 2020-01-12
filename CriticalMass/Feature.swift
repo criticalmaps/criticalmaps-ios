@@ -10,11 +10,13 @@
 import Foundation
 
 private var currentState: [Feature: Bool] = [
-    .friends: false
+    .friends: false,
+    .events: false
 ]
 
 enum Feature {
     case friends
+    case events
 
     var isActive: Bool {
         set { currentState[self] = newValue }
