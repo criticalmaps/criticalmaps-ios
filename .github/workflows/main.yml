@@ -9,6 +9,9 @@ on:
     - master
 
 jobs:
+  env:
+    DEVELOPER_DIR: /Applications/Xcode_11.3.app/Contents/Developer
+
   unit_tests:
     name: Unit Tests
     runs-on: macOS-latest
