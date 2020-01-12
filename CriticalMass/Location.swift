@@ -5,6 +5,7 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
+import CoreLocation
 import Foundation
 
 public struct Location: Equatable, Hashable {
@@ -13,6 +14,12 @@ public struct Location: Equatable, Hashable {
     public var timestamp: Float
     public var name: String?
     public var color: String?
+}
+
+extension Location {
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
 }
 
 extension Location: Codable {
