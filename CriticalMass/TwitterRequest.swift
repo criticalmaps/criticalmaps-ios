@@ -7,8 +7,11 @@ struct TwitterRequest: APIRequestDefining {
     var httpMethod: HTTPMethod = .get
 
     func parseResponse(data: Data) throws -> ResponseDataType {
-        try JSONDecoder.twitterDecoder.decode(ResponseDataType.self, from: data)
+        let decoder = JSONDecoder.decoder(dateDecodingStrategy: .formatted(.twitterDateFormatter))
+        return try decoder.decode(ResponseDataType.self, from: data)
     }
+
+    func getQueryItems() -> [URLQueryItem]? { nil }
 }
 
 private extension DateFormatter {
