@@ -1,13 +1,18 @@
 import Foundation
 
+enum APIRequestBuildError: Error {
+    case invalidURL
+}
+
 public protocol APIRequestDefining {
     associatedtype ResponseDataType: Decodable
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
     var requiresBackgroundTask: Bool { get }
-    func makeRequest() -> URLRequest
+    func makeRequest() throws -> URLRequest
     func parseResponse(data: Data) throws -> ResponseDataType
+    func getQueryItems() -> [URLQueryItem]?
 }
 
 extension APIRequestDefining {
