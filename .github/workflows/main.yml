@@ -9,7 +9,7 @@ on:
     - master
 
 env:
-    DEVELOPER_DIR: /Applications/Xcode_11.3.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_11.3.app/Contents/Developer
 
 jobs:
   unit_tests:
