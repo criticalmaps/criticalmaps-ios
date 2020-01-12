@@ -9,20 +9,11 @@
 import Foundation
 
 public struct Endpoint {
+    public let baseUrl: String
     public let path: String?
-}
 
-extension Endpoint {
-    var url: URL {
-        guard let path = self.path else {
-            return Constants.apiEndpoint
-        }
-        return Constants.apiEndpoint.appendingPathComponent(path)
-    }
-}
-
-extension Endpoint {
-    init(_ path: String? = nil) {
+    init(baseUrl: String = Constants.apiEndpoint, path: String? = nil) {
+        self.baseUrl = baseUrl
         self.path = path
     }
 }
