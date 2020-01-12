@@ -54,7 +54,11 @@ class AppController {
     }()
 
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController(themeController: self.themeController, friendsVerificationController: FriendsVerificationController(dataStore: dataStore))
+        let rootViewController = MapViewController(
+            themeController: self.themeController,
+            friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
+            nextRideHandler: CMInApiHandler(networkLayer: networkOperator)
+        )
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
             .init(representation: .view(rootViewController.followMeButton),
                   action: .none,

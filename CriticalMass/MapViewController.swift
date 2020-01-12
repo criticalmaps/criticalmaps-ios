@@ -12,10 +12,16 @@ class MapViewController: UIViewController {
     private let themeController: ThemeController!
     private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
+    private let nextRideHandler: CMInApiHandling
 
-    init(themeController: ThemeController, friendsVerificationController: FriendsVerificationController) {
+    init(
+        themeController: ThemeController,
+        friendsVerificationController: FriendsVerificationController,
+        nextRideHandler: CMInApiHandling
+    ) {
         self.themeController = themeController
         self.friendsVerificationController = friendsVerificationController
+        self.nextRideHandler = nextRideHandler
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -178,6 +184,16 @@ class MapViewController: UIViewController {
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
         focusOnLocation(location: location)
+
+        guard Feature.events.isActive else { return }
+        nextRideHandler.getNextRide(around: location.coordinate) { result in
+            switch result {
+            case let .success(rides):
+                print(rides)
+            case let .failure(error):
+                ErrorHandler.default.handleError(error)
+            }
+        }
     }
 
     @objc func didReceiveFocusNotification(notification: Notification) {
