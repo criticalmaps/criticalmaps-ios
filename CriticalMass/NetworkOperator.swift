@@ -26,11 +26,18 @@ public struct NetworkOperator: NetworkLayer {
     }
 
     public func get<T: APIRequestDefining>(request: T, completion: @escaping ResultCallback<T.ResponseDataType>) {
-        dataTaskHandler(request: request, urlRequest: request.makeRequest(), completion: completion)
+        guard let urlRequest = try? request.makeRequest() else {
+            completion(Result.failure(NetworkError.unknownError(message: "Expected valid request")))
+            return
+        }
+        dataTaskHandler(request: request, urlRequest: urlRequest, completion: completion)
     }
 
     public func post<T: APIRequestDefining>(request: T, bodyData: Data, completion: @escaping ResultCallback<T.ResponseDataType>) {
-        var urlRequest = request.makeRequest()
+        guard var urlRequest = try? request.makeRequest() else {
+            completion(Result.failure(NetworkError.unknownError(message: "Expected valid request")))
+            return
+        }
         urlRequest.httpBody = bodyData
         dataTaskHandler(request: request, urlRequest: urlRequest, completion: completion)
     }
