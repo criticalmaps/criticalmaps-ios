@@ -47,7 +47,6 @@ struct NextRideRequest: APIRequestDefining {
 }
 
 private extension Date {
-
     /// Get a component representation of todays Date as Int.
     /// - Parameter keyPath:
     /// - Returns: DateComponent representation as Int. Returns 0 when component is not available
