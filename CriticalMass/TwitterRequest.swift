@@ -19,11 +19,3 @@ private extension DateFormatter {
         return formatter
     }()
 }
-
-private extension JSONDecoder {
-    static let twitterDecoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.twitterDateFormatter)
-        return decoder
-    }()
-}
