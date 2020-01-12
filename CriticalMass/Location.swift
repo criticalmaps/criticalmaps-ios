@@ -16,12 +16,6 @@ public struct Location: Equatable, Hashable {
     public var color: String?
 }
 
-extension Location {
-    var coordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
-}
-
 extension Location: Codable {
     private enum CodingKeys: String, CodingKey {
         case longitude

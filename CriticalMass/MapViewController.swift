@@ -186,7 +186,11 @@ class MapViewController: UIViewController {
         focusOnLocation(location: location)
 
         guard Feature.events.isActive else { return }
-        nextRideHandler.getNextRide(around: location.coordinate) { result in
+        let coordinate = CLLocationCoordinate2D(
+            latitude: location[keyPath: \Location.latitude],
+            longitude: location[keyPath: \Location.longitude]
+        )
+        nextRideHandler.getNextRide(around: coordinate) { result in
             switch result {
             case let .success(rides):
                 print(rides)
