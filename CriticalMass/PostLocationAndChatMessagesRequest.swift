@@ -13,6 +13,8 @@ struct PostLocationAndChatMessagesRequest: APIRequestDefining {
     var endpoint: Endpoint = .default
     var headers: HTTPHeaders? = .contentTypeApplicationJSON
     var httpMethod: HTTPMethod = .post
+    var queryItems: [URLQueryItem]?
+
     var requiresBackgroundTask: Bool = true
 
     func getQueryItems() -> [URLQueryItem]? {

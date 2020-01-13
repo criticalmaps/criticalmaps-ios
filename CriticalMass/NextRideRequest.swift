@@ -19,6 +19,15 @@ struct NextRideRequest: APIRequestDefining {
     )
     var headers: HTTPHeaders?
     var httpMethod: HTTPMethod = .get
+    var queryItems: [URLQueryItem]? {
+        [
+            URLQueryItem(name: QueryKeys.centerLatitude, value: String(describing: coordinate.latitude)),
+            URLQueryItem(name: QueryKeys.centerLongitude, value: String(describing: coordinate.longitude)),
+            URLQueryItem(name: QueryKeys.radius, value: String(describing: radius)),
+            URLQueryItem(name: QueryKeys.year, value: String(describing: year)),
+            URLQueryItem(name: QueryKeys.month, value: String(describing: month)),
+        ]
+    }
 
     let coordinate: CLLocationCoordinate2D
     let radius: Int
@@ -28,16 +37,6 @@ struct NextRideRequest: APIRequestDefining {
     init(coordinate: CLLocationCoordinate2D, radius: Int = 10) {
         self.coordinate = coordinate
         self.radius = radius
-    }
-
-    func getQueryItems() -> [URLQueryItem]? {
-        [
-            URLQueryItem(name: QueryKeys.centerLatitude, value: String(describing: coordinate.latitude)),
-            URLQueryItem(name: QueryKeys.centerLongitude, value: String(describing: coordinate.longitude)),
-            URLQueryItem(name: QueryKeys.radius, value: String(describing: radius)),
-            URLQueryItem(name: QueryKeys.year, value: String(describing: year)),
-            URLQueryItem(name: QueryKeys.month, value: String(describing: month)),
-        ]
     }
 
     func parseResponse(data: Data) throws -> ResponseDataType {

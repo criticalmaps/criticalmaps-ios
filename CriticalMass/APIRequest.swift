@@ -9,10 +9,10 @@ public protocol APIRequestDefining {
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
+    var queryItems: [URLQueryItem]? { get }
     var requiresBackgroundTask: Bool { get }
     func makeRequest() throws -> URLRequest
     func parseResponse(data: Data) throws -> ResponseDataType
-    func getQueryItems() -> [URLQueryItem]?
 }
 
 extension APIRequestDefining {
@@ -27,7 +27,7 @@ extension APIRequestDefining {
         if let path = endpoint.path {
             components.path = path
         }
-        if let queryItems = getQueryItems() {
+        if let queryItems = queryItems {
             components.queryItems = queryItems
         }
         guard let url = components.url else {

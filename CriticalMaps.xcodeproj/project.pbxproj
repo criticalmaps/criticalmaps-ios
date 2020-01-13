@@ -66,7 +66,6 @@
 		9489D88C1B768274001E746C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9489D88E1B768274001E746C /* Localizable.strings */; };
 		9491720D23009EB3008B98AD /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491720C23009EB3008B98AD /* APIRequest.swift */; };
 		9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9491720E23009ED0008B98AD /* TwitterRequest.swift */; };
-		949BD4AC23CB3CF300EA7BA4 /* JSONDecoder+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BD4AB23CB3CF300EA7BA4 /* JSONDecoder+Additions.swift */; };
 		949BD4AF23CB481200EA7BA4 /* CriticalMassInApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BD4AE23CB481200EA7BA4 /* CriticalMassInApiHandler.swift */; };
 		949BD4B223CB4BEB00EA7BA4 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 949BD4B023CB4BEB00EA7BA4 /* CHANGELOG.md */; };
 		949BD4B323CB4BEB00EA7BA4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 949BD4B123CB4BEB00EA7BA4 /* README.md */; };
@@ -280,7 +279,6 @@
 		9496B0A723AD38ED00831385 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9496B0A823AD38ED00831385 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9496B0A923AD38ED00831385 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		949BD4AB23CB3CF300EA7BA4 /* JSONDecoder+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Additions.swift"; sourceTree = "<group>"; };
 		949BD4AE23CB481200EA7BA4 /* CriticalMassInApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMassInApiHandler.swift; sourceTree = "<group>"; };
 		949BD4B023CB4BEB00EA7BA4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		949BD4B123CB4BEB00EA7BA4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				949BD4AA23CB3CDF00EA7BA4 /* Extensions */,
 				21859FAD2352B6AA00B942AA /* AsyncOperation.swift */,
 				3F997954239D9DD5006DB96B /* Feature.swift */,
 				94D4016E229F20F6001524CC /* FontMetrics.swift */,
@@ -597,14 +594,6 @@
 				9491720E23009ED0008B98AD /* TwitterRequest.swift */,
 			);
 			name = Requests;
-			sourceTree = "<group>";
-		};
-		949BD4AA23CB3CDF00EA7BA4 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				949BD4AB23CB3CF300EA7BA4 /* JSONDecoder+Additions.swift */,
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 		949BD4AD23CB471A00EA7BA4 /* Events */ = {
@@ -1212,7 +1201,6 @@
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
 				9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */,
 				94FCBD2B226C57CA00F93F94 /* IBConstructable.swift in Sources */,
-				949BD4AC23CB3CF300EA7BA4 /* JSONDecoder+Additions.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
