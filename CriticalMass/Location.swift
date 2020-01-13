@@ -5,7 +5,6 @@
 //  Created by Leonard Thomas on 12/17/18.
 //
 
-import CoreLocation
 import Foundation
 
 public struct Location: Equatable, Hashable {
