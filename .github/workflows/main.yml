@@ -40,6 +40,12 @@ jobs:
     - name: Run UnitTests
       run: bundle exec fastlane ui_test
 
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v1
+      with:
+        name: Screenshots
+        path: /build/screenshots/en-US/ 
+
   snapshot_tests:
     name: Snapshot Tests
     runs-on: macOS-latest
