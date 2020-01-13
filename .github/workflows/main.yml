@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Screenshots
-        path: ./build/screenshots/en-US/
+        path: build/screenshots
 
   snapshot_tests:
     name: Snapshot Tests
