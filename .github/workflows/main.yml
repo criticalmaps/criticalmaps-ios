@@ -37,14 +37,14 @@ jobs:
     - name: Install Gem Dependencies
       run: bundle install
 
-    - name: Run UnitTests
+    - name: Run UITests
       run: bundle exec fastlane ui_test
 
     - name: Upload screenshots
       uses: actions/upload-artifact@v1
       with:
         name: Screenshots
-        path: build/screenshots/en-US
+        path: ./build/screenshots/en-US
 
   snapshot_tests:
     name: Snapshot Tests
