@@ -4,8 +4,8 @@
 
 ## Critical Maps iOS App
 
-<a title="Travis" target="_blank" href="https://travis-ci.org/criticalmaps/criticalmaps-ios">
-		<img src="https://travis-ci.org/criticalmaps/criticalmaps-ios.svg?branch=master"
+<a title="GitHub Actions" target="_blank" href="https://github.com/criticalmaps/criticalmaps-ios/workflows/CI/badge.svg">
+		<img src="https://github.com/criticalmaps/criticalmaps-ios/workflows/CI/badge.svg"
 					alt="Build Status">
 </a>
 <a title="TestFlight" target="_blank" href="https://testflight.apple.com/join/nyGeQVxk">
