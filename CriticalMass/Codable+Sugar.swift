@@ -19,3 +19,11 @@ extension Data {
         try JSONDecoder().decode(T.self, from: self)
     }
 }
+
+extension JSONDecoder {
+    static func decoder(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) -> JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+        return decoder
+    }
+}

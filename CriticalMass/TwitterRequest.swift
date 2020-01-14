@@ -5,9 +5,11 @@ struct TwitterRequest: APIRequestDefining {
     var endpoint: Endpoint = .twitter
     var headers: HTTPHeaders?
     var httpMethod: HTTPMethod = .get
+    var queryItems: [URLQueryItem]?
 
     func parseResponse(data: Data) throws -> ResponseDataType {
-        try JSONDecoder.twitterDecoder.decode(ResponseDataType.self, from: data)
+        let decoder = JSONDecoder.decoder(dateDecodingStrategy: .formatted(.twitterDateFormatter))
+        return try decoder.decode(ResponseDataType.self, from: data)
     }
 }
 
@@ -17,13 +19,5 @@ private extension DateFormatter {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
         return formatter
-    }()
-}
-
-private extension JSONDecoder {
-    static let twitterDecoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.twitterDateFormatter)
-        return decoder
     }()
 }
