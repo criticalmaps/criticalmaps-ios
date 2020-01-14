@@ -56,9 +56,13 @@ platform :ios do
   lane :ui_test do
     sh "cd .. && xcodebuild -resolvePackageDependencies"
 
-    run_tests(
-      device: 'iPhone 8',
-      scheme: Scheme_UITests
+    capture_ios_screenshots(
+      app_identifier: AppIdentifier,
+      configuration: 'Debug',
+      output_directory: Screenshots_Output,
+      scheme: Scheme_UITests,
+      languages: [ "en-US" ],
+      devices: [ "iPhone 8" ]
     )
   end
   
@@ -68,7 +72,16 @@ platform :ios do
       app_identifier: AppIdentifier,
       configuration: 'Debug',
       output_directory: Screenshots_Output,
-      scheme: Scheme_UITests
+      scheme: Scheme_UITests,
+      languages: [ "en-US",
+                   "de-DE",
+                    "fr-FR",
+                    "it-IT"],
+      devices: [ "iPhone 8",
+            "iPhone 8 Plus",
+                "iPhone SE",
+                 "iPhone X",
+        "iPhone 11 Pro Max"]
     )
   end
 
