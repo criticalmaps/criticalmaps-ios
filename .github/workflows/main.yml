@@ -34,9 +34,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Edit Snapfile
-      run: echo "devices([\"iPhone 8\"]);languages([\"en-US\"])" > fastlane/Snapfile
-
     - name: Install Gem Dependencies
       run: bundle install
 
