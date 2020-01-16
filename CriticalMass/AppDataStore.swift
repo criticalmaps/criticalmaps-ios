@@ -22,7 +22,7 @@ public class AppDataStore: DataStore {
     private var lastKnownResponse: ApiResponse?
 
     public var userName: String {
-        get { userDefaults.username }
+        get { userDefaults.username ?? UIDevice.current.name }
         set { userDefaults.username = newValue }
     }
 

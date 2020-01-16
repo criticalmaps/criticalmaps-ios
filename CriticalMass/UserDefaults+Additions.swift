@@ -31,9 +31,9 @@ extension UserDefaults {
         static let userNameKey = "username"
     }
 
-    public var username: String {
+    public var username: String? {
         set { set(newValue, forKey: Keys.userNameKey) }
-        get { string(forKey: Keys.userNameKey) ?? UIDevice.current.name }
+        get { string(forKey: Keys.userNameKey) }
     }
 
     public var observationMode: Bool {
