@@ -14,7 +14,6 @@ protocol ThemeStorable {
 }
 
 class ThemeSelectionStore: ThemeStorable {
-    private let defaultsKey = "theme"
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
@@ -25,16 +24,13 @@ class ThemeSelectionStore: ThemeStorable {
     ///
     /// - Parameter themeSelection: The Theme that will be saved.
     func save(_ themeSelection: Theme) {
-        defaults.set(themeSelection.rawValue, forKey: defaultsKey)
+        defaults.theme = themeSelection.rawValue
     }
 
     /// Fetches saved theme from the UserDefaults
     ///
-    /// - Returns: Saved Theme from a previous session.
+    /// - Returns: Saved theme from a previous session or nil if this is the first start.
     func load() -> Theme? {
-        guard let storedTheme = defaults.object(forKey: defaultsKey) as? Int else {
-            return nil
-        }
-        return Theme(rawValue: storedTheme)
+        Theme(defaults.theme)
     }
 }

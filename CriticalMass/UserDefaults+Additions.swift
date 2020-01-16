@@ -46,9 +46,9 @@ extension UserDefaults {
         get { double(forKey: Keys.lastMessageReadTimeIntervalKey) }
     }
 
-    public var theme: Int {
+    public var theme: String? {
         set { set(newValue, forKey: Keys.themeKey) }
-        get { integer(forKey: Keys.themeKey) }
+        get { string(forKey: Keys.themeKey) }
     }
 
     public var lastDayUsed: Date? {

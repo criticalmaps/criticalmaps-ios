@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum Theme: Int {
+enum Theme: String {
     case light
     case dark
 
@@ -30,6 +30,17 @@ enum Theme: Int {
             return LightTheme()
         case .dark:
             return DarkTheme()
+        }
+    }
+}
+
+extension Theme {
+    init?(_ themeString: String?) {
+        guard let theme = themeString?.lowercased() else { return nil }
+        switch theme {
+        case "light": self = .light
+        case "dark": self = .dark
+        default: return nil
         }
     }
 }
