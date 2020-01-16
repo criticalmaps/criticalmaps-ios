@@ -6,40 +6,27 @@
 //
 
 import Foundation
+import UIKit
 
 class ObservationModePreferenceStore: Switchable {
-    private let defaultsKey = "observationMode"
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
 
-    private func save(_ isEnabled: Bool) {
-        defaults.set(isEnabled, forKey: defaultsKey)
-        NotificationCenter.default.post(name: Notification.observationModeChanged, object: isEnabled)
-    }
-
-    private func load() -> Bool? {
-        defaults.bool(forKey: defaultsKey)
-    }
-
     var isEnabled: Bool {
-        get {
-            load() ?? false
-        } set {
-            save(newValue)
+        get { defaults.observationMode }
+        set {
+            defaults.observationMode = newValue
+            NotificationCenter.default.post(name: Notification.observationModeChanged, object: newValue)
         }
     }
 }
 
-class Preferences {
+struct Preferences {
     static var lastMessageReadTimeInterval: Double {
-        get {
-            UserDefaults.standard.double(forKey: #function)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: #function)
-        }
+        get { UserDefaults.standard.lastMessageReadTimeInterval }
+        set { UserDefaults.standard.lastMessageReadTimeInterval = newValue }
     }
 }
