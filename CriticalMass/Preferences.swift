@@ -23,10 +23,3 @@ class ObservationModePreferenceStore: Switchable {
         }
     }
 }
-
-struct Preferences {
-    static var lastMessageReadTimeInterval: Double {
-        get { UserDefaults.standard.lastMessageReadTimeInterval }
-        set { UserDefaults.standard.lastMessageReadTimeInterval = newValue }
-    }
-}
