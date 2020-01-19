@@ -196,7 +196,7 @@ class MapViewController: UIViewController {
             case let .success(rides):
                 print(rides)
             case let .failure(error):
-                ErrorHandler.default.handleError(error)
+                PrintErrorHandler().handleError(error)
             }
         }
     }
