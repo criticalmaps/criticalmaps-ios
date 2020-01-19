@@ -54,17 +54,20 @@ class AppController {
     }()
 
     private lazy var mapOverlayErrorHandler: ErrorHandler = {
-        MapOverlayErrorHandler(presentInfoViewHandler: rootViewController.presentMapInfo)
+        MapOverlayErrorHandler(presentInfoViewHandler: mapViewController.presentMapInfo)
     }()
 
-    lazy var rootViewController: MapViewController = {
-        let rootViewController = MapViewController(
+    lazy var mapViewController: MapViewController = {
+        MapViewController(
             themeController: self.themeController,
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
             nextRideHandler: CMInApiHandler(networkLayer: networkOperator)
         )
+    }()
+
+    lazy var rootViewController: UIViewController = {
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            .init(representation: .view(rootViewController.followMeButton),
+            .init(representation: .view(mapViewController.followMeButton),
                   action: .none,
                   accessibilityIdentifier: "Follow"),
             .init(representation: .button(chatNavigationButtonController.button),
@@ -77,11 +80,11 @@ class AppController {
                   action: .navigation(viewController: getSettingsViewController),
                   accessibilityIdentifier: "Settings"),
         ])
-        rootViewController.addChild(navigationOverlay)
-        rootViewController.view.addSubview(navigationOverlay.view)
-        navigationOverlay.didMove(toParent: rootViewController)
+        mapViewController.addChild(navigationOverlay)
+        mapViewController.view.addSubview(navigationOverlay.view)
+        navigationOverlay.didMove(toParent: mapViewController)
 
-        return rootViewController
+        return mapViewController
     }()
 
     public func onAppLaunch() {
