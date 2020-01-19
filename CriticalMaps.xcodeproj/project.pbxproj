@@ -181,6 +181,7 @@
 		98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */; };
 		98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13289227F05E700291FCA /* IDStoreTests.swift */; };
 		98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C4BEA02218518B0060E701 /* UserTrackingButton.swift */; };
+		98DDF9E823D4F8E800E55BE7 /* MapOverlayErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */; };
 		98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */; };
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
 		98E7338F22039665005F311F /* SettingsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */; };
@@ -406,6 +407,7 @@
 		98C13288227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98C13289227F05E700291FCA /* IDStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStoreTests.swift; sourceTree = "<group>"; };
 		98C4BEA02218518B0060E701 /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
+		98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlayErrorHandler.swift; sourceTree = "<group>"; };
 		98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -835,6 +837,7 @@
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
 				9853B510237E101300F46AB6 /* BikeAnnotationController.swift */,
 				9841B476237E9239000A4922 /* AnnotationController.swift */,
+				98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -1253,6 +1256,7 @@
 				21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
 				949BD4AF23CB481200EA7BA4 /* CriticalMassInApiHandler.swift in Sources */,
+				98DDF9E823D4F8E800E55BE7 /* MapOverlayErrorHandler.swift in Sources */,
 				9485A93523756A53006DC7B5 /* LoadingViewController.swift in Sources */,
 				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
