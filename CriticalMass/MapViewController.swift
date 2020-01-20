@@ -12,16 +12,19 @@ class MapViewController: UIViewController {
     private let themeController: ThemeController
     private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
-    private let nextRideHandler: CMInApiHandling
+    private let nextRideAPIHandler: CMInApiHandling
+
+    private let mapInfoViewController = MapInfoViewController.fromNib()
 
     init(
         themeController: ThemeController,
         friendsVerificationController: FriendsVerificationController,
-        nextRideHandler: CMInApiHandling
+        nextRideAPIHandler: CMInApiHandling
     ) {
         self.themeController = themeController
         self.friendsVerificationController = friendsVerificationController
-        self.nextRideHandler = nextRideHandler
+        self.nextRideAPIHandler = nextRideAPIHandler
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -40,6 +43,8 @@ class MapViewController: UIViewController {
         let button = UserTrackingButton(mapView: mapView)
         return button
     }()
+
+    private var cmAnnotation: CriticalMassAnnotation?
 
     public var bottomContentOffset: CGFloat = 0 {
         didSet {
@@ -64,11 +69,35 @@ class MapViewController: UIViewController {
         configureMapView()
         condfigureGPSDisabledOverlayView()
 
+        registerAnnoationViews()
+
+        setupMapInfoViewController()
+
+        setNeedsStatusBarAppearanceUpdate()
+    }
+
+    private func registerAnnoationViews() {
         annotationController
             .map { $0.annotationViewType }
             .forEach(mapView.register)
 
-        setNeedsStatusBarAppearanceUpdate()
+        if #available(iOS 11.0, *) {
+            mapView.register(annotationViewType: CMMarkerAnnotationView.self)
+        } else {
+            mapView.register(annotationViewType: CMAnnotationView.self)
+        }
+    }
+
+    private func setupMapInfoViewController() {
+        add(mapInfoViewController)
+        mapInfoViewController.view.addLayoutsSameSizeAndOrigin(in: view)
+        mapInfoViewController.infoView.tapHandler = { [unowned self] in
+            guard let cmAnnotation = self.cmAnnotation else {
+                Logger.log(.info, log: .map, "Can not focus on CM Annotation")
+                return
+            }
+            self.focusOnCoordinate(cmAnnotation.coordinate, zoomArea: 1000)
+        }
     }
 
     private func configureTileRenderer() {
@@ -155,10 +184,16 @@ class MapViewController: UIViewController {
             latitude: location[keyPath: \Location.latitude],
             longitude: location[keyPath: \Location.longitude]
         )
-        nextRideHandler.getNextRide(around: coordinate) { result in
+        nextRideAPIHandler.getNextRide(around: coordinate) { result in
             switch result {
-            case let .success(rides):
-                print(rides)
+            case let .success(ride):
+                guard let nextRide = ride else { return }
+                onMain { [weak self] in
+                    self?.mapInfoViewController.presentMapInfo(title: nextRide.title, style: .info)
+                    let cmAnnotation = CriticalMassAnnotation(ride: nextRide)
+                    self?.cmAnnotation = cmAnnotation
+                    self?.mapView.addAnnotation(cmAnnotation)
+                }
             case let .failure(error):
                 PrintErrorHandler().handleError(error)
             }
@@ -191,6 +226,14 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKUserLocation == false else {
             return nil
+        }
+
+        guard annotation is CriticalMassAnnotation == false else {
+            if #available(iOS 11.0, *) {
+                return mapView.dequeueReusableAnnotationView(withIdentifier: CMMarkerAnnotationView.reuseIdentifier)
+            } else {
+                return mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier)
+            }
         }
 
         guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {
