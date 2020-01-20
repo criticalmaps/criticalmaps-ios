@@ -9,6 +9,7 @@
 import UIKit
 
 class MapInfoView: UIView, IBConstructable {
+    typealias TapHandler = (() -> Void)
     struct Configuration {
         enum Style: String {
             case alert
@@ -20,7 +21,12 @@ class MapInfoView: UIView, IBConstructable {
     }
 
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var label: UILabel!
+    @IBOutlet private var label: UILabel! {
+        didSet {
+            label.isAccessibilityElement = false
+            label.adjustsFontForContentSizeCategory = true
+        }
+    }
 
     @objc
     dynamic var mapInfoForegroundColor: UIColor = .black {
@@ -37,12 +43,14 @@ class MapInfoView: UIView, IBConstructable {
     }
 
     private var configuration: Configuration?
+    var tapHandler: TapHandler?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.setupMapOverlayConfiguration()
-        label.isAccessibilityElement = false
-        label.adjustsFontForContentSizeCategory = true
+
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap(_:))))
     }
 
     func configure(with configuration: Configuration) {
@@ -72,5 +80,10 @@ class MapInfoView: UIView, IBConstructable {
         }
         imageView.tintColor = foregroundColor
         label.textColor = foregroundColor
+    }
+
+    @objc
+    private func didTap(_: UITapGestureRecognizer) {
+        tapHandler?()
     }
 }
