@@ -66,6 +66,9 @@ class MapInfoViewController: UIViewController, IBConstructable {
             self.infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
             self.view.layoutIfNeeded()
         }
+        animator.addCompletion { _ in
+            self.infoView.isHidden = true
+        }
         animator.startAnimation()
     }
 }
