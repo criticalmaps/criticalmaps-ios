@@ -151,8 +151,6 @@ class MapViewController: UIViewController {
         guard let location = notification.object as? Location else { return }
         focusOnCoordinate(CLLocationCoordinate2D(location))
 
-        // TODO: Replace test implemenation with controller based
-        guard Feature.events.isActive else { return }
         let coordinate = CLLocationCoordinate2D(
             latitude: location[keyPath: \Location.latitude],
             longitude: location[keyPath: \Location.longitude]
