@@ -185,7 +185,10 @@ class MapViewController: UIViewController {
         nextRideAPIHandler.getNextRide(around: coordinate) { result in
             switch result {
             case let .success(ride):
-                guard let nextRide = ride else { return }
+                guard let nextRide = ride else {
+                    Logger.log(.debug, log: .map, "Expected nextRide to present MapInfoView")
+                    return
+                }
                 onMain { [weak self] in
                     self?.mapInfoViewController.presentMapInfo(title: nextRide.title, style: .info)
                     let cmAnnotation = CriticalMassAnnotation(ride: nextRide)
