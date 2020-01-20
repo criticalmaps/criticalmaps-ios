@@ -21,12 +21,7 @@ class MapInfoView: UIView, IBConstructable {
     }
 
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var label: UILabel! {
-        didSet {
-            label.isAccessibilityElement = false
-            label.adjustsFontForContentSizeCategory = true
-        }
-    }
+    @IBOutlet private var label: UILabel!
 
     @objc
     dynamic var mapInfoForegroundColor: UIColor = .black {
@@ -47,9 +42,13 @@ class MapInfoView: UIView, IBConstructable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.setupMapOverlayConfiguration()
+        setup()
+    }
 
-        isUserInteractionEnabled = true
+    private func setup() {
+        layer.setupMapOverlayConfiguration()
+        label.isAccessibilityElement = false
+        label.adjustsFontForContentSizeCategory = true
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap(_:))))
     }
 
