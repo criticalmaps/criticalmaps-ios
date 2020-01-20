@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class ObservationModePreferenceStore: Switchable {
     private let defaults: UserDefaults
