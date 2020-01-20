@@ -4,6 +4,17 @@
 import CoreLocation
 import UIKit
 
+// https://material.io/design/motion/speed.html#easing
+extension UICubicTimingParameters {
+    static var linearOutSlow: UITimingCurveProvider {
+        UICubicTimingParameters(controlPoint1: .init(x: 0.0, y: 0.0), controlPoint2: .init(x: 0.2, y: 1.0))
+    }
+
+    static var fastOutLiner: UITimingCurveProvider {
+        UICubicTimingParameters(controlPoint1: .init(x: 0.4, y: 0.0), controlPoint2: .init(x: 1.0, y: 1.0))
+    }
+}
+
 class MapInfoViewController: UIViewController, IBConstructable {
     @IBOutlet private var infoViewContainer: UIView!
     @IBOutlet private var infoViewContainerTopConstraint: NSLayoutConstraint!
