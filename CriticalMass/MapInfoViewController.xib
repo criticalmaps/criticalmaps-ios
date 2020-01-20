@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNC-l9-vlW">
-                    <rect key="frame" x="20" y="44" width="374" height="60"/>
+                    <rect key="frame" x="20" y="44" width="374" height="70"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="L4j-zG-2vI"/>
+                        <constraint firstAttribute="height" priority="999" constant="70" id="L4j-zG-2vI"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
