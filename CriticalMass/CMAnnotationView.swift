@@ -35,8 +35,6 @@ class CriticalMassAnnotation: NSObject, MKAnnotation {
 
 @available(iOS 11.0, *)
 class CMMarkerAnnotationView: MKMarkerAnnotationView {
-    
-
     static let reuseIdentifier = "CMMarkerAnnotationView"
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
