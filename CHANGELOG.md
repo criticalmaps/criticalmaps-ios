@@ -26,6 +26,7 @@ Changelog for Critical Maps iOS
 - Accessability support for chat input textview
 - VoiceOver improvements for the Navigation TabBar
 - Spanish translations
+- Add NextRide MapInfoView feature
 
 ## [3.6.0] - 2019-11-28
 
