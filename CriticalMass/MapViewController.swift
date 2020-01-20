@@ -68,9 +68,7 @@ class MapViewController: UIViewController {
         configureTileRenderer()
         configureMapView()
         condfigureGPSDisabledOverlayView()
-
         registerAnnoationViews()
-
         setupMapInfoViewController()
 
         setNeedsStatusBarAppearanceUpdate()
