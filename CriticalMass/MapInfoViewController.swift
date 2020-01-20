@@ -46,10 +46,12 @@ class MapInfoViewController: UIViewController, IBConstructable {
         infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
 
         infoView.isHidden = false
+
         let animator = UIViewPropertyAnimator(
             duration: Constants.infoBarVisibleTimeInterval,
-            curve: .easeOut
-        ) {
+            timingParameters: UICubicTimingParameters.linearOutSlow
+        )
+        animator.addAnimations {
             self.infoViewContainerTopConstraint.constant = Constants.infoBarVisible
             self.view.layoutIfNeeded()
         }
@@ -60,9 +62,10 @@ class MapInfoViewController: UIViewController, IBConstructable {
 
     public func dismissMapInfo(_: Bool = false) {
         let animator = UIViewPropertyAnimator(
-            duration: Constants.infoBarDismissTimeInterval,
-            curve: .easeOut
-        ) {
+            duration: Constants.infoBarVisibleTimeInterval,
+            timingParameters: UICubicTimingParameters.fastOutLiner
+        )
+        animator.addAnimations {
             self.infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
             self.view.layoutIfNeeded()
         }
