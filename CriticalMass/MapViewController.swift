@@ -149,7 +149,7 @@ class MapViewController: UIViewController {
 
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
-        focusOnLocation(location: location)
+        focusOnCoordinate(CLLocationCoordinate2D(location))
 
         // TODO: Replace test implemenation with controller based
         guard Feature.events.isActive else { return }
@@ -169,13 +169,21 @@ class MapViewController: UIViewController {
 
     @objc func didReceiveFocusNotification(notification: Notification) {
         guard let location = notification.object as? Location else { return }
-        focusOnLocation(location: location, zoomArea: 1000)
+        focusOnCoordinate(CLLocationCoordinate2D(location), zoomArea: 1000)
     }
 
-    func focusOnLocation(location: Location, zoomArea: Double = 10000) {
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: zoomArea, longitudinalMeters: zoomArea)
+    private func focusOnCoordinate(
+        _ coordinate: CLLocationCoordinate2D,
+        zoomArea: Double = 10000,
+        animated: Bool = true
+    ) {
+        let region = MKCoordinateRegion(
+            center: coordinate,
+            latitudinalMeters: zoomArea,
+            longitudinalMeters: zoomArea
+        )
         let adjustedRegion = mapView.regionThatFits(region)
-        mapView.setRegion(adjustedRegion, animated: true)
+        mapView.setRegion(adjustedRegion, animated: animated)
     }
 }
 
