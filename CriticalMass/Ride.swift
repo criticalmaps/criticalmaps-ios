@@ -1,6 +1,7 @@
 //
 //  CriticalMaps
 
+import CoreLocation
 import Foundation
 
 struct Ride: Hashable, Codable {
@@ -15,4 +16,10 @@ struct Ride: Hashable, Codable {
     let estimatedParticipants: Int?
     let estimatedDistance: Double?
     let estimatedDuration: Double?
+}
+
+extension Ride {
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
 }
