@@ -95,40 +95,6 @@ class MapViewController: UIViewController {
         updateGPSDisabledOverlayVisibility()
     }
 
-    public func presentMapInfo(with configuration: MapInfoView.Configuration) {
-        dismissMapInfo()
-
-        let view = MapInfoView.fromNib()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.configure(with: configuration)
-        self.view.addSubview(view)
-
-        let topAnchor: NSLayoutYAxisAnchor
-        if #available(iOS 11.0, *) {
-            topAnchor = self.view.safeAreaLayoutGuide.topAnchor
-        } else {
-            topAnchor = self.view.topAnchor
-        }
-
-        let widthLayoutConstraint = view.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -32)
-        widthLayoutConstraint.priority = .init(rawValue: 999)
-
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            widthLayoutConstraint,
-            view.widthAnchor.constraint(lessThanOrEqualToConstant: 400),
-            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-        ])
-
-        UIAccessibility.post(notification: .layoutChanged, argument: view)
-    }
-
-    public func dismissMapInfo() {
-        view.subviews
-            .compactMap { $0 as? MapInfoView }
-            .forEach { $0.removeFromSuperview() }
-    }
-
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: .initialGpsDataReceived, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: .observationModeChanged, object: nil)
