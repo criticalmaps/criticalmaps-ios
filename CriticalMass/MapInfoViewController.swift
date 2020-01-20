@@ -25,6 +25,10 @@ class MapInfoViewController: UIViewController, IBConstructable {
         infoViewContainer.addSubview(infoView)
         infoView.addLayoutsSameSizeAndOrigin(in: infoViewContainer)
         infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
+
+        infoView.closeButtonHandler = {
+            self.dismissMapInfo()
+        }
     }
 
     public func presentMapInfo(title: String, style: MapInfoView.Configuration.Style) {

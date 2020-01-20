@@ -39,6 +39,7 @@ class MapInfoView: UIView, IBConstructable {
 
     private var configuration: Configuration?
     var tapHandler: TapHandler?
+    var closeButtonHandler: TapHandler?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -84,5 +85,9 @@ class MapInfoView: UIView, IBConstructable {
     @objc
     private func didTap(_: UITapGestureRecognizer) {
         tapHandler?()
+    }
+
+    @IBAction func didTapCloseButton(_: Any) {
+        closeButtonHandler?()
     }
 }
