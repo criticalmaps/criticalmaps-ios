@@ -18,8 +18,8 @@ class CMMarkerAnnotationView: MKMarkerAnnotationView {
     }
 
     private func commonInit() {
-        markerTintColor = .black
-        glyphImage = UIImage(named: "cmLogoWhite")
+        markerTintColor = .white
+        glyphImage = #imageLiteral(resourceName: "logo-m.pdf")
         canShowCallout = false
     }
 }
@@ -38,7 +38,7 @@ class CMAnnotationView: MKAnnotationView {
     }
 
     private func commonInit() {
-        image = UIImage(named: "cmLogoWhite")
-        canShowCallout = false
+        image = #imageLiteral(resourceName: "event-marker.pdf")
+        canShowCallout = true
     }
 }
