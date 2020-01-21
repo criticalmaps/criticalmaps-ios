@@ -22,6 +22,7 @@ class MapInfoView: UIView, IBConstructable {
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var label: UILabel!
+    @IBOutlet private var closeButton: UIButton!
 
     @objc
     dynamic var mapInfoForegroundColor: UIColor = .black {
@@ -80,6 +81,7 @@ class MapInfoView: UIView, IBConstructable {
         }
         imageView.tintColor = foregroundColor
         label.textColor = foregroundColor
+        closeButton.tintColor = foregroundColor
     }
 
     @objc
