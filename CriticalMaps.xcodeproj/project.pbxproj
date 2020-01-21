@@ -71,6 +71,7 @@
 		949BD4B323CB4BEB00EA7BA4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 949BD4B123CB4BEB00EA7BA4 /* README.md */; };
 		949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BEF542237CAEC009AE6DF /* RoundableImageView.swift */; };
 		94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */; };
+		94AF230923D6D64600267E87 /* DateAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF230823D6D64600267E87 /* DateAdditionsTests.swift */; };
 		94CCC8B623D0583D000CCE2A /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCC8B523D0583D000CCE2A /* Date+Additions.swift */; };
 		94CCC8B823D0587F000CCE2A /* UserDefaults+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */; };
 		94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CF085F19BDEAF2009FFF43 /* Foundation.framework */; };
@@ -287,6 +288,7 @@
 		949BD4B123CB4BEB00EA7BA4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		949BEF542237CAEC009AE6DF /* RoundableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundableImageView.swift; sourceTree = "<group>"; };
 		94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentMessageLabel.swift; sourceTree = "<group>"; };
+		94AF230823D6D64600267E87 /* DateAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAdditionsTests.swift; sourceTree = "<group>"; };
 		94CCC8B523D0583D000CCE2A /* Date+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Additions.swift"; sourceTree = "<group>"; };
 		94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CriticalMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -781,21 +783,22 @@
 		94CF087E19BDEAF2009FFF43 /* CriticalMassTests */ = {
 			isa = PBXGroup;
 			children = (
-				98003D5F2287301000592D55 /* FollowURLObjectTests.swift */,
-				943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */,
-				943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */,
-				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
-				9822A15621EE0956007F5994 /* RuleTests.swift */,
-				9822A16321F113DC007F5994 /* RequestManagerTests.swift */,
 				9822A16521F11519007F5994 /* AppDataStoreTests.swift */,
 				9804178F21FCA2B40077D419 /* ChatManagerTests.swift */,
-				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
-				98C13289227F05E700291FCA /* IDStoreTests.swift */,
-				981C92082288B47F00391FA9 /* TestHelper.swift */,
+				94AF230823D6D64600267E87 /* DateAdditionsTests.swift */,
+				98003D5F2287301000592D55 /* FollowURLObjectTests.swift */,
 				98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */,
+				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */,
-				9810C383229831720011F718 /* RatingHelperTests.swift */,
 				9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */,
+				9810C383229831720011F718 /* RatingHelperTests.swift */,
+				9822A16321F113DC007F5994 /* RequestManagerTests.swift */,
+				9822A15621EE0956007F5994 /* RuleTests.swift */,
+				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
+				981C92082288B47F00391FA9 /* TestHelper.swift */,
+				943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */,
+				943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */,
+				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -1333,6 +1336,7 @@
 				9810C384229831720011F718 /* RatingHelperTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
+				94AF230923D6D64600267E87 /* DateAdditionsTests.swift in Sources */,
 				75E26994235A4BA5000F2D0A /* MockThemeController.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				9843FAA3236CDC0D00457930 /* NetworkOperatorTests.swift in Sources */,

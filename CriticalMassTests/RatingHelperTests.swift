@@ -47,7 +47,7 @@ class RatingHelperTests: XCTestCase {
 
     func testRequestAfterFiveLaunchesOnNextDay() {
         // mock app used yesterday
-        userdefaults.lastDayUsed = .yesterday
+        userdefaults.lastDayUsed = .yesterday()
 
         execute(times: 5, ratingHelper.onLaunch())
         XCTAssertEqual(MockRatingRequest.requestCounter, 1)
@@ -55,7 +55,7 @@ class RatingHelperTests: XCTestCase {
 
     func testNoRequestIfVersionAlreadyRated() {
         // mock app used yesterday
-        userdefaults.lastDayUsed = .yesterday
+        userdefaults.lastDayUsed = .yesterday()
 
         // mock version already rated
         userdefaults.lastRatedVersion = Bundle.main.versionNumber + Bundle.main.buildNumber
@@ -66,7 +66,7 @@ class RatingHelperTests: XCTestCase {
 
     func testRatingRequestAfterInstallingNewVersion() {
         // mock app used yesterday
-        userdefaults.lastDayUsed = .yesterday
+        userdefaults.lastDayUsed = .yesterday()
 
         // mock version already rated
         userdefaults.lastRatedVersion = Bundle.main.versionNumber + Bundle.main.buildNumber
@@ -75,7 +75,7 @@ class RatingHelperTests: XCTestCase {
         XCTAssertEqual(MockRatingRequest.requestCounter, 0)
 
         // mock app used yesterday
-        userdefaults.lastDayUsed = .yesterday
+        userdefaults.lastDayUsed = .yesterday()
 
         // mock new version  installed
         ratingHelper = RatingHelper(
