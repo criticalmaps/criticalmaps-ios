@@ -231,9 +231,19 @@ extension MapViewController: MKMapViewDelegate {
 
         guard annotation is CriticalMassAnnotation == false else {
             if #available(iOS 11.0, *) {
-                return mapView.dequeueReusableAnnotationView(withIdentifier: CMMarkerAnnotationView.reuseIdentifier)
+                if let cmAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: CMMarkerAnnotationView.reuseIdentifier) {
+                    cmAnnotationView.annotation = annotation
+                    return cmAnnotationView
+                } else {
+                    return CMMarkerAnnotationView(annotation: annotation, reuseIdentifier: CMMarkerAnnotationView.reuseIdentifier)
+                }
             } else {
-                return mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier)
+                if let cmAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier) {
+                    cmAnnotationView.annotation = annotation
+                    return cmAnnotationView
+                } else {
+                    return CMAnnotationView(annotation: annotation, reuseIdentifier: CMAnnotationView.reuseIdentifier)
+                }
             }
         }
 
