@@ -26,7 +26,7 @@ struct NextRideManager {
         ride.coordinate.clLocation.distance(from: coordinate.clLocation) < filterDistance
     }
 
-    private func isNextRideInTheFuture(_ rides: [Ride]) -> Ride? {
+    private func getUpcomingRide(_ rides: [Ride]) -> Ride? {
         rides.first { $0.dateTime > Date() }
     }
 
@@ -37,7 +37,7 @@ struct NextRideManager {
     ) {
         switch result {
         case let .success(rides):
-            guard let ride = isNextRideInTheFuture(rides) else {
+            guard let ride = getUpcomingRide(rides) else {
                 Logger.log(.default, log: .map, "Expected ride to be in the future")
                 handler(Result.success(nil))
                 return
