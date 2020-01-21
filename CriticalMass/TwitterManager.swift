@@ -22,11 +22,13 @@ class TwitterManager {
     }
 
     private let networkLayer: NetworkLayer
+    private let errorHandler: ErrorHandler
 
     var updateContentStateCallback: ((ContentState<[Tweet]>) -> Void)?
 
-    init(networkLayer: NetworkLayer, request: TwitterRequest) {
+    init(networkLayer: NetworkLayer, request: TwitterRequest, errorHandler: ErrorHandler = PrintErrorHandler()) {
         self.networkLayer = networkLayer
+        self.errorHandler = errorHandler
         self.request = request
     }
 
@@ -36,7 +38,7 @@ class TwitterManager {
             onMain {
                 switch result {
                 case let .failure(error):
-                    ErrorHandler.default.handleError(error)
+                    self.errorHandler.handleError(error)
                     self.contentState = .error(.fallback)
                     completion?(.failure(error))
                 case let .success(response):

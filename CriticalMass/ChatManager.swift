@@ -11,6 +11,7 @@ import Foundation
 class ChatManager {
     private var cachedMessages: [ChatMessage]?
     private let requestManager: RequestManager
+    private let errorHandler: ErrorHandler
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
     var updateUnreadMessagesCountCallback: ((UInt) -> Void)?
@@ -23,8 +24,9 @@ class ChatManager {
         }
     }
 
-    init(requestManager: RequestManager) {
+    init(requestManager: RequestManager, errorHandler: ErrorHandler = PrintErrorHandler()) {
         self.requestManager = requestManager
+        self.errorHandler = errorHandler
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessages(notification:)), name: Notification.chatMessagesReceived, object: nil)
     }
 
@@ -47,7 +49,7 @@ class ChatManager {
             case let .success(messages):
                 completion(.success(messages))
             case let .failure(error):
-                ErrorHandler.default.handleError(error)
+                self.errorHandler.handleError(error)
                 completion(.failure(error))
             }
         }

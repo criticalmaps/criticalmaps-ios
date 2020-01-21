@@ -34,7 +34,7 @@ class FollowFriendsViewController: UIViewController {
             urlString = try FollowURLObject(queryObject: Friend(name: name, token: token)).asURL()
             configureQRCodeView()
         } catch {
-            ErrorHandler.default.handleError(error)
+            PrintErrorHandler().handleError(error)
         }
     }
 
