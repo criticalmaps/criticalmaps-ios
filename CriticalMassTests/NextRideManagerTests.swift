@@ -25,11 +25,10 @@ class NextRideManagerTests: XCTestCase {
     func testManagerShouldReturnValidRideWhenRideIsInFutureAndInRadius() {
         // given
         var loadedRide: Ride?
-        let rides: [Ride] = [
+        networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
         ]
-        networkLayer.mockResponse = rides
         // when
         let exp = expectation(description: "Wait for response")
         sut.getNextRide(around: .alexanderPlatz) { result in
@@ -51,11 +50,10 @@ class NextRideManagerTests: XCTestCase {
     func testManagerShouldReturnCMBerlinRideWhenRideIsInFutureAndInRadius() {
         // given
         var loadedRide: Ride?
-        let rides: [Ride] = [
+        networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
         ]
-        networkLayer.mockResponse = rides
         // when
         let exp = expectation(description: "Wait for response")
         sut.getNextRide(around: .alexanderPlatz) { result in
@@ -77,11 +75,10 @@ class NextRideManagerTests: XCTestCase {
     func testManagerShouldReturnNoRideWhenRideIsInFutureButNotInRadius() {
         // given
         var loadedRide: Ride?
-        let rides: [Ride] = [
+        networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
         ]
-        networkLayer.mockResponse = rides
         // when
         let exp = expectation(description: "Wait for response")
         sut.getNextRide(around: .rendsburg) { result in
@@ -103,10 +100,9 @@ class NextRideManagerTests: XCTestCase {
     func testManagerShouldReturnNoRideWhenRideIsInPastButInRadius() {
         // given
         var loadedRide: Ride?
-        let rides: [Ride] = [
+        networkLayer.mockResponse = [
             Ride.TestData.completedCMBerlin
         ]
-        networkLayer.mockResponse = rides
         // when
         let exp = expectation(description: "Wait for response")
         sut.getNextRide(around: .alexanderPlatz) { result in
