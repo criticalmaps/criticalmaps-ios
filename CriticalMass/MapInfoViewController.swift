@@ -19,6 +19,8 @@ class MapInfoViewController: UIViewController, IBConstructable {
     @IBOutlet private var infoViewContainer: UIView!
     @IBOutlet private var infoViewContainerTopConstraint: NSLayoutConstraint!
 
+    typealias CompletionHandler = () -> Void
+
     private enum Constants {
         static let infoBarDismissed = CGFloat(-110)
         static let infoBarVisible = CGFloat(0)
@@ -26,9 +28,17 @@ class MapInfoViewController: UIViewController, IBConstructable {
         static let infoBarDismissTimeInterval: TimeInterval = 0.2
     }
 
-    lazy var infoView = {
-        MapInfoView.fromNib()
-    }()
+    private var infoView = MapInfoView.fromNib()
+
+    public var closeButtonHandler: MapInfoView.TapHandler? {
+        get { infoView.closeButtonHandler }
+        set { infoView.closeButtonHandler = newValue }
+    }
+
+    public var tapHandler: MapInfoView.TapHandler? {
+        get { infoView.tapHandler }
+        set { infoView.tapHandler = newValue }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

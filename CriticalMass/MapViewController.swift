@@ -89,7 +89,7 @@ class MapViewController: UIViewController {
     private func setupMapInfoViewController() {
         add(mapInfoViewController)
         mapInfoViewController.view.addLayoutsSameSizeAndOrigin(in: view)
-        mapInfoViewController.infoView.tapHandler = { [unowned self] in
+        mapInfoViewController.tapHandler = { [unowned self] in
             guard let cmAnnotation = self.cmAnnotation else {
                 Logger.log(.info, log: .map, "Can not focus on CM Annotation")
                 return
