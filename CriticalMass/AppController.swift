@@ -61,7 +61,7 @@ class AppController {
         MapViewController(
             themeController: self.themeController,
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
-            nextRideAPIHandler: CMInApiHandler(networkLayer: networkOperator)
+            nextRideManager: NextRideManager(apiHandler: CMInApiHandler(networkLayer: networkOperator))
         )
     }()
 

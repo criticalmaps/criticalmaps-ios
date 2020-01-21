@@ -12,18 +12,18 @@ class MapViewController: UIViewController {
     private let themeController: ThemeController
     private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
-    private let nextRideAPIHandler: CMInApiHandling
+    private let nextRideManager: NextRideManager
 
     private let mapInfoViewController = MapInfoViewController.fromNib()
 
     init(
         themeController: ThemeController,
         friendsVerificationController: FriendsVerificationController,
-        nextRideAPIHandler: CMInApiHandling
+        nextRideManager: NextRideManager
     ) {
         self.themeController = themeController
         self.friendsVerificationController = friendsVerificationController
-        self.nextRideAPIHandler = nextRideAPIHandler
+        self.nextRideManager = nextRideManager
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -182,7 +182,7 @@ class MapViewController: UIViewController {
             latitude: location[keyPath: \Location.latitude],
             longitude: location[keyPath: \Location.longitude]
         )
-        nextRideAPIHandler.getNextRide(around: coordinate) { result in
+        nextRideManager.getNextRide(around: coordinate) { result in
             switch result {
             case let .success(ride):
                 guard let nextRide = ride else {
