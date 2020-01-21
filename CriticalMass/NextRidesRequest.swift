@@ -3,7 +3,7 @@
 
 import CoreLocation
 
-struct NextRideRequest: APIRequestDefining {
+struct NextRidesRequest: APIRequestDefining {
     private enum QueryKeys {
         static let centerLatitude: String = "centerLatitude"
         static let centerLongitude: String = "centerLongitude"
