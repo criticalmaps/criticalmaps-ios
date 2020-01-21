@@ -1,0 +1,31 @@
+disabled_rules:
+  - variable_name
+  - nesting
+  - function_parameter_count
+opt_in_rules:
+  - control_statement
+  - empty_count
+  - trailing_newline
+  - colon
+  - comma
+included:
+  - CriticalMaps
+  - CriticalMapsTests
+  - CriticalMapsUITests
+  - CriticalMapsSnapshotTests
+
+type_body_length:
+  - 300 # warning
+  - 400 # error
+
+large_tuple: # warn user when using 3 values in tuple, give error if there are 4
+   - 3
+   - 4
+   
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 30
+    error: 50
+  excluded: iPhone # excluded via string
+reporter: "xcode"
