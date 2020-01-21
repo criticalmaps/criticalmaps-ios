@@ -36,6 +36,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
         infoViewContainer.addSubview(infoView)
         infoView.addLayoutsSameSizeAndOrigin(in: infoViewContainer)
         infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
+        infoView.isHidden = true
 
         infoView.closeButtonHandler = {
             self.dismissMapInfo()
@@ -43,35 +44,50 @@ class MapInfoViewController: UIViewController, IBConstructable {
     }
 
     public func presentMapInfo(title: String, style: MapInfoView.Configuration.Style) {
-        infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
+        func animateIn() {
+            infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
+            infoView.isHidden = false
 
-        infoView.isHidden = false
+            let animator = UIViewPropertyAnimator(
+                duration: Constants.infoBarVisibleTimeInterval,
+                timingParameters: UICubicTimingParameters.linearOutSlow
+            )
+            animator.addAnimations {
+                self.infoViewContainerTopConstraint.constant = Constants.infoBarVisible
+                self.view.layoutIfNeeded()
+            }
+            animator.startAnimation()
 
-        let animator = UIViewPropertyAnimator(
-            duration: Constants.infoBarVisibleTimeInterval,
-            timingParameters: UICubicTimingParameters.linearOutSlow
-        )
-        animator.addAnimations {
-            self.infoViewContainerTopConstraint.constant = Constants.infoBarVisible
-            self.view.layoutIfNeeded()
+            UIAccessibility.post(notification: .layoutChanged, argument: view)
         }
-        animator.startAnimation()
 
-        UIAccessibility.post(notification: .layoutChanged, argument: view)
+        if infoView.isHidden {
+            animateIn()
+        } else {
+            dismissMapInfo(animated: false) {
+                animateIn()
+            }
+        }
     }
 
-    public func dismissMapInfo(_: Bool = false) {
-        let animator = UIViewPropertyAnimator(
-            duration: Constants.infoBarVisibleTimeInterval,
-            timingParameters: UICubicTimingParameters.fastOutLiner
-        )
-        animator.addAnimations {
-            self.infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
-            self.view.layoutIfNeeded()
+    public func dismissMapInfo(animated: Bool = true, _ completion: CompletionHandler? = nil) {
+        defer { completion?() }
+        if !animated {
+            infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
+            infoView.isHidden = true
+        } else {
+            let animator = UIViewPropertyAnimator(
+                duration: Constants.infoBarVisibleTimeInterval,
+                timingParameters: UICubicTimingParameters.fastOutLiner
+            )
+            animator.addAnimations {
+                self.infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
+                self.view.layoutIfNeeded()
+            }
+            animator.addCompletion { _ in
+                self.infoView.isHidden = true
+            }
+            animator.startAnimation()
         }
-        animator.addCompletion { _ in
-            self.infoView.isHidden = true
-        }
-        animator.startAnimation()
     }
 }
