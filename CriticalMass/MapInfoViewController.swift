@@ -23,7 +23,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
 
     private enum Constants {
         static let infoBarDismissed = CGFloat(-120)
-        static let infoBarVisible = CGFloat(0)
+        static let infoBarVisible = CGFloat(20)
         static let infoBarVisibleTimeInterval: TimeInterval = 0.25
         static let infoBarDismissTimeInterval: TimeInterval = 0.2
     }
