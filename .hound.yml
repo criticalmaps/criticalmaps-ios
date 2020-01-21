@@ -1,2 +1,2 @@
-swiftlint:
-  enabled: false
+swift:
+  config_file: .swiftlint.yml
