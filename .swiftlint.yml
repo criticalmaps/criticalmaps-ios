@@ -9,12 +9,10 @@ opt_in_rules: # some rules are only opt-in
   - colon
   - comma
 included: # paths to include during linting. `--path` is ignored if present.
-  - Project
-  - ProjectTests
-  - ProjectUITests
-excluded: # paths to ignore during linting. Takes precedence over `included`.
-  - Pods
-  - Project/R.generated.swift
+  - CriticalMaps
+  - CriticalMapsTests
+  - CriticalMapsUITests
+  - CriticalMapsSnapshotTests
 
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
@@ -27,21 +25,14 @@ type_body_length:
   - 300 # warning
   - 400 # error
 
-# or they can set both explicitly
-file_length:
-  warning: 500
-  error: 800
-
 large_tuple: # warn user when using 3 values in tuple, give error if there are 4
    - 3
    - 4
    
-# naming rules can set warnings/errors for min_length and max_length
-# additionally they can set excluded names
 type_name:
   min_length: 4 # only warning
   max_length: # warning and error
     warning: 30
-    error: 35
+    error: 50
   excluded: iPhone # excluded via string
 reporter: "xcode"
