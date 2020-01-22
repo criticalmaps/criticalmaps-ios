@@ -5,7 +5,7 @@ import MapKit
 
 @available(iOS 11.0, *)
 class CMMarkerAnnotationView: MKMarkerAnnotationView {
-    static let reuseIdentifier = "CMMarkerAnnotationView"
+    static let reuseIdentifier = String(describing: self)
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -25,7 +25,7 @@ class CMMarkerAnnotationView: MKMarkerAnnotationView {
 }
 
 class CMAnnotationView: MKAnnotationView {
-    static let reuseIdentifier = "CMAnnotationView"
+    static let reuseIdentifier = String(describing: self)
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
