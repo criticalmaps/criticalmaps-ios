@@ -174,31 +174,42 @@ class MapViewController: UIViewController {
         mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
     }
 
-    @objc func didReceiveInitialLocation(notification: Notification) {
-        guard let location = notification.object as? Location else { return }
-        focusOnCoordinate(CLLocationCoordinate2D(location))
-
-        let coordinate = CLLocationCoordinate2D(
-            latitude: location[keyPath: \Location.latitude],
-            longitude: location[keyPath: \Location.longitude]
-        )
+    private func getNextRide(_ coordinate: CLLocationCoordinate2D) {
         nextRideManager.getNextRide(around: coordinate) { result in
             switch result {
             case let .success(ride):
-                guard let nextRide = ride else {
-                    Logger.log(.debug, log: .map, "Expected nextRide to present MapInfoView")
-                    return
-                }
-                onMain { [weak self] in
-                    self?.mapInfoViewController.presentMapInfo(title: nextRide.title, style: .info)
-                    let cmAnnotation = CriticalMassAnnotation(ride: nextRide)
-                    self?.cmAnnotation = cmAnnotation
-                    self?.mapView.addAnnotation(cmAnnotation)
+                onMain { [unowned self] in
+                    ride.flatMap { ride in
+                        self.annotationController.first(where: { $0.annotationType == CriticalMassAnnotation.self })
+                            .flatMap {
+                                if #available(iOS 11.0, *) {
+                                    guard let controller = $0 as? CMMarkerAnnotationController else {
+                                        Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
+                                        return
+                                    }
+                                    controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
+                                } else {
+                                    guard let controller = $0 as? CMAnnotationController else {
+                                        Logger.log(.debug, log: .map, "Controller expected to CMAnnotationController")
+                                        return
+                                    }
+                                    controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
+                                }
+                            }
+                        self.mapInfoViewController.presentMapInfo(title: ride.title, style: .info)
+                    }
                 }
             case let .failure(error):
                 PrintErrorHandler().handleError(error)
             }
         }
+    }
+
+    @objc func didReceiveInitialLocation(notification: Notification) {
+        guard let location = notification.object as? Location else { return }
+        let coordinate = CLLocationCoordinate2D(location)
+        focusOnCoordinate(coordinate)
+        getNextRide(coordinate)
     }
 
     @objc func didReceiveFocusNotification(notification: Notification) {
