@@ -23,7 +23,7 @@ class IdentifiableAnnnotation: MKPointAnnotation {
         }
     }
 
-    init(location: Location, identifier: String) {
+    required init(location: Location, identifier: String) {
         self.identifier = identifier
         self.location = location
         super.init()

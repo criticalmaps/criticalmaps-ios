@@ -36,26 +36,12 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
             Logger.log(.info, log: .map, "Bike annotations cannot be displayed because no GPS Access permission granted", parameter: LocationManager.accessPermission.rawValue)
             return
         }
-        var unmatchedLocations = locations
+        var filtredLocations = locations
 
         if Feature.friends.isActive {
-            unmatchedLocations = unmatchedLocations.filter { !friendsVerificationController.isFriend(id: $0.key) }
+            filtredLocations = filtredLocations.filter { !friendsVerificationController.isFriend(id: $0.key) }
         }
 
-        var unmatchedAnnotations: [MKAnnotation] = []
-        // update existing annotations
-        mapView.annotations.compactMap { $0 as? BikeAnnotation }.forEach { annotation in
-            if let location = unmatchedLocations[annotation.identifier] {
-                annotation.location = location
-                unmatchedLocations.removeValue(forKey: annotation.identifier)
-            } else {
-                unmatchedAnnotations.append(annotation)
-            }
-        }
-        let annotations = unmatchedLocations.map { BikeAnnotation(location: $0.value, identifier: $0.key) }
-        mapView.addAnnotations(annotations)
-
-        // remove annotations that no longer exist
-        mapView.removeAnnotations(unmatchedAnnotations)
+        updateAnnotations(locations: filtredLocations)
     }
 }

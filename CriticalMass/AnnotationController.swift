@@ -19,4 +19,23 @@ class AnnotationController<T: IdentifiableAnnnotation, K: MKAnnotationView> {
     }
 
     open func setup() {}
+
+    open func updateAnnotations(locations: [String: Location]) {
+        var unmatchedLocations = locations
+        var unmatchedAnnotations: [MKAnnotation] = []
+        // update existing annotations
+        mapView.annotations.compactMap { $0 as? T }.forEach { annotation in
+            if let location = unmatchedLocations[annotation.identifier] {
+                annotation.location = location
+                unmatchedLocations.removeValue(forKey: annotation.identifier)
+            } else {
+                unmatchedAnnotations.append(annotation)
+            }
+        }
+        let annotations = unmatchedLocations.map { T(location: $0.value, identifier: $0.key) }
+        mapView.addAnnotations(annotations)
+
+        // remove annotations that no longer exist
+        mapView.removeAnnotations(unmatchedAnnotations)
+    }
 }
