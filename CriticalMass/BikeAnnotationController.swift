@@ -21,7 +21,7 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
     required init(mapView _: MKMapView) {
         fatalError("init(mapView:) has not been implemented")
     }
-    
+
     public override func setup() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
     }
@@ -37,11 +37,11 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
             return
         }
         var unmatchedLocations = locations
-        
+
         if Feature.friends.isActive {
-            unmatchedLocations.filter{ !friendsVerificationController.isFriend(id: $0.key)  }
+            unmatchedLocations = unmatchedLocations.filter { !friendsVerificationController.isFriend(id: $0.key) }
         }
-        
+
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
         mapView.annotations.compactMap { $0 as? BikeAnnotation }.forEach { annotation in

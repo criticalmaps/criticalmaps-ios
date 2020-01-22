@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
     // MARK: Properties
 
     private lazy var annotationController: [AnnotationController] = {
-        [BikeAnnotationController(mapView: self.mapView)]
+        [BikeAnnotationController(friendsVerificationController: self.friendsVerificationController, mapView: self.mapView)]
     }()
 
     private let nightThemeOverlay = DarkModeMapOverlay()
