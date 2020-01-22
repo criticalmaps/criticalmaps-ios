@@ -26,7 +26,7 @@ class ChatManager {
     }
 
     init(
-        requestManager: RequestManager, 
+        requestManager: RequestManager,
         defaults: UserDefaults = .standard,
         errorHandler: ErrorHandler = PrintErrorHandler()
     ) {
