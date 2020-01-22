@@ -8,13 +8,22 @@
 
 import MapKit
 
-class AnnotationController<T: IdentifiableAnnnotation, K: MKAnnotationView> {
-    var mapView: MKMapView
-    let annotationType = T.self
-    let annotationViewType = K.self
+class AnnotationController {
+    typealias AnnotationType = MKAnnotation.Type
+    typealias AnnotationViewType = MKAnnotationView.Type
 
-    required init(mapView: MKMapView) {
+    let mapView: MKMapView
+    let annotationType: AnnotationType
+    let annotationViewType: AnnotationViewType
+
+    required init(
+        mapView: MKMapView,
+        annotationType: AnnotationType,
+        annotationViewType: AnnotationViewType
+    ) {
         self.mapView = mapView
+        self.annotationType = annotationType
+        self.annotationViewType = annotationViewType
         setup()
     }
 

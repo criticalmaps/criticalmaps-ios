@@ -35,7 +35,17 @@ class MapViewController: UIViewController {
     // MARK: Properties
 
     private lazy var annotationController: [AnnotationController] = {
-        [BikeAnnotationController(mapView: self.mapView)]
+        if #available(iOS 11.0, *) {
+            return [
+                BikeAnnotationController(mapView: self.mapView),
+                CMMarkerAnnotationController(mapView: self.mapView)
+            ]
+        } else {
+            return [
+                BikeAnnotationController(mapView: self.mapView),
+                CMAnnotationController(mapView: self.mapView)
+            ]
+        }
     }()
 
     private let nightThemeOverlay = DarkModeMapOverlay()
@@ -68,13 +78,13 @@ class MapViewController: UIViewController {
         configureTileRenderer()
         configureMapView()
         condfigureGPSDisabledOverlayView()
-        registerAnnoationViews()
+        registerAnnotationViews()
         setupMapInfoViewController()
 
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    private func registerAnnoationViews() {
+    private func registerAnnotationViews() {
         annotationController
             .map { $0.annotationViewType }
             .forEach(mapView.register)
@@ -232,24 +242,6 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKUserLocation == false else {
             return nil
-        }
-
-        guard annotation is CriticalMassAnnotation == false else {
-            if #available(iOS 11.0, *) {
-                if let cmAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: CMMarkerAnnotationView.reuseIdentifier) {
-                    cmAnnotationView.annotation = annotation
-                    return cmAnnotationView
-                } else {
-                    return CMMarkerAnnotationView(annotation: annotation, reuseIdentifier: CMMarkerAnnotationView.reuseIdentifier)
-                }
-            } else {
-                if let cmAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier) {
-                    cmAnnotationView.annotation = annotation
-                    return cmAnnotationView
-                } else {
-                    return CMAnnotationView(annotation: annotation, reuseIdentifier: CMAnnotationView.reuseIdentifier)
-                }
-            }
         }
 
         guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {

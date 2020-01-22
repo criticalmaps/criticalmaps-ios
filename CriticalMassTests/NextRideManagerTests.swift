@@ -6,18 +6,18 @@ import CoreLocation
 import XCTest
 
 class NextRideManagerTests: XCTestCase {
-    var sut: NextRideManager!
+    var nextRideManager: NextRideManager!
     private var networkLayer: MockNetworkLayer!
 
     override func setUp() {
         super.setUp()
         networkLayer = MockNetworkLayer()
         let apiHandler = CMInApiHandler(networkLayer: networkLayer)
-        sut = NextRideManager(apiHandler: apiHandler)
+        nextRideManager = NextRideManager(apiHandler: apiHandler)
     }
 
     override func tearDown() {
-        sut = nil
+        nextRideManager = nil
         networkLayer = nil
         super.tearDown()
     }
@@ -31,7 +31,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -56,7 +56,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -81,7 +81,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: CLLocationCoordinate2D.TestData.rendsburg) { result in
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.rendsburg) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -105,7 +105,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride

@@ -5,7 +5,7 @@ import CoreLocation
 import UIKit
 
 // https://material.io/design/motion/speed.html#easing
-extension UICubicTimingParameters {
+private extension UICubicTimingParameters {
     static var linearOutSlow: UITimingCurveProvider {
         UICubicTimingParameters(controlPoint1: .init(x: 0.0, y: 0.0), controlPoint2: .init(x: 0.2, y: 1.0))
     }
