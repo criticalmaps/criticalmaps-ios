@@ -20,6 +20,8 @@ class AnnotationController<T: IdentifiableAnnnotation, K: MKAnnotationView> {
 
     open func setup() {}
 
+    /// This method updates the displayed Annotations of the annotationType T. Annotations that already have a AnnotationView are updated with a new location, Annotations that don't have a View yet, will be added, and previously displayed annotations of the given type will be removed from the Map.
+    /// - Parameter locations: A dictionary mapping between  identifier and their locations
     open func updateAnnotations(locations: [String: Location]) {
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
