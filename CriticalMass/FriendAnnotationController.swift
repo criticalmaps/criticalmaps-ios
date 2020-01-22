@@ -1,16 +1,16 @@
 //
-//  BikeAnnotationController.swift
+//  FriendAnnotationController.swift
 //  CriticalMaps
 //
-//  Created by Leonard Thomas on 14.11.19.
-//  Copyright © 2019 Pokus Labs. All rights reserved.
+//  Created by Leonard Thomas on 22.01.20.
+//  Copyright © 2020 Pokus Labs. All rights reserved.
 //
 
 import MapKit
 
-class BikeAnnotation: IdentifiableAnnnotation {}
+class FriendAnnotation: IdentifiableAnnnotation {}
 
-class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoationView> {
+class FriendAnnotationController: AnnotationController<FriendAnnotation, FriendAnnotationView> {
     private var friendsVerificationController: FriendsVerificationController
 
     init(friendsVerificationController: FriendsVerificationController, mapView: MKMapView) {
@@ -21,7 +21,7 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
     required init(mapView _: MKMapView) {
         fatalError("init(mapView:) has not been implemented")
     }
-    
+
     public override func setup() {
         NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
     }
@@ -32,19 +32,17 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
     }
 
     private func display(locations: [String: Location]) {
+        guard Feature.friends.isActive else {
+            return
+        }
         guard LocationManager.accessPermission == .authorized else {
             Logger.log(.info, log: .map, "Bike annotations cannot be displayed because no GPS Access permission granted", parameter: LocationManager.accessPermission.rawValue)
             return
         }
-        var unmatchedLocations = locations
-        
-        if Feature.friends.isActive {
-            unmatchedLocations.filter{ !friendsVerificationController.isFriend(id: $0.key)  }
-        }
-        
+        var unmatchedLocations = locations.filter { friendsVerificationController.isFriend(id: $0.key) }
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
-        mapView.annotations.compactMap { $0 as? BikeAnnotation }.forEach { annotation in
+        mapView.annotations.compactMap { $0 as? FriendAnnotation }.forEach { annotation in
             if let location = unmatchedLocations[annotation.identifier] {
                 annotation.location = location
                 unmatchedLocations.removeValue(forKey: annotation.identifier)
@@ -52,7 +50,7 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
                 unmatchedAnnotations.append(annotation)
             }
         }
-        let annotations = unmatchedLocations.map { BikeAnnotation(location: $0.value, identifier: $0.key) }
+        let annotations = unmatchedLocations.map { FriendAnnotation(location: $0.value, identifier: $0.key) }
         mapView.addAnnotations(annotations)
 
         // remove annotations that no longer exist

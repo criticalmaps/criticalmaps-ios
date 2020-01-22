@@ -155,6 +155,7 @@
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
 		9853B511237E101300F46AB6 /* BikeAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9853B510237E101300F46AB6 /* BikeAnnotationController.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
+		987137E223D8F22300C220AD /* FriendAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987137E123D8F22300C220AD /* FriendAnnotationController.swift */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A423A4EAF80060499B /* MapInfoView.swift */; };
 		987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A523A4EAF80060499B /* MapInfoView.xib */; };
@@ -381,6 +382,7 @@
 		9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKMapView+Register.swift"; sourceTree = "<group>"; };
 		9853B510237E101300F46AB6 /* BikeAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotationController.swift; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
+		987137E123D8F22300C220AD /* FriendAnnotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationController.swift; sourceTree = "<group>"; };
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		987C57A423A4EAF80060499B /* MapInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		987C57A523A4EAF80060499B /* MapInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapInfoView.xib; sourceTree = "<group>"; };
@@ -855,6 +857,7 @@
 				9853B510237E101300F46AB6 /* BikeAnnotationController.swift */,
 				9841B476237E9239000A4922 /* AnnotationController.swift */,
 				98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */,
+				987137E123D8F22300C220AD /* FriendAnnotationController.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -1273,6 +1276,7 @@
 				3F997955239D9DD5006DB96B /* Feature.swift in Sources */,
 				94FCBD2C226C57CA00F93F94 /* UIApplication+Appearance.swift in Sources */,
 				21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */,
+				987137E223D8F22300C220AD /* FriendAnnotationController.swift in Sources */,
 				989F9FFB21C7F9AB00E71085 /* RuleTableViewCell.swift in Sources */,
 				949BD4AF23CB481200EA7BA4 /* CriticalMassInApiHandler.swift in Sources */,
 				98DDF9E823D4F8E800E55BE7 /* MapOverlayErrorHandler.swift in Sources */,
