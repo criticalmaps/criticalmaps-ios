@@ -44,16 +44,3 @@ struct NextRideRequest: APIRequestDefining {
         return try decoder.decode(ResponseDataType.self, from: data)
     }
 }
-
-private extension Date {
-    /// Get a component representation of todays Date as Int.
-    /// - Parameter keyPath:
-    /// - Returns: DateComponent representation as Int. Returns 0 when component is not available
-    static func getCurrent(_ keyPath: KeyPath<DateComponents, Int?>) -> Int {
-        let date = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: date)
-        let component = components[keyPath: keyPath] ?? 0
-        return component
-    }
-}

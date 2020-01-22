@@ -11,10 +11,12 @@ import XCTest
 
 class AppDataStoreTests: XCTestCase {
     var sut: AppDataStore!
-    var userdefaults = UserDefaults(suiteName: "CriticalMaps-Tests")!
+    var userdefaults: UserDefaults!
 
     override func setUp() {
         super.setUp()
+
+        userdefaults = .makeClearedInstance()
 
         var feature = Feature.friends
         feature.isActive = true
@@ -27,7 +29,6 @@ class AppDataStoreTests: XCTestCase {
 
     override func tearDown() {
         sut = nil
-        userdefaults.removePersistentDomain(forName: "CriticalMaps-Tests")
         super.tearDown()
     }
 
@@ -164,12 +165,5 @@ class AppDataStoreTests: XCTestCase {
         XCTAssertNotEqual(sut.userName, newName)
         sut.userName = newName
         XCTAssertEqual(sut.userName, newName)
-    }
-
-    func testDontStoreEmptyUsername() {
-        let newName = ""
-        XCTAssertNotEqual(sut.userName, newName)
-        sut.userName = newName
-        XCTAssertNotEqual(sut.userName, newName)
     }
 }

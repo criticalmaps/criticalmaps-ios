@@ -12,6 +12,7 @@ class ChatManager {
     private var cachedMessages: [ChatMessage]?
     private let requestManager: RequestManager
     private let errorHandler: ErrorHandler
+    private let defaults: UserDefaults
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
     var updateUnreadMessagesCountCallback: ((UInt) -> Void)?
@@ -24,10 +25,19 @@ class ChatManager {
         }
     }
 
-    init(requestManager: RequestManager, errorHandler: ErrorHandler = PrintErrorHandler()) {
+    init(
+        requestManager: RequestManager,
+        defaults: UserDefaults = .standard,
+        errorHandler: ErrorHandler = PrintErrorHandler()
+    ) {
+        self.defaults = defaults
         self.requestManager = requestManager
         self.errorHandler = errorHandler
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessages(notification:)), name: Notification.chatMessagesReceived, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didReceiveMessages(notification:)),
+            name: Notification.chatMessagesReceived, object: nil
+        )
     }
 
     @objc private func didReceiveMessages(notification: Notification) {
@@ -35,7 +45,7 @@ class ChatManager {
         cachedMessages = Array(response.chatMessages.values).sorted(by: { (a, b) -> Bool in
             a.timestamp > b.timestamp
         })
-        unreadMessagesCount = UInt(cachedMessages?.lazy.filter { $0.timestamp > Preferences.lastMessageReadTimeInterval }.count ?? 0)
+        unreadMessagesCount = UInt(cachedMessages?.lazy.filter { $0.timestamp > self.defaults.lastMessageReadTimeInterval }.count ?? 0)
         updateMessagesCallback?(cachedMessages ?? [])
     }
 
@@ -66,7 +76,7 @@ class ChatManager {
 
     public func markAllMessagesAsRead() {
         if let timestamp = cachedMessages?.first?.timestamp {
-            Preferences.lastMessageReadTimeInterval = timestamp
+            defaults.lastMessageReadTimeInterval = timestamp
         }
         unreadMessagesCount = 0
     }

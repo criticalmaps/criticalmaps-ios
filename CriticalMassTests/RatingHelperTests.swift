@@ -19,83 +19,70 @@ class MockRatingRequest: RatingRequest {
 
 class RatingHelperTests: XCTestCase {
     var ratingHelper: RatingHelper!
-    var userdefaults = UserDefaults(suiteName: "CriticalMaps-Tests")!
+    var userdefaults: UserDefaults!
 
     override func setUp() {
         super.setUp()
+        userdefaults = .makeClearedInstance()
         ratingHelper = RatingHelper(defaults: userdefaults, ratingRequest: MockRatingRequest.self)
     }
 
     override func tearDown() {
         ratingHelper = nil
         MockRatingRequest.requestCounter = 0
-        userdefaults.removePersistentDomain(forName: "CriticalMaps-Tests")
+        super.tearDown()
     }
 
     func testNoRequestOnFirstLaunch() {
-        ratingHelper.daysUntilPrompt = 1
-        ratingHelper.usesUntilPrompt = 5
-
         ratingHelper.onLaunch()
 
         XCTAssertEqual(MockRatingRequest.requestCounter, 0)
     }
 
     func testNoRequestAfterFiveLaunchesOnSameDay() {
-        ratingHelper.daysUntilPrompt = 1
-        ratingHelper.usesUntilPrompt = 5
-
         execute(times: 5, ratingHelper.onLaunch())
 
         XCTAssertEqual(MockRatingRequest.requestCounter, 0)
     }
 
     func testRequestAfterFiveLaunchesOnNextDay() {
-        ratingHelper.daysUntilPrompt = 1
-        ratingHelper.usesUntilPrompt = 5
-
         // mock app used yesterday
-        let yesterday = Date(timeInterval: -86400, since: Date()).timeIntervalSince1970
-        userdefaults.set(yesterday, forKey: "lastDayUsed")
+        userdefaults.lastDayUsed = .yesterday()
 
         execute(times: 5, ratingHelper.onLaunch())
         XCTAssertEqual(MockRatingRequest.requestCounter, 1)
     }
 
     func testNoRequestIfVersionAlreadyRated() {
-        ratingHelper.daysUntilPrompt = 1
-        ratingHelper.usesUntilPrompt = 5
-
         // mock app used yesterday
-        let yesterday = Date(timeInterval: -86400, since: Date()).timeIntervalSince1970
-        userdefaults.set(yesterday, forKey: "lastDayUsed")
+        userdefaults.lastDayUsed = .yesterday()
 
         // mock version already rated
-        userdefaults.set(Bundle.main.versionNumber + Bundle.main.buildNumber, forKey: "lastRatedVersion")
+        userdefaults.lastRatedVersion = Bundle.main.versionNumber + Bundle.main.buildNumber
 
         execute(times: 5, ratingHelper.onLaunch())
         XCTAssertEqual(MockRatingRequest.requestCounter, 0)
     }
 
     func testRatingRequestAfterInstallingNewVersion() {
-        ratingHelper.daysUntilPrompt = 1
-        ratingHelper.usesUntilPrompt = 5
-
         // mock app used yesterday
-        let yesterday = Date(timeInterval: -86400, since: Date()).timeIntervalSince1970
-        userdefaults.set(yesterday, forKey: "lastDayUsed")
+        userdefaults.lastDayUsed = .yesterday()
 
         // mock version already rated
-        userdefaults.set(Bundle.main.versionNumber + Bundle.main.buildNumber, forKey: "lastRatedVersion")
+        userdefaults.lastRatedVersion = Bundle.main.versionNumber + Bundle.main.buildNumber
 
         execute(times: 5, ratingHelper.onLaunch())
         XCTAssertEqual(MockRatingRequest.requestCounter, 0)
 
         // mock app used yesterday
-        userdefaults.set(yesterday, forKey: "lastDayUsed")
+        userdefaults.lastDayUsed = .yesterday()
 
         // mock new version  installed
-        ratingHelper = RatingHelper(defaults: userdefaults, ratingRequest: MockRatingRequest.self, currentVersion: "MockVersion")
+        ratingHelper = RatingHelper(
+            defaults: userdefaults,
+            ratingRequest: MockRatingRequest.self,
+            currentVersion: "MockVersion"
+        )
         execute(times: 5, ratingHelper.onLaunch())
         XCTAssertEqual(MockRatingRequest.requestCounter, 1)
     }

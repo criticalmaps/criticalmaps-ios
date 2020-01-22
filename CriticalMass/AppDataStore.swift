@@ -9,7 +9,7 @@ import CoreData
 import UIKit
 
 public class AppDataStore: DataStore {
-    private var userDefaults: UserDefaults
+    private let userDefaults: UserDefaults
 
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
@@ -22,15 +22,8 @@ public class AppDataStore: DataStore {
     private var lastKnownResponse: ApiResponse?
 
     public var userName: String {
-        set {
-            if !newValue.isEmpty {
-                userDefaults.set(newValue, forKey: #function)
-            }
-        }
-
-        get {
-            userDefaults.string(forKey: #function) ?? UIDevice.current.name
-        }
+        get { userDefaults.username ?? UIDevice.current.name }
+        set { userDefaults.username = newValue }
     }
 
     public func update(with response: ApiResponse) {
