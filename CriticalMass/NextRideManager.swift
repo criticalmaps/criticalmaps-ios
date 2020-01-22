@@ -17,7 +17,7 @@ struct NextRideManager {
         around coordinate: CLLocationCoordinate2D,
         _ handler: @escaping ResultCallback<Ride?>
     ) {
-        apiHandler.getNextRide(around: coordinate) { requestResult in
+        apiHandler.getNextRide(around: coordinate.obfuscated) { requestResult in
             self.filteredRidesHandler(result: requestResult, handler, coordinate)
         }
     }
@@ -51,11 +51,5 @@ struct NextRideManager {
         case let .failure(error):
             handler(Result.failure(error))
         }
-    }
-}
-
-extension CLLocationCoordinate2D {
-    var clLocation: CLLocation {
-        CLLocation(latitude: latitude, longitude: longitude)
     }
 }

@@ -31,7 +31,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: .alexanderPlatz) { result in
+        sut.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -56,7 +56,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: .alexanderPlatz) { result in
+        sut.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -81,7 +81,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: .rendsburg) { result in
+        sut.getNextRide(around: CLLocationCoordinate2D.TestData.rendsburg) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -105,7 +105,7 @@ class NextRideManagerTests: XCTestCase {
         ]
         // when
         let exp = expectation(description: "Wait for response")
-        sut.getNextRide(around: .alexanderPlatz) { result in
+        sut.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 loadedRide = ride
@@ -166,7 +166,9 @@ extension Ride {
     }
 }
 
-private extension CLLocationCoordinate2D {
-    static let rendsburg = CLLocationCoordinate2D(latitude: 54.308547, longitude: 9.656645)
-    static let alexanderPlatz = CLLocationCoordinate2D(latitude: 52.524657, longitude: 13.413939)
+extension CLLocationCoordinate2D {
+    enum TestData {
+        static let rendsburg = CLLocationCoordinate2D(latitude: 54.308547, longitude: 9.656645)
+        static let alexanderPlatz = CLLocationCoordinate2D(latitude: 52.524657, longitude: 13.413939)
+    }
 }
