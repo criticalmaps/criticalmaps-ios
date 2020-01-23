@@ -1,18 +1,19 @@
 name: UpdateDependencies
 
 on:
-  schedule:
-  - cron: "0 0 * * 0"
+  push:
+  branches:
+    - master
 
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Bump version
         run: bash update_dependencies.sh
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v1
+        uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update dependencies
