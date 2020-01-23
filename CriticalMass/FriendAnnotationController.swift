@@ -8,9 +8,9 @@
 
 import MapKit
 
-class FriendAnnotation: IdentifiableAnnnotation {}
+class FriendAnnotation: IdentifiableAnnnotation<Friend> {}
 
-class FriendAnnotationController: AnnotationController<FriendAnnotation, FriendAnnotationView> {
+class FriendAnnotationController: AnnotationController<FriendAnnotation, FriendAnnotationView, Friend> {
     private var friendsVerificationController: FriendsVerificationController
 
     init(friendsVerificationController: FriendsVerificationController, mapView: MKMapView) {
@@ -40,6 +40,16 @@ class FriendAnnotationController: AnnotationController<FriendAnnotation, FriendA
             return
         }
         let filtredLocations = locations.filter { friendsVerificationController.isFriend(id: $0.key) }
-        updateAnnotations(locations: filtredLocations)
+        let allTuples: [(identifier: String, location: Location, object: Friend)] = filtredLocations.compactMap {
+            guard let friend = friendsVerificationController.friend(for: $0.key) else {
+                return nil
+            }
+            return (identifier: $0.key, location: $0.value, object: friend)
+        }
+
+        let mappedLocations = allTuples.reduce(into: [String: (Location, Friend)]()) { result, value in
+            result[value.identifier] = (value.location, value.object)
+        }
+        updateAnnotations(locations: mappedLocations)
     }
 }

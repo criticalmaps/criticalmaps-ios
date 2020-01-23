@@ -225,7 +225,12 @@ extension MapViewController: MKMapViewDelegate {
             return nil
         }
 
-        return mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
+        let castedAnnotation = unsafeBitCast(annotation, to: matchingController.annotationType)
+
+        let annotationView = mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
+        annotationView.set(object: castedAnnotation.object)
+
+        return annotationView
     }
 
     func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {

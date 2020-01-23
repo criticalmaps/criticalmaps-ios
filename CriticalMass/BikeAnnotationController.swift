@@ -8,9 +8,9 @@
 
 import MapKit
 
-class BikeAnnotation: IdentifiableAnnnotation {}
+class BikeAnnotation: IdentifiableAnnnotation<Any> {}
 
-class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoationView> {
+class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoationView, Any> {
     private var friendsVerificationController: FriendsVerificationController
 
     init(friendsVerificationController: FriendsVerificationController, mapView: MKMapView) {
@@ -42,6 +42,6 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
             filtredLocations = filtredLocations.filter { !friendsVerificationController.isFriend(id: $0.key) }
         }
 
-        updateAnnotations(locations: filtredLocations)
+        updateAnnotations(locations: filtredLocations.mapValues { ($0, nil) })
     }
 }

@@ -7,15 +7,9 @@
 
 import MapKit
 
-class IdentifiableAnnnotation: MKPointAnnotation {
-    enum UserType: Int, Decodable {
-        case friend
-        case user
-    }
-
-    var type: UserType = .user
+class IdentifiableAnnnotation<T>: MKPointAnnotation {
     var identifier: String
-    var friend: Friend?
+    var object: T?
 
     var location: Location {
         didSet {
@@ -23,9 +17,10 @@ class IdentifiableAnnnotation: MKPointAnnotation {
         }
     }
 
-    required init(location: Location, identifier: String) {
+    required init(location: Location, identifier: String, object: T?) {
         self.identifier = identifier
         self.location = location
+        self.object = object
         super.init()
     }
 }

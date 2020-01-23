@@ -7,7 +7,17 @@
 
 import MapKit
 
-class BikeAnnoationView: MKAnnotationView {
+protocol AnnotationView: MKAnnotationView {
+    associatedtype T
+}
+
+extension AnnotationView {
+    func set(object _: T?) {}
+}
+
+class BikeAnnoationView: MKAnnotationView, AnnotationView {
+    typealias T = Any
+
     static let reuseIdentifier = "BikeAnnotationView"
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
@@ -26,15 +36,11 @@ class BikeAnnoationView: MKAnnotationView {
     }
 }
 
-class FriendAnnotationView: MKAnnotationView {
+class FriendAnnotationView: MKAnnotationView, AnnotationView {
+    typealias T = Friend
+
     static let reuseIdentifier = "FriendAnnotationView"
     var friendView: FriendView?
-
-    var friend: Friend? {
-        didSet {
-            friendView?.name = friend?.name ?? ""
-        }
-    }
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -51,8 +57,11 @@ class FriendAnnotationView: MKAnnotationView {
 
         friendView = FriendView(frame: .init(x: 0, y: 0, width: 109, height: 23))
         friendView!.backgroundColor = .clear
-        friendView!.name = friend?.name ?? ""
         addSubview(friendView!)
+    }
+
+    func set(object: Friend?) {
+        friendView?.name = object?.name ?? ""
     }
 }
 
