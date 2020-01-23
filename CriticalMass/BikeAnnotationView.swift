@@ -8,7 +8,7 @@
 import MapKit
 
 protocol AnnotationView: MKAnnotationView {
-    associatedtype T
+    associatedtype T = Any
 }
 
 extension AnnotationView {
@@ -16,8 +16,6 @@ extension AnnotationView {
 }
 
 class BikeAnnoationView: MKAnnotationView, AnnotationView {
-    typealias T = Any
-
     static let reuseIdentifier = "BikeAnnotationView"
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
