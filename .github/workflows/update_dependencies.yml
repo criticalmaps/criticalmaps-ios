@@ -1,9 +1,9 @@
-name: UpdateDependencies
+name: Update dependencies
 
 on:
   push:
-  branches:
-    - master
+    branches:
+      - master
 
 jobs:
   createPullRequest:
