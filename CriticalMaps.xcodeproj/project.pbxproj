@@ -98,6 +98,8 @@
 		94CF088319BDEAF2009FFF43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94CF088119BDEAF2009FFF43 /* InfoPlist.strings */; };
 		94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D4016E229F20F6001524CC /* FontMetrics.swift */; };
 		94D40171229FE43C001524CC /* UIFont+DynamicFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */; };
+		94F70B4823DA03A50086619E /* NextRideManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F70B4523DA037A0086619E /* NextRideManagerTests.swift */; };
+		94F70B4923DA03AB0086619E /* CLLocationAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F70B4423DA037A0086619E /* CLLocationAdditionsTests.swift */; };
 		94FCBD28226C57CA00F93F94 /* UITableViewController+FooterSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */; };
 		94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD24226C57CA00F93F94 /* Notification+Static.swift */; };
 		94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */; };
@@ -329,6 +331,8 @@
 		94E1FE4A212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E1FE4B212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94E1FE4C212057AC0016BD4E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		94F70B4423DA037A0086619E /* CLLocationAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationAdditionsTests.swift; sourceTree = "<group>"; };
+		94F70B4523DA037A0086619E /* NextRideManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextRideManagerTests.swift; sourceTree = "<group>"; };
 		94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+FooterSize.swift"; sourceTree = "<group>"; };
 		94FCBD24226C57CA00F93F94 /* Notification+Static.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Static.swift"; sourceTree = "<group>"; };
 		94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Appearance.swift"; sourceTree = "<group>"; };
@@ -816,6 +820,7 @@
 			children = (
 				9822A16521F11519007F5994 /* AppDataStoreTests.swift */,
 				9804178F21FCA2B40077D419 /* ChatManagerTests.swift */,
+				94F70B4423DA037A0086619E /* CLLocationAdditionsTests.swift */,
 				94AF230823D6D64600267E87 /* DateAdditionsTests.swift */,
 				98003D5F2287301000592D55 /* FollowURLObjectTests.swift */,
 				98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */,
@@ -823,6 +828,7 @@
 				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */,
 				9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */,
+				94F70B4523DA037A0086619E /* NextRideManagerTests.swift */,
 				9810C383229831720011F718 /* RatingHelperTests.swift */,
 				9822A16321F113DC007F5994 /* RequestManagerTests.swift */,
 				9822A15621EE0956007F5994 /* RuleTests.swift */,
@@ -1380,11 +1386,13 @@
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
 				988BF2F923F35C7100594C3F /* TwitterRequestTests.swift in Sources */,
 				94AF230923D6D64600267E87 /* DateAdditionsTests.swift in Sources */,
+				94F70B4923DA03AB0086619E /* CLLocationAdditionsTests.swift in Sources */,
 				75E26994235A4BA5000F2D0A /* MockThemeController.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
 				9843FAA3236CDC0D00457930 /* NetworkOperatorTests.swift in Sources */,
 				3FDA7C0A240B0E40004EE8A6 /* MockNetworkLayer.swift in Sources */,
 				9843FAA5236CDC6E00457930 /* MockNetworkDataProvider.swift in Sources */,
+				94F70B4823DA03A50086619E /* NextRideManagerTests.swift in Sources */,
 				98329A2322D3CADB00A157EE /* KeychainHelperTests.swift in Sources */,
 				9804179021FCA2B40077D419 /* ChatManagerTests.swift in Sources */,
 				98ED2FDD22919BDD007F8A92 /* FriendsVerificationControllerTests.swift in Sources */,
