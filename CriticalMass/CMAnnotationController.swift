@@ -14,12 +14,37 @@ class CMMarkerAnnotationController: AnnotationController {
         }
     }
 
-    convenience init(mapView: MKMapView) {
+    private let rideChecker: RideChecker
+
+    init(
+        ridechecker: RideChecker = RideChecker(),
+        mapView: MKMapView,
+        annotationType: AnnotationController.AnnotationType,
+        annotationViewType: AnnotationController.AnnotationViewType
+    ) {
+        rideChecker = ridechecker
+        super.init(
+            mapView: mapView,
+            annotationType: annotationType,
+            annotationViewType: annotationViewType
+        )
+    }
+
+    convenience init(mapView: MKMapView, rideChecker: RideChecker = RideChecker()) {
         self.init(
+            ridechecker: rideChecker,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,
             annotationViewType: CMMarkerAnnotationView.self
         )
+    }
+
+    required init(
+        mapView _: MKMapView,
+        annotationType _: AnnotationType,
+        annotationViewType _: AnnotationViewType
+    ) {
+        fatalError("init(mapView:annotationType:annotationViewType:) has not been implemented")
     }
 
     public override func setup() {
@@ -36,7 +61,7 @@ class CMMarkerAnnotationController: AnnotationController {
             Logger.log(.debug, log: .default, "Expected annotation")
             return
         }
-        if rideAnnotation.ride.isOutdated {
+        if rideChecker.isRideOutdated(rideAnnotation.ride) {
             mapView.removeAnnotation(rideAnnotation)
         }
     }
@@ -52,12 +77,37 @@ class CMAnnotationController: AnnotationController {
         }
     }
 
-    convenience init(mapView: MKMapView) {
+    private let rideChecker: RideChecker
+
+    init(
+        ridechecker: RideChecker = RideChecker(),
+        mapView: MKMapView,
+        annotationType: AnnotationController.AnnotationType,
+        annotationViewType: AnnotationController.AnnotationViewType
+    ) {
+        rideChecker = ridechecker
+        super.init(
+            mapView: mapView,
+            annotationType: annotationType,
+            annotationViewType: annotationViewType
+        )
+    }
+
+    convenience init(mapView: MKMapView, rideChecker: RideChecker = RideChecker()) {
         self.init(
+            ridechecker: rideChecker,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,
             annotationViewType: CMAnnotationView.self
         )
+    }
+
+    required init(
+        mapView _: MKMapView,
+        annotationType _: AnnotationType,
+        annotationViewType _: AnnotationViewType
+    ) {
+        fatalError("init(mapView:annotationType:annotationViewType:) has not been implemented")
     }
 
     public override func setup() {
@@ -74,7 +124,7 @@ class CMAnnotationController: AnnotationController {
             Logger.log(.debug, log: .default, "Expected annotation")
             return
         }
-        if rideAnnotation.ride.isOutdated {
+        if rideChecker.isRideOutdated(rideAnnotation.ride) {
             mapView.removeAnnotation(rideAnnotation)
         }
     }

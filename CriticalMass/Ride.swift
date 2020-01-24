@@ -22,8 +22,18 @@ extension Ride {
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+}
 
-    var isOutdated: Bool {
-        dateTime.timeIntervalSinceNow < -1800
+struct RideChecker {
+    private let timeTraveler: TimeTraveler
+
+    func isRideOutdated(_ ride: Ride) -> Bool {
+        ride.dateTime.timeIntervalSince(timeTraveler.generateDate()) < -1800
+    }
+}
+
+extension RideChecker {
+    init(_ timeTraveler: TimeTraveler = TimeTraveler()) {
+        self.init(timeTraveler: timeTraveler)
     }
 }
