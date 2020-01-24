@@ -66,9 +66,11 @@ class MapInfoViewController: UIViewController, IBConstructable {
                 self.infoViewContainerTopConstraint.constant = Constants.infoBarVisible
                 self.view.layoutIfNeeded()
             }
+            animator.addCompletion { _ in
+                UIAccessibility.post(notification: .layoutChanged, argument: self.view)
+            }
             animator.startAnimation()
 
-            UIAccessibility.post(notification: .layoutChanged, argument: view)
         }
 
         if infoView.isHidden {
@@ -96,6 +98,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
             }
             animator.addCompletion { _ in
                 self.infoView.isHidden = true
+                UIAccessibility.post(notification: .layoutChanged, argument: self.view)
             }
             animator.startAnimation()
         }

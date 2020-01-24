@@ -32,6 +32,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KD-7H-6xi">
                             <rect key="frame" x="332" y="23" width="42" height="42"/>
+                            <accessibility key="accessibilityConfiguration" label="close"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="42" id="IFG-7Q-7Hw"/>
                                 <constraint firstAttribute="height" constant="42" id="v1J-py-nZ3"/>
