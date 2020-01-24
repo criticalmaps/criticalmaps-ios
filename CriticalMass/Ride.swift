@@ -22,4 +22,8 @@ extension Ride {
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+
+    var isOutdated: Bool {
+        dateTime.timeIntervalSinceNow < -1800
+    }
 }
