@@ -4,31 +4,22 @@
 import MapKit
 
 class CriticalMassAnnotation: NSObject, MKAnnotation {
-    let title: String?
-    let locationName: String?
-    let coordinate: CLLocationCoordinate2D
+    let ride: Ride
 
-    init(
-        title: String,
-        locationName: String,
-        coordinate: CLLocationCoordinate2D
-    ) {
-        self.title = title
-        self.locationName = locationName
-        self.coordinate = coordinate
-
+    init(ride: Ride) {
+        self.ride = ride
         super.init()
     }
 
-    init(ride: Ride) {
-        title = ride.title
-        locationName = ride.location
-        coordinate = ride.coordinate
+    var title: String? {
+        ride.title
+    }
 
-        super.init()
+    var coordinate: CLLocationCoordinate2D {
+        ride.coordinate
     }
 
     var subtitle: String? {
-        locationName
+        ride.location
     }
 }
