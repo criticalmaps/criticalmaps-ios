@@ -17,7 +17,8 @@ struct NextRideManager {
         around coordinate: CLLocationCoordinate2D,
         _ handler: @escaping ResultCallback<Ride?>
     ) {
-        apiHandler.getNextRide(around: coordinate.obfuscated) { requestResult in
+        let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(coordinate)
+        apiHandler.getNextRide(around: obfuscatedCoordinate) { requestResult in
             self.filteredRidesHandler(result: requestResult, handler, coordinate)
         }
     }
