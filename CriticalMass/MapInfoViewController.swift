@@ -70,7 +70,6 @@ class MapInfoViewController: UIViewController, IBConstructable {
                 UIAccessibility.post(notification: .layoutChanged, argument: self.view)
             }
             animator.startAnimation()
-
         }
 
         if infoView.isHidden {
