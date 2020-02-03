@@ -20,6 +20,11 @@ jobs:
 
       - name: Smoke test
         run: bundle exec fastlane test
+      
+      - name: Clean up
+        run: |
+          rm -r -f vendor
+          rm -r -f .bundle
         
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
