@@ -15,9 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Gem Dependencies
-        run: bundle install
-
       - name: Bump version
         run: bash update_dependencies.sh
 
