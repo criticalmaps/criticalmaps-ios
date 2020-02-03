@@ -2,7 +2,7 @@
 
 execute_fastlane_snapshot() {
     echo "Updating fastlane snapshot"
-    bundle exec fastlane snapshot update
+    bundle exec fastlane snapshot update -f
 }
 
 check_bundle() {
