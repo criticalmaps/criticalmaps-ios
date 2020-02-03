@@ -14,6 +14,8 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: master
 
       - name: Bump version
         run: bash update_dependencies.sh
