@@ -3,6 +3,9 @@ name: Update dependencies
 on:
   schedule:
   - cron: "0 0 * * 0"
+  pull_request:		
+      branches:		
+     - master
   
 env:
     DEVELOPER_DIR: /Applications/Xcode_11.3.app/Contents/Developer
@@ -12,6 +15,8 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: master
 
       - name: Bump version
         run: bash update_dependencies.sh
