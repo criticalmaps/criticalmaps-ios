@@ -3,45 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>PreferenceSpecifiers</key>
-	<array>
-		<dict>
-			<key>Title</key>
-			<string>Licenses</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/Crypto</string>
-			<key>Title</key>
-			<string>Crypto</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/GrowingTextView</string>
-			<key>Title</key>
-			<string>GrowingTextView</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/SDWebImage</string>
-			<key>Title</key>
-			<string>SDWebImage</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>com.mono0926.LicensePlist/swift-snapshot-testing</string>
-			<key>Title</key>
-			<string>swift-snapshot-testing</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-	</array>
+	<array/>
 </dict>
 </plist>
