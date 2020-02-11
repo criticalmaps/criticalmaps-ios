@@ -1136,7 +1136,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/license-plist --package-path ./CriticalMaps.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.swift --output-path ./Settings.bundle\nfi\n";
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n    $SOURCE_ROOT/bin/license-plist --package-path $PROJECT_FILE_PATH/CriticalMaps.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.swift --output-path ./Settings.bundle\nfi\n";
 		};
 		946CDE07224130330059F892 /* 🔖 Set BuildNumber and VersionNumber in App Settings  */ = {
 			isa = PBXShellScriptBuildPhase;

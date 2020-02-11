@@ -72,7 +72,7 @@ class BlurryFullscreenOverlayView: UIView, IBConstructable {
     }
 
     private func updateGradient() {
-        guard let gradientLayer = self.layer as? CAGradientLayer else {
+        guard let gradientLayer = layer as? CAGradientLayer else {
             return
         }
 
