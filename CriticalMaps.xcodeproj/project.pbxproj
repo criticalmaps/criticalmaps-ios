@@ -163,6 +163,7 @@
 		987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57AC23A941A60060499B /* CALayer+Shadow.swift */; };
 		987C57AF23A952AC0060499B /* MapInfoViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */; };
 		988B12AD22A271FE0010FAED /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B12AC22A271FE0010FAED /* Logger.swift */; };
+		988BF2F923F35C7100594C3F /* TwitterRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988BF2F823F35C7100594C3F /* TwitterRequestTests.swift */; };
 		9897086E220A3E9E0073BB02 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897086C220A3E9E0073BB02 /* SocialViewController.swift */; };
 		98970871220A4E180073BB02 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98970870220A4E180073BB02 /* CustomButton.swift */; };
 		989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F9FF121C7E62300E71085 /* RulesViewController.swift */; };
@@ -389,6 +390,7 @@
 		987C57AC23A941A60060499B /* CALayer+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoViewSnapshotTests.swift; sourceTree = "<group>"; };
 		988B12AC22A271FE0010FAED /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		988BF2F823F35C7100594C3F /* TwitterRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterRequestTests.swift; sourceTree = "<group>"; };
 		9897086C220A3E9E0073BB02 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		98970870220A4E180073BB02 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		989F9FF121C7E62300E71085 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
@@ -799,6 +801,7 @@
 				943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */,
 				943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */,
 				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
+				988BF2F823F35C7100594C3F /* TwitterRequestTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -1336,6 +1339,7 @@
 				9810C384229831720011F718 /* RatingHelperTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
+				988BF2F923F35C7100594C3F /* TwitterRequestTests.swift in Sources */,
 				94AF230923D6D64600267E87 /* DateAdditionsTests.swift in Sources */,
 				75E26994235A4BA5000F2D0A /* MockThemeController.swift in Sources */,
 				9822A16421F113DC007F5994 /* RequestManagerTests.swift in Sources */,
