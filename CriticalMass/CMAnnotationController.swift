@@ -4,12 +4,10 @@
 import MapKit
 
 @available(iOS 11.0, *)
-class CMMarkerAnnotationController: AnnotationController {
+final class CMMarkerAnnotationController: AnnotationController {
     var cmAnnotation: CriticalMassAnnotation? {
         didSet {
-            guard let annotation = cmAnnotation else {
-                return
-            }
+            guard let annotation = cmAnnotation else { return }
             mapView.addAnnotation(annotation)
         }
     }
@@ -17,7 +15,7 @@ class CMMarkerAnnotationController: AnnotationController {
     private let rideChecker: RideChecker
 
     init(
-        ridechecker: RideChecker = RideChecker(),
+        ridechecker: RideChecker,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
         annotationViewType: AnnotationController.AnnotationViewType
@@ -67,12 +65,10 @@ class CMMarkerAnnotationController: AnnotationController {
     }
 }
 
-class CMAnnotationController: AnnotationController {
+final class CMAnnotationController: AnnotationController {
     var cmAnnotation: CriticalMassAnnotation? {
         didSet {
-            guard let annotation = cmAnnotation else {
-                return
-            }
+            guard let annotation = cmAnnotation else { return }
             mapView.addAnnotation(annotation)
         }
     }
@@ -80,7 +76,7 @@ class CMAnnotationController: AnnotationController {
     private let rideChecker: RideChecker
 
     init(
-        ridechecker: RideChecker = RideChecker(),
+        ridechecker: RideChecker,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
         annotationViewType: AnnotationController.AnnotationViewType
