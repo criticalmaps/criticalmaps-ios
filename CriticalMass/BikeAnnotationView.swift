@@ -48,7 +48,6 @@ class BikeAnnoationView: MKAnnotationView {
 }
 
 class FriendAnnotationView: MKAnnotationView {
-    static let reuseIdentifier = "FriendAnnotationView"
     var friendView: FriendView?
 
     var friend: Friend? {
