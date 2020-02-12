@@ -34,7 +34,7 @@ class MapViewController: UIViewController {
 
     // MARK: Properties
 
-    private lazy var annotationController: [AnnotationController] = {
+    private lazy var annotationControllers: [AnnotationController] = {
         if #available(iOS 11.0, *) {
             return [
                 BikeAnnotationController(mapView: self.mapView),
@@ -53,8 +53,6 @@ class MapViewController: UIViewController {
         let button = UserTrackingButton(mapView: mapView)
         return button
     }()
-
-    private var cmAnnotation: CriticalMassAnnotation?
 
     public var bottomContentOffset: CGFloat = 0 {
         didSet {
@@ -85,7 +83,7 @@ class MapViewController: UIViewController {
     }
 
     private func registerAnnotationViews() {
-        annotationController
+        annotationControllers
             .map { $0.annotationViewType }
             .forEach(mapView.register)
     }
@@ -94,11 +92,18 @@ class MapViewController: UIViewController {
         add(mapInfoViewController)
         mapInfoViewController.view.addLayoutsSameSizeAndOrigin(in: view)
         mapInfoViewController.tapHandler = { [unowned self] in
-            guard let cmAnnotation = self.cmAnnotation else {
-                Logger.log(.info, log: .map, "Can not focus on CM Annotation")
-                return
+            guard let matchingController = self.annotationControllers.first(
+                where: { $0.annotationType == CriticalMassAnnotation.self }
+            ) else { return }
+            if #available(iOS 11.0, *) {
+                if let markerController = matchingController as? CMMarkerAnnotationController {
+                    markerController.cmAnnotation.flatMap { self.focusOnCoordinate($0.coordinate) }
+                }
+            } else {
+                if let markerController = matchingController as? CMAnnotationController {
+                    markerController.cmAnnotation.flatMap { self.focusOnCoordinate($0.coordinate) }
+                }
             }
-            self.focusOnCoordinate(cmAnnotation.coordinate, zoomArea: 1000)
         }
     }
 
@@ -184,7 +189,7 @@ class MapViewController: UIViewController {
             case let .success(ride):
                 onMain { [unowned self] in
                     ride.flatMap { ride in
-                        self.annotationController.first(where: { $0.annotationType == CriticalMassAnnotation.self })
+                        self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
                             .flatMap {
                                 if #available(iOS 11.0, *) {
                                     guard let controller = $0 as? CMMarkerAnnotationController else {
@@ -221,12 +226,12 @@ class MapViewController: UIViewController {
 
     @objc func didReceiveFocusNotification(notification: Notification) {
         guard let location = notification.object as? Location else { return }
-        focusOnCoordinate(CLLocationCoordinate2D(location), zoomArea: 1000)
+        focusOnCoordinate(CLLocationCoordinate2D(location))
     }
 
     private func focusOnCoordinate(
         _ coordinate: CLLocationCoordinate2D,
-        zoomArea: Double = 10000,
+        zoomArea: Double = 1000,
         animated: Bool = true
     ) {
         let region = MKCoordinateRegion(
@@ -247,8 +252,24 @@ extension MapViewController: MKMapViewDelegate {
             return nil
         }
 
-        guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {
+        guard let matchingController = annotationControllers.first(where: { type(of: annotation) == $0.annotationType }) else {
             return nil
+        }
+
+        // TODO: Remove workaround when target > iOS10 since it does not seem to work with the MKMapView+Register extension
+        if annotation is CriticalMassAnnotation {
+            if #available(iOS 11.0, *) {
+                return mapView.dequeueReusableAnnotationView(
+                    withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
+                    for: annotation
+                )
+            } else {
+                return mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier) as? CMAnnotationView
+                    ?? CMAnnotationView(
+                        annotation: annotation,
+                        reuseIdentifier: CMAnnotationView.reuseIdentifier
+                    )
+            }
         }
 
         return mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
