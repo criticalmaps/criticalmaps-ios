@@ -4,31 +4,19 @@
 import CoreLocation
 import UIKit
 
-// https://material.io/design/motion/speed.html#easing
-private extension UICubicTimingParameters {
-    static var linearOutSlow: UITimingCurveProvider {
-        UICubicTimingParameters(controlPoint1: .init(x: 0.0, y: 0.0), controlPoint2: .init(x: 0.2, y: 1.0))
-    }
-
-    static var fastOutLiner: UITimingCurveProvider {
-        UICubicTimingParameters(controlPoint1: .init(x: 0.4, y: 0.0), controlPoint2: .init(x: 1.0, y: 1.0))
-    }
-}
-
 class MapInfoViewController: UIViewController, IBConstructable {
     @IBOutlet private var infoViewContainer: UIView!
-    @IBOutlet private var infoViewContainerTopConstraint: NSLayoutConstraint!
 
     typealias CompletionHandler = () -> Void
 
-    private enum Constants {
-        static let infoBarDismissed = CGFloat(-120)
-        static let infoBarVisible = CGFloat(20)
-        static let infoBarVisibleTimeInterval: TimeInterval = 0.25
-        static let infoBarDismissTimeInterval: TimeInterval = 0.2
-    }
-
     private var infoView = MapInfoView.fromNib()
+    private var visibleBottomConstraint: NSLayoutConstraint!
+    private var infoViewContainerTopConstraint: NSLayoutConstraint {
+        if #available(iOS 11.0, *) {
+            return infoViewContainer.topAnchor.constraint(equalTo: view.safeTopAnchor)
+        }
+        return infoViewContainer.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 20)
+    }
 
     public var closeButtonHandler: MapInfoView.TapHandler? {
         get { infoView.closeButtonHandler }
@@ -43,10 +31,19 @@ class MapInfoViewController: UIViewController, IBConstructable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setup()
+    }
+
+    fileprivate func setup() {
         infoViewContainer.addSubview(infoView)
         infoView.addLayoutsSameSizeAndOrigin(in: infoViewContainer)
-        infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
-        infoView.isHidden = true
+
+        visibleBottomConstraint = infoViewContainerTopConstraint
+        visibleBottomConstraint.priority = .required
+        view.addConstraints([visibleBottomConstraint])
+
+        visibleBottomConstraint.isActive = false
+        infoViewContainer.isHidden = true
 
         infoView.closeButtonHandler = {
             self.dismissMapInfo()
@@ -56,14 +53,14 @@ class MapInfoViewController: UIViewController, IBConstructable {
     public func presentMapInfo(title: String, style: MapInfoView.Configuration.Style) {
         func animateIn() {
             infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
-            infoView.isHidden = false
+            infoViewContainer.isHidden = false
 
             let animator = UIViewPropertyAnimator(
-                duration: Constants.infoBarVisibleTimeInterval,
+                duration: 0.2,
                 timingParameters: UICubicTimingParameters.linearOutSlow
             )
             animator.addAnimations {
-                self.infoViewContainerTopConstraint.constant = Constants.infoBarVisible
+                self.visibleBottomConstraint.isActive = true
                 self.view.layoutIfNeeded()
             }
             animator.addCompletion { _ in
@@ -84,22 +81,43 @@ class MapInfoViewController: UIViewController, IBConstructable {
     public func dismissMapInfo(animated: Bool = true, _ completion: CompletionHandler? = nil) {
         defer { completion?() }
         if !animated {
-            infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
-            infoView.isHidden = true
+            visibleBottomConstraint.isActive = false
+            infoViewContainer.isHidden = true
+            UIAccessibility.post(notification: .layoutChanged, argument: view)
         } else {
             let animator = UIViewPropertyAnimator(
-                duration: Constants.infoBarVisibleTimeInterval,
+                duration: 0.2,
                 timingParameters: UICubicTimingParameters.fastOutLiner
             )
             animator.addAnimations {
-                self.infoViewContainerTopConstraint.constant = Constants.infoBarDismissed
+                self.visibleBottomConstraint.isActive = false
                 self.view.layoutIfNeeded()
             }
             animator.addCompletion { _ in
-                self.infoView.isHidden = true
+                self.infoViewContainer.isHidden = true
                 UIAccessibility.post(notification: .layoutChanged, argument: self.view)
             }
             animator.startAnimation()
         }
+    }
+}
+
+// https://material.io/design/motion/speed.html#easing
+private extension UICubicTimingParameters {
+    static var linearOutSlow: UITimingCurveProvider {
+        UICubicTimingParameters(controlPoint1: .init(x: 0.0, y: 0.0), controlPoint2: .init(x: 0.2, y: 1.0))
+    }
+
+    static var fastOutLiner: UITimingCurveProvider {
+        UICubicTimingParameters(controlPoint1: .init(x: 0.4, y: 0.0), controlPoint2: .init(x: 1.0, y: 1.0))
+    }
+}
+
+private extension UIView {
+    var safeTopAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.topAnchor
+        }
+        return topAnchor
     }
 }
