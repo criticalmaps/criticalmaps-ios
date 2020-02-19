@@ -9,11 +9,7 @@ import XCTest
 class CMMarkerAnnotationControllerTests: XCTestCase {
     var annotationController: CMMarkerAnnotationController!
 
-    override func setUp() {
-        super.setUp()
-    }
-
-    override func tearDown() {
+     override func tearDown() {
         annotationController = nil
         super.tearDown()
     }
@@ -22,9 +18,9 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         // given
         let ride = Ride.TestData.cmBerlin
         let rideAnnotation = CriticalMassAnnotation(ride: ride)
-        var timeTraveler = TimeTraveler(ride.dateTime)
+        let timeTraveler = TimeTraveler(ride.dateTime)
         // when
-        timeTraveler.travel(by: 1900)
+        timeTraveler.travelTime(by: .minutes(31))
         let rideChecker = RideChecker(timeTraveler)
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
@@ -40,9 +36,9 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         // given
         let ride = Ride.TestData.cmBerlin
         let rideAnnotation = CriticalMassAnnotation(ride: ride)
-        var timeTraveler = TimeTraveler(ride.dateTime)
+        let timeTraveler = TimeTraveler(ride.dateTime)
         // when
-        timeTraveler.travel(by: 1799)
+        timeTraveler.travelTime(by: .minutes(29))
         let rideChecker = RideChecker(timeTraveler)
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
