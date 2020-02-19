@@ -31,7 +31,11 @@ final class UpdateDataOperation: AsyncOperation {
     }
 
     override func main() {
-        let body = SendLocationAndChatMessagesPostBody(device: idProvider.id, location: locationProvider?.currentLocation, messages: messages)
+        let body = SendLocationAndChatMessagesPostBody(
+            device: idProvider.id,
+            location: locationProvider?.currentLocation.map { Location($0) },
+            messages: messages
+        )
         guard let bodyData = try? body.encoded() else {
             result = .failure(.encodingError(body))
             state = .finished
