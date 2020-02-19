@@ -22,34 +22,8 @@ class NextRideManagerTests: XCTestCase {
         super.tearDown()
     }
 
-    func testManagerShouldReturnValidRideWhenRideIsInFutureAndInRadius() {
-        // given
-        var loadedRide: Ride?
-        networkLayer.mockResponse = [
-            Ride.TestData.cmBerlin,
-            Ride.TestData.cmBarcelona
-        ]
-        // when
-        let exp = expectation(description: "Wait for response")
-        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
-            switch result {
-            case let .success(ride):
-                loadedRide = ride
-            case let .failure(error):
-                print(error.localizedDescription)
-                XCTFail()
-            }
-            exp.fulfill()
-        }
-        // then
-        wait(for: [exp], timeout: 1)
-
-        XCTAssertNotNil(loadedRide)
-    }
-
     func testManagerShouldReturnCMBerlinRideWhenRideIsInFutureAndInRadius() {
         // given
-        var loadedRide: Ride?
         networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
@@ -59,22 +33,18 @@ class NextRideManagerTests: XCTestCase {
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
-                loadedRide = ride
-            case let .failure(error):
-                print(error.localizedDescription)
+                XCTAssertEqual(ride, Ride.TestData.cmBerlin)
+            case .failure:
                 XCTFail()
             }
             exp.fulfill()
         }
         // then
         wait(for: [exp], timeout: 1)
-
-        XCTAssertEqual(loadedRide, Ride.TestData.cmBerlin)
     }
 
     func testManagerShouldReturnNoRideWhenRideIsInFutureButNotInRadius() {
         // given
-        var loadedRide: Ride?
         networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
@@ -83,23 +53,19 @@ class NextRideManagerTests: XCTestCase {
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.rendsburg) { result in
             switch result {
-            case let .success(ride):
-                loadedRide = ride
+            case .success:
+                break
             case let .failure(error):
-                print(error.localizedDescription)
-                XCTFail()
+                XCTAssertEqual(error as! EventError, EventError.rideIsOutOfRangeError)
             }
             exp.fulfill()
         }
         // then
         wait(for: [exp], timeout: 1)
-
-        XCTAssertNil(loadedRide)
     }
 
     func testManagerShouldReturnNoRideWhenRideIsInPastButInRadius() {
         // given
-        var loadedRide: Ride?
         networkLayer.mockResponse = [
             Ride.TestData.completedCMBerlin
         ]
@@ -107,18 +73,15 @@ class NextRideManagerTests: XCTestCase {
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
-            case let .success(ride):
-                loadedRide = ride
+            case .success:
+                break
             case let .failure(error):
-                print(error.localizedDescription)
-                XCTFail()
+                XCTAssertEqual(error as! EventError, EventError.invalidDateError)
             }
             exp.fulfill()
         }
         // then
         wait(for: [exp], timeout: 1)
-
-        XCTAssertNil(loadedRide)
     }
 }
 

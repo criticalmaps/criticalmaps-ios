@@ -4,18 +4,28 @@
 import CoreLocation
 import Foundation
 
+enum EventError: Error {
+    case invalidDateError
+    case rideIsOutOfRangeError
+}
+
 struct NextRideManager {
+    typealias ResultCallback = (Result<Ride, Error>) -> Void
+    private enum Constants {
+        static let filterDistance: Double = 40000
+    }
+
     private let apiHandler: CMInApiHandling
     private let filterDistance: Double
 
-    init(apiHandler: CMInApiHandling, filterDistance: Double = 40000) {
+    init(apiHandler: CMInApiHandling, filterDistance: Double = Constants.filterDistance) {
         self.apiHandler = apiHandler
         self.filterDistance = filterDistance
     }
 
     func getNextRide(
         around coordinate: CLLocationCoordinate2D,
-        _ handler: @escaping ResultCallback<Ride?>
+        _ handler: @escaping ResultCallback
     ) {
         let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(coordinate)
         apiHandler.getNextRide(around: obfuscatedCoordinate) { requestResult in
@@ -33,24 +43,22 @@ struct NextRideManager {
 
     private func filteredRidesHandler(
         result: Result<[Ride], NetworkError>,
-        _ handler: @escaping ResultCallback<Ride?>,
+        _ handler: @escaping ResultCallback,
         _ coordinate: CLLocationCoordinate2D
     ) {
         switch result {
         case let .success(rides):
             guard let ride = getUpcomingRide(rides) else {
-                Logger.log(.default, log: .map, "Expected ride to be in the future")
-                handler(Result.success(nil))
+                handler(.failure(EventError.invalidDateError))
                 return
             }
-            guard isNextRideTooFar(ride, coordinate) else {
-                Logger.log(.default, log: .map, "Next ride is too far away")
-                handler(Result.success(nil))
+            guard isRideInRange(ride, coordinate) else {
+                handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
-            handler(Result.success(ride))
+            handler(.success(ride))
         case let .failure(error):
-            handler(Result.failure(error))
+            handler(.failure(error))
         }
     }
 }

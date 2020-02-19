@@ -188,25 +188,23 @@ class MapViewController: UIViewController {
             switch result {
             case let .success(ride):
                 onMain { [unowned self] in
-                    ride.flatMap { ride in
-                        self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
-                            .flatMap {
-                                if #available(iOS 11.0, *) {
-                                    guard let controller = $0 as? CMMarkerAnnotationController else {
-                                        Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
-                                        return
-                                    }
-                                    controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
-                                } else {
-                                    guard let controller = $0 as? CMAnnotationController else {
-                                        Logger.log(.debug, log: .map, "Controller expected to CMAnnotationController")
-                                        return
-                                    }
-                                    controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
+                    self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
+                        .flatMap {
+                            if #available(iOS 11.0, *) {
+                                guard let controller = $0 as? CMMarkerAnnotationController else {
+                                    Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
+                                    return
                                 }
+                                controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
+                            } else {
+                                guard let controller = $0 as? CMAnnotationController else {
+                                    Logger.log(.debug, log: .map, "Controller expected to CMAnnotationController")
+                                    return
+                                }
+                                controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
                             }
-                        self.mapInfoViewController.presentMapInfo(title: ride.title, style: .info)
-                    }
+                        }
+                    self.mapInfoViewController.presentMapInfo(title: ride.title, style: .info)
                 }
             case let .failure(error):
                 PrintErrorHandler().handleError(error)
