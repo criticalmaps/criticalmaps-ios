@@ -9,7 +9,7 @@ import XCTest
 class CMMarkerAnnotationControllerTests: XCTestCase {
     var annotationController: CMMarkerAnnotationController!
 
-     override func tearDown() {
+    override func tearDown() {
         annotationController = nil
         super.tearDown()
     }

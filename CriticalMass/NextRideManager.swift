@@ -33,12 +33,12 @@ struct NextRideManager {
         }
     }
 
-    private func isNextRideTooFar(_ ride: Ride, _ coordinate: CLLocationCoordinate2D) -> Bool {
+    private func isRideInRange(_ ride: Ride, _ coordinate: CLLocationCoordinate2D) -> Bool {
         ride.coordinate.clLocation.distance(from: coordinate.clLocation) < filterDistance
     }
 
     private func getUpcomingRide(_ rides: [Ride]) -> Ride? {
-        rides.first { $0.dateTime > Date() }
+        rides.first { $0.dateTime > .now }
     }
 
     private func filteredRidesHandler(
