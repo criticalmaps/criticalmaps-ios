@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+## [Unreleased]
+
+### Updated
+
+- Cleaner BikeAnnotation appearance
+
 ## [3.7.0] - 2020-02-11
 
 ### Added
