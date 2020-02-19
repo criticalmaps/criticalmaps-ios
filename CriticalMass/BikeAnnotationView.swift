@@ -21,7 +21,6 @@ class BikeAnnoationView: MKAnnotationView {
     }
 
     private func commonInit() {
-        image = UIImage(named: "Bike")
         canShowCallout = false
     }
 }
