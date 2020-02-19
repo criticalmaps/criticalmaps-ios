@@ -13,15 +13,18 @@ class MapViewController: UIViewController {
     private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
     private let nextRideHandler: CMInApiHandling
+    private let locationManager: LocationProvider
 
     init(
         themeController: ThemeController,
         friendsVerificationController: FriendsVerificationController,
-        nextRideHandler: CMInApiHandling
+        nextRideHandler: CMInApiHandling,
+        locationProvider: LocationProvider
     ) {
         self.themeController = themeController
         self.friendsVerificationController = friendsVerificationController
         self.nextRideHandler = nextRideHandler
+        self.locationManager = locationProvider
         super.init(nibName: nil, bundle: nil)
     }
 

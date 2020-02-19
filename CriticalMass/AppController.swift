@@ -12,8 +12,16 @@ class AppController {
     private var dataStore = AppDataStore()
     private var simulationModeEnabled = false
 
+    private lazy var locationProvider: LocationProvider = LocationManager()
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, errorHandler: mapOverlayErrorHandler, networkObserver: networkObserver)
+        RequestManager(
+            dataStore: dataStore,
+            locationProvider: self.locationProvider,
+            networkLayer: networkOperator,
+            idProvider: idProvider,
+            errorHandler: mapOverlayErrorHandler,
+            networkObserver: networkObserver
+        )
     }()
 
     private lazy var networkOperator: NetworkOperator = {
@@ -61,7 +69,8 @@ class AppController {
         MapViewController(
             themeController: self.themeController,
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
-            nextRideHandler: CMInApiHandler(networkLayer: networkOperator)
+            nextRideHandler: CMInApiHandler(networkLayer: networkOperator),
+            locationProvider: locationProvider
         )
     }()
 
