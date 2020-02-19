@@ -155,7 +155,7 @@ class ThemeController {
         MapInfoView.appearance().mapInfoForegroundColor = theme.mapInfoForegroundColor
         MapInfoView.appearance().mapInfoBackgroundColor = theme.mapInfoBackgroundColor
 
-        BikeAnnoationView.appearance().shapeBackgroundColor = theme.titleTextColor
+        BikeAnnoationView.appearance().shapeBackgroundColor = theme.bikeAnnotationBackgroundColor
     }
 }
 
