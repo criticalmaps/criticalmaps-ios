@@ -18,7 +18,7 @@ class ObservationModePreferenceStore: Switchable {
         get { defaults.observationMode }
         set {
             defaults.observationMode = newValue
-            NotificationCenter.default.post(name: Notification.observationModeChanged, object: newValue)
+            NotificationCenter.default.post(name: .observationModeChanged, object: newValue)
         }
     }
 }

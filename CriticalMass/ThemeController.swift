@@ -44,7 +44,7 @@ class ThemeController {
         styleMapComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
         NoContentTitleLabel.appearance().messageTextColor = theme.titleTextColor
-        NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
+        NotificationCenter.default.post(name: .themeDidChange, object: nil) // trigger map tileRenderer update
         UIApplication.shared.refreshAppearance(animated: false)
     }
 

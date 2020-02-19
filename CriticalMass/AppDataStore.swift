@@ -28,11 +28,11 @@ public class AppDataStore: DataStore {
 
     public func update(with response: ApiResponse) {
         if lastKnownResponse?.locations != response.locations {
-            NotificationCenter.default.post(name: Notification.positionOthersChanged, object: response)
+            NotificationCenter.default.post(name: .positionOthersChanged, object: response)
             updateFriedLocations(locations: response.locations)
         }
         if lastKnownResponse?.chatMessages != response.chatMessages {
-            NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: response)
+            NotificationCenter.default.post(name: .chatMessagesReceived, object: response)
         }
         lastKnownResponse = response
     }
@@ -49,7 +49,7 @@ public class AppDataStore: DataStore {
 
         saveContext()
 
-        NotificationCenter.default.post(name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.post(name: .positionOthersChanged, object: nil)
     }
 
     public func remove(friend: Friend) {
