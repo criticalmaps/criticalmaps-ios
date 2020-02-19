@@ -7,14 +7,37 @@
 
 import CoreLocation
 
-class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
+public enum GeolocationRequestError: Error {
+    case denied
+    case error
+}
+
+public enum GeolocationAuthResult {
+    /// user have permission on geolocation
+    case success
+    /// user haven't permission on geolocation
+    case denied
+    /// user doesn't give permission on his geolocation
+    case failure
+    /// system dialog reqeusts user permission at this moment
+    case requesting
+}
+
+public typealias GeolocationCompletion = (Result<CLLocation, GeolocationRequestError>) -> Void
+public typealias GeolocationAuthCompletion = (GeolocationAuthResult) -> Void
+
+class LocationManager: NSObject, LocationProvider {
+    static var isAuthorized: Bool {
+        accessPermission == .authorized
+    }
+
     static var accessPermission: LocationProviderPermission {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways,
              .authorizedWhenInUse:
             return .authorized
         case .notDetermined:
-            return .unkown
+            return .notDetermined
         case .restricted,
              .denied:
             return .denied
@@ -24,54 +47,73 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         }
     }
 
-    private var updateLocationCompletion: ResultCallback<Location>?
+    private var updateLocationCompletion: ResultCallback<CLLocation>?
+    private var locationRequests: [GeolocationCompletion] = []
+    private var authRequests: [GeolocationAuthCompletion] = []
 
-    func updateLocation(completion: ResultCallback<Location>?) {
-        updateLocationCompletion = completion
-        locationManager.requestLocation()
-    }
+    private(set) var currentLocation: CLLocation?
 
-    private var didSetInitialLocation = false
+    private let locationManager: CLLocationManager
 
-    private var _currentLocation: Location?
-    private(set)
-    var currentLocation: Location? {
-        set {
-            _currentLocation = newValue
-            guard didSetInitialLocation == false else {
-                return
-            }
-            if let location = currentLocation {
-                didSetInitialLocation = true
-                NotificationCenter.default.post(name: .initialGpsDataReceived, object: location)
-            }
-        }
-        get {
-            guard type(of: self).accessPermission == .authorized, !ObservationModePreferenceStore().isEnabled else {
-                return nil
-            }
-            return _currentLocation
-        }
-    }
-
-    private let locationManager = CLLocationManager()
-
-    override init() {
+    init(
+        manager: CLLocationManager = CLLocationManager(),
+        locationProperties: LocationProperties = LocationProperties()
+    ) {
+        locationManager = manager
         super.init()
-        configureLocationManager()
+        configureLocationManager(with: locationProperties)
+        startTrackingLocation()
     }
 
-    func configureLocationManager() {
-        locationManager.allowsBackgroundLocationUpdates = true
+    // MARK: - Public API
+
+    public func getCurrentLocation(_ completion: @escaping GeolocationCompletion) {
+        if LocationManager.isAuthorized {
+            locationRequests.append(completion)
+            locationManager.requestLocation()
+        } else {
+            completion(.failure(.denied))
+        }
+    }
+
+    public func requestAuthorization(_ completion: @escaping GeolocationAuthCompletion) {
+        let status = LocationManager.accessPermission
+        switch status {
+        case .authorized:
+            completion(.success)
+        case .denied:
+            completion(.denied)
+        default:
+            completion(.requesting)
+            authRequests.append(completion)
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
+
+    // MARK: - Private API
+
+    private func configureLocationManager(with properties: LocationProperties) {
         locationManager.requestAlwaysAuthorization()
-        locationManager.activityType = .otherNavigation
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.activityType = properties.activityType
+        locationManager.desiredAccuracy = properties.accuracy
+        locationManager.activityType = properties.activityType
         locationManager.delegate = self
+    }
+
+    private func startTrackingLocation(allowsBackgroundLocation: Bool = true) {
+        locationManager.allowsBackgroundLocationUpdates = allowsBackgroundLocation
         locationManager.startUpdatingLocation()
     }
 
-    // MARK: CLLocationManagerDelegate
+    private func notifySubscribersAboutError() {
+        locationRequests.forEach { $0(.failure(.error)) }
+        locationRequests.removeAll()
+    }
+}
 
+// MARK: CLLocationManagerDelegate
+
+extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
         updateLocationCompletion?(.failure(.fetchFailed(error)))
@@ -79,20 +121,42 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
     }
 
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let lastLocation = locations.last {
-            let location = Location(lastLocation)
-
-            currentLocation = location
-            updateLocationCompletion?(.success(location))
-        } else {
-            updateLocationCompletion?(.failure(.noData(nil)))
+        guard let location = locations.first else {
+            notifySubscribersAboutError()
+            return
         }
+        locationRequests.forEach { $0(.success(location)) }
+        locationRequests.removeAll()
 
-        locationManager.stopUpdatingLocation()
-        updateLocationCompletion = nil
+//        locationManager.stopUpdatingLocation()
+//        updateLocationCompletion = nil
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
-        NotificationCenter.default.post(name: .observationModeChanged, object: type(of: self).accessPermission)
+        guard LocationManager.accessPermission != .notDetermined else {
+            return
+        }
+        let authStatus: GeolocationAuthResult = LocationManager.isAuthorized ? .success : .failure
+        authRequests.forEach { $0(authStatus) }
+        authRequests.removeAll()
+//        NotificationCenter.default.post(name: Notification.observationModeChanged, object: type(of: self).accessPermission)
     }
+}
+
+struct LocationProperties {
+    /**
+     #### GPS, Wifi, And Cell Tower Triangulation Thresholds
+
+     - iOS will usually attempt to exceed the requested accuracy, and may exceed it by a wide margin. For
+     example if clear GPS line of sight is available, peak accuracy of 5 metres will be achieved even when only
+     requesting 50 metres or even 100 metres. However the higher the desired accuracy, the less effort
+     iOS will put into achieving peak possible accuracy.
+
+     - Under some conditions, setting a value of 65 metres or above may allow the device to use wifi triangulation
+     alone, without engaging GPS, thus reducing energy consumption. Wifi triangulation is typically more energy
+     efficient than GPS.
+     */
+    let distanceFilterAccuracy: Double = 30.0
+    let accuracy: CLLocationAccuracy = kCLLocationAccuracyBest
+    let activityType: CLActivityType = .otherNavigation
 }

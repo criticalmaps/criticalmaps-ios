@@ -21,7 +21,7 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
     }
 
     private func display(locations: [String: Location]) {
-        guard LocationManager.accessPermission == .authorized else {
+        guard LocationManager.isAuthorized else {
             Logger.log(.info, log: .map, "Bike annotations cannot be displayed because no GPS Access permission granted", parameter: LocationManager.accessPermission.rawValue)
             return
         }

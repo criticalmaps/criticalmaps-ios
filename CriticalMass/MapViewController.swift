@@ -149,7 +149,7 @@ class MapViewController: UIViewController {
     }
 
     @objc func updateGPSDisabledOverlayVisibility() {
-        gpsDisabledOverlayView.isHidden = LocationManager.accessPermission != .denied
+        gpsDisabledOverlayView.isHidden = !LocationManager.isAuthorized
     }
 
     // MARK: Notifications

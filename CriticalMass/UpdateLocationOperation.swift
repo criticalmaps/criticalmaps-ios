@@ -17,12 +17,12 @@ final class UpdateLocationOperation: AsyncOperation {
     }
 
     override func main() {
-        guard type(of: locationProvider).accessPermission == .authorized else {
+        guard LocationManager.isAuthorized else {
             state = .finished
             return
         }
 
-        locationProvider.updateLocation { [weak self] _ in
+        locationProvider.getCurrentLocation { [weak self] _ in
             self?.state = .finished
         }
     }
