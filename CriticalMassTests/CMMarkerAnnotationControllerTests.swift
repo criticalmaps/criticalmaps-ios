@@ -32,7 +32,7 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         XCTAssertTrue(annotationController.mapView.annotations.isEmpty)
     }
 
-    func test_ControllerShouldRemoveAnnotationWhenRideStartedLessThen30MinutesAgo() {
+    func test_ControllerShouldNotRemoveAnnotationWhenRideStartedLessThen30MinutesAgo() {
         // given
         let ride = Ride.TestData.cmBerlin
         let rideAnnotation = CriticalMassAnnotation(ride: ride)
