@@ -8,7 +8,6 @@
 import MapKit
 
 class BikeAnnoationView: MKAnnotationView {
-    static let reuseIdentifier = "BikeAnnotationView"
     private enum Constants {
         static let shapeRect = CGRect(x: 0, y: 0, width: 7, height: 7)
     }
