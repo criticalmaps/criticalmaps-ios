@@ -168,7 +168,7 @@ class ChatManagerTests: XCTestCase {
         // inject mock message
         let mockMessages = [ChatMessage(message: "hello", timestamp: 2), ChatMessage(message: "world", timestamp: 1)]
         let apiResponse = ApiResponse(locations: [:], chatMessages: ["1": mockMessages[0], "2": mockMessages[1]])
-        NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: apiResponse)
+        NotificationCenter.default.post(name: .chatMessagesReceived, object: apiResponse)
 
         XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
         let result = setup.chatManager.getMessages()
