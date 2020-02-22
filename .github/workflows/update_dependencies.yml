@@ -13,6 +13,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache SPM
+        uses: actions/cache@v1
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Define bundler config path
+        run: |
+          bundle config path vendor/bundle
+
       - name: Bump version
         run: bash update_dependencies.sh
 
