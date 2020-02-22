@@ -8,11 +8,11 @@
 import MapKit
 
 protocol AnnotationView: MKAnnotationView {
-    associatedtype T = Any
+    associatedtype Object = Any
 }
 
 extension AnnotationView {
-    func set(object _: T?) {}
+    func set(object _: Object?) {}
 }
 
 class BikeAnnoationView: MKAnnotationView, AnnotationView {
@@ -56,7 +56,7 @@ class BikeAnnoationView: MKAnnotationView, AnnotationView {
 }
 
 class FriendAnnotationView: MKAnnotationView, AnnotationView {
-    typealias T = Friend
+    typealias Object = Friend
 
     static let reuseIdentifier = "FriendAnnotationView"
     var friendView: FriendView?
