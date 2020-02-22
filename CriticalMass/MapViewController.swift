@@ -238,7 +238,7 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     func mapView(_: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let renderer = self.tileRenderer else {
+        guard let renderer = tileRenderer else {
             return MKOverlayRenderer(overlay: overlay)
         }
         return renderer
