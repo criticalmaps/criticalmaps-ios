@@ -73,19 +73,20 @@ class MapViewController: UIViewController {
         configureMapView()
         configureGPSDisabledOverlayView()
 
-//        locationManager.requestAuthorization { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success:
-//                self.getCurrentGeoLocation()
-//            default:
-//                break
-//            }
-//        }
+        locationManager.requestAuthorization { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                self.getCurrentGeoLocation()
+            case .failure, .denied:
+                self.updateGPSDisabledOverlayVisibility()
+            default:
+                break
+            }
+        }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    deinit {
         NotificationCenter.default.removeObserver(self, name: .themeDidChange, object: nil)
         NotificationCenter.default.removeObserver(self, name: .focusLocation, object: nil)
         NotificationCenter.default.removeObserver(self, name: .observationModeChanged, object: nil)
@@ -114,6 +115,7 @@ class MapViewController: UIViewController {
     private func configureGPSDisabledOverlayView() {
         view.addSubview(gpsDisabledOverlayView)
         gpsDisabledOverlayView.addLayoutsSameSizeAndOrigin(in: view)
+        gpsDisabledOverlayView.isHidden = true
     }
 
     private func configureNotifications() {
