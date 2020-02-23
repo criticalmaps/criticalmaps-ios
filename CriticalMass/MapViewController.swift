@@ -24,7 +24,7 @@ class MapViewController: UIViewController {
         self.themeController = themeController
         self.friendsVerificationController = friendsVerificationController
         self.nextRideHandler = nextRideHandler
-        self.locationManager = locationProvider
+        locationManager = locationProvider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -38,10 +38,18 @@ class MapViewController: UIViewController {
         [BikeAnnotationController(mapView: self.mapView)]
     }()
 
-    private let nightThemeOverlay = DarkModeMapOverlay()
+    private lazy var nightThemeOverlay = DarkModeMapOverlay()
     public lazy var followMeButton: UserTrackingButton = {
         let button = UserTrackingButton(mapView: mapView)
         return button
+    }()
+
+    private lazy var gpsDisabledOverlayView: BlurryFullscreenOverlayView = {
+        let view = BlurryFullscreenOverlayView.fromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
+        view.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
+        return view
     }()
 
     public var bottomContentOffset: CGFloat = 0 {
@@ -52,25 +60,39 @@ class MapViewController: UIViewController {
 
     private var mapView = MKMapView(frame: .zero)
 
-    private let gpsDisabledOverlayView: BlurryFullscreenOverlayView = {
-        let view = BlurryFullscreenOverlayView.fromNib()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        themeController.currentTheme.style.statusBarStyle
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = String.mapTitle
+        configureSelf()
         configureNotifications()
         configureTileRenderer()
         configureMapView()
-        condfigureGPSDisabledOverlayView()
+        configureGPSDisabledOverlayView()
 
-        annotationController
-            .map { $0.annotationViewType }
-            .forEach(mapView.register)
+//        locationManager.requestAuthorization { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success:
+//                self.getCurrentGeoLocation()
+//            default:
+//                break
+//            }
+//        }
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: .themeDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .focusLocation, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .observationModeChanged, object: nil)
+    }
+
+    private func configureSelf() {
+        title = String.mapTitle
         setNeedsStatusBarAppearanceUpdate()
     }
 
@@ -89,13 +111,118 @@ class MapViewController: UIViewController {
         }
     }
 
-    private func condfigureGPSDisabledOverlayView() {
-        let gpsDisabledOverlayView = self.gpsDisabledOverlayView
-        gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
-        gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
+    private func configureGPSDisabledOverlayView() {
         view.addSubview(gpsDisabledOverlayView)
         gpsDisabledOverlayView.addLayoutsSameSizeAndOrigin(in: view)
-        updateGPSDisabledOverlayVisibility()
+    }
+
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateGPSDisabledOverlayVisibility),
+            name: .observationModeChanged,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChange),
+            name: .themeDidChange,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didReceiveFocusNotification(notification:)),
+            name: .focusLocation,
+            object: nil
+        )
+    }
+
+    private func configureMapView() {
+        view.addSubview(mapView)
+        mapView.addLayoutsSameSizeAndOrigin(in: view)
+        mapView.showsPointsOfInterest = false
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+
+        annotationController
+            .map { $0.annotationViewType }
+            .forEach(mapView.register)
+    }
+
+    // MARK: Notifications
+
+    @objc private func themeDidChange() {
+        let theme = themeController.currentTheme
+        guard theme == .dark else {
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .light
+            } else {
+                removeTileRenderer()
+            }
+            return
+        }
+        configureTileRenderer()
+    }
+
+    private func removeTileRenderer() {
+        tileRenderer = nil
+        mapView.removeOverlay(nightThemeOverlay)
+    }
+
+    private func addTileRenderer() {
+        tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
+        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
+    }
+
+    private func handleGeoLocationRequestError(_ error: GeolocationRequestError) {
+        print(error.localizedDescription)
+    }
+
+    private func focusOnLocation(location: Location, zoomArea: Double = 10000) {
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: zoomArea, longitudinalMeters: zoomArea)
+        let adjustedRegion = mapView.regionThatFits(region)
+        mapView.setRegion(adjustedRegion, animated: true)
+    }
+
+    @objc private func didReceiveFocusNotification(notification: Notification) {
+        guard let location = notification.object as? Location else { return }
+        focusOnLocation(location: location, zoomArea: 1000)
+    }
+
+    private func getCurrentGeoLocation() {
+        locationManager.getCurrentLocation { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(location):
+                self.focusOnLocation(location: Location(location))
+                self.fetchNextRide(for: location)
+            case let .failure(error):
+                self.handleGeoLocationRequestError(error)
+            }
+        }
+    }
+
+    private func fetchNextRide(for location: CLLocation) {
+        // TODO: Replace test implemenation with controller based
+        guard Feature.events.isActive else { return }
+        nextRideHandler.getNextRide(around: location.coordinate) { result in
+            switch result {
+            case let .success(rides):
+                print(rides)
+            case let .failure(error):
+                PrintErrorHandler().handleError(error)
+            }
+        }
+    }
+
+    // MARK: - Public API
+
+    @objc func didTapGPSDisabledOverlayButton() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    }
+
+    @objc func updateGPSDisabledOverlayVisibility() {
+        gpsDisabledOverlayView.isHidden = LocationManager.isAuthorized
     }
 
     public func presentMapInfo(with configuration: MapInfoView.Configuration) {
@@ -130,89 +257,6 @@ class MapViewController: UIViewController {
         view.subviews
             .compactMap { $0 as? MapInfoView }
             .forEach { $0.removeFromSuperview() }
-    }
-
-    private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: .initialGpsDataReceived, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: .observationModeChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .themeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveFocusNotification(notification:)), name: .focusLocation, object: nil)
-    }
-
-    private func configureMapView() {
-        view.addSubview(mapView)
-        mapView.addLayoutsSameSizeAndOrigin(in: view)
-        mapView.showsPointsOfInterest = false
-        mapView.delegate = self
-        mapView.showsUserLocation = true
-    }
-
-    @objc func didTapGPSDisabledOverlayButton() {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-    }
-
-    @objc func updateGPSDisabledOverlayVisibility() {
-        gpsDisabledOverlayView.isHidden = !LocationManager.isAuthorized
-    }
-
-    // MARK: Notifications
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        themeController.currentTheme.style.statusBarStyle
-    }
-
-    @objc private func themeDidChange() {
-        let theme = themeController.currentTheme
-        guard theme == .dark else {
-            if #available(iOS 13.0, *) {
-                overrideUserInterfaceStyle = .light
-            } else {
-                removeTileRenderer()
-            }
-            return
-        }
-        configureTileRenderer()
-    }
-
-    private func removeTileRenderer() {
-        tileRenderer = nil
-        mapView.removeOverlay(nightThemeOverlay)
-    }
-
-    private func addTileRenderer() {
-        tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
-        mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
-    }
-
-    @objc func didReceiveInitialLocation(notification: Notification) {
-        guard let location = notification.object as? Location else { return }
-        focusOnLocation(location: location)
-
-        // TODO: Replace test implemenation with controller based
-        guard Feature.events.isActive else { return }
-        let coordinate = CLLocationCoordinate2D(
-            latitude: location[keyPath: \Location.latitude],
-            longitude: location[keyPath: \Location.longitude]
-        )
-        nextRideHandler.getNextRide(around: coordinate) { result in
-            switch result {
-            case let .success(rides):
-                print(rides)
-            case let .failure(error):
-                PrintErrorHandler().handleError(error)
-            }
-        }
-    }
-
-    @objc func didReceiveFocusNotification(notification: Notification) {
-        guard let location = notification.object as? Location else { return }
-        focusOnLocation(location: location, zoomArea: 1000)
-    }
-
-    func focusOnLocation(location: Location, zoomArea: Double = 10000) {
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(location), latitudinalMeters: zoomArea, longitudinalMeters: zoomArea)
-        let adjustedRegion = mapView.regionThatFits(region)
-        mapView.setRegion(adjustedRegion, animated: true)
     }
 }
 
