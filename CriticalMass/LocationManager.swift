@@ -67,18 +67,8 @@ class LocationManager: NSObject, LocationProvider {
 
     // MARK: - Public API
 
-    public func getCurrentLocation(_ completion: @escaping GeolocationCompletion) {
-        if LocationManager.isAuthorized {
-            locationRequests.append(completion)
-            locationManager.requestLocation()
-        } else {
-            completion(.failure(.denied))
-        }
-    }
-
     public func requestAuthorization(_ completion: @escaping GeolocationAuthCompletion) {
-        let status = LocationManager.accessPermission
-        switch status {
+        switch LocationManager.accessPermission {
         case .authorized:
             completion(.success)
         case .denied:
@@ -90,10 +80,18 @@ class LocationManager: NSObject, LocationProvider {
         }
     }
 
+    public func getCurrentLocation(_ completion: @escaping GeolocationCompletion) {
+        if LocationManager.isAuthorized {
+            locationRequests.append(completion)
+            locationManager.requestLocation()
+        } else {
+            completion(.failure(.denied))
+        }
+    }
+
     // MARK: - Private API
 
     private func configureLocationManager(with properties: LocationProperties) {
-        locationManager.requestAlwaysAuthorization()
         locationManager.activityType = properties.activityType
         locationManager.desiredAccuracy = properties.accuracy
         locationManager.activityType = properties.activityType
@@ -102,7 +100,9 @@ class LocationManager: NSObject, LocationProvider {
 
     private func startTrackingLocation(allowsBackgroundLocation: Bool = true) {
         locationManager.allowsBackgroundLocationUpdates = allowsBackgroundLocation
-        locationManager.startUpdatingLocation()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
     }
 
     private func notifySubscribersAboutError() {
@@ -127,9 +127,6 @@ extension LocationManager: CLLocationManagerDelegate {
         }
         locationRequests.forEach { $0(.success(location)) }
         locationRequests.removeAll()
-
-//        locationManager.stopUpdatingLocation()
-//        updateLocationCompletion = nil
     }
 
     func locationManager(_: CLLocationManager, didChangeAuthorization _: CLAuthorizationStatus) {
@@ -139,7 +136,11 @@ extension LocationManager: CLLocationManagerDelegate {
         let authStatus: GeolocationAuthResult = LocationManager.isAuthorized ? .success : .failure
         authRequests.forEach { $0(authStatus) }
         authRequests.removeAll()
-//        NotificationCenter.default.post(name: Notification.observationModeChanged, object: type(of: self).accessPermission)
+
+        NotificationCenter.default.post(
+            name: .observationModeChanged,
+            object: type(of: self).accessPermission
+        )
     }
 }
 
