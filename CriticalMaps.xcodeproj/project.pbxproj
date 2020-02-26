@@ -1005,7 +1005,7 @@
 		94CF085419BDEAF2009FFF43 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = PL;
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Pokus Labs";
