@@ -69,7 +69,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onNewData), name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNewData), name: .positionOthersChanged, object: nil)
     }
 
     @objc private func addFriendButtonTapped() {
@@ -155,7 +155,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         case .friends:
             let friend = dataStore.friends[indexPath.row]
             if friend.isOnline {
-                NotificationCenter.default.post(name: Notification.focusLocation, object: friend.location)
+                NotificationCenter.default.post(name: .focusLocation, object: friend.location)
                 dismiss(animated: true, completion: nil)
             } else {
                 tableView.deselectRow(at: indexPath, animated: true)

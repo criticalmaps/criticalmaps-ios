@@ -35,8 +35,7 @@ class AppDataStoreTests: XCTestCase {
     func testNotificationAfterStoringLocations() {
         let sut = AppDataStore()
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
-        let notificationName = Notification.positionOthersChanged
-        let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
+        let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
         }
         exp.expectedFulfillmentCount = 1
@@ -47,8 +46,7 @@ class AppDataStoreTests: XCTestCase {
     func testNotificationAfterStoringChatMessage() {
         let sut = AppDataStore()
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
-        let notificationName = Notification.positionOthersChanged
-        let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
+        let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
         }
         exp.expectedFulfillmentCount = 1
@@ -59,9 +57,8 @@ class AppDataStoreTests: XCTestCase {
     func testNoNoDoublicatedNotificationAfterStoringOldLocations() {
         let sut = AppDataStore()
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
-        let notificationName = Notification.positionOthersChanged
         var notificationCount = 0
-        let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
+        let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notificationCount += 1
             return notification.object as AnyObject as! ApiResponse == expectedObject
         }
@@ -77,8 +74,7 @@ class AppDataStoreTests: XCTestCase {
         let sut = AppDataStore()
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         var notificationCount = 0
-        let notificationName = Notification.positionOthersChanged
-        let exp = expectation(forNotification: notificationName, object: nil) { (notification) -> Bool in
+        let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notificationCount += 1
             return notification.object as AnyObject as! ApiResponse == expectedObject
         }

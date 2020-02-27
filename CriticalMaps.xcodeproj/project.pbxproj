@@ -538,7 +538,6 @@
 				988B12AC22A271FE0010FAED /* Logger.swift */,
 				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				210367B9237AACC6001F2A84 /* NetworkObserver.swift */,
-				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
 				210367BB237AAE2F001F2A84 /* PathObserver.swift */,
 				9810C381229830940011F718 /* RatingHelper.swift */,
 				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
@@ -714,6 +713,7 @@
 			children = (
 				94CCC8B523D0583D000CCE2A /* Date+Additions.swift */,
 				94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */,
+				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";

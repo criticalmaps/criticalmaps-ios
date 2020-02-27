@@ -36,7 +36,7 @@ class ChatManager {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didReceiveMessages(notification:)),
-            name: Notification.chatMessagesReceived, object: nil
+            name: .chatMessagesReceived, object: nil
         )
     }
 

@@ -23,7 +23,7 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
     }
 
     public override func setup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: .positionOthersChanged, object: nil)
     }
 
     @objc private func positionsDidChange(notification: Notification) {
