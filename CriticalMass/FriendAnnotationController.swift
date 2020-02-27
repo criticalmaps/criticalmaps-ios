@@ -23,7 +23,7 @@ class FriendAnnotationController: AnnotationController<FriendAnnotation, FriendA
     }
 
     public override func setup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: .positionOthersChanged, object: nil)
     }
 
     @objc private func positionsDidChange(notification: Notification) {
@@ -39,8 +39,8 @@ class FriendAnnotationController: AnnotationController<FriendAnnotation, FriendA
             Logger.log(.info, log: .map, "Bike annotations cannot be displayed because no GPS Access permission granted", parameter: LocationManager.accessPermission.rawValue)
             return
         }
-        let filtredLocations = locations.filter { friendsVerificationController.isFriend(id: $0.key) }
-        let allTuples: [(identifier: String, location: Location, object: Friend)] = filtredLocations.compactMap {
+        let filteredLocations = locations.filter { friendsVerificationController.isFriend(id: $0.key) }
+        let allTuples: [(identifier: String, location: Location, object: Friend)] = filteredLocations.compactMap {
             guard let friend = friendsVerificationController.friend(for: $0.key) else {
                 return nil
             }

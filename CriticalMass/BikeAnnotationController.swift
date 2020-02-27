@@ -36,12 +36,12 @@ class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoati
             Logger.log(.info, log: .map, "Bike annotations cannot be displayed because no GPS Access permission granted", parameter: LocationManager.accessPermission.rawValue)
             return
         }
-        var filtredLocations = locations
+        var filteredLocations = locations
 
         if Feature.friends.isActive {
-            filtredLocations = filtredLocations.filter { !friendsVerificationController.isFriend(id: $0.key) }
+            filteredLocations = filteredLocations.filter { !friendsVerificationController.isFriend(id: $0.key) }
         }
 
-        updateAnnotations(locations: filtredLocations.mapValues { ($0, nil) })
+        updateAnnotations(locations: filteredLocations.mapValues { ($0, nil) })
     }
 }
