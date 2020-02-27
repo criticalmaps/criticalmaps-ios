@@ -20,8 +20,26 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
+    - name: Cache SPM
+      uses: actions/cache@v1
+      with:
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Cache Bundler
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Install Gem Dependencies
-      run: bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install
 
     - name: Run UnitTests
       run: bundle exec fastlane test
@@ -34,8 +52,26 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
+    - name: Cache SPM
+      uses: actions/cache@v1
+      with:
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Cache Bundler
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Install Gem Dependencies
-      run: bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install
 
     - name: Run UITests
       run: bundle exec fastlane ui_test
@@ -54,8 +90,26 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
+    - name: Cache SPM
+      uses: actions/cache@v1
+      with:
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Cache Bundler
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Install Gem Dependencies
-      run: bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install
 
     - name: Run SnapshotTests
       run: bundle exec fastlane snapshot_test
@@ -68,8 +122,26 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
+    - name: Cache SPM
+      uses: actions/cache@v1
+      with:
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Cache Bundler
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Install Gem Dependencies
-      run: bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install
 
     - name: Run Swift Build
       run: swift build
