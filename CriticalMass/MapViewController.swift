@@ -31,8 +31,12 @@ class MapViewController: UIViewController {
 
     // MARK: Properties
 
-    private lazy var annotationController: [AnnotationController] = {
-        [BikeAnnotationController(friendsVerificationController: self.friendsVerificationController, mapView: self.mapView)]
+    private lazy var bikeAnnotationController: AnnotationController = {
+        BikeAnnotationController(friendsVerificationController: self.friendsVerificationController, mapView: self.mapView)
+    }()
+
+    private lazy var friendAnnotationController: AnnotationController = {
+        FriendAnnotationController(friendsVerificationController: self.friendsVerificationController, mapView: self.mapView)
     }()
 
     private let nightThemeOverlay = DarkModeMapOverlay()
@@ -64,9 +68,7 @@ class MapViewController: UIViewController {
         configureMapView()
         condfigureGPSDisabledOverlayView()
 
-        annotationController
-            .map { $0.annotationViewType }
-            .forEach(mapView.register)
+        [bikeAnnotationController.annotationViewType, friendAnnotationController.annotationViewType].forEach(mapView.register)
 
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -216,19 +218,26 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     // MARK: MKMapViewDelegate
 
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKUserLocation == false else {
             return nil
         }
 
-        guard let matchingController = annotationController.first(where: { type(of: annotation) == $0.annotationType }) else {
+        switch type(of: annotation) {
+        case let type where type == bikeAnnotationController.annotationType:
+            return annotationView(annotation: annotation, for: bikeAnnotationController)
+        case let type where type == friendAnnotationController.annotationType:
+            return annotationView(annotation: annotation, for: friendAnnotationController)
+        default:
             return nil
         }
+    }
 
-        let castedAnnotation = unsafeBitCast(annotation, to: matchingController.annotationType)
+    private func annotationView<T: IdentifiableAnnnotation<J>, K: AnnotationView, J>(annotation: MKAnnotation, for _: AnnotationController<T, K, J>) -> MKAnnotationView {
+        let castedAnnotation = unsafeBitCast(annotation, to: T.self)
 
-        let annotationView = mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)
-        annotationView.set(object: castedAnnotation.object)
+        let annotationView = mapView.dequeueReusableAnnotationView(ofType: K.self, with: annotation)
+        annotationView.set(object: castedAnnotation.object as? K.Object)
 
         return annotationView
     }
