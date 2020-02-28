@@ -4,8 +4,6 @@
 
 *.xccheckout
 
-CriticalMaps.xcodeproj
-
 *.mov
 Gfx/appstore/
 report.xml
@@ -14,3 +12,11 @@ fastlane/test_output
 ## Build generated
 build/
 .build
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
