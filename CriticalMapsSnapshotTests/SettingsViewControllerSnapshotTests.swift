@@ -5,8 +5,6 @@
 import XCTest
 
 class SettingsViewControllerSnapshotTests: XCTestCase {
-    private let size = CGSize(width: 320, height: 900)
-
     func testGeneralAppearance() {
         // Given
         let viewController = SettingsViewController(
@@ -17,6 +15,6 @@ class SettingsViewControllerSnapshotTests: XCTestCase {
         let navigationController = UINavigationController(rootViewController: viewController)
 
         // Then
-        assertViewSnapshot(matching: navigationController.view, with: size)
+        assertViewSnapshot(matching: navigationController.view)
     }
 }
