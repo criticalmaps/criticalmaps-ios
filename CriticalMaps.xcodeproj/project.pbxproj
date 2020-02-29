@@ -17,6 +17,9 @@
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
 		3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FA23B0DF5D00B33403 /* GrowingTextView */; };
+		3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */; };
+		3F6BF253240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */; };
+		3F6BF254240AFD8800B7F076 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981C92082288B47F00391FA9 /* TestHelper.swift */; };
 		3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C5674239861E200A6B552 /* SDWebImage */; };
 		3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7530E3A5235A400900F5E55C /* XCTest.framework */; };
 		3F7419EC23B0E29600E8E593 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EB23B0E29600E8E593 /* SDWebImage */; };
@@ -230,6 +233,8 @@
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F137FB92349CD71006B26AB /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F749B28236C641400C4A125 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleDescriptionLabel.swift; sourceTree = "<group>"; };
@@ -483,9 +488,11 @@
 			children = (
 				3F749B28236C641400C4A125 /* __Snapshots__ */,
 				7530E394235A3CA100F5E55C /* Info.plist */,
-				3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */,
-				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
 				987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */,
+				3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */,
+				3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */,
+				3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */,
+				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
 				7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */,
 			);
 			path = CriticalMapsSnapshotTests;
@@ -1194,9 +1201,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				75E26995235A4BA5000F2D0A /* MockThemeController.swift in Sources */,
+				3F6BF253240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift in Sources */,
 				7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */,
+				3F6BF254240AFD8800B7F076 /* TestHelper.swift in Sources */,
 				7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */,
 				3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */,
+				3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */,
 				987C57AF23A952AC0060499B /* MapInfoViewSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
