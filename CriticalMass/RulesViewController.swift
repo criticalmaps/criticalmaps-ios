@@ -31,7 +31,7 @@ enum Rule: String, CaseIterable {
 
 class RulesViewController: UITableViewController {
     private let rules = Rule.allCases
-    private let themeController: ThemeController!
+    private let themeController: ThemeController
 
     init(themeController: ThemeController) {
         self.themeController = themeController

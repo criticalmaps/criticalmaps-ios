@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-    private let themeController: ThemeController!
+    private let themeController: ThemeController
     private let dataStore: DataStore
     private let idProvider: IDProvider
 

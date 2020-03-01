@@ -9,7 +9,7 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController {
-    private let themeController: ThemeController!
+    private let themeController: ThemeController
     private let friendsVerificationController: FriendsVerificationController
     private var tileRenderer: MKTileOverlayRenderer?
     private let nextRideHandler: CMInApiHandling
