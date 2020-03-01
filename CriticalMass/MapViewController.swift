@@ -92,18 +92,7 @@ class MapViewController: UIViewController {
         add(mapInfoViewController)
         mapInfoViewController.view.addLayoutsSameSizeAndOrigin(in: view)
         mapInfoViewController.tapHandler = { [unowned self] in
-            guard let matchingController = self.annotationControllers.first(
-                where: { $0.annotationType == CriticalMassAnnotation.self }
-            ) else { return }
-            if #available(iOS 11.0, *) {
-                if let markerController = matchingController as? CMMarkerAnnotationController {
-                    markerController.cmAnnotation.flatMap { self.focusOnCoordinate($0.coordinate) }
-                }
-            } else {
-                if let markerController = matchingController as? CMAnnotationController {
-                    markerController.cmAnnotation.flatMap { self.focusOnCoordinate($0.coordinate) }
-                }
-            }
+            self.nextRideManager.nextRide.flatMap { self.focusOnCoordinate($0.coordinate) }
         }
     }
 
@@ -195,16 +184,19 @@ class MapViewController: UIViewController {
                                     Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
                                     return
                                 }
-                                controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
+                                controller.update([CriticalMassAnnotation(ride: ride)])
                             } else {
                                 guard let controller = $0 as? CMAnnotationController else {
                                     Logger.log(.debug, log: .map, "Controller expected to CMAnnotationController")
                                     return
                                 }
-                                controller.cmAnnotation = CriticalMassAnnotation(ride: ride)
+                                controller.update([CriticalMassAnnotation(ride: ride)])
                             }
                         }
-                    self.mapInfoViewController.presentMapInfo(title: ride.title, style: .info)
+                    self.mapInfoViewController.presentMapInfo(
+                        title: ride.titleAndTime,
+                        style: .info
+                    )
                 }
             case let .failure(error):
                 PrintErrorHandler().handleError(error)
