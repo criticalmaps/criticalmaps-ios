@@ -9,11 +9,13 @@ enum EventError: Error {
     case rideIsOutOfRangeError
 }
 
-struct NextRideManager {
+class NextRideManager {
     typealias ResultCallback = (Result<Ride, Error>) -> Void
     private enum Constants {
         static let filterDistance: Double = 40000
     }
+
+    public var nextRide: Ride?
 
     private let apiHandler: CMInApiHandling
     private let filterDistance: Double
@@ -56,6 +58,7 @@ struct NextRideManager {
                 handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
+            nextRide = ride
             handler(.success(ride))
         case let .failure(error):
             handler(.failure(error))
