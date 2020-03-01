@@ -5,13 +5,6 @@ import MapKit
 
 @available(iOS 11.0, *)
 final class CMMarkerAnnotationController: AnnotationController {
-    var cmAnnotation: CriticalMassAnnotation? {
-        didSet {
-            guard let annotation = cmAnnotation else { return }
-            mapView.addAnnotation(annotation)
-        }
-    }
-
     private let rideChecker: RideChecker
 
     init(
@@ -54,8 +47,14 @@ final class CMMarkerAnnotationController: AnnotationController {
         )
     }
 
+    override func update(_ annotations: [MKAnnotation]) {
+        mapView.addAnnotations(annotations)
+    }
+
     @objc private func checkRide(notification _: Notification) {
-        guard let rideAnnotation = cmAnnotation else {
+        guard let rideAnnotation = mapView.annotations.first(
+            where: { $0 is CriticalMassAnnotation }
+        ) as? CriticalMassAnnotation else {
             Logger.log(.debug, log: .default, "Expected annotation")
             return
         }
@@ -66,13 +65,6 @@ final class CMMarkerAnnotationController: AnnotationController {
 }
 
 final class CMAnnotationController: AnnotationController {
-    var cmAnnotation: CriticalMassAnnotation? {
-        didSet {
-            guard let annotation = cmAnnotation else { return }
-            mapView.addAnnotation(annotation)
-        }
-    }
-
     private let rideChecker: RideChecker
 
     init(
@@ -115,8 +107,14 @@ final class CMAnnotationController: AnnotationController {
         )
     }
 
+    override func update(_ annotations: [MKAnnotation]) {
+        mapView.addAnnotations(annotations)
+    }
+
     @objc private func checkRide(notification _: Notification) {
-        guard let rideAnnotation = cmAnnotation else {
+        guard let rideAnnotation = mapView.annotations.first(
+            where: { $0 is CriticalMassAnnotation }
+        ) as? CriticalMassAnnotation else {
             Logger.log(.debug, log: .default, "Expected annotation")
             return
         }

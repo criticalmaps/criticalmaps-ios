@@ -28,4 +28,6 @@ class AnnotationController {
     }
 
     open func setup() {}
+
+    open func update(_: [MKAnnotation]) {}
 }
