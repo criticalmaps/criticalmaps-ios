@@ -15,6 +15,7 @@ Some background context on why the change is needed.
 ## 👀 See
 
 Screenshots, external resources?
+- [ ] Added snapshot tests (using iPhone 8 Simulator)
 
 | Before 🐛 | After 🦋 |
 | --- | --- |
