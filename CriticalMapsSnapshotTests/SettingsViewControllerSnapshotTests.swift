@@ -17,6 +17,10 @@ class SettingsViewControllerSnapshotTests: XCTestCase {
         let navigationController = UINavigationController(rootViewController: viewController)
 
         // Then
-        assertViewSnapshot(matching: navigationController.view, with: size)
+        assertViewSnapshot(
+            matching: navigationController.view,
+            with: size,
+            precision: 0.99
+        )
     }
 }
