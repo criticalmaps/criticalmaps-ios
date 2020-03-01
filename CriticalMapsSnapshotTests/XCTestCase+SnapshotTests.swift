@@ -21,7 +21,7 @@ extension XCTestCase {
             MockThemeController.shared.changeTheme(to: theme)
             MockThemeController.shared.applyTheme()
             assertSnapshot(matching: value,
-                           as: .image(size: size),
+                           as: .image(precision: 0.99, size: size),
                            named: theme.displayName,
                            file: file,
                            testName: testName,
