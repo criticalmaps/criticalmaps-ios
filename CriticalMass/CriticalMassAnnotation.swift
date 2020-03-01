@@ -12,7 +12,7 @@ class CriticalMassAnnotation: NSObject, MKAnnotation {
     }
 
     var title: String? {
-        ride.title
+        ride.titleAndTime
     }
 
     var coordinate: CLLocationCoordinate2D {
