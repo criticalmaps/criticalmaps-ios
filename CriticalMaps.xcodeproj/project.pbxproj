@@ -55,6 +55,7 @@
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
+		944D5EED240C2CB400993899 /* DateFormatter+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D5EEC240C2CB400993899 /* DateFormatter+Additions.swift */; };
 		9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */; };
 		9455CE8F2397ACE200DED561 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8C2397ACE200DED561 /* SendButton.swift */; };
 		9455CE902397ACE300DED561 /* ChatInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */; };
@@ -275,6 +276,7 @@
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
+		944D5EEC240C2CB400993899 /* DateFormatter+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Additions.swift"; sourceTree = "<group>"; };
 		9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInputViewController.xib; sourceTree = "<group>"; };
 		9455CE8C2397ACE200DED561 /* SendButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputViewController.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */,
 				94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */,
+				944D5EEC240C2CB400993899 /* DateFormatter+Additions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1315,6 +1318,7 @@
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				940643D82307270B00AB1BCB /* GCD.swift in Sources */,
 				94FCBD32226C57FA00F93F94 /* ThemeStore.swift in Sources */,
+				944D5EED240C2CB400993899 /* DateFormatter+Additions.swift in Sources */,
 				9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */,
 				94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */,
 				3F997955239D9DD5006DB96B /* Feature.swift in Sources */,
