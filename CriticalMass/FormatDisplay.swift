@@ -12,18 +12,18 @@ private extension DateComponents {
     var dateomponentFromBiggestComponent: DateComponents {
         if let month = month,
             month != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: month, day: nil, hour: nil, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, month: month)
         } else if let day = day,
             day != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: day, hour: nil, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, day: day)
         } else if let hour = hour,
             hour != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: hour, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, hour: hour)
         } else if let minute = minute,
             minute != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: nil, minute: minute, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, minute: minute)
         } else {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: nil, minute: nil, second: second, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, second: second)
         }
     }
 }
