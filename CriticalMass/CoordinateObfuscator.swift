@@ -5,10 +5,10 @@ import CoreLocation
 
 struct CoordinateObfuscator {
     enum ObfuscationPrecisionType {
-        case firstDecimal
-        case secondDecimal
-        case thirdDecimal
-        case fourthDecimal
+        case firstDecimal // is worth up to 11.1 km
+        case secondDecimal // is worth up to 1.1 km
+        case thirdDecimal // is worth up to 110 m
+        case fourthDecimal // is worth up to 11 m
         case custom(ClosedRange<Double>)
 
         var range: ClosedRange<Double> {
@@ -38,7 +38,7 @@ struct CoordinateObfuscator {
 
     static func obfuscate(
         _ coordinate: CLLocationCoordinate2D,
-        precisionType: ObfuscationPrecisionType = .fourthDecimal
+        precisionType: ObfuscationPrecisionType = .thirdDecimal
     ) -> CLLocationCoordinate2D {
         let seededLat = coordinate.latitude + precisionType.randomInRange
         let seededLon = coordinate.longitude + precisionType.randomInRange
