@@ -11,7 +11,7 @@ Changelog for Critical Maps iOS
 ### Updated
 
 - Cleaner BikeAnnotation appearance
-- Fix Color for Action Indicator on Dark Mode in Settings and Rules Tab
+- Fix Dark Mode Color Behaviour in Action Indicator (in Rules, Settings) and Separator (in Settings)
 
 ## [3.7.0] - 2020-02-11
 
