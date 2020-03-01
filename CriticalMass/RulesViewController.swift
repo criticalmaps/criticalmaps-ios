@@ -31,15 +31,48 @@ enum Rule: String, CaseIterable {
 
 class RulesViewController: UITableViewController {
     private let rules = Rule.allCases
+    private let themeController: ThemeController
+
+    init(themeController: ThemeController) {
+        self.themeController = themeController
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView.rowHeight = UITableView.automaticDimension
+
+        updateThemeIfNeeded()
+        configureNotifications()
         configureNavigationBar()
         registerCell()
 
         // remove empty cells
         tableView.tableFooterView = UIView()
+    }
+
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateThemeIfNeeded),
+            name: .themeDidChange,
+            object: nil
+        )
+    }
+
+    @objc private func updateThemeIfNeeded() {
+        if #available(iOS 13.0, *) {
+            if themeController.currentTheme == .dark {
+                overrideUserInterfaceStyle = .dark
+            } else {
+                overrideUserInterfaceStyle = .light
+            }
+        }
     }
 
     private func configureNavigationBar() {

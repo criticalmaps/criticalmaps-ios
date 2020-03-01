@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-    private let themeController: ThemeController!
+    private let themeController: ThemeController
     private let dataStore: DataStore
     private let idProvider: IDProvider
 
@@ -26,9 +26,12 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Section.allCellClasses.forEach { tableView.register($0.nib, forCellReuseIdentifier: $0.nibName) }
+        Section.allCellClasses.forEach {
+            tableView.register($0.nib, forCellReuseIdentifier: $0.nibName)
+        }
         tableView.rowHeight = UITableView.automaticDimension
 
+        configureNotifications()
         configureSettingsFooter()
         configureNavigationBar()
 
@@ -38,6 +41,25 @@ class SettingsViewController: UITableViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         sizeFooterToFit()
+    }
+
+    func configureNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChange),
+            name: .themeDidChange,
+            object: nil
+        )
+    }
+
+    @objc private func themeDidChange() {
+        if #available(iOS 13.0, *) {
+            if themeController.currentTheme == .dark {
+                overrideUserInterfaceStyle = .dark
+            } else {
+                overrideUserInterfaceStyle = .light
+            }
+        }
     }
 
     private func configureSettingsFooter() {

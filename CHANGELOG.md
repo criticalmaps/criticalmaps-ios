@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+# [Unreleased]
+
+### Fixed
+
+- Fix Dark Mode Color Behaviour in Action Indicator (in Rules, Settings) and Separator (in Settings)
+
 ## [3.8.0] - 2020-03-01
 
 ### Fixed

@@ -14,6 +14,7 @@ extension XCTestCase {
     func assertViewSnapshot(for themes: [Theme] = [.light, .dark],
                             matching value: UIView,
                             with size: CGSize? = nil,
+                            precision: Float = 1,
                             file: StaticString = #file,
                             testName: String = #function,
                             line: UInt = #line) {
@@ -21,7 +22,7 @@ extension XCTestCase {
             MockThemeController.shared.changeTheme(to: theme)
             MockThemeController.shared.applyTheme()
             assertSnapshot(matching: value,
-                           as: .image(size: size),
+                           as: .image(precision: precision, size: size),
                            named: theme.displayName,
                            file: file,
                            testName: testName,

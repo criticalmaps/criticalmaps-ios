@@ -106,7 +106,7 @@ class AppController {
     }
 
     private func getRulesViewController() -> RulesViewController {
-        RulesViewController()
+        RulesViewController(themeController: themeController)
     }
 
     private func getChatViewController() -> ChatViewController {

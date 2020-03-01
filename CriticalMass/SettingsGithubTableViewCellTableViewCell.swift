@@ -8,13 +8,6 @@
 import UIKit
 
 class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable {
-    @objc
-    dynamic var arrowTintColor: UIColor? {
-        willSet {
-            arrowImageView.tintColor = arrowTintColor
-        }
-    }
-
     @IBOutlet var backgroundImageView: UIImageView! {
         didSet {
             backgroundImageView.layer.cornerRadius = 16.0
@@ -49,7 +42,11 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
         }
     }
 
-    @IBOutlet var arrowImageView: UIImageView!
+    @IBOutlet var arrowImageView: UIImageView! {
+        didSet {
+            arrowImageView.tintColor = .settingsOpenSourceForeground
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

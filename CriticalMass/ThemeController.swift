@@ -69,7 +69,6 @@ class ThemeController {
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
-        SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = .settingsOpenSourceForeground
         UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
