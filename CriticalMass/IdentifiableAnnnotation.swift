@@ -19,7 +19,7 @@ class IdentifiableAnnnotation: MKPointAnnotation {
 
     var location: Location {
         didSet {
-            coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            coordinate = CLLocationCoordinate2D(location)
         }
     }
 
@@ -27,5 +27,6 @@ class IdentifiableAnnnotation: MKPointAnnotation {
         self.identifier = identifier
         self.location = location
         super.init()
+        coordinate = CLLocationCoordinate2D(location)
     }
 }

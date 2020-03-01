@@ -4,6 +4,10 @@ Changelog for Critical Maps iOS
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed a Bug that caused a 12 second delay to display Riders on the Map after launching the App
+
 ### Updated
 
 - Cleaner BikeAnnotation appearance
