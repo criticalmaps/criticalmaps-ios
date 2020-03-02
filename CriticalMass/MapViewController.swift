@@ -78,12 +78,6 @@ class MapViewController: UIViewController {
         annotationController
             .map { $0.annotationViewType }
             .forEach(mapView.register)
-
-        if #available(iOS 11.0, *) {
-            mapView.register(annotationViewType: CMMarkerAnnotationView.self)
-        } else {
-            mapView.register(annotationViewType: CMAnnotationView.self)
-        }
     }
 
     private func setupMapInfoViewController() {
