@@ -24,6 +24,6 @@ extension Ride {
     }
 
     var titleAndTime: String {
-        "\(title) - \(DateFormatter.shortTimeFormatter.string(from: dateTime))"
+        "\(title) - \(DateFormatter.localeShortTimeFormatter.string(from: dateTime))"
     }
 }
