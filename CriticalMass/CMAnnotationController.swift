@@ -42,7 +42,7 @@ final class CMMarkerAnnotationController: AnnotationController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(checkRide(notification:)),
-            name: Notification.positionOthersChanged,
+            name: .positionOthersChanged,
             object: nil
         )
     }
@@ -102,7 +102,7 @@ final class CMAnnotationController: AnnotationController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(checkRide(notification:)),
-            name: Notification.positionOthersChanged,
+            name: .positionOthersChanged,
             object: nil
         )
     }

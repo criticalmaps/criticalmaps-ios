@@ -26,8 +26,8 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
             mapView: MKMapView(),
             rideChecker: rideChecker
         )
-        annotationController.cmAnnotation = rideAnnotation
-        NotificationCenter.default.post(name: Notification.positionOthersChanged, object: nil)
+        annotationController.update([rideAnnotation])
+        NotificationCenter.default.post(name: .positionOthersChanged, object: nil)
         // then
         XCTAssertTrue(annotationController.mapView.annotations.isEmpty)
     }
@@ -44,8 +44,8 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
             mapView: MKMapView(),
             rideChecker: rideChecker
         )
-        annotationController.cmAnnotation = rideAnnotation
-        NotificationCenter.default.post(name: Notification.positionOthersChanged, object: nil)
+        annotationController.update([rideAnnotation])
+        NotificationCenter.default.post(name: .positionOthersChanged, object: nil)
         // then
         XCTAssertFalse(annotationController.mapView.annotations.isEmpty)
     }
