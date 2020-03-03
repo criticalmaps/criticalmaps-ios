@@ -5,7 +5,15 @@ import CoreLocation
 import UIKit
 
 class MapInfoViewController: UIViewController, IBConstructable {
-    @IBOutlet private var infoViewContainer: UIView!
+    @IBOutlet private var infoViewContainer: UIView! {
+        didSet {
+            let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeUpGestureRecognizer))
+            swipeUpGesture.direction = .up
+            infoViewContainer.addGestureRecognizer(swipeUpGesture)
+        }
+    }
+
+    private let animationDuration: TimeInterval = 0.2
 
     typealias CompletionHandler = () -> Void
 
@@ -30,11 +38,10 @@ class MapInfoViewController: UIViewController, IBConstructable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
     }
 
-    fileprivate func setup() {
+    private func setup() {
         infoViewContainer.addSubview(infoView)
         infoView.addLayoutsSameSizeAndOrigin(in: infoViewContainer)
 
@@ -50,13 +57,23 @@ class MapInfoViewController: UIViewController, IBConstructable {
         }
     }
 
-    public func presentMapInfo(title: String, style: MapInfoView.Configuration.Style) {
+    /// Called when the mapInfoViewContainer is swiped up
+    @objc private func onSwipeUpGestureRecognizer() {
+        dismissMapInfo()
+    }
+
+    public func configureAndPresentMapInfoView(
+        title: String,
+        style: MapInfoView.Configuration.Style,
+        _ completion: CompletionHandler? = nil
+    ) {
         func animateIn() {
+            defer { completion?() }
             infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
             infoViewContainer.isHidden = false
 
             let animator = UIViewPropertyAnimator(
-                duration: 0.2,
+                duration: animationDuration,
                 timingParameters: UICubicTimingParameters.linearOutSlow
             )
             animator.addAnimations {
@@ -86,7 +103,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
             UIAccessibility.post(notification: .layoutChanged, argument: view)
         } else {
             let animator = UIViewPropertyAnimator(
-                duration: 0.2,
+                duration: animationDuration,
                 timingParameters: UICubicTimingParameters.fastOutLiner
             )
             animator.addAnimations {
@@ -110,14 +127,5 @@ private extension UICubicTimingParameters {
 
     static var fastOutLiner: UITimingCurveProvider {
         UICubicTimingParameters(controlPoint1: .init(x: 0.4, y: 0.0), controlPoint2: .init(x: 1.0, y: 1.0))
-    }
-}
-
-private extension UIView {
-    var safeTopAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return self.safeAreaLayoutGuide.topAnchor
-        }
-        return topAnchor
     }
 }

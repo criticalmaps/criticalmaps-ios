@@ -193,7 +193,7 @@ class MapViewController: UIViewController {
                                 controller.update([CriticalMassAnnotation(ride: ride)])
                             }
                         }
-                    self.mapInfoViewController.presentMapInfo(
+                    self.mapInfoViewController.configureAndPresentMapInfoView(
                         title: ride.titleAndTime,
                         style: .info
                     )
