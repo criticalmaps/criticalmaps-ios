@@ -28,4 +28,8 @@ public extension Date {
     func humanReadableTime() -> String {
         DateFormatter.localeShortTimeFormatter.string(from: self)
     }
+
+    func humanReadableDate() -> String {
+        DateFormatter.localeShortDateFormatter.string(from: self)
+    }
 }

@@ -9,4 +9,13 @@ extension DateFormatter {
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
+
+    /// Short time formatter, without date.
+    static let localeShortDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        return dateFormatter
+    }()
 }
