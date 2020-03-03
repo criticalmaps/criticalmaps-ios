@@ -58,9 +58,8 @@ class MapInfoView: UIView, IBConstructable {
 
         accessibilityValue = configuration.title
         updateStyle()
-
     }
-    
+
     private func setup() {
         layer.setupMapOverlayConfiguration()
         label.isAccessibilityElement = false
