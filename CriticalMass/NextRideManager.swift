@@ -40,7 +40,9 @@ class NextRideManager {
     }
 
     private func getUpcomingRide(_ rides: [Ride]) -> Ride? {
-        rides.first { $0.dateTime > .now }
+        rides
+            .sorted(by: \.dateTime)
+            .first { $0.dateTime > .now }
     }
 
     private func filteredRidesHandler(

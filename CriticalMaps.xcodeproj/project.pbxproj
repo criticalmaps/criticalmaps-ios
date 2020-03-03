@@ -73,6 +73,7 @@
 		944D5F11240CE12500993899 /* CoordinateObfuscatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D5F09240CE0DA00993899 /* CoordinateObfuscatorTests.swift */; };
 		944D5F12240CE13000993899 /* RideCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D5F0B240CE0DA00993899 /* RideCheckerTests.swift */; };
 		944D5F13240CE13700993899 /* TimeTravlelerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D5F08240CE0DA00993899 /* TimeTravlelerTests.swift */; };
+		944D5F36240E643300993899 /* Sequence+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944D5F35240E643300993899 /* Sequence+Additions.swift */; };
 		9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */; };
 		9455CE8F2397ACE200DED561 /* SendButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8C2397ACE200DED561 /* SendButton.swift */; };
 		9455CE902397ACE300DED561 /* ChatInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */; };
@@ -307,6 +308,7 @@
 		944D5F09240CE0DA00993899 /* CoordinateObfuscatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateObfuscatorTests.swift; sourceTree = "<group>"; };
 		944D5F0A240CE0DA00993899 /* CMMarkerAnnotationControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMMarkerAnnotationControllerTests.swift; sourceTree = "<group>"; };
 		944D5F0B240CE0DA00993899 /* RideCheckerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideCheckerTests.swift; sourceTree = "<group>"; };
+		944D5F35240E643300993899 /* Sequence+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Additions.swift"; sourceTree = "<group>"; };
 		9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInputViewController.xib; sourceTree = "<group>"; };
 		9455CE8C2397ACE200DED561 /* SendButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendButton.swift; sourceTree = "<group>"; };
 		9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatInputViewController.swift; sourceTree = "<group>"; };
@@ -761,15 +763,17 @@
 		94CCC8B423D0582A000CCE2A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				94829426238AA39C00338E7F /* MKMapView+Register.swift */,
-				940643CD23071F1200AB1BCB /* Codable+Sugar.swift */,
-				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
 				9474E979224D027900A812DC /* Bundle+Version.swift */,
-				944D5EEE240CDED000993899 /* CLLocationCoordinate2D+Additions.swift */,
 				987C57AC23A941A60060499B /* CALayer+Shadow.swift */,
+				944D5EEE240CDED000993899 /* CLLocationCoordinate2D+Additions.swift */,
+				940643CD23071F1200AB1BCB /* Codable+Sugar.swift */,
 				94CCC8B523D0583D000CCE2A /* Date+Additions.swift */,
+				944D5EEC240C2CB400993899 /* DateFormatter+Additions.swift */,
+				9822A16D21F26D58007F5994 /* Location+CoreLocation.swift */,
+				94829426238AA39C00338E7F /* MKMapView+Register.swift */,
 				9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */,
 				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
+				944D5F35240E643300993899 /* Sequence+Additions.swift */,
 				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
 				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
 				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
@@ -780,7 +784,6 @@
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */,
 				94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */,
-				944D5EEC240C2CB400993899 /* DateFormatter+Additions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1393,6 +1396,7 @@
 				987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */,
 				987C57AA23A4EB290060499B /* BlurryFullscreenOverlayView.swift in Sources */,
 				940643D62307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift in Sources */,
+				944D5F36240E643300993899 /* Sequence+Additions.swift in Sources */,
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */,
