@@ -12,7 +12,9 @@ enum EventError: Error {
 class NextRideManager {
     typealias ResultCallback = (Result<Ride, Error>) -> Void
     private enum Constants {
-        static let filterDistance: Double = 40000
+        static let filterDistance: Double = {
+            Double(UserDefaults.standard.nextRideRadius * 1000)
+        }()
     }
 
     public var nextRide: Ride?
@@ -26,17 +28,19 @@ class NextRideManager {
     }
 
     func getNextRide(
-        around coordinate: CLLocationCoordinate2D,
+        around userCoordinate: CLLocationCoordinate2D,
         _ handler: @escaping ResultCallback
     ) {
-        let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(coordinate)
+        let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(userCoordinate)
         apiHandler.getNextRide(around: obfuscatedCoordinate) { requestResult in
-            self.filteredRidesHandler(result: requestResult, handler, coordinate)
+            self.filteredRidesHandler(result: requestResult, handler, userCoordinate)
         }
     }
 
-    private func isRideInRange(_ ride: Ride, _ coordinate: CLLocationCoordinate2D) -> Bool {
-        ride.coordinate.clLocation.distance(from: coordinate.clLocation) < filterDistance
+    private func filterRidesInRange(_ rides: [Ride], _ userCoordinate: CLLocationCoordinate2D) -> [Ride] {
+        rides.filter {
+            $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < filterDistance
+        }
     }
 
     private func getUpcomingRide(_ rides: [Ride]) -> Ride? {
@@ -48,16 +52,17 @@ class NextRideManager {
     private func filteredRidesHandler(
         result: Result<[Ride], NetworkError>,
         _ handler: @escaping ResultCallback,
-        _ coordinate: CLLocationCoordinate2D
+        _ userCoordinate: CLLocationCoordinate2D
     ) {
         switch result {
         case let .success(rides):
-            guard let ride = getUpcomingRide(rides) else {
-                handler(.failure(EventError.invalidDateError))
+            let rangeFilteredRides = filterRidesInRange(rides, userCoordinate)
+            guard !rangeFilteredRides.isEmpty else {
+                handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
-            guard isRideInRange(ride, coordinate) else {
-                handler(.failure(EventError.rideIsOutOfRangeError))
+            guard let ride = getUpcomingRide(rangeFilteredRides) else {
+                handler(.failure(EventError.invalidDateError))
                 return
             }
             nextRide = ride
