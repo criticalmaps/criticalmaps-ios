@@ -32,7 +32,7 @@ extension UserDefaults {
         static let nextRideRadius = "nextRideRadius"
     }
 
-    /// - Returns: Searchradius in Kilometer
+    /// - Returns: Searchradius in Kilometer. Default value is 20
     public var nextRideRadius: Int {
         set { set(newValue, forKey: Keys.nextRideRadius) }
         get {

@@ -29,6 +29,7 @@ public extension Date {
         DateFormatter.localeShortTimeFormatter.string(from: self)
     }
 
+    /// - Returns: Formatted date without time components.
     func humanReadableDate() -> String {
         DateFormatter.localeShortDateFormatter.string(from: self)
     }

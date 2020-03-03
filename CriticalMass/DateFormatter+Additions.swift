@@ -10,7 +10,7 @@ extension DateFormatter {
         return dateFormatter
     }()
 
-    /// Short time formatter, without date.
+    /// Short date formatter, without time.
     static let localeShortDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = .current
