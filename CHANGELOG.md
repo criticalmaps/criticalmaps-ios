@@ -4,6 +4,10 @@ Changelog for Critical Maps iOS
 
 # [Unreleased]
 
+### Added
+
+- Showing next ride event notification and annotation view on the map.
+
 ### Fixed
 
 - Fix Dark Mode Color Behaviour in Action Indicator (in Rules, Settings) and Separator (in Settings)
