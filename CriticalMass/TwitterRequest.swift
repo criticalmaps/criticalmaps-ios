@@ -5,7 +5,6 @@ struct TwitterRequest: APIRequestDefining {
     var endpoint: Endpoint = .twitter
     var headers: HTTPHeaders?
     var httpMethod: HTTPMethod = .get
-    var queryItems: [URLQueryItem]?
 
     func parseResponse(data: Data) throws -> ResponseDataType {
         let decoder = JSONDecoder.decoder(dateDecodingStrategy: .formatted(.twitterDateFormatter))
