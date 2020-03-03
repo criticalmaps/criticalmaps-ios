@@ -23,4 +23,14 @@ public extension Date {
         let component = components[keyPath: keyPath] ?? 0
         return component
     }
+
+    /// - Returns: Formatted time without date components.
+    func humanReadableTime() -> String {
+        DateFormatter.localeShortTimeFormatter.string(from: self)
+    }
+
+    /// - Returns: Formatted date without time components.
+    func humanReadableDate() -> String {
+        DateFormatter.localeShortDateFormatter.string(from: self)
+    }
 }
