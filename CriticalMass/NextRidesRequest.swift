@@ -3,7 +3,7 @@
 
 import CoreLocation
 
-struct NextRideRequest: APIRequestDefining {
+struct NextRidesRequest: APIRequestDefining {
     private enum QueryKeys {
         static let centerLatitude: String = "centerLatitude"
         static let centerLongitude: String = "centerLongitude"
@@ -29,12 +29,12 @@ struct NextRideRequest: APIRequestDefining {
         ]
     }
 
-    let coordinate: CLLocationCoordinate2D
-    let radius: Int
+    private let coordinate: CLLocationCoordinate2D
+    private let radius: Int
     private let year = Date.getCurrent(\.year)
     private let month = Date.getCurrent(\.month)
 
-    init(coordinate: CLLocationCoordinate2D, radius: Int = 10) {
+    init(coordinate: CLLocationCoordinate2D, radius: Int = UserDefaults.standard.nextRideRadius) {
         self.coordinate = coordinate
         self.radius = radius
     }
