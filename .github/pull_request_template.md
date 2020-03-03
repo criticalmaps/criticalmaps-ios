@@ -26,9 +26,3 @@ Screenshots, external resources?
 - [ ] Tap targets use minimum of 44x44 pts dimensions
 - [ ] Works with VoiceOver
 - [ ] Supports Dynamic Type 
-
-## ⏰ TODO
-
-- [ ] Got planned refactors to come
-- [ ] Will add more tests
-- [ ] Need feedback on a design
