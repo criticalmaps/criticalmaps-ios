@@ -12,14 +12,6 @@ struct NextRideQuery: Codable {
 }
 
 struct NextRideRequest: APIRequestDefining {
-    private enum QueryKeys {
-        static let centerLatitude: String = "centerLatitude"
-        static let centerLongitude: String = "centerLongitude"
-        static let radius: String = "radius"
-        static let year: String = "year"
-        static let month: String = "month"
-    }
-
     typealias ResponseDataType = [Ride]
     var endpoint: Endpoint = Endpoint(
         baseUrl: Constants.criticalmassInEndpoint,
