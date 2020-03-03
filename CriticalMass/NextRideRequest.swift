@@ -3,6 +3,14 @@
 
 import CoreLocation
 
+struct NextRideQuery: Codable {
+    let centerLatitude: CLLocationDegrees
+    let centerLongitude: CLLocationDegrees
+    let radius: Int
+    let year = Date.getCurrent(\.year)
+    let month = Date.getCurrent(\.month)
+}
+
 struct NextRideRequest: APIRequestDefining {
     private enum QueryKeys {
         static let centerLatitude: String = "centerLatitude"
@@ -19,24 +27,10 @@ struct NextRideRequest: APIRequestDefining {
     )
     var headers: HTTPHeaders?
     var httpMethod: HTTPMethod = .get
-    var queryItems: [URLQueryItem]? {
-        [
-            URLQueryItem(name: QueryKeys.centerLatitude, value: String(describing: coordinate.latitude)),
-            URLQueryItem(name: QueryKeys.centerLongitude, value: String(describing: coordinate.longitude)),
-            URLQueryItem(name: QueryKeys.radius, value: String(describing: radius)),
-            URLQueryItem(name: QueryKeys.year, value: String(describing: year)),
-            URLQueryItem(name: QueryKeys.month, value: String(describing: month)),
-        ]
-    }
-
-    let coordinate: CLLocationCoordinate2D
-    let radius: Int
-    private let year = Date.getCurrent(\.year)
-    private let month = Date.getCurrent(\.month)
+    var queryItem: NextRideQuery?
 
     init(coordinate: CLLocationCoordinate2D, radius: Int = 10) {
-        self.coordinate = coordinate
-        self.radius = radius
+        queryItem = NextRideQuery(centerLatitude: coordinate.latitude, centerLongitude: coordinate.longitude, radius: radius)
     }
 
     func parseResponse(data: Data) throws -> ResponseDataType {

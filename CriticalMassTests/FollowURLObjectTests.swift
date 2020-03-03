@@ -16,9 +16,8 @@ class FollowURLObjectTests: XCTestCase {
         let urlObject = FollowURLObject(queryObject: friend)
         let urlString = try urlObject.asURL()
 
-        let expectedURL = "criticalmaps:follow?name=hello&token=TestKey"
-        let alternateExpectedURL = "criticalmaps:follow?token=TestKey&name=hello"
-        XCTAssert(urlString == expectedURL || urlString == alternateExpectedURL)
+        let expectedURL = "criticalmaps:follow?token=TestKey&name=hello"
+        XCTAssertEqual(urlString, expectedURL)
     }
 
     func testDecodeURL() throws {
