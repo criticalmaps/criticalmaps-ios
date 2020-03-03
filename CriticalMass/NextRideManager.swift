@@ -45,6 +45,7 @@ class NextRideManager {
 
     private func getUpcomingRide(_ rides: [Ride]) -> Ride? {
         rides
+            .lazy      
             .sorted(by: \.dateTime)
             .first { $0.dateTime > .now }
     }
