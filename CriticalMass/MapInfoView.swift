@@ -9,6 +9,7 @@
 import UIKit
 
 class MapInfoView: UIView, IBConstructable {
+    typealias TapHandler = (() -> Void)
     struct Configuration {
         enum Style: String {
             case alert
@@ -21,6 +22,7 @@ class MapInfoView: UIView, IBConstructable {
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var label: UILabel!
+    @IBOutlet private var closeButton: UIButton!
 
     @objc
     dynamic var mapInfoForegroundColor: UIColor = .black {
@@ -38,11 +40,14 @@ class MapInfoView: UIView, IBConstructable {
 
     private var configuration: Configuration?
 
+    /// Closure to be executed view was tapped
+    var tapHandler: TapHandler?
+    /// Closure to be executed when close button was tapped
+    var closeButtonHandler: TapHandler?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.setupMapOverlayConfiguration()
-        label.isAccessibilityElement = false
-        label.adjustsFontForContentSizeCategory = true
+        setup()
     }
 
     func configure(with configuration: Configuration) {
@@ -53,6 +58,14 @@ class MapInfoView: UIView, IBConstructable {
 
         accessibilityValue = configuration.title
         updateStyle()
+
+    }
+    
+    private func setup() {
+        layer.setupMapOverlayConfiguration()
+        label.isAccessibilityElement = false
+        label.adjustsFontForContentSizeCategory = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap(_:))))
     }
 
     private func updateStyle() {
@@ -72,5 +85,14 @@ class MapInfoView: UIView, IBConstructable {
         }
         imageView.tintColor = foregroundColor
         label.textColor = foregroundColor
+        closeButton.tintColor = foregroundColor
+    }
+
+    @objc private func didTap(_: UITapGestureRecognizer) {
+        tapHandler?()
+    }
+
+    @IBAction private func didTapCloseButton(_: Any) {
+        closeButtonHandler?()
     }
 }
