@@ -1,11 +1,28 @@
-## Thank you for your contribution! 
+<!-- This template is **just a guide**, delete any and all parts which you don't need! -->
 
-Please add one or two sentences _why_ this PR was made, and optionally what it adds/changes…
+## 📝 Docs
 
-## Checklist
-
-### Before merging the PR
-
-- [ ] If applicable, does the PR contain enough unit / UI tests?
-- [ ] If applicable, did you add a before / after screenshot of the feature?
 - [ ] Did you update the [CHANGELOG.md](https://github.com/criticalmaps/criticalmaps-ios/blob/master/CHANGELOG.md)?
+
+## 📲 What
+
+A description of the change.
+
+## 🤔 Why
+
+Some background context on why the change is needed.
+
+## 👀 See
+
+Screenshots, external resources?
+- [ ] Added snapshot tests (using iPhone 8 Simulator)
+
+| Before 🐛 | After 🦋 |
+| --- | --- |
+|  |  |
+
+## ♿️ Accessibility 
+
+- [ ] Tap targets use minimum of 44x44 pts dimensions
+- [ ] Works with VoiceOver
+- [ ] Supports Dynamic Type 
