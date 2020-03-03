@@ -10,12 +10,6 @@
 import MapKit
 import XCTest
 
-extension CLLocationCoordinate2D: Equatable {
-    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
-    }
-}
-
 class IdentifiableAnnotationTests: XCTestCase {
     func testSetCoordianteOnInit() {
         let location = Location(longitude: 42, latitude: 42, timestamp: 0, name: nil, color: nil)
