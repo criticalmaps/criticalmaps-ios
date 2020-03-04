@@ -6,14 +6,18 @@ import MapKit
 @available(iOS 11.0, *)
 final class CMMarkerAnnotationController: AnnotationController {
     private let rideChecker: RideChecker
+    private let outdatedCheckTimeinterval: TimeInterval
+    private var isRideOutdatedTimer: Timer?
 
     init(
         ridechecker: RideChecker,
+        outdatedCheckTimeinterval: TimeInterval,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
         annotationViewType: AnnotationController.AnnotationViewType
     ) {
         rideChecker = ridechecker
+        self.outdatedCheckTimeinterval = outdatedCheckTimeinterval
         super.init(
             mapView: mapView,
             annotationType: annotationType,
@@ -21,9 +25,14 @@ final class CMMarkerAnnotationController: AnnotationController {
         )
     }
 
-    convenience init(mapView: MKMapView, rideChecker: RideChecker = RideChecker()) {
+    convenience init(
+        mapView: MKMapView,
+        rideChecker: RideChecker = RideChecker(),
+        outdatedCheckTimeinterval: TimeInterval = 120
+    ) {
         self.init(
             ridechecker: rideChecker,
+            outdatedCheckTimeinterval: outdatedCheckTimeinterval,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,
             annotationViewType: CMMarkerAnnotationView.self
@@ -38,12 +47,17 @@ final class CMMarkerAnnotationController: AnnotationController {
         fatalError("init(mapView:annotationType:annotationViewType:) has not been implemented")
     }
 
+    deinit {
+        isRideOutdatedTimer?.invalidate()
+    }
+
     public override func setup() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(checkRide(notification:)),
-            name: .positionOthersChanged,
-            object: nil
+        isRideOutdatedTimer = Timer.scheduledTimer(
+            timeInterval: outdatedCheckTimeinterval,
+            target: self,
+            selector: #selector(checkRide),
+            userInfo: nil,
+            repeats: true
         )
     }
 
@@ -51,7 +65,7 @@ final class CMMarkerAnnotationController: AnnotationController {
         mapView.addAnnotations(annotations)
     }
 
-    @objc private func checkRide(notification _: Notification) {
+    @objc private func checkRide() {
         guard let rideAnnotation = mapView.annotations.first(
             where: { $0 is CriticalMassAnnotation }
         ) as? CriticalMassAnnotation else {
@@ -66,14 +80,18 @@ final class CMMarkerAnnotationController: AnnotationController {
 
 final class CMAnnotationController: AnnotationController {
     private let rideChecker: RideChecker
+    private let outdatedCheckTimeinterval: TimeInterval
+    private var isRideOutdatedTimer: Timer?
 
     init(
         ridechecker: RideChecker,
+        outdatedCheckTimeinterval: TimeInterval,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
         annotationViewType: AnnotationController.AnnotationViewType
     ) {
         rideChecker = ridechecker
+        self.outdatedCheckTimeinterval = outdatedCheckTimeinterval
         super.init(
             mapView: mapView,
             annotationType: annotationType,
@@ -81,9 +99,14 @@ final class CMAnnotationController: AnnotationController {
         )
     }
 
-    convenience init(mapView: MKMapView, rideChecker: RideChecker = RideChecker()) {
+    convenience init(
+        mapView: MKMapView,
+        rideChecker: RideChecker = RideChecker(),
+        outdatedCheckTimeinterval: TimeInterval = 120
+    ) {
         self.init(
             ridechecker: rideChecker,
+            outdatedCheckTimeinterval: outdatedCheckTimeinterval,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,
             annotationViewType: CMAnnotationView.self
@@ -98,12 +121,17 @@ final class CMAnnotationController: AnnotationController {
         fatalError("init(mapView:annotationType:annotationViewType:) has not been implemented")
     }
 
+    deinit {
+        isRideOutdatedTimer?.invalidate()
+    }
+
     public override func setup() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(checkRide(notification:)),
-            name: .positionOthersChanged,
-            object: nil
+        isRideOutdatedTimer = Timer.scheduledTimer(
+            timeInterval: outdatedCheckTimeinterval,
+            target: self,
+            selector: #selector(checkRide),
+            userInfo: nil,
+            repeats: true
         )
     }
 

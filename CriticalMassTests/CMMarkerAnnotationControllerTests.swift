@@ -24,12 +24,14 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         let rideChecker = RideChecker(timeTraveler)
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
-            rideChecker: rideChecker
+            rideChecker: rideChecker,
+            outdatedCheckTimeinterval: 0.1
         )
         annotationController.update([rideAnnotation])
-        NotificationCenter.default.post(name: .positionOthersChanged, object: nil)
         // then
-        XCTAssertTrue(annotationController.mapView.annotations.isEmpty)
+        wait(interval: 0.2) {
+            XCTAssertTrue(self.annotationController.mapView.annotations.isEmpty)
+        }
     }
 
     func test_ControllerShouldNotRemoveAnnotationWhenRideStartedLessThen30MinutesAgo() {
@@ -42,11 +44,13 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         let rideChecker = RideChecker(timeTraveler)
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
-            rideChecker: rideChecker
+            rideChecker: rideChecker,
+            outdatedCheckTimeinterval: 0.1
         )
         annotationController.update([rideAnnotation])
-        NotificationCenter.default.post(name: .positionOthersChanged, object: nil)
         // then
-        XCTAssertFalse(annotationController.mapView.annotations.isEmpty)
+        wait(interval: 0.2) {
+            XCTAssertFalse(self.annotationController.mapView.annotations.isEmpty)
+        }
     }
 }
