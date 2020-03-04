@@ -68,7 +68,6 @@ class MapInfoViewController: UIViewController, IBConstructable {
         _ completion: CompletionHandler? = nil
     ) {
         func animateIn() {
-            defer { completion?() }
             infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
             infoViewContainer.isHidden = false
 
@@ -81,6 +80,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
                 self.view.layoutIfNeeded()
             }
             animator.addCompletion { _ in
+                completion?()
                 UIAccessibility.post(notification: .layoutChanged, argument: self.view)
             }
             animator.startAnimation()
@@ -96,11 +96,14 @@ class MapInfoViewController: UIViewController, IBConstructable {
     }
 
     public func dismissMapInfo(animated: Bool = true, _ completion: CompletionHandler? = nil) {
-        defer { completion?() }
+        let finishBlock: () -> Void = {
+            UIAccessibility.post(notification: .layoutChanged, argument: self.view)
+            completion?()
+        }
         if !animated {
             visibleBottomConstraint.isActive = false
             infoViewContainer.isHidden = true
-            UIAccessibility.post(notification: .layoutChanged, argument: view)
+            finishBlock()
         } else {
             let animator = UIViewPropertyAnimator(
                 duration: animationDuration,
@@ -112,7 +115,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
             }
             animator.addCompletion { _ in
                 self.infoViewContainer.isHidden = true
-                UIAccessibility.post(notification: .layoutChanged, argument: self.view)
+                finishBlock()
             }
             animator.startAnimation()
         }
