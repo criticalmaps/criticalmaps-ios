@@ -86,7 +86,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
             animator.startAnimation()
         }
 
-        if infoView.isHidden {
+        if !visibleBottomConstraint.isActive {
             animateIn()
         } else {
             dismissMapInfo(animated: false) {
