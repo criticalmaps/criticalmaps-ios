@@ -436,6 +436,7 @@
 		98C13288227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98C13289227F05E700291FCA /* IDStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStoreTests.swift; sourceTree = "<group>"; };
 		98C4BEA02218518B0060E701 /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
+		98CA8EDE2411482C000EFDCC /* CriticalMaps.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = CriticalMaps.xctestplan; path = CriticalMaps.xcodeproj/CriticalMaps.xctestplan; sourceTree = "<group>"; };
 		98CE731824085E4A0088F7B4 /* IdentifiableAnnotationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableAnnotationTests.swift; sourceTree = "<group>"; };
 		98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlayErrorHandler.swift; sourceTree = "<group>"; };
 		98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -748,6 +749,7 @@
 		94CF085319BDEAF2009FFF43 = {
 			isa = PBXGroup;
 			children = (
+				98CA8EDE2411482C000EFDCC /* CriticalMaps.xctestplan */,
 				949BD4B023CB4BEB00EA7BA4 /* CHANGELOG.md */,
 				949BD4B123CB4BEB00EA7BA4 /* README.md */,
 				94CF086519BDEAF2009FFF43 /* CriticalMass */,
