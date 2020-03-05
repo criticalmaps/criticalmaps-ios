@@ -25,12 +25,12 @@ public extension Date {
     }
 
     /// - Returns: Formatted time without date components.
-    func humanReadableTime() -> String {
+    var humanReadableTime: String {
         DateFormatter.localeShortTimeFormatter.string(from: self)
     }
 
     /// - Returns: Formatted date without time components.
-    func humanReadableDate() -> String {
+    var humanReadableDate: String {
         DateFormatter.localeShortDateFormatter.string(from: self)
     }
 }

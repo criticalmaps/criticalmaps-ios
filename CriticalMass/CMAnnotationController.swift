@@ -10,13 +10,13 @@ final class CMMarkerAnnotationController: AnnotationController {
     private var isRideOutdatedTimer: Timer?
 
     init(
-        ridechecker: RideChecker,
+        rideChecker: RideChecker,
         outdatedCheckTimeinterval: TimeInterval,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
         annotationViewType: AnnotationController.AnnotationViewType
     ) {
-        rideChecker = ridechecker
+        self.rideChecker = rideChecker
         self.outdatedCheckTimeinterval = outdatedCheckTimeinterval
         super.init(
             mapView: mapView,
@@ -31,7 +31,7 @@ final class CMMarkerAnnotationController: AnnotationController {
         outdatedCheckTimeinterval: TimeInterval = 120
     ) {
         self.init(
-            ridechecker: rideChecker,
+            rideChecker: rideChecker,
             outdatedCheckTimeinterval: outdatedCheckTimeinterval,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,
@@ -84,13 +84,13 @@ final class CMAnnotationController: AnnotationController {
     private var isRideOutdatedTimer: Timer?
 
     init(
-        ridechecker: RideChecker,
+        rideChecker: RideChecker,
         outdatedCheckTimeinterval: TimeInterval,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
         annotationViewType: AnnotationController.AnnotationViewType
     ) {
-        rideChecker = ridechecker
+        self.rideChecker = rideChecker
         self.outdatedCheckTimeinterval = outdatedCheckTimeinterval
         super.init(
             mapView: mapView,
@@ -105,7 +105,7 @@ final class CMAnnotationController: AnnotationController {
         outdatedCheckTimeinterval: TimeInterval = 120
     ) {
         self.init(
-            ridechecker: rideChecker,
+            rideChecker: rideChecker,
             outdatedCheckTimeinterval: outdatedCheckTimeinterval,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,

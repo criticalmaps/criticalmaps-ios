@@ -25,6 +25,6 @@ extension Ride {
 
     var titleAndTime: String {
         let titleWithoutDate = title.removedDatePattern()
-        return "\(titleWithoutDate)\n\(dateTime.humanReadableDate()) - \(dateTime.humanReadableTime())"
+        return "\(titleWithoutDate)\n\(dateTime.humanReadableDate) - \(dateTime.humanReadableTime)"
     }
 }
