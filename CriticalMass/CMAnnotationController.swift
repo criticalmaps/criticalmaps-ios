@@ -139,7 +139,7 @@ final class CMAnnotationController: AnnotationController {
         mapView.addAnnotations(annotations)
     }
 
-    @objc private func checkRide(notification _: Notification) {
+    @objc private func checkRide() {
         guard let rideAnnotation = mapView.annotations.first(
             where: { $0 is CriticalMassAnnotation }
         ) as? CriticalMassAnnotation else {
