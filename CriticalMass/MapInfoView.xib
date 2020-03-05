@@ -25,17 +25,17 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0er-9v-0oH">
-                            <rect key="frame" x="34" y="35" width="288" height="18"/>
+                            <rect key="frame" x="34" y="35" width="286" height="18"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KD-7H-6xi">
-                            <rect key="frame" x="332" y="23" width="42" height="42"/>
+                            <rect key="frame" x="330" y="22" width="44" height="44"/>
                             <accessibility key="accessibilityConfiguration" label="close"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="42" id="IFG-7Q-7Hw"/>
-                                <constraint firstAttribute="height" constant="42" id="v1J-py-nZ3"/>
+                                <constraint firstAttribute="width" constant="44" id="IFG-7Q-7Hw"/>
+                                <constraint firstAttribute="height" constant="44" id="v1J-py-nZ3"/>
                             </constraints>
                             <state key="normal" image="icon-close"/>
                             <connections>
