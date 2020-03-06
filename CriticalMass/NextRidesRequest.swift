@@ -11,7 +11,7 @@ struct NextRideQuery: Codable {
     let month = Date.getCurrent(\.month)
 }
 
-struct NextRideRequest: APIRequestDefining {
+struct NextRidesRequest: APIRequestDefining {
     typealias ResponseDataType = [Ride]
     var endpoint: Endpoint = Endpoint(
         baseUrl: Constants.criticalmassInEndpoint,

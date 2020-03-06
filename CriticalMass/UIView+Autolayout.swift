@@ -9,8 +9,15 @@
 import UIKit
 
 extension UIView {
+    var safeTopAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return safeAreaLayoutGuide.topAnchor
+        }
+        return topAnchor
+    }
+
     func addLayoutsCenter(in view: UIView, size: CGSize) {
-        translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false        
 
         view.addConstraints([
             centerXAnchor.constraint(equalTo: view.centerXAnchor),

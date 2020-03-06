@@ -8,7 +8,6 @@
 import MapKit
 
 class BikeAnnoationView: MKAnnotationView {
-    static let reuseIdentifier = "BikeAnnotationView"
     private enum Constants {
         static let shapeRect = CGRect(x: 0, y: 0, width: 7, height: 7)
     }
@@ -48,7 +47,6 @@ class BikeAnnoationView: MKAnnotationView {
 }
 
 class FriendAnnotationView: MKAnnotationView {
-    static let reuseIdentifier = "FriendAnnotationView"
     var friendView: FriendView?
 
     var friend: Friend? {

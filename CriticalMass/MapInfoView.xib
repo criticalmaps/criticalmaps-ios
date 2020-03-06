@@ -11,42 +11,58 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MapInfoView" customModule="CriticalMaps" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="404" height="375"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ska-l8-jZI">
-                    <rect key="frame" x="24" y="175.5" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="ska-l8-jZI" secondAttribute="height" multiplier="1:1" id="5u5-0t-h3L"/>
-                        <constraint firstAttribute="height" constant="24" id="8ue-3c-zQ4"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Critical Maps isn't updating. Please check back later." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MzO-ob-khj">
-                    <rect key="frame" x="72" y="16" width="308" height="343"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aoi-4j-UN4">
+                    <rect key="frame" x="20" y="10" width="374" height="88"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nDr-H4-9dq">
+                            <rect key="frame" x="0.0" y="32" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="nDr-H4-9dq" secondAttribute="height" multiplier="1:1" id="ZAM-Vt-YLn"/>
+                                <constraint firstAttribute="width" constant="24" id="p8K-Gp-dQT"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0er-9v-0oH">
+                            <rect key="frame" x="34" y="35" width="286" height="18"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KD-7H-6xi">
+                            <rect key="frame" x="330" y="22" width="44" height="44"/>
+                            <accessibility key="accessibilityConfiguration" label="close"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="IFG-7Q-7Hw"/>
+                                <constraint firstAttribute="height" constant="44" id="v1J-py-nZ3"/>
+                            </constraints>
+                            <state key="normal" image="icon-close"/>
+                            <connections>
+                                <action selector="didTapCloseButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="H8C-ZE-yS7"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="ska-l8-jZI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5Nb-U9-SQn"/>
-                <constraint firstAttribute="bottom" secondItem="MzO-ob-khj" secondAttribute="bottom" constant="16" id="Dss-eY-ixx"/>
-                <constraint firstItem="MzO-ob-khj" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" priority="999" constant="32" id="EBC-Sl-p61"/>
-                <constraint firstItem="MzO-ob-khj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="Xgl-AU-Rc9"/>
-                <constraint firstItem="MzO-ob-khj" firstAttribute="leading" secondItem="ska-l8-jZI" secondAttribute="trailing" constant="24" id="lmP-ac-Fim"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MzO-ob-khj" secondAttribute="trailing" constant="24" id="ofa-dF-U01"/>
-                <constraint firstItem="ska-l8-jZI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="xVX-ju-lmI"/>
+                <constraint firstAttribute="trailing" secondItem="aoi-4j-UN4" secondAttribute="trailing" constant="20" id="E7L-fx-Lli"/>
+                <constraint firstItem="aoi-4j-UN4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="JO9-ef-SDw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="aoi-4j-UN4" secondAttribute="bottom" constant="10" id="fTi-ni-AkV"/>
+                <constraint firstItem="aoi-4j-UN4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="x1o-qu-0bT"/>
             </constraints>
-            <nil key="simulatedTopBarMetrics"/>
-            <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="imageView" destination="ska-l8-jZI" id="fwZ-Xo-Tj4"/>
-                <outlet property="label" destination="MzO-ob-khj" id="LUL-aU-KfL"/>
+                <outlet property="closeButton" destination="7KD-7H-6xi" id="idE-rs-B4y"/>
+                <outlet property="imageView" destination="nDr-H4-9dq" id="JLl-Xd-s6k"/>
+                <outlet property="label" destination="0er-9v-0oH" id="XCR-5I-MmC"/>
             </connections>
-            <point key="canvasLocation" x="-8.6956521739130448" y="546.09375"/>
+            <point key="canvasLocation" x="137.68115942028987" y="415.17857142857139"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon-close" width="24" height="24"/>
+    </resources>
 </document>
