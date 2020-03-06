@@ -51,7 +51,7 @@ extension URLCodable {
             result[item.name] = item.value
         }
         let data = try JSONSerialization.data(withJSONObject: dict, options: [])
-        return try JSONDecoder().decode(type, from: data)
+        return try data.decoded()
     }
 }
 
