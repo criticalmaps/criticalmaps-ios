@@ -29,6 +29,18 @@ extension UserDefaults {
         static let usesCounterKey = "usesCounter"
         static let lastRatedVersionKey = "lastRatedVersion"
         static let userNameKey = "username"
+        static let nextRideRadius = "nextRideRadius"
+    }
+
+    // TODO: Move default value to PreferenceStore
+    /// - Returns: Searchradius in Kilometer. Default value is 20
+    public var nextRideRadius: Int {
+        set { set(newValue, forKey: Keys.nextRideRadius) }
+        get {
+            let radius = integer(forKey: Keys.nextRideRadius)
+            guard radius != 0 else { return 20 } // Returns a default radius of 20 Kilometer to search for events
+            return radius
+        }
     }
 
     public var username: String? {

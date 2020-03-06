@@ -13,7 +13,7 @@ class AppController {
     private var simulationModeEnabled = false
 
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, errorHandler: mapOverlayErrorHandler, networkObserver: networkObserver)
+        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, networkObserver: networkObserver)
     }()
 
     private lazy var networkOperator: NetworkOperator = {
@@ -53,15 +53,13 @@ class AppController {
         TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
 
-    private lazy var mapOverlayErrorHandler: ErrorHandler = {
-        MapOverlayErrorHandler(presentInfoViewHandler: mapViewController.presentMapInfo)
-    }()
-
     lazy var mapViewController: MapViewController = {
         MapViewController(
             themeController: self.themeController,
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
-            nextRideHandler: CMInApiHandler(networkLayer: networkOperator)
+            nextRideManager: NextRideManager(
+                apiHandler: CMInApiHandler(networkLayer: networkOperator)
+            )
         )
     }()
 
