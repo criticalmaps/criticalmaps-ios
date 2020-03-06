@@ -33,7 +33,6 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:CriticalMaps.xcodeproj",
         "identifier" : "94CF087619BDEAF2009FFF43",
