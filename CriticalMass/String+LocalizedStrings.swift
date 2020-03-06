@@ -27,6 +27,8 @@ extension String {
     static let settingsOpenSourceTitle = NSLocalizedString("settings.opensource.title", comment: "")
     static let settingsOpenSourceDetail = NSLocalizedString("settings.opensource.detail", comment: "")
     static let settingsOpenSourceAction = NSLocalizedString("settings.opensource.action", comment: "")
+    static let settingsCriticalMassDotInTitle = NSLocalizedString("settings.criticalMassDotIn.title", comment: "")
+    static let settingsCriticalMassDotInDetail = NSLocalizedString("settings.criticalMassDotIn.detail", comment: "")
     static let settingsFriends = NSLocalizedString("settings.friends", comment: "")
     static let settingsFriendsSettings = NSLocalizedString("settings.friends.settings", comment: "")
     static let settingsFriendsShowID = NSLocalizedString("settings.friends.showID", comment: "")
