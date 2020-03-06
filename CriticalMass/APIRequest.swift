@@ -5,18 +5,19 @@ enum APIRequestBuildError: Error {
 }
 
 public protocol APIRequestDefining {
+    associatedtype QueryDefiningDataType: Encodable = String
     associatedtype ResponseDataType: Decodable
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
-    var queryItem: Encodable? { get }
+    var queryItem: QueryDefiningDataType? { get }
     var requiresBackgroundTask: Bool { get }
     func makeRequest() throws -> URLRequest
     func parseResponse(data: Data) throws -> ResponseDataType
 }
 
 extension APIRequestDefining {
-    var queryItem: Encodable? {
+    var queryItem: QueryDefiningDataType? {
         nil
     }
 }
