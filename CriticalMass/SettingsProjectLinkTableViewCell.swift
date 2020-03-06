@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable {
+class SettingsProjectLinkTableViewCell: UITableViewCell, IBConstructable {
     @IBOutlet var backgroundImageView: UIImageView! {
         didSet {
             backgroundImageView.layer.cornerRadius = 16.0
@@ -48,13 +48,6 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
         }
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        titleLabel.text = String.settingsOpenSourceTitle
-        detailLabel.text = String.settingsOpenSourceDetail
-        actionLabel.text = String.settingsOpenSourceAction.uppercased()
-    }
-
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         let updateBlock = {
             self.selectionOverlay.alpha = highlighted ? 1 : 0
@@ -65,5 +58,28 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
         } else {
             updateBlock()
         }
+    }
+}
+
+extension SettingsProjectLinkTableViewCell {
+    struct CellConfiguration {
+        let title: String
+        let detail: String
+        let actionTitle: String
+        let image: UIImage
+
+        static let github = CellConfiguration(
+            title: String.settingsOpenSourceTitle,
+            detail: String.settingsOpenSourceDetail,
+            actionTitle: String.settingsOpenSourceAction.uppercased(),
+            image: UIImage(named: "GithubBanner")!
+        )
+
+        static let criticalMapsDotIn = CellConfiguration(
+            title: String.settingsCriticalMassDotInTitle,
+            detail: String.settingsCriticalMassDotInDetail,
+            actionTitle: String.settingsOpenSourceAction.uppercased(),
+            image: UIImage(named: "banner cm")!
+        )
     }
 }
