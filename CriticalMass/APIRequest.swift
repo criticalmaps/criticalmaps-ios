@@ -5,20 +5,18 @@ enum APIRequestBuildError: Error {
 }
 
 public protocol APIRequestDefining {
-    // String is just a default implementation and should be redefined if the Request uses query items
-    associatedtype QueryDefiningDataType: Encodable = String
     associatedtype ResponseDataType: Decodable
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
-    var queryItem: QueryDefiningDataType? { get }
+    var queryItem: Encodable? { get }
     var requiresBackgroundTask: Bool { get }
     func makeRequest() throws -> URLRequest
     func parseResponse(data: Data) throws -> ResponseDataType
 }
 
 extension APIRequestDefining {
-    var queryItem: QueryDefiningDataType? {
+    var queryItem: Encodable? {
         nil
     }
 }
@@ -36,7 +34,7 @@ extension APIRequestDefining {
             components.path = path
         }
         if let queryItem = queryItem {
-            components.queryItems = try URLQueryItem.encode(codable: queryItem)
+            components.queryItems = try URLQueryItem.encode(encodable: queryItem)
         }
         guard let url = components.url else {
             throw APIRequestBuildError.invalidURL

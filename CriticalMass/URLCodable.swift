@@ -30,7 +30,7 @@ extension URLCodable {
         urlComponents.scheme = scheme
         urlComponents.host = host
         urlComponents.path = path
-        urlComponents.queryItems = try URLQueryItem.encode(codable: queryObject)
+        urlComponents.queryItems = try URLQueryItem.encode(encodable: queryObject)
         guard let result = urlComponents.url?.absoluteString else {
             throw URLCodableError.encodingFailed
         }
@@ -56,8 +56,8 @@ extension URLCodable {
 }
 
 extension URLQueryItem {
-    static func encode<T: Encodable>(codable: T) throws -> [URLQueryItem] {
-        let jsonData = try JSONEncoder().encode(codable)
+    static func encode(encodable: Encodable) throws -> [URLQueryItem] {
+        let jsonData = try encodable.encoded()
         guard let dict = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] else {
             throw URLCodableError.encodingFailed
         }
