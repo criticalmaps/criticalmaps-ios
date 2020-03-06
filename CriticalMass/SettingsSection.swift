@@ -8,9 +8,15 @@
 
 import UIKit
 
-enum Section: Int, CaseIterable {
+enum Section: CaseIterable {
+    typealias AllCases = [Section]
+
+    static var allCases: Section.AllCases {
+        [.preferences, .projectLinks([.github, .criticalMapsDotIn]), .info]
+    }
+
     case preferences
-    case github
+    case projectLinks([SettingsProjectLinkTableViewCell.CellConfiguration])
     case info
 
     struct Model {
@@ -32,7 +38,7 @@ enum Section: Int, CaseIterable {
     var title: String? {
         switch self {
         case .preferences,
-             .github:
+             .projectLinks:
             return nil
         case .info:
             return String.settingsSectionInfo
@@ -40,15 +46,19 @@ enum Section: Int, CaseIterable {
     }
 
     static var allCellClasses: [IBConstructable.Type] {
-        [SettingsSwitchTableViewCell.self, SettingsGithubTableViewCellTableViewCell.self, SettingsInfoTableViewCell.self]
+        [
+            SettingsSwitchTableViewCell.self,
+            SettingsProjectLinkTableViewCell.self,
+            SettingsInfoTableViewCell.self
+        ]
     }
 
     func cellClass(action: Action) -> IBConstructable.Type {
         switch (self, action) {
         case (_, .switch(_)):
             return SettingsSwitchTableViewCell.self
-        case (.github, _):
-            return SettingsGithubTableViewCellTableViewCell.self
+        case (.projectLinks, _):
+            return SettingsProjectLinkTableViewCell.self
         default:
             return SettingsInfoTableViewCell.self
         }
@@ -66,8 +76,11 @@ enum Section: Int, CaseIterable {
                 models.insert(friendsModel, at: 0)
             }
             return models
-        case .github:
-            return [Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint))]
+        case .projectLinks:
+            return [
+                Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint)),
+                Model(action: .open(url: Constants.criticalMassDotInURL))
+            ]
         case .info:
             return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
                     Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
