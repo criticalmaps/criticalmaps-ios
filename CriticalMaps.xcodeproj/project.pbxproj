@@ -19,7 +19,6 @@
 		3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FA23B0DF5D00B33403 /* GrowingTextView */; };
 		3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */; };
 		3F6BF253240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */; };
-		3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C5674239861E200A6B552 /* SDWebImage */; };
 		3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7530E3A5235A400900F5E55C /* XCTest.framework */; };
 		3F7419F023B0E2A600E8E593 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EF23B0E2A600E8E593 /* SnapshotTesting */; };
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
@@ -136,6 +135,7 @@
 		98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5922872DB300592D55 /* FollowFriendsViewController.swift */; };
 		98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5C22872E4300592D55 /* QRCodeView.swift */; };
 		98003D602287301000592D55 /* FollowURLObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5F2287301000592D55 /* FollowURLObjectTests.swift */; };
+		98031CF024125A94006CEA53 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98031CEF24125A94006CEA53 /* SDWebImage */; };
 		9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176421FC71770077D419 /* MessagesTableViewController.swift */; };
 		9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */; };
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
@@ -217,7 +217,6 @@
 		98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C13289227F05E700291FCA /* IDStoreTests.swift */; };
 		98C4BEA12218518B0060E701 /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C4BEA02218518B0060E701 /* UserTrackingButton.swift */; };
 		98CE731924085E4A0088F7B4 /* IdentifiableAnnotationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE731824085E4A0088F7B4 /* IdentifiableAnnotationTests.swift */; };
-		98DA81A92412565400A42C8A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98DA81A82412565400A42C8A /* SDWebImage */; };
 		98DDF9E823D4F8E800E55BE7 /* MapOverlayErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */; };
 		98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */; };
 		98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */; };
@@ -503,10 +502,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98031CF024125A94006CEA53 /* SDWebImage in Frameworks */,
 				94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */,
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
-				3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */,
-				98DA81A92412565400A42C8A /* SDWebImage in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */,
 				3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */,
@@ -1056,7 +1054,7 @@
 			packageProductDependencies = (
 				3F63A9F423B0DF2D00B33403 /* Crypto */,
 				3F63A9FA23B0DF5D00B33403 /* GrowingTextView */,
-				98DA81A82412565400A42C8A /* SDWebImage */,
+				98031CEF24125A94006CEA53 /* SDWebImage */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -1947,14 +1945,6 @@
 				minimumVersion = 0.7.2;
 			};
 		};
-		3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.4.0;
-			};
-		};
 		98DA81A72412565400A42C8A /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -1976,17 +1966,12 @@
 			package = 3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
 			productName = GrowingTextView;
 		};
-		3F6C5674239861E200A6B552 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
 		3F7419EF23B0E2A600E8E593 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
 		};
-		98DA81A82412565400A42C8A /* SDWebImage */ = {
+		98031CEF24125A94006CEA53 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98DA81A72412565400A42C8A /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
