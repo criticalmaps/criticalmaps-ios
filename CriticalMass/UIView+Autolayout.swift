@@ -17,7 +17,7 @@ extension UIView {
     }
 
     func addLayoutsCenter(in view: UIView, size: CGSize) {
-        translatesAutoresizingMaskIntoConstraints = false        
+        translatesAutoresizingMaskIntoConstraints = false
 
         view.addConstraints([
             centerXAnchor.constraint(equalTo: view.centerXAnchor),
