@@ -46,7 +46,7 @@ extension URLCodable {
         return try self.init(scheme: urlComponents.scheme, host: urlComponents.host, path: urlComponents.path, queryObject: codableObject)
     }
 
-    private static func decode<T: Codable>(type: T.Type, from items: [URLQueryItem]) throws -> T {
+    private static func decode<T: Codable>(type _: T.Type, from items: [URLQueryItem]) throws -> T {
         let dict = items.reduce(into: [String: String]()) { result, item in
             result[item.name] = item.value
         }
