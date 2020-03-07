@@ -75,7 +75,7 @@ extension SettingsProjectLinkTableViewCell {
             image: UIImage(named: "GithubBanner")!
         )
 
-        static let criticalMapsDotIn = CellConfiguration(
+        static let criticalMassDotIn = CellConfiguration(
             title: String.settingsCriticalMassDotInTitle,
             detail: String.settingsCriticalMassDotInDetail,
             actionTitle: String.settingsOpenSourceAction.uppercased(),

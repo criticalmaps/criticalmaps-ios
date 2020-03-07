@@ -12,7 +12,7 @@ enum Section: CaseIterable {
     typealias AllCases = [Section]
 
     static var allCases: Section.AllCases {
-        [.preferences, .projectLinks([.github, .criticalMapsDotIn]), .info]
+        [.preferences, .projectLinks([.github, .criticalMassDotIn]), .info]
     }
 
     case preferences
