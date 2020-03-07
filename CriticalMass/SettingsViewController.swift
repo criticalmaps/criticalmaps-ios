@@ -145,17 +145,6 @@ class SettingsViewController: UITableViewController {
 
 extension SettingsViewController {
     fileprivate func configure(_ cell: UITableViewCell, for section: Section, indexPath: IndexPath) {
-        let model = section.models[indexPath.row]
-        if let switchCell = cell as? SettingsSwitchTableViewCell,
-            case let .switch(switchableType) = model.action {
-            if switchableType == ObservationModePreferenceStore.self {
-                switchCell.configure(switchable: ObservationModePreferenceStore())
-            } else if switchableType == ThemeController.self {
-                switchCell.configure(switchable: themeController)
-            } else {
-                assertionFailure("Switchable not found")
-            }
-        }
         switch section {
         case let .projectLinks(configurations):
             if let projectLinkCell = cell as? SettingsProjectLinkTableViewCell {
@@ -166,6 +155,17 @@ extension SettingsViewController {
                 projectLinkCell.backgroundImageView.image = model.image
             }
         default:
+            let model = section.models[indexPath.row]
+            if let switchCell = cell as? SettingsSwitchTableViewCell,
+                case let .switch(switchableType) = model.action {
+                if switchableType == ObservationModePreferenceStore.self {
+                    switchCell.configure(switchable: ObservationModePreferenceStore())
+                } else if switchableType == ThemeController.self {
+                    switchCell.configure(switchable: themeController)
+                } else {
+                    assertionFailure("Switchable not found")
+                }
+            }
             cell.textLabel?.text = model.title
             cell.detailTextLabel?.text = model.subtitle
         }
