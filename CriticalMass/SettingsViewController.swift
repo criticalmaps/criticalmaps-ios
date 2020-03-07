@@ -103,9 +103,11 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = Section.allCases[indexPath.section]
-        let model = section.models[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: section.cellClass(action: model.action)), for: indexPath)
-        configure(cell, for: model)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: section.cellClass(action: section.models[indexPath.row].action)),
+            for: indexPath
+        )
+        configure(cell, for: section, indexPath: indexPath)
         return cell
     }
 
@@ -142,18 +144,30 @@ class SettingsViewController: UITableViewController {
 }
 
 extension SettingsViewController {
-    fileprivate func configure(_ cell: UITableViewCell, for model: Section.Model) {
-        if let switchCell = cell as? SettingsSwitchTableViewCell,
-            case let .switch(switchableType) = model.action {
-            if switchableType == ObservationModePreferenceStore.self {
-                switchCell.configure(switchable: ObservationModePreferenceStore())
-            } else if switchableType == ThemeController.self {
-                switchCell.configure(switchable: themeController)
-            } else {
-                assertionFailure("Switchable not found")
+    fileprivate func configure(_ cell: UITableViewCell, for section: Section, indexPath: IndexPath) {
+        switch section {
+        case let .projectLinks(configurations):
+            if let projectLinkCell = cell as? SettingsProjectLinkTableViewCell {
+                let model = configurations[indexPath.row]
+                projectLinkCell.titleLabel?.text = model.title
+                projectLinkCell.detailLabel?.text = model.detail
+                projectLinkCell.actionLabel.text = model.actionTitle
+                projectLinkCell.backgroundImageView.image = model.image
             }
+        default:
+            let model = section.models[indexPath.row]
+            if let switchCell = cell as? SettingsSwitchTableViewCell,
+                case let .switch(switchableType) = model.action {
+                if switchableType == ObservationModePreferenceStore.self {
+                    switchCell.configure(switchable: ObservationModePreferenceStore())
+                } else if switchableType == ThemeController.self {
+                    switchCell.configure(switchable: themeController)
+                } else {
+                    assertionFailure("Switchable not found")
+                }
+            }
+            cell.textLabel?.text = model.title
+            cell.detailTextLabel?.text = model.subtitle
         }
-        cell.textLabel?.text = model.title
-        cell.detailTextLabel?.text = model.subtitle
     }
 }
