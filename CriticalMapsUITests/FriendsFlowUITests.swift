@@ -111,7 +111,7 @@ private enum Safari {
         }
 
         XCTContext.runActivity(named: "Open URL \(urlString) in Safari") { _ in
-            safari.buttons["URL"].tap()
+            safari.textFields["URL"].tap()
 
             safari.typeText("\(urlString)")
             safari.typeText("\n")
