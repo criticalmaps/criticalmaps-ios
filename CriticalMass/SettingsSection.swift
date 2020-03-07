@@ -46,11 +46,7 @@ enum Section: CaseIterable {
     }
 
     static var allCellClasses: [IBConstructable.Type] {
-        [
-            SettingsSwitchTableViewCell.self,
-            SettingsProjectLinkTableViewCell.self,
-            SettingsInfoTableViewCell.self
-        ]
+        [SettingsSwitchTableViewCell.self, SettingsProjectLinkTableViewCell.self, SettingsInfoTableViewCell.self]
     }
 
     func cellClass(action: Action) -> IBConstructable.Type {
