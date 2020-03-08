@@ -20,9 +20,9 @@ enum Section: CaseIterable {
     case info
 
     struct Model {
-        var title: String?
-        var subtitle: String?
-        var action: Action
+        let title: String?
+        let subtitle: String?
+        let action: Action
         let accessibilityIdentifier: String
 
         init(title: String? = nil, subtitle: String? = nil, action: Action, accessibilityIdentifier: String) {
