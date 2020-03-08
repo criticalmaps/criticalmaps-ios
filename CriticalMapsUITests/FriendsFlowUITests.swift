@@ -9,13 +9,13 @@
 import XCTest
 
 class FriendsFlowUITests: XCTestCase {
-    let app = XCUIApplication()
+    var app: XCUIApplication!
 
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
 
-        let app = XCUIApplication()
+        app = XCUIApplication()
         app.launchArguments += [
             "SKIP_ANIMATIONS",
             "ACTIVATE_FRIENDS",
