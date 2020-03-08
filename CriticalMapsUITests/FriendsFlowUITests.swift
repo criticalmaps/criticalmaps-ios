@@ -111,9 +111,19 @@ private enum Safari {
         }
 
         XCTContext.runActivity(named: "Open URL \(urlString) in Safari") { _ in
+            // In Xcode 11.4 beta it's a button
             let searchBar = safari.buttons["URL"]
-            XCTAssert(searchBar.waitForExistence(timeout: 5))
-            searchBar.tap()
+            if searchBar.waitForExistence(timeout: 5) {
+                XCTAssert(searchBar.exists,
+                          "Safari Search Bar is not a button")
+                searchBar.tap()
+            } else {
+                // In Xcode 11.3 it's a textfield
+                let searchBar = safari.textFields["URL"]
+                XCTAssert(searchBar.waitForExistence(timeout: 5),
+                          "Safari Search Bar is not a button or a textfield")
+                searchBar.tap()
+            }
 
             safari.typeText("\(urlString)")
             safari.typeText("\n")
