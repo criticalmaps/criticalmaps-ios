@@ -71,9 +71,8 @@ extension URLQueryItem {
                 // More types are currently not supported and should be added if needed
                 throw URLCodableError.encodingFailed
             }
-        }.sorted { a, b in
-            // The sorting is only required to make testing easier
-            a.name > b.name
         }
+        // The sorting is only required to make testing easier
+        .sorted(by: \.name)
     }
 }

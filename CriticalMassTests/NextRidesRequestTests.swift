@@ -13,7 +13,7 @@ class NextRidesRequestTests: XCTestCase {
         let request = NextRidesRequest(coordinate: CLLocationCoordinate2D(latitude: 42, longitude: 42), radius: 21)
         let urlRequest = try request.makeRequest()
         let outputString = urlRequest.url!.absoluteString
-        let expectedOutput = "https://criticalmass.in/api/ride?year=\(year)&radius=21&month=\(month)&centerLongitude=42&centerLatitude=42"
+        let expectedOutput = "https://criticalmass.in/api/ride?centerLatitude=42&centerLongitude=42&month=\(month)&radius=21&year=\(year)"
 
         XCTAssertEqual(outputString, expectedOutput)
     }
