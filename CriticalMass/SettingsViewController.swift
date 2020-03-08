@@ -166,6 +166,7 @@ extension SettingsViewController {
                     assertionFailure("Switchable not found")
                 }
             }
+            cell.accessibilityIdentifier = model.accessibilityIdentifier
             cell.textLabel?.text = model.title
             cell.detailTextLabel?.text = model.subtitle
         }
