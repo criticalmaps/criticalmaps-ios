@@ -107,11 +107,13 @@ private enum Safari {
 
         XCTContext.runActivity(named: "Launch Safari") { _ in
             safari.launch()
-            XCTAssertTrue(safari.waitForExistence(timeout: 10))
+            XCTAssert(safari.waitForExistence(timeout: 10))
         }
 
         XCTContext.runActivity(named: "Open URL \(urlString) in Safari") { _ in
-            safari.textFields["URL"].tap()
+            let searchBar = safari.buttons["URL"]
+            XCTAssert(searchBar.waitForExistence(timeout: 5))
+            searchBar.tap()
 
             safari.typeText("\(urlString)")
             safari.typeText("\n")
