@@ -5,7 +5,7 @@
 import XCTest
 
 class SettingsViewControllerSnapshotTests: XCTestCase {
-    private let size = CGSize(width: 320, height: 900)
+    private let size = CGSize(width: 320, height: 1200)
 
     func testGeneralAppearance() {
         // Given

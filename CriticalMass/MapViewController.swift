@@ -208,9 +208,6 @@ class MapViewController: UIViewController {
         guard let location = notification.object as? Location else { return }
         let coordinate = CLLocationCoordinate2D(location)
         focusOnCoordinate(coordinate)
-        guard Feature.events.isActive else {
-            return
-        }
         getNextRide(coordinate)
     }
 

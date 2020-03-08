@@ -19,10 +19,7 @@
 		3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FA23B0DF5D00B33403 /* GrowingTextView */; };
 		3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */; };
 		3F6BF253240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */; };
-		3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6C5674239861E200A6B552 /* SDWebImage */; };
 		3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7530E3A5235A400900F5E55C /* XCTest.framework */; };
-		3F7419EC23B0E29600E8E593 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EB23B0E29600E8E593 /* SDWebImage */; };
-		3F7419EE23B0E2A200E8E593 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419ED23B0E2A200E8E593 /* SDWebImage */; };
 		3F7419F023B0E2A600E8E593 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EF23B0E2A600E8E593 /* SnapshotTesting */; };
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
 		3F749B29236C641400C4A125 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 3F749B28236C641400C4A125 /* __Snapshots__ */; };
@@ -138,6 +135,7 @@
 		98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5922872DB300592D55 /* FollowFriendsViewController.swift */; };
 		98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5C22872E4300592D55 /* QRCodeView.swift */; };
 		98003D602287301000592D55 /* FollowURLObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98003D5F2287301000592D55 /* FollowURLObjectTests.swift */; };
+		98031CF024125A94006CEA53 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 98031CEF24125A94006CEA53 /* SDWebImage */; };
 		9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176421FC71770077D419 /* MessagesTableViewController.swift */; };
 		9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */; };
 		9804176B21FC7AF30077D419 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176A21FC7AF30077D419 /* ChatManager.swift */; };
@@ -174,8 +172,8 @@
 		982DA8D621FFAC0D00E2A51B /* TwitterManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */; };
 		982DA8D82202360800E2A51B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D72202360800E2A51B /* Constants.swift */; };
 		982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8D92203842D00E2A51B /* SettingsViewController.swift */; };
-		982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */; };
-		982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */; };
+		982DA8DF220386C600E2A51B /* SettingsProjectLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DA8DD220386C600E2A51B /* SettingsProjectLinkTableViewCell.swift */; };
+		982DA8E0220386C600E2A51B /* SettingsProjectLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982DA8DE220386C600E2A51B /* SettingsProjectLinkTableViewCell.xib */; };
 		98329A1D22D3796300A157EE /* CriticalMaps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98329A1B22D3796300A157EE /* CriticalMaps.xcdatamodeld */; };
 		98329A1F22D3BEA000A157EE /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98329A1E22D3BEA000A157EE /* KeychainHelper.swift */; };
 		98329A2322D3CADB00A157EE /* KeychainHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */; };
@@ -427,8 +425,8 @@
 		982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManagerTests.swift; sourceTree = "<group>"; };
 		982DA8D72202360800E2A51B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		982DA8D92203842D00E2A51B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGithubTableViewCellTableViewCell.swift; sourceTree = "<group>"; };
-		982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsGithubTableViewCellTableViewCell.xib; sourceTree = "<group>"; };
+		982DA8DD220386C600E2A51B /* SettingsProjectLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProjectLinkTableViewCell.swift; sourceTree = "<group>"; };
+		982DA8DE220386C600E2A51B /* SettingsProjectLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsProjectLinkTableViewCell.xib; sourceTree = "<group>"; };
 		98329A1C22D3796300A157EE /* CriticalMaps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CriticalMaps.xcdatamodel; sourceTree = "<group>"; };
 		98329A1E22D3BEA000A157EE /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
@@ -498,7 +496,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7419F023B0E2A600E8E593 /* SnapshotTesting in Frameworks */,
-				3F7419EE23B0E2A200E8E593 /* SDWebImage in Frameworks */,
 				3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,9 +504,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98031CF024125A94006CEA53 /* SDWebImage in Frameworks */,
 				94CF086219BDEAF2009FFF43 /* CoreGraphics.framework in Frameworks */,
 				94CF086419BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
-				3F6C5675239861E200A6B552 /* SDWebImage in Frameworks */,
 				94CF086019BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 				3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */,
 				3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */,
@@ -522,7 +519,6 @@
 			files = (
 				94CF087919BDEAF2009FFF43 /* XCTest.framework in Frameworks */,
 				94CF087B19BDEAF2009FFF43 /* UIKit.framework in Frameworks */,
-				3F7419EC23B0E29600E8E593 /* SDWebImage in Frameworks */,
 				94CF087A19BDEAF2009FFF43 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -990,8 +986,8 @@
 		98E7338C22039511005F311F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				982DA8DD220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift */,
-				982DA8DE220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib */,
+				982DA8DD220386C600E2A51B /* SettingsProjectLinkTableViewCell.swift */,
+				982DA8DE220386C600E2A51B /* SettingsProjectLinkTableViewCell.xib */,
 				98E73388220394E7005F311F /* SettingsSwitchTableViewCell.swift */,
 				98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */,
 				98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */,
@@ -1036,7 +1032,6 @@
 			);
 			name = CriticalMapsSnapshotTests;
 			packageProductDependencies = (
-				3F7419ED23B0E2A200E8E593 /* SDWebImage */,
 				3F7419EF23B0E2A600E8E593 /* SnapshotTesting */,
 			);
 			productName = CriticalMapsSnapshotTests;
@@ -1062,6 +1057,7 @@
 			packageProductDependencies = (
 				3F63A9F423B0DF2D00B33403 /* Crypto */,
 				3F63A9FA23B0DF5D00B33403 /* GrowingTextView */,
+				98031CEF24125A94006CEA53 /* SDWebImage */,
 			);
 			productName = CriticalMass;
 			productReference = 94CF085C19BDEAF2009FFF43 /* CriticalMaps.app */;
@@ -1082,7 +1078,6 @@
 			);
 			name = CriticalMapsTests;
 			packageProductDependencies = (
-				3F7419EB23B0E29600E8E593 /* SDWebImage */,
 			);
 			productName = CriticalMassTests;
 			productReference = 94CF087719BDEAF2009FFF43 /* CriticalMapsTests.xctest */;
@@ -1140,7 +1135,7 @@
 				3F63A9F323B0DF2D00B33403 /* XCRemoteSwiftPackageReference "Crypto" */,
 				3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */,
-				3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				98DA81A72412565400A42C8A /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 94CF085D19BDEAF2009FFF43 /* Products */;
 			projectDirPath = "";
@@ -1198,7 +1193,7 @@
 				98B480E221AB30700044D017 /* Launch Screen.storyboard in Resources */,
 				989F9FFC21C7F9AB00E71085 /* RuleTableViewCell.xib in Resources */,
 				949BD4B223CB4BEB00EA7BA4 /* CHANGELOG.md in Resources */,
-				982DA8E0220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.xib in Resources */,
+				982DA8E0220386C600E2A51B /* SettingsProjectLinkTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1414,7 +1409,7 @@
 				944D5EEF240CDED000993899 /* CLLocationCoordinate2D+Additions.swift in Sources */,
 				982DA8C721FF652700E2A51B /* TwitterManager.swift in Sources */,
 				9474E976224CF58100A812DC /* SettingsFooterView.swift in Sources */,
-				982DA8DF220386C600E2A51B /* SettingsGithubTableViewCellTableViewCell.swift in Sources */,
+				982DA8DF220386C600E2A51B /* SettingsProjectLinkTableViewCell.swift in Sources */,
 				75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */,
 				9810C382229830940011F718 /* RatingHelper.swift in Sources */,
 				9822A16821F24CA7007F5994 /* MapViewController.swift in Sources */,
@@ -1943,7 +1938,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.1;
+				minimumVersion = 1.7.2;
 			};
 		};
 		3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */ = {
@@ -1954,17 +1949,9 @@
 				minimumVersion = 0.7.2;
 			};
 		};
-		3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		98DA81A72412565400A42C8A /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.4.0;
-			};
-		};
-		3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.3.3;
@@ -1983,25 +1970,15 @@
 			package = 3F63A9F923B0DF5D00B33403 /* XCRemoteSwiftPackageReference "GrowingTextView" */;
 			productName = GrowingTextView;
 		};
-		3F6C5674239861E200A6B552 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F6C5673239861E200A6B552 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		3F7419EB23B0E29600E8E593 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		3F7419ED23B0E2A200E8E593 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3F63A9FC23B0DF7E00B33403 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
 		3F7419EF23B0E2A600E8E593 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3F63A9F623B0DF4E00B33403 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
+		};
+		98031CEF24125A94006CEA53 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98DA81A72412565400A42C8A /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 
