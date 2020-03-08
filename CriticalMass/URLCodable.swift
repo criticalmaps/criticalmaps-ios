@@ -64,10 +64,9 @@ extension URLQueryItem {
         return try dict.lazy.map { key, value in
             if let stringConvertible = value as? CustomStringConvertible {
                 return URLQueryItem(name: key, value: String(describing: stringConvertible))
-            } else {
-                // More types are currently not supported and should be added if needed
-                throw URLCodableError.encodingFailed
             }
+            // More types are currently not supported and should be added if needed
+            throw URLCodableError.encodingFailed
         }
         // The sorting is only required to make testing easier
         .sorted(by: \.name)
