@@ -61,13 +61,10 @@ extension URLQueryItem {
         guard let dict = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] else {
             throw URLCodableError.encodingFailed
         }
-        return try dict.lazy.map { (key, value) -> URLQueryItem in
-            switch value {
-            case let stringValue as String:
-                return URLQueryItem(name: key, value: stringValue)
-            case let stringConvertible as CustomStringConvertible:
+        return try dict.lazy.map { key, value in
+            if let stringConvertible = value as? CustomStringConvertible {
                 return URLQueryItem(name: key, value: String(describing: stringConvertible))
-            default:
+            } else {
                 // More types are currently not supported and should be added if needed
                 throw URLCodableError.encodingFailed
             }
