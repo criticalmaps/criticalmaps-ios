@@ -10,7 +10,7 @@ class FormatDisplayTests: XCTestCase {
 
     let calendar: Calendar = {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(secondsFromGMT: 1)!
+        calendar.timeZone = TimeZone(identifier: "Europe/Berlin")!
         return calendar
     }()
 
