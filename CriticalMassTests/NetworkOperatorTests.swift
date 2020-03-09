@@ -19,7 +19,6 @@ class NetworkOperatorTests: XCTestCase {
         var httpMethod: HTTPMethod = .get
         var headers: HTTPHeaders?
         typealias ResponseDataType = ResponseData
-        var queryItems: [URLQueryItem]?
     }
 
     func testNoData() {

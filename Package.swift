@@ -49,7 +49,9 @@ let package = Package(
                       "WaitOperation.swift",
                       "UpdateLocationOperation.swift",
                       "UpdateDataOperation.swift",
-                      "AsyncOperation.swift"]
+                      "AsyncOperation.swift",
+                      "URLCodable.swift",
+                      "Sequence+Additions.swift"]
         ),
     ]
 )

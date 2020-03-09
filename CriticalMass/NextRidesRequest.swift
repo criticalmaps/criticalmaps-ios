@@ -3,15 +3,15 @@
 
 import CoreLocation
 
-struct NextRidesRequest: APIRequestDefining {
-    private enum QueryKeys {
-        static let centerLatitude: String = "centerLatitude"
-        static let centerLongitude: String = "centerLongitude"
-        static let radius: String = "radius"
-        static let year: String = "year"
-        static let month: String = "month"
-    }
+struct NextRideQuery: Codable {
+    let centerLatitude: CLLocationDegrees
+    let centerLongitude: CLLocationDegrees
+    let radius: Int
+    let year = Date.getCurrent(\.year)
+    let month = Date.getCurrent(\.month)
+}
 
+struct NextRidesRequest: APIRequestDefining {
     typealias ResponseDataType = [Ride]
     var endpoint: Endpoint = Endpoint(
         baseUrl: Constants.criticalmassInEndpoint,
@@ -19,24 +19,10 @@ struct NextRidesRequest: APIRequestDefining {
     )
     var headers: HTTPHeaders?
     var httpMethod: HTTPMethod = .get
-    var queryItems: [URLQueryItem]? {
-        [
-            URLQueryItem(name: QueryKeys.centerLatitude, value: String(describing: coordinate.latitude)),
-            URLQueryItem(name: QueryKeys.centerLongitude, value: String(describing: coordinate.longitude)),
-            URLQueryItem(name: QueryKeys.radius, value: String(describing: radius)),
-            URLQueryItem(name: QueryKeys.year, value: String(describing: year)),
-            URLQueryItem(name: QueryKeys.month, value: String(describing: month)),
-        ]
-    }
+    var queryItem: NextRideQuery?
 
-    private let coordinate: CLLocationCoordinate2D
-    private let radius: Int
-    private let year = Date.getCurrent(\.year)
-    private let month = Date.getCurrent(\.month)
-
-    init(coordinate: CLLocationCoordinate2D, radius: Int = UserDefaults.standard.nextRideRadius) {
-        self.coordinate = coordinate
-        self.radius = radius
+    init(coordinate: CLLocationCoordinate2D, radius: Int = 10) {
+        queryItem = NextRideQuery(centerLatitude: coordinate.latitude, centerLongitude: coordinate.longitude, radius: radius)
     }
 
     func parseResponse(data: Data) throws -> ResponseDataType {
