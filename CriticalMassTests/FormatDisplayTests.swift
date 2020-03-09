@@ -11,6 +11,14 @@ class FormatDisplayTests: XCTestCase {
         Tweet(text: "Hello World", created_at: self.date, user: TwitterUser(name: "Jan  Ullrich", screen_name: "", profile_image_url_https: ""), id_str: "1")
     }()
 
+    override func setUp() {
+        super.setUp()
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 1)!
+        FormatDisplay.calendar = calendar
+    }
+
     func testFormatTweetSeconds() {
         FormatDisplay.currentDate = generateDate(from: date, travelInterval: .seconds(49))
 
