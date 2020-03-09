@@ -24,6 +24,7 @@
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
 		3F749B29236C641400C4A125 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 3F749B28236C641400C4A125 /* __Snapshots__ */; };
 		3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */; };
+		3F84CA5D23BA20FE00E96179 /* FriendsFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84CA5C23BA20FE00E96179 /* FriendsFlowUITests.swift */; };
 		3F997955239D9DD5006DB96B /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997954239D9DD5006DB96B /* Feature.swift */; };
 		3FDA7C07240B0E15004EE8A6 /* MockLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA7C06240B0E15004EE8A6 /* MockLocationProvider.swift */; };
 		3FDA7C08240B0E15004EE8A6 /* MockLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA7C06240B0E15004EE8A6 /* MockLocationProvider.swift */; };
@@ -268,6 +269,7 @@
 		3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F749B28236C641400C4A125 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleDescriptionLabel.swift; sourceTree = "<group>"; };
+		3F84CA5C23BA20FE00E96179 /* FriendsFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFlowUITests.swift; sourceTree = "<group>"; };
 		3F997954239D9DD5006DB96B /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		3FDA7C06240B0E15004EE8A6 /* MockLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationProvider.swift; sourceTree = "<group>"; };
 		3FDA7C09240B0E40004EE8A6 /* MockNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkLayer.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 			children = (
 				3F137FA52349CADC006B26AB /* Info.plist */,
 				3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */,
+				3F84CA5C23BA20FE00E96179 /* FriendsFlowUITests.swift */,
 				3F137FB92349CD71006B26AB /* SnapshotHelper.swift */,
 			);
 			path = CriticalMapsUITests;
@@ -1271,6 +1274,7 @@
 			files = (
 				3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */,
 				3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */,
+				3F84CA5D23BA20FE00E96179 /* FriendsFlowUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

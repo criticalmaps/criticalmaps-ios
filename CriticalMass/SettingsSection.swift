@@ -20,14 +20,16 @@ enum Section: CaseIterable {
     case info
 
     struct Model {
-        var title: String?
-        var subtitle: String?
-        var action: Action
+        let title: String?
+        let subtitle: String?
+        let action: Action
+        let accessibilityIdentifier: String
 
-        init(title: String? = nil, subtitle: String? = nil, action: Action) {
+        init(title: String? = nil, subtitle: String? = nil, action: Action, accessibilityIdentifier: String) {
             self.title = title
             self.subtitle = subtitle
             self.action = action
+            self.accessibilityIdentifier = accessibilityIdentifier
         }
     }
 
@@ -64,23 +66,23 @@ enum Section: CaseIterable {
         switch self {
         case .preferences:
             var models = [
-                Model(title: String.themeLocalizedString, action: .switch(ThemeController.self)),
-                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self))
+                Model(title: String.themeLocalizedString, action: .switch(ThemeController.self), accessibilityIdentifier: "Theme"),
+                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode")
             ]
             if Feature.friends.isActive {
-                let friendsModel = Model(title: "Friends", subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self))
+                let friendsModel = Model(title: .settingsFriends, subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self), accessibilityIdentifier: "Friends")
                 models.insert(friendsModel, at: 0)
             }
             return models
         case .projectLinks:
             return [
-                Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint)),
-                Model(action: .open(url: Constants.criticalMassDotInURL))
+                Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint), accessibilityIdentifier: "GitHub"),
+                Model(action: .open(url: Constants.criticalMassDotInURL), accessibilityIdentifier: "CriticalMass.in")
             ]
         case .info:
-            return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite)),
-                    Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage)),
-                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage))]
+            return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
+                    Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
+                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")]
         }
     }
 
