@@ -31,6 +31,15 @@ class TimeTravlelerTests: XCTestCase {
         XCTAssertEqual(futureDate, sut.generateDate())
     }
 
+    func testTimeTravelerShouldGenerateTimeInFutureWhenTravelByDays() {
+        // given
+        let futureDate = Date(timeIntervalSince1970: 1_600_086_400)
+        // when
+        sut.travelTime(by: .days(1))
+        // then
+        XCTAssertEqual(futureDate, sut.generateDate())
+    }
+
     func testTimeTravelerShouldGenerateTimeInPastWhenTravelByMinutes() {
         // given
         let futureDate = Date(timeIntervalSince1970: 1_599_999_940)
@@ -45,6 +54,15 @@ class TimeTravlelerTests: XCTestCase {
         let futureDate = Date(timeIntervalSince1970: 1_599_996_400)
         // when
         sut.travelTime(by: .hours(-1))
+        // then
+        XCTAssertEqual(futureDate, sut.generateDate())
+    }
+
+    func testTimeTravelerShouldGenerateTimeInPastWhenTravelByDays() {
+        // given
+        let futureDate = Date(timeIntervalSince1970: 1_599_913_600)
+        // when
+        sut.travelTime(by: .days(-1))
         // then
         XCTAssertEqual(futureDate, sut.generateDate())
     }

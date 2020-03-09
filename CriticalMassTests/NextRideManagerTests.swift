@@ -83,6 +83,24 @@ class NextRideManagerTests: XCTestCase {
         // then
         wait(for: [exp], timeout: 1)
     }
+
+    func testManagerShouldReturnFailureWhenNetworkRequestFailed() {
+        // given
+        networkLayer.mockResponse = nil
+        // when
+        let exp = expectation(description: "Wait for response")
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure:
+                break
+            }
+            exp.fulfill()
+        }
+        // then
+        wait(for: [exp], timeout: 1)
+    }
 }
 
 extension Ride {
