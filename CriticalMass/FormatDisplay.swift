@@ -29,11 +29,7 @@ private extension DateComponents {
 }
 
 enum FormatDisplay {
-    // inject current date to be able to keep the same time difference between tweet date and current date
-    static var currentDate = Date()
-    static var calendar = Calendar.current
-
-    static func dateString(for tweet: Tweet) -> String? {
+    static func dateString(for tweet: Tweet, currentDate: Date = Date(), calendar: Calendar = .current) -> String? {
         let components = calendar.dateComponents(
             [.second, .minute, .hour, .day, .month],
             from: tweet.created_at, to: currentDate
@@ -46,9 +42,10 @@ enum FormatDisplay {
         return formatter.string(from: components)
     }
 
-    static func hoursAndMinutesDateString(from message: ChatMessage) -> String {
+    static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
         let date = Date(timeIntervalSince1970: message.timestamp)
         let formatter = DateFormatter()
+        formatter.calendar = calendar
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
