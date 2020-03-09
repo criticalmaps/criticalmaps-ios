@@ -46,6 +46,7 @@ enum FormatDisplay {
         let date = Date(timeIntervalSince1970: message.timestamp)
         let formatter = DateFormatter()
         formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
