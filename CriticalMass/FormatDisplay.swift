@@ -34,7 +34,7 @@ enum FormatDisplay {
 
     static func dateString(for tweet: Tweet) -> String? {
         let components = Calendar.current.dateComponents(
-            [.minute, .hour, .day, .month],
+            [.second, .minute, .hour, .day, .month],
             from: tweet.created_at, to: currentDate
         ).dateComponentFromBiggestComponent
 

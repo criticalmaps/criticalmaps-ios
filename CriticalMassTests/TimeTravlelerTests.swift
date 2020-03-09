@@ -13,6 +13,15 @@ class TimeTravlelerTests: XCTestCase {
         sut = TimeTraveler(date)
     }
 
+    func testTimeTravelerShouldGenerateTimeInFutureWhenTravelBySeconds() {
+        // given
+        let futureDate = Date(timeIntervalSince1970: 1_600_000_001)
+        // when
+        sut.travelTime(by: .seconds(1))
+        // then
+        XCTAssertEqual(futureDate, sut.generateDate())
+    }
+
     func testTimeTravelerShouldGenerateTimeInFutureWhenTravelByMinutes() {
         // given
         let futureDate = Date(timeIntervalSince1970: 1_600_000_060)
@@ -40,6 +49,24 @@ class TimeTravlelerTests: XCTestCase {
         XCTAssertEqual(futureDate, sut.generateDate())
     }
 
+    func testTimeTravelerShouldGenerateTimeInFutureWhenTravelByMonths() {
+        // given
+        let futureDate = Date(timeIntervalSince1970: 1_602_592_000)
+        // when
+        sut.travelTime(by: .months(1))
+        // then
+        XCTAssertEqual(futureDate, sut.generateDate())
+    }
+
+    func testTimeTravelerShouldGenerateTimeInPastWhenTravelBySeconds() {
+        // given
+        let futureDate = Date(timeIntervalSince1970: 1_599_999_999)
+        // when
+        sut.travelTime(by: .seconds(-1))
+        // then
+        XCTAssertEqual(futureDate, sut.generateDate())
+    }
+
     func testTimeTravelerShouldGenerateTimeInPastWhenTravelByMinutes() {
         // given
         let futureDate = Date(timeIntervalSince1970: 1_599_999_940)
@@ -63,6 +90,15 @@ class TimeTravlelerTests: XCTestCase {
         let futureDate = Date(timeIntervalSince1970: 1_599_913_600)
         // when
         sut.travelTime(by: .days(-1))
+        // then
+        XCTAssertEqual(futureDate, sut.generateDate())
+    }
+
+    func testTimeTravelerShouldGenerateTimeInPastWhenTravelByMonths() {
+        // given
+        let futureDate = Date(timeIntervalSince1970: 1_597_321_600)
+        // when
+        sut.travelTime(by: .months(-1))
         // then
         XCTAssertEqual(futureDate, sut.generateDate())
     }
