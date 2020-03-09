@@ -67,7 +67,7 @@ class FormatDisplayTests: XCTestCase {
 
     private func generateDate(from date: Date, travelInterval: TimeTraveler.TravelInterval) -> Date {
         TimeTraveler(date)
-            .travelTime(by: travelInterval)
+            .travelTime(by: travelInterval, calendar)
             .generateDate()
     }
 }
