@@ -10,6 +10,7 @@ final class CMMarkerAnnotationView: MKMarkerAnnotationView {
     }
 
     private func commonInit() {
+        animatesWhenAdded = true
         markerTintColor = .white
         glyphImage = UIImage(named: "logo-m")
         canShowCallout = false
