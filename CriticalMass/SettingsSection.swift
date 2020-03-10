@@ -70,7 +70,7 @@ enum Section: CaseIterable {
                 Model(title: L10n.obversationModeTitle, subtitle: L10n.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode")
             ]
             if Feature.friends.isActive {
-                let friendsModel = Model(title: .settingsFriends, subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self), accessibilityIdentifier: "Friends")
+                let friendsModel = Model(title: L10n.settingsFriends, subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self), accessibilityIdentifier: "Friends")
                 models.insert(friendsModel, at: 0)
             }
             return models
