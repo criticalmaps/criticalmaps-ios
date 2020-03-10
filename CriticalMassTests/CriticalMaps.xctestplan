@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "3B90BF13-D62B-459B-B9C6-5162A3DEF527",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:CriticalMaps.xcodeproj",
+      "identifier" : "94CF085B19BDEAF2009FFF43",
+      "name" : "CriticalMaps"
+    },
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMaps.xcodeproj",
+        "identifier" : "94CF087619BDEAF2009FFF43",
+        "name" : "CriticalMapsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

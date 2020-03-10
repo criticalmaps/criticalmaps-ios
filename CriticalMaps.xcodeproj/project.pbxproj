@@ -390,6 +390,8 @@
 		98003D5922872DB300592D55 /* FollowFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowFriendsViewController.swift; sourceTree = "<group>"; };
 		98003D5C22872E4300592D55 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		98003D5F2287301000592D55 /* FollowURLObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowURLObjectTests.swift; sourceTree = "<group>"; };
+		98031CF12412B07F006CEA53 /* CriticalMapsSnapshotTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CriticalMapsSnapshotTests.xctestplan; sourceTree = "<group>"; };
+		98031CF22412B18D006CEA53 /* CriticalMapsUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CriticalMapsUITests.xctestplan; sourceTree = "<group>"; };
 		9804176421FC71770077D419 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTableViewCell.swift; sourceTree = "<group>"; };
 		9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 		98C13288227F014000291FCA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98C13289227F05E700291FCA /* IDStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDStoreTests.swift; sourceTree = "<group>"; };
 		98C4BEA02218518B0060E701 /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
+		98CA8EDE2411482C000EFDCC /* CriticalMaps.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CriticalMaps.xctestplan; sourceTree = "<group>"; };
 		98CE731824085E4A0088F7B4 /* IdentifiableAnnotationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableAnnotationTests.swift; sourceTree = "<group>"; };
 		98CE7322240EA4CE0088F7B4 /* NextRidesRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextRidesRequestTests.swift; sourceTree = "<group>"; };
 		98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlayErrorHandler.swift; sourceTree = "<group>"; };
@@ -537,6 +540,7 @@
 				3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */,
 				3F84CA5C23BA20FE00E96179 /* FriendsFlowUITests.swift */,
 				3F137FB92349CD71006B26AB /* SnapshotHelper.swift */,
+				98031CF22412B18D006CEA53 /* CriticalMapsUITests.xctestplan */,
 			);
 			path = CriticalMapsUITests;
 			sourceTree = "<group>";
@@ -544,6 +548,7 @@
 		7530E391235A3CA100F5E55C /* CriticalMapsSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				98031CF12412B07F006CEA53 /* CriticalMapsSnapshotTests.xctestplan */,
 				3F749B28236C641400C4A125 /* __Snapshots__ */,
 				7530E394235A3CA100F5E55C /* Info.plist */,
 				987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */,
@@ -865,6 +870,7 @@
 		94CF087E19BDEAF2009FFF43 /* CriticalMassTests */ = {
 			isa = PBXGroup;
 			children = (
+				98CA8EDE2411482C000EFDCC /* CriticalMaps.xctestplan */,
 				9822A16521F11519007F5994 /* AppDataStoreTests.swift */,
 				9804178F21FCA2B40077D419 /* ChatManagerTests.swift */,
 				944D5F0A240CE0DA00993899 /* CMMarkerAnnotationControllerTests.swift */,
