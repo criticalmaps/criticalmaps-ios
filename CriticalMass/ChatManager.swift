@@ -42,11 +42,9 @@ class ChatManager {
 
     @objc private func didReceiveMessages(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
-        cachedMessages = Array(response.chatMessages.values).sorted(by: { (a, b) -> Bool in
-            a.timestamp > b.timestamp
-        })
-        unreadMessagesCount = UInt(cachedMessages?.lazy.filter { $0.timestamp > self.defaults.lastMessageReadTimeInterval }.count ?? 0)
-        updateMessagesCallback?(cachedMessages ?? [])
+        cachedMessages = Array(response.chatMessages.values).sorted(by: \.timestamp, sortOperator: >)
+        unreadMessagesCount = UInt(cachedMessages!.lazy.filter { $0.timestamp > self.defaults.lastMessageReadTimeInterval }.count)
+        updateMessagesCallback?(cachedMessages!)
     }
 
     public func send(message: String, completion: @escaping ResultCallback<[String: ChatMessage]>) {

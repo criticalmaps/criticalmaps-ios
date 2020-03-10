@@ -34,15 +34,14 @@ class TwitterManager {
 
     public func loadTweets(_ completion: ResultCallback<[Tweet]>? = nil) {
         networkLayer.get(request: request) { [weak self] result in
-            guard let self = self else { return }
             onMain {
                 switch result {
                 case let .failure(error):
-                    self.errorHandler.handleError(error)
-                    self.contentState = .error(.fallback)
+                    self?.errorHandler.handleError(error)
+                    self?.contentState = .error(.fallback)
                     completion?(.failure(error))
                 case let .success(response):
-                    self.cachedTweets = response.statuses
+                    self?.cachedTweets = response.statuses
                     completion?(.success(response.statuses))
                 }
             }

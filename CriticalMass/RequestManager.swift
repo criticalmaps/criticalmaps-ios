@@ -78,17 +78,14 @@ public class RequestManager {
     public func getData() {
         UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer)
             .performWithoutQueue { [weak self] result in
-                guard let self = self else { return }
-                self.defaultCompletion(for: result)
+                self?.defaultCompletion(for: result)
             }
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
         UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer, messages: messages)
             .performWithoutQueue { [weak self] result in
-                guard let self = self else { return }
-
-                self.defaultCompletion(for: result)
+                self?.defaultCompletion(for: result)
                 onMain {
                     switch result {
                     case let .success(messages):
