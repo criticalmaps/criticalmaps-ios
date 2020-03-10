@@ -4,9 +4,9 @@
 import Foundation
 
 extension Sequence {
-    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>, sortFunction: ((T, T) -> Bool) = (<)) -> [Element] {
+    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>, sortOperator: ((T, T) -> Bool) = (<)) -> [Element] {
         sorted { (a, b) -> Bool in
-            sortFunction(a[keyPath: keyPath], b[keyPath: keyPath])
+            sortOperator(a[keyPath: keyPath], b[keyPath: keyPath])
         }
     }
 }
