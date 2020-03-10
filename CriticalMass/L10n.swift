@@ -1,10 +1,5 @@
 //
-//  String+LocalizedStrings.swift
-//  CriticalMaps
-//
-//  Created by Malte Bünz on 09.05.19.
-//  Copyright © 2019 Pokus Labs. All rights reserved.
-//
+// Created for CriticalMaps in 2020
 
 import Foundation
 
