@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = String.mapTitle
+        title = L10n.mapTitle
         configureNotifications()
         configureTileRenderer()
         configureMapView()
@@ -113,7 +113,7 @@ class MapViewController: UIViewController {
 
     private func condfigureGPSDisabledOverlayView() {
         let gpsDisabledOverlayView = self.gpsDisabledOverlayView
-        gpsDisabledOverlayView.set(title: String.mapLayerInfoTitle, message: String.mapLayerInfo)
+        gpsDisabledOverlayView.set(title: L10n.mapLayerInfoTitle, message: L10n.mapLayerInfo)
         gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
         view.addSubview(gpsDisabledOverlayView)
         gpsDisabledOverlayView.addLayoutsSameSizeAndOrigin(in: view)

@@ -69,16 +69,16 @@ extension SettingsProjectLinkTableViewCell {
         let image: UIImage
 
         static let github = CellConfiguration(
-            title: String.settingsOpenSourceTitle,
-            detail: String.settingsOpenSourceDetail,
-            actionTitle: String.settingsOpenSourceAction.uppercased(),
+            title: L10n.settingsOpenSourceTitle,
+            detail: L10n.settingsOpenSourceDetail,
+            actionTitle: L10n.settingsOpenSourceAction.uppercased(),
             image: UIImage(named: "GithubBanner")!
         )
 
         static let criticalMassDotIn = CellConfiguration(
-            title: String.settingsCriticalMassDotInTitle,
-            detail: String.settingsCriticalMassDotInDetail,
-            actionTitle: String.settingsOpenSourceAction.uppercased(),
+            title: L10n.settingsCriticalMassDotInTitle,
+            detail: L10n.settingsCriticalMassDotInDetail,
+            actionTitle: L10n.settingsOpenSourceAction.uppercased(),
             image: UIImage(named: "banner cm")!
         )
     }

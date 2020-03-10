@@ -43,7 +43,7 @@ enum Section: CaseIterable {
              .projectLinks:
             return nil
         case .info:
-            return String.settingsSectionInfo
+            return L10n.settingsSectionInfo
         }
     }
 
@@ -66,8 +66,8 @@ enum Section: CaseIterable {
         switch self {
         case .preferences:
             var models = [
-                Model(title: String.themeLocalizedString, action: .switch(ThemeController.self), accessibilityIdentifier: "Theme"),
-                Model(title: String.obversationModeTitle, subtitle: String.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode")
+                Model(title: L10n.themeLocalizedString, action: .switch(ThemeController.self), accessibilityIdentifier: "Theme"),
+                Model(title: L10n.obversationModeTitle, subtitle: L10n.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode")
             ]
             if Feature.friends.isActive {
                 let friendsModel = Model(title: .settingsFriends, subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self), accessibilityIdentifier: "Friends")
@@ -80,9 +80,9 @@ enum Section: CaseIterable {
                 Model(action: .open(url: Constants.criticalMassDotInURL), accessibilityIdentifier: "CriticalMass.in")
             ]
         case .info:
-            return [Model(title: String.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
-                    Model(title: String.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
-                    Model(title: String.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")]
+            return [Model(title: L10n.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
+                    Model(title: L10n.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
+                    Model(title: L10n.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")]
         }
     }
 
