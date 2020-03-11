@@ -71,10 +71,10 @@ class AppController {
             .init(representation: .button(chatNavigationButtonController.button),
                   action: .navigation(viewController: getSocialViewController),
                   accessibilityIdentifier: "Chat"),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: String.rulesTitle),
+            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: L10n.rulesTitle),
                   action: .navigation(viewController: getRulesViewController),
                   accessibilityIdentifier: "Rules"),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: String.settingsTitle),
+            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: L10n.settingsTitle),
                   action: .navigation(viewController: getSettingsViewController),
                   accessibilityIdentifier: "Settings"),
         ])
@@ -133,8 +133,8 @@ class AppController {
                 let followURLObject = try FollowURLObject.decode(from: url.absoluteString)
 
                 dataStore.add(friend: followURLObject.queryObject)
-                let alertController = UIAlertController(title: .settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + .settingsAddFriendDescription, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: .ok, style: .destructive, handler: nil))
+                let alertController = UIAlertController(title: L10n.settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + L10n.settingsAddFriendDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: L10n.ok, style: .destructive, handler: nil))
                 rootViewController.present(alertController, animated: true, completion: nil)
                 return true
             } catch {

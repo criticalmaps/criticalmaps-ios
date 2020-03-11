@@ -49,7 +49,7 @@
 		940643D82307270B00AB1BCB /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D72307270B00AB1BCB /* GCD.swift */; };
 		94092749228321E60034E46B /* UITableView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092748228321E60034E46B /* UITableView+Register.swift */; };
 		9409274B228322FD0034E46B /* TypeNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274A228322FC0034E46B /* TypeNameProtocol.swift */; };
-		9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* String+LocalizedStrings.swift */; };
+		9409274D22841E160034E46B /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409274C22841E160034E46B /* L10n.swift */; };
 		943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */; };
 		943ABD9622781F0200B7F07C /* ThemeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */; };
 		9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */; };
@@ -291,7 +291,7 @@
 		940643D72307270B00AB1BCB /* GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		94092748228321E60034E46B /* UITableView+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Register.swift"; sourceTree = "<group>"; };
 		9409274A228322FC0034E46B /* TypeNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeNameProtocol.swift; sourceTree = "<group>"; };
-		9409274C22841E160034E46B /* String+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedStrings.swift"; sourceTree = "<group>"; };
+		9409274C22841E160034E46B /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		943ABD9322781F0200B7F07C /* ThemeStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeStoreTests.swift; sourceTree = "<group>"; };
 		943ABD9422781F0200B7F07C /* ThemeControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeControllerTests.swift; sourceTree = "<group>"; };
 		9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorHelper.swift; sourceTree = "<group>"; };
@@ -620,6 +620,7 @@
 				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
 				98003D4822872C1700592D55 /* URLCodable.swift */,
 				21859FB12352CBD300B942AA /* WaitOperation.swift */,
+				9409274C22841E160034E46B /* L10n.swift */,
 				94CCC8B423D0582A000CCE2A /* Extensions */,
 			);
 			name = Utility;
@@ -787,7 +788,6 @@
 				94FCBD24226C57CA00F93F94 /* Notification+Static.swift */,
 				944D5F35240E643300993899 /* Sequence+Additions.swift */,
 				949EBB1524102F1A00E4F93B /* String+Additions.swift */,
-				9409274C22841E160034E46B /* String+LocalizedStrings.swift */,
 				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
 				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				94092748228321E60034E46B /* UITableView+Register.swift */,
@@ -1364,7 +1364,7 @@
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
 				98AAD08F2337FF90001519C7 /* ManageFriendsViewController.swift in Sources */,
 				9843FAA1236CD7F000457930 /* NetworkDataProvider.swift in Sources */,
-				9409274D22841E160034E46B /* String+LocalizedStrings.swift in Sources */,
+				9409274D22841E160034E46B /* L10n.swift in Sources */,
 				94CCC8B823D0587F000CCE2A /* UserDefaults+Additions.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,

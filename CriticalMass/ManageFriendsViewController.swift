@@ -22,7 +22,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             case .friends:
                 return nil
             case .settings:
-                return .settingsFriendsSettings
+                return L10n.settingsFriendsSettings
             }
         }
     }
@@ -63,8 +63,8 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     private func configureNavigationBar() {
-        title = .settingsFriends
-        let addFriendBarButtonItem = UIBarButtonItem(title: .settingsFriendsShowID, style: .plain, target: self, action: #selector(addFriendButtonTapped))
+        title = L10n.settingsFriends
+        let addFriendBarButtonItem = UIBarButtonItem(title: L10n.settingsFriendsShowID, style: .plain, target: self, action: #selector(addFriendButtonTapped))
         navigationItem.rightBarButtonItem = addFriendBarButtonItem
     }
 

@@ -76,7 +76,7 @@ class MapInfoView: UIView, IBConstructable {
         case .alert:
             foregroundColor = .white
             backgroundColor = .errorRed
-            accessibilityLabel = String.error
+            accessibilityLabel = L10n.error
         case .info:
             foregroundColor = mapInfoForegroundColor
             backgroundColor = mapInfoBackgroundColor
