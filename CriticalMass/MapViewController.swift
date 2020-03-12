@@ -82,6 +82,14 @@ class MapViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if #available(iOS 13.0, *) {
+            view.window?.windowScene?.screenshotService?.delegate = self
+        }
+    }
+
     private func registerAnnotationViews() {
         annotationControllers
             .map { $0.annotationViewType }
@@ -271,5 +279,18 @@ extension MapViewController: MKMapViewDelegate {
             return MKOverlayRenderer(overlay: overlay)
         }
         return renderer
+    }
+}
+
+extension MapViewController: UIScreenshotServiceDelegate {
+    @available(iOS 13.0, *)
+    func screenshotService(_: UIScreenshotService, generatePDFRepresentationWithCompletion completionHandler: @escaping (Data?, Int, CGRect) -> Void) {
+        let data = UIGraphicsPDFRenderer(bounds: view.bounds).pdfData { context in
+            context.beginPage()
+
+            self.mapView.drawHierarchy(in: self.view.bounds, afterScreenUpdates: true)
+        }
+
+        completionHandler(data, 0, view.bounds)
     }
 }
