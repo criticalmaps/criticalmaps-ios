@@ -6,6 +6,7 @@ Changelog for Critical Maps iOS
 
 ### Added
 
+- Fullpage screenshots of the Map
 - Showing next ride event notification and annotation view on the map.
 
 ### Fixed
