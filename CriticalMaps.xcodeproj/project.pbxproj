@@ -43,6 +43,7 @@
 		75678D66234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */; };
 		75E26994235A4BA5000F2D0A /* MockThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E26993235A4BA5000F2D0A /* MockThemeController.swift */; };
 		75E26995235A4BA5000F2D0A /* MockThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E26993235A4BA5000F2D0A /* MockThemeController.swift */; };
+		94022B5F24255AA90024DAD5 /* BikeClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94022B5E24255AA90024DAD5 /* BikeClusterAnnotationView.swift */; };
 		940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CD23071F1200AB1BCB /* Codable+Sugar.swift */; };
 		940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643CF23071F3200AB1BCB /* ErrorHandler.swift */; };
 		940643D62307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940643D52307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift */; };
@@ -102,6 +103,7 @@
 		949EBB1624102F1A00E4F93B /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EBB1524102F1A00E4F93B /* String+Additions.swift */; };
 		949EBB1824102F4900E4F93B /* StringAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EBB1724102F4900E4F93B /* StringAdditionsTests.swift */; };
 		94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */; };
+		94AEDD322424FCFC000DB39A /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AEDD312424FCFC000DB39A /* FriendAnnotationView.swift */; };
 		94AF230923D6D64600267E87 /* DateAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF230823D6D64600267E87 /* DateAdditionsTests.swift */; };
 		94CCC8B623D0583D000CCE2A /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCC8B523D0583D000CCE2A /* Date+Additions.swift */; };
 		94CCC8B823D0587F000CCE2A /* UserDefaults+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */; };
@@ -285,6 +287,7 @@
 		7530E3A5235A400900F5E55C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+BackgroundColor.swift"; sourceTree = "<group>"; };
 		75E26993235A4BA5000F2D0A /* MockThemeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockThemeController.swift; sourceTree = "<group>"; };
+		94022B5E24255AA90024DAD5 /* BikeClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeClusterAnnotationView.swift; sourceTree = "<group>"; };
 		940643CD23071F1200AB1BCB /* Codable+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Sugar.swift"; sourceTree = "<group>"; };
 		940643CF23071F3200AB1BCB /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		940643D52307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationAndChatMessagesRequest.swift; sourceTree = "<group>"; };
@@ -350,6 +353,7 @@
 		949EBB1524102F1A00E4F93B /* String+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		949EBB1724102F4900E4F93B /* StringAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringAdditionsTests.swift; sourceTree = "<group>"; };
 		94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentMessageLabel.swift; sourceTree = "<group>"; };
+		94AEDD312424FCFC000DB39A /* FriendAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
 		94AF230823D6D64600267E87 /* DateAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAdditionsTests.swift; sourceTree = "<group>"; };
 		94CCC8B523D0583D000CCE2A /* Date+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Additions.swift"; sourceTree = "<group>"; };
@@ -727,23 +731,25 @@
 		94AD50491A963DFE00547B40 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				944D5EFF240CE07600993899 /* CMAnnotationView.swift */,
-				944D5EFE240CE07600993899 /* CriticalMassAnnotation.swift */,
-				944D5EFA240CDFC500993899 /* PassthroughView.swift */,
 				9822A16B21F25AFF007F5994 /* BikeAnnotationView.swift */,
+				94022B5E24255AA90024DAD5 /* BikeClusterAnnotationView.swift */,
 				987C57A823A4EB280060499B /* BlurryFullscreenOverlayView.swift */,
 				987C57A923A4EB290060499B /* BlurryFullscreenOverlayView.xib */,
 				9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */,
 				9804176721FC74D90077D419 /* ChatMessageTableViewCell.xib */,
 				981C788E225E67350009FC3E /* ChatNavigationButton.swift */,
+				944D5EFF240CE07600993899 /* CMAnnotationView.swift */,
 				9485A93B23756A81006DC7B5 /* CMLogoActivityView.swift */,
+				944D5EFE240CE07600993899 /* CriticalMassAnnotation.swift */,
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
+				94AEDD312424FCFC000DB39A /* FriendAnnotationView.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
 				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 				987C57A423A4EAF80060499B /* MapInfoView.swift */,
 				987C57A523A4EAF80060499B /* MapInfoView.xib */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
+				944D5EFA240CDFC500993899 /* PassthroughView.swift */,
 				98003D5C22872E4300592D55 /* QRCodeView.swift */,
 				949BEF542237CAEC009AE6DF /* RoundableImageView.swift */,
 				3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */,
@@ -1330,6 +1336,7 @@
 				944D5EF4240CDEF700993899 /* RideChecker.swift in Sources */,
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
 				9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */,
+				94AEDD322424FCFC000DB39A /* FriendAnnotationView.swift in Sources */,
 				94FCBD2B226C57CA00F93F94 /* IBConstructable.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
@@ -1346,6 +1353,7 @@
 				94FCBD37226C580D00F93F94 /* SettingsSection.swift in Sources */,
 				94FCBD3B226C583F00F93F94 /* DarkMapOverlay.swift in Sources */,
 				940643CE23071F1200AB1BCB /* Codable+Sugar.swift in Sources */,
+				94022B5F24255AA90024DAD5 /* BikeClusterAnnotationView.swift in Sources */,
 				98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */,
 				9485A93923756A71006DC7B5 /* ErrorStateModel.swift in Sources */,
 				98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */,
