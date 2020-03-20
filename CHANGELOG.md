@@ -6,6 +6,7 @@ Changelog for Critical Maps iOS
 
 ### Added
 
+- Cluster Bikes for a better overview
 - Fullpage screenshots of the Map
 - Showing next ride event notification and annotation view on the map.
 
