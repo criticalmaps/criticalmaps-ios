@@ -94,6 +94,13 @@ class MapViewController: UIViewController {
         annotationControllers
             .map { $0.annotationViewType }
             .forEach(mapView.register)
+
+        if #available(iOS 11.0, *) {
+            mapView.register(
+                BikeClusterAnnotationView.self,
+                forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier
+            )
+        }
     }
 
     private func setupMapInfoViewController() {
