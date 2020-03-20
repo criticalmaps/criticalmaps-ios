@@ -5,8 +5,9 @@ import MapKit
 
 @available(iOS 11.0, *)
 final class CMMarkerAnnotationView: MKMarkerAnnotationView {
-    override var annotation: MKAnnotation? {
-        didSet { commonInit() }
+    override func prepareForDisplay() {
+        super.prepareForDisplay()
+        commonInit()
     }
 
     private func commonInit() {
