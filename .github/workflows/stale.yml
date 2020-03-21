@@ -15,5 +15,9 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'No recent activity'
         stale-pr-message: 'No recent changes'
-        stale-issue-label: 'awaiting review'
-        stale-pr-label: 'awaiting changes'
+        stale-issue-label: 'no-issue-activity'
+        exempt-issue-label: 'awaiting-approval'
+        stale-pr-label: 'no-pr-activity'
+        exempt-pr-label: 'awaiting-approval'
+        days-before-stale: 30
+        days-before-close: 180
