@@ -154,13 +154,12 @@ extension ChatViewController: ChatInputDelegate {
                 completionHandler?(true)
             case .failure:
                 completionHandler?(false)
-                let alert = UIAlertController(title: L10n.error,
-                                              message: L10n.chatSendError,
-                                              preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok",
-                                              style: .default,
-                                              handler: nil))
-                self?.present(alert, animated: true)
+                AlertPresenter.shared.presentAlert(
+                    title: L10n.error,
+                    message: L10n.chatSendError,
+                    preferredStyle: .alert,
+                    actionData: [UIAlertAction(title: L10n.ok, style: .default, handler: nil)]
+                )
             }
         }
     }

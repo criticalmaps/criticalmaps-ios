@@ -298,19 +298,14 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     @objc private func handleEventLongPress(_: Any) {
-        let alertController = UIAlertController(title: L10n.menuTitle, message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
-        alertController.addAction(cancelAction)
-        let routeAction = UIAlertAction(title: L10n.menuRoute, style: .default) { _ in
-            self.routeToEvent()
-        }
-        alertController.addAction(routeAction)
-        let shareAction = UIAlertAction(title: L10n.menuShare, style: .default) { _ in
-            self.shareEvent()
-        }
-        alertController.addAction(shareAction)
-        present(alertController, animated: true)
-        UIAccessibility.post(notification: .announcement, argument: nil)
+        let routeAction = UIAlertAction(title: L10n.menuRoute, style: .default) { _ in self.routeToEvent() }
+        let shareAction = UIAlertAction(title: L10n.menuShare, style: .default) { _ in self.shareEvent() }
+        AlertPresenter.shared.presentAlert(
+            title: L10n.menuTitle,
+            preferredStyle: .actionSheet,
+            actionData: [routeAction, shareAction],
+            isCancelable: true
+        )
     }
 
     private func routeToEvent() {
