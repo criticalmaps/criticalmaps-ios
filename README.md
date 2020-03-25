@@ -16,6 +16,10 @@
 	<img src="https://badges.crowdin.net/critical-maps/localized.svg" alt="Localized Status" />
 </a>
 
+## Setup
+
+- Run `make bootstrap` to install tools and dependencies
+
 ## What's "Critical Mass"?
 
 > Critical Mass has been described as 'monthly political-protest rides', and characterized as being part of a social movement.
