@@ -116,7 +116,9 @@ extension Ride {
             longitude: 13.424356,
             estimatedParticipants: nil,
             estimatedDistance: nil,
-            estimatedDuration: nil
+            estimatedDuration: nil,
+            disabledReason: nil,
+            disabledReasonMessage: nil
         )
         static let cmBerlin = Ride(
             id: 123,
@@ -129,7 +131,9 @@ extension Ride {
             longitude: 13.424356,
             estimatedParticipants: nil,
             estimatedDistance: nil,
-            estimatedDuration: nil
+            estimatedDuration: nil,
+            disabledReason: nil,
+            disabledReasonMessage: nil
         )
         static let cmBarcelona = Ride(
             id: 345,
@@ -142,7 +146,9 @@ extension Ride {
             longitude: 2.180441,
             estimatedParticipants: nil,
             estimatedDistance: nil,
-            estimatedDuration: nil
+            estimatedDuration: nil,
+            disabledReason: nil,
+            disabledReasonMessage: nil
         )
     }
 }
