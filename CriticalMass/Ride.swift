@@ -16,6 +16,8 @@ struct Ride: Hashable, Codable {
     let estimatedParticipants: Int?
     let estimatedDistance: Double?
     let estimatedDuration: Double?
+    let disabledReason: String?
+    let disabledReasonMessage: String?
 }
 
 extension Ride {
