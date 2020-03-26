@@ -38,11 +38,9 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
 
     private func makeContextMenu() -> UIMenu {
         let share = UIAction(title: L10n.menuShare, image: UIImage(systemName: "square.and.arrow.up")) { _ in
-//            self.shareEvent()
             self.shareEventClosure?()
         }
         let route = UIAction(title: L10n.menuRoute, image: UIImage(systemName: "arrow.turn.up.right")) { _ in
-//            self.routeToEvent()
             self.routeEventClosure?()
         }
         return UIMenu(title: L10n.menuTitle, children: [share, route])

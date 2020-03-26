@@ -309,9 +309,7 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     private func routeToEvent() {
-        nextRideManager.nextRide.flatMap {
-            $0.openInMaps()
-        }
+        nextRideManager.nextRide?.openInMaps()
     }
 
     private func shareEvent() {
