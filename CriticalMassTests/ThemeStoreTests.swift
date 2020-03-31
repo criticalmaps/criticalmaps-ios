@@ -10,17 +10,17 @@
 import XCTest
 
 class ThemeSelectionStoreTests: XCTestCase {
-    var sut: ThemeSelectionStore?
-    var userdefaults = UserDefaults(suiteName: "CriticalMaps-Tests")!
+    private var sut: ThemeSelectionStore?
+    private var userdefaults: UserDefaults!
 
     override func setUp() {
         super.setUp()
+        userdefaults = .makeClearedInstance()
         sut = ThemeSelectionStore(defaults: userdefaults)
     }
 
     override func tearDown() {
         sut = nil
-        userdefaults.removePersistentDomain(forName: "CriticalMaps-Tests")
         super.tearDown()
     }
 

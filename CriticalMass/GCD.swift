@@ -1,5 +1,5 @@
 //
-//  GCD+Util.swift
+//  GCD.swift
 //  CriticalMaps
 //
 //  Created by Malte Bünz on 16.08.19.

@@ -32,7 +32,7 @@ let package = Package(
                       "Endpoint.swift",
                       "ErrorHandler.swift",
                       "Friend.swift",
-                      "GCD+Util.swift",
+                      "GCD.swift",
                       "HTTPHeaders.swift",
                       "IDProvider.swift",
                       "Location.swift",
@@ -49,7 +49,9 @@ let package = Package(
                       "WaitOperation.swift",
                       "UpdateLocationOperation.swift",
                       "UpdateDataOperation.swift",
-                      "AsyncOperation.swift"]
+                      "AsyncOperation.swift",
+                      "URLCodable.swift",
+                      "Sequence+Additions.swift"]
         ),
     ]
 )

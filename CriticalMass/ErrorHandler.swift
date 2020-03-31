@@ -8,20 +8,18 @@
 
 import Foundation
 
-struct ErrorHandler {
-    static let `default` = ErrorHandler()
+public protocol ErrorHandler {
+    func handleError(_ error: Error?)
+}
 
-    let genericErrorMessage = "Sorry, something went wrong"
+public struct PrintErrorHandler: ErrorHandler {
+    public init() {}
 
-    func handleError(_ error: Error?) {
+    public func handleError(_ error: Error?) {
         if let errorDescription = error?.localizedDescription {
-            presentToUser(message: errorDescription)
+            print(errorDescription)
         } else {
-            presentToUser(message: genericErrorMessage)
+            print("Sorry, something went wrong")
         }
-    }
-
-    private func presentToUser(message: String) {
-        print(message)
     }
 }

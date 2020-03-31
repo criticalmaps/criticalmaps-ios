@@ -32,6 +32,7 @@ protocol ThemeDefining {
     var mapInfoBackgroundColor: UIColor { get }
     var chatInputBackgroundColor: UIColor { get }
     var settingsPlaceholderColor: UIColor { get }
+    var bikeAnnotationBackgroundColor: UIColor { get }
 }
 
 struct LightTheme: ThemeDefining {
@@ -122,6 +123,10 @@ struct LightTheme: ThemeDefining {
     var settingsPlaceholderColor: UIColor {
         .lightThemedSettingsPlaceholderColor
     }
+
+    var bikeAnnotationBackgroundColor: UIColor {
+        .gray300
+    }
 }
 
 struct DarkTheme: ThemeDefining {
@@ -211,5 +216,9 @@ struct DarkTheme: ThemeDefining {
 
     var settingsPlaceholderColor: UIColor {
         .darkThemedSettingsPlaceholderColor
+    }
+
+    var bikeAnnotationBackgroundColor: UIColor {
+        .gray500
     }
 }

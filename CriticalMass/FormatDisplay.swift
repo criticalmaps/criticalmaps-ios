@@ -9,31 +9,32 @@
 import Foundation
 
 private extension DateComponents {
-    var dateomponentFromBiggestComponent: DateComponents {
+    var dateComponentFromBiggestComponent: DateComponents {
         if let month = month,
             month != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: month, day: nil, hour: nil, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, month: month)
         } else if let day = day,
             day != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: day, hour: nil, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, day: day)
         } else if let hour = hour,
             hour != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: hour, minute: nil, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, hour: hour)
         } else if let minute = minute,
             minute != 0 {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: nil, minute: minute, second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, minute: minute)
         } else {
-            return DateComponents(calendar: calendar, timeZone: nil, era: nil, year: nil, month: nil, day: nil, hour: nil, minute: nil, second: second, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            return DateComponents(calendar: calendar, second: second)
         }
     }
 }
 
 enum FormatDisplay {
-    // inject current date to be able to keep the same time difference between tweet date and current date
-    static var currentDate = Date()
+    static func dateString(for tweet: Tweet, currentDate: Date = Date(), calendar: Calendar = .current) -> String? {
+        let components = calendar.dateComponents(
+            [.second, .minute, .hour, .day, .month],
+            from: tweet.created_at, to: currentDate
+        ).dateComponentFromBiggestComponent
 
-    static func dateString(for tweet: Tweet) -> String? {
-        let components = Calendar.current.dateComponents([.minute, .hour, .day, .month], from: tweet.created_at, to: currentDate).dateomponentFromBiggestComponent
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.day, .hour, .minute, .month, .second]
         formatter.unitsStyle = .short
@@ -41,9 +42,11 @@ enum FormatDisplay {
         return formatter.string(from: components)
     }
 
-    static func hoursAndMinutesDateString(from message: ChatMessage) -> String {
+    static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
         let date = Date(timeIntervalSince1970: message.timestamp)
         let formatter = DateFormatter()
+        formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }

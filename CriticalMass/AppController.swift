@@ -53,27 +53,36 @@ class AppController {
         TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
 
+    lazy var mapViewController: MapViewController = {
+        MapViewController(
+            themeController: self.themeController,
+            friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
+            nextRideManager: NextRideManager(
+                apiHandler: CMInApiHandler(networkLayer: networkOperator)
+            )
+        )
+    }()
+
     lazy var rootViewController: UIViewController = {
-        let rootViewController = MapViewController(themeController: self.themeController, friendsVerificationController: FriendsVerificationController(dataStore: dataStore))
         let navigationOverlay = NavigationOverlayViewController(navigationItems: [
-            .init(representation: .view(rootViewController.followMeButton),
+            .init(representation: .view(mapViewController.followMeButton),
                   action: .none,
                   accessibilityIdentifier: "Follow"),
             .init(representation: .button(chatNavigationButtonController.button),
                   action: .navigation(viewController: getSocialViewController),
                   accessibilityIdentifier: "Chat"),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: String.rulesTitle),
+            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: L10n.rulesTitle),
                   action: .navigation(viewController: getRulesViewController),
                   accessibilityIdentifier: "Rules"),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: String.settingsTitle),
+            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: L10n.settingsTitle),
                   action: .navigation(viewController: getSettingsViewController),
                   accessibilityIdentifier: "Settings"),
         ])
-        rootViewController.addChild(navigationOverlay)
-        rootViewController.view.addSubview(navigationOverlay.view)
-        navigationOverlay.didMove(toParent: rootViewController)
+        mapViewController.addChild(navigationOverlay)
+        mapViewController.view.addSubview(navigationOverlay.view)
+        navigationOverlay.didMove(toParent: mapViewController)
 
-        return rootViewController
+        return mapViewController
     }()
 
     public func onAppLaunch() {
@@ -95,7 +104,7 @@ class AppController {
     }
 
     private func getRulesViewController() -> RulesViewController {
-        RulesViewController()
+        RulesViewController(themeController: themeController)
     }
 
     private func getChatViewController() -> ChatViewController {
@@ -124,8 +133,8 @@ class AppController {
                 let followURLObject = try FollowURLObject.decode(from: url.absoluteString)
 
                 dataStore.add(friend: followURLObject.queryObject)
-                let alertController = UIAlertController(title: .settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + .settingsAddFriendDescription, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: .ok, style: .destructive, handler: nil))
+                let alertController = UIAlertController(title: L10n.settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + L10n.settingsAddFriendDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: L10n.ok, style: .destructive, handler: nil))
                 rootViewController.present(alertController, animated: true, completion: nil)
                 return true
             } catch {

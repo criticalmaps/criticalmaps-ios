@@ -9,7 +9,7 @@ import CoreData
 import UIKit
 
 public class AppDataStore: DataStore {
-    private var userDefaults: UserDefaults
+    private let userDefaults: UserDefaults
 
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
@@ -22,24 +22,17 @@ public class AppDataStore: DataStore {
     private var lastKnownResponse: ApiResponse?
 
     public var userName: String {
-        set {
-            if !newValue.isEmpty {
-                userDefaults.set(newValue, forKey: #function)
-            }
-        }
-
-        get {
-            userDefaults.string(forKey: #function) ?? UIDevice.current.name
-        }
+        get { userDefaults.username ?? UIDevice.current.name }
+        set { userDefaults.username = newValue }
     }
 
     public func update(with response: ApiResponse) {
         if lastKnownResponse?.locations != response.locations {
-            NotificationCenter.default.post(name: Notification.positionOthersChanged, object: response)
+            NotificationCenter.default.post(name: .positionOthersChanged, object: response)
             updateFriedLocations(locations: response.locations)
         }
         if lastKnownResponse?.chatMessages != response.chatMessages {
-            NotificationCenter.default.post(name: Notification.chatMessagesReceived, object: response)
+            NotificationCenter.default.post(name: .chatMessagesReceived, object: response)
         }
         lastKnownResponse = response
     }
@@ -56,7 +49,7 @@ public class AppDataStore: DataStore {
 
         saveContext()
 
-        NotificationCenter.default.post(name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.post(name: .positionOthersChanged, object: nil)
     }
 
     public func remove(friend: Friend) {

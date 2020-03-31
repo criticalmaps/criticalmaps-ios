@@ -11,6 +11,8 @@ import Foundation
 class ChatManager {
     private var cachedMessages: [ChatMessage]?
     private let requestManager: RequestManager
+    private let errorHandler: ErrorHandler
+    private let defaults: UserDefaults
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
     var updateUnreadMessagesCountCallback: ((UInt) -> Void)?
@@ -23,18 +25,26 @@ class ChatManager {
         }
     }
 
-    init(requestManager: RequestManager) {
+    init(
+        requestManager: RequestManager,
+        defaults: UserDefaults = .standard,
+        errorHandler: ErrorHandler = PrintErrorHandler()
+    ) {
+        self.defaults = defaults
         self.requestManager = requestManager
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessages(notification:)), name: Notification.chatMessagesReceived, object: nil)
+        self.errorHandler = errorHandler
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didReceiveMessages(notification:)),
+            name: .chatMessagesReceived, object: nil
+        )
     }
 
     @objc private func didReceiveMessages(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
-        cachedMessages = Array(response.chatMessages.values).sorted(by: { (a, b) -> Bool in
-            a.timestamp > b.timestamp
-        })
-        unreadMessagesCount = UInt(cachedMessages?.lazy.filter { $0.timestamp > Preferences.lastMessageReadTimeInterval }.count ?? 0)
-        updateMessagesCallback?(cachedMessages ?? [])
+        cachedMessages = Array(response.chatMessages.values).sorted(by: \.timestamp, sortOperator: >)
+        unreadMessagesCount = UInt(cachedMessages!.lazy.filter { $0.timestamp > self.defaults.lastMessageReadTimeInterval }.count)
+        updateMessagesCallback?(cachedMessages!)
     }
 
     public func send(message: String, completion: @escaping ResultCallback<[String: ChatMessage]>) {
@@ -47,7 +57,7 @@ class ChatManager {
             case let .success(messages):
                 completion(.success(messages))
             case let .failure(error):
-                ErrorHandler.default.handleError(error)
+                self.errorHandler.handleError(error)
                 completion(.failure(error))
             }
         }
@@ -64,7 +74,7 @@ class ChatManager {
 
     public func markAllMessagesAsRead() {
         if let timestamp = cachedMessages?.first?.timestamp {
-            Preferences.lastMessageReadTimeInterval = timestamp
+            defaults.lastMessageReadTimeInterval = timestamp
         }
         unreadMessagesCount = 0
     }

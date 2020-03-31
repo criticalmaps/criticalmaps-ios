@@ -8,38 +8,17 @@
 import Foundation
 
 class ObservationModePreferenceStore: Switchable {
-    private let defaultsKey = "observationMode"
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
 
-    private func save(_ isEnabled: Bool) {
-        defaults.set(isEnabled, forKey: defaultsKey)
-        NotificationCenter.default.post(name: Notification.observationModeChanged, object: isEnabled)
-    }
-
-    private func load() -> Bool? {
-        defaults.bool(forKey: defaultsKey)
-    }
-
     var isEnabled: Bool {
-        get {
-            load() ?? false
-        } set {
-            save(newValue)
-        }
-    }
-}
-
-class Preferences {
-    static var lastMessageReadTimeInterval: Double {
-        get {
-            UserDefaults.standard.double(forKey: #function)
-        }
+        get { defaults.observationMode }
         set {
-            UserDefaults.standard.set(newValue, forKey: #function)
+            defaults.observationMode = newValue
+            NotificationCenter.default.post(name: .observationModeChanged, object: newValue)
         }
     }
 }

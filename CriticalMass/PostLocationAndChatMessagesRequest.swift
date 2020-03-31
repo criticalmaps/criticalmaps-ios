@@ -13,5 +13,6 @@ struct PostLocationAndChatMessagesRequest: APIRequestDefining {
     var endpoint: Endpoint = .default
     var headers: HTTPHeaders? = .contentTypeApplicationJSON
     var httpMethod: HTTPMethod = .post
+
     var requiresBackgroundTask: Bool = true
 }

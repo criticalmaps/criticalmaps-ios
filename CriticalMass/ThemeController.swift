@@ -24,15 +24,12 @@ class ThemeController {
     }
 
     private func loadTheme() -> Theme {
-        guard let theme = store.load() else {
-            if #available(iOS 13.0, *) {
-                let theme = Theme(userInterfaceStyle: UITraitCollection.current.userInterfaceStyle)
-                return theme
-            } else {
-                return .light
-            }
+        if #available(iOS 13.0, *) {
+            let theme = Theme(userInterfaceStyle: UITraitCollection.current.userInterfaceStyle)
+            return theme
+        } else {
+            return store.load() ?? .light
         }
-        return theme
     }
 
     /// Applies the current selected theme to the apps UI components
@@ -47,7 +44,7 @@ class ThemeController {
         styleMapComponents(with: theme)
         NoContentMessageLabel.appearance().messageTextColor = theme.titleTextColor
         NoContentTitleLabel.appearance().messageTextColor = theme.titleTextColor
-        NotificationCenter.default.post(name: Notification.themeDidChange, object: nil) // trigger map tileRenderer update
+        NotificationCenter.default.post(name: .themeDidChange, object: nil) // trigger map tileRenderer update
         UIApplication.shared.refreshAppearance(animated: false)
     }
 
@@ -72,7 +69,6 @@ class ThemeController {
         // Custom Views
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
-        SettingsGithubTableViewCellTableViewCell.appearance().arrowTintColor = .settingsOpenSourceForeground
         UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
@@ -157,14 +153,14 @@ class ThemeController {
 
         MapInfoView.appearance().mapInfoForegroundColor = theme.mapInfoForegroundColor
         MapInfoView.appearance().mapInfoBackgroundColor = theme.mapInfoBackgroundColor
+
+        BikeAnnoationView.appearance().shapeBackgroundColor = theme.bikeAnnotationBackgroundColor
     }
 }
 
 extension ThemeController: Switchable {
     var isEnabled: Bool {
-        get {
-            currentTheme == .dark
-        }
+        get { currentTheme == .dark }
         set {
             changeTheme(to: newValue ? .dark : .light)
             // This is a workaround to wait for the switch animation to finish before updating the UI

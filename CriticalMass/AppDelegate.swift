@@ -44,6 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if ProcessInfo.processInfo.arguments.contains("SIMULATION_MODE") {
                 appController.enableSimulationMode()
             }
+
+            if ProcessInfo.processInfo.arguments.contains("ACTIVATE_FRIENDS") {
+                var feature = Feature.friends
+                feature.isActive = true
+            }
         #endif
         return nil
     }

@@ -70,9 +70,16 @@ class NetworkOperatorTests: XCTestCase {
 
     private func mockDataProvider(data: String? = nil, rawData: Data? = nil, statusCode: Int = 200) -> MockNetworkDataProvider {
         let responseData: Data? = data != nil ? try! ResponseData(content: data!).encoded() : nil
-        return MockNetworkDataProvider(data: responseData ?? rawData,
-                                       response: HTTPURLResponse(url: Constants.apiEndpoint, statusCode: statusCode, httpVersion: nil, headerFields: nil),
-                                       error: nil)
+        return MockNetworkDataProvider(
+            data: responseData ?? rawData,
+            response: HTTPURLResponse(
+                url: URL(string: Constants.apiEndpoint)!,
+                statusCode: statusCode,
+                httpVersion: nil,
+                headerFields: nil
+            ),
+            error: nil
+        )
     }
 }
 

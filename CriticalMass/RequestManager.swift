@@ -15,6 +15,7 @@ public class RequestManager {
     private var networkLayer: NetworkLayer
     private var idProvider: IDProvider
     private var networkObserver: NetworkObserver?
+    private var errorHandler: ErrorHandler
 
     private let operationQueue: OperationQueue = {
         let queue = OperationQueue()
@@ -25,12 +26,13 @@ public class RequestManager {
 
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
 
-    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, networkObserver: NetworkObserver?) {
+    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, errorHandler: ErrorHandler = PrintErrorHandler(), networkObserver: NetworkObserver?) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
         self.networkObserver = networkObserver
+        self.errorHandler = errorHandler
 
         setupNetworkObserver()
         addUpdateOperation(with: interval)
@@ -67,7 +69,7 @@ public class RequestManager {
                 self.dataStore.update(with: response)
                 Logger.log(.info, log: self.log, "Successfully finished API update")
             case let .failure(error):
-                ErrorHandler.default.handleError(error)
+                self.errorHandler.handleError(error)
                 Logger.log(.error, log: self.log, "API update failed")
             }
         }
@@ -76,17 +78,14 @@ public class RequestManager {
     public func getData() {
         UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer)
             .performWithoutQueue { [weak self] result in
-                guard let self = self else { return }
-                self.defaultCompletion(for: result)
+                self?.defaultCompletion(for: result)
             }
     }
 
     func send(messages: [SendChatMessage], completion: @escaping ResultCallback<[String: ChatMessage]>) {
         UpdateDataOperation(locationProvider: nil, idProvider: idProvider, networkLayer: networkLayer, messages: messages)
             .performWithoutQueue { [weak self] result in
-                guard let self = self else { return }
-
-                self.defaultCompletion(for: result)
+                self?.defaultCompletion(for: result)
                 onMain {
                     switch result {
                     case let .success(messages):

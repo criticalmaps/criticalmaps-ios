@@ -1,13 +1,25 @@
 import Foundation
 
+enum APIRequestBuildError: Error {
+    case invalidURL
+}
+
 public protocol APIRequestDefining {
+    associatedtype QueryDefiningDataType: Encodable = String
     associatedtype ResponseDataType: Decodable
     var endpoint: Endpoint { get }
     var httpMethod: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
+    var queryItem: QueryDefiningDataType? { get }
     var requiresBackgroundTask: Bool { get }
-    func makeRequest() -> URLRequest
+    func makeRequest() throws -> URLRequest
     func parseResponse(data: Data) throws -> ResponseDataType
+}
+
+extension APIRequestDefining {
+    var queryItem: QueryDefiningDataType? {
+        nil
+    }
 }
 
 extension APIRequestDefining {
@@ -15,8 +27,20 @@ extension APIRequestDefining {
         false
     }
 
-    func makeRequest() -> URLRequest {
-        var request = URLRequest(url: endpoint.url)
+    func makeRequest() throws -> URLRequest {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = endpoint.baseUrl
+        if let path = endpoint.path {
+            components.path = path
+        }
+        if let queryItem = queryItem {
+            components.queryItems = try URLQueryItem.encode(encodable: queryItem)
+        }
+        guard let url = components.url else {
+            throw APIRequestBuildError.invalidURL
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
         request.addHeaders(headers)
         return request

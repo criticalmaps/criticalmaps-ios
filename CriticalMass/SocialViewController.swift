@@ -42,7 +42,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
                                            y: Constants.scaleFactor)
         loadingIndicator.startAnimating()
         let barButtonItem = UIBarButtonItem(customView: loadingIndicator)
-        barButtonItem.accessibilityLabel = String.loadingButtonLabel
+        barButtonItem.accessibilityLabel = L10n.loadingButtonLabel
         return barButtonItem
     }()
 
@@ -87,7 +87,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     private func configureSegmentedControl() {
         navigationItem.titleView = segmentedControl
         NSLayoutConstraint.activate([
-            segmentedControl.centerXAnchor.constraint(equalTo: self.navigationItem.titleView!.centerXAnchor),
+            segmentedControl.centerXAnchor.constraint(equalTo: navigationItem.titleView!.centerXAnchor),
             segmentedControl.heightAnchor.constraint(equalTo: navigationItem.titleView!.heightAnchor),
             segmentedControl.widthAnchor.constraint(equalToConstant: 180.0),
         ])

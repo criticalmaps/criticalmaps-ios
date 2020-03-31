@@ -30,7 +30,7 @@ extension URLCodable {
         urlComponents.scheme = scheme
         urlComponents.host = host
         urlComponents.path = path
-        urlComponents.queryItems = try encode(codable: queryObject)
+        urlComponents.queryItems = try URLQueryItem.encode(encodable: queryObject)
         guard let result = urlComponents.url?.absoluteString else {
             throw URLCodableError.encodingFailed
         }
@@ -46,28 +46,29 @@ extension URLCodable {
         return try self.init(scheme: urlComponents.scheme, host: urlComponents.host, path: urlComponents.path, queryObject: codableObject)
     }
 
-    private func encode<T: Encodable>(codable: T) throws -> [URLQueryItem] {
-        let jsonData = try JSONEncoder().encode(codable)
-        guard let dict = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] else {
-            throw URLCodableError.encodingFailed
-        }
-
-        return try dict.map { (key, value) -> URLQueryItem in
-            switch value {
-            case let stringValue as String:
-                return URLQueryItem(name: key, value: stringValue)
-            default:
-                // More types are currently not supported and should be added if needed
-                throw URLCodableError.encodingFailed
-            }
-        }
-    }
-
-    private static func decode<T: Codable>(type: T.Type, from items: [URLQueryItem]) throws -> T {
+    private static func decode<T: Codable>(type _: T.Type, from items: [URLQueryItem]) throws -> T {
         let dict = items.reduce(into: [String: String]()) { result, item in
             result[item.name] = item.value
         }
         let data = try JSONSerialization.data(withJSONObject: dict, options: [])
-        return try JSONDecoder().decode(type, from: data)
+        return try data.decoded()
+    }
+}
+
+extension URLQueryItem {
+    static func encode(encodable: Encodable) throws -> [URLQueryItem] {
+        let jsonData = try encodable.encoded()
+        guard let dict = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String: Any] else {
+            throw URLCodableError.encodingFailed
+        }
+        return try dict.lazy.map { key, value in
+            if let stringConvertible = value as? CustomStringConvertible {
+                return URLQueryItem(name: key, value: String(describing: stringConvertible))
+            }
+            // More types are currently not supported and should be added if needed
+            throw URLCodableError.encodingFailed
+        }
+        // The sorting is only required to make testing easier
+        .sorted(by: \.name)
     }
 }

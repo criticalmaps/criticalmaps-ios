@@ -1,0 +1,52 @@
+name: Update dependencies
+
+on:
+  schedule:
+  - cron: "0 0 * * 0"
+  
+env:
+    DEVELOPER_DIR: /Applications/Xcode_11.3.app/Contents/Developer
+
+jobs:
+  createPullRequest:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache SPM
+        uses: actions/cache@v1
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Cache Bundler
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Define bundler config path
+        run: |
+          bundle config path vendor/bundle
+
+      - name: Bump version
+        run: bash update_dependencies.sh
+
+      - name: Smoke test
+        run: bundle exec fastlane test
+      
+      - name: Clean up
+        run: |
+          rm -r -f vendor
+          rm -r -f .bundle
+        
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update dependencies
+          title: Update dependencies

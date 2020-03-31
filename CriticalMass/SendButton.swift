@@ -38,7 +38,7 @@ class SendButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
         commonInit()
-        accessibilityLabel = String.chatSend
+        accessibilityLabel = L10n.chatSend
     }
 
     private func commonInit() {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Notification {
+extension Notification.Name {
     static let themeDidChange = Notification.Name(rawValue: "themeDidChange")
     static let initialGpsDataReceived = Notification.Name(rawValue: "initialGpsDataReceived")
     static let observationModeChanged = Notification.Name(rawValue: "observationModeChanged")

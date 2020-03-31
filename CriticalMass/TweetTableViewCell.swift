@@ -62,8 +62,13 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
     @IBOutlet private var nameAndHandleAndTimeStackView: UIStackView!
     @IBOutlet private var nameAndHandleStackView: UIStackView!
 
+    // We need both setup methods to maintain conformance to the protocol + be able to inject a custom date for testing
     func setup(for tweet: Tweet) {
-        dateLabel.text = FormatDisplay.dateString(for: tweet)
+        setup(for: tweet, currentDate: Date())
+    }
+
+    func setup(for tweet: Tweet, currentDate: Date) {
+        dateLabel.text = FormatDisplay.dateString(for: tweet, currentDate: currentDate)
         tweetTextView.text = tweet.text
         handleLabel.text = "@\(tweet.user.screen_name)"
         userNameLabel.text = tweet.user.name

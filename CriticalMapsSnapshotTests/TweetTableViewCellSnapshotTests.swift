@@ -14,11 +14,6 @@ class TweetTableViewCellSnapshotTests: XCTestCase {
     // use constant date in the past
     private let tweetDate = Date(timeIntervalSince1970: 1_530_230_956)
 
-    override func setUp() {
-        // use constant date in the past
-        FormatDisplay.currentDate = Date(timeIntervalSince1970: 1_530_240_956)
-    }
-
     func testTweetTableViewCell() {
         // given
         let tweet = Tweet(text: "Hello World",
@@ -30,7 +25,7 @@ class TweetTableViewCellSnapshotTests: XCTestCase {
         let cell = TweetTableViewCell.fromNib()
 
         // when
-        cell.setup(for: tweet)
+        cell.setup(for: tweet, currentDate: Date(timeIntervalSince1970: 1_530_240_956))
 
         // then
         assertViewSnapshot(matching: cell, with: size)

@@ -2,7 +2,29 @@
 
 Changelog for Critical Maps iOS
 
-## [Unreleased]
+# [Unreleased]
+
+### Added
+
+- Fullpage screenshots of the Map
+- Showing next ride event notification and annotation view on the map.
+
+### Fixed
+
+- Fix Wrong displayed timestamps for tweets if the App was active for a while
+- Fix Dark Mode Color Behaviour in Action Indicator (in Rules, Settings) and Separator (in Settings)
+
+## [3.8.0] - 2020-03-01
+
+### Fixed
+
+- Fixed a Bug that caused a 12 second delay to display Riders on the Map after launching the App
+
+### Updated
+
+- Cleaner BikeAnnotation appearance
+
+## [3.7.0] - 2020-02-11
 
 ### Added
 

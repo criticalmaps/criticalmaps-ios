@@ -22,7 +22,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
             case .friends:
                 return nil
             case .settings:
-                return .settingsFriendsSettings
+                return L10n.settingsFriendsSettings
             }
         }
     }
@@ -63,13 +63,13 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
     }
 
     private func configureNavigationBar() {
-        title = .settingsFriends
-        let addFriendBarButtonItem = UIBarButtonItem(title: .settingsFriendsShowID, style: .plain, target: self, action: #selector(addFriendButtonTapped))
+        title = L10n.settingsFriends
+        let addFriendBarButtonItem = UIBarButtonItem(title: L10n.settingsFriendsShowID, style: .plain, target: self, action: #selector(addFriendButtonTapped))
         navigationItem.rightBarButtonItem = addFriendBarButtonItem
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onNewData), name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNewData), name: .positionOthersChanged, object: nil)
     }
 
     @objc private func addFriendButtonTapped() {
@@ -155,7 +155,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         case .friends:
             let friend = dataStore.friends[indexPath.row]
             if friend.isOnline {
-                NotificationCenter.default.post(name: Notification.focusLocation, object: friend.location)
+                NotificationCenter.default.post(name: .focusLocation, object: friend.location)
                 dismiss(animated: true, completion: nil)
             } else {
                 tableView.deselectRow(at: indexPath, animated: true)

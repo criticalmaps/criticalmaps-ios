@@ -2,7 +2,7 @@
 
 execute_fastlane_snapshot() {
     echo "Updating fastlane snapshot"
-    bundle exec fastlane snapshot update
+    bundle exec fastlane snapshot update -f
 }
 
 check_bundle() {
@@ -29,7 +29,7 @@ run_swiftformat() {
     unzip -q swiftformat.zip
 
     echo "Forcefully copying the extracted swiftformat executble to bin"
-    yes | cp -rf nicklockwood*/CommandLineTool/swiftformat ../bin/
+    cp -rf nicklockwood*/CommandLineTool/swiftformat ../bin/
 
     echo "Removing the created swiftformat meta folder"
     cd ..
@@ -50,7 +50,7 @@ run_license_plist() {
     unzip -q portable_licenseplist.zip
 
     echo "Forcefully copying the extracted license-plist executble to bin"
-    yes | cp -rf ./license-plist ../bin/
+    cp -rf ./license-plist ../bin/
 
     echo "Removing the created license-plist meta folder"
     cd ..

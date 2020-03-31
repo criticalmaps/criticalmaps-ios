@@ -10,9 +10,17 @@ import MapKit
 
 class BikeAnnotation: IdentifiableAnnnotation {}
 
-class BikeAnnotationController: AnnotationController<BikeAnnotation, BikeAnnoationView> {
+class BikeAnnotationController: AnnotationController {
+    convenience init(mapView: MKMapView) {
+        self.init(
+            mapView: mapView,
+            annotationType: BikeAnnotation.self,
+            annotationViewType: BikeAnnoationView.self
+        )
+    }
+
     public override func setup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: Notification.positionOthersChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(positionsDidChange(notification:)), name: .positionOthersChanged, object: nil)
     }
 
     @objc private func positionsDidChange(notification: Notification) {

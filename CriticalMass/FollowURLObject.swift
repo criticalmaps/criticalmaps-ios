@@ -10,8 +10,8 @@ import Foundation
 
 struct FollowURLObject: URLCodable {
     let scheme: String? = "criticalmaps"
-    let host: String? = nil
-    let path: String = "follow"
+    let host: String? = "follow"
+    let path: String = ""
     let queryObject: Friend
 }
 

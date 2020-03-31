@@ -7,14 +7,7 @@
 
 import UIKit
 
-class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable {
-    @objc
-    dynamic var arrowTintColor: UIColor? {
-        willSet {
-            arrowImageView.tintColor = arrowTintColor
-        }
-    }
-
+class SettingsProjectLinkTableViewCell: UITableViewCell, IBConstructable {
     @IBOutlet var backgroundImageView: UIImageView! {
         didSet {
             backgroundImageView.layer.cornerRadius = 16.0
@@ -49,13 +42,10 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
         }
     }
 
-    @IBOutlet var arrowImageView: UIImageView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        titleLabel.text = String.settingsOpenSourceTitle
-        detailLabel.text = String.settingsOpenSourceDetail
-        actionLabel.text = String.settingsOpenSourceAction.uppercased()
+    @IBOutlet var arrowImageView: UIImageView! {
+        didSet {
+            arrowImageView.tintColor = .settingsOpenSourceForeground
+        }
     }
 
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -68,5 +58,28 @@ class SettingsGithubTableViewCellTableViewCell: UITableViewCell, IBConstructable
         } else {
             updateBlock()
         }
+    }
+}
+
+extension SettingsProjectLinkTableViewCell {
+    struct CellConfiguration {
+        let title: String
+        let detail: String
+        let actionTitle: String
+        let image: UIImage
+
+        static let github = CellConfiguration(
+            title: L10n.settingsOpenSourceTitle,
+            detail: L10n.settingsOpenSourceDetail,
+            actionTitle: L10n.settingsOpenSourceAction.uppercased(),
+            image: UIImage(named: "GithubBanner")!
+        )
+
+        static let criticalMassDotIn = CellConfiguration(
+            title: L10n.settingsCriticalMassDotInTitle,
+            detail: L10n.settingsCriticalMassDotInDetail,
+            actionTitle: L10n.settingsOpenSourceAction.uppercased(),
+            image: UIImage(named: "banner cm")!
+        )
     }
 }
