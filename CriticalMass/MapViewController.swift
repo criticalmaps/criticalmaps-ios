@@ -92,7 +92,7 @@ class MapViewController: UIViewController {
 
     private func registerAnnotationViews() {
         annotationControllers
-            .map { $0.annotationViewType }
+            .map(\.annotationViewType)
             .forEach(mapView.register)
     }
 
@@ -185,7 +185,7 @@ class MapViewController: UIViewController {
             switch result {
             case let .success(ride):
                 onMain { [unowned self] in
-                    self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
+                    self.annotationControllers.first(where: canBeCastedTo(CriticalMassAnnotation.self))
                         .flatMap {
                             if #available(iOS 11.0, *) {
                                 guard let controller = $0 as? CMMarkerAnnotationController else {
