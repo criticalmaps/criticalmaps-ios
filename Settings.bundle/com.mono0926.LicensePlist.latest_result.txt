@@ -2,7 +2,7 @@ name: Crypto, nameSpecified: , owner: soffes, version: 0.6.0
 
 name: GrowingTextView, nameSpecified: , owner: KennethTsang, version: 0.7.2
 
-name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.6.1
+name: SDWebImage, nameSpecified: , owner: SDWebImage, version: 5.7.2
 
 name: swift-snapshot-testing, nameSpecified: , owner: pointfreeco, version: 1.7.2
 
