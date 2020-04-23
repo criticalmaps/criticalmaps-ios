@@ -188,8 +188,6 @@
 		9844438123429354005468B2 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9844438023429354005468B2 /* UIView+Autolayout.swift */; };
 		985E94B9220796CB00AA991B /* NavigationOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */; };
 		98707DFB24167A480045B811 /* FormatDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98707DFA24167A480045B811 /* FormatDisplayTests.swift */; };
-		9878D4CD243CAF0F00F79FD6 /* TypeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9878D4CC243CAF0F00F79FD6 /* TypeUtils.swift */; };
-		9878D4CF243CAF4700F79FD6 /* TypeUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9878D4CE243CAF4700F79FD6 /* TypeUtilsTests.swift */; };
 		98790021222DA7E600880334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98790020222DA7E600880334 /* AppDelegate.swift */; };
 		987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987C57A423A4EAF80060499B /* MapInfoView.swift */; };
 		987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987C57A523A4EAF80060499B /* MapInfoView.xib */; };
@@ -448,8 +446,6 @@
 		9853B50E237E0E8D00F46AB6 /* MKMapView+Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKMapView+Register.swift"; sourceTree = "<group>"; };
 		985E94B8220796CB00AA991B /* NavigationOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewController.swift; sourceTree = "<group>"; };
 		98707DFA24167A480045B811 /* FormatDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplayTests.swift; sourceTree = "<group>"; };
-		9878D4CC243CAF0F00F79FD6 /* TypeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeUtils.swift; sourceTree = "<group>"; };
-		9878D4CE243CAF4700F79FD6 /* TypeUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeUtilsTests.swift; sourceTree = "<group>"; };
 		98790020222DA7E600880334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		987C57A423A4EAF80060499B /* MapInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		987C57A523A4EAF80060499B /* MapInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapInfoView.xib; sourceTree = "<group>"; };
@@ -801,7 +797,6 @@
 				948509A222C09F9A0034FAF1 /* UIViewController+Management.swift */,
 				94FCBD25226C57CA00F93F94 /* UIWindow+Appearance.swift */,
 				94CCC8B723D0587F000CCE2A /* UserDefaults+Additions.swift */,
-				9878D4CC243CAF0F00F79FD6 /* TypeUtils.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -902,7 +897,6 @@
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
 				98CE7322240EA4CE0088F7B4 /* NextRidesRequestTests.swift */,
 				98707DFA24167A480045B811 /* FormatDisplayTests.swift */,
-				9878D4CE243CAF4700F79FD6 /* TypeUtilsTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -1410,7 +1404,6 @@
 				98C1327B227B8FE600291FCA /* IdentifiableAnnnotation.swift in Sources */,
 				9822A15E21F10FCA007F5994 /* LocationProvider.swift in Sources */,
 				94829429238AA39D00338E7F /* MKMapView+Register.swift in Sources */,
-				9878D4CD243CAF0F00F79FD6 /* TypeUtils.swift in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
 				98970871220A4E180073BB02 /* CustomButton.swift in Sources */,
 				944D5F03240CE08000993899 /* CMAnnotationController.swift in Sources */,
@@ -1462,7 +1455,6 @@
 			files = (
 				9822A16621F11519007F5994 /* AppDataStoreTests.swift in Sources */,
 				3FDA7C13240B0EA3004EE8A6 /* MockNetworkObserver.swift in Sources */,
-				9878D4CF243CAF4700F79FD6 /* TypeUtilsTests.swift in Sources */,
 				98003D602287301000592D55 /* FollowURLObjectTests.swift in Sources */,
 				9810C384229831720011F718 /* RatingHelperTests.swift in Sources */,
 				949EBB1824102F4900E4F93B /* StringAdditionsTests.swift in Sources */,

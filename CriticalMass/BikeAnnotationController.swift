@@ -36,7 +36,7 @@ class BikeAnnotationController: AnnotationController {
         var unmatchedLocations = locations
         var unmatchedAnnotations: [MKAnnotation] = []
         // update existing annotations
-        mapView.annotations.compactMap(castTo(BikeAnnotation.self)).forEach { annotation in
+        mapView.annotations.compactMap { $0 as? BikeAnnotation }.forEach { annotation in
             if let location = unmatchedLocations[annotation.identifier] {
                 annotation.location = location
                 unmatchedLocations.removeValue(forKey: annotation.identifier)
