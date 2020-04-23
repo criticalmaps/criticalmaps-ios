@@ -67,7 +67,8 @@ final class CMMarkerAnnotationController: AnnotationController {
 
     @objc private func checkRide() {
         guard let rideAnnotation = mapView.annotations.first(
-            where: { $0 is CriticalMassAnnotation }) as? CriticalMassAnnotation else {
+            where: { $0 is CriticalMassAnnotation }
+        ) as? CriticalMassAnnotation else {
             Logger.log(.debug, log: .default, "Expected annotation")
             return
         }
@@ -140,7 +141,8 @@ final class CMAnnotationController: AnnotationController {
 
     @objc private func checkRide() {
         guard let rideAnnotation = mapView.annotations.first(
-            where: { $0 is CriticalMassAnnotation }) as? CriticalMassAnnotation else {
+            where: { $0 is CriticalMassAnnotation }
+        ) as? CriticalMassAnnotation else {
             Logger.log(.debug, log: .default, "Expected annotation")
             return
         }
