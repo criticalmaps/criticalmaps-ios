@@ -92,7 +92,7 @@ class MapViewController: UIViewController {
 
     private func registerAnnotationViews() {
         annotationControllers
-            .map { $0.annotationViewType }
+            .map(\.annotationViewType)
             .forEach(mapView.register)
     }
 

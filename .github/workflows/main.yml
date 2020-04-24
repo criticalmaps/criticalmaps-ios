@@ -20,13 +20,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Cache SPM
-      uses: actions/cache@v1
-      with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-spm-
+    # - name: Cache SPM
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: .build
+    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-spm-
 
     - name: Cache Bundler
       uses: actions/cache@v1
@@ -52,13 +52,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Cache SPM
-      uses: actions/cache@v1
-      with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-spm-
+    # - name: Cache SPM
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: .build
+    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-spm-
 
     - name: Cache Bundler
       uses: actions/cache@v1
@@ -90,13 +90,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Cache SPM
-      uses: actions/cache@v1
-      with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-spm-
+    # - name: Cache SPM
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: .build
+    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-spm-
 
     - name: Cache Bundler
       uses: actions/cache@v1
@@ -122,13 +122,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Cache SPM
-      uses: actions/cache@v1
-      with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-spm-
+    # - name: Cache SPM
+    #   uses: actions/cache@v1
+    #   with:
+    #     path: .build
+    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-spm-
 
     - name: Cache Bundler
       uses: actions/cache@v1
