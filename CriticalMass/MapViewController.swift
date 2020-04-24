@@ -181,6 +181,9 @@ class MapViewController: UIViewController {
     }
 
     private func getNextRide(_ coordinate: CLLocationCoordinate2D) {
+        guard Feature.events.isActive else {
+            return
+        }
         nextRideManager.getNextRide(around: coordinate) { result in
             switch result {
             case let .success(ride):
