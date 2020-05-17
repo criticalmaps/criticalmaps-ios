@@ -9,7 +9,7 @@
 import UIKit
 
 extension UITableViewHeaderFooterView {
-    open override var backgroundColor: UIColor? {
+    override open var backgroundColor: UIColor? {
         get {
             customBackgroundView.backgroundColor
         }
