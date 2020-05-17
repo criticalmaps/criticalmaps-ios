@@ -26,7 +26,7 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     private var twitterController: UIViewController
 
     private lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: SocialSegments.allCases.map { $0.title })
+        let control = UISegmentedControl(items: SocialSegments.allCases.map(\.title))
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(socialSelectionDidChange(control:)),
                           for: .valueChanged)
