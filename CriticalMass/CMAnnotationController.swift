@@ -51,7 +51,7 @@ final class CMMarkerAnnotationController: AnnotationController {
         isRideOutdatedTimer?.invalidate()
     }
 
-    public override func setup() {
+    override public func setup() {
         isRideOutdatedTimer = Timer.scheduledTimer(
             timeInterval: outdatedCheckTimeinterval,
             target: self,
@@ -125,7 +125,7 @@ final class CMAnnotationController: AnnotationController {
         isRideOutdatedTimer?.invalidate()
     }
 
-    public override func setup() {
+    override public func setup() {
         isRideOutdatedTimer = Timer.scheduledTimer(
             timeInterval: outdatedCheckTimeinterval,
             target: self,
