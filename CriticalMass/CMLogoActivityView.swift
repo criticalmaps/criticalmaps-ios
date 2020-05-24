@@ -15,7 +15,7 @@ import UIKit
         CADisplayLink(target: self, selector: #selector(updateViewParameter))
     }()
 
-    public override func draw(_: CGRect) {
+    override public func draw(_: CGRect) {
         CriticalMapsLoader.drawCMLogo(rotation: angle)
     }
 
