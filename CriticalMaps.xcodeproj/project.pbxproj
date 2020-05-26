@@ -101,6 +101,7 @@
 		949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BEF542237CAEC009AE6DF /* RoundableImageView.swift */; };
 		949EBB1624102F1A00E4F93B /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EBB1524102F1A00E4F93B /* String+Additions.swift */; };
 		949EBB1824102F4900E4F93B /* StringAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949EBB1724102F4900E4F93B /* StringAdditionsTests.swift */; };
+		94A5FB8B242B88ED0037E5E3 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5FB8A242B88ED0037E5E3 /* AlertPresenter.swift */; };
 		94A95EB32287F81100FD5FDB /* NoContentMessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */; };
 		94AF230923D6D64600267E87 /* DateAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF230823D6D64600267E87 /* DateAdditionsTests.swift */; };
 		94CCC8B623D0583D000CCE2A /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCC8B523D0583D000CCE2A /* Date+Additions.swift */; };
@@ -349,6 +350,7 @@
 		949BEF542237CAEC009AE6DF /* RoundableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundableImageView.swift; sourceTree = "<group>"; };
 		949EBB1524102F1A00E4F93B /* String+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		949EBB1724102F4900E4F93B /* StringAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringAdditionsTests.swift; sourceTree = "<group>"; };
+		94A5FB8A242B88ED0037E5E3 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentMessageLabel.swift; sourceTree = "<group>"; };
 		94AF230823D6D64600267E87 /* DateAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAdditionsTests.swift; sourceTree = "<group>"; };
 		94CCC8B523D0583D000CCE2A /* Date+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -600,8 +602,10 @@
 		9460B769225A6E9B00786E27 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				94A5FB8A242B88ED0037E5E3 /* AlertPresenter.swift */,
 				21859FAD2352B6AA00B942AA /* AsyncOperation.swift */,
 				944D5EF1240CDEF700993899 /* CoordinateObfuscator.swift */,
+				94CCC8B423D0582A000CCE2A /* Extensions */,
 				3F997954239D9DD5006DB96B /* Feature.swift */,
 				94D4016E229F20F6001524CC /* FontMetrics.swift */,
 				9460B76A225A6EB200786E27 /* FormatDisplay.swift */,
@@ -609,6 +613,7 @@
 				94FCBD26226C57CA00F93F94 /* IBConstructable.swift */,
 				98C1327A227B8FE600291FCA /* IdentifiableAnnnotation.swift */,
 				98329A1E22D3BEA000A157EE /* KeychainHelper.swift */,
+				9409274C22841E160034E46B /* L10n.swift */,
 				988B12AC22A271FE0010FAED /* Logger.swift */,
 				9444D7E12281686000DF44C0 /* NetworkActivityIndicatorHelper.swift */,
 				210367B9237AACC6001F2A84 /* NetworkObserver.swift */,
@@ -620,8 +625,6 @@
 				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
 				98003D4822872C1700592D55 /* URLCodable.swift */,
 				21859FB12352CBD300B942AA /* WaitOperation.swift */,
-				9409274C22841E160034E46B /* L10n.swift */,
-				94CCC8B423D0582A000CCE2A /* Extensions */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1390,6 +1393,7 @@
 				944D5F01240CE07600993899 /* CMAnnotationView.swift in Sources */,
 				949BD4AF23CB481200EA7BA4 /* CriticalMassInApiHandler.swift in Sources */,
 				98DDF9E823D4F8E800E55BE7 /* MapOverlayErrorHandler.swift in Sources */,
+				94A5FB8B242B88ED0037E5E3 /* AlertPresenter.swift in Sources */,
 				9485A93523756A53006DC7B5 /* LoadingViewController.swift in Sources */,
 				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				944D5EF7240CDEF700993899 /* NextRideManager.swift in Sources */,

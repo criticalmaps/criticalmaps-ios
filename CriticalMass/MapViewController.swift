@@ -257,10 +257,14 @@ extension MapViewController: MKMapViewDelegate {
         // TODO: Remove workaround when target > iOS10 since it does not seem to work with the MKMapView+Register extension
         if annotation is CriticalMassAnnotation {
             if #available(iOS 11.0, *) {
-                return mapView.dequeueReusableAnnotationView(
+                let view = mapView.dequeueReusableAnnotationView(
                     withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
                     for: annotation
                 )
+                let markerView = view as! CMMarkerAnnotationView
+                markerView.shareEventClosure = { self.shareEvent() }
+                markerView.routeEventClosure = { self.routeToEvent() }
+                return view
             } else {
                 return mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier) as? CMAnnotationView
                     ?? CMAnnotationView(
@@ -283,6 +287,43 @@ extension MapViewController: MKMapViewDelegate {
         }
         return renderer
     }
+
+    // MARK: Menu interaction handling
+
+    func mapView(_: MKMapView, didSelect view: MKAnnotationView) {
+        if view.annotation is CriticalMassAnnotation {
+            let longTapGestureRecognizer = UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(handleEventLongPress(_:))
+            )
+            view.addGestureRecognizer(longTapGestureRecognizer)
+        }
+    }
+
+    @objc private func handleEventLongPress(_: Any) {
+        let routeAction = UIAlertAction(title: L10n.menuRoute, style: .default) { _ in self.routeToEvent() }
+        let shareAction = UIAlertAction(title: L10n.menuShare, style: .default) { _ in self.shareEvent() }
+        AlertPresenter.shared.presentAlert(
+            title: L10n.menuTitle,
+            preferredStyle: .actionSheet,
+            actionData: [routeAction, shareAction],
+            isCancelable: true
+        )
+    }
+
+    private func routeToEvent() {
+        nextRideManager.nextRide?.openInMaps()
+    }
+
+    private func shareEvent() {
+        nextRideManager.nextRide.flatMap {
+            let activityViewController = UIActivityViewController(
+                activityItems: [$0.shareMessage],
+                applicationActivities: nil
+            )
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+    }
 }
 
 extension MapViewController: UIScreenshotServiceDelegate {
@@ -293,7 +334,6 @@ extension MapViewController: UIScreenshotServiceDelegate {
 
             self.mapView.drawHierarchy(in: self.view.bounds, afterScreenUpdates: true)
         }
-
         completionHandler(data, 0, view.bounds)
     }
 }
