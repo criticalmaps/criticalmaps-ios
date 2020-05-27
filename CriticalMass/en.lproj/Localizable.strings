@@ -39,6 +39,15 @@
 "map.title" = "Critical Maps";
 
 /* No comment provided by engineer. */
+"map.menu.title" = "Next event";
+
+/* No comment provided by engineer. */
+"map.menu.share" = "Share";
+
+/* No comment provided by engineer. */
+"map.menu.route" = "Route";
+
+/* No comment provided by engineer. */
 "ok" = "OK";
 
 /* No comment provided by engineer. */
