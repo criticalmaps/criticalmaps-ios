@@ -67,7 +67,7 @@ class ChatViewController: UIViewController {
 
     private func configureMessagesTableViewController() {
         messagesTableViewController.noContentMessage = L10n.chatNoChatActivity
-        messagesTableViewController.messages = chatManager.getMessages()
+        messagesTableViewController.update(messages: chatManager.getMessages())
 
         let tapGestureRecoognizer = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
         messagesTableViewController.view.addGestureRecognizer(tapGestureRecoognizer)
