@@ -537,6 +537,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21CB5E0124837AB9003899D3 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
+				210643392480532300F2988A /* MessagesTableViewDataSource.swift */,
+			);
+			name = Messages;
+			sourceTree = "<group>";
+		};
 		3F137FA22349CADC006B26AB /* CriticalMapsUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,14 +974,13 @@
 		985E94BC220891F200AA991B /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				21CB5E0124837AB9003899D3 /* Messages */,
 				9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */,
 				9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */,
 				98401AF421FB79F400064DAE /* ChatViewController.swift */,
-				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
 				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
 				9897086C220A3E9E0073BB02 /* SocialViewController.swift */,
 				981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */,
-				210643392480532300F2988A /* MessagesTableViewDataSource.swift */,
 			);
 			name = Social;
 			sourceTree = "<group>";
