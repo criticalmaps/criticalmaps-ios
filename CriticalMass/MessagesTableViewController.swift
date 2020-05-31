@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MessageConfigurable: AnyObject {
-    associatedtype Model
+    associatedtype Model: Hashable
     func setup(for object: Model)
 }
 
