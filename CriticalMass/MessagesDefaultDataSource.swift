@@ -3,7 +3,7 @@
 
 import UIKit
 
-final class MessagesTableViewDataSource<T: IBConstructableMessageTableViewCell>: NSObject, UITableViewDataSource {
+final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: NSObject, UITableViewDataSource {
     var messages: [T.Model] = []
 
     func numberOfSections(in _: UITableView) -> Int {

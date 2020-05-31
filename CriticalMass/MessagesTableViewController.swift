@@ -24,7 +24,7 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         }
     }
 
-    private let dataSource = MessagesTableViewDataSource<T>()
+    private let dataSource = MessagesDefaultDataSource<T>()
 
     var selectMessageTrigger: ((T.Model) -> Void)?
 

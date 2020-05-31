@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367B9237AACC6001F2A84 /* NetworkObserver.swift */; };
 		210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367BB237AAE2F001F2A84 /* PathObserver.swift */; };
-		2106433A2480532300F2988A /* MessagesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210643392480532300F2988A /* MessagesTableViewDataSource.swift */; };
+		2106433A2480532300F2988A /* MessagesDefaultDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210643392480532300F2988A /* MessagesDefaultDataSource.swift */; };
 		2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* UpdateLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
@@ -260,7 +260,7 @@
 /* Begin PBXFileReference section */
 		210367B9237AACC6001F2A84 /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		210367BB237AAE2F001F2A84 /* PathObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathObserver.swift; sourceTree = "<group>"; };
-		210643392480532300F2988A /* MessagesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewDataSource.swift; sourceTree = "<group>"; };
+		210643392480532300F2988A /* MessagesDefaultDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDefaultDataSource.swift; sourceTree = "<group>"; };
 		2176242623744F3400F7885E /* UpdateLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
@@ -543,7 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
-				210643392480532300F2988A /* MessagesTableViewDataSource.swift */,
+				210643392480532300F2988A /* MessagesDefaultDataSource.swift */,
 				21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */,
 			);
 			name = Messages;
@@ -1413,7 +1413,7 @@
 				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				944D5EF7240CDEF700993899 /* NextRideManager.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
-				2106433A2480532300F2988A /* MessagesTableViewDataSource.swift in Sources */,
+				2106433A2480532300F2988A /* MessagesDefaultDataSource.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
