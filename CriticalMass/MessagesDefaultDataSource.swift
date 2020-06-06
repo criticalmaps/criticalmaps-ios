@@ -3,8 +3,22 @@
 
 import UIKit
 
-final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: NSObject, UITableViewDataSource {
-    var messages: [T.Model] = []
+final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: MessagesDataSource<T>, UITableViewDataSource {
+    override var messages: [T.Model] {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+
+    private weak var tableView: UITableView?
+
+    override func configure(tableView: UITableView) {
+        super.configure(tableView: tableView)
+        self.tableView = tableView
+        tableView.dataSource = self
+    }
+
+    // MARK: UITableViewDataSource
 
     func numberOfSections(in _: UITableView) -> Int {
         1
@@ -17,6 +31,7 @@ final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: N
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofType: T.self)
         cell.setup(for: messages[indexPath.row])
+
         return cell
     }
 }

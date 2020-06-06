@@ -4,8 +4,8 @@
 import UIKit
 
 @available(iOS 13.0.0, *)
-final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell> {
-    var messages: [T.Model] = [] {
+final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell>: MessagesDataSource<T> {
+    override var messages: [T.Model] {
         didSet {
             updateTableView()
         }
@@ -13,7 +13,8 @@ final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell> {
 
     private var dataSource: UITableViewDiffableDataSource<Int, T.Model>?
 
-    func configure(with tableView: UITableView) {
+    override func configure(tableView: UITableView) {
+        super.configure(tableView: tableView)
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, _ in
             let cell = tableView.dequeueReusableCell(ofType: T.self)
             cell.setup(for: self.messages[indexPath.row])
