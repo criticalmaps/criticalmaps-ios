@@ -10,6 +10,7 @@
 		210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367B9237AACC6001F2A84 /* NetworkObserver.swift */; };
 		210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367BB237AAE2F001F2A84 /* PathObserver.swift */; };
 		2106433A2480532300F2988A /* MessagesDefaultDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210643392480532300F2988A /* MessagesDefaultDataSource.swift */; };
+		21476CFB248B7C8F0052B27C /* MessageConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */; };
 		2168C71A24839D62009DB702 /* MessagesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2168C71924839D62009DB702 /* MessagesDataSource.swift */; };
 		2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* UpdateLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
@@ -262,6 +263,7 @@
 		210367B9237AACC6001F2A84 /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		210367BB237AAE2F001F2A84 /* PathObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathObserver.swift; sourceTree = "<group>"; };
 		210643392480532300F2988A /* MessagesDefaultDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDefaultDataSource.swift; sourceTree = "<group>"; };
+		21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageConfigurable.swift; sourceTree = "<group>"; };
 		2168C71924839D62009DB702 /* MessagesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDataSource.swift; sourceTree = "<group>"; };
 		2176242623744F3400F7885E /* UpdateLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 				210643392480532300F2988A /* MessagesDefaultDataSource.swift */,
 				21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */,
 				2168C71924839D62009DB702 /* MessagesDataSource.swift */,
+				21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -1373,6 +1376,7 @@
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */,
 				94CCC8B623D0583D000CCE2A /* Date+Additions.swift in Sources */,
+				21476CFB248B7C8F0052B27C /* MessageConfigurable.swift in Sources */,
 				949EBB1624102F1A00E4F93B /* String+Additions.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				9841B477237E9239000A4922 /* AnnotationController.swift in Sources */,

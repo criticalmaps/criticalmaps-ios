@@ -7,13 +7,6 @@
 
 import UIKit
 
-protocol MessageConfigurable: AnyObject {
-    associatedtype Model: Hashable
-    func setup(for object: Model)
-}
-
-typealias IBConstructableMessageTableViewCell = UITableViewCell & IBConstructable & MessageConfigurable
-
 class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITableViewController {
     var noContentMessage: String?
     var pullToRefreshTrigger: ((ResultCallback<[Tweet]>?) -> Void)? {
