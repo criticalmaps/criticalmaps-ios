@@ -24,24 +24,19 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         }
     }
 
-    private let dataSource = MessagesDefaultDataSource<T>()
+    private let dataSource: MessagesDataSource<T> = {
+        if #available(iOS 13.0.0, *) {
+            return MessagesDiffableDataSource<T>()
+        } else {
+            return MessagesDefaultDataSource<T>()
+        }
+    }()
 
     var selectMessageTrigger: ((T.Model) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-    }
-
-    private func setupTableView() {
-        // Setting the footerView hides seperators for empty cellls
-        tableView.tableFooterView = UIView()
-        tableView.register(cellType: T.self)
-        tableView.dataSource = dataSource
-        // To use UITableViews dynamicHeight
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 110.0
-        tableView.separatorColor = .gray300
+        dataSource.configure(tableView: tableView)
     }
 
     private func updateNoMessageCountIfNeeded() {
