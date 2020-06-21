@@ -1,3 +1,4 @@
+
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Personne ne discute pour l'instant...\nLance la conversation !";
 
@@ -13,6 +14,9 @@
 /* No comment provided by engineer. */
 "chat.title" = "Chat";
 
+
+"chat.unreadbutton.accessibilityvalue" = "%@ messages non lus";
+
 /* No comment provided by engineer. */
 "close.button.label" = "fermer";
 
@@ -26,6 +30,18 @@
 "errorState.title" = "Erreur";
 
 /* No comment provided by engineer. */
+"map.headingbutton.accessibilitylabel" = "Localisation";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.heading" = "Activée avec direction";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.off" = "Non";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.on" = "Oui";
+
+/* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
 
 /* No comment provided by engineer. */
@@ -36,18 +52,6 @@
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
-
-/* No comment provided by engineer. */
-"map.headingbutton.accessibilitylabel" = "Localisation";
-
-/* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.off" = "Non";
-
-/* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.on" = "Oui";
-
-/* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.heading" = "Activée avec direction";
 
 /* No comment provided by engineer. */
 "ok" = "OK";
@@ -100,6 +104,7 @@
 /* No comment provided by engineer. */
 "settings.about" = "À propos";
 
+
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -115,16 +120,16 @@
 "settings.friends" = "Amis";
 
 /* No comment provided by engineer. */
-"settings.friends.settings" = "Paramètres";
-
-/* No comment provided by engineer. */
-"settings.friends.showID" = "Montrer id";
+"settings.friends.addFriendDescription" = "ajoutée";
 
 /* No comment provided by engineer. */
 "settings.friends.addFriendTitle" = "Ami ajouté";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendDescription" = "ajoutée";
+"settings.friends.settings" = "Paramètres";
+
+/* No comment provided by engineer. */
+"settings.friends.showID" = "Montrer id";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "Paramètres GPS";

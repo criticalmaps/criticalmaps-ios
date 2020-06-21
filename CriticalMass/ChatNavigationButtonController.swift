@@ -20,7 +20,7 @@ class ChatNavigationButtonController {
         }
     }
 
-    private func updateButton(unreadCount _: UInt) {
-        button.unreadCount = 20
+    private func updateButton(unreadCount: UInt) {
+        button.unreadCount = unreadCount
     }
 }

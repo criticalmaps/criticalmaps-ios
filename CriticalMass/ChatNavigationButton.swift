@@ -22,13 +22,6 @@ class ChatNavigationButton: CustomButton {
         }
     }
 
-    override var largeContentTitle: String? {
-        get {
-            "\(accessibilityLabel!)" + (unreadCount == 0 ? "" : " (\(unreadLabel.text!))")
-        }
-        set {}
-    }
-
     private let unreadLabel = UILabel()
 
     public var unreadCount: UInt = 0 {
@@ -40,7 +33,7 @@ class ChatNavigationButton: CustomButton {
             unreadLabel.frame.size.width = max(16, unreadLabel.frame.size.width + 10)
             unreadLabel.center = CGPoint(x: 55, y: 18)
 
-            accessibilityValue = "\(unreadCount)"
+            accessibilityValue = unreadCount != 0 ? L10n.chatUnreadButtonAccessibilityValue(count: "\(unreadCount)") : nil
         }
     }
 
@@ -68,5 +61,14 @@ class ChatNavigationButton: CustomButton {
         unreadLabel.textAlignment = .center
         unreadLabel.isHidden = true
         addSubview(unreadLabel)
+    }
+
+    // MARK: Accessibility
+
+    override var largeContentTitle: String? {
+        get {
+            "\(accessibilityLabel!)" + (unreadCount == 0 ? "" : " (\(unreadLabel.text!))")
+        }
+        set {}
     }
 }
