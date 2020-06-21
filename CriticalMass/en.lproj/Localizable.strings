@@ -48,6 +48,18 @@
 "map.menu.route" = "Route";
 
 /* No comment provided by engineer. */
+"map.headingbutton.accessibilitylabel" = "Tracking";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.off" = "Off";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.on" = "On";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.heading" = "On with heading";
+
+/* No comment provided by engineer. */
 "ok" = "OK";
 
 /* No comment provided by engineer. */

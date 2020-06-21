@@ -39,8 +39,8 @@ class ChatNavigationButton: CustomButton {
             unreadLabel.frame.size.height = 16
             unreadLabel.frame.size.width = max(16, unreadLabel.frame.size.width + 10)
             unreadLabel.center = CGPoint(x: 55, y: 18)
-            
-            accessibilityValue = "\(unreadCount) ungelesene Nachrichten"
+
+            accessibilityValue = "\(unreadCount)"
         }
     }
 
@@ -49,10 +49,8 @@ class ChatNavigationButton: CustomButton {
         setImage(UIImage(named: "Chat")!, for: .normal)
         adjustsImageWhenHighlighted = false
         accessibilityLabel = L10n.chatTitle
-        unreadCount = 20
-        // TODO:
+
         if #available(iOS 13.0, *) {
-//            button.largeContentTitle = button.accessibilityLabel
             showsLargeContentViewer = true
             scalesLargeContentImage = true
         }
