@@ -133,9 +133,12 @@ class AppController {
                 let followURLObject = try FollowURLObject.decode(from: url.absoluteString)
 
                 dataStore.add(friend: followURLObject.queryObject)
-                let alertController = UIAlertController(title: L10n.settingsAddFriendTitle, message: followURLObject.queryObject.name + " " + L10n.settingsAddFriendDescription, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: L10n.ok, style: .destructive, handler: nil))
-                rootViewController.present(alertController, animated: true, completion: nil)
+                AlertPresenter.shared.presentAlert(
+                    title: L10n.settingsAddFriendTitle,
+                    message: followURLObject.queryObject.name + " " + L10n.settingsAddFriendDescription,
+                    preferredStyle: .alert,
+                    actionData: [UIAlertAction(title: L10n.ok, style: .default, handler: nil)]
+                )
                 return true
             } catch {
                 // unknown or broken link

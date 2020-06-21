@@ -42,6 +42,10 @@ enum L10n {
     // ErrorState
     static let errorStateTitle = L10n.translate("errorState.title")
     static let errorStateMessage = L10n.translate("errorState.message")
+    // Map action items
+    static let menuTitle = L10n.translate("map.menu.title")
+    static let menuShare = L10n.translate("map.menu.share")
+    static let menuRoute = L10n.translate("map.menu.route")
 }
 
 extension L10n {
