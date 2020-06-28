@@ -56,7 +56,6 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
     func update(messages: [T.Model]) {
         dataSource.messages = messages
         updateNoMessageCountIfNeeded()
-        tableView.reloadData()
     }
 
     // MARK: - Table view delegate
