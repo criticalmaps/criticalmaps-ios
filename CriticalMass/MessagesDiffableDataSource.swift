@@ -20,10 +20,7 @@ final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell>: 
     override func configure(tableView: UITableView) {
         super.configure(tableView: tableView)
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, _ in
-            let cell = tableView.dequeueReusableCell(ofType: T.self)
-            cell.setup(for: self.messages[indexPath.row])
-
-            return cell
+            self.configuredCell(at: indexPath, in: tableView)
         })
     }
 

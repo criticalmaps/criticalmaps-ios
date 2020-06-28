@@ -14,4 +14,11 @@ class MessagesDataSource<T: IBConstructableMessageTableViewCell>: NSObject {
         tableView.estimatedRowHeight = 110.0
         tableView.separatorColor = .gray300
     }
+
+    func configuredCell(at indexPath: IndexPath, in tableView: UITableView) -> T {
+        let cell = tableView.dequeueReusableCell(ofType: T.self)
+        cell.setup(for: messages[indexPath.row])
+
+        return cell
+    }
 }

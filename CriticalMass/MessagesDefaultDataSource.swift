@@ -29,9 +29,6 @@ final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: M
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(ofType: T.self)
-        cell.setup(for: messages[indexPath.row])
-
-        return cell
+        configuredCell(at: indexPath, in: tableView)
     }
 }
