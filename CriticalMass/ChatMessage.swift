@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ChatMessage: Codable, Equatable, Hashable {
+public struct ChatMessage: Codable, Hashable {
     var message: String
     var timestamp: TimeInterval
 
