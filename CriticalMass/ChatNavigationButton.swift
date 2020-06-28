@@ -32,6 +32,8 @@ class ChatNavigationButton: CustomButton {
             unreadLabel.frame.size.height = 16
             unreadLabel.frame.size.width = max(16, unreadLabel.frame.size.width + 10)
             unreadLabel.center = CGPoint(x: 55, y: 18)
+
+            accessibilityValue = unreadCount != 0 ? L10n.chatUnreadButtonAccessibilityValue(count: "\(unreadCount)") : nil
         }
     }
 
@@ -40,6 +42,11 @@ class ChatNavigationButton: CustomButton {
         setImage(UIImage(named: "Chat")!, for: .normal)
         adjustsImageWhenHighlighted = false
         accessibilityLabel = L10n.chatTitle
+
+        if #available(iOS 13.0, *) {
+            showsLargeContentViewer = true
+            scalesLargeContentImage = true
+        }
         configureUnreadBubble()
     }
 
@@ -54,5 +61,14 @@ class ChatNavigationButton: CustomButton {
         unreadLabel.textAlignment = .center
         unreadLabel.isHidden = true
         addSubview(unreadLabel)
+    }
+
+    // MARK: Accessibility
+
+    override var largeContentTitle: String? {
+        get {
+            "\(accessibilityLabel!)" + (unreadCount == 0 ? "" : " (\(unreadLabel.text!))")
+        }
+        set {}
     }
 }

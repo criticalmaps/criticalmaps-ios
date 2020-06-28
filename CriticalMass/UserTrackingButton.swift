@@ -43,6 +43,11 @@ class UserTrackingButton: CustomButton {
 
         addTarget(self, action: #selector(didTappedButton), for: .touchUpInside)
         updateImage()
+
+        if #available(iOS 13.0, *) {
+            showsLargeContentViewer = true
+            scalesLargeContentImage = true
+        }
     }
 
     required init?(coder _: NSCoder) {
@@ -88,5 +93,35 @@ class UserTrackingButton: CustomButton {
         }
 
         setImage(image, for: .normal)
+    }
+
+    // MARK: Accessibility
+
+    override var accessibilityLabel: String? {
+        get {
+            L10n.mapHeadingButtonAccessibilityLabel
+        }
+        set {}
+    }
+
+    override var accessibilityValue: String? {
+        get {
+            switch currentMode {
+            case .none:
+                return L10n.mapHeadingButtonAccessibilityValueOff
+            case .follow:
+                return L10n.mapHeadingButtonAccessibilityValueOn
+            case .followWithHeading:
+                return L10n.mapHeadingButtonAccessibilityValueOnWithHeading
+            }
+        }
+        set {}
+    }
+
+    override var largeContentTitle: String? {
+        get {
+            "\(accessibilityLabel!): \(accessibilityValue!)"
+        }
+        set {}
     }
 }

@@ -7,11 +7,13 @@ Changelog for Critical Maps iOS
 ### Added
 
 - Fullpage screenshots of the Map
+- Large preview images on long press for the navigation buttons on devices that use large font sizes
 
 ### Fixed
 
 - Fix Wrong displayed timestamps for tweets if the App was active for a while
 - Fix Dark Mode Color Behaviour in Action Indicator (in Rules, Settings) and Separator (in Settings)
+- Fix missing information for VoiceOver user for the navigationbar buttons
 
 ## [3.8.0] - 2020-03-01
 
