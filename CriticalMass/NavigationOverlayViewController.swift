@@ -71,6 +71,9 @@ class NavigationOverlayViewController: UIViewController {
         view.insertSubview(visualEffectView, at: 0)
         view.layer.setupMapOverlayConfiguration()
         view.accessibilityTraits.insert(.tabBar)
+        if #available(iOS 13.0, *) {
+            view.addInteraction(UILargeContentViewerInteraction())
+        }
     }
 
     private func configure(items: [NavigationOverlayItem]) {
@@ -82,6 +85,11 @@ class NavigationOverlayViewController: UIViewController {
                 button.adjustsImageWhenHighlighted = false
                 button.accessibilityLabel = accessibilityLabel
                 button.accessibilityIdentifier = item.accessibilityIdentifier
+                if #available(iOS 13.0, *) {
+                    button.largeContentTitle = accessibilityLabel
+                    button.showsLargeContentViewer = true
+                    button.scalesLargeContentImage = true
+                }
                 button.tag = index
                 button.addTarget(self, action: #selector(didTapNavigationItem(button:)), for: .touchUpInside)
                 view.addSubview(button)

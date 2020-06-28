@@ -35,10 +35,17 @@ enum L10n {
     static let chatSend = L10n.translate("chat.send")
     static let chatTitle = L10n.translate("chat.title")
     static let chatSendError = L10n.translate("chat.send.error")
+    static func chatUnreadButtonAccessibilityValue(count: String) -> String { L10n.translate("chat.unreadbutton.accessibilityvalue", count)
+    }
+
     // Map
     static let mapLayerInfo = L10n.translate("map.layer.info")
     static let mapLayerInfoTitle = L10n.translate("map.layer.info.title")
     static let mapTitle = L10n.translate("map.title")
+    static let mapHeadingButtonAccessibilityLabel = L10n.translate("map.headingbutton.accessibilitylabel")
+    static let mapHeadingButtonAccessibilityValueOff = L10n.translate("map.headingbutton.accessibilityvalue.off")
+    static let mapHeadingButtonAccessibilityValueOn = L10n.translate("map.headingbutton.accessibilityvalue.on")
+    static let mapHeadingButtonAccessibilityValueOnWithHeading = L10n.translate("map.headingbutton.accessibilityvalue.heading")
     // ErrorState
     static let errorStateTitle = L10n.translate("errorState.title")
     static let errorStateMessage = L10n.translate("errorState.message")

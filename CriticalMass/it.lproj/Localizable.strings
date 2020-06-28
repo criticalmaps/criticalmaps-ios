@@ -1,3 +1,4 @@
+
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Al momento nessuno sta chattando... comincia tu!";
 
@@ -13,6 +14,9 @@
 /* No comment provided by engineer. */
 "chat.title" = "Chat";
 
+
+"chat.unreadbutton.accessibilityvalue" = "%@ messaggi non letti";
+
 /* No comment provided by engineer. */
 "close.button.label" = "chiudere";
 
@@ -24,6 +28,18 @@
 
 /* ErrorState */
 "errorState.title" = "Errore";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilitylabel" = "Monitoraggio";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.heading" = "Attivo con direzione";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.off" = "No";
+
+/* No comment provided by engineer. */
+"map.headingbutton.accessibilityvalue.on" = "Sì";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps deve utilizzare il GPS per mostrare la mappa con altri utenti attivi";
@@ -88,6 +104,7 @@
 /* No comment provided by engineer. */
 "settings.about" = "Crediti";
 
+
 "settings.appDesign" = "Conception";
 
 /* No comment provided by engineer. */
@@ -103,16 +120,16 @@
 "settings.friends" = "Amici";
 
 /* No comment provided by engineer. */
-"settings.friends.settings" = "Impostazioni";
-
-/* No comment provided by engineer. */
-"settings.friends.showID" = "Mostra ID";
+"settings.friends.addFriendDescription" = "aggiunto";
 
 /* No comment provided by engineer. */
 "settings.friends.addFriendTitle" = "Amico aggiunto";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendDescription" = "aggiunto";
+"settings.friends.settings" = "Impostazioni";
+
+/* No comment provided by engineer. */
+"settings.friends.showID" = "Mostra ID";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "Impostazioni GPS";
