@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Tweet: Codable, Equatable, Hashable {
+struct Tweet: Codable, Hashable {
     var text: String
     var created_at: Date
     var user: TwitterUser
