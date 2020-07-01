@@ -17,13 +17,24 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         }
     }
 
-    private let dataSource: MessagesDataSource<T> = {
+    convenience init() {
         if #available(iOS 13.0.0, *) {
-            return MessagesDiffableDataSource<T>()
+            self.init(dataSource: MessagesDiffableDataSource())
         } else {
-            return MessagesDefaultDataSource<T>()
+            self.init(dataSource: MessagesDefaultDataSource())
         }
-    }()
+    }
+
+    init(dataSource: MessagesDataSource<T>) {
+        self.dataSource = dataSource
+        super.init(style: .plain)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private let dataSource: MessagesDataSource<T>
 
     var selectMessageTrigger: ((T.Model) -> Void)?
 
