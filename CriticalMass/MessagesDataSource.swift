@@ -6,7 +6,7 @@ import UIKit
 class MessagesDataSource<T: IBConstructableMessageTableViewCell>: NSObject {
     var messages: [T.Model] = [] {
         didSet {
-            performUpdate()
+            performUpdate(animated: !oldValue.isEmpty || messages.isEmpty)
         }
     }
 
@@ -26,5 +26,5 @@ class MessagesDataSource<T: IBConstructableMessageTableViewCell>: NSObject {
         return cell
     }
 
-    func performUpdate() {}
+    func performUpdate(animated _: Bool) {}
 }

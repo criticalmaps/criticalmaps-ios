@@ -43,7 +43,7 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
 
         dataSource.configure(tableView: tableView)
         if !dataSource.messages.isEmpty {
-            dataSource.performUpdate()
+            dataSource.performUpdate(animated: false)
         }
     }
 

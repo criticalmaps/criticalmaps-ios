@@ -11,11 +11,11 @@ final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell>: 
 
     private var dataSource: UITableViewDiffableDataSource<Section, T.Model>?
 
-    override func performUpdate() {
+    override func performUpdate(animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, T.Model>()
         snapshot.appendSections([.main])
         snapshot.appendItems(messages, toSection: .main)
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        dataSource?.apply(snapshot, animatingDifferences: animated)
     }
 
     override func configure(tableView: UITableView) {

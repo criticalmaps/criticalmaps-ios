@@ -12,7 +12,7 @@ final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: M
         tableView.dataSource = self
     }
 
-    override func performUpdate() {
+    override func performUpdate(animated _: Bool) {
         tableView?.reloadData()
     }
 
