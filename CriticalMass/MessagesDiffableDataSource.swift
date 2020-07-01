@@ -11,10 +11,11 @@ final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell>: 
 
     private var dataSource: UITableViewDiffableDataSource<Section, T.Model>?
 
-    override var messages: [T.Model] {
-        didSet {
-            updateDataSource()
-        }
+    override func performUpdate() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, T.Model>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(messages, toSection: .main)
+        dataSource?.apply(snapshot)
     }
 
     override func configure(tableView: UITableView) {
@@ -22,12 +23,5 @@ final class MessagesDiffableDataSource<T: IBConstructableMessageTableViewCell>: 
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [unowned self] tableView, indexPath, _ in
             self.configuredCell(at: indexPath, in: tableView)
         })
-    }
-
-    private func updateDataSource() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, T.Model>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(messages, toSection: .main)
-        dataSource?.apply(snapshot)
     }
 }

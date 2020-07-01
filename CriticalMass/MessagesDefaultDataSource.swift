@@ -4,18 +4,16 @@
 import UIKit
 
 final class MessagesDefaultDataSource<T: IBConstructableMessageTableViewCell>: MessagesDataSource<T>, UITableViewDataSource {
-    override var messages: [T.Model] {
-        didSet {
-            tableView?.reloadData()
-        }
-    }
-
     private weak var tableView: UITableView?
 
     override func configure(tableView: UITableView) {
         super.configure(tableView: tableView)
         self.tableView = tableView
         tableView.dataSource = self
+    }
+
+    override func performUpdate() {
+        tableView?.reloadData()
     }
 
     // MARK: UITableViewDataSource

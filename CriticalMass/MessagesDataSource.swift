@@ -4,7 +4,11 @@
 import UIKit
 
 class MessagesDataSource<T: IBConstructableMessageTableViewCell>: NSObject {
-    var messages: [T.Model] = []
+    var messages: [T.Model] = [] {
+        didSet {
+            performUpdate()
+        }
+    }
 
     func configure(tableView: UITableView) {
         tableView.tableFooterView = UIView()
@@ -21,4 +25,6 @@ class MessagesDataSource<T: IBConstructableMessageTableViewCell>: NSObject {
 
         return cell
     }
+
+    func performUpdate() {}
 }
