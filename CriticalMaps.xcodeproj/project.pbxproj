@@ -19,6 +19,7 @@
 		21BC979D24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */; };
 		21CB5E0324837B0E003899D3 /* MessagesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */; };
 		21D1A39324A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */; };
+		21D9B2B624AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
@@ -274,6 +275,7 @@
 		21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDiffableDataSourceTests.swift; sourceTree = "<group>"; };
 		21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDiffableDataSource.swift; sourceTree = "<group>"; };
 		21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDefaultDataSourceTests.swift; sourceTree = "<group>"; };
+		21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -582,6 +584,7 @@
 				3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */,
 				3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */,
 				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
+				21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */,
 				7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */,
 			);
 			path = CriticalMapsSnapshotTests;
@@ -1331,6 +1334,7 @@
 				3FDA7C11240B0E87004EE8A6 /* MockDataStore.swift in Sources */,
 				3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */,
 				3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */,
+				21D9B2B624AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift in Sources */,
 				3FDA7C08240B0E15004EE8A6 /* MockLocationProvider.swift in Sources */,
 				987C57AF23A952AC0060499B /* MapInfoViewSnapshotTests.swift in Sources */,
 			);
