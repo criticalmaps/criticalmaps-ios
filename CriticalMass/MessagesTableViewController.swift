@@ -40,7 +40,11 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         dataSource.configure(tableView: tableView)
+        if !dataSource.messages.isEmpty {
+            dataSource.performUpdate()
+        }
     }
 
     private func updateNoMessageCountIfNeeded() {
