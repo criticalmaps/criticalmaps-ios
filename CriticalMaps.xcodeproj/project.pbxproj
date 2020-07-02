@@ -9,10 +9,17 @@
 /* Begin PBXBuildFile section */
 		210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367B9237AACC6001F2A84 /* NetworkObserver.swift */; };
 		210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210367BB237AAE2F001F2A84 /* PathObserver.swift */; };
+		2106433A2480532300F2988A /* MessagesDefaultDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210643392480532300F2988A /* MessagesDefaultDataSource.swift */; };
+		21476CFB248B7C8F0052B27C /* MessageConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */; };
+		2168C71A24839D62009DB702 /* MessagesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2168C71924839D62009DB702 /* MessagesDataSource.swift */; };
 		2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2176242623744F3400F7885E /* UpdateLocationOperation.swift */; };
 		21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */; };
 		21859FAE2352B6AA00B942AA /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FAD2352B6AA00B942AA /* AsyncOperation.swift */; };
 		21859FB22352CBD300B942AA /* WaitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21859FB12352CBD300B942AA /* WaitOperation.swift */; };
+		21BC979D24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */; };
+		21CB5E0324837B0E003899D3 /* MessagesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */; };
+		21D1A39324A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */; };
+		21D9B2B624AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
@@ -258,10 +265,17 @@
 /* Begin PBXFileReference section */
 		210367B9237AACC6001F2A84 /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		210367BB237AAE2F001F2A84 /* PathObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathObserver.swift; sourceTree = "<group>"; };
+		210643392480532300F2988A /* MessagesDefaultDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDefaultDataSource.swift; sourceTree = "<group>"; };
+		21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageConfigurable.swift; sourceTree = "<group>"; };
+		2168C71924839D62009DB702 /* MessagesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDataSource.swift; sourceTree = "<group>"; };
 		2176242623744F3400F7885E /* UpdateLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateLocationOperation.swift; sourceTree = "<group>"; };
 		21859FAB2352AE5200B942AA /* UpdateDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataOperation.swift; sourceTree = "<group>"; };
 		21859FAD2352B6AA00B942AA /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		21859FB12352CBD300B942AA /* WaitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitOperation.swift; sourceTree = "<group>"; };
+		21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDiffableDataSourceTests.swift; sourceTree = "<group>"; };
+		21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDiffableDataSource.swift; sourceTree = "<group>"; };
+		21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDefaultDataSourceTests.swift; sourceTree = "<group>"; };
+		21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -535,6 +549,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21CB5E0124837AB9003899D3 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
+				210643392480532300F2988A /* MessagesDefaultDataSource.swift */,
+				21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */,
+				2168C71924839D62009DB702 /* MessagesDataSource.swift */,
+				21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */,
+			);
+			name = Messages;
+			sourceTree = "<group>";
+		};
 		3F137FA22349CADC006B26AB /* CriticalMapsUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +584,7 @@
 				3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */,
 				3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */,
 				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
+				21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */,
 				7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */,
 			);
 			path = CriticalMapsSnapshotTests;
@@ -900,6 +927,8 @@
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
 				98CE7322240EA4CE0088F7B4 /* NextRidesRequestTests.swift */,
 				98707DFA24167A480045B811 /* FormatDisplayTests.swift */,
+				21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */,
+				21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";
@@ -963,10 +992,10 @@
 		985E94BC220891F200AA991B /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				21CB5E0124837AB9003899D3 /* Messages */,
 				9455CE8D2397ACE200DED561 /* ChatInputViewController.swift */,
 				9455CE8B2397ACE200DED561 /* ChatInputViewController.xib */,
 				98401AF421FB79F400064DAE /* ChatViewController.swift */,
-				9804176421FC71770077D419 /* MessagesTableViewController.swift */,
 				982DA8CA21FF673500E2A51B /* TwitterViewController.swift */,
 				9897086C220A3E9E0073BB02 /* SocialViewController.swift */,
 				981C7892225F95900009FC3E /* ChatNavigationButtonController.swift */,
@@ -1305,6 +1334,7 @@
 				3FDA7C11240B0E87004EE8A6 /* MockDataStore.swift in Sources */,
 				3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */,
 				3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */,
+				21D9B2B624AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift in Sources */,
 				3FDA7C08240B0E15004EE8A6 /* MockLocationProvider.swift in Sources */,
 				987C57AF23A952AC0060499B /* MapInfoViewSnapshotTests.swift in Sources */,
 			);
@@ -1336,6 +1366,7 @@
 				94FCBD2B226C57CA00F93F94 /* IBConstructable.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
+				21CB5E0324837B0E003899D3 /* MessagesDiffableDataSource.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
 				987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */,
@@ -1355,6 +1386,7 @@
 				98E7338A220394E7005F311F /* SettingsSwitchTableViewCell.swift in Sources */,
 				98003D5E22872E4500592D55 /* QRCodeView.swift in Sources */,
 				94CCC8B623D0583D000CCE2A /* Date+Additions.swift in Sources */,
+				21476CFB248B7C8F0052B27C /* MessageConfigurable.swift in Sources */,
 				949EBB1624102F1A00E4F93B /* String+Additions.swift in Sources */,
 				9822A17221F3349F007F5994 /* Preferences.swift in Sources */,
 				9841B477237E9239000A4922 /* AnnotationController.swift in Sources */,
@@ -1398,6 +1430,7 @@
 				9485A93A23756A71006DC7B5 /* ContentState.swift in Sources */,
 				944D5EF7240CDEF700993899 /* NextRideManager.swift in Sources */,
 				989F9FF221C7E62300E71085 /* RulesViewController.swift in Sources */,
+				2106433A2480532300F2988A /* MessagesDefaultDataSource.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
@@ -1410,6 +1443,7 @@
 				94829429238AA39D00338E7F /* MKMapView+Register.swift in Sources */,
 				9804176521FC71770077D419 /* MessagesTableViewController.swift in Sources */,
 				98970871220A4E180073BB02 /* CustomButton.swift in Sources */,
+				2168C71A24839D62009DB702 /* MessagesDataSource.swift in Sources */,
 				944D5F03240CE08000993899 /* CMAnnotationController.swift in Sources */,
 				9455CE8F2397ACE200DED561 /* SendButton.swift in Sources */,
 				98205F692207937100122EDA /* AppController.swift in Sources */,
@@ -1464,6 +1498,7 @@
 				949EBB1824102F4900E4F93B /* StringAdditionsTests.swift in Sources */,
 				98707DFB24167A480045B811 /* FormatDisplayTests.swift in Sources */,
 				944D5F10240CE12100993899 /* CMMarkerAnnotationControllerTests.swift in Sources */,
+				21BC979D24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift in Sources */,
 				9822A15721EE0956007F5994 /* RuleTests.swift in Sources */,
 				98C1328A227F05E700291FCA /* IDStoreTests.swift in Sources */,
 				988BF2F923F35C7100594C3F /* TwitterRequestTests.swift in Sources */,
@@ -1482,6 +1517,7 @@
 				944D5F13240CE13700993899 /* TimeTravlelerTests.swift in Sources */,
 				3FDA7C07240B0E15004EE8A6 /* MockLocationProvider.swift in Sources */,
 				944D5F12240CE13000993899 /* RideCheckerTests.swift in Sources */,
+				21D1A39324A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift in Sources */,
 				981C920A2288B49D00391FA9 /* XCTestCase+Helper.swift in Sources */,
 				3FDA7C0D240B0E6F004EE8A6 /* MockIDProvider.swift in Sources */,
 				943ABD9522781F0200B7F07C /* ThemeStoreTests.swift in Sources */,

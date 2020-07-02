@@ -7,13 +7,6 @@
 
 import UIKit
 
-protocol MessageConfigurable: AnyObject {
-    associatedtype Model
-    func setup(for object: Model)
-}
-
-typealias IBConstructableMessageTableViewCell = UITableViewCell & IBConstructable & MessageConfigurable
-
 class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITableViewController {
     var noContentMessage: String?
     var pullToRefreshTrigger: ((ResultCallback<[Tweet]>?) -> Void)? {
@@ -24,36 +17,41 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         }
     }
 
-    var messages: [T.Model] = [] {
-        didSet {
-            // TODO: implement diffing to only reload cells that changed
-            tableView.reloadData()
-            updateNoMessageCountIfNeeded()
+    convenience init() {
+        if #available(iOS 13.0.0, *) {
+            self.init(dataSource: MessagesDiffableDataSource())
+        } else {
+            self.init(dataSource: MessagesDefaultDataSource())
         }
     }
+
+    init(dataSource: MessagesDataSource<T>) {
+        self.dataSource = dataSource
+        super.init(style: .plain)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private let dataSource: MessagesDataSource<T>
 
     var selectMessageTrigger: ((T.Model) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-    }
 
-    private func setupTableView() {
-        // Setting the footerView hides seperators for empty cellls
-        tableView.tableFooterView = UIView()
-        tableView.register(cellType: T.self)
-        // To use UITableViews dynamicHeight
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 110.0
-        tableView.separatorColor = .gray300
+        dataSource.configure(tableView: tableView)
+        if !dataSource.messages.isEmpty {
+            dataSource.performUpdate(animated: false)
+        }
     }
 
     private func updateNoMessageCountIfNeeded() {
         guard let noContentMessage = noContentMessage else {
             return
         }
-        if !messages.isEmpty {
+        if !dataSource.messages.isEmpty {
             tableView.backgroundView = nil
         } else if tableView.backgroundView == nil {
             let noContentMessageLabel = NoContentMessageLabel()
@@ -70,30 +68,15 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         }
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in _: UITableView) -> Int {
-        1
-    }
-
-    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        messages.count
-    }
-
     func update(messages: [T.Model]) {
-        self.messages = messages
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(ofType: T.self)
-        cell.setup(for: messages[indexPath.row])
-        return cell
+        dataSource.messages = messages
+        updateNoMessageCountIfNeeded()
     }
 
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        selectMessageTrigger?(messages[indexPath.row])
+        selectMessageTrigger?(dataSource.messages[indexPath.row])
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class TwitterViewController: UIViewController, ContentStatePresentable {
-    private let messagesTableViewController = MessagesTableViewController<TweetTableViewCell>(style: .plain)
+    private let messagesTableViewController = MessagesTableViewController<TweetTableViewCell>()
     private let twitterManager: TwitterManager
 
     var contentStateViewController: UIViewController? {
