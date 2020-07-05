@@ -93,7 +93,9 @@ class RequestManagerTests: XCTestCase {
         XCTAssertEqual(testSetup.networkLayer.lastUsedPostBody as! [String: AnyHashable], expectedBody)
     }
 
-    func testNetworkSatisfiedStatusUpdate() {
+    // this test is flaky and should be made more tolerant
+    // issue: https://github.com/criticalmaps/criticalmaps-ios/issues/266
+    func disabledtestNetworkSatisfiedStatusUpdate() {
         let setup = self.setup(interval: 4)
         setup.networkObserver.update(with: .satisfied)
 
