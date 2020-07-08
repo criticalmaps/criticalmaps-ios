@@ -43,6 +43,8 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to be able to upload photos in the chat.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs the access to be able to share your location with other Critical Maps users.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
