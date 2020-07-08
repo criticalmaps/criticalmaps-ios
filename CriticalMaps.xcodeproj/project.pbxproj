@@ -237,6 +237,9 @@
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
+		9F19C7F224B1024F00A01B14 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F19C7F124B1024F00A01B14 /* ImagePicker.swift */; };
+		9F19C7F424B104C900A01B14 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F19C7F324B104C900A01B14 /* ImageUploader.swift */; };
+		9F19C7F624B108D200A01B14 /* ImageUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F19C7F524B108D200A01B14 /* ImageUploadRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -506,6 +509,9 @@
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
+		9F19C7F124B1024F00A01B14 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		9F19C7F324B104C900A01B14 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
+		9F19C7F524B108D200A01B14 /* ImageUploadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,6 +660,8 @@
 				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
 				98003D4822872C1700592D55 /* URLCodable.swift */,
 				21859FB12352CBD300B942AA /* WaitOperation.swift */,
+				9F19C7F124B1024F00A01B14 /* ImagePicker.swift */,
+				9F19C7F324B104C900A01B14 /* ImageUploader.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -702,6 +710,7 @@
 				945CAF9C230BD83800E8B7E8 /* HTTPHeaders.swift */,
 				940643D52307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift */,
 				9491720E23009ED0008B98AD /* TwitterRequest.swift */,
+				9F19C7F524B108D200A01B14 /* ImageUploadRequest.swift */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -1395,6 +1404,7 @@
 				9841B477237E9239000A4922 /* AnnotationController.swift in Sources */,
 				989F9FFE21C8035500E71085 /* ApiResponse.swift in Sources */,
 				9491720F23009ED0008B98AD /* TwitterRequest.swift in Sources */,
+				9F19C7F224B1024F00A01B14 /* ImagePicker.swift in Sources */,
 				944D5F00240CE07600993899 /* CriticalMassAnnotation.swift in Sources */,
 				982DA8C921FF65F700E2A51B /* Tweet.swift in Sources */,
 				98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */,
@@ -1402,7 +1412,9 @@
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
 				98AAD08F2337FF90001519C7 /* ManageFriendsViewController.swift in Sources */,
 				9843FAA1236CD7F000457930 /* NetworkDataProvider.swift in Sources */,
+				9F19C7F624B108D200A01B14 /* ImageUploadRequest.swift in Sources */,
 				9409274D22841E160034E46B /* L10n.swift in Sources */,
+				9F19C7F424B104C900A01B14 /* ImageUploader.swift in Sources */,
 				94CCC8B823D0587F000CCE2A /* UserDefaults+Additions.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,
