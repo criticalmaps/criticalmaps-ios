@@ -7,12 +7,14 @@
 
 import Crypto
 import Foundation
+import UIKit
 
 class ChatManager {
     private var cachedMessages: [ChatMessage]?
     private let requestManager: RequestManager
     private let errorHandler: ErrorHandler
     private let defaults: UserDefaults
+    private let imageUploader: ImageUploading
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
     var updateUnreadMessagesCountCallback: ((UInt) -> Void)?
@@ -28,11 +30,13 @@ class ChatManager {
     init(
         requestManager: RequestManager,
         defaults: UserDefaults = .standard,
-        errorHandler: ErrorHandler = PrintErrorHandler()
+        errorHandler: ErrorHandler = PrintErrorHandler(),
+        imageUploader: ImageUploading = ImageUploader()
     ) {
         self.defaults = defaults
         self.requestManager = requestManager
         self.errorHandler = errorHandler
+        self.imageUploader = imageUploader
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didReceiveMessages(notification:)),
@@ -49,9 +53,13 @@ class ChatManager {
 
     public func send(message: String, completion: @escaping ResultCallback<[String: ChatMessage]>) {
         // TODO: use sha256 after the server supports it
-        let messages = [SendChatMessage(text: message,
-                                        timestamp: Date().timeIntervalSince1970,
-                                        identifier: UUID().uuidString.md5!)]
+        let messages = [
+            SendChatMessage(
+                text: message,
+                timestamp: Date().timeIntervalSince1970,
+                identifier: UUID().uuidString.md5!
+            )
+        ]
         requestManager.send(messages: messages) { result in
             switch result {
             case let .success(messages):
@@ -61,6 +69,10 @@ class ChatManager {
                 completion(.failure(error))
             }
         }
+    }
+
+    func send(image: UIImage, completion _: @escaping (Bool) -> Void) {
+        imageUploader.uploadImage(image: image)
     }
 
     public func getMessages() -> [ChatMessage] {

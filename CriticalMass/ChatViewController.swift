@@ -9,6 +9,7 @@ import UIKit
 
 protocol ChatInputDelegate: AnyObject {
     func didTapSendButton(text: String, completionHandler: ChatViewController.CompletionHandler?)
+    func didSelectImage(image: UIImage)
 }
 
 class ChatViewController: UIViewController {
@@ -163,4 +164,6 @@ extension ChatViewController: ChatInputDelegate {
             }
         }
     }
+
+    func didSelectImage(image _: UIImage) {}
 }
