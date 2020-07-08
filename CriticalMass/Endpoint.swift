@@ -21,4 +21,5 @@ public struct Endpoint {
 extension Endpoint {
     static let `default` = Endpoint()
     static let twitter = Endpoint(path: "/twitter")
+    static let gallery = Endpoint(path: "/gallery")
 }
