@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatInputViewController" customModule="CriticalMaps" customModuleProvider="target">
             <connections>
+                <outlet property="cameraButton" destination="65r-e4-J1u" id="e53-ql-FMF"/>
                 <outlet property="inputTextView" destination="kk6-lS-phi" id="ikR-wk-9h9"/>
                 <outlet property="sendButton" destination="ok1-Cv-1uN" id="utH-Yw-EiP"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gis-IU-Ulx"/>
@@ -30,8 +31,23 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bce-sC-EWb">
                     <rect key="frame" x="12" y="9" width="390" height="42"/>
                     <subviews>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65r-e4-J1u" customClass="SendButton" customModule="CriticalMaps" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="4" width="38" height="38"/>
+                            <accessibility key="accessibilityConfiguration" hint="Select image to upload to chat" label="camera"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="65r-e4-J1u" secondAttribute="height" multiplier="1:1" id="MtM-7J-V6P"/>
+                                <constraint firstAttribute="height" constant="38" id="aIV-MN-cPm"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <state key="normal" image="camera" catalog="system"/>
+                            <connections>
+                                <action selector="didTapCameraButton:" destination="-1" eventType="touchUpInside" id="diP-yG-toF"/>
+                                <action selector="didTapSendButton" destination="-1" eventType="touchUpInside" id="V2C-9u-fom"/>
+                            </connections>
+                        </button>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" bouncesZoom="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kk6-lS-phi">
-                            <rect key="frame" x="0.0" y="4" width="344" height="38"/>
+                            <rect key="frame" x="46" y="4" width="298" height="38"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <accessibility key="accessibilityConfiguration" hint="enter chat message in this view" label="chat message input "/>
                             <constraints>
@@ -64,6 +80,9 @@
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="65r-e4-J1u" firstAttribute="width" secondItem="65r-e4-J1u" secondAttribute="height" multiplier="1:1" id="ioo-Ke-nEM"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,6 +101,7 @@
         </view>
     </objects>
     <resources>
+        <image name="camera" catalog="system" width="128" height="96"/>
         <image name="icon-send" width="24" height="24"/>
     </resources>
 </document>

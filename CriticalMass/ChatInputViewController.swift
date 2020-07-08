@@ -22,14 +22,23 @@ final class ChatInputViewController: UIViewController, IBConstructable {
         }
     }
 
+    @IBOutlet private var cameraButton: UIButton! {
+        didSet {
+            cameraButton.isEnabled = true
+            cameraButton.isHidden = !Feature.photos.isActive
+        }
+    }
+
     @IBOutlet private var sendButton: UIButton!
 
     weak var delegate: ChatInputDelegate?
     private let themeController = ThemeController()
+    private var imagePicker: ImagePicker!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setKeyboardTheme()
+        imagePicker = ImagePicker(presentationController: self, delegate: self)
     }
 
     @discardableResult
@@ -53,6 +62,10 @@ final class ChatInputViewController: UIViewController, IBConstructable {
 
     // MARK: - Actions
 
+    @IBAction func didTapCameraButton(_ sender: UIButton) {
+        imagePicker.present(from: sender)
+    }
+
     @IBAction func didTapSendButton() {
         guard let text = inputTextView.text, text.canBeSent else {
             return
@@ -75,6 +88,16 @@ extension ChatInputViewController: UITextViewDelegate {
             return
         }
         updateSendButton(text.canBeSent)
+    }
+}
+
+extension ChatInputViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        guard let image = image else {
+            Logger.log(.debug, log: .default, "Selected image is nil")
+            return
+        }
+        delegate?.didSelectImage(image: image)
     }
 }
 
