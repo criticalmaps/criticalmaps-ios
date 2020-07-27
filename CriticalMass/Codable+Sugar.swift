@@ -9,21 +9,20 @@
 import Foundation
 
 extension Encodable {
-    func encoded() throws -> Data {
-        try JSONEncoder().encode(self)
+    func encoded(encoder: JSONEncoder = JSONEncoder()) throws -> Data {
+        try encoder.encode(self)
     }
 }
 
 extension Data {
-    func decoded<T: Decodable>() throws -> T {
-        try JSONDecoder().decode(T.self, from: self)
+    func decoded<T: Decodable>(decoder: JSONDecoder = JSONDecoder()) throws -> T {
+        try decoder.decode(T.self, from: self)
     }
 }
 
 extension JSONDecoder {
-    static func decoder(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) -> JSONDecoder {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = dateDecodingStrategy
-        return decoder
+    convenience init(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) {
+        self.init()
+        self.dateDecodingStrategy = dateDecodingStrategy
     }
 }
