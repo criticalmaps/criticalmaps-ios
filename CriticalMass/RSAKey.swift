@@ -34,7 +34,8 @@ public class RSAKey {
         var error: Unmanaged<CFError>?
         guard let key = SecKeyCreateWithData(data as CFData,
                                              options as CFDictionary,
-                                             &error) else {
+                                             &error)
+        else {
             throw error!.takeRetainedValue() as Error
         }
         secKey = key

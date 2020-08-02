@@ -20,7 +20,8 @@ class QRCodeView: UIView {
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext(),
             let qrCodeImage = filter.outputImage?.applyingFilter("CIFalseColor", parameters: ["inputColor0": CIColor.black,
-                                                                                              "inputColor1": CIColor.clear]) else {
+                                                                                              "inputColor1": CIColor.clear])
+        else {
             return
         }
 

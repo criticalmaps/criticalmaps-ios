@@ -68,7 +68,8 @@ public struct NetworkOperator: NetworkLayer {
     }
 
     private func dataTask(with request: URLRequest,
-                          completion: @escaping ResultCallback<Data>) {
+                          completion: @escaping ResultCallback<Data>)
+    {
         networkIndicatorHelper?.didStartRequest()
         dataProvider.dataTask(with: request) { data, response, error in
             self.networkIndicatorHelper?.didEndRequest()

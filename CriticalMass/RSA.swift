@@ -24,7 +24,8 @@ public class RSA {
         guard let signature = SecKeyCreateSignature(privateKey,
                                                     algorithm,
                                                     data as CFData,
-                                                    &error) as Data? else {
+                                                    &error) as Data?
+        else {
             throw error!.takeRetainedValue() as Error
         }
         return signature
