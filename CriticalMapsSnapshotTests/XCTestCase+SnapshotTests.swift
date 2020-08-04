@@ -17,7 +17,8 @@ extension XCTestCase {
                             precision: Float = 1,
                             file: StaticString = #file,
                             testName: String = #function,
-                            line: UInt = #line) {
+                            line: UInt = #line)
+    {
         themes.forEach { theme in
             MockThemeController.shared.changeTheme(to: theme)
             MockThemeController.shared.applyTheme()

@@ -91,7 +91,8 @@ public class AppDataStore: DataStore {
             guard let name = storedFriend.name,
                 let keyRef = storedFriend.keyReference,
                 let keyData = try? KeychainHelper.load(with: keyRef),
-                let token = String(bytes: keyData, encoding: .utf8) else {
+                let token = String(bytes: keyData, encoding: .utf8)
+            else {
                 return nil
             }
             return Friend(name: name, token: token)

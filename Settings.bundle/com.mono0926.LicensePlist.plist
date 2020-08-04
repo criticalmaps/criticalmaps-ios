@@ -38,7 +38,7 @@
 			<key>File</key>
 			<string>com.mono0926.LicensePlist/swift-snapshot-testing</string>
 			<key>Title</key>
-			<string>swift-snapshot-testing</string>
+			<string>SnapshotTesting</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

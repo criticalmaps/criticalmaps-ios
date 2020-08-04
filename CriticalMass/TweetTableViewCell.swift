@@ -115,7 +115,8 @@ extension UIContentSizeCategory {
                 || self == .accessibilityLarge
                 || self == .accessibilityExtraLarge
                 || self == .accessibilityExtraExtraLarge
-                || self == .accessibilityExtraExtraExtraLarge {
+                || self == .accessibilityExtraExtraExtraLarge
+            {
                 return true
             } else {
                 return false
