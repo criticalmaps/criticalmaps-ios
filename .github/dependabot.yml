@@ -8,6 +8,17 @@ updates:
   - package-ecosystem: "bundler" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      # Check for bundler updates on Saturdays
+      day: "saturday"
+    reviewers:
+      - "criticalmaps/ios"
+
+  - package-ecosystem: "github-actions"
+    # Workflow files stored in the
+    # default location of `.github/workflows`
+    directory: "/"
+    schedule:
+      interval: "monthly"
     reviewers:
       - "criticalmaps/ios"
