@@ -47,6 +47,8 @@ class RulesViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
 
+        navigationController?.view.backgroundColor = themeController.currentTheme.style.backgroundColor
+
         updateThemeIfNeeded()
         configureNotifications()
         configureNavigationBar()
