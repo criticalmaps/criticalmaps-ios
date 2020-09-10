@@ -13,23 +13,29 @@ protocol ChatMessageActivityDelegate: AnyObject {
 
 class SocialViewController: UIViewController, UIToolbarDelegate {
     private enum Constants {
-        static let loadingIndicatorSize = CGSize(width: 30,
-                                                 height: 30)
+        static let loadingIndicatorSize = CGSize(width: 30, height: 30)
         static let scaleFactor = loadingIndicatorSize.width / 100
-        static let logoActivityFrame = CGRect(x: 0,
-                                              y: 0,
-                                              width: loadingIndicatorSize.width,
-                                              height: loadingIndicatorSize.height)
+        static let logoActivityFrame = CGRect(
+            x: 0,
+            y: 0,
+            width: loadingIndicatorSize.width,
+            height: loadingIndicatorSize.height
+        )
     }
 
     private var chatViewController: ChatViewController
     private var twitterController: UIViewController
+    private var imagePicker: ImagePicker!
+    weak var delegate: ImagePickerDelegate?
 
     private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: SocialSegments.allCases.map(\.title))
         control.selectedSegmentIndex = 0
-        control.addTarget(self, action: #selector(socialSelectionDidChange(control:)),
-                          for: .valueChanged)
+        control.addTarget(
+            self,
+            action: #selector(socialSelectionDidChange(control:)),
+            for: .valueChanged
+        )
         control.backgroundColor = .clear
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
@@ -71,6 +77,8 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
         configureNavigationBar()
         configureSegmentedControl()
         present(segment: .chat)
+
+        imagePicker = ImagePicker(presentationController: self, delegate: self)
     }
 
     private func configureNavigationBar() {
@@ -81,7 +89,13 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
             navigationController?.navigationBar.shadowImage = UIImage()
         }
         loadingBarButton.isHidden = true
-        navigationItem.setRightBarButton(loadingBarButton, animated: false)
+        let photoShareButton = UIBarButtonItem(
+            barButtonSystemItem: .camera,
+            target: self,
+            action: #selector(photoShareButtonTapped(_:))
+        )
+        photoShareButton.isHidden = !Feature.photos.isActive
+        navigationItem.rightBarButtonItems = [photoShareButton, loadingBarButton]
     }
 
     private func configureSegmentedControl() {
@@ -91,6 +105,10 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
             segmentedControl.heightAnchor.constraint(equalTo: navigationItem.titleView!.heightAnchor),
             segmentedControl.widthAnchor.constraint(equalToConstant: 180.0),
         ])
+    }
+
+    @objc private func photoShareButtonTapped(_ sender: UIButton) {
+        imagePicker.present(from: sender)
     }
 
     @objc private func socialSelectionDidChange(control: UISegmentedControl) {
@@ -114,6 +132,16 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
 extension SocialViewController: ChatMessageActivityDelegate {
     func isSendingChatMessage(_ sending: Bool) {
         loadingBarButton.isHidden = !sending
+    }
+}
+
+extension SocialViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        guard let image = image else {
+            Logger.log(.debug, log: .default, "Selected image is nil")
+            return
+        }
+        delegate?.didSelect(image: image)
     }
 }
 

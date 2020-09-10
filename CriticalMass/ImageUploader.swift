@@ -22,7 +22,8 @@ final class ImageUploader: ImageUploading {
                     return
                 }
                 guard let response = response as? HTTPURLResponse,
-                    (200 ... 299).contains(response.statusCode) else {
+                    (200 ... 299).contains(response.statusCode)
+                else {
                     print("server error")
                     return
                 }
