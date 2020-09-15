@@ -21,8 +21,12 @@ struct NextRidesRequest: APIRequestDefining {
     var httpMethod: HTTPMethod = .get
     var queryItem: NextRideQuery?
 
-    init(coordinate: CLLocationCoordinate2D, radius: Int = 10) {
-        queryItem = NextRideQuery(centerLatitude: coordinate.latitude, centerLongitude: coordinate.longitude, radius: radius)
+    init(coordinate: CLLocationCoordinate2D, radius: Int) {
+        queryItem = NextRideQuery(
+            centerLatitude: coordinate.latitude,
+            centerLongitude: coordinate.longitude,
+            radius: radius
+        )
     }
 
     func parseResponse(data: Data) throws -> ResponseDataType {
