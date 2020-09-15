@@ -17,12 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let shouldEarlyExitForTests = configureAppForTests() {
             return shouldEarlyExitForTests
         }
+        appController.onAppLaunch()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = appController.rootViewController
         window?.makeKeyAndVisible()
 
-        appController.onAppLaunch()
         return true
     }
 
