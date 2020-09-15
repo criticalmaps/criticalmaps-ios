@@ -8,6 +8,30 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Event Search Radius</string>
+			<key>Key</key>
+			<string>searchRadiusSetting</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Titles</key>
+			<array>
+				<string>10</string>
+				<string>20</string>
+				<string>40</string>
+				<string>80</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>10</string>
+				<string>20</string>
+				<string>40</string>
+				<string>80</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
 			<string>Acknowledgments</string>
