@@ -237,6 +237,7 @@
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
+		9FFEA3862510E22400E23021 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEA3852510E22400E23021 /* SettingsBundleHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -506,6 +507,7 @@
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
+		9FFEA3852510E22400E23021 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -634,7 +636,6 @@
 				94A5FB8A242B88ED0037E5E3 /* AlertPresenter.swift */,
 				21859FAD2352B6AA00B942AA /* AsyncOperation.swift */,
 				944D5EF1240CDEF700993899 /* CoordinateObfuscator.swift */,
-				94CCC8B423D0582A000CCE2A /* Extensions */,
 				3F997954239D9DD5006DB96B /* Feature.swift */,
 				94D4016E229F20F6001524CC /* FontMetrics.swift */,
 				9460B76A225A6EB200786E27 /* FormatDisplay.swift */,
@@ -650,10 +651,12 @@
 				210367BB237AAE2F001F2A84 /* PathObserver.swift */,
 				9810C381229830940011F718 /* RatingHelper.swift */,
 				944D5EF0240CDEF700993899 /* RideChecker.swift */,
+				9FFEA3852510E22400E23021 /* SettingsBundleHelper.swift */,
 				944D5EF2240CDEF700993899 /* TimeTraveler.swift */,
 				9409274A228322FC0034E46B /* TypeNameProtocol.swift */,
 				98003D4822872C1700592D55 /* URLCodable.swift */,
 				21859FB12352CBD300B942AA /* WaitOperation.swift */,
+				94CCC8B423D0582A000CCE2A /* Extensions */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1414,6 +1417,7 @@
 				94D4016F229F20F6001524CC /* FontMetrics.swift in Sources */,
 				945CAF9D230BD83800E8B7E8 /* HTTPHeaders.swift in Sources */,
 				210367BA237AACC6001F2A84 /* NetworkObserver.swift in Sources */,
+				9FFEA3862510E22400E23021 /* SettingsBundleHelper.swift in Sources */,
 				94FCBD2A226C57CA00F93F94 /* UIWindow+Appearance.swift in Sources */,
 				9822A16021F11051007F5994 /* NetworkLayer.swift in Sources */,
 				940643D82307270B00AB1BCB /* GCD.swift in Sources */,
