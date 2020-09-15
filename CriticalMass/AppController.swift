@@ -47,12 +47,21 @@ class AppController {
         TwitterManager(networkLayer: networkOperator, request: TwitterRequest())
     }()
 
+    lazy var userDefaults: UserDefaults = .standard
+
+    lazy var settingsBundleHelper: SettingsBundleHelper = {
+        SettingsBundleHelper(defaults: userDefaults)
+    }()
+
     lazy var mapViewController: MapViewController = {
         MapViewController(
             themeController: self.themeController,
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
             nextRideManager: NextRideManager(
-                apiHandler: CMInApiHandler(networkLayer: networkOperator)
+                apiHandler: CMInApiHandler(
+                    networkLayer: networkOperator,
+                    searchRadius: userDefaults.nextRideRadius
+                )
             )
         )
     }()
