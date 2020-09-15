@@ -12,7 +12,7 @@ class NextRideManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         networkLayer = MockNetworkLayer()
-        let apiHandler = CMInApiHandler(networkLayer: networkLayer)
+        let apiHandler = CMInApiHandler(networkLayer: networkLayer, searchRadius: 21)
         nextRideManager = NextRideManager(apiHandler: apiHandler)
     }
 
