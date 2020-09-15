@@ -31,9 +31,7 @@ class AppController {
         return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: networkDataProvider)
     }()
 
-    private let networkObserver: NetworkObserver? = {
-        PathObserver()
-    }()
+    private let networkObserver = PathObserver()
 
     private let themeController = ThemeController()
 
