@@ -82,8 +82,8 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        let isAccessabilityCategory = traitCollection.preferredContentSizeCategory.isAccessabilitySizeCategory
-        let wasAccessabilityCategory = previousTraitCollection?.preferredContentSizeCategory.isAccessabilitySizeCategory
+        let isAccessabilityCategory = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+        let wasAccessabilityCategory = previousTraitCollection?.preferredContentSizeCategory.isAccessibilityCategory
         if wasAccessabilityCategory != isAccessabilityCategory {
             nameAndHandleStackView.axis = isAccessabilityCategory ? .vertical : .horizontal
             nameAndHandleStackView.alignment = isAccessabilityCategory ? .top : .center
@@ -102,25 +102,5 @@ extension TweetTableViewCell: UITextViewDelegate {
     // Opens a link in Safari
     func textView(_: UITextView, shouldInteractWith _: URL, in _: NSRange) -> Bool {
         true
-    }
-}
-
-extension UIContentSizeCategory {
-    /// Returns if the UIContentSizeCategory is an accessabilitCategory
-    var isAccessabilitySizeCategory: Bool {
-        if #available(iOS 11.0, *) {
-            return isAccessibilityCategory
-        } else {
-            if self == .accessibilityMedium
-                || self == .accessibilityLarge
-                || self == .accessibilityExtraLarge
-                || self == .accessibilityExtraExtraLarge
-                || self == .accessibilityExtraExtraExtraLarge
-            {
-                return true
-            } else {
-                return false
-            }
-        }
     }
 }

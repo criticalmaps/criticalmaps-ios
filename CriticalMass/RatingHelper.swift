@@ -9,7 +9,6 @@
 import Foundation
 import StoreKit
 
-@available(iOS 10.3, *)
 extension SKStoreReviewController: RatingRequest {}
 
 public protocol RatingRequest {
@@ -24,7 +23,6 @@ public class RatingHelper {
     private let ratingRequest: RatingRequest.Type
     private let currentVersion: String
 
-    @available(iOS 10.3, *)
     public init(
         defaults: UserDefaults = .standard,
         ratingRequest: RatingRequest.Type = SKStoreReviewController.self,

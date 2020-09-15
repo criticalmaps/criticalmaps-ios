@@ -7,8 +7,8 @@ struct NextRideQuery: Codable {
     let centerLatitude: CLLocationDegrees
     let centerLongitude: CLLocationDegrees
     let radius: Int
-    let year = Date.getCurrent(\.year)
-    let month = Date.getCurrent(\.month)
+    var year = Date.getCurrent(\.year)
+    var month = Date.getCurrent(\.month)
 }
 
 struct NextRidesRequest: APIRequestDefining {

@@ -71,9 +71,7 @@ class SettingsViewController: UITableViewController {
 
     private func configureNavigationBar() {
         title = L10n.settingsTitle
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     override func numberOfSections(in _: UITableView) -> Int {

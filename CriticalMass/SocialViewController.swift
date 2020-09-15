@@ -74,12 +74,10 @@ class SocialViewController: UIViewController, UIToolbarDelegate {
     }
 
     private func configureNavigationBar() {
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = false
-            navigationController?.navigationItem.largeTitleDisplayMode = .never
-            // hide border
-            navigationController?.navigationBar.shadowImage = UIImage()
-        }
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+        // hide border
+        navigationController?.navigationBar.shadowImage = UIImage()
         loadingBarButton.isHidden = true
         navigationItem.setRightBarButton(loadingBarButton, animated: false)
     }

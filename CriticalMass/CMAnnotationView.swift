@@ -3,7 +3,6 @@
 
 import MapKit
 
-@available(iOS 11.0, *)
 final class CMMarkerAnnotationView: MKMarkerAnnotationView {
     typealias EventClosure = () -> Void
 

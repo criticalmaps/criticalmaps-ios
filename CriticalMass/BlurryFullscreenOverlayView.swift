@@ -66,9 +66,7 @@ class BlurryFullscreenOverlayView: UIView, IBConstructable {
 
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        if #available(iOS 11.0, *) {
-            titleLabelTopConstraint.constant = 54 + (window?.safeAreaInsets.top ?? 0)
-        }
+        titleLabelTopConstraint.constant = 54 + (window?.safeAreaInsets.top ?? 0)
     }
 
     private func updateGradient() {

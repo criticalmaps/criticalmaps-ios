@@ -103,11 +103,7 @@ class ChatViewController: UIViewController {
         super.updateViewConstraints()
 
         let bottomInset: CGFloat
-        if #available(iOS 11.0, *), chatInputBottomConstraint.constant == 0 {
-            bottomInset = view.safeAreaInsets.bottom
-        } else {
-            bottomInset = 0
-        }
+        bottomInset = view.safeAreaInsets.bottom
 
         chatInputHeightConstraint.constant = Constants.chatInputHeight + bottomInset
     }

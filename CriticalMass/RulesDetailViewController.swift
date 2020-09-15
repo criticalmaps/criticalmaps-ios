@@ -70,9 +70,7 @@ class RulesDetailViewController: UIViewController {
         super.viewDidLoad()
 
         title = rule.title
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
-        }
+        navigationItem.largeTitleDisplayMode = .never
         configureConstraints()
     }
 
