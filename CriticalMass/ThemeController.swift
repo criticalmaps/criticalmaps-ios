@@ -73,6 +73,7 @@ class ThemeController {
         UILabel.appearance(whenContainedInInstancesOf: [SettingsTableSectionHeader.self]).backgroundColor = .clear
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
+        AppIconTableViewCell.appearance().titleColor = theme.titleTextColor
     }
 
     private func styleNavigationOverlayComponents(with theme: ThemeDefining) {
