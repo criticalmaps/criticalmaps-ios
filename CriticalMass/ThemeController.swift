@@ -70,6 +70,7 @@ class ThemeController {
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [SettingsTableSectionHeader.self]).backgroundColor = .clear
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
     }
