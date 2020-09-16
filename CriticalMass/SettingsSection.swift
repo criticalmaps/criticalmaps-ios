@@ -67,7 +67,12 @@ enum Section: CaseIterable {
         case .preferences:
             var models = [
                 Model(title: L10n.themeLocalizedString, action: .switch(ThemeController.self), accessibilityIdentifier: "Theme"),
-                Model(title: L10n.obversationModeTitle, subtitle: L10n.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode")
+                Model(title: L10n.obversationModeTitle, subtitle: L10n.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode"),
+                Model(
+                    title: "App Icon",
+                    action: .navigate(toViewController: AppIconSelectViewController.self),
+                    accessibilityIdentifier: "App icon"
+                )
             ]
             if Feature.friends.isActive {
                 let friendsModel = Model(title: L10n.settingsFriends, subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self), accessibilityIdentifier: "Friends")
