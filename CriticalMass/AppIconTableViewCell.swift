@@ -9,12 +9,6 @@ class AppIconTableViewCell: UITableViewCell, IBConstructable {
         didSet { title.textColor = titleColor }
     }
 
-    @IBOutlet var iconPreview: UIImageView! {
-        didSet {
-            iconPreview.layer.cornerRadius = 8.0
-            iconPreview.clipsToBounds = true
-        }
-    }
-
+    @IBOutlet var iconPreview: UIImageView!
     @IBOutlet var title: RuleDescriptionLabel!
 }

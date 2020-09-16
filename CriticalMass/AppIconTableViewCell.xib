@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,26 +17,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vNV-Tw-N0w">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vNV-Tw-N0w" customClass="RoundableImageView" customModule="CriticalMaps" customModuleProvider="target">
                         <rect key="frame" x="16" y="9" width="42" height="42"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="42" id="2t7-pr-Hnb"/>
                             <constraint firstAttribute="height" constant="42" id="bZk-Bt-4Zx"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasInnerShadow" value="NO"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZl-Gh-B1F" customClass="RuleDescriptionLabel" customModule="CriticalMaps" customModuleProvider="target">
-                        <rect key="frame" x="66" y="20" width="238" height="20.5"/>
+                        <rect key="frame" x="70" y="20" width="234" height="20"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="DZl-Gh-B1F" firstAttribute="leading" secondItem="vNV-Tw-N0w" secondAttribute="trailing" constant="8" symbolic="YES" id="7GF-OT-44B"/>
+                    <constraint firstItem="DZl-Gh-B1F" firstAttribute="leading" secondItem="vNV-Tw-N0w" secondAttribute="trailing" constant="12" id="7GF-OT-44B"/>
                     <constraint firstItem="vNV-Tw-N0w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Avq-Ld-1Cj"/>
-                    <constraint firstAttribute="bottom" secondItem="vNV-Tw-N0w" secondAttribute="bottom" constant="9" id="OdG-2C-u6I"/>
                     <constraint firstAttribute="trailing" secondItem="DZl-Gh-B1F" secondAttribute="trailing" constant="16" id="W12-wu-NS6"/>
-                    <constraint firstItem="vNV-Tw-N0w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="mEG-D4-oGL"/>
-                    <constraint firstItem="DZl-Gh-B1F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nAN-f7-7UW"/>
+                    <constraint firstItem="vNV-Tw-N0w" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZhV-cz-K2r"/>
+                    <constraint firstItem="DZl-Gh-B1F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="j6x-SH-Obh"/>
+                    <constraint firstAttribute="bottom" secondItem="DZl-Gh-B1F" secondAttribute="bottom" constant="20" symbolic="YES" id="zSv-X8-LnE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
