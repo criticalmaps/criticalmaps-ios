@@ -237,6 +237,7 @@
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
+		9F8B6BE22512847700530373 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B6BE12512847600530373 /* AppIcon.swift */; };
 		9FFEA38F25113F0900E23021 /* CMRainbowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */; };
 		9FFEA39025113F0900E23021 /* CMDarkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */; };
 		9FFEA39125113F0900E23021 /* CMNeonIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */; };
@@ -517,6 +518,7 @@
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
+		9F8B6BE12512847600530373 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMRainbowIcon@2x.png"; sourceTree = "<group>"; };
 		9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMDarkIcon@3x.png"; sourceTree = "<group>"; };
 		9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMNeonIcon@3x.png"; sourceTree = "<group>"; };
@@ -1073,13 +1075,22 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		9F8B6BE02512846400530373 /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				9FFEA398251144E600E23021 /* AppIconSelectViewController.swift */,
+				9FFEA39A251149C700E23021 /* AppIconTableViewCell.swift */,
+				9FFEA39B251149C700E23021 /* AppIconTableViewCell.xib */,
+				9F8B6BE12512847600530373 /* AppIcon.swift */,
+			);
+			name = AppIcon;
+			sourceTree = "<group>";
+		};
 		9FFEA397251144C700E23021 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
-				9FFEA398251144E600E23021 /* AppIconSelectViewController.swift */,
-				9FFEA39A251149C700E23021 /* AppIconTableViewCell.swift */,
-				9FFEA39B251149C700E23021 /* AppIconTableViewCell.xib */,
+				9F8B6BE02512846400530373 /* AppIcon */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1506,6 +1517,7 @@
 				9804176D21FC87960077D419 /* SendChatMessage.swift in Sources */,
 				987C57AD23A941A60060499B /* CALayer+Shadow.swift in Sources */,
 				987C57AA23A4EB290060499B /* BlurryFullscreenOverlayView.swift in Sources */,
+				9F8B6BE22512847700530373 /* AppIcon.swift in Sources */,
 				940643D62307266700AB1BCB /* PostLocationAndChatMessagesRequest.swift in Sources */,
 				944D5F36240E643300993899 /* Sequence+Additions.swift in Sources */,
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
