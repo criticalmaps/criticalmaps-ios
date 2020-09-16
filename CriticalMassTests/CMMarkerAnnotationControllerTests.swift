@@ -24,15 +24,15 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
             rideChecker: rideChecker,
-            outdatedCheckTimeinterval: 0.1
+            outdatedCheckTimeinterval: 0.0
         )
         annotationController.update([rideAnnotation])
         let exp = expectation(description: "Wait for outdated check")
-        wait(interval: 0.2) {
+        wait(interval: 0.1) {
             exp.fulfill()
         }
         // then
-        wait(for: [exp], timeout: 0.3)
+        wait(for: [exp], timeout: 0.5)
         XCTAssertTrue(annotationController.mapView.annotations.isEmpty)
     }
 
@@ -47,15 +47,15 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
             rideChecker: rideChecker,
-            outdatedCheckTimeinterval: 0.1
+            outdatedCheckTimeinterval: 0.0
         )
         annotationController.update([rideAnnotation])
         let exp = expectation(description: "Wait for outdated check")
-        wait(interval: 0.2) {
+        wait(interval: 0.1) {
             exp.fulfill()
         }
         // then
-        wait(for: [exp], timeout: 0.3)
+        wait(for: [exp], timeout: 0.5)
         XCTAssertFalse(annotationController.mapView.annotations.isEmpty)
     }
 }
