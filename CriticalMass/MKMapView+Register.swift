@@ -16,19 +16,12 @@ extension MKAnnotationView {
 
 extension MKMapView {
     func register<T: MKAnnotationView>(annotationViewType: T.Type) {
-        if #available(iOS 11.0, *) {
-            register(annotationViewType, forAnnotationViewWithReuseIdentifier: annotationViewType.reuseIdentifier)
-        }
+        register(annotationViewType, forAnnotationViewWithReuseIdentifier: annotationViewType.reuseIdentifier)
     }
 
     func dequeueReusableAnnotationView<T: MKAnnotationView>(ofType annotationType: T.Type, for _: IndexPath? = nil, with annotation: MKAnnotation) -> T {
         let annotationView: T
-        if #available(iOS 11.0, *) {
-            annotationView = dequeueReusableAnnotationView(withIdentifier: annotationType.reuseIdentifier, for: annotation) as! T
-        } else {
-            annotationView = dequeueReusableAnnotationView(withIdentifier: annotationType.reuseIdentifier) as? T ?? T()
-            annotationView.annotation = annotation
-        }
+        annotationView = dequeueReusableAnnotationView(withIdentifier: annotationType.reuseIdentifier, for: annotation) as! T
         return annotationView
     }
 }

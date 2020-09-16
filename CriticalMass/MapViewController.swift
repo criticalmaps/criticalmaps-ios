@@ -35,17 +35,7 @@ class MapViewController: UIViewController {
     // MARK: Properties
 
     private lazy var annotationControllers: [AnnotationController] = {
-        if #available(iOS 11.0, *) {
-            return [
-                BikeAnnotationController(mapView: self.mapView),
-                CMMarkerAnnotationController(mapView: self.mapView)
-            ]
-        } else {
-            return [
-                BikeAnnotationController(mapView: self.mapView),
-                CMAnnotationController(mapView: self.mapView)
-            ]
-        }
+        [BikeAnnotationController(mapView: self.mapView), CMMarkerAnnotationController(mapView: self.mapView)]
     }()
 
     private let nightThemeOverlay = DarkModeMapOverlay()
@@ -190,19 +180,11 @@ class MapViewController: UIViewController {
                 onMain { [unowned self] in
                     self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
                         .flatMap {
-                            if #available(iOS 11.0, *) {
-                                guard let controller = $0 as? CMMarkerAnnotationController else {
-                                    Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
-                                    return
-                                }
-                                controller.update([CriticalMassAnnotation(ride: ride)])
-                            } else {
-                                guard let controller = $0 as? CMAnnotationController else {
-                                    Logger.log(.debug, log: .map, "Controller expected to CMAnnotationController")
-                                    return
-                                }
-                                controller.update([CriticalMassAnnotation(ride: ride)])
+                            guard let controller = $0 as? CMMarkerAnnotationController else {
+                                Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
+                                return
                             }
+                            controller.update([CriticalMassAnnotation(ride: ride)])
                         }
                     self.mapInfoViewController.configureAndPresentMapInfoView(
                         title: ride.titleAndTime,
@@ -256,22 +238,14 @@ extension MapViewController: MKMapViewDelegate {
 
         // TODO: Remove workaround when target > iOS10 since it does not seem to work with the MKMapView+Register extension
         if annotation is CriticalMassAnnotation {
-            if #available(iOS 11.0, *) {
-                let view = mapView.dequeueReusableAnnotationView(
-                    withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
-                    for: annotation
-                )
-                let markerView = view as! CMMarkerAnnotationView
-                markerView.shareEventClosure = { self.shareEvent() }
-                markerView.routeEventClosure = { self.routeToEvent() }
-                return view
-            } else {
-                return mapView.dequeueReusableAnnotationView(withIdentifier: CMAnnotationView.reuseIdentifier) as? CMAnnotationView
-                    ?? CMAnnotationView(
-                        annotation: annotation,
-                        reuseIdentifier: CMAnnotationView.reuseIdentifier
-                    )
-            }
+            let view = mapView.dequeueReusableAnnotationView(
+                withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
+                for: annotation
+            )
+            let markerView = view as! CMMarkerAnnotationView
+            markerView.shareEventClosure = { self.shareEvent() }
+            markerView.routeEventClosure = { self.routeToEvent() }
+            return view
         }
 
         return mapView.dequeueReusableAnnotationView(ofType: matchingController.annotationViewType, with: annotation)

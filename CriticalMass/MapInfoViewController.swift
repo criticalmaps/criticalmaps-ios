@@ -20,10 +20,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
     private var infoView = MapInfoView.fromNib()
     private var visibleBottomConstraint: NSLayoutConstraint!
     private var infoViewContainerTopConstraint: NSLayoutConstraint {
-        if #available(iOS 11.0, *) {
-            return infoViewContainer.topAnchor.constraint(equalTo: view.safeTopAnchor)
-        }
-        return infoViewContainer.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 20)
+        infoViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
     }
 
     public var closeButtonHandler: MapInfoView.TapHandler? {

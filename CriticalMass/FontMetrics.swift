@@ -27,11 +27,7 @@ enum FontMetrics {
     /// - Returns: The font at its scaled point size.
     ///
     static func scaledFont(for font: UIFont) -> UIFont {
-        if #available(iOS 11.0, *) {
-            return UIFontMetrics.default.scaledFont(for: font)
-        } else {
-            return font.withSize(scaler * font.pointSize)
-        }
+        UIFontMetrics.default.scaledFont(for: font)
     }
 
     /// Returns a version of the specified font that adopts the current font metrics and is
@@ -43,12 +39,10 @@ enum FontMetrics {
     /// - Returns: The font at its constrained scaled point size.
     ///
     static func scaledFont(for font: UIFont, maximumPointSize: CGFloat) -> UIFont {
-        if #available(iOS 11.0, *) {
-            return UIFontMetrics.default.scaledFont(for: font,
-                                                    maximumPointSize: maximumPointSize,
-                                                    compatibleWith: nil)
-        } else {
-            return font.withSize(min(scaler * font.pointSize, maximumPointSize))
-        }
+        UIFontMetrics.default.scaledFont(
+            for: font,
+            maximumPointSize: maximumPointSize,
+            compatibleWith: nil
+        )
     }
 }

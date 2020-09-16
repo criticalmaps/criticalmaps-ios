@@ -79,9 +79,7 @@ class RulesViewController: UITableViewController {
 
     private func configureNavigationBar() {
         title = L10n.rulesTitle
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func registerCell() {

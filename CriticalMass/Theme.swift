@@ -12,7 +12,6 @@ enum Theme: String {
     case light
     case dark
 
-    @available(iOS 12.0, *)
     init(userInterfaceStyle: UIUserInterfaceStyle) {
         switch userInterfaceStyle {
         case .dark:

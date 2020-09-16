@@ -101,15 +101,7 @@ class ChatViewController: UIViewController {
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-
-        let bottomInset: CGFloat
-        if #available(iOS 11.0, *), chatInputBottomConstraint.constant == 0 {
-            bottomInset = view.safeAreaInsets.bottom
-        } else {
-            bottomInset = 0
-        }
-
-        chatInputHeightConstraint.constant = Constants.chatInputHeight + bottomInset
+        chatInputHeightConstraint.constant = Constants.chatInputHeight + view.safeAreaInsets.bottom
     }
 
     @objc private func didTapTableView() {

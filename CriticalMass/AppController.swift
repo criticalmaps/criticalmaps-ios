@@ -31,13 +31,7 @@ class AppController {
         return NetworkOperator(networkIndicatorHelper: NetworkActivityIndicatorHelper(), dataProvider: networkDataProvider)
     }()
 
-    private let networkObserver: NetworkObserver? = {
-        if #available(iOS 12.0, *) {
-            return PathObserver()
-        } else {
-            return nil
-        }
-    }()
+    private let networkObserver = PathObserver()
 
     private let themeController = ThemeController()
 
@@ -88,15 +82,11 @@ class AppController {
     public func onAppLaunch() {
         loadInitialData()
         themeController.applyTheme()
-        if #available(iOS 10.3, *) {
-            RatingHelper().onLaunch()
-        }
+        RatingHelper().onLaunch()
     }
 
     public func onWillEnterForeground() {
-        if #available(iOS 10.3, *) {
-            RatingHelper().onEnterForeground()
-        }
+        RatingHelper().onEnterForeground()
     }
 
     public func enableSimulationMode() {

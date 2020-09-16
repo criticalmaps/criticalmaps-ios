@@ -31,11 +31,7 @@ extension UIViewController {
     func layout(_ viewController: UIViewController) {
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
         var topAnchor: NSLayoutConstraint {
-            if #available(iOS 11.0, *) {
-                return viewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-            } else {
-                return viewController.view.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor)
-            }
+            viewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         }
         NSLayoutConstraint.activate([
             topAnchor,
