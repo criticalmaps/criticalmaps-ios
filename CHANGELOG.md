@@ -8,6 +8,7 @@ Changelog for Critical Maps iOS
 
 - Fullpage screenshots of the Map
 - Large preview images on long press for the navigation buttons on devices that use large font sizes
+- Select an alternate app icon 
 
 ### Fixed
 
