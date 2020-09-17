@@ -8,6 +8,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+            <key>light</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>CMLightIcon</string>
+                </array>
+            </dict>
             <key>yellow</key>
             <dict>
                 <key>CFBundleIconFiles</key>
