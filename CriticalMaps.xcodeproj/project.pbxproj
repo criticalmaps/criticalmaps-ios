@@ -237,6 +237,8 @@
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
+		9F875F2F251394A000E27C23 /* CMLightIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */; };
+		9F875F30251394A000E27C23 /* CMLightIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */; };
 		9F8B6BE22512847700530373 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B6BE12512847600530373 /* AppIcon.swift */; };
 		9FFEA38F25113F0900E23021 /* CMRainbowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */; };
 		9FFEA39025113F0900E23021 /* CMDarkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */; };
@@ -518,6 +520,8 @@
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
+		9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@2x.png"; sourceTree = "<group>"; };
+		9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@3x.png"; sourceTree = "<group>"; };
 		9F8B6BE12512847600530373 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMRainbowIcon@2x.png"; sourceTree = "<group>"; };
 		9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMDarkIcon@3x.png"; sourceTree = "<group>"; };
@@ -916,15 +920,17 @@
 		94CF086619BDEAF2009FFF43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				9FFEA38A25113F0900E23021 /* CMDarkIcon@2x.png */,
 				9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */,
+				9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */,
+				9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */,
 				9FFEA38E25113F0900E23021 /* CMNeonIcon@2x.png */,
 				9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */,
 				9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */,
 				9FFEA38D25113F0900E23021 /* CMRainbowIcon@3x.png */,
 				9FFEA38B25113F0900E23021 /* CMYellowIcon@2x.png */,
 				9FFEA38C25113F0900E23021 /* CMYellowIcon@3x.png */,
-				94CF086719BDEAF2009FFF43 /* CriticalMaps-Info.plist */,
 				94CF086819BDEAF2009FFF43 /* InfoPlist.strings */,
 				9489D88E1B768274001E746C /* Localizable.strings */,
 			);
@@ -1281,9 +1287,11 @@
 				9485A93223756A53006DC7B5 /* LoadingViewController.xib in Resources */,
 				9804176921FC74D90077D419 /* ChatMessageTableViewCell.xib in Resources */,
 				98E7338B220394E7005F311F /* SettingsSwitchTableViewCell.xib in Resources */,
+				9F875F2F251394A000E27C23 /* CMLightIcon@2x.png in Resources */,
 				944D5F07240CE09200993899 /* MapInfoViewController.xib in Resources */,
 				9FFEA39425113F0900E23021 /* CMYellowIcon@3x.png in Resources */,
 				9485A93423756A53006DC7B5 /* ErrorStateViewController.xib in Resources */,
+				9F875F30251394A000E27C23 /* CMLightIcon@3x.png in Resources */,
 				982DA8CF21FF67FC00E2A51B /* TweetTableViewCell.xib in Resources */,
 				9FFEA39325113F0900E23021 /* CMYellowIcon@2x.png in Resources */,
 				946CDE0422412DA60059F892 /* Settings.bundle in Resources */,
