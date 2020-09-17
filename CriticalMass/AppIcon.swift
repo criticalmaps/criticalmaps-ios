@@ -11,8 +11,17 @@ enum AppIcon: String, CaseIterable {
         String(rawValue.prefix(1).uppercased() + rawValue.dropFirst())
     }
 
+    var image: UIImage? {
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "png") else { return nil }
+        let imageData = try? Data(contentsOf: url)
+        return imageData.flatMap { UIImage(data: $0) }
+    }
+
     private var fileName: String {
         switch self {
+        case .light:
+            return "CMLightIcon@3x"
         case .dark:
             return "CMDarkIcon@3x"
         case .rainbow:
@@ -21,22 +30,6 @@ enum AppIcon: String, CaseIterable {
             return "CMYellowIcon@3x"
         case .neon:
             return "CMNeonIcon@3x"
-        case .light:
-            return "CMAppLogo"
-        }
-    }
-
-    var image: UIImage? {
-        switch self {
-        case .dark, .neon, .rainbow, .yellow:
-            var documentsUrl: URL {
-                FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            }
-            guard let url = Bundle.main.url(forResource: fileName, withExtension: "png") else { return nil }
-            let imageData = try? Data(contentsOf: url)
-            return imageData.flatMap { UIImage(data: $0) }
-        case .light:
-            return UIImage(named: fileName).flatMap { $0 }
         }
     }
 }
