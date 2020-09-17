@@ -13,7 +13,7 @@ final class AppIconSelectViewController: UITableViewController {
         setupController()
     }
 
-    fileprivate func setupController() {
+    private func setupController() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(cellType: AppIconTableViewCell.self)
         tableView.tableFooterView = UIView()
