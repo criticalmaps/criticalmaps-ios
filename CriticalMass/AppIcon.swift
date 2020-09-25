@@ -12,7 +12,6 @@ enum AppIcon: String, CaseIterable {
     }
 
     var image: UIImage? {
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "png") else { return nil }
         let imageData = try? Data(contentsOf: url)
         return imageData.flatMap { UIImage(data: $0) }
