@@ -26,6 +26,9 @@ struct NextRidesRequest: APIRequestDefining {
     }
 
     func parseResponse(data: Data) throws -> ResponseDataType {
-        try data.decoded(decoder: .init(dateDecodingStrategy: .secondsSince1970))
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return try data.decoded(decoder: decoder)
     }
 }
