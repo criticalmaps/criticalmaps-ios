@@ -846,7 +846,10 @@
 				94CF085E19BDEAF2009FFF43 /* Frameworks */,
 				94CF085D19BDEAF2009FFF43 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		94CF085D19BDEAF2009FFF43 /* Products */ = {
 			isa = PBXGroup;
