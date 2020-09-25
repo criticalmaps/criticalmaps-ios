@@ -14,7 +14,7 @@
 			<key>Key</key>
 			<string>searchRadiusSetting</string>
 			<key>DefaultValue</key>
-			<integer>1</integer>
+			<string>20</string>
 			<key>Titles</key>
 			<array>
 				<string>10</string>
