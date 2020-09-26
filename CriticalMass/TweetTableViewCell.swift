@@ -78,6 +78,8 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
             // set background color to clear to keep the same color for background text view and background cell view
             // when the cell is highlighted
             tweetTextView.backgroundColor = .clear
+
+            accessibilityUserInputLabels = [tweet.user.name]
         }
     }
 
