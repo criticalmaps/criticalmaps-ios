@@ -158,6 +158,9 @@ extension SettingsViewController {
                 projectLinkCell.detailLabel?.text = model.detail
                 projectLinkCell.actionLabel.text = model.actionTitle
                 projectLinkCell.backgroundImageView.image = model.image
+                if #available(iOS 13.0, *) {
+                    projectLinkCell.accessibilityUserInputLabels = model.userInputLabels
+                }
             }
         default:
             let model = section.models[indexPath.row]

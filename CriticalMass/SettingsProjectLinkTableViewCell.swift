@@ -66,12 +66,14 @@ extension SettingsProjectLinkTableViewCell {
         let title: String
         let detail: String
         let actionTitle: String
+        let userInputLabels: [String]
         let image: UIImage
 
         static let github = CellConfiguration(
             title: L10n.settingsOpenSourceTitle,
             detail: L10n.settingsOpenSourceDetail,
             actionTitle: L10n.settingsOpenSourceAction.uppercased(),
+            userInputLabels: [L10n.settingsOpenSourceAction],
             image: UIImage(named: "GithubBanner")!
         )
 
@@ -79,6 +81,7 @@ extension SettingsProjectLinkTableViewCell {
             title: L10n.settingsCriticalMassDotInTitle,
             detail: L10n.settingsCriticalMassDotInDetail,
             actionTitle: L10n.settingsCriticalMassDotInAction.uppercased(),
+            userInputLabels: [L10n.settingsCriticalMassDotInAction],
             image: UIImage(named: "banner cm")!
         )
     }
