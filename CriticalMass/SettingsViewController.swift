@@ -178,6 +178,10 @@ extension SettingsViewController {
             cell.accessibilityIdentifier = model.accessibilityIdentifier
             cell.textLabel?.text = model.title
             cell.detailTextLabel?.text = model.subtitle
+            if #available(iOS 13.0, *),
+                let userInputLabels = model.userInputLabels {
+                cell.accessibilityUserInputLabels = userInputLabels
+            }
         }
     }
 }
