@@ -150,7 +150,7 @@
 "settings.openSource" = "Github";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "Guarda il progetto";
+"settings.opensource.action" = "Guarda il Repository";
 
 /* No comment provided by engineer. */
 "settings.opensource.detail" = "Critical Maps è un progetto open source e non vediamo l'ora di vedere sviluppatori che vogliono lavorare su mappe critiche.";

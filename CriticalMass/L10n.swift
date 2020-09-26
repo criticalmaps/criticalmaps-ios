@@ -25,6 +25,7 @@ enum L10n {
     static let settingsOpenSourceAction = L10n.translate("settings.opensource.action")
     static let settingsCriticalMassDotInTitle = L10n.translate("settings.criticalMassDotIn.title")
     static let settingsCriticalMassDotInDetail = L10n.translate("settings.criticalMassDotIn.detail")
+    static let settingsCriticalMassDotInAction = L10n.translate("settings.criticalMassDotIn.action")
     static let settingsFriends = L10n.translate("settings.friends")
     static let settingsFriendsSettings = L10n.translate("settings.friends.settings")
     static let settingsFriendsShowID = L10n.translate("settings.friends.showID")

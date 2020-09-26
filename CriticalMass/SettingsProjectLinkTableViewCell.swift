@@ -78,7 +78,7 @@ extension SettingsProjectLinkTableViewCell {
         static let criticalMassDotIn = CellConfiguration(
             title: L10n.settingsCriticalMassDotInTitle,
             detail: L10n.settingsCriticalMassDotInDetail,
-            actionTitle: L10n.settingsOpenSourceAction.uppercased(),
+            actionTitle: L10n.settingsCriticalMassDotInAction.uppercased(),
             image: UIImage(named: "banner cm")!
         )
     }

@@ -150,7 +150,7 @@
 "settings.openSource" = "GitHub";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "Voir le Projet";
+"settings.opensource.action" = "Voir le Référentiel";
 
 /* No comment provided by engineer. */
 "settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs pour collaborer.";
