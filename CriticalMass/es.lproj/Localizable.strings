@@ -3,7 +3,7 @@
 "chat.noChatActivity" = "Nadie está charlando en este momento...\n¿por qué no empezas?";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Mensaje ...";
+"chat.placeholder" = "Escribe Mensaje";
 
 /* No comment provided by engineer. */
 "chat.send" = "Enviar";
