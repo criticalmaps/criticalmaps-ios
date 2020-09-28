@@ -81,6 +81,9 @@
 "rules.title" = "Normas";
 
 /* No comment provided by engineer. */
+"rules.number" = "Norma Número";
+
+/* No comment provided by engineer. */
 "rules.title.brake" = "¡No hay paradas duras!";
 
 /* No comment provided by engineer. */

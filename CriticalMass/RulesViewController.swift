@@ -99,6 +99,11 @@ class RulesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofType: RuleTableViewCell.self)
         cell.label?.text = rules[indexPath.row].title
+
+        if #available(iOS 13.0, *) {
+            cell.accessibilityUserInputLabels = ["\(L10n.rulesNumber) \(indexPath.row + 1)"]
+        }
+
         return cell
     }
 

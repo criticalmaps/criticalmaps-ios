@@ -6,6 +6,7 @@ import Foundation
 enum L10n {
     static let twitterNoData = L10n.translate("twitter.noData")
     static let rulesTitle = L10n.translate("rules.title")
+    static let rulesNumber = L10n.translate("rules.number")
     static let error = L10n.translate("error")
     static let closeButtonLabel = L10n.translate("close.button.label")
     static let loadingButtonLabel = L10n.translate("loadintton.label")

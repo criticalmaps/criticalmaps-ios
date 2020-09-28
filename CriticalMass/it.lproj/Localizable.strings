@@ -81,6 +81,9 @@
 "rules.title" = "Regole";
 
 /* No comment provided by engineer. */
+"rules.number" = "Regole Numero";
+
+/* No comment provided by engineer. */
 "rules.title.brake" = "Non frenare bruscamente";
 
 /* No comment provided by engineer. */

@@ -81,6 +81,9 @@
 "rules.title" = "Knigge";
 
 /* No comment provided by engineer. */
+"rules.number" = "Knigge Nummer";
+
+/* No comment provided by engineer. */
 "rules.title.brake" = "Keine Vollbremsungen!";
 
 /* No comment provided by engineer. */
