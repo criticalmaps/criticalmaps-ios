@@ -195,6 +195,9 @@
 "settings.website" = "Website";
 
 /* No comment provided by engineer. */
+"settings.appIconTitle" = "App Icon";
+
+/* No comment provided by engineer. */
 "twitter.noData" = "No data is currently available.\nPlease pull down to refresh.";
 
 /* No comment provided by engineer. */

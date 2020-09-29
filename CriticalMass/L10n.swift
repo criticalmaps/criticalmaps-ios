@@ -11,6 +11,7 @@ enum L10n {
     static let loadingButtonLabel = L10n.translate("loadintton.label")
     static let ok = L10n.translate("ok")
     // Settings
+    static let appIconTitle = L10n.translate("settings.appIconTitle")
     static let themeLocalizedString = L10n.translate("settings.theme")
     static let obversationModeTitle = L10n.translate("settings.observationmode.title")
     static let obversationModeDetail = L10n.translate("settings.observationmode.detail")

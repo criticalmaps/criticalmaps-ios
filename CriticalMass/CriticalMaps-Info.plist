@@ -4,6 +4,65 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+            <key>light</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>CMLightIcon</string>
+                </array>
+            </dict>
+            <key>yellow</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>CMYellowIcon</string>
+                </array>
+            </dict>
+            <key>neon</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>CMNeonIcon</string>
+                </array>
+            </dict>
+			<key>dark</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>CMDarkIcon</string>
+				</array>
+			</dict>
+			<key>rainbow</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>CMRainbowIcon</string>
+				</array>
+			</dict>
+		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon60x60</string>
+			</array>
+		</dict>
+		<key>UINewsstandIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string></string>
+			</array>
+			<key>UINewsstandBindingType</key>
+			<string>UINewsstandBindingTypeMagazine</string>
+			<key>UINewsstandBindingEdge</key>
+			<string>UINewsstandBindingEdgeLeft</string>
+		</dict>
+	</dict>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
