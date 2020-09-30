@@ -943,19 +943,23 @@
 		94CF087E19BDEAF2009FFF43 /* CriticalMassTests */ = {
 			isa = PBXGroup;
 			children = (
-				98CA8EDE2411482C000EFDCC /* CriticalMaps.xctestplan */,
 				9822A16521F11519007F5994 /* AppDataStoreTests.swift */,
 				9804178F21FCA2B40077D419 /* ChatManagerTests.swift */,
 				944D5F0A240CE0DA00993899 /* CMMarkerAnnotationControllerTests.swift */,
+				9F47462524C968370020B540 /* CodableExtensionTests.swift */,
 				944D5F09240CE0DA00993899 /* CoordinateObfuscatorTests.swift */,
 				94AF230823D6D64600267E87 /* DateAdditionsTests.swift */,
 				98003D5F2287301000592D55 /* FollowURLObjectTests.swift */,
+				98707DFA24167A480045B811 /* FormatDisplayTests.swift */,
 				98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */,
 				98CE731824085E4A0088F7B4 /* IdentifiableAnnotationTests.swift */,
 				98C13289227F05E700291FCA /* IDStoreTests.swift */,
 				98329A2222D3CADB00A157EE /* KeychainHelperTests.swift */,
+				21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */,
+				21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */,
 				9843FAA2236CDC0D00457930 /* NetworkOperatorTests.swift */,
 				94F70B4523DA037A0086619E /* NextRideManagerTests.swift */,
+				98CE7322240EA4CE0088F7B4 /* NextRidesRequestTests.swift */,
 				9810C383229831720011F718 /* RatingHelperTests.swift */,
 				9822A16321F113DC007F5994 /* RequestManagerTests.swift */,
 				944D5F0B240CE0DA00993899 /* RideCheckerTests.swift */,
@@ -967,12 +971,8 @@
 				982DA8D521FFAC0D00E2A51B /* TwitterManagerTests.swift */,
 				988BF2F823F35C7100594C3F /* TwitterRequestTests.swift */,
 				981C92082288B47F00391FA9 /* XCTestCase+Helper.swift */,
+				98CA8EDE2411482C000EFDCC /* CriticalMaps.xctestplan */,
 				94CF087F19BDEAF2009FFF43 /* Supporting Files */,
-				98CE7322240EA4CE0088F7B4 /* NextRidesRequestTests.swift */,
-				98707DFA24167A480045B811 /* FormatDisplayTests.swift */,
-				21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */,
-				21BC979C24A8CE7600448240 /* MessagesDiffableDataSourceTests.swift */,
-				9F47462524C968370020B540 /* CodableExtensionTests.swift */,
 			);
 			path = CriticalMassTests;
 			sourceTree = "<group>";

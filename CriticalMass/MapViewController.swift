@@ -15,6 +15,28 @@ class MapViewController: UIViewController {
     private let nextRideManager: NextRideManager
 
     private let mapInfoViewController = MapInfoViewController.fromNib()
+    private lazy var annotationControllers: [AnnotationController] = {
+        [BikeAnnotationController(mapView: self.mapView), CMMarkerAnnotationController(mapView: self.mapView)]
+    }()
+
+    private let nightThemeOverlay = DarkModeMapOverlay()
+    public lazy var followMeButton: UserTrackingButton = {
+        UserTrackingButton(mapView: mapView)
+    }()
+
+    public var bottomContentOffset: CGFloat = 0 {
+        didSet {
+            mapView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomContentOffset, right: 0)
+        }
+    }
+
+    private var mapView = MKMapView(frame: .zero)
+
+    private let gpsDisabledOverlayView: BlurryFullscreenOverlayView = {
+        let view = BlurryFullscreenOverlayView.fromNib()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     init(
         themeController: ThemeController,
@@ -31,32 +53,6 @@ class MapViewController: UIViewController {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    // MARK: Properties
-
-    private lazy var annotationControllers: [AnnotationController] = {
-        [BikeAnnotationController(mapView: self.mapView), CMMarkerAnnotationController(mapView: self.mapView)]
-    }()
-
-    private let nightThemeOverlay = DarkModeMapOverlay()
-    public lazy var followMeButton: UserTrackingButton = {
-        let button = UserTrackingButton(mapView: mapView)
-        return button
-    }()
-
-    public var bottomContentOffset: CGFloat = 0 {
-        didSet {
-            mapView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomContentOffset, right: 0)
-        }
-    }
-
-    private var mapView = MKMapView(frame: .zero)
-
-    private let gpsDisabledOverlayView: BlurryFullscreenOverlayView = {
-        let view = BlurryFullscreenOverlayView.fromNib()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()

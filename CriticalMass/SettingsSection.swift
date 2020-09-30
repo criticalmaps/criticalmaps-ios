@@ -66,8 +66,17 @@ enum Section: CaseIterable {
         switch self {
         case .preferences:
             var models = [
-                Model(title: L10n.themeLocalizedString, action: .switch(ThemeController.self), accessibilityIdentifier: "Theme"),
-                Model(title: L10n.obversationModeTitle, subtitle: L10n.obversationModeDetail, action: .switch(ObservationModePreferenceStore.self), accessibilityIdentifier: "Observation_Mode"),
+                Model(
+                    title: L10n.themeLocalizedString,
+                    action: .switch(ThemeController.self),
+                    accessibilityIdentifier: "Theme"
+                ),
+                Model(
+                    title: L10n.obversationModeTitle,
+                    subtitle: L10n.obversationModeDetail,
+                    action: .switch(ObservationModePreferenceStore.self),
+                    accessibilityIdentifier: L10n.obversationModeTitle
+                ),
                 Model(
                     title: "App Icon",
                     action: .navigate(toViewController: AppIconSelectViewController.self),
@@ -75,7 +84,12 @@ enum Section: CaseIterable {
                 )
             ]
             if Feature.friends.isActive {
-                let friendsModel = Model(title: L10n.settingsFriends, subtitle: nil, action: .navigate(toViewController: ManageFriendsViewController.self), accessibilityIdentifier: "Friends")
+                let friendsModel = Model(
+                    title: L10n.settingsFriends,
+                    subtitle: nil,
+                    action: .navigate(toViewController: ManageFriendsViewController.self),
+                    accessibilityIdentifier: L10n.settingsFriends
+                )
                 models.insert(friendsModel, at: 0)
             }
             return models

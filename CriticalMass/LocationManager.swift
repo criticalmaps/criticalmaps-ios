@@ -47,16 +47,18 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
             }
         }
         get {
-            guard type(of: self).accessPermission == .authorized, !ObservationModePreferenceStore().isEnabled else {
+            guard type(of: self).accessPermission == .authorized, !observationModePreferenceStore.isEnabled else {
                 return nil
             }
             return _currentLocation
         }
     }
 
+    private var observationModePreferenceStore: ObservationModePreferenceStore
     private let locationManager = CLLocationManager()
 
-    override init() {
+    init(observationModePreferenceStore: ObservationModePreferenceStore) {
+        self.observationModePreferenceStore = observationModePreferenceStore
         super.init()
         configureLocationManager()
     }

@@ -8,29 +8,33 @@
 
 import Foundation
 
+protocol ThemeStore {
+    var theme: String? { get set }
+}
+
 protocol ThemeStorable {
     func save(_ themeSelection: Theme)
     func load() -> Theme?
 }
 
 class ThemeSelectionStore: ThemeStorable {
-    private let defaults: UserDefaults
+    private var store: ThemeStore
 
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
+    init(store: ThemeStore) {
+        self.store = store
     }
 
     /// Save Theme to UserDefaults
     ///
     /// - Parameter themeSelection: The Theme that will be saved.
     func save(_ themeSelection: Theme) {
-        defaults.theme = themeSelection.rawValue
+        store.theme = themeSelection.rawValue
     }
 
     /// Fetches saved theme from the UserDefaults
     ///
     /// - Returns: Saved theme from a previous session or nil if this is the first start.
     func load() -> Theme? {
-        Theme(defaults.theme)
+        Theme(store.theme)
     }
 }

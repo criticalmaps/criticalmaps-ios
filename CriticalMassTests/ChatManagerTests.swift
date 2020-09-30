@@ -9,20 +9,23 @@
 import XCTest
 
 class ChatManagerTests: XCTestCase {
-    func getSetup() -> (chatManager: ChatManager, networkLayer: MockNetworkLayer, dataStore: DataStore) {
+    func getSetup(
+        chatMessageStore: ChatMessageStore = ChatMessageStoreMock()
+    ) -> (chatManager: ChatManager, networkLayer: MockNetworkLayer, dataStore: DataStore) {
         let networkLayer = MockNetworkLayer()
-        let dataStore = AppDataStore(userDefaults: userDefaults)
-        let requestManager = RequestManager(dataStore: dataStore, locationProvider: MockLocationProvider(), networkLayer: networkLayer, idProvider: MockIDProvider(), networkObserver: nil)
-        let chatManager = ChatManager(requestManager: requestManager, defaults: userDefaults)
+        let dataStore = AppDataStore(friendsStorage: FriendsStorageMock())
+        let requestManager = RequestManager(
+            dataStore: dataStore,
+            locationProvider: MockLocationProvider(),
+            networkLayer: networkLayer,
+            idProvider: MockIDProvider(),
+            networkObserver: nil
+        )
+        let chatManager = ChatManager(
+            requestManager: requestManager,
+            chatMessageStorage: chatMessageStore
+        )
         return (chatManager, networkLayer, dataStore)
-    }
-
-    var userDefaults: UserDefaults!
-
-    override func setUp() {
-        super.setUp()
-        userDefaults = .makeClearedInstance()
-        userDefaults.lastMessageReadTimeInterval = 0
     }
 
     func testSendMessage() {
@@ -135,8 +138,8 @@ class ChatManagerTests: XCTestCase {
     }
 
     func testMessagesUnreadCountWithExistingTimeStamp() {
-        let setup = getSetup()
-        userDefaults.lastMessageReadTimeInterval = 1
+        let chatMessageStoreMock = ChatMessageStoreMock(lastMessageReadTimeInterval: 1)
+        let setup = getSetup(chatMessageStore: chatMessageStoreMock)
         setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
         XCTAssertEqual(setup.chatManager.unreadMessagesCount, 1)
     }
@@ -175,4 +178,14 @@ class ChatManagerTests: XCTestCase {
         XCTAssertEqual(result, mockMessages)
         XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)
     }
+}
+
+extension ChatManagerTests {
+    struct ChatMessageStoreMock: ChatMessageStore {
+        var lastMessageReadTimeInterval: Double = 0.0
+    }
+}
+
+struct FriendsStorageMock: FriendsStorage {
+    var username: String?
 }

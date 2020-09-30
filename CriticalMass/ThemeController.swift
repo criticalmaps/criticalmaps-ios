@@ -13,7 +13,7 @@ class ThemeController {
     private(set) var currentTheme: Theme!
     private let store: ThemeStorable
 
-    init(store: ThemeStorable = ThemeSelectionStore()) {
+    init(store: ThemeStorable) {
         self.store = store
         currentTheme = loadTheme()
     }

@@ -9,14 +9,18 @@
 @testable import CriticalMaps
 import XCTest
 
+struct ThemeStoreMock: ThemeStore {
+    var theme: String?
+}
+
 class ThemeSelectionStoreTests: XCTestCase {
     private var sut: ThemeSelectionStore?
-    private var userdefaults: UserDefaults!
+    private var store: ThemeStore!
 
     override func setUp() {
         super.setUp()
-        userdefaults = .makeClearedInstance()
-        sut = ThemeSelectionStore(defaults: userdefaults)
+        store = ThemeStoreMock()
+        sut = ThemeSelectionStore(store: store)
     }
 
     override func tearDown() {

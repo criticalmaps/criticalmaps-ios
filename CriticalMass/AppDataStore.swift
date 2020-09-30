@@ -8,11 +8,15 @@
 import CoreData
 import UIKit
 
-public class AppDataStore: DataStore {
-    private let userDefaults: UserDefaults
+public protocol FriendsStorage {
+    var username: String? { get set }
+}
 
-    public init(userDefaults: UserDefaults = .standard) {
-        self.userDefaults = userDefaults
+public class AppDataStore: DataStore {
+    private var friendsStorage: FriendsStorage
+
+    public init(friendsStorage: FriendsStorage) {
+        self.friendsStorage = friendsStorage
 
         if Feature.friends.isActive {
             loadFriends()
@@ -22,14 +26,14 @@ public class AppDataStore: DataStore {
     private var lastKnownResponse: ApiResponse?
 
     public var userName: String {
-        get { userDefaults.username ?? UIDevice.current.name }
-        set { userDefaults.username = newValue }
+        get { friendsStorage.username ?? UIDevice.current.name }
+        set { friendsStorage.username = newValue }
     }
 
     public func update(with response: ApiResponse) {
         if lastKnownResponse?.locations != response.locations {
             NotificationCenter.default.post(name: .positionOthersChanged, object: response)
-            updateFriedLocations(locations: response.locations)
+            updateFriendsLocations(locations: response.locations)
         }
         if lastKnownResponse?.chatMessages != response.chatMessages {
             NotificationCenter.default.post(name: .chatMessagesReceived, object: response)
@@ -67,7 +71,7 @@ public class AppDataStore: DataStore {
         saveContext()
     }
 
-    func updateFriedLocations(locations: [String: Location]) {
+    func updateFriendsLocations(locations: [String: Location]) {
         friends = friends.map { friend in
             let hash = IDStore.hash(id: friend.token)
             let location = locations[hash]
@@ -75,8 +79,7 @@ public class AppDataStore: DataStore {
         }
     }
 
-    public private(set)
-    var friends: [Friend] = []
+    public private(set) var friends: [Friend] = []
 
     private lazy var friendsFetchResultsController: NSFetchedResultsController<StoredFriend> = {
         let fetchRequest: NSFetchRequest<StoredFriend> = StoredFriend.fetchRequest()

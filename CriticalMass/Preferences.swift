@@ -7,17 +7,21 @@
 
 import Foundation
 
-class ObservationModePreferenceStore: Switchable {
-    private let defaults: UserDefaults
+protocol ObservationModePreference {
+    var observationMode: Bool { get set }
+}
 
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
+class ObservationModePreferenceStore: Switchable {
+    private var store: ObservationModePreference
+
+    init(store: ObservationModePreference) {
+        self.store = store
     }
 
     var isEnabled: Bool {
-        get { defaults.observationMode }
+        get { store.observationMode }
         set {
-            defaults.observationMode = newValue
+            store.observationMode = newValue
             NotificationCenter.default.post(name: .observationModeChanged, object: newValue)
         }
     }

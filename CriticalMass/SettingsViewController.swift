@@ -11,11 +11,18 @@ class SettingsViewController: UITableViewController {
     private let themeController: ThemeController
     private let dataStore: DataStore
     private let idProvider: IDProvider
+    private let observationModePreferenceStore: ObservationModePreferenceStore
 
-    init(themeController: ThemeController, dataStore: DataStore, idProvider: IDProvider) {
+    init(
+        themeController: ThemeController,
+        dataStore: DataStore,
+        idProvider: IDProvider,
+        observationModePreferenceStore: ObservationModePreferenceStore
+    ) {
         self.themeController = themeController
         self.dataStore = dataStore
         self.idProvider = idProvider
+        self.observationModePreferenceStore = observationModePreferenceStore
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -158,7 +165,7 @@ extension SettingsViewController {
                 case let .switch(switchableType) = model.action
             {
                 if switchableType == ObservationModePreferenceStore.self {
-                    switchCell.configure(switchable: ObservationModePreferenceStore())
+                    switchCell.configure(switchable: observationModePreferenceStore)
                 } else if switchableType == ThemeController.self {
                     switchCell.configure(switchable: themeController)
                 } else {

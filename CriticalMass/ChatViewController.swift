@@ -19,7 +19,7 @@ class ChatViewController: UIViewController {
 
     private let messagesTableViewController = MessagesTableViewController<ChatMessageTableViewCell>()
     private let chatManager: ChatManager
-    private let chatInputViewController = ChatInputViewController.fromNib()
+    private var chatInputViewController: ChatInputViewController!
     private lazy var chatInputBottomConstraint = {
         NSLayoutConstraint(item: chatInputViewController.view!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
     }()
@@ -31,10 +31,12 @@ class ChatViewController: UIViewController {
     // ContentState
     weak var chatMessageActivityDelegate: ChatMessageActivityDelegate?
 
-    init(chatManager: ChatManager) {
+    init(chatManager: ChatManager, themeController: ThemeController) {
         self.chatManager = chatManager
         super.init(nibName: nil, bundle: nil)
+        chatInputViewController = ChatInputViewController.fromNib()
         chatInputViewController.delegate = self
+        chatInputViewController.themeController = themeController
     }
 
     required init?(coder _: NSCoder) {

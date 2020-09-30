@@ -13,7 +13,7 @@ class NextRideManagerTests: XCTestCase {
         super.setUp()
         networkLayer = MockNetworkLayer()
         let apiHandler = CMInApiHandler(networkLayer: networkLayer)
-        nextRideManager = NextRideManager(apiHandler: apiHandler)
+        nextRideManager = NextRideManager(apiHandler: apiHandler, filterDistance: 10)
     }
 
     override func tearDown() {
