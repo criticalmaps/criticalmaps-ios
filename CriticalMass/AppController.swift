@@ -9,11 +9,19 @@ import UIKit
 
 class AppController {
     private var idProvider: IDProvider = IDStore()
-    private var dataStore = AppDataStore()
+    private let userDefaults: UserDefaults = .standard
+    private lazy var dataStore = AppDataStore(friendsStorage: userDefaults)
     private var simulationModeEnabled = false
 
+    private lazy var observationModePreferenceStore = ObservationModePreferenceStore(store: userDefaults)
     private lazy var requestManager: RequestManager = {
-        RequestManager(dataStore: dataStore, locationProvider: LocationManager(), networkLayer: networkOperator, idProvider: idProvider, networkObserver: networkObserver)
+        RequestManager(
+            dataStore: dataStore,
+            locationProvider: LocationManager(observationModePreferenceStore: observationModePreferenceStore),
+            networkLayer: networkOperator,
+            idProvider: idProvider,
+            networkObserver: networkObserver
+        )
     }()
 
     private lazy var networkOperator: NetworkOperator = {
@@ -33,10 +41,10 @@ class AppController {
 
     private let networkObserver = PathObserver()
 
-    private let themeController = ThemeController()
+    private lazy var themeController = ThemeController(store: ThemeSelectionStore(store: userDefaults))
 
     private lazy var chatManager: ChatManager = {
-        ChatManager(requestManager: requestManager)
+        ChatManager(requestManager: requestManager, chatMessageStorage: userDefaults)
     }()
 
     private lazy var chatNavigationButtonController: ChatNavigationButtonController = {
@@ -52,7 +60,8 @@ class AppController {
             themeController: self.themeController,
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
             nextRideManager: NextRideManager(
-                apiHandler: CMInApiHandler(networkLayer: networkOperator)
+                apiHandler: CMInApiHandler(networkLayer: networkOperator),
+                filterDistance: Double(userDefaults.nextRideRadius)
             )
         )
     }()
@@ -79,14 +88,16 @@ class AppController {
         return mapViewController
     }()
 
+    private lazy var ratingHelper = RatingHelper(ratingStorage: userDefaults)
+
     public func onAppLaunch() {
         loadInitialData()
         themeController.applyTheme()
-        RatingHelper().onLaunch()
+        ratingHelper.onLaunch()
     }
 
     public func onWillEnterForeground() {
-        RatingHelper().onEnterForeground()
+        ratingHelper.onEnterForeground()
     }
 
     public func enableSimulationMode() {
@@ -98,7 +109,7 @@ class AppController {
     }
 
     private func getChatViewController() -> ChatViewController {
-        ChatViewController(chatManager: chatManager)
+        ChatViewController(chatManager: chatManager, themeController: themeController)
     }
 
     private func getTwitterViewController() -> TwitterViewController {
@@ -110,7 +121,12 @@ class AppController {
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        SettingsViewController(themeController: themeController, dataStore: dataStore, idProvider: idProvider)
+        SettingsViewController(
+            themeController: themeController,
+            dataStore: dataStore,
+            idProvider: idProvider,
+            observationModePreferenceStore: observationModePreferenceStore
+        )
     }
 
     private func loadInitialData() {

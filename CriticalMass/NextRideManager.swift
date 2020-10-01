@@ -11,18 +11,13 @@ enum EventError: Error {
 
 class NextRideManager {
     typealias ResultCallback = (Result<Ride, Error>) -> Void
-    private enum Constants {
-        static let filterDistance: Double = {
-            Double(UserDefaults.standard.nextRideRadius * 1000)
-        }()
-    }
 
     public var nextRide: Ride?
 
     private let apiHandler: CMInApiHandling
     private let filterDistance: Double
 
-    init(apiHandler: CMInApiHandling, filterDistance: Double = Constants.filterDistance) {
+    init(apiHandler: CMInApiHandling, filterDistance: Double) {
         self.apiHandler = apiHandler
         self.filterDistance = filterDistance
     }
@@ -39,7 +34,7 @@ class NextRideManager {
 
     private func filterRidesInRange(_ rides: [Ride], _ userCoordinate: CLLocationCoordinate2D) -> [Ride] {
         rides.filter {
-            $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < filterDistance
+            $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < (filterDistance * 1000)
         }
     }
 

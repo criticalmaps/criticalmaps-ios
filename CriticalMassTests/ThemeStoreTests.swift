@@ -11,12 +11,12 @@ import XCTest
 
 class ThemeSelectionStoreTests: XCTestCase {
     private var sut: ThemeSelectionStore?
-    private var userdefaults: UserDefaults!
+    private var store: ThemeStore!
 
     override func setUp() {
         super.setUp()
-        userdefaults = .makeClearedInstance()
-        sut = ThemeSelectionStore(defaults: userdefaults)
+        store = ThemeStoreMock()
+        sut = ThemeSelectionStore(store: store)
     }
 
     override func tearDown() {
@@ -40,4 +40,8 @@ class ThemeSelectionStoreTests: XCTestCase {
         // then
         XCTAssertEqual(loadedTheme, .dark)
     }
+}
+
+private struct ThemeStoreMock: ThemeStore {
+    var theme: String?
 }

@@ -11,17 +11,17 @@ import XCTest
 
 class AppDataStoreTests: XCTestCase {
     var sut: AppDataStore!
-    var userdefaults: UserDefaults!
+    var store: FriendsStorage!
 
     override func setUp() {
         super.setUp()
 
-        userdefaults = .makeClearedInstance()
+        store = FriendsStorageMock()
 
         var feature = Feature.friends
         feature.isActive = true
 
-        sut = AppDataStore(userDefaults: userdefaults)
+        sut = AppDataStore(friendsStorage: store)
         for friend in sut.friends {
             sut.remove(friend: friend)
         }
@@ -33,7 +33,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testNotificationAfterStoringLocations() {
-        let sut = AppDataStore()
+        let sut = AppDataStore(friendsStorage: store)
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
@@ -44,7 +44,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testNotificationAfterStoringChatMessage() {
-        let sut = AppDataStore()
+        let sut = AppDataStore(friendsStorage: store)
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
@@ -55,7 +55,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testNoNoDoublicatedNotificationAfterStoringOldLocations() {
-        let sut = AppDataStore()
+        let sut = AppDataStore(friendsStorage: store)
         let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
         var notificationCount = 0
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
@@ -71,7 +71,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testNoNoDoublicatedNotificationAfterStoringOldMessages() {
-        let sut = AppDataStore()
+        let sut = AppDataStore(friendsStorage: store)
         let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
         var notificationCount = 0
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
@@ -87,7 +87,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testUpdateFriendLocation() {
-        let sut = AppDataStore()
+//        let sut = AppDataStore(friendsStorage: userdefaults)
 
         XCTAssertEqual(sut.friends.count, 0)
 
@@ -102,14 +102,14 @@ class AppDataStoreTests: XCTestCase {
         let location = Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")
         let response = [token: location]
 
-        sut.updateFriedLocations(locations: response)
+        sut.updateFriendsLocations(locations: response)
 
         XCTAssertTrue(sut.friends[0].isOnline)
         XCTAssertEqual(sut.friends[0].location, location)
     }
 
     func testAddAndLoadFriends() {
-        let sut = AppDataStore()
+        let sut = AppDataStore(friendsStorage: store)
 
         XCTAssertEqual(sut.friends.count, 0)
 
@@ -119,7 +119,7 @@ class AppDataStoreTests: XCTestCase {
         XCTAssertEqual(sut.friends.count, 1)
         XCTAssertEqual(sut.friends[0], friend)
 
-        let newStore = AppDataStore()
+        let newStore = AppDataStore(friendsStorage: store)
         XCTAssertEqual(newStore.friends.count, 1)
         XCTAssertEqual(newStore.friends[0], friend)
 
@@ -128,7 +128,7 @@ class AppDataStoreTests: XCTestCase {
     }
 
     func testAddAndDeleteFriends() {
-        let sut = AppDataStore()
+        let sut = AppDataStore(friendsStorage: store)
 
         XCTAssertEqual(sut.friends.count, 0)
 
@@ -144,7 +144,7 @@ class AppDataStoreTests: XCTestCase {
         XCTAssertEqual(sut.friends.count, 1)
         XCTAssertEqual(sut.friends[0], friend)
 
-        let newStore = AppDataStore()
+        let newStore = AppDataStore(friendsStorage: store)
         XCTAssertEqual(newStore.friends.count, 1)
         XCTAssertEqual(newStore.friends[0], friend)
 

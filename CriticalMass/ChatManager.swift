@@ -8,11 +8,15 @@
 import Crypto
 import Foundation
 
+protocol ChatMessageStore {
+    var lastMessageReadTimeInterval: Double { get set }
+}
+
 class ChatManager {
     private var cachedMessages: [ChatMessage]?
     private let requestManager: RequestManager
     private let errorHandler: ErrorHandler
-    private let defaults: UserDefaults
+    private var chatMessageStorage: ChatMessageStore
 
     var updateMessagesCallback: (([ChatMessage]) -> Void)?
     var updateUnreadMessagesCountCallback: ((UInt) -> Void)?
@@ -27,10 +31,10 @@ class ChatManager {
 
     init(
         requestManager: RequestManager,
-        defaults: UserDefaults = .standard,
+        chatMessageStorage: ChatMessageStore,
         errorHandler: ErrorHandler = PrintErrorHandler()
     ) {
-        self.defaults = defaults
+        self.chatMessageStorage = chatMessageStorage
         self.requestManager = requestManager
         self.errorHandler = errorHandler
         NotificationCenter.default.addObserver(
@@ -43,7 +47,7 @@ class ChatManager {
     @objc private func didReceiveMessages(notification: Notification) {
         guard let response = notification.object as? ApiResponse else { return }
         cachedMessages = Array(response.chatMessages.values).sorted(by: \.timestamp, sortOperator: >)
-        unreadMessagesCount = UInt(cachedMessages!.lazy.filter { $0.timestamp > self.defaults.lastMessageReadTimeInterval }.count)
+        unreadMessagesCount = UInt(cachedMessages!.lazy.filter { $0.timestamp > self.chatMessageStorage.lastMessageReadTimeInterval }.count)
         updateMessagesCallback?(cachedMessages!)
     }
 
@@ -74,7 +78,7 @@ class ChatManager {
 
     public func markAllMessagesAsRead() {
         if let timestamp = cachedMessages?.first?.timestamp {
-            defaults.lastMessageReadTimeInterval = timestamp
+            chatMessageStorage.lastMessageReadTimeInterval = timestamp
         }
         unreadMessagesCount = 0
     }

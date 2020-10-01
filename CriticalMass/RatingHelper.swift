@@ -15,20 +15,27 @@ public protocol RatingRequest {
     static func requestReview()
 }
 
+public protocol RatingStorage {
+    var lastDayUsed: Date? { get set }
+    var daysCounter: Int { get set }
+    var usesCounter: Int { get set }
+    var lastRatedVersion: String? { get set }
+}
+
 public class RatingHelper {
     private let daysUntilPrompt = 1
     private let usesUntilPrompt = 5
 
-    private let userDefaults: UserDefaults
+    private var ratingStorage: RatingStorage
     private let ratingRequest: RatingRequest.Type
     private let currentVersion: String
 
     public init(
-        defaults: UserDefaults = .standard,
+        ratingStorage: RatingStorage,
         ratingRequest: RatingRequest.Type = SKStoreReviewController.self,
         currentVersion: String = Bundle.main.versionNumber + Bundle.main.buildNumber
     ) {
-        userDefaults = defaults
+        self.ratingStorage = ratingStorage
         self.ratingRequest = ratingRequest
         self.currentVersion = currentVersion
     }
@@ -44,38 +51,38 @@ public class RatingHelper {
     private func onEvent() {
         resetCounterIfneeded()
         increaseDaysCounterIfNeeded()
-        userDefaults.usesCounter += 1
+        ratingStorage.usesCounter += 1
         rateIfNeeded()
     }
 
     private var shouldPromptRatingRequest: Bool {
-        userDefaults.daysCounter >= daysUntilPrompt &&
-            userDefaults.usesCounter >= usesUntilPrompt &&
-            currentVersion != userDefaults.lastRatedVersion
+        ratingStorage.daysCounter >= daysUntilPrompt &&
+            ratingStorage.usesCounter >= usesUntilPrompt &&
+            currentVersion != ratingStorage.lastRatedVersion
     }
 
     private func increaseDaysCounterIfNeeded() {
         let now = Date()
-        if let date = userDefaults.lastDayUsed,
+        if let date = ratingStorage.lastDayUsed,
             let day = Calendar.current.dateComponents([.day], from: date, to: now).day
         {
-            userDefaults.daysCounter += day
+            ratingStorage.daysCounter += day
         }
-        userDefaults.lastDayUsed = now
+        ratingStorage.lastDayUsed = now
     }
 
     private func rateIfNeeded() {
         if shouldPromptRatingRequest {
             ratingRequest.requestReview()
-            userDefaults.lastRatedVersion = currentVersion
+            ratingStorage.lastRatedVersion = currentVersion
         }
     }
 
     private func resetCounterIfneeded() {
         // we set the counter to 0 if we installed a new version
-        if userDefaults.usesCounter != 0, userDefaults.lastRatedVersion == currentVersion {
-            userDefaults.usesCounter = 0
-            userDefaults.daysCounter = 0
+        if ratingStorage.usesCounter != 0, ratingStorage.lastRatedVersion == currentVersion {
+            ratingStorage.usesCounter = 0
+            ratingStorage.daysCounter = 0
         }
     }
 }
