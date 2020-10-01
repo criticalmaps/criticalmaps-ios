@@ -106,7 +106,7 @@ class RatingHelperTests: XCTestCase {
     }
 }
 
-struct RatingStorageMock: RatingStorage {
+private struct RatingStorageMock: RatingStorage {
     var lastDayUsed: Date?
     var daysCounter: Int = 0
     var usesCounter: Int = 0

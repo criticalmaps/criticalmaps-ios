@@ -9,10 +9,6 @@
 @testable import CriticalMaps
 import XCTest
 
-struct ThemeStoreMock: ThemeStore {
-    var theme: String?
-}
-
 class ThemeSelectionStoreTests: XCTestCase {
     private var sut: ThemeSelectionStore?
     private var store: ThemeStore!
@@ -44,4 +40,8 @@ class ThemeSelectionStoreTests: XCTestCase {
         // then
         XCTAssertEqual(loadedTheme, .dark)
     }
+}
+
+private struct ThemeStoreMock: ThemeStore {
+    var theme: String?
 }
