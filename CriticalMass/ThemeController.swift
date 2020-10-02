@@ -29,7 +29,7 @@ class ThemeController {
         }
         if #available(iOS 13.0, *) {
             let theme = Theme(userInterfaceStyle: UITraitCollection.current.userInterfaceStyle)
-            return theme
+            return store.load() ?? theme
         } else {
             return .light
         }
@@ -74,8 +74,10 @@ class ThemeController {
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [SettingsTableSectionHeader.self]).backgroundColor = .clear
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
+        SettingsCheckTableViewCell.appearance().titleColor = theme.titleTextColor
         AppIconTableViewCell.appearance().titleColor = theme.titleTextColor
     }
 

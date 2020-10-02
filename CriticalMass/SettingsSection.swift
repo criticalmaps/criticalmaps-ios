@@ -171,21 +171,32 @@ extension SettingsSection {
                 Model(
                     title: "Enable event notifications",
                     subtitle: nil,
-                    action: .switch(Test.self),
+                    action: .switch(RideEventSettings.self),
                     accessibilityIdentifier: "Enable"
                 )
             ],
             sectionTitle: nil
         ),
         .info(
-            models: RideType.allCases.map {
+            models: Ride.RideType.allCases.map {
                 Model(
                     title: $0.title,
-                    action: .check(RideEventTypeSetting.self),
+                    action: .check(RideEventSettings.RideEventTypeSetting.self),
                     accessibilityIdentifier: $0.title
                 )
             },
             sectionTitle: "Event Types"
+        ),
+        .info(
+            models: Ride.eventRadii.map {
+                let description = "\($0) km"
+                return Model(
+                    title: description,
+                    action: .check(RideEventSettings.RideEventRadius.self),
+                    accessibilityIdentifier: description
+                )
+            },
+            sectionTitle: "Event Radius"
         )
     ]
 

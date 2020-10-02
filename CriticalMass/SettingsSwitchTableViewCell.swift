@@ -26,11 +26,12 @@ class SettingsSwitchTableViewCell: UITableViewCell, IBConstructable {
         }
     }
 
-    private let switchControl = UISwitch()
+    var actionCallBack: ((Bool) -> Void)?
+    var switchControl = UISwitch()
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subtitleLabel: UILabel!
 
-    private var switchable: Toggleable?
+    private var switchable: Toggleable? // TODO: Remove because this makes the view model aware
 
     override var textLabel: UILabel? {
         titleLabel
@@ -56,6 +57,7 @@ class SettingsSwitchTableViewCell: UITableViewCell, IBConstructable {
     @objc
     func switchControlAction(_ sender: UISwitch) {
         switchable?.isEnabled = sender.isOn
+        actionCallBack?(sender.isOn)
     }
 
     override func prepareForReuse() {
