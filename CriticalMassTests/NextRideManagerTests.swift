@@ -13,7 +13,10 @@ class NextRideManagerTests: XCTestCase {
         super.setUp()
         networkLayer = MockNetworkLayer()
         let apiHandler = CMInApiHandler(networkLayer: networkLayer)
-        nextRideManager = NextRideManager(apiHandler: apiHandler, filterDistance: 10)
+        nextRideManager = NextRideManager(
+            apiHandler: apiHandler,
+            eventSettingsStore: RideEventSettingsStoreMock()
+        )
     }
 
     override func tearDown() {
@@ -27,15 +30,15 @@ class NextRideManagerTests: XCTestCase {
         networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
-        ] as! Decodable
+        ]
         // when
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
             switch result {
             case let .success(ride):
                 XCTAssertEqual(ride, Ride.TestData.cmBerlin)
-            case .failure:
-                XCTFail()
+            case let .failure(error):
+                XCTFail(error.localizedDescription)
             }
             exp.fulfill()
         }
@@ -48,7 +51,7 @@ class NextRideManagerTests: XCTestCase {
         networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
-        ] as! Decodable
+        ]
         // when
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.rendsburg) { result in
@@ -68,7 +71,7 @@ class NextRideManagerTests: XCTestCase {
         // given
         networkLayer.mockResponse = [
             Ride.TestData.completedCMBerlin
-        ] as! Decodable
+        ]
         // when
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
@@ -119,7 +122,7 @@ extension Ride {
             estimatedDuration: nil,
             disabledReason: nil,
             disabledReasonMessage: nil,
-            rideType: nil
+            rideType: .criticalMass
         )
         static let cmBerlin = Ride(
             id: 123,
@@ -135,7 +138,7 @@ extension Ride {
             estimatedDuration: nil,
             disabledReason: nil,
             disabledReasonMessage: nil,
-            rideType: nil
+            rideType: .criticalMass
         )
         static let cmBarcelona = Ride(
             id: 345,
@@ -151,7 +154,7 @@ extension Ride {
             estimatedDuration: nil,
             disabledReason: nil,
             disabledReasonMessage: nil,
-            rideType: nil
+            rideType: .criticalMass
         )
     }
 }
@@ -161,4 +164,12 @@ extension CLLocationCoordinate2D {
         static let rendsburg = CLLocationCoordinate2D(latitude: 54.308547, longitude: 9.656645)
         static let alexanderPlatz = CLLocationCoordinate2D(latitude: 52.524657, longitude: 13.413939)
     }
+}
+
+private struct RideEventSettingsStoreMock: RideEventSettingsStore {
+    var rideEventSettings: RideEventSettings = RideEventSettings(
+        isEnabled: true,
+        typeSettings: .all,
+        radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: false)
+    )
 }
