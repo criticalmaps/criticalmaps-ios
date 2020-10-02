@@ -121,7 +121,9 @@ class AppController {
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        SettingsViewController(
+        AppSettingsViewController(
+            controllerTitle: L10n.settingsTitle,
+            sections: SettingsSection.appSettings,
             themeController: themeController,
             dataStore: dataStore,
             idProvider: idProvider,
