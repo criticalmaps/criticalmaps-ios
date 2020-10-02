@@ -20,7 +20,13 @@ class SettingsViewControllerSnapshotTests: XCTestCase {
             dataStore: MockDataStore(),
             idProvider: MockIDProvider(),
             observationModePreferenceStore: ObservationModePreferenceStore(store: ObservationModePreferenceMock()),
-            rideEventSettings: RideEventSettings(typeSettings: [])
+            rideEventSettings: RideEventSettingsStoreMock(
+                rideEventSettings: RideEventSettings(
+                    isEnabled: true,
+                    typeSettings: .all,
+                    radiusSettings: RideEventSettings.RideEventRadius(radius: 20, isEnabled: true)
+                )
+            )
         )
         let navigationController = UINavigationController(rootViewController: viewController)
 
@@ -31,4 +37,8 @@ class SettingsViewControllerSnapshotTests: XCTestCase {
             precision: 0.99
         )
     }
+}
+
+struct RideEventSettingsStoreMock: RideEventSettingsStore {
+    var rideEventSettings: RideEventSettings
 }
