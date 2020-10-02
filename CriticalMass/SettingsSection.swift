@@ -8,16 +8,12 @@
 
 import UIKit
 
-enum Section: CaseIterable {
-    typealias AllCases = [Section]
+enum SettingsSection {
+    typealias AllCases = [SettingsSection]
 
-    static var allCases: Section.AllCases {
-        [.preferences, .projectLinks([.github, .criticalMassDotIn]), .info]
-    }
-
-    case preferences
-    case projectLinks([SettingsProjectLinkTableViewCell.CellConfiguration])
-    case info
+    case preferences(models: [Model])
+    case projectLinks(models: [Model], [SettingsProjectLinkTableViewCell.CellConfiguration])
+    case info(models: [Model])
 
     struct Model {
         let title: String?
@@ -36,7 +32,17 @@ enum Section: CaseIterable {
     }
 
     var numberOfRows: Int {
-        models.count
+        switch self {
+        case let .preferences(models: models), let .projectLinks(models: models, _), let .info(models: models):
+            return models.count
+        }
+    }
+
+    var models: [Model] {
+        switch self {
+        case let .preferences(models: models), let .projectLinks(models: models, _), let .info(models: models):
+            return models
+        }
     }
 
     var title: String? {
@@ -49,8 +55,15 @@ enum Section: CaseIterable {
         }
     }
 
-    static var allCellClasses: [IBConstructable.Type] {
-        [SettingsSwitchTableViewCell.self, SettingsProjectLinkTableViewCell.self, SettingsInfoTableViewCell.self]
+    var cellClass: IBConstructable.Type {
+        switch self {
+        case .info:
+            return SettingsInfoTableViewCell.self
+        case .preferences:
+            return SettingsSwitchTableViewCell.self
+        case .projectLinks:
+            return SettingsProjectLinkTableViewCell.self
+        }
     }
 
     func cellClass(action: Action) -> IBConstructable.Type {
@@ -130,4 +143,75 @@ enum Section: CaseIterable {
         case open(url: URL)
         case `switch`(_ switchtable: Switchable.Type)
     }
+}
+
+class EventSettingsViewController: SettingsViewController {}
+
+class Test: Switchable {
+    var isEnabled: Bool = false
+}
+
+extension SettingsSection {
+    static let eventSettings: [SettingsSection] = [
+        .preferences(models: [
+            Model(
+                title: "Enable event notifications",
+                subtitle: nil,
+                action: .switch(Test.self),
+                accessibilityIdentifier: "Enable"
+            )
+        ])
+    ]
+
+    static let appSettings: [SettingsSection] = {
+        var preferencesModels = [
+            Model(
+                title: "Event settings",
+                action: .navigate(toViewController: EventSettingsViewController.self),
+                accessibilityIdentifier: "App icon"
+            ),
+            Model(
+                title: L10n.themeLocalizedString,
+                action: .switch(ThemeController.self),
+                accessibilityIdentifier: "Theme"
+            ),
+            Model(
+                title: L10n.obversationModeTitle,
+                subtitle: L10n.obversationModeDetail,
+                action: .switch(ObservationModePreferenceStore.self),
+                accessibilityIdentifier: L10n.obversationModeTitle
+            ),
+            Model(
+                title: "App Icon",
+                action: .navigate(toViewController: AppIconSelectViewController.self),
+                accessibilityIdentifier: "App icon"
+            )
+        ]
+        if Feature.friends.isActive {
+            let friendsModel = Model(
+                title: L10n.settingsFriends,
+                subtitle: nil,
+                action: .navigate(toViewController: ManageFriendsViewController.self),
+                accessibilityIdentifier: L10n.settingsFriends
+            )
+            preferencesModels.insert(friendsModel, at: 0)
+        }
+        return [
+            .preferences(models: preferencesModels),
+            .projectLinks(
+                models: [
+                    Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint), accessibilityIdentifier: "GitHub"),
+                    Model(action: .open(url: Constants.criticalMassDotInURL), accessibilityIdentifier: "CriticalMass.in")
+                ],
+                [.github, .criticalMassDotIn]
+            ),
+            .info(
+                models: [
+                    Model(title: L10n.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
+                    Model(title: L10n.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
+                    Model(title: L10n.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")
+                ]
+            )
+        ]
+    }()
 }
