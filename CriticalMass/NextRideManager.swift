@@ -5,8 +5,11 @@ import CoreLocation
 import Foundation
 
 enum EventError: Error {
+    case eventsAreNotEnabled
     case invalidDateError
     case rideIsOutOfRangeError
+    case noUpcomingRides
+    case rideTypeIsFiltered
 }
 
 class NextRideManager {
@@ -15,17 +18,24 @@ class NextRideManager {
     public var nextRide: Ride?
 
     private let apiHandler: CMInApiHandling
-    private let filterDistance: Double
+    private let eventSettingsStore: RideEventSettingsStore
 
-    init(apiHandler: CMInApiHandling, filterDistance: Double) {
+    init(
+        apiHandler: CMInApiHandling,
+        eventSettingsStore: RideEventSettingsStore
+    ) {
         self.apiHandler = apiHandler
-        self.filterDistance = filterDistance
+        self.eventSettingsStore = eventSettingsStore
     }
 
     func getNextRide(
         around userCoordinate: CLLocationCoordinate2D,
         _ handler: @escaping ResultCallback
     ) {
+        guard eventSettingsStore.rideEventSettings.isEnabled else {
+            handler(.failure(EventError.eventsAreNotEnabled))
+            return
+        }
         let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(userCoordinate)
         apiHandler.getNextRide(around: obfuscatedCoordinate) { requestResult in
             self.filteredRidesHandler(result: requestResult, handler, userCoordinate)
@@ -34,7 +44,8 @@ class NextRideManager {
 
     private func filterRidesInRange(_ rides: [Ride], _ userCoordinate: CLLocationCoordinate2D) -> [Ride] {
         rides.filter {
-            $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < (filterDistance * 1000)
+            let radius = Double(eventSettingsStore.rideEventSettings.radiusSettings.radius * 1000)
+            return $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < radius
         }
     }
 
@@ -57,7 +68,15 @@ class NextRideManager {
                 handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
-            guard let ride = getUpcomingRide(rangeFilteredRides) else {
+            let eventTypeFilteredRides = rangeFilteredRides.filter {
+                guard let type = $0.rideType else { return false }
+                return !eventSettingsStore.rideEventSettings.filteredEvents.contains(type)
+            }
+            guard !eventTypeFilteredRides.isEmpty else {
+                handler(.failure(EventError.rideTypeIsFiltered))
+                return
+            }
+            guard let ride = getUpcomingRide(eventTypeFilteredRides) else {
                 handler(.failure(EventError.invalidDateError))
                 return
             }

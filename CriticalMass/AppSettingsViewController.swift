@@ -8,7 +8,7 @@ final class AppSettingsViewController: SettingsViewController {
     private let dataStore: DataStore
     private let idProvider: IDProvider
     private let observationModePreferenceStore: ObservationModePreferenceStore
-    private let rideEventSettings: RideEventSettings
+    private let rideEventSettings: RideEventSettingsStore
 
     init(
         controllerTitle: String,
@@ -17,7 +17,7 @@ final class AppSettingsViewController: SettingsViewController {
         dataStore: DataStore,
         idProvider: IDProvider,
         observationModePreferenceStore: ObservationModePreferenceStore,
-        rideEventSettings: RideEventSettings
+        rideEventSettings: RideEventSettingsStore
     ) {
         self.dataStore = dataStore
         self.idProvider = idProvider
@@ -56,7 +56,7 @@ final class AppSettingsViewController: SettingsViewController {
                 controllerTitle: "Event Settings",
                 sections: SettingsSection.eventSettings,
                 themeController: themeController,
-                rideEventSettings: rideEventSettings
+                rideEventSettingsStore: rideEventSettings
             )
         default:
             return type.init()

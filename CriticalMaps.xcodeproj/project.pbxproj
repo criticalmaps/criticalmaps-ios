@@ -240,14 +240,14 @@
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
-		9F5F58FA252707D50054197C /* EventSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F58F9252707D50054197C /* EventSettingsTableViewController.swift */; };
+		9F5F58FA252707D50054197C /* EventSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F58F9252707D50054197C /* EventSettingsViewController.swift */; };
 		9F5F590425271DC90054197C /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F590325271DC90054197C /* AppSettingsViewController.swift */; };
 		9F5F591725274D7E0054197C /* SettingsCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */; };
 		9F5F592925275E720054197C /* SettingsCheckTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */; };
 		9F875F2F251394A000E27C23 /* CMLightIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */; };
 		9F875F30251394A000E27C23 /* CMLightIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */; };
 		9F8B6BE22512847700530373 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B6BE12512847600530373 /* AppIcon.swift */; };
-		9F9159172524B3AF00721AC2 /* RideType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9159162524B3AF00721AC2 /* RideType.swift */; };
+		9F9892012527A555006BDC8D /* RideEventSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9892002527A555006BDC8D /* RideEventSettings.swift */; };
 		9FFEA38F25113F0900E23021 /* CMRainbowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */; };
 		9FFEA39025113F0900E23021 /* CMDarkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */; };
 		9FFEA39125113F0900E23021 /* CMNeonIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */; };
@@ -461,7 +461,6 @@
 		9823712523781D53009D6F05 /* SimulationNetworkDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationNetworkDataProvider.swift; sourceTree = "<group>"; };
 		982B579F23395A7300886CAC /* FriendSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		982B57A023395A7300886CAC /* FriendSettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendSettingsTableViewCell.xib; sourceTree = "<group>"; };
-		982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		982DA8C621FF652700E2A51B /* TwitterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
 		982DA8C821FF65F700E2A51B /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		982DA8CA21FF673500E2A51B /* TwitterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterViewController.swift; sourceTree = "<group>"; };
@@ -531,14 +530,14 @@
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
-		9F5F58F9252707D50054197C /* EventSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsTableViewController.swift; sourceTree = "<group>"; };
+		9F5F58F9252707D50054197C /* EventSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsViewController.swift; sourceTree = "<group>"; };
 		9F5F590325271DC90054197C /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCheckTableViewCell.swift; sourceTree = "<group>"; };
 		9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCheckTableViewCell.xib; sourceTree = "<group>"; };
 		9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@2x.png"; sourceTree = "<group>"; };
 		9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@3x.png"; sourceTree = "<group>"; };
 		9F8B6BE12512847600530373 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
-		9F9159162524B3AF00721AC2 /* RideType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideType.swift; sourceTree = "<group>"; };
+		9F9892002527A555006BDC8D /* RideEventSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideEventSettings.swift; sourceTree = "<group>"; };
 		9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMRainbowIcon@2x.png"; sourceTree = "<group>"; };
 		9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMDarkIcon@3x.png"; sourceTree = "<group>"; };
 		9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMNeonIcon@3x.png"; sourceTree = "<group>"; };
@@ -826,7 +825,6 @@
 				98970870220A4E180073BB02 /* CustomButton.swift */,
 				94FCBD38226C583E00F93F94 /* DarkMapOverlay.swift */,
 				75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */,
-				982DA87B21FCECCF00E2A51B /* LoadingIndicator.swift */,
 				987C57A423A4EAF80060499B /* MapInfoView.swift */,
 				987C57A523A4EAF80060499B /* MapInfoView.xib */,
 				94A95EB22287F81100FD5FDB /* NoContentMessageLabel.swift */,
@@ -1126,7 +1124,8 @@
 		9F9159112524B38300721AC2 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				9F9159162524B3AF00721AC2 /* RideType.swift */,
+				9F5F58F9252707D50054197C /* EventSettingsViewController.swift */,
+				9F9892002527A555006BDC8D /* RideEventSettings.swift */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1138,7 +1137,6 @@
 				3ADBF9CB2527A0C600927DAA /* Theme */,
 				9F8B6BE02512846400530373 /* AppIcon */,
 				9F5F590325271DC90054197C /* AppSettingsViewController.swift */,
-				9F5F58F9252707D50054197C /* EventSettingsTableViewController.swift */,
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
 				9F9159112524B38300721AC2 /* Events */,
 			);
@@ -1473,7 +1471,7 @@
 				98AAD09523380200001519C7 /* FriendTableViewCell.swift in Sources */,
 				988B12AD22A271FE0010FAED /* Logger.swift in Sources */,
 				94FCBD35226C57FA00F93F94 /* ThemeController.swift in Sources */,
-				9F5F58FA252707D50054197C /* EventSettingsTableViewController.swift in Sources */,
+				9F5F58FA252707D50054197C /* EventSettingsViewController.swift in Sources */,
 				3F749B2C236C6C0F00C4A125 /* RuleDescriptionLabel.swift in Sources */,
 				94092749228321E60034E46B /* UITableView+Register.swift in Sources */,
 				9409274B228322FD0034E46B /* TypeNameProtocol.swift in Sources */,
@@ -1483,6 +1481,7 @@
 				989F9FF821C7F13400E71085 /* Colors.swift in Sources */,
 				9474E97A224D027900A812DC /* Bundle+Version.swift in Sources */,
 				94FCBD2B226C57CA00F93F94 /* IBConstructable.swift in Sources */,
+				9F9892012527A555006BDC8D /* RideEventSettings.swift in Sources */,
 				98401AF521FB79F400064DAE /* ChatViewController.swift in Sources */,
 				949BEF552237CAEC009AE6DF /* RoundableImageView.swift in Sources */,
 				21CB5E0324837B0E003899D3 /* MessagesDiffableDataSource.swift in Sources */,
@@ -1581,7 +1580,6 @@
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
 				9F5F591725274D7E0054197C /* SettingsCheckTableViewCell.swift in Sources */,
-				9F9159172524B3AF00721AC2 /* RideType.swift in Sources */,
 				2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				944D5EEF240CDED000993899 /* CLLocationCoordinate2D+Additions.swift in Sources */,

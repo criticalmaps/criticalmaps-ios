@@ -56,3 +56,28 @@ extension Ride {
         mapItem.openInMaps(launchOptions: options)
     }
 }
+
+extension Ride {
+    enum RideType: String, CaseIterable, Codable {
+        case criticalMass = "CRITICAL_MASS"
+        case kidicalMass = "KIDICAL_MASS"
+        case nightride = "NIGHT_RIDE"
+        case lunchride = "LUNCH_RIDE"
+        case dawnride = "DAWN_RIDE"
+        case duskride = "DUSK_RIDE"
+        case demonstration = "DEMONSTRATION"
+        case alleycat = "ALLEYCAT"
+        case tour = "TOUR"
+        case event = "EVENT"
+
+        var title: String {
+            rawValue
+                .replacingOccurrences(of: "_", with: " ")
+                .capitalized
+        }
+    }
+}
+
+extension Ride {
+    static let eventRadii = [10, 20, 30, 40]
+}

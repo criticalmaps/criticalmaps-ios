@@ -61,7 +61,7 @@ class AppController {
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
             nextRideManager: NextRideManager(
                 apiHandler: CMInApiHandler(networkLayer: networkOperator),
-                filterDistance: Double(userDefaults.nextRideRadius)
+                eventSettingsStore: userDefaults
             )
         )
     }()
@@ -128,7 +128,7 @@ class AppController {
             dataStore: dataStore,
             idProvider: idProvider,
             observationModePreferenceStore: observationModePreferenceStore,
-            rideEventSettings: RideEventSettings(typeSettings: userDefaults.rideTypes)
+            rideEventSettings: userDefaults
         )
     }
 
