@@ -67,8 +67,9 @@ enum Section: CaseIterable {
         case .preferences:
             var models = [
                 Model(
-                    title: L10n.themeLocalizedString,
-                    action: .switch(ThemeController.self),
+                    title: getThemeTitle(),
+
+                    action: getThemeAction(),
                     accessibilityIdentifier: "Theme"
                 ),
                 Model(
@@ -102,6 +103,22 @@ enum Section: CaseIterable {
             return [Model(title: L10n.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
                     Model(title: L10n.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
                     Model(title: L10n.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")]
+        }
+    }
+
+    fileprivate func getThemeTitle() -> String {
+        if #available(iOS 13.0, *) {
+            return L10n.themeAppearanceLocalizedString
+        } else {
+            return L10n.themeLocalizedString
+        }
+    }
+
+    fileprivate func getThemeAction() -> Action {
+        if #available(iOS 13.0, *) {
+            return .navigate(toViewController: ThemeSelectionViewController.self)
+        } else {
+            return .switch(ThemeController.self)
         }
     }
 

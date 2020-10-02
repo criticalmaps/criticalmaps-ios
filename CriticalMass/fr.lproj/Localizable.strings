@@ -170,6 +170,18 @@
 /* Theme */
 "settings.theme" = "Mode nuit";
 
+/* Theme appearance */
+"settings.theme.appearance" = "Apparence";
+
+/* Theme appearance system */
+"settings.theme.system" = "Système";
+
+/* Theme appearance light */
+"settings.theme.light" = "Claire";
+
+/* Theme appearance dark */
+"settings.theme.dark" = "Sombre";
+
 /* No comment provided by engineer. */
 "settings.title" = "Réglages";
 
