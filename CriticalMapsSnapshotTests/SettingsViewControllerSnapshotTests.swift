@@ -13,11 +13,14 @@ class SettingsViewControllerSnapshotTests: XCTestCase {
 
     func testGeneralAppearance() {
         // Given
-        let viewController = SettingsViewController(
+        let viewController = AppSettingsViewController(
+            controllerTitle: L10n.settingsTitle,
+            sections: SettingsSection.appSettings,
             themeController: MockThemeController.shared,
             dataStore: MockDataStore(),
             idProvider: MockIDProvider(),
-            observationModePreferenceStore: ObservationModePreferenceStore(store: ObservationModePreferenceMock())
+            observationModePreferenceStore: ObservationModePreferenceStore(store: ObservationModePreferenceMock()),
+            rideEventSettings: RideEventSettings(typeSettings: [])
         )
         let navigationController = UINavigationController(rootViewController: viewController)
 

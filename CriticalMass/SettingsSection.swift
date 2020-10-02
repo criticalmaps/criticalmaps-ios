@@ -11,58 +11,38 @@ import UIKit
 enum SettingsSection {
     typealias AllCases = [SettingsSection]
 
-    case preferences(models: [Model])
-    case projectLinks(models: [Model], [SettingsProjectLinkTableViewCell.CellConfiguration])
-    case info(models: [Model])
-
-    struct Model {
-        let title: String?
-        let subtitle: String?
-        let action: Action
-        let userInputLabels: [String]?
-        let accessibilityIdentifier: String
-
-        init(title: String? = nil, subtitle: String? = nil, userInputLabels: [String]? = nil, action: Action, accessibilityIdentifier: String) {
-            self.title = title
-            self.subtitle = subtitle
-            self.action = action
-            self.userInputLabels = userInputLabels
-            self.accessibilityIdentifier = accessibilityIdentifier
-        }
-    }
+    case preferences(
+        models: [Model],
+        sectionTitle: String?
+    )
+    case projectLinks(
+        models: [Model],
+        [SettingsProjectLinkTableViewCell.CellConfiguration],
+        sectionTitle: String?
+    )
+    case info(
+        models: [Model],
+        sectionTitle: String?
+    )
 
     var numberOfRows: Int {
         switch self {
-        case let .preferences(models: models), let .projectLinks(models: models, _), let .info(models: models):
+        case let .preferences(models: models, _), let .projectLinks(models: models, _, _), let .info(models: models, _):
             return models.count
         }
     }
 
     var models: [Model] {
         switch self {
-        case let .preferences(models: models), let .projectLinks(models: models, _), let .info(models: models):
+        case let .preferences(models: models, _), let .projectLinks(models: models, _, _), let .info(models: models, _):
             return models
         }
     }
 
     var title: String? {
         switch self {
-        case .preferences,
-             .projectLinks:
-            return nil
-        case .info:
-            return L10n.settingsSectionInfo
-        }
-    }
-
-    var cellClass: IBConstructable.Type {
-        switch self {
-        case .info:
-            return SettingsInfoTableViewCell.self
-        case .preferences:
-            return SettingsSwitchTableViewCell.self
-        case .projectLinks:
-            return SettingsProjectLinkTableViewCell.self
+        case let .preferences(_, title), let .projectLinks(_, _, title), let .info(_, title):
+            return title
         }
     }
 
@@ -70,10 +50,33 @@ enum SettingsSection {
         switch (self, action) {
         case (_, .switch(_)):
             return SettingsSwitchTableViewCell.self
+        case (_, .check(_)):
+            return SettingsCheckTableViewCell.self
         case (.projectLinks, _):
             return SettingsProjectLinkTableViewCell.self
         default:
             return SettingsInfoTableViewCell.self
+        }
+    }
+}
+
+extension SettingsSection {
+    struct Model {
+        let title: String?
+        let subtitle: String?
+        let action: Action
+        let accessibilityIdentifier: String
+
+        init(
+            title: String? = nil,
+            subtitle: String? = nil,
+            action: Action,
+            accessibilityIdentifier: String
+        ) {
+            self.title = title
+            self.subtitle = subtitle
+            self.action = action
+            self.accessibilityIdentifier = accessibilityIdentifier
         }
     }
 
@@ -141,26 +144,49 @@ enum SettingsSection {
     enum Action {
         case navigate(toViewController: UIViewController.Type)
         case open(url: URL)
-        case `switch`(_ switchtable: Switchable.Type)
+        case `switch`(_ switchtable: Toggleable.Type)
+        case check(_ checkable: Toggleable.Type)
     }
 }
 
-class EventSettingsViewController: SettingsViewController {}
+extension SettingsSection {
+    static let cellClasses: [IBConstructable.Type] = {
+        [
+            SettingsInfoTableViewCell.self,
+            SettingsSwitchTableViewCell.self,
+            SettingsCheckTableViewCell.self,
+            SettingsProjectLinkTableViewCell.self,
+        ]
+    }()
+}
 
-class Test: Switchable {
+class Test: Toggleable {
     var isEnabled: Bool = false
 }
 
 extension SettingsSection {
     static let eventSettings: [SettingsSection] = [
-        .preferences(models: [
-            Model(
-                title: "Enable event notifications",
-                subtitle: nil,
-                action: .switch(Test.self),
-                accessibilityIdentifier: "Enable"
-            )
-        ])
+        .preferences(
+            models: [
+                Model(
+                    title: "Enable event notifications",
+                    subtitle: nil,
+                    action: .switch(Test.self),
+                    accessibilityIdentifier: "Enable"
+                )
+            ],
+            sectionTitle: nil
+        ),
+        .info(
+            models: RideType.allCases.map {
+                Model(
+                    title: $0.title,
+                    action: .check(RideEventTypeSetting.self),
+                    accessibilityIdentifier: $0.title
+                )
+            },
+            sectionTitle: "Event Types"
+        )
     ]
 
     static let appSettings: [SettingsSection] = {
@@ -197,20 +223,22 @@ extension SettingsSection {
             preferencesModels.insert(friendsModel, at: 0)
         }
         return [
-            .preferences(models: preferencesModels),
+            .preferences(models: preferencesModels, sectionTitle: nil),
             .projectLinks(
                 models: [
                     Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint), accessibilityIdentifier: "GitHub"),
                     Model(action: .open(url: Constants.criticalMassDotInURL), accessibilityIdentifier: "CriticalMass.in")
                 ],
-                [.github, .criticalMassDotIn]
+                [.github, .criticalMassDotIn],
+                sectionTitle: nil
             ),
             .info(
                 models: [
                     Model(title: L10n.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
                     Model(title: L10n.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
                     Model(title: L10n.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")
-                ]
+                ],
+                sectionTitle: L10n.settingsSectionInfo
             )
         ]
     }()

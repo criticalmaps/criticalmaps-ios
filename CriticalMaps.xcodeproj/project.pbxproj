@@ -242,9 +242,12 @@
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
 		9F5F58FA252707D50054197C /* EventSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F58F9252707D50054197C /* EventSettingsTableViewController.swift */; };
 		9F5F590425271DC90054197C /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F590325271DC90054197C /* AppSettingsViewController.swift */; };
+		9F5F591725274D7E0054197C /* SettingsCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */; };
+		9F5F592925275E720054197C /* SettingsCheckTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */; };
 		9F875F2F251394A000E27C23 /* CMLightIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */; };
 		9F875F30251394A000E27C23 /* CMLightIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */; };
 		9F8B6BE22512847700530373 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B6BE12512847600530373 /* AppIcon.swift */; };
+		9F9159172524B3AF00721AC2 /* RideType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9159162524B3AF00721AC2 /* RideType.swift */; };
 		9FFEA38F25113F0900E23021 /* CMRainbowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */; };
 		9FFEA39025113F0900E23021 /* CMDarkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */; };
 		9FFEA39125113F0900E23021 /* CMNeonIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */; };
@@ -530,9 +533,12 @@
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
 		9F5F58F9252707D50054197C /* EventSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsTableViewController.swift; sourceTree = "<group>"; };
 		9F5F590325271DC90054197C /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
+		9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCheckTableViewCell.swift; sourceTree = "<group>"; };
+		9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCheckTableViewCell.xib; sourceTree = "<group>"; };
 		9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@2x.png"; sourceTree = "<group>"; };
 		9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@3x.png"; sourceTree = "<group>"; };
 		9F8B6BE12512847600530373 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		9F9159162524B3AF00721AC2 /* RideType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideType.swift; sourceTree = "<group>"; };
 		9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMRainbowIcon@2x.png"; sourceTree = "<group>"; };
 		9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMDarkIcon@3x.png"; sourceTree = "<group>"; };
 		9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMNeonIcon@3x.png"; sourceTree = "<group>"; };
@@ -1100,6 +1106,8 @@
 				98E73389220394E7005F311F /* SettingsSwitchTableViewCell.xib */,
 				98E7338D22039665005F311F /* SettingsInfoTableViewCell.swift */,
 				98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */,
+				9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */,
+				9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1115,6 +1123,14 @@
 			name = AppIcon;
 			sourceTree = "<group>";
 		};
+		9F9159112524B38300721AC2 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				9F9159162524B3AF00721AC2 /* RideType.swift */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
 		9FFEA397251144C700E23021 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,6 +1140,7 @@
 				9F5F590325271DC90054197C /* AppSettingsViewController.swift */,
 				9F5F58F9252707D50054197C /* EventSettingsTableViewController.swift */,
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
+				9F9159112524B38300721AC2 /* Events */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1309,6 +1326,7 @@
 				94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */,
 				3ADBF9D12527A74600927DAA /* ThemeSelectionTableViewCell.xib in Resources */,
 				98AAD0962338035E001519C7 /* FriendTableViewCell.xib in Resources */,
+				9F5F592925275E720054197C /* SettingsCheckTableViewCell.xib in Resources */,
 				949BD4B323CB4BEB00EA7BA4 /* README.md in Resources */,
 				987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */,
 				9FFEA39125113F0900E23021 /* CMNeonIcon@3x.png in Resources */,
@@ -1562,6 +1580,8 @@
 				944D5F36240E643300993899 /* Sequence+Additions.swift in Sources */,
 				210367BC237AAE2F001F2A84 /* PathObserver.swift in Sources */,
 				989FA00221C8038400E71085 /* Location.swift in Sources */,
+				9F5F591725274D7E0054197C /* SettingsCheckTableViewCell.swift in Sources */,
+				9F9159172524B3AF00721AC2 /* RideType.swift in Sources */,
 				2176242723744F3400F7885E /* UpdateLocationOperation.swift in Sources */,
 				9822A16E21F26D58007F5994 /* Location+CoreLocation.swift in Sources */,
 				944D5EEF240CDED000993899 /* CLLocationCoordinate2D+Additions.swift in Sources */,
