@@ -194,33 +194,6 @@ class MapViewController: UIViewController {
         mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
     }
 
-    private func getNextRide(_ coordinate: CLLocationCoordinate2D) {
-        guard Feature.events.isActive else {
-            return
-        }
-        nextRideManager.getNextRide(around: coordinate) { result in
-            switch result {
-            case let .success(ride):
-                onMain { [unowned self] in
-                    self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
-                        .flatMap {
-                            guard let controller = $0 as? CMMarkerAnnotationController else {
-                                Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
-                                return
-                            }
-                            controller.update([CriticalMassAnnotation(ride: ride)])
-                        }
-                    self.mapInfoViewController.configureAndPresentMapInfoView(
-                        title: ride.titleAndTime,
-                        style: .info
-                    )
-                }
-            case let .failure(error):
-                PrintErrorHandler().handleError(error)
-            }
-        }
-    }
-
     @objc func didReceiveInitialLocation(notification: Notification) {
         guard let location = notification.object as? Location else { return }
         let coordinate = CLLocationCoordinate2D(location)
@@ -295,6 +268,37 @@ extension MapViewController: MKMapViewDelegate {
                 action: #selector(handleEventLongPress(_:))
             )
             view.addGestureRecognizer(longTapGestureRecognizer)
+        }
+    }
+}
+
+// MARK: - Ride event handling
+
+extension MapViewController {
+    private func getNextRide(_ coordinate: CLLocationCoordinate2D) {
+        guard Feature.events.isActive else {
+            return
+        }
+        nextRideManager.getNextRide(around: coordinate) { result in
+            switch result {
+            case let .success(ride):
+                onMain { [unowned self] in
+                    self.annotationControllers.first(where: { $0.annotationType == CriticalMassAnnotation.self })
+                        .flatMap {
+                            guard let controller = $0 as? CMMarkerAnnotationController else {
+                                Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
+                                return
+                            }
+                            controller.update([CriticalMassAnnotation(ride: ride)])
+                        }
+                    self.mapInfoViewController.configureAndPresentMapInfoView(
+                        title: ride.titleAndTime,
+                        style: .info
+                    )
+                }
+            case let .failure(error):
+                PrintErrorHandler().handleError(error)
+            }
         }
     }
 

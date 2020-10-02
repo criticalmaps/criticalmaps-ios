@@ -8,6 +8,7 @@ final class AppSettingsViewController: SettingsViewController {
     private let dataStore: DataStore
     private let idProvider: IDProvider
     private let observationModePreferenceStore: ObservationModePreferenceStore
+    private let rideEventSettings: RideEventSettings
 
     init(
         controllerTitle: String,
@@ -15,11 +16,13 @@ final class AppSettingsViewController: SettingsViewController {
         themeController: ThemeController,
         dataStore: DataStore,
         idProvider: IDProvider,
-        observationModePreferenceStore: ObservationModePreferenceStore
+        observationModePreferenceStore: ObservationModePreferenceStore,
+        rideEventSettings: RideEventSettings
     ) {
         self.dataStore = dataStore
         self.idProvider = idProvider
         self.observationModePreferenceStore = observationModePreferenceStore
+        self.rideEventSettings = rideEventSettings
         super.init(
             controllerTitle: controllerTitle,
             sections: sections,
@@ -52,7 +55,8 @@ final class AppSettingsViewController: SettingsViewController {
             return EventSettingsViewController(
                 controllerTitle: "Event Settings",
                 sections: SettingsSection.eventSettings,
-                themeController: themeController
+                themeController: themeController,
+                rideEventSettings: rideEventSettings
             )
         default:
             return type.init()
@@ -61,7 +65,7 @@ final class AppSettingsViewController: SettingsViewController {
 
     override func configure(_ cell: UITableViewCell, for section: SettingsSection, indexPath: IndexPath) {
         switch section {
-        case let .projectLinks(_, configurations):
+        case let .projectLinks(_, configurations, _):
             if let projectLinkCell = cell as? SettingsProjectLinkTableViewCell {
                 let model = configurations[indexPath.row]
                 projectLinkCell.titleLabel?.text = model.title
@@ -85,6 +89,7 @@ final class AppSettingsViewController: SettingsViewController {
             cell.accessibilityIdentifier = model.accessibilityIdentifier
             cell.textLabel?.text = model.title
             cell.detailTextLabel?.text = model.subtitle
+            cell.accessoryType = .disclosureIndicator
         }
     }
 }

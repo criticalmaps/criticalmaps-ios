@@ -27,7 +27,7 @@ class NextRideManagerTests: XCTestCase {
         networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
-        ]
+        ] as! Decodable
         // when
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
@@ -48,7 +48,7 @@ class NextRideManagerTests: XCTestCase {
         networkLayer.mockResponse = [
             Ride.TestData.cmBerlin,
             Ride.TestData.cmBarcelona
-        ]
+        ] as! Decodable
         // when
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.rendsburg) { result in
@@ -68,7 +68,7 @@ class NextRideManagerTests: XCTestCase {
         // given
         networkLayer.mockResponse = [
             Ride.TestData.completedCMBerlin
-        ]
+        ] as! Decodable
         // when
         let exp = expectation(description: "Wait for response")
         nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
@@ -118,7 +118,8 @@ extension Ride {
             estimatedDistance: nil,
             estimatedDuration: nil,
             disabledReason: nil,
-            disabledReasonMessage: nil
+            disabledReasonMessage: nil,
+            rideType: nil
         )
         static let cmBerlin = Ride(
             id: 123,
@@ -133,7 +134,8 @@ extension Ride {
             estimatedDistance: nil,
             estimatedDuration: nil,
             disabledReason: nil,
-            disabledReasonMessage: nil
+            disabledReasonMessage: nil,
+            rideType: nil
         )
         static let cmBarcelona = Ride(
             id: 345,
@@ -148,7 +150,8 @@ extension Ride {
             estimatedDistance: nil,
             estimatedDuration: nil,
             disabledReason: nil,
-            disabledReasonMessage: nil
+            disabledReasonMessage: nil,
+            rideType: nil
         )
     }
 }

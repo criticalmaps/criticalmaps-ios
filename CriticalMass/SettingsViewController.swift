@@ -31,8 +31,8 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sections.forEach {
-            tableView.register($0.cellClass.nib, forCellReuseIdentifier: $0.cellClass.nibName)
+        SettingsSection.cellClasses.forEach {
+            tableView.register($0.nib, forCellReuseIdentifier: $0.nibName)
         }
         tableView.rowHeight = UITableView.automaticDimension
 
@@ -124,6 +124,8 @@ class SettingsViewController: UITableViewController {
         case let .navigate(toViewController):
             let viewController = createViewController(type: toViewController)
             navigationController?.pushViewController(viewController, animated: true)
+        default:
+            break
         }
     }
 

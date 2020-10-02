@@ -163,7 +163,7 @@ class ThemeController {
     }
 }
 
-extension ThemeController: Switchable {
+extension ThemeController: Toggleable {
     var isEnabled: Bool {
         get { currentTheme == .dark }
         set {

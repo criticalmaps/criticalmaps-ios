@@ -127,7 +127,8 @@ class AppController {
             themeController: themeController,
             dataStore: dataStore,
             idProvider: idProvider,
-            observationModePreferenceStore: observationModePreferenceStore
+            observationModePreferenceStore: observationModePreferenceStore,
+            rideEventSettings: RideEventSettings(typeSettings: userDefaults.rideTypes)
         )
     }
 
