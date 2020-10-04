@@ -30,6 +30,7 @@ class MessagesTableViewController<T: IBConstructableMessageTableViewCell>: UITab
         super.init(style: .plain)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

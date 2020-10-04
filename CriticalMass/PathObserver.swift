@@ -15,7 +15,7 @@ final class PathObserver: NetworkObserver {
 
     var statusUpdateHandler: ((NetworkStatus) -> Void)?
 
-    private let monitor: NWPathMonitor = NWPathMonitor()
+    private let monitor = NWPathMonitor()
     private var lastStatus: NWPath.Status
 
     init() {
