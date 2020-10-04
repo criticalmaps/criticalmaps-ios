@@ -91,17 +91,22 @@ class MapViewController: UIViewController {
     }
 
     private func configureTileRenderer() {
-        guard themeController.currentTheme == .dark else {
+        switch themeController.currentTheme {
+        case .system:
+            addTileRenderer()
+        case .light:
             if #available(iOS 13.0, *) {
                 overrideUserInterfaceStyle = .light
             }
             return
-        }
-
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .dark
-        } else {
-            addTileRenderer()
+        case .dark:
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .dark
+            } else {
+                addTileRenderer()
+            }
+        case .none:
+            break
         }
     }
 
@@ -119,6 +124,12 @@ class MapViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: .observationModeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .themeDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveFocusNotification(notification:)), name: .focusLocation, object: nil)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if themeController.currentTheme == .system, previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            themeController.applyTheme()
+        }
     }
 
     private func configureMapView() {
@@ -144,16 +155,32 @@ class MapViewController: UIViewController {
     }
 
     @objc private func themeDidChange() {
-        let theme = themeController.currentTheme
-        guard theme == .dark else {
+        switch themeController.currentTheme {
+        case .system:
             if #available(iOS 13.0, *) {
-                overrideUserInterfaceStyle = .light
-            } else {
-                removeTileRenderer()
+                overrideUserInterfaceStyle = .unspecified
+                if traitCollection.userInterfaceStyle == .dark {
+                    addTileRenderer()
+                } else {
+                    removeTileRenderer()
+                }
             }
             return
+        case .light:
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .light
+            }
+            removeTileRenderer()
+            return
+        case .dark:
+            if #available(iOS 13.0, *) {
+                overrideUserInterfaceStyle = .dark
+            }
+            addTileRenderer()
+            return
+        case .none:
+            break
         }
-        configureTileRenderer()
     }
 
     private func removeTileRenderer() {
