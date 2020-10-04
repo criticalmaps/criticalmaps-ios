@@ -13,11 +13,12 @@ fastlane/test_output
 build/
 .build
 
+vendor/
+
 ### Xcode Patch ###
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
-xcshareddata
 xcuserdata
