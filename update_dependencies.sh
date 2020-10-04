@@ -11,7 +11,8 @@ check_bundle() {
     if [ $? -ne 0 ]
     then
         echo "Dependencies missing, running bundle install"
-        bundle install --path vendor/bundle && bundle update
+        bundle config set path 'vendor/bundle'
+        bundle install && bundle update
     else
         echo "No dependencies missing, checking for update"
         bundle update
