@@ -8,15 +8,16 @@
 
 import UIKit
 
-enum Theme: String {
+enum Theme: String, CaseIterable {
+    case system
     case light
     case dark
 
     init(userInterfaceStyle: UIUserInterfaceStyle) {
         switch userInterfaceStyle {
-        case .dark:
-            self = .dark
-        case .light, .unspecified:
+        case .dark, .light:
+            self = .system
+        case .unspecified:
             self = .light
         @unknown default:
             self = .light
@@ -25,6 +26,13 @@ enum Theme: String {
 
     var style: ThemeDefining {
         switch self {
+        case .system:
+            if #available(iOS 13.0, *) {
+                if UITraitCollection.current.userInterfaceStyle == .dark {
+                    return DarkTheme()
+                }
+            }
+            return LightTheme()
         case .light:
             return LightTheme()
         case .dark:
@@ -37,9 +45,21 @@ extension Theme {
     init?(_ themeString: String?) {
         guard let theme = themeString?.lowercased() else { return nil }
         switch theme {
+        case "system": self = .system
         case "light": self = .light
         case "dark": self = .dark
         default: return nil
+        }
+    }
+
+    var displayName: String {
+        switch self {
+        case .system:
+            return L10n.themeSystemLocalizedString
+        case .light:
+            return L10n.themeLightLocalizedString
+        case .dark:
+            return L10n.themeDarkLocalizedString
         }
     }
 }

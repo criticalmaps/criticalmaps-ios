@@ -13,6 +13,10 @@ enum L10n {
     // Settings
     static let appIconTitle = L10n.translate("settings.appIconTitle")
     static let themeLocalizedString = L10n.translate("settings.theme")
+    static let themeAppearanceLocalizedString = L10n.translate("settings.theme.appearance")
+    static let themeSystemLocalizedString = L10n.translate("settings.theme.system")
+    static let themeLightLocalizedString = L10n.translate("settings.theme.light")
+    static let themeDarkLocalizedString = L10n.translate("settings.theme.dark")
     static let obversationModeTitle = L10n.translate("settings.observationmode.title")
     static let obversationModeDetail = L10n.translate("settings.observationmode.detail")
     static let settingsTitle = L10n.translate("settings.title")

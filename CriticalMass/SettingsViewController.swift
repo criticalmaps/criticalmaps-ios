@@ -64,7 +64,7 @@ class SettingsViewController: UITableViewController {
         if #available(iOS 13.0, *) {
             if themeController.currentTheme == .dark {
                 overrideUserInterfaceStyle = .dark
-            } else {
+            } else if themeController.currentTheme == .light {
                 overrideUserInterfaceStyle = .light
             }
         }
@@ -143,6 +143,8 @@ class SettingsViewController: UITableViewController {
         switch type {
         case _ as ManageFriendsViewController.Type:
             return ManageFriendsViewController(dataStore: dataStore, idProvider: idProvider)
+        case _ as ThemeSelectionViewController.Type:
+            return ThemeSelectionViewController(themeController: themeController)
         default:
             return type.init()
         }

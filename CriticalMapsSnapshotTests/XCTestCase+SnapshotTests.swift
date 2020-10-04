@@ -31,14 +31,3 @@ extension XCTestCase {
         }
     }
 }
-
-private extension Theme {
-    var displayName: String {
-        switch self {
-        case .light:
-            return "Light"
-        case .dark:
-            return "Dark"
-        }
-    }
-}

@@ -10,6 +10,7 @@ Changelog for Critical Maps iOS
 - Large preview images on long press for the navigation buttons on devices that use large font sizes
 - Next event feature: See where the next Critical Mass close to you takes place.
 - Select an alternate app icon 
+- Added settings option to choose system appearance or dark/light
 
 ### Fixed
 

@@ -20,6 +20,9 @@
 		21CB5E0324837B0E003899D3 /* MessagesDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */; };
 		21D1A39324A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */; };
 		21D9B2B624AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */; };
+		3ADBF9C62527A0BB00927DAA /* ThemeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADBF9C52527A0BB00927DAA /* ThemeSelectionViewController.swift */; };
+		3ADBF9D12527A74600927DAA /* ThemeSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ADBF9D02527A74600927DAA /* ThemeSelectionTableViewCell.xib */; };
+		3ADBF9D72527A7AB00927DAA /* ThemeSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADBF9D62527A7AB00927DAA /* ThemeSelectionTableViewCell.swift */; };
 		3F137FBA2349CD71006B26AB /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FB92349CD71006B26AB /* SnapshotHelper.swift */; };
 		3F137FBB2349FCBA006B26AB /* CriticalMapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */; };
 		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
@@ -291,6 +294,9 @@
 		21CB5E0224837B0E003899D3 /* MessagesDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDiffableDataSource.swift; sourceTree = "<group>"; };
 		21D1A39224A8C3AF00987AD0 /* MessagesDefaultDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDefaultDataSourceTests.swift; sourceTree = "<group>"; };
 		21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		3ADBF9C52527A0BB00927DAA /* ThemeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectionViewController.swift; sourceTree = "<group>"; };
+		3ADBF9D02527A74600927DAA /* ThemeSelectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeSelectionTableViewCell.xib; sourceTree = "<group>"; };
+		3ADBF9D62527A7AB00927DAA /* ThemeSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		3F137FA32349CADC006B26AB /* CriticalMapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalMapsUITests.swift; sourceTree = "<group>"; };
 		3F137FA52349CADC006B26AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -589,6 +595,16 @@
 				21476CFA248B7C8F0052B27C /* MessageConfigurable.swift */,
 			);
 			name = Messages;
+			sourceTree = "<group>";
+		};
+		3ADBF9CB2527A0C600927DAA /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				3ADBF9C52527A0BB00927DAA /* ThemeSelectionViewController.swift */,
+				3ADBF9D02527A74600927DAA /* ThemeSelectionTableViewCell.xib */,
+				3ADBF9D62527A7AB00927DAA /* ThemeSelectionTableViewCell.swift */,
+			);
+			name = Theme;
 			sourceTree = "<group>";
 		};
 		3F137FA22349CADC006B26AB /* CriticalMapsUITests */ = {
@@ -1099,6 +1115,7 @@
 			isa = PBXGroup;
 			children = (
 				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
+				3ADBF9CB2527A0C600927DAA /* Theme */,
 				9F8B6BE02512846400530373 /* AppIcon */,
 			);
 			name = Settings;
@@ -1283,6 +1300,7 @@
 				9455CE8E2397ACE200DED561 /* ChatInputViewController.xib in Resources */,
 				94CF086A19BDEAF2009FFF43 /* InfoPlist.strings in Resources */,
 				94FCBD3C226C583F00F93F94 /* SettingsTableSectionHeader.xib in Resources */,
+				3ADBF9D12527A74600927DAA /* ThemeSelectionTableViewCell.xib in Resources */,
 				98AAD0962338035E001519C7 /* FriendTableViewCell.xib in Resources */,
 				949BD4B323CB4BEB00EA7BA4 /* README.md in Resources */,
 				987C57A723A4EAF80060499B /* MapInfoView.xib in Resources */,
@@ -1444,6 +1462,7 @@
 				21CB5E0324837B0E003899D3 /* MessagesDiffableDataSource.swift in Sources */,
 				982DA8D82202360800E2A51B /* Constants.swift in Sources */,
 				982DA8DA2203842D00E2A51B /* SettingsViewController.swift in Sources */,
+				3ADBF9C62527A0BB00927DAA /* ThemeSelectionViewController.swift in Sources */,
 				987C57A623A4EAF80060499B /* MapInfoView.swift in Sources */,
 				989FA00421C8039A00E71085 /* RequestManager.swift in Sources */,
 				9444D7E22281686000DF44C0 /* NetworkActivityIndicatorHelper.swift in Sources */,
@@ -1510,6 +1529,7 @@
 				2106433A2480532300F2988A /* MessagesDefaultDataSource.swift in Sources */,
 				9822A16C21F25AFF007F5994 /* BikeAnnotationView.swift in Sources */,
 				9822A16221F110A3007F5994 /* NetworkOperator.swift in Sources */,
+				3ADBF9D72527A7AB00927DAA /* ThemeSelectionTableViewCell.swift in Sources */,
 				982DA8CE21FF67FC00E2A51B /* TweetTableViewCell.swift in Sources */,
 				98A17F0D234A807700796618 /* AppDataStore.swift in Sources */,
 				98003D4B22872C2A00592D55 /* FollowURLObject.swift in Sources */,
