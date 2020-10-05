@@ -6,6 +6,7 @@ import Foundation
 enum L10n {
     static let twitterNoData = L10n.translate("twitter.noData")
     static let rulesTitle = L10n.translate("rules.title")
+    static let rulesNumber = L10n.translate("rules.number")
     static let error = L10n.translate("error")
     static let closeButtonLabel = L10n.translate("close.button.label")
     static let loadingButtonLabel = L10n.translate("loadintton.label")
@@ -29,6 +30,7 @@ enum L10n {
     static let settingsOpenSourceAction = L10n.translate("settings.opensource.action")
     static let settingsCriticalMassDotInTitle = L10n.translate("settings.criticalMassDotIn.title")
     static let settingsCriticalMassDotInDetail = L10n.translate("settings.criticalMassDotIn.detail")
+    static let settingsCriticalMassDotInAction = L10n.translate("settings.criticalMassDotIn.action")
     static let settingsFriends = L10n.translate("settings.friends")
     static let settingsFriendsSettings = L10n.translate("settings.friends.settings")
     static let settingsFriendsShowID = L10n.translate("settings.friends.showID")

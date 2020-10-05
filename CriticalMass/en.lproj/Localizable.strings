@@ -3,7 +3,7 @@
 "chat.noChatActivity" = "Nobody's chatting at the moment...\nwhy don't you start?";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Message ...";
+"chat.placeholder" = "Write Message";
 
 /* No comment provided by engineer. */
 "chat.send" = "Send";
@@ -90,6 +90,9 @@
 "rules.title" = "Rules";
 
 /* No comment provided by engineer. */
+"rules.number" = "Rule Number";
+
+/* No comment provided by engineer. */
 "rules.title.brake" = "No hard stops!";
 
 /* No comment provided by engineer. */
@@ -124,6 +127,9 @@
 
 /* No comment provided by engineer. */
 "settings.criticalMassDotIn.title" = "Missing a mass?";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.action" = "View Project";
 
 /* No comment provided by engineer. */
 "settings.donate" = "Help finacing our tracking server";
@@ -165,7 +171,7 @@
 "settings.openSource" = "Github";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "View Project";
+"settings.opensource.action" = "View Repository";
 
 /* No comment provided by engineer. */
 "settings.opensource.detail" = "Critical Maps is an open source project and we are looking forward to developers who want to work on critical maps.";

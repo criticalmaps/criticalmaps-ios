@@ -3,7 +3,7 @@
 "chat.noChatActivity" = "Nadie está charlando en este momento...\n¿por qué no empezas?";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Mensaje ...";
+"chat.placeholder" = "Escribe Mensaje";
 
 /* No comment provided by engineer. */
 "chat.send" = "Enviar";
@@ -81,6 +81,9 @@
 "rules.title" = "Normas";
 
 /* No comment provided by engineer. */
+"rules.number" = "Norma Número";
+
+/* No comment provided by engineer. */
 "rules.title.brake" = "¡No hay paradas duras!";
 
 /* No comment provided by engineer. */
@@ -150,7 +153,7 @@
 "settings.openSource" = "Github";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "Ver proyecto";
+"settings.opensource.action" = "Ver Repositorio";
 
 /* No comment provided by engineer. */
 "settings.opensource.detail" = "Critical Maps es un proyecto de código abierto y esperamos que los desarrolladores quieran trabajar en mapas críticos.";

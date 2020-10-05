@@ -23,12 +23,14 @@ enum Section: CaseIterable {
         let title: String?
         let subtitle: String?
         let action: Action
+        let userInputLabels: [String]?
         let accessibilityIdentifier: String
 
-        init(title: String? = nil, subtitle: String? = nil, action: Action, accessibilityIdentifier: String) {
+        init(title: String? = nil, subtitle: String? = nil, userInputLabels: [String]? = nil, action: Action, accessibilityIdentifier: String) {
             self.title = title
             self.subtitle = subtitle
             self.action = action
+            self.userInputLabels = userInputLabels
             self.accessibilityIdentifier = accessibilityIdentifier
         }
     }
@@ -75,6 +77,7 @@ enum Section: CaseIterable {
                 Model(
                     title: L10n.obversationModeTitle,
                     subtitle: L10n.obversationModeDetail,
+                    userInputLabels: [L10n.obversationModeTitle],
                     action: .switch(ObservationModePreferenceStore.self),
                     accessibilityIdentifier: L10n.obversationModeTitle
                 ),
