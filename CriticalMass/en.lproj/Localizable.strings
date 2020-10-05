@@ -116,7 +116,7 @@
 /* No comment provided by engineer. */
 "settings.about" = "About";
 
-
+/* No comment provided by engineer. */
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
@@ -133,6 +133,24 @@
 
 /* No comment provided by engineer. */
 "settings.donate" = "Help finacing our tracking server";
+
+/* No comment provided by engineer. */
+"settings.appIcon" = "App Icon";
+
+/* No comment provided by engineer. */
+"settings.eventSettings" = "Event settings";
+
+/* No comment provided by engineer. */
+"settings.settingsEventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSettingsEnable" = "Enable Event Notifications";
+
+/* No comment provided by engineer. */
+"settings.eventTypes" = "Enable Types";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadiusDistance" = "%@ km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
