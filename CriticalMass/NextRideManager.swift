@@ -42,13 +42,6 @@ final class NextRideManager {
         }
     }
 
-    private func filterRidesInRange(_ rides: [Ride], _ userCoordinate: CLLocationCoordinate2D) -> [Ride] {
-        rides.filter {
-            let radius = Double(eventSettingsStore.rideEventSettings.radiusSettings.radius * 1000)
-            return $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < radius
-        }
-    }
-
     private func getUpcomingRide(_ rides: [Ride]) -> Ride? {
         rides
             .lazy
@@ -63,21 +56,20 @@ final class NextRideManager {
     ) {
         switch result {
         case let .success(rides):
-            let rangeFilteredRides = filterRidesInRange(rides, userCoordinate)
-            guard !rangeFilteredRides.isEmpty else {
+            guard !rides.isEmpty else {
                 handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
-            if rangeFilteredRides.compactMap(\.rideType).isEmpty {
+            if rides.compactMap(\.rideType).isEmpty {
                 // All rides do not have a rideType and so the filtering is skipped
-                guard let ride = getUpcomingRide(rangeFilteredRides) else {
+                guard let ride = getUpcomingRide(rides) else {
                     handler(.failure(EventError.invalidDateError))
                     return
                 }
                 handler(.success(ride))
                 return
             }
-            let eventTypeFilteredRides = rangeFilteredRides.filter {
+            let eventTypeFilteredRides = rides.filter {
                 guard let type = $0.rideType else { return true }
                 return !eventSettingsStore.rideEventSettings.filteredEvents.contains(type)
             }
