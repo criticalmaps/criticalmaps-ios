@@ -15,7 +15,7 @@ extension UserDefaults {
         static let lastRatedVersionKey = "lastRatedVersion"
         static let userNameKey = "username"
         static let nextRideRadius = "nextRideRadius"
-        static let rideEventTypes = "rideEventSettings"
+        static let rideEventSettings = "rideEventSettings"
     }
 
     // TODO: Move default value to PreferenceStore
@@ -34,7 +34,7 @@ extension UserDefaults: RideEventSettingsStore {
     var rideEventSettings: RideEventSettings {
         set {
             let data = try? newValue.encoded()
-            setValue(data, forKey: Keys.rideEventTypes)
+            setValue(data, forKey: Keys.rideEventSettings)
         }
         get {
             let defaultSettings = RideEventSettings(
@@ -42,7 +42,7 @@ extension UserDefaults: RideEventSettingsStore {
                 typeSettings: .all,
                 radiusSettings: RideEventSettings.RideEventRadius(radius: nextRideRadius, isEnabled: true)
             )
-            guard let data = object(forKey: Keys.rideEventTypes) as? Data else {
+            guard let data = object(forKey: Keys.rideEventSettings) as? Data else {
                 // Return defaultValue when no data in UserDefaults
                 return defaultSettings
             }
