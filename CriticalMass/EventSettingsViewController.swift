@@ -58,6 +58,7 @@ final class EventSettingsViewController: SettingsViewController {
         return cell
     }
 
+    // TODO: Refactor to a more understandable implementation. ATM it feels weird to case check the associated vales.
     override func configure(_ cell: UITableViewCell, for section: SettingsSection, indexPath: IndexPath) {
         switch section {
         default:
