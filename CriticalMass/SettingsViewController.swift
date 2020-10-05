@@ -129,16 +129,8 @@ class SettingsViewController: UITableViewController {
         }
     }
 
-    private func createViewController(type: UIViewController.Type) -> UIViewController {
-        // Perform dependency injection if needed
-        switch type {
-        case _ as ManageFriendsViewController.Type:
-            return ManageFriendsViewController(dataStore: dataStore, idProvider: idProvider)
-        case _ as ThemeSelectionViewController.Type:
-            return ThemeSelectionViewController(themeController: themeController)
-        default:
-            return type.init()
-        }
+    func createViewController(type _: UIViewController.Type) -> UIViewController {
+        .init()
     }
 
     func configure(_: UITableViewCell, for _: SettingsSection, indexPath _: IndexPath) {}

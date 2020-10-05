@@ -80,67 +80,6 @@ extension SettingsSection {
         }
     }
 
-    var models: [Model] {
-        switch self {
-        case .preferences:
-            var models = [
-                Model(
-                    title: getThemeTitle(),
-
-                    action: getThemeAction(),
-                    accessibilityIdentifier: "Theme"
-                ),
-                Model(
-                    title: L10n.obversationModeTitle,
-                    subtitle: L10n.obversationModeDetail,
-                    userInputLabels: [L10n.obversationModeTitle],
-                    action: .switch(ObservationModePreferenceStore.self),
-                    accessibilityIdentifier: L10n.obversationModeTitle
-                ),
-                Model(
-                    title: "App Icon",
-                    action: .navigate(toViewController: AppIconSelectViewController.self),
-                    accessibilityIdentifier: "App icon"
-                )
-            ]
-            if Feature.friends.isActive {
-                let friendsModel = Model(
-                    title: L10n.settingsFriends,
-                    subtitle: nil,
-                    action: .navigate(toViewController: ManageFriendsViewController.self),
-                    accessibilityIdentifier: L10n.settingsFriends
-                )
-                models.insert(friendsModel, at: 0)
-            }
-            return models
-        case .projectLinks:
-            return [
-                Model(action: .open(url: Constants.criticalMapsiOSGitHubEndpoint), accessibilityIdentifier: "GitHub"),
-                Model(action: .open(url: Constants.criticalMassDotInURL), accessibilityIdentifier: "CriticalMass.in")
-            ]
-        case .info:
-            return [Model(title: L10n.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
-                    Model(title: L10n.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
-                    Model(title: L10n.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")]
-        }
-    }
-
-    fileprivate func getThemeTitle() -> String {
-        if #available(iOS 13.0, *) {
-            return L10n.themeAppearanceLocalizedString
-        } else {
-            return L10n.themeLocalizedString
-        }
-    }
-
-    fileprivate func getThemeAction() -> Action {
-        if #available(iOS 13.0, *) {
-            return .navigate(toViewController: ThemeSelectionViewController.self)
-        } else {
-            return .switch(ThemeController.self)
-        }
-    }
-
     enum Action {
         case navigate(toViewController: UIViewController.Type)
         case open(url: URL)
@@ -158,10 +97,6 @@ extension SettingsSection {
             SettingsProjectLinkTableViewCell.self,
         ]
     }()
-}
-
-class Test: Toggleable {
-    var isEnabled: Bool = false
 }
 
 extension SettingsSection {
@@ -201,6 +136,20 @@ extension SettingsSection {
     ]
 
     static let appSettings: [SettingsSection] = {
+        var themeTitle: String {
+            if #available(iOS 13.0, *) {
+                return L10n.themeAppearanceLocalizedString
+            } else {
+                return L10n.themeLocalizedString
+            }
+        }
+        var themeAction: Action {
+            if #available(iOS 13.0, *) {
+                return .navigate(toViewController: ThemeSelectionViewController.self)
+            } else {
+                return .switch(ThemeController.self)
+            }
+        }
         var preferencesModels = [
             Model(
                 title: "Event settings",
@@ -208,8 +157,8 @@ extension SettingsSection {
                 accessibilityIdentifier: "App icon"
             ),
             Model(
-                title: L10n.themeLocalizedString,
-                action: .switch(ThemeController.self),
+                title: themeTitle,
+                action: themeAction,
                 accessibilityIdentifier: "Theme"
             ),
             Model(
