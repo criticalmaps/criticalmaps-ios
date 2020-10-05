@@ -6,7 +6,7 @@ import CoreLocation
 import XCTest
 
 class NextRideManagerTests: XCTestCase {
-    var nextRideManager: NextRideManager!
+    private var nextRideManager: NextRideManager!
     private var networkLayer: MockNetworkLayer!
 
     override func setUp() {
@@ -28,8 +28,7 @@ class NextRideManagerTests: XCTestCase {
     func testManagerShouldReturnCMBerlinRideWhenRideIsInFutureAndInRadius() {
         // given
         networkLayer.mockResponse = [
-            Ride.TestData.cmBerlin,
-            Ride.TestData.cmBarcelona
+            Ride.TestData.cmBerlin
         ]
         // when
         let exp = expectation(description: "Wait for response")
@@ -104,6 +103,75 @@ class NextRideManagerTests: XCTestCase {
         // then
         wait(for: [exp], timeout: 1)
     }
+
+    func testManagerShouldReturnAllRideTypesWhenSettingsAreNotAltered() {
+        // given
+        networkLayer.mockResponse = [
+            Ride.TestData.cmBerlin
+        ]
+        let apiHandler = CMInApiHandler(networkLayer: networkLayer)
+        nextRideManager = NextRideManager(
+            apiHandler: apiHandler,
+            eventSettingsStore: RideEventSettingsStoreMock(
+                rideEventSettings: .init(
+                    isEnabled: true,
+                    typeSettings: .all,
+                    radiusSettings: .init(
+                        radius: 20,
+                        isEnabled: true
+                    )
+                )
+            )
+        )
+        // when
+        let exp = expectation(description: "Wait for response")
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+            switch result {
+            case let .success(ride):
+                XCTAssertEqual(ride, Ride.TestData.cmBerlin)
+            case let .failure(error):
+                XCTFail(error.localizedDescription)
+            }
+            exp.fulfill()
+        }
+        // then
+        wait(for: [exp], timeout: 1)
+    }
+
+    func testManagerShouldReturnFilteredRideTypesWhenSettingsAreAltered() {
+        // given
+        networkLayer.mockResponse = [
+            Ride.TestData.cmBerlin,
+            Ride.TestData.kidicalMassBerlin
+        ]
+        let apiHandler = CMInApiHandler(networkLayer: networkLayer)
+        nextRideManager = NextRideManager(
+            apiHandler: apiHandler,
+            eventSettingsStore: RideEventSettingsStoreMock(
+                rideEventSettings: .init(
+                    isEnabled: true,
+                    typeSettings: .onlyCM,
+                    radiusSettings: .init(
+                        radius: 20,
+                        isEnabled: true
+                    )
+                )
+            )
+        )
+        // when
+        let exp = expectation(description: "Wait for response")
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+            switch result {
+            case let .success(ride):
+                XCTAssertEqual(ride, Ride.TestData.cmBerlin)
+            case let .failure(error):
+                XCTFail(error.localizedDescription)
+            }
+            exp.fulfill()
+        }
+        // then
+        wait(for: [exp], timeout: 1)
+    }
 }
 
 extension Ride {
@@ -140,6 +208,22 @@ extension Ride {
             disabledReasonMessage: nil,
             rideType: .criticalMass
         )
+        static let kidicalMassBerlin = Ride(
+            id: 123,
+            slug: nil,
+            title: "Critical Mass Berlin",
+            description: nil,
+            dateTime: Date().addingTimeInterval(400),
+            location: "Mariannenplatz",
+            latitude: 52.502148,
+            longitude: 13.424356,
+            estimatedParticipants: nil,
+            estimatedDistance: nil,
+            estimatedDuration: nil,
+            disabledReason: nil,
+            disabledReasonMessage: nil,
+            rideType: .kidicalMass
+        )
         static let cmBarcelona = Ride(
             id: 345,
             slug: nil,
@@ -172,4 +256,14 @@ private struct RideEventSettingsStoreMock: RideEventSettingsStore {
         typeSettings: .all,
         radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: false)
     )
+}
+
+private extension Array where Element == RideEventSettings.RideEventTypeSetting {
+    static let onlyCM: [RideEventSettings.RideEventTypeSetting] = Ride.RideType.allCases.map {
+        if case Ride.RideType.kidicalMass = $0 {
+            return RideEventSettings.RideEventTypeSetting(type: $0, isEnabled: false)
+        } else {
+            return RideEventSettings.RideEventTypeSetting(type: $0, isEnabled: true)
+        }
+    }
 }
