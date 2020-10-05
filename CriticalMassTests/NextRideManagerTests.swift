@@ -172,6 +172,41 @@ class NextRideManagerTests: XCTestCase {
         // then
         wait(for: [exp], timeout: 1)
     }
+
+    func testManagerShouldReturnUnFilteredRideTypesWhenAllRidesDontHaveRideType() {
+        // given
+        networkLayer.mockResponse = [
+            Ride.TestData.cmBerlinWithoutRideType,
+            Ride.TestData.kidicalMassBerlinWithoutRideType
+        ]
+        let apiHandler = CMInApiHandler(networkLayer: networkLayer)
+        nextRideManager = NextRideManager(
+            apiHandler: apiHandler,
+            eventSettingsStore: RideEventSettingsStoreMock(
+                rideEventSettings: .init(
+                    isEnabled: true,
+                    typeSettings: .onlyCM,
+                    radiusSettings: .init(
+                        radius: 20,
+                        isEnabled: true
+                    )
+                )
+            )
+        )
+        // when
+        let exp = expectation(description: "Wait for response")
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+            switch result {
+            case let .success(ride):
+                XCTAssertEqual(ride, Ride.TestData.kidicalMassBerlinWithoutRideType)
+            case let .failure(error):
+                XCTFail(error.localizedDescription)
+            }
+            exp.fulfill()
+        }
+        // then
+        wait(for: [exp], timeout: 1)
+    }
 }
 
 extension Ride {
@@ -208,10 +243,26 @@ extension Ride {
             disabledReasonMessage: nil,
             rideType: .criticalMass
         )
-        static let kidicalMassBerlin = Ride(
+        static let cmBerlinWithoutRideType = Ride(
             id: 123,
             slug: nil,
             title: "Critical Mass Berlin",
+            description: nil,
+            dateTime: Date().addingTimeInterval(40000),
+            location: "Mariannenplatz",
+            latitude: 52.502148,
+            longitude: 13.424356,
+            estimatedParticipants: nil,
+            estimatedDistance: nil,
+            estimatedDuration: nil,
+            disabledReason: nil,
+            disabledReasonMessage: nil,
+            rideType: nil
+        )
+        static let kidicalMassBerlin = Ride(
+            id: 123,
+            slug: nil,
+            title: "Kidical Mass Berlin",
             description: nil,
             dateTime: Date().addingTimeInterval(400),
             location: "Mariannenplatz",
@@ -223,6 +274,22 @@ extension Ride {
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: .kidicalMass
+        )
+        static let kidicalMassBerlinWithoutRideType = Ride(
+            id: 123,
+            slug: nil,
+            title: "Kidical Mass Berlin",
+            description: nil,
+            dateTime: Date().addingTimeInterval(400),
+            location: "Mariannenplatz",
+            latitude: 52.502148,
+            longitude: 13.424356,
+            estimatedParticipants: nil,
+            estimatedDistance: nil,
+            estimatedDuration: nil,
+            disabledReason: nil,
+            disabledReasonMessage: nil,
+            rideType: nil
         )
         static let cmBarcelona = Ride(
             id: 345,
