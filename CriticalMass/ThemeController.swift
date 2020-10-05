@@ -29,7 +29,7 @@ class ThemeController {
         }
         if #available(iOS 13.0, *) {
             let theme = Theme(userInterfaceStyle: UITraitCollection.current.userInterfaceStyle)
-            return store.load() ?? theme
+            return theme
         } else {
             return .light
         }
