@@ -104,10 +104,10 @@ extension SettingsSection {
         .preferences(
             models: [
                 Model(
-                    title: "Enable event notifications",
+                    title: L10n.settingsEventSettingsEnable,
                     subtitle: nil,
                     action: .switch(RideEventSettings.self),
-                    accessibilityIdentifier: "Enable"
+                    accessibilityIdentifier: L10n.settingsEventSettingsEnable
                 )
             ],
             sectionTitle: nil
@@ -120,18 +120,18 @@ extension SettingsSection {
                     accessibilityIdentifier: $0.title
                 )
             },
-            sectionTitle: "Event Types"
+            sectionTitle: L10n.settingsEventSettingsTypes
         ),
         .info(
             models: Ride.eventRadii.map {
-                let description = "\($0) km"
+                let description = L10n.settingsEventSearchRadiusDistance($0)
                 return Model(
                     title: description,
                     action: .check(RideEventSettings.RideEventRadius.self),
                     accessibilityIdentifier: description
                 )
             },
-            sectionTitle: "Event Radius"
+            sectionTitle: L10n.settingsEventSearchRadius
         )
     ]
 
@@ -152,9 +152,9 @@ extension SettingsSection {
         }
         var preferencesModels = [
             Model(
-                title: "Event settings",
+                title: L10n.settingsEventSettings,
                 action: .navigate(toViewController: EventSettingsViewController.self),
-                accessibilityIdentifier: "App icon"
+                accessibilityIdentifier: L10n.settingsEventSettings
             ),
             Model(
                 title: themeTitle,
@@ -168,9 +168,9 @@ extension SettingsSection {
                 accessibilityIdentifier: L10n.obversationModeTitle
             ),
             Model(
-                title: "App Icon",
+                title: L10n.settingsAppIcon,
                 action: .navigate(toViewController: AppIconSelectViewController.self),
-                accessibilityIdentifier: "App icon"
+                accessibilityIdentifier: L10n.settingsAppIcon
             )
         ]
         if Feature.friends.isActive {
