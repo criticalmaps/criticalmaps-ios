@@ -37,7 +37,10 @@ final class NextRideManager {
             return
         }
         let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(userCoordinate)
-        apiHandler.getNextRide(around: obfuscatedCoordinate) { requestResult in
+        apiHandler.getNextRide(
+            around: obfuscatedCoordinate,
+            eventSearchRadius: eventSettingsStore.rideEventSettings.radiusSettings.radius
+        ) { requestResult in
             self.filteredRidesHandler(result: requestResult, handler, userCoordinate)
         }
     }
@@ -52,7 +55,7 @@ final class NextRideManager {
     private func filteredRidesHandler(
         result: Result<[Ride], NetworkError>,
         _ handler: @escaping ResultCallback,
-        _ userCoordinate: CLLocationCoordinate2D
+        _: CLLocationCoordinate2D
     ) {
         switch result {
         case let .success(rides):
