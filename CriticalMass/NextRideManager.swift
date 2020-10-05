@@ -19,13 +19,16 @@ final class NextRideManager {
 
     private let apiHandler: CMInApiHandling
     private let eventSettingsStore: RideEventSettingsStore
+    private let now: () -> Date
 
     init(
         apiHandler: CMInApiHandling,
-        eventSettingsStore: RideEventSettingsStore
+        eventSettingsStore: RideEventSettingsStore,
+        now: @escaping () -> Date = Date.init
     ) {
         self.apiHandler = apiHandler
         self.eventSettingsStore = eventSettingsStore
+        self.now = now
     }
 
     func getNextRide(
@@ -49,7 +52,7 @@ final class NextRideManager {
         rides
             .lazy
             .sorted(by: \.dateTime)
-            .first { $0.dateTime > .now }
+            .first { $0.dateTime > now() }
     }
 
     private func filteredRidesHandler(
