@@ -138,7 +138,7 @@
 "settings.appIcon" = "App Icon";
 
 /* No comment provided by engineer. */
-"settings.eventSettings" = "Event settings";
+"settings.eventSettings" = "Event Settings";
 
 /* No comment provided by engineer. */
 "settings.settingsEventSearchRadius" = "Event Search Radius";
@@ -147,7 +147,7 @@
 "settings.eventSettingsEnable" = "Enable Event Notifications";
 
 /* No comment provided by engineer. */
-"settings.eventTypes" = "Enable Types";
+"settings.eventTypes" = "Event Types";
 
 /* No comment provided by engineer. */
 "settings.eventSearchRadiusDistance" = "%@ km";
