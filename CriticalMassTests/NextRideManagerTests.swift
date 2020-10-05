@@ -167,7 +167,7 @@ extension CLLocationCoordinate2D {
 }
 
 private struct RideEventSettingsStoreMock: RideEventSettingsStore {
-    var rideEventSettings: RideEventSettings = RideEventSettings(
+    var rideEventSettings = RideEventSettings(
         isEnabled: true,
         typeSettings: .all,
         radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: false)

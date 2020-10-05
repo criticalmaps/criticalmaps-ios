@@ -30,10 +30,6 @@ final class AppSettingsViewController: SettingsViewController {
         )
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSettingsFooter()
@@ -51,6 +47,8 @@ final class AppSettingsViewController: SettingsViewController {
         switch type {
         case _ as ManageFriendsViewController.Type:
             return ManageFriendsViewController(dataStore: dataStore, idProvider: idProvider)
+        case _ as ThemeSelectionViewController.Type:
+            return ThemeSelectionViewController(themeController: themeController)
         case _ as EventSettingsViewController.Type:
             return EventSettingsViewController(
                 controllerTitle: "Event Settings",
@@ -59,7 +57,7 @@ final class AppSettingsViewController: SettingsViewController {
                 rideEventSettingsStore: rideEventSettings
             )
         default:
-            return type.init()
+            return .init()
         }
     }
 
