@@ -28,7 +28,7 @@
 		3F63A9F523B0DF2D00B33403 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9F423B0DF2D00B33403 /* Crypto */; };
 		3F63A9FB23B0DF5D00B33403 /* GrowingTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 3F63A9FA23B0DF5D00B33403 /* GrowingTextView */; };
 		3F6BF251240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */; };
-		3F6BF253240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */; };
+		3F6BF253240AFD4B00B7F076 /* AppSettingsViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6BF252240AFD4B00B7F076 /* AppSettingsViewControllerSnapshotTests.swift */; };
 		3F6C56772398620D00A6B552 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7530E3A5235A400900F5E55C /* XCTest.framework */; };
 		3F7419F023B0E2A600E8E593 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7419EF23B0E2A600E8E593 /* SnapshotTesting */; };
 		3F749B27236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */; };
@@ -248,6 +248,7 @@
 		9F875F30251394A000E27C23 /* CMLightIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */; };
 		9F8B6BE22512847700530373 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B6BE12512847600530373 /* AppIcon.swift */; };
 		9F9892012527A555006BDC8D /* RideEventSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9892002527A555006BDC8D /* RideEventSettings.swift */; };
+		9F989241252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F989240252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift */; };
 		9FFEA38F25113F0900E23021 /* CMRainbowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */; };
 		9FFEA39025113F0900E23021 /* CMDarkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */; };
 		9FFEA39125113F0900E23021 /* CMNeonIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */; };
@@ -307,7 +308,7 @@
 		3F137FAF2349CB8C006B26AB /* CriticalMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F137FB92349CD71006B26AB /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
-		3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		3F6BF252240AFD4B00B7F076 /* AppSettingsViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDetailViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		3F749B28236C641400C4A125 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		3F749B2A236C6B9A00C4A125 /* RuleDescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleDescriptionLabel.swift; sourceTree = "<group>"; };
@@ -538,6 +539,7 @@
 		9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@3x.png"; sourceTree = "<group>"; };
 		9F8B6BE12512847600530373 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		9F9892002527A555006BDC8D /* RideEventSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideEventSettings.swift; sourceTree = "<group>"; };
+		9F989240252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		9FFEA38725113F0800E23021 /* CMRainbowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMRainbowIcon@2x.png"; sourceTree = "<group>"; };
 		9FFEA38825113F0800E23021 /* CMDarkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMDarkIcon@3x.png"; sourceTree = "<group>"; };
 		9FFEA38925113F0900E23021 /* CMNeonIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMNeonIcon@3x.png"; sourceTree = "<group>"; };
@@ -637,10 +639,11 @@
 				987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */,
 				3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */,
 				3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */,
-				3F6BF252240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift */,
+				3F6BF252240AFD4B00B7F076 /* AppSettingsViewControllerSnapshotTests.swift */,
 				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
 				21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */,
 				7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */,
+				9F989240252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift */,
 			);
 			path = CriticalMapsSnapshotTests;
 			sourceTree = "<group>";
@@ -1133,7 +1136,6 @@
 		9FFEA397251144C700E23021 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				982DA8D92203842D00E2A51B /* SettingsViewController.swift */,
 				3ADBF9CB2527A0C600927DAA /* Theme */,
 				9F8B6BE02512846400530373 /* AppIcon */,
 				9F5F590325271DC90054197C /* AppSettingsViewController.swift */,
@@ -1443,7 +1445,8 @@
 				75E26995235A4BA5000F2D0A /* MockThemeController.swift in Sources */,
 				3FDA7C14240B0EA3004EE8A6 /* MockNetworkObserver.swift in Sources */,
 				3FDA7C15240B0EF8004EE8A6 /* MockNetworkDataProvider.swift in Sources */,
-				3F6BF253240AFD4B00B7F076 /* SettingsViewControllerSnapshotTests.swift in Sources */,
+				9F989241252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift in Sources */,
+				3F6BF253240AFD4B00B7F076 /* AppSettingsViewControllerSnapshotTests.swift in Sources */,
 				7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */,
 				3FDA7C0E240B0E6F004EE8A6 /* MockIDProvider.swift in Sources */,
 				7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */,
