@@ -12,7 +12,7 @@ enum EventError: Error {
     case rideTypeIsFiltered
 }
 
-class NextRideManager {
+final class NextRideManager {
     typealias ResultCallback = (Result<Ride, Error>) -> Void
 
     public var nextRide: Ride?
@@ -68,8 +68,17 @@ class NextRideManager {
                 handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
+            if rangeFilteredRides.compactMap(\.rideType).isEmpty {
+                // All rides do not have a rideType and so the filtering is skipped
+                guard let ride = getUpcomingRide(rangeFilteredRides) else {
+                    handler(.failure(EventError.invalidDateError))
+                    return
+                }
+                handler(.success(ride))
+                return
+            }
             let eventTypeFilteredRides = rangeFilteredRides.filter {
-                guard let type = $0.rideType else { return false }
+                guard let type = $0.rideType else { return true }
                 return !eventSettingsStore.rideEventSettings.filteredEvents.contains(type)
             }
             guard !eventTypeFilteredRides.isEmpty else {
