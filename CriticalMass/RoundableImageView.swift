@@ -22,7 +22,7 @@ extension UIView {
 
 @IBDesignable
 class RoundableImageView: UIImageView {
-    @IBInspectable var borderColor: UIColor = UIColor.clear {
+    @IBInspectable var borderColor = UIColor.clear {
         didSet {
             applyCornerRadius()
         }

@@ -13,7 +13,7 @@ struct NextRideQuery: Codable {
 
 struct NextRidesRequest: APIRequestDefining {
     typealias ResponseDataType = [Ride]
-    var endpoint: Endpoint = Endpoint(
+    var endpoint = Endpoint(
         baseUrl: Constants.criticalmassInEndpoint,
         path: "/api/ride"
     )

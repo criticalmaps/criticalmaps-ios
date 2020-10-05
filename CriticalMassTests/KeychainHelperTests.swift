@@ -24,7 +24,7 @@ class KeychainHelperTests: XCTestCase {
     func testAddAndLoad() {
         let data = testData
         XCTAssertNoThrow(try KeychainHelper.save(keyData: data, with: keychainReference))
-        var loadedData: Data = Data()
+        var loadedData = Data()
         XCTAssertNoThrow(loadedData = try KeychainHelper.load(with: keychainReference))
         XCTAssertEqual(data, loadedData)
     }

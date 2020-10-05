@@ -35,6 +35,7 @@ class ManageFriendsViewController: UIViewController, IBConstructable, UITableVie
         super.init(nibName: ManageFriendsViewController.nibName, bundle: ManageFriendsViewController.bundle)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
