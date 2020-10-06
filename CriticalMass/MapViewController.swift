@@ -38,6 +38,18 @@ class MapViewController: UIViewController {
         return view
     }()
 
+    private let statusBarBlurView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: UIScreen.main.bounds.width,
+            height: UIApplication.shared.statusBarHeight()
+        )
+        return view
+    }()
+
     init(
         themeController: ThemeController,
         friendsVerificationController: FriendsVerificationController,
@@ -139,6 +151,8 @@ class MapViewController: UIViewController {
         mapView.showsPointsOfInterest = false
         mapView.delegate = self
         mapView.showsUserLocation = true
+
+        view.addSubview(statusBarBlurView)
     }
 
     @objc func didTapGPSDisabledOverlayButton() {
