@@ -31,4 +31,9 @@ extension UIApplication {
             NotificationCenter.default.post(name: .CMAppearanceDidRefreshApplication, object: self)
         })
     }
+
+    func statusBarHeight() -> CGFloat {
+        let statusBarSize = UIApplication.shared.statusBarFrame.size
+        return min(statusBarSize.width, statusBarSize.height)
+    }
 }
