@@ -173,36 +173,41 @@ class MapViewController: UIViewController {
         switch themeController.currentTheme {
         case .system:
             if #available(iOS 13.0, *) {
-                overrideUserInterfaceStyle = .unspecified
-                if traitCollection.userInterfaceStyle == .dark {
-                    addTileRenderer()
-                } else {
-                    removeTileRenderer()
+                switch traitCollection.userInterfaceStyle {
+                case .dark:
+                    overrideUserInterfaceStyle = .dark
+                case .light:
+                    overrideUserInterfaceStyle = .light
+                case .unspecified:
+                    overrideUserInterfaceStyle = .unspecified
+                @unknown default:
+                    overrideUserInterfaceStyle = .light
                 }
             }
-            return
         case .light:
             if #available(iOS 13.0, *) {
                 overrideUserInterfaceStyle = .light
+            } else {
+                removeTileRenderer()
             }
-            removeTileRenderer()
-            return
         case .dark:
             if #available(iOS 13.0, *) {
                 overrideUserInterfaceStyle = .dark
+            } else {
+                addTileRenderer()
             }
-            addTileRenderer()
-            return
         case .none:
             break
         }
     }
 
+    @available(iOS, deprecated: 12, message: "Not to be used from iOS 13")
     private func removeTileRenderer() {
         tileRenderer = nil
         mapView.removeOverlay(nightThemeOverlay)
     }
 
+    @available(iOS, deprecated: 12, message: "Not to be used from iOS 13")
     private func addTileRenderer() {
         tileRenderer = MKTileOverlayRenderer(tileOverlay: nightThemeOverlay)
         mapView.addOverlay(nightThemeOverlay, level: .aboveRoads)
