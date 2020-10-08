@@ -240,6 +240,7 @@
 		98F225252368D18200EE8BD9 /* ThemeDefining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FCBD30226C57F900F93F94 /* ThemeDefining.swift */; };
 		98F225262368D1B100EE8BD9 /* ChatMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804176621FC74D90077D419 /* ChatMessageTableViewCell.swift */; };
 		9F47462624C968370020B540 /* CodableExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F47462524C968370020B540 /* CodableExtensionTests.swift */; };
+		9F508A59252F937C00FD0327 /* UITableViewCell+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F508A58252F937C00FD0327 /* UITableViewCell+Additions.swift */; };
 		9F5F58FA252707D50054197C /* EventSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F58F9252707D50054197C /* EventSettingsViewController.swift */; };
 		9F5F590425271DC90054197C /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F590325271DC90054197C /* AppSettingsViewController.swift */; };
 		9F5F591725274D7E0054197C /* SettingsCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */; };
@@ -531,6 +532,7 @@
 		98E7338E22039665005F311F /* SettingsInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoTableViewCell.xib; sourceTree = "<group>"; };
 		98ED2FDC22919BDD007F8A92 /* FriendsVerificationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVerificationControllerTests.swift; sourceTree = "<group>"; };
 		9F47462524C968370020B540 /* CodableExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensionTests.swift; sourceTree = "<group>"; };
+		9F508A58252F937C00FD0327 /* UITableViewCell+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Additions.swift"; sourceTree = "<group>"; };
 		9F5F58F9252707D50054197C /* EventSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsViewController.swift; sourceTree = "<group>"; };
 		9F5F590325271DC90054197C /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCheckTableViewCell.swift; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 				94FCBD27226C57CA00F93F94 /* UIApplication+Appearance.swift */,
 				94D40170229FE43C001524CC /* UIFont+DynamicFont.swift */,
 				94092748228321E60034E46B /* UITableView+Register.swift */,
+				9F508A58252F937C00FD0327 /* UITableViewCell+Additions.swift */,
 				94FCBD23226C57CA00F93F94 /* UITableViewController+FooterSize.swift */,
 				75678D65234605280085A90A /* UITableViewHeaderFooterView+BackgroundColor.swift */,
 				9844438023429354005468B2 /* UIView+Autolayout.swift */,
@@ -1520,6 +1523,7 @@
 				98003D5B22872DBC00592D55 /* FollowFriendsViewController.swift in Sources */,
 				989FA00021C8036800E71085 /* ChatMessage.swift in Sources */,
 				94FCBD29226C57CA00F93F94 /* Notification+Static.swift in Sources */,
+				9F508A59252F937C00FD0327 /* UITableViewCell+Additions.swift in Sources */,
 				98AAD08F2337FF90001519C7 /* ManageFriendsViewController.swift in Sources */,
 				9843FAA1236CD7F000457930 /* NetworkDataProvider.swift in Sources */,
 				9409274D22841E160034E46B /* L10n.swift in Sources */,
