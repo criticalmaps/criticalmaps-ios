@@ -56,6 +56,8 @@ final class AppSettingsViewController: SettingsViewController {
                 themeController: themeController,
                 rideEventSettingsStore: rideEventSettings
             )
+        case _ as AppIconSelectViewController.Type:
+            return AppIconSelectViewController()
         default:
             return .init()
         }
