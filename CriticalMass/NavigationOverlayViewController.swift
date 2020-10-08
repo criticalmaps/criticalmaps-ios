@@ -157,6 +157,6 @@ class NavigationOverlayViewController: UIViewController {
         }
         visualEffectView.frame = view.bounds
 
-        (parent as? MapViewController)?.bottomContentOffset = view.frame.height
+        (parent as? MapViewController)?.bottomContentOffset = view.frame.height * 1.5
     }
 }
