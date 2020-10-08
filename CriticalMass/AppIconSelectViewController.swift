@@ -39,7 +39,7 @@ final class AppIconSelectViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        tableView.cellForRow(at: indexPath)?.configure(isSelected: false)
     }
 }
 
@@ -81,7 +81,7 @@ final class AppIconDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofType: AppIconTableViewCell.self)
         let row = rows[indexPath.row]
-        cell.accessoryType = row.isSelected ? .checkmark : .none
+        cell.configure(isSelected: row.isSelected)
         cell.iconPreview.image = row.icon.image
         cell.title.text = row.icon.name
         return cell

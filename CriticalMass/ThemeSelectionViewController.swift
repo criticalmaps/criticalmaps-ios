@@ -43,7 +43,7 @@ final class ThemeSelectionViewController: UITableViewController {
             guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) else {
                 return
             }
-            cell.accessoryType = isSelected ? .checkmark : .none
+            cell.configure(isSelected: isSelected)
         }
     }
 
@@ -54,7 +54,7 @@ final class ThemeSelectionViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofType: ThemeSelectionTableViewCell.self)
         let themeOption = Theme.allCases[indexPath.row]
-        cell.accessoryType = themeOption == themeController.currentTheme ? .checkmark : .none
+        cell.configure(isSelected: themeOption == themeController.currentTheme)
         cell.title.text = themeOption.displayName
         return cell
     }
