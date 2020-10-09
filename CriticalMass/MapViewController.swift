@@ -103,26 +103,6 @@ class MapViewController: UIViewController {
         }
     }
 
-    private func configureTileRenderer() {
-        switch themeController.currentTheme {
-        case .system:
-            addTileRenderer()
-        case .light:
-            if #available(iOS 13.0, *) {
-                overrideUserInterfaceStyle = .light
-            }
-            return
-        case .dark:
-            if #available(iOS 13.0, *) {
-                overrideUserInterfaceStyle = .dark
-            } else {
-                addTileRenderer()
-            }
-        case .none:
-            break
-        }
-    }
-
     private func condfigureGPSDisabledOverlayView() {
         let gpsDisabledOverlayView = self.gpsDisabledOverlayView
         gpsDisabledOverlayView.set(title: L10n.mapLayerInfoTitle, message: L10n.mapLayerInfo)
@@ -163,13 +143,20 @@ class MapViewController: UIViewController {
         gpsDisabledOverlayView.isHidden = LocationManager.accessPermission != .denied
     }
 
-    // MARK: Notifications
-
+    // MARK: Theme
     override var preferredStatusBarStyle: UIStatusBarStyle {
         themeController.currentTheme.style.statusBarStyle
     }
 
     @objc private func themeDidChange() {
+        setMapTheme()
+    }
+
+    private func configureTileRenderer() {
+        setMapTheme()
+    }
+
+    private func setMapTheme() {
         switch themeController.currentTheme {
         case .system:
             if #available(iOS 13.0, *) {

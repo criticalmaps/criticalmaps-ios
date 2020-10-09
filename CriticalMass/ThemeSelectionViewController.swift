@@ -35,6 +35,7 @@ final class ThemeSelectionViewController: UITableViewController {
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat { 60 }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer { tableView.deselectRow(at: indexPath, animated: true) }
         themeController.changeTheme(to: Theme.allCases[indexPath.row])
         themeController.applyTheme()
         for index in 0 ... Theme.allCases.count {
