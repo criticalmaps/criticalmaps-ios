@@ -67,7 +67,7 @@ final class NextRideManager {
                 return
             }
             if rides.compactMap(\.rideType).isEmpty {
-                // All rides do not have a rideType and so the filtering is skipped
+                // None of the rides have a rideType and so the filtering is skipped
                 guard let ride = getUpcomingRide(rides) else {
                     handler(.failure(EventError.invalidDateError))
                     return
