@@ -18,6 +18,7 @@ Changelog for Critical Maps iOS
 - Fix Dark Mode Color Behaviour in Action Indicator (in Rules, Settings) and Separator (in Settings)
 - Fix missing information for VoiceOver user for the navigationbar buttons
 - Fix VoiceControl labels on each view
+- Fix `bottomContentOffset` for NavigationOverlay (did hide the Legal button)
 
 ### Changed
 

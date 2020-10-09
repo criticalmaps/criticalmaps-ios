@@ -143,7 +143,7 @@ class NavigationOverlayViewController: UIViewController {
         let width: CGFloat = min(CGFloat(85 * items.count), maxWidth)
         view.frame.size = CGSize(width: width, height: 56)
         let superView = view.superview!
-        view.center = CGPoint(x: superView.center.x, y: superView.frame.maxY - view.frame.size.height)
+        view.center = CGPoint(x: superView.center.x, y: superView.frame.maxY - view.frame.size.height - superView.layoutMargins.bottom)
 
         let buttonSize = CGSize(width: view.bounds.width / CGFloat(items.count), height: view.bounds.height)
         for (index, view) in (itemViews + separatorViews).enumerated() {
@@ -157,6 +157,6 @@ class NavigationOverlayViewController: UIViewController {
         }
         visualEffectView.frame = view.bounds
 
-        (parent as? MapViewController)?.bottomContentOffset = view.frame.height
+        (parent as? MapViewController)?.bottomContentOffset = view.frame.height * 1.5
     }
 }
