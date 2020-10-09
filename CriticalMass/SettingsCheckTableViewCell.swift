@@ -4,8 +4,6 @@
 import UIKit
 
 class SettingsCheckTableViewCell: UITableViewCell, IBConstructable {
-    private var switchable: Toggleable?
-
     @objc
     dynamic var titleColor: UIColor? {
         willSet {
@@ -13,8 +11,7 @@ class SettingsCheckTableViewCell: UITableViewCell, IBConstructable {
         }
     }
 
-    func configure(switchable: Toggleable) {
-        accessoryType = switchable.isEnabled ? .checkmark : .none
-        self.switchable = switchable
+    func configure(isSelected: Bool) {
+        accessoryType = isSelected ? .checkmark : .none
     }
 }

@@ -77,7 +77,7 @@ final class EventSettingsViewController: SettingsViewController {
             } else if let checkCell = cell as? SettingsCheckTableViewCell, case let .check(checkableType) = model.action {
                 if checkableType == RideEventSettings.RideEventTypeSetting.self {
                     let toggleable = rideEventSettingsStore.rideEventSettings.typeSettings[indexPath.row]
-                    checkCell.configure(switchable: toggleable)
+                    checkCell.configure(isSelected: toggleable.isEnabled)
                 } else if checkableType == RideEventSettings.RideEventRadius.self {
                     checkCell.accessoryType = model.title!.prefix(2) == String(describing: rideEventSettingsStore.rideEventSettings.radiusSettings.radius) ? .checkmark : .none
                 } else {
