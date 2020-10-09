@@ -155,11 +155,6 @@ extension SettingsSection {
         }
         var preferencesModels = [
             Model(
-                title: L10n.settingsEventSettings,
-                action: .navigate(toViewController: EventSettingsViewController.self),
-                accessibilityIdentifier: L10n.settingsEventSettings
-            ),
-            Model(
                 title: themeTitle,
                 action: themeAction,
                 accessibilityIdentifier: "Theme"
@@ -176,6 +171,14 @@ extension SettingsSection {
                 accessibilityIdentifier: L10n.settingsAppIcon
             )
         ]
+        if Feature.events.isActive {
+            let eventSettings = Model(
+                title: L10n.settingsEventSettings,
+                action: .navigate(toViewController: EventSettingsViewController.self),
+                accessibilityIdentifier: L10n.settingsEventSettings
+            )
+            preferencesModels.insert(eventSettings, at: 0)
+        }
         if Feature.friends.isActive {
             let friendsModel = Model(
                 title: L10n.settingsFriends,
