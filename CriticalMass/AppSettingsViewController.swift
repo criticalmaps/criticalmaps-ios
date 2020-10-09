@@ -51,7 +51,7 @@ final class AppSettingsViewController: SettingsViewController {
             return ThemeSelectionViewController(themeController: themeController)
         case _ as EventSettingsViewController.Type:
             return EventSettingsViewController(
-                controllerTitle: "Event Settings",
+                controllerTitle: L10n.settingsEventSettings",
                 sections: SettingsSection.eventSettings,
                 themeController: themeController,
                 rideEventSettingsStore: rideEventSettings
