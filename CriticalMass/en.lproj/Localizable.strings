@@ -150,6 +150,9 @@
 "settings.eventTypes" = "Event Types";
 
 /* No comment provided by engineer. */
+"settings.eventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
 "settings.eventSearchRadiusDistance" = "%@ km";
 
 /* No comment provided by engineer. */
