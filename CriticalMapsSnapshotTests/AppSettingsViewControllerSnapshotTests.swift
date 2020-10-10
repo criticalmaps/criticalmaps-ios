@@ -3,6 +3,7 @@
 
 @testable import CriticalMaps
 import XCTest
+
 class AppSettingsViewControllerSnapshotTests: XCTestCase {
     struct ObservationModePreferenceMock: ObservationModePreference {
         var observationMode: Bool = false
