@@ -36,6 +36,15 @@ enum L10n {
     static let settingsFriendsShowID = L10n.translate("settings.friends.showID")
     static let settingsAddFriendTitle = L10n.translate("settings.friends.addFriendTitle")
     static let settingsAddFriendDescription = L10n.translate("settings.friends.addFriendDescription")
+    static let settingsEventSettings = L10n.translate("settings.eventSettings")
+    static let settingsEventSearchRadius = L10n.translate("settings.eventSearchRadius")
+    static let settingsEventSettingsEnable = L10n.translate("settings.eventSettingsEnable")
+    static let settingsEventSettingsTypes = L10n.translate("settings.eventTypes")
+    static func settingsEventSearchRadiusDistance(_ p1: Any) -> String {
+        L10n.translate("settings.eventSearchRadiusDistance", String(describing: p1))
+    }
+
+    static let settingsAppIcon = L10n.translate("settings.appIcon")
     // Chat
     static let chatNoChatActivity = L10n.translate("chat.noChatActivity")
     static let chatPlaceholder = L10n.translate("chat.placeholder")

@@ -346,7 +346,18 @@ class ThemeControllerTests: XCTestCase {
         XCTAssertEqual(color, Theme.dark.style.titleTextColor)
     }
 
-    func testUILabelBackgroundColorShouldChangeToBackgroundColorWhenContainedInUITableViewHeaderFooterViewAndNightModeWasSelected() {
+    func testUIViewBackgroundColorShouldChangeToBackgroundColorWhenContainedInUITableViewHeaderFooterViewAndNightModeWasSelected() {
+        // given
+        let theme: Theme = .dark
+        // when
+        sut.changeTheme(to: theme)
+        sut.applyTheme()
+        // then
+        let color = UIView.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor
+        XCTAssertEqual(color, Theme.dark.style.backgroundColor)
+    }
+
+    func testUILabelBackgroundColorShouldNotBeSetWhenContainedInUITableViewHeaderFooterViewAndNightModeWasSelected() {
         // given
         let theme: Theme = .dark
         // when
@@ -354,7 +365,7 @@ class ThemeControllerTests: XCTestCase {
         sut.applyTheme()
         // then
         let color = UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor
-        XCTAssertEqual(color, Theme.dark.style.backgroundColor)
+        XCTAssertNil(color)
     }
 
     func testUIViewBackgroundColorShouldChangeToBackgroundColorWhenContainedInNavigationOverlayViewControllerAndNightModeWasSelected() {

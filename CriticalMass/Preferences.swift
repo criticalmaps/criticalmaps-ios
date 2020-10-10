@@ -11,7 +11,7 @@ protocol ObservationModePreference {
     var observationMode: Bool { get set }
 }
 
-class ObservationModePreferenceStore: Switchable {
+class ObservationModePreferenceStore: Toggleable {
     private var store: ObservationModePreference
 
     init(store: ObservationModePreference) {

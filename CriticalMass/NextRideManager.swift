@@ -5,36 +5,46 @@ import CoreLocation
 import Foundation
 
 enum EventError: Error {
+    case eventsAreNotEnabled
     case invalidDateError
     case rideIsOutOfRangeError
+    case noUpcomingRides
+    case rideTypeIsFiltered
 }
 
-class NextRideManager {
+final class NextRideManager {
     typealias ResultCallback = (Result<Ride, Error>) -> Void
 
     public var nextRide: Ride?
 
     private let apiHandler: CMInApiHandling
-    private let filterDistance: Double
+    private let eventSettingsStore: RideEventSettingsStore
+    private let now: () -> Date
 
-    init(apiHandler: CMInApiHandling, filterDistance: Double) {
+    init(
+        apiHandler: CMInApiHandling,
+        eventSettingsStore: RideEventSettingsStore,
+        now: @escaping () -> Date = Date.init
+    ) {
         self.apiHandler = apiHandler
-        self.filterDistance = filterDistance
+        self.eventSettingsStore = eventSettingsStore
+        self.now = now
     }
 
     func getNextRide(
         around userCoordinate: CLLocationCoordinate2D,
         _ handler: @escaping ResultCallback
     ) {
-        let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(userCoordinate)
-        apiHandler.getNextRide(around: obfuscatedCoordinate) { requestResult in
-            self.filteredRidesHandler(result: requestResult, handler, userCoordinate)
+        guard eventSettingsStore.rideEventSettings.isEnabled else {
+            handler(.failure(EventError.eventsAreNotEnabled))
+            return
         }
-    }
-
-    private func filterRidesInRange(_ rides: [Ride], _ userCoordinate: CLLocationCoordinate2D) -> [Ride] {
-        rides.filter {
-            $0.coordinate.clLocation.distance(from: userCoordinate.clLocation) < (filterDistance * 1000)
+        let obfuscatedCoordinate = CoordinateObfuscator.obfuscate(userCoordinate)
+        apiHandler.getNextRide(
+            around: obfuscatedCoordinate,
+            eventSearchRadius: eventSettingsStore.rideEventSettings.radiusSettings.radius
+        ) { requestResult in
+            self.filteredRidesHandler(result: requestResult, handler, userCoordinate)
         }
     }
 
@@ -42,22 +52,38 @@ class NextRideManager {
         rides
             .lazy
             .sorted(by: \.dateTime)
-            .first { $0.dateTime > .now }
+            .first { $0.dateTime > now() }
     }
 
     private func filteredRidesHandler(
         result: Result<[Ride], NetworkError>,
         _ handler: @escaping ResultCallback,
-        _ userCoordinate: CLLocationCoordinate2D
+        _: CLLocationCoordinate2D
     ) {
         switch result {
         case let .success(rides):
-            let rangeFilteredRides = filterRidesInRange(rides, userCoordinate)
-            guard !rangeFilteredRides.isEmpty else {
+            guard !rides.isEmpty else {
                 handler(.failure(EventError.rideIsOutOfRangeError))
                 return
             }
-            guard let ride = getUpcomingRide(rangeFilteredRides) else {
+            if rides.compactMap(\.rideType).isEmpty {
+                // None of the rides have a rideType and so the filtering is skipped
+                guard let ride = getUpcomingRide(rides) else {
+                    handler(.failure(EventError.invalidDateError))
+                    return
+                }
+                handler(.success(ride))
+                return
+            }
+            let eventTypeFilteredRides = rides.filter {
+                guard let type = $0.rideType else { return true }
+                return !eventSettingsStore.rideEventSettings.filteredEvents.contains(type)
+            }
+            guard !eventTypeFilteredRides.isEmpty else {
+                handler(.failure(EventError.rideTypeIsFiltered))
+                return
+            }
+            guard let ride = getUpcomingRide(eventTypeFilteredRides) else {
                 handler(.failure(EventError.invalidDateError))
                 return
             }
