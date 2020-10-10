@@ -1,9 +1,8 @@
-
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Personne ne discute pour l'instant...\nLance la conversation !";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Écrire Message";
+"chat.placeholder" = "Ecrire un nouveau message";
 
 /* No comment provided by engineer. */
 "chat.send" = "Envoyer";
@@ -30,16 +29,16 @@
 "errorState.title" = "Erreur";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilitylabel" = "Localisation";
+"map.headingbutton.accessibilitylabel" = "Tracking";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.heading" = "Activée avec direction";
+"map.headingbutton.accessibilityvalue.heading" = "On with heading";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.off" = "Non";
+"map.headingbutton.accessibilityvalue.off" = "Off";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.on" = "Oui";
+"map.headingbutton.accessibilityvalue.on" = "On";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps doit avoir accès au GPS pour afficher la carte avec d'autres utilisateurs actifs";
@@ -49,6 +48,15 @@
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "localisation";
+
+/* No comment provided by engineer. */
+"map.menu.route" = "Route";
+
+/* No comment provided by engineer. */
+"map.menu.share" = "Share";
+
+/* No comment provided by engineer. */
+"map.menu.title" = "Événements à venir";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
@@ -63,7 +71,7 @@
 "rules.text.contraflow" = "Évite de rouler sur la voie opposée.";
 
 /* No comment provided by engineer. */
-"rules.text.cork" = "Protège les automobilistes d'eux-mêmes en bloquant la rue!\n\nPour maintenir la cohésion du groupe, bloque le traffic des routes que l'on croise pour que le groupe puisse passer les feux rouges sans interruption.";
+"rules.text.cork" = "Protège les automobilistes d'eux-mêmes en bloquant la rue!\n\nPour maintenir la cohésion du groupe, bloque le trafic des routes que l'on croise pour que le groupe puisse passer les feux rouges sans interruption.";
 
 /* No comment provided by engineer. */
 "rules.text.gently" = "Quand tu roules à l'avant : Pas trop vite!\n\nQuand tu roules à l'arrière : Ne te laisse pas distancer !";
@@ -81,13 +89,13 @@
 "rules.title" = "Règles";
 
 /* No comment provided by engineer. */
-"rules.number" = "Règle Numéro";
+"rules.number" = "Numéro de règle";
 
 /* No comment provided by engineer. */
 "rules.title.brake" = "Pas d'arrêt brutal !";
 
 /* No comment provided by engineer. */
-"rules.title.contraflow" = "Attention au traffic";
+"rules.title.contraflow" = "Attention au trafic";
 
 /* No comment provided by engineer. */
 "rules.title.cork" = "Bloquer les voitures ?!";
@@ -96,7 +104,7 @@
 "rules.title.gently" = "C'est pas une course !";
 
 /* No comment provided by engineer. */
-"rules.title.green" = "Quand tu es à l'avant : arrête toi aux feus !";
+"rules.title.green" = "Quand tu es à l'avant : arrête toi aux feux !";
 
 /* No comment provided by engineer. */
 "rules.title.haveFun" = "Profite !";
@@ -107,14 +115,44 @@
 /* No comment provided by engineer. */
 "settings.about" = "À propos";
 
-
+/* No comment provided by engineer. */
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 /* No comment provided by engineer. */
+"settings.criticalMassDotIn.detail" = "Submit your bike activism to the criticalmass.in project and promote it to other bike enthusiasts.";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.title" = "Missing a mass?";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.action" = "Voir Projet";
+
+/* No comment provided by engineer. */
 "settings.donate" = "Fais un don pour soutenir nos serveurs GPS";
+
+/* No comment provided by engineer. */
+"settings.appIcon" = "App Icon";
+
+/* No comment provided by engineer. */
+"settings.eventSettings" = "Paramètres de l'événement";
+
+/* No comment provided by engineer. */
+"settings.settingsEventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSettingsEnable" = "Activer Notifications d'événement";
+
+/* No comment provided by engineer. */
+"settings.eventTypes" = "Types d'évènements";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadiusDistance" = "%@ km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -126,13 +164,13 @@
 "settings.friends.addFriendDescription" = "ajoutée";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendTitle" = "Ami ajouté";
+"settings.friends.addFriendTitle" = "Ajouté Ami";
 
 /* No comment provided by engineer. */
 "settings.friends.settings" = "Paramètres";
 
 /* No comment provided by engineer. */
-"settings.friends.showID" = "Montrer id";
+"settings.friends.showID" = "Voir la ID";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "Paramètres GPS";
@@ -147,13 +185,13 @@
 "settings.observationmode.detail" = "Si tu ne participes pas toi-même, mais que tu veux suivre la Critical Mass.";
 
 /* No comment provided by engineer. */
-"settings.observationmode.title" = "Mode observateur";
+"settings.observationmode.title" = "Mode Observateur";
 
 /* No comment provided by engineer. */
 "settings.openSource" = "GitHub";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "Voir le Référentiel";
+"settings.opensource.action" = "Voir Dépôt";
 
 /* No comment provided by engineer. */
 "settings.opensource.detail" = "Critical Maps est un projet open-source et nous cherchons des développeurs pour collaborer.";
@@ -180,10 +218,10 @@
 "settings.theme.system" = "Système";
 
 /* Theme appearance light */
-"settings.theme.light" = "Claire";
+"settings.theme.light" = "Light";
 
 /* Theme appearance dark */
-"settings.theme.dark" = "Sombre";
+"settings.theme.dark" = "Dark";
 
 /* No comment provided by engineer. */
 "settings.title" = "Réglages";
@@ -193,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "settings.website" = "Site Web";
+
+/* No comment provided by engineer. */
+"settings.appIconTitle" = "App Icon";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Pas de données disponibles.\nTire vers le bas pour rafraîchir.";
