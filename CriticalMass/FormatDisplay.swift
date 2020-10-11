@@ -33,16 +33,18 @@ private extension DateComponents {
 }
 
 enum FormatDisplay {
-    static func dateString(for tweet: Tweet, currentDate: Date = Date(), calendar: Calendar = .current) -> String? {
+    static func dateString(
+        for tweet: Tweet,
+        currentDate: Date = Date(),
+        calendar: Calendar = .current
+    ) -> String? {
         let components = calendar.dateComponents(
             [.second, .minute, .hour, .day, .month],
-            from: tweet.created_at, to: currentDate
+            from: tweet.created_at,
+            to: currentDate
         ).dateComponentFromBiggestComponent
 
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.day, .hour, .minute, .month, .second]
-        formatter.unitsStyle = .short
-        formatter.maximumUnitCount = 1
+        let formatter = DateComponentsFormatter.tweetDateFormatter
         return formatter.string(from: components)
     }
 
