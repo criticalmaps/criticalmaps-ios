@@ -8,15 +8,16 @@ on:
     branches:
     - master
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
-
 jobs:
   unit_tests:
     name: Unit Tests
     runs-on: macOS-latest
 
     steps:
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '12.0'
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -49,6 +50,10 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '12.0'
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -87,6 +92,10 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '12.0'
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -119,6 +128,10 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '12.0'
     - name: Checkout
       uses: actions/checkout@v2
 
