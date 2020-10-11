@@ -21,7 +21,7 @@ class FormatDisplayTests: XCTestCase {
     func testFormatTweetSeconds() {
         let currentDate = generateDate(from: date, travelInterval: .seconds(49))
 
-        let expectedDateString = "49 sec"
+        let expectedDateString = "49S"
         let dateString = FormatDisplay.dateString(for: tweet, currentDate: currentDate, calendar: calendar)
         XCTAssertEqual(dateString, expectedDateString)
     }
@@ -29,7 +29,7 @@ class FormatDisplayTests: XCTestCase {
     func testFormatTweetMinutes() {
         let currentDate = generateDate(from: date, travelInterval: .minutes(3))
 
-        let expectedDateString = "3 min"
+        let expectedDateString = "3M"
         let dateString = FormatDisplay.dateString(for: tweet, currentDate: currentDate, calendar: calendar)
         XCTAssertEqual(dateString, expectedDateString)
     }
@@ -37,7 +37,7 @@ class FormatDisplayTests: XCTestCase {
     func testFormatTweetHours() {
         let currentDate = generateDate(from: date, travelInterval: .hours(9))
 
-        let expectedDateString = "9 hr"
+        let expectedDateString = "9H"
         let dateString = FormatDisplay.dateString(for: tweet, currentDate: currentDate, calendar: calendar)
         XCTAssertEqual(dateString, expectedDateString)
     }
@@ -45,7 +45,7 @@ class FormatDisplayTests: XCTestCase {
     func testFormatTweetDays() {
         let currentDate = generateDate(from: date, travelInterval: .days(20))
 
-        let expectedDateString = "20 days"
+        let expectedDateString = "20D"
         let dateString = FormatDisplay.dateString(for: tweet, currentDate: currentDate, calendar: calendar)
         XCTAssertEqual(dateString, expectedDateString)
     }
@@ -53,7 +53,7 @@ class FormatDisplayTests: XCTestCase {
     func testFormatTweetMonths() {
         let currentDate = generateDate(from: date, travelInterval: .months(2))
 
-        let expectedDateString = "2 mths"
+        let expectedDateString = "2MO"
         let dateString = FormatDisplay.dateString(for: tweet, currentDate: currentDate, calendar: calendar)
         XCTAssertEqual(dateString, expectedDateString)
     }
