@@ -19,3 +19,13 @@ extension DateFormatter {
         return dateFormatter
     }()
 }
+
+extension DateComponentsFormatter {
+    static let tweetDateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.day, .hour, .minute, .month, .second]
+        formatter.unitsStyle = .abbreviated
+        formatter.maximumUnitCount = 1
+        return formatter
+    }()
+}
