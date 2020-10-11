@@ -14,7 +14,7 @@ class AppSettingsViewControllerSnapshotTests: XCTestCase {
     func testGeneralAppearance() {
         // Given
         let viewController = AppSettingsViewController(
-            controllerTitle: L10n.settingsTitle,
+            controllerTitle: L10n.Settings.title,
             sections: SettingsSection.appSettings,
             themeController: MockThemeController.shared,
             dataStore: MockDataStore(),

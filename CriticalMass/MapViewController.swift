@@ -144,6 +144,7 @@ class MapViewController: UIViewController {
     }
 
     // MARK: Theme
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         themeController.currentTheme.style.statusBarStyle
     }
