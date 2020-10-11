@@ -10,15 +10,20 @@
 import SnapshotTesting
 import XCTest
 
+private let operatingSystemVersion = ProcessInfo().operatingSystemVersion
+
 extension XCTestCase {
-    func assertViewSnapshot(for themes: [Theme] = [.light, .dark],
-                            matching value: UIView,
-                            with size: CGSize? = nil,
-                            precision: Float = 1,
-                            file: StaticString = #file,
-                            testName: String = #function,
-                            line: UInt = #line)
-    {
+    func assertViewSnapshot(
+        for themes: [Theme] = [.light, .dark],
+        matching value: UIView,
+        with size: CGSize? = nil,
+        precision: Float = 1,
+        file: StaticString = #file,
+        testName: String = #function,
+        line: UInt = #line
+    ) {
+        enforceSnapshotDevice()
+
         themes.forEach { theme in
             MockThemeController.shared.changeTheme(to: theme)
             MockThemeController.shared.applyTheme()
@@ -28,6 +33,15 @@ extension XCTestCase {
                            file: file,
                            testName: testName,
                            line: line)
+        }
+    }
+
+    private func enforceSnapshotDevice() {
+        let is2XDevice = UIScreen.main.scale == 2
+        let isVersion13 = operatingSystemVersion.majorVersion == 13
+
+        guard is2XDevice, isVersion13 else {
+            fatalError("Running device should have @2x screen scale and iOS13.")
         }
     }
 }
