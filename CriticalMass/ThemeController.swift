@@ -73,9 +73,9 @@ class ThemeController {
         SettingsFooterView.appearance().versionTextColor = theme.titleTextColor
         SettingsFooterView.appearance().buildTextColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [SettingsInfoTableViewCell.self]).textColor = theme.titleTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [SettingsTableSectionHeader.self]).backgroundColor = .clear
         SettingsSwitchTableViewCell.appearance().titleColor = theme.titleTextColor
         SettingsSwitchTableViewCell.appearance().subtitleColor = theme.thirdTitleTextColor
+        SettingsCheckTableViewCell.appearance().titleColor = theme.titleTextColor
         AppIconTableViewCell.appearance().titleColor = theme.titleTextColor
     }
 
@@ -125,6 +125,7 @@ class ThemeController {
         UINavigationBar.appearance().isTranslucent = theme.navigationBarIsTranslucent
         // UIBarButtonItem
         UIBarButtonItem.appearance().tintColor = theme.titleTextColor
+        // UITableViewCell
         UITableViewCell.appearance().backgroundColor = theme.backgroundColor
         let cellSelectedBackgroundView: UIView = {
             let view = UIView()
@@ -136,12 +137,14 @@ class ThemeController {
         UIScrollView.appearance().backgroundColor = theme.backgroundColor
         // UITableViewHeaderFooterView
         UITableViewHeaderFooterView.appearance().backgroundColor = theme.backgroundColor
-        UIRefreshControl.appearance().tintColor = theme.titleTextColor
-        UITextView.appearance().textColor = theme.titleTextColor
-        // UILabel
-        UITableView.appearance().tintColor = theme.titleTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
+        UIView.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).backgroundColor = theme.backgroundColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
+        // UIRefreshControl
+        UIRefreshControl.appearance().tintColor = theme.titleTextColor
+        // UITextView
+        UITextView.appearance().textColor = theme.titleTextColor
+        // UITableView
+        UITableView.appearance().tintColor = theme.titleTextColor
     }
 
     private func styleFriendsComponents(with theme: ThemeDefining) {
@@ -163,7 +166,7 @@ class ThemeController {
     }
 }
 
-extension ThemeController: Switchable {
+extension ThemeController: Toggleable {
     var isEnabled: Bool {
         get { currentTheme == .dark }
         set {

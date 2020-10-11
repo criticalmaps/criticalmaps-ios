@@ -15,6 +15,7 @@ extension UserDefaults {
         static let lastRatedVersionKey = "lastRatedVersion"
         static let userNameKey = "username"
         static let nextRideRadius = "nextRideRadius"
+        static let rideEventSettings = "rideEventSettings"
     }
 
     // TODO: Move default value to PreferenceStore
@@ -25,6 +26,27 @@ extension UserDefaults {
             let radius = integer(forKey: Keys.nextRideRadius)
             guard radius != 0 else { return 20 } // Returns a default radius of 20 Kilometer to search for events
             return radius
+        }
+    }
+}
+
+extension UserDefaults: RideEventSettingsStore {
+    var rideEventSettings: RideEventSettings {
+        set {
+            let data = try? newValue.encoded()
+            setValue(data, forKey: Keys.rideEventSettings)
+        }
+        get {
+            let defaultSettings = RideEventSettings(
+                isEnabled: true,
+                typeSettings: .all,
+                radiusSettings: RideEventSettings.RideEventRadius(radius: nextRideRadius, isEnabled: true)
+            )
+            guard let data = object(forKey: Keys.rideEventSettings) as? Data else {
+                // Return defaultValue when no data in UserDefaults
+                return defaultSettings
+            }
+            return (try? data.decoded()) ?? defaultSettings
         }
     }
 }

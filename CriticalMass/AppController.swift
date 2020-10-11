@@ -61,7 +61,7 @@ class AppController {
             friendsVerificationController: FriendsVerificationController(dataStore: dataStore),
             nextRideManager: NextRideManager(
                 apiHandler: CMInApiHandler(networkLayer: networkOperator),
-                filterDistance: Double(userDefaults.nextRideRadius)
+                eventSettingsStore: userDefaults
             )
         )
     }()
@@ -121,11 +121,14 @@ class AppController {
     }
 
     private func getSettingsViewController() -> SettingsViewController {
-        SettingsViewController(
+        AppSettingsViewController(
+            controllerTitle: L10n.settingsTitle,
+            sections: SettingsSection.appSettings,
             themeController: themeController,
             dataStore: dataStore,
             idProvider: idProvider,
-            observationModePreferenceStore: observationModePreferenceStore
+            observationModePreferenceStore: observationModePreferenceStore,
+            rideEventSettings: userDefaults
         )
     }
 

@@ -8,21 +8,18 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-    private let themeController: ThemeController
-    private let dataStore: DataStore
-    private let idProvider: IDProvider
-    private let observationModePreferenceStore: ObservationModePreferenceStore
+    let themeController: ThemeController
+    let sections: [SettingsSection]
+    let controllerTitle: String
 
     init(
-        themeController: ThemeController,
-        dataStore: DataStore,
-        idProvider: IDProvider,
-        observationModePreferenceStore: ObservationModePreferenceStore
+        controllerTitle: String,
+        sections: [SettingsSection],
+        themeController: ThemeController
     ) {
+        self.controllerTitle = controllerTitle
+        self.sections = sections
         self.themeController = themeController
-        self.dataStore = dataStore
-        self.idProvider = idProvider
-        self.observationModePreferenceStore = observationModePreferenceStore
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -34,13 +31,12 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Section.allCellClasses.forEach {
+        SettingsSection.cellClasses.forEach {
             tableView.register($0.nib, forCellReuseIdentifier: $0.nibName)
         }
         tableView.rowHeight = UITableView.automaticDimension
 
         configureNotifications()
-        configureSettingsFooter()
         configureNavigationBar()
 
         tableView.register(viewType: SettingsTableSectionHeader.self)
@@ -51,7 +47,7 @@ class SettingsViewController: UITableViewController {
         sizeFooterToFit()
     }
 
-    func configureNotifications() {
+    private func configureNotifications() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChange),
@@ -70,37 +66,30 @@ class SettingsViewController: UITableViewController {
         }
     }
 
-    private func configureSettingsFooter() {
-        let settingsFooter = SettingsFooterView.fromNib()
-        settingsFooter.buildNumberLabel.text = "Build \(Bundle.main.buildNumber)"
-        settingsFooter.versionNumberLabel.text = "Critical Maps \(Bundle.main.versionNumber)"
-        tableView.tableFooterView = settingsFooter
-    }
-
     private func configureNavigationBar() {
-        title = L10n.settingsTitle
+        title = controllerTitle
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     override func numberOfSections(in _: UITableView) -> Int {
-        Section.allCases.count
+        sections.count
     }
 
     override func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(ofType: SettingsTableSectionHeader.self)
-        header.titleLabel.text = Section.allCases[section].title
+        header.titleLabel.text = sections[section].title
         return header
     }
 
     override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard Section.allCases[section].title != nil else {
+        guard sections[section].title != nil else {
             return 0.0
         }
         return 42.0
     }
 
     override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Section.allCases[section].numberOfRows
+        sections[section].numberOfRows
     }
 
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
@@ -108,7 +97,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = Section.allCases[indexPath.section]
+        let section = sections[indexPath.section]
         let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: section.cellClass(action: section.models[indexPath.row].action)),
             for: indexPath
@@ -120,7 +109,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let section = Section.allCases[indexPath.section]
+        let section = sections[indexPath.section]
         let action = section.models[indexPath.row].action
 
         switch action {
@@ -135,56 +124,14 @@ class SettingsViewController: UITableViewController {
         case let .navigate(toViewController):
             let viewController = createViewController(type: toViewController)
             navigationController?.pushViewController(viewController, animated: true)
+        default:
+            break
         }
     }
 
-    private func createViewController(type: UIViewController.Type) -> UIViewController {
-        // Perform dependency injection if needed
-        switch type {
-        case _ as ManageFriendsViewController.Type:
-            return ManageFriendsViewController(dataStore: dataStore, idProvider: idProvider)
-        case _ as ThemeSelectionViewController.Type:
-            return ThemeSelectionViewController(themeController: themeController)
-        default:
-            return type.init()
-        }
+    func createViewController(type _: UIViewController.Type) -> UIViewController {
+        .init()
     }
-}
 
-extension SettingsViewController {
-    fileprivate func configure(_ cell: UITableViewCell, for section: Section, indexPath: IndexPath) {
-        switch section {
-        case let .projectLinks(configurations):
-            if let projectLinkCell = cell as? SettingsProjectLinkTableViewCell {
-                let model = configurations[indexPath.row]
-                projectLinkCell.titleLabel?.text = model.title
-                projectLinkCell.detailLabel?.text = model.detail
-                projectLinkCell.actionLabel.text = model.actionTitle
-                projectLinkCell.backgroundImageView.image = model.image
-                if #available(iOS 13.0, *) {
-                    projectLinkCell.accessibilityUserInputLabels = model.userInputLabels
-                }
-            }
-        default:
-            let model = section.models[indexPath.row]
-            if let switchCell = cell as? SettingsSwitchTableViewCell,
-                case let .switch(switchableType) = model.action
-            {
-                if switchableType == ObservationModePreferenceStore.self {
-                    switchCell.configure(switchable: observationModePreferenceStore)
-                } else if switchableType == ThemeController.self {
-                    switchCell.configure(switchable: themeController)
-                } else {
-                    assertionFailure("Switchable not found")
-                }
-            }
-            cell.accessibilityIdentifier = model.accessibilityIdentifier
-            cell.textLabel?.text = model.title
-            cell.detailTextLabel?.text = model.subtitle
-            if #available(iOS 13.0, *),
-                let userInputLabels = model.userInputLabels {
-                cell.accessibilityUserInputLabels = userInputLabels
-            }
-        }
-    }
+    func configure(_: UITableViewCell, for _: SettingsSection, indexPath _: IndexPath) {}
 }
