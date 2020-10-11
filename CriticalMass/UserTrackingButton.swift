@@ -100,7 +100,7 @@ class UserTrackingButton: CustomButton {
 
     override var accessibilityLabel: String? {
         get {
-            L10n.mapHeadingButtonAccessibilityLabel
+            L10n.Map.Headingbutton.accessibilitylabel
         }
         set {}
     }
@@ -109,11 +109,11 @@ class UserTrackingButton: CustomButton {
         get {
             switch currentMode {
             case .none:
-                return L10n.mapHeadingButtonAccessibilityValueOff
+                return L10n.Map.Headingbutton.Accessibilityvalue.off
             case .follow:
-                return L10n.mapHeadingButtonAccessibilityValueOn
+                return L10n.Map.Headingbutton.Accessibilityvalue.on
             case .followWithHeading:
-                return L10n.mapHeadingButtonAccessibilityValueOnWithHeading
+                return L10n.Map.Headingbutton.Accessibilityvalue.heading
             }
         }
         set {}

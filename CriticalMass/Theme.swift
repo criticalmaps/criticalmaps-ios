@@ -55,11 +55,11 @@ extension Theme {
     var displayName: String {
         switch self {
         case .system:
-            return L10n.themeSystemLocalizedString
+            return L10n.Settings.Theme.system
         case .light:
-            return L10n.themeLightLocalizedString
+            return L10n.Settings.Theme.light
         case .dark:
-            return L10n.themeDarkLocalizedString
+            return L10n.Settings.Theme.dark
         }
     }
 }

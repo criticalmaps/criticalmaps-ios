@@ -79,7 +79,7 @@ class RulesViewController: UITableViewController {
     }
 
     private func configureNavigationBar() {
-        title = L10n.rulesTitle
+        title = L10n.Rules.title
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
@@ -102,7 +102,7 @@ class RulesViewController: UITableViewController {
         cell.label?.text = rules[indexPath.row].title
 
         if #available(iOS 13.0, *) {
-            cell.accessibilityUserInputLabels = ["\(L10n.rulesNumber) \(indexPath.row + 1)"]
+            cell.accessibilityUserInputLabels = ["\(L10n.Rules.number) \(indexPath.row + 1)"]
         }
 
         return cell

@@ -69,7 +69,7 @@ class ChatViewController: UIViewController {
     }
 
     private func configureMessagesTableViewController() {
-        messagesTableViewController.noContentMessage = L10n.chatNoChatActivity
+        messagesTableViewController.noContentMessage = L10n.Chat.noChatActivity
         messagesTableViewController.update(messages: chatManager.getMessages())
 
         let tapGestureRecoognizer = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
@@ -151,7 +151,7 @@ extension ChatViewController: ChatInputDelegate {
                 completionHandler?(false)
                 AlertPresenter.shared.presentAlert(
                     title: L10n.error,
-                    message: L10n.chatSendError,
+                    message: L10n.Chat.Send.error,
                     preferredStyle: .alert,
                     actionData: [UIAlertAction(title: L10n.ok, style: .default, handler: nil)]
                 )
