@@ -70,19 +70,19 @@ extension SettingsProjectLinkTableViewCell {
         let image: UIImage
 
         static let github = CellConfiguration(
-            image: UIImage(named: "GithubBanner")!
             title: L10n.Settings.Opensource.title,
             detail: L10n.Settings.Opensource.detail,
             actionTitle: L10n.Settings.Opensource.action.uppercased(),
             userInputLabels: [L10n.Settings.Opensource.action],
+            image: Asset.githubBanner.image
         )
 
         static let criticalMassDotIn = CellConfiguration(
-            image: UIImage(named: "banner cm")!
             title: L10n.Settings.CriticalMassDotIn.title,
             detail: L10n.Settings.CriticalMassDotIn.detail,
             actionTitle: L10n.Settings.CriticalMassDotIn.action.uppercased(),
             userInputLabels: [L10n.Settings.CriticalMassDotIn.action],
+            image: Asset.bannerCm.image
         )
     }
 }

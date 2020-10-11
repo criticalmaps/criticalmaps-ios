@@ -14,6 +14,15 @@ class MapInfoView: UIView, IBConstructable {
         enum Style: String {
             case alert
             case info
+
+            var icon: UIImage {
+                switch self {
+                case .alert:
+                    return Asset.alert.image
+                case .info:
+                    return Asset.info.image
+                }
+            }
         }
 
         var title: String
@@ -54,7 +63,7 @@ class MapInfoView: UIView, IBConstructable {
         self.configuration = configuration
         label.text = configuration.title
 
-        imageView.image = UIImage(named: configuration.style.rawValue)
+        imageView.image = configuration.style.icon
 
         accessibilityValue = configuration.title
         updateStyle()

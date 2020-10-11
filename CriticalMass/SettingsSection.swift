@@ -9,8 +9,8 @@
 import UIKit
 
 /** TODO: Refactor to a more versataile API like:
-Section(title: "NAME", rows: [SwitchRow(title:subTitle:actionClosure:), OptionRow]).....
-**/
+ Section(title: "NAME", rows: [SwitchRow(title:subTitle:actionClosure:), OptionRow]).....
+ **/
 enum SettingsSection {
     typealias AllCases = [SettingsSection]
 

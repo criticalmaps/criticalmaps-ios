@@ -17,7 +17,7 @@ final class CMMarkerAnnotationView: MKMarkerAnnotationView {
     private func commonInit() {
         animatesWhenAdded = true
         markerTintColor = .white
-        glyphImage = UIImage(named: "logo-m")
+        glyphImage = Asset.logoM.image
         canShowCallout = false
 
         if #available(iOS 13.0, *) {
@@ -57,7 +57,7 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
             imageView.backgroundColor = .clear
             imageView.clipsToBounds = true
             imageView.contentMode = .scaleAspectFit
-            imageView.image = UIImage(named: "event-marker")!
+            imageView.image = Asset.eventMarker.image
             preferredContentSize = CGSize(width: 200, height: 150)
         }
 
@@ -80,7 +80,7 @@ class CMAnnotationView: MKAnnotationView {
     }
 
     private func commonInit() {
-        image = UIImage(named: "event-marker")
+        image = Asset.eventMarker.image
         canShowCallout = true
     }
 }

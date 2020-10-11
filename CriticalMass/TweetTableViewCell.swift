@@ -72,7 +72,7 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
         tweetTextView.text = tweet.text
         handleLabel.text = "@\(tweet.user.screen_name)"
         userNameLabel.text = tweet.user.name
-        userImageView.sd_setImage(with: URL(string: tweet.user.profile_image_url_https), placeholderImage: UIImage(named: "Avatar"))
+        userImageView.sd_setImage(with: URL(string: tweet.user.profile_image_url_https), placeholderImage: Asset.avatar.image)
         if #available(iOS 13.0, *) {
             // workaround for iOS 13
             // set background color to clear to keep the same color for background text view and background cell view
