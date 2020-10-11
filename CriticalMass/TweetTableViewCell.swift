@@ -68,7 +68,7 @@ class TweetTableViewCell: UITableViewCell, MessageConfigurable, IBConstructable 
     }
 
     func setup(for tweet: Tweet, currentDate: Date) {
-        dateLabel.text = FormatDisplay.dateString(for: tweet, currentDate: currentDate)
+        dateLabel.text = FormatDisplay.dateString(for: tweet, currentDate: currentDate)?.uppercased()
         tweetTextView.text = tweet.text
         handleLabel.text = "@\(tweet.user.screen_name)"
         userNameLabel.text = tweet.user.name
