@@ -45,7 +45,7 @@ enum FormatDisplay {
         ).dateComponentFromBiggestComponent
 
         let formatter = DateComponentsFormatter.tweetDateFormatter(calendar)
-        return formatter.string(from: components)
+        return formatter.string(from: components)?.uppercased()
     }
 
     static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
