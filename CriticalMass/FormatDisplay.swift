@@ -44,7 +44,7 @@ enum FormatDisplay {
             to: currentDate
         ).dateComponentFromBiggestComponent
 
-        let formatter = DateComponentsFormatter.tweetDateFormatter
+        let formatter = DateComponentsFormatter.tweetDateFormatter(calendar)
         return formatter.string(from: components)
     }
 
