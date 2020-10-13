@@ -48,12 +48,9 @@ enum FormatDisplay {
         return formatter.string(from: components)?.uppercased()
     }
 
-    static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
+    static func hoursAndMinutesDateString(from message: ChatMessage, calendar _: Calendar = .current) -> String {
         let date = Date(timeIntervalSince1970: message.timestamp)
-        let formatter = DateFormatter()
-        formatter.calendar = calendar
-        formatter.timeZone = calendar.timeZone
-        formatter.dateFormat = "HH:mm"
+        let formatter = DateFormatter.localisedHourAndMinuteFormatter()
         return formatter.string(from: date)
     }
 }
