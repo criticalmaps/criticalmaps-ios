@@ -2,13 +2,48 @@
   "configurations" : [
     {
       "id" : "9675AA6D-95DA-4EBD-985A-7278586C91C6",
-      "name" : "Default",
+      "name" : "de_DE",
+      "options" : {
+        "language" : "de",
+        "testExecutionOrdering" : "random"
+      }
+    },
+    {
+      "id" : "DC2FFAE6-7F21-4B2D-9C82-65916594FCE8",
+      "name" : "it_IT",
+      "options" : {
+        "language" : "it",
+        "region" : "IT",
+        "testExecutionOrdering" : "random"
+      }
+    },
+    {
+      "id" : "08071F9E-2E10-47EA-8A2D-EF26C1BF9D78",
+      "name" : "fr_FR",
+      "options" : {
+        "language" : "fr",
+        "region" : "FR"
+      }
+    },
+    {
+      "id" : "8CCAEF9F-97AB-42FC-A335-5A9CE91BEBB6",
+      "name" : "es_MX",
+      "options" : {
+        "language" : "es",
+        "region" : "MX"
+      }
+    },
+    {
+      "id" : "8DDF7371-4A14-4E28-84A1-9CF3E76F6EDA",
+      "name" : "en_DE",
       "options" : {
 
       }
     }
   ],
   "defaultOptions" : {
+    "areLocalizationScreenshotsEnabled" : true,
+    "codeCoverage" : false,
     "language" : "en",
     "region" : "DE",
     "targetForVariableExpansion" : {
