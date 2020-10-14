@@ -18,15 +18,6 @@ extension DateFormatter {
         dateFormatter.timeStyle = .none
         return dateFormatter
     }()
-
-    /// Localized Hour and minute formatter
-    static func localisedHourAndMinuteFormatter(_ calendar: Calendar = .current) -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.calendar = calendar
-        formatter.timeZone = calendar.timeZone
-        formatter.setLocalizedDateFormatFromTemplate("HHmm")
-        return formatter
-    }
 }
 
 extension DateComponentsFormatter {
