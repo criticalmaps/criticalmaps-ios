@@ -70,7 +70,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = L10n.mapTitle
+        title = L10n.Map.title
         configureNotifications()
         configureTileRenderer()
         configureMapView()
@@ -105,7 +105,7 @@ class MapViewController: UIViewController {
 
     private func condfigureGPSDisabledOverlayView() {
         let gpsDisabledOverlayView = self.gpsDisabledOverlayView
-        gpsDisabledOverlayView.set(title: L10n.mapLayerInfoTitle, message: L10n.mapLayerInfo)
+        gpsDisabledOverlayView.set(title: L10n.Map.Layer.Info.title, message: L10n.Map.Layer.info)
         gpsDisabledOverlayView.addButtonTarget(self, action: #selector(didTapGPSDisabledOverlayButton))
         view.addSubview(gpsDisabledOverlayView)
         gpsDisabledOverlayView.addLayoutsSameSizeAndOrigin(in: view)
@@ -144,6 +144,7 @@ class MapViewController: UIViewController {
     }
 
     // MARK: Theme
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         themeController.currentTheme.style.statusBarStyle
     }
@@ -309,10 +310,10 @@ extension MapViewController {
     }
 
     @objc private func handleEventLongPress(_: Any) {
-        let routeAction = UIAlertAction(title: L10n.menuRoute, style: .default) { _ in self.routeToEvent() }
-        let shareAction = UIAlertAction(title: L10n.menuShare, style: .default) { _ in self.shareEvent() }
+        let routeAction = UIAlertAction(title: L10n.Map.Menu.route, style: .default) { _ in self.routeToEvent() }
+        let shareAction = UIAlertAction(title: L10n.Map.Menu.share, style: .default) { _ in self.shareEvent() }
         AlertPresenter.shared.presentAlert(
-            title: L10n.menuTitle,
+            title: L10n.Map.Menu.title,
             preferredStyle: .actionSheet,
             actionData: [routeAction, shareAction],
             isCancelable: true

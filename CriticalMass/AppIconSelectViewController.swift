@@ -19,7 +19,7 @@ final class AppIconSelectViewController: UITableViewController {
         tableView.tableFooterView = UIView()
 
         tableView.dataSource = dataSource
-        title = L10n.appIconTitle
+        title = L10n.Settings.appIcon
     }
 
     // MARK: UITableViewDelegate

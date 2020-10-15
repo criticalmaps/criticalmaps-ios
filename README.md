@@ -60,6 +60,11 @@ NOTES:
 - Be sure to merge the latest from "upstream" before making a pull request!
 - Please use the simulator specified in Fastfile ("snapshot_test" lane) to run snapshot tests
 
+#### Assets
+
+The project is using type-safe assets generated with [SwiftGen](https://github.com/SwiftGen/SwiftGen).
+If you add images to the project be sure to install it and run `swiftgen` from the root folder and add the changes to your PR.
+
 ### Open Source & Copying
 
 We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use my code in your app, if you choose.

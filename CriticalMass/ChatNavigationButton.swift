@@ -33,15 +33,15 @@ class ChatNavigationButton: CustomButton {
             unreadLabel.frame.size.width = max(16, unreadLabel.frame.size.width + 10)
             unreadLabel.center = CGPoint(x: 55, y: 18)
 
-            accessibilityValue = unreadCount != 0 ? L10n.chatUnreadButtonAccessibilityValue(count: "\(unreadCount)") : nil
+            accessibilityValue = unreadCount != 0 ? L10n.Chat.Unreadbutton.accessibilityvalue("\(unreadCount)") : nil
         }
     }
 
     init() {
         super.init(frame: .zero)
-        setImage(UIImage(named: "Chat")!, for: .normal)
+        setImage(Asset.chat.image, for: .normal)
         adjustsImageWhenHighlighted = false
-        accessibilityLabel = L10n.chatTitle
+        accessibilityLabel = L10n.Chat.title
 
         if #available(iOS 13.0, *) {
             showsLargeContentViewer = true

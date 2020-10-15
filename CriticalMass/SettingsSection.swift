@@ -9,8 +9,8 @@
 import UIKit
 
 /** TODO: Refactor to a more versataile API like:
-Section(title: "NAME", rows: [SwitchRow(title:subTitle:actionClosure:), OptionRow]).....
-**/
+ Section(title: "NAME", rows: [SwitchRow(title:subTitle:actionClosure:), OptionRow]).....
+ **/
 enum SettingsSection {
     typealias AllCases = [SettingsSection]
 
@@ -107,10 +107,10 @@ extension SettingsSection {
         .preferences(
             models: [
                 Model(
-                    title: L10n.settingsEventSettingsEnable,
+                    title: L10n.Settings.eventSettingsEnable,
                     subtitle: nil,
                     action: .switch(RideEventSettings.self),
-                    accessibilityIdentifier: L10n.settingsEventSettingsEnable
+                    accessibilityIdentifier: L10n.Settings.eventSettingsEnable
                 )
             ],
             sectionTitle: nil
@@ -123,27 +123,27 @@ extension SettingsSection {
                     accessibilityIdentifier: $0.title
                 )
             },
-            sectionTitle: L10n.settingsEventSettingsTypes
+            sectionTitle: L10n.Settings.eventTypes
         ),
         .info(
             models: Ride.eventRadii.map {
-                let description = L10n.settingsEventSearchRadiusDistance($0)
+                let description = L10n.Settings.eventSearchRadiusDistance($0)
                 return Model(
                     title: description,
                     action: .check(RideEventSettings.RideEventRadius.self),
                     accessibilityIdentifier: description
                 )
             },
-            sectionTitle: L10n.settingsEventSearchRadius
+            sectionTitle: L10n.Settings.eventSearchRadius
         )
     ]
 
     static let appSettings: [SettingsSection] = {
         var themeTitle: String {
             if #available(iOS 13.0, *) {
-                return L10n.themeAppearanceLocalizedString
+                return L10n.Settings.Theme.appearance
             } else {
-                return L10n.themeLocalizedString
+                return L10n.Settings.theme
             }
         }
         var themeAction: Action {
@@ -160,31 +160,31 @@ extension SettingsSection {
                 accessibilityIdentifier: "Theme"
             ),
             Model(
-                title: L10n.obversationModeTitle,
-                subtitle: L10n.obversationModeDetail,
+                title: L10n.Settings.Observationmode.title,
+                subtitle: L10n.Settings.Observationmode.detail,
                 action: .switch(ObservationModePreferenceStore.self),
-                accessibilityIdentifier: L10n.obversationModeTitle
+                accessibilityIdentifier: L10n.Settings.Observationmode.title
             ),
             Model(
-                title: L10n.settingsAppIcon,
+                title: L10n.Settings.appIcon,
                 action: .navigate(toViewController: AppIconSelectViewController.self),
-                accessibilityIdentifier: L10n.settingsAppIcon
+                accessibilityIdentifier: L10n.Settings.appIcon
             )
         ]
         if Feature.events.isActive {
             let eventSettings = Model(
-                title: L10n.settingsEventSettings,
+                title: L10n.Settings.eventSettings,
                 action: .navigate(toViewController: EventSettingsViewController.self),
-                accessibilityIdentifier: L10n.settingsEventSettings
+                accessibilityIdentifier: L10n.Settings.eventSettings
             )
             preferencesModels.insert(eventSettings, at: 0)
         }
         if Feature.friends.isActive {
             let friendsModel = Model(
-                title: L10n.settingsFriends,
+                title: L10n.Settings.friends,
                 subtitle: nil,
                 action: .navigate(toViewController: ManageFriendsViewController.self),
-                accessibilityIdentifier: L10n.settingsFriends
+                accessibilityIdentifier: L10n.Settings.friends
             )
             preferencesModels.insert(friendsModel, at: 0)
         }
@@ -200,11 +200,11 @@ extension SettingsSection {
             ),
             .info(
                 models: [
-                    Model(title: L10n.settingsWebsite, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
-                    Model(title: L10n.settingsTwitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
-                    Model(title: L10n.settingsFacebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")
+                    Model(title: L10n.Settings.website, action: .open(url: Constants.criticalMapsWebsite), accessibilityIdentifier: "Website"),
+                    Model(title: L10n.Settings.twitter, action: .open(url: Constants.criticalMapsTwitterPage), accessibilityIdentifier: "Twitter"),
+                    Model(title: L10n.Settings.facebook, action: .open(url: Constants.criticalMapsFacebookPage), accessibilityIdentifier: "Facebook")
                 ],
-                sectionTitle: L10n.settingsSectionInfo
+                sectionTitle: L10n.Settings.Section.info
             )
         ]
     }()

@@ -1,4 +1,3 @@
-
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Niemand chattet derzeit...\nWarum fängt du nicht an?";
 
@@ -15,7 +14,7 @@
 "chat.title" = "Chat";
 
 
-"chat.unreadbutton.accessibilityvalue" = "%@ ungelesene Nachrichten";
+"chat.unreadbutton.accessibilityvalue" = "%s ungelesene Nachrichten";
 
 /* No comment provided by engineer. */
 "close.button.label" = "schließen";
@@ -30,16 +29,16 @@
 "errorState.title" = "Fehler";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilitylabel" = "Ortung";
+"map.headingbutton.accessibilitylabel" = "Tracking";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.heading" = "Ein mit Richtung";
+"map.headingbutton.accessibilityvalue.heading" = "On with heading";
 
 /* No comment provided by engineer. */
 "map.headingbutton.accessibilityvalue.off" = "Aus";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.on" = "Ein";
+"map.headingbutton.accessibilityvalue.on" = "An";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps muss dein GPS verwenden, um die Karte anderen aktiven Benutzern anzuzeigen";
@@ -49,6 +48,15 @@
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "lokalisiere";
+
+/* No comment provided by engineer. */
+"map.menu.route" = "Route";
+
+/* No comment provided by engineer. */
+"map.menu.share" = "Teilen";
+
+/* No comment provided by engineer. */
+"map.menu.title" = "Nächstes Event";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
@@ -81,7 +89,7 @@
 "rules.title" = "Knigge";
 
 /* No comment provided by engineer. */
-"rules.number" = "Knigge Nummer";
+"rules.number" = "Regelnr.";
 
 /* No comment provided by engineer. */
 "rules.title.brake" = "Keine Vollbremsungen!";
@@ -107,14 +115,44 @@
 /* No comment provided by engineer. */
 "settings.about" = "About";
 
-
+/* No comment provided by engineer. */
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 /* No comment provided by engineer. */
+"settings.criticalMassDotIn.detail" = "Trage deinen Bike Aktivismus beim criticalmass.in Projekt ein und promote es an andere Bike Enthusiasten.";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.title" = "Fehlt eine Mass?";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.action" = "Projekt anzeigen";
+
+/* No comment provided by engineer. */
 "settings.donate" = "Helfe unseren Server zu finanzieren";
+
+/* No comment provided by engineer. */
+"settings.appIcon" = "App Icon";
+
+/* No comment provided by engineer. */
+"settings.eventSettings" = "Event Einstellungen";
+
+/* No comment provided by engineer. */
+"settings.settingsEventSearchRadius" = "Event-Suchradius";
+
+/* No comment provided by engineer. */
+"settings.eventSettingsEnable" = "Event-Benachrichtigung aktivieren";
+
+/* No comment provided by engineer. */
+"settings.eventTypes" = "Art der Veranstaltung";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadius" = "Event-Suchradius";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadiusDistance" = "%@ km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -153,10 +191,10 @@
 "settings.openSource" = "GitHub";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "Repository ansehen";
+"settings.opensource.action" = "Repository anzeigen";
 
 /* No comment provided by engineer. */
-"settings.opensource.detail" = "Critical Maps ist ein Open Source Projekt und wir freuen uns über Entwickler*innen die an Critical Maps mitarbeiten wollen.";
+"settings.opensource.detail" = "Critical Maps ist ein Open Source Projekt und wir freuen uns über Entwickler*innen, die an Critical Maps mitarbeiten wollen.";
 
 /* No comment provided by engineer. */
 "settings.opensource.title" = "Vermisst du Funktionen oder willst einen Bug fixen?";
@@ -174,16 +212,16 @@
 "settings.theme" = "Nachtmodus";
 
 /* Theme appearance */
-"settings.theme.appearance" = "Erscheinungsbild";
+"settings.theme.appearance" = "Aussehen";
 
 /* Theme appearance system */
 "settings.theme.system" = "System";
 
 /* Theme appearance light */
-"settings.theme.light" = "Hell";
+"settings.theme.light" = "Light";
 
 /* Theme appearance dark */
-"settings.theme.dark" = "Dunkel";
+"settings.theme.dark" = "Dark";
 
 /* No comment provided by engineer. */
 "settings.title" = "Einstellungen";
@@ -193,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "settings.website" = "Website";
+
+/* No comment provided by engineer. */
+"settings.appIconTitle" = "App Icon";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Derzeit sind keine Daten verfügbar.\nBitte herunterziehen, um zu aktualisieren.";

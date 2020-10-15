@@ -1,9 +1,8 @@
-
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Al momento nessuno sta chattando... comincia tu!";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Scrivi Messaggio";
+"chat.placeholder" = "Scrivere messaggi";
 
 /* No comment provided by engineer. */
 "chat.send" = "invia";
@@ -30,16 +29,16 @@
 "errorState.title" = "Errore";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilitylabel" = "Monitoraggio";
+"map.headingbutton.accessibilitylabel" = "Tracking";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.heading" = "Attivo con direzione";
+"map.headingbutton.accessibilityvalue.heading" = "On with heading";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.off" = "No";
+"map.headingbutton.accessibilityvalue.off" = "Off";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.on" = "Sì";
+"map.headingbutton.accessibilityvalue.on" = "On";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Critical Maps deve utilizzare il GPS per mostrare la mappa con altri utenti attivi";
@@ -49,6 +48,15 @@
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "Posizionamento";
+
+/* No comment provided by engineer. */
+"map.menu.route" = "Percorso";
+
+/* No comment provided by engineer. */
+"map.menu.share" = "Condividi";
+
+/* No comment provided by engineer. */
+"map.menu.title" = "Prossimi eventi";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
@@ -81,7 +89,7 @@
 "rules.title" = "Regole";
 
 /* No comment provided by engineer. */
-"rules.number" = "Regole Numero";
+"rules.number" = "Numero regola";
 
 /* No comment provided by engineer. */
 "rules.title.brake" = "Non frenare bruscamente";
@@ -107,14 +115,44 @@
 /* No comment provided by engineer. */
 "settings.about" = "Crediti";
 
-
+/* No comment provided by engineer. */
 "settings.appDesign" = "Conception";
 
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlino";
 
 /* No comment provided by engineer. */
+"settings.criticalMassDotIn.detail" = "Submit your bike activism to the criticalmass.in project and promote it to other bike enthusiasts.";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.title" = "Missing a mass?";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.action" = "Vedere Progetto";
+
+/* No comment provided by engineer. */
 "settings.donate" = "Supporta i costi del server";
+
+/* No comment provided by engineer. */
+"settings.appIcon" = "App Icon";
+
+/* No comment provided by engineer. */
+"settings.eventSettings" = "Opzioni Evento";
+
+/* No comment provided by engineer. */
+"settings.settingsEventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSettingsEnable" = "Attiva Notifiche Evento";
+
+/* No comment provided by engineer. */
+"settings.eventTypes" = "Tipi Di Evento";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadiusDistance" = "%d km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -126,13 +164,13 @@
 "settings.friends.addFriendDescription" = "aggiunto";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendTitle" = "Amico aggiunto";
+"settings.friends.addFriendTitle" = "Added Friend";
 
 /* No comment provided by engineer. */
-"settings.friends.settings" = "Impostazioni";
+"settings.friends.settings" = "Settings";
 
 /* No comment provided by engineer. */
-"settings.friends.showID" = "Mostra ID";
+"settings.friends.showID" = "Visualizza ID";
 
 /* No comment provided by engineer. */
 "settings.gpsSettings" = "Impostazioni GPS";
@@ -153,7 +191,7 @@
 "settings.openSource" = "Github";
 
 /* No comment provided by engineer. */
-"settings.opensource.action" = "Guarda il Repository";
+"settings.opensource.action" = "Visualizza Repository";
 
 /* No comment provided by engineer. */
 "settings.opensource.detail" = "Critical Maps è un progetto open source e non vediamo l'ora di vedere sviluppatori che vogliono lavorare su mappe critiche.";
@@ -174,16 +212,16 @@
 "settings.theme" = "Modalità Notturna";
 
 /* Theme appearance */
-"settings.theme.appearance" = "Aspetto";
+"settings.theme.appearance" = "Apparenza";
 
 /* Theme appearance system */
-"settings.theme.system" = "Sistema";
+"settings.theme.system" = "System";
 
 /* Theme appearance light */
-"settings.theme.light" = "Luminoso";
+"settings.theme.light" = "Light";
 
 /* Theme appearance dark */
-"settings.theme.dark" = "Buio";
+"settings.theme.dark" = "Dark";
 
 /* No comment provided by engineer. */
 "settings.title" = "Impostazioni";
@@ -193,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "settings.website" = "Sito web";
+
+/* No comment provided by engineer. */
+"settings.appIconTitle" = "App Icon";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Nessun dato è attualmente disponibile. \nTira lo schermo verso il basso per aggiornare.";

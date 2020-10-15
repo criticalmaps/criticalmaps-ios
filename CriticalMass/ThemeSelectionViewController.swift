@@ -28,7 +28,7 @@ final class ThemeSelectionViewController: UITableViewController {
         tableView.tableFooterView = UIView()
 
         tableView.dataSource = self
-        title = L10n.themeAppearanceLocalizedString
+        title = L10n.Settings.Theme.appearance
     }
 
     // MARK: UITableViewDelegate

@@ -1,9 +1,8 @@
-
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Nadie está charlando en este momento...\n¿por qué no empezas?";
 
 /* No comment provided by engineer. */
-"chat.placeholder" = "Escribe Mensaje";
+"chat.placeholder" = "Escribir mensaje";
 
 /* No comment provided by engineer. */
 "chat.send" = "Enviar";
@@ -15,7 +14,7 @@
 "chat.title" = "Chat";
 
 
-"chat.unreadbutton.accessibilityvalue" = "%@ mensajes no leídos";
+"chat.unreadbutton.accessibilityvalue" = "%@ mensajes sin leer";
 
 /* No comment provided by engineer. */
 "close.button.label" = "cerrar";
@@ -30,16 +29,16 @@
 "errorState.title" = "Error";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilitylabel" = "Seguimiento";
+"map.headingbutton.accessibilitylabel" = "Tracking";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.heading" = "Activado con encabezado";
+"map.headingbutton.accessibilityvalue.heading" = "On with heading";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.off" = "No";
+"map.headingbutton.accessibilityvalue.off" = "Off";
 
 /* No comment provided by engineer. */
-"map.headingbutton.accessibilityvalue.on" = "Sí";
+"map.headingbutton.accessibilityvalue.on" = "On";
 
 /* No comment provided by engineer. */
 "map.layer.info" = "Los mapas críticos deben usar su GPS para mostrar el mapa a otros usuarios activos";
@@ -49,6 +48,15 @@
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "Localización";
+
+/* No comment provided by engineer. */
+"map.menu.route" = "Route";
+
+/* No comment provided by engineer. */
+"map.menu.share" = "Compartir";
+
+/* No comment provided by engineer. */
+"map.menu.title" = "Próximo evento";
 
 /* No comment provided by engineer. */
 "map.title" = "Critical Maps";
@@ -81,7 +89,7 @@
 "rules.title" = "Normas";
 
 /* No comment provided by engineer. */
-"rules.number" = "Norma Número";
+"rules.number" = "Regla Número";
 
 /* No comment provided by engineer. */
 "rules.title.brake" = "¡No hay paradas duras!";
@@ -107,14 +115,44 @@
 /* No comment provided by engineer. */
 "settings.about" = "About";
 
-
+/* No comment provided by engineer. */
 "settings.appDesign" = "Design";
 
 /* No comment provided by engineer. */
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 /* No comment provided by engineer. */
+"settings.criticalMassDotIn.detail" = "Submit your bike activism to the criticalmass.in project and promote it to other bike enthusiasts.";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.title" = "Missing a mass?";
+
+/* No comment provided by engineer. */
+"settings.criticalMassDotIn.action" = "Ver Project";
+
+/* No comment provided by engineer. */
 "settings.donate" = "Ayuda a financiar nuestro servidor";
+
+/* No comment provided by engineer. */
+"settings.appIcon" = "App Icon";
+
+/* No comment provided by engineer. */
+"settings.eventSettings" = "Ajustes del evento";
+
+/* No comment provided by engineer. */
+"settings.settingsEventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSettingsEnable" = "Activar Notificaciones de evento";
+
+/* No comment provided by engineer. */
+"settings.eventTypes" = "Tipos de evento";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadius" = "Event Search Radius";
+
+/* No comment provided by engineer. */
+"settings.eventSearchRadiusDistance" = "%@ km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -123,13 +161,13 @@
 "settings.friends" = "Amigos";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendDescription" = "agregado";
+"settings.friends.addFriendDescription" = "añadió";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendTitle" = "Amigo agregado";
+"settings.friends.addFriendTitle" = "Añadido Amigo";
 
 /* No comment provided by engineer. */
-"settings.friends.settings" = "Configuraciones";
+"settings.friends.settings" = "Configuración";
 
 /* No comment provided by engineer. */
 "settings.friends.showID" = "Mostrar ID";
@@ -177,13 +215,13 @@
 "settings.theme.appearance" = "Apariencia";
 
 /* Theme appearance system */
-"settings.theme.system" = "Sistema";
+"settings.theme.system" = "System";
 
 /* Theme appearance light */
-"settings.theme.light" = "Brillante";
+"settings.theme.light" = "Light";
 
 /* Theme appearance dark */
-"settings.theme.dark" = "Oscuro";
+"settings.theme.dark" = "Dark";
 
 /* No comment provided by engineer. */
 "settings.title" = "Ajustes";
@@ -193,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "settings.website" = "Website";
+
+/* No comment provided by engineer. */
+"settings.appIconTitle" = "App Icon";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Actualmente no hay tweets disponibles.\nPor favor, arrastre para cargar nuevo.";

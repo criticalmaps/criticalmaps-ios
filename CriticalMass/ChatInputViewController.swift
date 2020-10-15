@@ -20,7 +20,7 @@ final class ChatInputViewController: UIViewController, IBConstructable {
             inputTextView.layer.masksToBounds = true
             inputTextView.textContainerInset = Constants.textContainerInset
             if #available(iOS 13.0, *) {
-                inputTextView.accessibilityUserInputLabels = [L10n.chatPlaceholder]
+                inputTextView.accessibilityUserInputLabels = [L10n.Chat.placeholder]
             }
         }
     }

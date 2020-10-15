@@ -74,12 +74,12 @@ class AppController {
             .init(representation: .button(chatNavigationButtonController.button),
                   action: .navigation(viewController: getSocialViewController),
                   accessibilityIdentifier: "Chat"),
-            .init(representation: .icon(UIImage(named: "Knigge")!, accessibilityLabel: L10n.rulesTitle),
+            .init(representation: .icon(Asset.knigge.image, accessibilityLabel: L10n.Rules.title),
                   action: .navigation(viewController: getRulesViewController),
-                  accessibilityIdentifier: "Rules"),
-            .init(representation: .icon(UIImage(named: "Settings")!, accessibilityLabel: L10n.settingsTitle),
+                  accessibilityIdentifier: L10n.Rules.title),
+            .init(representation: .icon(Asset.settings.image, accessibilityLabel: L10n.Settings.title),
                   action: .navigation(viewController: getSettingsViewController),
-                  accessibilityIdentifier: "Settings"),
+                  accessibilityIdentifier: L10n.Settings.title),
         ])
         mapViewController.addChild(navigationOverlay)
         mapViewController.view.addSubview(navigationOverlay.view)
@@ -122,7 +122,7 @@ class AppController {
 
     private func getSettingsViewController() -> SettingsViewController {
         AppSettingsViewController(
-            controllerTitle: L10n.settingsTitle,
+            controllerTitle: L10n.Settings.title,
             sections: SettingsSection.appSettings,
             themeController: themeController,
             dataStore: dataStore,
@@ -143,8 +143,8 @@ class AppController {
 
                 dataStore.add(friend: followURLObject.queryObject)
                 AlertPresenter.shared.presentAlert(
-                    title: L10n.settingsAddFriendTitle,
-                    message: followURLObject.queryObject.name + " " + L10n.settingsAddFriendDescription,
+                    title: L10n.Settings.Friends.addFriendTitle,
+                    message: followURLObject.queryObject.name + " " + L10n.Settings.Friends.addFriendDescription,
                     preferredStyle: .alert,
                     actionData: [UIAlertAction(title: L10n.ok, style: .default, handler: nil)]
                 )

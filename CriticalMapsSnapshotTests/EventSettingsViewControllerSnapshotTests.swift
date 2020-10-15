@@ -14,7 +14,7 @@ class EventSettingsViewControllerSnapshotTests: XCTestCase {
     func testGeneralAppearanceWhenNotificationsAreEnabled() {
         // Given
         let viewController = EventSettingsViewController(
-            controllerTitle: L10n.settingsTitle,
+            controllerTitle: L10n.Settings.title,
             sections: SettingsSection.eventSettings,
             themeController: MockThemeController.shared,
             rideEventSettingsStore: RideEventSettingsStoreMock(
@@ -38,7 +38,7 @@ class EventSettingsViewControllerSnapshotTests: XCTestCase {
     func testGeneralAppearanceWhenNotificationsAreDisabled() {
         // Given
         let viewController = EventSettingsViewController(
-            controllerTitle: L10n.settingsTitle,
+            controllerTitle: L10n.Settings.title,
             sections: SettingsSection.eventSettings,
             themeController: MockThemeController.shared,
             rideEventSettingsStore: RideEventSettingsStoreMock(
