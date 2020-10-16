@@ -17,11 +17,11 @@ class TweetTableViewCellSnapshotTests: XCTestCase {
     func testTweetTableViewCell() {
         // given
         let tweet = Tweet(text: "Hello World",
-                          created_at: tweetDate,
+                          createdAt: tweetDate,
                           user: TwitterUser(name: "Bar",
-                                            screen_name: "Foo",
-                                            profile_image_url_https: "haa"),
-                          id_str: "test_id")
+                                            screenName: "Foo",
+                                            profileImageUrl: "haa"),
+                          id: "test_id")
         let cell = TweetTableViewCell.fromNib()
 
         // when

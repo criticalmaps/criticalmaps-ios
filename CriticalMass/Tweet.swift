@@ -9,7 +9,14 @@ import Foundation
 
 struct Tweet: Codable, Hashable {
     var text: String
-    var created_at: Date
+    var createdAt: Date
     var user: TwitterUser
-    var id_str: String
+    var id: String
+
+    private enum CodingKeys: String, CodingKey {
+        case text
+        case createdAt = "created_at"
+        case user
+        case id = "id_str"
+    }
 }

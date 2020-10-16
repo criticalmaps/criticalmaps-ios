@@ -15,7 +15,16 @@ class FormatDisplayTests: XCTestCase {
     }()
 
     lazy var tweet = {
-        Tweet(text: "Hello World", created_at: self.date, user: TwitterUser(name: "Jan  Ullrich", screen_name: "", profile_image_url_https: ""), id_str: "1")
+        Tweet(
+            text: "Hello World",
+            createdAt: self.date,
+            user: TwitterUser(
+                name: "Jan  Ullrich",
+                screenName: "",
+                profileImageUrl: ""
+            ),
+            id: "1"
+        )
     }()
 
     func testFormatTweetSeconds() {
