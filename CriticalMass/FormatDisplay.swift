@@ -40,7 +40,7 @@ enum FormatDisplay {
     ) -> String? {
         let components = calendar.dateComponents(
             [.second, .minute, .hour, .day, .month],
-            from: tweet.created_at,
+            from: tweet.createdAt,
             to: currentDate
         ).dateComponentFromBiggestComponent
 
