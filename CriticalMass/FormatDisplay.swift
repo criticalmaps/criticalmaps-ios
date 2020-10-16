@@ -52,6 +52,7 @@ enum FormatDisplay {
         let date = Date(timeIntervalSince1970: message.timestamp)
         let formatter = DateFormatter.localeShortTimeFormatter
         formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
         return formatter.string(from: date)
     }
 }
