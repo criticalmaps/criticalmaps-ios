@@ -34,35 +34,35 @@ class AppDataStoreTests: XCTestCase {
 
     func testNotificationAfterStoringLocations() {
         let sut = AppDataStore(friendsStorage: store)
-        let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
+        let expectedObject = ApiResponse.Stubs.a
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
         }
         exp.expectedFulfillmentCount = 1
-        sut.update(with: ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:]))
+        sut.update(with: .success(ApiResponse.Stubs.a))
         wait(for: [exp], timeout: 1)
     }
 
     func testNotificationAfterStoringChatMessage() {
         let sut = AppDataStore(friendsStorage: store)
-        let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
+        let expectedObject = ApiResponse.Stubs.b
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notification.object as AnyObject as! ApiResponse == expectedObject
         }
         exp.expectedFulfillmentCount = 1
-        sut.update(with: ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)]))
+        sut.update(with: .success(ApiResponse.Stubs.b))
         wait(for: [exp], timeout: 1)
     }
 
     func testNoNoDoublicatedNotificationAfterStoringOldLocations() {
         let sut = AppDataStore(friendsStorage: store)
-        let expectedObject = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
+        let expectedObject = ApiResponse.Stubs.a
         var notificationCount = 0
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notificationCount += 1
             return notification.object as AnyObject as! ApiResponse == expectedObject
         }
-        let response = ApiResponse(locations: ["a": Location(longitude: 100, latitude: 100, timestamp: 100, name: "hello", color: "world")], chatMessages: [:])
+        let response: Result<ApiResponse, NetworkError> = .success(ApiResponse.Stubs.a)
         sut.update(with: response)
         sut.update(with: response)
         wait(for: [exp], timeout: 1)
@@ -72,13 +72,13 @@ class AppDataStoreTests: XCTestCase {
 
     func testNoNoDoublicatedNotificationAfterStoringOldMessages() {
         let sut = AppDataStore(friendsStorage: store)
-        let expectedObject = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
+        let expectedObject = ApiResponse.Stubs.b
         var notificationCount = 0
         let exp = expectation(forNotification: .positionOthersChanged, object: nil) { (notification) -> Bool in
             notificationCount += 1
             return notification.object as AnyObject as! ApiResponse == expectedObject
         }
-        let response = ApiResponse(locations: [:], chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)])
+        let response: Result<ApiResponse, NetworkError> = .success(ApiResponse.Stubs.b)
         sut.update(with: response)
         sut.update(with: response)
         wait(for: [exp], timeout: 1)
@@ -161,5 +161,26 @@ class AppDataStoreTests: XCTestCase {
         XCTAssertNotEqual(sut.userName, newName)
         sut.userName = newName
         XCTAssertEqual(sut.userName, newName)
+    }
+}
+
+private extension ApiResponse {
+    enum Stubs {
+        static let a = ApiResponse(
+            locations: [
+                "a": Location(
+                    longitude: 100,
+                    latitude: 100,
+                    timestamp: 100,
+                    name: "hello",
+                    color: "world"
+                )
+            ],
+            chatMessages: [:]
+        )
+        static let b = ApiResponse(
+            locations: [:],
+            chatMessages: ["b": ChatMessage(message: "Hello", timestamp: 1000)]
+        )
     }
 }
