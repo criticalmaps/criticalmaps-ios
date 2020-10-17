@@ -113,10 +113,34 @@ class MapViewController: UIViewController {
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: .initialGpsDataReceived, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: .observationModeChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .themeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveFocusNotification(notification:)), name: .focusLocation, object: nil)
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(didReceiveInitialLocation),
+                name: .initialGpsDataReceived,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(updateGPSDisabledOverlayVisibility),
+                name: .observationModeChanged,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(themeDidChange),
+                name: .themeDidChange,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(didReceiveFocusNotification),
+                name: .focusLocation,
+                object: nil
+            )
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
