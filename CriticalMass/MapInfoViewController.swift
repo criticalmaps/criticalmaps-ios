@@ -23,6 +23,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
     private var showServerError = false {
         willSet {
             guard newValue != showServerError else { return }
+            UIAccessibility.post(notification: .layoutChanged, argument: nil)
             newValue ?
                 locationUpdateErrorView.fadeIn()
                 : locationUpdateErrorView.fadeOut()
