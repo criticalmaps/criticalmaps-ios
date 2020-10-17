@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6F-W4-IVJ">
-                    <rect key="frame" x="8" y="8" width="111" height="34"/>
+                    <rect key="frame" x="20" y="8" width="111" height="34"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="JCk-zg-P2A">
                         <rect key="frame" x="0.0" y="0.0" width="111" height="34"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,7 +83,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KNC-l9-vlW" secondAttribute="trailing" constant="20" id="b34-EZ-Z3Z"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="nlf-08-HKH"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wVd-7l-sTK"/>
-                <constraint firstItem="W6F-W4-IVJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="yHc-fg-lrQ"/>
+                <constraint firstItem="W6F-W4-IVJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="yHc-fg-lrQ"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
