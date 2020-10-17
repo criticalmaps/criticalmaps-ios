@@ -20,16 +20,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
         }
     }
 
-    private var showServerError = false {
-        willSet {
-            guard newValue != showServerError else { return }
-            UIAccessibility.post(notification: .layoutChanged, argument: nil)
-            newValue ?
-                locationUpdateErrorView.fadeIn()
-                : locationUpdateErrorView.fadeOut()
-        }
-    }
-
+    private var showServerError = false
     private let animationDuration: TimeInterval = 0.2
 
     typealias CompletionHandler = () -> Void
@@ -148,11 +139,18 @@ class MapInfoViewController: UIViewController, IBConstructable {
     }
 
     @objc private func didReceiveLocationsUpdate(notification: Notification) {
-        guard let result = notification.object as? ApiResponseResult else {
+        guard
+            let result = notification.object as? ApiResponseResult,
+            result.isError() != showServerError
+        else {
             return
         }
         serverErrorLabel.text = L10n.Map.Layer.Info.errorMessage
         showServerError = result.isError()
+        UIAccessibility.post(notification: .layoutChanged, argument: nil)
+        showServerError ?
+            locationUpdateErrorView.fadeIn()
+            : locationUpdateErrorView.fadeOut()
     }
 }
 
