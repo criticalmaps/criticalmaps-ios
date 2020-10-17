@@ -13,6 +13,22 @@ class MapInfoViewController: UIViewController, IBConstructable {
         }
     }
 
+    @IBOutlet private var serverErrorLabel: UILabel!
+    @IBOutlet private var locationUpdateErrorView: UIVisualEffectView! {
+        didSet {
+            locationUpdateErrorView.isHidden = true
+        }
+    }
+
+    private var showServerError = false {
+        willSet {
+            guard newValue != showServerError else { return }
+            newValue ?
+                locationUpdateErrorView.fadeIn()
+                : locationUpdateErrorView.fadeOut()
+        }
+    }
+
     private let animationDuration: TimeInterval = 0.2
 
     typealias CompletionHandler = () -> Void
@@ -52,6 +68,18 @@ class MapInfoViewController: UIViewController, IBConstructable {
         infoView.closeButtonHandler = {
             self.dismissMapInfo()
         }
+
+        subscribeForNotififications()
+    }
+
+    private func subscribeForNotififications() {
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(didReceiveLocationsUpdate),
+                name: .locationAndMessagesReceived,
+                object: nil
+            )
     }
 
     /// Called when the mapInfoViewContainer is swiped up
@@ -116,6 +144,14 @@ class MapInfoViewController: UIViewController, IBConstructable {
             }
             animator.startAnimation()
         }
+    }
+
+    @objc private func didReceiveLocationsUpdate(notification: Notification) {
+        guard let result = notification.object as? ApiResponseResult else {
+            return
+        }
+        serverErrorLabel.text = L10n.Map.Layer.Info.errorMessage
+        showServerError = result.isError()
     }
 }
 
