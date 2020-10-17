@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol DataStore {
-    func update(with response: ApiResponse)
+    func update(with response: ApiResponseResult)
 
     func add(friend: Friend)
     func remove(friend: Friend)
