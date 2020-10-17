@@ -61,12 +61,12 @@ public class RequestManager {
         operationQueue.addOperation(updateDataOperation)
     }
 
-    private func defaultCompletion(for result: Result<ApiResponse, NetworkError>) {
+    private func defaultCompletion(for result: ApiResponseResult) {
         onMain { [weak self] in
             guard let self = self else { return }
+            self.dataStore.update(with: result)
             switch result {
-            case let .success(response):
-                self.dataStore.update(with: response)
+            case .success:
                 Logger.log(.info, log: self.log, "Successfully finished API update")
             case let .failure(error):
                 self.errorHandler.handleError(error)

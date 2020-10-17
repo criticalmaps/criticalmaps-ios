@@ -12,6 +12,8 @@ public protocol FriendsStorage {
     var username: String? { get set }
 }
 
+public typealias ApiResponseResult = Result<ApiResponse, NetworkError>
+
 public class AppDataStore: DataStore {
     private var friendsStorage: FriendsStorage
 
@@ -30,15 +32,18 @@ public class AppDataStore: DataStore {
         set { friendsStorage.username = newValue }
     }
 
-    public func update(with response: ApiResponse) {
-        if lastKnownResponse?.locations != response.locations {
-            NotificationCenter.default.post(name: .positionOthersChanged, object: response)
-            updateFriendsLocations(locations: response.locations)
+    public func update(with result: ApiResponseResult) {
+        NotificationCenter.default.post(name: .locationAndMessagesReceived, object: result)
+        if let response = try? result.get() {
+            if lastKnownResponse?.locations != response.locations {
+                NotificationCenter.default.post(name: .positionOthersChanged, object: response)
+                updateFriendsLocations(locations: response.locations)
+            }
+            if lastKnownResponse?.chatMessages != response.chatMessages {
+                NotificationCenter.default.post(name: .chatMessagesReceived, object: response)
+            }
+            lastKnownResponse = response
         }
-        if lastKnownResponse?.chatMessages != response.chatMessages {
-            NotificationCenter.default.post(name: .chatMessagesReceived, object: response)
-        }
-        lastKnownResponse = response
     }
 
     public func add(friend: Friend) {
