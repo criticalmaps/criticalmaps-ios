@@ -4,26 +4,29 @@
 import CoreLocation
 import UIKit
 
-class MapInfoViewController: UIViewController, IBConstructable {
+final class MapInfoViewController: UIViewController, IBConstructable {
+    typealias CompletionHandler = () -> Void
     @IBOutlet private var infoViewContainer: UIView! {
         didSet {
-            let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeUpGestureRecognizer))
+            let swipeUpGesture = UISwipeGestureRecognizer(
+                target: self,
+                action: #selector(onSwipeUpGestureRecognizer)
+            )
             swipeUpGesture.direction = .up
             infoViewContainer.addGestureRecognizer(swipeUpGesture)
         }
     }
 
-    @IBOutlet private var serverErrorLabel: UILabel!
-    @IBOutlet private var locationUpdateErrorView: UIVisualEffectView! {
+    @IBOutlet private var locationUpdateErrorViewContainer: UIView! {
         didSet {
-            locationUpdateErrorView.isHidden = true
+            locationUpdateErrorViewContainer.isHidden = true
         }
     }
 
     private var showServerError = false
-    private let animationDuration: TimeInterval = 0.2
+    private var errorView = MapErrorView.fromNib()
 
-    typealias CompletionHandler = () -> Void
+    private let animationDuration: TimeInterval = 0.2
 
     private var infoView = MapInfoView.fromNib()
     private var visibleBottomConstraint: NSLayoutConstraint!
@@ -47,6 +50,10 @@ class MapInfoViewController: UIViewController, IBConstructable {
     }
 
     private func setup() {
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        locationUpdateErrorViewContainer.addSubview(errorView)
+        errorView.addLayoutsSameSizeAndOrigin(in: locationUpdateErrorViewContainer)
+
         infoViewContainer.addSubview(infoView)
         infoView.addLayoutsSameSizeAndOrigin(in: infoViewContainer)
 
@@ -141,16 +148,14 @@ class MapInfoViewController: UIViewController, IBConstructable {
     @objc private func didReceiveLocationsUpdate(notification: Notification) {
         guard
             let result = notification.object as? ApiResponseResult,
-            result.isError() != showServerError
+            result.isError().0 != showServerError
         else {
             return
         }
-        serverErrorLabel.text = L10n.Map.Layer.Info.errorMessage
-        showServerError = result.isError()
+        errorView.setErrorLabelMessage(L10n.Map.Layer.Info.errorMessage)
+        showServerError = result.isError().0
         UIAccessibility.post(notification: .layoutChanged, argument: nil)
-        showServerError ?
-            locationUpdateErrorView.fadeIn()
-            : locationUpdateErrorView.fadeOut()
+        showServerError ? locationUpdateErrorViewContainer.fadeIn() : locationUpdateErrorViewContainer.fadeOut()
     }
 }
 

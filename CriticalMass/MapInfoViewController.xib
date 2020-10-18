@@ -12,8 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapInfoViewController" customModule="CriticalMaps" customModuleProvider="target">
             <connections>
                 <outlet property="infoViewContainer" destination="KNC-l9-vlW" id="W8j-aH-BLN"/>
-                <outlet property="locationUpdateErrorView" destination="W6F-W4-IVJ" id="G4e-yA-Ni9"/>
-                <outlet property="serverErrorLabel" destination="g85-SM-hgZ" id="dfY-bP-hwT"/>
+                <outlet property="locationUpdateErrorViewContainer" destination="tdR-Ir-Axe" id="i3D-Kh-icn"/>
                 <outlet property="view" destination="iN0-l3-epB" id="GkO-OZ-nWS"/>
             </connections>
         </placeholder>
@@ -22,46 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6F-W4-IVJ">
-                    <rect key="frame" x="20" y="8" width="111" height="34"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="JCk-zg-P2A">
-                        <rect key="frame" x="0.0" y="0.0" width="111" height="34"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="h0Y-GV-S9F">
-                                <rect key="frame" x="9.5" y="0.0" width="92.5" height="34"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alert" translatesAutoresizingMaskIntoConstraints="NO" id="kcg-Fc-iZX">
-                                        <rect key="frame" x="0.0" y="0.0" width="18" height="34"/>
-                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="18" id="Tei-Xh-H1F"/>
-                                            <constraint firstAttribute="height" constant="34" id="WC3-Xw-JoL"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ServerError" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g85-SM-hgZ">
-                                        <rect key="frame" x="23" y="0.0" width="69.5" height="34"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                    </view>
-                    <constraints>
-                        <constraint firstItem="h0Y-GV-S9F" firstAttribute="centerY" secondItem="W6F-W4-IVJ" secondAttribute="centerY" id="9co-hp-AUd"/>
-                        <constraint firstItem="h0Y-GV-S9F" firstAttribute="centerX" secondItem="W6F-W4-IVJ" secondAttribute="centerX" id="a6V-2P-A4v"/>
-                        <constraint firstAttribute="height" secondItem="h0Y-GV-S9F" secondAttribute="height" id="ots-Wd-NNW"/>
-                        <constraint firstAttribute="width" secondItem="h0Y-GV-S9F" secondAttribute="width" multiplier="1.2" id="w4u-Tl-hLN"/>
-                    </constraints>
-                    <blurEffect style="regular"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </visualEffectView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNC-l9-vlW">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNC-l9-vlW" userLabel="Info View">
                     <rect key="frame" x="20" y="-70" width="280" height="70"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
@@ -73,17 +33,31 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdR-Ir-Axe" userLabel="Error View Container">
+                    <rect key="frame" x="20" y="8" width="100" height="34"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" priority="250" constant="100" id="SM9-NO-ifD"/>
+                        <constraint firstAttribute="height" constant="34" id="wIZ-RB-0xH"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="W6F-W4-IVJ" firstAttribute="top" secondItem="KNC-l9-vlW" secondAttribute="bottom" constant="8" id="BQO-y2-B0T"/>
+                <constraint firstItem="tdR-Ir-Axe" firstAttribute="top" secondItem="KNC-l9-vlW" secondAttribute="bottom" constant="8" symbolic="YES" id="HXX-kb-CZB"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Koq-DH-TF1"/>
+                <constraint firstItem="tdR-Ir-Axe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="ZJE-xf-sPI"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="top" priority="999" id="aAE-dW-crU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KNC-l9-vlW" secondAttribute="trailing" constant="20" id="b34-EZ-Z3Z"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tdR-Ir-Axe" secondAttribute="trailing" constant="20" id="bfK-oc-oW9"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="nlf-08-HKH"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wVd-7l-sTK"/>
-                <constraint firstItem="W6F-W4-IVJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="yHc-fg-lrQ"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
@@ -94,12 +68,8 @@
         </view>
     </objects>
     <resources>
-        <image name="alert" width="22" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
