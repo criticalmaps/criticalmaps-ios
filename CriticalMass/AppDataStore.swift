@@ -12,8 +12,6 @@ public protocol FriendsStorage {
     var username: String? { get set }
 }
 
-public typealias ApiResponseResult = Result<ApiResponse, NetworkError>
-
 public class AppDataStore: DataStore {
     private var friendsStorage: FriendsStorage
 

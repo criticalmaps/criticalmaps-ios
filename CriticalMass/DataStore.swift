@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias ApiResponseResult = Result<ApiResponse, NetworkError>
+
 public protocol DataStore {
     func update(with response: ApiResponseResult)
 
