@@ -98,9 +98,6 @@ class MapViewController: UIViewController {
     private func setupMapInfoViewController() {
         add(mapInfoViewController)
         mapInfoViewController.view.addLayoutsSameSizeAndOrigin(in: view)
-        mapInfoViewController.tapHandler = { [unowned self] in
-            self.nextRideManager.nextRide.flatMap { self.focusOnCoordinate($0.coordinate) }
-        }
     }
 
     private func condfigureGPSDisabledOverlayView() {
@@ -324,7 +321,11 @@ extension MapViewController {
                         }
                     self.mapInfoViewController.configureAndPresentMapInfoView(
                         title: ride.titleAndTime,
-                        style: .info
+                        style: .info,
+                        tapHandler: { [weak self] in
+                            guard let self = self else { return }
+                            self.nextRideManager.nextRide.flatMap { self.focusOnCoordinate($0.coordinate) }
+                        }
                     )
                 }
             case let .failure(error):

@@ -4,6 +4,10 @@
 import CoreLocation
 import UIKit
 
+protocol MapInfoPresenter {
+    func onViewLoaded()
+}
+
 final class MapInfoViewController: UIViewController, IBConstructable {
     typealias CompletionHandler = () -> Void
     @IBOutlet private var infoViewContainer: UIView! {
@@ -32,16 +36,6 @@ final class MapInfoViewController: UIViewController, IBConstructable {
     private var visibleBottomConstraint: NSLayoutConstraint!
     private var infoViewContainerTopConstraint: NSLayoutConstraint {
         infoViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15)
-    }
-
-    public var closeButtonHandler: MapInfoView.TapHandler? {
-        get { infoView.closeButtonHandler }
-        set { infoView.closeButtonHandler = newValue }
-    }
-
-    public var tapHandler: MapInfoView.TapHandler? {
-        get { infoView.tapHandler }
-        set { infoView.tapHandler = newValue }
     }
 
     override func viewDidLoad() {
@@ -89,7 +83,8 @@ final class MapInfoViewController: UIViewController, IBConstructable {
     public func configureAndPresentMapInfoView(
         title: String,
         style: MapInfoView.Configuration.Style,
-        _ completion: CompletionHandler? = nil
+        _ completion: CompletionHandler? = nil,
+        tapHandler: @escaping MapInfoView.TapHandler
     ) {
         func animateIn() {
             infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
@@ -109,6 +104,7 @@ final class MapInfoViewController: UIViewController, IBConstructable {
             }
             animator.startAnimation()
         }
+        infoView.tapHandler = tapHandler
 
         if !visibleBottomConstraint.isActive {
             animateIn()
