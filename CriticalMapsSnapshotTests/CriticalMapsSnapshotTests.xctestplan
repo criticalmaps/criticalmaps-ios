@@ -4,8 +4,7 @@
       "id" : "9675AA6D-95DA-4EBD-985A-7278586C91C6",
       "name" : "de_DE",
       "options" : {
-        "language" : "de",
-        "testExecutionOrdering" : "random"
+        "language" : "de"
       }
     },
     {
@@ -13,8 +12,7 @@
       "name" : "it_IT",
       "options" : {
         "language" : "it",
-        "region" : "IT",
-        "testExecutionOrdering" : "random"
+        "region" : "IT"
       }
     },
     {
