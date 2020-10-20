@@ -11,3 +11,4 @@ xcassets:
     outputs:
       - templateName: swift4
         output: CriticalMass/Generated/Images.swift
+        
