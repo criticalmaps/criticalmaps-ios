@@ -50,7 +50,8 @@
       "containerPath" : "container:CriticalMaps.xcodeproj",
       "identifier" : "94CF085B19BDEAF2009FFF43",
       "name" : "CriticalMaps"
-    }
+    },
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
