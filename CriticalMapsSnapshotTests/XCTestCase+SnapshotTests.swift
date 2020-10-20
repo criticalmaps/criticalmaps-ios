@@ -31,7 +31,7 @@ extension XCTestCase {
                            as: .image(precision: precision, size: size),
                            named: theme.displayName,
                            file: file,
-                           testName: testName,
+                           testName: "\(testName).\(Locale.current.description)",
                            line: line)
         }
     }

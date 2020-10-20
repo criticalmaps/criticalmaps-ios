@@ -50,10 +50,9 @@ enum FormatDisplay {
 
     static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
         let date = Date(timeIntervalSince1970: message.timestamp)
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.localeShortTimeFormatter
         formatter.calendar = calendar
         formatter.timeZone = calendar.timeZone
-        formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
 }

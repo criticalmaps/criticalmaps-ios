@@ -23,7 +23,7 @@ Changelog for Critical Maps iOS
 ### Changed
 
 - Bump deployment target to iOS 12
-
+- Localised snapshot tests 
 
 ## [3.8.0] - 2020-03-01
 
