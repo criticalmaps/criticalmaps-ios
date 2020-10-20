@@ -79,5 +79,5 @@ extension Ride {
 }
 
 extension Ride {
-    static let eventRadii = [10, 20, 30, 40]
+    static let eventRadii: [Int] = [10, 20, 30, 40]
 }

@@ -152,7 +152,7 @@
 "settings.eventSearchRadius" = "Event Search Radius";
 
 /* No comment provided by engineer. */
-"settings.eventSearchRadiusDistance" = "%d km";
+"settings.eventSearchRadiusDistance" = "%@ km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
