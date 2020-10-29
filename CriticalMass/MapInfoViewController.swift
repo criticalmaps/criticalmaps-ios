@@ -144,13 +144,13 @@ final class MapInfoViewController: UIViewController, IBConstructable {
     @objc private func didReceiveLocationsUpdate(notification: Notification) {
         guard
             let result = notification.object as? ApiResponseResult,
-            result.isError().0 != showServerError
+            result.failed != showServerError
         else {
             return
         }
-        let errorMessage = (result.isError().1 as? NetworkError)?.errorDescription ?? L10n.Map.Layer.Info.errorMessage
+        let errorMessage = (result.error as? NetworkError)?.errorDescription ?? L10n.Map.Layer.Info.errorMessage
         errorView.setErrorLabelMessage(errorMessage)
-        showServerError = result.isError().0
+        showServerError = result.failed
         UIAccessibility.post(notification: .announcement, argument: errorMessage)
         showServerError ? locationUpdateErrorViewContainer.fadeIn() : locationUpdateErrorViewContainer.fadeOut()
     }

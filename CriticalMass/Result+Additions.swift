@@ -13,12 +13,16 @@ extension Result {
         }
     }
 
-    func isError() -> (Bool, Error?) {
+    var error: Error? {
         switch self {
         case .success:
-            return (false, nil)
+            return nil
         case let .failure(error):
-            return (true, error)
+            return error
         }
+    }
+
+    var failed: Bool {
+        error != nil
     }
 }
