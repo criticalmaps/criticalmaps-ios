@@ -48,4 +48,12 @@ class MapInfoViewSnapshotTests: XCTestCase {
         view.toggleErrorLabelVisibility(selector)
         assertViewSnapshot(matching: view, with: size, localized: false)
     }
+
+    func testAlertViewExpandedWithLongErrorMessage() {
+        let view = MapErrorView.fromNib()
+        view.setErrorLabelMessage("Errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrroar 🦖")
+        let selector = Selector("TRexSelector")
+        view.toggleErrorLabelVisibility(selector)
+        assertViewSnapshot(matching: view, with: size, localized: false)
+    }
 }
