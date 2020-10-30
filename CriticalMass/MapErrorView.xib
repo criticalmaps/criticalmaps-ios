@@ -24,14 +24,36 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-ci-7ej">
                                 <rect key="frame" x="8" y="0.0" width="142" height="30"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alert" translatesAutoresizingMaskIntoConstraints="NO" id="e1h-2s-YVe">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8X-3I-hrM">
                                         <rect key="frame" x="0.0" y="0.0" width="18" height="30"/>
-                                        <color key="tintColor" systemColor="systemYellowColor"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJz-Tv-tLe">
+                                                <rect key="frame" x="7" y="9" width="4" height="12"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="12" id="6cy-bl-gEm"/>
+                                                    <constraint firstAttribute="width" constant="4" id="fsd-EU-k2d"/>
+                                                </constraints>
+                                            </view>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alert" translatesAutoresizingMaskIntoConstraints="NO" id="e1h-2s-YVe">
+                                                <rect key="frame" x="0.0" y="0.0" width="18" height="30"/>
+                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="4rT-59-env"/>
+                                                    <constraint firstAttribute="width" constant="18" id="Mvr-o7-SZJ"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="4rT-59-env"/>
-                                            <constraint firstAttribute="width" constant="18" id="Mvr-o7-SZJ"/>
+                                            <constraint firstItem="IJz-Tv-tLe" firstAttribute="centerX" secondItem="K8X-3I-hrM" secondAttribute="centerX" id="BAy-dI-5zl"/>
+                                            <constraint firstAttribute="height" constant="30" id="GZJ-a4-agY"/>
+                                            <constraint firstItem="e1h-2s-YVe" firstAttribute="centerX" secondItem="K8X-3I-hrM" secondAttribute="centerX" id="iL0-Jv-W9K"/>
+                                            <constraint firstItem="e1h-2s-YVe" firstAttribute="centerY" secondItem="K8X-3I-hrM" secondAttribute="centerY" id="lNK-6x-4OI"/>
+                                            <constraint firstAttribute="width" constant="18" id="nP3-Dc-NpI"/>
+                                            <constraint firstItem="IJz-Tv-tLe" firstAttribute="centerY" secondItem="K8X-3I-hrM" secondAttribute="centerY" id="wOz-B1-4ko"/>
                                         </constraints>
-                                    </imageView>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ServerError" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGR-b9-PgM">
                                         <rect key="frame" x="26" y="0.0" width="116" height="30"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
