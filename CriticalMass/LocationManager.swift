@@ -69,6 +69,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, LocationProvider {
         locationManager.activityType = .otherNavigation
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.delegate = self
+        locationManager.showsBackgroundLocationIndicator = true
         locationManager.startUpdatingLocation()
     }
 
