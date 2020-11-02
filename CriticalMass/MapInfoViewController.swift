@@ -28,7 +28,7 @@ final class MapInfoViewController: UIViewController, IBConstructable {
     }
 
     private var showServerError = false
-    private var errorView = MapErrorView.fromNib()
+    private var errorView = MapInfoView.fromNib()
 
     private let animationDuration: TimeInterval = 0.2
 
@@ -148,8 +148,13 @@ final class MapInfoViewController: UIViewController, IBConstructable {
         else {
             return
         }
-        let errorMessage = "\(L10n.Map.Layer.Info.errorMessage) - \((result.error as? NetworkError)?.errorDescription ?? "")"
-        errorView.setErrorLabelMessage(errorMessage)
+        let errorMessage = "\(L10n.Map.Layer.Info.errorMessage) - Please check back later"
+        errorView.configure(
+            with: .init(
+                title: errorMessage,
+                style: .alert
+            )
+        )
         showServerError = result.failed
         UIAccessibility.post(notification: .announcement, argument: L10n.Map.Layer.Info.errorMessage)
         showServerError ? locationUpdateErrorViewContainer.fadeIn() : locationUpdateErrorViewContainer.fadeOut()
