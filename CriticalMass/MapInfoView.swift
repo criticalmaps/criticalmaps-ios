@@ -27,6 +27,13 @@ class MapInfoView: UIView, IBConstructable {
 
         var title: String
         var style: Style
+
+        var isCloseButtonHidden: Bool {
+            switch style {
+            case .alert: return true
+            case .info: return false
+            }
+        }
     }
 
     @IBOutlet private var imageView: UIImageView!
@@ -62,18 +69,19 @@ class MapInfoView: UIView, IBConstructable {
     func configure(with configuration: Configuration) {
         self.configuration = configuration
         label.text = configuration.title
-
         imageView.image = configuration.style.icon
-
+        closeButton.isHidden = configuration.isCloseButtonHidden
         accessibilityValue = configuration.title
+        if case .info = configuration.style {
+            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap(_:))))
+        }
         updateStyle()
     }
 
     private func setup() {
-        layer.setupMapOverlayConfiguration()
+        layer.setupMapOverlayConfiguration(cornerRadius: 12)
         label.isAccessibilityElement = false
         label.adjustsFontForContentSizeCategory = true
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap(_:))))
     }
 
     private func updateStyle() {
