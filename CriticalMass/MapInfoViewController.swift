@@ -148,7 +148,7 @@ final class MapInfoViewController: UIViewController, IBConstructable {
         else {
             return
         }
-        let errorMessage = "\(L10n.Map.Layer.Info.errorMessage) - Please check back later"
+        let errorMessage = L10n.Map.Layer.Info.errorMessage
         errorView.configure(
             with: .init(
                 title: errorMessage,

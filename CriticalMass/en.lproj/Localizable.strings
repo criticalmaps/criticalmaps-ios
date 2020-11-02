@@ -48,7 +48,7 @@
 "map.layer.info.title" = "GPS deactivated";
 
 /* No comment provided by engineer. */
-"map.layer.info.errorMessage" = "Server does not respond";
+"map.layer.info.errorMessage" = "Critical Maps isn't updating. Please check back later.";
 
 /* No comment provided by engineer. */
 "map.locationButton.label" = "locating";
