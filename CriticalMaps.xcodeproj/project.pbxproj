@@ -245,8 +245,6 @@
 		9F5F590425271DC90054197C /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F590325271DC90054197C /* AppSettingsViewController.swift */; };
 		9F5F591725274D7E0054197C /* SettingsCheckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */; };
 		9F5F592925275E720054197C /* SettingsCheckTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */; };
-		9F7E4A10253C5C3E001C7473 /* MapErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7E4A0F253C5C3E001C7473 /* MapErrorView.xib */; };
-		9F7E4A16253C5D04001C7473 /* MapErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7E4A15253C5D04001C7473 /* MapErrorView.swift */; };
 		9F875F2F251394A000E27C23 /* CMLightIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */; };
 		9F875F30251394A000E27C23 /* CMLightIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */; };
 		9F8B6BE22512847700530373 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B6BE12512847600530373 /* AppIcon.swift */; };
@@ -540,8 +538,6 @@
 		9F5F590325271DC90054197C /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		9F5F591525274D7E0054197C /* SettingsCheckTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCheckTableViewCell.swift; sourceTree = "<group>"; };
 		9F5F592825275E720054197C /* SettingsCheckTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCheckTableViewCell.xib; sourceTree = "<group>"; };
-		9F7E4A0F253C5C3E001C7473 /* MapErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapErrorView.xib; sourceTree = "<group>"; };
-		9F7E4A15253C5D04001C7473 /* MapErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapErrorView.swift; sourceTree = "<group>"; };
 		9F875F2D251394A000E27C23 /* CMLightIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@2x.png"; sourceTree = "<group>"; };
 		9F875F2E251394A000E27C23 /* CMLightIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMLightIcon@3x.png"; sourceTree = "<group>"; };
 		9F8B6BE12512847600530373 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
@@ -1063,8 +1059,6 @@
 			children = (
 				944D5F04240CE09200993899 /* MapInfoViewController.swift */,
 				944D5F05240CE09200993899 /* MapInfoViewController.xib */,
-				9F7E4A0F253C5C3E001C7473 /* MapErrorView.xib */,
-				9F7E4A15253C5D04001C7473 /* MapErrorView.swift */,
 				9822A16721F24CA7007F5994 /* MapViewController.swift */,
 				98DDF9E723D4F8E800E55BE7 /* MapOverlayErrorHandler.swift */,
 			);
@@ -1364,7 +1358,6 @@
 				9489D88C1B768274001E746C /* Localizable.strings in Resources */,
 				9FFEA39D251149C700E23021 /* AppIconTableViewCell.xib in Resources */,
 				9FFEA39025113F0900E23021 /* CMDarkIcon@3x.png in Resources */,
-				9F7E4A10253C5C3E001C7473 /* MapErrorView.xib in Resources */,
 				9FFEA39625113F0900E23021 /* CMNeonIcon@2x.png in Resources */,
 				9FFEA38F25113F0900E23021 /* CMRainbowIcon@2x.png in Resources */,
 				987C57AB23A4EB290060499B /* BlurryFullscreenOverlayView.xib in Resources */,
@@ -1548,7 +1541,6 @@
 				94CCC8B823D0587F000CCE2A /* UserDefaults+Additions.swift in Sources */,
 				982DA8CB21FF673500E2A51B /* TwitterViewController.swift in Sources */,
 				940643D023071F3200AB1BCB /* ErrorHandler.swift in Sources */,
-				9F7E4A16253C5D04001C7473 /* MapErrorView.swift in Sources */,
 				21859FAC2352AE5200B942AA /* UpdateDataOperation.swift in Sources */,
 				982B57A123395A7300886CAC /* FriendSettingsTableViewCell.swift in Sources */,
 				9455CE902397ACE300DED561 /* ChatInputViewController.swift in Sources */,
