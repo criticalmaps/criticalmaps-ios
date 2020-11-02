@@ -69,7 +69,7 @@ internal enum L10n {
       /// Critical Maps needs to use your GPS to show the map with other active user
       internal static let info = L10n.tr("Localizable", "map.layer.info")
       internal enum Info {
-        /// Server does not respond
+        /// Critical Maps isn't updating. Please check back later.
         internal static let errorMessage = L10n.tr("Localizable", "map.layer.info.errorMessage")
         /// GPS deactivated
         internal static let title = L10n.tr("Localizable", "map.layer.info.title")

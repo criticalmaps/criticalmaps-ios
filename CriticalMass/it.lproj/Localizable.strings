@@ -47,6 +47,9 @@
 "map.layer.info.title" = "GPS disattivato";
 
 /* No comment provided by engineer. */
+"map.layer.info.errorMessage" = "Critical Maps non sono aggiornate. Riprova più tardi.";
+
+/* No comment provided by engineer. */
 "map.locationButton.label" = "Posizionamento";
 
 /* No comment provided by engineer. */
@@ -125,7 +128,7 @@
 "settings.criticalMassDotIn.detail" = "Submit your bike activism to the criticalmass.in project and promote it to other bike enthusiasts.";
 
 /* No comment provided by engineer. */
-"settings.criticalMassDotIn.title" = "Missing a mass?";
+"settings.criticalMassDotIn.title" = "Manca una massa?";
 
 /* No comment provided by engineer. */
 "settings.criticalMassDotIn.action" = "Vedere Progetto";
@@ -152,7 +155,7 @@
 "settings.eventSearchRadius" = "Event Search Radius";
 
 /* No comment provided by engineer. */
-"settings.eventSearchRadiusDistance" = "%@ km";
+"settings.eventSearchRadiusDistance" = "%d km";
 
 /* No comment provided by engineer. */
 "settings.facebook" = "Facebook";
@@ -164,7 +167,7 @@
 "settings.friends.addFriendDescription" = "aggiunto";
 
 /* No comment provided by engineer. */
-"settings.friends.addFriendTitle" = "Added Friend";
+"settings.friends.addFriendTitle" = "Aggiunto Amico";
 
 /* No comment provided by engineer. */
 "settings.friends.settings" = "Settings";
