@@ -21,7 +21,7 @@ class MapInfoViewSnapshotTests: XCTestCase {
         view.configure(with: configuration)
 
         // then
-        assertViewSnapshot(matching: view, with: size)
+        assertViewSnapshot(matching: view, with: size, localized: false)
     }
 
     func testAlertStyle() {
@@ -33,27 +33,6 @@ class MapInfoViewSnapshotTests: XCTestCase {
         view.configure(with: configuration)
 
         // then
-        assertViewSnapshot(matching: view, with: size)
-    }
-
-    func testAlertViewCompact() {
-        let view = MapErrorView.fromNib()
-        assertViewSnapshot(matching: view, with: size, localized: false)
-    }
-
-    func testAlertViewExpanded() {
-        let view = MapErrorView.fromNib()
-        view.setErrorLabelMessage("Errrrroar 🦖")
-        let selector = Selector("TRexSelector")
-        view.toggleErrorLabelVisibility(selector)
-        assertViewSnapshot(matching: view, with: size, localized: false)
-    }
-
-    func testAlertViewExpandedWithLongErrorMessage() {
-        let view = MapErrorView.fromNib()
-        view.setErrorLabelMessage("Errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrroar 🦖")
-        let selector = Selector("TRexSelector")
-        view.toggleErrorLabelVisibility(selector)
         assertViewSnapshot(matching: view, with: size, localized: false)
     }
 }
