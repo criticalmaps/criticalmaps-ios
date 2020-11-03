@@ -18,6 +18,7 @@ class ChatManagerTests: XCTestCase {
             dataStore: dataStore,
             locationProvider: MockLocationProvider(),
             networkLayer: networkLayer,
+            interval: 0.1,
             idProvider: MockIDProvider(),
             networkObserver: nil
         )

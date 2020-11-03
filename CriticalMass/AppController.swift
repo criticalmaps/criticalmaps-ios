@@ -19,6 +19,7 @@ class AppController {
             dataStore: dataStore,
             locationProvider: LocationManager(observationModePreferenceStore: observationModePreferenceStore),
             networkLayer: networkOperator,
+            interval: RequestManager.Constants.foregroundRefreshInterval,
             idProvider: idProvider,
             networkObserver: networkObserver
         )
