@@ -30,7 +30,7 @@ extension XCTestCase {
             MockThemeController.shared.applyTheme()
             assertSnapshot(matching: value,
                            as: .image(precision: precision, size: size),
-                           named: theme.displayName,
+                           named: theme.rawValue,
                            file: file,
                            testName: localized ? "\(testName).\(Locale.current.description)" : testName,
                            line: line)
