@@ -98,9 +98,6 @@ class MapViewController: UIViewController {
     private func setupMapInfoViewController() {
         add(mapInfoViewController)
         mapInfoViewController.view.addLayoutsSameSizeAndOrigin(in: view)
-        mapInfoViewController.tapHandler = { [unowned self] in
-            self.nextRideManager.nextRide.flatMap { self.focusOnCoordinate($0.coordinate) }
-        }
     }
 
     private func condfigureGPSDisabledOverlayView() {
@@ -113,10 +110,34 @@ class MapViewController: UIViewController {
     }
 
     private func configureNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveInitialLocation(notification:)), name: .initialGpsDataReceived, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateGPSDisabledOverlayVisibility), name: .observationModeChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidChange), name: .themeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveFocusNotification(notification:)), name: .focusLocation, object: nil)
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(didReceiveInitialLocation),
+                name: .initialGpsDataReceived,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(updateGPSDisabledOverlayVisibility),
+                name: .observationModeChanged,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(themeDidChange),
+                name: .themeDidChange,
+                object: nil
+            )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(didReceiveFocusNotification),
+                name: .focusLocation,
+                object: nil
+            )
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -300,7 +321,11 @@ extension MapViewController {
                         }
                     self.mapInfoViewController.configureAndPresentMapInfoView(
                         title: ride.titleAndTime,
-                        style: .info
+                        style: .info,
+                        tapHandler: { [weak self] in
+                            guard let self = self else { return }
+                            self.nextRideManager.nextRide.flatMap { self.focusOnCoordinate($0.coordinate) }
+                        }
                     )
                 }
             case let .failure(error):

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapInfoViewController" customModule="CriticalMaps" customModuleProvider="target">
             <connections>
                 <outlet property="infoViewContainer" destination="KNC-l9-vlW" id="W8j-aH-BLN"/>
+                <outlet property="locationUpdateErrorViewContainer" destination="tdR-Ir-Axe" id="i3D-Kh-icn"/>
                 <outlet property="view" destination="iN0-l3-epB" id="GkO-OZ-nWS"/>
             </connections>
         </placeholder>
@@ -19,34 +21,55 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNC-l9-vlW">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNC-l9-vlW" userLabel="Info View">
                     <rect key="frame" x="20" y="-70" width="280" height="70"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="L4j-zG-2vI"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="18"/>
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdR-Ir-Axe" userLabel="Error View Container">
+                    <rect key="frame" x="20" y="8" width="280" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" priority="250" constant="100" id="SM9-NO-ifD"/>
+                        <constraint firstAttribute="height" constant="60" id="wIZ-RB-0xH"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="tdR-Ir-Axe" firstAttribute="top" secondItem="KNC-l9-vlW" secondAttribute="bottom" constant="8" symbolic="YES" id="HXX-kb-CZB"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Koq-DH-TF1"/>
+                <constraint firstItem="tdR-Ir-Axe" firstAttribute="leading" secondItem="KNC-l9-vlW" secondAttribute="leading" id="SKq-Rl-RuS"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="top" priority="999" id="aAE-dW-crU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KNC-l9-vlW" secondAttribute="trailing" constant="20" id="b34-EZ-Z3Z"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tdR-Ir-Axe" secondAttribute="trailing" constant="20" id="bfK-oc-oW9"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="nlf-08-HKH"/>
                 <constraint firstItem="KNC-l9-vlW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wVd-7l-sTK"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="nlf-08-HKH"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="137.68115942028987" y="150.66964285714286"/>
+            <point key="canvasLocation" x="136.875" y="150"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

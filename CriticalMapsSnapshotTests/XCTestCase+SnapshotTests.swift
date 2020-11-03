@@ -20,7 +20,8 @@ extension XCTestCase {
         precision: Float = 1,
         file: StaticString = #file,
         testName: String = #function,
-        line: UInt = #line
+        line: UInt = #line,
+        localized: Bool = true
     ) {
         enforceSnapshotDevice()
 
@@ -29,9 +30,9 @@ extension XCTestCase {
             MockThemeController.shared.applyTheme()
             assertSnapshot(matching: value,
                            as: .image(precision: precision, size: size),
-                           named: theme.displayName,
+                           named: theme.rawValue,
                            file: file,
-                           testName: "\(testName).\(Locale.current.description)",
+                           testName: localized ? "\(testName).\(Locale.current.description)" : testName,
                            line: line)
         }
     }

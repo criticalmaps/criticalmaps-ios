@@ -31,7 +31,10 @@ class ChatManagerTests: XCTestCase {
     func testSendMessage() {
         let setup = getSetup()
         let timeInterval = Date().timeIntervalSince1970
-        setup.networkLayer.mockResponse = ApiResponse(locations: [:], chatMessages: ["1233": ChatMessage(message: "Hello World", timestamp: timeInterval)])
+        setup.networkLayer.mockResponse = ApiResponse(
+            locations: [:],
+            chatMessages: ["1233": ChatMessage(message: "Hello World", timestamp: timeInterval)]
+        )
 
         let exp = expectation(description: "Wait for response")
 
@@ -73,7 +76,10 @@ class ChatManagerTests: XCTestCase {
     func testSendMessageIdentifierChanges() {
         let setup = getSetup()
         let timeInterval = Date().timeIntervalSince1970
-        setup.networkLayer.mockResponse = ApiResponse(locations: [:], chatMessages: ["1233": ChatMessage(message: "Hello World", timestamp: timeInterval)])
+        setup.networkLayer.mockResponse = ApiResponse(
+            locations: [:],
+            chatMessages: ["1233": ChatMessage(message: "Hello World", timestamp: timeInterval)]
+        )
 
         let firstExp = expectation(description: "Wait for response")
 
@@ -109,7 +115,10 @@ class ChatManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update message callback called")
 
-        let expectedMessages = [ChatMessage(message: "Hello", timestamp: 1), ChatMessage(message: "World", timestamp: 2)]
+        let expectedMessages = [
+            ChatMessage(message: "Hello", timestamp: 1),
+            ChatMessage(message: "World", timestamp: 2)
+        ]
 
         setup.chatManager.updateMessagesCallback = { messages in
             // iterating through the elements is more stable as the order of the elements may be different
@@ -119,8 +128,17 @@ class ChatManagerTests: XCTestCase {
             }
             exp.fulfill()
         }
-        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": expectedMessages[0], "2": expectedMessages[1]]))
-
+        setup.dataStore.update(
+            with: .success(
+                ApiResponse(
+                    locations: [:],
+                    chatMessages: [
+                        "1": expectedMessages[0],
+                        "2": expectedMessages[1]
+                    ]
+                )
+            )
+        )
         wait(for: [exp], timeout: 1)
     }
 
@@ -132,15 +150,32 @@ class ChatManagerTests: XCTestCase {
             XCTAssertEqual(unreadMessages, 2)
             exp.fulfill()
         }
-        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
-
+        setup.dataStore.update(
+            with: .success(
+                ApiResponse(
+                    locations: [:],
+                    chatMessages: [
+                        "1": ChatMessage(message: "Hello", timestamp: 1),
+                        "2": ChatMessage(message: "World", timestamp: 2)
+                    ]
+                )
+            ))
         wait(for: [exp], timeout: 1)
     }
 
     func testMessagesUnreadCountWithExistingTimeStamp() {
         let chatMessageStoreMock = ChatMessageStoreMock(lastMessageReadTimeInterval: 1)
         let setup = getSetup(chatMessageStore: chatMessageStoreMock)
-        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+        setup.dataStore.update(
+            with: .success(
+                ApiResponse(
+                    locations: [:],
+                    chatMessages: [
+                        "1": ChatMessage(message: "Hello", timestamp: 1),
+                        "2": ChatMessage(message: "World", timestamp: 2)
+                    ]
+                )
+            ))
         XCTAssertEqual(setup.chatManager.unreadMessagesCount, 1)
     }
 
@@ -148,7 +183,17 @@ class ChatManagerTests: XCTestCase {
         let setup = getSetup()
         let exp = expectation(description: "Update message callback called")
 
-        setup.dataStore.update(with: ApiResponse(locations: [:], chatMessages: ["1": ChatMessage(message: "Hello", timestamp: 1), "2": ChatMessage(message: "World", timestamp: 2)]))
+        setup.dataStore.update(
+            with: .success(
+                ApiResponse(
+                    locations: [:],
+                    chatMessages: [
+                        "1": ChatMessage(message: "Hello", timestamp: 1),
+                        "2": ChatMessage(message: "World", timestamp: 2)
+                    ]
+                )
+            )
+        )
         XCTAssertEqual(setup.chatManager.unreadMessagesCount, 2)
         setup.chatManager.updateUnreadMessagesCountCallback = { unreadMessages in
             XCTAssertEqual(unreadMessages, 0)
@@ -169,8 +214,14 @@ class ChatManagerTests: XCTestCase {
         let setup = getSetup()
 
         // inject mock message
-        let mockMessages = [ChatMessage(message: "hello", timestamp: 2), ChatMessage(message: "world", timestamp: 1)]
-        let apiResponse = ApiResponse(locations: [:], chatMessages: ["1": mockMessages[0], "2": mockMessages[1]])
+        let mockMessages = [
+            ChatMessage(message: "hello", timestamp: 2),
+            ChatMessage(message: "world", timestamp: 1)
+        ]
+        let apiResponse = ApiResponse(
+            locations: [:],
+            chatMessages: ["1": mockMessages[0], "2": mockMessages[1]]
+        )
         NotificationCenter.default.post(name: .chatMessagesReceived, object: apiResponse)
 
         XCTAssertEqual(setup.networkLayer.numberOfGetCalled, 0)

@@ -34,3 +34,38 @@ extension UIView {
         ])
     }
 }
+
+extension UIView {
+    /**
+     Fade in a view with a duration
+     - parameter duration: custom animation duration
+     */
+    func fadeIn(duration: TimeInterval = 0.2) {
+        isHidden = false
+        if alpha != 0.0 { alpha = 0.0 }
+        UIView.animate(
+            withDuration: duration,
+            delay: 0.0,
+            options: [.curveEaseOut],
+            animations: { self.alpha = 1.0 },
+            completion: nil
+        )
+    }
+
+    /**
+     Fade out a view with a duration
+     - parameter duration: custom animation duration
+     */
+    func fadeOut(duration: TimeInterval = 0.2) {
+        UIView.animate(
+            withDuration: duration,
+            delay: 0.0,
+            options: [.curveEaseOut],
+            animations: { self.alpha = 0.0 },
+            completion: { [weak self] _ in
+                guard let self = self else { return }
+                self.isHidden = true
+            }
+        )
+    }
+}

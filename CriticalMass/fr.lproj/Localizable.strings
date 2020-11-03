@@ -47,6 +47,9 @@
 "map.layer.info.title" = "GPS désactivé";
 
 /* No comment provided by engineer. */
+"map.layer.info.errorMessage" = "Critical Maps ne sont pas mises à jour. Veuillez revenir plus tard.";
+
+/* No comment provided by engineer. */
 "map.locationButton.label" = "localisation";
 
 /* No comment provided by engineer. */
@@ -122,10 +125,10 @@
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 /* No comment provided by engineer. */
-"settings.criticalMassDotIn.detail" = "Submit your bike activism to the criticalmass.in project and promote it to other bike enthusiasts.";
+"settings.criticalMassDotIn.detail" = "Soumettez vos actions sur criticalmass.in et faites en la promotion auprès d'autres activistes à vélo.";
 
 /* No comment provided by engineer. */
-"settings.criticalMassDotIn.title" = "Missing a mass?";
+"settings.criticalMassDotIn.title" = "Il manque une Mass ?";
 
 /* No comment provided by engineer. */
 "settings.criticalMassDotIn.action" = "Voir Projet";
@@ -140,7 +143,7 @@
 "settings.eventSettings" = "Paramètres de l'événement";
 
 /* No comment provided by engineer. */
-"settings.settingsEventSearchRadius" = "Event Search Radius";
+"settings.settingsEventSearchRadius" = "Rayon de recherche des événements";
 
 /* No comment provided by engineer. */
 "settings.eventSettingsEnable" = "Activer Notifications d'événement";
@@ -149,7 +152,7 @@
 "settings.eventTypes" = "Types d'évènements";
 
 /* No comment provided by engineer. */
-"settings.eventSearchRadius" = "Event Search Radius";
+"settings.eventSearchRadius" = "Rayon de recherche des événements";
 
 /* No comment provided by engineer. */
 "settings.eventSearchRadiusDistance" = "%@ km";

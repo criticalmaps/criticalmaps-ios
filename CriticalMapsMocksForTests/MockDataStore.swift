@@ -20,7 +20,7 @@ class MockDataStore: DataStore {
     var userName: String = "Jan Ullrich"
 
     var storedData: ApiResponse?
-    func update(with response: ApiResponse) {
-        storedData = response
+    func update(with response: ApiResponseResult) {
+        storedData = try? response.get()
     }
 }

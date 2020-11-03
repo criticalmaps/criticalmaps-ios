@@ -11,6 +11,7 @@ Changelog for Critical Maps iOS
 - Next event feature: See where the next Critical Mass close to you takes place.
 - Select an alternate app icon 
 - Added settings option to choose system appearance or dark/light
+- Shows error view on the map when the server does not respond 
 
 ### Fixed
 

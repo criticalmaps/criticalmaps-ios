@@ -4,33 +4,38 @@
 import CoreLocation
 import UIKit
 
-class MapInfoViewController: UIViewController, IBConstructable {
+protocol MapInfoPresenter {
+    func onViewLoaded()
+}
+
+final class MapInfoViewController: UIViewController, IBConstructable {
+    typealias CompletionHandler = () -> Void
     @IBOutlet private var infoViewContainer: UIView! {
         didSet {
-            let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeUpGestureRecognizer))
+            let swipeUpGesture = UISwipeGestureRecognizer(
+                target: self,
+                action: #selector(onSwipeUpGestureRecognizer)
+            )
             swipeUpGesture.direction = .up
             infoViewContainer.addGestureRecognizer(swipeUpGesture)
         }
     }
 
-    private let animationDuration: TimeInterval = 0.2
+    @IBOutlet private var locationUpdateErrorViewContainer: UIView! {
+        didSet {
+            locationUpdateErrorViewContainer.isHidden = true
+        }
+    }
 
-    typealias CompletionHandler = () -> Void
+    private var showServerError = false
+    private var errorView = MapInfoView.fromNib()
+
+    private let animationDuration: TimeInterval = 0.2
 
     private var infoView = MapInfoView.fromNib()
     private var visibleBottomConstraint: NSLayoutConstraint!
     private var infoViewContainerTopConstraint: NSLayoutConstraint {
         infoViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15)
-    }
-
-    public var closeButtonHandler: MapInfoView.TapHandler? {
-        get { infoView.closeButtonHandler }
-        set { infoView.closeButtonHandler = newValue }
-    }
-
-    public var tapHandler: MapInfoView.TapHandler? {
-        get { infoView.tapHandler }
-        set { infoView.tapHandler = newValue }
     }
 
     override func viewDidLoad() {
@@ -39,6 +44,10 @@ class MapInfoViewController: UIViewController, IBConstructable {
     }
 
     private func setup() {
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        locationUpdateErrorViewContainer.addSubview(errorView)
+        errorView.addLayoutsSameSizeAndOrigin(in: locationUpdateErrorViewContainer)
+
         infoViewContainer.addSubview(infoView)
         infoView.addLayoutsSameSizeAndOrigin(in: infoViewContainer)
 
@@ -52,6 +61,18 @@ class MapInfoViewController: UIViewController, IBConstructable {
         infoView.closeButtonHandler = {
             self.dismissMapInfo()
         }
+
+        subscribeForNotififications()
+    }
+
+    private func subscribeForNotififications() {
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(didReceiveLocationsUpdate),
+                name: .locationAndMessagesReceived,
+                object: nil
+            )
     }
 
     /// Called when the mapInfoViewContainer is swiped up
@@ -62,7 +83,8 @@ class MapInfoViewController: UIViewController, IBConstructable {
     public func configureAndPresentMapInfoView(
         title: String,
         style: MapInfoView.Configuration.Style,
-        _ completion: CompletionHandler? = nil
+        _ completion: CompletionHandler? = nil,
+        tapHandler: @escaping MapInfoView.TapHandler
     ) {
         func animateIn() {
             infoView.configure(with: MapInfoView.Configuration(title: title, style: style))
@@ -82,6 +104,7 @@ class MapInfoViewController: UIViewController, IBConstructable {
             }
             animator.startAnimation()
         }
+        infoView.tapHandler = tapHandler
 
         if !visibleBottomConstraint.isActive {
             animateIn()
@@ -116,6 +139,25 @@ class MapInfoViewController: UIViewController, IBConstructable {
             }
             animator.startAnimation()
         }
+    }
+
+    @objc private func didReceiveLocationsUpdate(notification: Notification) {
+        guard
+            let result = notification.object as? ApiResponseResult,
+            result.failed != showServerError
+        else {
+            return
+        }
+        let errorMessage = L10n.Map.Layer.Info.errorMessage
+        errorView.configure(
+            with: .init(
+                title: errorMessage,
+                style: .alert
+            )
+        )
+        showServerError = result.failed
+        UIAccessibility.post(notification: .announcement, argument: L10n.Map.Layer.Info.errorMessage)
+        showServerError ? locationUpdateErrorViewContainer.fadeIn() : locationUpdateErrorViewContainer.fadeOut()
     }
 }
 
