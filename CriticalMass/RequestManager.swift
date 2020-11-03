@@ -7,9 +7,15 @@
 
 import Foundation
 import os.log
+import UIKit
 
 @available(macOS 10.12, *)
 public class RequestManager {
+    public enum Constants {
+        static let foregroundRefreshInterval: TimeInterval = 6
+        static let receivedFailureRefreshInterval: TimeInterval = 4
+    }
+
     private var dataStore: DataStore
     private var locationProvider: LocationProvider
     private var networkLayer: NetworkLayer
@@ -20,28 +26,50 @@ public class RequestManager {
     private let operationQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
-
         return queue
     }()
 
+    private var refreshInterval: TimeInterval = Constants.foregroundRefreshInterval
+
     private var log = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "", category: "RequestManager")
 
-    public init(dataStore: DataStore, locationProvider: LocationProvider, networkLayer: NetworkLayer, interval: TimeInterval = 12.0, idProvider: IDProvider, errorHandler: ErrorHandler = PrintErrorHandler(), networkObserver: NetworkObserver?) {
+    public init(
+        dataStore: DataStore,
+        locationProvider: LocationProvider,
+        networkLayer: NetworkLayer,
+        interval: TimeInterval,
+        idProvider: IDProvider,
+        errorHandler: ErrorHandler = PrintErrorHandler(),
+        networkObserver: NetworkObserver?
+    ) {
         self.idProvider = idProvider
         self.dataStore = dataStore
         self.locationProvider = locationProvider
         self.networkLayer = networkLayer
         self.networkObserver = networkObserver
         self.errorHandler = errorHandler
+        refreshInterval = interval
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(didReceiveLocationsUpdate),
+            name: .locationAndMessagesReceived,
+            object: nil
+        )
+
+
 
         setupNetworkObserver()
-        addUpdateOperation(with: interval)
+        addUpdateOperation()
     }
 
-    private func addUpdateOperation(with interval: TimeInterval) {
-        let updateDataOperation = UpdateDataOperation(locationProvider: locationProvider,
-                                                      idProvider: idProvider,
-                                                      networkLayer: networkLayer)
+    private func addUpdateOperation() {
+        let updateDataOperation = UpdateDataOperation(
+            locationProvider: locationProvider,
+            idProvider: idProvider,
+            networkLayer: networkLayer
+        )
         updateDataOperation.completionBlock = { [weak self] in
             guard let self = self else { return }
 
@@ -49,10 +77,10 @@ public class RequestManager {
                 self.defaultCompletion(for: result)
             }
 
-            self.addUpdateOperation(with: interval)
+            self.addUpdateOperation()
         }
 
-        let waitOperation = WaitOperation(with: interval)
+        let waitOperation = WaitOperation(with: refreshInterval)
         operationQueue.addOperation(waitOperation)
 
         let updateLocationOperation = UpdateLocationOperation(locationProvider: locationProvider)
@@ -95,6 +123,17 @@ public class RequestManager {
                     }
                 }
             }
+    }
+
+    @objc private func didReceiveLocationsUpdate(notification: Notification) {
+        guard let result = notification.object as? ApiResponseResult else {
+            return
+        }
+        if result.failed {
+            refreshInterval = Constants.receivedFailureRefreshInterval
+        } else {
+            refreshInterval = Constants.foregroundRefreshInterval
+        }
     }
 }
 
