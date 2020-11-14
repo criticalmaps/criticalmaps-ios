@@ -9,20 +9,17 @@ import MapKit
 
 class BikeAnnoationView: MKAnnotationView {
     private enum Constants {
-        static let shapeRect = CGRect(x: 0, y: 0, width: 7, height: 7)
+        static let smallSize = CGRect(x: 0, y: 0, width: 3, height: 3)
+        static let defaultSize = CGRect(x: 0, y: 0, width: 7, height: 7)
+        static let large = CGRect(x: 0, y: 0, width: 14, height: 14)
+        static let extraLarge = CGRect(x: 0, y: 0, width: 28, height: 28)
     }
-
-    private lazy var ovalShapeLayer: CAShapeLayer = {
-        $0.path = UIBezierPath(ovalIn: frame).cgPath
-        $0.fillColor = UIColor.cmYellow.cgColor
-        return $0
-    }(CAShapeLayer())
 
     @objc
     dynamic var shapeBackgroundColor: UIColor? {
         willSet {
             guard let fillColor = newValue else { return }
-            ovalShapeLayer.fillColor = fillColor.cgColor
+            backgroundColor = fillColor
         }
     }
 
@@ -38,11 +35,32 @@ class BikeAnnoationView: MKAnnotationView {
 
     private func commonInit() {
         canShowCallout = false
-        backgroundColor = .clear
+        backgroundColor = UIColor.cmYellow
 
-        frame = Constants.shapeRect
+        frame = defineFrame()
+        layer.cornerRadius = frame.height / 2
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
+    }
 
-        layer.addSublayer(ovalShapeLayer)
+    private func defineFrame() -> CGRect {
+        switch traitCollection.preferredContentSizeCategory {
+        case .extraSmall, .small:
+            return Constants.smallSize
+        case .large, .extraLarge, .accessibilityLarge, .accessibilityExtraLarge:
+            return Constants.large
+        case .extraExtraExtraLarge, .extraExtraExtraLarge, .accessibilityExtraExtraLarge, .accessibilityExtraExtraExtraLarge:
+            return Constants.extraLarge
+        default:
+            return Constants.defaultSize
+        }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        frame = defineFrame()
+        layer.cornerRadius = frame.height / 2
+        setNeedsDisplay()
     }
 }
 
