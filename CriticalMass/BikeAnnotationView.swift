@@ -47,7 +47,7 @@ class BikeAnnoationView: MKAnnotationView {
         switch traitCollection.preferredContentSizeCategory {
         case .extraSmall, .small:
             return Constants.smallSize
-        case .large, .extraLarge, .accessibilityLarge, .accessibilityExtraLarge:
+        case .extraLarge, .accessibilityLarge, .accessibilityExtraLarge:
             return Constants.large
         case .extraExtraExtraLarge, .extraExtraExtraLarge, .accessibilityExtraExtraLarge, .accessibilityExtraExtraExtraLarge:
             return Constants.extraLarge
