@@ -20,6 +20,7 @@ Changelog for Critical Maps iOS
 - Fix missing information for VoiceOver user for the navigationbar buttons
 - Fix VoiceControl labels on each view
 - Fix `bottomContentOffset` for NavigationOverlay (did hide the Legal button)
+- Fix `BikeAnnotation` it is more accesible now(scales with preferredContentSizeCategory)
 
 ### Changed
 
