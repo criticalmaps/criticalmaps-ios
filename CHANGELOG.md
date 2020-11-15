@@ -7,6 +7,7 @@ Changelog for Critical Maps iOS
 ### Fixed 
 
 - Remove Container Background Color in MapInfoView
+- Make `BikeAnnotation` it is more accesible now(scales with preferredContentSizeCategory)
 
 # [3.9.0] - 2020-11-09
 
@@ -26,7 +27,6 @@ Changelog for Critical Maps iOS
 - Fix missing information for VoiceOver user for the navigationbar buttons
 - Fix VoiceControl labels on each view
 - Fix `bottomContentOffset` for NavigationOverlay (did hide the Legal button)
-- Fix `BikeAnnotation` it is more accesible now(scales with preferredContentSizeCategory)
 
 ### Changed
 
