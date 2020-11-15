@@ -65,8 +65,8 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ok1-Cv-1uN" firstAttribute="bottom" secondItem="kk6-lS-phi" secondAttribute="bottom" priority="800" constant="-6" id="7WB-dK-BIj"/>
-                <constraint firstItem="ok1-Cv-1uN" firstAttribute="top" secondItem="kk6-lS-phi" secondAttribute="top" constant="6" id="JaF-Ty-V2B"/>
+                <constraint firstItem="ok1-Cv-1uN" firstAttribute="bottom" secondItem="kk6-lS-phi" secondAttribute="bottom" constant="-6" id="7WB-dK-BIj"/>
+                <constraint firstItem="ok1-Cv-1uN" firstAttribute="top" secondItem="kk6-lS-phi" secondAttribute="top" priority="800" constant="6" id="JaF-Ty-V2B"/>
                 <constraint firstItem="SzQ-c3-Sos" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YQE-Eg-LRG"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kk6-lS-phi" secondAttribute="trailing" constant="12" id="ciQ-un-vFr"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kk6-lS-phi" secondAttribute="bottom" constant="8" id="feI-0x-cvs"/>
