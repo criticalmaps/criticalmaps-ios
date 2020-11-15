@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+# [Unreleased]
+
+### Fixed 
+
+- Remove Container Background Color in MapInfoView
+
 # [3.9.0] - 2020-11-09
 
 ### Added
@@ -9,9 +15,9 @@ Changelog for Critical Maps iOS
 - Fullpage screenshots of the Map
 - Large preview images on long press for the navigation buttons on devices that use large font sizes
 - Next event feature: See where the next Critical Mass close to you takes place.
-- Select an alternate app icon 
+- Select an alternate app icon
 - Added settings option to choose system appearance or dark/light
-- Shows error view on the map when the server does not respond 
+- Shows error view on the map when the server does not respond
 
 ### Fixed
 
@@ -25,7 +31,7 @@ Changelog for Critical Maps iOS
 ### Changed
 
 - Bump deployment target to iOS 12
-- Localised snapshot tests 
+- Localised snapshot tests
 
 ## [3.8.0] - 2020-03-01
 
