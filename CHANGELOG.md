@@ -7,6 +7,7 @@ Changelog for Critical Maps iOS
 ### Fixed 
 
 - Remove Container Background Color in MapInfoView
+- Make `BikeAnnotation` it is more accesible now(scales with preferredContentSizeCategory)
 
 # [3.9.0] - 2020-11-09
 
