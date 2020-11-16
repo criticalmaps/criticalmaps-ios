@@ -11,7 +11,7 @@ import UIKit
 
 final class ChatInputViewController: UIViewController, IBConstructable {
     private enum Constants {
-        static let textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        static let textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 44)
         static let maxTextViewHeight: CGFloat = 150.0
     }
 
@@ -22,6 +22,7 @@ final class ChatInputViewController: UIViewController, IBConstructable {
             if #available(iOS 13.0, *) {
                 inputTextView.accessibilityUserInputLabels = [L10n.Chat.placeholder]
             }
+            inputTextView.font = UIFont.systemFont(ofSize: 20)
         }
     }
 

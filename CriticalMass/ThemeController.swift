@@ -127,6 +127,7 @@ class ThemeController {
         UIBarButtonItem.appearance().tintColor = theme.titleTextColor
         // UITableViewCell
         UITableViewCell.appearance().backgroundColor = theme.backgroundColor
+        UITableViewCell.appearance().tintColor = theme.switchTintColor
         let cellSelectedBackgroundView: UIView = {
             let view = UIView()
             view.backgroundColor = theme.cellSelectedBackgroundViewColor
