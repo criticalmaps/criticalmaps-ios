@@ -4,6 +4,8 @@ Changelog for Critical Maps iOS
 
 # [Unreleased]
 
+# [3.9.1] - 2020-11-20
+
 ### Fixed 
 
 - Remove Container Background Color in MapInfoView
