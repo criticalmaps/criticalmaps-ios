@@ -9,10 +9,10 @@ import MapKit
 
 class BikeAnnoationView: MKAnnotationView {
     private enum Constants {
-        static let smallSize = CGRect(x: 0, y: 0, width: 3, height: 3)
         static let defaultSize = CGRect(x: 0, y: 0, width: 7, height: 7)
-        static let large = CGRect(x: 0, y: 0, width: 14, height: 14)
-        static let extraLarge = CGRect(x: 0, y: 0, width: 28, height: 28)
+        static let large = CGRect(x: 0, y: 0, width: 10, height: 10)
+        static let extraLarge = CGRect(x: 0, y: 0, width: 14, height: 14)
+        static let extraExtraLarge = CGRect(x: 0, y: 0, width: 20, height: 20)
     }
 
     @objc
@@ -45,12 +45,14 @@ class BikeAnnoationView: MKAnnotationView {
 
     private func defineFrame() -> CGRect {
         switch traitCollection.preferredContentSizeCategory {
-        case .extraSmall, .small:
-            return Constants.smallSize
-        case .extraLarge, .accessibilityLarge, .accessibilityExtraLarge:
+        case .extraSmall, .small, .medium, .large:
+            return Constants.defaultSize
+        case .extraLarge:
             return Constants.large
-        case .extraExtraExtraLarge, .extraExtraExtraLarge, .accessibilityExtraExtraLarge, .accessibilityExtraExtraExtraLarge:
+        case .extraExtraLarge:
             return Constants.extraLarge
+        case .extraExtraExtraLarge, .accessibilityMedium, .accessibilityLarge, .accessibilityExtraLarge, .accessibilityExtraExtraLarge, .accessibilityExtraExtraExtraLarge:
+            return Constants.extraExtraLarge
         default:
             return Constants.defaultSize
         }

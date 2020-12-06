@@ -4,6 +4,10 @@ Changelog for Critical Maps iOS
 
 # [Unreleased]
 
+### Fixed
+
+- Adapt BikeAnnotation Size to equal the Sizes in Maps
+
 # [3.9.1] - 2020-11-20
 
 ### Fixed 
