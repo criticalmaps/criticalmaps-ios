@@ -182,16 +182,7 @@ class MapViewController: UIViewController {
         switch themeController.currentTheme {
         case .system:
             if #available(iOS 13.0, *) {
-                switch traitCollection.userInterfaceStyle {
-                case .dark:
-                    overrideUserInterfaceStyle = .dark
-                case .light:
-                    overrideUserInterfaceStyle = .light
-                case .unspecified:
-                    overrideUserInterfaceStyle = .unspecified
-                @unknown default:
-                    overrideUserInterfaceStyle = .light
-                }
+                overrideUserInterfaceStyle = .unspecified
             }
         case .light:
             if #available(iOS 13.0, *) {
