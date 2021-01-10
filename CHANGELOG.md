@@ -7,6 +7,7 @@ Changelog for Critical Maps iOS
 ### Fixed
 
 - Adapt BikeAnnotation Size to equal the Sizes in Maps
+- Fix Switching Appearance Settings and using `.system`
 
 # [3.9.1] - 2020-11-20
 
