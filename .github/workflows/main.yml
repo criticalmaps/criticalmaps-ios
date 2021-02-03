@@ -82,7 +82,7 @@ jobs:
       run: bundle exec fastlane ui_test
 
     - name: Upload screenshots
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v2.2.2
       with:
         name: Screenshots
         path: build/screenshots
