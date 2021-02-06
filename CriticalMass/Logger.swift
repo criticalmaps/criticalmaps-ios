@@ -19,7 +19,7 @@ extension OSLog {
     static let map = OSLog(subsystem: subsystem, category: "Map")
 }
 
-class Logger {
+enum Logger {
     static func log(_ type: OSLogType, log: OSLog, _ message: StaticString) {
         if #available(macOS 10.14, *) {
             os_log(type, log: log, message)

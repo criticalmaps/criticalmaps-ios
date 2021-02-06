@@ -76,7 +76,7 @@ final class AppSettingsViewController: SettingsViewController {
         default:
             let model = section.models[indexPath.row]
             if let switchCell = cell as? SettingsSwitchTableViewCell,
-                case let .switch(switchableType) = model.action
+               case let .switch(switchableType) = model.action
             {
                 if switchableType == ObservationModePreferenceStore.self {
                     switchCell.configure(switchable: observationModePreferenceStore)

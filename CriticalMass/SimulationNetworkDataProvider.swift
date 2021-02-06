@@ -18,8 +18,8 @@ class SimulationNetworkDataProvider: NetworkDataProvider {
 
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         guard let url = request.url,
-            url.host == Constants.apiEndpoint,
-            url.path.isEmpty
+              url.host == Constants.apiEndpoint,
+              url.path.isEmpty
         else {
             // only the base API is supported
             // We are falling back to the real NetworkDataProvider

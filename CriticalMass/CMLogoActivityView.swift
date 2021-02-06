@@ -35,7 +35,7 @@ import UIKit
     }
 }
 
-public struct CriticalMapsLoader {
+public enum CriticalMapsLoader {
     static func drawCMLogo(rotation angle: CGFloat = 0, fillColor: UIColor = .gray) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
