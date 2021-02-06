@@ -18,8 +18,8 @@ struct FollowURLObject: URLCodable {
 extension FollowURLObject {
     init(scheme: String?, host: String?, path: String, queryObject: Friend) throws {
         guard self.scheme == scheme,
-            self.host == host,
-            self.path == path
+              self.host == host,
+              self.path == path
         else {
             throw URLCodableError.decodingFailed
         }

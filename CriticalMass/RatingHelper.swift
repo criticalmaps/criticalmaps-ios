@@ -64,7 +64,7 @@ public class RatingHelper {
     private func increaseDaysCounterIfNeeded() {
         let now = Date()
         if let date = ratingStorage.lastDayUsed,
-            let day = Calendar.current.dateComponents([.day], from: date, to: now).day
+           let day = Calendar.current.dateComponents([.day], from: date, to: now).day
         {
             ratingStorage.daysCounter += day
         }

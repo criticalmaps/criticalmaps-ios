@@ -11,19 +11,19 @@ import Foundation
 private extension DateComponents {
     var dateComponentFromBiggestComponent: DateComponents {
         if let month = month,
-            month != 0
+           month != 0
         {
             return DateComponents(calendar: calendar, month: month)
         } else if let day = day,
-            day != 0
+                  day != 0
         {
             return DateComponents(calendar: calendar, day: day)
         } else if let hour = hour,
-            hour != 0
+                  hour != 0
         {
             return DateComponents(calendar: calendar, hour: hour)
         } else if let minute = minute,
-            minute != 0
+                  minute != 0
         {
             return DateComponents(calendar: calendar, minute: minute)
         } else {
