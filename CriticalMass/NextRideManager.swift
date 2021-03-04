@@ -10,6 +10,7 @@ enum EventError: Error {
     case rideIsOutOfRangeError
     case noUpcomingRides
     case rideTypeIsFiltered
+    case rideDisabled
 }
 
 final class NextRideManager {
