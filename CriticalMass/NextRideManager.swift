@@ -73,6 +73,11 @@ final class NextRideManager {
                     handler(.failure(EventError.invalidDateError))
                     return
                 }
+                // check if ride is cancelled
+                guard ride.enabled else {
+                    handler(.failure(EventError.rideDisabled))
+                    return
+                }
                 handler(.success(ride))
                 return
             }
@@ -88,6 +93,12 @@ final class NextRideManager {
                 handler(.failure(EventError.invalidDateError))
                 return
             }
+            // check if ride is cancelled
+            guard ride.enabled else {
+                handler(.failure(EventError.rideDisabled))
+                return
+            }
+
             nextRide = ride
             handler(.success(ride))
         case let .failure(error):
