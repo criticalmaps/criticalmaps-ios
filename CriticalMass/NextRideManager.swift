@@ -78,6 +78,8 @@ final class NextRideManager {
                     handler(.failure(EventError.rideDisabled))
                     return
                 }
+
+                nextRide = ride
                 handler(.success(ride))
                 return
             }
