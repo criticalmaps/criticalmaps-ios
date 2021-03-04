@@ -19,11 +19,11 @@ class NextRidesRequestTests: XCTestCase {
     }
 
     func testParseRespone() throws {
-        let responseData = "[{\"id\":8091,\"slug\":null,\"title\":\"Critical Mass Aachen 27.03.2020\",\"description\":null,\"dateTime\":1585328400,\"location\":\"Elisenbrunnen\",\"latitude\":50.774167,\"longitude\":6.086944,\"estimatedParticipants\":null,\"estimatedDistance\":null,\"estimatedDuration\":null}]".data(using: .utf8)!
+        let responseData = "[{\"id\":8091,\"slug\":null,\"title\":\"Critical Mass Aachen 27.03.2020\",\"description\":null,\"dateTime\":1585328400,\"location\":\"Elisenbrunnen\",\"latitude\":50.774167,\"longitude\":6.086944,\"estimatedParticipants\":null,\"estimatedDistance\":null,\"estimatedDuration\":null,\"enabled\": true}]".data(using: .utf8)!
 
         let request = NextRidesRequest(coordinate: CLLocationCoordinate2D(latitude: 42, longitude: 42), radius: 21)
 
-        let expectedRides = [Ride(id: 8091, slug: nil, title: "Critical Mass Aachen 27.03.2020", description: nil, dateTime: Date(timeIntervalSince1970: 1_585_328_400), location: "Elisenbrunnen", latitude: 50.774167, longitude: 6.086944, estimatedParticipants: nil, estimatedDistance: nil, estimatedDuration: nil, disabledReason: nil, disabledReasonMessage: nil, rideType: nil)]
+        let expectedRides = [Ride(id: 8091, slug: nil, title: "Critical Mass Aachen 27.03.2020", description: nil, dateTime: Date(timeIntervalSince1970: 1_585_328_400), location: "Elisenbrunnen", latitude: 50.774167, longitude: 6.086944, estimatedParticipants: nil, estimatedDistance: nil, estimatedDuration: nil, enabled: true, disabledReason: nil, disabledReasonMessage: nil, rideType: nil)]
         let rides = try request.parseResponse(data: responseData)
         XCTAssertEqual(expectedRides, rides)
     }
