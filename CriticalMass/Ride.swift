@@ -16,6 +16,7 @@ struct Ride: Hashable, Codable {
     let estimatedParticipants: Int?
     let estimatedDistance: Double?
     let estimatedDuration: Double?
+    let enabled: Bool
     let disabledReason: String?
     let disabledReasonMessage: String?
     let rideType: RideType?

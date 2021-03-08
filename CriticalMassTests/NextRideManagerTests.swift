@@ -173,6 +173,41 @@ class NextRideManagerTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
 
+    func testManagerShouldReturnErrorWhenRideIsCanceled() {
+        // given
+        networkLayer.mockResponse = [
+            Ride.TestData.cmBerlinDisabled
+        ]
+        let apiHandler = CMInApiHandler(networkLayer: networkLayer)
+        nextRideManager = NextRideManager(
+            apiHandler: apiHandler,
+            eventSettingsStore: RideEventSettingsStoreMock(
+                rideEventSettings: .init(
+                    isEnabled: true,
+                    typeSettings: .onlyCM,
+                    radiusSettings: .init(
+                        radius: 20,
+                        isEnabled: true
+                    )
+                )
+            )
+        )
+        // when
+        let exp = expectation(description: "Wait for response")
+        nextRideManager.getNextRide(around: CLLocationCoordinate2D.TestData.alexanderPlatz) { result in
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure(let error):
+                XCTAssertEqual(error as! EventError, EventError.rideDisabled)
+                break
+            }
+            exp.fulfill()
+        }
+        // then
+        wait(for: [exp], timeout: 1)
+    }
+
     func testManagerShouldReturnUnFilteredRideTypesWhenAllRidesDontHaveRideType() {
         // given
         networkLayer.mockResponse = [
@@ -223,6 +258,7 @@ extension Ride {
             estimatedParticipants: nil,
             estimatedDistance: nil,
             estimatedDuration: nil,
+            enabled: true,
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: .criticalMass
@@ -239,6 +275,7 @@ extension Ride {
             estimatedParticipants: nil,
             estimatedDistance: nil,
             estimatedDuration: nil,
+            enabled: true,
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: .criticalMass
@@ -255,6 +292,7 @@ extension Ride {
             estimatedParticipants: nil,
             estimatedDistance: nil,
             estimatedDuration: nil,
+            enabled: true,
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: nil
@@ -271,6 +309,7 @@ extension Ride {
             estimatedParticipants: nil,
             estimatedDistance: nil,
             estimatedDuration: nil,
+            enabled: true,
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: .kidicalMass
@@ -287,6 +326,7 @@ extension Ride {
             estimatedParticipants: nil,
             estimatedDistance: nil,
             estimatedDuration: nil,
+            enabled: true,
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: nil
@@ -303,6 +343,24 @@ extension Ride {
             estimatedParticipants: nil,
             estimatedDistance: nil,
             estimatedDuration: nil,
+            enabled: true,
+            disabledReason: nil,
+            disabledReasonMessage: nil,
+            rideType: .criticalMass
+        )
+        static let cmBerlinDisabled = Ride(
+            id: 123,
+            slug: nil,
+            title: "Critical Mass Berlin",
+            description: nil,
+            dateTime: Date().addingTimeInterval(40000),
+            location: "Mariannenplatz",
+            latitude: 52.502148,
+            longitude: 13.424356,
+            estimatedParticipants: nil,
+            estimatedDistance: nil,
+            estimatedDuration: nil,
+            enabled: false,
             disabledReason: nil,
             disabledReasonMessage: nil,
             rideType: .criticalMass

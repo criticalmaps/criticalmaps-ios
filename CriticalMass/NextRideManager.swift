@@ -10,6 +10,7 @@ enum EventError: Error {
     case rideIsOutOfRangeError
     case noUpcomingRides
     case rideTypeIsFiltered
+    case rideDisabled
 }
 
 final class NextRideManager {
@@ -72,6 +73,13 @@ final class NextRideManager {
                     handler(.failure(EventError.invalidDateError))
                     return
                 }
+                // check if ride is cancelled
+                guard ride.enabled else {
+                    handler(.failure(EventError.rideDisabled))
+                    return
+                }
+
+                nextRide = ride
                 handler(.success(ride))
                 return
             }
@@ -87,6 +95,12 @@ final class NextRideManager {
                 handler(.failure(EventError.invalidDateError))
                 return
             }
+            // check if ride is cancelled
+            guard ride.enabled else {
+                handler(.failure(EventError.rideDisabled))
+                return
+            }
+
             nextRide = ride
             handler(.success(ride))
         case let .failure(error):
