@@ -6,6 +6,7 @@ Changelog for Critical Maps iOS
 
 ### Fixed
 
+- Fix a bug that showed cancelled events
 - Adapt BikeAnnotation Size to equal the Sizes in Maps
 - Fix Switching Appearance Settings and using `.system`
 
