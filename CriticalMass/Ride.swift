@@ -11,8 +11,8 @@ struct Ride: Hashable, Codable {
     let description: String?
     let dateTime: Date
     let location: String?
-    let latitude: Double
-    let longitude: Double
+    let latitude: Double?
+    let longitude: Double?
     let estimatedParticipants: Int?
     let estimatedDistance: Double?
     let estimatedDuration: Double?
@@ -23,8 +23,11 @@ struct Ride: Hashable, Codable {
 }
 
 extension Ride {
-    var coordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    var coordinate: CLLocationCoordinate2D? {
+        guard let lat = latitude, let lng = longitude else {
+            return nil
+        }
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
     }
 
     var titleAndTime: String {
@@ -51,6 +54,10 @@ extension Ride {
     func openInMaps(_ options: [String: Any] = [
         MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault
     ]) {
+        guard let coordinate = self.coordinate else {
+            debugPrint("Coordinte is nil")
+            return
+        }
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = location
