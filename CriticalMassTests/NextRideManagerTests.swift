@@ -198,9 +198,8 @@ class NextRideManagerTests: XCTestCase {
             switch result {
             case .success:
                 XCTFail()
-            case .failure(let error):
+            case let .failure(error):
                 XCTAssertEqual(error as! EventError, EventError.rideDisabled)
-                break
             }
             exp.fulfill()
         }
