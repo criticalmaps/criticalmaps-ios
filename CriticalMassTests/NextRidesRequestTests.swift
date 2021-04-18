@@ -190,7 +190,7 @@ class NextRidesRequestTests: XCTestCase {
         XCTAssertEqual(expectedRides, rides)
     }
 
-    func testParseRespone_withNonUniformObjectsinResponse() throws {
+    func testParseRespone_withNonUniformObjectsInResponse() throws {
         let responseData = """
         [
             {
