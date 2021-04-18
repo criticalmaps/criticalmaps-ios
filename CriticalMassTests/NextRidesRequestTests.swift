@@ -64,7 +64,7 @@ class NextRidesRequestTests: XCTestCase {
         XCTAssertEqual(expectedRides, rides)
     }
 
-    func testParseRespone2() throws {
+    func testParseRespone_withLatAndLng() throws {
         let responseData = """
         [{
             "id":8091,
