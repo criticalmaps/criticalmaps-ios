@@ -308,14 +308,20 @@ extension MapViewController {
                                 Logger.log(.debug, log: .map, "Controller expected to CMMarkerAnnotationController")
                                 return
                             }
-                            controller.update([CriticalMassAnnotation(ride: ride)])
+
+                            if let cmAnnotation = CriticalMassAnnotation(ride: ride) {
+                                controller.update([cmAnnotation])
+                            }
                         }
                     self.mapInfoViewController.configureAndPresentMapInfoView(
                         title: ride.titleAndTime,
                         style: .info,
                         tapHandler: { [weak self] in
-                            guard let self = self else { return }
-                            self.nextRideManager.nextRide.flatMap { self.focusOnCoordinate($0.coordinate) }
+                            guard
+                                let self = self,
+                                let nextRideCoordinate = nextRideManager.nextRide?.coordinate
+                            else { return }
+                            self.focusOnCoordinate(nextRideCoordinate)
                         }
                     )
                 }

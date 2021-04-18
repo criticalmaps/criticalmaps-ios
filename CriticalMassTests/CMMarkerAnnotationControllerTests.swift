@@ -13,10 +13,9 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_ControllerShouldRemoveAnnotationWhenRideStartedMoreThen30MinutesAgo() {
+    func test_ControllerShouldRemoveAnnotationWhenRideStartedMoreThen30MinutesAgo() throws {
         // given
         let ride = Ride.TestData.cmBerlin
-        let rideAnnotation = CriticalMassAnnotation(ride: ride)
         let timeTraveler = TimeTraveler(ride.dateTime)
         // when
         timeTraveler.travelTime(by: .minutes(31))
@@ -26,6 +25,8 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
             rideChecker: rideChecker,
             outdatedCheckTimeinterval: 0.0
         )
+        let rideAnnotation = try XCTUnwrap(CriticalMassAnnotation(ride: ride))
+
         annotationController.update([rideAnnotation])
         let exp = expectation(description: "Wait for outdated check")
         wait(interval: 0.1) {
@@ -36,10 +37,9 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         XCTAssertTrue(annotationController.mapView.annotations.isEmpty)
     }
 
-    func test_ControllerShouldNotRemoveAnnotationWhenRideStartedLessThen30MinutesAgo() {
+    func test_ControllerShouldNotRemoveAnnotationWhenRideStartedLessThen30MinutesAgo() throws {
         // given
         let ride = Ride.TestData.cmBerlin
-        let rideAnnotation = CriticalMassAnnotation(ride: ride)
         let timeTraveler = TimeTraveler(ride.dateTime)
         // when
         timeTraveler.travelTime(by: .minutes(29))
@@ -49,6 +49,7 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
             rideChecker: rideChecker,
             outdatedCheckTimeinterval: 0.0
         )
+        let rideAnnotation = try XCTUnwrap(CriticalMassAnnotation(ride: ride))
         annotationController.update([rideAnnotation])
         let exp = expectation(description: "Wait for outdated check")
         wait(interval: 0.1) {
