@@ -6,17 +6,19 @@ import MapKit
 final class CMMarkerAnnotationController: AnnotationController {
     private let rideChecker: RideChecker
     private let outdatedCheckTimeinterval: TimeInterval
-    private var isRideOutdatedTimer: Timer?
+    private var timerProvider: Timer.Type = Timer.self
 
     init(
         rideChecker: RideChecker,
         outdatedCheckTimeinterval: TimeInterval,
         mapView: MKMapView,
         annotationType: AnnotationController.AnnotationType,
-        annotationViewType: AnnotationController.AnnotationViewType
+        annotationViewType: AnnotationController.AnnotationViewType,
+        timer: Timer.Type
     ) {
         self.rideChecker = rideChecker
         self.outdatedCheckTimeinterval = outdatedCheckTimeinterval
+        timerProvider = timer
         super.init(
             mapView: mapView,
             annotationType: annotationType,
@@ -27,14 +29,16 @@ final class CMMarkerAnnotationController: AnnotationController {
     convenience init(
         mapView: MKMapView,
         rideChecker: RideChecker = RideChecker(),
-        outdatedCheckTimeinterval: TimeInterval = 120
+        outdatedCheckTimeinterval: TimeInterval = 120,
+        timer: Timer.Type = Timer.self
     ) {
         self.init(
             rideChecker: rideChecker,
             outdatedCheckTimeinterval: outdatedCheckTimeinterval,
             mapView: mapView,
             annotationType: CriticalMassAnnotation.self,
-            annotationViewType: CMMarkerAnnotationView.self
+            annotationViewType: CMMarkerAnnotationView.self,
+            timer: timer
         )
     }
 
@@ -46,12 +50,8 @@ final class CMMarkerAnnotationController: AnnotationController {
         fatalError("init(mapView:annotationType:annotationViewType:) has not been implemented")
     }
 
-    deinit {
-        isRideOutdatedTimer?.invalidate()
-    }
-
     override public func setup() {
-        isRideOutdatedTimer = Timer.scheduledTimer(
+        timerProvider.scheduledTimer(
             timeInterval: outdatedCheckTimeinterval,
             target: self,
             selector: #selector(checkRide),

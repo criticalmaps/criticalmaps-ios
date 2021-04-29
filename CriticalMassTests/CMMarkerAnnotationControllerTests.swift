@@ -20,21 +20,19 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         // when
         timeTraveler.travelTime(by: .minutes(31))
         let rideChecker = RideChecker(timeTraveler)
+
         annotationController = CMMarkerAnnotationController(
             mapView: MKMapView(),
             rideChecker: rideChecker,
             outdatedCheckTimeinterval: 0.0
         )
+
         let rideAnnotation = try XCTUnwrap(CriticalMassAnnotation(ride: ride))
 
         annotationController.update([rideAnnotation])
-        let exp = expectation(description: "Wait for outdated check")
-        wait(interval: 0.1) {
-            exp.fulfill()
-        }
+
         // then
-        wait(for: [exp], timeout: 0.5)
-        XCTAssertTrue(annotationController.mapView.annotations.isEmpty)
+        expectToEventually(annotationController.mapView.annotations.isEmpty)
     }
 
     func test_ControllerShouldNotRemoveAnnotationWhenRideStartedLessThen30MinutesAgo() throws {
@@ -51,12 +49,7 @@ class CMMarkerAnnotationControllerTests: XCTestCase {
         )
         let rideAnnotation = try XCTUnwrap(CriticalMassAnnotation(ride: ride))
         annotationController.update([rideAnnotation])
-        let exp = expectation(description: "Wait for outdated check")
-        wait(interval: 0.1) {
-            exp.fulfill()
-        }
-        // then
-        wait(for: [exp], timeout: 0.5)
-        XCTAssertFalse(annotationController.mapView.annotations.isEmpty)
+
+        expectToEventually(!annotationController.mapView.annotations.isEmpty)
     }
 }
