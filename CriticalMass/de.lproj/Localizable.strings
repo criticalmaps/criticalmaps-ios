@@ -14,7 +14,7 @@
 "chat.title" = "Chat";
 
 
-"chat.unreadbutton.accessibilityvalue" = "%s ungelesene Nachrichten";
+"chat.unreadbutton.accessibilityvalue" = "%@ ungelesene Nachrichten";
 
 /* No comment provided by engineer. */
 "close.button.label" = "schließen";
