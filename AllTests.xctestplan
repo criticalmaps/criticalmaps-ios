@@ -1,0 +1,41 @@
+{
+  "configurations" : [
+    {
+      "id" : "1F00438A-1ECF-46E2-BE04-8D646633A553",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "language" : "en",
+    "region" : "DE"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:CriticalMaps.xcodeproj",
+        "identifier" : "7530E38F235A3CA100F5E55C",
+        "name" : "CriticalMapsSnapshotTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:CriticalMaps.xcodeproj",
+        "identifier" : "94CF087619BDEAF2009FFF43",
+        "name" : "CriticalMapsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMaps.xcodeproj",
+        "identifier" : "3F137FAE2349CB8C006B26AB",
+        "name" : "CriticalMapsUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
