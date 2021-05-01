@@ -61,7 +61,7 @@ class NavigationOverlayViewSnapshotTests: XCTestCase {
         assertViewSnapshot(
             matching: sut.view,
             with: size,
-            precision: 0.99
+            precision: 0.9
         )
     }
 }
