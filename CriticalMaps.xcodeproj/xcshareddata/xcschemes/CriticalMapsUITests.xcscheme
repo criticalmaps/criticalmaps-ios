@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:CriticalMapsUITests/CriticalMapsUITests.xctestplan"
+            reference = "container:CriticalMapsUITests/UITests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

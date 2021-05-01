@@ -40,7 +40,7 @@
       </CodeCoverageTargets>
       <TestPlans>
          <TestPlanReference
-            reference = "container:CriticalMassTests/CriticalMaps.xctestplan"
+            reference = "container:CriticalMassTests/UnitTests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

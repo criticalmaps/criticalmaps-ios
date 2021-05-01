@@ -29,8 +29,17 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:CriticalMassTests/CriticalMaps.xctestplan"
+            reference = "container:CriticalMassTests/UnitTests.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:AllTests.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:CriticalMapsUITests/UITests.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:CriticalMapsSnapshotTests/SnapshotTests.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

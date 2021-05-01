@@ -21,7 +21,7 @@ class MapInfoViewSnapshotTests: XCTestCase {
         view.configure(with: configuration)
 
         // then
-        assertViewSnapshot(matching: view, with: size, localized: false)
+        assertViewSnapshot(matching: view, with: size, precision: 0.9, localized: false)
     }
 
     func testAlertStyle() {
@@ -33,6 +33,6 @@ class MapInfoViewSnapshotTests: XCTestCase {
         view.configure(with: configuration)
 
         // then
-        assertViewSnapshot(matching: view, with: size, localized: false)
+        assertViewSnapshot(matching: view, with: size, precision: 0.9, localized: false)
     }
 }
