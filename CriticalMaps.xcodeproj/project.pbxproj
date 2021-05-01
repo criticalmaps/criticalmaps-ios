@@ -47,6 +47,7 @@
 		3FDA7C13240B0EA3004EE8A6 /* MockNetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA7C12240B0EA3004EE8A6 /* MockNetworkObserver.swift */; };
 		3FDA7C14240B0EA3004EE8A6 /* MockNetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA7C12240B0EA3004EE8A6 /* MockNetworkObserver.swift */; };
 		3FDA7C15240B0EF8004EE8A6 /* MockNetworkDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843FAA4236CDC6E00457930 /* MockNetworkDataProvider.swift */; };
+		73CF5FB6263D2EEF001925A3 /* NavigationOverlayViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF5FB5263D2EEF001925A3 /* NavigationOverlayViewSnapshotTests.swift */; };
 		75147B7A23466E800056BDBF /* LinkResponsiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */; };
 		7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530E39D235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift */; };
 		7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */; };
@@ -321,6 +322,7 @@
 		3FDA7C0C240B0E6F004EE8A6 /* MockIDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIDProvider.swift; sourceTree = "<group>"; };
 		3FDA7C0F240B0E87004EE8A6 /* MockDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
 		3FDA7C12240B0EA3004EE8A6 /* MockNetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkObserver.swift; sourceTree = "<group>"; };
+		73CF5FB5263D2EEF001925A3 /* NavigationOverlayViewSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationOverlayViewSnapshotTests.swift; sourceTree = "<group>"; };
 		75147B7923466E800056BDBF /* LinkResponsiveTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkResponsiveTextView.swift; sourceTree = "<group>"; };
 		7530E390235A3CA100F5E55C /* CriticalMapsSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CriticalMapsSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7530E394235A3CA100F5E55C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				9F989240252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift */,
 				987C57AE23A952AC0060499B /* MapInfoViewSnapshotTests.swift */,
 				21D9B2B524AB7D02005F4282 /* MessagesTableViewControllerSnapshotTests.swift */,
+				73CF5FB5263D2EEF001925A3 /* NavigationOverlayViewSnapshotTests.swift */,
 				3F749B26236C623500C4A125 /* RulesDetailViewControllerSnapshotTests.swift */,
 				3F6BF250240AFAE300B7F076 /* RulesViewControllerSnapshotTests.swift */,
 				7530E39F235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift */,
@@ -1461,6 +1464,7 @@
 				3FDA7C15240B0EF8004EE8A6 /* MockNetworkDataProvider.swift in Sources */,
 				9F989241252B52C6006BDC8D /* EventSettingsViewControllerSnapshotTests.swift in Sources */,
 				3F6BF253240AFD4B00B7F076 /* AppSettingsViewControllerSnapshotTests.swift in Sources */,
+				73CF5FB6263D2EEF001925A3 /* NavigationOverlayViewSnapshotTests.swift in Sources */,
 				7530E3A0235A3DB800F5E55C /* XCTestCase+SnapshotTests.swift in Sources */,
 				3FDA7C0E240B0E6F004EE8A6 /* MockIDProvider.swift in Sources */,
 				7530E3A2235A3DB800F5E55C /* TweetTableViewCellSnapshotTests.swift in Sources */,
