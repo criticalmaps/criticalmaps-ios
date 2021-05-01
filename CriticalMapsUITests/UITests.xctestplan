@@ -10,7 +10,6 @@
   ],
   "defaultOptions" : {
     "language" : "en",
-    "region" : "DE",
     "targetForVariableExpansion" : {
       "containerPath" : "container:CriticalMaps.xcodeproj",
       "identifier" : "94CF085B19BDEAF2009FFF43",
