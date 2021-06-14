@@ -25,6 +25,40 @@ public struct Ride: Hashable, Codable {
   public let disabledReason: String?
   public let disabledReasonMessage: String?
   public let rideType: RideType?
+  
+  public init(
+    id: Int,
+    slug: String?,
+    title: String,
+    description: String?,
+    dateTime: Date,
+    location: String?,
+    latitude: Double?,
+    longitude: Double?,
+    estimatedParticipants: Int?,
+    estimatedDistance: Double?,
+    estimatedDuration: Double?,
+    enabled: Bool,
+    disabledReason: String?,
+    disabledReasonMessage: String?,
+    rideType: Ride.RideType?
+  ) {
+    self.id = id
+    self.slug = slug
+    self.title = title
+    self.description = description
+    self.dateTime = dateTime
+    self.location = location
+    self.latitude = latitude
+    self.longitude = longitude
+    self.estimatedParticipants = estimatedParticipants
+    self.estimatedDistance = estimatedDistance
+    self.estimatedDuration = estimatedDuration
+    self.enabled = enabled
+    self.disabledReason = disabledReason
+    self.disabledReasonMessage = disabledReasonMessage
+    self.rideType = rideType
+  }
 }
 
 public extension Ride {

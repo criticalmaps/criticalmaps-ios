@@ -7,6 +7,7 @@
 
 import Combine
 import ComposableArchitecture
+import CoreLocation
 import Foundation
 import Logger
 import SharedModels
@@ -19,33 +20,29 @@ public struct NextRideState: Equatable {
 public enum NextRideAction: Equatable {
   case getNextRide(Coordinate)
   case nextRideResponse(Result<[Ride], NextRideService.Failure>)
-  case onAppear
 }
 
 public struct NextRideEnvironment {
   let service: NextRideService
   let store: UserDefaultsClient
   let now: () -> Date
-  let defaultSearchRadius = 10
-  let mainQueue: DispatchQueue
+  let mainQueue: AnySchedulerOf<DispatchQueue>
+  let coordinateObfuscator: CoordinateObfuscator
 }
 
 public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvironment> { state, action, env in
   switch action {
-  case .onAppear:
-    // get coordinate
-    // obfuscate
-    // return Effect
-    return Effect(value: .getNextRide(Coordinate(latitude: 53.12, longitude: 13.13)))
   case .getNextRide(let coordinate):
-    guard let settings = env.store.rideEventSettings, settings.isEnabled else {
+    guard env.store.rideEventSettings().isEnabled else {
       return .none
     }
-    return env.service.nextRide(coordinate, env.store.rideEventSettings?.radiusSettings.radius ?? env.defaultSearchRadius)
+    let obfuscatedCoordinate = env.coordinateObfuscator.obfuscate(coordinate)
+    return env.service.nextRide(obfuscatedCoordinate, env.store.rideEventSettings().radiusSettings.radius)
       .receive(on: env.mainQueue)
       .catchToEffect()
       .map(NextRideAction.nextRideResponse)
   case let .nextRideResponse(.failure(error)):
+    Logger.logger.error("Get next ride failed 🛑 with error: \(error)")
     return .none
   case let .nextRideResponse(.success(rides)):
     guard !rides.isEmpty else {
@@ -59,16 +56,26 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
     // Sort rides by date and pick the first one with a date greater than now
     let ride = rides
       .lazy
-      .filter { $0.enabled }
+      .filter {
+        guard let type = $0.rideType else { return true }
+        return env.store
+          .rideEventSettings()
+          .typeSettings
+          .lazy
+          .filter { $0.isEnabled }
+          .map(\.type)
+          .contains(type)
+      }
+      .filter { ride in ride.enabled }
       .sorted(by: \.dateTime)
       .first { ride in ride.dateTime > env.now() }
-    
-    guard let ride = ride else {
+        
+    guard let filteredRide = ride else {
       Logger.logger.info("No upcoming events")
       return .none
     }
     
-    state.nextRide = ride
+    state.nextRide = filteredRide
     return .none
   }
 }

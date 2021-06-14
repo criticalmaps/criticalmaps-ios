@@ -10,7 +10,8 @@ let package = Package(
   ],
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
-    .library(name: "CriticalMapsKit", targets: ["CriticalMapsKit"])
+    .library(name: "CriticalMapsKit", targets: ["CriticalMapsKit"]),
+    .library(name: "NextRideFeature", targets: ["NextRideFeature"])
   ],
   dependencies: [
     .package(

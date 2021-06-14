@@ -32,6 +32,14 @@ public extension NextRideService {
   )
   }
   
+  static let noop = Self(
+    nextRide: { _, _ in
+      Just([])
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
+    }
+  )
+  
   struct Failure: Error, Equatable {
     var internalError: NetworkRequestError
   }

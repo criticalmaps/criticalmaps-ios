@@ -8,15 +8,15 @@
 import Foundation
 import Combine
 import CoreLocation
+import SharedModels
 
 public struct CoordinateObfuscator {
   func obfuscate(
-    _ coordinate: CLLocationCoordinate2D,
+    _ coordinate: Coordinate,
     precisionType: ObfuscationPrecisionType = .thirdDecimal
-  ) -> AnyPublisher<CLLocationCoordinate2D, Never> {
+  ) -> Coordinate {
     let seededLat = coordinate.latitude + precisionType.randomInRange
     let seededLon = coordinate.longitude + precisionType.randomInRange
-    return Just(CLLocationCoordinate2D(latitude: seededLat, longitude: seededLon))
-      .eraseToAnyPublisher()
+    return Coordinate(latitude: seededLat, longitude: seededLon)
   }
 }

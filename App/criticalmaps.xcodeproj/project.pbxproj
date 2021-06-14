@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		735033E126753B1200E1A308 /* NextRideFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 735033E026753B1200E1A308 /* NextRideFeature */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
 		73CF5FFA263EB0A6001925A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF5FF5263EB0A6001925A3 /* ContentView.swift */; };
 		73EB0311263F23A100941D57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* SceneDelegate.swift */; };
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				735033E126753B1200E1A308 /* NextRideFeature in Frameworks */,
 				73FCD217264039120010CB48 /* CriticalMapsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +126,7 @@
 			name = "Critical Maps";
 			packageProductDependencies = (
 				73FCD216264039120010CB48 /* CriticalMapsKit */,
+				735033E026753B1200E1A308 /* NextRideFeature */,
 			);
 			productName = "Critical Maps";
 			productReference = 73CF5FC2263EAF5B001925A3 /* Critical Maps.app */;
@@ -557,6 +560,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		735033E026753B1200E1A308 /* NextRideFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NextRideFeature;
+		};
 		73FCD216264039120010CB48 /* CriticalMapsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CriticalMapsKit;

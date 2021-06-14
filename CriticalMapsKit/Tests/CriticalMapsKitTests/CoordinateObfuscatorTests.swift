@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import SharedModels
 import XCTest
 @testable import NextRideFeature
 
@@ -19,7 +20,7 @@ class CoordinateObfuscatorTests: XCTestCase {
   
   func test_ObfuscatorShouldReturnAlteredCoordinate() {
     // given
-    let alexanderPlatz = CLLocationCoordinate2D.TestData.alexanderPlatz
+    let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz)
     // then
@@ -28,7 +29,7 @@ class CoordinateObfuscatorTests: XCTestCase {
   
   func test_ObfuscatorShouldReturnCoordinateWithAlteredFirstDecimal() {
     // given
-    let alexanderPlatz = CLLocationCoordinate2D.TestData.alexanderPlatz
+    let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, precisionType: .firstDecimal)
     // then
@@ -37,7 +38,7 @@ class CoordinateObfuscatorTests: XCTestCase {
   
   func test_ObfuscatorShouldReturnCoordinateWithAlteredSecondDecimal() {
     // given
-    let alexanderPlatz = CLLocationCoordinate2D.TestData.alexanderPlatz
+    let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, precisionType: .thirdDecimal)
     // then
@@ -46,7 +47,7 @@ class CoordinateObfuscatorTests: XCTestCase {
   
   func test_ObfuscatorShouldReturnCoordinateWithAlteredFourthDecimal() {
     // given
-    let alexanderPlatz = CLLocationCoordinate2D.TestData.alexanderPlatz
+    let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, precisionType: .fourthDecimal)
     // then
@@ -55,7 +56,7 @@ class CoordinateObfuscatorTests: XCTestCase {
   
   func test_ObfuscatorShouldReturnCoordinateWithCustomRange() {
     // given
-    let alexanderPlatz = CLLocationCoordinate2D.TestData.alexanderPlatz
+    let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(
       alexanderPlatz,
