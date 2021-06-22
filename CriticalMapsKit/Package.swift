@@ -11,7 +11,8 @@ let package = Package(
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
     .library(name: "CriticalMapsKit", targets: ["CriticalMapsKit"]),
-    .library(name: "NextRideFeature", targets: ["NextRideFeature"])
+    .library(name: "MapFeature", targets: ["MapFeature"]),
+    .library(name: "AppFeature", targets: ["AppFeature"])
   ],
   dependencies: [
     .package(
@@ -19,21 +20,34 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       .exact("0.18.0")
     ),
-    .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0")
+    .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0"),
+    .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0")
   ],
   targets: [
     .target(
       name: "ApiClient",
-      dependencies: []
+      dependencies: [
+        "Helpers",
+        "SharedModels"
+      ]
+    ),
+    .target(
+      name: "AppFeature",
+      dependencies: [
+        "CriticalMapsKit",
+        "Logger",
+        "IDProvider",
+        "MapFeature",
+        "Styleguide",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
     ),
     .target(
       name: "CriticalMapsKit",
       dependencies: [
         "ApiClient",
         "Helpers",
-        "NextRideFeature",
         "SharedModels",
-        "Styleguide",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
@@ -42,9 +56,24 @@ let package = Package(
       dependencies: []
     ),
     .target(
+      name: "IDProvider",
+      dependencies: ["Helpers"]
+    ),
+    .target(
       name: "Logger",
       dependencies: [
         .product(name: "Logging", package: "swift-log")
+      ]
+    ),
+    .target(
+      name: "MapFeature",
+      dependencies: [
+        "CriticalMapsKit",
+        "Logger",
+        "NextRideFeature",
+        "Styleguide",
+        .product(name: "ComposableCoreLocation", package: "composable-core-location"),
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
@@ -71,7 +100,20 @@ let package = Package(
       dependencies: [
         "Helpers",
         "SharedModels",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ]
+    ),
+    .testTarget(
+      name: "AppFeatureTests",
+      dependencies: [
+        "AppFeature",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
       ]
     ),
     .testTarget(
@@ -82,5 +124,19 @@ let package = Package(
         "Helpers",
         "UserDefaultsClient"
       ]),
+    .testTarget(
+      name: "IDProviderTests",
+      dependencies: ["IDProvider"]
+    ),
+    .testTarget(
+      name: "MapFeatureTests",
+      dependencies: [
+        "MapFeature",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ]
+    )
   ]
 )

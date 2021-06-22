@@ -18,6 +18,7 @@ public protocol APIRequest {
   var httpMethod: HTTPMethod { get }
   var headers: HTTPHeaders? { get }
   var queryItems: [String: String]? { get }
+  var body: Data? { get }
   func makeRequest() throws -> URLRequest
   func parseResponse(data: Data) throws -> ResponseDataType
 }
@@ -41,6 +42,9 @@ public extension APIRequest {
     var request = URLRequest(url: url)
     request.httpMethod = httpMethod.rawValue
     request.addHeaders(headers)
+    if let body = self.body {
+      request.httpBody = body
+    }
     return request
   }
   

@@ -26,6 +26,7 @@ public struct NextRidesRequest: APIRequest {
   public var headers: HTTPHeaders?
   public var httpMethod: HTTPMethod = .get
   var queryItem: NextRideQuery?
+  public var body: Data?
   
   init(coordinate: Coordinate, radius: Int) {
     queryItem = NextRideQuery(

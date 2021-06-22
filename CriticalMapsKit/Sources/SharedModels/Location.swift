@@ -13,7 +13,12 @@ public struct Location: Equatable, Hashable {
   public var name: String?
   public var color: String?
   
-  public init(coordinate: Coordinate, timestamp: Double, name: String? = nil, color: String? = nil) {
+  public init(
+    coordinate: Coordinate,
+    timestamp: Double,
+    name: String? = nil,
+    color: String? = nil
+  ) {
     self.coordinate = coordinate
     self.timestamp = timestamp
     self.name = name

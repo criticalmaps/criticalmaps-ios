@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		735033E126753B1200E1A308 /* NextRideFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 735033E026753B1200E1A308 /* NextRideFeature */; };
+		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
-		73CF5FFA263EB0A6001925A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF5FF5263EB0A6001925A3 /* ContentView.swift */; };
 		73EB0311263F23A100941D57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* SceneDelegate.swift */; };
 		73EB0313263F254000941D57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73EB0312263F254000941D57 /* Main.storyboard */; };
 		73FCD217264039120010CB48 /* CriticalMapsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73FCD216264039120010CB48 /* CriticalMapsKit */; };
@@ -37,7 +36,6 @@
 		73CF5FD3263EAF5C001925A3 /* Critical MapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Critical MapsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FDE263EAF5C001925A3 /* Critical MapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Critical MapsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		73CF5FF5263EB0A6001925A3 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73EB0310263F23A100941D57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		73EB0312263F254000941D57 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -48,8 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				735033E126753B1200E1A308 /* NextRideFeature in Frameworks */,
 				73FCD217264039120010CB48 /* CriticalMapsKit in Frameworks */,
+				731CFCC9267A745600F1093B /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				73CF5FF6263EB0A6001925A3 /* Info.plist */,
-				73CF5FF5263EB0A6001925A3 /* ContentView.swift */,
 				73EB0310263F23A100941D57 /* SceneDelegate.swift */,
 				73CF5FF1263EB0A6001925A3 /* Assets.xcassets */,
 				73EB0312263F254000941D57 /* Main.storyboard */,
@@ -126,7 +123,7 @@
 			name = "Critical Maps";
 			packageProductDependencies = (
 				73FCD216264039120010CB48 /* CriticalMapsKit */,
-				735033E026753B1200E1A308 /* NextRideFeature */,
+				731CFCC8267A745600F1093B /* AppFeature */,
 			);
 			productName = "Critical Maps";
 			productReference = 73CF5FC2263EAF5B001925A3 /* Critical Maps.app */;
@@ -241,7 +238,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73CF5FFA263EB0A6001925A3 /* ContentView.swift in Sources */,
 				73EB0311263F23A100941D57 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,9 +556,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		735033E026753B1200E1A308 /* NextRideFeature */ = {
+		731CFCC8267A745600F1093B /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = NextRideFeature;
+			productName = AppFeature;
 		};
 		73FCD216264039120010CB48 /* CriticalMapsKit */ = {
 			isa = XCSwiftPackageProductDependency;
