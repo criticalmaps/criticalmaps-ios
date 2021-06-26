@@ -2,6 +2,12 @@
 
 Changelog for Critical Maps iOS
 
+# [Unreleased]
+
+### Fixed
+
+- Identical chatmessages were crashing the chat  
+
 # [3.9.2] - 2021-05-04
 
 ### Fixed
