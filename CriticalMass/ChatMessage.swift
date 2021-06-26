@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct ChatMessage: Codable, Hashable {
+public struct ChatMessage: Codable {
+    let id = UUID()
     var message: String
     var timestamp: TimeInterval
 
@@ -15,5 +16,13 @@ public struct ChatMessage: Codable, Hashable {
         message
             .replacingOccurrences(of: "+", with: " ")
             .removingPercentEncoding
+    }
+
+    private enum CodingKeys: String, CodingKey { case message, timestamp }
+}
+
+extension ChatMessage: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
