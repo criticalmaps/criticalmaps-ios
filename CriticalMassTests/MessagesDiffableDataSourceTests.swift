@@ -25,7 +25,7 @@ class MessagesDiffableDataSourceTests: XCTestCase {
         dataSource.messages.append(contentsOf: ChatMessage.testData)
 
         XCTAssertTrue(tableView.numberOfSections == 1)
-        XCTAssertTrue(tableView.numberOfRows(inSection: 0) == 3)
+        XCTAssertTrue(tableView.numberOfRows(inSection: 0) == 4)
     }
 
     func testClearingTableView() {
