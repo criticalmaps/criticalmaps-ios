@@ -8,7 +8,7 @@
 import Foundation
 
 public extension String {
-  /// removes Date which is formatted like: dd.MM.yyyy
+  /// removes Date from a String which is formatted like: dd.MM.yyyy
   func removedDatePattern() -> String {
     let pattern = " \\d{1,2}.\\d{1,2}.\\d{4}$"
     return removedRegexMatches(pattern: pattern)
