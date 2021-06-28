@@ -24,7 +24,7 @@ class MessagesDefaultDataSourceTests: XCTestCase {
         dataSource.messages.append(contentsOf: ChatMessage.testData)
 
         XCTAssertTrue(tableView.numberOfSections == 1)
-        XCTAssertTrue(tableView.numberOfRows(inSection: 0) == 3)
+        XCTAssertTrue(tableView.numberOfRows(inSection: 0) == 4)
     }
 
     func testClearingTableView() {
@@ -39,6 +39,7 @@ class MessagesDefaultDataSourceTests: XCTestCase {
 extension ChatMessage {
     static var testData: [ChatMessage] {
         [
+            ChatMessage(message: "message 1", timestamp: 111),
             ChatMessage(message: "message 1", timestamp: 111),
             ChatMessage(message: "message 2", timestamp: 121),
             ChatMessage(message: "message 3", timestamp: 311)
