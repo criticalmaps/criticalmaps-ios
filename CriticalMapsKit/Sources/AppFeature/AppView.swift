@@ -32,69 +32,13 @@ public struct AppView: View {
       )
       VStack {
         Spacer()
-        HStack {
-          UserTrackingButton(
-            store: store.scope(
-            state: { $0.mapFeatureState.userTrackingMode },
-              action: { AppAction.map(.userTracking($0)) }
-            )
-          )
-          .frame(maxWidth: .infinity, minHeight: minHeight)
-          menuSeperator
-          Button(
-            action: {},
-            label: {
-              Image(systemName: "bubble.left")
-                .iconModifier()
-            }
-          )
-          .frame(maxWidth: .infinity, minHeight: minHeight)
-          menuSeperator
-          Button(
-            action: {},
-            label: {
-              Image(systemName: "exclamationmark.square")
-                .iconModifier()
-            }
-          )
-          .frame(maxWidth: .infinity, minHeight: minHeight)
-          menuSeperator
-          Button(
-            action: {},
-            label: {
-              Image(systemName: "gearshape")
-                .iconModifier()
-            }
-          )
-          .frame(maxWidth: .infinity, minHeight: minHeight)
-        }
-        .background(colorScheme == .light ? .white : Color.hex(0x45474D))
-        .clipShape(RoundedRectangle(cornerRadius: 18))
-        .modifier(ShadowModifier())
-        .padding([.leading, .trailing])
-        .padding(.bottom, 28)
+        AppNavigationView(store: store)
+          .padding([.leading, .trailing])
+          .padding(.bottom, 28)
+          .frame(maxWidth: 400)
       }
-      .frame(maxWidth: 400)
     }
     .onAppear { viewStore.send(.onAppear) }
-  }
-  
-  private var menuSeperator: some View {
-    Color.hex(0xDADCE0)
-      .frame(width: 1, height: minHeight)
-  }
-  
-  struct ShadowModifier: ViewModifier {
-    @Environment(\.colorScheme) var colorScheme
-    
-    func body(content: Content) -> some View {
-      if colorScheme == .light {
-        content
-          .shadow(color: Color.black.opacity(0.2), radius: 6, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
-      } else {
-        content
-      }
-    }
   }
 }
 
