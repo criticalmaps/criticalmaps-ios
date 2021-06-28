@@ -53,6 +53,7 @@ public struct MapFeatureEnvironment {
   let locationManager: LocationManager
 }
 
+/// Used to identify locatioManager effects.
 private struct LocationManagerId: Hashable {}
 
 public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFeatureEnvironment>.combine(
@@ -162,7 +163,6 @@ private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Ac
     state.isRequestingCurrentLocation = false
     guard let location = locations.first else { return .none }
     state.location = location
-    
     return .none
     
   default:
@@ -183,7 +183,7 @@ extension LocationManager {
   }
 }
 
-extension AlertState where Action == MapFeatureAction {
+public extension AlertState where Action == MapFeatureAction {
   static let goToSettingsAlert = Self(
     title: TextState("L10n.Location.Alert.provideAccessToLocationService"),
     primaryButton: .default(TextState("Einstellungen")),
@@ -196,81 +196,4 @@ extension AlertState where Action == MapFeatureAction {
   static let provideAccessToLocationService = Self(
     title: TextState("L10n.Location.Alert.provideAccessToLocationService")
   )
-}
-
-public struct UserTrackingState: Equatable {
-  public init(userTrackingMode: MKUserTrackingMode) {
-    self.userTrackingMode = userTrackingMode
-  }
-  
-  public var userTrackingMode: MKUserTrackingMode
-}
-
-public enum UserTrackingAction: Equatable {
-  case nextTrackingMode
-}
-
-public struct UserTrackingEnvironment: Equatable {}
-
-public let userTrackingReducer = Reducer<UserTrackingState, UserTrackingAction, UserTrackingEnvironment> { state, action, _ in
-  switch action {
-  case .nextTrackingMode:
-    switch state.userTrackingMode {
-    case .follow:
-      state.userTrackingMode = .followWithHeading
-    case .followWithHeading:
-      state.userTrackingMode = .none
-    case .none:
-      state.userTrackingMode = .follow
-    @unknown default:
-      fatalError()
-    }
-    return .none
-  }
-}
-
-import MapKit
-import SwiftUI
-
-public struct UserTrackingButton: View {
-  let store: Store<UserTrackingState, UserTrackingAction>
-  @ObservedObject var viewStore: ViewStore<UserTrackingState, UserTrackingAction>
-  
-  public init(store: Store<UserTrackingState, UserTrackingAction>) {
-    self.store = store
-    self.viewStore = ViewStore(store)
-  }
-  
-  public var body: some View {
-    Button(
-      action: {
-        viewStore.send(.nextTrackingMode)
-      },
-      label: {
-        switch viewStore.userTrackingMode {
-        case .follow:
-          Image(systemName: "location.fill")
-            .iconModifier()
-        case .followWithHeading:
-          Image(systemName: "location.north.line.fill")
-            .iconModifier()
-        case .none:
-          Image(systemName: "location")
-            .iconModifier()
-        @unknown default:
-          fatalError()
-        }
-      }
-    )
-  }
-}
-
-extension Image {
-  func iconModifier() -> some View {
-    self
-      .resizable()
-      .aspectRatio(contentMode: .fit)
-      .frame(width: 30, height: 30)
-      .foregroundColor(Color(.label))
-  }
 }

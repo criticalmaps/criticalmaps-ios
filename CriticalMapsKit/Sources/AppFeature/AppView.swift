@@ -10,16 +10,6 @@ import MapFeature
 import SwiftUI
 import Styleguide
 
-extension Image {
-    func iconModifier() -> some View {
-      self
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 30, height: 30)
-        .foregroundColor(Color(.label))
-   }
-}
-
 public struct AppView: View {
   let store: Store<AppState, AppAction>
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>
@@ -112,11 +102,7 @@ public struct AppView: View {
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
     AppView(store: Store<AppState, AppAction>(
-      initialState: AppState(
-        locationsAndChatMessages: .init(
-          locations: [:], chatMessages: [:]
-        )
-      ),
+      initialState: AppState(),
       reducer: appReducer,
       environment: AppEnvironment(
         service: .noop,

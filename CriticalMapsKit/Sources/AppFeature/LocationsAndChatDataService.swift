@@ -10,10 +10,16 @@ import Combine
 import Foundation
 import SharedModels
 
+// Interface
 public struct LocationsAndChatDataService {
   var getLocations: (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, Failure>
+  
+  public struct Failure: Error, Equatable {
+    var internalError: NetworkRequestError
+  }
 }
 
+// Live implementation
 public extension LocationsAndChatDataService {
   static func live(
     apiClient: APIClient = .live
@@ -27,10 +33,14 @@ public extension LocationsAndChatDataService {
     }
   )
   }
-  
+}
+ 
+// Mocks and failing used for previews and tests
+public extension LocationsAndChatDataService {
   static let noop = Self(
     getLocations: { _ in
-      Empty(outputType: LocationAndChatMessages.self, failureType: Failure.self)
+      Just(LocationAndChatMessages(locations: [:], chatMessages: [:]))
+        .setFailureType(to: Failure.self)
         .eraseToAnyPublisher()
     }
   )
@@ -41,8 +51,4 @@ public extension LocationsAndChatDataService {
         .eraseToAnyPublisher()
     }
   )
-  
-  struct Failure: Error, Equatable {
-    var internalError: NetworkRequestError
-  }
 }

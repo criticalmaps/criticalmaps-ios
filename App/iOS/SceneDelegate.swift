@@ -12,12 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   ) {
     let appView = AppView(
       store: .init(
-        initialState: AppState(
-          locationsAndChatMessages: .init(
-            locations: [:],
-            chatMessages: [:]
-          )
-        ),
+        initialState: AppState(),
         reducer: appReducer,
         environment: AppEnvironment(
           service: .live(),
