@@ -31,33 +31,46 @@ public struct AppNavigationView: View {
         )
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
+      
       menuSeperator
+      
       Button(
-        action: {},
+        action: {
+          //TODO: send open chat and twitter navigation action
+        },
         label: {
           Image(systemName: "bubble.left")
             .iconModifier()
+            .accessibility(hidden: true)
         }
       )
+      .accessibility(label: Text("Chat and Twitter"))
       .frame(maxWidth: .infinity, minHeight: minHeight)
+      
       menuSeperator
+      
       Button(
         action: {},
         label: {
           Image(systemName: "exclamationmark.square")
             .iconModifier()
+            .accessibility(hidden: true)
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
+      .accessibility(label: Text("Rules"))
+      
       menuSeperator
       Button(
         action: {},
         label: {
           Image(systemName: "gearshape")
             .iconModifier()
+            .accessibility(hidden: true)
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
+      .accessibility(label: Text("Settings"))
     }
     .background(colorScheme == .light ? .white : Color.hex(0x45474D))
     .clipShape(RoundedRectangle(cornerRadius: 18))

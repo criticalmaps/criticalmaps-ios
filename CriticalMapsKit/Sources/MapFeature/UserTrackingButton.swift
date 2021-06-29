@@ -19,26 +19,46 @@ public struct UserTrackingButton: View {
   }
   
   public var body: some View {
-    Button(
+    var accessiblityLabel: String {
+      switch viewStore.userTrackingMode {
+      case .follow:
+        return "Follow"
+      case .followWithHeading:
+        return "Follow with heading"
+      case .none:
+        return "Don't follow"
+      @unknown default:
+        return ""
+      }
+    }
+    
+    return Button(
       action: {
         viewStore.send(.nextTrackingMode)
       },
       label: {
-        switch viewStore.userTrackingMode {
-        case .follow:
-          Image(systemName: "location.fill")
-            .iconModifier()
-        case .followWithHeading:
-          Image(systemName: "location.north.line.fill")
-            .iconModifier()
-        case .none:
-          Image(systemName: "location")
-            .iconModifier()
-        @unknown default:
-          fatalError()
-        }
+        iconImage
+          .accessibility(hidden: true)
       }
     )
+    .accessibility(label: Text(accessiblityLabel))
+  }
+  
+  var iconImage: some View {
+    switch viewStore.userTrackingMode {
+    case .follow:
+      return Image(systemName: "location.fill")
+        .iconModifier()
+    case .followWithHeading:
+      return Image(systemName: "location.north.line.fill")
+        .iconModifier()
+    case .none:
+      return Image(systemName: "location")
+        .iconModifier()
+    @unknown default:
+      return Image(systemName: "location")
+        .iconModifier()
+    }
   }
 }
 

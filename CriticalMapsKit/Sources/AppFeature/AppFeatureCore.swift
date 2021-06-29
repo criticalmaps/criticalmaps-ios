@@ -65,6 +65,8 @@ public struct AppEnvironment {
 }
 
 // MARK: Reducer
+
+/// Holds the logic for the AppFeature
 public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   mapFeatureReducer.pullback(
     state: \.mapFeatureState,
