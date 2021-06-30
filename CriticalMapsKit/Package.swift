@@ -4,8 +4,8 @@ import PackageDescription
 
 let package = Package(
   name: "CriticalMapsKit",
+  defaultLocalization: "en",
   platforms: [
-    .macOS(.v10_15),
     .iOS(.v13)
   ],
   products: [
@@ -18,7 +18,7 @@ let package = Package(
     .package(
       name: "swift-composable-architecture",
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      .exact("0.18.0")
+      .upToNextMajor(from: "0.18.0")
     ),
     .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0")
@@ -40,7 +40,8 @@ let package = Package(
         "MapFeature",
         "Styleguide",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      resources: [.process("Resources")]
     ),
     .target(
       name: "CriticalMapsKit",

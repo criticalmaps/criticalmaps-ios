@@ -7,8 +7,8 @@
 
 import ComposableArchitecture
 import MapFeature
-import SwiftUI
 import Styleguide
+import SwiftUI
 
 public struct AppNavigationView: View {
   let store: Store<AppState, AppAction>
@@ -44,7 +44,7 @@ public struct AppNavigationView: View {
             .accessibility(hidden: true)
         }
       )
-      .accessibility(label: Text("Chat and Twitter"))
+      .accessibility(label: Text(NSLocalizedString("navigation.chat", bundle: .module, comment: "")))
       .frame(maxWidth: .infinity, minHeight: minHeight)
       
       menuSeperator
@@ -58,7 +58,7 @@ public struct AppNavigationView: View {
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text("Rules"))
+      .accessibility(label: Text(NSLocalizedString("navigation.rules", bundle: .module, comment: "")))
       
       menuSeperator
       Button(
@@ -70,7 +70,7 @@ public struct AppNavigationView: View {
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text("Settings"))
+      .accessibility(label: Text(NSLocalizedString("navigation.settings", bundle: .module, comment: "")))
     }
     .background(colorScheme == .light ? .white : Color.hex(0x45474D))
     .clipShape(RoundedRectangle(cornerRadius: 18))
@@ -89,7 +89,7 @@ struct ShadowModifier: ViewModifier {
   func body(content: Content) -> some View {
     if colorScheme == .light {
       content
-        .shadow(color: Color.black.opacity(0.2), radius: 6, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+        .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0.0, y: 0.0)
     } else {
       content
     }
