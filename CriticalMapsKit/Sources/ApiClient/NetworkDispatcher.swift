@@ -17,7 +17,7 @@ public struct NetworkDispatcher {
   /// Dispatches an URLRequest and returns a publisher
   /// - Parameter request: URLRequest
   /// - Returns: A publisher with the provided decoded data or an error
-  func dispatch<ReturnType: Codable>(request: URLRequest) -> AnyPublisher<ReturnType, NetworkRequestError> {
+  func dispatch(request: URLRequest) -> AnyPublisher<Data, NetworkRequestError> {
     return urlSession()
       .dataTaskPublisher(for: request)
       .tryMap({ data, response in
@@ -28,10 +28,7 @@ public struct NetworkDispatcher {
         }
         return data
       })
-      .decode(type: ReturnType.self, decoder: JSONDecoder())
-      .mapError { error in
-        handleError(error)
-      }
+      .mapError { error in handleError(error) }
       .eraseToAnyPublisher()
   }
 }

@@ -20,7 +20,7 @@ public protocol APIRequest {
   var queryItems: [String: String]? { get }
   var body: Data? { get }
   func makeRequest() throws -> URLRequest
-  func parseResponse(data: Data) throws -> ResponseDataType
+  var decoder: JSONDecoder { get }
 }
 
 public extension APIRequest {
@@ -48,8 +48,8 @@ public extension APIRequest {
     return request
   }
   
-  func parseResponse(data: Data) throws -> ResponseDataType {
-    try data.decoded()
+  var decoder: JSONDecoder {
+    JSONDecoder()
   }
 }
 

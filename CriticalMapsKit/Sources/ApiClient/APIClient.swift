@@ -18,12 +18,13 @@ public struct APIClient {
   /// Dispatches a Request and returns a publisher
   /// - Parameter request: Request to Dispatch
   /// - Returns: A publisher containing decoded data or an error
-  public func dispatch<R: APIRequest>(_ request: R) -> AnyPublisher<R.ResponseDataType, NetworkRequestError> {
+  public func dispatch<R: APIRequest>(_ request: R) -> AnyPublisher<Data, NetworkRequestError> {
     guard let urlRequest = try? request.makeRequest() else {
       return Fail(
-        outputType: R.ResponseDataType.self,
+        outputType: Data.self,
         failure: NetworkRequestError.badRequest
-      ).eraseToAnyPublisher()
+      )
+      .eraseToAnyPublisher()
     }
     return networkDispatcher()
       .dispatch(request: urlRequest)
