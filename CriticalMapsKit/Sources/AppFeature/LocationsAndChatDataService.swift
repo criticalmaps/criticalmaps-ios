@@ -28,13 +28,17 @@ public extension LocationsAndChatDataService {
       let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
       
       return apiClient.dispatch(request)
-        .mapError { Failure(internalError: $0) }
+        .decode(
+          type: PostLocationAndChatMessagesRequest.ResponseDataType.self,
+          decoder: request.decoder
+        )
+        .mapError { Failure(internalError: $0 as! NetworkRequestError) }
         .eraseToAnyPublisher()
     }
   )
   }
 }
- 
+
 // Mocks and failing used for previews and tests
 public extension LocationsAndChatDataService {
   static let noop = Self(
