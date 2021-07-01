@@ -14,6 +14,7 @@ import MapFeature
 import NextRideFeature
 import IDProvider
 import SharedModels
+import UserDefaultsClient
 
 // MARK: State
 public struct AppState: Equatable {
@@ -53,14 +54,23 @@ public struct AppEnvironment {
     service: LocationsAndChatDataService = .live(),
     idProvider: IDProvider = .live(),
     mainQueue: AnySchedulerOf<DispatchQueue> = .main,
-    locationManager: ComposableCoreLocation.LocationManager = .live
+    locationManager: ComposableCoreLocation.LocationManager = .live,
+    nextRideService: NextRideService = .live(),
+    userDefaultsClient: UserDefaultsClient = .live(),
+    date: @escaping () -> Date = Date.init
   ) {
     self.service = service
     self.idProvider = idProvider
     self.mainQueue = mainQueue
     self.locationManager = locationManager
+    self.nextRideService = nextRideService
+    self.userDefaultsClient = userDefaultsClient
+    self.date = date
   }
   
+  let date: () -> Date
+  let userDefaultsClient: UserDefaultsClient
+  let nextRideService: NextRideService
   let service: LocationsAndChatDataService
   let idProvider: IDProvider
   let mainQueue: AnySchedulerOf<DispatchQueue>
@@ -90,6 +100,9 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     action: /AppAction.nextRide,
     environment: { global in
       NextRideEnvironment(
+        service: global.nextRideService,
+        store: global.userDefaultsClient,
+        now: global.date,
         mainQueue: global.mainQueue,
         coordinateObfuscator: .live
       )

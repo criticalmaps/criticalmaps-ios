@@ -40,6 +40,7 @@ let package = Package(
         "MapFeature",
         "NextRideFeature",
         "Styleguide",
+        "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ],
       resources: [.process("Resources")]
@@ -81,6 +82,7 @@ let package = Package(
     .target(
       name: "NextRideFeature",
       dependencies: [
+        "CriticalMapsKit",
         "Logger",
         "SharedModels",
         "UserDefaultsClient",
@@ -126,7 +128,6 @@ let package = Package(
       name: "CriticalMapsKitTests",
       dependencies: [
         "CriticalMapsKit",
-        "NextRideFeature",
         "Helpers",
         "UserDefaultsClient"
       ]),
@@ -147,6 +148,8 @@ let package = Package(
     .testTarget(
       name: "NextRideFeatureTests",
       dependencies: [
+        "Helpers",
+        "UserDefaultsClient",
         "NextRideFeature",
         .product(
           name: "ComposableArchitecture",

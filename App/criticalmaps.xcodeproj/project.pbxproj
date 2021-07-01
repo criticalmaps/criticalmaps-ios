@@ -32,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ModulesTests.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FD3263EAF5C001925A3 /* Critical MapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Critical MapsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FDE263EAF5C001925A3 /* Critical MapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Critical MapsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +72,7 @@
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
+				73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */,
 				73CF5FF0263EB0A6001925A3 /* iOS */,
 				73CF5FC3263EAF5B001925A3 /* Products */,
 				73CF6014263F1DFD001925A3 /* Frameworks */,

@@ -83,9 +83,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .lazy
       .filter {
         guard let type = $0.rideType else { return true }
-        return env.store
-          .rideEventSettings()
-          .typeSettings
+        return env.store.rideEventSettings().typeSettings
           .filter { $0.isEnabled }
           .map(\.type)
           .contains(type)

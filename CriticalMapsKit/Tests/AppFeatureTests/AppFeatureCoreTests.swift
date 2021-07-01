@@ -11,7 +11,9 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
 import MapFeature
+import NextRideFeature
 import SharedModels
+import UserDefaultsClient
 import XCTest
 
 class AppFeatureTests: XCTestCase {
@@ -58,10 +60,11 @@ class AppFeatureTests: XCTestCase {
     var didRequestLocation = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let serviceSubject = PassthroughSubject<LocationAndChatMessages, LocationsAndChatDataService.Failure>()
+    let nextRideSubject = PassthroughSubject<[Ride], NextRideService.Failure>()
     
     let currentLocation = Location(
       altitude: 0,
-      coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 20),
+      coordinate: CLLocationCoordinate2D(latitude: 20, longitude: 10),
       course: 0,
       horizontalAccuracy: 0,
       speed: 0,
@@ -71,6 +74,19 @@ class AppFeatureTests: XCTestCase {
     var service: LocationsAndChatDataService = .noop
     service.getLocations = { _ in
       serviceSubject.eraseToAnyPublisher()
+    }
+    var nextRideService: NextRideService = .noop
+    nextRideService.nextRide = { _, _ in
+      nextRideSubject.eraseToAnyPublisher()
+    }
+    var settings = UserDefaultsClient.noop
+    settings.dataForKey = { _ in
+      try? RideEventSettings(
+        isEnabled: true,
+        typeSettings: [],
+        radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: true)
+      )
+      .encoded()
     }
     
     let store = TestStore(
@@ -89,12 +105,15 @@ class AppFeatureTests: XCTestCase {
           },
           requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
           set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
-        )
+        ),
+        nextRideService: nextRideService,
+        userDefaultsClient: settings
       )
     )
     
+    let coordinate = Coordinate(latitude: 20, longitude: 10)
     let serviceResponse = LocationAndChatMessages(
-      locations: ["ID": .init(coordinate: .init(latitude: 20, longitude: 10), timestamp: 00)],
+      locations: ["ID": .init(coordinate: coordinate, timestamp: 00)],
       chatMessages: ["ID": ChatMessage(message: "Hello World!", timestamp: 0)]
     )
     
@@ -119,14 +138,17 @@ class AppFeatureTests: XCTestCase {
         $0.didResolveInitialLocation = true
       },
       .receive(.fetchData),
+      .receive(.nextRide(.getNextRide(coordinate))),
       .do {
         serviceSubject.send(serviceResponse)
+        nextRideSubject.send([])
         self.testScheduler.advance()
       },
       .receive(.fetchDataResponse(.success(serviceResponse))) {
         $0.locationsAndChatMessages = .success(serviceResponse)
         $0.mapFeatureState.riders = serviceResponse.riders
       },
+      .receive(.nextRide(.nextRideResponse(.success([])))),
       .do { self.testScheduler.advance(by: 12) },
       .receive(.requestTimer(.timerTicked)),
       .receive(.fetchData),
@@ -144,6 +166,7 @@ class AppFeatureTests: XCTestCase {
         setSubject.send(completion: .finished)
         locationManagerSubject.send(completion: .finished)
         serviceSubject.send(completion: .finished)
+        nextRideSubject.send(completion: .finished)
       }
     )
   }

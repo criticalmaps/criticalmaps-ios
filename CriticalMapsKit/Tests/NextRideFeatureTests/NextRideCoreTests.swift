@@ -38,6 +38,36 @@ class NextRideCoreTests: XCTestCase {
         rideType: .criticalMass)
     ]
   }
+  let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
+  
+  func test_disabledNextRideFeature_shouldNotRequestRides() {
+    var settings = UserDefaultsClient.noop
+    settings.dataForKey = { _ in
+      try? RideEventSettings(
+        isEnabled: false,
+        typeSettings: [],
+        radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: true)
+      )
+      .encoded()
+    }
+    // when
+    let store = TestStore(
+      initialState: NextRideState(),
+      reducer: nextRideReducer,
+      environment: NextRideEnvironment(
+        service: .noop,
+        store: settings,
+        now: now,
+        mainQueue: testScheduler.eraseToAnyScheduler(),
+        coordinateObfuscator: .live
+      )
+    )
+    
+    store.assert(
+      .send(.getNextRide(coordinate))
+      // no effect received
+    )
+  }
   
   func test_getNextRide_shouldReturnMockRide() {
     let service = NextRideService(nextRide: { _, _ in
@@ -56,14 +86,15 @@ class NextRideCoreTests: XCTestCase {
         store: settings,
         now: now,
         mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: CoordinateObfuscator()
+        coordinateObfuscator: .live
       )
     )
     // then
     store.assert(
-      .send(.getNextRide(Coordinate(latitude: 53.1234, longitude: 13.4233))),
+      .send(.getNextRide(coordinate)),
       .do { self.testScheduler.advance() },
-      .receive(.nextRideResponse(.success(rides()))) {
+      .receive(.nextRideResponse(.success(rides()))),
+      .receive(.setNextRide(rides()[0])) {
         $0.nextRide = self.rides()[0]
       }
     )
@@ -92,12 +123,12 @@ class NextRideCoreTests: XCTestCase {
         store: settings,
         now: now,
         mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: CoordinateObfuscator()
+        coordinateObfuscator: .live
       )
     )
     // then
     store.assert(
-      .send(.getNextRide(Coordinate(latitude: 53.1234, longitude: 13.4233))),
+      .send(.getNextRide(coordinate)),
       .do { self.testScheduler.advance() },
       .receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest)))) {
         $0.nextRide = nil
@@ -131,12 +162,12 @@ class NextRideCoreTests: XCTestCase {
         store: settings,
         now: now,
         mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: CoordinateObfuscator()
+        coordinateObfuscator: .live
       )
     )
     // then
     store.assert(
-      .send(.getNextRide(Coordinate(latitude: 53.1234, longitude: 13.4233))),
+      .send(.getNextRide(coordinate)),
       .do { self.testScheduler.advance() },
       .receive(.nextRideResponse(.success(rides()))) {
         $0.nextRide = nil
@@ -187,12 +218,12 @@ class NextRideCoreTests: XCTestCase {
         store: settings,
         now: now,
         mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: CoordinateObfuscator()
+        coordinateObfuscator: .live
       )
     )
     // then
     store.assert(
-      .send(.getNextRide(Coordinate(latitude: 53.1234, longitude: 13.4233))),
+      .send(.getNextRide(coordinate)),
       .do { self.testScheduler.advance() },
       .receive(.nextRideResponse(.success(rides))) {
         $0.nextRide = nil

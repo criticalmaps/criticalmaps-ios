@@ -12,7 +12,7 @@ import Foundation
 import SharedModels
 
 public struct NextRideService {
-  var nextRide: (
+  public var nextRide: (
     _ coordinate: Coordinate,
     _ eventSearchRadius: Int
   )

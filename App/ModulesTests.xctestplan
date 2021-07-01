@@ -1,0 +1,52 @@
+{
+  "configurations" : [
+    {
+      "id" : "AF9416A5-0C0A-4A07-AB6F-70D079CBE164",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "AppFeatureTests",
+        "name" : "AppFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "CriticalMapsKitTests",
+        "name" : "CriticalMapsKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "IDProviderTests",
+        "name" : "IDProviderTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "MapFeatureTests",
+        "name" : "MapFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "NextRideFeatureTests",
+        "name" : "NextRideFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}

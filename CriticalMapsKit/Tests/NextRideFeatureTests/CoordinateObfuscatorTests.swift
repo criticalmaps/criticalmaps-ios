@@ -15,14 +15,14 @@ class CoordinateObfuscatorTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    sut = CoordinateObfuscator()
+    sut = .live
   }
   
   func test_ObfuscatorShouldReturnAlteredCoordinate() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
-    let alteredCoordinate = sut.obfuscate(alexanderPlatz)
+    let alteredCoordinate = sut.obfuscate(alexanderPlatz, .thirdDecimal)
     // then
     XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
   }
@@ -31,7 +31,7 @@ class CoordinateObfuscatorTests: XCTestCase {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
-    let alteredCoordinate = sut.obfuscate(alexanderPlatz, precisionType: .firstDecimal)
+    let alteredCoordinate = sut.obfuscate(alexanderPlatz, .firstDecimal)
     // then
     XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
   }
@@ -40,7 +40,7 @@ class CoordinateObfuscatorTests: XCTestCase {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
-    let alteredCoordinate = sut.obfuscate(alexanderPlatz, precisionType: .thirdDecimal)
+    let alteredCoordinate = sut.obfuscate(alexanderPlatz, .thirdDecimal)
     // then
     XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
   }
@@ -49,7 +49,7 @@ class CoordinateObfuscatorTests: XCTestCase {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
-    let alteredCoordinate = sut.obfuscate(alexanderPlatz, precisionType: .fourthDecimal)
+    let alteredCoordinate = sut.obfuscate(alexanderPlatz, .fourthDecimal)
     // then
     XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
   }
@@ -60,7 +60,7 @@ class CoordinateObfuscatorTests: XCTestCase {
     // when
     let alteredCoordinate = sut.obfuscate(
       alexanderPlatz,
-      precisionType: .custom(0.0000004 ... 0.0004)
+      .custom(0.0000004 ... 0.0004)
     )
     // then
     XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
