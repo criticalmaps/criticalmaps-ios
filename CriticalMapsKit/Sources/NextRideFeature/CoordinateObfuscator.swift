@@ -11,12 +11,14 @@ import CoreLocation
 import SharedModels
 
 public struct CoordinateObfuscator {
-  func obfuscate(
-    _ coordinate: Coordinate,
-    precisionType: ObfuscationPrecisionType = .thirdDecimal
-  ) -> Coordinate {
-    let seededLat = coordinate.latitude + precisionType.randomInRange
-    let seededLon = coordinate.longitude + precisionType.randomInRange
-    return Coordinate(latitude: seededLat, longitude: seededLon)
-  }
+  var obfuscate: (Coordinate, ObfuscationPrecisionType) -> Coordinate
+}
+
+public extension CoordinateObfuscator {
+  static let live: Self =
+    Self { coordinate, precisionType in
+      let seededLat = coordinate.latitude + precisionType.randomInRange
+      let seededLon = coordinate.longitude + precisionType.randomInRange
+      return Coordinate(latitude: seededLat, longitude: seededLon)
+    }
 }

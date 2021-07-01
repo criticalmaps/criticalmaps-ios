@@ -14,15 +14,34 @@ import SharedModels
 import UserDefaultsClient
 
 public struct NextRideState: Equatable {
+  public init(nextRide: Ride? = nil) {
+    self.nextRide = nextRide
+  }
+  
   public var nextRide: Ride?
 }
 
 public enum NextRideAction: Equatable {
   case getNextRide(Coordinate)
   case nextRideResponse(Result<[Ride], NextRideService.Failure>)
+  case setNextRide(Ride)
 }
 
 public struct NextRideEnvironment {
+  public init(
+    service: NextRideService = .live(),
+    store: UserDefaultsClient = .live(),
+    now: @escaping () -> Date = Date.init,
+    mainQueue: AnySchedulerOf<DispatchQueue>,
+    coordinateObfuscator: CoordinateObfuscator = .live
+  ) {
+    self.service = service
+    self.store = store
+    self.now = now
+    self.mainQueue = mainQueue
+    self.coordinateObfuscator = coordinateObfuscator
+  }
+  
   let service: NextRideService
   let store: UserDefaultsClient
   let now: () -> Date
@@ -36,11 +55,17 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
     guard env.store.rideEventSettings().isEnabled else {
       return .none
     }
-    let obfuscatedCoordinate = env.coordinateObfuscator.obfuscate(coordinate)
-    return env.service.nextRide(obfuscatedCoordinate, env.store.rideEventSettings().radiusSettings.radius)
-      .receive(on: env.mainQueue)
-      .catchToEffect()
-      .map(NextRideAction.nextRideResponse)
+    let obfuscatedCoordinate = env.coordinateObfuscator.obfuscate(
+      coordinate,
+      .thirdDecimal
+    )
+    return env.service.nextRide(
+      obfuscatedCoordinate,
+      env.store.rideEventSettings().radiusSettings.radius
+    )
+    .receive(on: env.mainQueue)
+    .catchToEffect()
+    .map(NextRideAction.nextRideResponse)
   case let .nextRideResponse(.failure(error)):
     Logger.logger.error("Get next ride failed 🛑 with error: \(error)")
     return .none
@@ -61,7 +86,6 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
         return env.store
           .rideEventSettings()
           .typeSettings
-          .lazy
           .filter { $0.isEnabled }
           .map(\.type)
           .contains(type)
@@ -75,7 +99,10 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       return .none
     }
     
-    state.nextRide = filteredRide
+    return Effect(value: .setNextRide(filteredRide))
+    
+  case let .setNextRide(ride):
+    state.nextRide = ride
     return .none
   }
 }

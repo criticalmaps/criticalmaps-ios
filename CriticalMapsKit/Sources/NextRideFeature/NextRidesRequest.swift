@@ -36,10 +36,10 @@ public struct NextRidesRequest: APIRequest {
     )
   }
   
-  public func parseResponse(data: Data) throws -> ResponseDataType {
+  public var decoder: JSONDecoder {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .secondsSince1970
     decoder.keyDecodingStrategy = .convertFromSnakeCase
-    return try data.decoded(decoder: decoder)
+    return decoder
   }
 }

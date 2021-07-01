@@ -26,7 +26,8 @@ public extension NextRideService {
     nextRide: { coordinate, radius in
       let request = NextRidesRequest(coordinate: coordinate, radius: radius)
       return apiClient.dispatch(request)
-        .mapError { Failure(internalError: $0) }
+        .decode(type: NextRidesRequest.ResponseDataType.self, decoder: request.decoder)
+        .mapError { Failure(internalError: $0 as! NetworkRequestError) }
         .eraseToAnyPublisher()
     }
   )
