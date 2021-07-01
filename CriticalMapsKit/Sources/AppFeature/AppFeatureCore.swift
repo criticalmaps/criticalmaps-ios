@@ -10,9 +10,10 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import Logger
 import MapKit
+import MapFeature
+import NextRideFeature
 import IDProvider
 import SharedModels
-import MapFeature
 
 // MARK: State
 public struct AppState: Equatable {
@@ -29,6 +30,7 @@ public struct AppState: Equatable {
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
+  var nextRideState = NextRideState()
   var requestTimer = RequestTimerState()
 }
 
@@ -41,6 +43,7 @@ public enum AppAction: Equatable {
   case fetchDataResponse(Result<LocationAndChatMessages, LocationsAndChatDataService.Failure>)
   
   case map(MapFeatureAction)
+  case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
 }
 
@@ -79,6 +82,16 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     environment: { global in
       RequestTimerEnvironment(
         mainQueue: global.mainQueue
+      )
+    }
+  ),
+  nextRideReducer.pullback(
+    state: \.nextRideState,
+    action: /AppAction.nextRide,
+    environment: { global in
+      NextRideEnvironment(
+        mainQueue: global.mainQueue,
+        coordinateObfuscator: .live
       )
     }
   ),
@@ -121,15 +134,32 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .didUpdateLocations:
           if !state.didResolveInitialLocation {
             state.didResolveInitialLocation.toggle()
-            return Effect(value: .fetchData)
+            if let coordinate = Coordinate(state.mapFeatureState.location) {
+              return .merge(
+                Effect(value: .fetchData),
+                Effect(value: .nextRide(.getNextRide(coordinate)))
+              )
+            } else {
+              return .merge(
+                Effect(value: .fetchData)
+              )
+            }
           } else {
             return .none
           }
-          
         
         default:
           return .none
         }
+      default:
+        return .none
+      }
+      
+    case let .nextRide(nextRideAction):
+      switch nextRideAction {
+      case let .setNextRide(ride):
+        state.mapFeatureState.nextRide = ride
+        return .none
       default:
         return .none
       }
@@ -157,6 +187,19 @@ extension SharedModels.Location {
         longitude: location.coordinate.longitude
       ),
       timestamp: location.timestamp.timeIntervalSince1970
+    )
+  }
+}
+
+extension SharedModels.Coordinate {
+  /// Creates a Location object from an optional ComposableCoreLocation.Location
+  init?(_ location: ComposableCoreLocation.Location?) {
+    guard let location = location else {
+      return nil
+    }
+    self = Coordinate(
+      latitude: location.coordinate.latitude,
+      longitude: location.coordinate.longitude
     )
   }
 }

@@ -15,6 +15,7 @@ public struct MapFeatureState: Equatable {
   public var isRequestingCurrentLocation: Bool
   public var location: ComposableCoreLocation.Location?
   public var riders: [Rider]
+  public var nextRide: Ride?
   
   public var userTrackingMode: UserTrackingState
   
@@ -23,7 +24,8 @@ public struct MapFeatureState: Equatable {
     isRequestingCurrentLocation: Bool = false,
     location: ComposableCoreLocation.Location? = nil,
     riders: [Rider],
-    userTrackingMode: UserTrackingState
+    userTrackingMode: UserTrackingState,
+    nextRide: Ride? = nil
   ) {
     self.alert = alert
     self.isRequestingCurrentLocation = isRequestingCurrentLocation
