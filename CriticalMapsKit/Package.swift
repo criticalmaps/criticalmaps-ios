@@ -38,6 +38,7 @@ let package = Package(
         "Logger",
         "IDProvider",
         "MapFeature",
+        "NextRideFeature",
         "Styleguide",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ],
@@ -87,6 +88,10 @@ let package = Package(
       ]
     ),
     .target(
+      name: "PathMonitorClient",
+      dependencies: []
+    ),
+    .target(
       name: "SharedModels",
       dependencies: [
         "Helpers"
@@ -133,6 +138,16 @@ let package = Package(
       name: "MapFeatureTests",
       dependencies: [
         "MapFeature",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ]
+    ),
+    .testTarget(
+      name: "NextRideFeatureTests",
+      dependencies: [
+        "NextRideFeature",
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
