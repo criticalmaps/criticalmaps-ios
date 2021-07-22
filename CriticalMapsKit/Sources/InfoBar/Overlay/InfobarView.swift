@@ -56,7 +56,7 @@ public struct InfobarView: View {
   private var icon: some View {
     switch infobar.style {
     case .criticalMass:
-      return Image(systemName: "pencil")
+      return Image(uiImage: UIImage(named: "cm", in: Bundle.module, with: nil)!)
     case .success:
       return Image(systemName: "checkmark.circle")
     case .warning, .error:

@@ -69,7 +69,8 @@ let package = Package(
         "Styleguide",
         "Helpers",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      resources: [.process("Resources")]
     ),
     .target(
       name: "Logger",
