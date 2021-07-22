@@ -27,6 +27,10 @@ public struct MapFeatureView: View {
         userTrackingMode: viewStore.binding(
           get: { $0.userTrackingMode.userTrackingMode },
           send: MapFeatureAction.updateUserTrackingMode
+        ),
+        shouldAnimateUserTrackingMode: viewStore.binding(
+          get: \.shouldAnimateTrackingMode,
+          send: MapFeatureAction.updateShouldAnimateTrackingMode
         )
       )
       .edgesIgnoringSafeArea(.all)

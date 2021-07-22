@@ -19,6 +19,8 @@ public struct MapFeatureState: Equatable {
   
   public var userTrackingMode: UserTrackingState
   
+  public var shouldAnimateTrackingMode = true
+  
   public init(
     alert: AlertState<MapFeatureAction>? = nil,
     isRequestingCurrentLocation: Bool = false,
@@ -42,6 +44,7 @@ public enum MapFeatureAction: Equatable {
   case updateRegion(CoordinateRegion?)
   case updateUserTrackingMode(MKUserTrackingMode)
   case nextTrackingMode
+  case updateShouldAnimateTrackingMode
   
   case locationManager(LocationManager.Action)
   case userTracking(UserTrackingAction)
@@ -124,7 +127,11 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
         fatalError()
       }
     case let .updateUserTrackingMode(mode):
+      state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.userTrackingMode.rawValue
       state.userTrackingMode.userTrackingMode = mode
+      return .none
+      
+    case .updateShouldAnimateTrackingMode:
       return .none
       
     case .updateRiderCoordinates:

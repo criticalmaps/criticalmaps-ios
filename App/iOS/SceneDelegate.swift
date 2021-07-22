@@ -1,6 +1,7 @@
 import AppFeature
 import SwiftUI
 import UIKit
+import InfoBar
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?

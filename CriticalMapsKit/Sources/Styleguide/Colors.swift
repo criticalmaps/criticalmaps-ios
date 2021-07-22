@@ -8,6 +8,13 @@
 import UIKit
 
 public extension UIColor {
+  static var secondaryBackground: UIColor {
+    UIColor { $0.userInterfaceStyle == .dark
+      ? UIColor.hex(0x45474D, alpha: 0.8)
+      : .white
+    }
+  }
+  
   static var cmYellow: UIColor {
     UIColor(red: 1.000, green: 0.835, blue: 0.192, alpha: 1.000)
   }
@@ -101,3 +108,13 @@ public extension UIColor {
   }
 }
 
+extension UIColor {
+  static func hex(_ hex: UInt, alpha: Double = 1) -> Self {
+    Self(
+      red: Double((hex & 0xff0000) >> 16) / 255,
+      green: Double((hex & 0x00ff00) >> 8) / 255,
+      blue: Double(hex & 0x0000ff) / 255,
+      alpha: alpha
+    )
+  }
+}

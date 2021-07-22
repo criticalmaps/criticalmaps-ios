@@ -18,6 +18,7 @@ public typealias ViewRepresentable = UIViewRepresentable
 struct MapView: UIViewRepresentable {
   @Binding var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
+  @Binding var shouldAnimateUserTrackingMode: Bool
   
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
@@ -34,7 +35,7 @@ struct MapView: UIViewRepresentable {
   }
   
   func updateUIView(_ uiView: MKMapView, context: Context) {
-    uiView.setUserTrackingMode(userTrackingMode, animated: true)
+    uiView.setUserTrackingMode(userTrackingMode, animated: shouldAnimateUserTrackingMode)
   
     // TODO: move set logic into reducer
     let currentlyDisplayedPOIs = uiView.annotations.compactMap { $0 as? RiderAnnotation }

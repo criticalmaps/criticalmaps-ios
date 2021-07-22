@@ -12,6 +12,7 @@
 		73EB0311263F23A100941D57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* SceneDelegate.swift */; };
 		73EB0313263F254000941D57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73EB0312263F254000941D57 /* Main.storyboard */; };
 		73FCD217264039120010CB48 /* CriticalMapsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73FCD216264039120010CB48 /* CriticalMapsKit */; };
+		73FE630E26A74D45008B4E59 /* InfoBar in Frameworks */ = {isa = PBXBuildFile; productRef = 73FE630D26A74D45008B4E59 /* InfoBar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FE630E26A74D45008B4E59 /* InfoBar in Frameworks */,
 				73FCD217264039120010CB48 /* CriticalMapsKit in Frameworks */,
 				731CFCC9267A745600F1093B /* AppFeature in Frameworks */,
 			);
@@ -126,6 +128,7 @@
 			packageProductDependencies = (
 				73FCD216264039120010CB48 /* CriticalMapsKit */,
 				731CFCC8267A745600F1093B /* AppFeature */,
+				73FE630D26A74D45008B4E59 /* InfoBar */,
 			);
 			productName = "Critical Maps";
 			productReference = 73CF5FC2263EAF5B001925A3 /* Critical Maps.app */;
@@ -565,6 +568,10 @@
 		73FCD216264039120010CB48 /* CriticalMapsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CriticalMapsKit;
+		};
+		73FE630D26A74D45008B4E59 /* InfoBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = InfoBar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
