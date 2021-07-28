@@ -9,15 +9,16 @@ import ApiClient
 import CoreLocation
 import SharedModels
 
-public struct NextRideQuery: Codable {
-  let centerLatitude: CLLocationDegrees
-  let centerLongitude: CLLocationDegrees
-  let radius: Int
-  var year = Date.getCurrent(\.year)
-  var month = Date.getCurrent(\.month)
+enum NextRideQueryKeys {
+  static let centerLatitude = "centerLatitude"
+  static let centerLongitude = "centerLongitude"
+  static let radius = "radius"
+  static let year = "year"
+  static let month = "month"
 }
 
 public struct NextRidesRequest: APIRequest {
+  
   public typealias ResponseDataType = [Ride]
   public var endpoint = Endpoint(
     baseUrl: Endpoints.criticalmassInEndpoint,
@@ -25,15 +26,17 @@ public struct NextRidesRequest: APIRequest {
   )
   public var headers: HTTPHeaders?
   public var httpMethod: HTTPMethod = .get
-  var queryItem: NextRideQuery?
+  public var queryItems: [URLQueryItem]?
   public var body: Data?
   
   init(coordinate: Coordinate, radius: Int) {
-    queryItem = NextRideQuery(
-      centerLatitude: coordinate.latitude,
-      centerLongitude: coordinate.longitude,
-      radius: radius
-    )
+    queryItems = [
+      URLQueryItem(name: NextRideQueryKeys.centerLongitude, value: String(coordinate.longitude)),
+      URLQueryItem(name: NextRideQueryKeys.centerLatitude, value: String(coordinate.latitude)),
+      URLQueryItem(name: NextRideQueryKeys.radius, value: String(radius)),
+      URLQueryItem(name: NextRideQueryKeys.year, value: String(Date.getCurrent(\.year))),
+      URLQueryItem(name: NextRideQueryKeys.month, value: String(Date.getCurrent(\.month)))
+    ]
   }
   
   public var decoder: JSONDecoder {

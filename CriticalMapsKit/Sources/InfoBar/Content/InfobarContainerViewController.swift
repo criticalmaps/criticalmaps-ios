@@ -14,6 +14,7 @@ public final class InfobarContainerViewController: UIViewController, StatusbarSt
     
     addChild(rootViewController)
     view.addSubview(rootViewController.view)
+    rootViewController.additionalSafeAreaInsets = .init(top: 0, left: 0, bottom: 200, right: 0)
     rootViewController.view.translatesAutoresizingMaskIntoConstraints = false
     rootViewController.view.backgroundColor = .clear
     NSLayoutConstraint.activate(
