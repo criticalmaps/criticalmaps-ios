@@ -111,7 +111,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
         
       case .authorizedAlways, .authorizedWhenInUse:
         return environment.locationManager
-          .requestLocation(id: LocationManagerId())
+          .startUpdatingLocation(id: LocationManagerId())
           .fireAndForget()
         
       @unknown default:
