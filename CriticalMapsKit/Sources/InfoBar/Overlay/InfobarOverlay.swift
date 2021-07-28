@@ -2,7 +2,6 @@ import ComposableArchitecture
 import SwiftUI
 
 struct InfobarOverlay: View {
-//  @Environment(\.themeProvider) private var theme
   let store: Store<InfobarOverlayState, InfobarOverlayAction>
   
   var body: some View {

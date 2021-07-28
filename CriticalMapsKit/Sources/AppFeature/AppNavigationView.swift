@@ -105,7 +105,8 @@ struct AppNavigationView_Previews: PreviewProvider {
       environment: AppEnvironment(
         service: .noop,
         idProvider: .noop,
-        mainQueue: .failing
+        mainQueue: .failing,
+        infoBannerPresenter: .mock()
       )
     )
     )

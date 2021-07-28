@@ -9,6 +9,7 @@ import ComposableCoreLocation
 import Foundation
 import MapKit
 import SharedModels
+import InfoBar
 
 public struct MapFeatureState: Equatable {
   public var alert: AlertState<MapFeatureAction>?
@@ -51,11 +52,13 @@ public enum MapFeatureAction: Equatable {
 }
 
 public struct MapFeatureEnvironment {
-  public init(locationManager: LocationManager) {
+  public init(locationManager: LocationManager, infobannerController: InfobarController) {
     self.locationManager = locationManager
+    self.infobannerController = infobannerController
   }
   
   let locationManager: LocationManager
+  let infobannerController: InfobarController
 }
 
 /// Used to identify locatioManager effects.

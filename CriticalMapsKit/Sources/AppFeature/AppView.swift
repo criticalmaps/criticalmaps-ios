@@ -39,6 +39,7 @@ public struct AppView: View {
       }
     }
     .onAppear { viewStore.send(.onAppear) }
+    .edgesIgnoringSafeArea(.all)
   }
 }
 
@@ -51,7 +52,8 @@ struct AppView_Previews: PreviewProvider {
       environment: AppEnvironment(
         service: .noop,
         idProvider: .noop,
-        mainQueue: .failing
+        mainQueue: .failing,
+        infoBannerPresenter: .mock()
       )
     )
     )

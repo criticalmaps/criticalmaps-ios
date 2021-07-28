@@ -1,7 +1,7 @@
 import UIKit
 
 public class PassthroughWindow: UIWindow {
-  var passthroughTag = 15121993
+  var passthroughTag = 15123393
   
   public override var tag: Int {
     get { passthroughTag }

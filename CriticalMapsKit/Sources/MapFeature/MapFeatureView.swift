@@ -35,6 +35,7 @@ public struct MapFeatureView: View {
       )
       .edgesIgnoringSafeArea(.all)
     }
+    .edgesIgnoringSafeArea(.all)
   }
 }
 
@@ -49,7 +50,8 @@ struct MapFeatureView_Previews: PreviewProvider {
         ),
         reducer: mapFeatureReducer,
         environment: MapFeatureEnvironment(
-          locationManager: .live
+          locationManager: .live,
+          infobannerController: .mock()
         )
       )
     )

@@ -37,6 +37,7 @@ let package = Package(
       dependencies: [
         "CriticalMapsKit",
         "Logger",
+        "InfoBar",
         "IDProvider",
         "MapFeature",
         "NextRideFeature",
@@ -82,6 +83,7 @@ let package = Package(
       name: "MapFeature",
       dependencies: [
         "CriticalMapsKit",
+        "InfoBar",
         "Logger",
         "NextRideFeature",
         "Styleguide",
