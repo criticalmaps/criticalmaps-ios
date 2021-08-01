@@ -29,13 +29,12 @@ public struct NextRidesRequest: APIRequest {
   public var queryItems: [URLQueryItem]?
   public var body: Data?
   
-  init(coordinate: Coordinate, radius: Int) {
+  init(coordinate: Coordinate, radius: Int, date: () -> Date = Date.init) {
     queryItems = [
       URLQueryItem(name: NextRideQueryKeys.centerLongitude, value: String(coordinate.longitude)),
       URLQueryItem(name: NextRideQueryKeys.centerLatitude, value: String(coordinate.latitude)),
       URLQueryItem(name: NextRideQueryKeys.radius, value: String(radius)),
-      URLQueryItem(name: NextRideQueryKeys.year, value: String(Date.getCurrent(\.year))),
-      URLQueryItem(name: NextRideQueryKeys.month, value: String(Date.getCurrent(\.month)))
+      URLQueryItem(name: NextRideQueryKeys.year, value: String(Date.getCurrent(\.year, date))),
     ]
   }
   
