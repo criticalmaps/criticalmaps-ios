@@ -8,21 +8,73 @@
 import UIKit
 
 public extension UIColor {
-  static var secondaryBackground: UIColor {
-    UIColor { $0.userInterfaceStyle == .dark
-      ? UIColor.hex(0x45474D, alpha: 0.8)
+  static var backgroundPrimary: Self {
+    Self { $0.isDarkMode
+      ? .hex(0x1A1A1A)
       : .white
     }
   }
   
-  static var cmYellow: UIColor {
-    UIColor(red: 1.000, green: 0.835, blue: 0.192, alpha: 1.000)
+  static var backgroundSecondary: Self {
+    Self { $0.isDarkMode
+      ? .hex(0x45474D, alpha: 0.8)
+      : .white
+    }
   }
   
-  static var twitterProfileInnerBorder: UIColor {
-    UIColor(red: 55 / 255.0, green: 64 / 255.0, blue: 82 / 255.0, alpha: 0.18)
+  static var backgroundTranslucent: Self {
+    Self { $0.isDarkMode
+      ? .hex(0x45474D, alpha: 0.8)
+      : .white.withAlphaComponent(0.8)
+    }
   }
   
+  static var attention: Self {
+    .hex(0xFF3355)
+  }
+  
+  static var attentionTranslucent: Self {
+    .hex(0xFF3355, alpha: 0.8)
+  }
+  
+  static var brand500: Self {
+    .hex(0xFFD633)
+  }
+  
+  static var brand600: Self {
+    .hex(0xF2BF30)
+  }
+  
+  static var border: Self {
+    Self { $0.isDarkMode
+      ? .hex(0x45474D)
+      : .hex(0xDADCE0)
+    }
+  }
+  
+  static var textPrimary: Self {
+    Self { $0.isDarkMode
+      ? .white
+      : .hex(0x1A1A1A)
+    }
+  }
+  
+  static var textSecondary: Self {
+    Self { $0.isDarkMode
+      ? .hex(0xDADCE0)
+      : .hex(0x45474D)
+    }
+  }
+  
+  static var textSilent: Self {
+    .hex(0x909399)
+  }
+    
+  static var twitterProfileInnerBorder: Self {
+    .hex(0x374052, alpha: 0.18)
+  }
+  
+  //--
   static var gray100: UIColor {
     UIColor(white: 26.0 / 255.0, alpha: 1.0)
   }
@@ -116,5 +168,11 @@ extension UIColor {
       blue: Double(hex & 0x0000ff) / 255,
       alpha: alpha
     )
+  }
+}
+
+extension UITraitCollection {
+  var isDarkMode: Bool {
+    userInterfaceStyle == .dark
   }
 }
