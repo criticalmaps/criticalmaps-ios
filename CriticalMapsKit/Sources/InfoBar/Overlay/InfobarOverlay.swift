@@ -1,8 +1,10 @@
 import ComposableArchitecture
+import Styleguide
 import SwiftUI
 
 struct InfobarOverlay: View {
   let store: Store<InfobarOverlayState, InfobarOverlayAction>
+  @State private var offset = CGSize.zero
   
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -13,6 +15,24 @@ struct InfobarOverlay: View {
           content: { infobar in
             VStack {
               InfobarView(infobar.infobar)
+                .offset(x: 0, y: offset.height)
+                .gesture(
+                  DragGesture(
+                    minimumDistance: 40,
+                    coordinateSpace: .global
+                  )
+                  .onChanged({ value in
+                    guard value.translation.height < 0 else { return }
+                    offset = value.translation
+                  })
+                  .onEnded({ _ in
+                    if abs(offset.width) > 5 {
+                      viewStore.send(.didSwipeUp(infobar.id))
+                    } else {
+                        offset = .zero
+                    }
+                  })
+                )
                 .onTapGesture {
                   viewStore.send(.didTap(infobar.id))
                 }
@@ -36,7 +56,7 @@ struct InfobarOverlay: View {
         )
         Spacer()
       }
-      .padding(.horizontal, 8)
+      .padding(.horizontal, .grid(4))
     }
   }
   

@@ -14,8 +14,7 @@ struct IdentifiedInfobar: Equatable, Identifiable {
 }
 
 struct InfobarOverlayState: Equatable {
-  let slideDuration = 200
-  let displayDuration = 4000
+  let slideDuration = 250
   
   var infobars: IdentifiedArrayOf<IdentifiedInfobar>
   
@@ -30,6 +29,7 @@ enum InfobarOverlayAction: Equatable {
   case completedAnimation(IdentifiedInfobar.ID)
   
   case didTap(IdentifiedInfobar.ID)
+  case didSwipeUp(IdentifiedInfobar.ID)
 }
 
 struct InfobarOverlayEnvironment {
@@ -107,7 +107,7 @@ let infobarOverlayReducer = Reducer<
       showInfobarEffect(
         id: id,
         slideDuration: state.slideDuration,
-        displayDuration: state.displayDuration,
+        displayDuration: infobar.style.displayDuration,
         scheduler: environment.scheduler
       )
     ]
@@ -126,6 +126,14 @@ let infobarOverlayReducer = Reducer<
     return .none
     
   case let .completedAnimation(id):
+    guard
+      state.infobars
+        .lazy
+        .map(\.id)
+        .contains(id)
+    else {
+      return .none
+    }
     state.infobars.remove(id: id)
     return .none
     
@@ -143,5 +151,10 @@ let infobarOverlayReducer = Reducer<
         .eraseToEffect()
     )
       .cancellable(id: InfobarAnimationIdentifier(id: id), cancelInFlight: true)
+  
+  case let .didSwipeUp(id):
+    return Effect(value: .completedAnimation(id))
+      .delay(for: .milliseconds(200), scheduler: environment.scheduler)
+      .eraseToEffect()
   }
 }

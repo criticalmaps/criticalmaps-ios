@@ -3,7 +3,6 @@ import SwiftUI
 import Styleguide
 
 public struct InfobarView: View {
-  @Environment(\.colorScheme) var colorScheme
   private let infobar: Infobar
   
   public init(_ infobar: Infobar) {
@@ -19,41 +18,41 @@ public struct InfobarView: View {
         VStack(alignment: .leading, spacing: .grid(2)) {
           Text(infobar.trimmedMessage)
             .lineLimit(2)
-            .font(.system(.body))
+            .font(.bodyTwo)
           if let subTitle = infobar.subTitle {
             Text(subTitle)
-              .lineLimit(2)
-              .font(.system(.body))
+              .lineLimit(1)
+              .font(.meta)
           }
         }
         Spacer(minLength: 0)
       }
     )
-      .foregroundColor(textForegroundColor)
-      .padding(.vertical, .grid(2))
-      .padding(.horizontal, .grid(4))
-      .frame(maxWidth: .infinity, minHeight: 44)
-      .background(backgroundColor)
-      .adaptiveCornerRadius(.allCorners, 8)
-      .shadow(
-        color: Color.black.opacity(0.1),
-        radius: 5,
-        x: 0,
-        y: 4
-      )
-      .compositingGroup()
+    .foregroundColor(textForegroundColor)
+    .padding(.vertical, .grid(3))
+    .padding(.horizontal, .grid(4))
+    .frame(maxWidth: .infinity, minHeight: 68)
+    .background(backgroundColor)
+    .adaptiveCornerRadius(.allCorners, 18)
+    .shadow(
+      color: Color.black.opacity(0.1),
+      radius: 5,
+      x: 0,
+      y: 4
+    )
+    .compositingGroup()
   }
   
-  private var textForegroundColor: Color {
+  var textForegroundColor: Color {
     switch infobar.style {
     case .criticalMass:
-      return Color(.label)
+      return Color(.textPrimary)
     case .success, .warning, .error:
       return Color.white
     }
   }
   
-  private var icon: some View {
+  var icon: some View {
     switch infobar.style {
     case .criticalMass:
       return Image(uiImage: UIImage(named: "cm", in: Bundle.module, with: nil)!)
@@ -64,14 +63,14 @@ public struct InfobarView: View {
     }
   }
   
-  private var backgroundColor: some View {
+  var backgroundColor: some View {
     switch infobar.style {
     case .criticalMass:
-      return Color(.secondaryBackground)
+      return Color(.backgroundSecondary)
     case .success:
       return Color.green
     case .warning, .error:
-      return Color.hex(0xFF3355)
+      return Color(.attention)
     }
   }
 }
@@ -80,11 +79,16 @@ struct InfobarView_Previews: PreviewProvider {
   static var previews: some View {
     Preview {
       VStack {
-        InfobarView(.criticalMass(message: "CriticalMass", subTitle: "12.12.2012 am Mariannenplatz"))
+        InfobarView(
+          .criticalMass(
+            message: "CriticalMass am Mariannenplatz",
+            subTitle: "12.12.2012"
+          )
+        )
         InfobarView(.success(message: "Infobar Success"))
         InfobarView(.warning(message: "Infobar Warning"))
         InfobarView(.error(message: "Infobar Error"))
-      }      
+      }
     }
   }
 }

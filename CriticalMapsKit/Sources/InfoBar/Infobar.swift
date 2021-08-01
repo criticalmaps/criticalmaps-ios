@@ -4,6 +4,17 @@ public struct Infobar: Equatable {
     case success
     case warning
     case error
+    
+    var displayDuration: Int {
+      switch self {
+      case .criticalMass:
+        return 30000
+      case .success:
+        return 4000
+      case .warning, .error:
+        return 15000
+      }
+    }
   }
   
   public typealias TapAction = () -> Void
