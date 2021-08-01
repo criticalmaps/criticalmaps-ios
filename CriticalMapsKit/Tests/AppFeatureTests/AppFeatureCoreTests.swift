@@ -35,7 +35,8 @@ class AppFeatureTests: XCTestCase {
           create: { _ in locationManagerSubject.eraseToEffect() },
           locationServicesEnabled: { true },
           set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
-        )
+        ),
+        infoBannerPresenter: .mock()
       )
     )
     
@@ -54,7 +55,7 @@ class AppFeatureTests: XCTestCase {
     )
   }
   
-  func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocatinUpated() {
+  func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() {
     let setSubject = PassthroughSubject<Never, Never>()
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
@@ -107,7 +108,8 @@ class AppFeatureTests: XCTestCase {
           set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
         ),
         nextRideService: nextRideService,
-        userDefaultsClient: settings
+        userDefaultsClient: settings,
+        infoBannerPresenter: .mock()
       )
     )
     
