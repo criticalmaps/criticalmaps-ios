@@ -6,7 +6,7 @@ let package = Package(
   name: "CriticalMapsKit",
   defaultLocalization: "en",
   platforms: [
-    .iOS(.v13)
+    .iOS(.v14)
   ],
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
@@ -146,6 +146,16 @@ let package = Package(
     .testTarget(
       name: "IDProviderTests",
       dependencies: ["IDProvider"]
+    ),
+    .testTarget(
+      name: "InfoBarTests",
+      dependencies: [
+        "InfoBar",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ]
     ),
     .testTarget(
       name: "MapFeatureTests",
