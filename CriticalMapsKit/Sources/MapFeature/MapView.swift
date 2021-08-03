@@ -59,6 +59,10 @@ public class MapCoordinator: NSObject, MKMapViewDelegate {
   init(_ parent: MapView) {
     self.parent = parent
   }
+  
+  public func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+    parent.userTrackingMode = mode
+  }
     
   public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard annotation is MKUserLocation == false else {
