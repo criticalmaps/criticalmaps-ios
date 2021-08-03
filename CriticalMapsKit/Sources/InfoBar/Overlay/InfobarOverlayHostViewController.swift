@@ -57,8 +57,8 @@ public class InfobarOverlayHostViewController: UIViewController {
       )
     )
     
-    addChild(hostingController)
     view.addSubview(hostingController.view)
+    addChild(hostingController)
     hostingController.view.translatesAutoresizingMaskIntoConstraints = false
     hostingController.view.backgroundColor = .clear
     NSLayoutConstraint.activate(
