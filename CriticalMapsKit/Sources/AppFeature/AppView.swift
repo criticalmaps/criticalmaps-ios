@@ -33,7 +33,7 @@ public struct AppView: View {
         Spacer()
         AppNavigationView(store: store)
           .padding([.leading, .trailing])
-          .padding(.bottom, 28)
+          .padding(.bottom, .grid(7))
           .frame(maxWidth: 400)
       }
     }
