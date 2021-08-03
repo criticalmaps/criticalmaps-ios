@@ -169,6 +169,7 @@ class AppFeatureTests: XCTestCase {
         locationManagerSubject.send(completion: .finished)
         serviceSubject.send(completion: .finished)
         nextRideSubject.send(completion: .finished)
+        self.testScheduler.advance()
       }
     )
   }
