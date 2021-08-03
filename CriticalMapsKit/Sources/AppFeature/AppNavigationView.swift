@@ -61,6 +61,7 @@ public struct AppNavigationView: View {
       .accessibility(label: Text(NSLocalizedString("navigation.rules", bundle: .module, comment: "")))
       
       menuSeperator
+      
       Button(
         action: {},
         label: {
@@ -72,13 +73,14 @@ public struct AppNavigationView: View {
       .frame(maxWidth: .infinity, minHeight: minHeight)
       .accessibility(label: Text(NSLocalizedString("navigation.settings", bundle: .module, comment: "")))
     }
-    .background(colorScheme == .light ? .white : Color.hex(0x45474D))
-    .clipShape(RoundedRectangle(cornerRadius: 18))
+    .font(.body)
+    .background(Color(.backgroundTranslucent))
+    .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
   }
   
   var menuSeperator: some View {
-    Color.hex(0xDADCE0)
+    Color(.border)
       .frame(width: 1, height: minHeight)
   }
 }
