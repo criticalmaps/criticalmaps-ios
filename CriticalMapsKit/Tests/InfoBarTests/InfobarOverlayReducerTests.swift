@@ -182,7 +182,13 @@ final class InfobarOverlayReducerTest: XCTestCase {
     let infobar: Infobar = .success(message: "success")
     let store = TestStore(
       initialState: InfobarOverlayState(
-        infobars: []
+        infobars: [
+          IdentifiedInfobar(
+            id: id,
+            infobar: infobar,
+            state: .active
+          )
+        ]
       ),
       reducer: infobarOverlayReducer,
       environment: InfobarOverlayEnvironment(
@@ -192,28 +198,6 @@ final class InfobarOverlayReducerTest: XCTestCase {
     )
     
     store.assert(
-      .send(
-        .show(infobar),
-        { state in
-          state.infobars.insert(
-            IdentifiedInfobar(
-              id: id,
-              infobar: infobar,
-              state: .initial
-            ),
-            at: 0
-          )
-        }
-      ),
-      .do {
-        self.scheduler.advance(by: .milliseconds(1))
-      },
-      .receive(
-        .update(id, state: .active),
-        { state in
-          state.infobars[0].state = .active
-        }
-      ),
       .send(
         .didTap(id)
       ),
@@ -232,6 +216,39 @@ final class InfobarOverlayReducerTest: XCTestCase {
           state.infobars = []
         }
       )
+    )
+  }
+  
+  func test_didSwipeUp_action_emitted() {
+    let id = UUID()
+    let infobar: Infobar = .success(message: "success")
+    let store = TestStore(
+      initialState: InfobarOverlayState(
+        infobars: [
+          IdentifiedInfobar(
+            id: id,
+            infobar: infobar,
+            state: .active
+          )
+        ]
+      ),
+      reducer: infobarOverlayReducer,
+      environment: InfobarOverlayEnvironment(
+        uuid: { id },
+        scheduler: scheduler.eraseToAnyScheduler()
+      )
+    )
+    
+    store.assert(
+      .send(
+        .didSwipeUp(id)
+      ),
+      .do {
+        self.scheduler.advance(by: .milliseconds(251))
+      },
+      .receive(.completedAnimation(id)) { state in
+        state.infobars = []
+      }
     )
   }
 }
