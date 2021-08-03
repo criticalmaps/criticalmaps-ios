@@ -29,8 +29,11 @@ public struct AppView: View {
           action: AppAction.map
         )
       )
+      .edgesIgnoringSafeArea(.vertical)
+      
       VStack {
         Spacer()
+        
         AppNavigationView(store: store)
           .padding([.leading, .trailing])
           .padding(.bottom, .grid(7))

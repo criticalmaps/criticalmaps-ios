@@ -35,7 +35,6 @@ public struct MapFeatureView: View {
       )
       .edgesIgnoringSafeArea(.all)
     }
-    .edgesIgnoringSafeArea(.all)
   }
 }
 
