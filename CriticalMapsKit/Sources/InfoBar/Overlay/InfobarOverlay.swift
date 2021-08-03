@@ -22,11 +22,12 @@ struct InfobarOverlay: View {
                     coordinateSpace: .global
                   )
                   .onChanged({ value in
-                    guard value.translation.height < 0 else { return }
+                    guard value.translation.height < 50 else { return }
                     offset = value.translation
                   })
                   .onEnded({ _ in
-                    if abs(offset.width) > 5 {
+                    let offsetWidth = abs(offset.width)
+                    if offsetWidth > 0 {
                       viewStore.send(.didSwipeUp(infobar.id))
                     } else {
                         offset = .zero
@@ -53,6 +54,7 @@ struct InfobarOverlay: View {
               Spacer()
             }
           }
+          
         )
         Spacer()
       }
