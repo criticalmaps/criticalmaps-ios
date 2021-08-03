@@ -13,7 +13,6 @@ import Styleguide
 public struct AppView: View {
   let store: Store<AppState, AppAction>
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>
-  @Environment(\.colorScheme) var colorScheme
   
   let minHeight: CGFloat = 56
   
