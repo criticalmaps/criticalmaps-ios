@@ -46,6 +46,13 @@
         "identifier" : "NextRideFeatureTests",
         "name" : "NextRideFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "InfoBarTests",
+        "name" : "InfoBarTests"
+      }
     }
   ],
   "version" : 1
