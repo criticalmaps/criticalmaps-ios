@@ -46,6 +46,7 @@ public enum MapFeatureAction: Equatable {
   case updateUserTrackingMode(MKUserTrackingMode)
   case nextTrackingMode
   case updateShouldAnimateTrackingMode
+  case updateNextRide
   
   case locationManager(LocationManager.Action)
   case userTracking(UserTrackingAction)
@@ -137,13 +138,9 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
     case .updateShouldAnimateTrackingMode:
       return .none
       
-    case .updateRiderCoordinates:
-      return .none
-    case .updateRegion:
+    case .updateRiderCoordinates, .updateNextRide, .updateRegion, .userTracking:
       return .none
     case .locationManager:
-      return .none
-    case .userTracking:
       return .none
     }
   }

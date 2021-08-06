@@ -15,10 +15,11 @@ import SwiftUI
 
 public typealias ViewRepresentable = UIViewRepresentable
 
-struct MapView: UIViewRepresentable {
+struct MapView: ViewRepresentable {
   @Binding var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
   @Binding var shouldAnimateUserTrackingMode: Bool
+  @Binding var nextRide: Ride?
   
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
@@ -26,11 +27,12 @@ struct MapView: UIViewRepresentable {
   
   func makeUIView(context: Context) -> MKMapView {
     let mapView = MKMapView(frame: UIScreen.main.bounds)
-    mapView.mapType = .standard
+    mapView.mapType = .mutedStandard
     mapView.pointOfInterestFilter = .excludingAll
     mapView.delegate = context.coordinator
     mapView.showsUserLocation = true
-    mapView.register(annotationViewType: RiderAnnoationView.self)    
+    mapView.register(annotationViewType: RiderAnnoationView.self)
+    mapView.register(annotationViewType: CMMarkerAnnotationView.self)
     return mapView
   }
   
@@ -50,6 +52,14 @@ struct MapView: UIViewRepresentable {
     
     uiView.removeAnnotations(removedAnnotations)
     uiView.addAnnotations(addedAnnotations)
+    
+    if let nextRide = nextRide {
+      if uiView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {
+        let nextRideAnnotation = CriticalMassAnnotation(ride: nextRide)
+        guard nextRide.coordinate != nil else { return }
+        uiView.addAnnotation(nextRideAnnotation!)
+      }
+    }
   }
 }
 
@@ -75,6 +85,15 @@ public class MapCoordinator: NSObject, MKMapViewDelegate {
       )
       return view as! RiderAnnoationView
     }
+    
+    if annotation is CriticalMassAnnotation {
+      let view = mapView.dequeueReusableAnnotationView(
+        withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
+        for: annotation
+      )
+      return view
+    }
+    
     return MKAnnotationView()
   }
 }

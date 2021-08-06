@@ -31,6 +31,10 @@ public struct MapFeatureView: View {
         shouldAnimateUserTrackingMode: viewStore.binding(
           get: \.shouldAnimateTrackingMode,
           send: MapFeatureAction.updateShouldAnimateTrackingMode
+        ),
+        nextRide: viewStore.binding(
+          get: \.nextRide,
+          send: MapFeatureAction.updateNextRide
         )
       )
       .edgesIgnoringSafeArea(.all)
