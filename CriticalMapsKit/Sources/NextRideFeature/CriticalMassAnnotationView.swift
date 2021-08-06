@@ -3,6 +3,7 @@
 
 import MapKit
 import Styleguide
+import L10n
 
 public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   typealias EventClosure = () -> Void
@@ -35,18 +36,15 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
   
   private func makeContextMenu() -> UIMenu {
     let share = UIAction(
-      // TODO: Replace string
-      title: "L10n.Map.Menu.share",
+      title: L10n.Map.Menu.share,
       image: UIImage(systemName: "square.and.arrow.up")
     ) { _ in self.shareEventClosure?() }
     let route = UIAction(
-      // TODO: Replace string
-      title: "L10n.Map.Menu.route",
+      title: L10n.Map.Menu.route,
       image: UIImage(systemName: "arrow.turn.up.right")
     ) { _ in self.routeEventClosure?() }
     return UIMenu(
-      // TODO: Replace string
-      title: "L10n.Map.Menu.title",
+      title: L10n.Map.Menu.title,
       children: [share, route]
     )
   }

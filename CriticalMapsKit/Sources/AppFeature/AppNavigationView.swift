@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import L10n
 import MapFeature
 import Styleguide
 import SwiftUI
@@ -44,7 +45,7 @@ public struct AppNavigationView: View {
             .accessibility(hidden: true)
         }
       )
-      .accessibility(label: Text(NSLocalizedString("navigation.chat", bundle: .module, comment: "")))
+        .accessibility(label: Text(L10n.Chat.title))
       .frame(maxWidth: .infinity, minHeight: minHeight)
       
       menuSeperator
@@ -58,7 +59,7 @@ public struct AppNavigationView: View {
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(NSLocalizedString("navigation.rules", bundle: .module, comment: "")))
+      .accessibility(label: Text(L10n.Rules.title))
       
       menuSeperator
       
@@ -71,7 +72,7 @@ public struct AppNavigationView: View {
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(NSLocalizedString("navigation.settings", bundle: .module, comment: "")))
+      .accessibility(label: Text(L10n.Settings.title))
     }
     .font(.body)
     .background(Color(.backgroundTranslucent))

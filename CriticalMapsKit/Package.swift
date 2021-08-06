@@ -37,6 +37,7 @@ let package = Package(
       dependencies: [
         "CriticalMapsKit",
         "Logger",
+        "L10n",
         "InfoBar",
         "IDProvider",
         "MapFeature",
@@ -73,6 +74,11 @@ let package = Package(
       ]
     ),
     .target(
+      name: "L10n",
+      dependencies: [],
+      resources: [.process("Resources")]
+    ),
+    .target(
       name: "Logger",
       dependencies: [
         .product(name: "Logging", package: "swift-log")
@@ -94,6 +100,7 @@ let package = Package(
       name: "NextRideFeature",
       dependencies: [
         "CriticalMapsKit",
+        "L10n",
         "Logger",
         "SharedModels",
         "Styleguide",
