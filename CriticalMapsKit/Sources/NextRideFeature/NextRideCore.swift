@@ -63,9 +63,9 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       obfuscatedCoordinate,
       env.store.rideEventSettings().radiusSettings.radius
     )
-    .receive(on: env.mainQueue)
-    .catchToEffect()
-    .map(NextRideAction.nextRideResponse)
+      .receive(on: env.mainQueue)
+      .catchToEffect()
+      .map(NextRideAction.nextRideResponse)
   case let .nextRideResponse(.failure(error)):
     Logger.logger.error("Get next ride failed 🛑 with error: \(error)")
     return .none
@@ -84,14 +84,14 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .filter {
         guard let type = $0.rideType else { return true }
         return env.store.rideEventSettings().typeSettings
-          .filter { $0.isEnabled }
+          .filter(\.isEnabled)
           .map(\.type)
           .contains(type)
       }
-      .filter { ride in ride.enabled }
+      .filter(\.enabled)
       .sorted(by: \.dateTime)
       .first { ride in ride.dateTime > env.now() }
-        
+    
     guard let filteredRide = ride else {
       Logger.logger.info("No upcoming events")
       return .none

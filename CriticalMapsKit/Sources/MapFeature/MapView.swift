@@ -15,26 +15,29 @@ import SwiftUI
 
 public typealias ViewRepresentable = UIViewRepresentable
 
-struct MapView: UIViewRepresentable {
+struct MapView: ViewRepresentable {
   @Binding var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
+  @Binding var shouldAnimateUserTrackingMode: Bool
+  @Binding var nextRide: Ride?
   
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
   }
   
   func makeUIView(context: Context) -> MKMapView {
-    let mapView = MKMapView()
-    mapView.mapType = .standard
+    let mapView = MKMapView(frame: UIScreen.main.bounds)
+    mapView.mapType = .mutedStandard
     mapView.pointOfInterestFilter = .excludingAll
     mapView.delegate = context.coordinator
     mapView.showsUserLocation = true
-    mapView.register(annotationViewType: RiderAnnoationView.self)    
+    mapView.register(annotationViewType: RiderAnnoationView.self)
+    mapView.register(annotationViewType: CMMarkerAnnotationView.self)
     return mapView
   }
   
   func updateUIView(_ uiView: MKMapView, context: Context) {
-    uiView.setUserTrackingMode(userTrackingMode, animated: true)
+    uiView.setUserTrackingMode(userTrackingMode, animated: shouldAnimateUserTrackingMode)
   
     // TODO: move set logic into reducer
     let currentlyDisplayedPOIs = uiView.annotations.compactMap { $0 as? RiderAnnotation }
@@ -49,6 +52,14 @@ struct MapView: UIViewRepresentable {
     
     uiView.removeAnnotations(removedAnnotations)
     uiView.addAnnotations(addedAnnotations)
+    
+    if let nextRide = nextRide {
+      if uiView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {
+        let nextRideAnnotation = CriticalMassAnnotation(ride: nextRide)
+        guard nextRide.coordinate != nil else { return }
+        uiView.addAnnotation(nextRideAnnotation!)
+      }
+    }
   }
 }
 
@@ -57,6 +68,10 @@ public class MapCoordinator: NSObject, MKMapViewDelegate {
   
   init(_ parent: MapView) {
     self.parent = parent
+  }
+  
+  public func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+    parent.userTrackingMode = mode
   }
     
   public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -70,6 +85,15 @@ public class MapCoordinator: NSObject, MKMapViewDelegate {
       )
       return view as! RiderAnnoationView
     }
+    
+    if annotation is CriticalMassAnnotation {
+      let view = mapView.dequeueReusableAnnotationView(
+        withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
+        for: annotation
+      )
+      return view
+    }
+    
     return MKAnnotationView()
   }
 }

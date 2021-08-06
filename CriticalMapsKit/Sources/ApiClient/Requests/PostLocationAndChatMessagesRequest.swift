@@ -9,6 +9,8 @@ import Foundation
 import SharedModels
 
 public struct PostLocationAndChatMessagesRequest: APIRequest {
+  public var queryItems: [URLQueryItem]?
+  
   public func parseResponse(data: Data) throws -> LocationAndChatMessages {
     .init(locations: [:], chatMessages: [:])
   }

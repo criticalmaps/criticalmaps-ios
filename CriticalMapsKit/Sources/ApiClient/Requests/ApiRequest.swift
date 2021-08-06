@@ -17,7 +17,7 @@ public protocol APIRequest {
   var endpoint: Endpoint { get }
   var httpMethod: HTTPMethod { get }
   var headers: HTTPHeaders? { get }
-  var queryItems: [String: String]? { get }
+  var queryItems: [URLQueryItem]? { get set }
   var body: Data? { get }
   func makeRequest() throws -> URLRequest
   var decoder: JSONDecoder { get }
@@ -34,7 +34,7 @@ public extension APIRequest {
       components.path = path
     }
     if let queryItems = queryItems {
-      components.setQueryItems(with: queryItems)
+      components.queryItems = queryItems
     }
     guard let url = components.url else {
       throw APIRequestBuildError.invalidURL
@@ -50,12 +50,6 @@ public extension APIRequest {
   
   var decoder: JSONDecoder {
     JSONDecoder()
-  }
-}
-
-extension URLComponents {
-  mutating func setQueryItems(with parameters: [String: String]) {
-    queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
   }
 }
 

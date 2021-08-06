@@ -9,6 +9,7 @@ import ComposableCoreLocation
 import Foundation
 import MapKit
 import SharedModels
+import InfoBar
 
 public struct MapFeatureState: Equatable {
   public var alert: AlertState<MapFeatureAction>?
@@ -18,6 +19,8 @@ public struct MapFeatureState: Equatable {
   public var nextRide: Ride?
   
   public var userTrackingMode: UserTrackingState
+  
+  public var shouldAnimateTrackingMode = true
   
   public init(
     alert: AlertState<MapFeatureAction>? = nil,
@@ -42,17 +45,21 @@ public enum MapFeatureAction: Equatable {
   case updateRegion(CoordinateRegion?)
   case updateUserTrackingMode(MKUserTrackingMode)
   case nextTrackingMode
+  case updateShouldAnimateTrackingMode
+  case updateNextRide
   
   case locationManager(LocationManager.Action)
   case userTracking(UserTrackingAction)
 }
 
 public struct MapFeatureEnvironment {
-  public init(locationManager: LocationManager) {
+  public init(locationManager: LocationManager, infobannerController: InfobarController) {
     self.locationManager = locationManager
+    self.infobannerController = infobannerController
   }
   
   let locationManager: LocationManager
+  let infobannerController: InfobarController
 }
 
 /// Used to identify locatioManager effects.
@@ -105,7 +112,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
         
       case .authorizedAlways, .authorizedWhenInUse:
         return environment.locationManager
-          .requestLocation(id: LocationManagerId())
+          .startUpdatingLocation(id: LocationManagerId())
           .fireAndForget()
         
       @unknown default:
@@ -124,16 +131,16 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
         fatalError()
       }
     case let .updateUserTrackingMode(mode):
+      state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.userTrackingMode.rawValue
       state.userTrackingMode.userTrackingMode = mode
       return .none
       
-    case .updateRiderCoordinates:
+    case .updateShouldAnimateTrackingMode:
       return .none
-    case .updateRegion:
+      
+    case .updateRiderCoordinates, .updateNextRide, .updateRegion, .userTracking:
       return .none
     case .locationManager:
-      return .none
-    case .userTracking:
       return .none
     }
   }

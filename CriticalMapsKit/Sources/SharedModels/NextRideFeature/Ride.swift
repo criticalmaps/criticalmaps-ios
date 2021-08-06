@@ -9,7 +9,7 @@ import CoreLocation
 import Foundation
 import Helpers
 
-public struct Ride: Hashable, Codable {
+public struct Ride: Hashable, Codable, Identifiable {
   public let id: Int
   public let slug: String?
   public let title: String

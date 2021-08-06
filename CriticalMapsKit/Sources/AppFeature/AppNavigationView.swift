@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import L10n
 import MapFeature
 import Styleguide
 import SwiftUI
@@ -44,7 +45,7 @@ public struct AppNavigationView: View {
             .accessibility(hidden: true)
         }
       )
-      .accessibility(label: Text(NSLocalizedString("navigation.chat", bundle: .module, comment: "")))
+        .accessibility(label: Text(L10n.Chat.title))
       .frame(maxWidth: .infinity, minHeight: minHeight)
       
       menuSeperator
@@ -58,9 +59,10 @@ public struct AppNavigationView: View {
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(NSLocalizedString("navigation.rules", bundle: .module, comment: "")))
+      .accessibility(label: Text(L10n.Rules.title))
       
       menuSeperator
+      
       Button(
         action: {},
         label: {
@@ -70,15 +72,16 @@ public struct AppNavigationView: View {
         }
       )
       .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(NSLocalizedString("navigation.settings", bundle: .module, comment: "")))
+      .accessibility(label: Text(L10n.Settings.title))
     }
-    .background(colorScheme == .light ? .white : Color.hex(0x45474D))
-    .clipShape(RoundedRectangle(cornerRadius: 18))
+    .font(.body)
+    .background(Color(.backgroundTranslucent))
+    .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
   }
   
   var menuSeperator: some View {
-    Color.hex(0xDADCE0)
+    Color(.border)
       .frame(width: 1, height: minHeight)
   }
 }
@@ -105,7 +108,8 @@ struct AppNavigationView_Previews: PreviewProvider {
       environment: AppEnvironment(
         service: .noop,
         idProvider: .noop,
-        mainQueue: .failing
+        mainQueue: .failing,
+        infoBannerPresenter: .mock()
       )
     )
     )

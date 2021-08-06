@@ -8,6 +8,7 @@
 import ApiClient
 import ComposableArchitecture
 import ComposableCoreLocation
+import InfoBar
 import Logger
 import MapKit
 import MapFeature
@@ -15,6 +16,9 @@ import NextRideFeature
 import IDProvider
 import SharedModels
 import UserDefaultsClient
+import UIKit
+
+public typealias InfoBannerPresenter = InfobarController
 
 // MARK: State
 public struct AppState: Equatable {
@@ -57,7 +61,8 @@ public struct AppEnvironment {
     locationManager: ComposableCoreLocation.LocationManager = .live,
     nextRideService: NextRideService = .live(),
     userDefaultsClient: UserDefaultsClient = .live(),
-    date: @escaping () -> Date = Date.init
+    date: @escaping () -> Date = Date.init,
+    infoBannerPresenter: InfoBannerPresenter
   ) {
     self.service = service
     self.idProvider = idProvider
@@ -66,6 +71,7 @@ public struct AppEnvironment {
     self.nextRideService = nextRideService
     self.userDefaultsClient = userDefaultsClient
     self.date = date
+    self.infoBannerPresenter = infoBannerPresenter
   }
   
   let date: () -> Date
@@ -75,6 +81,8 @@ public struct AppEnvironment {
   let idProvider: IDProvider
   let mainQueue: AnySchedulerOf<DispatchQueue>
   let locationManager: ComposableCoreLocation.LocationManager
+  let infoBannerPresenter: InfoBannerPresenter
+  
 }
 
 // MARK: Reducer
@@ -84,7 +92,12 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   mapFeatureReducer.pullback(
     state: \.mapFeatureState,
     action: /AppAction.map,
-    environment: { MapFeatureEnvironment(locationManager: $0.locationManager) }
+    environment: {
+      MapFeatureEnvironment(
+        locationManager: $0.locationManager,
+        infobannerController: $0.infoBannerPresenter
+      )
+    }
   ),
   requestTimerReducer.pullback(
     state: \.requestTimer,
@@ -136,6 +149,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .fetchDataResponse(.failure(error)):
       Logger.logger.info("FetchData failed: \(error)")
+      environment.infoBannerPresenter.show(.error(message: "ServerError", action: nil))
       state.locationsAndChatMessages = .failure(.init())
       return .none
           
@@ -172,6 +186,13 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       switch nextRideAction {
       case let .setNextRide(ride):
         state.mapFeatureState.nextRide = ride
+        environment.infoBannerPresenter.show(
+          .criticalMass(
+            message: ride.titleAndTime,
+            subTitle: ride.location,
+            action: nil
+          )
+        )
         return .none
       default:
         return .none

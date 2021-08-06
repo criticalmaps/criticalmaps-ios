@@ -27,6 +27,14 @@ public struct MapFeatureView: View {
         userTrackingMode: viewStore.binding(
           get: { $0.userTrackingMode.userTrackingMode },
           send: MapFeatureAction.updateUserTrackingMode
+        ),
+        shouldAnimateUserTrackingMode: viewStore.binding(
+          get: \.shouldAnimateTrackingMode,
+          send: MapFeatureAction.updateShouldAnimateTrackingMode
+        ),
+        nextRide: viewStore.binding(
+          get: \.nextRide,
+          send: MapFeatureAction.updateNextRide
         )
       )
       .edgesIgnoringSafeArea(.all)
@@ -45,7 +53,8 @@ struct MapFeatureView_Previews: PreviewProvider {
         ),
         reducer: mapFeatureReducer,
         environment: MapFeatureEnvironment(
-          locationManager: .live
+          locationManager: .live,
+          infobannerController: .mock()
         )
       )
     )
