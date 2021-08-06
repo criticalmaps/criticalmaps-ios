@@ -1,20 +1,16 @@
 //
-//  File.swift
-//  
-//
-//  Created by Malte on 26.06.21.
-//
+//  CriticalMaps
 
 import MapKit
+import Styleguide
 
-open class CMMarkerAnnotationView: MKMarkerAnnotationView {
+public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   typealias EventClosure = () -> Void
   
-  // Replace with Bindings
   var shareEventClosure: EventClosure?
   var routeEventClosure: EventClosure?
   
-  open override func prepareForDisplay() {
+  public override func prepareForDisplay() {
     super.prepareForDisplay()
     commonInit()
   }
@@ -22,7 +18,7 @@ open class CMMarkerAnnotationView: MKMarkerAnnotationView {
   private func commonInit() {
     animatesWhenAdded = true
     markerTintColor = .white
-    //        glyphImage = Asset.logoM.image
+    glyphImage = Images.cmLogoMono
     canShowCallout = false
     
     let interaction = UIContextMenuInteraction(delegate: self)
@@ -39,18 +35,17 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
   
   private func makeContextMenu() -> UIMenu {
     let share = UIAction(
+      // TODO: Replace string
       title: "L10n.Map.Menu.share",
       image: UIImage(systemName: "square.and.arrow.up")
-    ) { _ in
-      self.shareEventClosure?()
-    }
+    ) { _ in self.shareEventClosure?() }
     let route = UIAction(
+      // TODO: Replace string
       title: "L10n.Map.Menu.route",
       image: UIImage(systemName: "arrow.turn.up.right")
-    ) { _ in
-      self.routeEventClosure?()
-    }
+    ) { _ in self.routeEventClosure?() }
     return UIMenu(
+      // TODO: Replace string
       title: "L10n.Map.Menu.title",
       children: [share, route]
     )
@@ -68,7 +63,7 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
       imageView.backgroundColor = .clear
       imageView.clipsToBounds = true
       imageView.contentMode = .scaleAspectFit
-      //            imageView.image = Asset.eventMarker.image
+      imageView.image = Images.cmLogoColor
       preferredContentSize = CGSize(width: 200, height: 150)
     }
     
@@ -76,23 +71,6 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
     required init?(coder _: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
-  }
-}
-
-open class CMAnnotationView: MKAnnotationView {
-  override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-    super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-    commonInit()
-  }
-  
-  required public init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    commonInit()
-  }
-  
-  private func commonInit() {
-    //        image = Asset.eventMarker.image
-    canShowCallout = true
   }
 }
 

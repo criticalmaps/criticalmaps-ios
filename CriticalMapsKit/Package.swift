@@ -70,8 +70,7 @@ let package = Package(
         "Styleguide",
         "Helpers",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ],
-      resources: [.process("Resources")]
+      ]
     ),
     .target(
       name: "Logger",
@@ -97,6 +96,7 @@ let package = Package(
         "CriticalMapsKit",
         "Logger",
         "SharedModels",
+        "Styleguide",
         "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
@@ -113,7 +113,8 @@ let package = Package(
     ),
     .target(
       name: "Styleguide",
-      dependencies: []
+      dependencies: [],
+      resources: [.process("Resources")]
     ),
     .target(
       name: "UserDefaultsClient",
