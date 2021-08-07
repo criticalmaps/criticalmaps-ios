@@ -18,8 +18,9 @@ public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   
   private func commonInit() {
     animatesWhenAdded = true
-    markerTintColor = .white
+    markerTintColor = .backgroundPrimary
     glyphImage = Images.cmLogoMono
+    glyphTintColor = .textPrimary
     canShowCallout = false
     
     let interaction = UIContextMenuInteraction(delegate: self)

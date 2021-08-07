@@ -28,20 +28,20 @@ public struct Ride: Hashable, Codable, Identifiable {
   
   public init(
     id: Int,
-    slug: String?,
+    slug: String? = nil,
     title: String,
-    description: String?,
+    description: String? = nil,
     dateTime: Date,
-    location: String?,
-    latitude: Double?,
-    longitude: Double?,
-    estimatedParticipants: Int?,
-    estimatedDistance: Double?,
-    estimatedDuration: Double?,
+    location: String? = nil,
+    latitude: Double? = nil,
+    longitude: Double? = nil,
+    estimatedParticipants: Int? = nil,
+    estimatedDistance: Double? = nil,
+    estimatedDuration: Double? = nil,
     enabled: Bool,
-    disabledReason: String?,
-    disabledReasonMessage: String?,
-    rideType: Ride.RideType?
+    disabledReason: String? = nil,
+    disabledReasonMessage: String? = nil,
+    rideType: Ride.RideType? = nil
   ) {
     self.id = id
     self.slug = slug

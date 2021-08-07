@@ -14,6 +14,8 @@ import SharedModels
 import XCTest
 
 class MapFeatureCoreTests: XCTestCase {
+  let testScheduler = DispatchQueue.test
+  
   func test_onAppearAction() {
     let setSubject = PassthroughSubject<Never, Never>()
     var didRequestAlwaysAuthorization = false
@@ -40,7 +42,8 @@ class MapFeatureCoreTests: XCTestCase {
           requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
           set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
         ),
-        infobannerController: .mock()
+        infobannerController: .mock(),
+        mainQueue: testScheduler.eraseToAnyScheduler()
       )
     )
     
@@ -94,7 +97,8 @@ class MapFeatureCoreTests: XCTestCase {
         locationServicesEnabled: { false },
         set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
-      infobannerController: .mock()
+      infobannerController: .mock(),
+      mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
       initialState: MapFeatureState(
@@ -137,7 +141,8 @@ class MapFeatureCoreTests: XCTestCase {
         },
         set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
-      infobannerController: .mock()
+      infobannerController: .mock(),
+      mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
       initialState: MapFeatureState(
@@ -171,6 +176,53 @@ class MapFeatureCoreTests: XCTestCase {
       .do {
         setSubject.send(completion: .finished)
         locationManagerSubject.send(completion: .finished)
+      }
+    )
+  }
+  
+  func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() {
+    let env = MapFeatureEnvironment(
+      locationManager: .unimplemented(
+        authorizationStatus: { fatalError() },
+        create: { _ in fatalError() },
+        locationServicesEnabled: { fatalError() },
+        requestAlwaysAuthorization: { _ in fatalError() },
+        set: { (_, _) -> Effect<Never, Never> in fatalError() }
+      ),
+      infobannerController: .mock(),
+      mainQueue: testScheduler.eraseToAnyScheduler()
+    )
+    let store = TestStore(
+      initialState: MapFeatureState(
+        alert: nil,
+        isRequestingCurrentLocation: true,
+        location: nil,
+        riders: [],
+        userTrackingMode: .init(userTrackingMode: .follow),
+        nextRide: Ride(
+          id: 123,
+          slug: "SLUG",
+          title: "Next Ride",
+          dateTime: Date(timeIntervalSinceReferenceDate: 0),
+          latitude: 13.13,
+          longitude: 55.55,
+          enabled: true
+        )
+      ),
+      reducer: mapFeatureReducer,
+      environment: env
+    )
+    
+    store.assert(
+      .send(.focusNextRide) {
+        $0.centerRegion = CoordinateRegion(
+          center: .init(latitude: 13.13, longitude: 55.55),
+          span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        )
+      },
+      .do { self.testScheduler.advance(by: 1) },
+      .receive(.resetCenterRegion) {
+        $0.centerRegion = nil
       }
     )
   }

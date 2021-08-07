@@ -13,6 +13,7 @@ public struct MapFeatureState: Equatable {
   public var nextRide: Ride?
   
   public var userTrackingMode: UserTrackingState
+  public var centerRegion: CoordinateRegion?
   
   public var shouldAnimateTrackingMode = true
   
@@ -22,38 +23,46 @@ public struct MapFeatureState: Equatable {
     location: ComposableCoreLocation.Location? = nil,
     riders: [Rider],
     userTrackingMode: UserTrackingState,
-    nextRide: Ride? = nil
+    nextRide: Ride? = nil,
+    centerRegion: CoordinateRegion? = nil
   ) {
     self.alert = alert
     self.isRequestingCurrentLocation = isRequestingCurrentLocation
     self.location = location
     self.riders = riders
     self.userTrackingMode = userTrackingMode
+    self.nextRide = nextRide
+    self.centerRegion = centerRegion
   }
 }
 
 public enum MapFeatureAction: Equatable {
   case onAppear
   case locationRequested
-  case updateRiderCoordinates([Rider])
-  case updateRegion(CoordinateRegion?)
-  case updateUserTrackingMode(MKUserTrackingMode)
   case nextTrackingMode
-  case updateShouldAnimateTrackingMode
-  case updateNextRide
+  case updateUserTrackingMode(MKUserTrackingMode)
+  case updateCenterRegion(CoordinateRegion?)
+  case focusNextRide
+  case resetCenterRegion
   
   case locationManager(LocationManager.Action)
   case userTracking(UserTrackingAction)
 }
 
 public struct MapFeatureEnvironment {
-  public init(locationManager: LocationManager, infobannerController: InfobarController) {
+  public init(
+    locationManager: LocationManager,
+    infobannerController: InfobarController,
+    mainQueue: AnySchedulerOf<DispatchQueue>
+  ) {
     self.locationManager = locationManager
     self.infobannerController = infobannerController
+    self.mainQueue = mainQueue
   }
   
   let locationManager: LocationManager
   let infobannerController: InfobarController
+  let mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
 /// Used to identify locatioManager effects.
@@ -129,12 +138,25 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       state.userTrackingMode.userTrackingMode = mode
       return .none
       
-    case .updateShouldAnimateTrackingMode:
+    case .focusNextRide:
+      guard let nextRide = state.nextRide, let nextRideCoordinates = nextRide.coordinate else {
+        print(state.nextRide, state.nextRide?.coordinate, state)
+        return .none
+      }
+      state.centerRegion = CoordinateRegion(
+        center: nextRideCoordinates,
+        span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)
+      )
+      return Effect(value: .resetCenterRegion)
+        .delay(for: 1, scheduler: environment.mainQueue)
+        .eraseToEffect()
+      
+    case .resetCenterRegion:
+      state.centerRegion = nil
       return .none
       
-    case .updateRiderCoordinates, .updateNextRide, .updateRegion, .userTracking:
-      return .none
-    case .locationManager:
+    // Pullback actions
+    case .locationManager, .userTracking, .updateCenterRegion:
       return .none
     }
   }

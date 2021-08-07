@@ -20,6 +20,7 @@ struct MapView: ViewRepresentable {
   @Binding var userTrackingMode: MKUserTrackingMode
   var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
+  @Binding var centerRegion: CoordinateRegion?
   
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
@@ -37,10 +38,14 @@ struct MapView: ViewRepresentable {
   }
   
   func updateUIView(_ uiView: MKMapView, context: Context) {
-    uiView.setUserTrackingMode(userTrackingMode, animated: shouldAnimateUserTrackingMode)
+    if let center = centerRegion {
+      uiView.setRegion(center.asMKCoordinateRegion, animated: true)
+      uiView.setUserTrackingMode(.none, animated: false)
+    } else {
+      uiView.setUserTrackingMode(userTrackingMode, animated: shouldAnimateUserTrackingMode)
+    }
   
     let updatedAnnotations = RiderAnnotationUpdateClient.update(riderCoordinates, uiView)
-    
     uiView.removeAnnotations(updatedAnnotations.removedAnnotations)
     uiView.addAnnotations(updatedAnnotations.addedAnnotations)
     

@@ -95,7 +95,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     environment: {
       MapFeatureEnvironment(
         locationManager: $0.locationManager,
-        infobannerController: $0.infoBannerPresenter
+        infobannerController: $0.infoBannerPresenter,
+        mainQueue: $0.mainQueue
       )
     }
   ),
@@ -152,12 +153,12 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       environment.infoBannerPresenter.show(.error(message: "ServerError", action: nil))
       state.locationsAndChatMessages = .failure(.init())
       return .none
-          
+      
     case let .map(mapFeatureAction):
       switch mapFeatureAction {
       case let .locationManager(locationManagerAction):
         switch locationManagerAction {
-        
+          
         case .didUpdateLocations:
           if !state.didResolveInitialLocation {
             state.didResolveInitialLocation.toggle()
@@ -174,7 +175,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           } else {
             return .none
           }
-        
+          
         default:
           return .none
         }
@@ -186,14 +187,15 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       switch nextRideAction {
       case let .setNextRide(ride):
         state.mapFeatureState.nextRide = ride
-        environment.infoBannerPresenter.show(
-          .criticalMass(
-            message: ride.titleAndTime,
-            subTitle: ride.location,
-            action: nil
+        return .future { callback in
+          environment.infoBannerPresenter.show(
+            .criticalMass(
+              message: ride.titleAndTime,
+              subTitle: ride.location,
+              action: { callback(.success(.map(.focusNextRide))) }
+            )
           )
-        )
-        return .none
+        }
       default:
         return .none
       }

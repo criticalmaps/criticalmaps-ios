@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import SharedModels
 import SwiftUI
 
 public struct MapFeatureView: View {
@@ -26,7 +27,11 @@ public struct MapFeatureView: View {
           send: MapFeatureAction.updateUserTrackingMode
         ),
         shouldAnimateUserTrackingMode: viewStore.shouldAnimateTrackingMode,
-        nextRide: viewStore.nextRide
+        nextRide: viewStore.nextRide,
+        centerRegion: viewStore.binding(
+          get: \.centerRegion,
+          send: MapFeatureAction.updateCenterRegion
+        )
       )
       .edgesIgnoringSafeArea(.all)
     }
@@ -45,7 +50,8 @@ struct MapFeatureView_Previews: PreviewProvider {
         reducer: mapFeatureReducer,
         environment: MapFeatureEnvironment(
           locationManager: .live,
-          infobannerController: .mock()
+          infobannerController: .mock(),
+          mainQueue: .failing
         )
       )
     )
