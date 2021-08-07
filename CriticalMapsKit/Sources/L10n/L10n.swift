@@ -231,6 +231,17 @@ public enum L10n {
     /// Twitter
     public static let title = L10n.tr("Localizable", "twitter.title")
   }
+  
+  public enum Location {
+    public enum Alert {
+      /// Bitte geben Sie uns in den Einstellungen Zugriff auf Ihren Standort.
+      public static let provideAccessToLocationService = L10n.tr("Localizable", "location.alert.provideAccessToLocationService")
+      /// Die Standortnutzung macht diese App besser. Bitte geben Sie uns Zugang.
+      public static let provideAuth = L10n.tr("Localizable", "location.alert.provideAuth")
+      /// Ortungsdienste sind deaktiviert.
+      public static let serviceIsOff = L10n.tr("Localizable", "location.alert.serviceIsOff")
+    }
+  }
 }
 
 // MARK: - Implementation Details

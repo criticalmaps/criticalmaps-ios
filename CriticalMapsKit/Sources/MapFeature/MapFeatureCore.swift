@@ -188,15 +188,14 @@ extension LocationManager {
 
 public extension AlertState where Action == MapFeatureAction {
   static let goToSettingsAlert = Self(
-    title: TextState("L10n.Location.Alert.provideAccessToLocationService"),
+    title: TextState(L10n.Location.Alert.provideAccessToLocationService),
     primaryButton: .default(TextState(L10n.Settings.title)),
     secondaryButton: .default(TextState(L10n.ok))
   )
   
-  static let provideAuth = Self(title: TextState("L10n.Location.Alert.provideAuth"))
-  static let servicesOff = Self(title: TextState("L10n.Location.Alert.serviceIsOff"))
-  static let reverseGeoCodingFailed = Self(title: TextState("Reverse geo coding failed"))
+  static let provideAuth = Self(title: TextState(L10n.Location.Alert.provideAuth))
+  static let servicesOff = Self(title: TextState(L10n.Location.Alert.serviceIsOff))
   static let provideAccessToLocationService = Self(
-    title: TextState("L10n.Location.Alert.provideAccessToLocationService")
+    title: TextState(L10n.Location.Alert.provideAccessToLocationService)
   )
 }

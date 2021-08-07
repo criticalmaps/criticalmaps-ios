@@ -29,6 +29,12 @@
 /* ErrorState */
 "errorState.title" = "Error";
 
+"location.alert.provideAuth" = "Die Standortnutzung macht diese App besser. Bitte geben Sie uns Zugang.";
+
+"location.alert.serviceIsOff" = "Ortungsdienste sind deaktiviert.";
+
+"location.alert.provideAccessToLocationService" = "Bitte geben Sie uns in den Einstellungen Zugriff auf Ihren Standort.";
+
 /* No comment provided by engineer. */
 "map.headingbutton.accessibilitylabel" = "Tracking";
 
