@@ -45,8 +45,7 @@ let package = Package(
         "Styleguide",
         "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ],
-      resources: [.process("Resources")]
+      ]
     ),
     .target(
       name: "CriticalMapsKit",
@@ -89,6 +88,7 @@ let package = Package(
       dependencies: [
         "CriticalMapsKit",
         "InfoBar",
+        "L10n",
         "Logger",
         "NextRideFeature",
         "Styleguide",

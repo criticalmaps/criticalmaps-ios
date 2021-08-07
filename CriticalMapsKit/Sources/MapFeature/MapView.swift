@@ -16,10 +16,10 @@ import SwiftUI
 public typealias ViewRepresentable = UIViewRepresentable
 
 struct MapView: ViewRepresentable {
-  @Binding var riderCoordinates: [Rider]
+  var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
-  @Binding var shouldAnimateUserTrackingMode: Bool
-  @Binding var nextRide: Ride?
+  var shouldAnimateUserTrackingMode: Bool
+  var nextRide: Ride?
   
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
@@ -39,19 +39,10 @@ struct MapView: ViewRepresentable {
   func updateUIView(_ uiView: MKMapView, context: Context) {
     uiView.setUserTrackingMode(userTrackingMode, animated: shouldAnimateUserTrackingMode)
   
-    // TODO: move set logic into reducer
-    let currentlyDisplayedPOIs = uiView.annotations.compactMap { $0 as? RiderAnnotation }
-      .map { $0.rider }
+    let updatedAnnotations = RiderAnnotationUpdateClient.update(riderCoordinates, uiView)
     
-    let addedPOIs = Set(riderCoordinates).subtracting(currentlyDisplayedPOIs)
-    let removedPOIs = Set(currentlyDisplayedPOIs).subtracting(riderCoordinates)
-    
-    let addedAnnotations = addedPOIs.map(RiderAnnotation.init(rider:))
-    let removedAnnotations = uiView.annotations.compactMap { $0 as? RiderAnnotation }
-      .filter { removedPOIs.contains($0.rider) }
-    
-    uiView.removeAnnotations(removedAnnotations)
-    uiView.addAnnotations(addedAnnotations)
+    uiView.removeAnnotations(updatedAnnotations.removedAnnotations)
+    uiView.addAnnotations(updatedAnnotations.addedAnnotations)
     
     if let nextRide = nextRide {
       if uiView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {

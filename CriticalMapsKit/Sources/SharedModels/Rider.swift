@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 20.06.21.
-//
-
 import Foundation
 
 public struct Rider: Identifiable, Hashable {
@@ -14,5 +7,9 @@ public struct Rider: Identifiable, Hashable {
   public init(id: String, location: Location) {
     self.id = id
     self.location = location
+  }
+  
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
   }
 }

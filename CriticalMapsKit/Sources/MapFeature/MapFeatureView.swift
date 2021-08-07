@@ -20,22 +20,13 @@ public struct MapFeatureView: View {
   public var body: some View {
     ZStack {
       MapView(
-        riderCoordinates: viewStore.binding(
-          get: \.riders,
-          send: MapFeatureAction.updateRiderCoordinates
-        ),
+        riderCoordinates: viewStore.riders,
         userTrackingMode: viewStore.binding(
           get: { $0.userTrackingMode.userTrackingMode },
           send: MapFeatureAction.updateUserTrackingMode
         ),
-        shouldAnimateUserTrackingMode: viewStore.binding(
-          get: \.shouldAnimateTrackingMode,
-          send: MapFeatureAction.updateShouldAnimateTrackingMode
-        ),
-        nextRide: viewStore.binding(
-          get: \.nextRide,
-          send: MapFeatureAction.updateNextRide
-        )
+        shouldAnimateUserTrackingMode: viewStore.shouldAnimateTrackingMode,
+        nextRide: viewStore.nextRide
       )
       .edgesIgnoringSafeArea(.all)
     }

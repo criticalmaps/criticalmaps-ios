@@ -8,10 +8,10 @@
 import MapKit
 import SharedModels
 
-class RiderAnnotation: IdentifiableAnnnotation {
+public class RiderAnnotation: IdentifiableAnnnotation {
   let rider: Rider
   
-  init(rider: Rider) {
+  public init(rider: Rider) {
     self.rider = rider
     super.init(
       location: rider.location,

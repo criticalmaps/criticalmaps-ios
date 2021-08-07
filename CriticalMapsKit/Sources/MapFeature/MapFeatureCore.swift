@@ -1,12 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 14.06.21.
-//
-
 import ComposableCoreLocation
 import Foundation
+import L10n
 import MapKit
 import SharedModels
 import InfoBar
@@ -195,8 +189,8 @@ extension LocationManager {
 public extension AlertState where Action == MapFeatureAction {
   static let goToSettingsAlert = Self(
     title: TextState("L10n.Location.Alert.provideAccessToLocationService"),
-    primaryButton: .default(TextState("Einstellungen")),
-    secondaryButton: .default(TextState("OK"))
+    primaryButton: .default(TextState(L10n.Settings.title)),
+    secondaryButton: .default(TextState(L10n.ok))
   )
   
   static let provideAuth = Self(title: TextState("L10n.Location.Alert.provideAuth"))
