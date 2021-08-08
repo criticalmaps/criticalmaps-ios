@@ -140,7 +140,6 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       
     case .focusNextRide:
       guard let nextRide = state.nextRide, let nextRideCoordinates = nextRide.coordinate else {
-        print(state.nextRide, state.nextRide?.coordinate, state)
         return .none
       }
       state.centerRegion = CoordinateRegion(

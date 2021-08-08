@@ -22,7 +22,12 @@ let package = Package(
       .upToNextMajor(from: "0.18.0")
     ),
     .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0"),
-    .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0")
+    .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0"),
+    .package(
+      name: "SnapshotTesting",
+      url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
+      .exact("1.8.2")
+    )
   ],
   targets: [
     .target(
@@ -57,8 +62,7 @@ let package = Package(
       ]
     ),
     .target(
-      name: "Helpers",
-      dependencies: []
+      name: "Helpers"
     ),
     .target(
       name: "IDProvider",
@@ -109,8 +113,7 @@ let package = Package(
       ]
     ),
     .target(
-      name: "PathMonitorClient",
-      dependencies: []
+      name: "PathMonitorClient"
     ),
     .target(
       name: "SharedModels",
@@ -122,6 +125,12 @@ let package = Package(
       name: "Styleguide",
       dependencies: [],
       resources: [.process("Resources")]
+    ),
+    .target(
+      name: "TestHelper",
+      dependencies: [
+        .product(name: "SnapshotTesting", package: "SnapshotTesting")
+      ]
     ),
     .target(
       name: "UserDefaultsClient",
@@ -138,10 +147,14 @@ let package = Package(
       name: "AppFeatureTests",
       dependencies: [
         "AppFeature",
+        "TestHelper",
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
         )
+      ],
+      exclude: [
+        "__Snapshots__"
       ]
     ),
     .testTarget(
@@ -159,20 +172,28 @@ let package = Package(
       name: "InfoBarTests",
       dependencies: [
         "InfoBar",
+        "TestHelper",
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
         )
+      ],
+      exclude: [
+        "__Snapshots__"
       ]
     ),
     .testTarget(
       name: "MapFeatureTests",
       dependencies: [
         "MapFeature",
+        "TestHelper",
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
         )
+      ],
+      exclude: [
+        "__Snapshots__"
       ]
     ),
     .testTarget(

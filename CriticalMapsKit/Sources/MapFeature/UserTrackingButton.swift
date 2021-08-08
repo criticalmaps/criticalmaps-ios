@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import Helpers
 import MapKit
 import SwiftUI
 
@@ -62,3 +63,33 @@ public struct UserTrackingButton: View {
   }
 }
 
+// MARK: Preview
+struct UserTrackingButton_Previews: PreviewProvider {
+  static var previews: some View {
+    Preview {
+      Group {
+        UserTrackingButton(
+          store: .init(
+            initialState: .init(userTrackingMode: .none),
+            reducer: userTrackingReducer,
+            environment: UserTrackingEnvironment()
+          )
+        )
+        UserTrackingButton(
+          store: .init(
+            initialState: .init(userTrackingMode: .follow),
+            reducer: userTrackingReducer,
+            environment: UserTrackingEnvironment()
+          )
+        )
+        UserTrackingButton(
+          store: .init(
+            initialState: .init(userTrackingMode: .followWithHeading),
+            reducer: userTrackingReducer,
+            environment: UserTrackingEnvironment()
+          )
+        )
+      }
+    }
+  }
+}
