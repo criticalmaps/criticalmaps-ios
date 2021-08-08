@@ -18,7 +18,7 @@ public extension UIColor {
   static var backgroundSecondary: Self {
     Self { $0.isDarkMode
       ? .hex(0x45474D, alpha: 0.8)
-      : .white
+      : .hex(0xF2F2F2)
     }
   }
   

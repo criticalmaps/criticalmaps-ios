@@ -31,12 +31,25 @@ public struct AppState: Equatable {
   public var locationsAndChatMessages: Result<LocationAndChatMessages, LocationAndChatMessagesError>?
   public var didResolveInitialLocation: Bool = false
   
+  // Children states
   var mapFeatureState: MapFeatureState = MapFeatureState(
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
   var nextRideState = NextRideState()
   var requestTimer = RequestTimerState()
+    
+  // Navigation
+  var route: AppRoute?
+  var isChatViewPresented: Bool {
+    route == .chat
+  }
+  var isRulesViewPresented: Bool {
+    route == .rules
+  }
+  var isSettingsViewPresented: Bool {
+    route == .settings
+  }
 }
 
 public struct LocationAndChatMessagesError: Error, Equatable {}
@@ -46,6 +59,9 @@ public enum AppAction: Equatable {
   case onAppear
   case fetchData
   case fetchDataResponse(Result<LocationAndChatMessages, LocationsAndChatDataService.Failure>)
+  
+  case setNavigation(tag: AppRoute.Tag?)
+  case dismissSheetView
   
   case map(MapFeatureAction)
   case nextRide(NextRideAction)
@@ -168,9 +184,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 Effect(value: .nextRide(.getNextRide(coordinate)))
               )
             } else {
-              return .merge(
-                Effect(value: .fetchData)
-              )
+              return Effect(value: .fetchData)
             }
           } else {
             return .none
@@ -200,6 +214,23 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         return .none
       }
       
+    case .setNavigation(tag: let tag):
+      switch tag {
+      case .chat:
+        state.route = .chat
+      case .rules:
+        state.route = .rules
+      case .settings:
+        state.route = .settings
+      case .none:
+        state.route = .none
+      }
+      return .none
+      
+    case .dismissSheetView:
+      state.route = .none
+      return .none
+            
     case let .requestTimer(timerAction):
       switch timerAction {
       case .timerTicked:
@@ -237,5 +268,28 @@ extension SharedModels.Coordinate {
       latitude: location.coordinate.latitude,
       longitude: location.coordinate.longitude
     )
+  }
+}
+
+public enum AppRoute: Equatable {
+  case chat
+  case rules
+  case settings
+  
+  public enum Tag: Int {
+    case chat
+    case rules
+    case settings
+  }
+
+  var tag: Tag {
+    switch self {
+    case .chat:
+      return .chat
+    case .rules:
+      return .rules
+    case .settings:
+      return .settings
+    }
   }
 }

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 28.06.21.
-//
-
 import ComposableArchitecture
 import L10n
 import MapFeature
@@ -31,53 +24,131 @@ public struct AppNavigationView: View {
           action: { AppAction.map(.userTracking($0)) }
         )
       )
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      
+        .frame(maxWidth: .infinity, minHeight: minHeight)
       menuSeperator
       
-      Button(
-        action: {
-          //TODO: send open chat and twitter navigation action
-        },
-        label: {
-          Image(systemName: "bubble.left")
-            .iconModifier()
-            .accessibility(hidden: true)
-        }
-      )
-        .accessibility(label: Text(L10n.Chat.title))
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      
+      // Chat
+      chatButton
       menuSeperator
       
-      Button(
-        action: {},
-        label: {
-          Image(systemName: "exclamationmark.square")
-            .iconModifier()
-            .accessibility(hidden: true)
-        }
-      )
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(L10n.Rules.title))
-      
+      // Rules
+      rulesButton
       menuSeperator
       
-      Button(
-        action: {},
-        label: {
-          Image(systemName: "gearshape")
-            .iconModifier()
-            .accessibility(hidden: true)
-        }
-      )
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(L10n.Settings.title))
+      // Settings
+      settingsButton
     }
     .font(.body)
     .background(Color(.backgroundTranslucent))
     .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
+  }
+  
+  var chatButton: some View {
+    Button(
+      action: {
+        viewStore.send(.setNavigation(tag: .chat))
+      },
+      label: {
+        Image(systemName: "bubble.left")
+          .iconModifier()
+          .accessibility(hidden: true)
+      })
+      .background(
+        EmptyView()
+          .sheet(
+            isPresented: viewStore.binding(
+              get: \.isChatViewPresented,
+              send: { _ in AppAction.dismissSheetView }
+            ),
+            onDismiss: nil,
+            content: {
+              NavigationView {
+                Text(L10n.Chat.title)
+              }
+              .navigationViewStyle(StackNavigationViewStyle())
+              .navigationStyle(
+                title: Text(L10n.Chat.title),
+                navPresentationStyle: .modal,
+                onDismiss: { viewStore.send(.dismissSheetView) }
+              )
+            }
+          )
+      )
+      .accessibility(label: Text(L10n.Chat.title))
+      .frame(maxWidth: .infinity, minHeight: minHeight)
+  }
+  
+  var rulesButton: some View {
+    Button(
+      action: {
+        viewStore.send(.setNavigation(tag: .rules))
+      },
+      label: {
+        Image(systemName: "exclamationmark.square")
+          .iconModifier()
+          .accessibility(hidden: true)
+      }
+    )
+      .background(
+        EmptyView()
+          .sheet(
+            isPresented: viewStore.binding(
+              get: \.isRulesViewPresented,
+              send: { _ in AppAction.dismissSheetView }
+            ),
+            onDismiss: nil,
+            content: {
+              NavigationView {
+                Text(L10n.Rules.title)
+              }
+              .navigationViewStyle(StackNavigationViewStyle())
+              .navigationStyle(
+                title: Text(L10n.Rules.title),
+                navPresentationStyle: .modal,
+                onDismiss: { viewStore.send(.dismissSheetView) }
+              )
+            }
+          )
+      )
+      .frame(maxWidth: .infinity, minHeight: minHeight)
+      .accessibility(label: Text(L10n.Rules.title))
+  }
+  
+  var settingsButton: some View {
+    Button(
+      action: {
+        viewStore.send(.setNavigation(tag: .settings))
+      },
+      label: {
+        Image(systemName: "gearshape")
+          .iconModifier()
+          .accessibility(hidden: true)
+      }
+    )
+      .background(
+        EmptyView()
+          .sheet(
+            isPresented: viewStore.binding(
+              get: \.isSettingsViewPresented,
+              send: { _ in AppAction.dismissSheetView }
+            ),
+            onDismiss: nil,
+            content: {
+              NavigationView {
+                Text(L10n.Settings.title)
+              }
+              .navigationViewStyle(StackNavigationViewStyle())
+              .navigationStyle(
+                title: Text(L10n.Settings.title),
+                navPresentationStyle: .modal,
+                onDismiss: { viewStore.send(.dismissSheetView) }
+              )
+            }
+          )
+      )
+      .frame(maxWidth: .infinity, minHeight: minHeight)
+      .accessibility(label: Text(L10n.Settings.title))
   }
   
   var menuSeperator: some View {

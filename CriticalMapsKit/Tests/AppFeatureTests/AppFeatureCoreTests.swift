@@ -173,4 +173,38 @@ class AppFeatureTests: XCTestCase {
       }
     )
   }
+  
+  func test_appNavigation() {
+    let store = TestStore(
+      initialState: AppState(
+        locationsAndChatMessages: nil
+      ),
+      reducer: appReducer,
+      environment: AppEnvironment(infoBannerPresenter: .mock())
+    )
+    
+    store.assert(
+      .send(.setNavigation(tag: .chat)) {
+        $0.route = .chat
+        XCTAssertTrue($0.isChatViewPresented)
+      },
+      .send(.dismissSheetView) {
+        $0.route = .none
+      },
+      .send(.setNavigation(tag: .rules)) {
+        $0.route = .rules
+        XCTAssertTrue($0.isRulesViewPresented)
+      },
+      .send(.dismissSheetView) {
+        $0.route = .none
+      },
+      .send(.setNavigation(tag: .settings)) {
+        $0.route = .settings
+        XCTAssertTrue($0.isSettingsViewPresented)
+      },
+      .send(.dismissSheetView) {
+        $0.route = .none
+      }
+    )
+  }
 }
