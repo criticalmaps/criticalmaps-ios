@@ -10,5 +10,5 @@ import Foundation
 public typealias HTTPHeaders = [String: String]
 
 extension HTTPHeaders {
-    static let contentTypeApplicationJSON: HTTPHeaders = ["application/json": "Content-Type"]
+  public static let contentTypeApplicationJSON: HTTPHeaders = ["application/json": "Content-Type"]
 }

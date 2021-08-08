@@ -19,7 +19,7 @@ class InfoBarSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 100)
+    assertViewSnapshot(sut, height: 100, sloppy: true)
   }
   
   func test_success() {
@@ -27,7 +27,7 @@ class InfoBarSnapshotTests: XCTestCase {
       .success(message: "Gespeichert", action: nil)
     )
     
-    assertViewSnapshot(sut, height: 100)
+    assertViewSnapshot(sut, height: 100, sloppy: true)
   }
   
   func test_error() {
@@ -35,7 +35,7 @@ class InfoBarSnapshotTests: XCTestCase {
       .error(message: "Error", action: nil)
     )
     
-    assertViewSnapshot(sut, height: 100)
+    assertViewSnapshot(sut, height: 100, sloppy: true)
   }
   
   func test_warning() {
@@ -43,7 +43,7 @@ class InfoBarSnapshotTests: XCTestCase {
       .warning(message: "Warning", action: nil)
     )
     
-    assertViewSnapshot(sut, height: 100)
+    assertViewSnapshot(sut, height: 100, sloppy: true)
   }
 }
 

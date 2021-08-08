@@ -12,7 +12,7 @@ class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60)
+    assertViewSnapshot(sut, height: 60, sloppy: true)
   }
   
   func test_userTracking_follow() {
@@ -24,7 +24,7 @@ class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60)
+    assertViewSnapshot(sut, height: 60, sloppy: true)
   }
   
   func test_userTracking_followWithHeading() {
@@ -36,6 +36,6 @@ class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60)
+    assertViewSnapshot(sut, height: 60, sloppy: true)
   }
 }

@@ -17,7 +17,7 @@ public struct PostLocationAndChatMessagesRequest: APIRequest {
   
   public init(
     endpoint: Endpoint = .init(),
-    headers: HTTPHeaders? = ["application/json": "Content-Type"],
+    headers: HTTPHeaders? = .contentTypeApplicationJSON,
     httpMethod: HTTPMethod = .post,
     body: Data? = nil
   ) {

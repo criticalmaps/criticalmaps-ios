@@ -30,6 +30,6 @@ class AppNavigationViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 80)
+    assertViewSnapshot(sut, height: 80, sloppy: true)
   }
 }
