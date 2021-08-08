@@ -185,7 +185,7 @@ class AppFeatureTests: XCTestCase {
     
     store.assert(
       .send(.setNavigation(tag: .chat)) {
-        $0.route = .chat
+        $0.route = .settings
         XCTAssertTrue($0.isChatViewPresented)
       },
       .send(.dismissSheetView) {
