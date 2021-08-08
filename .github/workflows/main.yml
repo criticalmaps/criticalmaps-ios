@@ -53,116 +53,116 @@ jobs:
         code-coverage: true # default = `false`
         scheme: Critical\ Maps
 
-  ui_tests:
-    name: UI Tests
-    runs-on: macOS-latest
+  # ui_tests:
+  #   name: UI Tests
+  #   runs-on: macOS-latest
 
-    steps:
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '12.4'
-    - name: Checkout
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Setup Xcode
+  #     uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: '12.4'
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
 
-    # - name: Cache SPM
-    #   uses: actions/cache@v2.1.5
-    #   with:
-    #     path: .build
-    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-spm-
+  #   # - name: Cache SPM
+  #   #   uses: actions/cache@v2.1.5
+  #   #   with:
+  #   #     path: .build
+  #   #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+  #   #     restore-keys: |
+  #   #       ${{ runner.os }}-spm-
 
-    - name: Cache Bundler
-      uses: actions/cache@v2.1.5
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+  #   - name: Cache Bundler
+  #     uses: actions/cache@v2.1.5
+  #     with:
+  #       path: vendor/bundle
+  #       key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-gems-
 
-    - name: Install Gem Dependencies
-      run: |
-        bundle config path vendor/bundle
-        bundle install
+  #   - name: Install Gem Dependencies
+  #     run: |
+  #       bundle config path vendor/bundle
+  #       bundle install
 
-    - name: Run UITests
-      run: bundle exec fastlane ui_test
+  #   - name: Run UITests
+  #     run: bundle exec fastlane ui_test
 
-    - name: Upload screenshots
-      uses: actions/upload-artifact@v2.2.3
-      with:
-        name: Screenshots
-        path: build/screenshots
+  #   - name: Upload screenshots
+  #     uses: actions/upload-artifact@v2.2.3
+  #     with:
+  #       name: Screenshots
+  #       path: build/screenshots
 
-  snapshot_tests:
-    name: Snapshot Tests
-    runs-on: macOS-latest
+  # snapshot_tests:
+  #   name: Snapshot Tests
+  #   runs-on: macOS-latest
 
-    steps:
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '12.4'
-    - name: Checkout
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Setup Xcode
+  #     uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: '12.4'
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
 
-    # - name: Cache SPM
-    #   uses: actions/cache@v2.1.5
-    #   with:
-    #     path: .build
-    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-spm-
+  #   # - name: Cache SPM
+  #   #   uses: actions/cache@v2.1.5
+  #   #   with:
+  #   #     path: .build
+  #   #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+  #   #     restore-keys: |
+  #   #       ${{ runner.os }}-spm-
 
-    - name: Cache Bundler
-      uses: actions/cache@v2.1.5
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+  #   - name: Cache Bundler
+  #     uses: actions/cache@v2.1.5
+  #     with:
+  #       path: vendor/bundle
+  #       key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-gems-
 
-    - name: Install Gem Dependencies
-      run: |
-        bundle config path vendor/bundle
-        bundle install
+  #   - name: Install Gem Dependencies
+  #     run: |
+  #       bundle config path vendor/bundle
+  #       bundle install
 
-    - name: Run SnapshotTests
-      run: bundle exec fastlane snapshot_test
+  #   - name: Run SnapshotTests
+  #     run: bundle exec fastlane snapshot_test
 
-  spm:
-    name: SPM
-    runs-on: macOS-latest
+  # spm:
+  #   name: SPM
+  #   runs-on: macOS-latest
 
-    steps:
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '12.4'
-    - name: Checkout
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Setup Xcode
+  #     uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: '12.4'
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
 
-    # - name: Cache SPM
-    #   uses: actions/cache@v2.1.5
-    #   with:
-    #     path: .build
-    #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-spm-
+  #   # - name: Cache SPM
+  #   #   uses: actions/cache@v2.1.5
+  #   #   with:
+  #   #     path: .build
+  #   #     key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+  #   #     restore-keys: |
+  #   #       ${{ runner.os }}-spm-
 
-    - name: Cache Bundler
-      uses: actions/cache@v2.1.5
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+  #   - name: Cache Bundler
+  #     uses: actions/cache@v2.1.5
+  #     with:
+  #       path: vendor/bundle
+  #       key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-gems-
 
-    - name: Install Gem Dependencies
-      run: |
-        bundle config path vendor/bundle
-        bundle install
+  #   - name: Install Gem Dependencies
+  #     run: |
+  #       bundle config path vendor/bundle
+  #       bundle install
 
-    - name: Run Swift Build
-      run: swift build
+  #   - name: Run Swift Build
+  #     run: swift build
