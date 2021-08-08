@@ -51,7 +51,7 @@ jobs:
         platform: ${{ matrix.platform }}
         action: test # default = `test`
         code-coverage: true # default = `false`
-        scheme: Critical\ Maps
+        scheme: Critical Maps
 
   # ui_tests:
   #   name: UI Tests
