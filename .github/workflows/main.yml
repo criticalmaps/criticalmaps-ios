@@ -15,10 +15,6 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '12.4'
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -38,13 +34,22 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
 
-    - name: Install Gem Dependencies
-      run: |
-        bundle config path vendor/bundle
-        bundle install
+    # - name: Install Gem Dependencies
+    #   run: |
+    #     bundle config path vendor/bundle
+    #     bundle install
 
-    - name: Run UnitTests
-      run: bundle exec fastlane test
+    # - name: Run UnitTests
+    #   run: bundle exec fastlane test
+    - name: Run xcodebuild test
+      uses: mxcl/xcodebuild@v1
+      with:
+        xcode: ^12
+        platform: macOS
+        action: test # default = `test`
+        code-coverage: false # default = `false`
+        warnings-as-errors: false # default = `false`
+        configuration: release # no default, ie. `xcodebuild` decides itself
 
   ui_tests:
     name: UI Tests
