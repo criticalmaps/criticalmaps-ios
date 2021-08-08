@@ -13,6 +13,10 @@ jobs:
   unit_tests:
     name: Unit Tests
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        platform:
+          - iOS
 
     steps:
     - name: Checkout
@@ -26,13 +30,13 @@ jobs:
     #     restore-keys: |
     #       ${{ runner.os }}-spm-
 
-    - name: Cache Bundler
-      uses: actions/cache@v2.1.5
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
+    # - name: Cache Bundler
+    #   uses: actions/cache@v2.1.5
+    #   with:
+    #     path: vendor/bundle
+    #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gems-
 
     # - name: Install Gem Dependencies
     #   run: |
@@ -44,12 +48,10 @@ jobs:
     - name: Run xcodebuild test
       uses: mxcl/xcodebuild@v1
       with:
-        xcode: ^12
-        platform: macOS
+        platform: ${{ matrix.platform }}
         action: test # default = `test`
-        code-coverage: false # default = `false`
-        warnings-as-errors: false # default = `false`
-        configuration: release # no default, ie. `xcodebuild` decides itself
+        code-coverage: true # default = `false`
+        scheme: Critical\ Maps
 
   ui_tests:
     name: UI Tests
