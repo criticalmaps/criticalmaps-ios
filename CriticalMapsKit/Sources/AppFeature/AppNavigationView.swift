@@ -161,11 +161,13 @@ struct ShadowModifier: ViewModifier {
   @Environment(\.colorScheme) var colorScheme
   
   func body(content: Content) -> some View {
-    if colorScheme == .light {
-      content
-        .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0.0, y: 0.0)
-    } else {
-      content
+    Group {
+      if colorScheme == .light {
+        content
+          .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0.0, y: 0.0)
+      } else {
+        content
+      }      
     }
   }
 }

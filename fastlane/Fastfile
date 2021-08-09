@@ -27,9 +27,12 @@ platform :ios do
 
   desc 'Run unit tests'
   lane :test do
-    run_tests(
+    scan(
+      workspace: "criticalmaps.xcworkspace",
+      scheme: Scheme,
       device: 'iPhone 12',
-      scheme: Scheme
+      result_bundle: true
     )
+    trainer(path: "./fastlane/test_output", output_directory: "./fastlane")
   end
 end
