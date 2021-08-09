@@ -52,7 +52,7 @@ jobs:
       with:
         name: test-artifacts
         path: |
-          ~/Library/Developer/Xcode/DerivedData/MyApp/Logs/Test/*.xcresult
+          ./fastlane/test_output/*.xcresult
 
   # ui_tests:
   #   name: UI Tests
