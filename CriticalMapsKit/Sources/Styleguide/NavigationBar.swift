@@ -89,3 +89,31 @@ private struct NavigationBar<Title: View, Content: View, Trailing: View>: View {
     self.presentationMode.dismiss()
   }
 }
+
+public extension View {
+  func dismissable() -> some View {
+    self.modifier(DismissableModifier())
+  }
+}
+
+public struct DismissableModifier: ViewModifier {
+  @Environment(\.presentationMode) var presentationMode
+  
+  public func body(content: Content) -> some View {
+    content
+      .toolbar {
+        ToolbarItem(
+          placement: .destructiveAction,
+          content: {
+            Button(
+              action: { self.presentationMode.wrappedValue.dismiss() },
+              label: {
+                Image(systemName: "xmark")
+                  .font(.system(size: 22).weight(.medium))
+              }
+            )
+          }
+        )
+      }
+  }
+}
