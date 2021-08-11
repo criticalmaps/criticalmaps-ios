@@ -41,6 +41,7 @@ let package = Package(
       name: "AppFeature",
       dependencies: [
         "CriticalMapsKit",
+        "GuideFeature",
         "Logger",
         "L10n",
         "InfoBar",
@@ -59,6 +60,15 @@ let package = Package(
         "Helpers",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
+      name: "GuideFeature",
+      dependencies: [
+        "Helpers",
+        "L10n",
+        "Logger",
+        "Styleguide"
       ]
     ),
     .target(
@@ -97,7 +107,10 @@ let package = Package(
         "NextRideFeature",
         "Styleguide",
         .product(name: "ComposableCoreLocation", package: "composable-core-location"),
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
       ]
     ),
     .target(
