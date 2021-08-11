@@ -19,7 +19,6 @@ public struct GuideDetailView: View {
       Spacer()
     }
     .navigationBarTitle(guide.rule.title, displayMode: .inline)
-    .dismissable()
   }
 }
 
