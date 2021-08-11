@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import GuideFeature
 import L10n
 import MapFeature
 import Styleguide
@@ -24,7 +25,7 @@ public struct AppNavigationView: View {
           action: { AppAction.map(.userTracking($0)) }
         )
       )
-        .frame(maxWidth: .infinity, minHeight: minHeight)
+      .frame(maxWidth: .infinity, minHeight: minHeight)
       menuSeperator
       
       // Chat
@@ -90,29 +91,25 @@ public struct AppNavigationView: View {
           .accessibility(hidden: true)
       }
     )
-      .background(
-        EmptyView()
-          .sheet(
-            isPresented: viewStore.binding(
-              get: \.isRulesViewPresented,
-              send: { _ in AppAction.dismissSheetView }
-            ),
-            onDismiss: nil,
-            content: {
-              NavigationView {
-                Text(L10n.Rules.title)
-              }
-              .navigationViewStyle(StackNavigationViewStyle())
-              .navigationStyle(
-                title: Text(L10n.Rules.title),
-                navPresentationStyle: .modal,
-                onDismiss: { viewStore.send(.dismissSheetView) }
-              )
+    .background(
+      EmptyView()
+        .sheet(
+          isPresented: viewStore.binding(
+            get: \.isRulesViewPresented,
+            send: { _ in AppAction.dismissSheetView }
+          ),
+          onDismiss: nil,
+          content: {
+            NavigationView {
+              GuideView()
             }
-          )
-      )
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(L10n.Rules.title))
+            .accentColor(Color(.textPrimary))
+            .navigationViewStyle(StackNavigationViewStyle())
+          }
+        )
+    )
+    .frame(maxWidth: .infinity, minHeight: minHeight)
+    .accessibility(label: Text(L10n.Rules.title))
   }
   
   var settingsButton: some View {
@@ -126,29 +123,29 @@ public struct AppNavigationView: View {
           .accessibility(hidden: true)
       }
     )
-      .background(
-        EmptyView()
-          .sheet(
-            isPresented: viewStore.binding(
-              get: \.isSettingsViewPresented,
-              send: { _ in AppAction.dismissSheetView }
-            ),
-            onDismiss: nil,
-            content: {
-              NavigationView {
-                Text(L10n.Settings.title)
-              }
-              .navigationViewStyle(StackNavigationViewStyle())
-              .navigationStyle(
-                title: Text(L10n.Settings.title),
-                navPresentationStyle: .modal,
-                onDismiss: { viewStore.send(.dismissSheetView) }
-              )
+    .background(
+      EmptyView()
+        .sheet(
+          isPresented: viewStore.binding(
+            get: \.isSettingsViewPresented,
+            send: { _ in AppAction.dismissSheetView }
+          ),
+          onDismiss: nil,
+          content: {
+            NavigationView {
+              Text(L10n.Settings.title)
             }
-          )
-      )
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      .accessibility(label: Text(L10n.Settings.title))
+            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationStyle(
+              title: Text(L10n.Settings.title),
+              navPresentationStyle: .modal,
+              onDismiss: { viewStore.send(.dismissSheetView) }
+            )
+          }
+        )
+    )
+    .frame(maxWidth: .infinity, minHeight: minHeight)
+    .accessibility(label: Text(L10n.Settings.title))
   }
   
   var menuSeperator: some View {
