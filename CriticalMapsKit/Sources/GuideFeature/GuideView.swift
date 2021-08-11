@@ -1,0 +1,32 @@
+import Helpers
+import L10n
+import Styleguide
+import SwiftUI
+
+public struct GuideView: View {
+  public init() {}
+  
+  public var body: some View {
+    List(Guide.all) { guide in
+      NavigationLink(
+        destination: GuideDetailView(guide: guide),
+        label: {
+          Text(guide.rule.title)
+            .font(.titleOne)
+            .foregroundColor(Color(.textPrimary))
+            .padding(.vertical, .grid(2))
+        }
+      )
+    }
+    .navigationTitle(L10n.Rules.title)
+    .dismissable()
+  }
+}
+
+struct GuideView_Previews: PreviewProvider {
+  static var previews: some View {
+    Preview {
+      GuideView()
+    }
+  }
+}
