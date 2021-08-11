@@ -103,7 +103,7 @@ public struct DismissableModifier: ViewModifier {
     content
       .toolbar {
         ToolbarItem(
-          placement: .destructiveAction,
+          placement: .cancellationAction,
           content: {
             Button(
               action: { self.presentationMode.wrappedValue.dismiss() },
