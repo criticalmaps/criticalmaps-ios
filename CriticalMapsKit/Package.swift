@@ -48,6 +48,7 @@ let package = Package(
         "IDProvider",
         "MapFeature",
         "NextRideFeature",
+        "SettingsFeature",
         "Styleguide",
         "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -127,6 +128,16 @@ let package = Package(
     ),
     .target(
       name: "PathMonitorClient"
+    ),
+    .target(
+      name: "SettingsFeature",
+      dependencies: [
+        "L10n",
+        "Logger",
+        "Helpers",
+        "Styleguide",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
     ),
     .target(
       name: "SharedModels",
