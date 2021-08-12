@@ -66,6 +66,14 @@ public extension UIColor {
   static var twitterProfileInnerBorder: Self {
     Self.hex(0x374052, alpha: 0.18)
   }
+  
+  static var translateRowBackground: Self {
+    Self.hex(0x175CE5)
+  }
+  
+  static var cmInRowBackground: Self {
+    Self.hex(0xB8E5D6)
+  }
 }
 
 extension UIColor {
