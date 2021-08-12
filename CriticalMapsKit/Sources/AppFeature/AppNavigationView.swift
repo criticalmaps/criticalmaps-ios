@@ -2,6 +2,7 @@ import ComposableArchitecture
 import GuideFeature
 import L10n
 import MapFeature
+import SettingsFeature
 import Styleguide
 import SwiftUI
 
@@ -133,14 +134,10 @@ public struct AppNavigationView: View {
           onDismiss: nil,
           content: {
             NavigationView {
-              Text(L10n.Settings.title)
+              SettingsView()
+                .dismissable()
             }
             .navigationViewStyle(StackNavigationViewStyle())
-            .navigationStyle(
-              title: Text(L10n.Settings.title),
-              navPresentationStyle: .modal,
-              onDismiss: { viewStore.send(.dismissSheetView) }
-            )
           }
         )
     )
