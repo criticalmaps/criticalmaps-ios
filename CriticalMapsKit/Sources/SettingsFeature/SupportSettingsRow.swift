@@ -17,6 +17,7 @@ struct SupportSettingsRow: View {
         .resizable()
         .aspectRatio(contentMode: .fit)
         .frame(width: 150, height: 150, alignment: .bottomTrailing)
+        .accessibilityHidden(true)
       
       VStack(alignment: .leading, spacing: .grid(2)) {
         Text(title)
@@ -29,6 +30,7 @@ struct SupportSettingsRow: View {
         }
         .font(.body.bold())
       }
+      .accessibilityElement(children: .combine)
       
       .padding([.top, .bottom, .leading], .grid(6))
       .padding(.trailing, .grid(19))

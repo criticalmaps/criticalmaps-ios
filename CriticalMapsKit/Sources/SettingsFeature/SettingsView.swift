@@ -68,6 +68,7 @@ public struct SettingsView: View {
           bottomImage: Image(uiImage: Images.ghIcon)
         )
         
+        // TODO: Replace strings with l10n
         SupportSettingsRow(
           title: "Translate",
           subTitle: "Help making Critical Maps available in other languages",
@@ -116,6 +117,7 @@ struct SettingsRow<Content>: View where Content: View {
         .padding(.vertical, .grid(4))
         .padding(.horizontal, .grid(4))
       seperator
+        .accessibilityHidden(true)
     }
   }
   
@@ -125,6 +127,7 @@ struct SettingsRow<Content>: View where Content: View {
       .frame(maxWidth: .infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
   }
 }
+
 
 // MARK: Section
 public struct SettingsSection<Content>: View where Content: View {
@@ -157,6 +160,7 @@ public struct SettingsSection<Content>: View where Content: View {
 }
 
 
+// MARK: SettingsNavigationLink
 struct SettingsNavigationLink<Destination>: View where Destination: View {
   let destination: Destination
   let title: String
@@ -172,6 +176,7 @@ struct SettingsNavigationLink<Destination>: View where Destination: View {
             Spacer()
             Image(systemName: "chevron.forward")
               .font(.titleOne)
+              .accessibilityHidden(true)
           }
         }
       )
