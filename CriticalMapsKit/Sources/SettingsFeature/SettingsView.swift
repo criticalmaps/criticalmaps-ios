@@ -27,6 +27,8 @@ public struct SettingsView: View {
         )
         
         supportSection
+    
+        infoSection
       }
     }
     .font(.titleOne)
@@ -57,8 +59,8 @@ public struct SettingsView: View {
   }
   
   var supportSection: some View {
-    VStack(alignment: .leading, spacing: .grid(4)) {
-      SettingsSection(title: "Support") {
+    SettingsSection(title: "Support") { // TODO: Replace with l10n
+      VStack(alignment: .leading, spacing: .grid(4)) {
         SupportSettingsRow(
           title: L10n.Settings.programming,
           subTitle: L10n.Settings.Opensource.detail,
@@ -87,8 +89,56 @@ public struct SettingsView: View {
           bottomImage: Image(uiImage: Images.cmInIcon)
         )
       }
+      .padding(.horizontal, .grid(4))
     }
-    .padding(.horizontal, .grid(4))
+  }
+  
+  var infoSection: some View {
+    SettingsSection(title: L10n.Settings.Section.info) {
+      SettingsNavigationLink(
+        destination: Text("Test"),
+        title: L10n.Settings.website,
+        navigationType: .openURL
+      )
+      
+      SettingsNavigationLink(
+        destination: Text("Test"),
+        title: L10n.Settings.twitter,
+        navigationType: .openURL
+      )
+      
+      SettingsNavigationLink(
+        destination: Text("Test"),
+        title: "Privacy Policy", // TODO: Replace with l10n
+        navigationType: .openURL
+      )
+      
+      HStack(spacing: .grid(4)) {
+        ZStack {
+          RoundedRectangle(cornerRadius: 12.5)
+            .foregroundColor(.white)
+            .frame(width: 56, height: 56, alignment: .center)
+            .overlay(
+              RoundedRectangle(cornerRadius: 12.5)
+                .strokeBorder(Color(.border), lineWidth: 1)
+            )
+          Image(uiImage: Images.cmLogoColor)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 48, height: 48, alignment: .center)
+        }
+        VStack(alignment: .leading) {
+          Text("Critical Maps 3.10.3")
+            .font(.titleTwo)
+            .foregroundColor(Color(.textPrimary))
+          Text("Build 42")
+            .font(.bodyTwo)
+            .foregroundColor(Color(.textSilent))
+        }
+      }
+      .padding(.vertical, .grid(4))
+      .padding(.horizontal, .grid(4))
+    }
   }
 }
 
@@ -150,7 +200,7 @@ public struct SettingsSection<Content>: View where Content: View {
       if (!title.isEmpty) {
         Text(self.title)
           .font(.headlineTwo)
-          .padding(.bottom, .grid(4))
+          .padding([.leading, .bottom], .grid(4))
           .padding(.top, .grid(10))
       }
       
@@ -162,26 +212,48 @@ public struct SettingsSection<Content>: View where Content: View {
 
 // MARK: SettingsNavigationLink
 struct SettingsNavigationLink<Destination>: View where Destination: View {
+  enum NavigationType {
+    case openURL
+    case routing
+  }
+  
   let destination: Destination
   let title: String
+  let navigationType: NavigationType
+  
+  init(
+    destination: Destination,
+    title: String,
+    navigationType: SettingsNavigationLink<Destination>.NavigationType = .routing
+  ) {
+    self.destination = destination
+    self.title = title
+    self.navigationType = navigationType
+  }
   
   var body: some View {
     SettingsRow {
-      NavigationLink(
-        destination: self.destination,
-        label: {
-          HStack {
-            Text(self.title)
-              .font(.titleOne)
-            Spacer()
-            Image(systemName: "chevron.forward")
-              .font(.titleOne)
-              .accessibilityHidden(true)
-          }
-        }
-      )
+      if navigationType == .routing {
+        NavigationLink(
+          destination: self.destination,
+          label: { content }
+        )
+      } else {
+        content
+      }
     }
     .foregroundColor(Color(.textPrimary))
+  }
+  
+  var content: some View {
+    HStack {
+      Text(self.title)
+        .font(.titleOne)
+      Spacer()
+      Image(systemName: "chevron.forward")
+        .font(.titleOne)
+        .accessibilityHidden(true)
+    }
   }
 }
 
