@@ -1,10 +1,17 @@
+import ComposableArchitecture
 import Helpers
 import L10n
 import Styleguide
 import SwiftUI
 
 public struct SettingsView: View {
-  public init() {}
+  let store: Store<SettingsState, SettingsAction>
+  let viewStore: ViewStore<SettingsState, SettingsAction>
+  
+  public init(store: Store<SettingsState, SettingsAction>) {
+    self.store = store
+    self.viewStore = ViewStore(store)
+  }
   
   public var body: some View {
     ScrollView {
@@ -50,6 +57,7 @@ public struct SettingsView: View {
           .foregroundColor(Color(.textSilent))
           .font(.bodyOne)
       }
+      Spacer()
       Toggle(
         isOn: .constant(true),
         label: { EmptyView() }
@@ -61,32 +69,47 @@ public struct SettingsView: View {
   var supportSection: some View {
     SettingsSection(title: "Support") { // TODO: Replace with l10n
       VStack(alignment: .leading, spacing: .grid(4)) {
-        SupportSettingsRow(
-          title: L10n.Settings.programming,
-          subTitle: L10n.Settings.Opensource.detail,
-          link: L10n.Settings.Opensource.action,
-          textStackForegroundColor: Color(.textPrimary),
-          backgroundColor: Color(.brand500),
-          bottomImage: Image(uiImage: Images.ghIcon)
+        Button(
+          action: { viewStore.send(.supportSectionRowTapped(.github)) },
+          label: {
+            SupportSettingsRow(
+              title: L10n.Settings.programming,
+              subTitle: L10n.Settings.Opensource.detail,
+              link: L10n.Settings.Opensource.action,
+              textStackForegroundColor: Color(.textPrimary),
+              backgroundColor: Color(.brand500),
+              bottomImage: Image(uiImage: Images.ghIcon)
+            )
+          }
         )
         
         // TODO: Replace strings with l10n
-        SupportSettingsRow(
-          title: "Translate",
-          subTitle: "Help making Critical Maps available in other languages",
-          link: "crowdin.com",
-          textStackForegroundColor: .white,
-          backgroundColor: Color(.translateRowBackground),
-          bottomImage: Image(uiImage: Images.translateIcon)
+        Button(
+          action: { viewStore.send(.supportSectionRowTapped(.crowdin)) },
+          label: {
+            SupportSettingsRow(
+              title: "Translate",
+              subTitle: "Help making Critical Maps available in other languages",
+              link: "crowdin.com",
+              textStackForegroundColor: .white,
+              backgroundColor: Color(.translateRowBackground),
+              bottomImage: Image(uiImage: Images.translateIcon)
+            )
+          }
         )
         
-        SupportSettingsRow(
-          title: L10n.Settings.CriticalMassDotIn.title,
-          subTitle: L10n.Settings.CriticalMassDotIn.detail,
-          link: L10n.Settings.CriticalMassDotIn.action,
-          textStackForegroundColor: Color(.textPrimary),
-          backgroundColor: Color(.cmInRowBackground),
-          bottomImage: Image(uiImage: Images.cmInIcon)
+        Button(
+          action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) },
+          label: {
+            SupportSettingsRow(
+              title: L10n.Settings.CriticalMassDotIn.title,
+              subTitle: L10n.Settings.CriticalMassDotIn.detail,
+              link: L10n.Settings.CriticalMassDotIn.action,
+              textStackForegroundColor: Color(.textPrimary),
+              backgroundColor: Color(.cmInRowBackground),
+              bottomImage: Image(uiImage: Images.cmInIcon)
+            )
+          }
         )
       }
       .padding(.horizontal, .grid(4))
@@ -98,19 +121,23 @@ public struct SettingsView: View {
       SettingsNavigationLink(
         destination: Text("Test"),
         title: L10n.Settings.website,
-        navigationType: .openURL
+        navigationType: .openURL,
+        openURL: { viewStore.send(.infoSectionRowTapped(.website)) }
       )
       
       SettingsNavigationLink(
         destination: Text("Test"),
         title: L10n.Settings.twitter,
-        navigationType: .openURL
+        navigationType: .openURL,
+        openURL: { viewStore.send(.infoSectionRowTapped(.twitter)) }
+        
       )
       
       SettingsNavigationLink(
         destination: Text("Test"),
         title: "Privacy Policy", // TODO: Replace with l10n
-        navigationType: .openURL
+        navigationType: .openURL,
+        openURL: { viewStore.send(.infoSectionRowTapped(.privacy)) }
       )
       
       HStack(spacing: .grid(4)) {
@@ -128,10 +155,10 @@ public struct SettingsView: View {
             .frame(width: 48, height: 48, alignment: .center)
         }
         VStack(alignment: .leading) {
-          Text("Critical Maps 3.10.3")
+          Text(viewStore.versionNumber)
             .font(.titleTwo)
             .foregroundColor(Color(.textPrimary))
-          Text("Build 42")
+          Text(viewStore.buildNumber)
             .font(.bodyTwo)
             .foregroundColor(Color(.textSilent))
         }
@@ -146,7 +173,15 @@ struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     Preview {
       NavigationView {
-        SettingsView()
+        SettingsView(
+          store: .init(
+            initialState: .init(),
+            reducer: settingsReducer,
+            environment: SettingsEnvironment(
+              uiApplicationClient: .noop
+            )
+          )
+        )
       }
     }
   }
@@ -212,7 +247,7 @@ public struct SettingsSection<Content>: View where Content: View {
 
 // MARK: SettingsNavigationLink
 struct SettingsNavigationLink<Destination>: View where Destination: View {
-  enum NavigationType {
+  enum NavigationType: Equatable {
     case openURL
     case routing
   }
@@ -220,15 +255,18 @@ struct SettingsNavigationLink<Destination>: View where Destination: View {
   let destination: Destination
   let title: String
   let navigationType: NavigationType
+  let openURL: () -> Void
   
   init(
     destination: Destination,
     title: String,
-    navigationType: SettingsNavigationLink<Destination>.NavigationType = .routing
+    navigationType: SettingsNavigationLink<Destination>.NavigationType = .routing,
+    openURL: @escaping () -> Void = {}
   ) {
     self.destination = destination
     self.title = title
     self.navigationType = navigationType
+    self.openURL = openURL
   }
   
   var body: some View {
@@ -239,7 +277,10 @@ struct SettingsNavigationLink<Destination>: View where Destination: View {
           label: { content }
         )
       } else {
-        content
+        Button(
+          action: openURL,
+          label: { content }
+        )
       }
     }
     .foregroundColor(Color(.textPrimary))

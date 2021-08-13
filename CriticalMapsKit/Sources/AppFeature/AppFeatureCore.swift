@@ -14,9 +14,10 @@ import MapKit
 import MapFeature
 import NextRideFeature
 import IDProvider
+import SettingsFeature
 import SharedModels
 import UserDefaultsClient
-import UIKit
+import UIApplicationClient
 
 public typealias InfoBannerPresenter = InfobarController
 
@@ -36,6 +37,7 @@ public struct AppState: Equatable {
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
+  var settingsState = SettingsState()
   var nextRideState = NextRideState()
   var requestTimer = RequestTimerState()
     
@@ -66,10 +68,21 @@ public enum AppAction: Equatable {
   case map(MapFeatureAction)
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
+  case settings(SettingsAction)
 }
 
 // MARK: Environment
 public struct AppEnvironment {
+  let date: () -> Date
+  let userDefaultsClient: UserDefaultsClient
+  let nextRideService: NextRideService
+  let service: LocationsAndChatDataService
+  let idProvider: IDProvider
+  let mainQueue: AnySchedulerOf<DispatchQueue>
+  let locationManager: ComposableCoreLocation.LocationManager
+  let infoBannerPresenter: InfoBannerPresenter
+  let uiApplicationClient: UIApplicationClient
+  
   public init(
     service: LocationsAndChatDataService = .live(),
     idProvider: IDProvider = .live(),
@@ -78,7 +91,8 @@ public struct AppEnvironment {
     nextRideService: NextRideService = .live(),
     userDefaultsClient: UserDefaultsClient = .live(),
     date: @escaping () -> Date = Date.init,
-    infoBannerPresenter: InfoBannerPresenter
+    infoBannerPresenter: InfoBannerPresenter,
+    uiApplicationClient: UIApplicationClient
   ) {
     self.service = service
     self.idProvider = idProvider
@@ -88,17 +102,8 @@ public struct AppEnvironment {
     self.userDefaultsClient = userDefaultsClient
     self.date = date
     self.infoBannerPresenter = infoBannerPresenter
+    self.uiApplicationClient = uiApplicationClient
   }
-  
-  let date: () -> Date
-  let userDefaultsClient: UserDefaultsClient
-  let nextRideService: NextRideService
-  let service: LocationsAndChatDataService
-  let idProvider: IDProvider
-  let mainQueue: AnySchedulerOf<DispatchQueue>
-  let locationManager: ComposableCoreLocation.LocationManager
-  let infoBannerPresenter: InfoBannerPresenter
-  
 }
 
 // MARK: Reducer
@@ -137,6 +142,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         coordinateObfuscator: .live
       )
     }
+  ),
+  settingsReducer.pullback(
+    state: \.settingsState,
+    action: /AppAction.settings,
+    environment: { global in SettingsEnvironment(uiApplicationClient: global.uiApplicationClient) }
   ),
   Reducer { state, action, environment in
     switch action {
@@ -238,6 +248,9 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       default:
         return .none
       }
+      
+    case let .settings(settingsAction):
+      return .none
     }
   }
 )

@@ -134,8 +134,13 @@ public struct AppNavigationView: View {
           onDismiss: nil,
           content: {
             NavigationView {
-              SettingsView()
-                .dismissable()
+              SettingsView(
+                store: store.scope(
+                  state: \.settingsState,
+                  action: { AppAction.settings($0) }
+                )
+              )
+              .dismissable()
             }
             .navigationViewStyle(StackNavigationViewStyle())
           }
@@ -176,7 +181,9 @@ struct AppNavigationView_Previews: PreviewProvider {
         service: .noop,
         idProvider: .noop,
         mainQueue: .failing,
-        infoBannerPresenter: .mock()
+        userDefaultsClient: .noop,
+        infoBannerPresenter: .mock(),
+        uiApplicationClient: .noop
       )
     )
     )

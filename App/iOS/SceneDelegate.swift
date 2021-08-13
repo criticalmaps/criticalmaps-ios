@@ -51,7 +51,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         service: .live(),
         idProvider: .live(),
         mainQueue: .main,
-        infoBannerPresenter: infobarController
+        infoBannerPresenter: infobarController,
+        uiApplicationClient: .live
       )
     )
     let appView = AppView(store: appStore)

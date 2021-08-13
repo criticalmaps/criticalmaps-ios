@@ -55,7 +55,8 @@ struct AppView_Previews: PreviewProvider {
         service: .noop,
         idProvider: .noop,
         mainQueue: .failing,
-        infoBannerPresenter: .mock()
+        infoBannerPresenter: .mock(),
+        uiApplicationClient: .noop
       )
     )
     )
