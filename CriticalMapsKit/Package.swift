@@ -51,6 +51,7 @@ let package = Package(
         "SettingsFeature",
         "Styleguide",
         "UserDefaultsClient",
+        "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
@@ -136,6 +137,7 @@ let package = Package(
         "Logger",
         "Helpers",
         "Styleguide",
+        "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
@@ -154,6 +156,12 @@ let package = Package(
       name: "TestHelper",
       dependencies: [
         .product(name: "SnapshotTesting", package: "SnapshotTesting")
+      ]
+    ),
+    .target(
+      name: "UIApplicationClient",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
@@ -226,6 +234,18 @@ let package = Package(
         "Helpers",
         "UserDefaultsClient",
         "NextRideFeature",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ]
+    ),
+    .testTarget(
+      name: "SettingsFeatureTests",
+      dependencies: [
+        "Helpers",
+        "UserDefaultsClient",
+        "SettingsFeature",
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"

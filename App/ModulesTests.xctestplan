@@ -53,6 +53,13 @@
         "identifier" : "InfoBarTests",
         "name" : "InfoBarTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "SettingsFeatureTests",
+        "name" : "SettingsFeatureTests"
+      }
     }
   ],
   "version" : 1
