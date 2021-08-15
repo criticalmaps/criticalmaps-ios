@@ -6,46 +6,48 @@ import SwiftUI
 
 public struct SettingsView: View {
   let store: Store<SettingsState, SettingsAction>
-  let viewStore: ViewStore<SettingsState, SettingsAction>
+  @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>
   
   public init(store: Store<SettingsState, SettingsAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    self.viewStore = ViewStore(store, removeDuplicates: ==)
   }
   
   public var body: some View {
-    ScrollView {
+    SettingsForm {
       VStack {
-        SettingsNavigationLink(
-          destination: Text("Test"),
-          title: L10n.Settings.eventSettings
-        )
-        
-        SettingsRow { observationModeRow }
-        
-        SettingsNavigationLink(
-          destination: Text("Test"),
-          title: L10n.Settings.Theme.appearance
-        )
-        
-        SettingsNavigationLink(
-          destination: Text("Test"),
-          title: L10n.Settings.appIcon
-        )
-        
+        SettingsSection(title: "") {
+          SettingsNavigationLink(
+            destination:
+              Text(L10n.Settings.eventSettings)
+              .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
+            ,
+            title: L10n.Settings.eventSettings
+          )
+          
+          SettingsRow { observationModeRow }
+          
+          SettingsNavigationLink(
+            destination:
+              AppearanceSettingsView(store: store)
+              .navigationBarTitle("Appearance", displayMode: .inline)
+            ,
+            title: L10n.Settings.Theme.appearance
+          )
+        }
+                
         supportSection
-    
+        
         infoSection
       }
     }
-    .font(.titleOne)
-    .toggleStyle(SwitchToggleStyle(tint: Color(.textPrimary)))
     .navigationTitle(L10n.Settings.title)
     .frame(
       maxWidth: .infinity,
       maxHeight: .infinity,
       alignment: .topLeading
     )
+    .onAppear { viewStore.send(.onAppear) }
   }
   
   var observationModeRow: some View {
@@ -59,7 +61,10 @@ public struct SettingsView: View {
       }
       Spacer()
       Toggle(
-        isOn: .constant(true),
+        isOn: viewStore.binding(
+          get: { $0.userSettings.enableObservationMode },
+          send: SettingsAction.setObservationMode
+        ),
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -140,32 +145,35 @@ public struct SettingsView: View {
         openURL: { viewStore.send(.infoSectionRowTapped(.privacy)) }
       )
       
-      HStack(spacing: .grid(4)) {
-        ZStack {
-          RoundedRectangle(cornerRadius: 12.5)
-            .foregroundColor(.white)
-            .frame(width: 56, height: 56, alignment: .center)
-            .overlay(
-              RoundedRectangle(cornerRadius: 12.5)
-                .strokeBorder(Color(.border), lineWidth: 1)
-            )
-          Image(uiImage: Images.cmLogoColor)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 48, height: 48, alignment: .center)
-        }
-        VStack(alignment: .leading) {
-          Text(viewStore.versionNumber)
-            .font(.titleTwo)
-            .foregroundColor(Color(.textPrimary))
-          Text(viewStore.buildNumber)
-            .font(.bodyTwo)
-            .foregroundColor(Color(.textSilent))
-        }
-      }
-      .padding(.vertical, .grid(4))
-      .padding(.horizontal, .grid(4))
+      appVersionAndBuildView
     }
+  }
+  
+  var appVersionAndBuildView: some View {
+    HStack(spacing: .grid(4)) {
+      ZStack {
+        RoundedRectangle(cornerRadius: 12.5)
+          .foregroundColor(.white)
+          .frame(width: 56, height: 56, alignment: .center)
+          .overlay(
+            RoundedRectangle(cornerRadius: 12.5)
+              .strokeBorder(Color(.border), lineWidth: 1)
+          )
+        Image(uiImage: Images.cmLogoColor)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 48, height: 48, alignment: .center)
+      }
+      VStack(alignment: .leading) {
+        Text(viewStore.versionNumber)
+          .font(.titleTwo)
+          .foregroundColor(Color(.textPrimary))
+        Text(viewStore.buildNumber)
+          .font(.bodyTwo)
+          .foregroundColor(Color(.textSilent))
+      }
+    }
+    .padding(.grid(4))
   }
 }
 
@@ -178,7 +186,11 @@ struct SettingsView_Previews: PreviewProvider {
             initialState: .init(),
             reducer: settingsReducer,
             environment: SettingsEnvironment(
-              uiApplicationClient: .noop
+              uiApplicationClient: .noop,
+              setUserInterfaceStyle: { _ in .none },
+              fileClient: .noop,
+              backgroundQueue: .failing,
+              mainQueue: .failing
             )
           )
         )
@@ -186,115 +198,3 @@ struct SettingsView_Previews: PreviewProvider {
     }
   }
 }
-
-
-// MARK: Row
-struct SettingsRow<Content>: View where Content: View {
-  let content: () -> Content
-  
-  init(@ViewBuilder content: @escaping () -> Content) {
-    self.content = content
-  }
-  
-  public var body: some View {
-    VStack(alignment: .leading) {
-      self.content()
-        .padding(.vertical, .grid(4))
-        .padding(.horizontal, .grid(4))
-      seperator
-        .accessibilityHidden(true)
-    }
-  }
-  
-  var seperator: some View {
-    Rectangle()
-      .fill(Color(.border))
-      .frame(maxWidth: .infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
-  }
-}
-
-
-// MARK: Section
-public struct SettingsSection<Content>: View where Content: View {
-  let content: () -> Content
-  let padContents: Bool
-  let title: String
-  
-  public init(
-    title: String,
-    padContents: Bool = false,
-    @ViewBuilder content: @escaping () -> Content
-  ) {
-    self.content = content
-    self.padContents = padContents
-    self.title = title
-  }
-  
-  public var body: some View {
-    VStack(alignment: .leading) {
-      if (!title.isEmpty) {
-        Text(self.title)
-          .font(.headlineTwo)
-          .padding([.leading, .bottom], .grid(4))
-          .padding(.top, .grid(10))
-      }
-      
-      self.content()
-    }
-  }
-}
-
-
-// MARK: SettingsNavigationLink
-struct SettingsNavigationLink<Destination>: View where Destination: View {
-  enum NavigationType: Equatable {
-    case openURL
-    case routing
-  }
-  
-  let destination: Destination
-  let title: String
-  let navigationType: NavigationType
-  let openURL: () -> Void
-  
-  init(
-    destination: Destination,
-    title: String,
-    navigationType: SettingsNavigationLink<Destination>.NavigationType = .routing,
-    openURL: @escaping () -> Void = {}
-  ) {
-    self.destination = destination
-    self.title = title
-    self.navigationType = navigationType
-    self.openURL = openURL
-  }
-  
-  var body: some View {
-    SettingsRow {
-      if navigationType == .routing {
-        NavigationLink(
-          destination: self.destination,
-          label: { content }
-        )
-      } else {
-        Button(
-          action: openURL,
-          label: { content }
-        )
-      }
-    }
-    .foregroundColor(Color(.textPrimary))
-  }
-  
-  var content: some View {
-    HStack {
-      Text(self.title)
-        .font(.titleOne)
-      Spacer()
-      Image(systemName: "chevron.forward")
-        .font(.titleOne)
-        .accessibilityHidden(true)
-    }
-  }
-}
-

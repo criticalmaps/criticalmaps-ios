@@ -1,20 +1,23 @@
 import ComposableArchitecture
+import FileClient
 import Helpers
+import SharedModels
 import UIApplicationClient
+import UIKit.UIInterface
 
 // MARK: State
 public struct SettingsState: Equatable {
-  public init() {}
+  public var userSettings: UserSettings
   
-  var versionNumber: String {
-    "Critical Maps \(Bundle.main.versionNumber)"
+  public init(
+    userSettings: UserSettings = UserSettings()
+  ) {
+    self.userSettings = userSettings
   }
-  var buildNumber: String {
-    "Build \(Bundle.main.buildNumber)"
-  }
+  
+  var versionNumber: String { "Critical Maps \(Bundle.main.versionNumber)" }
+  var buildNumber: String { "Build \(Bundle.main.buildNumber)" }
 }
-
-public extension SettingsState { }
 
 public extension SettingsState {
   enum InfoSectionRow: Equatable {
@@ -50,24 +53,49 @@ public extension SettingsState {
 
 // MARK: Actions
 public enum SettingsAction: Equatable {
+  case onAppear
+  case binding(BindingAction<SettingsState>)
   case supportSectionRowTapped(SettingsState.SupportSectionRow)
   case infoSectionRowTapped(SettingsState.InfoSectionRow)
+  case setObservationMode(Bool)
+  case setColorScheme(UserSettings.ColorScheme)
+  case setAppIcon(AppIcon?)
+  
   case openURL(URL)
 }
 
 
 // MARK: Environment
 public struct SettingsEnvironment {
+  public let backgroundQueue: AnySchedulerOf<DispatchQueue>
+  public let fileClient: FileClient
+  public let mainQueue: AnySchedulerOf<DispatchQueue>
+  public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   public var uiApplicationClient: UIApplicationClient
-
-  public init(uiApplicationClient: UIApplicationClient) {
+  
+  public init(
+    uiApplicationClient: UIApplicationClient,
+    setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>,
+    fileClient: FileClient,
+    backgroundQueue: AnySchedulerOf<DispatchQueue>,
+    mainQueue: AnySchedulerOf<DispatchQueue>
+  ) {
     self.uiApplicationClient = uiApplicationClient
+    self.setUserInterfaceStyle = setUserInterfaceStyle
+    self.fileClient = fileClient
+    self.backgroundQueue = backgroundQueue
+    self.mainQueue = mainQueue
   }
 }
 
 
 public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvironment> { state, action, environment in
   switch action {
+  case .onAppear:
+    state.userSettings.appIcon = environment.uiApplicationClient.alternateIconName()
+      .flatMap(AppIcon.init(rawValue:))
+    return .none
+  
   case let .infoSectionRowTapped(row):
     return Effect(value: .openURL(row.url))
   
@@ -78,6 +106,30 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     return environment.uiApplicationClient
       .open(url, [:])
       .fireAndForget()
+
+  case let .setObservationMode(value):
+    state.userSettings.enableObservationMode = value
+    return .none
+    
+  case let .setColorScheme(scheme):
+    return environment.setUserInterfaceStyle(state.userSettings.colorScheme.userInterfaceStyle)
+      .fireAndForget()
+    
+  case let .setAppIcon(appIcon):
+    return environment.uiApplicationClient.setAlternateIconName(appIcon?.rawValue)
+      .fireAndForget()
+    
+  case .binding:
+    return .none
   }
+}
+.onChange(
+  of: \.userSettings) { userSettings, _, _, environment in
+  struct SaveDebounceId: Hashable {}
+
+  return environment.fileClient
+    .saveUserSettings(userSettings: userSettings, on: environment.backgroundQueue)
+    .fireAndForget()
+    .debounce(id: SaveDebounceId(), for: .seconds(1), scheduler: environment.mainQueue)
 }
 
