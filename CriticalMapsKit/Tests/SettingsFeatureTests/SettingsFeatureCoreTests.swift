@@ -5,10 +5,11 @@ import XCTest
 
 class SettingsFeatureCoreTests: XCTestCase {
   var defaultEnvironment = SettingsEnvironment(
-    uiApplicationClient: .init(
-      open: { _, _ in .none },
-      openSettingsURLString: { "" }
-    )
+    uiApplicationClient: .noop,
+    setUserInterfaceStyle: { _ in .none},
+    fileClient: .noop,
+    backgroundQueue: .immediate,
+    mainQueue: .immediate
   )
   
   func test_openURLAction_shouldCallUIApplicationClient_privacy() {

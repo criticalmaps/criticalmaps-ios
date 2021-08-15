@@ -36,7 +36,9 @@ class AppFeatureTests: XCTestCase {
           locationServicesEnabled: { true },
           set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
         ),
-        infoBannerPresenter: .mock()
+        userDefaultsClient: .noop,
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none }
       )
     )
     
@@ -109,7 +111,8 @@ class AppFeatureTests: XCTestCase {
         ),
         nextRideService: nextRideService,
         userDefaultsClient: settings,
-        infoBannerPresenter: .mock()
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none }
       )
     )
     
@@ -180,7 +183,9 @@ class AppFeatureTests: XCTestCase {
         locationsAndChatMessages: nil
       ),
       reducer: appReducer,
-      environment: AppEnvironment(infoBannerPresenter: .mock())
+      environment: AppEnvironment(
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none })
     )
     
     store.assert(
