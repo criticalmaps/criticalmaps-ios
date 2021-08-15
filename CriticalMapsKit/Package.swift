@@ -83,7 +83,10 @@ let package = Package(
       ]
     ),
     .target(
-      name: "Helpers"
+      name: "Helpers",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
     ),
     .target(
       name: "IDProvider",
@@ -146,10 +149,12 @@ let package = Package(
         "L10n",
         "Logger",
         "Helpers",
+        "SharedModels",
         "Styleguide",
         "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
+      ],
+      resources: [.process("Resources/")]
     ),
     .target(
       name: "SharedModels",
