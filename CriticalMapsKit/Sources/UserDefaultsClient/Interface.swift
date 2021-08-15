@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 10.06.21.
-//
-
 import ComposableArchitecture
 import Foundation
 import Helpers

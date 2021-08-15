@@ -35,13 +35,12 @@ public struct AppView: View {
         Spacer()
         
         AppNavigationView(store: store)
-          .padding([.leading, .trailing])
+          .padding(.horizontal)
           .padding(.bottom, .grid(7))
           .frame(maxWidth: 400)
       }
     }
     .onAppear { viewStore.send(.onAppear) }
-    .edgesIgnoringSafeArea(.all)
   }
 }
 
@@ -55,8 +54,8 @@ struct AppView_Previews: PreviewProvider {
         service: .noop,
         idProvider: .noop,
         mainQueue: .failing,
-        infoBannerPresenter: .mock(),
-        uiApplicationClient: .noop
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none }
       )
     )
     )

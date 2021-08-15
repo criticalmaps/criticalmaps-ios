@@ -13,6 +13,9 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "AppNavigationViewSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "AppFeatureTests",
@@ -48,6 +51,9 @@
       }
     },
     {
+      "skippedTests" : [
+        "InfoBarSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "InfoBarTests",

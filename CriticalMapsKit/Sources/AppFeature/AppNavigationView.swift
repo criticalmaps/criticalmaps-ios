@@ -101,11 +101,9 @@ public struct AppNavigationView: View {
           ),
           onDismiss: nil,
           content: {
-            NavigationView {
+            CMNavigationView {
               GuideView()
             }
-            .accentColor(Color(.textPrimary))
-            .navigationViewStyle(StackNavigationViewStyle())
           }
         )
     )
@@ -133,7 +131,7 @@ public struct AppNavigationView: View {
           ),
           onDismiss: nil,
           content: {
-            NavigationView {
+            CMNavigationView {
               SettingsView(
                 store: store.scope(
                   state: \.settingsState,
@@ -142,7 +140,6 @@ public struct AppNavigationView: View {
               )
               .dismissable()
             }
-            .navigationViewStyle(StackNavigationViewStyle())
           }
         )
     )
@@ -156,6 +153,27 @@ public struct AppNavigationView: View {
   }
 }
 
+// MARK: Preview
+struct AppNavigationView_Previews: PreviewProvider {
+  static var previews: some View {
+    AppNavigationView(
+      store: Store<AppState, AppAction>(
+        initialState: AppState(),
+        reducer: appReducer,
+        environment: AppEnvironment(
+          service: .noop,
+          idProvider: .noop,
+          mainQueue: .failing,
+          userDefaultsClient: .noop,
+          uiApplicationClient: .noop,
+          setUserInterfaceStyle: { _ in .none }
+        )
+      )
+    )
+  }
+}
+
+
 struct ShadowModifier: ViewModifier {
   @Environment(\.colorScheme) var colorScheme
   
@@ -166,26 +184,23 @@ struct ShadowModifier: ViewModifier {
           .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0.0, y: 0.0)
       } else {
         content
-      }      
+      }
     }
   }
 }
 
-// MARK: Preview
-struct AppNavigationView_Previews: PreviewProvider {
-  static var previews: some View {
-    AppNavigationView(store: Store<AppState, AppAction>(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironment(
-        service: .noop,
-        idProvider: .noop,
-        mainQueue: .failing,
-        userDefaultsClient: .noop,
-        infoBannerPresenter: .mock(),
-        uiApplicationClient: .noop
-      )
-    )
-    )
+struct CMNavigationView<Content>: View where Content: View {
+  let content: () -> Content
+  
+  init(@ViewBuilder content: @escaping () -> Content) {
+    self.content = content
+  }
+  
+  var body: some View {
+    NavigationView {
+      content()
+    }
+    .accentColor(Color(.textPrimary))
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 }

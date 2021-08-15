@@ -1,13 +1,7 @@
-//
-//  File.swift
-//
-//
-//  Created by Malte on 16.06.21.
-//
-
 import ApiClient
 import ComposableArchitecture
 import ComposableCoreLocation
+import FileClient
 import InfoBar
 import Logger
 import MapKit
@@ -43,24 +37,20 @@ public struct AppState: Equatable {
     
   // Navigation
   var route: AppRoute?
-  var isChatViewPresented: Bool {
-    route == .chat
-  }
-  var isRulesViewPresented: Bool {
-    route == .rules
-  }
-  var isSettingsViewPresented: Bool {
-    route == .settings
-  }
+  var isChatViewPresented: Bool { route == .chat }
+  var isRulesViewPresented: Bool { route == .rules }
+  var isSettingsViewPresented: Bool { route == .settings }
 }
 
 public struct LocationAndChatMessagesError: Error, Equatable {}
 
 // MARK: Actions
 public enum AppAction: Equatable {
+  case appDelegate(AppDelegateAction)
   case onAppear
   case fetchData
   case fetchDataResponse(Result<LocationAndChatMessages, LocationsAndChatDataService.Failure>)
+  case userSettingsLoaded(Result<UserSettings, NSError>)
   
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
@@ -79,31 +69,51 @@ public struct AppEnvironment {
   let service: LocationsAndChatDataService
   let idProvider: IDProvider
   let mainQueue: AnySchedulerOf<DispatchQueue>
+  let backgroundQueue: AnySchedulerOf<DispatchQueue>
   let locationManager: ComposableCoreLocation.LocationManager
-  let infoBannerPresenter: InfoBannerPresenter
   let uiApplicationClient: UIApplicationClient
+  let fileClient: FileClient
+  public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   
   public init(
     service: LocationsAndChatDataService = .live(),
     idProvider: IDProvider = .live(),
     mainQueue: AnySchedulerOf<DispatchQueue> = .main,
+    backgroundQueue: AnySchedulerOf<DispatchQueue> = DispatchQueue(label: "background-queue").eraseToAnyScheduler(),
     locationManager: ComposableCoreLocation.LocationManager = .live,
     nextRideService: NextRideService = .live(),
     userDefaultsClient: UserDefaultsClient = .live(),
     date: @escaping () -> Date = Date.init,
-    infoBannerPresenter: InfoBannerPresenter,
-    uiApplicationClient: UIApplicationClient
+    uiApplicationClient: UIApplicationClient,
+    fileClient: FileClient = .live,
+    setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>
   ) {
     self.service = service
     self.idProvider = idProvider
     self.mainQueue = mainQueue
+    self.backgroundQueue = backgroundQueue
     self.locationManager = locationManager
     self.nextRideService = nextRideService
     self.userDefaultsClient = userDefaultsClient
     self.date = date
-    self.infoBannerPresenter = infoBannerPresenter
     self.uiApplicationClient = uiApplicationClient
+    self.fileClient = fileClient
+    self.setUserInterfaceStyle = setUserInterfaceStyle
   }
+}
+
+extension AppEnvironment {
+  public static let live = Self(
+    service: .live(),
+    idProvider: .live(),
+    mainQueue: .main,
+    uiApplicationClient: .live,
+    setUserInterfaceStyle: { userInterfaceStyle in
+      .fireAndForget {
+        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = userInterfaceStyle
+      }
+    }
+  )
 }
 
 // MARK: Reducer
@@ -116,7 +126,6 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     environment: {
       MapFeatureEnvironment(
         locationManager: $0.locationManager,
-        infobannerController: $0.infoBannerPresenter,
         mainQueue: $0.mainQueue
       )
     }
@@ -146,12 +155,24 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   settingsReducer.pullback(
     state: \.settingsState,
     action: /AppAction.settings,
-    environment: { global in SettingsEnvironment(uiApplicationClient: global.uiApplicationClient) }
+    environment: { global in SettingsEnvironment(
+      uiApplicationClient: global.uiApplicationClient,
+      setUserInterfaceStyle: global.setUserInterfaceStyle,
+      fileClient: global.fileClient,
+      backgroundQueue: global.backgroundQueue,
+      mainQueue: global.mainQueue
+    ) }
   ),
   Reducer { state, action, environment in
     switch action {
+    case let .appDelegate(appDelegateAction):
+      return .none
+      
     case .onAppear:
       return .merge(
+        environment.fileClient
+          .loadUserSettings()
+          .map(AppAction.userSettingsLoaded),
         Effect(value: .map(.onAppear)),
         Effect(value: .requestTimer(.startTimer))
       )
@@ -160,7 +181,9 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       struct GetLocationsId: Hashable {}
       let postBody = SendLocationAndChatMessagesPostBody(
         device: environment.idProvider.id(),
-        location: Location(state.mapFeatureState.location)
+        location: state.settingsState.userSettings.enableObservationMode
+          ? nil
+          : Location(state.mapFeatureState.location)
       )
       return environment.service
         .getLocations(postBody)
@@ -176,7 +199,6 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .fetchDataResponse(.failure(error)):
       Logger.logger.info("FetchData failed: \(error)")
-      environment.infoBannerPresenter.show(.error(message: "ServerError", action: nil))
       state.locationsAndChatMessages = .failure(.init())
       return .none
       
@@ -211,18 +233,28 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       switch nextRideAction {
       case let .setNextRide(ride):
         state.mapFeatureState.nextRide = ride
-        return .future { callback in
-          environment.infoBannerPresenter.show(
-            .criticalMass(
-              message: ride.titleAndTime,
-              subTitle: ride.location,
-              action: { callback(.success(.map(.focusNextRide))) }
-            )
-          )
+        return .future { _ in
+//          environment.infoBannerPresenter.show(
+//            .criticalMass(
+//              message: ride.titleAndTime,
+//              subTitle: ride.location,
+//              action: { callback(.success(.map(.focusNextRide))) }
+//            )
+//          )
         }
       default:
         return .none
       }
+      
+    case let .userSettingsLoaded(result):
+      state.settingsState.userSettings = (try? result.get()) ?? UserSettings()
+      return .merge(
+        environment.setUserInterfaceStyle(state.settingsState.userSettings.colorScheme.userInterfaceStyle)
+          // NB: This is necessary because UIKit needs at least one tick of the run loop before we
+          //     can set the user interface style.
+          .subscribe(on: environment.mainQueue)
+          .fireAndForget()
+      )
       
     case .setNavigation(tag: let tag):
       switch tag {
@@ -254,6 +286,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     }
   }
 )
+.debug(">>>")
+
 
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location
