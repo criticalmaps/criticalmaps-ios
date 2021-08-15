@@ -41,6 +41,7 @@ let package = Package(
       name: "AppFeature",
       dependencies: [
         "CriticalMapsKit",
+        "FileClient",
         "GuideFeature",
         "Logger",
         "L10n",
@@ -59,6 +60,14 @@ let package = Package(
       name: "CriticalMapsKit",
       dependencies: [
         "ApiClient",
+        "Helpers",
+        "SharedModels",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
+      name: "FileClient",
+      dependencies: [
         "Helpers",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -133,6 +142,7 @@ let package = Package(
     .target(
       name: "SettingsFeature",
       dependencies: [
+        "FileClient",
         "L10n",
         "Logger",
         "Helpers",
