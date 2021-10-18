@@ -126,6 +126,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     environment: {
       MapFeatureEnvironment(
         locationManager: $0.locationManager,
+        infobannerController: .mock(),
         mainQueue: $0.mainQueue
       )
     }

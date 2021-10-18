@@ -121,7 +121,7 @@ let infobarOverlayReducer = Reducer<
       return .none
     }
     
-    state.infobars[index].state = newState
+//    state.infobars[index].state = newState
     
     return .none
     
