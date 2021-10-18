@@ -51,16 +51,6 @@
       }
     },
     {
-      "skippedTests" : [
-        "InfoBarSnapshotTests"
-      ],
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "InfoBarTests",
-        "name" : "InfoBarTests"
-      }
-    },
-    {
       "target" : {
         "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "SettingsFeatureTests",
