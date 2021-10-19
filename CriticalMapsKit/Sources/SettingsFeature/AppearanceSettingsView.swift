@@ -53,11 +53,7 @@ struct AppIconPicker: View {
     VStack(spacing: .grid(4)) {
       ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { offset, appIcon in
         SettingsRow {
-          Button(
-            action: {
-              self.appIcon = self.appIcon == appIcon ? nil : appIcon
-            }
-          ) {
+          Button(action: { self.appIcon = self.appIcon == appIcon ? nil : appIcon }) {
             HStack(spacing: .grid(2)) {
               Image(uiImage: appIcon.image)
                 .resizable()

@@ -112,6 +112,7 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     return .none
     
   case let .setColorScheme(scheme):
+    state.userSettings.colorScheme = scheme
     return environment.setUserInterfaceStyle(state.userSettings.colorScheme.userInterfaceStyle)
       .fireAndForget()
     

@@ -81,7 +81,7 @@ public struct SettingsView: View {
               title: L10n.Settings.programming,
               subTitle: L10n.Settings.Opensource.detail,
               link: L10n.Settings.Opensource.action,
-              textStackForegroundColor: Color(.textPrimary),
+              textStackForegroundColor: Color(.textPrimaryLight),
               backgroundColor: Color(.brand500),
               bottomImage: Image(uiImage: Images.ghIcon)
             )
@@ -110,7 +110,7 @@ public struct SettingsView: View {
               title: L10n.Settings.CriticalMassDotIn.title,
               subTitle: L10n.Settings.CriticalMassDotIn.detail,
               link: L10n.Settings.CriticalMassDotIn.action,
-              textStackForegroundColor: Color(.textPrimary),
+              textStackForegroundColor: Color(.textPrimaryLight),
               backgroundColor: Color(.cmInRowBackground),
               bottomImage: Image(uiImage: Images.cmInIcon)
             )

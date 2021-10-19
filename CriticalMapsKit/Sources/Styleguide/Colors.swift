@@ -48,7 +48,7 @@ public extension UIColor {
   static var textPrimary: Self {
     Self { $0.isDarkMode
       ? Self.white
-      : Self.hex(0x1A1A1A)
+      : Self.textPrimaryLight
     }
   }
   
@@ -73,6 +73,10 @@ public extension UIColor {
   
   static var cmInRowBackground: Self {
     Self.hex(0xB8E5D6)
+  }
+  
+  static var textPrimaryLight: Self {
+    .hex(0x1A1A1A)
   }
 }
 
