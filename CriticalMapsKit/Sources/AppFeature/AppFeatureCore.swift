@@ -64,15 +64,15 @@ public enum AppAction: Equatable {
 // MARK: Environment
 public struct AppEnvironment {
   let date: () -> Date
-  let userDefaultsClient: UserDefaultsClient
-  let nextRideService: NextRideService
-  let service: LocationsAndChatDataService
-  let idProvider: IDProvider
-  let mainQueue: AnySchedulerOf<DispatchQueue>
-  let backgroundQueue: AnySchedulerOf<DispatchQueue>
-  let locationManager: ComposableCoreLocation.LocationManager
-  let uiApplicationClient: UIApplicationClient
-  let fileClient: FileClient
+  var userDefaultsClient: UserDefaultsClient
+  var nextRideService: NextRideService
+  var service: LocationsAndChatDataService
+  var idProvider: IDProvider
+  var mainQueue: AnySchedulerOf<DispatchQueue>
+  var backgroundQueue: AnySchedulerOf<DispatchQueue>
+  var locationManager: ComposableCoreLocation.LocationManager
+  var uiApplicationClient: UIApplicationClient
+  var fileClient: FileClient
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   
   public init(

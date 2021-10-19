@@ -32,12 +32,12 @@ public struct FileClient {
 }
 
 // Convenience methods for UserSettings handling
-extension FileClient {
-  public func loadUserSettings() -> Effect<Result<UserSettings, NSError>, Never> {
+public extension FileClient {
+  func loadUserSettings() -> Effect<Result<UserSettings, NSError>, Never> {
     self.load(UserSettings.self, from: userSettingsFileName)
   }
 
-  public func saveUserSettings(
+  func saveUserSettings(
     userSettings: UserSettings, on queue: AnySchedulerOf<DispatchQueue>
   ) -> Effect<Never, Never> {
     self.save(userSettings, to: userSettingsFileName, on: queue)
