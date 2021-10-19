@@ -27,26 +27,11 @@ jobs:
       with:
         xcode-version: '12.4'
 
-    - name: Cache SPM
-      uses: actions/cache@v2.1.5
+    - name: Setup ruby
+      uses: ruby/setup-ruby@v1
       with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-spm-
-
-    - name: Cache Bundler
-      uses: actions/cache@v2.1.5
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
-
-    - name: Install Gem Dependencies
-      run: |
-        bundle config path vendor/bundle
-        bundle install
+        ruby-version: 2.7
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
     - name: Run UnitTests
       run: bundle exec fastlane test
