@@ -15,23 +15,18 @@ public struct SettingsView: View {
   
   public var body: some View {
     SettingsForm {
+      Spacer(minLength: 28)
       VStack {
         SettingsSection(title: "") {
           SettingsNavigationLink(
-            destination:
-              Text(L10n.Settings.eventSettings)
-              .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
-            ,
+            destination: EventSettingsView(store: store),
             title: L10n.Settings.eventSettings
           )
           
           SettingsRow { observationModeRow }
           
           SettingsNavigationLink(
-            destination:
-              AppearanceSettingsView(store: store)
-              .navigationBarTitle("Appearance", displayMode: .inline)
-            ,
+            destination: AppearanceSettingsView(store: store),
             title: L10n.Settings.Theme.appearance
           )
         }

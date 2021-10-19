@@ -31,7 +31,7 @@ struct SettingsRow<Content>: View where Content: View {
   public var body: some View {
     VStack(alignment: .leading) {
       self.content()
-        .padding(.vertical, .grid(4))
+        .padding(.vertical, .grid(2))
         .padding(.horizontal, .grid(4))
       seperator
         .accessibilityHidden(true)

@@ -14,33 +14,34 @@ public struct AppearanceSettingsView: View {
   }
   
   public var body: some View {
-    SettingsSection(title: "Theme") {
-      Picker(
-        "",
-        selection: self.viewStore.binding(
-          get: \.userSettings.colorScheme,
-          send: SettingsAction.setColorScheme
-        )
-      ) {
-        ForEach(UserSettings.ColorScheme.allCases, id: \.self) {
-          Text($0.title)
+    SettingsForm {
+      SettingsSection(title: "Theme") {
+        Picker(
+          "",
+          selection: self.viewStore.binding(
+            get: \.userSettings.colorScheme,
+            send: SettingsAction.setColorScheme
+          )
+        ) {
+          ForEach(UserSettings.ColorScheme.allCases, id: \.self) {
+            Text($0.title)
+          }
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .frame(height: 50)
+        .padding(.horizontal, .grid(4))
+        
+        SettingsSection(title: L10n.Settings.appIcon) {
+          AppIconPicker(
+            appIcon: viewStore.binding(
+              get: \.userSettings.appIcon,
+              send: SettingsAction.setAppIcon
+            )
+          )
         }
       }
-      .pickerStyle(SegmentedPickerStyle())
-      .frame(height: 50)
-      .padding(.horizontal, .grid(4))
-      
-      SettingsSection(title: L10n.Settings.appIcon) {
-        AppIconPicker(
-          appIcon: viewStore.binding(
-            get: \.userSettings.appIcon,
-            send: SettingsAction.setAppIcon
-          )
-        )
-      }
-      
-      Spacer()
     }
+    .navigationBarTitle(L10n.Settings.Theme.appearance, displayMode: .inline)
   }
 }
 
