@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; };
 		73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */; };
+		738214F4271F49AB009847C7 /* appIcon-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214EF271F49AB009847C7 /* appIcon-5.png */; };
+		738214F5271F49AB009847C7 /* appIcon-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F0271F49AB009847C7 /* appIcon-4.png */; };
+		738214F6271F49AB009847C7 /* appIcon-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F1271F49AB009847C7 /* appIcon-3.png */; };
+		738214F7271F49AB009847C7 /* appIcon-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F2271F49AB009847C7 /* appIcon-2.png */; };
+		738214F8271F49AB009847C7 /* appIcon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F3271F49AB009847C7 /* appIcon-1.png */; };
 		73849B3726BF366500199BF5 /* InfoBar in Frameworks */ = {isa = PBXBuildFile; productRef = 73849B3626BF366500199BF5 /* InfoBar */; };
 		73849B3926BF8F8800199BF5 /* CriticalMapsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73849B3826BF8F8800199BF5 /* CriticalMapsKit */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
@@ -17,6 +22,11 @@
 
 /* Begin PBXFileReference section */
 		73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		738214EF271F49AB009847C7 /* appIcon-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-5.png"; sourceTree = "<group>"; };
+		738214F0271F49AB009847C7 /* appIcon-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-4.png"; sourceTree = "<group>"; };
+		738214F1271F49AB009847C7 /* appIcon-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-3.png"; sourceTree = "<group>"; };
+		738214F2271F49AB009847C7 /* appIcon-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-2.png"; sourceTree = "<group>"; };
+		738214F3271F49AB009847C7 /* appIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-1.png"; sourceTree = "<group>"; };
 		73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ModulesTests.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +48,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		738214EE271F49AB009847C7 /* appicons */ = {
+			isa = PBXGroup;
+			children = (
+				738214EF271F49AB009847C7 /* appIcon-5.png */,
+				738214F0271F49AB009847C7 /* appIcon-4.png */,
+				738214F1271F49AB009847C7 /* appIcon-3.png */,
+				738214F2271F49AB009847C7 /* appIcon-2.png */,
+				738214F3271F49AB009847C7 /* appIcon-1.png */,
+			);
+			path = appicons;
+			sourceTree = SOURCE_ROOT;
+		};
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +81,7 @@
 		73CF5FF0263EB0A6001925A3 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				738214EE271F49AB009847C7 /* appicons */,
 				73CF5FF6263EB0A6001925A3 /* Info.plist */,
 				73EB0310263F23A100941D57 /* App.swift */,
 				73CF5FF1263EB0A6001925A3 /* Assets.xcassets */,
@@ -136,8 +159,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				738214F8271F49AB009847C7 /* appIcon-1.png in Resources */,
+				738214F6271F49AB009847C7 /* appIcon-3.png in Resources */,
+				738214F4271F49AB009847C7 /* appIcon-5.png in Resources */,
 				73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */,
+				738214F7271F49AB009847C7 /* appIcon-2.png in Resources */,
 				73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */,
+				738214F5271F49AB009847C7 /* appIcon-4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

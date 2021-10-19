@@ -68,7 +68,7 @@ public enum SettingsAction: Equatable {
 // MARK: Environment
 public struct SettingsEnvironment {
   public let backgroundQueue: AnySchedulerOf<DispatchQueue>
-  public let fileClient: FileClient
+  public var fileClient: FileClient
   public let mainQueue: AnySchedulerOf<DispatchQueue>
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   public var uiApplicationClient: UIApplicationClient
@@ -117,6 +117,7 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
       .fireAndForget()
     
   case let .setAppIcon(appIcon):
+    state.userSettings.appIcon = appIcon
     return environment.uiApplicationClient.setAlternateIconName(appIcon?.rawValue)
       .fireAndForget()
     

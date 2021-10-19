@@ -50,17 +50,21 @@ struct AppIconPicker: View {
   @Binding var appIcon: AppIcon?
 
   var body: some View {
-    VStack(spacing: .grid(4)) {
+    VStack(spacing: .grid(2)) {
       ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { offset, appIcon in
         SettingsRow {
           Button(action: { self.appIcon = self.appIcon == appIcon ? nil : appIcon }) {
-            HStack(spacing: .grid(2)) {
+            HStack(spacing: .grid(3)) {
               Image(uiImage: appIcon.image)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 40, height: 40)
+                .frame(width: 48, height: 48)
                 .continuousCornerRadius(12)
                 .id(appIcon)
+                .overlay(
+                  RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(.textPrimary), lineWidth: 0.4)
+                )
 
               Text(appIcon.title)
 
@@ -80,82 +84,6 @@ struct AppIconPicker: View {
 extension View {
   public func applying<V: View>(@ViewBuilder _ builder: @escaping (Self) -> V) -> some View {
     builder(self)
-  }
-}
-
-// SegmentedControl like picker
-struct ColorSchemePicker: View {
-  @Environment(\.colorScheme) var envColorScheme
-  @Binding var colorScheme: UserSettings.ColorScheme
-
-  var body: some View {
-    ZStack {
-      HStack {
-        if self.colorScheme != .system {
-          Spacer()
-            .frame(maxWidth: .infinity)
-        }
-        if self.colorScheme == .light {
-          Spacer()
-            .frame(maxWidth: .infinity)
-        }
-        Rectangle()
-          .fill(Color(.brand500))
-          .continuousCornerRadius(12)
-          .frame(maxWidth: .infinity)
-          .padding(4)
-        if self.colorScheme == .system {
-          Spacer()
-            .frame(maxWidth: .infinity)
-        }
-        if self.colorScheme != .light {
-          Spacer()
-            .frame(maxWidth: .infinity)
-        }
-      }
-
-      HStack {
-        ForEach([UserSettings.ColorScheme.system, .dark, .light], id: \.self) { colorScheme in
-          Button(
-            action: {
-              withAnimation(.easeOut(duration: 0.2)) {
-                self.colorScheme = colorScheme
-              }
-            }
-          ) {
-            Text(colorScheme.title)
-              .foregroundColor(Color.white)
-              .colorMultiply(
-                self.titleColor(
-                  colorScheme: self.envColorScheme,
-                  isSelected: self.colorScheme == colorScheme
-                )
-              )
-              .animation(self.colorScheme == colorScheme ? .default : nil)
-              .frame(maxWidth: .infinity)
-              .font(.bodyOne)
-          }
-          .buttonStyle(PlainButtonStyle())
-        }
-        .padding()
-      }
-    }
-    .background(
-      Rectangle()
-        .fill(Color(.border))
-    )
-    .continuousCornerRadius(12)
-  }
-  
-  func titleColor(colorScheme: ColorScheme, isSelected: Bool) -> Color {
-    switch colorScheme {
-    case .light:
-      return Color(.textPrimary)
-    case .dark:
-      return isSelected ? .black : .white
-    @unknown default:
-      return isSelected ? .white : .black
-    }
   }
 }
 
