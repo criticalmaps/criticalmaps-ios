@@ -27,7 +27,8 @@ let package = Package(
       name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
       .exact("1.8.2")
-    )
+    ),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0")
   ],
   targets: [
     .target(
