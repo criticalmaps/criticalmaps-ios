@@ -4,7 +4,7 @@ import XCTest
 import AppFeature
 
 class AppNavigationViewSnapshotTests: XCTestCase {
-  func test_appNavigationView() {
+  func test_appNavigationView_light() {
     let sut = AppNavigationView(
       store: .init(
         initialState: .init(
@@ -23,6 +23,30 @@ class AppNavigationViewSnapshotTests: XCTestCase {
         )
       )
     )
+    
+    assertViewSnapshot(sut, height: 80, sloppy: true)
+  }
+  
+  func test_appNavigationView_dark() {
+    let sut = AppNavigationView(
+      store: .init(
+        initialState: .init(
+          locationsAndChatMessages: nil),
+        reducer: appReducer,
+        environment: AppEnvironment(
+          service: .noop,
+          idProvider: .noop,
+          mainQueue: .failing,
+          locationManager: .unimplemented(),
+          nextRideService: .noop,
+          userDefaultsClient: .noop,
+          date: Date.init,
+          uiApplicationClient: .noop,
+          setUserInterfaceStyle: { _ in .none }
+        )
+      )
+    )
+    .environment(\.colorScheme, .dark)
     
     assertViewSnapshot(sut, height: 80, sloppy: true)
   }

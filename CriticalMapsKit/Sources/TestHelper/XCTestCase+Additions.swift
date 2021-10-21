@@ -30,9 +30,9 @@ public extension XCTestCase {
       matching: view,
       as: [
         .image(precision: precision, layout: .device(config: .iPhone8)),
-        .image(precision: precision, layout: .device(config: .iPhoneX)),
         .image(precision: precision, layout: .device(config: .iPhoneXsMax)),
-        .image(precision: precision, layout: .device(config: .iPhoneSe))
+        .image(precision: precision, layout: .device(config: .iPhoneSe)),
+        .image(precision: precision, layout: .device(config: .iPadPro11))
       ],
       file: file,
       testName: testName,

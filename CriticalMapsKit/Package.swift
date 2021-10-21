@@ -260,8 +260,9 @@ let package = Package(
       name: "SettingsFeatureTests",
       dependencies: [
         "Helpers",
-        "UserDefaultsClient",
         "SettingsFeature",
+        "TestHelper",
+        "UserDefaultsClient",
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
