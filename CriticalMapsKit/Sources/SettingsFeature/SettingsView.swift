@@ -185,7 +185,7 @@ struct SettingsInfoLink: View {
       Text(title)
         .font(.titleOne)
       Spacer()
-      Image(systemName: "link")
+      Image(systemName: "link.circle.fill")
         .font(.titleOne)
         .accessibilityHidden(true)
     }

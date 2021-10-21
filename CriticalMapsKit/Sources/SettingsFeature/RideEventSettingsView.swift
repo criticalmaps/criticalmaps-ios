@@ -57,10 +57,14 @@ public struct RideEventSettingsView: View {
                 Button(
                   action: { viewStore.send(.setRideEventRadius(radius)) },
                   label: {
-                    RideEventSettingsRow(
-                      title: String(radius),
-                      isEnabled: viewStore.userSettings.rideEventSettings.radiusSettings == radius
-                    )
+                    HStack(spacing: .grid(3)) {
+                      Text(String(radius))
+                        .padding(.vertical, .grid(2))
+                      Spacer()
+                      if viewStore.userSettings.rideEventSettings.radiusSettings == radius {
+                        Image(systemName: "checkmark.circle.fill")
+                      }
+                    }
                   }
                 )
               }
@@ -71,7 +75,7 @@ public struct RideEventSettingsView: View {
       .foregroundColor(
         viewStore.userSettings.rideEventSettings.isEnabled
         ? Color(.textPrimary)
-        : Color(.textPrimary).opacity(0.4)
+        : Color(.textPrimary).opacity(0.5)
       )
       .disabled(!viewStore.userSettings.rideEventSettings.isEnabled)
     }
@@ -89,7 +93,9 @@ struct RideEventSettingsRow: View {
         .padding(.vertical, .grid(2))
       Spacer()
       if isEnabled {
-        Image(systemName: "checkmark")
+        Image(systemName: "checkmark.circle.fill")
+      } else {
+        Image(systemName: "circle")
       }
     }
   }

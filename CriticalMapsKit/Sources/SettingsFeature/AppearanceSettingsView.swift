@@ -72,7 +72,7 @@ struct AppIconPicker: View {
               Spacer()
 
               if self.appIcon == appIcon {
-                Image(systemName: "checkmark")
+                Image(systemName: "checkmark.circle.fill")
               }
             }
           }
