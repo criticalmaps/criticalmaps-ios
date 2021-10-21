@@ -13,9 +13,6 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "AppNavigationViewSnapshotTests"
-      ],
       "target" : {
         "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "AppFeatureTests",
