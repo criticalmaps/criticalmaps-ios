@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Foundation
 import SettingsFeature
+import SharedModels
 import XCTest
 
 class SettingsFeatureCoreTests: XCTestCase {
@@ -198,5 +199,57 @@ class SettingsFeatureCoreTests: XCTestCase {
       $0.userSettings.colorScheme = .system
     }
     XCTAssertNoDifference(overriddenUserInterfaceStyle, .unspecified)
+  }
+  
+  // MARK: - RideEvent Settings
+  func test_setRideEventsEnabled() {
+    let store = TestStore(
+      initialState: SettingsState(),
+      reducer: settingsReducer,
+      environment: defaultEnvironment
+    )
+    
+    store.send(.setRideEventsEnabled(false)) {
+      $0.userSettings.rideEventSettings.isEnabled = false
+    }
+    
+    store.send(.setRideEventsEnabled(true)) {
+      $0.userSettings.rideEventSettings.isEnabled = true
+    }
+  }
+  
+  func test_setRideEventsTypeEnabled() {
+    let store = TestStore(
+      initialState: SettingsState(),
+      reducer: settingsReducer,
+      environment: defaultEnvironment
+    )
+    
+    var updatedType = RideEventSettings.RideEventTypeSetting(type: .kidicalMass, isEnabled: false)
+    store.send(.setRideEventTypeEnabled(updatedType)) {
+      var updatedSettings: [RideEventSettings.RideEventTypeSetting] = .all
+      let index = try XCTUnwrap(updatedSettings.firstIndex(where: { setting in
+        setting.type == updatedType.type
+      }))
+      updatedSettings[index] = updatedType
+      $0.userSettings.rideEventSettings.typeSettings = updatedSettings
+    }
+    
+    updatedType.isEnabled = true
+    store.send(.setRideEventTypeEnabled(updatedType)) {
+      $0.userSettings.rideEventSettings.typeSettings = .all
+    }
+  }
+  
+  func test_setRideEventsRadius() {
+    let store = TestStore(
+      initialState: SettingsState(),
+      reducer: settingsReducer,
+      environment: defaultEnvironment
+    )
+    
+    store.send(.setRideEventRadius(5)) {
+      $0.userSettings.rideEventSettings.radiusSettings = 5
+    }
   }
 }

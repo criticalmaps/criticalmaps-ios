@@ -98,7 +98,7 @@ class AppFeatureTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [],
-        radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: true)
+        radiusSettings: 10
       )
       .encoded()
     }
