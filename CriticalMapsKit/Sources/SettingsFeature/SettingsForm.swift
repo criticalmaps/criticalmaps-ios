@@ -13,7 +13,7 @@ public struct SettingsForm<Content>: View where Content: View {
     ScrollView {
       self.content()
         .font(.titleOne)
-        .toggleStyle(SwitchToggleStyle(tint: Color(.textPrimary)))
+        .toggleStyle(SwitchToggleStyle(tint: Color(.brand500)))
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
   }
