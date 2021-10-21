@@ -58,8 +58,13 @@ public enum SettingsAction: Equatable {
   case supportSectionRowTapped(SettingsState.SupportSectionRow)
   case infoSectionRowTapped(SettingsState.InfoSectionRow)
   case setObservationMode(Bool)
+  
   case setColorScheme(UserSettings.ColorScheme)
   case setAppIcon(AppIcon?)
+  
+  case setRideEventsEnabled(Bool)
+  case setRideEventTypeEnabled(RideEventSettings.RideEventTypeSetting)
+  case setRideEventRadius(Int)
   
   case openURL(URL)
 }
@@ -120,6 +125,20 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     state.userSettings.appIcon = appIcon
     return environment.uiApplicationClient.setAlternateIconName(appIcon?.rawValue)
       .fireAndForget()
+    
+  case let .setRideEventsEnabled(value):
+    state.userSettings.rideEventSettings.isEnabled = value
+    return .none
+    
+  case let .setRideEventTypeEnabled(type):
+    guard let index = state.userSettings.rideEventSettings.typeSettings.firstIndex(where: { $0.type == type.type })
+    else { return .none }
+    state.userSettings.rideEventSettings.typeSettings[index].isEnabled = type.isEnabled
+    return .none
+    
+  case let .setRideEventRadius(radius):
+    state.userSettings.rideEventSettings.radiusSettings = radius
+    return .none
     
   case .binding:
     return .none

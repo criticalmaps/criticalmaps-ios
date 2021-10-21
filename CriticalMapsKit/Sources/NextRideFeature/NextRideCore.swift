@@ -61,7 +61,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
     )
     return env.service.nextRide(
       obfuscatedCoordinate,
-      env.store.rideEventSettings().radiusSettings.radius
+      env.store.rideEventSettings().radiusSettings
     )
       .receive(on: env.mainQueue)
       .catchToEffect()

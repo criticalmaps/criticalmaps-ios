@@ -105,21 +105,6 @@ public extension Ride {
 }
 
 public extension Ride {
-  struct IdentifiableRideType: Hashable, Identifiable {
-    public let id: String
-    public let rideType: RideType
-    
-    public init(id: String = UUID().uuidString, rideType: Ride.RideType) {
-      self.id = id
-      self.rideType = rideType
-    }
-    
-    public static let all: [IdentifiableRideType] =
-      Ride.RideType.allCases.map {
-        IdentifiableRideType(rideType: $0)
-      }
-  }
-  
   enum RideType: String, CaseIterable, Codable {
     case criticalMass = "CRITICAL_MASS"
     case kidicalMass = "KIDICAL_MASS"
@@ -141,18 +126,5 @@ public extension Ride {
 }
 
 public extension Ride {
-  struct Radius: Hashable, Identifiable {
-    public let id: String
-    public let value: Int
-    
-    public init(id: String = UUID().uuidString, value: Int) {
-      self.id = id
-      self.value = value
-    }
-    
-    public static let all: [Radius] = [10, 20, 30, 40]
-      .map { Radius(value: $0) }
-  }
-  
-  static let eventRadii: [Int] = [10, 20, 30, 40]
+  static let eventRadii: [Int] = [5, 10, 15, 30]
 }

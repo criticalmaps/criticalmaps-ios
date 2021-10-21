@@ -12,15 +12,18 @@ public struct UserSettings: Codable, Equatable {
   public var appIcon: AppIcon?
   public var colorScheme: ColorScheme
   public var enableObservationMode: Bool
-
+  public var rideEventSettings: RideEventSettings
+  
   public init(
     appIcon: AppIcon? = nil,
     colorScheme: ColorScheme = .system,
-    enableObservationMode: Bool = false
+    enableObservationMode: Bool = false,
+    rideEventSettings: RideEventSettings = .default
   ) {
     self.appIcon = appIcon
     self.colorScheme = colorScheme
     self.enableObservationMode = enableObservationMode
+    self.rideEventSettings = rideEventSettings
   }
 
   public init(from decoder: Decoder) throws {
@@ -28,11 +31,12 @@ public struct UserSettings: Codable, Equatable {
     self.appIcon = try? container.decode(AppIcon.self, forKey: .appIcon)
     self.colorScheme = (try? container.decode(ColorScheme.self, forKey: .colorScheme)) ?? .system
     self.enableObservationMode = (try? container.decode(Bool.self, forKey: .enableObservationMode)) ?? false
+    self.rideEventSettings = (try? container.decode(RideEventSettings.self, forKey: .rideEventSettings)) ?? .default
   }
 }
 
-extension UserSettings {
-  public enum ColorScheme: String, CaseIterable, Codable {
+public extension UserSettings {
+  enum ColorScheme: String, CaseIterable, Codable {
     case system
     case dark
     case light
