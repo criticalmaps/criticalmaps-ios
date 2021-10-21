@@ -151,56 +151,6 @@ class SettingsFeatureCoreTests: XCTestCase {
     XCTAssertEqual(openedUrl, row.url)
   }
   
-  // MARK: - Appearance
-  func test_selectAppIcon_shouldUpdateState() {
-    var overriddenIconName: String!
-    
-    var env = self.defaultEnvironment
-    env.fileClient.save = { _, _ in .none }
-    env.uiApplicationClient.setAlternateIconName = { newValue in
-      .fireAndForget {
-        overriddenIconName = newValue
-      }
-    }
-    
-    let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
-      environment: env
-    )
-    store.send(.setAppIcon(.appIcon4)) { state in
-      state.userSettings.appIcon = .appIcon4
-    }
-    XCTAssertNoDifference(overriddenIconName, "appIcon-4")
-  }
-  
-  func testSetColorScheme() {
-    var overriddenUserInterfaceStyle: UIUserInterfaceStyle!
-
-    var environment = self.defaultEnvironment
-    environment.setUserInterfaceStyle = { newValue in
-      .fireAndForget {
-        overriddenUserInterfaceStyle = newValue
-      }
-    }
-
-    let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
-      environment: environment
-    )
-
-    store.send(.setColorScheme(.light)) {
-      $0.userSettings.colorScheme = .light
-    }
-    XCTAssertNoDifference(overriddenUserInterfaceStyle, .light)
-
-    store.send(.setColorScheme(.system)) {
-      $0.userSettings.colorScheme = .system
-    }
-    XCTAssertNoDifference(overriddenUserInterfaceStyle, .unspecified)
-  }
-  
   // MARK: - RideEvent Settings
   func test_setRideEventsEnabled() {
     let store = TestStore(

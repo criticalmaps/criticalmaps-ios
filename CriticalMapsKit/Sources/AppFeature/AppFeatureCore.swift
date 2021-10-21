@@ -250,7 +250,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     case let .userSettingsLoaded(result):
       state.settingsState.userSettings = (try? result.get()) ?? UserSettings()
       return .merge(
-        environment.setUserInterfaceStyle(state.settingsState.userSettings.colorScheme.userInterfaceStyle)
+        environment.setUserInterfaceStyle(state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle)
           // NB: This is necessary because UIKit needs at least one tick of the run loop before we
           //     can set the user interface style.
           .subscribe(on: environment.mainQueue)

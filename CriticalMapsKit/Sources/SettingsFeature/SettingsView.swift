@@ -26,7 +26,12 @@ public struct SettingsView: View {
           SettingsRow { observationModeRow }
           
           SettingsNavigationLink(
-            destination: AppearanceSettingsView(store: store),
+            destination: AppearanceSettingsView(
+              store: store.scope(
+                state: \SettingsState.userSettings.appearanceSettings,
+                action: SettingsAction.appearance
+              )
+            ),
             title: L10n.Settings.Theme.appearance
           )
         }

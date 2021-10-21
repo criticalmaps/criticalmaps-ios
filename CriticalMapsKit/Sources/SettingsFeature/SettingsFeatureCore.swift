@@ -58,15 +58,13 @@ public enum SettingsAction: Equatable {
   case supportSectionRowTapped(SettingsState.SupportSectionRow)
   case infoSectionRowTapped(SettingsState.InfoSectionRow)
   case setObservationMode(Bool)
-  
-  case setColorScheme(UserSettings.ColorScheme)
-  case setAppIcon(AppIcon?)
-  
+    
   case setRideEventsEnabled(Bool)
   case setRideEventTypeEnabled(RideEventSettings.RideEventTypeSetting)
   case setRideEventRadius(Int)
   
   case openURL(URL)
+  case appearance(AppearanceSettingsAction)
 }
 
 
@@ -93,11 +91,10 @@ public struct SettingsEnvironment {
   }
 }
 
-
 public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvironment> { state, action, environment in
   switch action {
   case .onAppear:
-    state.userSettings.appIcon = environment.uiApplicationClient.alternateIconName()
+    state.userSettings.appearanceSettings.appIcon = environment.uiApplicationClient.alternateIconName()
       .flatMap(AppIcon.init(rawValue:))
     return .none
   
@@ -116,16 +113,6 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     state.userSettings.enableObservationMode = value
     return .none
     
-  case let .setColorScheme(scheme):
-    state.userSettings.colorScheme = scheme
-    return environment.setUserInterfaceStyle(state.userSettings.colorScheme.userInterfaceStyle)
-      .fireAndForget()
-    
-  case let .setAppIcon(appIcon):
-    state.userSettings.appIcon = appIcon
-    return environment.uiApplicationClient.setAlternateIconName(appIcon?.rawValue)
-      .fireAndForget()
-    
   case let .setRideEventsEnabled(value):
     state.userSettings.rideEventSettings.isEnabled = value
     return .none
@@ -142,8 +129,22 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     
   case .binding:
     return .none
+    
+  case let .appearance(appearanceSettingsAction):
+    return .none
   }
 }
+.combined(
+  with: appearanceSettingsReducer.pullback(
+    state: \.userSettings.appearanceSettings,
+    action: /SettingsAction.appearance,
+    environment: { global in AppearanceSettingsEnvironment(
+      uiApplicationClient: global.uiApplicationClient,
+      setUserInterfaceStyle: global.setUserInterfaceStyle
+    )
+    }
+  )
+)
 .onChange(
   of: \.userSettings) { userSettings, _, _, environment in
   struct SaveDebounceId: Hashable {}

@@ -5,10 +5,10 @@ import Styleguide
 import SwiftUI
 
 public struct AppearanceSettingsView: View {
-  let store: Store<SettingsState, SettingsAction>
-  @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>
+  let store: Store<AppearanceSettings, AppearanceSettingsAction>
+  @ObservedObject var viewStore: ViewStore<AppearanceSettings, AppearanceSettingsAction>
   
-  public init(store: Store<SettingsState, SettingsAction>) {
+  public init(store: Store<AppearanceSettings, AppearanceSettingsAction>) {
     self.store = store
     self.viewStore = ViewStore(store)
   }
@@ -19,11 +19,11 @@ public struct AppearanceSettingsView: View {
         Picker(
           "",
           selection: self.viewStore.binding(
-            get: \.userSettings.colorScheme,
-            send: SettingsAction.setColorScheme
+            get: \.colorScheme,
+            send: AppearanceSettingsAction.setColorScheme
           )
         ) {
-          ForEach(UserSettings.ColorScheme.allCases, id: \.self) {
+          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
             Text($0.title)
           }
         }
@@ -34,13 +34,14 @@ public struct AppearanceSettingsView: View {
         SettingsSection(title: L10n.Settings.appIcon) {
           AppIconPicker(
             appIcon: viewStore.binding(
-              get: \.userSettings.appIcon,
-              send: SettingsAction.setAppIcon
+              get: \.appIcon,
+              send: AppearanceSettingsAction.setAppIcon
             )
           )
         }
       }
     }
+    .foregroundColor(Color(.textPrimary))
     .navigationBarTitle(L10n.Settings.Theme.appearance, displayMode: .inline)
   }
 }
@@ -54,7 +55,7 @@ struct AppIconPicker: View {
     VStack(spacing: .grid(2)) {
       ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { offset, appIcon in
         SettingsRow {
-          Button(action: { self.appIcon = self.appIcon == appIcon ? nil : appIcon }) {
+          Button(action: { self.appIcon = self.appIcon == appIcon ? .none : appIcon }) {
             HStack(spacing: .grid(3)) {
               Image(uiImage: appIcon.image)
                 .resizable()
@@ -88,7 +89,7 @@ extension View {
   }
 }
 
-extension UserSettings.ColorScheme {
+extension AppearanceSettings.ColorScheme {
   var title: String {
     switch self {
     case .system:
