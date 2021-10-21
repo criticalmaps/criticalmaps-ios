@@ -118,27 +118,32 @@ public struct SettingsView: View {
   
   var infoSection: some View {
     SettingsSection(title: L10n.Settings.Section.info) {
-      SettingsNavigationLink(
-        destination: Text("Test"),
-        title: L10n.Settings.website,
-        navigationType: .openURL,
-        openURL: { viewStore.send(.infoSectionRowTapped(.website)) }
-      )
+      SettingsRow {
+        Button(
+          action: { viewStore.send(.infoSectionRowTapped(.website)) },
+          label: {
+            SettingsInfoLink(title: L10n.Settings.website)
+          }
+        )
+      }
       
-      SettingsNavigationLink(
-        destination: Text("Test"),
-        title: L10n.Settings.twitter,
-        navigationType: .openURL,
-        openURL: { viewStore.send(.infoSectionRowTapped(.twitter)) }
-        
-      )
+      SettingsRow {
+        Button(
+          action: { viewStore.send(.infoSectionRowTapped(.twitter)) },
+          label: {
+            SettingsInfoLink(title: L10n.Settings.twitter)
+          }
+        )
+      }
       
-      SettingsNavigationLink(
-        destination: Text("Test"),
-        title: "Privacy Policy", // TODO: Replace with l10n
-        navigationType: .openURL,
-        openURL: { viewStore.send(.infoSectionRowTapped(.privacy)) }
-      )
+      SettingsRow {
+        Button(
+          action: { viewStore.send(.infoSectionRowTapped(.privacy)) },
+          label: {
+            SettingsInfoLink(title: "Privacy Policy") // TODO: Replace with l10n
+          }
+        )        
+      }
       
       appVersionAndBuildView
     }
@@ -169,6 +174,21 @@ public struct SettingsView: View {
       }
     }
     .padding(.grid(4))
+  }
+}
+
+struct SettingsInfoLink: View {
+  let title: String
+  
+  var body: some View {
+    HStack {
+      Text(title)
+        .font(.titleOne)
+      Spacer()
+      Image(systemName: "link")
+        .font(.titleOne)
+        .accessibilityHidden(true)
+    }
   }
 }
 

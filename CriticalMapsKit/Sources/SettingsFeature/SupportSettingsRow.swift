@@ -23,6 +23,7 @@ struct SupportSettingsRow: View {
         Text(title)
           .font(.titleOne)
         Text(subTitle)
+          .multilineTextAlignment(.leading)
           .font(.bodyTwo)
         HStack {
           Text(link)

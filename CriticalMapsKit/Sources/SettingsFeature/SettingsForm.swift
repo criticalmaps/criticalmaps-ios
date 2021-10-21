@@ -79,41 +79,23 @@ public struct SettingsSection<Content>: View where Content: View {
 
 // MARK: SettingsNavigationLink
 public struct SettingsNavigationLink<Destination>: View where Destination: View {
-  public enum NavigationType: Equatable {
-    case openURL
-    case routing
-  }
-  
   let destination: Destination
   let title: String
-  let navigationType: NavigationType
-  let openURL: () -> Void
   
   public init(
     destination: Destination,
-    title: String,
-    navigationType: SettingsNavigationLink<Destination>.NavigationType = .routing,
-    openURL: @escaping () -> Void = {}
+    title: String
   ) {
     self.destination = destination
     self.title = title
-    self.navigationType = navigationType
-    self.openURL = openURL
   }
   
   public var body: some View {
     SettingsRow {
-      if navigationType == .routing {
-        NavigationLink(
-          destination: self.destination,
-          label: { content }
-        )
-      } else {
-        Button(
-          action: openURL,
-          label: { content }
-        )
-      }
+      NavigationLink(
+        destination: self.destination,
+        label: { content }
+      )
     }
     .foregroundColor(Color(.textPrimary))
   }
