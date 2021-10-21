@@ -19,7 +19,7 @@ public struct SettingsView: View {
       VStack {
         SettingsSection(title: "") {
           SettingsNavigationLink(
-            destination: EventSettingsView(store: store),
+            destination: RideEventSettingsView(store: store),
             title: L10n.Settings.eventSettings
           )
           
