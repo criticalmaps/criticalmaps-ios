@@ -68,7 +68,7 @@ public struct SettingsSection<Content>: View where Content: View {
         Text(self.title)
           .font(.headlineTwo)
           .padding([.leading, .bottom], .grid(4))
-          .padding(.top, .grid(10))
+          .padding(.top, .grid(6))
       }
       
       self.content()
@@ -97,7 +97,6 @@ public struct SettingsNavigationLink<Destination>: View where Destination: View 
         label: { content }
       )
     }
-    .foregroundColor(Color(.textPrimary))
   }
   
   var content: some View {

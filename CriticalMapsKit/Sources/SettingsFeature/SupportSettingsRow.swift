@@ -32,14 +32,13 @@ struct SupportSettingsRow: View {
         .font(.body.bold())
       }
       .accessibilityElement(children: .combine)
-      
       .padding([.top, .bottom, .leading], .grid(6))
-      .padding(.trailing, .grid(19))
+      .padding(.trailing, 120)
       .foregroundColor(textStackForegroundColor)
+      .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
     }
     .background(backgroundColor)
     .clipShape(RoundedRectangle(cornerRadius: 16))
-    .frame(minHeight: 150)
   }
 }
 
