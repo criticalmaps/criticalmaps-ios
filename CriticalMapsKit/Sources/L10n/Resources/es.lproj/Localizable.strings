@@ -152,7 +152,7 @@
 "settings.settingsEventSearchRadius" = "Event Search Radius";
 
 /* No comment provided by engineer. */
-"settings.eventSettingsEnable" = "Activar Notificaciones de evento";
+"settings.eventSettingsEnable" = "Notificaciones de evento";
 
 /* No comment provided by engineer. */
 "settings.eventTypes" = "Tipos de evento";
