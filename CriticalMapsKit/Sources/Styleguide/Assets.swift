@@ -15,4 +15,9 @@ public enum Images {
   public static let havefun = UIImage(named: "Pose", in: .module, with: nil)!
   public static let gently = UIImage(named: "Slowly", in: .module, with: nil)!
   public static let contraflow = UIImage(named: "WrongLane", in: .module, with: nil)!
+  
+  // MARK: Settings
+  public static let cmInIcon = UIImage(named: "cmDotIn-logo", in: .module, with: nil)!
+  public static let ghIcon = UIImage(named: "gh-logo", in: .module, with: nil)!
+  public static let translateIcon = UIImage(named: "translate", in: .module, with: nil)!
 }

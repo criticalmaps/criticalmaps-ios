@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct RideEventSettings: Codable {
+public struct RideEventSettings: Hashable, Codable {
   public init(
     isEnabled: Bool,
     typeSettings: [RideEventSettings.RideEventTypeSetting],
-    radiusSettings: RideEventSettings.RideEventRadius
+    radiusSettings: Int
   ) {
     self.isEnabled = isEnabled
     self.typeSettings = typeSettings
@@ -20,21 +20,11 @@ public struct RideEventSettings: Codable {
   
     public var isEnabled: Bool
     public var typeSettings: [RideEventTypeSetting]
-    public var radiusSettings: RideEventRadius
+    public var radiusSettings: Int
 }
 
 public extension RideEventSettings {
-  struct RideEventRadius: Codable {
-    public init(radius: Int, isEnabled: Bool) {
-      self.radius = radius
-      self.isEnabled = isEnabled
-    }
-    
-      public var radius: Int
-      public var isEnabled: Bool
-  }
-
-  struct RideEventTypeSetting: Codable {
+  struct RideEventTypeSetting: Hashable, Codable {
     public init(type: Ride.RideType, isEnabled: Bool) {
       self.type = type
       self.isEnabled = isEnabled
@@ -47,7 +37,7 @@ public extension RideEventSettings {
   static let `default` = Self(
     isEnabled: true,
     typeSettings: .all,
-    radiusSettings: .init(radius: 20, isEnabled: true)
+    radiusSettings: Ride.eventRadii[1]
   )
 }
 

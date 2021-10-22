@@ -27,7 +27,8 @@ let package = Package(
       name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
       .exact("1.8.2")
-    )
+    ),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0")
   ],
   targets: [
     .target(
@@ -41,6 +42,7 @@ let package = Package(
       name: "AppFeature",
       dependencies: [
         "CriticalMapsKit",
+        "FileClient",
         "GuideFeature",
         "Logger",
         "L10n",
@@ -48,8 +50,10 @@ let package = Package(
         "IDProvider",
         "MapFeature",
         "NextRideFeature",
+        "SettingsFeature",
         "Styleguide",
         "UserDefaultsClient",
+        "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
@@ -57,6 +61,14 @@ let package = Package(
       name: "CriticalMapsKit",
       dependencies: [
         "ApiClient",
+        "Helpers",
+        "SharedModels",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
+      name: "FileClient",
+      dependencies: [
         "Helpers",
         "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -72,7 +84,10 @@ let package = Package(
       ]
     ),
     .target(
-      name: "Helpers"
+      name: "Helpers",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
     ),
     .target(
       name: "IDProvider",
@@ -129,6 +144,20 @@ let package = Package(
       name: "PathMonitorClient"
     ),
     .target(
+      name: "SettingsFeature",
+      dependencies: [
+        "FileClient",
+        "L10n",
+        "Logger",
+        "Helpers",
+        "SharedModels",
+        "Styleguide",
+        "UIApplicationClient",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ],
+      resources: [.process("Resources/")]
+    ),
+    .target(
       name: "SharedModels",
       dependencies: [
         "Helpers"
@@ -143,6 +172,12 @@ let package = Package(
       name: "TestHelper",
       dependencies: [
         .product(name: "SnapshotTesting", package: "SnapshotTesting")
+      ]
+    ),
+    .target(
+      name: "UIApplicationClient",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
@@ -164,7 +199,8 @@ let package = Package(
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
-        )
+        ),
+        .product(name: "CustomDump", package: "swift-custom-dump")
       ],
       exclude: [
         "__Snapshots__"
@@ -220,6 +256,20 @@ let package = Package(
           package: "swift-composable-architecture"
         )
       ]
+    ),
+    .testTarget(
+      name: "SettingsFeatureTests",
+      dependencies: [
+        "Helpers",
+        "SettingsFeature",
+        "TestHelper",
+        "UserDefaultsClient",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ],
+      exclude: ["__Snapshots__"]
     )
   ]
 )

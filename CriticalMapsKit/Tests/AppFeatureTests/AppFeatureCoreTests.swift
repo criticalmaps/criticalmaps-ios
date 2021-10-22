@@ -23,25 +23,38 @@ class AppFeatureTests: XCTestCase {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
     
+    var environment = AppEnvironment(
+      service: .noop,
+      idProvider: .noop,
+      mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
+      locationManager: .unimplemented(
+        authorizationStatus: { .denied },
+        create: { _ in locationManagerSubject.eraseToEffect() },
+        locationServicesEnabled: { true },
+        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+      ),
+      userDefaultsClient: .noop,
+      uiApplicationClient: .noop,
+      fileClient: .noop,
+      setUserInterfaceStyle: { _ in .none }
+    )
+    environment.fileClient.load = { asdf in
+        .init(
+          value: try! JSONEncoder().encode(
+            UserSettings()
+          )
+        )
+    }
+    
     let store = TestStore(
       initialState: AppState(),
       reducer: appReducer,
-      environment: AppEnvironment(
-        service: .noop,
-        idProvider: .noop,
-        mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
-        locationManager: .unimplemented(
-          authorizationStatus: { .denied },
-          create: { _ in locationManagerSubject.eraseToEffect() },
-          locationServicesEnabled: { true },
-          set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
-        ),
-        infoBannerPresenter: .mock()
-      )
+      environment: environment
     )
     
     store.assert(
       .send(.onAppear),
+      .receive(.userSettingsLoaded(.success(.init()))),
       .receive(.map(.onAppear)),
       .receive(.requestTimer(.startTimer)),
       .receive(.map(.locationRequested)) {
@@ -85,32 +98,42 @@ class AppFeatureTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [],
-        radiusSettings: RideEventSettings.RideEventRadius(radius: 10, isEnabled: true)
+        radiusSettings: 10
       )
       .encoded()
+    }
+    var environment = AppEnvironment(
+      service: service,
+      idProvider: .noop,
+      mainQueue: testScheduler.eraseToAnyScheduler(),
+      locationManager: .unimplemented(
+        authorizationStatus: { .notDetermined },
+        create: { _ in locationManagerSubject.eraseToEffect() },
+        locationServicesEnabled: { true },
+        requestAlwaysAuthorization: { _ in
+          .fireAndForget { didRequestAlwaysAuthorization = true }
+        },
+        requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
+        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+      ),
+      nextRideService: nextRideService,
+      userDefaultsClient: settings,
+      uiApplicationClient: .noop,
+      fileClient: .noop,
+      setUserInterfaceStyle: { _ in .none }
+    )
+    environment.fileClient.load = { asdf in
+        .init(
+          value: try! JSONEncoder().encode(
+            UserSettings()
+          )
+        )
     }
     
     let store = TestStore(
       initialState: AppState(),
       reducer: appReducer,
-      environment: AppEnvironment(
-        service: service,
-        idProvider: .noop,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        locationManager: .unimplemented(
-          authorizationStatus: { .notDetermined },
-          create: { _ in locationManagerSubject.eraseToEffect() },
-          locationServicesEnabled: { true },
-          requestAlwaysAuthorization: { _ in
-            .fireAndForget { didRequestAlwaysAuthorization = true }
-          },
-          requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-          set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
-        ),
-        nextRideService: nextRideService,
-        userDefaultsClient: settings,
-        infoBannerPresenter: .mock()
-      )
+      environment: environment
     )
     
     let coordinate = Coordinate(latitude: 20, longitude: 10)
@@ -121,6 +144,7 @@ class AppFeatureTests: XCTestCase {
     
     store.assert(
       .send(.onAppear),
+      .receive(.userSettingsLoaded(.success(.init()))),
       .receive(.map(.onAppear)),
       .receive(.requestTimer(.startTimer)),
       .receive(.map(.locationRequested)) {
@@ -180,7 +204,9 @@ class AppFeatureTests: XCTestCase {
         locationsAndChatMessages: nil
       ),
       reducer: appReducer,
-      environment: AppEnvironment(infoBannerPresenter: .mock())
+      environment: AppEnvironment(
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none })
     )
     
     store.assert(

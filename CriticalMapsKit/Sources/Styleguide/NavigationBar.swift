@@ -68,7 +68,7 @@ private struct NavigationBar<Title: View, Content: View, Trailing: View>: View {
           if self.navPresentationStyle == .modal {
             Button(action: self.dismiss) {
               Image(systemName: "xmark")
-                .font(.system(size: 22, weight: .medium))
+                .font(Font.system(size: 22, weight: .medium))
             }
           } else {
             self.trailing
@@ -109,7 +109,7 @@ public struct DismissableModifier: ViewModifier {
               action: { self.presentationMode.wrappedValue.dismiss() },
               label: {
                 Image(systemName: "xmark")
-                  .font(.system(size: 22).weight(.medium))
+                  .font(Font.system(size: 22).weight(.medium))
               }
             )
           }

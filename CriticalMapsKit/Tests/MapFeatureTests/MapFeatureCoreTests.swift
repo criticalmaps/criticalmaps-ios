@@ -96,8 +96,7 @@ class MapFeatureCoreTests: XCTestCase {
         create: { _ in locationManagerSubject.eraseToEffect() },
         locationServicesEnabled: { false },
         set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
-      infobannerController: .mock(),
+      ), infobannerController: .mock(),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
@@ -140,8 +139,7 @@ class MapFeatureCoreTests: XCTestCase {
             .fireAndForget { didRequestAlwaysAuthorization = true }
         },
         set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
-      infobannerController: .mock(),
+      ), infobannerController: .mock(),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
@@ -188,8 +186,7 @@ class MapFeatureCoreTests: XCTestCase {
         locationServicesEnabled: { fatalError() },
         requestAlwaysAuthorization: { _ in fatalError() },
         set: { (_, _) -> Effect<Never, Never> in fatalError() }
-      ),
-      infobannerController: .mock(),
+      ), infobannerController: .mock(),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(

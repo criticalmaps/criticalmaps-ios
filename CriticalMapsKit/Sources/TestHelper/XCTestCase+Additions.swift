@@ -14,7 +14,7 @@ public extension XCTestCase {
     }
   }
   
-  private static let sloppyPrecision: Float = 0.9
+  private static let sloppyPrecision: Float = 0.99
   
   func assertScreenSnapshot<V: View>(
     _ view: V,
@@ -29,10 +29,7 @@ public extension XCTestCase {
     assertSnapshots(
       matching: view,
       as: [
-        .image(precision: precision, layout: .device(config: .iPhone8)),
-        .image(precision: precision, layout: .device(config: .iPhoneX)),
-        .image(precision: precision, layout: .device(config: .iPhoneXsMax)),
-        .image(precision: precision, layout: .device(config: .iPhoneSe))
+        .image(precision: precision, layout: .device(config: .iPhoneX))
       ],
       file: file,
       testName: testName,

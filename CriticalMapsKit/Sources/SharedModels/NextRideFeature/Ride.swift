@@ -117,7 +117,7 @@ public extension Ride {
     case tour = "TOUR"
     case event = "EVENT"
     
-    var title: String {
+    public var title: String {
       rawValue
         .replacingOccurrences(of: "_", with: " ")
         .capitalized
@@ -125,6 +125,6 @@ public extension Ride {
   }
 }
 
-extension Ride {
-  static let eventRadii: [Int] = [10, 20, 30, 40]
+public extension Ride {
+  static let eventRadii: [Int] = [5, 10, 15, 30]
 }

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 27.06.21.
-//
-
 @testable import AppFeature
 import ComposableArchitecture
 import XCTest

@@ -50,8 +50,8 @@
     {
       "target" : {
         "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "InfoBarTests",
-        "name" : "InfoBarTests"
+        "identifier" : "SettingsFeatureTests",
+        "name" : "SettingsFeatureTests"
       }
     }
   ],
