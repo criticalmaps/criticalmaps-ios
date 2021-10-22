@@ -175,6 +175,12 @@ let package = Package(
       ]
     ),
     .target(
+      name: "TwitterFeedFeature",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
       name: "UIApplicationClient",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -270,6 +276,18 @@ let package = Package(
         )
       ],
       exclude: ["__Snapshots__"]
+    ),
+    .testTarget(
+      name: "TwitterFeedFeatureTests",
+      dependencies: [
+        "Helpers",
+        "TwitterFeedFeature",
+        "TestHelper",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ]
     )
   ]
 )
