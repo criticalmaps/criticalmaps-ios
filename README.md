@@ -1,4 +1,4 @@
-<p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="images/logo.png" width="250" /></a></p>
+<p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="images/Icon.svg" width="250" /></a></p>
 
 <p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="images/appstore-badge.png" width="150" /></a></p>
 
