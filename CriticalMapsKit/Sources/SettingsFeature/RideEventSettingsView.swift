@@ -5,10 +5,10 @@ import Styleguide
 import SwiftUI
 
 public struct RideEventSettingsView: View {
-  let store: Store<SettingsState, SettingsAction>
-  @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>
+  let store: Store<RideEventSettings, RideEventSettingsActions>
+  @ObservedObject var viewStore: ViewStore<RideEventSettings, RideEventSettingsActions>
   
-  public init(store: Store<SettingsState, SettingsAction>) {
+  public init(store: Store<RideEventSettings, RideEventSettingsActions>) {
     self.store = store
     self.viewStore = ViewStore(store)
   }
@@ -21,15 +21,15 @@ public struct RideEventSettingsView: View {
         Toggle(
           L10n.Settings.eventSettingsEnable,
           isOn: viewStore.binding(
-            get: \.userSettings.rideEventSettings.isEnabled,
-            send: SettingsAction.setRideEventsEnabled
+            get: \.isEnabled,
+            send: RideEventSettingsActions.setRideEventsEnabled
           )
         )
       }
       ZStack(alignment: .top) {
         VStack {
           SettingsSection(title: L10n.Settings.eventTypes) {
-            ForEach(viewStore.state.userSettings.rideEventSettings.typeSettings, id: \.type.title) { rideType in
+            ForEach(viewStore.typeSettings, id: \.type.title) { rideType in
               SettingsRow {
                 Button(
                   action: { viewStore.send(
@@ -61,7 +61,7 @@ public struct RideEventSettingsView: View {
                       Text(String(radius))
                         .padding(.vertical, .grid(2))
                       Spacer()
-                      if viewStore.userSettings.rideEventSettings.radiusSettings == radius {
+                      if viewStore.radiusSettings == radius {
                         Image(systemName: "checkmark.circle.fill")
                       }
                     }
@@ -73,11 +73,11 @@ public struct RideEventSettingsView: View {
         }
       }
       .foregroundColor(
-        viewStore.userSettings.rideEventSettings.isEnabled
+        viewStore.isEnabled
         ? Color(.textPrimary)
         : Color(.textPrimary).opacity(0.5)
       )
-      .disabled(!viewStore.userSettings.rideEventSettings.isEnabled)
+      .disabled(!viewStore.isEnabled)
     }
     .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
   }

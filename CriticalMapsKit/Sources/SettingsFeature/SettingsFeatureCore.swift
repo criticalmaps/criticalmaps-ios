@@ -58,13 +58,10 @@ public enum SettingsAction: Equatable {
   case supportSectionRowTapped(SettingsState.SupportSectionRow)
   case infoSectionRowTapped(SettingsState.InfoSectionRow)
   case setObservationMode(Bool)
-    
-  case setRideEventsEnabled(Bool)
-  case setRideEventTypeEnabled(RideEventSettings.RideEventTypeSetting)
-  case setRideEventRadius(Int)
-  
   case openURL(URL)
+  
   case appearance(AppearanceSettingsAction)
+  case rideevent(RideEventSettingsActions)
 }
 
 
@@ -113,24 +110,10 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     state.userSettings.enableObservationMode = value
     return .none
     
-  case let .setRideEventsEnabled(value):
-    state.userSettings.rideEventSettings.isEnabled = value
-    return .none
-    
-  case let .setRideEventTypeEnabled(type):
-    guard let index = state.userSettings.rideEventSettings.typeSettings.firstIndex(where: { $0.type == type.type })
-    else { return .none }
-    state.userSettings.rideEventSettings.typeSettings[index].isEnabled = type.isEnabled
-    return .none
-    
-  case let .setRideEventRadius(radius):
-    state.userSettings.rideEventSettings.radiusSettings = radius
-    return .none
-    
   case .binding:
     return .none
     
-  case let .appearance(appearanceSettingsAction):
+  case .appearance, .rideevent:
     return .none
   }
 }
@@ -143,6 +126,13 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
       setUserInterfaceStyle: global.setUserInterfaceStyle
     )
     }
+  )
+)
+.combined(
+  with: rideeventSettingsReducer.pullback(
+    state: \.userSettings.rideEventSettings,
+    action: /SettingsAction.rideevent,
+    environment: { _ in .init() }
   )
 )
 .onChange(
