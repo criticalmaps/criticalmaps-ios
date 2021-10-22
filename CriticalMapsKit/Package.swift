@@ -199,7 +199,8 @@ let package = Package(
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
-        )
+        ),
+        .product(name: "CustomDump", package: "swift-custom-dump")
       ],
       exclude: [
         "__Snapshots__"
@@ -267,7 +268,8 @@ let package = Package(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
         )
-      ]
+      ],
+      exclude: ["__Snapshots__"]
     )
   ]
 )

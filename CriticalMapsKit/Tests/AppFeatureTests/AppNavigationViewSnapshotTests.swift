@@ -24,7 +24,7 @@ class AppNavigationViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 80, sloppy: true)
+    assertScreenSnapshot(sut, sloppy: true)
   }
   
   func test_appNavigationView_dark() {
@@ -48,6 +48,6 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertViewSnapshot(sut, height: 80, sloppy: true)
+    assertScreenSnapshot(sut, sloppy: true)
   }
 }
