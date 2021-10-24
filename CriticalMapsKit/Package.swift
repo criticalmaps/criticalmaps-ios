@@ -51,6 +51,7 @@ let package = Package(
         "NextRideFeature",
         "SettingsFeature",
         "Styleguide",
+        "TwitterFeedFeature",
         "UserDefaultsClient",
         "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -176,6 +177,8 @@ let package = Package(
     .target(
       name: "TwitterFeedFeature",
       dependencies: [
+        "ApiClient",
+        "SharedModels",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
