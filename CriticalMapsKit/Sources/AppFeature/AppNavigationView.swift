@@ -66,15 +66,12 @@ public struct AppNavigationView: View {
             ),
             onDismiss: nil,
             content: {
-              NavigationView {
-                TwitterFeedView(
-                  store: store.scope(
-                    state: \.twitterFeedState,
-                    action: AppAction.twitter
-                  )
+              TwitterFeedView(
+                store: store.scope(
+                  state: \.twitterFeedState,
+                  action: AppAction.twitter
                 )
-              }
-              .navigationViewStyle(StackNavigationViewStyle())
+              )
               .navigationStyle(
                 title: Text(L10n.Chat.title),
                 navPresentationStyle: .modal,

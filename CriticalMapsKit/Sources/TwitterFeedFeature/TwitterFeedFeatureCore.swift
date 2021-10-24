@@ -66,12 +66,8 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
   }
 )
 
-fileprivate typealias S = TwitterFeedState
-fileprivate typealias A = TwitterFeedAction
-
 // MARK:- View
 public struct TwitterFeedView: View {
-  
   let store: Store<TwitterFeedState, TwitterFeedAction>
   @ObservedObject var viewStore: ViewStore<TwitterFeedState, TwitterFeedAction>
   
@@ -89,7 +85,7 @@ public struct TwitterFeedView: View {
         List(viewStore.tweets) { tweet in
           Text(tweet.text)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .listStyle(InsetListStyle())
       }
     }
     .onAppear { viewStore.send(.onAppear) }
