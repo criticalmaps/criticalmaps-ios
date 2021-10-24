@@ -1,6 +1,5 @@
 import AppFeature
 import ComposableArchitecture
-import InfoBar
 import SwiftUI
 import UIKit
 

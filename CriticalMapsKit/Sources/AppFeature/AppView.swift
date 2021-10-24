@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 16.06.21.
-//
-
 import ComposableArchitecture
 import MapFeature
 import SwiftUI

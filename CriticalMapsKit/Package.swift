@@ -12,8 +12,7 @@ let package = Package(
     .library(name: "ApiClient", targets: ["ApiClient"]),
     .library(name: "CriticalMapsKit", targets: ["CriticalMapsKit"]),
     .library(name: "MapFeature", targets: ["MapFeature"]),
-    .library(name: "AppFeature", targets: ["AppFeature"]),
-    .library(name: "InfoBar", targets: ["InfoBar"])
+    .library(name: "AppFeature", targets: ["AppFeature"])
   ],
   dependencies: [
     .package(
