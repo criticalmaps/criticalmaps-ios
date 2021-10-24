@@ -5,7 +5,7 @@ import SharedModels
 
 // Interface
 public struct TwitterFeedService {
-  var getTwitterFeed: () -> AnyPublisher<[Tweet], NSError>
+  public var getTwitterFeed: () -> AnyPublisher<[Tweet], NSError>
 }
 
 
