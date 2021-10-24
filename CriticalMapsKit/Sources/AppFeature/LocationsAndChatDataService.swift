@@ -5,11 +5,7 @@ import SharedModels
 
 // Interface
 public struct LocationsAndChatDataService {
-  var getLocations: (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, Failure>
-  
-  public struct Failure: Error, Equatable {
-    var internalError: NetworkRequestError
-  }
+  var getLocations: (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, NSError>
 }
 
 // Live implementation
@@ -25,7 +21,7 @@ public extension LocationsAndChatDataService {
           type: PostLocationAndChatMessagesRequest.ResponseDataType.self,
           decoder: request.decoder
         )
-        .mapError { Failure(internalError: $0 as! NetworkRequestError) }
+        .mapError { $0 as NSError }
         .eraseToAnyPublisher()
     }
   )
@@ -37,14 +33,14 @@ public extension LocationsAndChatDataService {
   static let noop = Self(
     getLocations: { _ in
       Just(LocationAndChatMessages(locations: [:], chatMessages: [:]))
-        .setFailureType(to: Failure.self)
+        .setFailureType(to: NSError.self)
         .eraseToAnyPublisher()
     }
   )
   
   static let failing = Self(
     getLocations: { _ in
-      Fail(error: Failure(internalError: .serverError))
+      Fail(error: NSError(domain: "", code: 1))
         .eraseToAnyPublisher()
     }
   )
