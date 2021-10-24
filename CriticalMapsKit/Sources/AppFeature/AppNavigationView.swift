@@ -5,6 +5,7 @@ import MapFeature
 import SettingsFeature
 import Styleguide
 import SwiftUI
+import TwitterFeedFeature
 
 public struct AppNavigationView: View {
   let store: Store<AppState, AppAction>
@@ -66,7 +67,12 @@ public struct AppNavigationView: View {
             onDismiss: nil,
             content: {
               NavigationView {
-                Text(L10n.Chat.title)
+                TwitterFeedView(
+                  store: store.scope(
+                    state: \.twitterFeedState,
+                    action: AppAction.twitter
+                  )
+                )
               }
               .navigationViewStyle(StackNavigationViewStyle())
               .navigationStyle(
