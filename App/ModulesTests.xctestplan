@@ -53,6 +53,13 @@
         "identifier" : "SettingsFeatureTests",
         "name" : "SettingsFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "TwitterFeedFeatureTests",
+        "name" : "TwitterFeedFeatureTests"
+      }
     }
   ],
   "version" : 1
