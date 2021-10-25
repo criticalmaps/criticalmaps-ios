@@ -23,9 +23,13 @@ public struct Tweet: Codable, Hashable, Identifiable {
 }
 
 public struct TwitterUser: Codable, Hashable {
-  var name: String
-  var screenName: String
-  var profileImageUrlHttps: String
+  public var name: String
+  public var screenName: String
+  public var profileImageUrlHttps: String
+  
+  public var profileImageUrl: URL? {
+    URL(string: profileImageUrlHttps)
+  }
   
   public init(name: String, screenName: String, profileImageUrlHttps: String) {
     self.name = name

@@ -77,17 +77,12 @@ public struct TwitterFeedView: View {
   }
   
   public var body: some View {
-    Group {
-      if viewStore.twitterFeedIsLoading {
-        Text("loading tweets")
-          .frame(maxHeight: .infinity)
-      } else {
-        List(viewStore.tweets) { tweet in
-          Text(tweet.text)
-        }
-        .listStyle(InsetListStyle())
-      }
-    }
+    TweetListView(
+      store: viewStore.twitterFeedIsLoading
+      ? .placeholder
+      : self.store
+    )
+    .redacted(reason: viewStore.twitterFeedIsLoading ? .placeholder : [])
     .onAppear { viewStore.send(.onAppear) }
   }
 }
@@ -95,14 +90,38 @@ public struct TwitterFeedView: View {
 // MARK: Preview
 struct TwitterFeedView_Previews: PreviewProvider {
   static var previews: some View {
-    TwitterFeedView(store: Store<TwitterFeedState, TwitterFeedAction>(
-      initialState: TwitterFeedState(),
-      reducer: twitterFeedReducer,
-      environment: TwitterFeedEnvironment(
-        service: .noop,
-        mainQueue: .failing
+    TwitterFeedView(
+      store: Store<TwitterFeedState, TwitterFeedAction>(
+        initialState: TwitterFeedState(),
+        reducer: twitterFeedReducer,
+        environment: TwitterFeedEnvironment(
+          service: .noop,
+          mainQueue: .failing
+        )
       )
     )
+  }
+}
+
+extension Array where Element == Tweet {
+  static let placeHolder: Self = [0,1,2,3,4].map {
+    Tweet(
+      id: $0,
+      text: String("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore".dropLast($0)),
+      createdAt: .init(timeIntervalSinceNow: TimeInterval($0)),
+      user: .init(
+        name: "Critical Maps",
+        screenName: "@maps",
+        profileImageUrlHttps: ""
+      )
     )
   }
+}
+
+extension Store where State == TwitterFeedState, Action == TwitterFeedAction {
+  static let placeholder = Store(
+    initialState: .init(tweets: .placeHolder),
+    reducer: .empty,
+    environment: ()
+  )
 }

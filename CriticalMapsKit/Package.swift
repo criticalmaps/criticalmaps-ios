@@ -27,7 +27,12 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
       .exact("1.8.2")
     ),
-    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0")
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
+    .package(
+      name: "Kingfisher",
+      url: "https://github.com/onevcat/Kingfisher.git",
+      from: "7.0.0"
+    )
   ],
   targets: [
     .target(
@@ -179,7 +184,9 @@ let package = Package(
       dependencies: [
         "ApiClient",
         "SharedModels",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        "Styleguide",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "Kingfisher", package: "Kingfisher")
       ]
     ),
     .target(
