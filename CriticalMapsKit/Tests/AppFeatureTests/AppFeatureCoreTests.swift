@@ -172,13 +172,13 @@ class AppFeatureTests: XCTestCase {
       .receive(.requestTimer(.timerTicked)),
       .receive(.fetchData),
       .do {
-        serviceSubject.send(completion: .failure(NSError(domain: "", code: 0, userInfo: [:])))
+        serviceSubject.send(completion: .failure(testError))
         self.testScheduler.advance()
       },
-      .receive(.fetchDataResponse(.failure(NSError(domain: "", code: 0, userInfo: [:])))) {
+      .receive(.fetchDataResponse(.failure(testError))) {
         $0.locationsAndChatMessages = .failure(.init())
       },
-      .receive(.fetchDataResponse(.failure(NSError(domain: "", code: 0, userInfo: [:])))),
+      .receive(.fetchDataResponse(.failure(testError))),
                
       .send(.requestTimer(.stopTimer)),
       .do {
@@ -227,3 +227,5 @@ class AppFeatureTests: XCTestCase {
     )
   }
 }
+
+let testError = NSError(domain: "", code: 1, userInfo: [:])

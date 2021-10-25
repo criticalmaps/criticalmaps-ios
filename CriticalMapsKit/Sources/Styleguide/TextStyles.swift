@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Malte on 31.07.21.
-//
-
 import SwiftUI
 
 public extension Font {

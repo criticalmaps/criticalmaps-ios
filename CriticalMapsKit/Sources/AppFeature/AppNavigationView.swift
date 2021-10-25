@@ -62,7 +62,7 @@ public struct AppNavigationView: View {
           .sheet(
             isPresented: viewStore.binding(
               get: \.isChatViewPresented,
-              send: { _ in AppAction.dismissSheetView }
+              send: AppAction.dismissSheetView
             ),
             onDismiss: nil,
             content: {
