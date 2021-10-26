@@ -17,14 +17,14 @@ public struct TweetListView: View {
   public var body: some View {
     List(viewStore.tweets) { tweet in
       HStack(alignment: .top, spacing: .grid(4)) {
-        KFImage.url(tweet.user.profileImageUrl)
+        KFImage.url(tweet.user.profileImage)
           .placeholder { Color(.textSilent).opacity(0.6) }
           .fade(duration: 0.2)
           .resizable()
           .scaledToFit()
           .cornerRadius(20)
           .frame(width: 40, height: 40)
-          
+        
         VStack(alignment: .leading, spacing: .grid(2)) {
           HStack {
             Text(tweet.user.name)

@@ -27,7 +27,6 @@ public struct TwitterFeedRequest: APIRequest {
   public var decoder: JSONDecoder {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .formatted(.twitterDateFormatter)
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
     return decoder
   }
 }
