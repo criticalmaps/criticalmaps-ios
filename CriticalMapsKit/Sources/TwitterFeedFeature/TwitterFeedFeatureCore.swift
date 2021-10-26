@@ -2,6 +2,7 @@ import Foundation
 import SharedModels
 import SwiftUI
 import ComposableArchitecture
+import UIApplicationClient
 
 // MARK: State
 public struct TwitterFeedState: Equatable {
@@ -18,19 +19,23 @@ public enum TwitterFeedAction: Equatable {
   case onAppear
   case fetchData
   case fetchDataResponse(Result<[Tweet], NSError>)
+  case openTweet(Tweet)
 }
 
 // MARK: Environment
 public struct TwitterFeedEnvironment {
   public let service: TwitterFeedService
   public let mainQueue: AnySchedulerOf<DispatchQueue>
+  public let uiApplicationClient: UIApplicationClient
   
   public init(
     service: TwitterFeedService = .live(),
-    mainQueue: AnySchedulerOf<DispatchQueue>
+    mainQueue: AnySchedulerOf<DispatchQueue>,
+    uiApplicationClient: UIApplicationClient
   ) {
     self.service = service
     self.mainQueue = mainQueue
+    self.uiApplicationClient = uiApplicationClient
   }
 }
 
@@ -62,6 +67,10 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
       print(error)
       return .none
       
+    case let .openTweet(tweet):
+      return environment.uiApplicationClient
+        .open(tweet.tweetUrl!, [:])
+        .fireAndForget()
     }
   }
 )
@@ -96,7 +105,8 @@ struct TwitterFeedView_Previews: PreviewProvider {
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
           service: .noop,
-          mainQueue: .failing
+          mainQueue: .failing,
+          uiApplicationClient: .noop
         )
       )
     )
@@ -106,13 +116,13 @@ struct TwitterFeedView_Previews: PreviewProvider {
 extension Array where Element == Tweet {
   static let placeHolder: Self = [0,1,2,3,4].map {
     Tweet(
-      id: $0,
+      id: String($0),
       text: String("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore".dropLast($0)),
       createdAt: .init(timeIntervalSinceNow: TimeInterval($0)),
       user: .init(
         name: "Critical Maps",
         screenName: "@maps",
-        profileImageUrlHttps: ""
+        profileImageUrl: ""
       )
     )
   }

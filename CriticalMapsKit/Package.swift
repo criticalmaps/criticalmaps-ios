@@ -185,6 +185,7 @@ let package = Package(
         "ApiClient",
         "SharedModels",
         "Styleguide",
+        "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "Kingfisher", package: "Kingfisher")
       ]

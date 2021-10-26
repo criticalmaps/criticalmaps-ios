@@ -47,6 +47,9 @@ public struct TweetListView: View {
             .font(.bodyOne)
             .foregroundColor(Color(.textSecondary))
         }
+        .onTapGesture {
+          viewStore.send(.openTweet(tweet))
+        }
       }
     }
     .listStyle(InsetListStyle())
@@ -63,7 +66,8 @@ struct TweetListView_Previews: PreviewProvider {
           reducer: twitterFeedReducer,
           environment: TwitterFeedEnvironment(
             service: .noop,
-            mainQueue: .failing
+            mainQueue: .failing,
+            uiApplicationClient: .noop
           )
         )
       )

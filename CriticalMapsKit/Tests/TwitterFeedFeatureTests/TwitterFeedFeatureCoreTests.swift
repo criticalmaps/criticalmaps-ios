@@ -4,6 +4,7 @@ import CustomDump
 import Combine
 import SharedModels
 import TwitterFeedFeature
+import UIApplicationClient
 import XCTest
 
 class TwitterFeedCoreTests: XCTestCase {
@@ -25,7 +26,8 @@ class TwitterFeedCoreTests: XCTestCase {
       reducer: twitterFeedReducer,
       environment: TwitterFeedEnvironment(
         service: service,
-        mainQueue: .immediate
+        mainQueue: .immediate,
+        uiApplicationClient: .noop
       )
     )
     
@@ -45,6 +47,37 @@ class TwitterFeedCoreTests: XCTestCase {
     ) 
   }
   
+  func test_openTweetUrl() throws {
+    var tweetUrl: URL!
+    
+    let request = TwitterFeedRequest()
+    let decoder = request.decoder
+    let tweetData = try XCTUnwrap(twitterFeedData)
+    let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
+    
+    var applicationClient = UIApplicationClient.noop
+    applicationClient.open = { url, _ in
+      tweetUrl = url
+      return .none
+    }
+    
+    let store = TestStore(
+      initialState: TwitterFeedState(),
+      reducer: twitterFeedReducer,
+      environment: TwitterFeedEnvironment(
+        service: .noop,
+        mainQueue: .immediate,
+        uiApplicationClient: applicationClient
+      )
+    )
+    
+    store.assert(
+      .send(.openTweet(feed.statuses[0]))
+    )
+    
+    XCTAssertNoDifference(tweetUrl, feed.statuses[0].tweetUrl)
+  }
+  
   func test_tweetDecodingTest() throws {
     let request = TwitterFeedRequest()
     let decoder = request.decoder
@@ -56,13 +89,13 @@ class TwitterFeedCoreTests: XCTestCase {
       feed,
       TwitterFeed(statuses: [
         Tweet(
-          id: 1449032124787462100,
-          text: "RT @cm_Mainz: Es wird heute einen Zubringen von Mainz zur @cm_WI geben.\n\nFalls jemand noch spontan dazustoßen möchte:\n\nTreffpunkt pünktlich…",
-          createdAt: Date(timeIntervalSinceReferenceDate: 656003954.0),
+          id: "1452287570415693850",
+          text: "RT @CriticalMassR: @CriticalMaps Venerdì 29 ottobre, festa per la riapertura della #Ciclofficina Porto Fluviale Dopo la CM Tutti a festeggi…",
+          createdAt: Date(timeIntervalSinceReferenceDate: 656780113.0),
           user: .init(
-            name: "Lamima",
-            screenName: "LamimaGC",
-            profileImageUrlHttps: "https://pbs.twimg.com/profile_images/1087374277396054017/7_wQMi8R_normal.jpg"
+            name: "Un Andrea Qualunque",
+            screenName: "0_0_A_B_0_0",
+            profileImageUrl: "https://pbs.twimg.com/profile_images/1452271548644134918/YCKQHQRL_normal.jpg"
           )
         )
       ])
@@ -75,59 +108,251 @@ let twitterFeedData = #"""
 {
   "statuses": [
     {
-      "created_at": "Fri Oct 15 15:19:14 +0000 2021",
-      "id": 1449032124787462100,
-      "text": "RT @cm_Mainz: Es wird heute einen Zubringen von Mainz zur @cm_WI geben.\n\nFalls jemand noch spontan dazustoßen möchte:\n\nTreffpunkt pünktlich…",
-      "user": {
-        "id": 214547004,
-        "id_str": "214547004",
-        "name": "Lamima",
-        "screen_name": "LamimaGC",
-        "location": "Mainz",
-        "description": "Mainz, Bike-content auf und abseits der Straße, Fotographie und Geocaching",
-        "url": null,
+        "created_at": "Sun Oct 24 14:55:13 +0000 2021",
+        "id": 1452287570415693800,
+        "id_str": "1452287570415693850",
+        "text": "RT @CriticalMassR: @CriticalMaps Venerdì 29 ottobre, festa per la riapertura della #Ciclofficina Porto Fluviale Dopo la CM Tutti a festeggi…",
+        "truncated": false,
         "entities": {
-          "description": {
-            "urls": []
-          }
+          "hashtags": [
+            {
+              "text": "Ciclofficina",
+              "indices": [
+                83,
+                96
+              ]
+            }
+          ],
+          "symbols": [],
+          "user_mentions": [
+            {
+              "screen_name": "CriticalMassR",
+              "name": "#CriticalMassRoma",
+              "id": 3063043545,
+              "id_str": "3063043545",
+              "indices": [
+                3,
+                17
+              ]
+            },
+            {
+              "screen_name": "CriticalMaps",
+              "name": "Critical Maps",
+              "id": 2881177769,
+              "id_str": "2881177769",
+              "indices": [
+                19,
+                32
+              ]
+            }
+          ],
+          "urls": []
         },
-        "protected": false,
-        "followers_count": 578,
-        "friends_count": 272,
-        "listed_count": 11,
-        "created_at": "Thu Nov 11 17:19:11 +0000 2010",
-        "favourites_count": 12665,
-        "utc_offset": null,
-        "time_zone": null,
-        "geo_enabled": true,
-        "verified": false,
-        "statuses_count": 6057,
-        "lang": null,
-        "contributors_enabled": false,
-        "is_translator": false,
-        "is_translation_enabled": false,
-        "profile_background_color": "C0DEED",
-        "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
-        "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
-        "profile_background_tile": false,
-        "profile_image_url": "http://pbs.twimg.com/profile_images/1087374277396054017/7_wQMi8R_normal.jpg",
-        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1087374277396054017/7_wQMi8R_normal.jpg",
-        "profile_banner_url": "https://pbs.twimg.com/profile_banners/214547004/1576167220",
-        "profile_link_color": "1DA1F2",
-        "profile_sidebar_border_color": "C0DEED",
-        "profile_sidebar_fill_color": "DDEEF6",
-        "profile_text_color": "333333",
-        "profile_use_background_image": true,
-        "has_extended_profile": false,
-        "default_profile": true,
-        "default_profile_image": false,
-        "following": false,
-        "follow_request_sent": false,
-        "notifications": false,
-        "translator_type": "none",
-        "withheld_in_countries": []
+        "metadata": {
+          "iso_language_code": "it",
+          "result_type": "recent"
+        },
+        "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+          "id": 2824973992,
+          "id_str": "2824973992",
+          "name": "Un Andrea Qualunque",
+          "screen_name": "0_0_A_B_0_0",
+          "location": "Roma, Lazio",
+          "description": "Curiosità atta a migliorare questo mondo. Amo il Mediterraneo e tutti i suoi popoli.",
+          "url": null,
+          "entities": {
+            "description": {
+              "urls": []
+            }
+          },
+          "protected": false,
+          "followers_count": 24,
+          "friends_count": 372,
+          "listed_count": 0,
+          "created_at": "Sun Oct 12 12:32:19 +0000 2014",
+          "favourites_count": 192,
+          "utc_offset": null,
+          "time_zone": null,
+          "geo_enabled": false,
+          "verified": false,
+          "statuses_count": 112,
+          "lang": null,
+          "contributors_enabled": false,
+          "is_translator": false,
+          "is_translation_enabled": false,
+          "profile_background_color": "C0DEED",
+          "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+          "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+          "profile_background_tile": false,
+          "profile_image_url": "http://pbs.twimg.com/profile_images/1452271548644134918/YCKQHQRL_normal.jpg",
+          "profile_image_url_https": "https://pbs.twimg.com/profile_images/1452271548644134918/YCKQHQRL_normal.jpg",
+          "profile_banner_url": "https://pbs.twimg.com/profile_banners/2824973992/1509895265",
+          "profile_link_color": "1DA1F2",
+          "profile_sidebar_border_color": "C0DEED",
+          "profile_sidebar_fill_color": "DDEEF6",
+          "profile_text_color": "333333",
+          "profile_use_background_image": true,
+          "has_extended_profile": false,
+          "default_profile": true,
+          "default_profile_image": false,
+          "following": false,
+          "follow_request_sent": false,
+          "notifications": false,
+          "translator_type": "none",
+          "withheld_in_countries": []
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+          "created_at": "Sun Oct 24 14:17:11 +0000 2021",
+          "id": 1452277997453590500,
+          "id_str": "1452277997453590541",
+          "text": "@CriticalMaps Venerdì 29 ottobre, festa per la riapertura della #Ciclofficina Porto Fluviale Dopo la CM Tutti a fes… https://t.co/D7PFyPBCp2",
+          "truncated": true,
+          "entities": {
+            "hashtags": [
+              {
+                "text": "Ciclofficina",
+                "indices": [
+                  64,
+                  77
+                ]
+              }
+            ],
+            "symbols": [],
+            "user_mentions": [
+              {
+                "screen_name": "CriticalMaps",
+                "name": "Critical Maps",
+                "id": 2881177769,
+                "id_str": "2881177769",
+                "indices": [
+                  0,
+                  13
+                ]
+              }
+            ],
+            "urls": [
+              {
+                "url": "https://t.co/D7PFyPBCp2",
+                "expanded_url": "https://twitter.com/i/web/status/1452277997453590541",
+                "display_url": "twitter.com/i/web/status/1…",
+                "indices": [
+                  117,
+                  140
+                ]
+              }
+            ]
+          },
+          "metadata": {
+            "iso_language_code": "it",
+            "result_type": "recent"
+          },
+          "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+          "in_reply_to_status_id": null,
+          "in_reply_to_status_id_str": null,
+          "in_reply_to_user_id": 2881177769,
+          "in_reply_to_user_id_str": "2881177769",
+          "in_reply_to_screen_name": "CriticalMaps",
+          "user": {
+            "id": 3063043545,
+            "id_str": "3063043545",
+            "name": "#CriticalMassRoma",
+            "screen_name": "CriticalMassR",
+            "location": "https://www.facebook.com/group",
+            "description": "https://t.co/jaQM8xZQpU",
+            "url": "https://t.co/TwygvcjXc3",
+            "entities": {
+              "url": {
+                "urls": [
+                  {
+                    "url": "https://t.co/TwygvcjXc3",
+                    "expanded_url": "http://criticalmassroma.caster.fm",
+                    "display_url": "criticalmassroma.caster.fm",
+                    "indices": [
+                      0,
+                      23
+                    ]
+                  }
+                ]
+              },
+              "description": {
+                "urls": [
+                  {
+                    "url": "https://t.co/jaQM8xZQpU",
+                    "expanded_url": "https://www.facebook.com/CriticalMassRM/",
+                    "display_url": "facebook.com/CriticalMassRM/",
+                    "indices": [
+                      0,
+                      23
+                    ]
+                  }
+                ]
+              }
+            },
+            "protected": false,
+            "followers_count": 1020,
+            "friends_count": 1543,
+            "listed_count": 27,
+            "created_at": "Wed Feb 25 19:35:19 +0000 2015",
+            "favourites_count": 2162,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 2068,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "0099B9",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": true,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/610546977202241536/axclfbgj_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/610546977202241536/axclfbgj_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/3063043545/1424893766",
+            "profile_link_color": "0099B9",
+            "profile_sidebar_border_color": "000000",
+            "profile_sidebar_fill_color": "000000",
+            "profile_text_color": "000000",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false,
+            "translator_type": "none",
+            "withheld_in_countries": []
+          },
+          "geo": null,
+          "coordinates": null,
+          "place": null,
+          "contributors": null,
+          "is_quote_status": false,
+          "retweet_count": 2,
+          "favorite_count": 3,
+          "favorited": false,
+          "retweeted": false,
+          "possibly_sensitive": false,
+          "lang": "it"
+        },
+        "is_quote_status": false,
+        "retweet_count": 2,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "it"
       }
-    }
   ]
 }
 """#.data(using: .utf8)

@@ -172,7 +172,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     action: /AppAction.twitter,
     environment: { global in TwitterFeedEnvironment(
       service: .live(),
-      mainQueue: global.mainQueue
+      mainQueue: global.mainQueue,
+      uiApplicationClient: global.uiApplicationClient
     )}
   ),
   Reducer { state, action, environment in
