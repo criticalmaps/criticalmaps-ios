@@ -297,6 +297,9 @@ let package = Package(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
         )
+      ],
+      exclude: [
+        "__Snapshots__"
       ]
     )
   ]

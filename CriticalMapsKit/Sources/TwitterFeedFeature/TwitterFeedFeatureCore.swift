@@ -113,7 +113,7 @@ struct TwitterFeedView_Previews: PreviewProvider {
   }
 }
 
-extension Array where Element == Tweet {
+public extension Array where Element == Tweet {
   static let placeHolder: Self = [0,1,2,3,4].map {
     Tweet(
       id: String($0),
