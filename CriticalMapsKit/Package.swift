@@ -170,7 +170,9 @@ let package = Package(
     ),
     .target(
       name: "Styleguide",
-      dependencies: [],
+      dependencies: [
+        "L10n"
+      ],
       resources: [.process("Resources")]
     ),
     .target(
@@ -277,6 +279,7 @@ let package = Package(
       name: "SettingsFeatureTests",
       dependencies: [
         "Helpers",
+        "L10n",
         "SettingsFeature",
         "TestHelper",
         "UserDefaultsClient",
