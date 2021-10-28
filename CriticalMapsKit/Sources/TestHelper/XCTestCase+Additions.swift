@@ -14,7 +14,7 @@ public extension XCTestCase {
     }
   }
   
-  private static let sloppyPrecision: Float = 0.99
+  private static let sloppyPrecision: Float = 0.95
   
   func assertScreenSnapshot<V: View>(
     _ view: V,

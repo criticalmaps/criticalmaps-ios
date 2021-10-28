@@ -42,7 +42,7 @@ public struct TweetView: View {
                 .foregroundColor(Color(.textPrimary))
             }
           }
-          Text(tweet.text)
+          Text(tweet.makeAttributedTweet)
             .multilineTextAlignment(.leading)
             .font(.bodyOne)
             .foregroundColor(Color(.textSecondary))
@@ -67,6 +67,10 @@ struct TweetView_Previews: PreviewProvider {
 
 
 extension Tweet {
+  var makeAttributedTweet: NSAttributedString {
+    NSAttributedString.highlightMentionsAndTags(in: text)
+  }
+  
   func dateString(
     currentDate: Date = Date(),
     calendar: Calendar = .current
