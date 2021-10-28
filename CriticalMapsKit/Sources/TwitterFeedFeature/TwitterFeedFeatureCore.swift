@@ -61,11 +61,23 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
       
     case let .fetchDataResponse(.success(tweets)):
       state.twitterFeedIsLoading = false
+
+      if tweets.isEmpty {
+        state.contentState = .empty(.twitter)
+        return .none
+      }
+      
       state.contentState = .results(tweets)
       return .none
     case let .fetchDataResponse(.failure(error)):
       state.twitterFeedIsLoading = false
-      print(error)
+      state.contentState = .error(
+        ErrorState(
+          title: ErrorState.default.title,
+          body: ErrorState.default.body,
+          error: error
+        )
+      )
       return .none
       
     case let .openTweet(tweet):

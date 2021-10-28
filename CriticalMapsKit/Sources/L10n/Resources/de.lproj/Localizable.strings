@@ -249,3 +249,5 @@
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
+
+"twitter.empty.message" = "Here you’ll find tweets tagged with @criticalmaps and #criticalmass";

@@ -61,3 +61,11 @@ struct TweetListView_Previews: PreviewProvider {
     }
   }
 }
+
+public extension EmptyState {
+  static let twitter = Self(
+    icon: Images.twitterEmpty,
+    text: L10n.Twitter.noData,
+    message: NSAttributedString.highlightMentionsAndTags(in: L10n.Twitter.emptyMessage)
+  )
+}

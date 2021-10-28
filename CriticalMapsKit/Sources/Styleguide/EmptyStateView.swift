@@ -4,21 +4,13 @@ import L10n
 public struct EmptyState: Equatable {
   public let icon: UIImage
   public let text: String
-  public var message: String?
+  public var message: NSAttributedString?
 
-  public init(icon: UIImage, text: String, message: String? = nil) {
+  public init(icon: UIImage, text: String, message: NSAttributedString? = nil) {
     self.icon = icon
     self.text = text
     self.message = message
   }
-}
-
-public extension EmptyState {
-  static let twitter = Self(
-    icon: Images.twitterEmpty,
-    text: L10n.Twitter.noData,
-    message: "Here you’ll find tweets tagged with @criticalmaps and #criticalmass"
-  )
 }
 
 public struct EmptyStateView: View {
@@ -56,6 +48,12 @@ public struct EmptyStateView: View {
 
 struct EmptyStateView_Previews: PreviewProvider {
   static var previews: some View {
-    EmptyStateView(emptyState: .twitter)
+    EmptyStateView(
+      emptyState: .init(
+        icon: Images.twitterEmpty,
+        text: "No tweets atm",
+        message: .init(string: "")
+      )
+    )
   }
 }

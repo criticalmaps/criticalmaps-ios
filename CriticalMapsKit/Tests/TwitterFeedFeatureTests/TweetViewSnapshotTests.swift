@@ -9,7 +9,7 @@ class TweetViewSnapshotTests: XCTestCase {
       tweet: Tweet(
         id: "19283123120381203",
         text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceNow: 0),
+        createdAt: .init(timeIntervalSinceReferenceDate: 0),
         user: .init(
           name: "Critical Maps",
           screenName: "@maps",
@@ -26,7 +26,7 @@ class TweetViewSnapshotTests: XCTestCase {
       tweet: Tweet(
         id: "19283123120381203",
         text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceNow: 0),
+        createdAt: .init(timeIntervalSinceReferenceDate: 0),
         user: .init(
           name: "Critical Maps",
           screenName: "@maps",
@@ -44,7 +44,7 @@ class TweetViewSnapshotTests: XCTestCase {
       tweet: Tweet(
         id: "19283123120381203",
         text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceNow: 0),
+        createdAt: .init(timeIntervalSinceReferenceDate: 0),
         user: .init(
           name: "Critical Maps",
           screenName: "@maps",
@@ -62,7 +62,7 @@ class TweetViewSnapshotTests: XCTestCase {
       tweet: Tweet(
         id: "19283123120381203",
         text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceNow: 0),
+        createdAt: .init(timeIntervalSinceReferenceDate: 0),
         user: .init(
           name: "Critical Maps",
           screenName: "@maps",
