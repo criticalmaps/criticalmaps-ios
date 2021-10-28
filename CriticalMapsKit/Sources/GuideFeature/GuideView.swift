@@ -18,6 +18,7 @@ public struct GuideView: View {
         }
       )
     }
+    .listStyle(PlainListStyle())
     .navigationTitle(L10n.Rules.title)
     .dismissable()
   }
