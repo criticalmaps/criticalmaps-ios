@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Malte on 06.08.21.
-//
-
 import Foundation
 
 public enum L10n {
