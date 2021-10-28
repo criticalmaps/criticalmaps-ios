@@ -12,38 +12,44 @@ public struct TweetView: View {
   }
   
   public var body: some View {
-    HStack(alignment: .top, spacing: .grid(4)) {
-      KFImage.url(tweet.user.profileImage)
-        .placeholder { Color(.textSilent).opacity(0.6) }
-        .fade(duration: 0.2)
-        .resizable()
-        .scaledToFit()
-        .cornerRadius(20)
-        .frame(width: 40, height: 40)
+    ZStack {
+      Color(.backgroundPrimary)
+        .ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: .grid(2)) {
-        HStack {
-          Text(tweet.user.name)
-            .lineLimit(1)
-            .font(.titleTwo)
-            .foregroundColor(Color(.textPrimary))
-          Text(tweet.user.screenName)
-            .lineLimit(1)
-            .font(.bodyTwo)
-            .foregroundColor(Color(.textSilent))
-          Spacer()
-          if let dateString = tweet.dateString() {
-            Text(dateString)
-              .font(.meta)
+      HStack(alignment: .top, spacing: .grid(4)) {
+        KFImage.url(tweet.user.profileImage)
+          .placeholder { Color(.textSilent).opacity(0.6) }
+          .fade(duration: 0.2)
+          .resizable()
+          .scaledToFit()
+          .cornerRadius(20)
+          .frame(width: 40, height: 40)
+        
+        VStack(alignment: .leading, spacing: .grid(2)) {
+          HStack {
+            Text(tweet.user.name)
+              .lineLimit(1)
+              .font(.titleTwo)
               .foregroundColor(Color(.textPrimary))
+            Text(tweet.user.screenName)
+              .lineLimit(1)
+              .font(.bodyTwo)
+              .foregroundColor(Color(.textSilent))
+            Spacer()
+            if let dateString = tweet.dateString() {
+              Text(dateString)
+                .font(.meta)
+                .foregroundColor(Color(.textPrimary))
+            }
           }
+          Text(tweet.text)
+            .multilineTextAlignment(.leading)
+            .font(.bodyOne)
+            .foregroundColor(Color(.textSecondary))
         }
-        Text(tweet.text)
-          .multilineTextAlignment(.leading)
-          .font(.bodyOne)
-          .foregroundColor(Color(.textSecondary))
       }
     }
+    .padding(.vertical, .grid(2))
   }
 }
 

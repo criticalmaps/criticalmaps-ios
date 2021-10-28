@@ -3,6 +3,7 @@ import Foundation
 import Styleguide
 import SwiftUI
 import SharedModels
+import L10n
 
 public struct TweetListView: View {
   let store: Store<TwitterFeedState, TwitterFeedAction>
@@ -14,13 +15,28 @@ public struct TweetListView: View {
   }
   
   public var body: some View {
-    List(viewStore.tweets) { tweet in
-      TweetView(tweet: tweet)
-        .onTapGesture {
-          viewStore.send(.openTweet(tweet))
+    Group {
+      switch viewStore.contentState {
+      case let .empty(state):
+        EmptyStateView(emptyState: state)
+      case let .results(tweets), let .loading(tweets):
+        ZStack {
+          Color(.backgroundPrimary)
+            .ignoresSafeArea()
+      
+          List(tweets) { tweet in
+            TweetView(tweet: tweet)
+              .onTapGesture {
+                viewStore.send(.openTweet(tweet))
+              }
+          }
+          .listRowBackground(Color(.backgroundPrimary))
+          .listStyle(PlainListStyle())
         }
+      case let .error(state):
+        ErrorStateView(errorState: state)
+      }
     }
-    .listStyle(InsetListStyle())
   }
 }
 
@@ -30,7 +46,7 @@ struct TweetListView_Previews: PreviewProvider {
     Group {
       TweetListView(
         store: Store<TwitterFeedState, TwitterFeedAction>(
-          initialState: TwitterFeedState(tweets: .placeHolder),
+          initialState: TwitterFeedState(contentState: .results(.placeHolder)),
           reducer: twitterFeedReducer,
           environment: TwitterFeedEnvironment(
             service: .noop,

@@ -3,14 +3,15 @@ import SharedModels
 import SwiftUI
 import ComposableArchitecture
 import UIApplicationClient
+import Styleguide
 
 // MARK: State
 public struct TwitterFeedState: Equatable {
-  public var tweets: [Tweet]
+  public var contentState: ContentState<[Tweet]>
   public var twitterFeedIsLoading = false
   
-  public init(tweets: [Tweet] = []) {
-    self.tweets = tweets
+  public init(contentState: ContentState<[Tweet]> = .loading(.placeHolder)) {
+    self.contentState = contentState
   }
 }
 
@@ -60,7 +61,7 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
       
     case let .fetchDataResponse(.success(tweets)):
       state.twitterFeedIsLoading = false
-      state.tweets = tweets
+      state.contentState = .results(tweets)
       return .none
     case let .fetchDataResponse(.failure(error)):
       state.twitterFeedIsLoading = false
@@ -75,63 +76,10 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
   }
 )
 
-// MARK:- View
-public struct TwitterFeedView: View {
-  let store: Store<TwitterFeedState, TwitterFeedAction>
-  @ObservedObject var viewStore: ViewStore<TwitterFeedState, TwitterFeedAction>
-  
-  public init(store: Store<TwitterFeedState, TwitterFeedAction>) {
-    self.store = store
-    self.viewStore = ViewStore(store)
-  }
-  
-  public var body: some View {
-    TweetListView(
-      store: viewStore.twitterFeedIsLoading
-      ? .placeholder
-      : self.store
-    )
-    .redacted(reason: viewStore.twitterFeedIsLoading ? .placeholder : [])
-    .onAppear { viewStore.send(.onAppear) }
-  }
-}
 
-// MARK: Preview
-struct TwitterFeedView_Previews: PreviewProvider {
-  static var previews: some View {
-    TwitterFeedView(
-      store: Store<TwitterFeedState, TwitterFeedAction>(
-        initialState: TwitterFeedState(),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
-          service: .noop,
-          mainQueue: .failing,
-          uiApplicationClient: .noop
-        )
-      )
-    )
-  }
-}
-
-public extension Array where Element == Tweet {
-  static let placeHolder: Self = [0,1,2,3,4].map {
-    Tweet(
-      id: String($0),
-      text: String("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore".dropLast($0)),
-      createdAt: .init(timeIntervalSinceNow: TimeInterval($0)),
-      user: .init(
-        name: "Critical Maps",
-        screenName: "@maps",
-        profileImageUrl: ""
-      )
-    )
-  }
-}
-
-extension Store where State == TwitterFeedState, Action == TwitterFeedAction {
-  static let placeholder = Store(
-    initialState: .init(tweets: .placeHolder),
-    reducer: .empty,
-    environment: ()
-  )
+public enum ContentState<T: Hashable>: Equatable {
+  case loading(T)
+  case results(T)
+  case empty(EmptyState)
+  case error(ErrorState)
 }
