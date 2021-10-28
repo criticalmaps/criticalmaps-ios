@@ -18,7 +18,7 @@ class TweetViewSnapshotTests: XCTestCase {
       )
     )
 
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_tweetViewSnapshot_dark() {
@@ -36,7 +36,7 @@ class TweetViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
 
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_tweetViewSnapshot_redacted() {
@@ -54,7 +54,7 @@ class TweetViewSnapshotTests: XCTestCase {
     )
     .redacted(reason: .placeholder)
 
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_tweetViewSnapshot_redacted_dark() {
@@ -73,6 +73,6 @@ class TweetViewSnapshotTests: XCTestCase {
     .environment(\.colorScheme, .dark)
     .redacted(reason: .placeholder)
 
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
 }
