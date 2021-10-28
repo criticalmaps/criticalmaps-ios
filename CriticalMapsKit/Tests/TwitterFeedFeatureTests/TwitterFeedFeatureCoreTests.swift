@@ -41,7 +41,7 @@ class TwitterFeedCoreTests: XCTestCase {
       },
       .receive(.fetchDataResponse(.success(feed.statuses))) {
         $0.twitterFeedIsLoading = false
-        $0.tweets = feed.statuses
+        $0.contentState = .results(feed.statuses)
       },
       .do { twitterFeedSubject.send(completion: .finished) }
     ) 
