@@ -36,11 +36,9 @@ public struct TweetView: View {
               .font(.bodyTwo)
               .foregroundColor(Color(.textSilent))
             Spacer()
-            if let dateString = tweet.dateString() {
-              Text(dateString)
-                .font(.meta)
-                .foregroundColor(Color(.textPrimary))
-            }
+            Text(tweet.formattedCreationDate()!)
+              .font(.meta)
+              .foregroundColor(Color(.textPrimary))
           }
           Text(tweet.makeAttributedTweet)
             .multilineTextAlignment(.leading)
@@ -66,54 +64,48 @@ struct TweetView_Previews: PreviewProvider {
 }
 
 
-extension Tweet {
+public extension Tweet {
   var makeAttributedTweet: NSAttributedString {
     NSAttributedString.highlightMentionsAndTags(in: text)
   }
   
-  func dateString(
-    currentDate: Date = Date(),
-    calendar: Calendar = .current
+  func formattedCreationDate(
+    currentDate: () -> Date = Date.init,
+    calendar: () -> Calendar = { .current }
   ) -> String? {
-    let components = calendar.dateComponents(
-      [.second, .minute, .hour, .day, .month],
+    let components = calendar().dateComponents(
+      [.hour, .day, .month],
       from: createdAt,
-      to: currentDate
-    ).dateComponentFromBiggestComponent
+      to: currentDate()
+    )
     
-    let formatter = DateComponentsFormatter.tweetDateFormatter(calendar)
-    return formatter.string(from: components)?.uppercased()
-  }
-  
-  static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
-    let date = Date(timeIntervalSince1970: message.timestamp)
-    let formatter = DateFormatter.localeShortTimeFormatter
-    formatter.calendar = calendar
-    formatter.timeZone = calendar.timeZone
-    return formatter.string(from: date)
+    if let days = components.day, days == 0, let months = components.month, months == 0 {
+      let diffComponents = calendar().dateComponents([.hour, .minute], from: createdAt, to: currentDate())
+      return DateComponentsFormatter.tweetDateFormatter()
+        .string(from: diffComponents.dateComponentFromBiggestComponent)
+    } else {
+      return DateFormatter.mediumDateFormatter.string(from: createdAt)
+    }
   }
 }
+  
+  
+//static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
+//  let date = Date(timeIntervalSince1970: message.timestamp)
+//  let formatter = DateFormatter.localeShortTimeFormatter
+//  formatter.calendar = calendar
+//  formatter.timeZone = calendar.timeZone
+//  return formatter.string(from: date)
+//}
 
 extension DateComponents {
   var dateComponentFromBiggestComponent: DateComponents {
-    if let month = month,
-       month != 0
-    {
-      return DateComponents(calendar: calendar, month: month)
-    } else if let day = day,
-              day != 0
-    {
+    if let day = day, day != 0 {
       return DateComponents(calendar: calendar, day: day)
-    } else if let hour = hour,
-              hour != 0
-    {
+    } else if let hour = hour, hour != 0 {
       return DateComponents(calendar: calendar, hour: hour)
-    } else if let minute = minute,
-              minute != 0
-    {
-      return DateComponents(calendar: calendar, minute: minute)
     } else {
-      return DateComponents(calendar: calendar, second: second)
+      return DateComponents(calendar: calendar, minute: minute)
     }
   }
 }

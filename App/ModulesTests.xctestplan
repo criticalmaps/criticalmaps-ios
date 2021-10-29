@@ -61,6 +61,13 @@
         "identifier" : "TwitterFeedFeatureTests",
         "name" : "TwitterFeedFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "StyleguideTests",
+        "name" : "StyleguideTests"
+      }
     }
   ],
   "version" : 1

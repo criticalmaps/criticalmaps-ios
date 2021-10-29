@@ -6,7 +6,11 @@ public struct EmptyState: Equatable {
   public let text: String
   public var message: NSAttributedString?
 
-  public init(icon: UIImage, text: String, message: NSAttributedString? = nil) {
+  public init(
+    icon: UIImage,
+    text: String,
+    message: NSAttributedString? = nil
+  ) {
     self.icon = icon
     self.text = text
     self.message = message
@@ -14,11 +18,19 @@ public struct EmptyState: Equatable {
 }
 
 public struct EmptyStateView: View {
-  public let emptyState: EmptyState
-
-  public init(emptyState: EmptyState) {
+  public init(
+    emptyState: EmptyState,
+    buttonAction: (() -> Void)? = nil,
+    buttonText: String? = nil
+  ) {
     self.emptyState = emptyState
+    self.buttonAction = buttonAction
+    self.buttonText = buttonText
   }
+  
+  public let emptyState: EmptyState
+  public var buttonAction: (() -> Void)?
+  public var buttonText: String?
   
   public var body: some View {
     ZStack {
@@ -27,7 +39,9 @@ public struct EmptyStateView: View {
       
       VStack(spacing: .grid(5)) {
         Image(uiImage: emptyState.icon)
+          .renderingMode(.template)
           .imageScale(.large)
+        
         VStack(spacing: .grid(2)) {
           Text(emptyState.text)
             .font(.titleOne)
@@ -36,6 +50,14 @@ public struct EmptyStateView: View {
               .multilineTextAlignment(.center)
               .font(.bodyOne)
               .foregroundColor(Color(.textSecondary))
+          }
+          if buttonAction != nil {
+            Button(
+              action: buttonAction ?? {},
+              label: { Text(buttonText ?? "") }
+            )
+              .buttonStyle(CMButtonStyle())
+              .padding(.top, .grid(4))
           }
         }
         .padding(.horizontal, .grid(4))

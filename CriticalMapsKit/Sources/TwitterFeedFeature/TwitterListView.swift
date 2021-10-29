@@ -18,7 +18,11 @@ public struct TweetListView: View {
     Group {
       switch viewStore.contentState {
       case let .empty(state):
-        EmptyStateView(emptyState: state)
+        EmptyStateView(
+          emptyState: state,
+          buttonAction: { viewStore.send(.fetchData) },
+          buttonText: "Reload"
+        )
       case let .results(tweets), let .loading(tweets):
         ZStack {
           Color(.backgroundPrimary)
@@ -34,7 +38,11 @@ public struct TweetListView: View {
           .listStyle(PlainListStyle())
         }
       case let .error(state):
-        ErrorStateView(errorState: state)
+        ErrorStateView(
+          errorState: state,
+          buttonAction: { viewStore.send(.fetchData) },
+          buttonText: "Reload"
+        )
       }
     }
   }

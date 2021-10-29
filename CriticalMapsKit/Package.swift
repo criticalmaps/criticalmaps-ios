@@ -276,6 +276,15 @@ let package = Package(
       ]
     ),
     .testTarget(
+      name: "StyleguideTests",
+      dependencies: [
+        "Styleguide",
+        "TestHelper",
+        .product(name: "CustomDump", package: "swift-custom-dump")
+      ],
+      exclude: ["__Snapshots__"]
+    ),
+    .testTarget(
       name: "SettingsFeatureTests",
       dependencies: [
         "Helpers",

@@ -21,10 +21,18 @@ public extension ErrorState {
 }
 
 public struct ErrorStateView: View {
-  let errorState: ErrorState
-
-  public init(errorState: ErrorState) {
+  public let errorState: ErrorState
+  public var buttonAction: (() -> Void)?
+  public var buttonText: String?
+  
+  public init(
+    errorState: ErrorState,
+    buttonAction: (() -> Void)? = nil,
+    buttonText: String? = nil
+  ) {
     self.errorState = errorState
+    self.buttonAction = buttonAction
+    self.buttonText = buttonText
   }
   
   public var body: some View {
@@ -43,6 +51,14 @@ public struct ErrorStateView: View {
             Text(message)
               .font(.bodyOne)
               .foregroundColor(Color(.textSecondary))
+          }
+          if buttonAction != nil {
+            Button(
+              action: buttonAction ?? {},
+              label: { Text(buttonText ?? "") }
+            )
+            .buttonStyle(CMButtonStyle())
+            .padding(.top, .grid(4))
           }
         }
       }
