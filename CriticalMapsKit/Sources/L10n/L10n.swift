@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Malte on 06.08.21.
-//
-
 import Foundation
 
 public enum L10n {
@@ -230,6 +223,8 @@ public enum L10n {
     public static let noData = L10n.tr("Localizable", "twitter.noData")
     /// Twitter
     public static let title = L10n.tr("Localizable", "twitter.title")
+    /// Here you’ll find tweets tagged with @criticalmaps and #criticalmass
+    public static let emptyMessage = L10n.tr("Localizable", "twitter.empty.message")
   }
   
   public enum Location {

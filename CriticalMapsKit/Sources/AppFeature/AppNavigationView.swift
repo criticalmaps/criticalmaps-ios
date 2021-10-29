@@ -5,6 +5,7 @@ import MapFeature
 import SettingsFeature
 import Styleguide
 import SwiftUI
+import TwitterFeedFeature
 
 public struct AppNavigationView: View {
   let store: Store<AppState, AppAction>
@@ -61,14 +62,16 @@ public struct AppNavigationView: View {
           .sheet(
             isPresented: viewStore.binding(
               get: \.isChatViewPresented,
-              send: { _ in AppAction.dismissSheetView }
+              send: AppAction.dismissSheetView
             ),
             onDismiss: nil,
             content: {
-              NavigationView {
-                Text(L10n.Chat.title)
-              }
-              .navigationViewStyle(StackNavigationViewStyle())
+              TwitterFeedView(
+                store: store.scope(
+                  state: \.twitterFeedState,
+                  action: AppAction.twitter
+                )
+              )
               .navigationStyle(
                 title: Text(L10n.Chat.title),
                 navPresentationStyle: .modal,

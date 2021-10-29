@@ -12,8 +12,7 @@ let package = Package(
     .library(name: "ApiClient", targets: ["ApiClient"]),
     .library(name: "CriticalMapsKit", targets: ["CriticalMapsKit"]),
     .library(name: "MapFeature", targets: ["MapFeature"]),
-    .library(name: "AppFeature", targets: ["AppFeature"]),
-    .library(name: "InfoBar", targets: ["InfoBar"])
+    .library(name: "AppFeature", targets: ["AppFeature"])
   ],
   dependencies: [
     .package(
@@ -28,7 +27,12 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
       .exact("1.8.2")
     ),
-    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0")
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
+    .package(
+      name: "Kingfisher",
+      url: "https://github.com/onevcat/Kingfisher.git",
+      from: "7.0.0"
+    )
   ],
   targets: [
     .target(
@@ -52,6 +56,7 @@ let package = Package(
         "NextRideFeature",
         "SettingsFeature",
         "Styleguide",
+        "TwitterFeedFeature",
         "UserDefaultsClient",
         "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -165,13 +170,26 @@ let package = Package(
     ),
     .target(
       name: "Styleguide",
-      dependencies: [],
+      dependencies: [
+        "L10n"
+      ],
       resources: [.process("Resources")]
     ),
     .target(
       name: "TestHelper",
       dependencies: [
         .product(name: "SnapshotTesting", package: "SnapshotTesting")
+      ]
+    ),
+    .target(
+      name: "TwitterFeedFeature",
+      dependencies: [
+        "ApiClient",
+        "SharedModels",
+        "Styleguide",
+        "UIApplicationClient",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "Kingfisher", package: "Kingfisher")
       ]
     ),
     .target(
@@ -258,9 +276,19 @@ let package = Package(
       ]
     ),
     .testTarget(
+      name: "StyleguideTests",
+      dependencies: [
+        "Styleguide",
+        "TestHelper",
+        .product(name: "CustomDump", package: "swift-custom-dump")
+      ],
+      exclude: ["__Snapshots__"]
+    ),
+    .testTarget(
       name: "SettingsFeatureTests",
       dependencies: [
         "Helpers",
+        "L10n",
         "SettingsFeature",
         "TestHelper",
         "UserDefaultsClient",
@@ -270,6 +298,21 @@ let package = Package(
         )
       ],
       exclude: ["__Snapshots__"]
+    ),
+    .testTarget(
+      name: "TwitterFeedFeatureTests",
+      dependencies: [
+        "Helpers",
+        "TwitterFeedFeature",
+        "TestHelper",
+        .product(
+          name: "ComposableArchitecture",
+          package: "swift-composable-architecture"
+        )
+      ],
+      exclude: [
+        "__Snapshots__"
+      ]
     )
   ]
 )

@@ -2,10 +2,11 @@ import Foundation
 import TestHelper
 import XCTest
 import AppFeature
+import SnapshotTesting
 
 class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_light() {
-    let sut = AppNavigationView(
+    let view = AppNavigationView(
       store: .init(
         initialState: .init(
           locationsAndChatMessages: nil),
@@ -24,11 +25,19 @@ class AppNavigationViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(sut, sloppy: true)
+    assertSnapshots(
+      matching: view,
+      as: [
+        .image(precision: 0.9, layout: .device(config: .iPhoneX))
+      ],
+      file: #file,
+      testName: #function,
+      line: #line
+    )
   }
   
   func test_appNavigationView_dark() {
-    let sut = AppNavigationView(
+    let view = AppNavigationView(
       store: .init(
         initialState: .init(
           locationsAndChatMessages: nil),
@@ -48,6 +57,6 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(sut, sloppy: true)
+    assertScreenSnapshot(view, sloppy: true)
   }
 }

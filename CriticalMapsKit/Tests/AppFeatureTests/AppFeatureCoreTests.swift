@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 20.06.21.
-//
-
 @testable import AppFeature
 import Combine
 import ComposableArchitecture
@@ -73,7 +66,7 @@ class AppFeatureTests: XCTestCase {
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
-    let serviceSubject = PassthroughSubject<LocationAndChatMessages, LocationsAndChatDataService.Failure>()
+    let serviceSubject = PassthroughSubject<LocationAndChatMessages, NSError>()
     let nextRideSubject = PassthroughSubject<[Ride], NextRideService.Failure>()
     
     let currentLocation = Location(
@@ -179,13 +172,13 @@ class AppFeatureTests: XCTestCase {
       .receive(.requestTimer(.timerTicked)),
       .receive(.fetchData),
       .do {
-        serviceSubject.send(completion: .failure(.init(internalError: .badRequest)))
+        serviceSubject.send(completion: .failure(testError))
         self.testScheduler.advance()
       },
-      .receive(.fetchDataResponse(.failure(.init(internalError: .badRequest)))) {
+      .receive(.fetchDataResponse(.failure(testError))) {
         $0.locationsAndChatMessages = .failure(.init())
       },
-      .receive(.fetchDataResponse(.failure(.init(internalError: .badRequest)))),
+      .receive(.fetchDataResponse(.failure(testError))),
                
       .send(.requestTimer(.stopTimer)),
       .do {
@@ -234,3 +227,5 @@ class AppFeatureTests: XCTestCase {
     )
   }
 }
+
+let testError = NSError(domain: "", code: 1, userInfo: [:])

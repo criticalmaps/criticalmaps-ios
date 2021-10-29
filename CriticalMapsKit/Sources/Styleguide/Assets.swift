@@ -20,4 +20,9 @@ public enum Images {
   public static let cmInIcon = UIImage(named: "cmDotIn-logo", in: .module, with: nil)!
   public static let ghIcon = UIImage(named: "gh-logo", in: .module, with: nil)!
   public static let translateIcon = UIImage(named: "translate", in: .module, with: nil)!
+  
+  // MARK: Twitter
+  public static let ghost = UIImage(named: "ghost", in: .module, with: nil)!
+  public static let twitterEmpty = UIImage(named: "twitter.empty", in: .module, with: nil)!
+  public static let errorPlaceholder = UIImage(named: "error", in: .module, with: nil)!
 }

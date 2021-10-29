@@ -244,7 +244,10 @@
 "settings.appIconTitle" = "App Icon";
 
 /* No comment provided by engineer. */
-"twitter.noData" = "Nessun dato è attualmente disponibile. \nTira lo schermo verso il basso per aggiornare.";
+"twitter.noData" = "Niente qui al momento";
 
 /* No comment provided by engineer. */
 "twitter.title" = "Twitter";
+
+/* TODO: Translate */
+"twitter.empty.message" = "Here you’ll find tweets tagged with @criticalmaps and #criticalmass";

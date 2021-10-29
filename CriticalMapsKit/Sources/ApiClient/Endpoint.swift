@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 04.06.21.
-//
-
 import Foundation
 
 public struct Endpoint {
@@ -15,4 +8,8 @@ public struct Endpoint {
     self.baseUrl = baseUrl
     self.path = path
   }
+}
+
+public extension Endpoint {
+  static let twitter = Endpoint(path: "/twitter")
 }

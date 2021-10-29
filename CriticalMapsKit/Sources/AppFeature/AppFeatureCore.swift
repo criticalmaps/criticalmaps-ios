@@ -10,6 +10,7 @@ import NextRideFeature
 import IDProvider
 import SettingsFeature
 import SharedModels
+import TwitterFeedFeature
 import UserDefaultsClient
 import UIApplicationClient
 
@@ -31,6 +32,7 @@ public struct AppState: Equatable {
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
+  var twitterFeedState = TwitterFeedState()
   var settingsState = SettingsState()
   var nextRideState = NextRideState()
   var requestTimer = RequestTimerState()
@@ -49,7 +51,7 @@ public enum AppAction: Equatable {
   case appDelegate(AppDelegateAction)
   case onAppear
   case fetchData
-  case fetchDataResponse(Result<LocationAndChatMessages, LocationsAndChatDataService.Failure>)
+  case fetchDataResponse(Result<LocationAndChatMessages, NSError>)
   case userSettingsLoaded(Result<UserSettings, NSError>)
   
   case setNavigation(tag: AppRoute.Tag?)
@@ -59,6 +61,7 @@ public enum AppAction: Equatable {
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
+  case twitter(TwitterFeedAction)
 }
 
 // MARK: Environment
@@ -162,7 +165,16 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       fileClient: global.fileClient,
       backgroundQueue: global.backgroundQueue,
       mainQueue: global.mainQueue
-    ) }
+    )}
+  ),
+  twitterFeedReducer.pullback(
+    state: \.twitterFeedState,
+    action: /AppAction.twitter,
+    environment: { global in TwitterFeedEnvironment(
+      service: .live(),
+      mainQueue: global.mainQueue,
+      uiApplicationClient: global.uiApplicationClient
+    )}
   ),
   Reducer { state, action, environment in
     switch action {
@@ -283,6 +295,9 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       }
       
     case let .settings(settingsAction):
+      return .none
+      
+    case .twitter:
       return .none
     }
   }

@@ -9,7 +9,8 @@
     }
   ],
   "defaultOptions" : {
-
+    "language" : "en",
+    "region" : "US"
   },
   "testTargets" : [
     {
@@ -52,6 +53,20 @@
         "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "SettingsFeatureTests",
         "name" : "SettingsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "TwitterFeedFeatureTests",
+        "name" : "TwitterFeedFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "StyleguideTests",
+        "name" : "StyleguideTests"
       }
     }
   ],

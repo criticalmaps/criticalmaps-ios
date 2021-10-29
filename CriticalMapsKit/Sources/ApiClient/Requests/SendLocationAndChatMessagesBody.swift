@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 06.06.21.
-//
-
 import Foundation
 import SharedModels
 

@@ -78,6 +78,18 @@ public extension UIColor {
   static var textPrimaryLight: Self {
     .hex(0x1A1A1A)
   }
+  
+  static var highlight: Self {
+    .hex(0x1717E5)
+  }
+  
+  static var twitterHighlight: Self {
+    Self {
+      $0.isDarkMode
+      ? .brand500
+      : .highlight
+    }
+  }
 }
 
 extension UIColor {
