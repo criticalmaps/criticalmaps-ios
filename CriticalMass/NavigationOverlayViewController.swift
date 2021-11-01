@@ -70,7 +70,8 @@ class NavigationOverlayViewController: UIViewController {
 
     private func configureViewBackground() {
         view.insertSubview(visualEffectView, at: 0)
-        view.layer.setupMapOverlayConfiguration()
+        view.layer.cornerRadius = 18
+        view.layer.setShadow(.default)
         view.accessibilityTraits.insert(.tabBar)
         if #available(iOS 13.0, *) {
             view.addInteraction(UILargeContentViewerInteraction())

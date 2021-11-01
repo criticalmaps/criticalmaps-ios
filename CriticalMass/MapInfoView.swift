@@ -39,6 +39,7 @@ class MapInfoView: UIView, IBConstructable {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var label: UILabel!
     @IBOutlet private var closeButton: UIButton!
+    @IBOutlet private var stackview: UIStackView!
 
     @objc
     dynamic var mapInfoForegroundColor: UIColor = .black {
@@ -79,7 +80,10 @@ class MapInfoView: UIView, IBConstructable {
     }
 
     private func setup() {
-        layer.setupMapOverlayConfiguration(cornerRadius: 12)
+        layer.cornerRadius = 12
+//        layer.shadowPath = UIBezierPath(rect: stackview.bounds).cgPath
+        layer.setShadow(.default)
+
         label.isAccessibilityElement = false
         label.adjustsFontForContentSizeCategory = true
     }

@@ -39,10 +39,10 @@ extension XCTestCase {
 
     private func enforceSnapshotDevice() {
         let is2XDevice = UIScreen.main.scale == 2
-        let isVersion14 = operatingSystemVersion.majorVersion == 14
+        let isVersion13 = operatingSystemVersion.majorVersion >= 14
 
-        guard is2XDevice, isVersion14 else {
-            fatalError("Running device should have @2x screen scale and iOS13.")
+        guard is2XDevice, isVersion13 else {
+            fatalError("Running device should have @2x screen scale and run on iOS >= 14.")
         }
     }
 }

@@ -32,6 +32,10 @@ final class AppSettingsViewController: SettingsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
+
         configureSettingsFooter()
     }
 
