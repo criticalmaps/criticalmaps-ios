@@ -1,4 +1,5 @@
 import ApiClient
+import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
@@ -10,6 +11,7 @@ import NextRideFeature
 import IDProvider
 import SettingsFeature
 import SharedModels
+import SocialFeature
 import TwitterFeedFeature
 import UserDefaultsClient
 import UIApplicationClient
@@ -32,7 +34,9 @@ public struct AppState: Equatable {
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
-  var twitterFeedState = TwitterFeedState()
+  var socialState = SocialState()
+//  var chatFeautureState = ChatFeatureState()
+//  var twitterFeedState = TwitterFeedState()
   var settingsState = SettingsState()
   var nextRideState = NextRideState()
   var requestTimer = RequestTimerState()
@@ -57,11 +61,13 @@ public enum AppAction: Equatable {
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
   
+//  case chat(ChatFeatureAction)
   case map(MapFeatureAction)
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
-  case twitter(TwitterFeedAction)
+  case social(SocialAction)
+//  case twitter(TwitterFeedAction)
 }
 
 // MARK: Environment
@@ -167,14 +173,15 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       mainQueue: global.mainQueue
     )}
   ),
-  twitterFeedReducer.pullback(
-    state: \.twitterFeedState,
-    action: /AppAction.twitter,
-    environment: { global in TwitterFeedEnvironment(
-      service: .live(),
-      mainQueue: global.mainQueue,
-      uiApplicationClient: global.uiApplicationClient
-    )}
+  socialReducer.pullback(
+    state: \.socialState,
+    action: /AppAction.social,
+    environment: { global in
+      SocialEnvironment(
+        mainQueue: global.mainQueue,
+        uiApplicationClient: global.uiApplicationClient
+      )
+    }
   ),
   Reducer { state, action, environment in
     switch action {
@@ -207,6 +214,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .fetchDataResponse(.success(response)):
       state.locationsAndChatMessages = .success(response)
+      
+      state.socialState.chatFeautureState.chatMessages = response.chatMessages
       state.mapFeatureState.riders = response.riders
       return .none
       
@@ -294,10 +303,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         return .none
       }
       
-    case let .settings(settingsAction):
-      return .none
-      
-    case .twitter:
+    case .settings, .social:
       return .none
     }
   }

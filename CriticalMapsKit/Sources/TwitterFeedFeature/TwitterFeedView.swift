@@ -18,10 +18,10 @@ public struct TwitterFeedView: View {
     TweetListView(
       store: viewStore.twitterFeedIsLoading
       ? .placeholder
-      : self.store
-    )
-    .redacted(reason: viewStore.twitterFeedIsLoading ? .placeholder : [])
-    .onAppear { viewStore.send(.onAppear) }
+      : self.store)
+      .navigationBarTitleDisplayMode(.inline)
+      .redacted(reason: viewStore.twitterFeedIsLoading ? .placeholder : [])
+      .onAppear { viewStore.send(.onAppear) }
   }
 }
 

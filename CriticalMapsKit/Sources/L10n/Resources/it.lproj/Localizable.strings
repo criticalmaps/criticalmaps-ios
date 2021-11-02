@@ -1,6 +1,8 @@
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Al momento nessuno sta chattando... comincia tu!";
 
+"chat.emptyMessageTitle" = "So quite here";
+
 /* No comment provided by engineer. */
 "chat.placeholder" = "Scrivere messaggi";
 

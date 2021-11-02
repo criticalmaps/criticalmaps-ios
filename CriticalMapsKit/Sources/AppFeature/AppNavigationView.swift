@@ -3,6 +3,7 @@ import GuideFeature
 import L10n
 import MapFeature
 import SettingsFeature
+import SocialFeature
 import Styleguide
 import SwiftUI
 import TwitterFeedFeature
@@ -66,16 +67,11 @@ public struct AppNavigationView: View {
             ),
             onDismiss: nil,
             content: {
-              TwitterFeedView(
+              SocialView(
                 store: store.scope(
-                  state: \.twitterFeedState,
-                  action: AppAction.twitter
+                  state: \.socialState,
+                  action: AppAction.social
                 )
-              )
-              .navigationStyle(
-                title: Text(L10n.Chat.title),
-                navPresentationStyle: .modal,
-                onDismiss: { viewStore.send(.dismissSheetView) }
               )
             }
           )

@@ -55,11 +55,18 @@ let package = Package(
         "MapFeature",
         "NextRideFeature",
         "SettingsFeature",
+        "SocialFeature",
         "Styleguide",
-        "TwitterFeedFeature",
         "UserDefaultsClient",
         "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
+      name: "ChatFeature",
+      dependencies: [
+        "CriticalMapsKit",
+        "L10n"
       ]
     ),
     .target(
@@ -169,6 +176,15 @@ let package = Package(
       ]
     ),
     .target(
+      name: "SocialFeature",
+      dependencies: [
+        "ChatFeature",
+        "L10n",
+        "TwitterFeedFeature",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
+    ),
+    .target(
       name: "Styleguide",
       dependencies: [
         "L10n"
@@ -208,111 +224,124 @@ let package = Package(
           package: "swift-composable-architecture"
         )
       ]
-    ),
-    .testTarget(
-      name: "AppFeatureTests",
-      dependencies: [
-        "AppFeature",
-        "TestHelper",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        ),
-        .product(name: "CustomDump", package: "swift-custom-dump")
-      ],
-      exclude: [
-        "__Snapshots__"
-      ]
-    ),
-    .testTarget(
-      name: "CriticalMapsKitTests",
-      dependencies: [
-        "CriticalMapsKit",
-        "Helpers",
-        "UserDefaultsClient"
-      ]),
-    .testTarget(
-      name: "IDProviderTests",
-      dependencies: ["IDProvider"]
-    ),
-    .testTarget(
-      name: "InfoBarTests",
-      dependencies: [
-        "InfoBar",
-        "TestHelper",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
-      ],
-      exclude: [
-        "__Snapshots__"
-      ]
-    ),
-    .testTarget(
-      name: "MapFeatureTests",
-      dependencies: [
-        "MapFeature",
-        "TestHelper",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
-      ],
-      exclude: [
-        "__Snapshots__"
-      ]
-    ),
-    .testTarget(
-      name: "NextRideFeatureTests",
-      dependencies: [
-        "Helpers",
-        "UserDefaultsClient",
-        "NextRideFeature",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
-      ]
-    ),
-    .testTarget(
-      name: "StyleguideTests",
-      dependencies: [
-        "Styleguide",
-        "TestHelper",
-        .product(name: "CustomDump", package: "swift-custom-dump")
-      ],
-      exclude: ["__Snapshots__"]
-    ),
-    .testTarget(
-      name: "SettingsFeatureTests",
-      dependencies: [
-        "Helpers",
-        "L10n",
-        "SettingsFeature",
-        "TestHelper",
-        "UserDefaultsClient",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
-      ],
-      exclude: ["__Snapshots__"]
-    ),
-    .testTarget(
-      name: "TwitterFeedFeatureTests",
-      dependencies: [
-        "Helpers",
-        "TwitterFeedFeature",
-        "TestHelper",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
-      ],
-      exclude: [
-        "__Snapshots__"
-      ]
     )
   ]
 )
+
+
+// MARK: - Test Targets
+package.targets.append(contentsOf: [
+  .testTarget(
+    name: "AppFeatureTests",
+    dependencies: [
+      "AppFeature",
+      "TestHelper",
+      .product(
+        name: "ComposableArchitecture",
+        package: "swift-composable-architecture"
+      ),
+      .product(name: "CustomDump", package: "swift-custom-dump")
+    ],
+    exclude: [
+      "__Snapshots__"
+    ]
+  ),
+  .testTarget(
+    name: "ChatFeatureTests",
+    dependencies: [
+      "ChatFeature",
+      "TestHelper",
+      .product(name: "CustomDump", package: "swift-custom-dump")
+    ]
+  ),
+  .testTarget(
+    name: "CriticalMapsKitTests",
+    dependencies: [
+      "CriticalMapsKit",
+      "Helpers",
+      "UserDefaultsClient"
+    ]),
+  .testTarget(
+    name: "IDProviderTests",
+    dependencies: ["IDProvider"]
+  ),
+  .testTarget(
+    name: "InfoBarTests",
+    dependencies: [
+      "InfoBar",
+      "TestHelper",
+      .product(
+        name: "ComposableArchitecture",
+        package: "swift-composable-architecture"
+      )
+    ],
+    exclude: [
+      "__Snapshots__"
+    ]
+  ),
+  .testTarget(
+    name: "MapFeatureTests",
+    dependencies: [
+      "MapFeature",
+      "TestHelper",
+      .product(
+        name: "ComposableArchitecture",
+        package: "swift-composable-architecture"
+      )
+    ],
+    exclude: [
+      "__Snapshots__"
+    ]
+  ),
+  .testTarget(
+    name: "NextRideFeatureTests",
+    dependencies: [
+      "Helpers",
+      "UserDefaultsClient",
+      "NextRideFeature",
+      .product(
+        name: "ComposableArchitecture",
+        package: "swift-composable-architecture"
+      )
+    ]
+  ),
+  .testTarget(
+    name: "StyleguideTests",
+    dependencies: [
+      "Styleguide",
+      "TestHelper",
+      .product(name: "CustomDump", package: "swift-custom-dump")
+    ],
+    exclude: ["__Snapshots__"]
+  ),
+  .testTarget(
+    name: "SettingsFeatureTests",
+    dependencies: [
+      "Helpers",
+      "L10n",
+      "SettingsFeature",
+      "TestHelper",
+      "UserDefaultsClient",
+      .product(
+        name: "ComposableArchitecture",
+        package: "swift-composable-architecture"
+      )
+    ],
+    exclude: ["__Snapshots__"]
+  ),
+  .testTarget(
+    name: "TwitterFeedFeatureTests",
+    dependencies: [
+      "Helpers",
+      "TwitterFeedFeature",
+      "TestHelper",
+      .product(
+        name: "ComposableArchitecture",
+        package: "swift-composable-architecture"
+      )
+    ],
+    exclude: [
+      "__Snapshots__"
+    ]
+  )
+])
