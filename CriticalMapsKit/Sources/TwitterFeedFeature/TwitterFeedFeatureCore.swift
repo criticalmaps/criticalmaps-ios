@@ -94,4 +94,13 @@ public enum ContentState<T: Hashable>: Equatable {
   case results(T)
   case empty(EmptyState)
   case error(ErrorState)
+  
+  var elements: T? {
+    switch self {
+    case let .results(results):
+      return results
+    default:
+      return nil
+    }
+  }
 }

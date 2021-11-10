@@ -6,21 +6,31 @@ import UIApplicationClient
 import Styleguide
 
 public struct TwitterFeedView: View {
+  struct TwitterFeedViewState: Equatable { // TODO: Tests
+    let shouldDisplayPlaceholder: Bool
+    
+    init(_ state: TwitterFeedState) {
+      self.shouldDisplayPlaceholder = state.contentState.elements != nil
+      ? state.twitterFeedIsLoading && state.contentState.elements!.isEmpty
+      : state.twitterFeedIsLoading
+    }
+  }
+  
   let store: Store<TwitterFeedState, TwitterFeedAction>
-  @ObservedObject var viewStore: ViewStore<TwitterFeedState, TwitterFeedAction>
+  @ObservedObject var viewStore: ViewStore<TwitterFeedViewState, TwitterFeedAction>
   
   public init(store: Store<TwitterFeedState, TwitterFeedAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    self.viewStore = ViewStore(store.scope(state: TwitterFeedViewState.init))
   }
   
   public var body: some View {
     TweetListView(
-      store: viewStore.twitterFeedIsLoading
+      store: viewStore.shouldDisplayPlaceholder
       ? .placeholder
       : self.store)
       .navigationBarTitleDisplayMode(.inline)
-      .redacted(reason: viewStore.twitterFeedIsLoading ? .placeholder : [])
+      .redacted(reason: viewStore.shouldDisplayPlaceholder ? .placeholder : [])
       .onAppear { viewStore.send(.onAppear) }
   }
 }
