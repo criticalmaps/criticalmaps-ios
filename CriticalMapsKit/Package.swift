@@ -65,8 +65,11 @@ let package = Package(
     .target(
       name: "ChatFeature",
       dependencies: [
-        "CriticalMapsKit",
-        "L10n"
+        "ApiClient",
+        "Helpers",
+        "L10n",
+        "SharedModels",
+        "Styleguide"
       ]
     ),
     .target(

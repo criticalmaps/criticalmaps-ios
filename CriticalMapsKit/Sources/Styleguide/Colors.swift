@@ -41,7 +41,7 @@ public extension UIColor {
   static var border: Self {
     Self { $0.isDarkMode
       ? Self.hex(0x45474D)
-      : Self.hex(0xDADCE0)
+      : .textLight
     }
   }
   
@@ -54,9 +54,13 @@ public extension UIColor {
   
   static var textSecondary: Self {
     Self { $0.isDarkMode
-      ? Self.hex(0xDADCE0)
+      ? .textLight
       : Self.hex(0x45474D)
     }
+  }
+  
+  static var textLight: Self {
+    Self.hex(0xDADCE0)
   }
   
   static var textSilent: Self {
@@ -89,6 +93,10 @@ public extension UIColor {
       ? .brand500
       : .highlight
     }
+  }
+  
+  static var innerBorder: Self {
+    .hex(0x45474D)
   }
 }
 

@@ -39,7 +39,10 @@ public struct EmptyStateView: View {
       
       VStack(spacing: .grid(5)) {
         Image(uiImage: emptyState.icon)
-        
+          .resizable()
+          .frame(maxHeight: 80)
+          .aspectRatio(contentMode: .fit)
+          
         VStack(spacing: .grid(2)) {
           Text(emptyState.text)
             .font(.titleOne)
