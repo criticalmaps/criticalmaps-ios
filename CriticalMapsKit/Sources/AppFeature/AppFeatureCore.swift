@@ -42,6 +42,8 @@ public struct AppState: Equatable {
   var isChatViewPresented: Bool { route == .chat }
   var isRulesViewPresented: Bool { route == .rules }
   var isSettingsViewPresented: Bool { route == .settings }
+  
+  public var chatMessageBadgeCount: UInt = 0
 }
 
 // MARK: Actions
@@ -181,7 +183,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         locationsAndChatDataService: global.locationsAndChatDataService,
         idProvider: global.idProvider,
         uuid: global.uuid,
-        date: global.date
+        date: global.date,
+        userDefaultsClient: global.userDefaultsClient
       )
     }
   ),
@@ -219,6 +222,21 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
       state.socialState.chatFeautureState.chatMessages = response.chatMessages
       state.mapFeatureState.riders = response.riders
+      
+      let cachedMessages = state.socialState.chatFeautureState.chatMessages
+        .values
+        .sorted(by: \.timestamp)
+      
+      let unreadMessagesCount = UInt(
+        cachedMessages
+          .lazy
+          .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
+          .count
+      )
+      
+      let badgeDiff = unreadMessagesCount
+      state.chatMessageBadgeCount = badgeDiff
+      
       return .none
       
     case let .fetchDataResponse(.failure(error)):

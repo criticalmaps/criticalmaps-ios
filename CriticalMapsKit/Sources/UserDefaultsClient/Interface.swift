@@ -46,6 +46,16 @@ public struct UserDefaultsClient {
   public func setRideEventSettings(_ settings: RideEventSettings) -> Effect<Never, Never> {
     self.setData(try? settings.encoded(), rideEventSettingsKey)
   }
+  
+  // chat read
+  public var chatReadTimeInterval: () -> Double {
+    { self.doubleForKey(chatReadTimeIntervalKey) }
+  }
+
+  public func setChatReadTimeInterval(_ timeInterval: Double) -> Effect<Never, Never> {
+    self.setDouble(timeInterval, chatReadTimeIntervalKey)
+  }
 }
 
+let chatReadTimeIntervalKey = "chatReadTimeinterval"
 let rideEventSettingsKey = "rideEventSettings"

@@ -48,15 +48,41 @@ public struct AppNavigationView: View {
     .modifier(ShadowModifier())
   }
   
+  // MARK: Chat
+  var badge: some View {
+    ZStack {
+      Circle()
+        .foregroundColor(.red)
+      
+      Text(viewStore.chatMessageBadgeCount == 0
+           ? ""
+           : String(viewStore.chatMessageBadgeCount)
+        )
+        .animation(nil)
+        .foregroundColor(.white)
+        .font(Font.system(size: 12))
+    }
+    .frame(width: 20, height: 20)
+    .offset(x: 14, y: -10)
+    .scaleEffect(viewStore.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
+    .opacity(viewStore.chatMessageBadgeCount == 0 ? 0 : 1)
+    .animation(Animation.easeIn(duration: 0.1), value:  viewStore.chatMessageBadgeCount)
+  }
+  
   var chatButton: some View {
     Button(
       action: {
         viewStore.send(.setNavigation(tag: .chat))
       },
       label: {
-        Image(systemName: "bubble.left")
-          .iconModifier()
-          .accessibility(hidden: true)
+        ZStack {
+          Image(systemName: "bubble.left")
+            .iconModifier()
+            .accessibility(hidden: true)
+
+          badge
+        }
+        
       })
       .background(
         EmptyView()

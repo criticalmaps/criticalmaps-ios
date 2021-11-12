@@ -5,6 +5,7 @@ import IDProvider
 import L10n
 import TwitterFeedFeature
 import UIApplicationClient
+import UserDefaultsClient
 
 
 // MARK: State
@@ -53,6 +54,7 @@ public struct SocialEnvironment {
   var idProvider: IDProvider
   var uuid: () -> UUID
   var date: () -> Date
+  var userDefaultsClient: UserDefaultsClient
 
   public init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -60,7 +62,8 @@ public struct SocialEnvironment {
     locationsAndChatDataService: LocationsAndChatDataService,
     idProvider: IDProvider,
     uuid: @escaping () -> UUID,
-    date: @escaping () -> Date
+    date: @escaping () -> Date,
+    userDefaultsClient: UserDefaultsClient
   ) {
     self.mainQueue = mainQueue
     self.uiApplicationClient = uiApplicationClient
@@ -68,6 +71,7 @@ public struct SocialEnvironment {
     self.idProvider = idProvider
     self.uuid = uuid
     self.date = date
+    self.userDefaultsClient = userDefaultsClient
   }
 }
 
@@ -83,7 +87,8 @@ Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
         mainQueue: global.mainQueue,
         idProvider: global.idProvider,
         uuid: global.uuid,
-        date: global.date
+        date: global.date,
+        userDefaultsClient: global.userDefaultsClient
       )
     }
   ),

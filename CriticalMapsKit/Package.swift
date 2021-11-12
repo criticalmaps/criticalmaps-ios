@@ -70,7 +70,8 @@ let package = Package(
         "IDProvider",
         "L10n",
         "SharedModels",
-        "Styleguide"
+        "Styleguide",
+        "UserDefaultsClient"
       ]
     ),
     .target(
@@ -185,6 +186,7 @@ let package = Package(
         "ChatFeature",
         "L10n",
         "TwitterFeedFeature",
+        "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),

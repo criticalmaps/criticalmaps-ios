@@ -53,6 +53,7 @@ public struct ChatView: View {
       
       chatInput
     }
+    .onAppear { viewStore.send(.onAppear) }
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea(.container, edges: .bottom)
   }
@@ -102,7 +103,8 @@ struct ChatView_Previews: PreviewProvider {
         mainQueue: .failing,
         idProvider: .noop,
         uuid: UUID.init,
-        date: Date.init
+        date: Date.init,
+        userDefaultsClient: .noop
       )
     )
     )

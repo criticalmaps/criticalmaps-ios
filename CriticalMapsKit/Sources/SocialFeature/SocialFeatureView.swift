@@ -76,7 +76,8 @@ struct SocialView_Previews: PreviewProvider {
         locationsAndChatDataService: .noop,
         idProvider: .noop,
         uuid: UUID.init,
-        date: Date.init
+        date: Date.init,
+        userDefaultsClient: .noop
       )
     )
     )

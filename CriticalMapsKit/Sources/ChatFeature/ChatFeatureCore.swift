@@ -5,12 +5,13 @@ import IDProvider
 import L10n
 import SharedModels
 import ApiClient
+import UserDefaultsClient
 
 // MARK: State
 public struct ChatFeatureState: Equatable {
   public var chatMessages: [String: ChatMessage]
   public var chatInputState: ChatInputState
-  
+    
   public init(
     chatMessages: [String : ChatMessage] = [:],
     chatInputState: ChatInputState = .init()
@@ -22,8 +23,10 @@ public struct ChatFeatureState: Equatable {
 
 // MARK: Actions
 public enum ChatFeatureAction: Equatable {
-  case chatInput(ChatInputAction)
+  case onAppear
   case chatInputResponse(Result<LocationAndChatMessages, NSError>)
+
+  case chatInput(ChatInputAction)
 }
 
 // MARK: Environment
@@ -33,19 +36,22 @@ public struct ChatEnvironment {
   public var idProvider: IDProvider
   public var uuid: () -> UUID
   public var date: () -> Date
+  public var userDefaultsClient: UserDefaultsClient
   
   public init(
     locationsAndChatDataService: LocationsAndChatDataService,
     mainQueue: AnySchedulerOf<DispatchQueue>,
     idProvider: IDProvider,
     uuid: @escaping () -> UUID,
-    date: @escaping () -> Date
+    date: @escaping () -> Date,
+    userDefaultsClient: UserDefaultsClient
   ) {
     self.locationsAndChatDataService = locationsAndChatDataService
     self.mainQueue = mainQueue
     self.idProvider = idProvider
     self.uuid = uuid
     self.date = date
+    self.userDefaultsClient = userDefaultsClient
   }
 }
 
@@ -61,6 +67,22 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
   Reducer<ChatFeatureState, ChatFeatureAction, ChatEnvironment> {
     state, action, environment in
     switch action {
+    case .onAppear:
+      return environment
+        .userDefaultsClient
+        .setChatReadTimeInterval(environment.date().timeIntervalSince1970)
+        .fireAndForget()
+      
+    case let .chatInputResponse(.success(response)):
+      state.chatInputState.isSending = false
+      state.chatInputState.message.removeAll()
+      return .none
+      
+    case let .chatInputResponse(.failure(error)):
+      state.chatInputState.isSending = false
+      // log error
+      return .none
+      
     case let .chatInput(chatInputAction):
       switch chatInputAction {
       case .onCommit:
@@ -86,16 +108,6 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
       default:
         return .none
       }
-      
-    case let .chatInputResponse(.success(response)):
-      state.chatInputState.isSending = false
-      state.chatInputState.message.removeAll()
-      return .none
-      
-    case let .chatInputResponse(.failure(error)):
-      state.chatInputState.isSending = false
-      // log error
-      return .none
     }
   }
 )
