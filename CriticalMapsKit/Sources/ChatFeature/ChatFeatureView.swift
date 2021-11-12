@@ -30,7 +30,6 @@ public struct ChatView: View {
     self.viewStore = ViewStore(store.scope(state: ChatViewState.init))
   }
   public var body: some View {
-    
     VStack {
       ZStack(alignment: .bottom) {
         Color(.backgroundPrimary)
@@ -39,15 +38,15 @@ public struct ChatView: View {
         if viewStore.identifiedChatMessages.isEmpty {
           emptyState
         } else {
-          withAnimation {
-            List(viewStore.identifiedChatMessages) { chat in
-              ChatMessageView(chat)
+          List(viewStore.identifiedChatMessages) { chat in
+            ChatMessageView(chat)
               .padding(.horizontal, .grid(4))
               .padding(.vertical, .grid(2))
-            }
-            .listRowBackground(Color(.backgroundPrimary))
-            .listStyle(PlainListStyle())
+              .animation(nil)
           }
+          .listRowBackground(Color(.backgroundPrimary))
+          .listStyle(PlainListStyle())
+          .animation(.easeOut, value: viewStore.identifiedChatMessages)
         }
       }
       
@@ -66,7 +65,7 @@ public struct ChatView: View {
             state: \.chatInputState,
             action: ChatFeatureAction.chatInput
           ),
-          placeholder: "Message..."
+          placeholder: L10n.Chat.placeholder
         )
       }
       .padding(.horizontal, .grid(3))
