@@ -57,7 +57,7 @@ public extension Array where Element == Tweet {
     Tweet(
       id: String($0),
       text: String("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore".dropLast($0)),
-      createdAt: .init(timeIntervalSince1970: TimeInterval(1635521516 - $0)),
+      createdAt: .init(timeIntervalSince1970: TimeInterval(1635521516)),
       user: .init(
         name: "Critical Maps",
         screenName: "@maps",
