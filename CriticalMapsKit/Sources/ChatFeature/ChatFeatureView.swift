@@ -5,9 +5,7 @@ import Styleguide
 import SwiftUI
 
 public struct ChatView: View {
-  typealias V = ChatViewState
-  
-  struct ChatViewState: Equatable {
+  struct ChatViewState: Equatable { // TODO: Tests
     public var identifiedChatMessages: [IdentifiedChatMessage]
     
     init(_ state: ChatFeatureState) {
@@ -23,9 +21,6 @@ public struct ChatView: View {
         .sorted { $0.timestamp > $1.timestamp }
     }
   }
-  
-  @State var text: String = ""
-  @State var isEditing = false
   
   let store: Store<ChatFeatureState, ChatFeatureAction>
   @ObservedObject var viewStore: ViewStore<ChatViewState, ChatFeatureAction>
@@ -66,10 +61,11 @@ public struct ChatView: View {
     ZStack(alignment: .top) {
       HStack(alignment: .center) {
         BasicInputView(
-          message: $text,
-          isEditing: $isEditing,
-          placeholder: "Message...",
-          onCommit: { _ in }
+          store: self.store.scope(
+            state: \.chatInputState,
+            action: ChatFeatureAction.chatInput
+          ),
+          placeholder: "Message..."
         )
       }
       .padding(.horizontal, .grid(3))
@@ -101,7 +97,13 @@ struct ChatView_Previews: PreviewProvider {
     ChatView(store: Store<ChatFeatureState, ChatFeatureAction>(
       initialState: ChatFeatureState(),
       reducer: chatReducer,
-      environment: ChatEnvironment()
+      environment: ChatEnvironment(
+        locationsAndChatDataService: .noop,
+        mainQueue: .failing,
+        idProvider: .noop,
+        uuid: UUID.init,
+        date: Date.init
+      )
     )
     )
   }

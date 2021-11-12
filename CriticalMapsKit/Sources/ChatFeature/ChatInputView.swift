@@ -1,42 +1,23 @@
+import ComposableArchitecture
 import Styleguide
 import SwiftUI
 import UIKit
 
 public struct BasicInputView: View {
-  @Binding private var message: String
-  @Binding private var isEditing: Bool
   private let placeholder: String
+  let store: Store<ChatInputState, ChatInputAction>
+  @ObservedObject var viewStore: ViewStore<ChatInputState, ChatInputAction>
   
   @State private var contentSizeThatFits: CGSize = .zero
   
-  private var internalAttributedMessage: Binding<NSAttributedString> {
-    Binding<NSAttributedString>(
-      get: {
-        NSAttributedString(
-          string: self.message,
-          attributes: [
-            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body),
-            NSAttributedString.Key.foregroundColor: UIColor.label,
-          ]
-        )
-      },
-      set: { self.message = $0.string }
-    )
-  }
-  
-  private var onCommit: ((String) -> Void)?
-  
   public init(
-    message: Binding<String>,
-    isEditing: Binding<Bool>,
-    placeholder: String = "",
-    onCommit: @escaping (String) -> Void
+    store: Store<ChatInputState, ChatInputAction>,
+    placeholder: String = ""
   ) {
-    self._message = message
+    self.store = store
+    self.viewStore = ViewStore(store)
     self.placeholder = placeholder
-    self._isEditing = isEditing
     self._contentSizeThatFits = State(initialValue: .zero)
-    self.onCommit = onCommit
   }
   
   private var messageEditorHeight: CGFloat {
@@ -48,9 +29,16 @@ public struct BasicInputView: View {
   
   private var messageEditorView: some View {
     MultilineTextField(
-      attributedText: self.internalAttributedMessage,
+      attributedText: viewStore.binding(
+        get: \.internalAttributedMessage,
+        send: { ChatInputAction.messageChanged($0.string) }
+      ),
       placeholder: placeholder,
-      isEditing: self.$isEditing
+      isEditing: viewStore.binding(
+        get: \.isEditing,
+        send: ChatInputAction.isEditingChanged
+      ),
+      textAttributes: .chat
     )
       .onPreferenceChange(ContentSizeThatFitsKey.self) {
         self.contentSizeThatFits = $0
@@ -60,20 +48,29 @@ public struct BasicInputView: View {
   
   private var sendButton: some View {
     Button(action: {
-      self.onCommit?(message)
-      self.message.removeAll()
+      viewStore.send(.onCommit)
     }, label: {
-      Circle().fill(Color(.systemBlue))
-        .frame(width: 36, height: 36)
+      Circle().fill(
+        withAnimation {
+          viewStore.isSendButtonDisabled ? Color(.border) : .blue
+        }
+      )
+        .frame(width: 38, height: 38)
         .overlay(
-          Image(systemName: "paperplane.fill")
-            .resizable()
-            .foregroundColor(.white)
-            .offset(x: -1, y: 1)
-            .padding(8)
+          Group {
+            if viewStore.state.isSending {
+              ProgressView()
+            } else {
+              Image(systemName: "paperplane.fill")
+                .resizable()
+                .foregroundColor(.white)
+                .offset(x: -1, y: 1)
+                .padding(.grid(2))
+            }
+          }
         )
     })
-      .disabled(message.isEmpty)
+      .disabled(viewStore.isSendButtonDisabled)
   }
   
   public var body: some View {
@@ -91,11 +88,9 @@ public struct BasicInputView: View {
       )
     }
   }
-  
 }
 
-
-
+// MARK: Implementation Details
 public struct ContentSizeThatFitsKey: PreferenceKey {
   public static var defaultValue: CGSize = .zero
   
@@ -273,6 +268,26 @@ public struct TextAttributes {
   var isEditable: Bool?
   var isSelectable: Bool?
   var isScrollingEnabled: Bool?
+  
+  public static var chat: Self {
+    .init(
+      textContainerInset: .init(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0),
+      lineFragmentPadding: 8.0,
+      returnKeyType: .send,
+      textAlignment: nil,
+      linkTextAttributes: nil,
+      clearsOnInsertion: false,
+      contentType: nil,
+      autocorrectionType: .no,
+      autocapitalizationType: .some(.none),
+      lineLimit: nil,
+      lineBreakMode: .byWordWrapping,
+      isSecure: false,
+      isEditable: true,
+      isSelectable: true,
+      isScrollingEnabled: true
+    )
+  }
   
   public static var `default`: Self {
     .init(
