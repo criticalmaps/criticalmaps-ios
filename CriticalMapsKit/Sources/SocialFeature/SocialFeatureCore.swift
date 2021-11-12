@@ -1,7 +1,8 @@
+import ApiClient
 import ComposableArchitecture
 import ChatFeature
+import IDProvider
 import L10n
-import SwiftUI
 import TwitterFeedFeature
 import UIApplicationClient
 
@@ -10,18 +11,19 @@ import UIApplicationClient
 public struct SocialState: Equatable {
   public var chatFeautureState: ChatFeatureState
   public var twitterFeedState: TwitterFeedState
-  
-  var socialControl: SocialControl = .chat
+  public var socialControl: SocialControl
   
   public init(
+    socialControl: SocialControl = .chat,
     chatFeautureState: ChatFeatureState = .init(),
     twitterFeedState: TwitterFeedState = .init()
   ) {
+    self.socialControl = socialControl
     self.chatFeautureState = chatFeautureState
     self.twitterFeedState = twitterFeedState
   }
   
-  enum SocialControl: Int, Equatable {
+  public enum SocialControl: Int, Equatable {
     case chat, twitter
     
     var title: String {
@@ -45,15 +47,27 @@ public enum SocialAction: Equatable {
 
 // MARK: Environment
 public struct SocialEnvironment {
-  public let mainQueue: AnySchedulerOf<DispatchQueue>
-  public let uiApplicationClient: UIApplicationClient
-  
+  let mainQueue: AnySchedulerOf<DispatchQueue>
+  let uiApplicationClient: UIApplicationClient
+  var locationsAndChatDataService: LocationsAndChatDataService
+  var idProvider: IDProvider
+  var uuid: () -> UUID
+  var date: () -> Date
+
   public init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    uiApplicationClient: UIApplicationClient
+    uiApplicationClient: UIApplicationClient,
+    locationsAndChatDataService: LocationsAndChatDataService,
+    idProvider: IDProvider,
+    uuid: @escaping () -> UUID,
+    date: @escaping () -> Date
   ) {
     self.mainQueue = mainQueue
     self.uiApplicationClient = uiApplicationClient
+    self.locationsAndChatDataService = locationsAndChatDataService
+    self.idProvider = idProvider
+    self.uuid = uuid
+    self.date = date
   }
 }
 
@@ -64,7 +78,13 @@ Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
     state: \.chatFeautureState,
     action: /SocialAction.chat,
     environment: { global in
-      ChatEnvironment()
+      ChatEnvironment(
+        locationsAndChatDataService: global.locationsAndChatDataService,
+        mainQueue: global.mainQueue,
+        idProvider: global.idProvider,
+        uuid: global.uuid,
+        date: global.date
+      )
     }
   ),
   twitterFeedReducer.pullback(
@@ -88,83 +108,3 @@ Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
     }
   }
 )
-
-fileprivate typealias S = SocialState
-fileprivate typealias A = SocialAction
-
-// MARK:- View
-public struct SocialView: View {
-  @Environment(\.presentationMode) var presentationMode
-  
-  let store: Store<SocialState, SocialAction>
-  @ObservedObject var viewStore: ViewStore<SocialState, SocialAction>
-  
-  public init(store: Store<SocialState, SocialAction>) {
-    self.store = store
-    self.viewStore = ViewStore(store)
-  }
-  public var body: some View {
-    NavigationView {
-      Group {
-        switch viewStore.socialControl {
-        case .chat:
-          ChatView(
-            store: store.scope(
-              state: \.chatFeautureState,
-              action: SocialAction.chat
-            )
-          )
-        case .twitter:
-          TwitterFeedView(
-            store: store.scope(
-              state: \.twitterFeedState,
-              action: SocialAction.twitter
-            )
-          )
-        }
-      }
-      .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
-          Button(action: { presentationMode.wrappedValue.dismiss() }) {
-            Image(systemName: "xmark")
-              .font(Font.system(size: 22, weight: .medium))
-              .foregroundColor(Color(.textPrimary))
-          }
-        }
-        
-        ToolbarItem(placement: .principal) {
-          Picker(
-            "Social Segment",
-            selection: viewStore.binding(
-              get: \.socialControl.rawValue,
-              send: { SocialAction.setSocialSegment(.init($0)) }
-            )
-          ) {
-            Text(SocialState.SocialControl.chat.title).tag(0)
-            Text(SocialState.SocialControl.twitter.title).tag(1)
-          }
-          .pickerStyle(SegmentedPickerStyle())
-          .frame(maxWidth: 180)
-        }
-      }
-    }
-  }
-}
-
-// MARK: Preview
-struct SocialView_Previews: PreviewProvider {
-  static var previews: some View {
-    SocialView(store: Store<SocialState, SocialAction>(
-      initialState: SocialState(
-        chatFeautureState: .init(),
-        twitterFeedState: .init()
-      ),
-      reducer: socialReducer,
-      environment: SocialEnvironment(
-        mainQueue: .failing,
-        uiApplicationClient: .noop
-      )
-    )
-    )
-  }
-}
