@@ -67,6 +67,7 @@ let package = Package(
       dependencies: [
         "ApiClient",
         "Helpers",
+        "IDProvider",
         "L10n",
         "SharedModels",
         "Styleguide"
@@ -254,6 +255,7 @@ package.targets.append(contentsOf: [
     dependencies: [
       "ChatFeature",
       "TestHelper",
+      "SharedModels",
       .product(name: "CustomDump", package: "swift-custom-dump")
     ]
   ),
@@ -306,6 +308,14 @@ package.targets.append(contentsOf: [
         name: "ComposableArchitecture",
         package: "swift-composable-architecture"
       )
+    ]
+  ),
+  .testTarget(
+    name: "SocialFeatureTests",
+    dependencies: [
+      "SocialFeature",
+      "TestHelper",
+      .product(name: "CustomDump", package: "swift-custom-dump")
     ]
   ),
   .testTarget(
