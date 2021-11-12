@@ -1,4 +1,5 @@
 @testable import AppFeature
+import ApiClient
 import Combine
 import ComposableArchitecture
 import ComposableCoreLocation
@@ -79,7 +80,7 @@ class AppFeatureTests: XCTestCase {
       verticalAccuracy: 0
     )
     var service: LocationsAndChatDataService = .noop
-    service.getLocations = { _ in
+    service.getLocationsAndSendMessages = { _ in
       serviceSubject.eraseToAnyPublisher()
     }
     var nextRideService: NextRideService = .noop
@@ -147,8 +148,8 @@ class AppFeatureTests: XCTestCase {
         locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
       },
       .receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways)))),
-      .do { XCTAssertTrue(didRequestLocation) },
       .do {
+        XCTAssertTrue(didRequestLocation)
         locationManagerSubject.send(.didUpdateLocations([currentLocation]))
       },
       .receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
@@ -165,6 +166,10 @@ class AppFeatureTests: XCTestCase {
       },
       .receive(.fetchDataResponse(.success(serviceResponse))) {
         $0.locationsAndChatMessages = .success(serviceResponse)
+        $0.socialState = .init(
+          chatFeautureState: .init(chatMessages: serviceResponse.chatMessages),
+          twitterFeedState: .init()
+        )
         $0.mapFeatureState.riders = serviceResponse.riders
       },
       .receive(.nextRide(.nextRideResponse(.success([])))),
@@ -176,7 +181,7 @@ class AppFeatureTests: XCTestCase {
         self.testScheduler.advance()
       },
       .receive(.fetchDataResponse(.failure(testError))) {
-        $0.locationsAndChatMessages = .failure(.init())
+        $0.locationsAndChatMessages = .failure(testError)
       },
       .receive(.fetchDataResponse(.failure(testError))),
                
