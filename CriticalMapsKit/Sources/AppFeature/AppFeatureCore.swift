@@ -16,17 +16,15 @@ import TwitterFeedFeature
 import UserDefaultsClient
 import UIApplicationClient
 
-public typealias InfoBannerPresenter = InfobarController
-
 // MARK: State
 public struct AppState: Equatable {
   public init(
-    locationsAndChatMessages: Result<LocationAndChatMessages, LocationAndChatMessagesError>? = nil
+    locationsAndChatMessages: Result<LocationAndChatMessages, NSError>? = nil
   ) {
     self.locationsAndChatMessages = locationsAndChatMessages
   }
   
-  public var locationsAndChatMessages: Result<LocationAndChatMessages, LocationAndChatMessagesError>?
+  public var locationsAndChatMessages: Result<LocationAndChatMessages, NSError>?
   public var didResolveInitialLocation: Bool = false
   
   // Children states
@@ -35,8 +33,6 @@ public struct AppState: Equatable {
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
   var socialState = SocialState()
-//  var chatFeautureState = ChatFeatureState()
-//  var twitterFeedState = TwitterFeedState()
   var settingsState = SettingsState()
   var nextRideState = NextRideState()
   var requestTimer = RequestTimerState()
@@ -47,8 +43,6 @@ public struct AppState: Equatable {
   var isRulesViewPresented: Bool { route == .rules }
   var isSettingsViewPresented: Bool { route == .settings }
 }
-
-public struct LocationAndChatMessagesError: Error, Equatable {}
 
 // MARK: Actions
 public enum AppAction: Equatable {
@@ -61,17 +55,17 @@ public enum AppAction: Equatable {
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
   
-//  case chat(ChatFeatureAction)
   case map(MapFeatureAction)
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
   case social(SocialAction)
-//  case twitter(TwitterFeedAction)
 }
 
 // MARK: Environment
 public struct AppEnvironment {
+  let locationsAndChatDataService: LocationsAndChatDataService
+  let uuid: () -> UUID
   let date: () -> Date
   var userDefaultsClient: UserDefaultsClient
   var nextRideService: NextRideService
@@ -85,6 +79,7 @@ public struct AppEnvironment {
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   
   public init(
+    locationsAndChatDataService: LocationsAndChatDataService = .live(),
     service: LocationsAndChatDataService = .live(),
     idProvider: IDProvider = .live(),
     mainQueue: AnySchedulerOf<DispatchQueue> = .main,
@@ -92,11 +87,13 @@ public struct AppEnvironment {
     locationManager: ComposableCoreLocation.LocationManager = .live,
     nextRideService: NextRideService = .live(),
     userDefaultsClient: UserDefaultsClient = .live(),
+    uuid: @escaping () -> UUID = UUID.init,
     date: @escaping () -> Date = Date.init,
     uiApplicationClient: UIApplicationClient,
     fileClient: FileClient = .live,
     setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>
   ) {
+    self.locationsAndChatDataService = locationsAndChatDataService
     self.service = service
     self.idProvider = idProvider
     self.mainQueue = mainQueue
@@ -104,6 +101,7 @@ public struct AppEnvironment {
     self.locationManager = locationManager
     self.nextRideService = nextRideService
     self.userDefaultsClient = userDefaultsClient
+    self.uuid = uuid
     self.date = date
     self.uiApplicationClient = uiApplicationClient
     self.fileClient = fileClient
@@ -179,7 +177,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     environment: { global in
       SocialEnvironment(
         mainQueue: global.mainQueue,
-        uiApplicationClient: global.uiApplicationClient
+        uiApplicationClient: global.uiApplicationClient,
+        locationsAndChatDataService: global.locationsAndChatDataService,
+        idProvider: global.idProvider,
+        uuid: global.uuid,
+        date: global.date
       )
     }
   ),
@@ -206,7 +208,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           : Location(state.mapFeatureState.location)
       )
       return environment.service
-        .getLocations(postBody)
+        .getLocationsAndSendMessages(postBody)
         .receive(on: environment.mainQueue)
         .catchToEffect()
         .map(AppAction.fetchDataResponse)
@@ -221,7 +223,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .fetchDataResponse(.failure(error)):
       Logger.logger.info("FetchData failed: \(error)")
-      state.locationsAndChatMessages = .failure(.init())
+      state.locationsAndChatMessages = .failure(error)
       return .none
       
     case let .map(mapFeatureAction):
@@ -302,8 +304,19 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       default:
         return .none
       }
+    
+    case let .social(socialAction):
+      switch socialAction {
+      case let .chat(.chatInputResponse(.success(response))):
+        // set chat messages after chat message was sent
+        state.socialState.chatFeautureState.chatMessages = response.chatMessages
+        return .none
+        
+      default:
+        return .none
+      }
       
-    case .settings, .social:
+    case .settings:
       return .none
     }
   }
