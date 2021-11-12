@@ -1,14 +1,13 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 04.06.21.
-//
-
 import Foundation
 
 public struct SendChatMessage: Codable, Hashable {
-    public var text: String
-    public var timestamp: TimeInterval
-    public var identifier: String
+  public var text: String
+  public var timestamp: TimeInterval
+  public var identifier: String
+  
+  public init(text: String, timestamp: TimeInterval, identifier: String) {
+    self.text = text
+    self.timestamp = timestamp
+    self.identifier = identifier
+  }
 }
