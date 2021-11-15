@@ -1,4 +1,5 @@
 import ApiClient
+import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
@@ -10,41 +11,59 @@ import NextRideFeature
 import IDProvider
 import SettingsFeature
 import SharedModels
+import SocialFeature
 import TwitterFeedFeature
 import UserDefaultsClient
 import UIApplicationClient
 
-public typealias InfoBannerPresenter = InfobarController
-
 // MARK: State
 public struct AppState: Equatable {
   public init(
-    locationsAndChatMessages: Result<LocationAndChatMessages, LocationAndChatMessagesError>? = nil
+    locationsAndChatMessages: Result<LocationAndChatMessages, NSError>? = nil,
+    didResolveInitialLocation: Bool = false,
+    mapFeatureState: MapFeatureState = MapFeatureState(
+      riders: [],
+      userTrackingMode: UserTrackingState(userTrackingMode: .follow)
+    ),
+    socialState: SocialState = SocialState(),
+    settingsState: SettingsState = SettingsState(),
+    nextRideState: NextRideState = NextRideState(),
+    requestTimer: RequestTimerState = RequestTimerState(),
+    route: AppRoute? = nil,
+    chatMessageBadgeCount: UInt = 0
   ) {
     self.locationsAndChatMessages = locationsAndChatMessages
+    self.didResolveInitialLocation = didResolveInitialLocation
+    self.mapFeatureState = mapFeatureState
+    self.socialState = socialState
+    self.settingsState = settingsState
+    self.nextRideState = nextRideState
+    self.requestTimer = requestTimer
+    self.route = route
+    self.chatMessageBadgeCount = chatMessageBadgeCount
   }
   
-  public var locationsAndChatMessages: Result<LocationAndChatMessages, LocationAndChatMessagesError>?
+  public var locationsAndChatMessages: Result<LocationAndChatMessages, NSError>?
   public var didResolveInitialLocation: Bool = false
   
   // Children states
-  var mapFeatureState: MapFeatureState = MapFeatureState(
+  public var mapFeatureState: MapFeatureState = MapFeatureState(
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
-  var twitterFeedState = TwitterFeedState()
-  var settingsState = SettingsState()
-  var nextRideState = NextRideState()
-  var requestTimer = RequestTimerState()
+  public var socialState = SocialState()
+  public var settingsState = SettingsState()
+  public var nextRideState = NextRideState()
+  public var requestTimer = RequestTimerState()
     
   // Navigation
-  var route: AppRoute?
-  var isChatViewPresented: Bool { route == .chat }
-  var isRulesViewPresented: Bool { route == .rules }
-  var isSettingsViewPresented: Bool { route == .settings }
+  public var route: AppRoute?
+  public var isChatViewPresented: Bool { route == .chat }
+  public var isRulesViewPresented: Bool { route == .rules }
+  public var isSettingsViewPresented: Bool { route == .settings }
+  
+  public var chatMessageBadgeCount: UInt = 0
 }
-
-public struct LocationAndChatMessagesError: Error, Equatable {}
 
 // MARK: Actions
 public enum AppAction: Equatable {
@@ -61,11 +80,13 @@ public enum AppAction: Equatable {
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
-  case twitter(TwitterFeedAction)
+  case social(SocialAction)
 }
 
 // MARK: Environment
 public struct AppEnvironment {
+  let locationsAndChatDataService: LocationsAndChatDataService
+  let uuid: () -> UUID
   let date: () -> Date
   var userDefaultsClient: UserDefaultsClient
   var nextRideService: NextRideService
@@ -79,6 +100,7 @@ public struct AppEnvironment {
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   
   public init(
+    locationsAndChatDataService: LocationsAndChatDataService = .live(),
     service: LocationsAndChatDataService = .live(),
     idProvider: IDProvider = .live(),
     mainQueue: AnySchedulerOf<DispatchQueue> = .main,
@@ -86,11 +108,13 @@ public struct AppEnvironment {
     locationManager: ComposableCoreLocation.LocationManager = .live,
     nextRideService: NextRideService = .live(),
     userDefaultsClient: UserDefaultsClient = .live(),
+    uuid: @escaping () -> UUID = UUID.init,
     date: @escaping () -> Date = Date.init,
     uiApplicationClient: UIApplicationClient,
     fileClient: FileClient = .live,
     setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>
   ) {
+    self.locationsAndChatDataService = locationsAndChatDataService
     self.service = service
     self.idProvider = idProvider
     self.mainQueue = mainQueue
@@ -98,6 +122,7 @@ public struct AppEnvironment {
     self.locationManager = locationManager
     self.nextRideService = nextRideService
     self.userDefaultsClient = userDefaultsClient
+    self.uuid = uuid
     self.date = date
     self.uiApplicationClient = uiApplicationClient
     self.fileClient = fileClient
@@ -167,14 +192,20 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       mainQueue: global.mainQueue
     )}
   ),
-  twitterFeedReducer.pullback(
-    state: \.twitterFeedState,
-    action: /AppAction.twitter,
-    environment: { global in TwitterFeedEnvironment(
-      service: .live(),
-      mainQueue: global.mainQueue,
-      uiApplicationClient: global.uiApplicationClient
-    )}
+  socialReducer.pullback(
+    state: \.socialState,
+    action: /AppAction.social,
+    environment: { global in
+      SocialEnvironment(
+        mainQueue: global.mainQueue,
+        uiApplicationClient: global.uiApplicationClient,
+        locationsAndChatDataService: global.locationsAndChatDataService,
+        idProvider: global.idProvider,
+        uuid: global.uuid,
+        date: global.date,
+        userDefaultsClient: global.userDefaultsClient
+      )
+    }
   ),
   Reducer { state, action, environment in
     switch action {
@@ -199,7 +230,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           : Location(state.mapFeatureState.location)
       )
       return environment.service
-        .getLocations(postBody)
+        .getLocationsAndSendMessages(postBody)
         .receive(on: environment.mainQueue)
         .catchToEffect()
         .map(AppAction.fetchDataResponse)
@@ -207,12 +238,27 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .fetchDataResponse(.success(response)):
       state.locationsAndChatMessages = .success(response)
+      
+      state.socialState.chatFeautureState.chatMessages = response.chatMessages
       state.mapFeatureState.riders = response.riders
+      
+      let cachedMessages = state.socialState.chatFeautureState.chatMessages
+        .values
+        .sorted(by: \.timestamp)
+      
+      let unreadMessagesCount = UInt(
+        cachedMessages
+          .lazy
+          .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
+          .count
+      )
+      state.chatMessageBadgeCount = unreadMessagesCount
+      
       return .none
       
     case let .fetchDataResponse(.failure(error)):
       Logger.logger.info("FetchData failed: \(error)")
-      state.locationsAndChatMessages = .failure(.init())
+      state.locationsAndChatMessages = .failure(error)
       return .none
       
     case let .map(mapFeatureAction):
@@ -293,11 +339,18 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       default:
         return .none
       }
+    
+    case let .social(socialAction):
+      switch socialAction {
+      case .chat(.onAppear):
+        state.chatMessageBadgeCount = 0
+        return .none
       
-    case let .settings(settingsAction):
-      return .none
+      default:
+        return .none
+      }
       
-    case .twitter:
+    case .settings:
       return .none
     }
   }
@@ -330,28 +383,5 @@ extension SharedModels.Coordinate {
       latitude: location.coordinate.latitude,
       longitude: location.coordinate.longitude
     )
-  }
-}
-
-public enum AppRoute: Equatable {
-  case chat
-  case rules
-  case settings
-  
-  public enum Tag: Int {
-    case chat
-    case rules
-    case settings
-  }
-
-  var tag: Tag {
-    switch self {
-    case .chat:
-      return .chat
-    case .rules:
-      return .rules
-    case .settings:
-      return .settings
-    }
   }
 }

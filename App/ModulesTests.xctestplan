@@ -68,6 +68,20 @@
         "identifier" : "StyleguideTests",
         "name" : "StyleguideTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "ChatFeatureTests",
+        "name" : "ChatFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "SocialFeatureTests",
+        "name" : "SocialFeatureTests"
+      }
     }
   ],
   "version" : 1

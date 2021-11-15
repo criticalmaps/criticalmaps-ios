@@ -1,6 +1,13 @@
 import Foundation
 
 public extension DateFormatter {
+  static func chatMessageViewFormatter(_ calendar: Calendar = .current) -> DateFormatter {
+    let formatter = DateFormatter.localeShortTimeFormatter
+    formatter.calendar = calendar
+    formatter.timeZone = calendar.timeZone
+    return formatter
+  }
+  
   /// Short time formatter, without date.
   static let localeShortTimeFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()

@@ -11,7 +11,7 @@ public struct ChatMessage: Codable, Hashable {
     self.timestamp = timestamp
   }
     
-  var decodedMessage: String? {
+  public var decodedMessage: String? {
     message
       .replacingOccurrences(of: "+", with: " ")
       .removingPercentEncoding

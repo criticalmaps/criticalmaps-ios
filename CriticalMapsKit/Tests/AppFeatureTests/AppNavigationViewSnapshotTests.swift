@@ -59,4 +59,59 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     
     assertScreenSnapshot(view, sloppy: true)
   }
+  
+  func test_appNavigationView_WithBadge_dark() {
+    var appState: AppState = .init(
+      locationsAndChatMessages: nil
+    )
+    appState.chatMessageBadgeCount = 13
+    
+    let view = AppNavigationView(
+      store: .init(
+        initialState: appState,
+        reducer: appReducer,
+        environment: AppEnvironment(
+          service: .noop,
+          idProvider: .noop,
+          mainQueue: .failing,
+          locationManager: .unimplemented(),
+          nextRideService: .noop,
+          userDefaultsClient: .noop,
+          date: Date.init,
+          uiApplicationClient: .noop,
+          setUserInterfaceStyle: { _ in .none }
+        )
+      )
+    )
+    .environment(\.colorScheme, .dark)
+    
+    assertScreenSnapshot(view, sloppy: true)
+  }
+  
+  func test_appNavigationView_WithBadge() {
+    var appState: AppState = .init(
+      locationsAndChatMessages: nil
+    )
+    appState.chatMessageBadgeCount = 13
+    
+    let view = AppNavigationView(
+      store: .init(
+        initialState: appState,
+        reducer: appReducer,
+        environment: AppEnvironment(
+          service: .noop,
+          idProvider: .noop,
+          mainQueue: .failing,
+          locationManager: .unimplemented(),
+          nextRideService: .noop,
+          userDefaultsClient: .noop,
+          date: Date.init,
+          uiApplicationClient: .noop,
+          setUserInterfaceStyle: { _ in .none }
+        )
+      )
+    )
+    
+    assertScreenSnapshot(view, sloppy: true)
+  }
 }

@@ -3,6 +3,7 @@ import GuideFeature
 import L10n
 import MapFeature
 import SettingsFeature
+import SocialFeature
 import Styleguide
 import SwiftUI
 import TwitterFeedFeature
@@ -47,15 +48,41 @@ public struct AppNavigationView: View {
     .modifier(ShadowModifier())
   }
   
+  // MARK: Chat
+  var badge: some View {
+    ZStack {
+      Circle()
+        .foregroundColor(.red)
+      
+      Text(viewStore.chatMessageBadgeCount == 0
+           ? ""
+           : String(viewStore.chatMessageBadgeCount)
+        )
+        .animation(nil)
+        .foregroundColor(.white)
+        .font(Font.system(size: 12))
+    }
+    .frame(width: 20, height: 20)
+    .offset(x: 14, y: -10)
+    .scaleEffect(viewStore.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
+    .opacity(viewStore.chatMessageBadgeCount == 0 ? 0 : 1)
+    .animation(Animation.easeIn(duration: 0.1), value:  viewStore.chatMessageBadgeCount)
+  }
+  
   var chatButton: some View {
     Button(
       action: {
         viewStore.send(.setNavigation(tag: .chat))
       },
       label: {
-        Image(systemName: "bubble.left")
-          .iconModifier()
-          .accessibility(hidden: true)
+        ZStack {
+          Image(systemName: "bubble.left")
+            .iconModifier()
+            .accessibility(hidden: true)
+
+          badge
+        }
+        
       })
       .background(
         EmptyView()
@@ -66,16 +93,11 @@ public struct AppNavigationView: View {
             ),
             onDismiss: nil,
             content: {
-              TwitterFeedView(
+              SocialView(
                 store: store.scope(
-                  state: \.twitterFeedState,
-                  action: AppAction.twitter
+                  state: \.socialState,
+                  action: AppAction.social
                 )
-              )
-              .navigationStyle(
-                title: Text(L10n.Chat.title),
-                navPresentationStyle: .modal,
-                onDismiss: { viewStore.send(.dismissSheetView) }
               )
             }
           )

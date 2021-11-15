@@ -25,4 +25,6 @@ public enum Images {
   public static let ghost = UIImage(named: "ghost", in: .module, with: nil)!
   public static let twitterEmpty = UIImage(named: "twitter.empty", in: .module, with: nil)!
   public static let errorPlaceholder = UIImage(named: "error", in: .module, with: nil)!
+  // MARK: CHAT
+  public static let chatEmptyPlaceholder = UIImage(named: "chat.empty", in: .module, with: nil)!
 }

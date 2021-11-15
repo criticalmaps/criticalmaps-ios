@@ -88,15 +88,6 @@ public extension Tweet {
     }
   }
 }
-  
-  
-//static func hoursAndMinutesDateString(from message: ChatMessage, calendar: Calendar = .current) -> String {
-//  let date = Date(timeIntervalSince1970: message.timestamp)
-//  let formatter = DateFormatter.localeShortTimeFormatter
-//  formatter.calendar = calendar
-//  formatter.timeZone = calendar.timeZone
-//  return formatter.string(from: date)
-//}
 
 extension DateComponents {
   var dateComponentFromBiggestComponent: DateComponents {

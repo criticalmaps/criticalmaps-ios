@@ -9,6 +9,8 @@ public enum L10n {
   public enum Chat {
     /// Nobody's chatting at the moment...\nwhy don't you start?
     public static let noChatActivity = L10n.tr("Localizable", "chat.noChatActivity")
+    /// So quite here
+    public static let emptyMessageTitle = L10n.tr("Localizable", "chat.emptyMessageTitle")
     /// Write Message
     public static let placeholder = L10n.tr("Localizable", "chat.placeholder")
     /// Send
