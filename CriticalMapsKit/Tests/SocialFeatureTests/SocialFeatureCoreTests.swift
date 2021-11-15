@@ -13,7 +13,8 @@ class SocialFeatureCoreTests: XCTestCase {
         locationsAndChatDataService: .noop,
         idProvider: .noop,
         uuid: { UUID(uuidString: "00000")! },
-        date: { Date(timeIntervalSinceReferenceDate: 0) }
+        date: { Date(timeIntervalSinceReferenceDate: 0) },
+        userDefaultsClient: .noop
       )
     )
     

@@ -2,6 +2,7 @@ import ChatFeature
 import Combine
 import ComposableArchitecture
 import SharedModels
+import UserDefaultsClient
 import XCTest
 
 class ChatFeatureCore: XCTestCase {
@@ -23,7 +24,8 @@ class ChatFeatureCore: XCTestCase {
         mainQueue: .immediate,
         idProvider: .noop,
         uuid: uuid,
-        date: date
+        date: date,
+        userDefaultsClient: .noop
       )
     )
     
@@ -60,7 +62,8 @@ class ChatFeatureCore: XCTestCase {
         mainQueue: .immediate,
         idProvider: .noop,
         uuid: uuid,
-        date: date
+        date: date,
+        userDefaultsClient: .noop
       )
     )
     
@@ -78,6 +81,41 @@ class ChatFeatureCore: XCTestCase {
       },
       .receive(.chatInputResponse(.failure(error))) { state in
         state.chatInputState.isSending = false
+      }
+    )
+  }
+  
+  func test_didAppear_ShouldSet_appearanceTimeinterval() {
+    let uuid: () -> UUID = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
+    let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
+    
+    var didWriteChatAppearanceTimeinterval = false
+    var chatAppearanceTimeinterval: TimeInterval = 0
+    
+    var userDefaultsClient: UserDefaultsClient = .noop
+    userDefaultsClient.setDouble = { interval, _ in
+      didWriteChatAppearanceTimeinterval = true
+      chatAppearanceTimeinterval = interval
+      return .none
+    }
+    
+    let testStore = TestStore(
+      initialState: ChatFeatureState(),
+      reducer: chatReducer,
+      environment: ChatEnvironment(
+        locationsAndChatDataService: .noop,
+        mainQueue: .immediate,
+        idProvider: .noop,
+        uuid: uuid,
+        date: date,
+        userDefaultsClient: userDefaultsClient
+      )
+    )
+  
+    testStore.assert(
+      .send(.onAppear) { _ in
+        XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
+        XCTAssertTrue(didWriteChatAppearanceTimeinterval)
       }
     )
   }
