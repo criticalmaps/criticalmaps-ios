@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import L10n
 import Styleguide
 import SwiftUI
 import UIKit
@@ -55,6 +56,7 @@ public struct BasicInputView: View {
           viewStore.isSendButtonDisabled ? Color(.border) : .blue
         }
       )
+        .accessibilityLabel(Text(L10n.Chat.send))
         .frame(width: 38, height: 38)
         .overlay(
           Group {

@@ -260,6 +260,9 @@ package.targets.append(contentsOf: [
       "SharedModels",
       "UserDefaultsClient",
       .product(name: "CustomDump", package: "swift-custom-dump")
+    ],
+    exclude: [
+      "__Snapshots__"
     ]
   ),
   .testTarget(
