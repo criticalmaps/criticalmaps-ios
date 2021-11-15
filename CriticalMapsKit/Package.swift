@@ -258,6 +258,7 @@ package.targets.append(contentsOf: [
       "ChatFeature",
       "TestHelper",
       "SharedModels",
+      "UserDefaultsClient",
       .product(name: "CustomDump", package: "swift-custom-dump")
     ]
   ),
