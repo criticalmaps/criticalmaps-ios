@@ -7,7 +7,9 @@
 
 import ComposableArchitecture
 
-public struct RequestTimerState: Equatable {}
+public struct RequestTimerState: Equatable {
+  public init() {}
+}
 
 public enum RequestTimerAction: Equatable {
   case timerTicked

@@ -19,29 +19,48 @@ import UIApplicationClient
 // MARK: State
 public struct AppState: Equatable {
   public init(
-    locationsAndChatMessages: Result<LocationAndChatMessages, NSError>? = nil
+    locationsAndChatMessages: Result<LocationAndChatMessages, NSError>? = nil,
+    didResolveInitialLocation: Bool = false,
+    mapFeatureState: MapFeatureState = MapFeatureState(
+      riders: [],
+      userTrackingMode: UserTrackingState(userTrackingMode: .follow)
+    ),
+    socialState: SocialState = SocialState(),
+    settingsState: SettingsState = SettingsState(),
+    nextRideState: NextRideState = NextRideState(),
+    requestTimer: RequestTimerState = RequestTimerState(),
+    route: AppRoute? = nil,
+    chatMessageBadgeCount: UInt = 0
   ) {
     self.locationsAndChatMessages = locationsAndChatMessages
+    self.didResolveInitialLocation = didResolveInitialLocation
+    self.mapFeatureState = mapFeatureState
+    self.socialState = socialState
+    self.settingsState = settingsState
+    self.nextRideState = nextRideState
+    self.requestTimer = requestTimer
+    self.route = route
+    self.chatMessageBadgeCount = chatMessageBadgeCount
   }
   
   public var locationsAndChatMessages: Result<LocationAndChatMessages, NSError>?
   public var didResolveInitialLocation: Bool = false
   
   // Children states
-  var mapFeatureState: MapFeatureState = MapFeatureState(
+  public var mapFeatureState: MapFeatureState = MapFeatureState(
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
-  var socialState = SocialState()
-  var settingsState = SettingsState()
-  var nextRideState = NextRideState()
-  var requestTimer = RequestTimerState()
+  public var socialState = SocialState()
+  public var settingsState = SettingsState()
+  public var nextRideState = NextRideState()
+  public var requestTimer = RequestTimerState()
     
   // Navigation
-  var route: AppRoute?
-  var isChatViewPresented: Bool { route == .chat }
-  var isRulesViewPresented: Bool { route == .rules }
-  var isSettingsViewPresented: Bool { route == .settings }
+  public var route: AppRoute?
+  public var isChatViewPresented: Bool { route == .chat }
+  public var isRulesViewPresented: Bool { route == .rules }
+  public var isSettingsViewPresented: Bool { route == .settings }
   
   public var chatMessageBadgeCount: UInt = 0
 }
@@ -233,9 +252,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
           .count
       )
-      
-      let badgeDiff = unreadMessagesCount
-      state.chatMessageBadgeCount = badgeDiff
+      state.chatMessageBadgeCount = unreadMessagesCount
       
       return .none
       
@@ -367,28 +384,5 @@ extension SharedModels.Coordinate {
       latitude: location.coordinate.latitude,
       longitude: location.coordinate.longitude
     )
-  }
-}
-
-public enum AppRoute: Equatable {
-  case chat
-  case rules
-  case settings
-  
-  public enum Tag: Int {
-    case chat
-    case rules
-    case settings
-  }
-
-  var tag: Tag {
-    switch self {
-    case .chat:
-      return .chat
-    case .rules:
-      return .rules
-    case .settings:
-      return .settings
-    }
   }
 }

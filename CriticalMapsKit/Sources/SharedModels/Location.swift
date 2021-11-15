@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Rider location with a coordinate and timestamp
 public struct Location: Equatable, Hashable {
   public let coordinate: Coordinate
   public var timestamp: Double
