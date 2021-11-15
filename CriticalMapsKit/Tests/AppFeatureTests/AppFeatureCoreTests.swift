@@ -231,6 +231,25 @@ class AppFeatureTests: XCTestCase {
     )
   }
   
+  func test_resetUnreadMessagesCount_whenAction_chat_onAppear() {
+    var appState = AppState()
+    appState.chatMessageBadgeCount = 13
+    
+    let store = TestStore(
+      initialState: appState,
+      reducer: appReducer,
+      environment: AppEnvironment(
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none })
+    )
+    
+    store.assert(
+      .send(.social(.chat(.onAppear))) { state in
+        state.chatMessageBadgeCount = 0
+      }
+    )
+  }
+  
   func test_unreadChatMessagesCount() {
     let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
     

@@ -275,11 +275,11 @@ public struct TextAttributes {
     .init(
       textContainerInset: .init(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0),
       lineFragmentPadding: 8.0,
-      returnKeyType: .send,
+      returnKeyType: .none,
       textAlignment: nil,
       linkTextAttributes: nil,
       clearsOnInsertion: false,
-      contentType: nil,
+      contentType: .none,
       autocorrectionType: .no,
       autocapitalizationType: .some(.none),
       lineLimit: nil,

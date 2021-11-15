@@ -346,7 +346,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         // set chat messages after chat message was sent
         state.socialState.chatFeautureState.chatMessages = response.chatMessages
         return .none
-        
+      
+      case .chat(.onAppear):
+        state.chatMessageBadgeCount = 0
+        return .none
+      
       default:
         return .none
       }
