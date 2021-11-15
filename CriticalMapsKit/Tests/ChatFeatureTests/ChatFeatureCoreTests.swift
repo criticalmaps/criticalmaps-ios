@@ -43,6 +43,7 @@ class ChatFeatureCore: XCTestCase {
       .receive(.chatInputResponse(.success(mockResponse))) { state in
         state.chatInputState.isSending = false
         state.chatInputState.message = ""
+        state.chatMessages = mockResponse.chatMessages
       }
     )
   }

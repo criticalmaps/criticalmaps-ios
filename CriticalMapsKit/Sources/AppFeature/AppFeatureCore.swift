@@ -342,11 +342,6 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     
     case let .social(socialAction):
       switch socialAction {
-      case let .chat(.chatInputResponse(.success(response))):
-        // set chat messages after chat message was sent
-        state.socialState.chatFeautureState.chatMessages = response.chatMessages
-        return .none
-      
       case .chat(.onAppear):
         state.chatMessageBadgeCount = 0
         return .none

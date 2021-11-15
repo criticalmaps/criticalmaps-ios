@@ -76,6 +76,8 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
     case let .chatInputResponse(.success(response)):
       state.chatInputState.isSending = false
       state.chatInputState.message.removeAll()
+      
+      state.chatMessages = response.chatMessages
       return .none
       
     case let .chatInputResponse(.failure(error)):
