@@ -276,6 +276,15 @@ class AppFeatureTests: XCTestCase {
         "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17)
       ]
     )
+    let response4: LocationAndChatMessages = .init(
+      locations: [:],
+      chatMessages: [
+        "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
+        "NEWID3": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 16),
+        "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17),
+        "NEWID5": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 18)
+      ]
+    )
     
     store.assert(
       .environment { env in
@@ -308,6 +317,20 @@ class AppFeatureTests: XCTestCase {
         state.mapFeatureState.riders = response3.riders
         
         state.chatMessageBadgeCount = 3
+      },
+      .send(.setNavigation(tag: .chat)) { state in
+        state.route = .chat
+        XCTAssertTrue(state.isChatViewPresented)
+      },
+      .send(.social(.chat(.onAppear))) { state in
+        state.chatMessageBadgeCount = 0
+      },
+      .send(.fetchDataResponse(.success(response4))) { state in
+        state.locationsAndChatMessages = .success(response4)
+        state.socialState.chatFeautureState.chatMessages = response4.chatMessages
+        state.mapFeatureState.riders = response4.riders
+        
+        state.chatMessageBadgeCount = 0
       }
     )
   }

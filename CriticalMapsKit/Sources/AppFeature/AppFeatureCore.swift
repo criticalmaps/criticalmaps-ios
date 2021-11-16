@@ -242,17 +242,19 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.socialState.chatFeautureState.chatMessages = response.chatMessages
       state.mapFeatureState.riders = response.riders
       
-      let cachedMessages = state.socialState.chatFeautureState.chatMessages
-        .values
-        .sorted(by: \.timestamp)
-      
-      let unreadMessagesCount = UInt(
-        cachedMessages
-          .lazy
-          .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
-          .count
-      )
-      state.chatMessageBadgeCount = unreadMessagesCount
+      if !state.isChatViewPresented {
+        let cachedMessages = state.socialState.chatFeautureState.chatMessages
+          .values
+          .sorted(by: \.timestamp)
+        
+        let unreadMessagesCount = UInt(
+          cachedMessages
+            .lazy
+            .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
+            .count
+        )
+        state.chatMessageBadgeCount = unreadMessagesCount        
+      }
       
       return .none
       

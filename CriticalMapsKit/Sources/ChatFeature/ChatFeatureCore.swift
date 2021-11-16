@@ -1,10 +1,10 @@
+import ApiClient
 import CryptoKit
 import ComposableArchitecture
 import Foundation
 import IDProvider
 import L10n
 import SharedModels
-import ApiClient
 import UserDefaultsClient
 
 // MARK: State
@@ -114,8 +114,10 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
   }
 )
 
-extension String {
+private extension String {
   func md5() -> String {
-    return Insecure.MD5.hash(data: self.data(using: .utf8)!).map { String(format: "%02hhx", $0) }.joined()
+    Insecure.MD5.hash(data: self.data(using: .utf8)!)
+      .map { String(format: "%02hhx", $0) }
+      .joined()
   }
 }

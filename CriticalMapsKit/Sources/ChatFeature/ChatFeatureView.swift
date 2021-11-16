@@ -5,10 +5,10 @@ import Styleguide
 import SwiftUI
 
 public struct ChatView: View {
-  struct ChatViewState: Equatable { // TODO: Tests
+  public struct ChatViewState: Equatable {
     public var identifiedChatMessages: [IdentifiedChatMessage]
     
-    init(_ state: ChatFeatureState) {
+    public init(_ state: ChatFeatureState) {
       identifiedChatMessages = state.chatMessages
         .lazy
         .map { (key: String, value: ChatMessage) in
@@ -29,11 +29,13 @@ public struct ChatView: View {
     self.store = store
     self.viewStore = ViewStore(store.scope(state: ChatViewState.init))
   }
+  
   public var body: some View {
     VStack {
       ZStack(alignment: .bottom) {
         Color(.backgroundPrimary)
           .ignoresSafeArea()
+          .accessibilityHidden(true)
         
         if viewStore.identifiedChatMessages.isEmpty {
           emptyState
@@ -94,18 +96,19 @@ public struct ChatView: View {
 // MARK: Preview
 struct ChatView_Previews: PreviewProvider {
   static var previews: some View {
-    ChatView(store: Store<ChatFeatureState, ChatFeatureAction>(
-      initialState: ChatFeatureState(),
-      reducer: chatReducer,
-      environment: ChatEnvironment(
-        locationsAndChatDataService: .noop,
-        mainQueue: .failing,
-        idProvider: .noop,
-        uuid: UUID.init,
-        date: Date.init,
-        userDefaultsClient: .noop
+    ChatView(
+      store: Store<ChatFeatureState, ChatFeatureAction>(
+        initialState: ChatFeatureState(),
+        reducer: chatReducer,
+        environment: ChatEnvironment(
+          locationsAndChatDataService: .noop,
+          mainQueue: .failing,
+          idProvider: .noop,
+          uuid: UUID.init,
+          date: Date.init,
+          userDefaultsClient: .noop
+        )
       )
-    )
     )
   }
 }

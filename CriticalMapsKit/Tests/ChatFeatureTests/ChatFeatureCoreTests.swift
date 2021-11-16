@@ -120,6 +120,21 @@ class ChatFeatureCore: XCTestCase {
       }
     )
   }
+  
+  func test_chatViewState() {
+    let state = ChatFeatureState(
+      chatMessages: mockResponse.chatMessages,
+      chatInputState: .init()
+    )
+    let sut = ChatView.ChatViewState(state)
+    
+    let sortedMessages = sut.identifiedChatMessages
+    
+    XCTAssertEqual(
+      sortedMessages.map(\.id),
+      ["ID0", "ID3", "ID2", "ID1"]
+    )
+  }
 }
 
 
@@ -128,6 +143,9 @@ let mockResponse = LocationAndChatMessages(
     "1": Location.init(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)
   ],
   chatMessages: [
-    "ID": ChatMessage(message: "Hello World!", timestamp: 1234.0)
+    "ID0": ChatMessage(message: "Hello World!", timestamp: 1889.0),
+    "ID1": ChatMessage(message: "Hello World!", timestamp: 1234.0),
+    "ID2": ChatMessage(message: "Hello World!", timestamp: 1235.0),
+    "ID3": ChatMessage(message: "Hello World!", timestamp: 1236.0)
   ]
 )
