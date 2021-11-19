@@ -3,7 +3,6 @@ import Foundation
 import L10n
 import MapKit
 import SharedModels
-import InfoBar
 
 public struct MapFeatureState: Equatable {
   public var alert: AlertState<MapFeatureAction>?
@@ -52,16 +51,13 @@ public enum MapFeatureAction: Equatable {
 public struct MapFeatureEnvironment {
   public init(
     locationManager: LocationManager,
-    infobannerController: InfobarController,
     mainQueue: AnySchedulerOf<DispatchQueue>
   ) {
     self.locationManager = locationManager
-    self.infobannerController = infobannerController
     self.mainQueue = mainQueue
   }
   
   let locationManager: LocationManager
-  let infobannerController: InfobarController
   let mainQueue: AnySchedulerOf<DispatchQueue>
 }
 

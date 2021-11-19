@@ -50,7 +50,6 @@ let package = Package(
         "GuideFeature",
         "Logger",
         "L10n",
-        "InfoBar",
         "IDProvider",
         "MapFeature",
         "NextRideFeature",
@@ -111,14 +110,6 @@ let package = Package(
       dependencies: ["Helpers"]
     ),
     .target(
-      name: "InfoBar",
-      dependencies: [
-        "Styleguide",
-        "Helpers",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-      ]
-    ),
-    .target(
       name: "L10n",
       dependencies: [],
       resources: [.process("Resources")]
@@ -133,7 +124,6 @@ let package = Package(
       name: "MapFeature",
       dependencies: [
         "CriticalMapsKit",
-        "InfoBar",
         "L10n",
         "Logger",
         "NextRideFeature",
@@ -275,20 +265,6 @@ package.targets.append(contentsOf: [
   .testTarget(
     name: "IDProviderTests",
     dependencies: ["IDProvider"]
-  ),
-  .testTarget(
-    name: "InfoBarTests",
-    dependencies: [
-      "InfoBar",
-      "TestHelper",
-      .product(
-        name: "ComposableArchitecture",
-        package: "swift-composable-architecture"
-      )
-    ],
-    exclude: [
-      "__Snapshots__"
-    ]
   ),
   .testTarget(
     name: "MapFeatureTests",

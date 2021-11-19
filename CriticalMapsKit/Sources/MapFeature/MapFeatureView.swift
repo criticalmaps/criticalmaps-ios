@@ -51,7 +51,6 @@ struct MapFeatureView_Previews: PreviewProvider {
         reducer: mapFeatureReducer,
         environment: MapFeatureEnvironment(
           locationManager: .live,
-          infobannerController: .mock(),
           mainQueue: .failing
         )
       )
