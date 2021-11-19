@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 17.06.21.
-//
-
 import ComposableArchitecture
 import Helpers
 import SharedModels

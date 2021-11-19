@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 15.06.21.
-//
-
 import Foundation
 import Logger
 import MapKit

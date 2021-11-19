@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 26.06.21.
-//
-
 import CoreLocation
 import Foundation
 import MapKit

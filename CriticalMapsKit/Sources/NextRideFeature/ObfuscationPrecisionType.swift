@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 07.06.21.
-//
-
 import Foundation
 
 /// Type that represents the decimal precision distance for the coordinate obfuscation

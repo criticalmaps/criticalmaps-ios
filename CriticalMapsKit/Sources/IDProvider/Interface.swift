@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 20.06.21.
-//
-
 import CryptoKit
 import Foundation
 import Helpers

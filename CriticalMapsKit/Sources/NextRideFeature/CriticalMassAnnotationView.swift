@@ -1,6 +1,3 @@
-//
-//  CriticalMaps
-
 import MapKit
 import Styleguide
 import L10n

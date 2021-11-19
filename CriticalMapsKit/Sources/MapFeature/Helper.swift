@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 22.06.21.
-//
-
 import MapKit
 
 extension MKAnnotationView {

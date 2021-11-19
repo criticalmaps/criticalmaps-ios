@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 27.06.21.
-//
-
 import ComposableArchitecture
 
 public struct RequestTimerState: Equatable {

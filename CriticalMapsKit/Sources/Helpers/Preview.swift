@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Malte on 22.07.21.
-//
-
 import SwiftUI
 
 public struct Preview<Content: View>: View {

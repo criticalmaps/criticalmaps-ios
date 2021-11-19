@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 11.06.21.
-//
-
 import Combine
 import ComposableArchitecture
 import CoreLocation

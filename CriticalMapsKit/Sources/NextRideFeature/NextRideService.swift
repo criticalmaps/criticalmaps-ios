@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 08.06.21.
-//
-
 import ApiClient
 import Combine
 import CoreLocation
