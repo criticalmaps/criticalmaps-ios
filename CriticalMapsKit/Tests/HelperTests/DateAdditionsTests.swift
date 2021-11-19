@@ -1,4 +1,4 @@
-@testable import Helpers
+import Helpers
 import XCTest
 
 class DateAdditionsTests: XCTestCase {

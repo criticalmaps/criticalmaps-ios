@@ -133,7 +133,6 @@ class AppFeatureTests: XCTestCase {
       environment: environment
     )
     
-    let nextRideCoordinate: Coordinate = .make()
     let serviceResponse: LocationAndChatMessages = .make()
     
     store.assert(

@@ -23,13 +23,6 @@
     {
       "target" : {
         "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "CriticalMapsKitTests",
-        "name" : "CriticalMapsKitTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "IDProviderTests",
         "name" : "IDProviderTests"
       }
@@ -81,6 +74,13 @@
         "containerPath" : "container:..\/CriticalMapsKit",
         "identifier" : "SocialFeatureTests",
         "name" : "SocialFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/CriticalMapsKit",
+        "identifier" : "HelperTests",
+        "name" : "HelperTests"
       }
     }
   ],

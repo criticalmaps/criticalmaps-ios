@@ -1,7 +1,7 @@
 //
 // Created for CriticalMaps in 2020
 
-@testable import Helpers
+import Helpers
 import XCTest
 
 class StringAdditionsTests: XCTestCase {

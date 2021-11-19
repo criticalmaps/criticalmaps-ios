@@ -10,7 +10,6 @@ let package = Package(
   ],
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
-    .library(name: "CriticalMapsKit", targets: ["CriticalMapsKit"]),
     .library(name: "MapFeature", targets: ["MapFeature"]),
     .library(name: "AppFeature", targets: ["AppFeature"])
   ],
@@ -45,7 +44,8 @@ let package = Package(
     .target(
       name: "AppFeature",
       dependencies: [
-        "CriticalMapsKit",
+        "ApiClient",
+        "Helpers",
         "FileClient",
         "GuideFeature",
         "Logger",
@@ -71,15 +71,6 @@ let package = Package(
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient"
-      ]
-    ),
-    .target(
-      name: "CriticalMapsKit",
-      dependencies: [
-        "ApiClient",
-        "Helpers",
-        "SharedModels",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
@@ -123,10 +114,12 @@ let package = Package(
     .target(
       name: "MapFeature",
       dependencies: [
-        "CriticalMapsKit",
+        "ApiClient",
+        "Helpers",
         "L10n",
         "Logger",
         "NextRideFeature",
+        "SharedModels",
         "Styleguide",
         .product(name: "ComposableCoreLocation", package: "composable-core-location"),
         .product(
@@ -138,7 +131,8 @@ let package = Package(
     .target(
       name: "NextRideFeature",
       dependencies: [
-        "CriticalMapsKit",
+        "ApiClient",
+        "Helpers",
         "L10n",
         "Logger",
         "SharedModels",
@@ -256,9 +250,8 @@ package.targets.append(contentsOf: [
     ]
   ),
   .testTarget(
-    name: "CriticalMapsKitTests",
+    name: "HelperTests",
     dependencies: [
-      "CriticalMapsKit",
       "Helpers",
       "UserDefaultsClient"
     ]),
