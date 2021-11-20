@@ -49,25 +49,6 @@ We ship CriticalMaps on the App Store for free and provide its entire source cod
 
 However, **please do not ship this app** under your own account. Paid or free.
 
-## Credits
-
-### Coding
-
-- [stephanlindauer](https://github.com/stephanlindauer)
-- [headione](https://github.com/headione)
-- [jkandzi](https://github.com/jkandzi)
-- [lennet](https://github.com/lennet)
-- [mltbnz](https://github.com/mltbnz)
-
-### UX
-
-- [zutrinken](https://github.com/zutrinken)
-
-### Translations
-
-- [matteogamba](https://github.com/matteogamba)
-- [AlbanSagouis](https://github.com/AlbanSagouis)
-
 ## Copyright & License
 
 Copyright (c) 2014-2019 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/master/LICENSE).
