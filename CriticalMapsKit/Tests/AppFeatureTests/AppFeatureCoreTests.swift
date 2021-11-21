@@ -169,7 +169,7 @@ class AppFeatureTests: XCTestCase {
           chatFeautureState: .init(chatMessages: serviceResponse.chatMessages),
           twitterFeedState: .init()
         )
-        $0.mapFeatureState.riders = serviceResponse.riders
+        $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
         $0.chatMessageBadgeCount = 6
       },
       .receive(.nextRide(.nextRideResponse(.success([])))),
@@ -294,7 +294,7 @@ class AppFeatureTests: XCTestCase {
       .send(.fetchDataResponse(.success(response))) { state in
         state.locationsAndChatMessages = .success(response)
         state.socialState.chatFeautureState.chatMessages = response.chatMessages
-        state.mapFeatureState.riders = response.riders
+        state.mapFeatureState.riderLocations = response.riderLocations
         
         state.chatMessageBadgeCount = 6
       },
@@ -306,14 +306,14 @@ class AppFeatureTests: XCTestCase {
       .send(.fetchDataResponse(.success(response2))) { state in
         state.locationsAndChatMessages = .success(response2)
         state.socialState.chatFeautureState.chatMessages = response2.chatMessages
-        state.mapFeatureState.riders = response2.riders
+        state.mapFeatureState.riderLocations = response2.riderLocations
         
         state.chatMessageBadgeCount = 1
       },
       .send(.fetchDataResponse(.success(response3))) { state in
         state.locationsAndChatMessages = .success(response3)
         state.socialState.chatFeautureState.chatMessages = response3.chatMessages
-        state.mapFeatureState.riders = response3.riders
+        state.mapFeatureState.riderLocations = response3.riderLocations
         
         state.chatMessageBadgeCount = 3
       },
@@ -327,7 +327,7 @@ class AppFeatureTests: XCTestCase {
       .send(.fetchDataResponse(.success(response4))) { state in
         state.locationsAndChatMessages = .success(response4)
         state.socialState.chatFeautureState.chatMessages = response4.chatMessages
-        state.mapFeatureState.riders = response4.riders
+        state.mapFeatureState.riderLocations = response4.riderLocations
         
         state.chatMessageBadgeCount = 0
       }

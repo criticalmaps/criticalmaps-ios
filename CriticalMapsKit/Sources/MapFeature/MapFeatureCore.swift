@@ -8,7 +8,7 @@ public struct MapFeatureState: Equatable {
   public var alert: AlertState<MapFeatureAction>?
   public var isRequestingCurrentLocation: Bool
   public var location: ComposableCoreLocation.Location?
-  public var riders: [Rider]
+  public var riderLocations: [Rider]
   public var nextRide: Ride?
   
   public var userTrackingMode: UserTrackingState
@@ -28,7 +28,7 @@ public struct MapFeatureState: Equatable {
     self.alert = alert
     self.isRequestingCurrentLocation = isRequestingCurrentLocation
     self.location = location
-    self.riders = riders
+    self.riderLocations = riders
     self.userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.centerRegion = centerRegion

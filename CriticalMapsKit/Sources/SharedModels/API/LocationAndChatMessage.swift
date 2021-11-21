@@ -13,7 +13,7 @@ public struct LocationAndChatMessages: Codable, Hashable {
   public let chatMessages: [String: ChatMessage]
   
   /// Maped from parameter locations to be able to use bindings
-  public var riders: [Rider] {
+  public var riderLocations: [Rider] {
     locations.map { Rider(id: $0.key, location: $0.value) }
   }
 }

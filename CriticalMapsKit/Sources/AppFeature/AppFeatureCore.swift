@@ -238,7 +238,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.locationsAndChatMessages = .success(response)
       
       state.socialState.chatFeautureState.chatMessages = response.chatMessages
-      state.mapFeatureState.riders = response.riders
+      state.mapFeatureState.riderLocations = response.riderLocations
       
       if !state.isChatViewPresented {
         let cachedMessages = state.socialState.chatFeautureState.chatMessages

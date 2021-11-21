@@ -1,7 +1,7 @@
 import MapKit
 import UIKit
 
-open class RiderAnnoationView: MKAnnotationView {
+final class RiderAnnoationView: MKAnnotationView {
   override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
     super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
     commonInit()
@@ -31,29 +31,30 @@ open class RiderAnnoationView: MKAnnotationView {
     case .extraExtraLarge:
       return .extraLarge
     case .extraExtraExtraLarge,
-         .accessibilityMedium,
-         .accessibilityLarge,
-         .accessibilityExtraLarge,
-         .accessibilityExtraExtraLarge,
-         .accessibilityExtraExtraExtraLarge:
+        .accessibilityMedium,
+        .accessibilityLarge,
+        .accessibilityExtraLarge,
+        .accessibilityExtraExtraLarge,
+        .accessibilityExtraExtraExtraLarge:
       return .extraExtraLarge
     default:
       return .defaultSize
     }
   }
   
-  open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    frame = defineFrame()
-    layer.cornerRadius = frame.height / 2
+    // For some reason when this active the annotions disappear when sheets dismiss
+//    frame = defineFrame()
+//    layer.cornerRadius = frame.height / 2
     backgroundColor = UIColor.label.resolvedColor(with: traitCollection)
     setNeedsDisplay()
   }
 }
 
 private extension CGRect {
-  static let defaultSize = CGRect(x: 0, y: 0, width: 7, height: 7)
-  static let large = CGRect(x: 0, y: 0, width: 10, height: 10)
-  static let extraLarge = CGRect(x: 0, y: 0, width: 14, height: 14)
-  static let extraExtraLarge = CGRect(x: 0, y: 0, width: 20, height: 20)
+  static let defaultSize = Self(x: 0, y: 0, width: 7, height: 7)
+  static let large = Self(x: 0, y: 0, width: 10, height: 10)
+  static let extraLarge = Self(x: 0, y: 0, width: 14, height: 14)
+  static let extraExtraLarge = Self(x: 0, y: 0, width: 20, height: 20)
 }

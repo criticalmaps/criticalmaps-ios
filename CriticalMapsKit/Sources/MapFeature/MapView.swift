@@ -39,8 +39,12 @@ struct MapView: ViewRepresentable {
     }
   
     let updatedAnnotations = RiderAnnotationUpdateClient.update(riderCoordinates, uiView)
-    uiView.removeAnnotations(updatedAnnotations.removedAnnotations)
-    uiView.addAnnotations(updatedAnnotations.addedAnnotations)
+    if !updatedAnnotations.removedAnnotations.isEmpty {
+      uiView.removeAnnotations(updatedAnnotations.removedAnnotations)
+    }
+    if !updatedAnnotations.addedAnnotations.isEmpty {
+      uiView.addAnnotations(updatedAnnotations.addedAnnotations)
+    }
     
     if let nextRide = nextRide {
       if uiView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {
@@ -49,6 +53,7 @@ struct MapView: ViewRepresentable {
         uiView.addAnnotation(nextRideAnnotation!)
       }
     }
+    
   }
 }
 
@@ -72,7 +77,7 @@ public class MapCoordinator: NSObject, MKMapViewDelegate {
         withIdentifier: RiderAnnoationView.reuseIdentifier,
         for: annotation
       )
-      return view as! RiderAnnoationView
+      return view
     }
     
     if annotation is CriticalMassAnnotation {
