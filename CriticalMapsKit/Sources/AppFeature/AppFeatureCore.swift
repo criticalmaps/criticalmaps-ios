@@ -269,8 +269,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .didUpdateLocations:
           if !state.didResolveInitialLocation {
             state.didResolveInitialLocation.toggle()
-            if let coordinate = Coordinate(state.mapFeatureState.location) {
-              return .merge(
+            if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled { // TODO: Test
+              return Effect.merge(
                 Effect(value: .fetchData),
                 Effect(value: .nextRide(.getNextRide(coordinate)))
               )
