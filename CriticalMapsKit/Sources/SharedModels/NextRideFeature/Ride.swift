@@ -66,8 +66,12 @@ public extension Ride {
     let titleWithoutDate = title.removedDatePattern()
     return """
         \(titleWithoutDate)
-        \(dateTime.humanReadableDate) - \(dateTime.humanReadableTime)
+        \(rideDateAndTime)
         """
+  }
+  
+  var rideDateAndTime: String {
+    "\(dateTime.humanReadableDate) - \(dateTime.humanReadableTime)"
   }
   
   var shareMessage: String {
