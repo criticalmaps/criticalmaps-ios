@@ -16,6 +16,9 @@ public struct MapFeatureState: Equatable {
   
   public var shouldAnimateTrackingMode = true
   
+  public var isNextRideBannerVisible = false
+  public var isNextRideBannerExpanded = false
+  
   public init(
     alert: AlertState<MapFeatureAction>? = nil,
     isRequestingCurrentLocation: Bool = false,
@@ -43,6 +46,9 @@ public enum MapFeatureAction: Equatable {
   case updateCenterRegion(CoordinateRegion?)
   case focusNextRide
   case resetCenterRegion
+  
+  case setNextRideBannerExpanded(Bool)
+  case setNextRideBannerVisible(Bool)
   
   case locationManager(LocationManager.Action)
   case userTracking(UserTrackingAction)
@@ -77,6 +83,14 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
   ),
   Reducer { state, action, environment in
     switch action {
+    case let .setNextRideBannerVisible(value):
+      state.isNextRideBannerVisible = value
+      return .none
+      
+    case let .setNextRideBannerExpanded(value):
+      state.isNextRideBannerExpanded = value
+      return .none
+    
     case .onAppear:
       return .merge(
         environment.locationManager
@@ -129,6 +143,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       @unknown default:
         fatalError()
       }
+      
     case let .updateUserTrackingMode(mode):
       state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.userTrackingMode.rawValue
       state.userTrackingMode.userTrackingMode = mode
@@ -150,7 +165,6 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       state.centerRegion = nil
       return .none
       
-    // Pullback actions
     case .locationManager, .userTracking, .updateCenterRegion:
       return .none
     }
