@@ -292,7 +292,15 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       switch nextRideAction {
       case let .setNextRide(ride):
         state.mapFeatureState.nextRide = ride
-        return .none
+        return Effect.concatenate( // TODO: Test
+          Effect(value: .map(.setNextRideBannerVisible(true))),
+          Effect(value: .map(.setNextRideBannerExpanded(true)))
+            .delay(for: 0.6, scheduler: environment.mainQueue)
+            .eraseToEffect(),
+          Effect(value: .map(.setNextRideBannerExpanded(false)))
+            .delay(for: 5, scheduler: environment.mainQueue)
+            .eraseToEffect()
+        )
         
       default:
         return .none
