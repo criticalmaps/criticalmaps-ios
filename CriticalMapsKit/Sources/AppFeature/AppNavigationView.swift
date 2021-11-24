@@ -12,6 +12,7 @@ public struct AppNavigationView: View {
   let store: Store<AppState, AppAction>
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>
   @Environment(\.colorScheme) var colorScheme
+  @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   
   let minHeight: CGFloat = 56
   
@@ -43,7 +44,7 @@ public struct AppNavigationView: View {
       settingsButton
     }
     .font(.body)
-    .background(Color(.backgroundTranslucent))
+    .background(reduceTransparency ? Color(.backgroundSecondary) : Color(.backgroundTranslucent))
     .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
   }
