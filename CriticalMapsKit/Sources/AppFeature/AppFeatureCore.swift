@@ -284,6 +284,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         default:
           return .none
         }
+                
       default:
         return .none
       }
@@ -351,8 +352,18 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         return .none
       }
       
-    case .settings:
-      return .none
+    case let .settings(settingsAction):
+      switch settingsAction {
+      case .rideevent(let .setRideEventsEnabled(isEnabled)): // TODO: Test
+        if !isEnabled {
+          return Effect(value: .map(.setNextRideBannerVisible(false)))
+        } else {
+          return .none
+        }
+        
+      default:
+        return .none
+      }
     }
   }
 )
