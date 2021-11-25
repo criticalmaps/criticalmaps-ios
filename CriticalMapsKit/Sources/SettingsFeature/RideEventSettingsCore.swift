@@ -20,8 +20,9 @@ public let rideeventSettingsReducer = Reducer<RideEventSettings, RideEventSettin
     return .none
     
   case let .setRideEventTypeEnabled(type):
-    guard let index = state.typeSettings.firstIndex(where: { $0.type == type.type })
-    else { return .none }
+    guard let index = state.typeSettings.firstIndex(where: { $0.type == type.type }) else {
+      return .none
+    }
     state.typeSettings[index].isEnabled = type.isEnabled
     return .none
     

@@ -204,6 +204,8 @@ private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Ac
   }
 }
 
+
+// MARK: - Helper
 extension LocationManager {
   /// Configures the LocationManager
   func setup(id: AnyHashable) -> Effect<Never, Never> {
