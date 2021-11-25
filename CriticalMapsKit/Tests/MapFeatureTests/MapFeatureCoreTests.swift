@@ -223,6 +223,49 @@ class MapFeatureCoreTests: XCTestCase {
     )
   }
   
+  func test_InfoBanner_appearance() {
+    var didRequestAlwaysAuthorization = false
+    let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
+    let setSubject = PassthroughSubject<Never, Never>()
+    
+    let env = MapFeatureEnvironment(
+      locationManager: .unimplemented(
+        authorizationStatus: { .notDetermined },
+        create: { _ in locationManagerSubject.eraseToEffect() },
+        locationServicesEnabled: { true },
+        requestAlwaysAuthorization: { _ in
+            .fireAndForget { didRequestAlwaysAuthorization = true }
+        },
+        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+      ),
+      mainQueue: testScheduler.eraseToAnyScheduler()
+    )
+    let store = TestStore(
+      initialState: MapFeatureState(
+        alert: nil,
+        isRequestingCurrentLocation: false,
+        location: nil,
+        riders: [],
+        userTrackingMode: .init(userTrackingMode: .follow)
+      ),
+      reducer: mapFeatureReducer,
+      environment: env
+    )
+    
+    store.assert(
+      .send(.setNextRideBannerVisible(true)) {
+        $0.isNextRideBannerVisible = true
+      },
+      .send(.setNextRideBannerExpanded(true)) {
+        $0.isNextRideBannerExpanded = true
+      },
+      .do {
+        setSubject.send(completion: .finished)
+        locationManagerSubject.send(completion: .finished)
+      }
+    )
+  }
+  
 //  func test_goToSettingsAction_shouldOpenSettingsURL() {
 //    var openedUrl: URL!
 //    let settingsURL = "settings:weg-li//weg-li/settings"
