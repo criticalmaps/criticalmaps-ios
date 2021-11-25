@@ -269,7 +269,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .didUpdateLocations:
           if !state.didResolveInitialLocation {
             state.didResolveInitialLocation.toggle()
-            if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled { // TODO: Test
+            if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled {
               return Effect.merge(
                 Effect(value: .fetchData),
                 Effect(value: .nextRide(.getNextRide(coordinate)))
@@ -299,7 +299,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             .delay(for: 0.6, scheduler: environment.mainQueue)
             .eraseToEffect(),
           Effect(value: .map(.setNextRideBannerExpanded(false)))
-            .delay(for: 5, scheduler: environment.mainQueue)
+            .delay(for: 15, scheduler: environment.mainQueue)
             .eraseToEffect()
         )
         
@@ -354,12 +354,12 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .settings(settingsAction):
       switch settingsAction {
-      case .rideevent(let .setRideEventsEnabled(isEnabled)): // TODO: Test
+      case .rideevent(let .setRideEventsEnabled(isEnabled)):
         if !isEnabled {
           return Effect(value: .map(.setNextRideBannerVisible(false)))
         } else {
           return .none
-        }
+        } 
         
       default:
         return .none
