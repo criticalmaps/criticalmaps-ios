@@ -12,6 +12,9 @@ class IdentifiedMessagesTests: XCTestCase {
     
     let chatTime = sut.chatTime
     
-    XCTAssertEqual(chatTime, "1:00 AM")
+    XCTAssertEqual(
+      chatTime,
+      DateFormatter.localeShortTimeFormatter.string(from: Date(timeIntervalSince1970: sut.timestamp))
+    )
   }
 }

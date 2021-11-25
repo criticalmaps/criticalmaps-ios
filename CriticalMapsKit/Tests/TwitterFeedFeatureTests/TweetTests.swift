@@ -39,6 +39,6 @@ class TweetTests: XCTestCase {
       )
     )
     let currentDate = date.advanced(by: -232000)
-    XCTAssertNoDifference(tweet.formattedCreationDate(currentDate: { currentDate }), "Oct 26")
+    XCTAssertNoDifference(tweet.formattedCreationDate(currentDate: { currentDate }), "26. Oct")
   }
 }
