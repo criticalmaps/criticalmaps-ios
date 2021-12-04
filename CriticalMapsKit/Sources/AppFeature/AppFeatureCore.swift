@@ -14,6 +14,7 @@ import SocialFeature
 import TwitterFeedFeature
 import UserDefaultsClient
 import UIApplicationClient
+import PathMonitorClient
 
 // MARK: State
 public struct AppState: Equatable {
@@ -62,15 +63,19 @@ public struct AppState: Equatable {
   public var isSettingsViewPresented: Bool { route == .settings }
   
   public var chatMessageBadgeCount: UInt = 0
+  public var isConnected = true
 }
 
 // MARK: Actions
 public enum AppAction: Equatable {
   case appDelegate(AppDelegateAction)
   case onAppear
+  case onDisappear
   case fetchData
   case fetchDataResponse(Result<LocationAndChatMessages, NSError>)
   case userSettingsLoaded(Result<UserSettings, NSError>)
+  case observeConnection
+  case observeConnectionResponse(NetworkPath)
   
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
@@ -97,6 +102,7 @@ public struct AppEnvironment {
   var uiApplicationClient: UIApplicationClient
   var fileClient: FileClient
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
+  let pathMonitorClient: PathMonitorClient
   
   public init(
     locationsAndChatDataService: LocationsAndChatDataService = .live(),
@@ -111,7 +117,8 @@ public struct AppEnvironment {
     date: @escaping () -> Date = Date.init,
     uiApplicationClient: UIApplicationClient,
     fileClient: FileClient = .live,
-    setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>
+    setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>,
+    pathMonitorClient: PathMonitorClient = .live(queue: .main)
   ) {
     self.locationsAndChatDataService = locationsAndChatDataService
     self.service = service
@@ -126,6 +133,7 @@ public struct AppEnvironment {
     self.uiApplicationClient = uiApplicationClient
     self.fileClient = fileClient
     self.setUserInterfaceStyle = setUserInterfaceStyle
+    self.pathMonitorClient = pathMonitorClient
   }
 }
 
@@ -144,6 +152,7 @@ extension AppEnvironment {
 }
 
 // MARK: Reducer
+struct ObserveConnectionIdentifier: Hashable {}
 
 /// Holds the logic for the AppFeature
 public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
@@ -212,12 +221,16 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case .onAppear:
       return .merge(
+        Effect(value: .observeConnection),
         environment.fileClient
           .loadUserSettings()
           .map(AppAction.userSettingsLoaded),
         Effect(value: .map(.onAppear)),
         Effect(value: .requestTimer(.startTimer))
       )
+      
+    case .onDisappear:
+      return Effect.cancel(id: ObserveConnectionIdentifier())
       
     case .fetchData:
       struct GetLocationsId: Hashable {}
@@ -227,6 +240,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           ? nil
           : Location(state.mapFeatureState.location)
       )
+      
+      guard state.isConnected else {
+        logger.info("AppAction.fetchData not executed. Not connected to internet")
+        return .none
+      }
       return environment.service
         .getLocationsAndSendMessages(postBody)
         .receive(on: environment.mainQueue)
@@ -257,9 +275,22 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
       
     case let .fetchDataResponse(.failure(error)):
-      Logger.logger.info("FetchData failed: \(error)")
+      logger.info("FetchData failed: \(error)")
       state.locationsAndChatMessages = .failure(error)
       return .none
+      
+    case .observeConnection:
+      return Effect(environment.pathMonitorClient.networkPathPublisher)
+        .receive(on: environment.mainQueue)
+        .eraseToEffect()
+        .map(AppAction.observeConnectionResponse)
+        .cancellable(id: ObserveConnectionIdentifier())
+      
+    case let .observeConnectionResponse(networkPath):
+      state.isConnected = networkPath.status == .satisfied
+      logger.info("Is connected: \(state.isConnected)")
+      return .none
+    
       
     case let .map(mapFeatureAction):
       switch mapFeatureAction {

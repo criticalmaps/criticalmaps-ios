@@ -6,6 +6,7 @@ import ComposableCoreLocation
 import Foundation
 import MapFeature
 import NextRideFeature
+import PathMonitorClient
 import SharedModels
 import UserDefaultsClient
 import XCTest
@@ -30,7 +31,8 @@ class AppFeatureTests: XCTestCase {
       userDefaultsClient: .noop,
       uiApplicationClient: .noop,
       fileClient: .noop,
-      setUserInterfaceStyle: { _ in .none }
+      setUserInterfaceStyle: { _ in .none },
+      pathMonitorClient: .satisfied
     )
     environment.fileClient.load = { asdf in
         .init(
@@ -48,9 +50,13 @@ class AppFeatureTests: XCTestCase {
     
     store.assert(
       .send(.onAppear),
+      .receive(.observeConnection),
       .receive(.userSettingsLoaded(.success(.init()))),
       .receive(.map(.onAppear)),
       .receive(.requestTimer(.startTimer)),
+      .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
+        $0.isConnected = true
+      },
       .receive(.map(.locationRequested)) {
         $0.mapFeatureState.alert = .goToSettingsAlert
       },
@@ -114,7 +120,8 @@ class AppFeatureTests: XCTestCase {
       userDefaultsClient: settings,
       uiApplicationClient: .noop,
       fileClient: .noop,
-      setUserInterfaceStyle: { _ in .none }
+      setUserInterfaceStyle: { _ in .none },
+      pathMonitorClient: .satisfied
     )
     environment.fileClient.load = { asdf in
         .init(
@@ -137,6 +144,7 @@ class AppFeatureTests: XCTestCase {
     
     store.assert(
       .send(.onAppear),
+      .receive(.observeConnection),
       .receive(.userSettingsLoaded(.success(.init()))),
       .receive(.map(.onAppear)),
       .receive(.requestTimer(.startTimer)),
@@ -162,6 +170,9 @@ class AppFeatureTests: XCTestCase {
         serviceSubject.send(serviceResponse)
         nextRideSubject.send([])
         self.testScheduler.advance()
+      },
+      .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
+        $0.isConnected = true
       },
       .receive(.fetchDataResponse(.success(serviceResponse))) {
         $0.locationsAndChatMessages = .success(serviceResponse)
@@ -245,7 +256,8 @@ class AppFeatureTests: XCTestCase {
       userDefaultsClient: settings,
       uiApplicationClient: .noop,
       fileClient: .noop,
-      setUserInterfaceStyle: { _ in .none }
+      setUserInterfaceStyle: { _ in .none },
+      pathMonitorClient: .satisfied
     )
     
     let userSettings = UserSettings(
@@ -270,6 +282,7 @@ class AppFeatureTests: XCTestCase {
     
     store.assert(
       .send(.onAppear),
+      .receive(.observeConnection),
       .receive(
         .userSettingsLoaded(.success(userSettings))
       ),
@@ -296,6 +309,9 @@ class AppFeatureTests: XCTestCase {
         serviceSubject.send(serviceResponse)
         self.testScheduler.advance()
       },
+      .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
+        $0.isConnected = true
+      },
       .receive(.fetchDataResponse(.success(serviceResponse))) {
         $0.locationsAndChatMessages = .success(serviceResponse)
         $0.socialState = .init(
@@ -310,6 +326,7 @@ class AppFeatureTests: XCTestCase {
         setSubject.send(completion: .finished)
         locationManagerSubject.send(completion: .finished)
         serviceSubject.send(completion: .finished)
+        
         self.testScheduler.advance()
       }
     )
@@ -367,7 +384,7 @@ class AppFeatureTests: XCTestCase {
       }
     )
   }
-  
+    
   func test_unreadChatMessagesCount() {
     let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
     
@@ -376,7 +393,9 @@ class AppFeatureTests: XCTestCase {
       reducer: appReducer,
       environment: AppEnvironment(
         uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none })
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
     )
     
     let response: LocationAndChatMessages = .make(12)

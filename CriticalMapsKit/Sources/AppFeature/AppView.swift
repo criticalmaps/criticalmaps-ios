@@ -1,7 +1,8 @@
 import ComposableArchitecture
 import MapFeature
-import SwiftUI
+import SharedEnvironment
 import Styleguide
+import SwiftUI
 
 public struct AppView: View {
   let store: Store<AppState, AppAction>
@@ -33,7 +34,9 @@ public struct AppView: View {
           .frame(maxWidth: 400)
       }
     }
+    .environment(\.connectivity, viewStore.isConnected)
     .onAppear { viewStore.send(.onAppear) }
+    onDisappear { viewStore.send(.onDisappear) }
   }
 }
 

@@ -53,7 +53,9 @@ let package = Package(
         "IDProvider",
         "MapFeature",
         "NextRideFeature",
+        "PathMonitorClient",
         "SettingsFeature",
+        "SharedEnvironment",
         "SocialFeature",
         "Styleguide",
         "UserDefaultsClient",
@@ -119,6 +121,7 @@ let package = Package(
         "L10n",
         "Logger",
         "NextRideFeature",
+        "SharedEnvironment",
         "SharedModels",
         "Styleguide",
         .product(name: "ComposableCoreLocation", package: "composable-core-location"),
@@ -157,6 +160,10 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ],
       resources: [.process("Resources/")]
+    ),
+    .target(
+      name: "SharedEnvironment",
+      dependencies: []
     ),
     .target(
       name: "SharedModels",
@@ -225,6 +232,7 @@ package.targets.append(contentsOf: [
     name: "AppFeatureTests",
     dependencies: [
       "AppFeature",
+      "PathMonitorClient",
       "TestHelper",
       .product(
         name: "ComposableArchitecture",

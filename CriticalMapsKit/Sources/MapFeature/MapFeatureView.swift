@@ -1,11 +1,13 @@
 import ComposableArchitecture
 import Helpers
+import SharedEnvironment
 import SharedModels
 import Styleguide
 import SwiftUI
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
+  @Environment(\.connectivity) var isConnected
   
   public init(store: Store<MapFeatureState, MapFeatureAction>) {
     self.store = store
@@ -32,52 +34,69 @@ public struct MapFeatureView: View {
       )
       .edgesIgnoringSafeArea(.all)
       
-      nextRideBanner
-        .padding(.top, .grid(12))
-        .padding(.horizontal)
+      VStack {
+        if viewStore.isNextRideBannerVisible {
+          nextRideBanner
+        } else {
+          EmptyView()
+        }
+        
+        offlineBanner
+          .clipShape(Circle())
+          .opacity(isConnected ? 0 : 1)
+          .animation(.easeOut, value: isConnected)
+          .accessibilityHint("Internet connection status")
+      }
+      .padding(.top, .grid(12))
+      .padding(.horizontal)
     }
   }
   
-  var nextRideBanner: some View {
-    Button(
-      action: { viewStore.send(.focusNextRide) },
-      label: {
-        HStack {
-          Image(uiImage: Images.eventMarker)
-          
-          if viewStore.isNextRideBannerExpanded {
-            VStack(alignment: .leading) {
-              Text(viewStore.nextRide?.title ?? "")
-                .font(.titleTwo)
-                .foregroundColor(Color(.textPrimary))
-              Text(viewStore.nextRide?.rideDateAndTime ?? "")
-                .font(.bodyTwo)
-                .foregroundColor(Color(.textSecondary))
-            }
-            .opacity(viewStore.isNextRideBannerExpanded ? 1 : 0)
-            .animation(.easeOut, value: viewStore.isNextRideBannerExpanded)
-          }
-        }
-        .padding(.horizontal, viewStore.isNextRideBannerExpanded ? 8 : 0)
-      }
-    )
-      .frame(minWidth: 50, minHeight: 50)
-      .foregroundColor(.white)
+  var offlineBanner: some View {
+    Image(systemName: "wifi.slash")
+      .foregroundColor(
+        reduceTransparency
+        ? Color.white
+        : Color(.attention)
+      )
+      .padding()
       .background(
         Group {
           if reduceTransparency {
             RoundedRectangle(
-              cornerRadius: 4,
+              cornerRadius: 12,
               style: .circular
+            )
+            .fill(reduceTransparency
+                ? Color(.attention)
+                : Color(.attention).opacity(0.8)
             )
           } else {
             Blur()
-              .cornerRadius(12)
           }
         }
       )
-      .scaleEffect(viewStore.isNextRideBannerVisible ? 1 : 0)
-      .animation(.easeOut)
+  }
+  
+  var nextRideBanner: some View {
+    MapOverlayView(
+      isExpanded: viewStore.isNextRideBannerExpanded,
+      isVisible: viewStore.isNextRideBannerVisible,
+      type: .nextRide,
+      action: { viewStore.send(.focusNextRide) },
+      content: {
+        VStack(alignment: .leading) {
+          Text(viewStore.nextRide?.title ?? "")
+            .font(.titleTwo)
+            .foregroundColor(Color(.textPrimary))
+          Text(viewStore.nextRide?.rideDateAndTime ?? "")
+            .font(.bodyTwo)
+            .foregroundColor(Color(.textSecondary))
+        }
+      }
+    )
+      .accessibilityElement(children: .ignore)
+      .accessibilityLabel(viewStore.nextRide?.titleAndTime ?? "")
   }
 }
 

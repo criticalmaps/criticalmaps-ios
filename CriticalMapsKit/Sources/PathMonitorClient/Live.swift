@@ -1,6 +1,5 @@
 import Combine
 import Network
-import PathMonitorClient
 
 extension PathMonitorClient {
   public static func live(queue: DispatchQueue) -> Self {

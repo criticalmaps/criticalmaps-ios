@@ -1,7 +1,7 @@
 import Combine
 import Network
 
-public struct NetworkPath {
+public struct NetworkPath: Equatable {
   public var status: NWPath.Status
 
   public init(status: NWPath.Status) {
@@ -18,9 +18,7 @@ extension NetworkPath {
 public struct PathMonitorClient {
   public var networkPathPublisher: AnyPublisher<NetworkPath, Never>
 
-  public init(
-    networkPathPublisher: AnyPublisher<NetworkPath, Never>
-  ) {
+  public init(networkPathPublisher: AnyPublisher<NetworkPath, Never>) {
     self.networkPathPublisher = networkPathPublisher
   }
 }
