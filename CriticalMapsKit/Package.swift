@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 
 import PackageDescription
 
@@ -6,7 +6,7 @@ let package = Package(
   name: "CriticalMapsKit",
   defaultLocalization: "en",
   platforms: [
-    .iOS(.v14)
+    .iOS(.v15)
   ],
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
