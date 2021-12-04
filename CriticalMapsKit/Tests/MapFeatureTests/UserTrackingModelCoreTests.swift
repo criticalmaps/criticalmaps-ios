@@ -22,13 +22,13 @@ class UserTrackingModeCoreTests: XCTestCase {
     
     store.assert(
       .send(.nextTrackingMode) {
-        $0.userTrackingMode = .follow
+        $0.mode = .follow
       },
       .send(.nextTrackingMode){
-        $0.userTrackingMode = .followWithHeading
+        $0.mode = .followWithHeading
       },
       .send(.nextTrackingMode){
-        $0.userTrackingMode = .none
+        $0.mode = .none
       }
     )
   }

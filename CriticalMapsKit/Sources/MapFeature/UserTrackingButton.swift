@@ -14,7 +14,7 @@ public struct UserTrackingButton: View {
   
   public var body: some View {
     var accessiblityLabel: String {
-      switch viewStore.userTrackingMode {
+      switch viewStore.mode {
       case .follow:
         return "Follow"
       case .followWithHeading:
@@ -39,7 +39,7 @@ public struct UserTrackingButton: View {
   }
   
   var iconImage: some View {
-    switch viewStore.userTrackingMode {
+    switch viewStore.mode {
     case .follow:
       return Image(systemName: "location.fill")
         .iconModifier()

@@ -67,7 +67,7 @@ public struct ErrorStateView: View {
   }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct ErrorStateView_Previews: PreviewProvider {
   static var previews: some View {
     ErrorStateView(errorState: .default)
   }

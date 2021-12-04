@@ -133,7 +133,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       }
       
     case .nextTrackingMode:
-      switch state.userTrackingMode.userTrackingMode {
+      switch state.userTrackingMode.mode {
       case .follow:
         return Effect(value: .updateUserTrackingMode(.followWithHeading))
       case .followWithHeading:
@@ -145,8 +145,8 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       }
       
     case let .updateUserTrackingMode(mode):
-      state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.userTrackingMode.rawValue
-      state.userTrackingMode.userTrackingMode = mode
+      state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.mode.rawValue
+      state.userTrackingMode.mode = mode
       return .none
       
     case .focusNextRide:

@@ -3,10 +3,10 @@ import MapKit
 
 public struct UserTrackingState: Equatable {
   public init(userTrackingMode: MKUserTrackingMode) {
-    self.userTrackingMode = userTrackingMode
+    self.mode = userTrackingMode
   }
   
-  public var userTrackingMode: MKUserTrackingMode
+  public var mode: MKUserTrackingMode
 }
 
 public enum UserTrackingAction: Equatable {
@@ -18,13 +18,13 @@ public struct UserTrackingEnvironment: Equatable {}
 public let userTrackingReducer = Reducer<UserTrackingState, UserTrackingAction, UserTrackingEnvironment> { state, action, _ in
   switch action {
   case .nextTrackingMode:
-    switch state.userTrackingMode {
+    switch state.mode {
     case .follow:
-      state.userTrackingMode = .followWithHeading
+      state.mode = .followWithHeading
     case .followWithHeading:
-      state.userTrackingMode = .none
+      state.mode = .none
     case .none:
-      state.userTrackingMode = .follow
+      state.mode = .follow
     @unknown default:
       fatalError()
     }

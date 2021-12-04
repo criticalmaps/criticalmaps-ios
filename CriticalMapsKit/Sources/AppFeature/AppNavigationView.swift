@@ -33,15 +33,15 @@ public struct AppNavigationView: View {
       menuSeperator
       
       // Chat
-      chatButton
+      chatFeature
       menuSeperator
       
       // Rules
-      rulesButton
+      rulesFeature
       menuSeperator
       
       // Settings
-      settingsButton
+      settingsFeature
     }
     .font(.body)
     .background(reduceTransparency ? Color(.backgroundSecondary) : Color(.backgroundTranslucent))
@@ -70,7 +70,7 @@ public struct AppNavigationView: View {
     .animation(Animation.easeIn(duration: 0.1), value:  viewStore.chatMessageBadgeCount)
   }
   
-  var chatButton: some View {
+  var chatFeature: some View {
     Button(
       action: {
         viewStore.send(.setNavigation(tag: .chat))
@@ -107,7 +107,7 @@ public struct AppNavigationView: View {
       .frame(maxWidth: .infinity, minHeight: minHeight)
   }
   
-  var rulesButton: some View {
+  var rulesFeature: some View {
     Button(
       action: {
         viewStore.send(.setNavigation(tag: .rules))
@@ -137,7 +137,7 @@ public struct AppNavigationView: View {
     .accessibility(label: Text(L10n.Rules.title))
   }
   
-  var settingsButton: some View {
+  var settingsFeature: some View {
     Button(
       action: {
         viewStore.send(.setNavigation(tag: .settings))

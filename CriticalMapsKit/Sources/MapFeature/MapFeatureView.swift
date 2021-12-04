@@ -22,7 +22,7 @@ public struct MapFeatureView: View {
       MapView(
         riderCoordinates: viewStore.riderLocations,
         userTrackingMode: viewStore.binding(
-          get: { $0.userTrackingMode.userTrackingMode },
+          get: { $0.userTrackingMode.mode },
           send: MapFeatureAction.updateUserTrackingMode
         ),
         shouldAnimateUserTrackingMode: viewStore.shouldAnimateTrackingMode,
