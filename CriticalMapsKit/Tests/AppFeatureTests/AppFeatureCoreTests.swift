@@ -55,7 +55,7 @@ class AppFeatureTests: XCTestCase {
       .receive(.map(.onAppear)),
       .receive(.requestTimer(.startTimer)),
       .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-        $0.isConnected = true
+        $0.hasConnectivity = true
       },
       .receive(.map(.locationRequested)) {
         $0.mapFeatureState.alert = .goToSettingsAlert
@@ -172,7 +172,7 @@ class AppFeatureTests: XCTestCase {
         self.testScheduler.advance()
       },
       .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-        $0.isConnected = true
+        $0.hasConnectivity = true
       },
       .receive(.fetchDataResponse(.success(serviceResponse))) {
         $0.locationsAndChatMessages = .success(serviceResponse)
@@ -310,7 +310,7 @@ class AppFeatureTests: XCTestCase {
         self.testScheduler.advance()
       },
       .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-        $0.isConnected = true
+        $0.hasConnectivity = true
       },
       .receive(.fetchDataResponse(.success(serviceResponse))) {
         $0.locationsAndChatMessages = .success(serviceResponse)

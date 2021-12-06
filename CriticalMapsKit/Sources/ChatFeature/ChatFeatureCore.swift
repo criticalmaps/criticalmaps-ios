@@ -11,13 +11,16 @@ import UserDefaultsClient
 public struct ChatFeatureState: Equatable {
   public var chatMessages: [String: ChatMessage]
   public var chatInputState: ChatInputState
+  public var hasConnectivity: Bool
     
   public init(
     chatMessages: [String : ChatMessage] = [:],
-    chatInputState: ChatInputState = .init()
+    chatInputState: ChatInputState = .init(),
+    hasConnectivity: Bool = true
   ) {
     self.chatMessages = chatMessages
     self.chatInputState = chatInputState
+    self.hasConnectivity = hasConnectivity
   }
 }
 

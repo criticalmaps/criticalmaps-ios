@@ -63,7 +63,7 @@ public struct AppState: Equatable {
   public var isSettingsViewPresented: Bool { route == .settings }
   
   public var chatMessageBadgeCount: UInt = 0
-  public var isConnected = true
+  public var hasConnectivity = true
 }
 
 // MARK: Actions
@@ -241,7 +241,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           : Location(state.mapFeatureState.location)
       )
       
-      guard state.isConnected else {
+      guard state.hasConnectivity else {
         logger.info("AppAction.fetchData not executed. Not connected to internet")
         return .none
       }
@@ -287,8 +287,9 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         .cancellable(id: ObserveConnectionIdentifier())
       
     case let .observeConnectionResponse(networkPath):
-      state.isConnected = networkPath.status == .satisfied
-      logger.info("Is connected: \(state.isConnected)")
+      state.hasConnectivity = networkPath.status == .satisfied
+      state.nextRideState.hasConnectivity = state.hasConnectivity
+      logger.info("Is connected: \(state.hasConnectivity)")
       return .none
     
       

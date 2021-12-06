@@ -34,9 +34,9 @@ public struct AppView: View {
           .frame(maxWidth: 400)
       }
     }
-    .environment(\.connectivity, viewStore.isConnected)
+    .environment(\.connectivity, viewStore.hasConnectivity)
     .onAppear { viewStore.send(.onAppear) }
-    onDisappear { viewStore.send(.onDisappear) }
+    .onDisappear { viewStore.send(.onDisappear) }
   }
 }
 

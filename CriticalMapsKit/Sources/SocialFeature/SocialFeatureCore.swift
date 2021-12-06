@@ -14,14 +14,18 @@ public struct SocialState: Equatable {
   public var twitterFeedState: TwitterFeedState
   public var socialControl: SocialControl
   
+  public var hasConnectivity: Bool
+  
   public init(
     socialControl: SocialControl = .chat,
     chatFeautureState: ChatFeatureState = .init(),
-    twitterFeedState: TwitterFeedState = .init()
+    twitterFeedState: TwitterFeedState = .init(),
+    hasConnectivity: Bool = true
   ) {
     self.socialControl = socialControl
     self.chatFeautureState = chatFeautureState
     self.twitterFeedState = twitterFeedState
+    self.hasConnectivity = hasConnectivity
   }
   
   public enum SocialControl: Int, Equatable {

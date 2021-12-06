@@ -7,10 +7,12 @@ import SharedModels
 import UserDefaultsClient
 
 public struct NextRideState: Equatable {
-  public init(nextRide: Ride? = nil) {
+  public init(nextRide: Ride? = nil, hasConnectivity: Bool = true) {
     self.nextRide = nextRide
+    self.hasConnectivity = hasConnectivity
   }
   
+  public var hasConnectivity: Bool
   public var nextRide: Ride?
 }
 
@@ -46,8 +48,14 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
   switch action {
   case .getNextRide(let coordinate):
     guard env.store.rideEventSettings().isEnabled else {
+      logger.debug("NextRide featue is disabled")
       return .none
     }
+    guard state.hasConnectivity else {
+      logger.debug("Not fetching next ride. No connectivity")
+      return .none
+    }
+    
     let obfuscatedCoordinate = env.coordinateObfuscator.obfuscate(
       coordinate,
       .thirdDecimal
