@@ -86,7 +86,7 @@ public struct BasicInputView: View {
       .clipShape(RoundedRectangle(cornerRadius: 23))
       .overlay(
         RoundedRectangle(cornerRadius: 23)
-          .stroke(Color(.innerBorder), lineWidth: 2)
+          .stroke(Color(.innerBorder), lineWidth: 1)
       )
     }
   }

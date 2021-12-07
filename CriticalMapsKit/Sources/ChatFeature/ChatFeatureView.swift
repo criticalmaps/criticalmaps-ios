@@ -44,7 +44,7 @@ public struct ChatView: View {
             ChatMessageView(chat)
               .padding(.horizontal, .grid(4))
               .padding(.vertical, .grid(2))
-              .animation(nil)
+              .animation(nil, value: viewStore.identifiedChatMessages)
           }
           .listRowBackground(Color(.backgroundPrimary))
           .listStyle(PlainListStyle())
@@ -71,8 +71,8 @@ public struct ChatView: View {
         )
       }
       .padding(.horizontal, .grid(3))
-      .padding(.top, .grid(1))
-      .padding(.bottom, 24)
+      .padding(.top, .grid(2))
+      .padding(.bottom, .grid(7))
       
       Color(.border)
         .frame(height: 2)
