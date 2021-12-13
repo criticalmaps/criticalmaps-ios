@@ -70,6 +70,7 @@ let package = Package(
         "Helpers",
         "IDProvider",
         "L10n",
+        "Logger",
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient"
