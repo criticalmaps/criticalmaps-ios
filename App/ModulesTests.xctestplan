@@ -10,6 +10,9 @@
   ],
   "defaultOptions" : {
     "language" : "en",
+    "locationScenario" : {
+      "identifier" : "..\/App\/Berlin:Germany.gpx"
+    },
     "region" : "DE"
   },
   "testTargets" : [

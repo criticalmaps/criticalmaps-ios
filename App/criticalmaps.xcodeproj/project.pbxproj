@@ -25,6 +25,7 @@
 		738214F1271F49AB009847C7 /* appIcon-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-3.png"; sourceTree = "<group>"; };
 		738214F2271F49AB009847C7 /* appIcon-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-2.png"; sourceTree = "<group>"; };
 		738214F3271F49AB009847C7 /* appIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-1.png"; sourceTree = "<group>"; };
+		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Berlin:Germany.gpx"; sourceTree = "<group>"; };
 		73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ModulesTests.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
+				739C4980276733E20001466A /* Berlin:Germany.gpx */,
 				73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */,
 				73CF5FF0263EB0A6001925A3 /* iOS */,
 				73CF5FC3263EAF5B001925A3 /* Products */,
