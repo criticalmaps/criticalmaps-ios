@@ -4,6 +4,7 @@ import ComposableArchitecture
 import Foundation
 import IDProvider
 import L10n
+import Logger
 import SharedModels
 import UserDefaultsClient
 
@@ -56,6 +57,12 @@ public struct ChatEnvironment {
     self.date = date
     self.userDefaultsClient = userDefaultsClient
   }
+  
+  var md5Uuid: String {
+    Insecure.MD5.hash(data: uuid().uuidString.data(using: .utf8)!)
+      .map { String(format: "%02hhx", $0) }
+      .joined()
+  }
 }
 
 // MARK: Reducer
@@ -85,7 +92,7 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
       
     case let .chatInputResponse(.failure(error)):
       state.chatInputState.isSending = false
-      // log error
+      logger.debug("ChatInput Action failed with error: \(error.localizedDescription)")
       return .none
       
     case let .chatInput(chatInputAction):
@@ -94,13 +101,18 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
         let message = SendChatMessage(
           text: state.chatInputState.message,
           timestamp: environment.date().timeIntervalSince1970,
-          identifier: environment.uuid().uuidString.md5()
+          identifier: environment.md5Uuid
         )        
         let body = SendLocationAndChatMessagesPostBody(
           device: environment.idProvider.id(),
           location: nil,
           messages: [message]
         )
+        
+        guard state.hasConnectivity else {
+          logger.debug("Not sending chat input. No connectivity")
+          return .none
+        }
         
         state.chatInputState.isSending = true
         
@@ -116,11 +128,3 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
     }
   }
 )
-
-private extension String {
-  func md5() -> String {
-    Insecure.MD5.hash(data: self.data(using: .utf8)!)
-      .map { String(format: "%02hhx", $0) }
-      .joined()
-  }
-}
