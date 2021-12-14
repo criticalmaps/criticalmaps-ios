@@ -1,5 +1,4 @@
 import Foundation
-import Kingfisher
 import SharedModels
 import Styleguide
 import SwiftUI
@@ -17,13 +16,26 @@ public struct TweetView: View {
         .ignoresSafeArea()
       
       HStack(alignment: .top, spacing: .grid(4)) {
-        KFImage.url(tweet.user.profileImage)
-          .placeholder { Color(.textSilent).opacity(0.6) }
-          .fade(duration: 0.2)
-          .resizable()
-          .scaledToFit()
-          .cornerRadius(20)
-          .frame(width: 40, height: 40)
+        AsyncImage(
+          url: tweet.user.profileImage,
+          transaction: Transaction(animation: .easeInOut)
+        ) { phase in
+          switch phase {
+          case .empty:
+            Color(.textSilent).opacity(0.6)
+          case .success(let image):
+            image
+              .resizable()
+              .transition(.opacity)
+          case .failure:
+            Color(.textSilent).opacity(0.6)
+          @unknown default:
+            EmptyView()
+          }
+        }
+        .frame(width: 44, height: 44)
+        .background(Color.gray)
+        .clipShape(Circle())
         
         VStack(alignment: .leading, spacing: .grid(2)) {
           HStack {

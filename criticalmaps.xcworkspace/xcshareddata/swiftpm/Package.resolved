@@ -20,15 +20,6 @@
         }
       },
       {
-        "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
-        "state": {
-          "branch": null,
-          "revision": "0c02c46cfdc0656ce74fd0963a75e5000a0b7f23",
-          "version": "7.1.2"
-        }
-      },
-      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
@@ -51,8 +42,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture",
         "state": {
           "branch": null,
-          "revision": "921272e329372563d5cae14e2b904f7737019005",
-          "version": "0.29.0"
+          "revision": "23155a04fe426a5ee18befa29bd2627dbf79e653",
+          "version": "0.30.0"
         }
       },
       {
