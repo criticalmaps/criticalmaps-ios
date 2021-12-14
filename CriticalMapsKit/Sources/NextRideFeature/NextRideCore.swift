@@ -67,16 +67,17 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .receive(on: env.mainQueue)
       .catchToEffect()
       .map(NextRideAction.nextRideResponse)
+    
   case let .nextRideResponse(.failure(error)):
-    Logger.logger.error("Get next ride failed 🛑 with error: \(error)")
+    logger.error("Get next ride failed 🛑 with error: \(error)")
     return .none
   case let .nextRideResponse(.success(rides)):
     guard !rides.isEmpty else {
-      Logger.logger.info("Rides array is empty")
+      logger.info("Rides array is empty")
       return .none
     }
     guard !rides.map(\.rideType).isEmpty else {
-      Logger.logger.info("No upcoming events for filter selection rideType")
+      logger.info("No upcoming events for filter selection rideType")
       return .none
     }
     // Sort rides by date and pick the first one with a date greater than now
@@ -85,6 +86,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .filter {
         guard let type = $0.rideType else { return true }
         return env.store.rideEventSettings().typeSettings
+          .lazy
           .filter(\.isEnabled)
           .map(\.type)
           .contains(type)
@@ -94,7 +96,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .first { ride in ride.dateTime > env.now() }
     
     guard let filteredRide = ride else {
-      Logger.logger.info("No upcoming events")
+      logger.info("No upcoming events after filter")
       return .none
     }
     
