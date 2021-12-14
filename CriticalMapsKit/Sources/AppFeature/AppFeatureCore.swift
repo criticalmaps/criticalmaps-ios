@@ -333,7 +333,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             .delay(for: 0.6, scheduler: environment.mainQueue)
             .eraseToEffect(),
           Effect(value: .map(.setNextRideBannerExpanded(false)))
-            .delay(for: 15, scheduler: environment.mainQueue)
+            .delay(for: 10, scheduler: environment.mainQueue)
             .eraseToEffect()
         )
         
@@ -393,14 +393,25 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           return Effect(value: .map(.setNextRideBannerVisible(false)))
         } else {
           return .none
-        } 
+        }
         
       default:
         return .none
       }
     }
   }
-)
+).onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
+  struct RideEventSettingsChange: Hashable {}
+ 
+  // fetch next ride after settings have changed
+  if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
+    return Effect(value: .nextRide(.getNextRide(coordinate)))
+      .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
+  } else {
+    return .none
+  }
+}
+
 
 
 extension SharedModels.Location {

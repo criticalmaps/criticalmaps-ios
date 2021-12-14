@@ -135,8 +135,7 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     environment: { _ in .init() }
   )
 )
-.onChange(
-  of: \.userSettings) { userSettings, _, _, environment in
+.onChange(of: \.userSettings) { userSettings, _, _, environment in
   struct SaveDebounceId: Hashable {}
 
   return environment.fileClient

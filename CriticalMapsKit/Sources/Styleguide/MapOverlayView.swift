@@ -55,7 +55,6 @@ public struct MapOverlayView<Content>: View where Content: View {
       label: {
         HStack {
           Image(uiImage: type.icon)
-            .renderingMode(.template)
           
           if isExpanded {
             content()
