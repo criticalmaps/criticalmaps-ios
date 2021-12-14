@@ -169,21 +169,21 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   requestTimerReducer.pullback(
     state: \.requestTimer,
     action: /AppAction.requestTimer,
-    environment: { global in
+    environment: {
       RequestTimerEnvironment(
-        mainQueue: global.mainQueue
+        mainQueue: $0.mainQueue
       )
     }
   ),
   nextRideReducer.pullback(
     state: \.nextRideState,
     action: /AppAction.nextRide,
-    environment: { global in
+    environment: {
       NextRideEnvironment(
-        service: global.nextRideService,
-        store: global.userDefaultsClient,
-        now: global.date,
-        mainQueue: global.mainQueue,
+        service: $0.nextRideService,
+        store: $0.userDefaultsClient,
+        now: $0.date,
+        mainQueue: $0.mainQueue,
         coordinateObfuscator: .live
       )
     }
@@ -191,26 +191,28 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   settingsReducer.pullback(
     state: \.settingsState,
     action: /AppAction.settings,
-    environment: { global in SettingsEnvironment(
-      uiApplicationClient: global.uiApplicationClient,
-      setUserInterfaceStyle: global.setUserInterfaceStyle,
-      fileClient: global.fileClient,
-      backgroundQueue: global.backgroundQueue,
-      mainQueue: global.mainQueue
-    )}
+    environment: {
+      SettingsEnvironment(
+        uiApplicationClient: $0.uiApplicationClient,
+        setUserInterfaceStyle: $0.setUserInterfaceStyle,
+        fileClient: $0.fileClient,
+        backgroundQueue: $0.backgroundQueue,
+        mainQueue: $0.mainQueue
+      )
+    }
   ),
   socialReducer.pullback(
     state: \.socialState,
     action: /AppAction.social,
-    environment: { global in
+    environment: {
       SocialEnvironment(
-        mainQueue: global.mainQueue,
-        uiApplicationClient: global.uiApplicationClient,
-        locationsAndChatDataService: global.locationsAndChatDataService,
-        idProvider: global.idProvider,
-        uuid: global.uuid,
-        date: global.date,
-        userDefaultsClient: global.userDefaultsClient
+        mainQueue: $0.mainQueue,
+        uiApplicationClient: $0.uiApplicationClient,
+        locationsAndChatDataService: $0.locationsAndChatDataService,
+        idProvider: $0.idProvider,
+        uuid: $0.uuid,
+        date: $0.date,
+        userDefaultsClient: $0.userDefaultsClient
       )
     }
   ),
