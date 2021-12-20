@@ -10,8 +10,9 @@ let package = Package(
   ],
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
+    .library(name: "AppFeature", targets: ["AppFeature"]),
     .library(name: "MapFeature", targets: ["MapFeature"]),
-    .library(name: "AppFeature", targets: ["AppFeature"])
+    .library(name: "TwitterFeature", targets: ["SocialFeature"])
   ],
   dependencies: [
     .package(

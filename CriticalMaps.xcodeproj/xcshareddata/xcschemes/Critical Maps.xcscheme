@@ -17,7 +17,7 @@
                BlueprintIdentifier = "73CF5FC1263EAF5B001925A3"
                BuildableName = "Critical Maps.app"
                BlueprintName = "Critical Maps"
-               ReferencedContainer = "container:criticalmaps.xcodeproj">
+               ReferencedContainer = "container:CriticalMaps.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -93,7 +93,7 @@
             BlueprintIdentifier = "73CF5FC1263EAF5B001925A3"
             BuildableName = "Critical Maps.app"
             BlueprintName = "Critical Maps"
-            ReferencedContainer = "container:criticalmaps.xcodeproj">
+            ReferencedContainer = "container:CriticalMaps.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -110,7 +110,7 @@
             BlueprintIdentifier = "73CF5FC1263EAF5B001925A3"
             BuildableName = "Critical Maps.app"
             BlueprintName = "Critical Maps"
-            ReferencedContainer = "container:criticalmaps.xcodeproj">
+            ReferencedContainer = "container:CriticalMaps.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

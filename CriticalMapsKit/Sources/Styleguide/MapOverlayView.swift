@@ -86,7 +86,7 @@ public struct MapOverlayView<Content>: View where Content: View {
         }
       )
       .scaleEffect(isVisible ? 1 : 0)
-      .animation(.easeOut)
+      .animation(.easeOut, value: isVisible)
   }
   
   var foregroundColor: Color {

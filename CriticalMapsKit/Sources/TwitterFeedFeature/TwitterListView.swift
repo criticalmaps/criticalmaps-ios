@@ -21,7 +21,7 @@ public struct TweetListView: View {
         EmptyStateView(
           emptyState: state,
           buttonAction: { viewStore.send(.fetchData) },
-          buttonText: "Reload"
+          buttonText: "Reload" // TODO: L10n
         )
       case let .results(tweets), let .loading(tweets):
         ZStack {

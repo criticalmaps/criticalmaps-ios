@@ -30,7 +30,7 @@ public struct TwitterFeedEnvironment {
   public let uiApplicationClient: UIApplicationClient
   
   public init(
-    service: TwitterFeedService = .live(),
+    service: TwitterFeedService,
     mainQueue: AnySchedulerOf<DispatchQueue>,
     uiApplicationClient: UIApplicationClient
   ) {

@@ -2,11 +2,11 @@ import ApiClient
 import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
+import IDProvider
 import Logger
 import MapKit
 import MapFeature
 import NextRideFeature
-import IDProvider
 import SettingsFeature
 import SharedModels
 import UserDefaultsClient
@@ -53,6 +53,7 @@ let appDelegateReducer = Reducer<
 > { state, action, environment in
   switch action {
   case .didFinishLaunching:
+    
     return .merge(
       .concatenate(
         environment.fileClient.loadUserSettings()

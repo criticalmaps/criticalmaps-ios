@@ -8,13 +8,13 @@ import MapKit
 import MapFeature
 import NextRideFeature
 import IDProvider
+import PathMonitorClient
 import SettingsFeature
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature
 import UserDefaultsClient
 import UIApplicationClient
-import PathMonitorClient
 
 // MARK: State
 public struct AppState: Equatable {

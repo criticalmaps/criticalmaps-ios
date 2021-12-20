@@ -25,10 +25,7 @@ public struct TwitterFeedView: View {
   }
   
   public var body: some View {
-    TweetListView(
-      store: viewStore.shouldDisplayPlaceholder
-      ? .placeholder
-      : self.store)
+    TweetListView(store: viewStore.shouldDisplayPlaceholder ? .placeholder : self.store)
       .navigationBarTitleDisplayMode(.inline)
       .redacted(reason: viewStore.shouldDisplayPlaceholder ? .placeholder : [])
       .onAppear { viewStore.send(.onAppear) }

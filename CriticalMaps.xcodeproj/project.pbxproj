@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; };
+		7327344E277118670007579E /* TwitterFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */; };
+		7327345C27711B7B0007579E /* TwitterFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7327345B27711B7B0007579E /* TwitterFeature */; };
 		73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */; };
 		738214F4271F49AB009847C7 /* appIcon-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214EF271F49AB009847C7 /* appIcon-5.png */; };
 		738214F5271F49AB009847C7 /* appIcon-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F0271F49AB009847C7 /* appIcon-4.png */; };
@@ -19,14 +21,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		732734462771172C0007579E /* CriticalMapsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CriticalMapsKit; sourceTree = "<group>"; };
+		7327344B277118670007579E /* TwitterFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		738214EF271F49AB009847C7 /* appIcon-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-5.png"; sourceTree = "<group>"; };
 		738214F0271F49AB009847C7 /* appIcon-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-4.png"; sourceTree = "<group>"; };
 		738214F1271F49AB009847C7 /* appIcon-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-3.png"; sourceTree = "<group>"; };
 		738214F2271F49AB009847C7 /* appIcon-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-2.png"; sourceTree = "<group>"; };
 		738214F3271F49AB009847C7 /* appIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-1.png"; sourceTree = "<group>"; };
-		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Berlin:Germany.gpx"; sourceTree = "<group>"; };
-		73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ModulesTests.xctestplan; sourceTree = "<group>"; };
+		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Berlin:Germany.gpx"; path = "App/Berlin:Germany.gpx"; sourceTree = "<group>"; };
+		73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ModulesTests.xctestplan; path = App/ModulesTests.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +39,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		73273448277118670007579E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7327345C27711B7B0007579E /* TwitterFeature in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73CF5FBF263EAF5B001925A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7327344C277118670007579E /* TwitterFeaturePreview */ = {
+			isa = PBXGroup;
+			children = (
+				7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */,
+			);
+			path = TwitterFeaturePreview;
+			sourceTree = "<group>";
+		};
 		738214EE271F49AB009847C7 /* appicons */ = {
 			isa = PBXGroup;
 			children = (
@@ -54,15 +75,18 @@
 				738214F2271F49AB009847C7 /* appIcon-2.png */,
 				738214F3271F49AB009847C7 /* appIcon-1.png */,
 			);
-			path = appicons;
+			name = appicons;
+			path = App/appicons;
 			sourceTree = SOURCE_ROOT;
 		};
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
+				732734462771172C0007579E /* CriticalMapsKit */,
 				739C4980276733E20001466A /* Berlin:Germany.gpx */,
 				73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */,
-				73CF5FF0263EB0A6001925A3 /* iOS */,
+				73CF5FF0263EB0A6001925A3 /* iOS App */,
+				7327344C277118670007579E /* TwitterFeaturePreview */,
 				73CF5FC3263EAF5B001925A3 /* Products */,
 				73CF6014263F1DFD001925A3 /* Frameworks */,
 			);
@@ -72,11 +96,12 @@
 			isa = PBXGroup;
 			children = (
 				73CF5FC2263EAF5B001925A3 /* Critical Maps.app */,
+				7327344B277118670007579E /* TwitterFeaturePreview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		73CF5FF0263EB0A6001925A3 /* iOS */ = {
+		73CF5FF0263EB0A6001925A3 /* iOS App */ = {
 			isa = PBXGroup;
 			children = (
 				738214EE271F49AB009847C7 /* appicons */,
@@ -85,7 +110,8 @@
 				73CF5FF1263EB0A6001925A3 /* Assets.xcassets */,
 				73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */,
 			);
-			path = iOS;
+			name = "iOS App";
+			path = "App/iOS App";
 			sourceTree = "<group>";
 		};
 		73CF6014263F1DFD001925A3 /* Frameworks */ = {
@@ -98,6 +124,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7327344A277118670007579E /* TwitterFeaturePreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73273456277118680007579E /* Build configuration list for PBXNativeTarget "TwitterFeaturePreview" */;
+			buildPhases = (
+				73273447277118670007579E /* Sources */,
+				73273448277118670007579E /* Frameworks */,
+				73273449277118670007579E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TwitterFeaturePreview;
+			packageProductDependencies = (
+				7327345B27711B7B0007579E /* TwitterFeature */,
+			);
+			productName = SocialFeaturePreview;
+			productReference = 7327344B277118670007579E /* TwitterFeaturePreview.app */;
+			productType = "com.apple.product-type.application";
+		};
 		73CF5FC1263EAF5B001925A3 /* Critical Maps */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73CF5FE7263EAF5C001925A3 /* Build configuration list for PBXNativeTarget "Critical Maps" */;
@@ -124,15 +170,18 @@
 		73CF5FBA263EAF5B001925A3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					7327344A277118670007579E = {
+						CreatedOnToolsVersion = 13.2;
+					};
 					73CF5FC1263EAF5B001925A3 = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
 			};
-			buildConfigurationList = 73CF5FBD263EAF5B001925A3 /* Build configuration list for PBXProject "criticalmaps" */;
+			buildConfigurationList = 73CF5FBD263EAF5B001925A3 /* Build configuration list for PBXProject "CriticalMaps" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -146,11 +195,19 @@
 			projectRoot = "";
 			targets = (
 				73CF5FC1263EAF5B001925A3 /* Critical Maps */,
+				7327344A277118670007579E /* TwitterFeaturePreview */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		73273449277118670007579E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73CF5FC0263EAF5B001925A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,6 +225,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		73273447277118670007579E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7327344E277118670007579E /* TwitterFeaturePreviewApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73CF5FBE263EAF5B001925A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,6 +244,68 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		73273457277118680007579E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = QDDL89SBZ7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.TwitterFeaturePreview;
+				PRODUCT_NAME = TwitterFeaturePreview;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		73273458277118680007579E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = QDDL89SBZ7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.TwitterFeaturePreview;
+				PRODUCT_NAME = TwitterFeaturePreview;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		73CF5FE5263EAF5C001925A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -304,7 +431,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QDDL89SBZ7;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/App/iOS App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -327,7 +454,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QDDL89SBZ7;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/App/iOS App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -344,7 +471,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		73CF5FBD263EAF5B001925A3 /* Build configuration list for PBXProject "criticalmaps" */ = {
+		73273456277118680007579E /* Build configuration list for PBXNativeTarget "TwitterFeaturePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73273457277118680007579E /* Debug */,
+				73273458277118680007579E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73CF5FBD263EAF5B001925A3 /* Build configuration list for PBXProject "CriticalMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73CF5FE5263EAF5C001925A3 /* Debug */,
@@ -368,6 +504,10 @@
 		731CFCC8267A745600F1093B /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;
+		};
+		7327345B27711B7B0007579E /* TwitterFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TwitterFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
