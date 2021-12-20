@@ -10,6 +10,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .results(.placeHolder)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -25,6 +26,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .results(.placeHolder)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -41,6 +43,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .results(.placeHolder)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -57,6 +60,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .results(.placeHolder)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -74,6 +78,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .empty(.twitter)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -89,6 +94,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .empty(.twitter)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -105,6 +111,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .error(.default)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )
@@ -120,6 +127,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         initialState: .init(contentState: .error(.default)),
         reducer: twitterFeedReducer,
         environment: TwitterFeedEnvironment(
+          service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
         )

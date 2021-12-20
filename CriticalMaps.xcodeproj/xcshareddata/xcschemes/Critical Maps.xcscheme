@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:ModulesTests.xctestplan"
+            reference = "container:App/ModulesTests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

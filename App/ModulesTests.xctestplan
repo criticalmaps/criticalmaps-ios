@@ -18,72 +18,72 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
+        "containerPath" : "container:CriticalMapsKit",
         "identifier" : "AppFeatureTests",
         "name" : "AppFeatureTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "IDProviderTests",
-        "name" : "IDProviderTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "MapFeatureTests",
-        "name" : "MapFeatureTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "NextRideFeatureTests",
-        "name" : "NextRideFeatureTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "SettingsFeatureTests",
-        "name" : "SettingsFeatureTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "TwitterFeedFeatureTests",
-        "name" : "TwitterFeedFeatureTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "StyleguideTests",
-        "name" : "StyleguideTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
+        "containerPath" : "container:CriticalMapsKit",
         "identifier" : "ChatFeatureTests",
         "name" : "ChatFeatureTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "HelperTests",
+        "name" : "HelperTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "IDProviderTests",
+        "name" : "IDProviderTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "MapFeatureTests",
+        "name" : "MapFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "NextRideFeatureTests",
+        "name" : "NextRideFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "SettingsFeatureTests",
+        "name" : "SettingsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
         "identifier" : "SocialFeatureTests",
         "name" : "SocialFeatureTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:..\/CriticalMapsKit",
-        "identifier" : "HelperTests",
-        "name" : "HelperTests"
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "StyleguideTests",
+        "name" : "StyleguideTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "TwitterFeedFeatureTests",
+        "name" : "TwitterFeedFeatureTests"
       }
     }
   ],
