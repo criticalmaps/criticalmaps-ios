@@ -28,7 +28,7 @@ platform :ios do
   desc 'Run unit tests'
   lane :test do
     scan(
-      workspace: "criticalmaps.xcworkspace",
+      project: "CriticalMaps.xcodeproj",
       scheme: Scheme,
       device: 'iPhone 12',
       result_bundle: true
