@@ -29,6 +29,7 @@ class ChatFeatureCore: XCTestCase {
       )
     )
     
+    
     testStore.assert(
       .environment { env in
         env.locationsAndChatDataService.getLocationsAndSendMessages = { _ in

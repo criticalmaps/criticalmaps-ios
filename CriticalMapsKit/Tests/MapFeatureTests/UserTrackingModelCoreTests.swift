@@ -20,16 +20,15 @@ class UserTrackingModeCoreTests: XCTestCase {
       environment: UserTrackingEnvironment()
     )
     
-    store.assert(
-      .send(.nextTrackingMode) {
-        $0.mode = .follow
-      },
-      .send(.nextTrackingMode) {
-        $0.mode = .followWithHeading
-      },
-      .send(.nextTrackingMode) {
-        $0.mode = .none
-      }
-    )
+    
+    store.send(.nextTrackingMode) {
+      $0.mode = .follow
+    }
+    store.send(.nextTrackingMode) {
+      $0.mode = .followWithHeading
+    }
+    store.send(.nextTrackingMode) {
+      $0.mode = .none
+    }
   }
 }
