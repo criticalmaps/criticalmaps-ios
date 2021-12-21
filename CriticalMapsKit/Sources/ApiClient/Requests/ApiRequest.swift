@@ -10,14 +10,14 @@ public protocol APIRequest {
   var endpoint: Endpoint { get }
   var httpMethod: HTTPMethod { get }
   var headers: HTTPHeaders? { get }
-  var queryItems: [URLQueryItem]? { get set }
+  var queryItems: [URLQueryItem] { get set }
   var body: Data? { get }
   func makeRequest() throws -> URLRequest
   var decoder: JSONDecoder { get }
 }
 
 public extension APIRequest {
-  var queryItems: [String: String]? { nil }
+  var queryItems: [String: String] { [:] }
   
   func makeRequest() throws -> URLRequest {
     var components = URLComponents()
@@ -26,7 +26,7 @@ public extension APIRequest {
     if let path = endpoint.path {
       components.path = path
     }
-    if let queryItems = queryItems {
+    if !queryItems.isEmpty {
       components.queryItems = queryItems
     }
     guard let url = components.url else {

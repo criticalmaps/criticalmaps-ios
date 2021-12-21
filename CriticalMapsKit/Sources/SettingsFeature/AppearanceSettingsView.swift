@@ -55,28 +55,31 @@ struct AppIconPicker: View {
     VStack(spacing: .grid(2)) {
       ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { _, appIcon in
         SettingsRow {
-          Button(action: { self.appIcon = self.appIcon == appIcon ? .none : appIcon }) {
-            HStack(spacing: .grid(3)) {
-              Image(uiImage: appIcon.image)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 48, height: 48)
-                .continuousCornerRadius(12)
-                .id(appIcon)
-                .overlay(
-                  RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color(.textPrimary), lineWidth: 0.4)
-                )
-
-              Text(appIcon.title)
-
-              Spacer()
-
-              if self.appIcon == appIcon {
-                Image(systemName: "checkmark.circle.fill")
+          Button(
+            action: { self.appIcon = self.appIcon == appIcon ? .none : appIcon },
+            label: {
+              HStack(spacing: .grid(3)) {
+                Image(uiImage: appIcon.image)
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 48, height: 48)
+                  .continuousCornerRadius(12)
+                  .id(appIcon)
+                  .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                      .stroke(Color(.textPrimary), lineWidth: 0.4)
+                  )
+                
+                Text(appIcon.title)
+                
+                Spacer()
+                
+                if self.appIcon == appIcon {
+                  Image(systemName: "checkmark.circle.fill")
+                }
               }
             }
-          }
+          )
         }
       }
     }

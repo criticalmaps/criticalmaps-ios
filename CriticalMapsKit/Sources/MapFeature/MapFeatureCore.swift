@@ -171,9 +171,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
   }
 )
 
-private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Action, MapFeatureEnvironment> {
-  state, action, environment in
-  
+private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Action, MapFeatureEnvironment> { state, action, environment in
   switch action {
   case .didChangeAuthorization(.authorizedAlways),
        .didChangeAuthorization(.authorizedWhenInUse):

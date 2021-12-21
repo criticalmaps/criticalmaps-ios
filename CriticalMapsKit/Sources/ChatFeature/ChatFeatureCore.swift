@@ -74,8 +74,7 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
       ChatInputEnvironment()
     }
   ),
-  Reducer<ChatFeatureState, ChatFeatureAction, ChatEnvironment> {
-    state, action, environment in
+  Reducer<ChatFeatureState, ChatFeatureAction, ChatEnvironment> { state, action, environment in
     switch action {
     case .onAppear:
       return environment

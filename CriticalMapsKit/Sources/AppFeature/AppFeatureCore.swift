@@ -400,17 +400,18 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       }
     }
   }
-).onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
-  struct RideEventSettingsChange: Hashable {}
- 
-  // fetch next ride after settings have changed
-  if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
-    return Effect(value: .nextRide(.getNextRide(coordinate)))
-      .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
-  } else {
-    return .none
+)
+  .onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
+    struct RideEventSettingsChange: Hashable {}
+    
+    // fetch next ride after settings have changed
+    if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
+      return Effect(value: .nextRide(.getNextRide(coordinate)))
+        .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
+    } else {
+      return .none
+    }
   }
-          }
 
 
 

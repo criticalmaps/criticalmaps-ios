@@ -106,8 +106,7 @@ Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
     )
     }
   ),
-  Reducer<SocialState, SocialAction, SocialEnvironment> {
-    state, action, _ in
+  Reducer<SocialState, SocialAction, SocialEnvironment> { state, action, _ in
     switch action {
     case let .setSocialSegment(segment):
       state.socialControl = .init(rawValue: segment)!

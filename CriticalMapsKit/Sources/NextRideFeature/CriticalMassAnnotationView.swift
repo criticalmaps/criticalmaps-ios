@@ -26,10 +26,15 @@ public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
 }
 
 extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
-  public func contextMenuInteraction(_: UIContextMenuInteraction, configurationForMenuAtLocation _: CGPoint) -> UIContextMenuConfiguration? {
-    UIContextMenuConfiguration(identifier: nil, previewProvider: { MapSnapshotViewController() }) { _ in
-      self.makeContextMenu()
-    }
+  public func contextMenuInteraction(
+    _: UIContextMenuInteraction,
+    configurationForMenuAtLocation _: CGPoint
+  ) -> UIContextMenuConfiguration? {
+    UIContextMenuConfiguration(
+      identifier: nil,
+      previewProvider: { MapSnapshotViewController() },
+      actionProvider: { _ in self.makeContextMenu() }
+    )
   }
   
   private func makeContextMenu() -> UIMenu {

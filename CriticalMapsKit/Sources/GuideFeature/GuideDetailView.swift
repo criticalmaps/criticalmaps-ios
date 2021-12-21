@@ -37,11 +37,11 @@ struct DIImage: View {
   
   let image: Image
     
-  public init(_ image: Image) {
+  init(_ image: Image) {
     self.image = image
   }
     
-  public var body: some View {
+  var body: some View {
     Group {
       if colorScheme == .dark {
         img.colorInvert()

@@ -7,6 +7,7 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class NextRideCoreTests: XCTestCase {
   let now = { Date(timeIntervalSince1970: 0) }
   let testScheduler = DispatchQueue.test
@@ -74,10 +75,8 @@ class NextRideCoreTests: XCTestCase {
       )
     )
     
-    store.assert(
-      .send(.getNextRide(coordinate))
-      // no effect received
-    )
+    // no effect received
+    store.send(.getNextRide(coordinate))
   }
   
   func test_getNextRide_shouldReturnMockRide() {
@@ -101,14 +100,12 @@ class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.assert(
-      .send(.getNextRide(coordinate)),
-      .do { self.testScheduler.advance() },
-      .receive(.nextRideResponse(.success(rides))),
-      .receive(.setNextRide(rides[1])) {
-        $0.nextRide = self.rides[1]
-      }
-    )
+    store.send(.getNextRide(coordinate))
+    self.testScheduler.advance()
+    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.setNextRide(rides[1])) {
+      $0.nextRide = self.rides[1]
+    }
   }
   
   func test_getNextRide_shouldReturnError() {
@@ -138,11 +135,9 @@ class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.assert(
-      .send(.getNextRide(coordinate)),
-      .do { self.testScheduler.advance() },
-      .receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
-    )
+    store.send(.getNextRide(coordinate))
+    self.testScheduler.advance()
+    store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
   }
   
   func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() {
@@ -175,11 +170,9 @@ class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.assert(
-      .send(.getNextRide(coordinate)),
-      .do { self.testScheduler.advance() },
-      .receive(.nextRideResponse(.success(rides)))
-    )
+    store.send(.getNextRide(coordinate))
+    self.testScheduler.advance()
+    store.receive(.nextRideResponse(.success(rides)))
   }
   
   func test_getNextRide_shouldReturnRide_whenRideTypeNil() {
@@ -243,14 +236,12 @@ class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.assert(
-      .send(.getNextRide(coordinate)),
-      .do { self.testScheduler.advance() },
-      .receive(.nextRideResponse(.success(ridesWithARideWithNilRideType))),
-      .receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
-        $0.nextRide = ridesWithARideWithNilRideType[1]
-      }
-    )
+    store.send(.getNextRide(coordinate))
+    self.testScheduler.advance()
+    store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType)))
+    store.receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
+      $0.nextRide = ridesWithARideWithNilRideType[1]
+    }
   }
   
   func test_getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() {
@@ -300,12 +291,10 @@ class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.assert(
-      .send(.getNextRide(coordinate)),
-      .do { self.testScheduler.advance() },
-      .receive(.nextRideResponse(.success(rides))) {
-        $0.nextRide = nil
-      }
-    )
+    store.send(.getNextRide(coordinate))
+    self.testScheduler.advance()
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.nextRide = nil
+    }
   }
 }

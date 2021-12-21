@@ -81,7 +81,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       return .none
     }
     // Sort rides by date and pick the first one with a date greater than now
-    let ride = rides
+    let ride = rides // swiftlint:disable:this sorted_first_last
       .lazy
       .filter {
         guard let type = $0.rideType else { return true }
@@ -93,7 +93,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       }
       .filter(\.enabled)
       .sorted(by: \.dateTime)
-      .first { ride in ride.dateTime > env.now() }
+      .first(where: { ride in ride.dateTime > env.now() })
     
     guard let filteredRide = ride else {
       logger.info("No upcoming events after filter")

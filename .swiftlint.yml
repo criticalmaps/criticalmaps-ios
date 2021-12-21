@@ -11,6 +11,8 @@ disabled_rules: # rule identifiers to exclude from running
   - no_extension_access_modifier
   - force_cast
   - shorthand_operator
+  - file_name
+  - missing_docs
 
 opt_in_rules:
   - attributes
@@ -49,6 +51,8 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Package.swift
   - .build/
   - vendor/
+  - Tests/
+  - CriticalMapsKit/Sources/L10n/
 
 nesting:
   type_level: 3

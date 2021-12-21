@@ -259,7 +259,7 @@ public struct TextAttributes {
   var lineFragmentPadding: CGFloat?
   var returnKeyType: UIReturnKeyType?
   var textAlignment: NSTextAlignment?
-  var linkTextAttributes: [NSAttributedString.Key: Any]?
+  var linkTextAttributes: [NSAttributedString.Key: Any]
   var clearsOnInsertion: Bool?
   var contentType: UITextContentType?
   var autocorrectionType: UITextAutocorrectionType?
@@ -277,7 +277,7 @@ public struct TextAttributes {
       lineFragmentPadding: 8.0,
       returnKeyType: .none,
       textAlignment: nil,
-      linkTextAttributes: nil,
+      linkTextAttributes: [:],
       clearsOnInsertion: false,
       contentType: .none,
       autocorrectionType: .no,
@@ -297,7 +297,7 @@ public struct TextAttributes {
       lineFragmentPadding: 8.0,
       returnKeyType: .default,
       textAlignment: nil,
-      linkTextAttributes: nil,
+      linkTextAttributes: [:],
       clearsOnInsertion: false,
       contentType: nil,
       autocorrectionType: .default,
@@ -316,7 +316,7 @@ public struct TextAttributes {
     lineFragmentPadding: CGFloat? = nil,
     returnKeyType: UIReturnKeyType? = nil,
     textAlignment: NSTextAlignment? = nil,
-    linkTextAttributes: [NSAttributedString.Key: Any]? = nil,
+    linkTextAttributes: [NSAttributedString.Key: Any] = [:],
     clearsOnInsertion: Bool? = nil,
     contentType: UITextContentType? = nil,
     autocorrectionType: UITextAutocorrectionType? = nil,
@@ -350,7 +350,7 @@ public struct TextAttributes {
     let lineFragmentPadding: CGFloat? = self.lineFragmentPadding ?? fallback.lineFragmentPadding
     let returnKeyType: UIReturnKeyType? = self.returnKeyType ?? fallback.returnKeyType
     let textAlignment: NSTextAlignment? = self.textAlignment ?? fallback.textAlignment
-    let linkTextAttributes: [NSAttributedString.Key: Any]? = self.linkTextAttributes ?? fallback.linkTextAttributes
+    let linkTextAttributes: [NSAttributedString.Key: Any] = self.linkTextAttributes
     let clearsOnInsertion: Bool? = self.clearsOnInsertion ?? fallback.clearsOnInsertion
     let contentType: UITextContentType? = self.contentType ?? fallback.contentType
     let autocorrectionType: UITextAutocorrectionType? = self.autocorrectionType ?? fallback.autocorrectionType
@@ -423,6 +423,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     self.onCommit = onCommit
   }
   
+  // swiftlint:disable:next cyclomatic_complexity
   func makeUIView(context: Context) -> UITextView {
     let view = UITextView()
     
@@ -446,12 +447,8 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     if let textAlignment = attrs.textAlignment {
       view.textAlignment = textAlignment
     }
-    if let linkTextAttributes = attrs.linkTextAttributes {
-      view.linkTextAttributes = linkTextAttributes
-    }
-    if let linkTextAttributes = attrs.linkTextAttributes {
-      view.linkTextAttributes = linkTextAttributes
-    }
+    view.linkTextAttributes = attrs.linkTextAttributes
+    view.linkTextAttributes = attrs.linkTextAttributes
     if let clearsOnInsertion = attrs.clearsOnInsertion {
       view.clearsOnInsertion = clearsOnInsertion
     }
@@ -514,7 +511,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     )
   }
   
-  fileprivate static func recalculateHeight(
+  static func recalculateHeight(
     view: UIView,
     maxContentSize: CGSize,
     result: Binding<CGSize>
@@ -615,4 +612,4 @@ internal struct UITextViewWrapper: UIViewRepresentable {
       return false
     }
   }
-}
+} // swiftlint:disable:this file_length

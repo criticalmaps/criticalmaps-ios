@@ -11,6 +11,7 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   

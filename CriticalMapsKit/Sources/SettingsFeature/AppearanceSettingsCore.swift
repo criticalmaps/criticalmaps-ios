@@ -25,7 +25,8 @@ public struct AppearanceSettingsEnvironment {
 }
 
 // MARK: Reducer
-public let appearanceSettingsReducer = Reducer<AppearanceSettings, AppearanceSettingsAction, AppearanceSettingsEnvironment> { state, action, environment in
+public typealias AppearanceReducer = Reducer<AppearanceSettings, AppearanceSettingsAction, AppearanceSettingsEnvironment>
+public let appearanceSettingsReducer = AppearanceReducer { state, action, environment in
   switch action {
   case let .setColorScheme(scheme):
     state.colorScheme = scheme

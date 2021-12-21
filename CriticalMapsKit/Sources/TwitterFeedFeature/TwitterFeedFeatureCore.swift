@@ -43,8 +43,7 @@ public struct TwitterFeedEnvironment {
 // MARK: Reducer
 public let twitterFeedReducer =
 Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
-  Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment> {
-    state, action, environment in
+  Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment> { state, action, environment in
     switch action {
     case .onAppear:
       return .merge(

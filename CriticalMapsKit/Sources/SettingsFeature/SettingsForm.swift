@@ -28,7 +28,7 @@ struct SettingsRow<Content>: View where Content: View {
     self.content = content
   }
   
-  public var body: some View {
+  var body: some View {
     VStack(alignment: .leading) {
       self.content()
         .padding(.vertical, .grid(2))

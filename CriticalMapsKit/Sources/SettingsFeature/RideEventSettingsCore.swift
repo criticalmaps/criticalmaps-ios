@@ -13,7 +13,8 @@ public struct RideEventSettingsEnvironment {
 }
 
 
-public let rideeventSettingsReducer = Reducer<RideEventSettings, RideEventSettingsActions, RideEventSettingsEnvironment> { state, action, _ in
+public typealias EventReducer = Reducer<RideEventSettings, RideEventSettingsActions, RideEventSettingsEnvironment>
+public let rideeventSettingsReducer = EventReducer { state, action, _ in
   switch action {
   case let .setRideEventsEnabled(value):
     state.isEnabled = value
