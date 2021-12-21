@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; };
+		73238EBD27728043003DE01F /* ChatFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */; };
+		73238EC927728081003DE01F /* ChatFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EC827728081003DE01F /* ChatFeature */; };
 		7327344E277118670007579E /* TwitterFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */; };
 		7327345C27711B7B0007579E /* TwitterFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7327345B27711B7B0007579E /* TwitterFeature */; };
 		73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73238EBA27728043003DE01F /* ChatFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		732734462771172C0007579E /* CriticalMapsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CriticalMapsKit; sourceTree = "<group>"; };
 		7327344B277118670007579E /* TwitterFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterFeaturePreviewApp.swift; sourceTree = "<group>"; };
@@ -39,6 +43,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		73238EB727728043003DE01F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73238EC927728081003DE01F /* ChatFeature in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73273448277118670007579E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73238EBB27728043003DE01F /* ChatFeaturePreviewApp */ = {
+			isa = PBXGroup;
+			children = (
+				73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */,
+			);
+			path = ChatFeaturePreviewApp;
+			sourceTree = "<group>";
+		};
 		7327344C277118670007579E /* TwitterFeaturePreview */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +107,7 @@
 				73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */,
 				73CF5FF0263EB0A6001925A3 /* iOS App */,
 				7327344C277118670007579E /* TwitterFeaturePreview */,
+				73238EBB27728043003DE01F /* ChatFeaturePreviewApp */,
 				73CF5FC3263EAF5B001925A3 /* Products */,
 				73CF6014263F1DFD001925A3 /* Frameworks */,
 			);
@@ -97,6 +118,7 @@
 			children = (
 				73CF5FC2263EAF5B001925A3 /* Critical Maps.app */,
 				7327344B277118670007579E /* TwitterFeaturePreview.app */,
+				73238EBA27728043003DE01F /* ChatFeaturePreview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,6 +146,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		73238EB927728043003DE01F /* ChatFeaturePreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73238EC727728043003DE01F /* Build configuration list for PBXNativeTarget "ChatFeaturePreview" */;
+			buildPhases = (
+				73238EB627728043003DE01F /* Sources */,
+				73238EB727728043003DE01F /* Frameworks */,
+				73238EB827728043003DE01F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChatFeaturePreview;
+			packageProductDependencies = (
+				73238EC827728081003DE01F /* ChatFeature */,
+			);
+			productName = ChatFeaturePreviewApp;
+			productReference = 73238EBA27728043003DE01F /* ChatFeaturePreview.app */;
+			productType = "com.apple.product-type.application";
+		};
 		7327344A277118670007579E /* TwitterFeaturePreview */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73273456277118680007579E /* Build configuration list for PBXNativeTarget "TwitterFeaturePreview" */;
@@ -173,6 +215,9 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					73238EB927728043003DE01F = {
+						CreatedOnToolsVersion = 13.2;
+					};
 					7327344A277118670007579E = {
 						CreatedOnToolsVersion = 13.2;
 					};
@@ -196,11 +241,19 @@
 			targets = (
 				73CF5FC1263EAF5B001925A3 /* Critical Maps */,
 				7327344A277118670007579E /* TwitterFeaturePreview */,
+				73238EB927728043003DE01F /* ChatFeaturePreview */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		73238EB827728043003DE01F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73273449277118670007579E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,6 +278,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		73238EB627728043003DE01F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73238EBD27728043003DE01F /* ChatFeaturePreviewApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73273447277118670007579E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,6 +305,68 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		73238EC527728043003DE01F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = QDDL89SBZ7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.ChatFeaturePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		73238EC627728043003DE01F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = QDDL89SBZ7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.ChatFeaturePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		73273457277118680007579E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -471,6 +594,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		73238EC727728043003DE01F /* Build configuration list for PBXNativeTarget "ChatFeaturePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73238EC527728043003DE01F /* Debug */,
+				73238EC627728043003DE01F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		73273456277118680007579E /* Build configuration list for PBXNativeTarget "TwitterFeaturePreview" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -504,6 +636,10 @@
 		731CFCC8267A745600F1093B /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;
+		};
+		73238EC827728081003DE01F /* ChatFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ChatFeature;
 		};
 		7327345B27711B7B0007579E /* TwitterFeature */ = {
 			isa = XCSwiftPackageProductDependency;
