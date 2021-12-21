@@ -1,13 +1,10 @@
-<p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="images/logo.png" width="250" /></a></p>
+<p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="_images/Icon.svg" width="250" /></a></p>
 
-<p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="images/appstore-badge.png" width="150" /></a></p>
+<p align="center"><a href="https://itunes.apple.com/app/critical-maps/id918669647"><img src="_images/appstore-badge.png" width="150" /></a></p>
 
 ## Critical Maps iOS App
 
-<a title="GitHub Actions" target="_blank" href="https://github.com/criticalmaps/criticalmaps-ios/workflows/CI/badge.svg">
-		<img src="https://github.com/criticalmaps/criticalmaps-ios/workflows/CI/badge.svg"
-					alt="Build Status">
-</a>
+[![CI](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/ci.yml)
 <a title="TestFlight" target="_blank" href="https://testflight.apple.com/join/nyGeQVxk">
 	<img src="https://img.shields.io/badge/Join-TestFlight-blue.svg"
 				alt="Join TestFlight" />
@@ -92,4 +89,4 @@ However, **please do not ship this app** under your own account. Paid or free.
 
 ## Copyright & License
 
-Copyright (c) 2014-2019 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/master/LICENSE).
+Copyright (c) 2021 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/master/LICENSE).
