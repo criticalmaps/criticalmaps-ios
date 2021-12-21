@@ -5,9 +5,9 @@
 //  Created by Malte on 07.08.21.
 //
 
-@testable import MapFeature
 import Combine
 import ComposableArchitecture
+@testable import MapFeature
 import SharedModels
 import XCTest
 
@@ -24,10 +24,10 @@ class UserTrackingModeCoreTests: XCTestCase {
       .send(.nextTrackingMode) {
         $0.mode = .follow
       },
-      .send(.nextTrackingMode){
+      .send(.nextTrackingMode) {
         $0.mode = .followWithHeading
       },
-      .send(.nextTrackingMode){
+      .send(.nextTrackingMode) {
         $0.mode = .none
       }
     )

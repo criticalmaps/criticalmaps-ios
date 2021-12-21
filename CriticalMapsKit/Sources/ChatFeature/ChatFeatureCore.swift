@@ -1,6 +1,6 @@
 import ApiClient
-import CryptoKit
 import ComposableArchitecture
+import CryptoKit
 import Foundation
 import IDProvider
 import L10n
@@ -15,7 +15,7 @@ public struct ChatFeatureState: Equatable {
   public var hasConnectivity: Bool
     
   public init(
-    chatMessages: [String : ChatMessage] = [:],
+    chatMessages: [String: ChatMessage] = [:],
     chatInputState: ChatInputState = .init(),
     hasConnectivity: Bool = true
   ) {

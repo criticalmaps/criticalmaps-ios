@@ -53,7 +53,7 @@ struct AppIconPicker: View {
 
   var body: some View {
     VStack(spacing: .grid(2)) {
-      ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { offset, appIcon in
+      ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { _, appIcon in
         SettingsRow {
           Button(action: { self.appIcon = self.appIcon == appIcon ? .none : appIcon }) {
             HStack(spacing: .grid(3)) {

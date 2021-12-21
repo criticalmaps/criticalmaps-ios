@@ -2,8 +2,8 @@ import Foundation
 
 public struct LocationAndChatMessages: Codable, Hashable {
   public init(
-    locations: [String : Location],
-    chatMessages: [String : ChatMessage]
+    locations: [String: Location],
+    chatMessages: [String: ChatMessage]
   ) {
     self.locations = locations
     self.chatMessages = chatMessages

@@ -1,5 +1,5 @@
-import TestHelper
 import Styleguide
+import TestHelper
 import XCTest
 
 class EmptyStateViewSnapshotTests: XCTestCase {

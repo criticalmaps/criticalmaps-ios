@@ -7,7 +7,7 @@ import XCTest
 
 class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
-  let date = { Date.init(timeIntervalSinceReferenceDate: 0) }
+  let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() {
     let testStore = TestStore(
@@ -140,7 +140,7 @@ class ChatFeatureCore: XCTestCase {
 
 let mockResponse = LocationAndChatMessages(
   locations: [
-    "1": Location.init(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)
+    "1": Location(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)
   ],
   chatMessages: [
     "ID0": ChatMessage(message: "Hello World!", timestamp: 1889.0),

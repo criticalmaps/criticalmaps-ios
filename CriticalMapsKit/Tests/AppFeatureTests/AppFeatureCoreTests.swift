@@ -1,5 +1,5 @@
-@testable import AppFeature
 import ApiClient
+@testable import AppFeature
 import Combine
 import ComposableArchitecture
 import ComposableCoreLocation
@@ -26,7 +26,7 @@ class AppFeatureTests: XCTestCase {
         authorizationStatus: { .denied },
         create: { _ in locationManagerSubject.eraseToEffect() },
         locationServicesEnabled: { true },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       userDefaultsClient: .noop,
       uiApplicationClient: .noop,
@@ -34,7 +34,7 @@ class AppFeatureTests: XCTestCase {
       setUserInterfaceStyle: { _ in .none },
       pathMonitorClient: .satisfied
     )
-    environment.fileClient.load = { asdf in
+    environment.fileClient.load = { _ in
         .init(
           value: try! JSONEncoder().encode(
             UserSettings()
@@ -114,7 +114,7 @@ class AppFeatureTests: XCTestCase {
           .fireAndForget { didRequestAlwaysAuthorization = true }
         },
         requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       nextRideService: nextRideService,
       userDefaultsClient: settings,
@@ -123,7 +123,7 @@ class AppFeatureTests: XCTestCase {
       setUserInterfaceStyle: { _ in .none },
       pathMonitorClient: .satisfied
     )
-    environment.fileClient.load = { asdf in
+    environment.fileClient.load = { _ in
         .init(
           value: try! JSONEncoder().encode(
             UserSettings()
@@ -250,7 +250,7 @@ class AppFeatureTests: XCTestCase {
           .fireAndForget { didRequestAlwaysAuthorization = true }
         },
         requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       nextRideService: nextRideService,
       userDefaultsClient: settings,

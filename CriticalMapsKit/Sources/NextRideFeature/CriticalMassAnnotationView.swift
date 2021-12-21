@@ -1,6 +1,6 @@
+import L10n
 import MapKit
 import Styleguide
-import L10n
 
 public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   typealias EventClosure = () -> Void
@@ -8,7 +8,7 @@ public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   var shareEventClosure: EventClosure?
   var routeEventClosure: EventClosure?
   
-  public override func prepareForDisplay() {
+  override public func prepareForDisplay() {
     super.prepareForDisplay()
     commonInit()
   }
@@ -69,4 +69,3 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
     }
   }
 }
-

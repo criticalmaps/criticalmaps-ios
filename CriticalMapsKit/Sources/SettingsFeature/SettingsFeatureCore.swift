@@ -143,4 +143,3 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     .fireAndForget()
     .debounce(id: SaveDebounceId(), for: .seconds(1), scheduler: environment.mainQueue)
 }
-

@@ -1,9 +1,9 @@
-import TestHelper
 import Styleguide
+import TestHelper
 import XCTest
 
-import TestHelper
 import Styleguide
+import TestHelper
 import XCTest
 
 class ErrorStateViewSnapshotTests: XCTestCase {

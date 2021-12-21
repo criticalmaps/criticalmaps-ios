@@ -1,7 +1,7 @@
-import ComposableArchitecture
 import ChatFeature
-import TwitterFeedFeature
+import ComposableArchitecture
 import SwiftUI
+import TwitterFeedFeature
 
 public struct SocialView: View {
   @Environment(\.presentationMode) var presentationMode

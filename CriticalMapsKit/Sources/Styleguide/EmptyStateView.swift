@@ -1,5 +1,5 @@
-import SwiftUI
 import L10n
+import SwiftUI
 
 public struct EmptyState: Equatable {
   public let icon: UIImage

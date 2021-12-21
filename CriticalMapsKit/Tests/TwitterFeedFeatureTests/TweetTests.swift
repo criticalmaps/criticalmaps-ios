@@ -1,7 +1,7 @@
-import Foundation
-import XCTest
-import SharedModels
 import CustomDump
+import Foundation
+import SharedModels
+import XCTest
 
 class TweetTests: XCTestCase {
   

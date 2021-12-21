@@ -1,7 +1,7 @@
 import ChatFeature
-import TestHelper
 import Styleguide
 import SwiftUI
+import TestHelper
 import XCTest
 
 class ChatFeatureSnapshotTests: XCTestCase {
@@ -86,6 +86,3 @@ class ChatFeatureSnapshotTests: XCTestCase {
     assertViewSnapshot(view, height: 100, sloppy: true)
   }
 }
-
-
-

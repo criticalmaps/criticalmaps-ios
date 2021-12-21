@@ -5,8 +5,8 @@
 //  Created by Malte on 20.06.21.
 //
 
-@testable import IDProvider
 import Foundation
+@testable import IDProvider
 import XCTest
 
 class IDProviderTests: XCTestCase {

@@ -5,11 +5,11 @@
 //  Created by Malte on 15.06.21.
 //
 
-@testable import MapFeature
 import Combine
 import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
+@testable import MapFeature
 import SharedModels
 import XCTest
 
@@ -40,7 +40,7 @@ class MapFeatureCoreTests: XCTestCase {
             .fireAndForget { didRequestAlwaysAuthorization = true }
           },
           requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-          set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+          set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
         ),
         mainQueue: testScheduler.eraseToAnyScheduler()
       )
@@ -94,7 +94,7 @@ class MapFeatureCoreTests: XCTestCase {
         authorizationStatus: { .denied },
         create: { _ in locationManagerSubject.eraseToEffect() },
         locationServicesEnabled: { false },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -137,7 +137,7 @@ class MapFeatureCoreTests: XCTestCase {
         requestAlwaysAuthorization: { _ in
             .fireAndForget { didRequestAlwaysAuthorization = true }
         },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -184,7 +184,7 @@ class MapFeatureCoreTests: XCTestCase {
         create: { _ in fatalError() },
         locationServicesEnabled: { fatalError() },
         requestAlwaysAuthorization: { _ in fatalError() },
-        set: { (_, _) -> Effect<Never, Never> in fatalError() }
+        set: { _, _ -> Effect<Never, Never> in fatalError() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -236,7 +236,7 @@ class MapFeatureCoreTests: XCTestCase {
         requestAlwaysAuthorization: { _ in
             .fireAndForget { didRequestAlwaysAuthorization = true }
         },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )

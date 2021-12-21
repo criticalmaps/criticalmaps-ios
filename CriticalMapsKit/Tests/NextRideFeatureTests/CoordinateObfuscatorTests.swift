@@ -1,14 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 07.06.21.
-//
-
 import CoreLocation
+@testable import NextRideFeature
 import SharedModels
 import XCTest
-@testable import NextRideFeature
 
 class CoordinateObfuscatorTests: XCTestCase {
   var sut: CoordinateObfuscator!

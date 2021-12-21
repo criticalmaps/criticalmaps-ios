@@ -1,9 +1,9 @@
+import ComposableArchitecture
 import Foundation
 import SharedModels
-import SwiftUI
-import ComposableArchitecture
-import UIApplicationClient
 import Styleguide
+import SwiftUI
+import UIApplicationClient
 
 // MARK: State
 public struct TwitterFeedState: Equatable {

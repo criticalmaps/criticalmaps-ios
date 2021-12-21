@@ -3,18 +3,18 @@ import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
-import Logger
-import MapKit
-import MapFeature
-import NextRideFeature
 import IDProvider
+import Logger
+import MapFeature
+import MapKit
+import NextRideFeature
 import PathMonitorClient
 import SettingsFeature
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature
-import UserDefaultsClient
 import UIApplicationClient
+import UserDefaultsClient
 
 // MARK: State
 public struct AppState: Equatable {
@@ -44,10 +44,10 @@ public struct AppState: Equatable {
   }
   
   public var locationsAndChatMessages: Result<LocationAndChatMessages, NSError>?
-  public var didResolveInitialLocation: Bool = false
+  public var didResolveInitialLocation = false
   
   // Children states
-  public var mapFeatureState: MapFeatureState = MapFeatureState(
+  public var mapFeatureState = MapFeatureState(
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
@@ -410,7 +410,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   } else {
     return .none
   }
-}
+          }
 
 
 

@@ -1,6 +1,6 @@
+import ChatFeature
 import ComposableArchitecture
 import XCTest
-import ChatFeature
 
 class ChatInputCoreTests: XCTestCase {
   func test_isEditingChanged_action() {

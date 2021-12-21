@@ -1,15 +1,8 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 12.06.21.
-//
-
-@testable import NextRideFeature
 import Combine
 import ComposableArchitecture
 import Foundation
 import Helpers
+@testable import NextRideFeature
 import SharedModels
 import UserDefaultsClient
 import XCTest
