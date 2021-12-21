@@ -56,6 +56,7 @@ public struct BasicInputView: View {
           viewStore.isSendButtonDisabled ? Color(.border) : .blue
         }
       )
+        .animation(.easeOut(duration: 0.13), value: viewStore.isSendButtonDisabled)
         .accessibilityLabel(Text(L10n.Chat.send))
         .frame(width: 38, height: 38)
         .overlay(
