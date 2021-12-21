@@ -1,3 +1,4 @@
+import ApiClient
 import ChatFeature
 import Combine
 import ComposableArchitecture
@@ -10,6 +11,14 @@ class ChatFeatureCore: XCTestCase {
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() {
+    let locationsAndChatDataService = LocationsAndChatDataService(
+      getLocationsAndSendMessages: { _ in
+        Just(mockResponse)
+          .setFailureType(to: NSError.self)
+          .eraseToAnyPublisher()
+      }
+    )
+    
     let testStore = TestStore(
       initialState: ChatFeatureState(
         chatMessages: [:],
@@ -20,7 +29,7 @@ class ChatFeatureCore: XCTestCase {
       ),
       reducer: chatReducer,
       environment: ChatEnvironment(
-        locationsAndChatDataService: .noop,
+        locationsAndChatDataService: locationsAndChatDataService,
         mainQueue: .immediate,
         idProvider: .noop,
         uuid: uuid,
@@ -29,27 +38,25 @@ class ChatFeatureCore: XCTestCase {
       )
     )
     
-    
-    testStore.assert(
-      .environment { env in
-        env.locationsAndChatDataService.getLocationsAndSendMessages = { _ in
-          Just(mockResponse)
-            .setFailureType(to: NSError.self)
-            .eraseToAnyPublisher()
-        }
-      },
-      .send(.chatInput(.onCommit)) { state in
-        state.chatInputState.isSending = true
-      },
-      .receive(.chatInputResponse(.success(mockResponse))) { state in
-        state.chatInputState.isSending = false
-        state.chatInputState.message = ""
-        state.chatMessages = mockResponse.chatMessages
-      }
-    )
+    testStore.send(.chatInput(.onCommit)) { state in
+      state.chatInputState.isSending = true
+    }
+    testStore.receive(.chatInputResponse(.success(mockResponse))) { state in
+      state.chatInputState.isSending = false
+      state.chatInputState.message = ""
+      state.chatMessages = mockResponse.chatMessages
+    }
   }
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() {
+    let error = NSError()
+    let locationsAndChatDataService = LocationsAndChatDataService(
+      getLocationsAndSendMessages: { _ in
+        Fail(error: error)
+          .eraseToAnyPublisher()
+      }
+    )
+    
     let testStore = TestStore(
       initialState: ChatFeatureState(
         chatMessages: [:],
@@ -60,7 +67,7 @@ class ChatFeatureCore: XCTestCase {
       ),
       reducer: chatReducer,
       environment: ChatEnvironment(
-        locationsAndChatDataService: .noop,
+        locationsAndChatDataService: locationsAndChatDataService,
         mainQueue: .immediate,
         idProvider: .noop,
         uuid: uuid,
@@ -68,23 +75,13 @@ class ChatFeatureCore: XCTestCase {
         userDefaultsClient: .noop
       )
     )
-    
-    let error = NSError()
-    
-    testStore.assert(
-      .environment { env in
-        env.locationsAndChatDataService.getLocationsAndSendMessages = { _ in
-          Fail(error: error)
-            .eraseToAnyPublisher()
-        }
-      },
-      .send(.chatInput(.onCommit)) { state in
-        state.chatInputState.isSending = true
-      },
-      .receive(.chatInputResponse(.failure(error))) { state in
-        state.chatInputState.isSending = false
-      }
-    )
+            
+    testStore.send(.chatInput(.onCommit)) { state in
+      state.chatInputState.isSending = true
+    }
+    testStore.receive(.chatInputResponse(.failure(error))) { state in
+      state.chatInputState.isSending = false
+    }
   }
   
   func test_didAppear_ShouldSet_appearanceTimeinterval() {
@@ -114,12 +111,10 @@ class ChatFeatureCore: XCTestCase {
       )
     )
   
-    testStore.assert(
-      .send(.onAppear) { _ in
-        XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
-        XCTAssertTrue(didWriteChatAppearanceTimeinterval)
-      }
-    )
+    testStore.send(.onAppear) { _ in
+      XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
+      XCTAssertTrue(didWriteChatAppearanceTimeinterval)
+    }
   }
   
   func test_chatViewState() {

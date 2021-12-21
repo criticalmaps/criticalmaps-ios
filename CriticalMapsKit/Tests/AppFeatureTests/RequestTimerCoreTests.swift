@@ -15,13 +15,11 @@ class RequestTimerCoreTests: XCTestCase {
       )
     )
     
-    store.assert(
-      .send(.startTimer),
-      .do { self.testScheduler.advance(by: 1) },
-      .receive(.timerTicked),
-      .do { self.testScheduler.advance(by: 1) },
-      .receive(.timerTicked),
-      .send(.stopTimer)
-    )
+    store.send(.startTimer)
+    self.testScheduler.advance(by: 1)
+    store.receive(.timerTicked)
+    self.testScheduler.advance(by: 1)
+    store.receive(.timerTicked)
+    store.send(.stopTimer)
   }
 }
