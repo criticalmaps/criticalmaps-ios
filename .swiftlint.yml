@@ -1,0 +1,72 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_comma
+  - operator_whitespace
+  - force_try
+  - function_body_length
+  - trailing_whitespace
+  - trailing_closure
+  - vertical_whitespace
+  - force_unwrapping
+  - fatal_error_message
+  - no_extension_access_modifier
+  - force_cast
+  - shorthand_operator
+
+opt_in_rules:
+  - attributes
+  - empty_count
+  - force_unwrapping
+  - unneeded_parentheses_in_closure_argument
+  - unavailable_function
+  - trailing_closure
+  - strict_fileprivate
+  - sorted_imports
+  - sorted_first_last
+  - single_test_class
+  - required_enum_case
+  - redundant_type_annotation
+  - redundant_nil_coalescing
+  - prohibited_super_call
+  - override_in_extension
+  - overridden_super_call
+  - operator_usage_whitespace
+  - no_extension_access_modifier
+  - multiline_function_chains
+  - multiline_arguments
+  - modifier_order
+  - missing_docs
+  - lower_acl_than_parent
+  - literal_expression_end_indentation
+  - first_where
+  - file_name
+  - fatal_error_message
+  - explicit_init
+  - empty_xctest_method
+  - empty_string
+  - discouraged_optional_collection
+  - closure_end_indentation
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Package.swift
+  - .build/
+  - vendor/
+
+nesting:
+  type_level: 3
+line_length: 140
+file_length:
+  warning: 600
+  error: 1200
+type_name:
+  min_length: 3
+  max_length:
+    warning: 40
+    error: 50
+  allowed_symbols: ["_Previews"]
+identifier_name:
+  min_length: # only min_length
+    warning: 2 # only error
+  excluded: # excluded via string array
+    - t
+    - a
+    - b
+    - n

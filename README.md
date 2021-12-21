@@ -35,13 +35,23 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 - If you can code please check the build & contribute guide below.
 - If you have some coins left you can help to finance the server.
 
-### How to build
+### Project Setup
 
-```sh
-    git clone REPO-URL
+The application is built in a hyper-modularized style. This allows to work on features without building the entire application, which improves compile times and SwiftUI preview stability. Every feature is its own target which makes it also possible to build mini-apps to run in the simulator for preview.
+
+
+#### Getting Started
+
+This repo contains both the client for running the entire [criticalmaps](https://itunes.apple.com/app/critical-maps/id918669647) application, as well as an extensive test suite. To get things running:
+
+1. Grab the code:
+    ```sh
+    git clone https://github.com/criticalmaps/criticalmaps-ios
     cd criticalmaps-ios
-    open CriticalMaps.xcodeproj
-```
+    ```
+2. Open the Xcode project `CriticalMaps.xcodeproj`.
+3. To run the client locally, select the `Critical Maps` target in Xcode and run (`⌘R`).
+
 
 ### How to contribute
 
@@ -55,7 +65,6 @@ In general, we follow the "fork-and-pull" Git workflow.
 
 NOTES: 
 - Be sure to merge the latest from "upstream" before making a pull request!
-- Please use the simulator specified in Fastfile ("snapshot_test" lane) to run snapshot tests
 
 #### Assets
 
