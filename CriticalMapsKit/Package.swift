@@ -11,6 +11,7 @@ let package = Package(
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
     .library(name: "AppFeature", targets: ["AppFeature"]),
+    .library(name: "ChatFeature", targets: ["ChatFeature"]),
     .library(name: "MapFeature", targets: ["MapFeature"]),
     .library(name: "TwitterFeature", targets: ["SocialFeature"])
   ],
