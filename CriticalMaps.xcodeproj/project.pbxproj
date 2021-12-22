@@ -10,6 +10,8 @@
 		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; };
 		73238EBD27728043003DE01F /* ChatFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */; };
 		73238EC927728081003DE01F /* ChatFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EC827728081003DE01F /* ChatFeature */; };
+		73238ED12773289F003DE01F /* SettingsFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73238ED02773289F003DE01F /* SettingsFeaturePreviewApp.swift */; };
+		73238EDD277328E8003DE01F /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EDC277328E8003DE01F /* SettingsFeature */; };
 		7327344E277118670007579E /* TwitterFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */; };
 		7327345C27711B7B0007579E /* TwitterFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 7327345B27711B7B0007579E /* TwitterFeature */; };
 		73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		73238EBA27728043003DE01F /* ChatFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SettingsFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73238ED02773289F003DE01F /* SettingsFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		732734462771172C0007579E /* CriticalMapsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CriticalMapsKit; sourceTree = "<group>"; };
 		7327344B277118670007579E /* TwitterFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterFeaturePreviewApp.swift; sourceTree = "<group>"; };
@@ -51,6 +55,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73238ECB2773289F003DE01F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73238EDD277328E8003DE01F /* SettingsFeature in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73273448277118670007579E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,12 +82,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		73238EBB27728043003DE01F /* ChatFeaturePreviewApp */ = {
+		73238EBB27728043003DE01F /* ChatFeaturePreview */ = {
 			isa = PBXGroup;
 			children = (
 				73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */,
 			);
-			path = ChatFeaturePreviewApp;
+			path = ChatFeaturePreview;
+			sourceTree = "<group>";
+		};
+		73238ECF2773289F003DE01F /* SettingsFeaturePreview */ = {
+			isa = PBXGroup;
+			children = (
+				73238ED02773289F003DE01F /* SettingsFeaturePreviewApp.swift */,
+			);
+			path = SettingsFeaturePreview;
 			sourceTree = "<group>";
 		};
 		7327344C277118670007579E /* TwitterFeaturePreview */ = {
@@ -107,7 +127,8 @@
 				73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */,
 				73CF5FF0263EB0A6001925A3 /* iOS App */,
 				7327344C277118670007579E /* TwitterFeaturePreview */,
-				73238EBB27728043003DE01F /* ChatFeaturePreviewApp */,
+				73238EBB27728043003DE01F /* ChatFeaturePreview */,
+				73238ECF2773289F003DE01F /* SettingsFeaturePreview */,
 				73CF5FC3263EAF5B001925A3 /* Products */,
 				73CF6014263F1DFD001925A3 /* Frameworks */,
 			);
@@ -119,6 +140,7 @@
 				73CF5FC2263EAF5B001925A3 /* Critical Maps.app */,
 				7327344B277118670007579E /* TwitterFeaturePreview.app */,
 				73238EBA27728043003DE01F /* ChatFeaturePreview.app */,
+				73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +186,26 @@
 			);
 			productName = ChatFeaturePreviewApp;
 			productReference = 73238EBA27728043003DE01F /* ChatFeaturePreview.app */;
+			productType = "com.apple.product-type.application";
+		};
+		73238ECD2773289F003DE01F /* SettingsFeaturePreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73238ED9277328A0003DE01F /* Build configuration list for PBXNativeTarget "SettingsFeaturePreview" */;
+			buildPhases = (
+				73238ECA2773289F003DE01F /* Sources */,
+				73238ECB2773289F003DE01F /* Frameworks */,
+				73238ECC2773289F003DE01F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SettingsFeaturePreview;
+			packageProductDependencies = (
+				73238EDC277328E8003DE01F /* SettingsFeature */,
+			);
+			productName = SettingsFeaturePreview;
+			productReference = 73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7327344A277118670007579E /* TwitterFeaturePreview */ = {
@@ -218,6 +260,9 @@
 					73238EB927728043003DE01F = {
 						CreatedOnToolsVersion = 13.2;
 					};
+					73238ECD2773289F003DE01F = {
+						CreatedOnToolsVersion = 13.2;
+					};
 					7327344A277118670007579E = {
 						CreatedOnToolsVersion = 13.2;
 					};
@@ -242,12 +287,20 @@
 				73CF5FC1263EAF5B001925A3 /* Critical Maps */,
 				7327344A277118670007579E /* TwitterFeaturePreview */,
 				73238EB927728043003DE01F /* ChatFeaturePreview */,
+				73238ECD2773289F003DE01F /* SettingsFeaturePreview */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		73238EB827728043003DE01F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73238ECC2773289F003DE01F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -283,6 +336,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				73238EBD27728043003DE01F /* ChatFeaturePreviewApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73238ECA2773289F003DE01F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73238ED12773289F003DE01F /* SettingsFeaturePreviewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +421,68 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.ChatFeaturePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		73238EDA277328A0003DE01F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = QDDL89SBZ7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.SettingsFeaturePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		73238EDB277328A0003DE01F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = QDDL89SBZ7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.criticalmaps.SettingsFeaturePreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -603,6 +726,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		73238ED9277328A0003DE01F /* Build configuration list for PBXNativeTarget "SettingsFeaturePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73238EDA277328A0003DE01F /* Debug */,
+				73238EDB277328A0003DE01F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		73273456277118680007579E /* Build configuration list for PBXNativeTarget "TwitterFeaturePreview" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -640,6 +772,10 @@
 		73238EC827728081003DE01F /* ChatFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ChatFeature;
+		};
+		73238EDC277328E8003DE01F /* SettingsFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SettingsFeature;
 		};
 		7327345B27711B7B0007579E /* TwitterFeature */ = {
 			isa = XCSwiftPackageProductDependency;
