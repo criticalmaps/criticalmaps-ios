@@ -145,7 +145,7 @@ extension AppEnvironment {
     uiApplicationClient: .live,
     setUserInterfaceStyle: { userInterfaceStyle in
       .fireAndForget {
-        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = userInterfaceStyle
+        UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
       }
     }
   )
