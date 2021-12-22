@@ -2,6 +2,7 @@ import ApiClient
 import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
+import Helpers
 import IDProvider
 import Logger
 import MapFeature
@@ -42,7 +43,7 @@ public struct AppDelegateEnvironment {
     mainQueue: .main,
     setUserInterfaceStyle: { userInterfaceStyle in
       .fireAndForget {
-        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = userInterfaceStyle
+        UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
       }
     }
   )
