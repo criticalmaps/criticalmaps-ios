@@ -111,7 +111,7 @@ However, **please do not ship this app** under your own account. Paid or free.
         <a href="https://github.com/i5glu">
             <img src="https://avatars.githubusercontent.com/u/9765299?v=4" width="100;" alt="i5glu"/>
             <br />
-            <sub><b>i5glu</b></sub>
+            <sub><b>I5glu</b></sub>
         </a>
     </td>
     <td align="center">
