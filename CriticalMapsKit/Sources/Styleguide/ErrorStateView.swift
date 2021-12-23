@@ -41,7 +41,7 @@ public struct ErrorStateView: View {
         .ignoresSafeArea()
       
       VStack(spacing: .grid(5)) {
-        Image(uiImage: Images.errorPlaceholder)
+        Image(uiImage: Asset.error.image)
           .frame(maxWidth: .infinity)
         VStack(spacing: .grid(2)) {
           Text(errorState.title)

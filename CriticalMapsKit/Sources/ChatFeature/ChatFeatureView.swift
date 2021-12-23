@@ -82,7 +82,7 @@ public struct ChatView: View {
   private var emptyState: some View {
     EmptyStateView(
       emptyState: .init(
-        icon: Images.chatEmptyPlaceholder,
+        icon: Asset.chatEmpty.image,
         text: L10n.Chat.emptyMessageTitle,
         message: .init(
           string: L10n.Chat.noChatActivity

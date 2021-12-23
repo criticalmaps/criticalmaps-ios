@@ -21,7 +21,7 @@ public struct TweetListView: View {
         EmptyStateView(
           emptyState: state,
           buttonAction: { viewStore.send(.fetchData) },
-          buttonText: "Reload" // TODO: L10n
+          buttonText: L10n.EmptyState.reload
         )
       case let .results(tweets), let .loading(tweets):
         ZStack {
@@ -75,8 +75,8 @@ struct TweetListView_Previews: PreviewProvider {
 
 public extension EmptyState {
   static let twitter = Self(
-    icon: Images.twitterEmpty,
+    icon: Asset.twitterEmpty.image,
     text: L10n.Twitter.noData,
-    message: NSAttributedString.highlightMentionsAndTags(in: L10n.Twitter.emptyMessage)
+    message: NSAttributedString.highlightMentionsAndTags(in: L10n.Twitter.Empty.message)
   )
 }

@@ -26,7 +26,7 @@ public struct MapOverlayView<Content>: View where Content: View {
       action: { action() },
       label: {
         HStack {
-          Image(uiImage: Images.eventMarker)
+          Image(uiImage: Asset.cm.image)
           
           if isExpanded {
             content()

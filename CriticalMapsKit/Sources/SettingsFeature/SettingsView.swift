@@ -77,7 +77,7 @@ public struct SettingsView: View {
   }
   
   var supportSection: some View {
-    SettingsSection(title: "Support") { // TODO: Replace with l10n
+    SettingsSection(title: L10n.Settings.support) {
       VStack(alignment: .leading, spacing: .grid(4)) {
         Button(
           action: { viewStore.send(.supportSectionRowTapped(.github)) },
@@ -88,22 +88,21 @@ public struct SettingsView: View {
               link: L10n.Settings.Opensource.action,
               textStackForegroundColor: Color(.textPrimaryLight),
               backgroundColor: Color(.brand500),
-              bottomImage: Image(uiImage: Images.ghIcon)
+              bottomImage: Image(uiImage: Asset.ghLogo.image)
             )
           }
         )
         
-        // TODO: Replace strings with l10n
         Button(
           action: { viewStore.send(.supportSectionRowTapped(.crowdin)) },
           label: {
             SupportSettingsRow(
-              title: "Translate",
-              subTitle: "Help making Critical Maps available in other languages",
-              link: "crowdin.com",
+              title: L10n.Settings.Translate.title,
+              subTitle: L10n.Settings.Translate.subtitle,
+              link: L10n.Settings.Translate.link,
               textStackForegroundColor: .white,
               backgroundColor: Color(.translateRowBackground),
-              bottomImage: Image(uiImage: Images.translateIcon)
+              bottomImage: Image(uiImage: Asset.translate.image)
             )
           }
         )
@@ -117,7 +116,7 @@ public struct SettingsView: View {
               link: L10n.Settings.CriticalMassDotIn.action,
               textStackForegroundColor: Color(.textPrimaryLight),
               backgroundColor: Color(.cmInRowBackground),
-              bottomImage: Image(uiImage: Images.cmInIcon)
+              bottomImage: Image(uiImage: Asset.cmDotInLogo.image)
             )
           }
         )
@@ -150,7 +149,7 @@ public struct SettingsView: View {
         Button(
           action: { viewStore.send(.infoSectionRowTapped(.privacy)) },
           label: {
-            SettingsInfoLink(title: "Privacy Policy") // TODO: Replace with l10n
+            SettingsInfoLink(title: L10n.Settings.privacyPolicy)
           }
         )        
       }
@@ -169,7 +168,7 @@ public struct SettingsView: View {
             RoundedRectangle(cornerRadius: 12.5)
               .strokeBorder(Color(.border), lineWidth: 1)
           )
-        Image(uiImage: Images.cmLogoColor)
+        Image(uiImage: Asset.cmLogoC.image)
           .resizable()
           .aspectRatio(contentMode: .fit)
           .frame(width: 48, height: 48, alignment: .center)

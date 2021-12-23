@@ -64,19 +64,19 @@ extension Guide {
     var image: UIImage {
       switch self {
       case .brake:
-        return Images.brake
+        return Asset.brake.image
       case .contraflow:
-        return Images.contraflow
+        return Asset.wrongLane.image
       case .cork:
-        return Images.corken
+        return Asset.corken.image
       case .gently:
-        return Images.gently
+        return Asset.slowly.image
       case .green:
-        return Images.green
+        return Asset.green.image
       case .haveFun:
-        return Images.havefun
+        return Asset.pose.image
       case .stayLoose:
-        return Images.stayloose
+        return Asset.friendly.image
       }
     }
   }
