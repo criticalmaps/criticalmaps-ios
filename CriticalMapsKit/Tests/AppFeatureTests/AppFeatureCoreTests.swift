@@ -1,6 +1,7 @@
-@testable import AppFeature
 import ApiClient
+@testable import AppFeature
 import Combine
+import CombineSchedulers
 import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
@@ -11,6 +12,7 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   
@@ -26,7 +28,7 @@ class AppFeatureTests: XCTestCase {
         authorizationStatus: { .denied },
         create: { _ in locationManagerSubject.eraseToEffect() },
         locationServicesEnabled: { true },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       userDefaultsClient: .noop,
       uiApplicationClient: .noop,
@@ -34,7 +36,7 @@ class AppFeatureTests: XCTestCase {
       setUserInterfaceStyle: { _ in .none },
       pathMonitorClient: .satisfied
     )
-    environment.fileClient.load = { asdf in
+    environment.fileClient.load = { _ in
         .init(
           value: try! JSONEncoder().encode(
             UserSettings()
@@ -48,24 +50,22 @@ class AppFeatureTests: XCTestCase {
       environment: environment
     )
     
-    store.assert(
-      .send(.onAppear),
-      .receive(.observeConnection),
-      .receive(.userSettingsLoaded(.success(.init()))),
-      .receive(.map(.onAppear)),
-      .receive(.requestTimer(.startTimer)),
-      .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-        $0.hasConnectivity = true
-      },
-      .receive(.map(.locationRequested)) {
-        $0.mapFeatureState.alert = .goToSettingsAlert
-      },
-      .send(.requestTimer(.stopTimer)),
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-      }
-    )
+    
+    store.send(.onAppear)
+    store.receive(.observeConnection)
+    store.receive(.userSettingsLoaded(.success(.init())))
+    store.receive(.map(.onAppear))
+    store.receive(.requestTimer(.startTimer))
+    store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
+      $0.hasConnectivity = true
+    }
+    store.receive(.map(.locationRequested)) {
+      $0.mapFeatureState.alert = .goToSettingsAlert
+    }
+    store.send(.requestTimer(.stopTimer))
+    
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
   }
   
   func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() {
@@ -114,7 +114,7 @@ class AppFeatureTests: XCTestCase {
           .fireAndForget { didRequestAlwaysAuthorization = true }
         },
         requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       nextRideService: nextRideService,
       userDefaultsClient: settings,
@@ -123,7 +123,7 @@ class AppFeatureTests: XCTestCase {
       setUserInterfaceStyle: { _ in .none },
       pathMonitorClient: .satisfied
     )
-    environment.fileClient.load = { asdf in
+    environment.fileClient.load = { _ in
         .init(
           value: try! JSONEncoder().encode(
             UserSettings()
@@ -142,70 +142,67 @@ class AppFeatureTests: XCTestCase {
     
     let serviceResponse: LocationAndChatMessages = .make()
     
-    store.assert(
-      .send(.onAppear),
-      .receive(.observeConnection),
-      .receive(.userSettingsLoaded(.success(.init()))),
-      .receive(.map(.onAppear)),
-      .receive(.requestTimer(.startTimer)),
-      .receive(.map(.locationRequested)) {
-        $0.mapFeatureState.isRequestingCurrentLocation = true
-      },
-      .do {
-        locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
-      },
-      .receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways)))),
-      .do {
-        XCTAssertTrue(didRequestLocation)
-        locationManagerSubject.send(.didUpdateLocations([currentLocation]))
-      },
-      .receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
-        $0.mapFeatureState.isRequestingCurrentLocation = false
-        $0.mapFeatureState.location = currentLocation
-        $0.didResolveInitialLocation = true
-      },
-      .receive(.fetchData),
-      .receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10)))),
-      .do {
-        serviceSubject.send(serviceResponse)
-        nextRideSubject.send([])
-        self.testScheduler.advance()
-      },
-      .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-        $0.hasConnectivity = true
-      },
-      .receive(.fetchDataResponse(.success(serviceResponse))) {
-        $0.locationsAndChatMessages = .success(serviceResponse)
-        $0.socialState = .init(
-          chatFeautureState: .init(chatMessages: serviceResponse.chatMessages),
-          twitterFeedState: .init()
-        )
-        $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
-        $0.chatMessageBadgeCount = 6
-      },
-      .receive(.nextRide(.nextRideResponse(.success([])))),
-      .do { self.testScheduler.advance(by: 12) },
-      .receive(.requestTimer(.timerTicked)),
-      .receive(.fetchData),
-      .do {
-        serviceSubject.send(completion: .failure(testError))
-        self.testScheduler.advance()
-      },
-      .receive(.fetchDataResponse(.failure(testError))) {
-        $0.locationsAndChatMessages = .failure(testError)
-      },
-      .receive(.fetchDataResponse(.failure(testError))),
-               
-      .send(.requestTimer(.stopTimer)),
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-        serviceSubject.send(completion: .finished)
-        nextRideSubject.send(completion: .finished)
-        self.testScheduler.advance()
-      }
-    )
-  }
+    store.send(.onAppear)
+    store.receive(.observeConnection)
+    store.receive(.userSettingsLoaded(.success(.init())))
+    store.receive(.map(.onAppear))
+    store.receive(.requestTimer(.startTimer))
+    store.receive(.map(.locationRequested)) {
+      $0.mapFeatureState.isRequestingCurrentLocation = true
+    }
+    
+    locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
+    
+    store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
+    
+    XCTAssertTrue(didRequestLocation)
+    locationManagerSubject.send(.didUpdateLocations([currentLocation]))
+    
+    store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
+      $0.mapFeatureState.isRequestingCurrentLocation = false
+      $0.mapFeatureState.location = currentLocation
+      $0.didResolveInitialLocation = true
+    }
+    store.receive(.fetchData)
+    store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
+    
+    serviceSubject.send(serviceResponse)
+    nextRideSubject.send([])
+    testScheduler.advance()
+    
+    store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
+      $0.hasConnectivity = true
+    }
+    store.receive(.fetchDataResponse(.success(serviceResponse))) {
+      $0.locationsAndChatMessages = .success(serviceResponse)
+      $0.socialState = .init(
+        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
+        twitterFeedState: .init()
+      )
+      $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
+      $0.chatMessageBadgeCount = 6
+    }
+    store.receive(.nextRide(.nextRideResponse(.success([]))))
+    testScheduler.advance(by: 12)
+    store.receive(.requestTimer(.timerTicked))
+    store.receive(.fetchData)
+  
+    serviceSubject.send(completion: .failure(testError))
+    testScheduler.advance()
+    
+    store.receive(.fetchDataResponse(.failure(testError))) {
+      $0.locationsAndChatMessages = .failure(testError)
+    }
+    store.receive(.fetchDataResponse(.failure(testError)))
+    
+    // teardown
+    store.send(.requestTimer(.stopTimer))
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
+    serviceSubject.send(completion: .finished)
+    nextRideSubject.send(completion: .finished)
+    testScheduler.advance()
+}
   
   func test_onAppearWithEnabledLocationServicesRideEventDisabled_shouldNotRequestNextRide() {
     let setSubject = PassthroughSubject<Never, Never>()
@@ -250,7 +247,7 @@ class AppFeatureTests: XCTestCase {
           .fireAndForget { didRequestAlwaysAuthorization = true }
         },
         requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       nextRideService: nextRideService,
       userDefaultsClient: settings,
@@ -280,56 +277,52 @@ class AppFeatureTests: XCTestCase {
     
     let serviceResponse: LocationAndChatMessages = .make()
     
-    store.assert(
-      .send(.onAppear),
-      .receive(.observeConnection),
-      .receive(
-        .userSettingsLoaded(.success(userSettings))
-      ),
-      .receive(.map(.onAppear)),
-      .receive(.requestTimer(.startTimer)),
-      .receive(.map(.locationRequested)) {
-        $0.mapFeatureState.isRequestingCurrentLocation = true
-      },
-      .do {
-        locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
-      },
-      .receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways)))),
-      .do {
-        XCTAssertTrue(didRequestLocation)
-        locationManagerSubject.send(.didUpdateLocations([currentLocation]))
-      },
-      .receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
-        $0.mapFeatureState.isRequestingCurrentLocation = false
-        $0.mapFeatureState.location = currentLocation
-        $0.didResolveInitialLocation = true
-      },
-      .receive(.fetchData),
-      .do {
-        serviceSubject.send(serviceResponse)
-        self.testScheduler.advance()
-      },
-      .receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-        $0.hasConnectivity = true
-      },
-      .receive(.fetchDataResponse(.success(serviceResponse))) {
-        $0.locationsAndChatMessages = .success(serviceResponse)
-        $0.socialState = .init(
-          chatFeautureState: .init(chatMessages: serviceResponse.chatMessages),
-          twitterFeedState: .init()
-        )
-        $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
-        $0.chatMessageBadgeCount = 6
-      },
-      .send(.requestTimer(.stopTimer)),
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-        serviceSubject.send(completion: .finished)
-        
-        self.testScheduler.advance()
-      }
+    store.send(.onAppear)
+    store.receive(.observeConnection)
+    store.receive(
+      .userSettingsLoaded(.success(userSettings))
     )
+    store.receive(.map(.onAppear))
+    store.receive(.requestTimer(.startTimer))
+    store.receive(.map(.locationRequested)) {
+      $0.mapFeatureState.isRequestingCurrentLocation = true
+    }
+    locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
+    
+    store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
+    
+    XCTAssertTrue(didRequestLocation)
+    locationManagerSubject.send(.didUpdateLocations([currentLocation]))
+    
+    store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
+      $0.mapFeatureState.isRequestingCurrentLocation = false
+      $0.mapFeatureState.location = currentLocation
+      $0.didResolveInitialLocation = true
+    }
+    store.receive(.fetchData)
+    
+    serviceSubject.send(serviceResponse)
+    testScheduler.advance()
+    
+    store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
+      $0.hasConnectivity = true
+    }
+    store.receive(.fetchDataResponse(.success(serviceResponse))) {
+      $0.locationsAndChatMessages = .success(serviceResponse)
+      $0.socialState = .init(
+        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
+        twitterFeedState: .init()
+      )
+      $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
+      $0.chatMessageBadgeCount = 6
+    }
+    store.send(.requestTimer(.stopTimer))
+    
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
+    serviceSubject.send(completion: .finished)
+    
+    testScheduler.advance()
   }
   
   func test_appNavigation() {
@@ -341,29 +334,27 @@ class AppFeatureTests: XCTestCase {
         setUserInterfaceStyle: { _ in .none })
     )
     
-    store.assert(
-      .send(.setNavigation(tag: .chat)) {
-        $0.route = .chat
-        XCTAssertTrue($0.isChatViewPresented)
-      },
-      .send(.dismissSheetView) {
-        $0.route = .none
-      },
-      .send(.setNavigation(tag: .rules)) {
-        $0.route = .rules
-        XCTAssertTrue($0.isRulesViewPresented)
-      },
-      .send(.dismissSheetView) {
-        $0.route = .none
-      },
-      .send(.setNavigation(tag: .settings)) {
-        $0.route = .settings
-        XCTAssertTrue($0.isSettingsViewPresented)
-      },
-      .send(.dismissSheetView) {
-        $0.route = .none
-      }
-    )
+    store.send(.setNavigation(tag: .chat)) {
+      $0.route = .chat
+      XCTAssertTrue($0.isChatViewPresented)
+    }
+    store.send(.dismissSheetView) {
+      $0.route = .none
+    }
+    store.send(.setNavigation(tag: .rules)) {
+      $0.route = .rules
+      XCTAssertTrue($0.isRulesViewPresented)
+    }
+    store.send(.dismissSheetView) {
+      $0.route = .none
+    }
+    store.send(.setNavigation(tag: .settings)) {
+      $0.route = .settings
+      XCTAssertTrue($0.isSettingsViewPresented)
+    }
+    store.send(.dismissSheetView) {
+      $0.route = .none
+    }
   }
   
   func test_resetUnreadMessagesCount_whenAction_chat_onAppear() {
@@ -378,13 +369,57 @@ class AppFeatureTests: XCTestCase {
         setUserInterfaceStyle: { _ in .none })
     )
     
-    store.assert(
-      .send(.social(.chat(.onAppear))) { state in
-        state.chatMessageBadgeCount = 0
-      }
-    )
+    store.send(.social(.chat(.onAppear))) { state in
+      state.chatMessageBadgeCount = 0
+    }
   }
     
+  func test_animateNextRideBanner() {
+    let store = TestStore(
+      initialState: AppState(),
+      reducer: appReducer,
+      environment: AppEnvironment(
+        mainQueue: testScheduler.eraseToAnyScheduler(),
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
+    )
+    
+    let ride = Ride(
+      id: 123,
+      slug: nil,
+      title: "Next Ride",
+      description: nil,
+      dateTime: Date(timeIntervalSince1970: 1234340120),
+      location: nil,
+      latitude: nil,
+      longitude: nil,
+      estimatedParticipants: 123,
+      estimatedDistance: 312,
+      estimatedDuration: 3,
+      enabled: true,
+      disabledReason: nil,
+      disabledReasonMessage: nil,
+      rideType: .alleycat
+    )
+    store.send(.nextRide(.setNextRide(ride))) {
+      $0.nextRideState.nextRide = ride
+      $0.mapFeatureState.nextRide = ride
+    }
+    store.receive(.map(.setNextRideBannerVisible(true))) {
+      $0.mapFeatureState.isNextRideBannerVisible = true
+    }
+    testScheduler.advance(by: 0.6)
+    store.receive(.map(.setNextRideBannerExpanded(true))) {
+      $0.mapFeatureState.isNextRideBannerExpanded = true
+    }
+    testScheduler.advance(by: 10.0)
+    store.receive(.map(.setNextRideBannerExpanded(false))) {
+      $0.mapFeatureState.isNextRideBannerExpanded = false
+    }
+  }
+  
   func test_unreadChatMessagesCount() {
     let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
     
@@ -423,53 +458,50 @@ class AppFeatureTests: XCTestCase {
       ]
     )
     
-    store.assert(
-      .environment { env in
-        env.userDefaultsClient.doubleForKey = { _ in
-          date().timeIntervalSince1970
-        }
-      },
-      .send(.fetchDataResponse(.success(response))) { state in
-        state.locationsAndChatMessages = .success(response)
-        state.socialState.chatFeautureState.chatMessages = response.chatMessages
-        state.mapFeatureState.riderLocations = response.riderLocations
-        
-        state.chatMessageBadgeCount = 6
-      },
-      .environment { env in
-        env.userDefaultsClient.doubleForKey = { _ in
-          date().timeIntervalSince1970 + 14
-        }
-      },
-      .send(.fetchDataResponse(.success(response2))) { state in
-        state.locationsAndChatMessages = .success(response2)
-        state.socialState.chatFeautureState.chatMessages = response2.chatMessages
-        state.mapFeatureState.riderLocations = response2.riderLocations
-        
-        state.chatMessageBadgeCount = 1
-      },
-      .send(.fetchDataResponse(.success(response3))) { state in
-        state.locationsAndChatMessages = .success(response3)
-        state.socialState.chatFeautureState.chatMessages = response3.chatMessages
-        state.mapFeatureState.riderLocations = response3.riderLocations
-        
-        state.chatMessageBadgeCount = 3
-      },
-      .send(.setNavigation(tag: .chat)) { state in
-        state.route = .chat
-        XCTAssertTrue(state.isChatViewPresented)
-      },
-      .send(.social(.chat(.onAppear))) { state in
-        state.chatMessageBadgeCount = 0
-      },
-      .send(.fetchDataResponse(.success(response4))) { state in
-        state.locationsAndChatMessages = .success(response4)
-        state.socialState.chatFeautureState.chatMessages = response4.chatMessages
-        state.mapFeatureState.riderLocations = response4.riderLocations
-        
-        state.chatMessageBadgeCount = 0
-      }
-    )
+    store.environment.userDefaultsClient.doubleForKey = { _ in
+      date().timeIntervalSince1970
+    }
+    
+    store.send(.fetchDataResponse(.success(response))) { state in
+      state.locationsAndChatMessages = .success(response)
+      state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
+      state.mapFeatureState.riderLocations = response.riderLocations
+      
+      state.chatMessageBadgeCount = 6
+    }
+    
+    store.environment.userDefaultsClient.doubleForKey = { _ in
+      date().timeIntervalSince1970 + 14
+    }
+    
+    store.send(.fetchDataResponse(.success(response2))) { state in
+      state.locationsAndChatMessages = .success(response2)
+      state.socialState.chatFeautureState.chatMessages = .results(response2.chatMessages)
+      state.mapFeatureState.riderLocations = response2.riderLocations
+      
+      state.chatMessageBadgeCount = 1
+    }
+    store.send(.fetchDataResponse(.success(response3))) { state in
+      state.locationsAndChatMessages = .success(response3)
+      state.socialState.chatFeautureState.chatMessages = .results(response3.chatMessages)
+      state.mapFeatureState.riderLocations = response3.riderLocations
+      
+      state.chatMessageBadgeCount = 3
+    }
+    store.send(.setNavigation(tag: .chat)) { state in
+      state.route = .chat
+      XCTAssertTrue(state.isChatViewPresented)
+    }
+    store.send(.social(.chat(.onAppear))) { state in
+      state.chatMessageBadgeCount = 0
+    }
+    store.send(.fetchDataResponse(.success(response4))) { state in
+      state.locationsAndChatMessages = .success(response4)
+      state.socialState.chatFeautureState.chatMessages = .results(response4.chatMessages)
+      state.mapFeatureState.riderLocations = response4.riderLocations
+      
+      state.chatMessageBadgeCount = 0
+    }
   }
 }
 

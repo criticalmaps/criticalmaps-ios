@@ -1,18 +1,20 @@
+import ComposableArchitecture
 import Foundation
 import SharedModels
-import SwiftUI
-import ComposableArchitecture
-import UIApplicationClient
 import Styleguide
+import SwiftUI
+import UIApplicationClient
 
 public struct TwitterFeedView: View {
-  struct TwitterFeedViewState: Equatable { // TODO: Tests
-    let shouldDisplayPlaceholder: Bool
+  public struct TwitterFeedViewState: Equatable {
+    public let shouldDisplayPlaceholder: Bool
     
-    init(_ state: TwitterFeedState) {
-      self.shouldDisplayPlaceholder = state.contentState.elements != nil
-      ? state.twitterFeedIsLoading && state.contentState.elements!.isEmpty
-      : state.twitterFeedIsLoading
+    public init(_ state: TwitterFeedState) {
+      if let tweets = state.contentState.elements {
+        shouldDisplayPlaceholder = state.twitterFeedIsLoading && tweets.isEmpty
+      } else {
+        shouldDisplayPlaceholder = state.twitterFeedIsLoading
+      }
     }
   }
   
@@ -50,10 +52,10 @@ struct TwitterFeedView_Previews: PreviewProvider {
 }
 
 public extension Array where Element == Tweet {
-  static let placeHolder: Self = [0,1,2,3,4].map {
+  static let placeHolder: Self = [0, 1, 2, 3, 4].map {
     Tweet(
       id: String($0),
-      text: String("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore".dropLast($0)),
+      text: String("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed invidunt ut labore et dolore".dropLast($0)),
       createdAt: .init(timeIntervalSince1970: TimeInterval(1635521516)),
       user: .init(
         name: "Critical Maps",

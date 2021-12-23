@@ -1,7 +1,7 @@
 import ApiClient
+import Combine
 import ComposableArchitecture
 import CustomDump
-import Combine
 import SharedModels
 import TwitterFeedFeature
 import UIApplicationClient
@@ -31,20 +31,17 @@ class TwitterFeedCoreTests: XCTestCase {
       )
     )
     
-    store.assert(
-      .send(.onAppear),
-      .receive(.fetchData) {
-        $0.twitterFeedIsLoading = true
-      },
-      .do {
-        twitterFeedSubject.send(feed.statuses)
-      },
-      .receive(.fetchDataResponse(.success(feed.statuses))) {
-        $0.twitterFeedIsLoading = false
-        $0.contentState = .results(feed.statuses)
-      },
-      .do { twitterFeedSubject.send(completion: .finished) }
-    ) 
+    store.send(.onAppear)
+    store.receive(.fetchData) {
+      $0.twitterFeedIsLoading = true
+    }
+    
+    twitterFeedSubject.send(feed.statuses)
+    store.receive(.fetchDataResponse(.success(feed.statuses))) {
+      $0.twitterFeedIsLoading = false
+      $0.contentState = .results(feed.statuses)
+    }
+    twitterFeedSubject.send(completion: .finished)
   }
   
   func test_openTweetUrl() throws {
@@ -71,9 +68,7 @@ class TwitterFeedCoreTests: XCTestCase {
       )
     )
     
-    store.assert(
-      .send(.openTweet(feed.statuses[0]))
-    )
+    store.send(.openTweet(feed.statuses[0]))
     
     XCTAssertNoDifference(tweetUrl, feed.statuses[0].tweetUrl)
   }
@@ -90,7 +85,7 @@ class TwitterFeedCoreTests: XCTestCase {
       TwitterFeed(statuses: [
         Tweet(
           id: "1452287570415693850",
-          text: "RT @CriticalMassR: @CriticalMaps Venerdì 29 ottobre, festa per la riapertura della #Ciclofficina Porto Fluviale Dopo la CM Tutti a festeggi…",
+          text: "RT @CriticalMassR: @CriticalMaps Venerdì 29 ottobre, festa per la riapertura della",
           createdAt: Date(timeIntervalSinceReferenceDate: 656780113.0),
           user: .init(
             name: "Un Andrea Qualunque",
@@ -111,7 +106,7 @@ let twitterFeedData = #"""
         "created_at": "Sun Oct 24 14:55:13 +0000 2021",
         "id": 1452287570415693800,
         "id_str": "1452287570415693850",
-        "text": "RT @CriticalMassR: @CriticalMaps Venerdì 29 ottobre, festa per la riapertura della #Ciclofficina Porto Fluviale Dopo la CM Tutti a festeggi…",
+        "text": "RT @CriticalMassR: @CriticalMaps Venerdì 29 ottobre, festa per la riapertura della",
         "truncated": false,
         "entities": {
           "hashtags": [
@@ -215,7 +210,7 @@ let twitterFeedData = #"""
           "created_at": "Sun Oct 24 14:17:11 +0000 2021",
           "id": 1452277997453590500,
           "id_str": "1452277997453590541",
-          "text": "@CriticalMaps Venerdì 29 ottobre, festa per la riapertura della #Ciclofficina Porto Fluviale Dopo la CM Tutti a fes… https://t.co/D7PFyPBCp2",
+          "text": "@CriticalMaps Venerdì 29 ottobre",
           "truncated": true,
           "entities": {
             "hashtags": [

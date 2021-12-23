@@ -1,7 +1,7 @@
 import ChatFeature
-import TestHelper
 import Styleguide
 import SwiftUI
+import TestHelper
 import XCTest
 
 class ChatFeatureSnapshotTests: XCTestCase {
@@ -9,10 +9,10 @@ class ChatFeatureSnapshotTests: XCTestCase {
     let view = ChatView(
       store: .init(
         initialState: .init(
-          chatMessages: [
+          chatMessages: .results([
             "ID0": .init(message: "Hello World!", timestamp: 0),
             "ID1": .init(message: "Hello World!", timestamp: 0)
-          ],
+          ]),
           chatInputState: .init()
         ),
         reducer: chatReducer,
@@ -34,10 +34,10 @@ class ChatFeatureSnapshotTests: XCTestCase {
     let view = ChatView(
       store: .init(
         initialState: .init(
-          chatMessages: [
+          chatMessages: .results([
             "ID0": .init(message: "Hello World!", timestamp: 0),
             "ID1": .init(message: "Hello World!", timestamp: 0)
-          ],
+          ]),
           chatInputState: .init()
         ),
         reducer: chatReducer,
@@ -86,6 +86,3 @@ class ChatFeatureSnapshotTests: XCTestCase {
     assertViewSnapshot(view, height: 100, sloppy: true)
   }
 }
-
-
-

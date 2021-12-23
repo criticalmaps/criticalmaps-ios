@@ -5,13 +5,13 @@ import FileClient
 import Helpers
 import IDProvider
 import Logger
-import MapKit
 import MapFeature
+import MapKit
 import NextRideFeature
 import SettingsFeature
 import SharedModels
-import UserDefaultsClient
 import UIApplicationClient
+import UserDefaultsClient
 
 
 public enum AppDelegateAction: Equatable {

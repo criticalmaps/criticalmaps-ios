@@ -5,9 +5,9 @@
 //  Created by Malte on 07.06.21.
 //
 
-import Foundation
 import Combine
 import CoreLocation
+import Foundation
 import SharedModels
 
 public struct CoordinateObfuscator {

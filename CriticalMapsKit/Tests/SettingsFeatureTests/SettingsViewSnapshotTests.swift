@@ -1,6 +1,6 @@
+import SettingsFeature
 import TestHelper
 import XCTest
-import SettingsFeature
 
 class SettingsViewSnapshotTests: XCTestCase {
   func test_settingsView_light() {

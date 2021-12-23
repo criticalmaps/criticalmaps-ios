@@ -1,6 +1,6 @@
-import TestHelper
 import Styleguide
 import SwiftUI
+import TestHelper
 import XCTest
 
 class ButtonStylesSnapshotTests: XCTestCase {

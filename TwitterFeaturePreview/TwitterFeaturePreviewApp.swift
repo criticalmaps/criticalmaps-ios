@@ -1,6 +1,6 @@
 import ComposableArchitecture
-import TwitterFeedFeature
 import SwiftUI
+import TwitterFeedFeature
 
 @main
 struct TwitterFeaturePreviewApp: App {

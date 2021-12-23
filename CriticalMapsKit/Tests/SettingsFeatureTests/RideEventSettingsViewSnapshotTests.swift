@@ -1,7 +1,7 @@
-import TestHelper
-import XCTest
 import SettingsFeature
 import SharedModels
+import TestHelper
+import XCTest
 
 class RideEventSettingsViewSnapshotTests: XCTestCase {
   func test_rideEventSettingsView_light() {

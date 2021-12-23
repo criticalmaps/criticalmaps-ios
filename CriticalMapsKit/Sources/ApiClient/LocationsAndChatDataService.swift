@@ -5,6 +5,12 @@ import SharedModels
 // Interface
 public struct LocationsAndChatDataService {
   public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, NSError>
+
+  public init(
+    getLocationsAndSendMessages: @escaping (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, NSError>
+  ) {
+    self.getLocationsAndSendMessages = getLocationsAndSendMessages
+  }
 }
 
 // Live implementation

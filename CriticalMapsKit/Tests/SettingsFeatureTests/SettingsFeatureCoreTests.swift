@@ -29,10 +29,10 @@ class SettingsFeatureCoreTests: XCTestCase {
     )
     
     let row = SettingsState.InfoSectionRow.privacy
-    store.assert(
-      .send(.infoSectionRowTapped(row)),
-      .receive(.openURL(row.url))
-    )
+
+    store.send(.infoSectionRowTapped(row))
+    store.receive(.openURL(row.url))
+    
     XCTAssertEqual(openedUrl, row.url)
   }
   
@@ -52,10 +52,10 @@ class SettingsFeatureCoreTests: XCTestCase {
     )
     
     let row = SettingsState.InfoSectionRow.website
-    store.assert(
-      .send(.infoSectionRowTapped(row)),
-      .receive(.openURL(row.url))
-    )
+
+    store.send(.infoSectionRowTapped(row))
+    store.receive(.openURL(row.url))
+    
     XCTAssertEqual(openedUrl, row.url)
   }
   
@@ -75,10 +75,10 @@ class SettingsFeatureCoreTests: XCTestCase {
     )
     
     let row = SettingsState.InfoSectionRow.twitter
-    store.assert(
-      .send(.infoSectionRowTapped(row)),
-      .receive(.openURL(row.url))
-    )
+
+    store.send(.infoSectionRowTapped(row))
+    store.receive(.openURL(row.url))
+
     XCTAssertEqual(openedUrl, row.url)
   }
   
@@ -98,10 +98,10 @@ class SettingsFeatureCoreTests: XCTestCase {
     )
     
     let row = SettingsState.SupportSectionRow.github
-    store.assert(
-      .send(.supportSectionRowTapped(row)),
-      .receive(.openURL(row.url))
-    )
+
+    store.send(.supportSectionRowTapped(row))
+    store.receive(.openURL(row.url))
+
     XCTAssertEqual(openedUrl, row.url)
   }
   
@@ -121,10 +121,10 @@ class SettingsFeatureCoreTests: XCTestCase {
     )
     
     let row = SettingsState.SupportSectionRow.crowdin
-    store.assert(
-      .send(.supportSectionRowTapped(row)),
-      .receive(.openURL(row.url))
-    )
+
+    store.send(.supportSectionRowTapped(row))
+    store.receive(.openURL(row.url))
+    
     XCTAssertEqual(openedUrl, row.url)
   }
   
@@ -144,10 +144,10 @@ class SettingsFeatureCoreTests: XCTestCase {
     )
     
     let row = SettingsState.SupportSectionRow.criticalMassDotIn
-    store.assert(
-      .send(.supportSectionRowTapped(row)),
-      .receive(.openURL(row.url))
-    )
+
+    store.send(.supportSectionRowTapped(row))
+    store.receive(.openURL(row.url))
+
     XCTAssertEqual(openedUrl, row.url)
   }
 }

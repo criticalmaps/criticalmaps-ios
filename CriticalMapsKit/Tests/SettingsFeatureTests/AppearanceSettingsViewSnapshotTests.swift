@@ -1,7 +1,7 @@
-import TestHelper
-import XCTest
 import SettingsFeature
 import SharedModels
+import TestHelper
+import XCTest
 
 class AppearanceSettingsViewSnapshotTests: XCTestCase {
   func test_appearanceEventSettingsView_light() {

@@ -28,7 +28,7 @@ struct SettingsRow<Content>: View where Content: View {
     self.content = content
   }
   
-  public var body: some View {
+  var body: some View {
     VStack(alignment: .leading) {
       self.content()
         .padding(.vertical, .grid(2))
@@ -64,7 +64,7 @@ public struct SettingsSection<Content>: View where Content: View {
   
   public var body: some View {
     VStack(alignment: .leading) {
-      if (!title.isEmpty) {
+      if !title.isEmpty {
         Text(self.title)
           .font(.headlineTwo)
           .padding([.leading, .bottom], .grid(4))

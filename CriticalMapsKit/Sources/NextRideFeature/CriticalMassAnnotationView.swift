@@ -1,6 +1,6 @@
+import L10n
 import MapKit
 import Styleguide
-import L10n
 
 public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   typealias EventClosure = () -> Void
@@ -8,7 +8,7 @@ public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   var shareEventClosure: EventClosure?
   var routeEventClosure: EventClosure?
   
-  public override func prepareForDisplay() {
+  override public func prepareForDisplay() {
     super.prepareForDisplay()
     commonInit()
   }
@@ -26,10 +26,15 @@ public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
 }
 
 extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
-  public func contextMenuInteraction(_: UIContextMenuInteraction, configurationForMenuAtLocation _: CGPoint) -> UIContextMenuConfiguration? {
-    UIContextMenuConfiguration(identifier: nil, previewProvider: { MapSnapshotViewController() }) { _ in
-      self.makeContextMenu()
-    }
+  public func contextMenuInteraction(
+    _: UIContextMenuInteraction,
+    configurationForMenuAtLocation _: CGPoint
+  ) -> UIContextMenuConfiguration? {
+    UIContextMenuConfiguration(
+      identifier: nil,
+      previewProvider: { MapSnapshotViewController() },
+      actionProvider: { _ in self.makeContextMenu() }
+    )
   }
   
   private func makeContextMenu() -> UIMenu {
@@ -69,4 +74,3 @@ extension CMMarkerAnnotationView: UIContextMenuInteractionDelegate {
     }
   }
 }
-

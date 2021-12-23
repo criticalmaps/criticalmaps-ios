@@ -1,9 +1,10 @@
-import Foundation
-import SharedModels
-import SwiftUI
 import ComposableArchitecture
-import UIApplicationClient
+import Foundation
+import Helpers
+import SharedModels
 import Styleguide
+import SwiftUI
+import UIApplicationClient
 
 // MARK: State
 public struct TwitterFeedState: Equatable {
@@ -43,8 +44,7 @@ public struct TwitterFeedEnvironment {
 // MARK: Reducer
 public let twitterFeedReducer =
 Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
-  Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment> {
-    state, action, environment in
+  Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment> { state, action, environment in
     switch action {
     case .onAppear:
       return .merge(
@@ -87,20 +87,3 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
     }
   }
 )
-
-
-public enum ContentState<T: Hashable>: Equatable {
-  case loading(T)
-  case results(T)
-  case empty(EmptyState)
-  case error(ErrorState)
-  
-  var elements: T? {
-    switch self {
-    case let .results(results):
-      return results
-    default:
-      return nil
-    }
-  }
-}

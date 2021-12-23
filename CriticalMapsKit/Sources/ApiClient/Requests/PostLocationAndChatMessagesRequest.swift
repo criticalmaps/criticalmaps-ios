@@ -2,7 +2,7 @@ import Foundation
 import SharedModels
 
 public struct PostLocationAndChatMessagesRequest: APIRequest {
-  public var queryItems: [URLQueryItem]?
+  public var queryItems: [URLQueryItem] = []
   public typealias ResponseDataType = LocationAndChatMessages
   public let endpoint: Endpoint
   public let headers: HTTPHeaders?
@@ -21,4 +21,3 @@ public struct PostLocationAndChatMessagesRequest: APIRequest {
     self.body = body
   }
 }
-

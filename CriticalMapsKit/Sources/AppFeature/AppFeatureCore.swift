@@ -3,18 +3,18 @@ import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
-import Logger
-import MapKit
-import MapFeature
-import NextRideFeature
 import IDProvider
+import Logger
+import MapFeature
+import MapKit
+import NextRideFeature
 import PathMonitorClient
 import SettingsFeature
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature
-import UserDefaultsClient
 import UIApplicationClient
+import UserDefaultsClient
 
 // MARK: State
 public struct AppState: Equatable {
@@ -44,10 +44,10 @@ public struct AppState: Equatable {
   }
   
   public var locationsAndChatMessages: Result<LocationAndChatMessages, NSError>?
-  public var didResolveInitialLocation: Bool = false
+  public var didResolveInitialLocation = false
   
   // Children states
-  public var mapFeatureState: MapFeatureState = MapFeatureState(
+  public var mapFeatureState = MapFeatureState(
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
@@ -257,11 +257,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     case let .fetchDataResponse(.success(response)):
       state.locationsAndChatMessages = .success(response)
       
-      state.socialState.chatFeautureState.chatMessages = response.chatMessages
+      state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
       state.mapFeatureState.riderLocations = response.riderLocations
       
       if !state.isChatViewPresented {
-        let cachedMessages = state.socialState.chatFeautureState.chatMessages
+        let cachedMessages = response.chatMessages
           .values
           .sorted(by: \.timestamp)
         
@@ -327,7 +327,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       switch nextRideAction {
       case let .setNextRide(ride):
         state.mapFeatureState.nextRide = ride
-        return Effect.concatenate( // TODO: Test
+        return Effect.concatenate(
           Effect(value: .map(.setNextRideBannerVisible(true))),
           Effect(value: .map(.setNextRideBannerExpanded(true)))
             .delay(for: 0.6, scheduler: environment.mainQueue)
@@ -400,17 +400,18 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       }
     }
   }
-).onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
-  struct RideEventSettingsChange: Hashable {}
- 
-  // fetch next ride after settings have changed
-  if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
-    return Effect(value: .nextRide(.getNextRide(coordinate)))
-      .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
-  } else {
-    return .none
+)
+  .onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
+    struct RideEventSettingsChange: Hashable {}
+    
+    // fetch next ride after settings have changed
+    if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
+      return Effect(value: .nextRide(.getNextRide(coordinate)))
+        .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
+    } else {
+      return .none
+    }
   }
-}
 
 
 

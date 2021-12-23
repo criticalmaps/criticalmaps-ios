@@ -4,14 +4,14 @@ import SharedModels
 public struct TwitterFeedRequest: APIRequest {
   public typealias ResponseDataType = TwitterFeed
 
-  public var queryItems: [URLQueryItem]?
+  public var queryItems: [URLQueryItem]
   public var body: Data?
   public var endpoint: Endpoint
   public var headers: HTTPHeaders?
   public var httpMethod: HTTPMethod
   
   public init(
-    queryItems: [URLQueryItem]? = nil,
+    queryItems: [URLQueryItem] = [],
     body: Data? = nil,
     endpoint: Endpoint = .twitter,
     headers: HTTPHeaders? = nil,

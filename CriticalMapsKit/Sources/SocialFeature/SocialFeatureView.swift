@@ -1,7 +1,7 @@
-import ComposableArchitecture
 import ChatFeature
-import TwitterFeedFeature
+import ComposableArchitecture
 import SwiftUI
+import TwitterFeedFeature
 
 public struct SocialView: View {
   @Environment(\.presentationMode) var presentationMode
@@ -35,11 +35,14 @@ public struct SocialView: View {
       }
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
-          Button(action: { presentationMode.wrappedValue.dismiss() }) {
-            Image(systemName: "xmark")
-              .font(Font.system(size: 22, weight: .medium))
-              .foregroundColor(Color(.textPrimary))
-          }
+          Button(
+            action: { presentationMode.wrappedValue.dismiss() },
+            label: {
+              Image(systemName: "xmark")
+                .font(Font.system(size: 22, weight: .medium))
+                .foregroundColor(Color(.textPrimary))
+            }
+          )
         }
         
         ToolbarItem(placement: .principal) {

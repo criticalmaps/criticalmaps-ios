@@ -1,8 +1,8 @@
+import AppFeature
 import Foundation
+import SnapshotTesting
 import TestHelper
 import XCTest
-import AppFeature
-import SnapshotTesting
 
 class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_light() {

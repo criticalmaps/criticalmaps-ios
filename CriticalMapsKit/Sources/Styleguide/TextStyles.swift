@@ -15,20 +15,20 @@ public extension Text {
   init(_ astring: NSAttributedString) {
     self.init("")
     
-    astring.enumerateAttributes(in: NSRange(location: 0, length: astring.length), options: []) { (attrs, range, _) in
+    astring.enumerateAttributes(in: NSRange(location: 0, length: astring.length), options: []) { attrs, range, _ in
       
       var t = Text(astring.attributedSubstring(from: range).string)
       
       if let color = attrs[NSAttributedString.Key.foregroundColor] as? UIColor {
-        t  = t.foregroundColor(Color(color))
+        t = t.foregroundColor(Color(color))
       }
       
       if let font = attrs[NSAttributedString.Key.font] as? UIFont {
-        t  = t.font(.init(font))
+        t = t.font(.init(font))
       }
       
       if let kern = attrs[NSAttributedString.Key.kern] as? CGFloat {
-        t  = t.kerning(kern)
+        t = t.kerning(kern)
       }
       
       
@@ -53,7 +53,6 @@ public extension Text {
       }
       
       self = self + t
-      
     }
   }
 }

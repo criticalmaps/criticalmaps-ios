@@ -1,5 +1,5 @@
-import SwiftUI
 import L10n
+import SwiftUI
 
 public struct ErrorState: Equatable {
   public let title: String

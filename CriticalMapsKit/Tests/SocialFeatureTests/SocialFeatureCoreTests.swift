@@ -18,14 +18,11 @@ class SocialFeatureCoreTests: XCTestCase {
       )
     )
     
-    
-    testStore.assert(
-      .send(.setSocialSegment(SocialState.SocialControl.twitter.rawValue)) { state in
-        state.socialControl = .twitter
-      },
-      .send(.setSocialSegment(SocialState.SocialControl.chat.rawValue)) { state in
-        state.socialControl = .chat
-      }
-    )
+    testStore.send(.setSocialSegment(SocialState.SocialControl.twitter.rawValue)) { state in
+      state.socialControl = .twitter
+    }
+    testStore.send(.setSocialSegment(SocialState.SocialControl.chat.rawValue)) { state in
+      state.socialControl = .chat
+    }
   }
 }

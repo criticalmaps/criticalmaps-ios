@@ -5,15 +5,15 @@
 //  Created by Malte on 07.08.21.
 //
 
-@testable import MapFeature
 import Combine
 import ComposableArchitecture
 import Foundation
+@testable import MapFeature
+import MapKit
 import SharedModels
 import XCTest
-import MapKit
 
-fileprivate let fixedDate = { Date(timeIntervalSinceReferenceDate: 0) }
+private let fixedDate = { Date(timeIntervalSinceReferenceDate: 0) }
 
 class RiderAnnotationUpdateClientTests: XCTestCase {
   let rider = [

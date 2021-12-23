@@ -1,6 +1,6 @@
 import ApiClient
-import ComposableArchitecture
 import ChatFeature
+import ComposableArchitecture
 import IDProvider
 import L10n
 import TwitterFeedFeature
@@ -103,10 +103,10 @@ Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
       service: .live(),
       mainQueue: global.mainQueue,
       uiApplicationClient: global.uiApplicationClient
-    )}
+    )
+    }
   ),
-  Reducer<SocialState, SocialAction, SocialEnvironment> {
-    state, action, environment in
+  Reducer<SocialState, SocialAction, SocialEnvironment> { state, action, _ in
     switch action {
     case let .setSocialSegment(segment):
       state.socialControl = .init(rawValue: segment)!

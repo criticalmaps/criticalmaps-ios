@@ -5,7 +5,7 @@ public struct SendLocationAndChatMessagesPostBody: Encodable {
   public init(
     device: String,
     location: Location? = nil,
-    messages: [SendChatMessage]? = nil
+    messages: [SendChatMessage] = []
   ) {
     self.device = device
     self.location = location
@@ -14,5 +14,5 @@ public struct SendLocationAndChatMessagesPostBody: Encodable {
   
   public let device: String
   public let location: Location?
-  public var messages: [SendChatMessage]?
+  public var messages: [SendChatMessage]
 }

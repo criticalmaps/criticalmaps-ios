@@ -5,11 +5,11 @@
 //  Created by Malte on 15.06.21.
 //
 
-@testable import MapFeature
 import Combine
 import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
+@testable import MapFeature
 import SharedModels
 import XCTest
 
@@ -40,7 +40,7 @@ class MapFeatureCoreTests: XCTestCase {
             .fireAndForget { didRequestAlwaysAuthorization = true }
           },
           requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-          set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+          set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
         ),
         mainQueue: testScheduler.eraseToAnyScheduler()
       )
@@ -56,32 +56,30 @@ class MapFeatureCoreTests: XCTestCase {
       verticalAccuracy: 0
     )
     
-    store.assert(
-      .send(.onAppear),
-      // simulate user decision of segmented control
-      .receive(.locationRequested) {
-        $0.isRequestingCurrentLocation = true
-      },
-      .do { XCTAssertTrue(didRequestAlwaysAuthorization) },
-      // Simulate being given authorized to access location
-      .do {
-        locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
-      },
-      .receive(.locationManager(.didChangeAuthorization(.authorizedAlways))),
-      .do { XCTAssertTrue(didRequestLocation) },
-      // Simulate finding the user's current location
-      .do {
-        locationManagerSubject.send(.didUpdateLocations([currentLocation]))
-      },
-      .receive(.locationManager(.didUpdateLocations([currentLocation]))) {
-        $0.isRequestingCurrentLocation = false
-        $0.location = currentLocation
-      },
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-      }
-    )
+    store.send(.onAppear)
+    // simulate user decision of segmented control
+    store.receive(.locationRequested) {
+      $0.isRequestingCurrentLocation = true
+    }
+    XCTAssertTrue(didRequestAlwaysAuthorization)
+    // Simulate being given authorized to access location
+    
+    locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
+    
+    store.receive(.locationManager(.didChangeAuthorization(.authorizedAlways)))
+    XCTAssertTrue(didRequestLocation)
+    // Simulate finding the user's current location
+    
+    locationManagerSubject.send(.didUpdateLocations([currentLocation]))
+    
+    store.receive(.locationManager(.didUpdateLocations([currentLocation]))) {
+      $0.isRequestingCurrentLocation = false
+      $0.location = currentLocation
+    }
+    
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
+    
   }
   
   /// if locationServices disabled, test that alert state is set
@@ -94,7 +92,7 @@ class MapFeatureCoreTests: XCTestCase {
         authorizationStatus: { .denied },
         create: { _ in locationManagerSubject.eraseToEffect() },
         locationServicesEnabled: { false },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -110,18 +108,15 @@ class MapFeatureCoreTests: XCTestCase {
       environment: env
     )
     
-    store.assert(
-      .send(.onAppear),
-      // simulate user decision of segmented control
-      .receive(.locationRequested) {
-        $0.isRequestingCurrentLocation = false
-        $0.alert = .servicesOff
-      },
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-      }
-    )
+    store.send(.onAppear)
+    // simulate user decision of segmented control
+    store.receive(.locationRequested) {
+      $0.isRequestingCurrentLocation = false
+      $0.alert = .servicesOff
+    }
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
+    
   }
   
   func test_deniedPermission_shouldSetAlert() {
@@ -137,7 +132,7 @@ class MapFeatureCoreTests: XCTestCase {
         requestAlwaysAuthorization: { _ in
             .fireAndForget { didRequestAlwaysAuthorization = true }
         },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -153,28 +148,22 @@ class MapFeatureCoreTests: XCTestCase {
       environment: env
     )
     
-    store.assert(
-      .send(.onAppear),
-      // simulate user decision of segmented control
-      .receive(.locationRequested) {
-        $0.isRequestingCurrentLocation = true
-      },
-      .do { XCTAssertTrue(didRequestAlwaysAuthorization) },
-      // Simulate being given authorized to access location
-      .do {
-        locationManagerSubject.send(.didChangeAuthorization(.denied))
-      },
-      .receive(.locationManager(.didChangeAuthorization(.denied))) {
-        $0.alert = AlertState(
-          title: TextState("Location makes this app better. Please consider giving us access.")
-        )
-        $0.isRequestingCurrentLocation = false
-      },
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-      }
-    )
+    store.send(.onAppear)
+    // simulate user decision of segmented control
+    store.receive(.locationRequested) {
+      $0.isRequestingCurrentLocation = true
+    }
+    XCTAssertTrue(didRequestAlwaysAuthorization)
+    // Simulate being given authorized to access location
+    locationManagerSubject.send(.didChangeAuthorization(.denied))
+    store.receive(.locationManager(.didChangeAuthorization(.denied))) {
+      $0.alert = AlertState(
+        title: TextState("Location makes this app better. Please consider giving us access.")
+      )
+      $0.isRequestingCurrentLocation = false
+    }
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
   }
   
   func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() {
@@ -184,7 +173,7 @@ class MapFeatureCoreTests: XCTestCase {
         create: { _ in fatalError() },
         locationServicesEnabled: { fatalError() },
         requestAlwaysAuthorization: { _ in fatalError() },
-        set: { (_, _) -> Effect<Never, Never> in fatalError() }
+        set: { _, _ -> Effect<Never, Never> in fatalError() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -209,18 +198,17 @@ class MapFeatureCoreTests: XCTestCase {
       environment: env
     )
     
-    store.assert(
-      .send(.focusNextRide) {
-        $0.centerRegion = CoordinateRegion(
-          center: .init(latitude: 13.13, longitude: 55.55),
-          span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        )
-      },
-      .do { self.testScheduler.advance(by: 1) },
-      .receive(.resetCenterRegion) {
-        $0.centerRegion = nil
-      }
-    )
+    store.send(.focusNextRide) {
+      $0.centerRegion = CoordinateRegion(
+        center: .init(latitude: 13.13, longitude: 55.55),
+        span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)
+      )
+    }
+    self.testScheduler.advance(by: 1)
+    store.receive(.resetCenterRegion) {
+      $0.centerRegion = nil
+    }
+    
   }
   
   func test_InfoBanner_appearance() {
@@ -236,7 +224,7 @@ class MapFeatureCoreTests: XCTestCase {
         requestAlwaysAuthorization: { _ in
             .fireAndForget { didRequestAlwaysAuthorization = true }
         },
-        set: { (_, _) -> Effect<Never, Never> in setSubject.eraseToEffect() }
+        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
       ),
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -252,50 +240,13 @@ class MapFeatureCoreTests: XCTestCase {
       environment: env
     )
     
-    store.assert(
-      .send(.setNextRideBannerVisible(true)) {
-        $0.isNextRideBannerVisible = true
-      },
-      .send(.setNextRideBannerExpanded(true)) {
-        $0.isNextRideBannerExpanded = true
-      },
-      .do {
-        setSubject.send(completion: .finished)
-        locationManagerSubject.send(completion: .finished)
-      }
-    )
+    store.send(.setNextRideBannerVisible(true)) {
+      $0.isNextRideBannerVisible = true
+    }
+    store.send(.setNextRideBannerExpanded(true)) {
+      $0.isNextRideBannerExpanded = true
+    }
+    setSubject.send(completion: .finished)
+    locationManagerSubject.send(completion: .finished)
   }
-  
-//  func test_goToSettingsAction_shouldOpenSettingsURL() {
-//    var openedUrl: URL!
-//    let settingsURL = "settings:weg-li//weg-li/settings"
-//    let uiApplicationClient: UIApplicationClient = .init(
-//      open: { url, _ in
-//        openedUrl = url
-//        return .init(value: true)
-//      },
-//      openSettingsURLString: { settingsURL }
-//    )
-//    
-//    let store = TestStore(
-//      initialState: LocationViewState(
-//        locationOption: .manual,
-//        isMapExpanded: false,
-//        isResolvingAddress: false,
-//        resolvedAddress: .init(address: .init()),
-//        userLocationState: .init()
-//      ),
-//      reducer: locationReducer,
-//      environment: LocationViewEnvironment(
-//        locationManager: LocationManager.unimplemented(),
-//        placeService: .noop,
-//        uiApplicationClient: uiApplicationClient
-//      )
-//    )
-//    
-//    store.assert(
-//      .send(.goToSettingsButtonTapped)
-//    )
-//    XCTAssertEqual(openedUrl, URL(string: settingsURL))
-//  }
 }
