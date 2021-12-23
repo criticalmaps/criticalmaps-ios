@@ -45,6 +45,9 @@ public struct TweetListView: View {
         )
       }
     }
+    .refreshable {
+      await viewStore.send(.fetchData, while: \.twitterFeedIsLoading)
+    }
   }
 }
 
