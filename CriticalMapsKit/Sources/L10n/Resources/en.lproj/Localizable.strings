@@ -16,11 +16,12 @@
 /* No comment provided by engineer. */
 "chat.title" = "Chat";
 
-
 "chat.unreadbutton.accessibilityvalue" = "%@ unread messages";
 
 /* No comment provided by engineer. */
 "close.button.label" = "close";
+
+"emptyState.reload" = "Reload";
 
 /* No comment provided by engineer. */
 "error" = "Error";
@@ -246,6 +247,16 @@
 
 /* No comment provided by engineer. */
 "settings.appIconTitle" = "App Icon";
+
+"settings.translate.title" = "Translate";
+
+"settings.translate.subtitle" = "Help making Critical Maps available in other languages";
+
+"settings.translate.link" = "crowdin.com";
+
+"settings.privacyPolicy" = "Privacy Policy";
+
+"settings.support" = "Support";
 
 /* No comment provided by engineer. */
 "twitter.noData" = "Nothing here at the momemt";

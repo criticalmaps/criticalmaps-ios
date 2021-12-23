@@ -1,16 +1,26 @@
+// swiftlint:disable all
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+
 import Foundation
 
+// swiftlint:disable superfluous_disable_command file_length implicit_return
+
+// MARK: - Strings
+
+// swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum L10n {
   /// Error
   public static let error = L10n.tr("Localizable", "error")
   /// OK
   public static let ok = L10n.tr("Localizable", "ok")
-  
+
   public enum Chat {
-    /// Nobody's chatting at the moment...\nwhy don't you start?
-    public static let noChatActivity = L10n.tr("Localizable", "chat.noChatActivity")
     /// So quite here
     public static let emptyMessageTitle = L10n.tr("Localizable", "chat.emptyMessageTitle")
+    /// Nobody's chatting at the moment...
+    /// why don't you start?
+    public static let noChatActivity = L10n.tr("Localizable", "chat.noChatActivity")
     /// Write Message
     public static let placeholder = L10n.tr("Localizable", "chat.placeholder")
     /// Send
@@ -28,21 +38,37 @@ public enum L10n {
       }
     }
   }
-  
+
   public enum Close {
     public enum Button {
       /// close
       public static let label = L10n.tr("Localizable", "close.button.label")
     }
   }
-  
+
+  public enum EmptyState {
+    /// Reload
+    public static let reload = L10n.tr("Localizable", "emptyState.reload")
+  }
+
   public enum ErrorState {
     /// Sorry, something went wrong
     public static let message = L10n.tr("Localizable", "errorState.message")
     /// Error
     public static let title = L10n.tr("Localizable", "errorState.title")
   }
-  
+
+  public enum Location {
+    public enum Alert {
+      /// Bitte geben Sie uns in den Einstellungen Zugriff auf Ihren Standort.
+      public static let provideAccessToLocationService = L10n.tr("Localizable", "location.alert.provideAccessToLocationService")
+      /// Die Standortnutzung macht diese App besser. Bitte geben Sie uns Zugang.
+      public static let provideAuth = L10n.tr("Localizable", "location.alert.provideAuth")
+      /// Ortungsdienste sind deaktiviert.
+      public static let serviceIsOff = L10n.tr("Localizable", "location.alert.serviceIsOff")
+    }
+  }
+
   public enum Map {
     /// Critical Maps
     public static let title = L10n.tr("Localizable", "map.title")
@@ -81,7 +107,7 @@ public enum L10n {
       public static let title = L10n.tr("Localizable", "map.menu.title")
     }
   }
-  
+
   public enum Rules {
     /// Rule Number
     public static let number = L10n.tr("Localizable", "rules.number")
@@ -92,13 +118,19 @@ public enum L10n {
       public static let brake = L10n.tr("Localizable", "rules.text.brake")
       /// Refrain from driving in the opposite lane.
       public static let contraflow = L10n.tr("Localizable", "rules.text.contraflow")
-      /// Protect motorists from themselves by corking!\n\nTo maintain the cohesion of the group, block traffic from side roads so that the mass can freely proceed through red lights without interruptions.
+      /// Protect motorists from themselves by corking!
+      /// 
+      /// To maintain the cohesion of the group, block traffic from side roads so that the mass can freely proceed through red lights without interruptions.
       public static let cork = L10n.tr("Localizable", "rules.text.cork")
-      /// When driving in the front: No speeding!\n\nWhen driving in the rear: Close gaps!
+      /// When driving in the front: No speeding!
+      /// 
+      /// When driving in the rear: Close gaps!
       public static let gently = L10n.tr("Localizable", "rules.text.gently")
       /// When you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.
       public static let green = L10n.tr("Localizable", "rules.text.green")
-      /// Enjoy reclaimed streets. Check out the Sound Bikes. Chat with motorists and pedestrian to let them know what's going on.\n\nAnd most importantly: Have fun!
+      /// Enjoy reclaimed streets. Check out the Sound Bikes. Chat with motorists and pedestrian to let them know what's going on.
+      /// 
+      /// And most importantly: Have fun!
       public static let haveFun = L10n.tr("Localizable", "rules.text.haveFun")
       /// Don't allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.
       public static let stayLoose = L10n.tr("Localizable", "rules.text.stayLoose")
@@ -120,7 +152,7 @@ public enum L10n {
       public static let stayLoose = L10n.tr("Localizable", "rules.title.stayLoose")
     }
   }
-  
+
   public enum Settings {
     /// About
     public static let about = L10n.tr("Localizable", "settings.about")
@@ -142,7 +174,7 @@ public enum L10n {
     }
     /// Event Settings
     public static let eventSettings = L10n.tr("Localizable", "settings.eventSettings")
-    /// Enable Event Notifications
+    /// Event Notifications
     public static let eventSettingsEnable = L10n.tr("Localizable", "settings.eventSettingsEnable")
     /// Event Types
     public static let eventTypes = L10n.tr("Localizable", "settings.eventTypes")
@@ -158,12 +190,16 @@ public enum L10n {
     public static let logoDesign = L10n.tr("Localizable", "settings.logoDesign")
     /// Github
     public static let openSource = L10n.tr("Localizable", "settings.openSource")
+    /// Privacy Policy
+    public static let privacyPolicy = L10n.tr("Localizable", "settings.privacyPolicy")
     /// Development
     public static let programming = L10n.tr("Localizable", "settings.programming")
     /// Event Search Radius
     public static let settingsEventSearchRadius = L10n.tr("Localizable", "settings.settingsEventSearchRadius")
     /// Social Media
     public static let socialMedia = L10n.tr("Localizable", "settings.socialMedia")
+    /// Support
+    public static let support = L10n.tr("Localizable", "settings.support")
     /// Night mode
     public static let theme = L10n.tr("Localizable", "settings.theme")
     /// Settings
@@ -218,28 +254,29 @@ public enum L10n {
       /// System
       public static let system = L10n.tr("Localizable", "settings.theme.system")
     }
+    public enum Translate {
+      /// crowdin.com
+      public static let link = L10n.tr("Localizable", "settings.translate.link")
+      /// Help making Critical Maps available in other languages
+      public static let subtitle = L10n.tr("Localizable", "settings.translate.subtitle")
+      /// Translate
+      public static let title = L10n.tr("Localizable", "settings.translate.title")
+    }
   }
-  
+
   public enum Twitter {
-    /// No data is currently available.\nPlease pull down to refresh.
+    /// Nothing here at the momemt
     public static let noData = L10n.tr("Localizable", "twitter.noData")
     /// Twitter
     public static let title = L10n.tr("Localizable", "twitter.title")
-    /// Here you’ll find tweets tagged with @criticalmaps and #criticalmass
-    public static let emptyMessage = L10n.tr("Localizable", "twitter.empty.message")
-  }
-  
-  public enum Location {
-    public enum Alert {
-      /// Bitte geben Sie uns in den Einstellungen Zugriff auf Ihren Standort.
-      public static let provideAccessToLocationService = L10n.tr("Localizable", "location.alert.provideAccessToLocationService")
-      /// Die Standortnutzung macht diese App besser. Bitte geben Sie uns Zugang.
-      public static let provideAuth = L10n.tr("Localizable", "location.alert.provideAuth")
-      /// Ortungsdienste sind deaktiviert.
-      public static let serviceIsOff = L10n.tr("Localizable", "location.alert.serviceIsOff")
+    public enum Empty {
+      /// Here you’ll find tweets tagged with @criticalmaps and #criticalmass
+      public static let message = L10n.tr("Localizable", "twitter.empty.message")
     }
   }
 }
+// swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
 
 // MARK: - Implementation Details
 
@@ -248,8 +285,16 @@ extension L10n {
     let format = BundleToken.bundle.localizedString(forKey: key, value: nil, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }
-  
-  private final class BundleToken {
-    static let bundle = Bundle.module
-  }
 }
+
+// swiftlint:disable convenience_type
+private final class BundleToken {
+  static let bundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
+  }()
+}
+// swiftlint:enable convenience_type

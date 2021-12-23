@@ -1,0 +1,17 @@
+strings:
+ inputs: 
+  - CriticalMapsKit/Sources/L10n/Resources/en.lproj/Localizable.strings
+ outputs:
+   - templateName: structured-swift4
+     output: CriticalMapsKit/Sources/L10n/L10n.swift
+     params:
+        publicAccess: true
+
+xcassets:
+  - inputs: 
+    - CriticalMapsKit/Sources/Styleguide/Resources/Images.xcassets
+    outputs:
+      - templateName: swift4
+        output: CriticalMapsKit/Sources/Styleguide/Images.swift
+        params:
+          publicAccess: true
