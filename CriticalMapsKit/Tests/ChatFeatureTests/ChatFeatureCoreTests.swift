@@ -21,7 +21,7 @@ class ChatFeatureCore: XCTestCase {
     
     let testStore = TestStore(
       initialState: ChatFeatureState(
-        chatMessages: [:],
+        chatMessages: .results([:]),
         chatInputState: .init(
           isEditing: true,
           message: "Hello World!"
@@ -44,7 +44,7 @@ class ChatFeatureCore: XCTestCase {
     testStore.receive(.chatInputResponse(.success(mockResponse))) { state in
       state.chatInputState.isSending = false
       state.chatInputState.message = ""
-      state.chatMessages = mockResponse.chatMessages
+      state.chatMessages = .results(mockResponse.chatMessages)
     }
   }
   
@@ -59,7 +59,7 @@ class ChatFeatureCore: XCTestCase {
     
     let testStore = TestStore(
       initialState: ChatFeatureState(
-        chatMessages: [:],
+        chatMessages: .results([:]),
         chatInputState: .init(
           isEditing: true,
           message: "Hello World!"
@@ -119,7 +119,7 @@ class ChatFeatureCore: XCTestCase {
   
   func test_chatViewState() {
     let state = ChatFeatureState(
-      chatMessages: mockResponse.chatMessages,
+      chatMessages: .results(mockResponse.chatMessages),
       chatInputState: .init()
     )
     let sut = ChatView.ChatViewState(state)

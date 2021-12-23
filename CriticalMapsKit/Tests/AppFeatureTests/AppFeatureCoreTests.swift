@@ -1,6 +1,7 @@
 import ApiClient
 @testable import AppFeature
 import Combine
+import CombineSchedulers
 import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
@@ -175,7 +176,7 @@ class AppFeatureTests: XCTestCase {
     store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
-        chatFeautureState: .init(chatMessages: serviceResponse.chatMessages),
+        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
         twitterFeedState: .init()
       )
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
@@ -309,7 +310,7 @@ class AppFeatureTests: XCTestCase {
     store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
-        chatFeautureState: .init(chatMessages: serviceResponse.chatMessages),
+        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
         twitterFeedState: .init()
       )
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
@@ -373,6 +374,52 @@ class AppFeatureTests: XCTestCase {
     }
   }
     
+  func test_animateNextRideBanner() {
+    let store = TestStore(
+      initialState: AppState(),
+      reducer: appReducer,
+      environment: AppEnvironment(
+        mainQueue: testScheduler.eraseToAnyScheduler(),
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
+    )
+    
+    let ride = Ride(
+      id: 123,
+      slug: nil,
+      title: "Next Ride",
+      description: nil,
+      dateTime: Date(timeIntervalSince1970: 1234340120),
+      location: nil,
+      latitude: nil,
+      longitude: nil,
+      estimatedParticipants: 123,
+      estimatedDistance: 312,
+      estimatedDuration: 3,
+      enabled: true,
+      disabledReason: nil,
+      disabledReasonMessage: nil,
+      rideType: .alleycat
+    )
+    store.send(.nextRide(.setNextRide(ride))) {
+      $0.nextRideState.nextRide = ride
+      $0.mapFeatureState.nextRide = ride
+    }
+    store.receive(.map(.setNextRideBannerVisible(true))) {
+      $0.mapFeatureState.isNextRideBannerVisible = true
+    }
+    testScheduler.advance(by: 0.6)
+    store.receive(.map(.setNextRideBannerExpanded(true))) {
+      $0.mapFeatureState.isNextRideBannerExpanded = true
+    }
+    testScheduler.advance(by: 10.0)
+    store.receive(.map(.setNextRideBannerExpanded(false))) {
+      $0.mapFeatureState.isNextRideBannerExpanded = false
+    }
+  }
+  
   func test_unreadChatMessagesCount() {
     let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
     
@@ -417,7 +464,7 @@ class AppFeatureTests: XCTestCase {
     
     store.send(.fetchDataResponse(.success(response))) { state in
       state.locationsAndChatMessages = .success(response)
-      state.socialState.chatFeautureState.chatMessages = response.chatMessages
+      state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
       state.mapFeatureState.riderLocations = response.riderLocations
       
       state.chatMessageBadgeCount = 6
@@ -429,14 +476,14 @@ class AppFeatureTests: XCTestCase {
     
     store.send(.fetchDataResponse(.success(response2))) { state in
       state.locationsAndChatMessages = .success(response2)
-      state.socialState.chatFeautureState.chatMessages = response2.chatMessages
+      state.socialState.chatFeautureState.chatMessages = .results(response2.chatMessages)
       state.mapFeatureState.riderLocations = response2.riderLocations
       
       state.chatMessageBadgeCount = 1
     }
     store.send(.fetchDataResponse(.success(response3))) { state in
       state.locationsAndChatMessages = .success(response3)
-      state.socialState.chatFeautureState.chatMessages = response3.chatMessages
+      state.socialState.chatFeautureState.chatMessages = .results(response3.chatMessages)
       state.mapFeatureState.riderLocations = response3.riderLocations
       
       state.chatMessageBadgeCount = 3
@@ -450,7 +497,7 @@ class AppFeatureTests: XCTestCase {
     }
     store.send(.fetchDataResponse(.success(response4))) { state in
       state.locationsAndChatMessages = .success(response4)
-      state.socialState.chatFeautureState.chatMessages = response4.chatMessages
+      state.socialState.chatFeautureState.chatMessages = .results(response4.chatMessages)
       state.mapFeatureState.riderLocations = response4.riderLocations
       
       state.chatMessageBadgeCount = 0

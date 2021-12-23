@@ -9,16 +9,15 @@ public struct ChatView: View {
     public var identifiedChatMessages: [IdentifiedChatMessage]
     
     public init(_ state: ChatFeatureState) {
-      identifiedChatMessages = state.chatMessages
-        .lazy
-        .map { (key: String, value: ChatMessage) in
+      identifiedChatMessages = state.chatMessages.elements?
+        .compactMap { (key: String, value: ChatMessage) in
           IdentifiedChatMessage(
             id: key,
             message: value.decodedMessage ?? "",
             timestamp: value.timestamp
           )
         }
-        .sorted { $0.timestamp > $1.timestamp }
+        .sorted { $0.timestamp > $1.timestamp } ?? []
     }
   }
   

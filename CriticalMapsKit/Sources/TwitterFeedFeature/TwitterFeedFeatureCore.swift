@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Foundation
+import Helpers
 import SharedModels
 import Styleguide
 import SwiftUI
@@ -86,20 +87,3 @@ Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
     }
   }
 )
-
-
-public enum ContentState<T: Hashable>: Equatable {
-  case loading(T)
-  case results(T)
-  case empty(EmptyState)
-  case error(ErrorState)
-  
-  var elements: T? {
-    switch self {
-    case let .results(results):
-      return results
-    default:
-      return nil
-    }
-  }
-}

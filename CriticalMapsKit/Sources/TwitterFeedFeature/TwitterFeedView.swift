@@ -6,13 +6,15 @@ import SwiftUI
 import UIApplicationClient
 
 public struct TwitterFeedView: View {
-  struct TwitterFeedViewState: Equatable { // TODO: Tests
-    let shouldDisplayPlaceholder: Bool
+  public struct TwitterFeedViewState: Equatable {
+    public let shouldDisplayPlaceholder: Bool
     
-    init(_ state: TwitterFeedState) {
-      self.shouldDisplayPlaceholder = state.contentState.elements != nil
-      ? state.twitterFeedIsLoading && state.contentState.elements!.isEmpty
-      : state.twitterFeedIsLoading
+    public init(_ state: TwitterFeedState) {
+      if let tweets = state.contentState.elements {
+        shouldDisplayPlaceholder = state.twitterFeedIsLoading && tweets.isEmpty
+      } else {
+        shouldDisplayPlaceholder = state.twitterFeedIsLoading
+      }
     }
   }
   

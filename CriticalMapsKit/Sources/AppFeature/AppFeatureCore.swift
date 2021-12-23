@@ -257,11 +257,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     case let .fetchDataResponse(.success(response)):
       state.locationsAndChatMessages = .success(response)
       
-      state.socialState.chatFeautureState.chatMessages = response.chatMessages
+      state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
       state.mapFeatureState.riderLocations = response.riderLocations
       
       if !state.isChatViewPresented {
-        let cachedMessages = state.socialState.chatFeautureState.chatMessages
+        let cachedMessages = response.chatMessages
           .values
           .sorted(by: \.timestamp)
         
@@ -327,7 +327,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       switch nextRideAction {
       case let .setNextRide(ride):
         state.mapFeatureState.nextRide = ride
-        return Effect.concatenate( // TODO: Test
+        return Effect.concatenate(
           Effect(value: .map(.setNextRideBannerVisible(true))),
           Effect(value: .map(.setNextRideBannerExpanded(true)))
             .delay(for: 0.6, scheduler: environment.mainQueue)

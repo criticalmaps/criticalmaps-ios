@@ -2,6 +2,7 @@ import ApiClient
 import ComposableArchitecture
 import CryptoKit
 import Foundation
+import Helpers
 import IDProvider
 import L10n
 import Logger
@@ -10,12 +11,12 @@ import UserDefaultsClient
 
 // MARK: State
 public struct ChatFeatureState: Equatable {
-  public var chatMessages: [String: ChatMessage]
+  public var chatMessages: ContentState<[String: ChatMessage]>
   public var chatInputState: ChatInputState
   public var hasConnectivity: Bool
     
   public init(
-    chatMessages: [String: ChatMessage] = [:],
+    chatMessages: ContentState<[String: ChatMessage]> = .loading([:]),
     chatInputState: ChatInputState = .init(),
     hasConnectivity: Bool = true
   ) {
@@ -86,7 +87,7 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
       state.chatInputState.isSending = false
       state.chatInputState.message.removeAll()
       
-      state.chatMessages = response.chatMessages
+      state.chatMessages = .results(response.chatMessages)
       return .none
       
     case let .chatInputResponse(.failure(error)):
