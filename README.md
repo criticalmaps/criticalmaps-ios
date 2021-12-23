@@ -29,18 +29,16 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 - **TestFlight:** https://testflight.apple.com/join/nyGeQVxk
 - **Website:** https://criticalmaps.net
 
-## Contribute
+## Project Setup
 
-- Please report bugs with GitHub [issues](https://github.com/CriticalMaps/criticalmaps-ios/issues).
-- If you can code please check the build & contribute guide below.
-- If you have some coins left you can help to finance the server.
+The App uses Apple's `Combine.framework` for operation scheduling. The UI-Layer is built with [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`.
+Minimum platform requirements are: iOS 15.0
 
-### Project Setup
+### Modularization
 
 The application is built in a hyper-modularized style. This allows to work on features without building the entire application, which improves compile times and SwiftUI preview stability. Every feature is its own target which makes it also possible to build mini-apps to run in the simulator for preview.
 
-
-#### Getting Started
+### Getting Started
 
 This repo contains both the client for running the entire [criticalmaps](https://itunes.apple.com/app/critical-maps/id918669647) application, as well as an extensive test suite. To get things running:
 
@@ -52,6 +50,17 @@ This repo contains both the client for running the entire [criticalmaps](https:/
 2. Open the Xcode project `CriticalMaps.xcodeproj`.
 3. To run the client locally, select the `Critical Maps` target in Xcode and run (`⌘R`).
 
+### Assets
+
+The project is using type-safe assets generated with [SwiftGen](https://github.com/SwiftGen/SwiftGen).
+If you add images to the project be sure to install it and run `swiftgen` from the root folder and add the changes to your PR.
+
+
+## Contribute
+
+- Please report bugs with GitHub [issues](https://github.com/CriticalMaps/criticalmaps-ios/issues).
+- If you can code please check the build & contribute guide below.
+- If you have some coins left you can help to finance the project on [Open Collective](https://opencollective.com/criticalmaps).
 
 ### How to contribute
 
@@ -66,12 +75,7 @@ In general, we follow the "fork-and-pull" Git workflow.
 NOTES: 
 - Be sure to merge the latest from "upstream" before making a pull request!
 
-#### Assets
-
-The project is using type-safe assets generated with [SwiftGen](https://github.com/SwiftGen/SwiftGen).
-If you add images to the project be sure to install it and run `swiftgen` from the root folder and add the changes to your PR.
-
-### Open Source & Copying
+## Open Source & Copying
 
 We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use my code in your app, if you choose.
 
@@ -79,22 +83,8 @@ However, **please do not ship this app** under your own account. Paid or free.
 
 ## Credits
 
-### Coding
-
-- [stephanlindauer](https://github.com/stephanlindauer)
-- [headione](https://github.com/headione)
-- [jkandzi](https://github.com/jkandzi)
-- [lennet](https://github.com/lennet)
-- [mltbnz](https://github.com/mltbnz)
-
-### UX
-
-- [zutrinken](https://github.com/zutrinken)
-
-### Translations
-
-- [matteogamba](https://github.com/matteogamba)
-- [AlbanSagouis](https://github.com/AlbanSagouis)
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
 
 ## Copyright & License
 
