@@ -30,6 +30,7 @@ public struct AppView: View {
         Spacer()
         
         AppNavigationView(store: store)
+          .accessibilitySortPriority(1)
           .padding(.horizontal)
           .padding(.bottom, .grid(7))
           .frame(maxWidth: 400)

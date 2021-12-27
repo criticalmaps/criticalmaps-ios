@@ -20,13 +20,23 @@ public struct RideEventSettingsView: View {
       Spacer(minLength: 28)
       
       SettingsRow {
-        Toggle(
-          L10n.Settings.eventSettingsEnable,
-          isOn: viewStore.binding(
-            get: \.isEnabled,
-            send: RideEventSettingsActions.setRideEventsEnabled
+        HStack {
+          Text(L10n.Settings.eventSettingsEnable)
+          Spacer()
+          Toggle(
+            isOn: viewStore.binding(
+              get: \.isEnabled,
+              send: RideEventSettingsActions.setRideEventsEnabled
+            ),
+            label: { EmptyView() }
           )
-        )
+            .accessibilityRepresentation(representation: {
+              viewStore.isEnabled
+              ? Text("On") // TODO: L10n
+              : Text("Off")
+            })
+        }
+        .accessibilityElement(children: .combine)
       }
       ZStack(alignment: .top) {
         VStack {
@@ -50,6 +60,7 @@ public struct RideEventSettingsView: View {
                   }
                 )
               }
+              .accessibilityValue(rideType.isEnabled ? Text("selected") : Text("")) // TODO: L10n
             }
           }
           
@@ -60,13 +71,18 @@ public struct RideEventSettingsView: View {
                   action: { viewStore.send(.setRideEventRadius(radius)) },
                   label: {
                     HStack(spacing: .grid(3)) {
-                      Text(String(radius.rawValue))
+                      Text(String(radius.displayValue))
+                        .accessibility(label: Text(radius.accessibilityLabel))
                         .padding(.vertical, .grid(2))
                       Spacer()
                       if viewStore.eventDistance == radius {
                         Image(systemName: "checkmark.circle.fill")
+                          .accessibilityRepresentation {
+                            Text("is selected") // TODO: L10n
+                          }
                       }
                     }
+                    .accessibilityElement(children: .combine)
                   }
                 )
               }

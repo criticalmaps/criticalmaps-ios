@@ -41,6 +41,7 @@ public struct EmptyStateView: View {
       VStack(spacing: .grid(5)) {
         Image(uiImage: emptyState.icon)
           .imageScale(.large)
+          .accessibilityHidden(true)
           
         VStack(spacing: .grid(2)) {
           Text(emptyState.text)
@@ -58,10 +59,12 @@ public struct EmptyStateView: View {
             )
               .buttonStyle(CMButtonStyle())
               .padding(.top, .grid(4))
+              .accessibilitySortPriority(1)
           }
         }
         .padding(.horizontal, .grid(4))
       }
+      .accessibilityElement(children: .contain)
       .frame(maxHeight: .infinity, alignment: .center)
       .foregroundColor(Color(.textPrimary))
     }

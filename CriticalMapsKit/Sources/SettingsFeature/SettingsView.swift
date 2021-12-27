@@ -74,8 +74,14 @@ public struct SettingsView: View {
         ),
         label: { EmptyView() }
       )
+        .accessibilityRepresentation(representation: {
+          viewStore.userSettings.enableObservationMode
+          ? Text("On") // TODO: L10n
+          : Text("Off")
+        })
       .labelsHidden()
     }
+    .accessibilityElement(children: .combine)
   }
   
   var supportSection: some View {
@@ -94,6 +100,7 @@ public struct SettingsView: View {
             )
           }
         )
+          .accessibilityAddTraits(.isLink)
         
         Button(
           action: { viewStore.send(.supportSectionRowTapped(.crowdin)) },
@@ -108,6 +115,7 @@ public struct SettingsView: View {
             )
           }
         )
+          .accessibilityAddTraits(.isLink)
         
         Button(
           action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) },
@@ -122,6 +130,7 @@ public struct SettingsView: View {
             )
           }
         )
+          .accessibilityAddTraits(.isLink)
       }
       .padding(.horizontal, .grid(4))
     }
@@ -136,6 +145,7 @@ public struct SettingsView: View {
             SettingsInfoLink(title: L10n.Settings.website)
           }
         )
+        .accessibilityAddTraits(.isLink)
       }
       
       SettingsRow {
@@ -145,6 +155,7 @@ public struct SettingsView: View {
             SettingsInfoLink(title: L10n.Settings.twitter)
           }
         )
+        .accessibilityAddTraits(.isLink)
       }
       
       SettingsRow {
@@ -153,7 +164,8 @@ public struct SettingsView: View {
           label: {
             SettingsInfoLink(title: L10n.Settings.privacyPolicy)
           }
-        )        
+        )
+        .accessibilityAddTraits(.isLink)
       }
       
       appVersionAndBuildView
@@ -175,6 +187,8 @@ public struct SettingsView: View {
           .aspectRatio(contentMode: .fit)
           .frame(width: 48, height: 48, alignment: .center)
       }
+      .accessibilityHidden(true)
+      
       VStack(alignment: .leading) {
         Text(viewStore.versionNumber)
           .font(.titleTwo)
@@ -183,6 +197,7 @@ public struct SettingsView: View {
           .font(.bodyTwo)
           .foregroundColor(Color(.textSilent))
       }
+      .accessibilityElement(children: .combine)
     }
     .padding(.grid(4))
   }

@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import L10n
 import MapKit
 import SwiftUI
 import SwiftUIHelpers
@@ -14,29 +15,20 @@ public struct UserTrackingButton: View {
   }
   
   public var body: some View {
-    var accessiblityLabel: String {
-      switch viewStore.mode {
-      case .follow:
-        return "Follow"
-      case .followWithHeading:
-        return "Follow with heading"
-      case .none:
-        return "Don't follow"
-      @unknown default:
-        return ""
-      }
-    }
-    
-    return Button(
+    Button(
       action: {
         viewStore.send(.nextTrackingMode)
       },
       label: {
         iconImage
-          .accessibility(hidden: true)
       }
     )
-    .accessibility(label: Text(accessiblityLabel))
+    .accessibility(label: Text(viewStore.mode.accessiblityLabel))
+    .accessibilityAction(named: Text("Toggle tracking mode"), {
+      viewStore.send(.nextTrackingMode)
+    })
+    .accessibilityHint(Text("Toggle tracking mode")) // TODO: L10n
+    
   }
   
   var iconImage: some View {

@@ -34,14 +34,17 @@ public struct AppNavigationView: View {
       
       // Chat
       chatFeature
+        .accessibility(label: Text("App navigation \(L10n.Chat.title)"))
       menuSeperator
       
       // Rules
       rulesFeature
+        .accessibility(label: Text("App navigation \(L10n.Rules.title)"))
       menuSeperator
       
       // Settings
       settingsFeature
+        .accessibility(label: Text("App navigation \(L10n.Settings.title)"))
     }
     .font(.body)
     .background(reduceTransparency ? Color(.backgroundSecondary) : Color(.backgroundTranslucent))
@@ -68,6 +71,7 @@ public struct AppNavigationView: View {
     .scaleEffect(viewStore.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
     .opacity(viewStore.chatMessageBadgeCount == 0 ? 0 : 1)
     .animation(Animation.easeIn(duration: 0.1), value: viewStore.chatMessageBadgeCount)
+    .accessibilityLabel(Text("\(viewStore.chatMessageBadgeCount) unread messages"))
   }
   
   var chatFeature: some View {
@@ -79,8 +83,6 @@ public struct AppNavigationView: View {
         ZStack {
           Image(systemName: "bubble.left")
             .iconModifier()
-            .accessibility(hidden: true)
-
           badge
         }
         
@@ -103,7 +105,6 @@ public struct AppNavigationView: View {
             }
           )
       )
-      .accessibility(label: Text(L10n.Chat.title))
       .frame(maxWidth: .infinity, minHeight: minHeight)
   }
   
@@ -115,7 +116,6 @@ public struct AppNavigationView: View {
       label: {
         Image(systemName: "exclamationmark.square")
           .iconModifier()
-          .accessibility(hidden: true)
       }
     )
     .background(
@@ -134,7 +134,6 @@ public struct AppNavigationView: View {
         )
     )
     .frame(maxWidth: .infinity, minHeight: minHeight)
-    .accessibility(label: Text(L10n.Rules.title))
   }
   
   var settingsFeature: some View {
@@ -145,7 +144,6 @@ public struct AppNavigationView: View {
       label: {
         Image(systemName: "gearshape")
           .iconModifier()
-          .accessibility(hidden: true)
       }
     )
     .background(
@@ -170,12 +168,12 @@ public struct AppNavigationView: View {
         )
     )
     .frame(maxWidth: .infinity, minHeight: minHeight)
-    .accessibility(label: Text(L10n.Settings.title))
   }
   
   var menuSeperator: some View {
     Color(.border)
       .frame(width: 1, height: minHeight)
+      .accessibilityHidden(true)
   }
 }
 

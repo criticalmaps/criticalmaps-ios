@@ -32,3 +32,18 @@ public let userTrackingReducer = Reducer<UserTrackingState, UserTrackingAction, 
     return .none
   }
 }
+
+public extension MKUserTrackingMode {
+  var accessiblityLabel: String {
+    switch self { // TODO: L10n
+    case .follow:
+      return "Follow"
+    case .followWithHeading:
+      return "Follow with heading"
+    case .none:
+      return "Don't follow"
+    @unknown default:
+      return ""
+    }
+  }
+}

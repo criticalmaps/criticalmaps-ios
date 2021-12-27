@@ -73,6 +73,7 @@ public struct SettingsSection<Content>: View where Content: View {
           .font(.headlineTwo)
           .padding([.leading, .bottom], .grid(4))
           .padding(.top, .grid(6))
+          .accessibilityAddTraits(.isHeader)
       }
       
       self.content()

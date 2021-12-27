@@ -45,7 +45,6 @@ public struct MapFeatureView: View {
           .clipShape(Circle())
           .opacity(isConnected ? 0 : 1)
           .animation(.easeOut, value: isConnected)
-          .accessibilityHint("Internet connection status")
       }
       .padding(.top, .grid(12))
       .padding(.horizontal)
@@ -59,6 +58,7 @@ public struct MapFeatureView: View {
         ? Color.white
         : Color(.attention)
       )
+      .accessibilityRepresentation { isConnected ? Text("internet connection available") : Text("internet not available") }
       .padding()
       .background(
         Group {
@@ -94,8 +94,9 @@ public struct MapFeatureView: View {
         }
       }
     )
-      .accessibilityElement(children: .ignore)
-      .accessibilityLabel(viewStore.nextRide?.titleAndTime ?? "")
+      .accessibilityElement(children: .contain)
+      .accessibilityHint(Text("Shows the next critical mass event closest to your location")) // TODO: L10n
+      .accessibilityLabel(Text("Next critical mass banner")) // TODO: L10n
   }
 }
 

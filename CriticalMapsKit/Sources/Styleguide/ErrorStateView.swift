@@ -44,6 +44,8 @@ public struct ErrorStateView: View {
       VStack(spacing: .grid(5)) {
         Image(uiImage: Asset.error.image)
           .frame(maxWidth: .infinity)
+          .accessibilityHidden(true)
+        
         VStack(spacing: .grid(2)) {
           Text(errorState.title)
             .font(.titleOne)

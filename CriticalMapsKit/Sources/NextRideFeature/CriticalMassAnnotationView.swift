@@ -20,6 +20,7 @@ public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
     glyphImage = Asset.cmLogoM.image
     glyphTintColor = .textPrimary
     canShowCallout = false
+    isAccessibilityElement = false
     
     let interaction = UIContextMenuInteraction(delegate: self)
     addInteraction(interaction)

@@ -39,6 +39,7 @@ public struct ChatView: View {
         
         if viewStore.identifiedChatMessages.isEmpty {
           emptyState
+            .accessibilitySortPriority(-1)
         } else {
           List(viewStore.identifiedChatMessages) { chat in
             ChatMessageView(chat)
@@ -61,15 +62,13 @@ public struct ChatView: View {
   
   private var chatInput: some View {
     ZStack(alignment: .top) {
-      HStack(alignment: .center) {
-        BasicInputView(
-          store: self.store.scope(
-            state: \.chatInputState,
-            action: ChatFeatureAction.chatInput
-          ),
-          placeholder: L10n.Chat.placeholder
-        )
-      }
+      BasicInputView(
+        store: self.store.scope(
+          state: \.chatInputState,
+          action: ChatFeatureAction.chatInput
+        ),
+        placeholder: L10n.Chat.placeholder
+      )
       .padding(.horizontal, .grid(3))
       .padding(.top, .grid(2))
       .padding(.bottom, .grid(7))

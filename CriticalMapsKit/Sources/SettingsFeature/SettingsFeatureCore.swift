@@ -95,7 +95,7 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
   switch action {
   case .onAppear:
     state.userSettings.appearanceSettings.appIcon = environment.uiApplicationClient.alternateIconName()
-      .flatMap(AppIcon.init(rawValue:))
+      .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
     return .none
   
   case let .infoSectionRowTapped(row):
