@@ -50,14 +50,14 @@ public struct AppearanceSettingsView: View {
 
 // AppIcon grid view
 struct AppIconPicker: View {
-  @Binding var appIcon: AppIcon?
+  @Binding var appIcon: AppIcon
 
   var body: some View {
     VStack(spacing: .grid(2)) {
       ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { _, appIcon in
         SettingsRow {
           Button(
-            action: { self.appIcon = self.appIcon == appIcon ? .none : appIcon },
+            action: { self.appIcon = appIcon },
             label: {
               HStack(spacing: .grid(3)) {
                 Image(uiImage: appIcon.image)

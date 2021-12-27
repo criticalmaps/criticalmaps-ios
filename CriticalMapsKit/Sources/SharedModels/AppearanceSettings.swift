@@ -3,10 +3,10 @@ import enum UIKit.UIUserInterfaceStyle
 
 /// A structure that represents a users appearance settings.
 public struct AppearanceSettings: Codable, Equatable {
-  public var appIcon: AppIcon?
+  public var appIcon: AppIcon
   public var colorScheme: ColorScheme
   
-  public init(appIcon: AppIcon? = .appIcon2, colorScheme: ColorScheme = .system) {
+  public init(appIcon: AppIcon = .appIcon2, colorScheme: ColorScheme = .system) {
     self.appIcon = appIcon
     self.colorScheme = colorScheme
   }

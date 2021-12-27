@@ -7,7 +7,7 @@ import UIKit.UIInterface
 // MARK: Action
 public enum AppearanceSettingsAction: Equatable {
   case setColorScheme(AppearanceSettings.ColorScheme)
-  case setAppIcon(AppIcon?)
+  case setAppIcon(AppIcon)
 }
 
 
@@ -38,7 +38,7 @@ public let appearanceSettingsReducer = AppearanceReducer { state, action, enviro
     
   case let .setAppIcon(appIcon):
     state.appIcon = appIcon
-    return environment.uiApplicationClient.setAlternateIconName(appIcon?.rawValue)
+    return environment.uiApplicationClient.setAlternateIconName(appIcon.rawValue)
       .fireAndForget()
   }
 }
