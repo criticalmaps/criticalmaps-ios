@@ -30,7 +30,8 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
       .exact("1.8.2")
     ),
-    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0")
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
+    .package(url: "https://github.com/vtourraine/AcknowList", branch: "main")
   ],
   targets: [
     .target(
@@ -162,7 +163,8 @@ let package = Package(
         "Styleguide",
         "SwiftUIHelpers",
         "UIApplicationClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "AcknowList", package: "AcknowList")
       ],
       resources: [.process("Resources/")]
     ),

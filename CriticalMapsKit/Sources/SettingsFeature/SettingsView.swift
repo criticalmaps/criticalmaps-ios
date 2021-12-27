@@ -1,3 +1,4 @@
+import AcknowList
 import ComposableArchitecture
 import Helpers
 import L10n
@@ -166,6 +167,13 @@ public struct SettingsView: View {
           }
         )
         .accessibilityAddTraits(.isLink)
+      }
+      
+      if let acknowledgementsPlistPath = viewStore.acknowledgementsPlistPath {
+        SettingsNavigationLink(
+          destination: AcknowListSwiftUIView(plistPath: acknowledgementsPlistPath),
+          title: "Acknowledgements"
+        )
       }
       
       appVersionAndBuildView

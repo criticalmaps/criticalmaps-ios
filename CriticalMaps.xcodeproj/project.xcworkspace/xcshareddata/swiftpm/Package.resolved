@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "AcknowList",
+        "repositoryURL": "https://github.com/vtourraine/AcknowList",
+        "state": {
+          "branch": "main",
+          "revision": "305f745dd4e910c022230e3b2948bcd5754cd467",
+          "version": null
+        }
+      },
+      {
         "package": "combine-schedulers",
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {
