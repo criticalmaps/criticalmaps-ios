@@ -81,8 +81,12 @@ public struct MapFeatureView: View {
   
   var nextRideBanner: some View {
     MapOverlayView(
-      isExpanded: viewStore.isNextRideBannerExpanded,
-      isVisible: viewStore.isNextRideBannerVisible,
+      store: store.actionless.scope(state: {
+        MapOverlayView.ViewState(
+          isVisible: $0.isNextRideBannerVisible,
+          isExpanded: $0.isNextRideBannerExpanded
+        )}
+      ),
       action: { viewStore.send(.focusNextRide) },
       content: {
         VStack(alignment: .leading) {
