@@ -45,7 +45,7 @@ public struct MapFeatureView: View {
         offlineBanner
           .clipShape(Circle())
           .opacity(isConnected ? 0 : 1)
-          .animation(.easeOut, value: isConnected)
+          .accessibleAnimation(.easeOut, value: isConnected)
       }
       .padding(.top, .grid(12))
       .padding(.horizontal)

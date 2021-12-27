@@ -5,6 +5,7 @@ import SwiftUI
 
 /// A view that renders a tweet
 public struct TweetView: View {
+  @Environment(\.accessibilityReduceMotion) var reduceMotion
   let tweet: Tweet
   
   public init(tweet: Tweet) {
@@ -19,7 +20,7 @@ public struct TweetView: View {
       HStack(alignment: .top, spacing: .grid(4)) {
         AsyncImage(
           url: tweet.user.profileImage,
-          transaction: Transaction(animation: .easeInOut)
+          transaction: Transaction(animation: reduceMotion ? nil : .easeInOut)
         ) { phase in
           switch phase {
           case .empty:

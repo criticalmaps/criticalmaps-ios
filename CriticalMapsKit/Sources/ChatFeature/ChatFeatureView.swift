@@ -49,7 +49,7 @@ public struct ChatView: View {
           }
           .listRowBackground(Color(.backgroundPrimary))
           .listStyle(PlainListStyle())
-          .animation(.easeOut, value: viewStore.identifiedChatMessages)
+          .accessibleAnimation(.easeOut, value: viewStore.identifiedChatMessages)
         }
       }
       

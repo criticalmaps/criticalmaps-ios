@@ -13,6 +13,7 @@ public struct AppNavigationView: View {
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
+  @Environment(\.accessibilityReduceMotion) var reduceMotion
   
   let minHeight: CGFloat = 56
   
@@ -70,7 +71,7 @@ public struct AppNavigationView: View {
     .offset(x: 14, y: -10)
     .scaleEffect(viewStore.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
     .opacity(viewStore.chatMessageBadgeCount == 0 ? 0 : 1)
-    .animation(Animation.easeIn(duration: 0.1), value: viewStore.chatMessageBadgeCount)
+    .accessibleAnimation(.easeIn(duration: 0.1), value: viewStore.chatMessageBadgeCount)
     .accessibilityLabel(Text("\(viewStore.chatMessageBadgeCount) unread messages"))
   }
   

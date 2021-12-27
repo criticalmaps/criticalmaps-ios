@@ -48,8 +48,8 @@ public struct MapOverlayView<Content>: View where Content: View {
             content()
               .transition(
                 .asymmetric(
-                  insertion: .opacity.animation(.easeInOut(duration: 0.1).delay(0.2)),
-                  removal: .opacity.animation(.easeOut(duration: 0.15))
+                  insertion: .opacity.animation(reduceMotion ? nil : .easeInOut(duration: 0.1).delay(0.2)),
+                  removal: .opacity.animation(reduceMotion ? nil : .easeOut(duration: 0.15))
                 )
               )
           }
@@ -73,16 +73,14 @@ public struct MapOverlayView<Content>: View where Content: View {
           }
         }
       )
-      .transition(.opacity.animation(.easeOut(duration: 0.3)))
+      .transition(.scale.animation(reduceMotion ? nil : .easeOut(duration: 0.2)))
       .onChange(of: viewStore.isExpanded, perform: { newValue in
-        withAnimation {
-          self.isExpanded = newValue
-        }
+        let updateAction: () -> Void = { self.isExpanded = newValue }
+        reduceMotion ? updateAction() : withAnimation { updateAction() }
       })
       .onChange(of: viewStore.isVisible, perform: { newValue in
-        withAnimation {
-          self.isVisible = newValue
-        }
+        let updateAction: () -> Void = { self.isVisible = newValue }
+        reduceMotion ? updateAction() : withAnimation { updateAction() }
       })
   }
 }
