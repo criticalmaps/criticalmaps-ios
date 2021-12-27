@@ -41,7 +41,7 @@ public struct BasicInputView: View {
       ),
       textAttributes: .chat
     )
-      .accessibilityLabel(Text("Chat input textfield")) // TODO: L10n
+      .accessibilityLabel(Text(L10n.A11y.ChatInput.label))
       .accessibilityValue(viewStore.message)
       .onPreferenceChange(ContentSizeThatFitsKey.self) {
         self.contentSizeThatFits = $0

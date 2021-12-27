@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import L10n
 import MapKit
 
 public struct UserTrackingState: Equatable {
@@ -35,13 +36,13 @@ public let userTrackingReducer = Reducer<UserTrackingState, UserTrackingAction, 
 
 public extension MKUserTrackingMode {
   var accessiblityLabel: String {
-    switch self { // TODO: L10n
+    switch self {
     case .follow:
-      return "Follow"
+      return L10n.A11y.Usertrackingbutton.follow
     case .followWithHeading:
-      return "Follow with heading"
+      return L10n.A11y.Usertrackingbutton.followWithHeading
     case .none:
-      return "Don't follow"
+      return L10n.A11y.Usertrackingbutton.dontFollow
     @unknown default:
       return ""
     }

@@ -1,3 +1,18 @@
+"a11y.chatInput.label" = "Chat input textfield";
+"a11y.mapfeatureview.nextridebanner.hint" = "Shows the next critical mass event closest to your location";
+"a11y.mapfeatureview.nextridebanner.label" = "Next critical mass banner";
+
+"a11y.usertrackingbutton.hint" = "Toggle tracking mode";
+"a11y.usertrackingbutton.follow" = "Follow";
+"a11y.usertrackingbutton.followWithHeading" = "Follow with heading";
+"a11y.usertrackingbutton.dontFollow" = "Don't follow";
+
+
+"a11y.general.on" = "On";
+"a11y.general.off" = "Off";
+"a11y.general.selected" = "selected";
+
+
 
 /* No comment provided by engineer. */
 "chat.noChatActivity" = "Nobody's chatting at the moment...\nwhy don't you start?";

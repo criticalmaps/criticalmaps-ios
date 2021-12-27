@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Helpers
+import L10n
 import SharedEnvironment
 import SharedModels
 import Styleguide
@@ -95,8 +96,8 @@ public struct MapFeatureView: View {
       }
     )
       .accessibilityElement(children: .contain)
-      .accessibilityHint(Text("Shows the next critical mass event closest to your location")) // TODO: L10n
-      .accessibilityLabel(Text("Next critical mass banner")) // TODO: L10n
+      .accessibilityHint(Text(L10n.A11y.Mapfeatureview.Nextridebanner.hint))
+      .accessibilityLabel(Text(L10n.A11y.Mapfeatureview.Nextridebanner.label))
   }
 }
 

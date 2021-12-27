@@ -76,8 +76,8 @@ public struct SettingsView: View {
       )
         .accessibilityRepresentation(representation: {
           viewStore.userSettings.enableObservationMode
-          ? Text("On") // TODO: L10n
-          : Text("Off")
+          ? Text(L10n.A11y.General.on)
+          : Text(L10n.A11y.General.off)
         })
       .labelsHidden()
     }

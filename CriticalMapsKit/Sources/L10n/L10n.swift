@@ -15,6 +15,39 @@ public enum L10n {
   /// OK
   public static let ok = L10n.tr("Localizable", "ok")
 
+  public enum A11y {
+    public enum ChatInput {
+      /// Chat input textfield
+      public static let label = L10n.tr("Localizable", "a11y.chatInput.label")
+    }
+    public enum General {
+      /// Off
+      public static let off = L10n.tr("Localizable", "a11y.general.off")
+      /// On
+      public static let on = L10n.tr("Localizable", "a11y.general.on")
+      /// selected
+      public static let selected = L10n.tr("Localizable", "a11y.general.selected")
+    }
+    public enum Mapfeatureview {
+      public enum Nextridebanner {
+        /// Shows the next critical mass event closest to your location
+        public static let hint = L10n.tr("Localizable", "a11y.mapfeatureview.nextridebanner.hint")
+        /// Next critical mass banner
+        public static let label = L10n.tr("Localizable", "a11y.mapfeatureview.nextridebanner.label")
+      }
+    }
+    public enum Usertrackingbutton {
+      /// Don't follow
+      public static let dontFollow = L10n.tr("Localizable", "a11y.usertrackingbutton.dontFollow")
+      /// Follow
+      public static let follow = L10n.tr("Localizable", "a11y.usertrackingbutton.follow")
+      /// Follow with heading
+      public static let followWithHeading = L10n.tr("Localizable", "a11y.usertrackingbutton.followWithHeading")
+      /// Toggle tracking mode
+      public static let hint = L10n.tr("Localizable", "a11y.usertrackingbutton.hint")
+    }
+  }
+
   public enum Chat {
     /// So quite here
     public static let emptyMessageTitle = L10n.tr("Localizable", "chat.emptyMessageTitle")

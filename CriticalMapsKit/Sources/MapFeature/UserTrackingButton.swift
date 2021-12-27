@@ -24,10 +24,10 @@ public struct UserTrackingButton: View {
       }
     )
     .accessibility(label: Text(viewStore.mode.accessiblityLabel))
-    .accessibilityAction(named: Text("Toggle tracking mode"), {
+    .accessibilityAction(named: Text(L10n.A11y.Usertrackingbutton.hint), {
       viewStore.send(.nextTrackingMode)
     })
-    .accessibilityHint(Text("Toggle tracking mode")) // TODO: L10n
+    .accessibilityHint(Text(L10n.A11y.Usertrackingbutton.hint))
     
   }
   

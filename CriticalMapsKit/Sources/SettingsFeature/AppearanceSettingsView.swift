@@ -77,7 +77,7 @@ struct AppIconPicker: View {
                 
                 if self.appIcon == appIcon {
                   Image(systemName: "checkmark.circle.fill")
-                    .accessibilityRepresentation { Text("selected") } // TODO: L10n
+                    .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
                 }
               }
               .accessibilityElement(children: .combine)

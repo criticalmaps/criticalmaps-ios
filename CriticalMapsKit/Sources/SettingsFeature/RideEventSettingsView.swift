@@ -32,8 +32,8 @@ public struct RideEventSettingsView: View {
           )
             .accessibilityRepresentation(representation: {
               viewStore.isEnabled
-              ? Text("On") // TODO: L10n
-              : Text("Off")
+              ? Text(L10n.A11y.General.on)
+              : Text(L10n.A11y.General.off)
             })
         }
         .accessibilityElement(children: .combine)
@@ -60,7 +60,7 @@ public struct RideEventSettingsView: View {
                   }
                 )
               }
-              .accessibilityValue(rideType.isEnabled ? Text("selected") : Text("")) // TODO: L10n
+              .accessibilityValue(rideType.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
             }
           }
           
@@ -78,7 +78,7 @@ public struct RideEventSettingsView: View {
                       if viewStore.eventDistance == radius {
                         Image(systemName: "checkmark.circle.fill")
                           .accessibilityRepresentation {
-                            Text("is selected") // TODO: L10n
+                            Text(L10n.A11y.General.selected)
                           }
                       }
                     }
