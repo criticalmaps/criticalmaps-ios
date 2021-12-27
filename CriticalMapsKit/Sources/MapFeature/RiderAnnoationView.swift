@@ -52,7 +52,7 @@ final class RiderAnnoationView: MKAnnotationView {
   }
 }
 
-private extension CGRect {
+extension CGRect {
   static let defaultSize = Self(x: 0, y: 0, width: 7, height: 7)
   static let large = Self(x: 0, y: 0, width: 10, height: 10)
   static let extraLarge = Self(x: 0, y: 0, width: 14, height: 14)

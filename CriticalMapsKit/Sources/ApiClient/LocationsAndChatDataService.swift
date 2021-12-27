@@ -3,6 +3,7 @@ import Foundation
 import SharedModels
 
 // Interface
+/// A Service to send and fetch locations and chat messages from the Criticl Maps API
 public struct LocationsAndChatDataService {
   public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, NSError>
 
@@ -13,7 +14,7 @@ public struct LocationsAndChatDataService {
   }
 }
 
-// Live implementation
+// MARK: Live
 public extension LocationsAndChatDataService {
   static func live(
     apiClient: APIClient = .live
@@ -33,7 +34,7 @@ public extension LocationsAndChatDataService {
   }
 }
 
-// Mocks and failing used for previews and tests
+// MARK: Mocks and failing used for previews and tests
 public extension LocationsAndChatDataService {
   static let noop = Self(
     getLocationsAndSendMessages: { _ in

@@ -57,18 +57,19 @@ struct MapView: ViewRepresentable {
   }
 }
 
-public class MapCoordinator: NSObject, MKMapViewDelegate {
+/// Coordinator to handle MKMapViewDelegate events
+final class MapCoordinator: NSObject, MKMapViewDelegate {
   var parent: MapView
   
   init(_ parent: MapView) {
     self.parent = parent
   }
   
-  public func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+  func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
     parent.userTrackingMode = mode
   }
     
-  public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard annotation is MKUserLocation == false else {
         return nil
     }

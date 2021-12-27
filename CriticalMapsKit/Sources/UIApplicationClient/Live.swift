@@ -1,14 +1,7 @@
 import Combine
 import ComposableArchitecture
+import Foundation
 import UIKit.UIApplication
-
-public struct UIApplicationClient {
-  public var alternateIconName: () -> String?
-  public var open: (URL, [UIApplication.OpenExternalURLOptionsKey: Any]) -> Effect<Bool, Never>
-  public var openSettingsURLString: () -> String
-  public var setAlternateIconName: (String?) -> Effect<Never, Error>
-  public var supportsAlternateIcons: () -> Bool
-}
 
 public extension UIApplicationClient {
   static let live = Self(
@@ -34,13 +27,5 @@ public extension UIApplicationClient {
       }
     },
     supportsAlternateIcons: { UIApplication.shared.supportsAlternateIcons }
-  )
-  
-  static let noop = Self(
-    alternateIconName: { "" },
-    open: { _, _ in .none },
-    openSettingsURLString: { "settings://criticalmaps/settings" },
-    setAlternateIconName: { _ in .none },
-    supportsAlternateIcons: { true }
   )
 }

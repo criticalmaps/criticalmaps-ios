@@ -1,7 +1,8 @@
 import SwiftUI
 
-extension EnvironmentValues {
-  public var connectivity: Bool {
+public extension EnvironmentValues {
+  /// Environment key to get the apps connectivity state
+  var connectivity: Bool {
     get { self[ConnectionStateKey.self] }
     set { self[ConnectionStateKey.self] = newValue }
   }

@@ -3,6 +3,7 @@ import SharedModels
 import Styleguide
 import SwiftUI
 
+/// A view that renders a tweet
 public struct TweetView: View {
   let tweet: Tweet
   

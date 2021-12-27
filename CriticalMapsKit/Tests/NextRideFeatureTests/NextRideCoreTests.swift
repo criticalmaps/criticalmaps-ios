@@ -58,7 +58,7 @@ class NextRideCoreTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: false,
         typeSettings: [],
-        radiusSettings: 10
+        eventDistance: .near
       )
       .encoded()
     }
@@ -118,7 +118,7 @@ class NextRideCoreTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [],
-        radiusSettings: 10
+        eventDistance: .near
       )
       .encoded()
     }
@@ -153,7 +153,7 @@ class NextRideCoreTests: XCTestCase {
         typeSettings: [
           RideEventSettings.RideEventTypeSetting(type: Ride.RideType.kidicalMass, isEnabled: true)
         ],
-        radiusSettings: 10
+        eventDistance: .near
       )
       .encoded()
     }
@@ -274,7 +274,7 @@ class NextRideCoreTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: .all,
-        radiusSettings: 10
+        eventDistance: .near
       )
       .encoded()
     }

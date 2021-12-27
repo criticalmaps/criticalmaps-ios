@@ -71,6 +71,7 @@ let package = Package(
         "Logger",
         "SharedModels",
         "Styleguide",
+        "SwiftUIHelpers",
         "UserDefaultsClient"
       ]
     ),
@@ -88,7 +89,8 @@ let package = Package(
         "Helpers",
         "L10n",
         "Logger",
-        "Styleguide"
+        "Styleguide",
+        "SwiftUIHelpers"
       ]
     ),
     .target(
@@ -124,6 +126,7 @@ let package = Package(
         "SharedEnvironment",
         "SharedModels",
         "Styleguide",
+        "SwiftUIHelpers",
         .product(name: "ComposableCoreLocation", package: "composable-core-location"),
         .product(
           name: "ComposableArchitecture",
@@ -156,6 +159,7 @@ let package = Package(
         "Helpers",
         "SharedModels",
         "Styleguide",
+        "SwiftUIHelpers",
         "UIApplicationClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ],
@@ -184,9 +188,15 @@ let package = Package(
     .target(
       name: "Styleguide",
       dependencies: [
-        "L10n"
+        "L10n",
+        "SwiftUIHelpers"
       ],
+      exclude: ["README.md"],
       resources: [.process("Resources")]
+    ),
+    .target(
+      name: "SwiftUIHelpers",
+      dependencies: []
     ),
     .target(
       name: "TestHelper",

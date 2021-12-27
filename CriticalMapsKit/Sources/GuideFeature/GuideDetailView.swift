@@ -1,6 +1,6 @@
-import Helpers
 import Styleguide
 import SwiftUI
+import SwiftUIHelpers
 
 public struct GuideDetailView: View {
   let guide: Guide

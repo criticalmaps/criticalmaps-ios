@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A extension to represent the styleguids Font styles
 public extension Font {
   static let titleOne = Font.title2.weight(.medium)
   static let titleTwo = Font.subheadline.weight(.bold)

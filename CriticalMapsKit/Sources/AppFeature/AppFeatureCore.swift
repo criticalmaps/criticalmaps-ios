@@ -154,7 +154,7 @@ extension AppEnvironment {
 // MARK: Reducer
 struct ObserveConnectionIdentifier: Hashable {}
 
-/// Holds the logic for the AppFeature
+/// Holds the logic for the AppFeature to update state and execute side effects
 public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   mapFeatureReducer.pullback(
     state: \.mapFeatureState,

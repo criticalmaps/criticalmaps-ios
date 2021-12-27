@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 20.06.21.
-//
-
 import MapKit
 import SharedModels
 
@@ -16,7 +9,6 @@ public class IdentifiableAnnnotation: MKPointAnnotation {
   
   var type: UserType = .user
   var identifier: String
-  //    var friend: Friend?
   
   var location: Location {
     didSet {

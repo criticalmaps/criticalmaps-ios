@@ -1,5 +1,6 @@
 import L10n
 import SwiftUI
+import SwiftUIHelpers
 
 public struct ErrorState: Equatable {
   public let title: String
@@ -69,6 +70,8 @@ public struct ErrorStateView: View {
 
 struct ErrorStateView_Previews: PreviewProvider {
   static var previews: some View {
-    ErrorStateView(errorState: .default)
+    Preview {
+      ErrorStateView(errorState: .default)
+    }
   }
 }

@@ -2,14 +2,7 @@ import ApiClient
 import CoreLocation
 import SharedModels
 
-enum NextRideQueryKeys {
-  static let centerLatitude = "centerLatitude"
-  static let centerLongitude = "centerLongitude"
-  static let radius = "radius"
-  static let year = "year"
-  static let month = "month"
-}
-
+/// A structure that describes a request to fetch the next rides.
 public struct NextRidesRequest: APIRequest {
   
   public typealias ResponseDataType = [Ride]
@@ -38,4 +31,14 @@ public struct NextRidesRequest: APIRequest {
     decoder.keyDecodingStrategy = .convertFromSnakeCase
     return decoder
   }
+}
+
+
+// MARK: Helper
+enum NextRideQueryKeys {
+  static let centerLatitude = "centerLatitude"
+  static let centerLongitude = "centerLongitude"
+  static let radius = "radius"
+  static let year = "year"
+  static let month = "month"
 }

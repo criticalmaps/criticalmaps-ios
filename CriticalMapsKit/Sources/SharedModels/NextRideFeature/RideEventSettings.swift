@@ -1,19 +1,20 @@
 import Foundation
 
+/// A structure to store ride event settings
 public struct RideEventSettings: Hashable, Codable {
   public init(
     isEnabled: Bool,
     typeSettings: [RideEventSettings.RideEventTypeSetting],
-    radiusSettings: Int
+    eventDistance: EventDistance
   ) {
     self.isEnabled = isEnabled
     self.typeSettings = typeSettings
-    self.radiusSettings = radiusSettings
+    self.eventDistance = eventDistance
   }
   
     public var isEnabled: Bool
     public var typeSettings: [RideEventTypeSetting]
-    public var radiusSettings: Int
+    public var eventDistance: EventDistance
 }
 
 public extension RideEventSettings {
@@ -30,7 +31,7 @@ public extension RideEventSettings {
   static let `default` = Self(
     isEnabled: true,
     typeSettings: .all,
-    radiusSettings: Ride.eventRadii[1]
+    eventDistance: .near
   )
 }
 

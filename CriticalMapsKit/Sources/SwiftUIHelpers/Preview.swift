@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Convenience Wrapper that will display a SwiftUI Preview on 2 different devices and themes.
 public struct Preview<Content: View>: View {
   let content: Content
 

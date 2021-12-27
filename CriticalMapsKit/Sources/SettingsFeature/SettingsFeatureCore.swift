@@ -88,6 +88,9 @@ public struct SettingsEnvironment {
   }
 }
 
+// MARK: Reducer
+
+/// A reducer to handle settings feature actions
 public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvironment> { state, action, environment in
   switch action {
   case .onAppear:

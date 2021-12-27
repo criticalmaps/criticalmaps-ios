@@ -1,5 +1,6 @@
 import Foundation
 
+/// A structure that is used to represent the API response from `api.criticalmaps.net`
 public struct LocationAndChatMessages: Codable, Hashable {
   public init(
     locations: [String: Location],

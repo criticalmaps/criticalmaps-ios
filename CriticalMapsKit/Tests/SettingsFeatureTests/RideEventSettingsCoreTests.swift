@@ -10,7 +10,7 @@ class RideEventSettingsCoreTests: XCTestCase {
       initialState: RideEventSettings(
         isEnabled: true,
         typeSettings: .all,
-        radiusSettings: 5
+        eventDistance: .close
       ),
       reducer: rideeventSettingsReducer,
       environment: RideEventSettingsEnvironment()
@@ -30,7 +30,7 @@ class RideEventSettingsCoreTests: XCTestCase {
       initialState: RideEventSettings(
         isEnabled: true,
         typeSettings: .all,
-        radiusSettings: 5
+        eventDistance: .close
       ),
       reducer: rideeventSettingsReducer,
       environment: RideEventSettingsEnvironment()
@@ -57,14 +57,14 @@ class RideEventSettingsCoreTests: XCTestCase {
       initialState: RideEventSettings(
         isEnabled: true,
         typeSettings: .all,
-        radiusSettings: 5
+        eventDistance: .close
       ),
       reducer: rideeventSettingsReducer,
       environment: RideEventSettingsEnvironment()
     )
     
-    store.send(.setRideEventRadius(5)) {
-      $0.radiusSettings = 5
+    store.send(.setRideEventRadius(.near)) {
+      $0.eventDistance = .near
     }
   }
 }

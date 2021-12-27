@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 
+/// A client to dispatch network request to URLSession
 public struct NetworkDispatcher {
   var urlSession: () -> URLSession
   

@@ -20,6 +20,7 @@ public struct RequestTimerEnvironment {
   }
 }
 
+/// Reducer responsible for the poll timer handling.
 public let requestTimerReducer = Reducer<RequestTimerState, RequestTimerAction, RequestTimerEnvironment> { _, action, environment in
   struct TimerId: Hashable {}
   

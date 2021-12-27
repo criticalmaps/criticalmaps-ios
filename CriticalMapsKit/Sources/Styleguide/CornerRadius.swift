@@ -1,7 +1,8 @@
 import SwiftUI
 
-extension View {
-  public func adaptiveCornerRadius(_ corners: UIRectCorner, _ radius: CGFloat) -> some View {
+public extension View {
+  /// Function that offers a adaptive corner radius
+  func adaptiveCornerRadius(_ corners: UIRectCorner, _ radius: CGFloat) -> some View {
     self.modifier(AdaptiveCornerRadius(corners: corners, radius: radius))
   }
 }

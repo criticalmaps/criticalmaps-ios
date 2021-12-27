@@ -3,6 +3,7 @@ import ComposableArchitecture
 import SwiftUI
 import TwitterFeedFeature
 
+/// A view that holds the chatfeature and twitterfeature and just offers a control to switch between the two.
 public struct SocialView: View {
   @Environment(\.presentationMode) var presentationMode
   

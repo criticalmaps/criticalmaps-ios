@@ -10,7 +10,7 @@ class RideEventSettingsViewSnapshotTests: XCTestCase {
         initialState: RideEventSettings(
           isEnabled: true,
           typeSettings: .all,
-          radiusSettings: 5
+          eventDistance: .close
         ),
         reducer: rideeventSettingsReducer,
         environment: RideEventSettingsEnvironment()
@@ -26,7 +26,7 @@ class RideEventSettingsViewSnapshotTests: XCTestCase {
         initialState: RideEventSettings(
           isEnabled: false,
           typeSettings: .all,
-          radiusSettings: 5
+          eventDistance: .close
         ),
         reducer: rideeventSettingsReducer,
         environment: RideEventSettingsEnvironment()

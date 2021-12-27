@@ -2,6 +2,7 @@ import L10n
 import MapKit
 import Styleguide
 
+/// Map annotation view that displays the CM logo and offers a menu on long press.
 public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
   typealias EventClosure = () -> Void
   

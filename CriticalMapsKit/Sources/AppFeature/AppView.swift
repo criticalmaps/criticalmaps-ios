@@ -4,6 +4,7 @@ import SharedEnvironment
 import Styleguide
 import SwiftUI
 
+/// The apps main view
 public struct AppView: View {
   let store: Store<AppState, AppAction>
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>

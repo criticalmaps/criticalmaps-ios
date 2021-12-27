@@ -6,6 +6,7 @@ import Logger
 import SharedModels
 import UserDefaultsClient
 
+// MARK: State
 public struct NextRideState: Equatable {
   public init(nextRide: Ride? = nil, hasConnectivity: Bool = true) {
     self.nextRide = nextRide
@@ -16,12 +17,16 @@ public struct NextRideState: Equatable {
   public var nextRide: Ride?
 }
 
+
+// MARK: Actions
 public enum NextRideAction: Equatable {
   case getNextRide(Coordinate)
   case nextRideResponse(Result<[Ride], NextRideService.Failure>)
   case setNextRide(Ride)
 }
 
+
+// MARK: Environment
 public struct NextRideEnvironment {
   public init(
     service: NextRideService = .live(),
@@ -44,6 +49,9 @@ public struct NextRideEnvironment {
   let coordinateObfuscator: CoordinateObfuscator
 }
 
+
+// MARK: Reducer
+/// Reducer handling next ride feature actions
 public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvironment> { state, action, env in
   switch action {
   case .getNextRide(let coordinate):
@@ -62,7 +70,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
     )
     return env.service.nextRide(
       obfuscatedCoordinate,
-      env.store.rideEventSettings().radiusSettings
+      env.store.rideEventSettings().eventDistance.rawValue
     )
       .receive(on: env.mainQueue)
       .catchToEffect()
@@ -108,7 +116,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
   }
 }
 
-public enum EventError: Error, LocalizedError {
+enum EventError: Error, LocalizedError {
   case eventsAreNotEnabled
   case invalidDateError
   case rideIsOutOfRangeError

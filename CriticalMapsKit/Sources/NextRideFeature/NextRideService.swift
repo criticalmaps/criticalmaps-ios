@@ -4,6 +4,9 @@ import CoreLocation
 import Foundation
 import SharedModels
 
+// MARK: Interface
+
+/// Service to fetch the next ride and decode the response
 public struct NextRideService {
   public var nextRide: (
     _ coordinate: Coordinate,
@@ -12,6 +15,8 @@ public struct NextRideService {
   -> AnyPublisher<[Ride], Failure>
 }
 
+
+// MARK: Live
 public extension NextRideService {
   static func live(
     apiClient: APIClient = .live
@@ -25,7 +30,11 @@ public extension NextRideService {
     }
   )
   }
-  
+}
+ 
+
+// MARK: Mocks
+public extension NextRideService {
   static let noop = Self(
     nextRide: { _, _ in
       Just([])

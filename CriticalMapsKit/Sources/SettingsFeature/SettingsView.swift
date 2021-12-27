@@ -3,7 +3,9 @@ import Helpers
 import L10n
 import Styleguide
 import SwiftUI
+import SwiftUIHelpers
 
+/// A view to render the app settings.
 public struct SettingsView: View {
   let store: Store<SettingsState, SettingsAction>
   @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>

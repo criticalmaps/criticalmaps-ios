@@ -1,20 +1,7 @@
 import Combine
 import Network
 
-public struct NetworkPath: Equatable {
-  public var status: NWPath.Status
-
-  public init(status: NWPath.Status) {
-    self.status = status
-  }
-}
-
-extension NetworkPath {
-  public init(rawValue: NWPath) {
-    self.status = rawValue.status
-  }
-}
-
+/// A client to monitor the apps connectivity
 public struct PathMonitorClient {
   public var networkPathPublisher: AnyPublisher<NetworkPath, Never>
 

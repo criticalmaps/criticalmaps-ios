@@ -1,5 +1,6 @@
 import Foundation
 
+/// An object to encapsulate navigation
 public enum AppRoute: Equatable {
   case chat
   case rules

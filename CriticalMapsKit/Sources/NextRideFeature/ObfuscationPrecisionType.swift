@@ -1,6 +1,6 @@
 import Foundation
 
-/// Type that represents the decimal precision distance for the coordinate obfuscation
+/// A type that represents the decimal precision distance for the coordinate obfuscation
 public enum ObfuscationPrecisionType {
   /// is worth up to 11.1 km
   case firstDecimal

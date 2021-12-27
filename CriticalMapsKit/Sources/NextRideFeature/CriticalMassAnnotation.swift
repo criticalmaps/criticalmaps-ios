@@ -3,7 +3,8 @@ import Foundation
 import MapKit
 import SharedModels
 
-public class CriticalMassAnnotation: NSObject, MKAnnotation {
+/// Map annotation to annotate the next ride on a map.
+public final class CriticalMassAnnotation: NSObject, MKAnnotation {
   let ride: Ride
   let rideCoordinate: CLLocationCoordinate2D
   

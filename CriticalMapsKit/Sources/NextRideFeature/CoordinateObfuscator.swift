@@ -1,15 +1,10 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 07.06.21.
-//
-
 import Combine
 import CoreLocation
 import Foundation
 import SharedModels
 
+/// A client to obfuscate the users location.
+/// We value privacy and to request the next ride the API does not need to know the rides exact location.
 public struct CoordinateObfuscator {
   var obfuscate: (Coordinate, ObfuscationPrecisionType) -> Coordinate
 }

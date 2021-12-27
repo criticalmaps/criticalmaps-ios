@@ -2,6 +2,7 @@ import CoreLocation
 import Foundation
 import MapKit
 
+/// A structure for region data
 public struct CoordinateRegion: Equatable {
   public var center: CLLocationCoordinate2D
   public var span: MKCoordinateSpan

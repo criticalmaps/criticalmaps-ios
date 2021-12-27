@@ -2,6 +2,8 @@ import ComposableArchitecture
 import SwiftUI
 
 // MARK: Form
+
+/// A view to unify style for form like view
 public struct SettingsForm<Content>: View where Content: View {
   let content: () -> Content
 
@@ -47,6 +49,8 @@ struct SettingsRow<Content>: View where Content: View {
 
 
 // MARK: Section
+
+/// A view to wrap a form section.
 public struct SettingsSection<Content>: View where Content: View {
   let content: () -> Content
   let padContents: Bool
@@ -78,6 +82,8 @@ public struct SettingsSection<Content>: View where Content: View {
 
 
 // MARK: SettingsNavigationLink
+
+/// A view to that wraps the input view in a SettingsRow and NavigationLink
 public struct SettingsNavigationLink<Destination>: View where Destination: View {
   let destination: Destination
   let title: String

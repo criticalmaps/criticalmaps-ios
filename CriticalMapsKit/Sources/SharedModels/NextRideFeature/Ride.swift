@@ -1,6 +1,7 @@
 import CoreLocation
 import Foundation
 import Helpers
+import MapKit
 
 public struct Ride: Hashable, Codable, Identifiable {
   public let id: Int
@@ -85,7 +86,6 @@ public extension Ride {
   }
 }
 
-import MapKit
 public extension Ride {
   func openInMaps(_ options: [String: Any] = [
     MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault
@@ -120,8 +120,4 @@ public extension Ride {
         .capitalized
     }
   }
-}
-
-public extension Ride {
-  static let eventRadii: [Int] = [5, 10, 15, 30]
 }

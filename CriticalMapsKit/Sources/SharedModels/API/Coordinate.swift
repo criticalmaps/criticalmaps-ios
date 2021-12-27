@@ -1,6 +1,7 @@
 import CoreLocation
 import Foundation
 
+/// A structure for that parses lat and long to represent a coordinate.
 public struct Coordinate: Codable, Hashable {
   public init(latitude: Double, longitude: Double) {
     self.latitude = latitude

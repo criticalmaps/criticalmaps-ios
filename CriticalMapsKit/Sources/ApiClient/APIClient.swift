@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 
+/// A Client to dispatch network calls
 public struct APIClient {
   var networkDispatcher: () -> NetworkDispatcher
   

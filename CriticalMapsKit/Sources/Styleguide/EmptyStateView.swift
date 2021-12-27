@@ -1,5 +1,6 @@
 import L10n
 import SwiftUI
+import SwiftUIHelpers
 
 public struct EmptyState: Equatable {
   public let icon: UIImage
@@ -69,12 +70,14 @@ public struct EmptyStateView: View {
 
 struct EmptyStateView_Previews: PreviewProvider {
   static var previews: some View {
-    EmptyStateView(
-      emptyState: .init(
-        icon: Asset.twitterEmpty.image,
-        text: "No tweets atm",
-        message: .init(string: "")
+    Preview {
+      EmptyStateView(
+        emptyState: .init(
+          icon: Asset.twitterEmpty.image,
+          text: "No tweets atm",
+          message: .init(string: "")
+        )
       )
-    )
+    }
   }
 }

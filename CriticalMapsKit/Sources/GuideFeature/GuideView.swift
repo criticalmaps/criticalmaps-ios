@@ -1,7 +1,7 @@
-import Helpers
 import L10n
 import Styleguide
 import SwiftUI
+import SwiftUIHelpers
 
 public struct GuideView: View {
   public init() {}

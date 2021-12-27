@@ -3,7 +3,9 @@ import L10n
 import SharedModels
 import Styleguide
 import SwiftUI
+import SwiftUIHelpers
 
+/// A view to render next ride event settings
 public struct RideEventSettingsView: View {
   let store: Store<RideEventSettings, RideEventSettingsActions>
   @ObservedObject var viewStore: ViewStore<RideEventSettings, RideEventSettingsActions>
@@ -52,16 +54,16 @@ public struct RideEventSettingsView: View {
           }
           
           SettingsSection(title: L10n.Settings.eventSearchRadius) {
-            ForEach(Ride.eventRadii, id: \.self) { radius in
+            ForEach(EventDistance.allCases, id: \.self) { radius in
               SettingsRow {
                 Button(
                   action: { viewStore.send(.setRideEventRadius(radius)) },
                   label: {
                     HStack(spacing: .grid(3)) {
-                      Text(String(radius))
+                      Text(String(radius.rawValue))
                         .padding(.vertical, .grid(2))
                       Spacer()
-                      if viewStore.radiusSettings == radius {
+                      if viewStore.eventDistance == radius {
                         Image(systemName: "checkmark.circle.fill")
                       }
                     }
@@ -83,6 +85,28 @@ public struct RideEventSettingsView: View {
   }
 }
 
+// MARK: Preview
+struct RideEventSettings_Previews: PreviewProvider {
+  static var previews: some View {
+    Preview {
+      NavigationView {
+        RideEventSettingsView(
+          store: .init(
+            initialState: .init(
+              isEnabled: true,
+              typeSettings: .all,
+              eventDistance: .near
+            ),
+            reducer: rideeventSettingsReducer,
+            environment: .init()
+          )
+        )
+      }
+    }
+  }
+}
+
+// MARK: Helper
 struct RideEventSettingsRow: View {
   let title: String
   let isEnabled: Bool

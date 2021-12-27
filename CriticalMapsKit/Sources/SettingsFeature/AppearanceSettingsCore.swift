@@ -10,6 +10,7 @@ public enum AppearanceSettingsAction: Equatable {
   case setAppIcon(AppIcon?)
 }
 
+
 // MARK: Environment
 public struct AppearanceSettingsEnvironment {
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
@@ -24,8 +25,10 @@ public struct AppearanceSettingsEnvironment {
   }
 }
 
+
 // MARK: Reducer
 public typealias AppearanceReducer = Reducer<AppearanceSettings, AppearanceSettingsAction, AppearanceSettingsEnvironment>
+/// Reducer to handle appearance settings actions 
 public let appearanceSettingsReducer = AppearanceReducer { state, action, environment in
   switch action {
   case let .setColorScheme(scheme):

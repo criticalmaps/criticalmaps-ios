@@ -3,13 +3,15 @@ import Combine
 import Foundation
 import SharedModels
 
-// Interface
+// MARK: Interface
+
+/// Service to fetch tweets from `api.criticalmaps.net/twitter`
 public struct TwitterFeedService {
   public var getTwitterFeed: () -> AnyPublisher<[Tweet], NSError>
 }
 
 
-// Live implementation
+// MARK: Live
 public extension TwitterFeedService {
   static func live(apiClient: APIClient = .live) -> Self {
     Self(

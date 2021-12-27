@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view that wraps UIVisualEffectView
 public struct Blur: UIViewRepresentable {
   var style: UIBlurEffect.Style = .systemMaterial
 

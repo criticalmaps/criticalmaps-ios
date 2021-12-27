@@ -41,6 +41,7 @@ public extension DateFormatter {
 }
 
 public extension DateComponentsFormatter {
+  /// Formatter to handle Twitter
   static func tweetDateFormatter(_ calendar: Calendar = .current) -> DateComponentsFormatter {
     let formatter = DateComponentsFormatter()
     formatter.calendar = calendar

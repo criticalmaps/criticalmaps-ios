@@ -4,6 +4,7 @@ import SharedModels
 import Styleguide
 import SwiftUI
 
+/// A view to render appearance settings.
 public struct AppearanceSettingsView: View {
   let store: Store<AppearanceSettings, AppearanceSettingsAction>
   @ObservedObject var viewStore: ViewStore<AppearanceSettings, AppearanceSettingsAction>
@@ -86,12 +87,6 @@ struct AppIconPicker: View {
   }
 }
 
-extension View {
-  public func applying<V: View>(@ViewBuilder _ builder: @escaping (Self) -> V) -> some View {
-    builder(self)
-  }
-}
-
 extension AppearanceSettings.ColorScheme {
   var title: String {
     switch self {
@@ -102,13 +97,6 @@ extension AppearanceSettings.ColorScheme {
     case .dark:
       return L10n.Settings.Theme.dark
     }
-  }
-}
-
-extension View {
-  public func continuousCornerRadius(_ radius: CGFloat) -> some View {
-    self
-      .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
   }
 }
 

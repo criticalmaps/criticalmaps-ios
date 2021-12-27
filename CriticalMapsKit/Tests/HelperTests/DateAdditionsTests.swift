@@ -25,14 +25,4 @@ class DateAdditionsTests: XCTestCase {
     // then
     XCTAssertEqual(year, 2020)
   }
-  
-  func testYesterDayShouldReturnEqualGeneratedDateFromTimestamp() {
-    // given
-    // 20. January 2020 06:52:21 GMT
-    let yesterdayFromTimestamp = Date(timeIntervalSince1970: 1_579_503_141)
-    // when
-    let yesterday = Date.yesterday(date())
-    // then
-    XCTAssertEqual(yesterday, yesterdayFromTimestamp)
-  }
 }

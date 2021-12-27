@@ -1,6 +1,7 @@
 import MapKit
 import SharedModels
 
+/// Map Annotation that renders CM participants.
 public class RiderAnnotation: IdentifiableAnnnotation {
   let rider: Rider
   

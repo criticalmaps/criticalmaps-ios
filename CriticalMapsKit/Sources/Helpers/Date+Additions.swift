@@ -1,11 +1,6 @@
 import Foundation
 
-public extension Date {
-  static func yesterday(_ date: Date = .now) -> Date {
-    let dateComponents = DateComponents(day: -1)
-    return Calendar.current.date(byAdding: dateComponents, to: date)!
-  }
-  
+public extension Date {  
   static var now: Date { Date() }
   
   /// Get a component representation of todays Date as Int.

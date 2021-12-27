@@ -67,6 +67,7 @@ public struct ChatEnvironment {
 }
 
 // MARK: Reducer
+/// Reducer responsible for handling logic from the chat feature.
 public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnvironment>.combine(
   chatInputReducer.pullback(
     state: \.chatInputState,
@@ -98,7 +99,7 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
     case let .chatInput(chatInputAction):
       switch chatInputAction {
       case .onCommit:
-        let message = SendChatMessage(
+        let message = ChatMessagePost(
           text: state.chatInputState.message,
           timestamp: environment.date().timeIntervalSince1970,
           identifier: environment.md5Uuid

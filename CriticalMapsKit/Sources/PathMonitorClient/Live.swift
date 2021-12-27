@@ -1,8 +1,8 @@
 import Combine
 import Network
 
-extension PathMonitorClient {
-  public static func live(queue: DispatchQueue) -> Self {
+public extension PathMonitorClient {
+  static func live(queue: DispatchQueue) -> Self {
     let monitor = NWPathMonitor()
     let subject = PassthroughSubject<NWPath, Never>()
     monitor.pathUpdateHandler = subject.send

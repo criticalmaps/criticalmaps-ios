@@ -98,7 +98,7 @@ class AppFeatureTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [],
-        radiusSettings: 10
+        eventDistance: .near
       )
       .encoded()
     }
@@ -230,7 +230,7 @@ class AppFeatureTests: XCTestCase {
     let rideEventSettings = RideEventSettings(
       isEnabled: false,
       typeSettings: .all,
-      radiusSettings: Ride.eventRadii[1]
+      eventDistance: .near
     )
     settings.dataForKey = { _ in
       try? rideEventSettings.encoded()

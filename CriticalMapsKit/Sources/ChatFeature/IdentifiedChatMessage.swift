@@ -1,5 +1,6 @@
 import Foundation
 
+/// A structure to wrap the API response chat message dictionary and make it renderable in a SwiftUI List.
 public struct IdentifiedChatMessage: Equatable, Identifiable {
   public let id: String
   public let message: String

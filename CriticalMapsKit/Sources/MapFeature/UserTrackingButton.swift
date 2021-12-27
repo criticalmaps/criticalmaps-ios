@@ -1,8 +1,9 @@
 import ComposableArchitecture
-import Helpers
 import MapKit
 import SwiftUI
+import SwiftUIHelpers
 
+/// Button to toggle tracking modes
 public struct UserTrackingButton: View {
   let store: Store<UserTrackingState, UserTrackingAction>
   @ObservedObject var viewStore: ViewStore<UserTrackingState, UserTrackingAction>

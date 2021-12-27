@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// CM default ButtonStyle
 public struct CMButtonStyle: ButtonStyle {
   public init() {}
   

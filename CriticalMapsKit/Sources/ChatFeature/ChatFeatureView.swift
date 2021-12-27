@@ -4,6 +4,7 @@ import SharedModels
 import Styleguide
 import SwiftUI
 
+/// Chat Feature View
 public struct ChatView: View {
   public struct ChatViewState: Equatable {
     public var identifiedChatMessages: [IdentifiedChatMessage]

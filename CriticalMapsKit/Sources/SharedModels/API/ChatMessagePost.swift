@@ -1,6 +1,7 @@
 import Foundation
 
-public struct SendChatMessage: Codable, Hashable {
+/// A structure that represents new chat message post
+public struct ChatMessagePost: Codable, Hashable {
   public var text: String
   public var timestamp: TimeInterval
   public var identifier: String

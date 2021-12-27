@@ -2,6 +2,7 @@ import Foundation
 import MapKit
 import SharedModels
 
+/// A client to update rider annotations on a map.
 public struct RiderAnnotationUpdateClient {
   
   /// Calculates the difference between displayed annotations and a collection of new rider elements.

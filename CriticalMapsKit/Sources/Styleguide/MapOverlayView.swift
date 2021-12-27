@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A view to overlay the map and indicate the next ride
 public struct MapOverlayView<Content>: View where Content: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.accessibilityReduceMotion) var reduceMotion

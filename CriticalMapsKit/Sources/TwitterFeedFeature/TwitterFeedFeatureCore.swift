@@ -16,6 +16,7 @@ public struct TwitterFeedState: Equatable {
   }
 }
 
+
 // MARK: Actions
 public enum TwitterFeedAction: Equatable {
   case onAppear
@@ -23,6 +24,7 @@ public enum TwitterFeedAction: Equatable {
   case fetchDataResponse(Result<[Tweet], NSError>)
   case openTweet(Tweet)
 }
+
 
 // MARK: Environment
 public struct TwitterFeedEnvironment {
@@ -41,7 +43,10 @@ public struct TwitterFeedEnvironment {
   }
 }
 
+
 // MARK: Reducer
+
+/// A reducer to handle twitter feature actions.
 public let twitterFeedReducer =
 Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment>.combine(
   Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment> { state, action, environment in

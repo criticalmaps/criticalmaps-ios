@@ -1,5 +1,6 @@
 import UIKit
 
+/// Extension that offers CM styleguides from Figma
 public extension UIColor {
   static var backgroundPrimary: Self {
     Self { $0.isDarkMode
