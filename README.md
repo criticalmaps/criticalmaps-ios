@@ -50,10 +50,16 @@ This repo contains both the client for running the entire [criticalmaps](https:/
 2. Open the Xcode project `CriticalMaps.xcodeproj`.
 3. To run the client locally, select the `Critical Maps` target in Xcode and run (`⌘R`).
 
+__Optional__
+Install `fastlane` with
+```sh
+make dependencies
+```
+
 ### Assets
 
 The project is using type-safe assets generated with [SwiftGen](https://github.com/SwiftGen/SwiftGen).
-If you add images to the project be sure to install it and run `swiftgen` from the root folder and add the changes to your PR.
+If you add images to the project be sure to install it and run `make assets` from the root folder and add the changes to your PR.
 
 
 ## Contribute
