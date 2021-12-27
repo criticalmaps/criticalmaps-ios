@@ -410,7 +410,7 @@ class AppFeatureTests: XCTestCase {
     store.receive(.map(.setNextRideBannerVisible(true))) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
-    testScheduler.advance(by: 0.6)
+    testScheduler.advance(by: 1.2)
     store.receive(.map(.setNextRideBannerExpanded(true))) {
       $0.mapFeatureState.isNextRideBannerExpanded = true
     }

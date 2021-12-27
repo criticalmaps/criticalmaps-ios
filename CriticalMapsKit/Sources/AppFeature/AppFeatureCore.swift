@@ -330,7 +330,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         return Effect.concatenate(
           Effect(value: .map(.setNextRideBannerVisible(true))),
           Effect(value: .map(.setNextRideBannerExpanded(true)))
-            .delay(for: 0.6, scheduler: environment.mainQueue)
+            .delay(for: 1.2, scheduler: environment.mainQueue)
             .eraseToEffect(),
           Effect(value: .map(.setNextRideBannerExpanded(false)))
             .delay(for: 10, scheduler: environment.mainQueue)
