@@ -201,7 +201,7 @@ class MapFeatureCoreTests: XCTestCase {
     store.send(.focusNextRide) {
       $0.centerRegion = CoordinateRegion(
         center: .init(latitude: 13.13, longitude: 55.55),
-        span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
       )
     }
     self.testScheduler.advance(by: 1)

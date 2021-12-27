@@ -155,7 +155,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       }
       state.centerRegion = CoordinateRegion(
         center: nextRideCoordinates,
-        span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
       )
       return Effect(value: .resetCenterRegion)
         .delay(for: 1, scheduler: environment.mainQueue)
