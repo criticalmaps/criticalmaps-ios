@@ -31,7 +31,7 @@ This iOS app is made for Critical Maps. It tracks your location and shares it vi
 
 ## Project Setup
 
-The App uses Apple's `Combine.framework` for operation scheduling. The UI-Layer is built with [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`.
+The App uses Apple's `Combine.framework` for operation scheduling. The UI-Layer is built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`.
 Minimum platform requirements are: iOS 15.0
 
 ### Modularization
@@ -40,7 +40,7 @@ The application is built in a hyper-modularized style. This allows to work on fe
 
 ### Getting Started
 
-This repo contains both the client for running the entire [criticalmaps](https://itunes.apple.com/app/critical-maps/id918669647) application, as well as an extensive test suite. To get things running:
+This repo contains both the client for running the entire [Critical Maps](https://itunes.apple.com/app/critical-maps/id918669647) application, as well as an extensive test suite. To get things running:
 
 1. Grab the code:
     ```sh
@@ -74,7 +74,7 @@ In general, we follow the "fork-and-pull" Git workflow.
 
 1.  **Fork** the repo on GitHub
 2.  **Clone** the project to your own machine
-3.  **Commit** changes to your own branch. Please add your changes also to the CHANGELOG. We're following the standard of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+3.  **Commit** changes to your own branch. Please add your changes also to the [`CHANGELOG`](CHANGELOG.md). We're following the standard of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 4.  **Push** your work back up to your fork
 5.  Submit a **Pull request** so that we can review your changes
 
@@ -225,4 +225,4 @@ However, **please do not ship this app** under your own account. Paid or free.
 
 ## Copyright & License
 
-Copyright (c) 2021 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/master/LICENSE).
+Copyright (c) 2021 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/main/LICENSE).

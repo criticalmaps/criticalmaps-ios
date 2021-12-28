@@ -20,6 +20,8 @@
 		738214F6271F49AB009847C7 /* appIcon-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F1271F49AB009847C7 /* appIcon-3.png */; };
 		738214F7271F49AB009847C7 /* appIcon-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F2271F49AB009847C7 /* appIcon-2.png */; };
 		738214F8271F49AB009847C7 /* appIcon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F3271F49AB009847C7 /* appIcon-1.png */; };
+		73BABF84277B0A2900D9790F /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 73BABF82277B0A2900D9790F /* CHANGELOG.md */; };
+		73BABF85277B0A2900D9790F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73BABF83277B0A2900D9790F /* README.md */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
 		73EB0311263F23A100941D57 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* App.swift */; };
 		73FD0B332779F5500061539D /* GuideFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD0B322779F5500061539D /* GuideFeaturePreviewApp.swift */; };
@@ -41,6 +43,8 @@
 		738214F2271F49AB009847C7 /* appIcon-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-2.png"; sourceTree = "<group>"; };
 		738214F3271F49AB009847C7 /* appIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-1.png"; sourceTree = "<group>"; };
 		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Berlin:Germany.gpx"; path = "App/Berlin:Germany.gpx"; sourceTree = "<group>"; };
+		73BABF82277B0A2900D9790F /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		73BABF83277B0A2900D9790F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ModulesTests.xctestplan; path = App/ModulesTests.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
+				73BABF82277B0A2900D9790F /* CHANGELOG.md */,
+				73BABF83277B0A2900D9790F /* README.md */,
 				732734462771172C0007579E /* CriticalMapsKit */,
 				739C4980276733E20001466A /* Berlin:Germany.gpx */,
 				73CA9806268DCC0F004D81FA /* ModulesTests.xctestplan */,
@@ -368,8 +374,10 @@
 				738214F8271F49AB009847C7 /* appIcon-1.png in Resources */,
 				738214F6271F49AB009847C7 /* appIcon-3.png in Resources */,
 				738214F4271F49AB009847C7 /* appIcon-5.png in Resources */,
+				73BABF84277B0A2900D9790F /* CHANGELOG.md in Resources */,
 				73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */,
 				738214F7271F49AB009847C7 /* appIcon-2.png in Resources */,
+				73BABF85277B0A2900D9790F /* README.md in Resources */,
 				73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */,
 				738214F5271F49AB009847C7 /* appIcon-4.png in Resources */,
 			);
