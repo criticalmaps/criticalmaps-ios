@@ -30,7 +30,9 @@ public struct AppNavigationView: View {
           action: { AppAction.map(.userTracking($0)) }
         )
       )
+      .padding(10)
       .frame(maxWidth: .infinity, minHeight: minHeight)
+      .contentShape(Rectangle())
       menuSeperator
       
       // Chat
@@ -86,27 +88,24 @@ public struct AppNavigationView: View {
             .iconModifier()
           badge
         }
-        
       })
-      .background(
-        EmptyView()
-          .sheet(
-            isPresented: viewStore.binding(
-              get: \.isChatViewPresented,
-              send: AppAction.dismissSheetView
-            ),
-            onDismiss: nil,
-            content: {
-              SocialView(
-                store: store.scope(
-                  state: \.socialState,
-                  action: AppAction.social
-                )
-              )
-            }
-          )
-      )
       .frame(maxWidth: .infinity, minHeight: minHeight)
+      .contentShape(Rectangle())
+      .sheet(
+        isPresented: viewStore.binding(
+          get: \.isChatViewPresented,
+          send: AppAction.dismissSheetView
+        ),
+        onDismiss: nil,
+        content: {
+          SocialView(
+            store: store.scope(
+              state: \.socialState,
+              action: AppAction.social
+            )
+          )
+        }
+      )
   }
   
   var rulesFeature: some View {
@@ -119,22 +118,20 @@ public struct AppNavigationView: View {
           .iconModifier()
       }
     )
-    .background(
-      EmptyView()
-        .sheet(
-          isPresented: viewStore.binding(
-            get: \.isRulesViewPresented,
-            send: { _ in AppAction.dismissSheetView }
-          ),
-          onDismiss: nil,
-          content: {
-            CMNavigationView {
-              GuideView()
-            }
-          }
-        )
-    )
     .frame(maxWidth: .infinity, minHeight: minHeight)
+    .contentShape(Rectangle())
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.isRulesViewPresented,
+        send: { _ in AppAction.dismissSheetView }
+      ),
+      onDismiss: nil,
+      content: {
+        CMNavigationView {
+          GuideView()
+        }
+      }
+    )
   }
   
   var settingsFeature: some View {
@@ -147,28 +144,27 @@ public struct AppNavigationView: View {
           .iconModifier()
       }
     )
-    .background(
-      EmptyView()
-        .sheet(
-          isPresented: viewStore.binding(
-            get: \.isSettingsViewPresented,
-            send: { _ in AppAction.dismissSheetView }
-          ),
-          onDismiss: nil,
-          content: {
-            CMNavigationView {
-              SettingsView(
-                store: store.scope(
-                  state: \.settingsState,
-                  action: { AppAction.settings($0) }
-                )
-              )
-              .dismissable()
-            }
-          }
-        )
-    )
     .frame(maxWidth: .infinity, minHeight: minHeight)
+    .contentShape(Rectangle())
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.isSettingsViewPresented,
+        send: { _ in AppAction.dismissSheetView }
+      ),
+      onDismiss: nil,
+      content: {
+        CMNavigationView {
+          SettingsView(
+            store: store.scope(
+              state: \.settingsState,
+              action: { AppAction.settings($0) }
+            )
+          )
+            .dismissable()
+        }
+      }
+    )
+    
   }
   
   var menuSeperator: some View {
