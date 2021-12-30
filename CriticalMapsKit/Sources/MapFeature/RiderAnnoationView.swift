@@ -20,6 +20,7 @@ final class RiderAnnoationView: MKAnnotationView {
     layer.cornerRadius = frame.height / 2
     layer.shouldRasterize = true
     layer.rasterizationScale = UIScreen.main.scale
+    isAccessibilityElement = false
   }
   
   private func defineFrame() -> CGRect {
