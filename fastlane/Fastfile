@@ -16,7 +16,7 @@ platform :ios do
   desc 'Run unit tests'
   lane :test do
     run_tests(
-      device: 'iPhone 8',
+      device: 'iPhone 12',
       scheme: Scheme_UnitTests,
       result_bundle: true
     )
