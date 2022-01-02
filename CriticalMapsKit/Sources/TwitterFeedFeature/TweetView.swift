@@ -6,6 +6,7 @@ import SwiftUI
 /// A view that renders a tweet
 public struct TweetView: View {
   @Environment(\.accessibilityReduceMotion) var reduceMotion
+  @Environment(\.dynamicTypeSize) private var dynamicTypeSize: DynamicTypeSize
   let tweet: Tweet
   
   public init(tweet: Tweet) {
@@ -40,19 +41,19 @@ public struct TweetView: View {
         .clipShape(Circle())
         
         VStack(alignment: .leading, spacing: .grid(2)) {
-          HStack {
-            Text(tweet.user.name)
-              .lineLimit(1)
-              .font(.titleTwo)
-              .foregroundColor(Color(.textPrimary))
-            Text(tweet.user.screenName)
-              .lineLimit(1)
-              .font(.bodyTwo)
-              .foregroundColor(Color(.textSilent))
-            Spacer()
-            Text(tweet.formattedCreationDate()!)
-              .font(.meta)
-              .foregroundColor(Color(.textPrimary))
+          if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading) {
+              twitterUserName
+              twitterScreenName
+              tweetPostDatetime
+            }
+          } else {
+            HStack {
+              twitterUserName
+              twitterScreenName
+              Spacer()
+              tweetPostDatetime
+            }
           }
           Text(tweet.makeAttributedTweet)
             .multilineTextAlignment(.leading)
@@ -61,7 +62,28 @@ public struct TweetView: View {
         }
       }
     }
+    .accessibilityElement(children: .combine)
     .padding(.vertical, .grid(2))
+  }
+  
+  var twitterUserName: some View {
+    Text(tweet.user.name)
+      .lineLimit(1)
+      .font(.titleTwo)
+      .foregroundColor(Color(.textPrimary))
+  }
+  
+  var twitterScreenName: some View {
+    Text(tweet.user.screenName)
+      .lineLimit(1)
+      .font(.bodyTwo)
+      .foregroundColor(Color(.textSilent))
+  }
+  
+  var tweetPostDatetime: some View {
+    Text(tweet.formattedCreationDate()!)
+      .font(.meta)
+      .foregroundColor(Color(.textPrimary))
   }
 }
 
