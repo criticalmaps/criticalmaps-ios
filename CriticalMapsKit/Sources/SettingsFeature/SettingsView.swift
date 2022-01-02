@@ -31,7 +31,17 @@ public struct SettingsView: View {
             title: L10n.Settings.eventSettings
           )
           
-          SettingsRow { observationModeRow }
+          SettingsRow {
+            observationModeRow
+              .accessibilityValue(
+                viewStore.userSettings.enableObservationMode
+                ? Text(L10n.A11y.General.on)
+                : Text(L10n.A11y.General.off)
+              )
+              .accessibilityAction {
+                viewStore.send(.setObservationMode(!viewStore.userSettings.enableObservationMode))
+              }
+          }
           
           SettingsNavigationLink(
             destination: AppearanceSettingsView(
@@ -75,11 +85,6 @@ public struct SettingsView: View {
         ),
         label: { EmptyView() }
       )
-        .accessibilityRepresentation(representation: {
-          viewStore.userSettings.enableObservationMode
-          ? Text(L10n.A11y.General.on)
-          : Text(L10n.A11y.General.off)
-        })
       .labelsHidden()
     }
     .accessibilityElement(children: .combine)
