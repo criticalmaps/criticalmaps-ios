@@ -10,16 +10,18 @@ public struct GuideDetailView: View {
   }
   
   public var body: some View {
-    VStack(alignment: .leading, spacing: .grid(2)) {
-      DIImage(Image(uiImage: guide.rule.image))
-      
-      Text(guide.rule.text)
-        .multilineTextAlignment(.leading)
-        .font(.bodyOne)
-        .foregroundColor(Color(.textPrimary))
-        .padding(.horizontal, .grid(4))
-      
-      Spacer()
+    ScrollView {
+      VStack(alignment: .leading, spacing: .grid(2)) {
+        DIImage(Image(uiImage: guide.rule.image))
+        
+        Text(guide.rule.text)
+          .multilineTextAlignment(.leading)
+          .font(.bodyOne)
+          .foregroundColor(Color(.textPrimary))
+          .padding(.horizontal, .grid(4))
+        
+        Spacer()
+      }
     }
     .navigationBarTitle(guide.rule.title, displayMode: .inline)
   }
