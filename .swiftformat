@@ -1,3 +1,0 @@
---disable trailingCommas
---exclude CriticalMapsUITests/SnapshotHelper.swift 
---exclude CriticalMass/Generated

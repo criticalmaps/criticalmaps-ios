@@ -1,0 +1,254 @@
+import AcknowList
+import ComposableArchitecture
+import Helpers
+import L10n
+import Styleguide
+import SwiftUI
+import SwiftUIHelpers
+
+/// A view to render the app settings.
+public struct SettingsView: View {
+  let store: Store<SettingsState, SettingsAction>
+  @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>
+  
+  public init(store: Store<SettingsState, SettingsAction>) {
+    self.store = store
+    self.viewStore = ViewStore(store, removeDuplicates: ==)
+  }
+  
+  public var body: some View {
+    SettingsForm {
+      Spacer(minLength: 28)
+      VStack {
+        SettingsSection(title: "") {
+          SettingsNavigationLink(
+            destination: RideEventSettingsView(
+              store: store.scope(
+                state: \.userSettings.rideEventSettings,
+                action: SettingsAction.rideevent
+              )
+            ),
+            title: L10n.Settings.eventSettings
+          )
+          
+          SettingsRow {
+            observationModeRow
+              .accessibilityValue(
+                viewStore.userSettings.enableObservationMode
+                ? Text(L10n.A11y.General.on)
+                : Text(L10n.A11y.General.off)
+              )
+              .accessibilityAction {
+                viewStore.send(.setObservationMode(!viewStore.userSettings.enableObservationMode))
+              }
+          }
+          
+          SettingsNavigationLink(
+            destination: AppearanceSettingsView(
+              store: store.scope(
+                state: \SettingsState.userSettings.appearanceSettings,
+                action: SettingsAction.appearance
+              )
+            ),
+            title: L10n.Settings.Theme.appearance
+          )
+        }
+                
+        supportSection
+        
+        infoSection
+      }
+    }
+    .navigationTitle(L10n.Settings.title)
+    .frame(
+      maxWidth: .infinity,
+      maxHeight: .infinity,
+      alignment: .topLeading
+    )
+    .onAppear { viewStore.send(.onAppear) }
+  }
+  
+  var observationModeRow: some View {
+    HStack {
+      VStack(alignment: .leading, spacing: .grid(1)) {
+        Text(L10n.Settings.Observationmode.title)
+          .font(.titleOne)
+        Text(L10n.Settings.Observationmode.detail)
+          .foregroundColor(Color(.textSilent))
+          .font(.bodyOne)
+      }
+      Spacer()
+      Toggle(
+        isOn: viewStore.binding(
+          get: { $0.userSettings.enableObservationMode },
+          send: SettingsAction.setObservationMode
+        ),
+        label: { EmptyView() }
+      )
+      .labelsHidden()
+    }
+    .accessibilityElement(children: .combine)
+  }
+  
+  var supportSection: some View {
+    SettingsSection(title: L10n.Settings.support) {
+      VStack(alignment: .leading, spacing: .grid(4)) {
+        Button(
+          action: { viewStore.send(.supportSectionRowTapped(.github)) },
+          label: {
+            SupportSettingsRow(
+              title: L10n.Settings.programming,
+              subTitle: L10n.Settings.Opensource.detail,
+              link: L10n.Settings.Opensource.action,
+              textStackForegroundColor: Color(.textPrimaryLight),
+              backgroundColor: Color(.brand500),
+              bottomImage: Image(uiImage: Asset.ghLogo.image)
+            )
+          }
+        )
+          .accessibilityAddTraits(.isLink)
+        
+        Button(
+          action: { viewStore.send(.supportSectionRowTapped(.crowdin)) },
+          label: {
+            SupportSettingsRow(
+              title: L10n.Settings.Translate.title,
+              subTitle: L10n.Settings.Translate.subtitle,
+              link: L10n.Settings.Translate.link,
+              textStackForegroundColor: .white,
+              backgroundColor: Color(.translateRowBackground),
+              bottomImage: Image(uiImage: Asset.translate.image)
+            )
+          }
+        )
+          .accessibilityAddTraits(.isLink)
+        
+        Button(
+          action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) },
+          label: {
+            SupportSettingsRow(
+              title: L10n.Settings.CriticalMassDotIn.title,
+              subTitle: L10n.Settings.CriticalMassDotIn.detail,
+              link: L10n.Settings.CriticalMassDotIn.action,
+              textStackForegroundColor: Color(.textPrimaryLight),
+              backgroundColor: Color(.cmInRowBackground),
+              bottomImage: Image(uiImage: Asset.cmDotInLogo.image)
+            )
+          }
+        )
+          .accessibilityAddTraits(.isLink)
+      }
+      .padding(.horizontal, .grid(4))
+    }
+  }
+  
+  var infoSection: some View {
+    SettingsSection(title: L10n.Settings.Section.info) {
+      SettingsRow {
+        Button(
+          action: { viewStore.send(.infoSectionRowTapped(.website)) },
+          label: {
+            SettingsInfoLink(title: L10n.Settings.website)
+          }
+        )
+        .accessibilityAddTraits(.isLink)
+      }
+      
+      SettingsRow {
+        Button(
+          action: { viewStore.send(.infoSectionRowTapped(.twitter)) },
+          label: {
+            SettingsInfoLink(title: L10n.Settings.twitter)
+          }
+        )
+        .accessibilityAddTraits(.isLink)
+      }
+      
+      SettingsRow {
+        Button(
+          action: { viewStore.send(.infoSectionRowTapped(.privacy)) },
+          label: {
+            SettingsInfoLink(title: L10n.Settings.privacyPolicy)
+          }
+        )
+        .accessibilityAddTraits(.isLink)
+      }
+      
+      if let acknowledgementsPlistPath = viewStore.acknowledgementsPlistPath {
+        SettingsNavigationLink(
+          destination: AcknowListSwiftUIView(plistPath: acknowledgementsPlistPath),
+          title: "Acknowledgements"
+        )
+      }
+      
+      appVersionAndBuildView
+    }
+  }
+  
+  var appVersionAndBuildView: some View {
+    HStack(spacing: .grid(4)) {
+      ZStack {
+        RoundedRectangle(cornerRadius: 12.5)
+          .foregroundColor(.white)
+          .frame(width: 56, height: 56, alignment: .center)
+          .overlay(
+            RoundedRectangle(cornerRadius: 12.5)
+              .strokeBorder(Color(.border), lineWidth: 1)
+          )
+        Image(uiImage: Asset.cmLogoC.image)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 48, height: 48, alignment: .center)
+      }
+      .accessibilityHidden(true)
+      
+      VStack(alignment: .leading) {
+        Text(viewStore.versionNumber)
+          .font(.titleTwo)
+          .foregroundColor(Color(.textPrimary))
+        Text(viewStore.buildNumber)
+          .font(.bodyTwo)
+          .foregroundColor(Color(.textSilent))
+      }
+      .accessibilityElement(children: .combine)
+    }
+    .padding(.grid(4))
+  }
+}
+
+struct SettingsInfoLink: View {
+  let title: String
+  
+  var body: some View {
+    HStack {
+      Text(title)
+        .font(.titleOne)
+      Spacer()
+      Image(systemName: "link.circle.fill")
+        .font(.titleOne)
+        .accessibilityHidden(true)
+    }
+  }
+}
+
+struct SettingsView_Previews: PreviewProvider {
+  static var previews: some View {
+    Preview {
+      NavigationView {
+        SettingsView(
+          store: .init(
+            initialState: .init(),
+            reducer: settingsReducer,
+            environment: SettingsEnvironment(
+              uiApplicationClient: .noop,
+              setUserInterfaceStyle: { _ in .none },
+              fileClient: .noop,
+              backgroundQueue: .failing,
+              mainQueue: .failing
+            )
+          )
+        )
+      }
+    }
+  }
+}

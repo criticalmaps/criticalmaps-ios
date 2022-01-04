@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="110" failures="0">
+    <testsuite name="AppFeatureTests" tests="12" failures="0" time="0.5262420177459717">
+        <testcase classname="AppFeatureTests" name="test_animateNextRideBanner()" time="0.006761074066162109">
+        </testcase>
+        <testcase classname="AppFeatureTests" name="test_appNavigation()" time="0.0018720626831054688">
+        </testcase>
+        <testcase classname="AppFeatureTests" name="test_onAppearAction_shouldSendEffectTimerStart_andMapOnAppear()" time="0.0036569833755493164">
+        </testcase>
+        <testcase classname="AppFeatureTests" name="test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated()" time="0.0038640499114990234">
+        </testcase>
+        <testcase classname="AppFeatureTests" name="test_onAppearWithEnabledLocationServicesRideEventDisabled_shouldNotRequestNextRide()" time="0.002285003662109375">
+        </testcase>
+        <testcase classname="AppFeatureTests" name="test_resetUnreadMessagesCount_whenAction_chat_onAppear()" time="0.007339954376220703">
+        </testcase>
+        <testcase classname="AppFeatureTests" name="test_unreadChatMessagesCount()" time="0.0033620595932006836">
+        </testcase>
+        <testcase classname="AppNavigationViewSnapshotTests" name="test_appNavigationView_dark()" time="0.14672493934631348">
+        </testcase>
+        <testcase classname="AppNavigationViewSnapshotTests" name="test_appNavigationView_light()" time="0.12499403953552246">
+        </testcase>
+        <testcase classname="AppNavigationViewSnapshotTests" name="test_appNavigationView_WithBadge()" time="0.13392293453216553">
+        </testcase>
+        <testcase classname="AppNavigationViewSnapshotTests" name="test_appNavigationView_WithBadge_dark()" time="0.09090399742126465">
+        </testcase>
+        <testcase classname="RequestTimerCoreTests" name="test_startTimerAction_shouldSendTickedEffect()" time="0.0005549192428588867">
+        </testcase>
+    </testsuite>
+    <testsuite name="ChatFeatureTests" tests="12" failures="0" time="0.7140392065048218">
+        <testcase classname="ChatFeatureCore" name="test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse()" time="0.003958940505981445">
+        </testcase>
+        <testcase classname="ChatFeatureCore" name="test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse()" time="0.0008349418640136719">
+        </testcase>
+        <testcase classname="ChatFeatureCore" name="test_chatViewState()" time="0.0009980201721191406">
+        </testcase>
+        <testcase classname="ChatFeatureCore" name="test_didAppear_ShouldSet_appearanceTimeinterval()" time="0.0009380578994750977">
+        </testcase>
+        <testcase classname="ChatFeatureSnapshotTests" name="test_chatFeatureViewSnapshot()" time="0.0756690502166748">
+        </testcase>
+        <testcase classname="ChatFeatureSnapshotTests" name="test_chatFeatureViewSnapshot_dark()" time="0.030926108360290527">
+        </testcase>
+        <testcase classname="ChatFeatureSnapshotTests" name="test_chatInputViewSnapshot_empty()" time="0.29930198192596436">
+        </testcase>
+        <testcase classname="ChatFeatureSnapshotTests" name="test_chatInputViewSnapshot_nonEmpty()" time="0.3001199960708618">
+        </testcase>
+        <testcase classname="ChatInputCoreTests" name="test_isEditingChanged_action()" time="0.0004200935363769531">
+        </testcase>
+        <testcase classname="ChatInputCoreTests" name="test_messageChanged_action()" time="0.0003260374069213867">
+        </testcase>
+        <testcase classname="ChatViewStateTests" name="test_createChatViewState_shouldSortMessagesByDate()" time="0.00028395652770996094">
+        </testcase>
+        <testcase classname="IdentifiedMessagesTests" name="test_chatTime_Format()" time="0.0002620220184326172">
+        </testcase>
+    </testsuite>
+    <testsuite name="HelperTests" tests="9" failures="0" time="0.0042879581451416016">
+        <testcase classname="CodableExtensionsTests" name="testDecodedHelperFunctionShouldDecode()" time="0.0020439624786376953">
+        </testcase>
+        <testcase classname="CodableExtensionsTests" name="testencodedHelperFunctionShouldEncode()" time="0.00034809112548828125">
+        </testcase>
+        <testcase classname="DateAdditionsTests" name="testGetCurrentDayShouldReturnDayAs21()" time="0.0004069805145263672">
+        </testcase>
+        <testcase classname="DateAdditionsTests" name="testGetCurrentMonthShouldReturnMonth1()" time="0.0002319812774658203">
+        </testcase>
+        <testcase classname="DateAdditionsTests" name="testGetCurrentYearShouldReturnDayAs2020()" time="0.00025403499603271484">
+        </testcase>
+        <testcase classname="StringAdditionsTests" name="test_removeDatePatternShouldNotRemovePattern1()" time="0.0003160238265991211">
+        </testcase>
+        <testcase classname="StringAdditionsTests" name="test_removeDatePatternShouldNotRemovePattern2()" time="0.00023293495178222656">
+        </testcase>
+        <testcase classname="StringAdditionsTests" name="test_removeDatePatternShouldRemovePattern1()" time="0.0002410411834716797">
+        </testcase>
+        <testcase classname="StringAdditionsTests" name="test_removeDatePatternShouldRemovePattern2()" time="0.0002129077911376953">
+        </testcase>
+    </testsuite>
+    <testsuite name="IDProviderTests" tests="2" failures="0" time="0.0027118921279907227">
+        <testcase classname="IDProviderTests" name="testIDDoesChange()" time="0.002267003059387207">
+        </testcase>
+        <testcase classname="IDProviderTests" name="testIDDoesNotChange()" time="0.0004448890686035156">
+        </testcase>
+    </testsuite>
+    <testsuite name="MapFeatureTests" tests="13" failures="0" time="0.4445990324020386">
+        <testcase classname="MapFeatureCoreTests" name="test_deniedPermission_shouldSetAlert()" time="0.005018115043640137">
+        </testcase>
+        <testcase classname="MapFeatureCoreTests" name="test_disabledLocationService_shouldSetAlert()" time="0.0016989707946777344">
+        </testcase>
+        <testcase classname="MapFeatureCoreTests" name="test_focusNextRide_setsCenterRegion_andResetsItAfter1Second()" time="0.00047397613525390625">
+        </testcase>
+        <testcase classname="MapFeatureCoreTests" name="test_InfoBanner_appearance()" time="0.0003230571746826172">
+        </testcase>
+        <testcase classname="MapFeatureCoreTests" name="test_onAppearAction()" time="0.0004659891128540039">
+        </testcase>
+        <testcase classname="RiderAnnotationUpdateClientTests" name="test_mapWithNoAnnoations_shouldAdd1_andRemove1()" time="0.034506916999816895">
+        </testcase>
+        <testcase classname="RiderAnnotationUpdateClientTests" name="test_mapWithNoAnnoations_shouldAdd2_andRemove2()" time="0.006052970886230469">
+        </testcase>
+        <testcase classname="RiderAnnotationUpdateClientTests" name="test_mapWithNoAnnoations_shouldAddAll_andRemoveNone()" time="0.006089925765991211">
+        </testcase>
+        <testcase classname="RiderAnnotationUpdateClientTests" name="test_mapWithNoAnnoations_shouldAddSome_andRemoveNone()" time="0.005782008171081543">
+        </testcase>
+        <testcase classname="UserTrackingButtonSnapshotTests" name="test_userTracking_follow()" time="0.19981694221496582">
+        </testcase>
+        <testcase classname="UserTrackingButtonSnapshotTests" name="test_userTracking_followWithHeading()" time="0.005627036094665527">
+        </testcase>
+        <testcase classname="UserTrackingButtonSnapshotTests" name="test_userTracking_none()" time="0.17829501628875732">
+        </testcase>
+        <testcase classname="UserTrackingModeCoreTests" name="test_nextTrackingMode()" time="0.0004481077194213867">
+        </testcase>
+    </testsuite>
+    <testsuite name="NextRideFeatureTests" tests="13" failures="0" time="0.013463258743286133">
+        <testcase classname="CoordinateObfuscatorTests" name="test_ObfuscatorShouldReturnAlteredCoordinate()" time="0.0022090673446655273">
+        </testcase>
+        <testcase classname="CoordinateObfuscatorTests" name="test_ObfuscatorShouldReturnCoordinateWithAlteredFirstDecimal()" time="0.0003160238265991211">
+        </testcase>
+        <testcase classname="CoordinateObfuscatorTests" name="test_ObfuscatorShouldReturnCoordinateWithAlteredFourthDecimal()" time="0.0003039836883544922">
+        </testcase>
+        <testcase classname="CoordinateObfuscatorTests" name="test_ObfuscatorShouldReturnCoordinateWithAlteredSecondDecimal()" time="0.00023603439331054688">
+        </testcase>
+        <testcase classname="CoordinateObfuscatorTests" name="test_ObfuscatorShouldReturnCoordinateWithCustomRange()" time="0.00021600723266601562">
+        </testcase>
+        <testcase classname="NextRideCoreTests" name="test_disabledNextRideFeature_shouldNotRequestRides()" time="0.0031549930572509766">
+        </testcase>
+        <testcase classname="NextRideCoreTests" name="test_getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled()" time="0.0013519525527954102">
+        </testcase>
+        <testcase classname="NextRideCoreTests" name="test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled()" time="0.0008560419082641602">
+        </testcase>
+        <testcase classname="NextRideCoreTests" name="test_getNextRide_shouldReturnError()" time="0.0008280277252197266">
+        </testcase>
+        <testcase classname="NextRideCoreTests" name="test_getNextRide_shouldReturnMockRide()" time="0.0008630752563476562">
+        </testcase>
+        <testcase classname="NextRideCoreTests" name="test_getNextRide_shouldReturnRide_whenRideTypeNil()" time="0.0012331008911132812">
+        </testcase>
+        <testcase classname="NextRideReqeustTests" name="test_constructor_withCurrentDate()" time="0.0012439489364624023">
+        </testcase>
+        <testcase classname="NextRideReqeustTests" name="test_constructor()" time="0.0006510019302368164">
+        </testcase>
+    </testsuite>
+    <testsuite name="SettingsFeatureTests" tests="16" failures="0" time="7.258876085281372">
+        <testcase classname="AppearanceSettingsCoreTests" name="test_selectAppIcon_shouldUpdateState()" time="0.0035979747772216797">
+        </testcase>
+        <testcase classname="AppearanceSettingsCoreTests" name="testSetColorScheme()" time="0.00040900707244873047">
+        </testcase>
+        <testcase classname="AppearanceSettingsViewSnapshotTests" name="test_appearanceEventSettingsView_disabled()" time="2.4256759881973267">
+        </testcase>
+        <testcase classname="AppearanceSettingsViewSnapshotTests" name="test_appearanceEventSettingsView_light()" time="2.3751720190048218">
+        </testcase>
+        <testcase classname="RideEventSettingsCoreTests" name="test_setRideEventsEnabled()" time="0.0005900859832763672">
+        </testcase>
+        <testcase classname="RideEventSettingsCoreTests" name="test_setRideEventsRadius()" time="0.0002759695053100586">
+        </testcase>
+        <testcase classname="RideEventSettingsCoreTests" name="test_setRideEventsTypeEnabled()" time="0.0002930164337158203">
+        </testcase>
+        <testcase classname="RideEventSettingsViewSnapshotTests" name="test_rideEventSettingsView_disabled()" time="0.03770589828491211">
+        </testcase>
+        <testcase classname="RideEventSettingsViewSnapshotTests" name="test_rideEventSettingsView_light()" time="0.03394591808319092">
+        </testcase>
+        <testcase classname="SettingsFeatureCoreTests" name="test_openURLAction_shouldCallUIApplicationClient_cmTwitter()" time="0.0007290840148925781">
+        </testcase>
+        <testcase classname="SettingsFeatureCoreTests" name="test_openURLAction_shouldCallUIApplicationClient_cmWebsite()" time="0.00034499168395996094">
+        </testcase>
+        <testcase classname="SettingsFeatureCoreTests" name="test_openURLAction_shouldCallUIApplicationClient_criticalMassDotIn()" time="0.0003000497817993164">
+        </testcase>
+        <testcase classname="SettingsFeatureCoreTests" name="test_openURLAction_shouldCallUIApplicationClient_crowdin()" time="0.00036704540252685547">
+        </testcase>
+        <testcase classname="SettingsFeatureCoreTests" name="test_openURLAction_shouldCallUIApplicationClient_github()" time="0.0002989768981933594">
+        </testcase>
+        <testcase classname="SettingsFeatureCoreTests" name="test_openURLAction_shouldCallUIApplicationClient_privacy()" time="0.00028002262115478516">
+        </testcase>
+        <testcase classname="SettingsViewSnapshotTests" name="test_settingsView_light()" time="2.378890037536621">
+        </testcase>
+    </testsuite>
+    <testsuite name="SocialFeatureTests" tests="1" failures="0" time="0.004500985145568848">
+        <testcase classname="SocialFeatureCoreTests" name="test_setSocialSegment()" time="0.004500985145568848">
+        </testcase>
+    </testsuite>
+    <testsuite name="StyleguideTests" tests="11" failures="0" time="0.23422598838806152">
+        <testcase classname="ButtonStylesSnapshotTests" name="test_cmButtonStyle()" time="0.025225043296813965">
+        </testcase>
+        <testcase classname="ButtonStylesSnapshotTests" name="test_cmButtonStyle_withIcon()" time="0.011780977249145508">
+        </testcase>
+        <testcase classname="ButtonStylesSnapshotTests" name="test_cmButtonStyle_withIcon2()" time="0.007498025894165039">
+        </testcase>
+        <testcase classname="EmptyStateViewSnapshotTests" name="test_emptyStateView_withButton_dark()" time="0.026986002922058105">
+        </testcase>
+        <testcase classname="EmptyStateViewSnapshotTests" name="test_emptyStateView_withButton_light()" time="0.023292064666748047">
+        </testcase>
+        <testcase classname="EmptyStateViewSnapshotTests" name="test_emptyStateView_withoutButton_dark()" time="0.022317886352539062">
+        </testcase>
+        <testcase classname="EmptyStateViewSnapshotTests" name="test_emptyStateView_withoutButton_light()" time="0.022058963775634766">
+        </testcase>
+        <testcase classname="ErrorStateViewSnapshotTests" name="test_ErrorStateView_withButton_dark()" time="0.0256119966506958">
+        </testcase>
+        <testcase classname="ErrorStateViewSnapshotTests" name="test_ErrorStateView_withButton_light()" time="0.02356898784637451">
+        </testcase>
+        <testcase classname="ErrorStateViewSnapshotTests" name="test_ErrorStateView_withoutButton_dark()" time="0.02265298366546631">
+        </testcase>
+        <testcase classname="ErrorStateViewSnapshotTests" name="test_ErrorStateView_withoutButton_light()" time="0.02323305606842041">
+        </testcase>
+    </testsuite>
+    <testsuite name="TwitterFeedFeatureTests" tests="21" failures="0" time="0.4564110040664673">
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot()" time="0.0693579912185669">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_dark()" time="0.0437469482421875">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_empty()" time="0.029660940170288086">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_empty_dark()" time="0.024357914924621582">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_error()" time="0.0254058837890625">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_error_dark()" time="0.02299797534942627">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_redacted()" time="0.04382503032684326">
+        </testcase>
+        <testcase classname="TweetListViewSnapshotTests" name="test_tweetListViewSnapshot_redacted_dark()" time="0.04254496097564697">
+        </testcase>
+        <testcase classname="TweetTests" name="test_createdAt_dateformatting()" time="0.0012160539627075195">
+        </testcase>
+        <testcase classname="TweetTests" name="test_createdAt_dateformatting2()" time="0.00030100345611572266">
+        </testcase>
+        <testcase classname="TweetViewSnapshotTests" name="test_tweetViewSnapshot()" time="0.02529597282409668">
+        </testcase>
+        <testcase classname="TweetViewSnapshotTests" name="test_tweetViewSnapshot1()" time="0.024145007133483887">
+        </testcase>
+        <testcase classname="TweetViewSnapshotTests" name="test_tweetViewSnapshot2()" time="0.024744033813476562">
+        </testcase>
+        <testcase classname="TweetViewSnapshotTests" name="test_tweetViewSnapshot_dark()" time="0.02458202838897705">
+        </testcase>
+        <testcase classname="TweetViewSnapshotTests" name="test_tweetViewSnapshot_redacted()" time="0.024525046348571777">
+        </testcase>
+        <testcase classname="TweetViewSnapshotTests" name="test_tweetViewSnapshot_redacted_dark()" time="0.024494051933288574">
+        </testcase>
+        <testcase classname="TwitterFeedCoreTests" name="test_onAppear_shouldFetchTwitterData()" time="0.001587986946105957">
+        </testcase>
+        <testcase classname="TwitterFeedCoreTests" name="test_openTweetUrl()" time="0.0009380578994750977">
+        </testcase>
+        <testcase classname="TwitterFeedCoreTests" name="test_tweetDecodingTest()" time="0.0012830495834350586">
+        </testcase>
+        <testcase classname="TwitterFeedViewStateTests" name="test_setShouldDisplayPlaceholder()" time="0.0007810592651367188">
+        </testcase>
+        <testcase classname="TwitterFeedViewStateTests" name="test_setShouldDisplayPlaceholder2()" time="0.0006200075149536133">
+        </testcase>
+    </testsuite>
+</testsuites>

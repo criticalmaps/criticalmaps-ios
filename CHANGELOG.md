@@ -2,11 +2,15 @@
 
 Changelog for Critical Maps iOS
 
-# [Unreleased]
+# [4.0.0] - 2021-12-28
 
-### Fixed
+This release is a rebuild of the app built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`
 
-- Identical chatmessages were crashing the chat  
+### Added
+
+- ErrorStateView and EmtpyState view
+- Adopts new Styleguide
+- Contribute with translation view to Settings 
 
 # [3.9.2] - 2021-05-04
 

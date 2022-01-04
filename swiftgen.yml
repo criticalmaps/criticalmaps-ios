@@ -1,14 +1,17 @@
 strings:
  inputs: 
-  - CriticalMass/en.lproj/Localizable.strings
+  - CriticalMapsKit/Sources/L10n/Resources/en.lproj/Localizable.strings
  outputs:
    - templateName: structured-swift4
-     output: CriticalMass/Generated/Strings.swift
+     output: CriticalMapsKit/Sources/L10n/L10n.swift
+     params:
+        publicAccess: true
 
 xcassets:
   - inputs: 
-    - CriticalMass/Images.xcassets
+    - CriticalMapsKit/Sources/Styleguide/Resources/Images.xcassets
     outputs:
       - templateName: swift4
-        output: CriticalMass/Generated/Images.swift
-        
+        output: CriticalMapsKit/Sources/Styleguide/Images.swift
+        params:
+          publicAccess: true
