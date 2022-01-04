@@ -114,6 +114,13 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/mltbnz">
+            <img src="https://avatars.githubusercontent.com/u/14075359?v=4" width="100;" alt="mltbnz"/>
+            <br />
+            <sub><b>Malte Bünz</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/i5glu">
             <img src="https://avatars.githubusercontent.com/u/9765299?v=4" width="100;" alt="i5glu"/>
             <br />
@@ -126,20 +133,13 @@ However, **please do not ship this app** under your own account. Paid or free.
             <br />
             <sub><b>Maxim Tsvetkov</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/zutrinken">
             <img src="https://avatars.githubusercontent.com/u/888679?v=4" width="100;" alt="zutrinken"/>
             <br />
             <sub><b>Peter Amende</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/mltbnz">
-            <img src="https://avatars.githubusercontent.com/u/14075359?v=4" width="100;" alt="mltbnz"/>
-            <br />
-            <sub><b>Malte Bünz</b></sub>
         </a>
     </td>
     <td align="center">
