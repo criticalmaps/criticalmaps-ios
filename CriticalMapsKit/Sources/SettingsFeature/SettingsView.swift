@@ -8,6 +8,8 @@ import SwiftUIHelpers
 
 /// A view to render the app settings.
 public struct SettingsView: View {
+  @Environment(\.colorSchemeContrast) var colorSchemeContrast
+  
   let store: Store<SettingsState, SettingsAction>
   @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>
   
@@ -74,7 +76,7 @@ public struct SettingsView: View {
         Text(L10n.Settings.Observationmode.title)
           .font(.titleOne)
         Text(L10n.Settings.Observationmode.detail)
-          .foregroundColor(Color(.textSilent))
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
           .font(.bodyOne)
       }
       Spacer()
@@ -208,7 +210,7 @@ public struct SettingsView: View {
           .foregroundColor(Color(.textPrimary))
         Text(viewStore.buildNumber)
           .font(.bodyTwo)
-          .foregroundColor(Color(.textSilent))
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
       }
       .accessibilityElement(children: .combine)
     }

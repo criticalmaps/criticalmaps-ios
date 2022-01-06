@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import GuideFeature
+import Helpers
 import L10n
 import MapFeature
 import SettingsFeature
@@ -13,7 +14,7 @@ public struct AppNavigationView: View {
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-  @Environment(\.accessibilityReduceMotion) var reduceMotion
+  @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
   let minHeight: CGFloat = 56
   
@@ -50,7 +51,7 @@ public struct AppNavigationView: View {
         .accessibility(label: Text("App navigation \(L10n.Settings.title)"))
     }
     .font(.body)
-    .background(reduceTransparency ? Color(.backgroundSecondary) : Color(.backgroundTranslucent))
+    .background(reduceTransparency || colorSchemeContrast.isIncreased ? Color(.backgroundSecondary) : Color(.backgroundTranslucent))
     .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
   }
