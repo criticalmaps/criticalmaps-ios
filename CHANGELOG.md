@@ -2,15 +2,18 @@
 
 Changelog for Critical Maps iOS
 
-# [4.0.0] - 2021-12-28
+# Unreleased
 
+__Proposal for the release is to make it `4.0.0`__
 This release is a rebuild of the app built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`
 
 ### Added
 
 - ErrorStateView and EmtpyState view
 - Adopts new Styleguide
-- Contribute with translation view to Settings 
+- Contribute with translation view to Settings
+- Add increased contrast support
+
 
 # [3.9.2] - 2021-05-04
 

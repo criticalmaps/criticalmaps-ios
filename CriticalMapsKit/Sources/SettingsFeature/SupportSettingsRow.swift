@@ -4,6 +4,8 @@ import SwiftUI
 import SwiftUIHelpers
 
 struct SupportSettingsRow: View {
+  @Environment(\.colorSchemeContrast) var colorSchemeContrast
+    
   let title: String
   let subTitle: String
   let link: String
@@ -34,10 +36,10 @@ struct SupportSettingsRow: View {
       .accessibilityElement(children: .combine)
       .padding([.top, .bottom, .leading], .grid(6))
       .padding(.trailing, 120)
-      .foregroundColor(textStackForegroundColor)
+      .foregroundColor(colorSchemeContrast.isIncreased ? Color(.backgroundPrimary) : textStackForegroundColor)
       .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
     }
-    .background(backgroundColor)
+    .background(colorSchemeContrast.isIncreased ? Color(.textPrimary) : backgroundColor)
     .clipShape(RoundedRectangle(cornerRadius: 16))
   }
 }
