@@ -330,6 +330,10 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				de,
+				it,
+				es,
 			);
 			mainGroup = 73CF5FB9263EAF5B001925A3;
 			productRefGroup = 73CF5FC3263EAF5B001925A3 /* Products */;
