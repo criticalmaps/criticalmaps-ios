@@ -5,9 +5,9 @@
         "package": "AcknowList",
         "repositoryURL": "https://github.com/vtourraine/AcknowList",
         "state": {
-          "branch": "main",
-          "revision": "305f745dd4e910c022230e3b2948bcd5754cd467",
-          "version": null
+          "branch": null,
+          "revision": "e66b9541c1902ced4979b3c214a5def2cf96f015",
+          "version": "2.1.0"
         }
       },
       {
