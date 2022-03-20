@@ -2,7 +2,7 @@
 
 Changelog for Critical Maps iOS
 
-# Unreleased
+# [4.0.0] - 2022-03-18
 
 __Proposal for the release is to make it `4.0.0`__
 This release is a rebuild of the app built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`

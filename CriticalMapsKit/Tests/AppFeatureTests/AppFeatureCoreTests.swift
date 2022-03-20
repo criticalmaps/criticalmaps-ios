@@ -19,9 +19,15 @@ class AppFeatureTests: XCTestCase {
   func test_onAppearAction_shouldSendEffectTimerStart_andMapOnAppear() {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
+    let serviceSubject = PassthroughSubject<LocationAndChatMessages, NSError>()
+    
+    var service: LocationsAndChatDataService = .noop
+    service.getLocationsAndSendMessages = { _ in
+      serviceSubject.eraseToAnyPublisher()
+    }
     
     var environment = AppEnvironment(
-      service: .noop,
+      service: service,
       idProvider: .noop,
       mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
       locationManager: .unimplemented(
@@ -62,9 +68,20 @@ class AppFeatureTests: XCTestCase {
     store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.alert = .goToSettingsAlert
     }
+    store.receive(.requestTimer(.timerTicked))
+    store.receive(.fetchData)
+  
+    serviceSubject.send(completion: .failure(testError))
+    testScheduler.advance()
+    
+    store.receive(.fetchDataResponse(.failure(testError))) {
+      $0.locationsAndChatMessages = .failure(testError)
+    }
+    
     store.send(.requestTimer(.stopTimer))
     
     setSubject.send(completion: .finished)
+    serviceSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
   }
   
@@ -195,6 +212,8 @@ class AppFeatureTests: XCTestCase {
     }
     store.receive(.fetchDataResponse(.failure(testError)))
     
+    XCTAssertTrue(didRequestAlwaysAuthorization)
+    
     // teardown
     store.send(.requestTimer(.stopTimer))
     setSubject.send(completion: .finished)
@@ -317,6 +336,8 @@ class AppFeatureTests: XCTestCase {
       $0.chatMessageBadgeCount = 6
     }
     store.send(.requestTimer(.stopTimer))
+    
+    XCTAssertTrue(didRequestAlwaysAuthorization)
     
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)

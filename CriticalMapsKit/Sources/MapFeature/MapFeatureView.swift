@@ -31,7 +31,13 @@ public struct MapFeatureView: View {
         centerRegion: viewStore.binding(
           get: \.centerRegion,
           send: MapFeatureAction.updateCenterRegion
-        )
+        ),
+        mapMenuShareEventHandler: {
+          viewStore.send(.showShareSheet(true))
+        },
+        mapMenuRouteEventHandler: {
+          viewStore.send(.routeToEvent)
+        }
       )
       .edgesIgnoringSafeArea(.all)
       
@@ -50,6 +56,16 @@ public struct MapFeatureView: View {
       .padding(.top, .grid(12))
       .padding(.horizontal)
     }
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.presentShareSheet,
+        send: MapFeatureAction.showShareSheet
+      ),
+      onDismiss: { viewStore.send(.showShareSheet(false)) },
+      content: {
+        ShareSheetView(activityItems: [viewStore.nextRide?.shareMessage ?? ""])
+      }
+    )
   }
   
   var offlineBanner: some View {

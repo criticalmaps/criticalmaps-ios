@@ -9,11 +9,15 @@ import SwiftUI
 public typealias ViewRepresentable = UIViewRepresentable
 
 struct MapView: ViewRepresentable {
+  typealias MenuActionHandle = () -> Void
+  
   var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
   var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
   @Binding var centerRegion: CoordinateRegion?
+  var mapMenuShareEventHandler: MenuActionHandle?
+  var mapMenuRouteEventHandler: MenuActionHandle?
   
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
@@ -85,7 +89,9 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       let view = mapView.dequeueReusableAnnotationView(
         withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
         for: annotation
-      )
+      ) as? CMMarkerAnnotationView
+      view?.shareEventClosure = self.parent.mapMenuShareEventHandler
+      view?.routeEventClosure = self.parent.mapMenuRouteEventHandler
       return view
     }
     

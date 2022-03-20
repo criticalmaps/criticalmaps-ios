@@ -29,6 +29,7 @@ struct SupportSettingsRow: View {
           .font(.bodyTwo)
         HStack {
           Text(link)
+            .multilineTextAlignment(.leading)
           Image(systemName: "arrow.right")
         }
         .font(.body.bold())

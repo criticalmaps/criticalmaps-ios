@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "AcknowList",
-        "repositoryURL": "https://github.com/vtourraine/AcknowList",
+        "repositoryURL": "https://github.com/vtourraine/AcknowList.git",
         "state": {
           "branch": null,
           "revision": "e66b9541c1902ced4979b3c214a5def2cf96f015",
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture",
         "state": {
           "branch": null,
-          "revision": "23155a04fe426a5ee18befa29bd2627dbf79e653",
-          "version": "0.30.0"
+          "revision": "2828dc44f6e3f81d84bcaba72c1ab1c0121d66f6",
+          "version": "0.34.0"
         }
       },
       {
