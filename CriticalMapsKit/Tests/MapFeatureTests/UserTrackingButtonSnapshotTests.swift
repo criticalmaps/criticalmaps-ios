@@ -1,4 +1,4 @@
-@testable import MapFeature
+import MapFeature
 import TestHelper
 import XCTest
 

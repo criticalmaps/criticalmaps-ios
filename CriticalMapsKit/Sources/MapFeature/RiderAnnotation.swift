@@ -3,7 +3,7 @@ import SharedModels
 
 /// Map Annotation that renders CM participants.
 public class RiderAnnotation: IdentifiableAnnnotation {
-  let rider: Rider
+  public let rider: Rider
   
   public init(rider: Rider) {
     self.rider = rider

@@ -19,7 +19,7 @@ public struct MapFeatureView: View {
   @ObservedObject var viewStore: ViewStore<MapFeatureState, MapFeatureAction>
   
   public var body: some View {
-    ZStack(alignment: .topTrailing) {
+    ZStack(alignment: .topLeading) {
       MapView(
         riderCoordinates: viewStore.riderLocations,
         userTrackingMode: viewStore.binding(

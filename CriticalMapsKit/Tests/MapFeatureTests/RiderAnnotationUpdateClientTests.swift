@@ -1,14 +1,7 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Malte on 07.08.21.
-//
-
 import Combine
 import ComposableArchitecture
 import Foundation
-@testable import MapFeature
+import MapFeature
 import MapKit
 import SharedModels
 import XCTest
