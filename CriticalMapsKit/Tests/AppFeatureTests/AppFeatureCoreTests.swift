@@ -107,7 +107,7 @@ class AppFeatureTests: XCTestCase {
       serviceSubject.eraseToAnyPublisher()
     }
     var nextRideService: NextRideService = .noop
-    nextRideService.nextRide = { _, _ in
+    nextRideService.nextRide = { _, _, _ in
       nextRideSubject.eraseToAnyPublisher()
     }
     var settings = UserDefaultsClient.noop

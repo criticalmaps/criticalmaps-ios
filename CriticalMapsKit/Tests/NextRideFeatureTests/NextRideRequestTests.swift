@@ -16,7 +16,7 @@ class NextRideReqeustTests: XCTestCase {
     let coordinate = Coordinate(latitude: 13.13, longitude: 14.14)
     let radius = 20
     
-    let request = NextRidesRequest(coordinate: coordinate, radius: radius, date: fixedDate)
+    let request = NextRidesRequest(coordinate: coordinate, radius: radius, date: fixedDate, month: 5)
     
     let urlRequest = try request.makeRequest()
     let url = try XCTUnwrap(urlRequest.url)
@@ -38,7 +38,7 @@ class NextRideReqeustTests: XCTestCase {
     let year = Date.getCurrent(\.year)
     let month = Date.getCurrent(\.month)
     
-    let request = NextRidesRequest(coordinate: coordinate, radius: radius)
+    let request = NextRidesRequest(coordinate: coordinate, radius: radius, month: month)
     
     let urlRequest = try request.makeRequest()
     let url = try XCTUnwrap(urlRequest.url)

@@ -10,9 +10,9 @@ import SharedModels
 public struct NextRideService {
   public var nextRide: (
     _ coordinate: Coordinate,
-    _ eventSearchRadius: Int
-  )
-  -> AnyPublisher<[Ride], Failure>
+    _ eventSearchRadius: Int,
+    _ month: Int
+  ) -> AnyPublisher<[Ride], Failure>
 }
 
 
@@ -21,8 +21,8 @@ public extension NextRideService {
   static func live(
     apiClient: APIClient = .live
   ) -> Self { Self(
-    nextRide: { coordinate, radius in
-      let request = NextRidesRequest(coordinate: coordinate, radius: radius)
+    nextRide: { coordinate, radius, month in
+      let request = NextRidesRequest(coordinate: coordinate, radius: radius, month: month)
       return apiClient.dispatch(request)
         .decode(type: NextRidesRequest.ResponseDataType.self, decoder: request.decoder)
         .mapError { Failure(internalError: $0 as! NetworkRequestError) }
@@ -36,7 +36,7 @@ public extension NextRideService {
 // MARK: Mocks
 public extension NextRideService {
   static let noop = Self(
-    nextRide: { _, _ in
+    nextRide: { _, _, _ in
       Just([])
         .setFailureType(to: NextRideService.Failure.self)
         .eraseToAnyPublisher()
