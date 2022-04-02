@@ -26,7 +26,7 @@ class NextRideReqeustTests: XCTestCase {
       "centerLongitude=14.14",
       "centerLatitude=13.13",
       "year=2020",
-      "month=1"
+      "month=5"
     ]
     
     XCTAssertTrue(queryItems.contains(where: { url.absoluteString.contains($0) }))
