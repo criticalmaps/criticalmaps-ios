@@ -14,7 +14,9 @@ public enum UserTrackingAction: Equatable {
   case nextTrackingMode
 }
 
-public struct UserTrackingEnvironment: Equatable {}
+public struct UserTrackingEnvironment: Equatable {
+  public init() {}
+}
 
 /// Reducer handling tracking mode button state changes
 public let userTrackingReducer = Reducer<UserTrackingState, UserTrackingAction, UserTrackingEnvironment> { state, action, _ in

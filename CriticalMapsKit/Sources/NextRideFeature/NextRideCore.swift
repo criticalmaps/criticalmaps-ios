@@ -36,14 +36,14 @@ public struct NextRideEnvironment {
     coordinateObfuscator: CoordinateObfuscator = .live
   ) {
     self.service = service
-    self.store = store
+    self.userDefaultsClient = store
     self.now = now
     self.mainQueue = mainQueue
     self.coordinateObfuscator = coordinateObfuscator
   }
   
   let service: NextRideService
-  let store: UserDefaultsClient
+  let userDefaultsClient: UserDefaultsClient
   let now: () -> Date
   let mainQueue: AnySchedulerOf<DispatchQueue>
   let coordinateObfuscator: CoordinateObfuscator
@@ -55,7 +55,7 @@ public struct NextRideEnvironment {
 public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvironment> { state, action, env in
   switch action {
   case .getNextRide(let coordinate):
-    guard env.store.rideEventSettings().isEnabled else {
+    guard env.userDefaultsClient.rideEventSettings().isEnabled else {
       logger.debug("NextRide featue is disabled")
       return .none
     }
@@ -68,9 +68,13 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       coordinate,
       .thirdDecimal
     )
+    
+    let requestRidesInMonth: Int = queryMonth(in: env.now)
+    
     return env.service.nextRide(
       obfuscatedCoordinate,
-      env.store.rideEventSettings().eventDistance.rawValue
+      env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
+      requestRidesInMonth
     )
       .receive(on: env.mainQueue)
       .catchToEffect()
@@ -93,7 +97,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .lazy
       .filter {
         guard let type = $0.rideType else { return true }
-        return env.store.rideEventSettings().typeSettings
+        return env.userDefaultsClient.rideEventSettings().typeSettings
           .lazy
           .filter(\.isEnabled)
           .map(\.type)
@@ -123,4 +127,22 @@ enum EventError: Error, LocalizedError {
   case noUpcomingRides
   case rideTypeIsFiltered
   case rideDisabled
+}
+
+
+private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
+  let currentMonthOfFallback = calendar.dateComponents([.month], from: date()).month ?? 0
+  
+  guard !calendar.isDateInWeekend(date()) else { // current date is on a weekend
+    return currentMonthOfFallback
+  }
+  
+  guard let startDateOfNextWeekend = calendar.nextWeekend(startingAfter: date())?.start else {
+    return currentMonthOfFallback
+  }
+  guard let month = calendar.dateComponents([.month], from: startDateOfNextWeekend).month else {
+    return currentMonthOfFallback
+  }
+  
+  return max(currentMonthOfFallback, month)
 }

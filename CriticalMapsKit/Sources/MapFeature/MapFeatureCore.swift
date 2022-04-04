@@ -16,6 +16,8 @@ public struct MapFeatureState: Equatable {
   
   public var shouldAnimateTrackingMode = true
   
+  public var presentShareSheet = false
+  
   public var isNextRideBannerVisible = false
   public var isNextRideBannerExpanded = false
   
@@ -46,6 +48,9 @@ public enum MapFeatureAction: Equatable {
   case updateCenterRegion(CoordinateRegion?)
   case focusNextRide
   case resetCenterRegion
+  
+  case showShareSheet(Bool)
+  case routeToEvent
   
   case setNextRideBannerExpanded(Bool)
   case setNextRideBannerVisible(Bool)
@@ -163,6 +168,14 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       
     case .resetCenterRegion:
       state.centerRegion = nil
+      return .none
+      
+    case let .showShareSheet(value):
+      state.presentShareSheet = value
+      return .none
+      
+    case .routeToEvent:
+      state.nextRide?.openInMaps()
       return .none
       
     case .locationManager, .userTracking, .updateCenterRegion:

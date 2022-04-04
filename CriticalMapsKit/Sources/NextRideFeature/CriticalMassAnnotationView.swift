@@ -4,10 +4,10 @@ import Styleguide
 
 /// Map annotation view that displays the CM logo and offers a menu on long press.
 public final class CMMarkerAnnotationView: MKMarkerAnnotationView {
-  typealias EventClosure = () -> Void
+  public typealias EventClosure = () -> Void
   
-  var shareEventClosure: EventClosure?
-  var routeEventClosure: EventClosure?
+  public var shareEventClosure: EventClosure?
+  public var routeEventClosure: EventClosure?
   
   override public func prepareForDisplay() {
     super.prepareForDisplay()
