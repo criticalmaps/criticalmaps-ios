@@ -104,6 +104,10 @@ public struct AppNavigationView: View {
               state: \.socialState,
               action: AppAction.social
             )
+    .accessibilityShowsLargeContentViewer {
+      let unreadMessages = viewStore.state.chatMessageBadgeCount != 0 ? "\n Unread messages:  \(viewStore.chatMessageBadgeCount)" : ""
+      Label(L10n.Chat.title + unreadMessages, systemImage: "bubble.left")
+    }
           )
         }
       )
@@ -121,6 +125,9 @@ public struct AppNavigationView: View {
     )
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
+    .accessibilityShowsLargeContentViewer {
+      Label(L10n.Rules.title, systemImage: "exclamationmark.square")
+    }
     .sheet(
       isPresented: viewStore.binding(
         get: \.isRulesViewPresented,
@@ -147,6 +154,9 @@ public struct AppNavigationView: View {
     )
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
+    .accessibilityShowsLargeContentViewer {
+      Label(L10n.Settings.title, systemImage: "gearshape")
+    }
     .sheet(
       isPresented: viewStore.binding(
         get: \.isSettingsViewPresented,

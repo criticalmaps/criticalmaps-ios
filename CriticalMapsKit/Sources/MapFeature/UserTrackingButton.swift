@@ -28,7 +28,9 @@ public struct UserTrackingButton: View {
       viewStore.send(.nextTrackingMode)
     })
     .accessibilityHint(Text(L10n.A11y.Usertrackingbutton.hint))
-    
+    .accessibilityShowsLargeContentViewer {
+      Label(viewStore.mode.accessiblityLabel, systemImage: "location.fill")
+    }
   }
   
   var iconImage: some View {
