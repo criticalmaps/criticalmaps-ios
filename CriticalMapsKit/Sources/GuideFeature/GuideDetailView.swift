@@ -13,12 +13,14 @@ public struct GuideDetailView: View {
     ScrollView {
       VStack(alignment: .leading, spacing: .grid(2)) {
         DIImage(Image(uiImage: guide.rule.image))
+          .accessibilityHidden(true)
         
         Text(guide.rule.text)
           .multilineTextAlignment(.leading)
           .font(.bodyOne)
           .foregroundColor(Color(.textPrimary))
           .padding(.horizontal, .grid(4))
+          .accessibilitySortPriority(1)
         
         Spacer()
       }

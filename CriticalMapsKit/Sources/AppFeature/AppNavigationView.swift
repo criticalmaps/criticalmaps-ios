@@ -62,10 +62,7 @@ public struct AppNavigationView: View {
       Circle()
         .foregroundColor(.red)
       
-      Text(viewStore.chatMessageBadgeCount == 0
-           ? ""
-           : String(viewStore.chatMessageBadgeCount)
-        )
+      Text(viewStore.chatMessageBadgeCount == 0 ? "" : String(viewStore.chatMessageBadgeCount))
         .animation(nil)
         .foregroundColor(.white)
         .font(Font.system(size: 12))
@@ -90,23 +87,28 @@ public struct AppNavigationView: View {
           badge
         }
       })
-      .frame(maxWidth: .infinity, minHeight: minHeight)
-      .contentShape(Rectangle())
-      .sheet(
-        isPresented: viewStore.binding(
-          get: \.isChatViewPresented,
-          send: AppAction.dismissSheetView
-        ),
-        onDismiss: nil,
-        content: {
-          SocialView(
-            store: store.scope(
-              state: \.socialState,
-              action: AppAction.social
-            )
+    .frame(maxWidth: .infinity, minHeight: minHeight)
+    .contentShape(Rectangle())
+    .accessibilityShowsLargeContentViewer {
+      let unreadMessages = viewStore.state.chatMessageBadgeCount != 0 ? "\n Unread messages:  \(viewStore.chatMessageBadgeCount)" : ""
+      Label(L10n.Chat.title + unreadMessages, systemImage: "bubble.left")
+    }
+    .sheet(
+      isPresented: viewStore.binding(
+        get: \.isChatViewPresented,
+        send: AppAction.dismissSheetView
+      ),
+      onDismiss: nil,
+      content: {
+        SocialView(
+          store: store.scope(
+            state: \.socialState,
+            action: AppAction.social
           )
-        }
-      )
+        )
+        .accessibilityAddTraits([.isModal])
+      }
+    )
   }
   
   var rulesFeature: some View {
@@ -121,6 +123,9 @@ public struct AppNavigationView: View {
     )
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
+    .accessibilityShowsLargeContentViewer {
+      Label(L10n.Rules.title, systemImage: "exclamationmark.square")
+    }
     .sheet(
       isPresented: viewStore.binding(
         get: \.isRulesViewPresented,
@@ -130,6 +135,7 @@ public struct AppNavigationView: View {
       content: {
         CMNavigationView {
           GuideView()
+            .accessibilityAddTraits([.isModal])
         }
       }
     )
@@ -147,6 +153,9 @@ public struct AppNavigationView: View {
     )
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
+    .accessibilityShowsLargeContentViewer {
+      Label(L10n.Settings.title, systemImage: "gearshape")
+    }
     .sheet(
       isPresented: viewStore.binding(
         get: \.isSettingsViewPresented,
@@ -161,7 +170,8 @@ public struct AppNavigationView: View {
               action: { AppAction.settings($0) }
             )
           )
-            .dismissable()
+          .accessibilityAddTraits([.isModal])
+          .dismissable()
         }
       }
     )
