@@ -26,16 +26,17 @@ class AppFeatureTests: XCTestCase {
       serviceSubject.eraseToAnyPublisher()
     }
     
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .denied }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+    
     var environment = AppEnvironment(
       service: service,
       idProvider: .noop,
       mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
-      locationManager: .unimplemented(
-        authorizationStatus: { .denied },
-        create: { _ in locationManagerSubject.eraseToEffect() },
-        locationServicesEnabled: { true },
-        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
+      locationManager: locationManager,
       userDefaultsClient: .noop,
       uiApplicationClient: .noop,
       fileClient: .noop,
@@ -119,20 +120,22 @@ class AppFeatureTests: XCTestCase {
       )
       .encoded()
     }
+    
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.requestAlwaysAuthorization = { .fireAndForget {
+        didRequestAlwaysAuthorization = true
+    } }
+    locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+    
     var environment = AppEnvironment(
       service: service,
       idProvider: .noop,
       mainQueue: testScheduler.eraseToAnyScheduler(),
-      locationManager: .unimplemented(
-        authorizationStatus: { .notDetermined },
-        create: { _ in locationManagerSubject.eraseToEffect() },
-        locationServicesEnabled: { true },
-        requestAlwaysAuthorization: { _ in
-          .fireAndForget { didRequestAlwaysAuthorization = true }
-        },
-        requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
+      locationManager: locationManager,
       nextRideService: nextRideService,
       userDefaultsClient: settings,
       uiApplicationClient: .noop,
@@ -254,20 +257,22 @@ class AppFeatureTests: XCTestCase {
     settings.dataForKey = { _ in
       try? rideEventSettings.encoded()
     }
+    
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.requestAlwaysAuthorization = { .fireAndForget {
+        didRequestAlwaysAuthorization = true
+    } }
+    locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+    
     var environment = AppEnvironment(
       service: service,
       idProvider: .noop,
       mainQueue: testScheduler.eraseToAnyScheduler(),
-      locationManager: .unimplemented(
-        authorizationStatus: { .notDetermined },
-        create: { _ in locationManagerSubject.eraseToEffect() },
-        locationServicesEnabled: { true },
-        requestAlwaysAuthorization: { _ in
-          .fireAndForget { didRequestAlwaysAuthorization = true }
-        },
-        requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
+      locationManager: locationManager,
       nextRideService: nextRideService,
       userDefaultsClient: settings,
       uiApplicationClient: .noop,

@@ -99,8 +99,9 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
     case .onAppear:
       return .merge(
         environment.locationManager
-          .create(id: LocationManagerId())
+          .delegate()
           .map(MapFeatureAction.locationManager),
+        
         environment.locationManager
           .setup(id: LocationManagerId())
           .fireAndForget(),
@@ -117,7 +118,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
         state.isRequestingCurrentLocation = true
         
         return environment.locationManager
-          .requestAlwaysAuthorization(id: LocationManagerId())
+          .requestAlwaysAuthorization()
           .fireAndForget()
         
       case .restricted:
@@ -130,7 +131,7 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
         
       case .authorizedAlways, .authorizedWhenInUse:
         return environment.locationManager
-          .startUpdatingLocation(id: LocationManagerId())
+          .startUpdatingLocation()
           .fireAndForget()
         
       @unknown default:
@@ -190,7 +191,7 @@ private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Ac
        .didChangeAuthorization(.authorizedWhenInUse):
     if state.isRequestingCurrentLocation {
       return environment.locationManager
-        .requestLocation(id: LocationManagerId())
+        .requestLocation()
         .fireAndForget()
     }
     return .none
@@ -220,13 +221,17 @@ private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Ac
 extension LocationManager {
   /// Configures the LocationManager
   func setup(id: AnyHashable) -> Effect<Never, Never> {
-    set(
-      id: id,
-      activityType: .otherNavigation,
-      desiredAccuracy: kCLLocationAccuracyBestForNavigation,
-      pausesLocationUpdatesAutomatically: false,
-      showsBackgroundLocationIndicator: true
-    )
+      set(
+        .init(
+            activityType: .otherNavigation,
+            allowsBackgroundLocationUpdates: true,
+            desiredAccuracy: kCLLocationAccuracyBestForNavigation,
+            distanceFilter: nil,
+            headingFilter: nil,
+            pausesLocationUpdatesAutomatically: false,
+            showsBackgroundLocationIndicator: true
+        )
+      )
   }
 }
 

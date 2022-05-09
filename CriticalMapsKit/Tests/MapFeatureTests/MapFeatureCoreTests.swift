@@ -15,6 +15,18 @@ class MapFeatureCoreTests: XCTestCase {
     var didRequestLocation = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.requestAlwaysAuthorization = { .fireAndForget {
+        didRequestAlwaysAuthorization = true
+    } }
+    locationManager.requestLocation = { .fireAndForget {
+        didRequestLocation = true
+    } }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+      
     let store = TestStore(
       initialState: MapFeatureState(
         alert: nil,
@@ -25,16 +37,7 @@ class MapFeatureCoreTests: XCTestCase {
       ),
       reducer: mapFeatureReducer,
       environment: MapFeatureEnvironment(
-        locationManager: .unimplemented(
-          authorizationStatus: { .notDetermined },
-          create: { _ in locationManagerSubject.eraseToEffect() },
-          locationServicesEnabled: { true },
-          requestAlwaysAuthorization: { _ in
-            .fireAndForget { didRequestAlwaysAuthorization = true }
-          },
-          requestLocation: { _ in .fireAndForget { didRequestLocation = true } },
-          set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-        ),
+        locationManager: locationManager,
         mainQueue: testScheduler.eraseToAnyScheduler()
       )
     )
@@ -80,13 +83,14 @@ class MapFeatureCoreTests: XCTestCase {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
     
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .denied }
+    locationManager.locationServicesEnabled = { false }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+    
     let env = MapFeatureEnvironment(
-      locationManager: .unimplemented(
-        authorizationStatus: { .denied },
-        create: { _ in locationManagerSubject.eraseToEffect() },
-        locationServicesEnabled: { false },
-        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
+      locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
@@ -117,16 +121,17 @@ class MapFeatureCoreTests: XCTestCase {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
     
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.requestAlwaysAuthorization = { .fireAndForget {
+        didRequestAlwaysAuthorization = true
+    } }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+
     let env = MapFeatureEnvironment(
-      locationManager: .unimplemented(
-        authorizationStatus: { .notDetermined },
-        create: { _ in locationManagerSubject.eraseToEffect() },
-        locationServicesEnabled: { true },
-        requestAlwaysAuthorization: { _ in
-            .fireAndForget { didRequestAlwaysAuthorization = true }
-        },
-        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
+      locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
@@ -161,13 +166,7 @@ class MapFeatureCoreTests: XCTestCase {
   
   func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() {
     let env = MapFeatureEnvironment(
-      locationManager: .unimplemented(
-        authorizationStatus: { fatalError() },
-        create: { _ in fatalError() },
-        locationServicesEnabled: { fatalError() },
-        requestAlwaysAuthorization: { _ in fatalError() },
-        set: { _, _ -> Effect<Never, Never> in fatalError() }
-      ),
+      locationManager: .failing,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
@@ -205,20 +204,17 @@ class MapFeatureCoreTests: XCTestCase {
   }
   
   func test_InfoBanner_appearance() {
-    var didRequestAlwaysAuthorization = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
     
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .authorizedAlways }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
+    
     let env = MapFeatureEnvironment(
-      locationManager: .unimplemented(
-        authorizationStatus: { .notDetermined },
-        create: { _ in locationManagerSubject.eraseToEffect() },
-        locationServicesEnabled: { true },
-        requestAlwaysAuthorization: { _ in
-            .fireAndForget { didRequestAlwaysAuthorization = true }
-        },
-        set: { _, _ -> Effect<Never, Never> in setSubject.eraseToEffect() }
-      ),
+      locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
@@ -239,6 +235,7 @@ class MapFeatureCoreTests: XCTestCase {
     store.send(.setNextRideBannerExpanded(true)) {
       $0.isNextRideBannerExpanded = true
     }
+        
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
   }
