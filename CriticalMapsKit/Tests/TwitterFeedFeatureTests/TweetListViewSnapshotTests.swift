@@ -1,9 +1,15 @@
 import SharedModels
+import SnapshotTesting
 import TestHelper
 import TwitterFeedFeature
 import XCTest
 
 class TweetListViewSnapshotTests: XCTestCase {
+    override func setUpWithError() throws {
+      try super.setUpWithError()
+//      isRecording = true
+    }
+    
   func test_tweetListViewSnapshot() {
     let view = TweetListView(
       store: .init(

@@ -15,9 +15,6 @@ public struct TweetView: View {
   
   public var body: some View {
     ZStack {
-      Color(.backgroundPrimary)
-        .ignoresSafeArea()
-      
       HStack(alignment: .top, spacing: .grid(4)) {
         AsyncImage(
           url: tweet.user.profileImage,
