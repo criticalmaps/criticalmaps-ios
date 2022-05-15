@@ -45,21 +45,6 @@ public struct MapFeatureView: View {
         }
       )
       .edgesIgnoringSafeArea(.all)
-      
-      VStack {
-        if viewStore.isNextRideBannerVisible {
-          nextRideBanner
-        } else {
-          EmptyView()
-        }
-        
-        offlineBanner
-          .clipShape(Circle())
-          .opacity(isConnected ? 0 : 1)
-          .accessibleAnimation(.easeOut, value: isConnected)
-      }
-      .padding(.top, .grid(12))
-      .padding(.horizontal)
     }
     .sheet(
       isPresented: viewStore.binding(
@@ -72,61 +57,10 @@ public struct MapFeatureView: View {
       }
     )
   }
-  
-  var offlineBanner: some View {
-    Image(systemName: "wifi.slash")
-      .foregroundColor(
-        reduceTransparency
-        ? Color.white
-        : Color(.attention)
-      )
-      .accessibilityRepresentation { isConnected ? Text("internet connection available") : Text("internet not available") }
-      .padding()
-      .background(
-        Group {
-          if reduceTransparency {
-            RoundedRectangle(
-              cornerRadius: 12,
-              style: .circular
-            )
-            .fill(reduceTransparency
-                ? Color(.attention)
-                : Color(.attention).opacity(0.8)
-            )
-          } else {
-            Blur()
-          }
-        }
-      )
-  }
-  
-  var nextRideBanner: some View {
-    MapOverlayView(
-      store: store.actionless.scope(state: {
-        MapOverlayView.ViewState(
-          isVisible: $0.isNextRideBannerVisible,
-          isExpanded: $0.isNextRideBannerExpanded
-        )}
-      ),
-      action: { viewStore.send(.focusNextRide) },
-      content: {
-        VStack(alignment: .leading) {
-          Text(viewStore.nextRide?.title ?? "")
-            .font(.titleTwo)
-            .foregroundColor(Color(.textPrimary))
-          Text(viewStore.nextRide?.rideDateAndTime ?? "")
-            .font(.bodyTwo)
-            .foregroundColor(Color(.textSecondary))
-        }
-      }
-    )
-      .accessibilityElement(children: .contain)
-      .accessibilityHint(Text(L10n.A11y.Mapfeatureview.Nextridebanner.hint))
-      .accessibilityLabel(Text(L10n.A11y.Mapfeatureview.Nextridebanner.label))
-  }
 }
 
 // MARK: Preview
+
 struct MapFeatureView_Previews: PreviewProvider {
   static var previews: some View {
     MapFeatureView(

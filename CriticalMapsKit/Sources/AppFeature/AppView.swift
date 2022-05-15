@@ -31,7 +31,29 @@ public struct AppView: View {
         )
       )
       .edgesIgnoringSafeArea(.vertical)
-      
+
+      VStack(alignment: .leading) {
+        if viewStore.state.mapFeatureState.isNextRideBannerVisible {
+          nextRideBanner
+            .contextMenu {
+              Button(
+                action: { viewStore.send(.setEventsBottomSheet(!viewStore.presentEventsBottomSheet)) },
+                label: {
+                  let title = viewStore.presentEventsBottomSheet ? L10n.Map.NextRideEvents.hideAll : L10n.Map.NextRideEvents.showAll
+                  Label(title, systemImage: "list.bullet")
+                }
+              )
+            }
+        }
+
+        offlineBanner
+          .clipShape(Circle())
+          .opacity(viewStore.hasConnectivity ? 0 : 1)
+          .accessibleAnimation(.easeOut, value: viewStore.hasConnectivity)
+      }
+      .padding(.top, .grid(2))
+      .padding(.horizontal)
+
       VStack {
         Spacer()
         
