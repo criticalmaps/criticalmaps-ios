@@ -20,10 +20,10 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
     locationManager.requestAlwaysAuthorization = { .fireAndForget {
-        didRequestAlwaysAuthorization = true
+      didRequestAlwaysAuthorization = true
     } }
     locationManager.requestLocation = { .fireAndForget {
-        didRequestLocation = true
+      didRequestLocation = true
     } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
       
@@ -113,7 +113,6 @@ class MapFeatureCoreTests: XCTestCase {
     }
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
-    
   }
   
   func test_deniedPermission_shouldSetAlert() {
@@ -126,7 +125,7 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
     locationManager.requestAlwaysAuthorization = { .fireAndForget {
-        didRequestAlwaysAuthorization = true
+      didRequestAlwaysAuthorization = true
     } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
 
@@ -169,6 +168,7 @@ class MapFeatureCoreTests: XCTestCase {
       locationManager: .failing,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
+
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -256,6 +256,7 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.locationServicesEnabled = { true }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
+
     let env = MapFeatureEnvironment(
       locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()

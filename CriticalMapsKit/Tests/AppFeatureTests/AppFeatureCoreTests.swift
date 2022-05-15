@@ -44,11 +44,11 @@ class AppFeatureTests: XCTestCase {
       pathMonitorClient: .satisfied
     )
     environment.fileClient.load = { _ in
-        .init(
-          value: try! JSONEncoder().encode(
-            UserSettings()
-          )
+      .init(
+        value: try! JSONEncoder().encode(
+          UserSettings()
         )
+      )
     }
     
     let store = TestStore(
@@ -126,7 +126,7 @@ class AppFeatureTests: XCTestCase {
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
     locationManager.requestAlwaysAuthorization = { .fireAndForget {
-        didRequestAlwaysAuthorization = true
+      didRequestAlwaysAuthorization = true
     } }
     locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
@@ -144,11 +144,11 @@ class AppFeatureTests: XCTestCase {
       pathMonitorClient: .satisfied
     )
     environment.fileClient.load = { _ in
-        .init(
-          value: try! JSONEncoder().encode(
-            UserSettings()
-          )
+      .init(
+        value: try! JSONEncoder().encode(
+          UserSettings()
         )
+      )
     }
     
     var appState = AppState()
@@ -224,15 +224,15 @@ class AppFeatureTests: XCTestCase {
     serviceSubject.send(completion: .finished)
     nextRideSubject.send(completion: .finished)
     testScheduler.advance()
-}
-  
+  }
+
   func test_onAppearWithEnabledLocationServicesRideEventDisabled_shouldNotRequestNextRide() {
     let setSubject = PassthroughSubject<Never, Never>()
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let serviceSubject = PassthroughSubject<LocationAndChatMessages, NSError>()
-    
+
     let currentLocation = Location(
       altitude: 0,
       coordinate: CLLocationCoordinate2D(latitude: 20, longitude: 10),
@@ -248,7 +248,7 @@ class AppFeatureTests: XCTestCase {
     }
     let nextRideService: NextRideService = .noop
     var settings = UserDefaultsClient.noop
-    
+
     let rideEventSettings = RideEventSettings(
       isEnabled: false,
       typeSettings: .all,
@@ -263,7 +263,7 @@ class AppFeatureTests: XCTestCase {
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
     locationManager.requestAlwaysAuthorization = { .fireAndForget {
-        didRequestAlwaysAuthorization = true
+      didRequestAlwaysAuthorization = true
     } }
     locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
@@ -287,7 +287,7 @@ class AppFeatureTests: XCTestCase {
       rideEventSettings: rideEventSettings
     )
     environment.fileClient.load = { _ in
-        .init(value: try! JSONEncoder().encode(userSettings))
+      .init(value: try! JSONEncoder().encode(userSettings))
     }
     
     var appState = AppState(settingsState: .init(userSettings: userSettings))
@@ -357,9 +357,10 @@ class AppFeatureTests: XCTestCase {
       reducer: appReducer,
       environment: AppEnvironment(
         uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none })
+        setUserInterfaceStyle: { _ in .none }
+      )
     )
-    
+
     store.send(.setNavigation(tag: .chat)) {
       $0.route = .chat
       XCTAssertTrue($0.isChatViewPresented)
@@ -382,24 +383,25 @@ class AppFeatureTests: XCTestCase {
       $0.route = .none
     }
   }
-  
+
   func test_resetUnreadMessagesCount_whenAction_chat_onAppear() {
     var appState = AppState()
     appState.chatMessageBadgeCount = 13
-    
+
     let store = TestStore(
       initialState: appState,
       reducer: appReducer,
       environment: AppEnvironment(
         uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none })
+        setUserInterfaceStyle: { _ in .none }
+      )
     )
-    
+
     store.send(.social(.chat(.onAppear))) { state in
       state.chatMessageBadgeCount = 0
     }
   }
-    
+
   func test_animateNextRideBanner() {
     let store = TestStore(
       initialState: AppState(),
@@ -411,13 +413,13 @@ class AppFeatureTests: XCTestCase {
         pathMonitorClient: .satisfied
       )
     )
-    
+
     let ride = Ride(
       id: 123,
       slug: nil,
       title: "Next Ride",
       description: nil,
-      dateTime: Date(timeIntervalSince1970: 1234340120),
+      dateTime: Date(timeIntervalSince1970: 1_234_340_120),
       location: nil,
       latitude: nil,
       longitude: nil,
@@ -463,7 +465,7 @@ class AppFeatureTests: XCTestCase {
     let response2: LocationAndChatMessages = .init(
       locations: [:],
       chatMessages: [
-        "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15)
+        "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
       ]
     )
     let response3: LocationAndChatMessages = .init(
@@ -471,7 +473,7 @@ class AppFeatureTests: XCTestCase {
       chatMessages: [
         "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
         "NEWID3": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 16),
-        "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17)
+        "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17),
       ]
     )
     let response4: LocationAndChatMessages = .init(
@@ -480,7 +482,7 @@ class AppFeatureTests: XCTestCase {
         "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
         "NEWID3": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 16),
         "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17),
-        "NEWID5": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 18)
+        "NEWID5": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 18),
       ]
     )
     
@@ -664,11 +666,12 @@ class AppFeatureTests: XCTestCase {
 }
 
 // MARK: Helper
+
 let testError = NSError(domain: "", code: 1, userInfo: [:])
 
 extension Coordinate {
   static func make() -> Self {
-    let randomDouble: () -> Double = { Double.random(in: 0.0...80.00) }
+    let randomDouble: () -> Double = { Double.random(in: 0.0 ... 80.00) }
     return Coordinate(latitude: randomDouble(), longitude: randomDouble())
   }
 }
@@ -677,10 +680,10 @@ let testDate: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
 
 extension Dictionary where Key == String, Value == SharedModels.Location {
   static func make(_ max: Int = 5) -> [Key: Value] {
-    let locations = Array(0...max).map { index in
+    let locations = Array(0 ... max).map { index in
       SharedModels.Location(
         coordinate: .make(),
-        timestamp: testDate().timeIntervalSince1970 + Double((index % 2 == 0 ? index : -index))
+        timestamp: testDate().timeIntervalSince1970 + Double(index % 2 == 0 ? index : -index)
       )
     }
     var locationDict: [String: SharedModels.Location] = [:]
@@ -693,10 +696,10 @@ extension Dictionary where Key == String, Value == SharedModels.Location {
 
 extension Dictionary where Key == String, Value == ChatMessage {
   static func make(_ max: Int = 5) -> [Key: Value] {
-    let messages = Array(0...max).map { index in
+    let messages = Array(0 ... max).map { index in
       ChatMessage(
         message: "Hello World!",
-        timestamp: testDate().timeIntervalSince1970 + Double((index % 2 == 0 ? index : -index))
+        timestamp: testDate().timeIntervalSince1970 + Double(index % 2 == 0 ? index : -index)
       )
     }
     var messagesDict: [String: ChatMessage] = [:]

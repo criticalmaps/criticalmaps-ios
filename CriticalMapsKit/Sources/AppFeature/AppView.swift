@@ -19,7 +19,7 @@ public struct AppView: View {
   
   public init(store: Store<AppState, AppAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
   
   public var body: some View {

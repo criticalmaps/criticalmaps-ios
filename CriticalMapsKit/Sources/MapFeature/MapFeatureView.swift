@@ -12,7 +12,7 @@ public struct MapFeatureView: View {
   
   public init(store: Store<MapFeatureState, MapFeatureAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
   
   let store: Store<MapFeatureState, MapFeatureAction>

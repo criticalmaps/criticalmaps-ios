@@ -113,14 +113,14 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   init(_ parent: MapView) {
     self.parent = parent
   }
-  
-  func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+
+  func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
     parent.userTrackingMode = mode
   }
     
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard annotation is MKUserLocation == false else {
-        return nil
+      return nil
     }
     if annotation is RiderAnnotation {
       let view = mapView.dequeueReusableAnnotationView(
@@ -135,8 +135,8 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
         withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
         for: annotation
       ) as? CMMarkerAnnotationView
-      view?.shareEventClosure = self.parent.mapMenuShareEventHandler
-      view?.routeEventClosure = self.parent.mapMenuRouteEventHandler
+      view?.shareEventClosure = parent.mapMenuShareEventHandler
+      view?.routeEventClosure = parent.mapMenuRouteEventHandler
       return view
     }
     

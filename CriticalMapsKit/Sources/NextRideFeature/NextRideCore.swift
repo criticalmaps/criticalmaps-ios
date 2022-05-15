@@ -7,6 +7,7 @@ import SharedModels
 import UserDefaultsClient
 
 // MARK: State
+
 public struct NextRideState: Equatable {
   public init(nextRide: Ride? = nil, hasConnectivity: Bool = true) {
     self.nextRide = nextRide
@@ -18,16 +19,16 @@ public struct NextRideState: Equatable {
   public var rideEvents: [Ride] = []
 }
 
-
 // MARK: Actions
+
 public enum NextRideAction: Equatable {
   case getNextRide(Coordinate)
   case nextRideResponse(Result<[Ride], NextRideService.Failure>)
   case setNextRide(Ride)
 }
 
-
 // MARK: Environment
+
 public struct NextRideEnvironment {
   public init(
     service: NextRideService = .live(),
@@ -37,7 +38,7 @@ public struct NextRideEnvironment {
     coordinateObfuscator: CoordinateObfuscator = .live
   ) {
     self.service = service
-    self.userDefaultsClient = store
+    userDefaultsClient = store
     self.now = now
     self.mainQueue = mainQueue
     self.coordinateObfuscator = coordinateObfuscator
@@ -50,12 +51,12 @@ public struct NextRideEnvironment {
   let coordinateObfuscator: CoordinateObfuscator
 }
 
-
 // MARK: Reducer
+
 /// Reducer handling next ride feature actions
 public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvironment> { state, action, env in
   switch action {
-  case .getNextRide(let coordinate):
+  case let .getNextRide(coordinate):
     guard env.userDefaultsClient.rideEventSettings().isEnabled else {
       logger.debug("NextRide featue is disabled")
       return .none
@@ -77,10 +78,10 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
       requestRidesInMonth
     )
-      .receive(on: env.mainQueue)
-      .catchToEffect()
-      .map(NextRideAction.nextRideResponse)
-    
+    .receive(on: env.mainQueue)
+    .catchToEffect()
+    .map(NextRideAction.nextRideResponse)
+
   case let .nextRideResponse(.failure(error)):
     logger.error("Get next ride failed 🛑 with error: \(error)")
     return .none
@@ -124,6 +125,8 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
   }
 }
 
+// MARK: Helper
+
 enum EventError: Error, LocalizedError {
   case eventsAreNotEnabled
   case invalidDateError
@@ -132,7 +135,6 @@ enum EventError: Error, LocalizedError {
   case rideTypeIsFiltered
   case rideDisabled
 }
-
 
 private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
   let currentMonthOfFallback = calendar.dateComponents([.month], from: date()).month ?? 0

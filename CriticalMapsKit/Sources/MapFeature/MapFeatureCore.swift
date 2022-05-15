@@ -36,7 +36,7 @@ public struct MapFeatureState: Equatable {
     self.alert = alert
     self.isRequestingCurrentLocation = isRequestingCurrentLocation
     self.location = location
-    self.riderLocations = riders
+    riderLocations = riders
     self.userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.centerRegion = centerRegion
@@ -238,22 +238,22 @@ private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Ac
   }
 }
 
-
 // MARK: - Helper
+
 extension LocationManager {
   /// Configures the LocationManager
-  func setup(id: AnyHashable) -> Effect<Never, Never> {
-      set(
-        .init(
-            activityType: .otherNavigation,
-            allowsBackgroundLocationUpdates: true,
-            desiredAccuracy: kCLLocationAccuracyBestForNavigation,
-            distanceFilter: nil,
-            headingFilter: nil,
-            pausesLocationUpdatesAutomatically: false,
-            showsBackgroundLocationIndicator: true
-        )
+  func setup(id _: AnyHashable) -> Effect<Never, Never> {
+    set(
+      .init(
+        activityType: .otherNavigation,
+        allowsBackgroundLocationUpdates: true,
+        desiredAccuracy: kCLLocationAccuracyBestForNavigation,
+        distanceFilter: nil,
+        headingFilter: nil,
+        pausesLocationUpdatesAutomatically: false,
+        showsBackgroundLocationIndicator: true
       )
+    )
   }
 }
 
