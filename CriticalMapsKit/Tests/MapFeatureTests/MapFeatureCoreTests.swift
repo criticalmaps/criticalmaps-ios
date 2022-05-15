@@ -169,6 +169,16 @@ class MapFeatureCoreTests: XCTestCase {
       locationManager: .failing,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
+    let ride = Ride(
+      id: 123,
+      slug: "SLUG",
+      title: "Next Ride",
+      dateTime: Date(timeIntervalSinceReferenceDate: 0),
+      latitude: 13.13,
+      longitude: 55.55,
+      enabled: true
+    )
+
     let store = TestStore(
       initialState: MapFeatureState(
         alert: nil,
@@ -176,33 +186,66 @@ class MapFeatureCoreTests: XCTestCase {
         location: nil,
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow),
-        nextRide: Ride(
-          id: 123,
-          slug: "SLUG",
-          title: "Next Ride",
-          dateTime: Date(timeIntervalSinceReferenceDate: 0),
-          latitude: 13.13,
-          longitude: 55.55,
-          enabled: true
-        )
+        nextRide: ride
       ),
       reducer: mapFeatureReducer,
       environment: env
     )
-    
-    store.send(.focusNextRide) {
+
+    store.send(.focusNextRide(ride.coordinate)) {
       $0.centerRegion = CoordinateRegion(
         center: .init(latitude: 13.13, longitude: 55.55),
         span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
       )
     }
-    self.testScheduler.advance(by: 1)
+    testScheduler.advance(by: 1)
     store.receive(.resetCenterRegion) {
       $0.centerRegion = nil
     }
     
   }
   
+  func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() {
+    let env = MapFeatureEnvironment(
+      locationManager: .failing,
+      mainQueue: testScheduler.eraseToAnyScheduler()
+    )
+
+    let ride = Ride(
+      id: 123,
+      slug: "SLUG",
+      title: "Next Ride",
+      dateTime: Date(timeIntervalSinceReferenceDate: 0),
+      latitude: 13.13,
+      longitude: 55.55,
+      enabled: true
+    )
+
+    let store = TestStore(
+      initialState: MapFeatureState(
+        alert: nil,
+        isRequestingCurrentLocation: true,
+        location: nil,
+        riders: [],
+        userTrackingMode: .init(userTrackingMode: .follow),
+        nextRide: ride
+      ),
+      reducer: mapFeatureReducer,
+      environment: env
+    )
+
+    store.send(.focusRideEvent(ride.coordinate)) {
+      $0.eventCenter = CoordinateRegion(
+        center: .init(latitude: 13.13, longitude: 55.55),
+        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
+      )
+    }
+    testScheduler.advance(by: 1)
+    store.receive(.resetRideEventCenter) {
+      $0.eventCenter = nil
+    }
+  }
+
   func test_InfoBanner_appearance() {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()

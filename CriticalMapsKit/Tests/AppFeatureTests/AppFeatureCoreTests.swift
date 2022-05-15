@@ -529,8 +529,139 @@ class AppFeatureTests: XCTestCase {
       state.chatMessageBadgeCount = 0
     }
   }
-}
 
+  func test_actionSetEventsBottomSheet_setsValue_andMapFeatureRideEvents() {
+    var appState = AppState()
+    let events = [
+      Ride(
+        id: 1,
+        slug: nil,
+        title: "Next Ride",
+        description: nil,
+        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        location: nil,
+        latitude: nil,
+        longitude: nil,
+        estimatedParticipants: 123,
+        estimatedDistance: 312,
+        estimatedDuration: 3,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .alleycat
+      ),
+      Ride(
+        id: 2,
+        slug: nil,
+        title: "Next Ride",
+        description: nil,
+        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        location: nil,
+        latitude: nil,
+        longitude: nil,
+        estimatedParticipants: 123,
+        estimatedDistance: 312,
+        estimatedDuration: 3,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      ),
+    ]
+    appState.nextRideState.rideEvents = events
+
+    let store = TestStore(
+      initialState: appState,
+      reducer: appReducer,
+      environment: AppEnvironment(
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
+    )
+
+    store.send(.setEventsBottomSheet(true)) {
+      $0.presentEventsBottomSheet = true
+      $0.mapFeatureState.rideEvents = events
+    }
+  }
+
+  func test_actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() {
+    var appState = AppState()
+    let events = [
+      Ride(
+        id: 1,
+        slug: nil,
+        title: "Next Ride",
+        description: nil,
+        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        location: nil,
+        latitude: nil,
+        longitude: nil,
+        estimatedParticipants: 123,
+        estimatedDistance: 312,
+        estimatedDuration: 3,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .alleycat
+      ),
+      Ride(
+        id: 2,
+        slug: nil,
+        title: "Next Ride",
+        description: nil,
+        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        location: nil,
+        latitude: nil,
+        longitude: nil,
+        estimatedParticipants: 123,
+        estimatedDistance: 312,
+        estimatedDuration: 3,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      ),
+    ]
+    appState.mapFeatureState.rideEvents = events
+
+    let store = TestStore(
+      initialState: appState,
+      reducer: appReducer,
+      environment: AppEnvironment(
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
+    )
+
+    store.send(.setEventsBottomSheet(false)) {
+      $0.presentEventsBottomSheet = false
+      $0.mapFeatureState.rideEvents = []
+    }
+  }
+
+  func test_focuesNextRide_whenAllEventsArePresented_shouldHideAllEventsBotttomSheet() {
+    var appState = AppState()
+    appState.presentEventsBottomSheet = true
+
+    let store = TestStore(
+      initialState: appState,
+      reducer: appReducer,
+      environment: AppEnvironment(
+        uiApplicationClient: .noop,
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
+    )
+
+    store.send(.map(.focusNextRide(nil)))
+    store.receive(.setEventsBottomSheet(false)) {
+      $0.presentEventsBottomSheet = false
+    }
+  }
+}
 
 // MARK: Helper
 let testError = NSError(domain: "", code: 1, userInfo: [:])
