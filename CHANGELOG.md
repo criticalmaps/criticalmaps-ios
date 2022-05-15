@@ -13,6 +13,7 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 - Adopts new Styleguide
 - Contribute with translation view to Settings
 - Add increased contrast support
+- Show all ride events from `NextRide` overlay button contextMenu
 
 
 # [3.9.2] - 2021-05-04
