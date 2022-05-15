@@ -52,6 +52,9 @@
 "location.alert.provideAccessToLocationService" = "Please give us access to your location in settings.";
 
 
+"map.nextRideEvents.showAll" = "Alle Events anzeigen";
+"map.nextRideEvents.hideAll" = "Alle Events verbergen";
+
 "map.headingbutton.accessibilitylabel" = "Tracking";
 
 

@@ -52,6 +52,9 @@
 "location.alert.provideAccessToLocationService" = "Por favor, danos acceso a tu ubicación en ajustes.";
 
 
+"map.nextRideEvents.showAll" = "Alle Events anzeigen";
+"map.nextRideEvents.hideAll" = "Alle Events verbergen";
+
 "map.headingbutton.accessibilitylabel" = "Tracking";
 
 
