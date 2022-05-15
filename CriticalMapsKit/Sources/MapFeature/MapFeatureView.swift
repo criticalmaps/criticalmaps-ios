@@ -28,8 +28,13 @@ public struct MapFeatureView: View {
         ),
         shouldAnimateUserTrackingMode: viewStore.shouldAnimateTrackingMode,
         nextRide: viewStore.nextRide,
+        rideEvents: viewStore.rideEvents,
         centerRegion: viewStore.binding(
           get: \.centerRegion,
+          send: MapFeatureAction.updateCenterRegion
+        ),
+        centerEventRegion: viewStore.binding(
+          get: \.eventCenter,
           send: MapFeatureAction.updateCenterRegion
         ),
         mapMenuShareEventHandler: {

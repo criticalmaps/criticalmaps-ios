@@ -64,9 +64,12 @@ public struct AppState: Equatable {
   
   public var chatMessageBadgeCount: UInt = 0
   public var hasConnectivity = true
+
+  public var presentEventsBottomSheet = false
 }
 
 // MARK: Actions
+
 public enum AppAction: Equatable {
   case appDelegate(AppDelegateAction)
   case onAppear
@@ -76,7 +79,8 @@ public enum AppAction: Equatable {
   case userSettingsLoaded(Result<UserSettings, NSError>)
   case observeConnection
   case observeConnectionResponse(NetworkPath)
-  
+
+  case setEventsBottomSheet(Bool)
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
   
@@ -318,7 +322,14 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         default:
           return .none
         }
-                
+
+      case .focusNextRide:
+        if state.presentEventsBottomSheet {
+          return Effect(value: .setEventsBottomSheet(false))
+        } else {
+          return .none
+        }
+
       default:
         return .none
       }
@@ -363,7 +374,17 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         state.route = .none
       }
       return .none
-      
+
+    case let .setEventsBottomSheet(value):
+      if value {
+        state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+      } else {
+        state.mapFeatureState.rideEvents = []
+        state.mapFeatureState.eventCenter = nil
+      }
+      state.presentEventsBottomSheet = value
+      return .none
+
     case .dismissSheetView:
       state.route = .none
       return .none

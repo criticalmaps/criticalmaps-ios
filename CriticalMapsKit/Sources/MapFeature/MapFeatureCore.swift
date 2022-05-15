@@ -10,7 +10,10 @@ public struct MapFeatureState: Equatable {
   public var location: ComposableCoreLocation.Location?
   public var riderLocations: [Rider]
   public var nextRide: Ride?
-  
+
+  public var eventCenter: CoordinateRegion?
+  public var rideEvents: [Ride] = []
+
   public var userTrackingMode: UserTrackingState
   public var centerRegion: CoordinateRegion?
   
@@ -46,9 +49,11 @@ public enum MapFeatureAction: Equatable {
   case nextTrackingMode
   case updateUserTrackingMode(MKUserTrackingMode)
   case updateCenterRegion(CoordinateRegion?)
-  case focusNextRide
+  case focusNextRide(Coordinate?)
+  case focusRideEvent(Coordinate?)
   case resetCenterRegion
-  
+  case resetRideEventCenter
+
   case showShareSheet(Bool)
   case routeToEvent
   
@@ -154,19 +159,36 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
       state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.mode.rawValue
       state.userTrackingMode.mode = mode
       return .none
-      
-    case .focusNextRide:
-      guard let nextRide = state.nextRide, let nextRideCoordinates = nextRide.coordinate else {
+
+    case let .focusNextRide(coordinate):
+      guard let nextRideCoordinate = coordinate else {
         return .none
       }
       state.centerRegion = CoordinateRegion(
-        center: nextRideCoordinates,
+        center: nextRideCoordinate.asCLLocationCoordinate,
         span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
       )
       return Effect(value: .resetCenterRegion)
         .delay(for: 1, scheduler: environment.mainQueue)
         .eraseToEffect()
-      
+
+    case let .focusRideEvent(coordinate):
+      guard let coordinate = coordinate else {
+        return .none
+      }
+
+      state.eventCenter = CoordinateRegion(
+        center: coordinate.asCLLocationCoordinate,
+        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
+      )
+      return Effect(value: .resetRideEventCenter)
+        .delay(for: 1, scheduler: environment.mainQueue)
+        .eraseToEffect()
+
+    case .resetRideEventCenter:
+      state.eventCenter = nil
+      return .none
+
     case .resetCenterRegion:
       state.centerRegion = nil
       return .none

@@ -15,6 +15,7 @@ public struct NextRideState: Equatable {
   
   public var hasConnectivity: Bool
   public var nextRide: Ride?
+  public var rideEvents: [Ride] = []
 }
 
 
@@ -92,6 +93,9 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       logger.info("No upcoming events for filter selection rideType")
       return .none
     }
+
+    state.rideEvents = rides.sortByDateAndFilterBeforeDate(env.now)
+
     // Sort rides by date and pick the first one with a date greater than now
     let ride = rides // swiftlint:disable:this sorted_first_last
       .lazy
@@ -145,4 +149,12 @@ private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .c
   }
   
   return max(currentMonthOfFallback, month)
+}
+
+public extension Array where Element == Ride {
+  func sortByDateAndFilterBeforeDate(_ now: () -> Date) -> Self {
+    lazy
+      .sorted(by: \.dateTime)
+      .filter { $0.dateTime > now() }
+  }
 }
