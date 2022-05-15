@@ -31,7 +31,8 @@ let package = Package(
       .exact("1.8.2")
     ),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
-    .package(url: "https://github.com/vtourraine/AcknowList.git", .upToNextMajor(from: "2.1.0"))
+    .package(url: "https://github.com/vtourraine/AcknowList.git", .upToNextMajor(from: "2.1.0")),
+    .package(url: "https://github.com/adamfootdev/BottomSheet.git", from: "0.1.3")
   ],
   targets: [
     .target(
@@ -60,7 +61,8 @@ let package = Package(
         "Styleguide",
         "UserDefaultsClient",
         "UIApplicationClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "BottomSheet", package: "BottomSheet")
       ]
     ),
     .target(
@@ -130,10 +132,7 @@ let package = Package(
         "Styleguide",
         "SwiftUIHelpers",
         .product(name: "ComposableCoreLocation", package: "composable-core-location"),
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
