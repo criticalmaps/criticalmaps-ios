@@ -109,14 +109,31 @@ public struct AppView: View {
               VStack(alignment: .leading, spacing: .grid(1)) {
                 Text(ride.title)
                   .multilineTextAlignment(.leading)
-                  .font(.titleTwo)
+                  .font(Font.body.weight(.semibold))
                   .foregroundColor(Color(.textPrimary))
-                Text(ride.rideDateAndTime)
-                  .multilineTextAlignment(.leading)
-                  .font(.bodyTwo)
-                  .foregroundColor(Color(.textSecondary))
+                  .padding(.bottom, .grid(1))
+                
+                VStack(alignment: .leading, spacing: 2) {
+                  Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
+                    .multilineTextAlignment(.leading)
+                    .font(.bodyTwo)
+                    .foregroundColor(Color(.textSecondary))
+                  
+                  Label(ride.dateTime.humanReadableTime, systemImage: "clock")
+                    .multilineTextAlignment(.leading)
+                    .font(.bodyTwo)
+                    .foregroundColor(Color(.textSecondary))
+                  
+                  if let location = ride.location {
+                    Label(location, systemImage: "location.fill")
+                      .multilineTextAlignment(.leading)
+                      .font(.bodyTwo)
+                      .foregroundColor(Color(.textSecondary))
+                  }
+                }
               }
             }
+            .padding(.vertical, .grid(1))
             .accessibilityElement(children: .combine)
             .contentShape(Rectangle())
             .onTapGesture {
