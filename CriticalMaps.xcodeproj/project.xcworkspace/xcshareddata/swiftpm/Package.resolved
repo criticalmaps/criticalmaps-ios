@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "BottomSheet",
+        "repositoryURL": "https://github.com/adamfootdev/BottomSheet.git",
+        "state": {
+          "branch": null,
+          "revision": "0e6db002eeb5e3ba402e94dfe6a120f78b5a64df",
+          "version": "0.2.4"
+        }
+      },
+      {
         "package": "combine-schedulers",
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {

@@ -32,14 +32,14 @@ public struct MapOverlayView<Content>: View where Content: View {
     @ViewBuilder content: @escaping () -> Content
   ) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
     self.action = action
     self.content = content
   }
   
   public var body: some View {
     Button(
-      action: { action() },
+      action: action,
       label: {
         HStack {
           Image(uiImage: Asset.cm.image)
@@ -54,38 +54,39 @@ public struct MapOverlayView<Content>: View where Content: View {
               )
           }
         }
-        .padding(.horizontal, isExpanded ? 8 : 0)
+        .padding(.horizontal, isExpanded ? .grid(2) : 0)
       }
     )
-      .frame(minWidth: 50, minHeight: 50)
-      .foregroundColor(reduceTransparency ? .white : Color(.textPrimary))
-      .background(
-        Group {
-          if reduceTransparency {
-            RoundedRectangle(
-              cornerRadius: 12,
-              style: .circular
-            )
-            .fill(Color(.backgroundPrimary))
-          } else {
-            Blur()
-              .cornerRadius(12)
-          }
+    .frame(minWidth: 50, minHeight: 50)
+    .foregroundColor(reduceTransparency ? .white : Color(.textPrimary))
+    .background(
+      Group {
+        if reduceTransparency {
+          RoundedRectangle(
+            cornerRadius: 12,
+            style: .circular
+          )
+          .fill(Color(.backgroundPrimary))
+        } else {
+          Blur()
+            .cornerRadius(12)
         }
-      )
-      .transition(.scale.animation(reduceMotion ? nil : .easeOut(duration: 0.2)))
-      .onChange(of: viewStore.isExpanded, perform: { newValue in
-        let updateAction: () -> Void = { self.isExpanded = newValue }
-        reduceMotion ? updateAction() : withAnimation { updateAction() }
-      })
-      .onChange(of: viewStore.isVisible, perform: { newValue in
-        let updateAction: () -> Void = { self.isVisible = newValue }
-        reduceMotion ? updateAction() : withAnimation { updateAction() }
-      })
+      }
+    )
+    .transition(.scale.animation(reduceMotion ? nil : .easeOut(duration: 0.2)))
+    .onChange(of: viewStore.isExpanded, perform: { newValue in
+      let updateAction: () -> Void = { self.isExpanded = newValue }
+      reduceMotion ? updateAction() : withAnimation { updateAction() }
+    })
+    .onChange(of: viewStore.isVisible, perform: { newValue in
+      let updateAction: () -> Void = { self.isVisible = newValue }
+      reduceMotion ? updateAction() : withAnimation { updateAction() }
+    })
   }
 }
 
 // MARK: Preview
+
 struct MapOverlayView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -93,11 +94,12 @@ struct MapOverlayView_Previews: PreviewProvider {
         store: Store<MapFeatureState, Never>(
           initialState: .init(riders: [], userTrackingMode: .init(userTrackingMode: .follow)),
           reducer: .empty,
-          environment: ())
-          .actionless
-          .scope(state: { _ in
-            MapOverlayView.ViewState(isVisible: true, isExpanded: true)
-          }
+          environment: ()
+        )
+        .actionless
+        .scope(state: { _ in
+          MapOverlayView.ViewState(isVisible: true, isExpanded: true)
+        }
         ),
         action: {},
         content: {
@@ -112,11 +114,12 @@ struct MapOverlayView_Previews: PreviewProvider {
         store: Store<MapFeatureState, Never>(
           initialState: .init(riders: [], userTrackingMode: .init(userTrackingMode: .follow)),
           reducer: .empty,
-          environment: ())
-          .actionless
-          .scope(state: { _ in
-            MapOverlayView.ViewState(isVisible: true, isExpanded: true)
-          }
+          environment: ()
+        )
+        .actionless
+        .scope(state: { _ in
+          MapOverlayView.ViewState(isVisible: true, isExpanded: true)
+        }
         ),
         action: {},
         content: {
@@ -131,11 +134,12 @@ struct MapOverlayView_Previews: PreviewProvider {
         store: Store<MapFeatureState, Never>(
           initialState: .init(riders: [], userTrackingMode: .init(userTrackingMode: .follow)),
           reducer: .empty,
-          environment: ())
-          .actionless
-          .scope(state: { _ in
-            MapOverlayView.ViewState(isVisible: true, isExpanded: false)
-          }
+          environment: ()
+        )
+        .actionless
+        .scope(state: { _ in
+          MapOverlayView.ViewState(isVisible: true, isExpanded: false)
+        }
         ),
         action: {},
         content: {}

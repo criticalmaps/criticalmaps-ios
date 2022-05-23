@@ -5,9 +5,9 @@ import SharedModels
 
 /// Map annotation to annotate the next ride on a map.
 public final class CriticalMassAnnotation: NSObject, MKAnnotation {
-  let ride: Ride
-  let rideCoordinate: CLLocationCoordinate2D
-  
+  public let ride: Ride
+  let rideCoordinate: Coordinate
+
   public init?(ride: Ride) {
     guard let rideCoordinate = ride.coordinate else {
       return nil
@@ -22,7 +22,7 @@ public final class CriticalMassAnnotation: NSObject, MKAnnotation {
   }
   
   @objc public dynamic var coordinate: CLLocationCoordinate2D {
-    rideCoordinate
+    rideCoordinate.asCLLocationCoordinate
   }
   
   public var subtitle: String? {

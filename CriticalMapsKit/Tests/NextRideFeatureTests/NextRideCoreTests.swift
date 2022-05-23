@@ -20,6 +20,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     )!
   }
+
   let testScheduler = DispatchQueue.immediate
   
   var rides: [Ride] {
@@ -57,9 +58,10 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .alleycat
-      )
+      ),
     ]
   }
+
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
   func test_disabledNextRideFeature_shouldNotRequestRides() {
@@ -111,7 +113,9 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
     store.receive(.setNextRide(rides[1])) {
       $0.nextRide = self.rides[1]
     }
@@ -159,7 +163,7 @@ final class NextRideCoreTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [
-          RideEventSettings.RideEventTypeSetting(type: Ride.RideType.kidicalMass, isEnabled: true)
+          RideEventSettings.RideEventTypeSetting(type: Ride.RideType.kidicalMass, isEnabled: true),
         ],
         eventDistance: .near
       )
@@ -179,48 +183,50 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
   }
-  
+
   func test_getNextRide_shouldReturnRide_whenRideTypeNil() {
     var ridesWithARideWithNilRideType: [Ride] {
-        [
-          Ride(
-            id: 0,
-            slug: nil,
-            title: "CriticalMaps Berlin",
-            description: nil,
-            dateTime: now().addingTimeInterval(36000),
-            location: nil,
-            latitude: 53.1235,
-            longitude: 13.4234,
-            estimatedParticipants: nil,
-            estimatedDistance: nil,
-            estimatedDuration: nil,
-            enabled: true,
-            disabledReason: nil,
-            disabledReasonMessage: nil,
-            rideType: .criticalMass
-          ),
-          Ride(
-            id: 0,
-            slug: nil,
-            title: "CriticalMaps Falkensee",
-            description: nil,
-            dateTime: now().addingTimeInterval(3600),
-            location: "Vorplatz der alten Stadthalle",
-            latitude: 53.1235,
-            longitude: 13.4234,
-            estimatedParticipants: nil,
-            estimatedDistance: nil,
-            estimatedDuration: nil,
-            enabled: true,
-            disabledReason: nil,
-            disabledReasonMessage: nil,
-            rideType: nil
-          )
-        ]
-      }
+      [
+        Ride(
+          id: 0,
+          slug: nil,
+          title: "CriticalMaps Berlin",
+          description: nil,
+          dateTime: now().addingTimeInterval(36000),
+          location: nil,
+          latitude: 53.1235,
+          longitude: 13.4234,
+          estimatedParticipants: nil,
+          estimatedDistance: nil,
+          estimatedDuration: nil,
+          enabled: true,
+          disabledReason: nil,
+          disabledReasonMessage: nil,
+          rideType: .criticalMass
+        ),
+        Ride(
+          id: 0,
+          slug: nil,
+          title: "CriticalMaps Falkensee",
+          description: nil,
+          dateTime: now().addingTimeInterval(3600),
+          location: "Vorplatz der alten Stadthalle",
+          latitude: 53.1235,
+          longitude: 13.4234,
+          estimatedParticipants: nil,
+          estimatedDistance: nil,
+          estimatedDuration: nil,
+          enabled: true,
+          disabledReason: nil,
+          disabledReasonMessage: nil,
+          rideType: nil
+        ),
+      ]
+    }
     let service = NextRideService(nextRide: { _, _, _ in
       Just(ridesWithARideWithNilRideType)
         .setFailureType(to: NextRideService.Failure.self)
@@ -244,7 +250,9 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType)))
+    store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType))) {
+      $0.rideEvents = ridesWithARideWithNilRideType.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
     store.receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
       $0.nextRide = ridesWithARideWithNilRideType[1]
     }
@@ -257,7 +265,7 @@ final class NextRideCoreTests: XCTestCase {
         slug: nil,
         title: "CriticalMaps Berlin",
         description: nil,
-        dateTime: self.now().addingTimeInterval(3600),
+        dateTime: now().addingTimeInterval(3600),
         location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
@@ -268,17 +276,17 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      )
+      ),
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
-      .setFailureType(to: NextRideService.Failure.self)
-      .eraseToAnyPublisher()
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
       try? RideEventSettings.default
-      .encoded()
+        .encoded()
     }
     // when
     let store = TestStore(
@@ -295,6 +303,7 @@ final class NextRideCoreTests: XCTestCase {
     // then
     store.send(.getNextRide(coordinate))
     store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = rides
       $0.nextRide = nil
     }
   }
@@ -318,7 +327,7 @@ final class NextRideCoreTests: XCTestCase {
         slug: nil,
         title: "CriticalMaps Berlin",
         description: nil,
-        dateTime: self.now().addingTimeInterval(3600),
+        dateTime: now().addingTimeInterval(3600),
         location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
@@ -346,12 +355,12 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      )
+      ),
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
-      .setFailureType(to: NextRideService.Failure.self)
-      .eraseToAnyPublisher()
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -372,7 +381,9 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
     store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
     }
@@ -385,7 +396,7 @@ final class NextRideCoreTests: XCTestCase {
         slug: nil,
         title: "CriticalMaps Berlin",
         description: nil,
-        dateTime: self.now().addingTimeInterval(60 * 60 * 24).addingTimeInterval(3600),
+        dateTime: now().addingTimeInterval(60 * 60 * 24).addingTimeInterval(3600),
         location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
@@ -413,12 +424,12 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      )
+      ),
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
-      .setFailureType(to: NextRideService.Failure.self)
-      .eraseToAnyPublisher()
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -439,12 +450,14 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
     store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
     }
   }
-  
+
   func test_getNextRide_returnRideFromThisMonth_whenTodayIsSunday() {
     let rides = [
       Ride(
@@ -452,7 +465,7 @@ final class NextRideCoreTests: XCTestCase {
         slug: nil,
         title: "CriticalMaps Berlin",
         description: nil,
-        dateTime: self.now().addingTimeInterval(60 * 60 * 48).addingTimeInterval(3600),
+        dateTime: now().addingTimeInterval(60 * 60 * 48).addingTimeInterval(3600),
         location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
@@ -480,12 +493,12 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      )
+      ),
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
-      .setFailureType(to: NextRideService.Failure.self)
-      .eraseToAnyPublisher()
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -506,7 +519,9 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
     store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
     }
@@ -519,7 +534,7 @@ final class NextRideCoreTests: XCTestCase {
         slug: nil,
         title: "CriticalMaps Berlin",
         description: nil,
-        dateTime: self.now().addingTimeInterval(60 * 60 * 48).addingTimeInterval(3600),
+        dateTime: now().addingTimeInterval(60 * 60 * 48).addingTimeInterval(3600),
         location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
@@ -547,12 +562,12 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      )
+      ),
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
-      .setFailureType(to: NextRideService.Failure.self)
-      .eraseToAnyPublisher()
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -573,7 +588,9 @@ final class NextRideCoreTests: XCTestCase {
     )
     // then
     store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides)))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
     store.receive(.setNextRide(rides[1])) {
       $0.nextRide = rides[1]
     }

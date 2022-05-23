@@ -17,6 +17,7 @@ import UIApplicationClient
 import UserDefaultsClient
 
 // MARK: State
+
 public struct AppState: Equatable {
   public init(
     locationsAndChatMessages: Result<LocationAndChatMessages, NSError>? = nil,
@@ -64,9 +65,12 @@ public struct AppState: Equatable {
   
   public var chatMessageBadgeCount: UInt = 0
   public var hasConnectivity = true
+
+  public var presentEventsBottomSheet = false
 }
 
 // MARK: Actions
+
 public enum AppAction: Equatable {
   case appDelegate(AppDelegateAction)
   case onAppear
@@ -76,7 +80,8 @@ public enum AppAction: Equatable {
   case userSettingsLoaded(Result<UserSettings, NSError>)
   case observeConnection
   case observeConnectionResponse(NetworkPath)
-  
+
+  case setEventsBottomSheet(Bool)
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
   
@@ -88,6 +93,7 @@ public enum AppAction: Equatable {
 }
 
 // MARK: Environment
+
 public struct AppEnvironment {
   let locationsAndChatDataService: LocationsAndChatDataService
   let uuid: () -> UUID
@@ -137,8 +143,8 @@ public struct AppEnvironment {
   }
 }
 
-extension AppEnvironment {
-  public static let live = Self(
+public extension AppEnvironment {
+  static let live = Self(
     service: .live(),
     idProvider: .live(),
     mainQueue: .main,
@@ -152,6 +158,7 @@ extension AppEnvironment {
 }
 
 // MARK: Reducer
+
 struct ObserveConnectionIdentifier: Hashable {}
 
 /// Holds the logic for the AppFeature to update state and execute side effects
@@ -267,11 +274,10 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         
         let unreadMessagesCount = UInt(
           cachedMessages
-            .lazy
             .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
             .count
         )
-        state.chatMessageBadgeCount = unreadMessagesCount        
+        state.chatMessageBadgeCount = unreadMessagesCount
       }
       
       return .none
@@ -293,13 +299,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.nextRideState.hasConnectivity = state.hasConnectivity
       logger.info("Is connected: \(state.hasConnectivity)")
       return .none
-    
-      
+
     case let .map(mapFeatureAction):
       switch mapFeatureAction {
       case let .locationManager(locationManagerAction):
         switch locationManagerAction {
-          
         case .didUpdateLocations:
           if !state.didResolveInitialLocation {
             state.didResolveInitialLocation.toggle()
@@ -318,7 +322,14 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         default:
           return .none
         }
-                
+
+      case .focusNextRide:
+        if state.presentEventsBottomSheet {
+          return Effect(value: .setEventsBottomSheet(false))
+        } else {
+          return .none
+        }
+
       default:
         return .none
       }
@@ -350,8 +361,8 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
           .subscribe(on: environment.mainQueue)
           .fireAndForget()
       )
-      
-    case .setNavigation(tag: let tag):
+
+    case let .setNavigation(tag: tag):
       switch tag {
       case .chat:
         state.route = .chat
@@ -363,7 +374,17 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         state.route = .none
       }
       return .none
-      
+
+    case let .setEventsBottomSheet(value):
+      if value {
+        state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+      } else {
+        state.mapFeatureState.rideEvents = []
+        state.mapFeatureState.eventCenter = nil
+      }
+      state.presentEventsBottomSheet = value
+      return .none
+
     case .dismissSheetView:
       state.route = .none
       return .none
@@ -388,7 +409,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       
     case let .settings(settingsAction):
       switch settingsAction {
-      case .rideevent(let .setRideEventsEnabled(isEnabled)):
+      case let .rideevent(.setRideEventsEnabled(isEnabled)):
         if !isEnabled {
           return Effect(value: .map(.setNextRideBannerVisible(false)))
         } else {
@@ -401,19 +422,17 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     }
   }
 )
-  .onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
-    struct RideEventSettingsChange: Hashable {}
-    
-    // fetch next ride after settings have changed
-    if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
-      return Effect(value: .nextRide(.getNextRide(coordinate)))
-        .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
-    } else {
-      return .none
-    }
+.onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
+  struct RideEventSettingsChange: Hashable {}
+
+  // fetch next ride after settings have changed
+  if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
+    return Effect(value: .nextRide(.getNextRide(coordinate)))
+      .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
+  } else {
+    return .none
   }
-
-
+}
 
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location

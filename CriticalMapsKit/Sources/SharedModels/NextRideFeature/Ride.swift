@@ -56,11 +56,11 @@ public struct Ride: Hashable, Codable, Identifiable {
 }
 
 public extension Ride {
-  var coordinate: CLLocationCoordinate2D? {
+  var coordinate: Coordinate? {
     guard let lat = latitude, let lng = longitude else {
       return nil
     }
-    return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    return Coordinate(latitude: lat, longitude: lng)
   }
   
   var titleAndTime: String {
@@ -94,7 +94,7 @@ public extension Ride {
       debugPrint("Coordinte is nil")
       return
     }
-    let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
+    let placemark = MKPlacemark(coordinate: coordinate.asCLLocationCoordinate, addressDictionary: nil)
     let mapItem = MKMapItem(placemark: placemark)
     mapItem.name = location
     mapItem.openInMaps(launchOptions: options)
