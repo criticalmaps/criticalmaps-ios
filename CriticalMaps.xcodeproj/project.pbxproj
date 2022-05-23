@@ -20,8 +20,6 @@
 		738214F6271F49AB009847C7 /* appIcon-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F1271F49AB009847C7 /* appIcon-3.png */; };
 		738214F7271F49AB009847C7 /* appIcon-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F2271F49AB009847C7 /* appIcon-2.png */; };
 		738214F8271F49AB009847C7 /* appIcon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F3271F49AB009847C7 /* appIcon-1.png */; };
-		73BABF84277B0A2900D9790F /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 73BABF82277B0A2900D9790F /* CHANGELOG.md */; };
-		73BABF85277B0A2900D9790F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73BABF83277B0A2900D9790F /* README.md */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
 		73EB0311263F23A100941D57 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* App.swift */; };
 		73FD0B332779F5500061539D /* GuideFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD0B322779F5500061539D /* GuideFeaturePreviewApp.swift */; };
@@ -378,10 +376,8 @@
 				738214F8271F49AB009847C7 /* appIcon-1.png in Resources */,
 				738214F6271F49AB009847C7 /* appIcon-3.png in Resources */,
 				738214F4271F49AB009847C7 /* appIcon-5.png in Resources */,
-				73BABF84277B0A2900D9790F /* CHANGELOG.md in Resources */,
 				73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */,
 				738214F7271F49AB009847C7 /* appIcon-2.png in Resources */,
-				73BABF85277B0A2900D9790F /* README.md in Resources */,
 				73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */,
 				738214F5271F49AB009847C7 /* appIcon-4.png in Resources */,
 			);
@@ -773,7 +769,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/App/iOS App/Info.plist";
@@ -782,11 +778,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
-				RUN_DOCUMENTATION_COMPILER = YES;
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -799,7 +795,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/App/iOS App/Info.plist";
@@ -808,11 +804,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
-				RUN_DOCUMENTATION_COMPILER = YES;
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SKIP_INSTALL = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
