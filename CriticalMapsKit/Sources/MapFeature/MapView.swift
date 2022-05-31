@@ -38,14 +38,13 @@ struct MapView: ViewRepresentable {
   }
 
   func updateUIView(_ uiView: MKMapView, context _: Context) {
+    // rider handling
     centerRider(in: uiView)
+    updateRiderAnnotations(in: uiView)
 
-    centerRideEvents(in: uiView)
-
-    updateRideEvents(in: uiView)
-
+    // handle events
     setNextRideAnnotation(in: uiView)
-
+    centerRideEvents(in: uiView)
     updateRideEvents(in: uiView)
   }
 
