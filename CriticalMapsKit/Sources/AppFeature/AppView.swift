@@ -11,12 +11,14 @@ import SwiftUI
 public struct AppView: View {
   let store: Store<AppState, AppAction>
   @ObservedObject var viewStore: ViewStore<AppState, AppAction>
-  @Environment(\.accessibilityReduceTransparency) var reduceTransparency
 
-  @State var presentBottomSheet = false
-
-  let minHeight: CGFloat = 56
+  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   
+  @State private var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
+  @State private var orientation = UIDeviceOrientation.unknown
+  
+  private let minHeight: CGFloat = 56
   public init(store: Store<AppState, AppAction>) {
     self.store = store
     viewStore = ViewStore(store)
@@ -63,101 +65,111 @@ public struct AppView: View {
           .padding(.bottom, .grid(7))
           .frame(maxWidth: 400)
       }
+      .frame(maxWidth: .infinity, alignment: .center)
     }
+    .onRotate(perform: { newOrientation in
+      self.orientation = newOrientation
+    })
     .bottomSheet(
       isPresented: viewStore.binding(
         get: \.presentEventsBottomSheet,
         send: AppAction.setEventsBottomSheet
       ),
-      detents: [.medium()],
+      detents: [.medium(), .large()],
       largestUndimmedDetentIdentifier: .medium,
       prefersGrabberVisible: true,
       prefersScrollingExpandsWhenScrolledToEdge: true,
       prefersEdgeAttachedInCompactHeight: true,
-      selectedDetentIdentifier: .constant(nil),
+      selectedDetentIdentifier: $selectedDetentIdentifier,
       widthFollowsPreferredContentSizeWhenEdgeAttached: true,
       isModalInPresentation: false,
       onDismiss: { viewStore.send(.setEventsBottomSheet(false)) },
-      contentView: {
-        VStack {
-          HStack {
-            Text("Events")
-              .foregroundColor(Color(.textPrimary))
-              .font(.title2)
-              .bold()
-
-            Spacer()
-
-            Button(
-              action: { viewStore.send(.setEventsBottomSheet(false)) },
-              label: {
-                Image(systemName: "xmark.circle.fill")
-                  .resizable()
-                  .frame(width: .grid(8), height: .grid(8))
-                  .foregroundColor(Color(.lightGray))
-              }
-            )
-          }
-          .accessibility(addTraits: [.isHeader])
-          .padding(.grid(3))
-
-          List(viewStore.nextRideState.rideEvents, id: \.id) { ride in
-            HStack(alignment: .center, spacing: .grid(2)) {
-              Image(uiImage: Asset.cm.image)
-                .accessibilityHidden(true)
-
-              VStack(alignment: .leading, spacing: .grid(1)) {
-                Text(ride.title)
-                  .multilineTextAlignment(.leading)
-                  .font(Font.body.weight(.semibold))
-                  .foregroundColor(Color(.textPrimary))
-                  .padding(.bottom, .grid(1))
-                
-                VStack(alignment: .leading, spacing: 2) {
-                  Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
-                    .multilineTextAlignment(.leading)
-                    .font(.bodyTwo)
-                    .foregroundColor(Color(.textSecondary))
-                  
-                  Label(ride.dateTime.humanReadableTime, systemImage: "clock")
-                    .multilineTextAlignment(.leading)
-                    .font(.bodyTwo)
-                    .foregroundColor(Color(.textSecondary))
-                  
-                  if let location = ride.location {
-                    Label(location, systemImage: "location.fill")
-                      .multilineTextAlignment(.leading)
-                      .font(.bodyTwo)
-                      .foregroundColor(Color(.textSecondary))
-                  }
-                }
-              }
-            }
-            .padding(.vertical, .grid(1))
-            .accessibilityElement(children: .combine)
-            .contentShape(Rectangle())
-            .onTapGesture {
-              if let coordinate = ride.coordinate {
-                viewStore.send(
-                  .map(
-                    .focusRideEvent(
-                      Coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                    )
-                  )
-                )
-              }
-            }
-          }
-          .listStyle(.plain)
-        }
-        .accessibilityAction(.escape) {
-          viewStore.send(.setEventsBottomSheet(false))
-        }
-      }
+      contentView: { bottomSheetContentView() }
     )
     .environment(\.connectivity, viewStore.hasConnectivity)
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
+  }
+  
+  func bottomSheetContentView() -> some View {
+    VStack {
+      HStack {
+        Text("Events")
+          .foregroundColor(Color(.textPrimary))
+          .font(.title2)
+          .bold()
+
+        Spacer()
+
+        Button(
+          action: { viewStore.send(.setEventsBottomSheet(false)) },
+          label: {
+            Image(systemName: "xmark.circle.fill")
+              .resizable()
+              .frame(width: .grid(8), height: .grid(8))
+              .foregroundColor(Color(.lightGray))
+          }
+        )
+      }
+      .accessibility(addTraits: [.isHeader])
+      .padding(.grid(3))
+
+      List(viewStore.nextRideState.rideEvents, id: \.id) { ride in
+        HStack(alignment: .center, spacing: .grid(2)) {
+          Image(uiImage: Asset.cm.image)
+            .accessibilityHidden(true)
+
+          VStack(alignment: .leading, spacing: .grid(1)) {
+            Text(ride.title)
+              .multilineTextAlignment(.leading)
+              .font(Font.body.weight(.semibold))
+              .foregroundColor(Color(.textPrimary))
+              .padding(.bottom, .grid(1))
+
+            VStack(alignment: .leading, spacing: 2) {
+              Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
+                .multilineTextAlignment(.leading)
+                .font(.bodyTwo)
+                .foregroundColor(Color(.textSecondary))
+
+              Label(ride.dateTime.humanReadableTime, systemImage: "clock")
+                .multilineTextAlignment(.leading)
+                .font(.bodyTwo)
+                .foregroundColor(Color(.textSecondary))
+
+              if let location = ride.location {
+                Label(location, systemImage: "location.fill")
+                  .multilineTextAlignment(.leading)
+                  .font(.bodyTwo)
+                  .foregroundColor(Color(.textSecondary))
+              }
+            }
+          }
+        }
+        .padding(.vertical, .grid(1))
+        .accessibilityElement(children: .combine)
+        .contentShape(Rectangle())
+        .onTapGesture {
+          if orientation.isPortrait {
+            selectedDetentIdentifier = .medium
+          
+            if let coordinate = ride.coordinate {
+              viewStore.send(
+                .map(
+                  .focusRideEvent(
+                    Coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                  )
+                )
+              )
+            }
+          }
+        }
+      }
+      .listStyle(.plain)
+    }
+    .accessibilityAction(.escape) {
+      viewStore.send(.setEventsBottomSheet(false))
+    }
   }
 
   var offlineBanner: some View {
