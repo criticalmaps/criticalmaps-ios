@@ -9,16 +9,16 @@ import SwiftUIHelpers
 public struct RideEventSettingsView: View {
   let store: Store<RideEventSettings, RideEventSettingsActions>
   @ObservedObject var viewStore: ViewStore<RideEventSettings, RideEventSettingsActions>
-  
+
   public init(store: Store<RideEventSettings, RideEventSettingsActions>) {
     self.store = store
     viewStore = ViewStore(store)
   }
-  
+
   public var body: some View {
     SettingsForm {
       Spacer(minLength: 28)
-      
+
       SettingsRow {
         HStack {
           Text(L10n.Settings.eventSettingsEnable)
@@ -64,7 +64,7 @@ public struct RideEventSettingsView: View {
               .accessibilityValue(rideType.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
             }
           }
-          
+
           SettingsSection(title: L10n.Settings.eventSearchRadius) {
             ForEach(EventDistance.allCases, id: \.self) { radius in
               SettingsRow {
@@ -129,7 +129,7 @@ struct RideEventSettings_Previews: PreviewProvider {
 struct RideEventSettingsRow: View {
   let title: String
   let isEnabled: Bool
-  
+
   var body: some View {
     HStack(spacing: .grid(3)) {
       Text(title)
