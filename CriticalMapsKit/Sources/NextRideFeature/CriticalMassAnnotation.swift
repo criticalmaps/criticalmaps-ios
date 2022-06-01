@@ -16,15 +16,15 @@ public final class CriticalMassAnnotation: NSObject, MKAnnotation {
     self.ride = ride
     super.init()
   }
-  
+
   public var title: String? {
     ride.titleAndTime
   }
-  
+
   @objc public dynamic var coordinate: CLLocationCoordinate2D {
     rideCoordinate.asCLLocationCoordinate
   }
-  
+
   public var subtitle: String? {
     ride.location
   }

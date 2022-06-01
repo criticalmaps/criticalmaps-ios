@@ -4,9 +4,9 @@ public struct ChatMessageView: View {
   public init(_ chat: IdentifiedChatMessage) {
     self.chat = chat
   }
-  
+
   let chat: IdentifiedChatMessage
-  
+
   public var body: some View {
     VStack(alignment: .leading, spacing: .grid(1)) {
       Text(chat.chatTime)

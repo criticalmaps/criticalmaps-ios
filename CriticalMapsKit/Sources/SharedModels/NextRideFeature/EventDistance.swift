@@ -8,12 +8,12 @@ public enum EventDistance: Int, CaseIterable, Codable {
   case near = 10
   /// 20 km
   case far = 20
-  
+
   public var displayValue: String {
-    "\(self.rawValue) km"
+    "\(rawValue) km"
   }
-  
+
   public var accessibilityLabel: String {
-    "\(self.rawValue) kilometer"
+    "\(rawValue) kilometer"
   }
 }

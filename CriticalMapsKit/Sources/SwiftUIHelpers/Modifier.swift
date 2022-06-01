@@ -4,7 +4,7 @@ public struct AccessibleAnimation<Value: Equatable>: ViewModifier {
   @Environment(\.accessibilityReduceMotion) var reduceMotion
   let animation: Animation?
   let value: Value
-  
+
   public func body(content: Content) -> some View {
     content
       .animation(reduceMotion ? nil : animation, value: value)

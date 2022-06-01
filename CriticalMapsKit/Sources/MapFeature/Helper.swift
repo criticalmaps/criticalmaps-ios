@@ -13,7 +13,7 @@ extension MKMapView {
       forAnnotationViewWithReuseIdentifier: annotationViewType.reuseIdentifier
     )
   }
-  
+
   func dequeueReusableAnnotationView<T: MKAnnotationView>(
     ofType annotationType: T.Type,
     for _: IndexPath? = nil,

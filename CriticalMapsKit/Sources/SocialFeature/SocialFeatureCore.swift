@@ -7,15 +7,15 @@ import TwitterFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 
-
 // MARK: State
+
 public struct SocialState: Equatable {
   public var chatFeautureState: ChatFeatureState
   public var twitterFeedState: TwitterFeedState
   public var socialControl: SocialControl
-  
+
   public var hasConnectivity: Bool
-  
+
   public init(
     socialControl: SocialControl = .chat,
     chatFeautureState: ChatFeatureState = .init(),
@@ -27,10 +27,10 @@ public struct SocialState: Equatable {
     self.twitterFeedState = twitterFeedState
     self.hasConnectivity = hasConnectivity
   }
-  
+
   public enum SocialControl: Int, Equatable {
     case chat, twitter
-    
+
     var title: String {
       switch self {
       case .chat:
@@ -43,14 +43,16 @@ public struct SocialState: Equatable {
 }
 
 // MARK: Actions
+
 public enum SocialAction: Equatable {
   case setSocialSegment(Int)
-  
+
   case chat(ChatFeatureAction)
   case twitter(TwitterFeedAction)
 }
 
 // MARK: Environment
+
 public struct SocialEnvironment {
   let mainQueue: AnySchedulerOf<DispatchQueue>
   let uiApplicationClient: UIApplicationClient
@@ -80,40 +82,41 @@ public struct SocialEnvironment {
 }
 
 // MARK: Reducer
+
 public let socialReducer =
-Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
-  chatReducer.pullback(
-    state: \.chatFeautureState,
-    action: /SocialAction.chat,
-    environment: { global in
-      ChatEnvironment(
-        locationsAndChatDataService: global.locationsAndChatDataService,
+  Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
+    chatReducer.pullback(
+      state: \.chatFeautureState,
+      action: /SocialAction.chat,
+      environment: { global in
+        ChatEnvironment(
+          locationsAndChatDataService: global.locationsAndChatDataService,
+          mainQueue: global.mainQueue,
+          idProvider: global.idProvider,
+          uuid: global.uuid,
+          date: global.date,
+          userDefaultsClient: global.userDefaultsClient
+        )
+      }
+    ),
+    twitterFeedReducer.pullback(
+      state: \.twitterFeedState,
+      action: /SocialAction.twitter,
+      environment: { global in TwitterFeedEnvironment(
+        service: .live(),
         mainQueue: global.mainQueue,
-        idProvider: global.idProvider,
-        uuid: global.uuid,
-        date: global.date,
-        userDefaultsClient: global.userDefaultsClient
+        uiApplicationClient: global.uiApplicationClient
       )
+      }
+    ),
+    Reducer<SocialState, SocialAction, SocialEnvironment> { state, action, _ in
+      switch action {
+      case let .setSocialSegment(segment):
+        state.socialControl = .init(rawValue: segment)!
+        return .none
+
+      case .chat, .twitter:
+        return .none
+      }
     }
-  ),
-  twitterFeedReducer.pullback(
-    state: \.twitterFeedState,
-    action: /SocialAction.twitter,
-    environment: { global in TwitterFeedEnvironment(
-      service: .live(),
-      mainQueue: global.mainQueue,
-      uiApplicationClient: global.uiApplicationClient
-    )
-    }
-  ),
-  Reducer<SocialState, SocialAction, SocialEnvironment> { state, action, _ in
-    switch action {
-    case let .setSocialSegment(segment):
-      state.socialControl = .init(rawValue: segment)!
-      return .none
-      
-    case .chat, .twitter:
-      return .none
-    }
-  }
-)
+  )

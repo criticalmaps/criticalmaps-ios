@@ -15,8 +15,8 @@ public struct NextRideService {
   ) -> AnyPublisher<[Ride], Failure>
 }
 
-
 // MARK: Live
+
 public extension NextRideService {
   static func live(
     apiClient: APIClient = .live
@@ -31,9 +31,9 @@ public extension NextRideService {
   )
   }
 }
- 
 
 // MARK: Mocks
+
 public extension NextRideService {
   static let noop = Self(
     nextRide: { _, _, _ in
@@ -42,7 +42,7 @@ public extension NextRideService {
         .eraseToAnyPublisher()
     }
   )
-  
+
   struct Failure: Error, Equatable {
     var internalError: NetworkRequestError
   }

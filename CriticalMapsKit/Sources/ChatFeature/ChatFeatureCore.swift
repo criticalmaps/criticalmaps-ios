@@ -10,6 +10,7 @@ import SharedModels
 import UserDefaultsClient
 
 // MARK: State
+
 public struct ChatFeatureState: Equatable {
   public var chatMessages: ContentState<[String: ChatMessage]>
   public var chatInputState: ChatInputState
@@ -27,6 +28,7 @@ public struct ChatFeatureState: Equatable {
 }
 
 // MARK: Actions
+
 public enum ChatFeatureAction: Equatable {
   case onAppear
   case chatInputResponse(Result<LocationAndChatMessages, NSError>)
@@ -35,6 +37,7 @@ public enum ChatFeatureAction: Equatable {
 }
 
 // MARK: Environment
+
 public struct ChatEnvironment {
   public var locationsAndChatDataService: LocationsAndChatDataService
   public var mainQueue: AnySchedulerOf<DispatchQueue>
@@ -67,6 +70,7 @@ public struct ChatEnvironment {
 }
 
 // MARK: Reducer
+
 /// Reducer responsible for handling logic from the chat feature.
 public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnvironment>.combine(
   chatInputReducer.pullback(

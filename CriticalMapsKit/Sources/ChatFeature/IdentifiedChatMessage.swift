@@ -5,7 +5,7 @@ public struct IdentifiedChatMessage: Equatable, Identifiable {
   public let id: String
   public let message: String
   public let timestamp: TimeInterval
-  
+
   public init(
     id: String,
     message: String,
@@ -15,7 +15,7 @@ public struct IdentifiedChatMessage: Equatable, Identifiable {
     self.message = message
     self.timestamp = timestamp
   }
-  
+
   /// Localized representation of the chat messages timestamp 
   public var chatTime: String {
     let date = Date(timeIntervalSince1970: timestamp)

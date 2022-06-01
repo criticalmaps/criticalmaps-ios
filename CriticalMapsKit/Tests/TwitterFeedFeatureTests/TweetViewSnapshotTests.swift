@@ -20,7 +20,7 @@ class TweetViewSnapshotTests: XCTestCase {
 
     assertScreenSnapshot(view, sloppy: true)
   }
-  
+
   func test_tweetViewSnapshot2() {
     let view = TweetView(
       tweet: Tweet(
@@ -37,7 +37,7 @@ class TweetViewSnapshotTests: XCTestCase {
 
     assertScreenSnapshot(view, sloppy: true)
   }
-  
+
   func test_tweetViewSnapshot() {
     let view = TweetView(
       tweet: Tweet(
@@ -54,7 +54,7 @@ class TweetViewSnapshotTests: XCTestCase {
 
     assertScreenSnapshot(view, sloppy: true)
   }
-  
+
   func test_tweetViewSnapshot_dark() {
     let view = TweetView(
       tweet: Tweet(
@@ -72,7 +72,7 @@ class TweetViewSnapshotTests: XCTestCase {
 
     assertScreenSnapshot(view, sloppy: true)
   }
-  
+
   func test_tweetViewSnapshot_redacted() {
     let view = TweetView(
       tweet: Tweet(
@@ -90,7 +90,7 @@ class TweetViewSnapshotTests: XCTestCase {
 
     assertScreenSnapshot(view, sloppy: true)
   }
-  
+
   func test_tweetViewSnapshot_redacted_dark() {
     let view = TweetView(
       tweet: Tweet(

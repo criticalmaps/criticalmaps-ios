@@ -4,9 +4,9 @@ import MapKit
 
 public struct UserTrackingState: Equatable {
   public init(userTrackingMode: MKUserTrackingMode) {
-    self.mode = userTrackingMode
+    mode = userTrackingMode
   }
-  
+
   public var mode: MKUserTrackingMode
 }
 

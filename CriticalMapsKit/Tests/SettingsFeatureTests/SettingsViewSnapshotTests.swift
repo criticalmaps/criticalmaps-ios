@@ -17,7 +17,7 @@ class SettingsViewSnapshotTests: XCTestCase {
         )
       )
     )
-    
+
     assertScreenSnapshot(settingsView, sloppy: true)
   }
 }

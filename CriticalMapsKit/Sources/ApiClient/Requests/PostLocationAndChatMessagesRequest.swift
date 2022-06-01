@@ -8,7 +8,7 @@ public struct PostLocationAndChatMessagesRequest: APIRequest {
   public let headers: HTTPHeaders?
   public let httpMethod: HTTPMethod
   public var body: Data?
-  
+
   public init(
     endpoint: Endpoint = .init(),
     headers: HTTPHeaders? = .contentTypeApplicationJSON,

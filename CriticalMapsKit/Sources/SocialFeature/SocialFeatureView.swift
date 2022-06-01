@@ -6,14 +6,15 @@ import TwitterFeedFeature
 /// A view that holds the chatfeature and twitterfeature and just offers a control to switch between the two.
 public struct SocialView: View {
   @Environment(\.presentationMode) var presentationMode
-  
+
   let store: Store<SocialState, SocialAction>
   @ObservedObject var viewStore: ViewStore<SocialState, SocialAction>
-  
+
   public init(store: Store<SocialState, SocialAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
+
   public var body: some View {
     NavigationView {
       Group {
@@ -45,7 +46,7 @@ public struct SocialView: View {
             }
           )
         }
-        
+
         ToolbarItem(placement: .principal) {
           Picker(
             "Social Segment",
@@ -66,6 +67,7 @@ public struct SocialView: View {
 }
 
 // MARK: Preview
+
 struct SocialView_Previews: PreviewProvider {
   static var previews: some View {
     SocialView(store: Store<SocialState, SocialAction>(

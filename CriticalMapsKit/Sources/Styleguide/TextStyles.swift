@@ -32,7 +32,6 @@ public extension Text {
         t = t.kerning(kern)
       }
       
-      
       if let striked = attrs[NSAttributedString.Key.strikethroughStyle] as? NSNumber, striked != 0 {
         if let strikeColor = (attrs[NSAttributedString.Key.strikethroughColor] as? UIColor) {
           t = t.strikethrough(true, color: Color(strikeColor))

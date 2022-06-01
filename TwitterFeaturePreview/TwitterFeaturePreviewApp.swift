@@ -21,7 +21,6 @@ struct TwitterFeaturePreviewApp: App {
         .navigationTitle("TwitterFeature Preview")
       }
       .navigationBarTitleDisplayMode(.inline)
-      
     }
   }
 }

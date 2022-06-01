@@ -21,7 +21,7 @@ class ErrorStateViewSnapshotTests: XCTestCase {
         body: "No mass today"
       )
     )
-      .environment(\.colorScheme, .dark)
+    .environment(\.colorScheme, .dark)
     
     assertScreenSnapshot(view)
   }
@@ -48,7 +48,7 @@ class ErrorStateViewSnapshotTests: XCTestCase {
       buttonAction: {},
       buttonText: "Reload"
     )
-      .environment(\.colorScheme, .dark)
+    .environment(\.colorScheme, .dark)
     
     assertScreenSnapshot(view)
   }

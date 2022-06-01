@@ -16,12 +16,12 @@ public struct CoordinateRegion: Equatable {
   }
 
   public init(coordinateRegion: MKCoordinateRegion) {
-    self.center = coordinateRegion.center
-    self.span = coordinateRegion.span
+    center = coordinateRegion.center
+    span = coordinateRegion.span
   }
 
   public var asMKCoordinateRegion: MKCoordinateRegion {
-    .init(center: self.center, span: self.span)
+    .init(center: center, span: span)
   }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {

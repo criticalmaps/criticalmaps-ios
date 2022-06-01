@@ -10,14 +10,14 @@ public struct TwitterFeedService {
   public var getTwitterFeed: () -> AnyPublisher<[Tweet], NSError>
 }
 
-
 // MARK: Live
+
 public extension TwitterFeedService {
   static func live(apiClient: APIClient = .live) -> Self {
     Self(
       getTwitterFeed: {
         let request = TwitterFeedRequest()
-        
+
         return apiClient.dispatch(request)
           .decode(
             type: TwitterFeedRequest.ResponseDataType.self,
@@ -31,7 +31,6 @@ public extension TwitterFeedService {
   }
 }
 
-
 // Mocks and failing used for previews and tests
 public extension TwitterFeedService {
   static let noop = Self(
@@ -41,7 +40,7 @@ public extension TwitterFeedService {
         .eraseToAnyPublisher()
     }
   )
-  
+
   static let failing = Self(
     getTwitterFeed: {
       Fail(error: NSError(domain: "", code: 1))

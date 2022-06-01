@@ -21,7 +21,7 @@ class EmptyStateViewSnapshotTests: XCTestCase {
         text: "Critical Maps"
       )
     )
-      .environment(\.colorScheme, .dark)
+    .environment(\.colorScheme, .dark)
     
     assertScreenSnapshot(view)
   }
@@ -50,7 +50,7 @@ class EmptyStateViewSnapshotTests: XCTestCase {
       buttonAction: {},
       buttonText: "Reload"
     )
-      .environment(\.colorScheme, .dark)
+    .environment(\.colorScheme, .dark)
     
     assertScreenSnapshot(view)
   }

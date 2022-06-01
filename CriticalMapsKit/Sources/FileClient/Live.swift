@@ -1,8 +1,9 @@
 import Foundation
 
 // MARK: Live
-extension FileClient {
-  public static var live: Self {
+
+public extension FileClient {
+  static var live: Self {
     let documentDirectory = FileManager.default
       .urls(for: .documentDirectory, in: .userDomainMask)
       .first!
@@ -12,7 +13,7 @@ extension FileClient {
         .fireAndForget {
           try? FileManager.default.removeItem(
             at:
-              documentDirectory
+            documentDirectory
               .appendingPathComponent(fileName)
               .appendingPathExtension("json")
           )
@@ -22,7 +23,7 @@ extension FileClient {
         .catching {
           try Data(
             contentsOf:
-              documentDirectory
+            documentDirectory
               .appendingPathComponent(fileName)
               .appendingPathExtension("json")
           )
@@ -32,7 +33,7 @@ extension FileClient {
         .fireAndForget {
           _ = try? data.write(
             to:
-              documentDirectory
+            documentDirectory
               .appendingPathComponent(fileName)
               .appendingPathExtension("json")
           )

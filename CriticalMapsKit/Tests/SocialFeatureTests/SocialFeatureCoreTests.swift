@@ -17,7 +17,7 @@ class SocialFeatureCoreTests: XCTestCase {
         userDefaultsClient: .noop
       )
     )
-    
+
     testStore.send(.setSocialSegment(SocialState.SocialControl.twitter.rawValue)) { state in
       state.socialControl = .twitter
     }

@@ -16,14 +16,14 @@ public struct BasicInputView: View {
     placeholder: String = ""
   ) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
     self.placeholder = placeholder
-    self._contentSizeThatFits = State(initialValue: .zero)
+    _contentSizeThatFits = State(initialValue: .zero)
   }
   
   private var messageEditorHeight: CGFloat {
     min(
-      self.contentSizeThatFits.height,
+      contentSizeThatFits.height,
       0.25 * UIScreen.main.bounds.height
     )
   }
@@ -41,12 +41,12 @@ public struct BasicInputView: View {
       ),
       textAttributes: .chat
     )
-      .accessibilityLabel(Text(L10n.A11y.ChatInput.label))
-      .accessibilityValue(viewStore.message)
-      .onPreferenceChange(ContentSizeThatFitsKey.self) {
-        self.contentSizeThatFits = $0
-      }
-      .frame(height: self.messageEditorHeight)
+    .accessibilityLabel(Text(L10n.A11y.ChatInput.label))
+    .accessibilityValue(viewStore.message)
+    .onPreferenceChange(ContentSizeThatFitsKey.self) {
+      self.contentSizeThatFits = $0
+    }
+    .frame(height: self.messageEditorHeight)
   }
   
   private var sendButton: some View {
@@ -58,24 +58,24 @@ public struct BasicInputView: View {
           viewStore.isSendButtonDisabled ? Color(.border) : .blue
         }
       )
-        .accessibleAnimation(.easeOut(duration: 0.13), value: viewStore.isSendButtonDisabled)
-        .accessibilityLabel(Text(L10n.Chat.send))
-        .frame(width: 38, height: 38)
-        .overlay(
-          Group {
-            if viewStore.state.isSending {
-              ProgressView()
-            } else {
-              Image(systemName: "paperplane.fill")
-                .resizable()
-                .foregroundColor(.white)
-                .offset(x: -1, y: 1)
-                .padding(.grid(2))
-            }
+      .accessibleAnimation(.easeOut(duration: 0.13), value: viewStore.isSendButtonDisabled)
+      .accessibilityLabel(Text(L10n.Chat.send))
+      .frame(width: 38, height: 38)
+      .overlay(
+        Group {
+          if viewStore.state.isSending {
+            ProgressView()
+          } else {
+            Image(systemName: "paperplane.fill")
+              .resizable()
+              .foregroundColor(.white)
+              .offset(x: -1, y: 1)
+              .padding(.grid(2))
           }
-        )
+        }
+      )
     })
-      .disabled(viewStore.isSendButtonDisabled)
+    .disabled(viewStore.isSendButtonDisabled)
   }
   
   public var body: some View {
@@ -96,6 +96,7 @@ public struct BasicInputView: View {
 }
 
 // MARK: Implementation Details
+
 public struct ContentSizeThatFitsKey: PreferenceKey {
   public static var defaultValue: CGSize = .zero
   
@@ -119,17 +120,18 @@ internal struct TextAttributesModifier: ViewModifier {
   let textAttributes: TextAttributes
   
   func body(content: Content) -> some View {
-    content.environment(\.textAttributes, self.textAttributes)
+    content.environment(\.textAttributes, textAttributes)
   }
 }
 
 internal extension View {
   func textAttributes(_ textAttributes: TextAttributes) -> some View {
-    self.modifier(TextAttributesModifier(textAttributes: textAttributes))
+    modifier(TextAttributesModifier(textAttributes: textAttributes))
   }
 }
 
 // MARK: - MultilineText
+
 public struct MultilineTextField: View {
   @Binding private var attributedText: NSAttributedString
   @Binding private var isEditing: Bool
@@ -154,7 +156,7 @@ public struct MultilineTextField: View {
     8.0
   }
   
-  public init (
+  public init(
     attributedText: Binding<NSAttributedString>,
     placeholder: String = "",
     isEditing: Binding<Bool>,
@@ -162,12 +164,12 @@ public struct MultilineTextField: View {
     onEditingChanged: ((Bool) -> Void)? = nil,
     onCommit: (() -> Void)? = nil
   ) {
-    self._attributedText = attributedText
+    _attributedText = attributedText
     self.placeholder = placeholder
     
-    self._isEditing = isEditing
+    _isEditing = isEditing
     
-    self._contentSizeThatFits = State(initialValue: .zero)
+    _contentSizeThatFits = State(initialValue: .zero)
     
     self.textAttributes = textAttributes
     
@@ -183,11 +185,11 @@ public struct MultilineTextField: View {
       onEditingChanged: onEditingChanged,
       onCommit: onCommit
     )
-      .onPreferenceChange(ContentSizeThatFitsKey.self) {
-        self.contentSizeThatFits = $0
-      }
-      .frame(idealHeight: self.contentSizeThatFits.height)
-      .background(placeholderView, alignment: .topLeading)
+    .onPreferenceChange(ContentSizeThatFitsKey.self) {
+      self.contentSizeThatFits = $0
+    }
+    .frame(idealHeight: self.contentSizeThatFits.height)
+    .background(placeholderView, alignment: .topLeading)
   }
   
   @ViewBuilder private var placeholderView: some View {
@@ -199,6 +201,7 @@ public struct MultilineTextField: View {
 }
 
 // MARK: - AttributedText
+
 internal struct AttributedText: View {
   @Environment(\.textAttributes)
   var envTextAttributes: TextAttributes
@@ -210,7 +213,7 @@ internal struct AttributedText: View {
   
   private let textAttributes: TextAttributes
   
-  private let onLinkInteraction: (((URL, UITextItemInteraction) -> Bool))?
+  private let onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?
   private let onEditingChanged: ((Bool) -> Void)?
   private let onCommit: (() -> Void)?
   
@@ -220,7 +223,7 @@ internal struct AttributedText: View {
       .overriding(TextAttributes.default)
     
     return GeometryReader { geometry in
-      return UITextViewWrapper(
+      UITextViewWrapper(
         attributedText: self.$attributedText,
         isEditing: self.$isEditing,
         sizeThatFits: self.$sizeThatFits,
@@ -230,10 +233,10 @@ internal struct AttributedText: View {
         onEditingChanged: self.onEditingChanged,
         onCommit: self.onCommit
       )
-        .preference(
-          key: ContentSizeThatFitsKey.self,
-          value: self.sizeThatFits
-        )
+      .preference(
+        key: ContentSizeThatFitsKey.self,
+        value: self.sizeThatFits
+      )
     }
   }
   
@@ -245,8 +248,8 @@ internal struct AttributedText: View {
     onEditingChanged: ((Bool) -> Void)? = nil,
     onCommit: (() -> Void)? = nil
   ) {
-    self._attributedText = attributedText
-    self._isEditing = isEditing
+    _attributedText = attributedText
+    _isEditing = isEditing
     
     self.textAttributes = textAttributes
     
@@ -257,7 +260,6 @@ internal struct AttributedText: View {
 }
 
 public struct TextAttributes {
-  
   var textContainerInset: UIEdgeInsets?
   var lineFragmentPadding: CGFloat?
   var returnKeyType: UIReturnKeyType?
@@ -349,21 +351,21 @@ public struct TextAttributes {
   }
   
   func overriding(_ fallback: Self) -> Self {
-    let textContainerInset: UIEdgeInsets? = self.textContainerInset ?? fallback.textContainerInset
-    let lineFragmentPadding: CGFloat? = self.lineFragmentPadding ?? fallback.lineFragmentPadding
-    let returnKeyType: UIReturnKeyType? = self.returnKeyType ?? fallback.returnKeyType
-    let textAlignment: NSTextAlignment? = self.textAlignment ?? fallback.textAlignment
-    let linkTextAttributes: [NSAttributedString.Key: Any] = self.linkTextAttributes
-    let clearsOnInsertion: Bool? = self.clearsOnInsertion ?? fallback.clearsOnInsertion
-    let contentType: UITextContentType? = self.contentType ?? fallback.contentType
-    let autocorrectionType: UITextAutocorrectionType? = self.autocorrectionType ?? fallback.autocorrectionType
-    let autocapitalizationType: UITextAutocapitalizationType? = self.autocapitalizationType ?? fallback.autocapitalizationType
-    let lineLimit: Int? = self.lineLimit ?? fallback.lineLimit
-    let lineBreakMode: NSLineBreakMode? = self.lineBreakMode ?? fallback.lineBreakMode
-    let isSecure: Bool? = self.isSecure ?? fallback.isSecure
-    let isEditable: Bool? = self.isEditable ?? fallback.isEditable
-    let isSelectable: Bool? = self.isSelectable ?? fallback.isSelectable
-    let isScrollingEnabled: Bool? = self.isScrollingEnabled ?? fallback.isScrollingEnabled
+    let textContainerInset: UIEdgeInsets? = textContainerInset ?? fallback.textContainerInset
+    let lineFragmentPadding: CGFloat? = lineFragmentPadding ?? fallback.lineFragmentPadding
+    let returnKeyType: UIReturnKeyType? = returnKeyType ?? fallback.returnKeyType
+    let textAlignment: NSTextAlignment? = textAlignment ?? fallback.textAlignment
+    let linkTextAttributes: [NSAttributedString.Key: Any] = linkTextAttributes
+    let clearsOnInsertion: Bool? = clearsOnInsertion ?? fallback.clearsOnInsertion
+    let contentType: UITextContentType? = contentType ?? fallback.contentType
+    let autocorrectionType: UITextAutocorrectionType? = autocorrectionType ?? fallback.autocorrectionType
+    let autocapitalizationType: UITextAutocapitalizationType? = autocapitalizationType ?? fallback.autocapitalizationType
+    let lineLimit: Int? = lineLimit ?? fallback.lineLimit
+    let lineBreakMode: NSLineBreakMode? = lineBreakMode ?? fallback.lineBreakMode
+    let isSecure: Bool? = isSecure ?? fallback.isSecure
+    let isEditable: Bool? = isEditable ?? fallback.isEditable
+    let isSelectable: Bool? = isSelectable ?? fallback.isSelectable
+    let isScrollingEnabled: Bool? = isScrollingEnabled ?? fallback.isScrollingEnabled
     
     return .init(
       textContainerInset: textContainerInset,
@@ -399,7 +401,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
   
   private let textAttributes: TextAttributes
   
-  private let onLinkInteraction: (((URL, UITextItemInteraction) -> Bool))?
+  private let onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?
   private let onEditingChanged: ((Bool) -> Void)?
   private let onCommit: (() -> Void)?
   
@@ -413,9 +415,9 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     onEditingChanged: ((Bool) -> Void)? = nil,
     onCommit: (() -> Void)? = nil
   ) {
-    self._attributedText = attributedText
-    self._isEditing = isEditing
-    self._sizeThatFits = sizeThatFits
+    _attributedText = attributedText
+    _isEditing = isEditing
+    _sizeThatFits = sizeThatFits
     
     self.maxSize = maxSize
     
@@ -436,7 +438,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     view.textColor = UIColor.label
     view.backgroundColor = .clear
     
-    let attrs = self.textAttributes
+    let attrs = textAttributes
     
     if let textContainerInset = attrs.textContainerInset {
       view.textContainerInset = textContainerInset
@@ -497,13 +499,13 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     }
     UITextViewWrapper.recalculateHeight(
       view: uiView,
-      maxContentSize: self.maxSize,
+      maxContentSize: maxSize,
       result: $sizeThatFits
     )
   }
   
   func makeCoordinator() -> Coordinator {
-    return Coordinator(
+    Coordinator(
       attributedText: $attributedText,
       isEditing: $isEditing,
       sizeThatFits: $sizeThatFits,
@@ -535,7 +537,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     
     private let maxContentSize: () -> CGSize
     
-    private var onLinkInteraction: (((URL, UITextItemInteraction) -> Bool))?
+    private var onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?
     private var onEditingChanged: ((Bool) -> Void)?
     private var onCommit: (() -> Void)?
     
@@ -548,9 +550,9 @@ internal struct UITextViewWrapper: UIViewRepresentable {
       onEditingChanged: ((Bool) -> Void)?,
       onCommit: (() -> Void)?
     ) {
-      self._attributedText = attributedText
-      self._isEditing = isEditing
-      self._sizeThatFits = sizeThatFits
+      _attributedText = attributedText
+      _isEditing = isEditing
+      _sizeThatFits = sizeThatFits
       
       self.maxContentSize = maxContentSize
       
@@ -597,7 +599,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
       in characterRange: NSRange,
       interaction: UITextItemInteraction
     ) -> Bool {
-      return onLinkInteraction?(url, interaction) ?? true
+      onLinkInteraction?(url, interaction) ?? true
     }
     
     func textView(
@@ -605,7 +607,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
       shouldChangeTextIn range: NSRange,
       replacementText text: String
     ) -> Bool {
-      guard let onCommit = self.onCommit, text == "\n" else {
+      guard let onCommit = onCommit, text == "\n" else {
         return true
       }
       

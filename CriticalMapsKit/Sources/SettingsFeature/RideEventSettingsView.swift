@@ -12,7 +12,7 @@ public struct RideEventSettingsView: View {
   
   public init(store: Store<RideEventSettings, RideEventSettingsActions>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
   
   public var body: some View {
@@ -30,11 +30,11 @@ public struct RideEventSettingsView: View {
             ),
             label: { EmptyView() }
           )
-            .accessibilityRepresentation(representation: {
-              viewStore.isEnabled
+          .accessibilityRepresentation(representation: {
+            viewStore.isEnabled
               ? Text(L10n.A11y.General.on)
               : Text(L10n.A11y.General.off)
-            })
+          })
         }
         .accessibilityElement(children: .combine)
       }
@@ -48,9 +48,10 @@ public struct RideEventSettingsView: View {
                     .setRideEventTypeEnabled(
                       .init(
                         type: rideType.type,
-                        isEnabled: !rideType.isEnabled)
+                        isEnabled: !rideType.isEnabled
                       )
                     )
+                  )
                   },
                   label: {
                     RideEventSettingsRow(
@@ -92,8 +93,8 @@ public struct RideEventSettingsView: View {
       }
       .foregroundColor(
         viewStore.isEnabled
-        ? Color(.textPrimary)
-        : Color(.textPrimary).opacity(0.5)
+          ? Color(.textPrimary)
+          : Color(.textPrimary).opacity(0.5)
       )
       .disabled(!viewStore.isEnabled)
     }
@@ -102,6 +103,7 @@ public struct RideEventSettingsView: View {
 }
 
 // MARK: Preview
+
 struct RideEventSettings_Previews: PreviewProvider {
   static var previews: some View {
     Preview {
@@ -123,6 +125,7 @@ struct RideEventSettings_Previews: PreviewProvider {
 }
 
 // MARK: Helper
+
 struct RideEventSettingsRow: View {
   let title: String
   let isEnabled: Bool

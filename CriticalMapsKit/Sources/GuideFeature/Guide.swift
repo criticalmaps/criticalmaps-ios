@@ -6,15 +6,15 @@ import UIKit.UIImage
 public struct Guide: Hashable, Identifiable {
   public let id: String
   public let rule: Rule
-  
+
   public init(id: String = UUID().uuidString, rule: Guide.Rule) {
     self.id = id
     self.rule = rule
   }
 }
 
-extension Guide {
-  public enum Rule: String, CaseIterable {
+public extension Guide {
+  enum Rule: String, CaseIterable {
     case brake
     case contraflow
     case cork
@@ -22,7 +22,7 @@ extension Guide {
     case green
     case haveFun
     case stayLoose
-    
+
     var title: String {
       switch self {
       case .brake:
@@ -41,7 +41,7 @@ extension Guide {
         return L10n.Rules.Title.stayLoose
       }
     }
-    
+
     var text: String {
       switch self {
       case .brake:
@@ -60,7 +60,7 @@ extension Guide {
         return L10n.Rules.Text.stayLoose
       }
     }
-    
+
     var image: UIImage {
       switch self {
       case .brake:

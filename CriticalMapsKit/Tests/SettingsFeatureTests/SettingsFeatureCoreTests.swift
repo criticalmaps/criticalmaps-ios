@@ -7,7 +7,7 @@ import XCTest
 class SettingsFeatureCoreTests: XCTestCase {
   var defaultEnvironment = SettingsEnvironment(
     uiApplicationClient: .noop,
-    setUserInterfaceStyle: { _ in .none},
+    setUserInterfaceStyle: { _ in .none },
     fileClient: .noop,
     backgroundQueue: .immediate,
     mainQueue: .immediate

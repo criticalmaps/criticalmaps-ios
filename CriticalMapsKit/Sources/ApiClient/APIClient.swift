@@ -4,11 +4,11 @@ import Foundation
 /// A Client to dispatch network calls
 public struct APIClient {
   var networkDispatcher: () -> NetworkDispatcher
-  
+
   public init(networkDispatcher: @escaping () -> NetworkDispatcher) {
     self.networkDispatcher = networkDispatcher
   }
-  
+
   /// Dispatches a Request and returns a publisher
   /// - Parameter request: Request to Dispatch
   /// - Returns: A publisher containing decoded data or an error

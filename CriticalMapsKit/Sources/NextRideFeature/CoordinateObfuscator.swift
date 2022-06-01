@@ -10,7 +10,7 @@ public struct CoordinateObfuscator {
 }
 
 public extension CoordinateObfuscator {
-  static let live: Self =
+  static let live =
     Self { coordinate, precisionType in
       let seededLat = coordinate.latitude + precisionType.randomInRange
       let seededLon = coordinate.longitude + precisionType.randomInRange

@@ -7,7 +7,7 @@ public struct Coordinate: Codable, Hashable {
     self.latitude = latitude
     self.longitude = longitude
   }
-  
+
   public let latitude: Double
   public let longitude: Double
 }

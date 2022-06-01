@@ -5,7 +5,7 @@ import SwiftUIHelpers
 
 public struct GuideView: View {
   public init() {}
-  
+
   public var body: some View {
     List(Guide.all) { guide in
       NavigationLink(

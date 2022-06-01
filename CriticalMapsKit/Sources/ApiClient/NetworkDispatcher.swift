@@ -4,24 +4,26 @@ import Foundation
 /// A client to dispatch network request to URLSession
 public struct NetworkDispatcher {
   var urlSession: () -> URLSession
-  
+
   public init(urlSession: @escaping () -> URLSession) {
     self.urlSession = urlSession
   }
+
   /// Dispatches an URLRequest and returns a publisher
   /// - Parameter request: URLRequest
   /// - Returns: A publisher with the provided decoded data or an error
   func dispatch(request: URLRequest) -> AnyPublisher<Data, NetworkRequestError> {
-    return urlSession()
+    urlSession()
       .dataTaskPublisher(for: request)
-      .tryMap({ data, response in
+      .tryMap { data, response in
         // If the response is invalid, throw an error
         if let response = response as? HTTPURLResponse,
-           !(200...299).contains(response.statusCode) {
+           !(200 ... 299).contains(response.statusCode)
+        {
           throw httpError(response.statusCode)
         }
         return data
-      })
+      }
       .mapError { error in handleError(error) }
       .eraseToAnyPublisher()
   }
@@ -36,12 +38,13 @@ extension NetworkDispatcher {
     case 400: return .badRequest
     case 403: return .forbidden
     case 404: return .notFound
-    case 402, 405...499: return .error4xx(statusCode)
+    case 402, 405 ... 499: return .error4xx(statusCode)
     case 500: return .serverError
-    case 501...599: return .error5xx(statusCode)
+    case 501 ... 599: return .error5xx(statusCode)
     default: return .unknownError
     }
   }
+
   /// Parses URLSession Publisher errors and return proper ones
   /// - Parameter error: URLSession publisher error
   /// - Returns: Readable NetworkRequestError

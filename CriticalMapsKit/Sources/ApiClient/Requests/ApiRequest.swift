@@ -18,7 +18,7 @@ public protocol APIRequest {
 
 public extension APIRequest {
   var queryItems: [String: String] { [:] }
-  
+
   func makeRequest() throws -> URLRequest {
     var components = URLComponents()
     components.scheme = "https"
@@ -35,12 +35,12 @@ public extension APIRequest {
     var request = URLRequest(url: url)
     request.httpMethod = httpMethod.rawValue
     request.addHeaders(headers)
-    if let body = self.body {
+    if let body = body {
       request.httpBody = body
     }
     return request
   }
-  
+
   var decoder: JSONDecoder {
     JSONDecoder()
   }

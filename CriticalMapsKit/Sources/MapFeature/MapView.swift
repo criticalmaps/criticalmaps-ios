@@ -10,7 +10,7 @@ public typealias ViewRepresentable = UIViewRepresentable
 
 struct MapView: ViewRepresentable {
   typealias MenuActionHandle = () -> Void
-  
+
   var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
   var shouldAnimateUserTrackingMode: Bool
@@ -21,11 +21,11 @@ struct MapView: ViewRepresentable {
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
-  
+
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
   }
-  
+
   func makeUIView(context: Context) -> MKMapView {
     let mapView = MKMapView(frame: UIScreen.main.bounds)
     mapView.mapType = .mutedStandard
@@ -108,7 +108,7 @@ struct MapView: ViewRepresentable {
 /// Coordinator to handle MKMapViewDelegate events
 final class MapCoordinator: NSObject, MKMapViewDelegate {
   var parent: MapView
-  
+
   init(_ parent: MapView) {
     self.parent = parent
   }
@@ -116,7 +116,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
     parent.userTrackingMode = mode
   }
-    
+
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard annotation is MKUserLocation == false else {
       return nil
@@ -128,7 +128,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       )
       return view
     }
-    
+
     if annotation is CriticalMassAnnotation {
       let view = mapView.dequeueReusableAnnotationView(
         withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
@@ -138,7 +138,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       view?.routeEventClosure = parent.mapMenuRouteEventHandler
       return view
     }
-    
+
     return MKAnnotationView()
   }
 }

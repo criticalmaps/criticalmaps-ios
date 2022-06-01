@@ -11,10 +11,10 @@ public struct RideEventSettings: Hashable, Codable {
     self.typeSettings = typeSettings
     self.eventDistance = eventDistance
   }
-  
-    public var isEnabled: Bool
-    public var typeSettings: [RideEventTypeSetting]
-    public var eventDistance: EventDistance
+
+  public var isEnabled: Bool
+  public var typeSettings: [RideEventTypeSetting]
+  public var eventDistance: EventDistance
 }
 
 public extension RideEventSettings {
@@ -23,11 +23,11 @@ public extension RideEventSettings {
       self.type = type
       self.isEnabled = isEnabled
     }
-    
-      public let type: Ride.RideType
-      public var isEnabled: Bool
+
+    public let type: Ride.RideType
+    public var isEnabled: Bool
   }
-  
+
   static let `default` = Self(
     isEnabled: true,
     typeSettings: .all,

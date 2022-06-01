@@ -28,21 +28,21 @@ public struct EmptyStateView: View {
     self.buttonAction = buttonAction
     self.buttonText = buttonText
   }
-  
+
   public let emptyState: EmptyState
   public var buttonAction: (() -> Void)?
   public var buttonText: String?
-  
+
   public var body: some View {
     ZStack {
       Color(.backgroundPrimary)
         .ignoresSafeArea()
-      
+
       VStack(spacing: .grid(5)) {
         Image(uiImage: emptyState.icon)
           .imageScale(.large)
           .accessibilityHidden(true)
-          
+
         VStack(spacing: .grid(2)) {
           Text(emptyState.text)
             .font(.titleOne)
@@ -57,9 +57,9 @@ public struct EmptyStateView: View {
               action: buttonAction ?? {},
               label: { Text(buttonText ?? "") }
             )
-              .buttonStyle(CMButtonStyle())
-              .padding(.top, .grid(4))
-              .accessibilitySortPriority(1)
+            .buttonStyle(CMButtonStyle())
+            .padding(.top, .grid(4))
+            .accessibilitySortPriority(1)
           }
         }
         .padding(.horizontal, .grid(4))

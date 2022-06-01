@@ -37,7 +37,6 @@ struct GuideDetailView_Previews: PreviewProvider {
   }
 }
 
-
 /// Wraps an Image View and color inverts it when colorScheme is dark
 struct DIImage: View {
   @Environment(\.colorScheme) var colorScheme

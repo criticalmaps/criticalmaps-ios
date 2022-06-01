@@ -6,7 +6,7 @@ public extension String {
     let pattern = " \\d{1,2}.\\d{1,2}.\\d{4}$"
     return removedRegexMatches(pattern: pattern)
   }
-  
+
   func removedRegexMatches(pattern: String, replaceWith template: String = "") -> String {
     do {
       let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)

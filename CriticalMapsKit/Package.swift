@@ -236,8 +236,8 @@ let package = Package(
   ]
 )
 
-
 // MARK: - Test Targets
+
 package.targets.append(contentsOf: [
   .testTarget(
     name: "AppFeatureTests",
@@ -273,7 +273,8 @@ package.targets.append(contentsOf: [
     dependencies: [
       "Helpers",
       "UserDefaultsClient"
-    ]),
+    ]
+  ),
   .testTarget(
     name: "IDProviderTests",
     dependencies: ["IDProvider"]

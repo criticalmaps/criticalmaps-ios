@@ -133,7 +133,6 @@ class ChatFeatureCore: XCTestCase {
   }
 }
 
-
 let mockResponse = LocationAndChatMessages(
   locations: [
     "1": Location(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)

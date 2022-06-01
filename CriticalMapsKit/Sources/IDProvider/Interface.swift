@@ -6,7 +6,7 @@ import Helpers
 public struct IDProvider {
   public var id: () -> String
   public var token: () -> String
-  
+
   public static func hash(id: String, currentDate: Date = Date()) -> String {
     let dateString = DateFormatter.IDStoreHashDateFormatter.string(from: currentDate)
     let input = String(id + dateString).data(using: .utf8)!
