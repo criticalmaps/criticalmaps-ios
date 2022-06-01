@@ -20,9 +20,18 @@ jobs:
       - name: Format
         run: make format
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3.10.1
         with:
-          commit_message: Run swift-format
-          branch: 'main'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT }}
+          commit-message: format code
+          committer: GitHub <noreply@github.com>
+          branch: format-main
+          delete-branch: true
+          title: 'Format main'
+          labels: |
+            swiftformat
+            automated pr
+          team-reviewers: |
+            owners
+          draft: false
