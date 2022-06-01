@@ -8,12 +8,12 @@ import SwiftUIHelpers
 public struct UserTrackingButton: View {
   let store: Store<UserTrackingState, UserTrackingAction>
   @ObservedObject var viewStore: ViewStore<UserTrackingState, UserTrackingAction>
-  
+
   public init(store: Store<UserTrackingState, UserTrackingAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
-  
+
   public var body: some View {
     Button(
       action: {
@@ -24,15 +24,15 @@ public struct UserTrackingButton: View {
       }
     )
     .accessibility(label: Text(viewStore.mode.accessiblityLabel))
-    .accessibilityAction(named: Text(L10n.A11y.Usertrackingbutton.hint), {
+    .accessibilityAction(named: Text(L10n.A11y.Usertrackingbutton.hint)) {
       viewStore.send(.nextTrackingMode)
-    })
+    }
     .accessibilityHint(Text(L10n.A11y.Usertrackingbutton.hint))
     .accessibilityShowsLargeContentViewer {
       Label(viewStore.mode.accessiblityLabel, systemImage: "location.fill")
     }
   }
-  
+
   var iconImage: some View {
     switch viewStore.mode {
     case .follow:
@@ -52,6 +52,7 @@ public struct UserTrackingButton: View {
 }
 
 // MARK: Preview
+
 struct UserTrackingButton_Previews: PreviewProvider {
   static var previews: some View {
     Preview {

@@ -5,12 +5,12 @@ import enum UIKit.UIUserInterfaceStyle
 public struct AppearanceSettings: Codable, Equatable {
   public var appIcon: AppIcon
   public var colorScheme: ColorScheme
-  
+
   public init(appIcon: AppIcon = .appIcon2, colorScheme: ColorScheme = .system) {
     self.appIcon = appIcon
     self.colorScheme = colorScheme
   }
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.appIcon = (try? container.decode(AppIcon.self, forKey: .appIcon)) ?? .appIcon2

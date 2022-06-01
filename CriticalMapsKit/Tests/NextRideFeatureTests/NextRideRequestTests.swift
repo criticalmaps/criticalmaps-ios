@@ -10,7 +10,7 @@ import SharedModels
 import XCTest
 
 class NextRideReqeustTests: XCTestCase {
-  let fixedDate = { Date(timeIntervalSince1970: 1_557_057_968) }
+  let fixedDate = { Date(timeIntervalSince1970: 1557057968) }
   
   func test_constructor() throws {
     let coordinate = Coordinate(latitude: 13.13, longitude: 14.14)

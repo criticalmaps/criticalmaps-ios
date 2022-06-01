@@ -14,16 +14,16 @@ public struct AppView: View {
 
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-  
+
   @State private var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
   @State private var orientation = UIDeviceOrientation.unknown
-  
+
   private let minHeight: CGFloat = 56
   public init(store: Store<AppState, AppAction>) {
     self.store = store
     viewStore = ViewStore(store)
   }
-  
+
   public var body: some View {
     ZStack(alignment: .topLeading) {
       MapFeatureView(
@@ -58,7 +58,7 @@ public struct AppView: View {
 
       VStack {
         Spacer()
-        
+
         AppNavigationView(store: store)
           .accessibilitySortPriority(1)
           .padding(.horizontal)
@@ -90,7 +90,7 @@ public struct AppView: View {
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
   }
-  
+
   func bottomSheetContentView() -> some View {
     VStack {
       HStack {
@@ -152,7 +152,7 @@ public struct AppView: View {
         .onTapGesture {
           if orientation.isPortrait {
             selectedDetentIdentifier = .medium
-          
+
             if let coordinate = ride.coordinate {
               viewStore.send(
                 .map(

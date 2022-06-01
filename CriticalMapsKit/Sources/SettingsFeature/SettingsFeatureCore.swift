@@ -6,6 +6,7 @@ import UIApplicationClient
 import UIKit.UIInterface
 
 // MARK: State
+
 public struct SettingsState: Equatable {
   public var userSettings: UserSettings
   
@@ -58,6 +59,7 @@ public extension SettingsState {
 }
 
 // MARK: Actions
+
 public enum SettingsAction: Equatable {
   case onAppear
   case binding(BindingAction<SettingsState>)
@@ -70,8 +72,8 @@ public enum SettingsAction: Equatable {
   case rideevent(RideEventSettingsActions)
 }
 
-
 // MARK: Environment
+
 public struct SettingsEnvironment {
   public let backgroundQueue: AnySchedulerOf<DispatchQueue>
   public var fileClient: FileClient

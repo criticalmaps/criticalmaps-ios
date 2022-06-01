@@ -51,7 +51,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
         )
       )
     )
-      .environment(\.colorScheme, .dark)
+    .environment(\.colorScheme, .dark)
     
     assertScreenSnapshot(view, sloppy: true)
   }

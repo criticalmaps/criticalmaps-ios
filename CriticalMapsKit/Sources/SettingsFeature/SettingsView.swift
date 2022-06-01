@@ -15,7 +15,7 @@ public struct SettingsView: View {
   
   public init(store: Store<SettingsState, SettingsAction>) {
     self.store = store
-    self.viewStore = ViewStore(store, removeDuplicates: ==)
+    viewStore = ViewStore(store, removeDuplicates: ==)
   }
   
   public var body: some View {
@@ -37,8 +37,8 @@ public struct SettingsView: View {
             observationModeRow
               .accessibilityValue(
                 viewStore.userSettings.enableObservationMode
-                ? Text(L10n.A11y.General.on)
-                : Text(L10n.A11y.General.off)
+                  ? Text(L10n.A11y.General.on)
+                  : Text(L10n.A11y.General.off)
               )
               .accessibilityAction {
                 viewStore.send(.setObservationMode(!viewStore.userSettings.enableObservationMode))
@@ -108,7 +108,7 @@ public struct SettingsView: View {
             )
           }
         )
-          .accessibilityAddTraits(.isLink)
+        .accessibilityAddTraits(.isLink)
         
         Button(
           action: { viewStore.send(.supportSectionRowTapped(.crowdin)) },
@@ -123,7 +123,7 @@ public struct SettingsView: View {
             )
           }
         )
-          .accessibilityAddTraits(.isLink)
+        .accessibilityAddTraits(.isLink)
         
         Button(
           action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) },
@@ -138,7 +138,7 @@ public struct SettingsView: View {
             )
           }
         )
-          .accessibilityAddTraits(.isLink)
+        .accessibilityAddTraits(.isLink)
       }
       .padding(.horizontal, .grid(4))
     }

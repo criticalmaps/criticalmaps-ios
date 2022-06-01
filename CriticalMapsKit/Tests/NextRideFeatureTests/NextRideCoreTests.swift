@@ -58,7 +58,7 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .alleycat
-      ),
+      )
     ]
   }
 
@@ -163,7 +163,7 @@ final class NextRideCoreTests: XCTestCase {
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [
-          RideEventSettings.RideEventTypeSetting(type: Ride.RideType.kidicalMass, isEnabled: true),
+          RideEventSettings.RideEventTypeSetting(type: Ride.RideType.kidicalMass, isEnabled: true)
         ],
         eventDistance: .near
       )
@@ -224,7 +224,7 @@ final class NextRideCoreTests: XCTestCase {
           disabledReason: nil,
           disabledReasonMessage: nil,
           rideType: nil
-        ),
+        )
       ]
     }
     let service = NextRideService(nextRide: { _, _, _ in
@@ -276,7 +276,7 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
@@ -355,7 +355,7 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
@@ -424,7 +424,7 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
@@ -493,7 +493,7 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)
@@ -562,7 +562,7 @@ final class NextRideCoreTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
       Just(rides)

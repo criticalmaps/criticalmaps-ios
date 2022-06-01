@@ -9,7 +9,7 @@ class ButtonStylesSnapshotTests: XCTestCase {
       action: {},
       label: { Text("Critical Maps") }
     )
-      .buttonStyle(CMButtonStyle())
+    .buttonStyle(CMButtonStyle())
     
     assertViewSnapshot(button, height: 100)
   }
@@ -25,7 +25,7 @@ class ButtonStylesSnapshotTests: XCTestCase {
         }
       }
     )
-      .buttonStyle(CMButtonStyle())
+    .buttonStyle(CMButtonStyle())
     
     assertViewSnapshot(button, height: 100)
   }
@@ -41,7 +41,7 @@ class ButtonStylesSnapshotTests: XCTestCase {
         }
       }
     )
-      .buttonStyle(CMButtonStyle())
+    .buttonStyle(CMButtonStyle())
     
     assertViewSnapshot(button, height: 150)
   }

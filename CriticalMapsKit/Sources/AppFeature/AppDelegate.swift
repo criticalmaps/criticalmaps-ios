@@ -13,7 +13,6 @@ import SharedModels
 import UIApplicationClient
 import UserDefaultsClient
 
-
 public enum AppDelegateAction: Equatable {
   case didFinishLaunching
   case userSettingsLoaded(Result<UserSettings, NSError>)
@@ -36,7 +35,7 @@ public struct AppDelegateEnvironment {
     self.mainQueue = mainQueue
     self.setUserInterfaceStyle = setUserInterfaceStyle
   }
-  
+
   public static let live = Self(
     backgroundQueue: DispatchQueue(label: "background-queue").eraseToAnyScheduler(),
     fileClient: .live,
@@ -54,7 +53,7 @@ let appDelegateReducer = Reducer<
 > { state, action, environment in
   switch action {
   case .didFinishLaunching:
-    
+
     return .merge(
       .concatenate(
         environment.fileClient.loadUserSettings()

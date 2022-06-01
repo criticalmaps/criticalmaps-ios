@@ -21,15 +21,15 @@ public struct SettingsForm<Content>: View where Content: View {
   }
 }
 
-
 // MARK: Row
+
 struct SettingsRow<Content>: View where Content: View {
   let content: () -> Content
-  
+
   init(@ViewBuilder content: @escaping () -> Content) {
     self.content = content
   }
-  
+
   var body: some View {
     VStack(alignment: .leading) {
       self.content()
@@ -40,14 +40,13 @@ struct SettingsRow<Content>: View where Content: View {
         .accessibilityHidden(true)
     }
   }
-  
+
   var seperator: some View {
     Rectangle()
       .fill(Color(.border))
       .frame(maxWidth: .infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
   }
 }
-
 
 // MARK: Section
 
@@ -56,7 +55,7 @@ public struct SettingsSection<Content>: View where Content: View {
   let content: () -> Content
   let padContents: Bool
   let title: String
-  
+
   public init(
     title: String,
     padContents: Bool = false,
@@ -66,7 +65,7 @@ public struct SettingsSection<Content>: View where Content: View {
     self.padContents = padContents
     self.title = title
   }
-  
+
   public var body: some View {
     VStack(alignment: .leading) {
       if !title.isEmpty {
@@ -76,12 +75,11 @@ public struct SettingsSection<Content>: View where Content: View {
           .padding(.top, .grid(6))
           .accessibilityAddTraits(.isHeader)
       }
-      
+
       self.content()
     }
   }
 }
-
 
 // MARK: SettingsNavigationLink
 
@@ -89,7 +87,7 @@ public struct SettingsSection<Content>: View where Content: View {
 public struct SettingsNavigationLink<Destination>: View where Destination: View {
   let destination: Destination
   let title: String
-  
+
   public init(
     destination: Destination,
     title: String
@@ -97,7 +95,7 @@ public struct SettingsNavigationLink<Destination>: View where Destination: View 
     self.destination = destination
     self.title = title
   }
-  
+
   public var body: some View {
     SettingsRow {
       NavigationLink(
@@ -106,7 +104,7 @@ public struct SettingsNavigationLink<Destination>: View where Destination: View 
       )
     }
   }
-  
+
   var content: some View {
     HStack {
       Text(self.title)

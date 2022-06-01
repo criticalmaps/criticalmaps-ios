@@ -15,13 +15,14 @@ public struct LocationsAndChatDataService {
 }
 
 // MARK: Live
+
 public extension LocationsAndChatDataService {
   static func live(
     apiClient: APIClient = .live
   ) -> Self { Self(
     getLocationsAndSendMessages: { body in
       let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
-      
+
       return apiClient.dispatch(request)
         .decode(
           type: PostLocationAndChatMessagesRequest.ResponseDataType.self,
@@ -35,6 +36,7 @@ public extension LocationsAndChatDataService {
 }
 
 // MARK: Mocks and failing used for previews and tests
+
 public extension LocationsAndChatDataService {
   static let noop = Self(
     getLocationsAndSendMessages: { _ in
@@ -43,7 +45,7 @@ public extension LocationsAndChatDataService {
         .eraseToAnyPublisher()
     }
   )
-  
+
   static let failing = Self(
     getLocationsAndSendMessages: { _ in
       Fail(error: NSError(domain: "", code: 1))

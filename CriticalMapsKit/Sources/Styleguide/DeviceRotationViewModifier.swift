@@ -7,7 +7,7 @@ public struct DeviceRotationViewModifier: ViewModifier {
   public init(action: @escaping (UIDeviceOrientation) -> Void) {
     self.action = action
   }
-  
+
   public func body(content: Content) -> some View {
     content
       .onAppear()
@@ -19,6 +19,6 @@ public struct DeviceRotationViewModifier: ViewModifier {
 
 public extension View {
   func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-    self.modifier(DeviceRotationViewModifier(action: action))
+    modifier(DeviceRotationViewModifier(action: action))
   }
 }

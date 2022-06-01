@@ -7,19 +7,19 @@ import XCTest
 class AppearanceSettingsCoreTests: XCTestCase {
   var defaultEnvironment = AppearanceSettingsEnvironment(
     uiApplicationClient: .noop,
-    setUserInterfaceStyle: { _ in .none}
+    setUserInterfaceStyle: { _ in .none }
   )
 
   func test_selectAppIcon_shouldUpdateState() {
     var overriddenIconName: String!
-    
-    var env = self.defaultEnvironment
+
+    var env = defaultEnvironment
     env.uiApplicationClient.setAlternateIconName = { newValue in
       .fireAndForget {
         overriddenIconName = newValue
       }
     }
-    
+
     let store = TestStore(
       initialState: AppearanceSettings(),
       reducer: appearanceSettingsReducer,
@@ -34,7 +34,7 @@ class AppearanceSettingsCoreTests: XCTestCase {
   func testSetColorScheme() {
     var overriddenUserInterfaceStyle: UIUserInterfaceStyle!
 
-    var environment = self.defaultEnvironment
+    var environment = defaultEnvironment
     environment.setUserInterfaceStyle = { newValue in
       .fireAndForget {
         overriddenUserInterfaceStyle = newValue

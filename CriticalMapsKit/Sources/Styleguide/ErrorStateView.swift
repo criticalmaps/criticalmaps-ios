@@ -6,7 +6,7 @@ public struct ErrorState: Equatable {
   public let title: String
   public let body: String?
   public let error: NSError?
-  
+
   public init(title: String, body: String?, error: NSError? = nil) {
     self.title = title
     self.body = body
@@ -25,7 +25,7 @@ public struct ErrorStateView: View {
   public let errorState: ErrorState
   public var buttonAction: (() -> Void)?
   public var buttonText: String?
-  
+
   public init(
     errorState: ErrorState,
     buttonAction: (() -> Void)? = nil,
@@ -35,17 +35,17 @@ public struct ErrorStateView: View {
     self.buttonAction = buttonAction
     self.buttonText = buttonText
   }
-  
+
   public var body: some View {
     ZStack {
       Color(.backgroundPrimary)
         .ignoresSafeArea()
-      
+
       VStack(spacing: .grid(5)) {
         Image(uiImage: Asset.error.image)
           .frame(maxWidth: .infinity)
           .accessibilityHidden(true)
-        
+
         VStack(spacing: .grid(2)) {
           Text(errorState.title)
             .font(.titleOne)

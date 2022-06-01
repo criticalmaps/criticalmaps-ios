@@ -13,12 +13,12 @@ public extension Date {
     let component = components[keyPath: keyPath] ?? 0
     return component
   }
-  
+
   /// - Returns: Formatted time without date components.
   var humanReadableTime: String {
     DateFormatter.localeShortTimeFormatter.string(from: self)
   }
-  
+
   /// - Returns: Formatted date without time components.
   var humanReadableDate: String {
     DateFormatter.localeShortDateFormatter.string(from: self)

@@ -98,7 +98,6 @@ class TwitterFeedCoreTests: XCTestCase {
   }
 }
 
-
 let twitterFeedData = #"""
 {
   "statuses": [

@@ -6,7 +6,7 @@ public extension NSAttributedString {
   static func highlightMentionsAndTags(in string: String) -> NSAttributedString {
     let components = string.split(separator: " ")
     let attributedString = NSMutableAttributedString()
-    
+
     for comp in components {
       if comp.hasPrefix("@") || comp.hasPrefix("#") {
         let compAttributed = NSAttributedString(

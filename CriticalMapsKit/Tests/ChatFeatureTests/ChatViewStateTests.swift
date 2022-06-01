@@ -10,16 +10,16 @@ class ChatViewStateTests: XCTestCase {
       chatMessages: .results([
         "1": .init(message: "Hello", timestamp: 1),
         "2": .init(message: "Hello", timestamp: 2),
-        "3": .init(message: "Hello", timestamp: 3),
+        "3": .init(message: "Hello", timestamp: 3)
       ]),
       chatInputState: .init(),
       hasConnectivity: true
     )
-    
+
     // act
     let chatViewState = ChatView.ChatViewState(chatFeatureState)
     let messages = chatViewState.identifiedChatMessages
-    
+
     // assert
     let expectedMessages: [IdentifiedChatMessage] = [
       .init(id: "3", message: "Hello", timestamp: 3),

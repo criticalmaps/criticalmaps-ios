@@ -23,7 +23,7 @@ public struct TweetView: View {
           switch phase {
           case .empty:
             Color(.textSilent).opacity(0.6)
-          case .success(let image):
+          case let .success(image):
             image
               .resizable()
               .transition(.opacity)
@@ -85,6 +85,7 @@ public struct TweetView: View {
 }
 
 // MARK: Preview
+
 struct TweetView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -95,7 +96,6 @@ struct TweetView_Previews: PreviewProvider {
     }
   }
 }
-
 
 public extension Tweet {
   var makeAttributedTweet: NSAttributedString {

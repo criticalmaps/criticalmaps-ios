@@ -5,10 +5,10 @@ import TwitterFeedFeature
 import XCTest
 
 class TweetListViewSnapshotTests: XCTestCase {
-    override func setUpWithError() throws {
-      try super.setUpWithError()
+  override func setUpWithError() throws {
+    try super.setUpWithError()
 //      isRecording = true
-    }
+  }
     
   func test_tweetListViewSnapshot() {
     let view = TweetListView(
@@ -38,7 +38,7 @@ class TweetListViewSnapshotTests: XCTestCase {
         )
       )
     )
-      .environment(\.colorScheme, .dark)
+    .environment(\.colorScheme, .dark)
     
     assertScreenSnapshot(view, sloppy: true)
   }

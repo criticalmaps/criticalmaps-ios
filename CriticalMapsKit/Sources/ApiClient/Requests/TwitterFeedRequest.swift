@@ -9,7 +9,7 @@ public struct TwitterFeedRequest: APIRequest {
   public var endpoint: Endpoint
   public var headers: HTTPHeaders?
   public var httpMethod: HTTPMethod
-  
+
   public init(
     queryItems: [URLQueryItem] = [],
     body: Data? = nil,
@@ -23,7 +23,7 @@ public struct TwitterFeedRequest: APIRequest {
     self.headers = headers
     self.httpMethod = httpMethod
   }
-  
+
   public var decoder: JSONDecoder {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .formatted(.twitterDateFormatter)

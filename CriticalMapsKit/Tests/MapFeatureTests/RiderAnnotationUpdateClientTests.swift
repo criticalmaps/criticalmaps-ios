@@ -65,7 +65,6 @@ class RiderAnnotationUpdateClientTests: XCTestCase {
   func test_mapWithNoAnnoations_shouldAddAll_andRemoveNone() {
     let mapView = MKMapView()
     
-    
     let updatedAnnotations = RiderAnnotationUpdateClient.update(rider, mapView)
     
     XCTAssertEqual(updatedAnnotations.addedAnnotations.count, 2)

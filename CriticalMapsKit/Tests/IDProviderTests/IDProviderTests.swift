@@ -13,7 +13,7 @@ class IDProviderTests: XCTestCase {
   let deviceID = "0000-0000-0000-0000-0001"
   
   func testIDDoesChange() {
-    let date = Date(timeIntervalSince1970: 1_557_057_968)
+    let date = Date(timeIntervalSince1970: 1557057968)
     let currentID: IDProvider = .live(
       deviceID: deviceID,
       currentDate: date
@@ -29,7 +29,7 @@ class IDProviderTests: XCTestCase {
   }
   
   func testIDDoesNotChange() {
-    let date = Date(timeIntervalSince1970: 1_557_057_968)
+    let date = Date(timeIntervalSince1970: 1557057968)
     let currentID: IDProvider = .live(
       deviceID: deviceID,
       currentDate: date

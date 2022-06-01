@@ -8,12 +8,12 @@ import SwiftUI
 public struct TweetListView: View {
   let store: Store<TwitterFeedState, TwitterFeedAction>
   @ObservedObject var viewStore: ViewStore<TwitterFeedState, TwitterFeedAction>
-  
+
   public init(store: Store<TwitterFeedState, TwitterFeedAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
-  
+
   public var body: some View {
     Group {
       switch viewStore.contentState {
@@ -27,7 +27,7 @@ public struct TweetListView: View {
         ZStack {
           Color(.backgroundPrimary)
             .ignoresSafeArea()
-      
+
           List(tweets) { tweet in
             TweetView(tweet: tweet)
               .onTapGesture {
@@ -52,6 +52,7 @@ public struct TweetListView: View {
 }
 
 // MARK: Preview
+
 struct TweetListView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -66,7 +67,7 @@ struct TweetListView_Previews: PreviewProvider {
           )
         )
       )
-      
+
       TweetListView(store: .placeholder)
         .redacted(reason: .placeholder)
     }

@@ -19,7 +19,7 @@ public struct Ride: Hashable, Codable, Identifiable {
   public let disabledReason: String?
   public let disabledReasonMessage: String?
   public let rideType: RideType?
-  
+
   public init(
     id: Int,
     slug: String? = nil,
@@ -62,27 +62,27 @@ public extension Ride {
     }
     return Coordinate(latitude: lat, longitude: lng)
   }
-  
+
   var titleAndTime: String {
     let titleWithoutDate = title.removedDatePattern()
     return """
-        \(titleWithoutDate)
-        \(rideDateAndTime)
-        """
+    \(titleWithoutDate)
+    \(rideDateAndTime)
+    """
   }
-  
+
   var rideDateAndTime: String {
     "\(dateTime.humanReadableDate) - \(dateTime.humanReadableTime)"
   }
-  
+
   var shareMessage: String {
     guard let location = location else {
       return titleAndTime
     }
     return """
-        \(titleAndTime)
-        \(location)
-        """
+    \(titleAndTime)
+    \(location)
+    """
   }
 }
 
@@ -90,7 +90,7 @@ public extension Ride {
   func openInMaps(_ options: [String: Any] = [
     MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault
   ]) {
-    guard let coordinate = self.coordinate else {
+    guard let coordinate = coordinate else {
       debugPrint("Coordinte is nil")
       return
     }
@@ -113,7 +113,7 @@ public extension Ride {
     case alleycat = "ALLEYCAT"
     case tour = "TOUR"
     case event = "EVENT"
-    
+
     public var title: String {
       rawValue
         .replacingOccurrences(of: "_", with: " ")

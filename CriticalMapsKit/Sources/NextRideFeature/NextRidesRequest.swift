@@ -4,7 +4,6 @@ import SharedModels
 
 /// A structure that describes a request to fetch the next rides.
 public struct NextRidesRequest: APIRequest {
-  
   public typealias ResponseDataType = [Ride]
   public var endpoint = Endpoint(
     baseUrl: Endpoints.criticalmassInEndpoint,
@@ -14,7 +13,7 @@ public struct NextRidesRequest: APIRequest {
   public var httpMethod: HTTPMethod = .get
   public var queryItems: [URLQueryItem] = []
   public var body: Data?
-  
+
   init(
     coordinate: Coordinate,
     radius: Int, date: () -> Date = Date.init,
@@ -28,7 +27,7 @@ public struct NextRidesRequest: APIRequest {
       URLQueryItem(name: NextRideQueryKeys.month, value: String(month))
     ]
   }
-  
+
   public var decoder: JSONDecoder {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .secondsSince1970
@@ -37,8 +36,8 @@ public struct NextRidesRequest: APIRequest {
   }
 }
 
-
 // MARK: Helper
+
 enum NextRideQueryKeys {
   static let centerLatitude = "centerLatitude"
   static let centerLongitude = "centerLongitude"

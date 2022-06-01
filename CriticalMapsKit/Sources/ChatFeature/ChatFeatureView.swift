@@ -27,7 +27,7 @@ public struct ChatView: View {
   
   public init(store: Store<ChatFeatureState, ChatFeatureAction>) {
     self.store = store
-    self.viewStore = ViewStore(store.scope(state: ChatViewState.init))
+    viewStore = ViewStore(store.scope(state: ChatViewState.init))
   }
   
   public var body: some View {
@@ -93,6 +93,7 @@ public struct ChatView: View {
 }
 
 // MARK: Preview
+
 struct ChatView_Previews: PreviewProvider {
   static var previews: some View {
     ChatView(

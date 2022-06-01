@@ -91,8 +91,8 @@ public extension UIColor {
   static var twitterHighlight: Self {
     Self {
       $0.isDarkMode
-      ? .brand500
-      : .highlight
+        ? .brand500
+        : .highlight
     }
   }
   
@@ -104,9 +104,9 @@ public extension UIColor {
 extension UIColor {
   static func hex(_ hex: UInt, alpha: CGFloat = 1) -> Self {
     Self(
-      red: CGFloat((hex & 0xff0000) >> 16) / 255,
-      green: CGFloat((hex & 0x00ff00) >> 8) / 255,
-      blue: CGFloat(hex & 0x0000ff) / 255,
+      red: CGFloat((hex & 0xFF0000) >> 16) / 255,
+      green: CGFloat((hex & 0x00FF00) >> 8) / 255,
+      blue: CGFloat(hex & 0x0000FF) / 255,
       alpha: alpha
     )
   }

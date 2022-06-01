@@ -1,7 +1,7 @@
 import Foundation
 
-extension UserDefaultsClient {
-  public static func live(
+public extension UserDefaultsClient {
+  static func live(
     userDefaults: UserDefaults = UserDefaults(suiteName: "group.criticalMaps")!
   ) -> Self {
     Self(

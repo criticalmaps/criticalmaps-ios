@@ -32,11 +32,11 @@ final class RiderAnnoationView: MKAnnotationView {
     case .extraExtraLarge:
       return .extraLarge
     case .extraExtraExtraLarge,
-        .accessibilityMedium,
-        .accessibilityLarge,
-        .accessibilityExtraLarge,
-        .accessibilityExtraExtraLarge,
-        .accessibilityExtraExtraExtraLarge:
+         .accessibilityMedium,
+         .accessibilityLarge,
+         .accessibilityExtraLarge,
+         .accessibilityExtraExtraLarge,
+         .accessibilityExtraExtraExtraLarge:
       return .extraExtraLarge
     default:
       return .defaultSize

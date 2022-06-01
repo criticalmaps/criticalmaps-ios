@@ -3,7 +3,7 @@ import SwiftUI
 public extension View {
   /// Function that offers a adaptive corner radius
   func adaptiveCornerRadius(_ corners: UIRectCorner, _ radius: CGFloat) -> some View {
-    self.modifier(AdaptiveCornerRadius(corners: corners, radius: radius))
+    modifier(AdaptiveCornerRadius(corners: corners, radius: radius))
   }
 }
 
@@ -12,7 +12,7 @@ private struct AdaptiveCornerRadius: ViewModifier {
   let radius: CGFloat
 
   func body(content: Content) -> some View {
-    content.clipShape(Bezier(corners: self.corners, radius: self.radius))
+    content.clipShape(Bezier(corners: corners, radius: radius))
   }
 
   struct Bezier: Shape {
@@ -23,8 +23,8 @@ private struct AdaptiveCornerRadius: ViewModifier {
       Path(
         UIBezierPath(
           roundedRect: rect,
-          byRoundingCorners: self.corners,
-          cornerRadii: CGSize(width: self.radius, height: self.radius)
+          byRoundingCorners: corners,
+          cornerRadii: CGSize(width: radius, height: radius)
         )
         .cgPath
       )

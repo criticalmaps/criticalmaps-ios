@@ -9,15 +9,15 @@ import SwiftUI
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.connectivity) var isConnected
-  
+
   public init(store: Store<MapFeatureState, MapFeatureAction>) {
     self.store = store
     viewStore = ViewStore(store)
   }
-  
+
   let store: Store<MapFeatureState, MapFeatureAction>
   @ObservedObject var viewStore: ViewStore<MapFeatureState, MapFeatureAction>
-  
+
   public var body: some View {
     ZStack(alignment: .topLeading) {
       MapView(

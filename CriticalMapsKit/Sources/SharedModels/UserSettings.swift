@@ -6,7 +6,7 @@ public struct UserSettings: Codable, Equatable {
   public var appearanceSettings: AppearanceSettings
   public var enableObservationMode: Bool
   public var rideEventSettings: RideEventSettings
-  
+
   public init(
     appearanceSettings: AppearanceSettings = .init(),
     enableObservationMode: Bool = false,
@@ -19,8 +19,8 @@ public struct UserSettings: Codable, Equatable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    self.appearanceSettings = (try? container.decode(AppearanceSettings.self, forKey: .appearanceSettings)) ?? .init(colorScheme: .system)
-    self.enableObservationMode = (try? container.decode(Bool.self, forKey: .enableObservationMode)) ?? false
-    self.rideEventSettings = (try? container.decode(RideEventSettings.self, forKey: .rideEventSettings)) ?? .default
+    appearanceSettings = (try? container.decode(AppearanceSettings.self, forKey: .appearanceSettings)) ?? .init(colorScheme: .system)
+    enableObservationMode = (try? container.decode(Bool.self, forKey: .enableObservationMode)) ?? false
+    rideEventSettings = (try? container.decode(RideEventSettings.self, forKey: .rideEventSettings)) ?? .default
   }
 }

@@ -13,7 +13,7 @@ public struct NextRideState: Equatable {
     self.nextRide = nextRide
     self.hasConnectivity = hasConnectivity
   }
-  
+
   public var hasConnectivity: Bool
   public var nextRide: Ride?
   public var rideEvents: [Ride] = []
@@ -43,7 +43,7 @@ public struct NextRideEnvironment {
     self.mainQueue = mainQueue
     self.coordinateObfuscator = coordinateObfuscator
   }
-  
+
   let service: NextRideService
   let userDefaultsClient: UserDefaultsClient
   let now: () -> Date
@@ -65,14 +65,14 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       logger.debug("Not fetching next ride. No connectivity")
       return .none
     }
-    
+
     let obfuscatedCoordinate = env.coordinateObfuscator.obfuscate(
       coordinate,
       .thirdDecimal
     )
-    
+
     let requestRidesInMonth: Int = queryMonth(in: env.now)
-    
+
     return env.service.nextRide(
       obfuscatedCoordinate,
       env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
@@ -111,14 +111,14 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .filter(\.enabled)
       .sorted(by: \.dateTime)
       .first(where: { ride in ride.dateTime > env.now() })
-    
+
     guard let filteredRide = ride else {
       logger.info("No upcoming events after filter")
       return .none
     }
-    
+
     return Effect(value: .setNextRide(filteredRide))
-    
+
   case let .setNextRide(ride):
     state.nextRide = ride
     return .none
@@ -138,18 +138,18 @@ enum EventError: Error, LocalizedError {
 
 private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
   let currentMonthOfFallback = calendar.dateComponents([.month], from: date()).month ?? 0
-  
+
   guard !calendar.isDateInWeekend(date()) else { // current date is on a weekend
     return currentMonthOfFallback
   }
-  
+
   guard let startDateOfNextWeekend = calendar.nextWeekend(startingAfter: date())?.start else {
     return currentMonthOfFallback
   }
   guard let month = calendar.dateComponents([.month], from: startDateOfNextWeekend).month else {
     return currentMonthOfFallback
   }
-  
+
   return max(currentMonthOfFallback, month)
 }
 

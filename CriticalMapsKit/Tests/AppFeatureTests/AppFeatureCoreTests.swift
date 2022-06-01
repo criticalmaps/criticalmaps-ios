@@ -57,7 +57,6 @@ class AppFeatureTests: XCTestCase {
       environment: environment
     )
     
-    
     store.send(.onAppear)
     store.receive(.observeConnection)
     store.receive(.userSettingsLoaded(.success(.init())))
@@ -100,7 +99,7 @@ class AppFeatureTests: XCTestCase {
       course: 0,
       horizontalAccuracy: 0,
       speed: 0,
-      timestamp: Date(timeIntervalSince1970: 1_234_567_890),
+      timestamp: Date(timeIntervalSince1970: 1234567890),
       verticalAccuracy: 0
     )
     var service: LocationsAndChatDataService = .noop
@@ -239,7 +238,7 @@ class AppFeatureTests: XCTestCase {
       course: 0,
       horizontalAccuracy: 0,
       speed: 0,
-      timestamp: Date(timeIntervalSince1970: 1_234_567_890),
+      timestamp: Date(timeIntervalSince1970: 1234567890),
       verticalAccuracy: 0
     )
     var service: LocationsAndChatDataService = .noop
@@ -419,7 +418,7 @@ class AppFeatureTests: XCTestCase {
       slug: nil,
       title: "Next Ride",
       description: nil,
-      dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+      dateTime: Date(timeIntervalSince1970: 1234340120),
       location: nil,
       latitude: nil,
       longitude: nil,
@@ -465,7 +464,7 @@ class AppFeatureTests: XCTestCase {
     let response2: LocationAndChatMessages = .init(
       locations: [:],
       chatMessages: [
-        "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
+        "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15)
       ]
     )
     let response3: LocationAndChatMessages = .init(
@@ -473,7 +472,7 @@ class AppFeatureTests: XCTestCase {
       chatMessages: [
         "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
         "NEWID3": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 16),
-        "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17),
+        "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17)
       ]
     )
     let response4: LocationAndChatMessages = .init(
@@ -482,7 +481,7 @@ class AppFeatureTests: XCTestCase {
         "NEWID": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 15),
         "NEWID3": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 16),
         "NEWID2": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 17),
-        "NEWID5": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 18),
+        "NEWID5": ChatMessage(message: "Hi", timestamp: date().timeIntervalSince1970 + 18)
       ]
     )
     
@@ -540,7 +539,7 @@ class AppFeatureTests: XCTestCase {
         slug: nil,
         title: "Next Ride",
         description: nil,
-        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        dateTime: Date(timeIntervalSince1970: 1234340120),
         location: nil,
         latitude: nil,
         longitude: nil,
@@ -557,7 +556,7 @@ class AppFeatureTests: XCTestCase {
         slug: nil,
         title: "Next Ride",
         description: nil,
-        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        dateTime: Date(timeIntervalSince1970: 1234340120),
         location: nil,
         latitude: nil,
         longitude: nil,
@@ -568,7 +567,7 @@ class AppFeatureTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     appState.nextRideState.rideEvents = events
 
@@ -596,7 +595,7 @@ class AppFeatureTests: XCTestCase {
         slug: nil,
         title: "Next Ride",
         description: nil,
-        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        dateTime: Date(timeIntervalSince1970: 1234340120),
         location: nil,
         latitude: nil,
         longitude: nil,
@@ -613,7 +612,7 @@ class AppFeatureTests: XCTestCase {
         slug: nil,
         title: "Next Ride",
         description: nil,
-        dateTime: Date(timeIntervalSince1970: 1_234_340_120),
+        dateTime: Date(timeIntervalSince1970: 1234340120),
         location: nil,
         latitude: nil,
         longitude: nil,
@@ -624,7 +623,7 @@ class AppFeatureTests: XCTestCase {
         disabledReason: nil,
         disabledReasonMessage: nil,
         rideType: .criticalMass
-      ),
+      )
     ]
     appState.mapFeatureState.rideEvents = events
 

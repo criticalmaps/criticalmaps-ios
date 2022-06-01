@@ -3,8 +3,7 @@ import MapKit
 import SharedModels
 
 /// A client to update rider annotations on a map.
-public struct RiderAnnotationUpdateClient {
-  
+public enum RiderAnnotationUpdateClient {
   /// Calculates the difference between displayed annotations and a collection of new rider elements.
   ///
   /// - Parameters:
@@ -13,13 +12,15 @@ public struct RiderAnnotationUpdateClient {
   /// - Returns: A tuple containing annotations that should be added and removed
   public static func update(
     _ riderCoordinates: [Rider],
-    _ mapView: MKMapView)
-  -> (
-    removedAnnotations: [RiderAnnotation],
-    addedAnnotations: [RiderAnnotation]
-  ) {
+    _ mapView: MKMapView
+  )
+    -> (
+      removedAnnotations: [RiderAnnotation],
+      addedAnnotations: [RiderAnnotation]
+    )
+  {
     let currentlyDisplayedPOIs = mapView.annotations.compactMap { $0 as? RiderAnnotation }
-      .map { $0.rider }
+      .map(\.rider)
     
     // Riders that should be added
     let addedRider = Set(riderCoordinates).subtracting(currentlyDisplayedPOIs)

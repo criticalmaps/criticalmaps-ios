@@ -20,7 +20,7 @@ public struct AppNavigationView: View {
   
   public init(store: Store<AppState, AppAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
   
   public var body: some View {
@@ -57,6 +57,7 @@ public struct AppNavigationView: View {
   }
   
   // MARK: Chat
+
   var badge: some View {
     ZStack {
       Circle()
@@ -86,7 +87,8 @@ public struct AppNavigationView: View {
             .iconModifier()
           badge
         }
-      })
+      }
+    )
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
     .accessibilityShowsLargeContentViewer {
@@ -175,7 +177,6 @@ public struct AppNavigationView: View {
         }
       }
     )
-    
   }
   
   var menuSeperator: some View {
@@ -186,6 +187,7 @@ public struct AppNavigationView: View {
 }
 
 // MARK: Preview
+
 struct AppNavigationView_Previews: PreviewProvider {
   static var previews: some View {
     AppNavigationView(
@@ -204,7 +206,6 @@ struct AppNavigationView_Previews: PreviewProvider {
     )
   }
 }
-
 
 struct ShadowModifier: ViewModifier {
   @Environment(\.colorScheme) var colorScheme

@@ -8,12 +8,12 @@ import SwiftUI
 public struct AppearanceSettingsView: View {
   let store: Store<AppearanceSettings, AppearanceSettingsAction>
   @ObservedObject var viewStore: ViewStore<AppearanceSettings, AppearanceSettingsAction>
-  
+
   public init(store: Store<AppearanceSettings, AppearanceSettingsAction>) {
     self.store = store
-    self.viewStore = ViewStore(store)
+    viewStore = ViewStore(store)
   }
-  
+
   public var body: some View {
     SettingsForm {
       SettingsSection(title: "Theme") {
@@ -31,7 +31,7 @@ public struct AppearanceSettingsView: View {
         .pickerStyle(SegmentedPickerStyle())
         .frame(height: 50)
         .padding(.horizontal, .grid(4))
-        
+
         SettingsSection(title: L10n.Settings.appIcon) {
           AppIconPicker(
             appIcon: viewStore.binding(
@@ -46,7 +46,6 @@ public struct AppearanceSettingsView: View {
     .navigationBarTitle(L10n.Settings.Theme.appearance, displayMode: .inline)
   }
 }
-
 
 // AppIcon grid view
 struct AppIconPicker: View {
@@ -70,11 +69,11 @@ struct AppIconPicker: View {
                     RoundedRectangle(cornerRadius: 12)
                       .stroke(Color(.textPrimary), lineWidth: 0.4)
                   )
-                
+
                 Text(appIcon.title)
-                
+
                 Spacer()
-                
+
                 if self.appIcon == appIcon {
                   Image(systemName: "checkmark.circle.fill")
                     .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
@@ -104,9 +103,9 @@ extension AppearanceSettings.ColorScheme {
 
 extension AppIcon {
   var image: UIImage {
-    UIImage(named: self.rawValue, in: .module, with: nil)!
+    UIImage(named: rawValue, in: .module, with: nil)!
   }
-  
+
   var title: String {
     switch self {
     case .appIcon1:

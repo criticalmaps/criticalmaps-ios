@@ -8,7 +8,7 @@ import UIApplicationClient
 public struct TwitterFeedView: View {
   public struct TwitterFeedViewState: Equatable {
     public let shouldDisplayPlaceholder: Bool
-    
+
     public init(_ state: TwitterFeedState) {
       if let tweets = state.contentState.elements {
         shouldDisplayPlaceholder = state.twitterFeedIsLoading && tweets.isEmpty
@@ -17,15 +17,15 @@ public struct TwitterFeedView: View {
       }
     }
   }
-  
+
   let store: Store<TwitterFeedState, TwitterFeedAction>
   @ObservedObject var viewStore: ViewStore<TwitterFeedViewState, TwitterFeedAction>
-  
+
   public init(store: Store<TwitterFeedState, TwitterFeedAction>) {
     self.store = store
-    self.viewStore = ViewStore(store.scope(state: TwitterFeedViewState.init))
+    viewStore = ViewStore(store.scope(state: TwitterFeedViewState.init))
   }
-  
+
   public var body: some View {
     TweetListView(store: viewStore.shouldDisplayPlaceholder ? .placeholder : self.store)
       .navigationBarTitleDisplayMode(.inline)
@@ -35,6 +35,7 @@ public struct TwitterFeedView: View {
 }
 
 // MARK: Preview
+
 struct TwitterFeedView_Previews: PreviewProvider {
   static var previews: some View {
     TwitterFeedView(

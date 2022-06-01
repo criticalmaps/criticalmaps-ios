@@ -8,9 +8,9 @@ import UIKit
 struct CriticalMapsApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
   @Environment(\.scenePhase) var scenePhase
-  
+
   init() {}
-  
+
   var body: some Scene {
     WindowGroup {
       AppView(store: self.appDelegate.store)
@@ -19,8 +19,8 @@ struct CriticalMapsApp: App {
   }
 }
 
-
 // MARK: AppDelegate
+
 final class AppDelegate: NSObject, UIApplicationDelegate {
   let store = Store(
     initialState: .init(),
@@ -31,13 +31,13 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     self.store.scope(state: { _ in () }),
     removeDuplicates: ==
   )
-  
+
   func application(
     _ application: UIApplication,
     // swiftlint:disable:next discouraged_optional_collection
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    self.viewStore.send(.appDelegate(.didFinishLaunching))
+    viewStore.send(.appDelegate(.didFinishLaunching))
     return true
   }
 }

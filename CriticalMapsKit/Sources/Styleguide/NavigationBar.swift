@@ -5,8 +5,8 @@ public enum NavPresentationStyle {
   case navigation
 }
 
-extension View {
-  public func navigationStyle<Title: View, Trailing: View>(
+public extension View {
+  func navigationStyle<Title: View, Trailing: View>(
     backgroundColor: Color = Color(.backgroundSecondary),
     foregroundColor: Color = Color(.textPrimary),
     title: Title,
@@ -25,14 +25,14 @@ extension View {
     )
   }
 
-  public func navigationStyle<Title: View>(
+  func navigationStyle<Title: View>(
     backgroundColor: Color = Color(.backgroundSecondary),
     foregroundColor: Color = Color(.textPrimary),
     title: Title,
     navPresentationStyle: NavPresentationStyle = .navigation,
     onDismiss: @escaping () -> Void = {}
   ) -> some View {
-    self.navigationStyle(
+    navigationStyle(
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       title: title,
@@ -85,20 +85,20 @@ private struct NavigationBar<Title: View, Content: View, Trailing: View>: View {
   }
 
   func dismiss() {
-    self.onDismiss()
-    self.presentationMode.dismiss()
+    onDismiss()
+    presentationMode.dismiss()
   }
 }
 
 public extension View {
   func dismissable() -> some View {
-    self.modifier(DismissableModifier())
+    modifier(DismissableModifier())
   }
 }
 
 public struct DismissableModifier: ViewModifier {
   @Environment(\.presentationMode) var presentationMode
-  
+
   public func body(content: Content) -> some View {
     content
       .toolbar {

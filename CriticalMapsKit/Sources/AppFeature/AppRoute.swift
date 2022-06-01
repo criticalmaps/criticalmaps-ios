@@ -5,7 +5,7 @@ public enum AppRoute: Equatable {
   case chat
   case rules
   case settings
-  
+
   public enum Tag: Int {
     case chat
     case rules

@@ -48,7 +48,7 @@ class MapFeatureCoreTests: XCTestCase {
       course: 0,
       horizontalAccuracy: 0,
       speed: 0,
-      timestamp: Date(timeIntervalSince1970: 1_234_567_890),
+      timestamp: Date(timeIntervalSince1970: 1234567890),
       verticalAccuracy: 0
     )
     
@@ -75,7 +75,6 @@ class MapFeatureCoreTests: XCTestCase {
     
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
-    
   }
   
   /// if locationServices disabled, test that alert state is set
@@ -202,7 +201,6 @@ class MapFeatureCoreTests: XCTestCase {
     store.receive(.resetCenterRegion) {
       $0.centerRegion = nil
     }
-    
   }
   
   func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() {
@@ -256,7 +254,6 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.locationServicesEnabled = { true }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-
     let env = MapFeatureEnvironment(
       locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()

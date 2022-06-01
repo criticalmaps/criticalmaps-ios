@@ -3,7 +3,7 @@ import XCTest
 
 class DateAdditionsTests: XCTestCase {
   // 21. January 2020 06:52:21 GMT
-  let date = { Date(timeIntervalSince1970: 1_579_589_541) }
+  let date = { Date(timeIntervalSince1970: 1579589541) }
   
   func testGetCurrentDayShouldReturnDayAs21() {
     // when

@@ -26,7 +26,7 @@ public struct UserDefaultsClient {
     self.setDouble = setDouble
     self.setInteger = setInteger
   }
-  
+
   public var boolForKey: (String) -> Bool
   public var dataForKey: (String) -> Data?
   public var doubleForKey: (String) -> Double
@@ -36,10 +36,10 @@ public struct UserDefaultsClient {
   public var setData: (Data?, String) -> Effect<Never, Never>
   public var setDouble: (Double, String) -> Effect<Never, Never>
   public var setInteger: (Int, String) -> Effect<Never, Never>
-  
+
   /// Convenience getter for rideEvents
   public var rideEventSettings: () -> RideEventSettings {
-    guard let data = self.dataForKey(rideEventSettingsKey) else {
+    guard let data = dataForKey(rideEventSettingsKey) else {
       return { .default }
     }
     return { (try? data.decoded()) ?? .default }
@@ -47,9 +47,9 @@ public struct UserDefaultsClient {
 
   /// Convenience setter for rideEvents
   public func setRideEventSettings(_ settings: RideEventSettings) -> Effect<Never, Never> {
-    self.setData(try? settings.encoded(), rideEventSettingsKey)
+    setData(try? settings.encoded(), rideEventSettingsKey)
   }
-  
+
   /// Convenience getter for chat read timeinterval
   public var chatReadTimeInterval: () -> Double {
     { self.doubleForKey(chatReadTimeIntervalKey) }
@@ -57,7 +57,7 @@ public struct UserDefaultsClient {
 
   /// Convenience setter for chat read timeinterval
   public func setChatReadTimeInterval(_ timeInterval: Double) -> Effect<Never, Never> {
-    self.setDouble(timeInterval, chatReadTimeIntervalKey)
+    setDouble(timeInterval, chatReadTimeIntervalKey)
   }
 }
 
