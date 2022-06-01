@@ -9,13 +9,13 @@ import UIKit.UIInterface
 
 public struct SettingsState: Equatable {
   public var userSettings: UserSettings
-  
+
   public init(
     userSettings: UserSettings = UserSettings()
   ) {
     self.userSettings = userSettings
   }
-  
+
   var versionNumber: String { "Critical Maps \(Bundle.main.versionNumber)" }
   var buildNumber: String { "Build \(Bundle.main.buildNumber)" }
   var acknowledgementsPlistPath: String? {
@@ -29,7 +29,7 @@ public struct SettingsState: Equatable {
 public extension SettingsState {
   enum InfoSectionRow: Equatable {
     case website, twitter, privacy
-    
+
     public var url: URL {
       switch self {
       case .website:
@@ -41,10 +41,10 @@ public extension SettingsState {
       }
     }
   }
-  
+
   enum SupportSectionRow: Equatable {
     case github, criticalMassDotIn, crowdin
-    
+
     public var url: URL {
       switch self {
       case .github:
@@ -67,7 +67,7 @@ public enum SettingsAction: Equatable {
   case infoSectionRowTapped(SettingsState.InfoSectionRow)
   case setObservationMode(Bool)
   case openURL(URL)
-  
+
   case appearance(AppearanceSettingsAction)
   case rideevent(RideEventSettingsActions)
 }
@@ -80,7 +80,7 @@ public struct SettingsEnvironment {
   public let mainQueue: AnySchedulerOf<DispatchQueue>
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
   public var uiApplicationClient: UIApplicationClient
-  
+
   public init(
     uiApplicationClient: UIApplicationClient,
     setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>,
@@ -105,13 +105,13 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
     state.userSettings.appearanceSettings.appIcon = environment.uiApplicationClient.alternateIconName()
       .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
     return .none
-  
+
   case let .infoSectionRowTapped(row):
     return Effect(value: .openURL(row.url))
-  
+
   case let .supportSectionRowTapped(row):
     return Effect(value: .openURL(row.url))
-    
+
   case let .openURL(url):
     return environment.uiApplicationClient
       .open(url, [:])
@@ -120,10 +120,10 @@ public let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvi
   case let .setObservationMode(value):
     state.userSettings.enableObservationMode = value
     return .none
-    
+
   case .binding:
     return .none
-    
+
   case .appearance, .rideevent:
     return .none
   }
