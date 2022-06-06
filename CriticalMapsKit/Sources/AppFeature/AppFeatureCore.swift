@@ -497,7 +497,7 @@ extension SharedModels.Coordinate {
 
 public extension AlertState where Action == AppAction {
   static let viewingModeAlert = Self(
-    title: .init(L10n.AppCore.ViewingModeAlert.title),
+    title: .init(L10n.Settings.Observationmode.title),
     message: .init(L10n.AppCore.ViewingModeAlert.message),
     buttons: [
       .default(.init(L10n.AppCore.ViewingModeAlert.riding), action: .send(.setObservationMode(false))),
