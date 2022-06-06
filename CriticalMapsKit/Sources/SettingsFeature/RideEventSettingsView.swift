@@ -21,14 +21,12 @@ public struct RideEventSettingsView: View {
 
       SettingsRow {
         HStack {
-          Text(L10n.Settings.eventSettingsEnable)
-          Spacer()
           Toggle(
             isOn: viewStore.binding(
               get: \.isEnabled,
               send: RideEventSettingsActions.setRideEventsEnabled
             ),
-            label: { EmptyView() }
+            label: { Text(L10n.Settings.eventSettingsEnable) }
           )
           .accessibilityRepresentation(representation: {
             viewStore.isEnabled
@@ -64,7 +62,7 @@ public struct RideEventSettingsView: View {
               .accessibilityValue(rideType.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
             }
           }
-
+          
           SettingsSection(title: L10n.Settings.eventSearchRadius) {
             ForEach(EventDistance.allCases, id: \.self) { radius in
               SettingsRow {
@@ -90,12 +88,11 @@ public struct RideEventSettingsView: View {
             }
           }
         }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: viewStore.isEnabled ? .none : 0)
+        .clipped()
+        .accessibleAnimation(.interactiveSpring(), value: viewStore.isEnabled)
       }
-      .foregroundColor(
-        viewStore.isEnabled
-          ? Color(.textPrimary)
-          : Color(.textPrimary).opacity(0.5)
-      )
+      .foregroundColor(Color(.textPrimary))
       .disabled(!viewStore.isEnabled)
     }
     .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
