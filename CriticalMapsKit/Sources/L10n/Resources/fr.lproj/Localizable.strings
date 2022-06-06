@@ -12,6 +12,10 @@
 "a11y.general.off" = "Off";
 "a11y.general.selected" = "sélectionné(s)";
 
+"appCore.viewingModeAlert.title" = "Viewing Mode";
+"appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
+"appCore.viewingModeAlert.riding" = "Riding";
+"appCore.viewingModeAlert.watching" = "Watching";
 
 "chat.noChatActivity" = "Personne ne discute pour l'instant...\nLance la conversation !";
 

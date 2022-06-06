@@ -20,7 +20,6 @@ public enum L10n {
       /// Chat input textfield
       public static let label = L10n.tr("Localizable", "a11y.chatInput.label")
     }
-
     public enum General {
       /// Off
       public static let off = L10n.tr("Localizable", "a11y.general.off")
@@ -29,7 +28,6 @@ public enum L10n {
       /// selected
       public static let selected = L10n.tr("Localizable", "a11y.general.selected")
     }
-
     public enum Mapfeatureview {
       public enum Nextridebanner {
         /// Shows the next critical mass event closest to your location
@@ -38,7 +36,6 @@ public enum L10n {
         public static let label = L10n.tr("Localizable", "a11y.mapfeatureview.nextridebanner.label")
       }
     }
-
     public enum Usertrackingbutton {
       /// Don't follow
       public static let dontFollow = L10n.tr("Localizable", "a11y.usertrackingbutton.dontFollow")
@@ -48,6 +45,19 @@ public enum L10n {
       public static let followWithHeading = L10n.tr("Localizable", "a11y.usertrackingbutton.followWithHeading")
       /// Toggle tracking mode
       public static let hint = L10n.tr("Localizable", "a11y.usertrackingbutton.hint")
+    }
+  }
+
+  public enum AppCore {
+    public enum ViewingModeAlert {
+      /// Are you participating in the Critical Mass or are you only watching?
+      public static let message = L10n.tr("Localizable", "appCore.viewingModeAlert.message")
+      /// Riding
+      public static let riding = L10n.tr("Localizable", "appCore.viewingModeAlert.riding")
+      /// Viewing Mode
+      public static let title = L10n.tr("Localizable", "appCore.viewingModeAlert.title")
+      /// Watching
+      public static let watching = L10n.tr("Localizable", "appCore.viewingModeAlert.watching")
     }
   }
 
@@ -67,11 +77,10 @@ public enum L10n {
       /// The message could not be sent. Please try again.
       public static let error = L10n.tr("Localizable", "chat.send.error")
     }
-
     public enum Unreadbutton {
       /// %@ unread messages
       public static func accessibilityvalue(_ p1: Any) -> String {
-        L10n.tr("Localizable", "chat.unreadbutton.accessibilityvalue", String(describing: p1))
+        return L10n.tr("Localizable", "chat.unreadbutton.accessibilityvalue", String(describing: p1))
       }
     }
   }
@@ -121,7 +130,6 @@ public enum L10n {
         public static let on = L10n.tr("Localizable", "map.headingbutton.accessibilityvalue.on")
       }
     }
-
     public enum Layer {
       /// Critical Maps needs to use your GPS to show the map with other active user
       public static let info = L10n.tr("Localizable", "map.layer.info")
@@ -132,12 +140,10 @@ public enum L10n {
         public static let title = L10n.tr("Localizable", "map.layer.info.title")
       }
     }
-
     public enum LocationButton {
       /// locating
       public static let label = L10n.tr("Localizable", "map.locationButton.label")
     }
-
     public enum Menu {
       /// Route
       public static let route = L10n.tr("Localizable", "map.menu.route")
@@ -146,7 +152,6 @@ public enum L10n {
       /// Next event
       public static let title = L10n.tr("Localizable", "map.menu.title")
     }
-
     public enum NextRideEvents {
       /// Hide events
       public static let hideAll = L10n.tr("Localizable", "map.nextRideEvents.hideAll")
@@ -166,23 +171,22 @@ public enum L10n {
       /// Refrain from driving in the opposite lane.
       public static let contraflow = L10n.tr("Localizable", "rules.text.contraflow")
       /// Protect motorists from themselves by corking!
-      ///
+      /// 
       /// To maintain the cohesion of the group, block traffic from side roads so that the mass can freely proceed through red lights without interruptions.
       public static let cork = L10n.tr("Localizable", "rules.text.cork")
       /// When driving in the front: No speeding!
-      ///
+      /// 
       /// When driving in the rear: Close gaps!
       public static let gently = L10n.tr("Localizable", "rules.text.gently")
       /// When you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.
       public static let green = L10n.tr("Localizable", "rules.text.green")
       /// Enjoy reclaimed streets. Check out the Sound Bikes. Chat with motorists and pedestrian to let them know what's going on.
-      ///
+      /// 
       /// And most importantly: Have fun!
       public static let haveFun = L10n.tr("Localizable", "rules.text.haveFun")
       /// Don't allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.
       public static let stayLoose = L10n.tr("Localizable", "rules.text.stayLoose")
     }
-
     public enum Title {
       /// No hard stops!
       public static let brake = L10n.tr("Localizable", "rules.title.brake")
@@ -218,9 +222,8 @@ public enum L10n {
     public static let eventSearchRadius = L10n.tr("Localizable", "settings.eventSearchRadius")
     /// %@ km
     public static func eventSearchRadiusDistance(_ p1: Any) -> String {
-      L10n.tr("Localizable", "settings.eventSearchRadiusDistance", String(describing: p1))
+      return L10n.tr("Localizable", "settings.eventSearchRadiusDistance", String(describing: p1))
     }
-
     /// Event Settings
     public static let eventSettings = L10n.tr("Localizable", "settings.eventSettings")
     /// Event Notifications
@@ -265,7 +268,6 @@ public enum L10n {
       /// Missing a mass?
       public static let title = L10n.tr("Localizable", "settings.criticalMassDotIn.title")
     }
-
     public enum Friends {
       /// added
       public static let addFriendDescription = L10n.tr("Localizable", "settings.friends.addFriendDescription")
@@ -276,14 +278,12 @@ public enum L10n {
       /// Show ID
       public static let showID = L10n.tr("Localizable", "settings.friends.showID")
     }
-
     public enum Observationmode {
       /// If you don’t take part yourself, but want to follow the Critical Mass.
       public static let detail = L10n.tr("Localizable", "settings.observationmode.detail")
       /// Observation Mode
       public static let title = L10n.tr("Localizable", "settings.observationmode.title")
     }
-
     public enum Opensource {
       /// View Repository
       public static let action = L10n.tr("Localizable", "settings.opensource.action")
@@ -292,12 +292,10 @@ public enum L10n {
       /// Do you miss features or want to fix a bug?
       public static let title = L10n.tr("Localizable", "settings.opensource.title")
     }
-
     public enum Section {
       /// Info
       public static let info = L10n.tr("Localizable", "settings.section.info")
     }
-
     public enum Theme {
       /// Appearance
       public static let appearance = L10n.tr("Localizable", "settings.theme.appearance")
@@ -308,7 +306,6 @@ public enum L10n {
       /// System
       public static let system = L10n.tr("Localizable", "settings.theme.system")
     }
-
     public enum Translate {
       /// crowdin.com
       public static let link = L10n.tr("Localizable", "settings.translate.link")
@@ -330,7 +327,6 @@ public enum L10n {
     }
   }
 }
-
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
 
@@ -347,11 +343,10 @@ extension L10n {
 private final class BundleToken {
   static let bundle: Bundle = {
     #if SWIFT_PACKAGE
-      return Bundle.module
+    return Bundle.module
     #else
-      return Bundle(for: BundleToken.self)
+    return Bundle(for: BundleToken.self)
     #endif
   }()
 }
-
 // swiftlint:enable convenience_type

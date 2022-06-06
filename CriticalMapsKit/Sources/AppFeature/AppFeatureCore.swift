@@ -4,6 +4,7 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
 import IDProvider
+import L10n
 import Logger
 import MapFeature
 import MapKit
