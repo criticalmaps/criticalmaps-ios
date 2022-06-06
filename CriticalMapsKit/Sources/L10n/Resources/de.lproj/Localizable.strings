@@ -15,7 +15,7 @@
 "appCore.viewingModeAlert.title" = "Viewing Mode";
 "appCore.viewingModeAlert.message" = "Nimmst du an der Critical Mass teil oder schaust du nur zu?";
 "appCore.viewingModeAlert.riding" = "Fahre mit";
-"appCore.viewingModeAlert.watching" = "Schaue zu";
+"appCore.viewingModeAlert.watching" = "Beobachte";
 
 "chat.noChatActivity" = "Niemand chattet derzeit...\nWarum fängt du nicht an?";
 
