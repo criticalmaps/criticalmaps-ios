@@ -87,6 +87,7 @@ public enum AppAction: Equatable {
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
   case presentObservationModeAlert
+  case setObservationMode(Bool)
   case dismissAlert
   
   case map(MapFeatureAction)
@@ -233,14 +234,23 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
       
     case .onAppear:
-      return .merge(
+      var effects: [Effect<AppAction, Never>] = [
         Effect(value: .observeConnection),
         environment.fileClient
           .loadUserSettings()
           .map(AppAction.userSettingsLoaded),
         Effect(value: .map(.onAppear)),
         Effect(value: .requestTimer(.startTimer))
-      )
+      ]
+      if !environment.userDefaultsClient.didShowObservationModePrompt() {
+        effects.append(
+          Effect(value: .presentObservationModeAlert)
+            .delay(for: 3, scheduler: environment.mainQueue)
+            .eraseToEffect()
+        )
+      }
+      
+      return .merge(effects)
       
     case .onDisappear:
       return Effect.cancel(id: ObserveConnectionIdentifier())
@@ -404,6 +414,17 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     case .presentObservationModeAlert:
       state.alert = .viewingModeAlert
       return .none
+      
+    case let .setObservationMode(value):
+      state.settingsState.userSettings.enableObservationMode = value
+      return .merge(
+        environment.fileClient
+          .saveUserSettings(userSettings: state.settingsState.userSettings, on: environment.mainQueue)
+          .fireAndForget(),
+        environment.userDefaultsClient.setDidShowObservationModePrompt(true)
+          .fireAndForget()
+      )
+      
     case .dismissAlert:
       state.alert = nil
       return .none

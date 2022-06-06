@@ -52,14 +52,23 @@ public struct UserDefaultsClient {
 
   /// Convenience getter for chat read timeinterval
   public var chatReadTimeInterval: () -> Double {
-    { self.doubleForKey(chatReadTimeIntervalKey) }
+    { doubleForKey(chatReadTimeIntervalKey) }
   }
 
   /// Convenience setter for chat read timeinterval
   public func setChatReadTimeInterval(_ timeInterval: Double) -> Effect<Never, Never> {
     setDouble(timeInterval, chatReadTimeIntervalKey)
   }
+  
+  public var didShowObservationModePrompt: () -> Bool {
+    { boolForKey(didShowObservationModePromptKey) }
+  }
+  
+  public func setDidShowObservationModePrompt(_ value: Bool) -> Effect<Never, Never> {
+    setBool(value, didShowObservationModePromptKey)
+  }
 }
 
 let chatReadTimeIntervalKey = "chatReadTimeinterval"
 let rideEventSettingsKey = "rideEventSettings"
+let didShowObservationModePromptKey = "didShowObservationModePrompt"
