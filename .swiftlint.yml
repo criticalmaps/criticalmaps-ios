@@ -13,6 +13,7 @@ disabled_rules: # rule identifiers to exclude from running
   - shorthand_operator
   - file_name
   - missing_docs
+  - opening_brace
 
 opt_in_rules:
   - attributes
@@ -47,6 +48,9 @@ opt_in_rules:
   - empty_string
   - discouraged_optional_collection
   - closure_end_indentation
+included:
+  - CriticalMapsKit/Sources
+  - CriticalMapsKit/Tests
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Package.swift
   - .build/
