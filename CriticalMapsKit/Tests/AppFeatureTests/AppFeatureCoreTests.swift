@@ -4,6 +4,7 @@ import Combine
 import CombineSchedulers
 import ComposableArchitecture
 import ComposableCoreLocation
+import FileClient
 import Foundation
 import MapFeature
 import NextRideFeature
@@ -32,12 +33,17 @@ class AppFeatureTests: XCTestCase {
     locationManager.locationServicesEnabled = { true }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
+    var userDefaultsClient = UserDefaultsClient.noop
+    userDefaultsClient.boolForKey = { _ in
+      false
+    }
+    
     var environment = AppEnvironment(
       service: service,
       idProvider: .noop,
       mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
       locationManager: locationManager,
-      userDefaultsClient: .noop,
+      userDefaultsClient: userDefaultsClient,
       uiApplicationClient: .noop,
       fileClient: .noop,
       setUserInterfaceStyle: { _ in .none },
@@ -62,6 +68,9 @@ class AppFeatureTests: XCTestCase {
     store.receive(.userSettingsLoaded(.success(.init())))
     store.receive(.map(.onAppear))
     store.receive(.requestTimer(.startTimer))
+    store.receive(.presentObservationModeAlert) {
+      $0.alert = .viewingModeAlert
+    }
     store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
       $0.hasConnectivity = true
     }
@@ -110,8 +119,8 @@ class AppFeatureTests: XCTestCase {
     nextRideService.nextRide = { _, _, _ in
       nextRideSubject.eraseToAnyPublisher()
     }
-    var settings = UserDefaultsClient.noop
-    settings.dataForKey = { _ in
+    var userDefaultsClient = UserDefaultsClient.noop
+    userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [],
@@ -119,6 +128,7 @@ class AppFeatureTests: XCTestCase {
       )
       .encoded()
     }
+    userDefaultsClient.boolForKey = { _ in true }
     
     var locationManager: LocationManager = .failing
     locationManager.delegate = { locationManagerSubject.eraseToEffect() }
@@ -136,7 +146,7 @@ class AppFeatureTests: XCTestCase {
       mainQueue: testScheduler.eraseToAnyScheduler(),
       locationManager: locationManager,
       nextRideService: nextRideService,
-      userDefaultsClient: settings,
+      userDefaultsClient: userDefaultsClient,
       uiApplicationClient: .noop,
       fileClient: .noop,
       setUserInterfaceStyle: { _ in .none },
@@ -246,14 +256,15 @@ class AppFeatureTests: XCTestCase {
       serviceSubject.eraseToAnyPublisher()
     }
     let nextRideService: NextRideService = .noop
-    var settings = UserDefaultsClient.noop
+    var userDefaultsClient = UserDefaultsClient.noop
+    userDefaultsClient.boolForKey = { _ in true }
 
     let rideEventSettings = RideEventSettings(
       isEnabled: false,
       typeSettings: .all,
       eventDistance: .near
     )
-    settings.dataForKey = { _ in
+    userDefaultsClient.dataForKey = { _ in
       try? rideEventSettings.encoded()
     }
     
@@ -273,7 +284,7 @@ class AppFeatureTests: XCTestCase {
       mainQueue: testScheduler.eraseToAnyScheduler(),
       locationManager: locationManager,
       nextRideService: nextRideService,
-      userDefaultsClient: settings,
+      userDefaultsClient: userDefaultsClient,
       uiApplicationClient: .noop,
       fileClient: .noop,
       setUserInterfaceStyle: { _ in .none },
@@ -661,6 +672,47 @@ class AppFeatureTests: XCTestCase {
     store.receive(.setEventsBottomSheet(false)) {
       $0.presentEventsBottomSheet = false
     }
+  }
+  
+  func test_viewingModePrompt() {
+    var didSaveUserSettings = false
+    
+    var fileClient = FileClient.noop
+    fileClient.save = { _, _ in
+      didSaveUserSettings = true
+      return .none
+    }
+    
+    var didSetDidShowPrompt = false
+    var userdefaultsClient = UserDefaultsClient.noop
+    userdefaultsClient.setBool = { _, _ in
+      didSetDidShowPrompt = true
+      return .none
+    }
+    
+    let store = TestStore(
+      initialState: AppState(),
+      reducer: appReducer,
+      environment: AppEnvironment(
+        mainQueue: .immediate,
+        userDefaultsClient: userdefaultsClient,
+        uiApplicationClient: .noop,
+        fileClient: fileClient,
+        setUserInterfaceStyle: { _ in .none },
+        pathMonitorClient: .satisfied
+      )
+    )
+    
+    store.send(.presentObservationModeAlert) {
+      $0.alert = .viewingModeAlert
+    }
+    
+    store.send(.setObservationMode(false)) {
+      $0.settingsState.userSettings.enableObservationMode = false
+    }
+    
+    XCTAssertTrue(didSaveUserSettings)
+    XCTAssertTrue(didSetDidShowPrompt)
   }
 }
 
