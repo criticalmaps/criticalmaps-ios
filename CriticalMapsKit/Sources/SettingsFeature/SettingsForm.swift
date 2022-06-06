@@ -33,7 +33,7 @@ struct SettingsRow<Content>: View where Content: View {
   var body: some View {
     VStack(alignment: .leading) {
       self.content()
-        .padding(.vertical, .grid(3))
+        .padding(.vertical, .grid(2))
         .padding(.horizontal, .grid(4))
         .contentShape(Rectangle())
       seperator
