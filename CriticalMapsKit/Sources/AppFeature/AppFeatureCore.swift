@@ -68,6 +68,7 @@ public struct AppState: Equatable {
   public var hasConnectivity = true
 
   public var presentEventsBottomSheet = false
+  public var alert: AlertState<AppAction>?
 }
 
 // MARK: Actions
@@ -85,6 +86,8 @@ public enum AppAction: Equatable {
   case setEventsBottomSheet(Bool)
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
+  case presentObservationModeAlert
+  case dismissAlert
   
   case map(MapFeatureAction)
   case nextRide(NextRideAction)
@@ -397,7 +400,14 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       default:
         return .none
       }
-    
+      
+    case .presentObservationModeAlert:
+      state.alert = .viewingModeAlert
+      return .none
+    case .dismissAlert:
+      state.alert = nil
+      return .none
+      
     case let .social(socialAction):
       switch socialAction {
       case .chat(.onAppear):
@@ -462,4 +472,15 @@ extension SharedModels.Coordinate {
       longitude: location.coordinate.longitude
     )
   }
+}
+
+public extension AlertState where Action == AppAction {
+  static let viewingModeAlert = Self(
+    title: .init(L10n.AppCore.ViewingModeAlert.title),
+    message: .init(L10n.AppCore.ViewingModeAlert.message),
+    buttons: [
+      .default(.init(L10n.AppCore.ViewingModeAlert.riding), action: .send(.setObservationMode(false))),
+      .default(.init(L10n.AppCore.ViewingModeAlert.watching), action: .send(.setObservationMode(true))),
+    ]
+  )
 }

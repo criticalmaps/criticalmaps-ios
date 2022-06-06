@@ -86,6 +86,7 @@ public struct AppView: View {
       onDismiss: { viewStore.send(.setEventsBottomSheet(false)) },
       contentView: { bottomSheetContentView() }
     )
+    .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
     .environment(\.connectivity, viewStore.hasConnectivity)
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
