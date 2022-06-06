@@ -46,6 +46,7 @@ public struct MapOverlayView<Content>: View where Content: View {
           
           if isExpanded {
             content()
+              .padding(.vertical, .grid(1))
               .transition(
                 .asymmetric(
                   insertion: .opacity.animation(reduceMotion ? nil : .easeInOut(duration: 0.1).delay(0.2)),
