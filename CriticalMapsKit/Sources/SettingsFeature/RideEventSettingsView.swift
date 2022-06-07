@@ -62,7 +62,7 @@ public struct RideEventSettingsView: View {
               .accessibilityValue(rideType.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
             }
           }
-          
+
           SettingsSection(title: L10n.Settings.eventSearchRadius) {
             ForEach(EventDistance.allCases, id: \.self) { radius in
               SettingsRow {
