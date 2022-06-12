@@ -501,7 +501,7 @@ public extension AlertState where Action == AppAction {
     message: .init(L10n.AppCore.ViewingModeAlert.message),
     buttons: [
       .default(.init(L10n.AppCore.ViewingModeAlert.riding), action: .send(.setObservationMode(false))),
-      .default(.init(L10n.AppCore.ViewingModeAlert.watching), action: .send(.setObservationMode(true))),
+      .default(.init(L10n.AppCore.ViewingModeAlert.watching), action: .send(.setObservationMode(true)))
     ]
   )
 }

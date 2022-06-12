@@ -59,11 +59,11 @@ public struct UserDefaultsClient {
   public func setChatReadTimeInterval(_ timeInterval: Double) -> Effect<Never, Never> {
     setDouble(timeInterval, chatReadTimeIntervalKey)
   }
-  
+
   public var didShowObservationModePrompt: () -> Bool {
     { boolForKey(didShowObservationModePromptKey) }
   }
-  
+
   public func setDidShowObservationModePrompt(_ value: Bool) -> Effect<Never, Never> {
     setBool(value, didShowObservationModePromptKey)
   }
