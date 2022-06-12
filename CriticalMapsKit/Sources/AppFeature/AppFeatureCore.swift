@@ -4,6 +4,7 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import FileClient
 import IDProvider
+import L10n
 import Logger
 import MapFeature
 import MapKit
@@ -67,6 +68,7 @@ public struct AppState: Equatable {
   public var hasConnectivity = true
 
   public var presentEventsBottomSheet = false
+  public var alert: AlertState<AppAction>?
 }
 
 // MARK: Actions
@@ -84,6 +86,9 @@ public enum AppAction: Equatable {
   case setEventsBottomSheet(Bool)
   case setNavigation(tag: AppRoute.Tag?)
   case dismissSheetView
+  case presentObservationModeAlert
+  case setObservationMode(Bool)
+  case dismissAlert
   
   case map(MapFeatureAction)
   case nextRide(NextRideAction)
@@ -229,14 +234,23 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
       
     case .onAppear:
-      return .merge(
+      var effects: [Effect<AppAction, Never>] = [
         Effect(value: .observeConnection),
         environment.fileClient
           .loadUserSettings()
           .map(AppAction.userSettingsLoaded),
         Effect(value: .map(.onAppear)),
         Effect(value: .requestTimer(.startTimer))
-      )
+      ]
+      if !environment.userDefaultsClient.didShowObservationModePrompt() {
+        effects.append(
+          Effect(value: .presentObservationModeAlert)
+            .delay(for: 3, scheduler: environment.mainQueue)
+            .eraseToEffect()
+        )
+      }
+      
+      return .merge(effects)
       
     case .onDisappear:
       return Effect.cancel(id: ObserveConnectionIdentifier())
@@ -396,7 +410,25 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       default:
         return .none
       }
-    
+      
+    case .presentObservationModeAlert:
+      state.alert = .viewingModeAlert
+      return .none
+      
+    case let .setObservationMode(value):
+      state.settingsState.userSettings.enableObservationMode = value
+      return .merge(
+        environment.fileClient
+          .saveUserSettings(userSettings: state.settingsState.userSettings, on: environment.mainQueue)
+          .fireAndForget(),
+        environment.userDefaultsClient.setDidShowObservationModePrompt(true)
+          .fireAndForget()
+      )
+      
+    case .dismissAlert:
+      state.alert = nil
+      return .none
+      
     case let .social(socialAction):
       switch socialAction {
       case .chat(.onAppear):
@@ -461,4 +493,15 @@ extension SharedModels.Coordinate {
       longitude: location.coordinate.longitude
     )
   }
+}
+
+public extension AlertState where Action == AppAction {
+  static let viewingModeAlert = Self(
+    title: .init(L10n.Settings.Observationmode.title),
+    message: .init(L10n.AppCore.ViewingModeAlert.message),
+    buttons: [
+      .default(.init(L10n.AppCore.ViewingModeAlert.riding), action: .send(.setObservationMode(false))),
+      .default(.init(L10n.AppCore.ViewingModeAlert.watching), action: .send(.setObservationMode(true))),
+    ]
+  )
 }
