@@ -67,13 +67,15 @@ public struct AppState: Equatable {
   public var chatMessageBadgeCount: UInt = 0
   public var hasConnectivity = true
 
+  @BindableState
   public var presentEventsBottomSheet = false
   public var alert: AlertState<AppAction>?
 }
 
 // MARK: Actions
 
-public enum AppAction: Equatable {
+public enum AppAction: Equatable, BindableAction {
+  case binding(BindingAction<AppState>)
   case appDelegate(AppDelegateAction)
   case onAppear
   case onDisappear
@@ -230,6 +232,9 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   ),
   Reducer { state, action, environment in
     switch action {
+    case .binding:
+      return .none
+      
     case let .appDelegate(appDelegateAction):
       return .none
       
@@ -454,6 +459,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     }
   }
 )
+.binding()
 .onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
   struct RideEventSettingsChange: Hashable {}
 
@@ -464,6 +470,10 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   } else {
     return .none
   }
+}
+.onChange(of: \.mapFeatureState.location) { location, state, _, _ in
+  state.nextRideState.userLocation = Coordinate(location)
+  return .none
 }
 
 extension SharedModels.Location {

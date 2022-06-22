@@ -191,6 +191,7 @@ class AppFeatureTests: XCTestCase {
       $0.mapFeatureState.isRequestingCurrentLocation = false
       $0.mapFeatureState.location = currentLocation
       $0.didResolveInitialLocation = true
+      $0.nextRideState.userLocation = .init(currentLocation)
     }
     store.receive(.fetchData)
     store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
@@ -332,6 +333,7 @@ class AppFeatureTests: XCTestCase {
       $0.mapFeatureState.isRequestingCurrentLocation = false
       $0.mapFeatureState.location = currentLocation
       $0.didResolveInitialLocation = true
+      $0.nextRideState.userLocation = .init(currentLocation)
     }
     store.receive(.fetchData)
     

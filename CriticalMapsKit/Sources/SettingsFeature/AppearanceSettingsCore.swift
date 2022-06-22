@@ -6,9 +6,8 @@ import UIKit.UIInterface
 
 // MARK: Action
 
-public enum AppearanceSettingsAction: Equatable {
-  case setColorScheme(AppearanceSettings.ColorScheme)
-  case setAppIcon(AppIcon)
+public enum AppearanceSettingsAction: Equatable, BindableAction {
+  case binding(BindingAction<AppearanceSettings>)
 }
 
 // MARK: Environment
@@ -32,14 +31,16 @@ public typealias AppearanceReducer = Reducer<AppearanceSettings, AppearanceSetti
 /// Reducer to handle appearance settings actions 
 public let appearanceSettingsReducer = AppearanceReducer { state, action, environment in
   switch action {
-  case let .setColorScheme(scheme):
-    state.colorScheme = scheme
+  case .binding(\.$colorScheme):
     return environment.setUserInterfaceStyle(state.colorScheme.userInterfaceStyle)
       .fireAndForget()
 
-  case let .setAppIcon(appIcon):
-    state.appIcon = appIcon
-    return environment.uiApplicationClient.setAlternateIconName(appIcon.rawValue)
+  case .binding(\.$appIcon):
+    return environment.uiApplicationClient.setAlternateIconName(state.appIcon.rawValue)
       .fireAndForget()
+    
+  case .binding:
+    return .none
   }
 }
+.binding()

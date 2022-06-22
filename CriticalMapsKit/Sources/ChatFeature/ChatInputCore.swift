@@ -5,6 +5,7 @@ import UIKit
 // MARK: State
 
 public struct ChatInputState: Equatable {
+  @BindableState
   public var isEditing = false
   public var message = ""
   public var isSending = false
@@ -34,8 +35,8 @@ public struct ChatInputState: Equatable {
 
 // MARK: Actions
 
-public enum ChatInputAction: Equatable {
-  case isEditingChanged(Bool)
+public enum ChatInputAction: Equatable, BindableAction {
+  case binding(BindingAction<ChatInputState>)
   case messageChanged(String)
   case onCommit
 }
@@ -50,16 +51,15 @@ public struct ChatInputEnvironment {
 
 public let chatInputReducer = Reducer<ChatInputState, ChatInputAction, ChatInputEnvironment> { state, action, _ in
   switch action {
+  case .binding:
+    return .none
+    
   case let .messageChanged(message):
-    struct ChatMessageId: Hashable {}
     state.message = message
     return .none
-
-  case let .isEditingChanged(value):
-    state.isEditing = value
-    return .none
-
+    
   case .onCommit:
     return .none
   }
 }
+.binding()

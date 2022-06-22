@@ -71,10 +71,7 @@ public struct AppView: View {
       self.orientation = newOrientation
     })
     .bottomSheet(
-      isPresented: viewStore.binding(
-        get: \.presentEventsBottomSheet,
-        send: AppAction.setEventsBottomSheet
-      ),
+      isPresented: viewStore.binding(\.$presentEventsBottomSheet),
       detents: [.medium(), .large()],
       largestUndimmedDetentIdentifier: .medium,
       prefersGrabberVisible: true,
@@ -207,8 +204,7 @@ public struct AppView: View {
           isVisible: $0.mapFeatureState.isNextRideBannerVisible,
           isExpanded: $0.mapFeatureState.isNextRideBannerExpanded
         )
-      }
-      ),
+      }),
       action: { viewStore.send(.map(.focusNextRide(viewStore.nextRideState.nextRide?.coordinate))) },
       content: {
         VStack(alignment: .leading, spacing: .grid(1)) {
