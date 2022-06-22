@@ -388,6 +388,95 @@ final class NextRideCoreTests: XCTestCase {
       $0.nextRide = rides[0]
     }
   }
+  
+  func test_getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() {
+    let rides = [
+      Ride(
+        id: 0,
+        slug: nil,
+        title: "CriticalMaps Berlin",
+        description: nil,
+        dateTime: firstOfApril.addingTimeInterval(74000),
+        location: nil,
+        latitude: 53.1235,
+        longitude: 13.4234,
+        estimatedParticipants: nil,
+        estimatedDistance: nil,
+        estimatedDuration: nil,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      ),
+      Ride(
+        id: 7,
+        slug: nil,
+        title: "Critical Maps Berlin",
+        description: nil,
+        dateTime: firstOfApril,
+        location: nil,
+        latitude: 63.1235,
+        longitude: 13.4234,
+        estimatedParticipants: nil,
+        estimatedDistance: nil,
+        estimatedDuration: nil,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      ),
+      Ride(
+        id: 4,
+        slug: nil,
+        title: "Critical Maps Pankow",
+        description: nil,
+        dateTime: firstOfApril,
+        location: nil,
+        latitude: 53.1235,
+        longitude: 13.4234,
+        estimatedParticipants: nil,
+        estimatedDistance: nil,
+        estimatedDuration: nil,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      )
+    ]
+    let service = NextRideService(nextRide: { _, _, _ in
+      Just(rides)
+        .setFailureType(to: NextRideService.Failure.self)
+        .eraseToAnyPublisher()
+    })
+    var settings: UserDefaultsClient = .noop
+    settings.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    // when
+    var state = NextRideState()
+    state.userLocation = .init(latitude: 53.1235, longitude: 13.4248)
+  
+    let store = TestStore(
+      initialState: state,
+      reducer: nextRideReducer,
+      environment: NextRideEnvironment(
+        service: service,
+        store: settings,
+        now: now,
+        mainQueue: testScheduler.eraseToAnyScheduler(),
+        coordinateObfuscator: .live
+      )
+    )
+    // then
+    store.send(.getNextRide(coordinate))
+    store.receive(.nextRideResponse(.success(rides))) {
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+    }
+    store.receive(.setNextRide(rides[2])) {
+      $0.nextRide = rides[2]
+    }
+  }
 
   func test_getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() {
     let rides = [

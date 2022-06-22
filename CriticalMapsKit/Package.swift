@@ -145,6 +145,7 @@ let package = Package(
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient",
+        .product(name: "ComposableCoreLocation", package: "composable-core-location"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
