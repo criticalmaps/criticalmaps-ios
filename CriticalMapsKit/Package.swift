@@ -175,7 +175,8 @@ let package = Package(
     .target(
       name: "SharedModels",
       dependencies: [
-        "Helpers"
+        "Helpers",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .target(
