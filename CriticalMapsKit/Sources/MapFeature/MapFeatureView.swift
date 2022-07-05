@@ -22,21 +22,12 @@ public struct MapFeatureView: View {
     ZStack(alignment: .topLeading) {
       MapView(
         riderCoordinates: viewStore.riderLocations,
-        userTrackingMode: viewStore.binding(
-          get: { $0.userTrackingMode.mode },
-          send: MapFeatureAction.updateUserTrackingMode
-        ),
+        userTrackingMode: viewStore.binding(\.$userTrackingMode),
         shouldAnimateUserTrackingMode: viewStore.shouldAnimateTrackingMode,
         nextRide: viewStore.nextRide,
         rideEvents: viewStore.rideEvents,
-        centerRegion: viewStore.binding(
-          get: \.centerRegion,
-          send: MapFeatureAction.updateCenterRegion
-        ),
-        centerEventRegion: viewStore.binding(
-          get: \.eventCenter,
-          send: MapFeatureAction.updateCenterRegion
-        ),
+        centerRegion: viewStore.binding(\.$centerRegion),
+        centerEventRegion: viewStore.binding(\.$eventCenter),
         mapMenuShareEventHandler: {
           viewStore.send(.showShareSheet(true))
         },
@@ -47,10 +38,7 @@ public struct MapFeatureView: View {
       .edgesIgnoringSafeArea(.all)
     }
     .sheet(
-      isPresented: viewStore.binding(
-        get: \.presentShareSheet,
-        send: MapFeatureAction.showShareSheet
-      ),
+      isPresented: viewStore.binding(\.$presentShareSheet),
       onDismiss: { viewStore.send(.showShareSheet(false)) },
       content: {
         ShareSheetView(activityItems: [viewStore.nextRide?.shareMessage ?? ""])

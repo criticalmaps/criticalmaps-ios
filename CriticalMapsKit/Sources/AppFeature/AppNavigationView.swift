@@ -100,7 +100,7 @@ public struct AppNavigationView: View {
         get: \.isChatViewPresented,
         send: AppAction.dismissSheetView
       ),
-      onDismiss: nil,
+      onDismiss: { viewStore.send(.dismissSheetView) },
       content: {
         SocialView(
           store: store.scope(
@@ -131,9 +131,9 @@ public struct AppNavigationView: View {
     .sheet(
       isPresented: viewStore.binding(
         get: \.isRulesViewPresented,
-        send: { _ in AppAction.dismissSheetView }
+        send: AppAction.dismissSheetView
       ),
-      onDismiss: nil,
+      onDismiss: { viewStore.send(.dismissSheetView) },
       content: {
         CMNavigationView {
           GuideView()
@@ -161,9 +161,9 @@ public struct AppNavigationView: View {
     .sheet(
       isPresented: viewStore.binding(
         get: \.isSettingsViewPresented,
-        send: { _ in AppAction.dismissSheetView }
+        send: AppAction.dismissSheetView
       ),
-      onDismiss: nil,
+      onDismiss: { viewStore.send(.dismissSheetView) },
       content: {
         CMNavigationView {
           SettingsView(

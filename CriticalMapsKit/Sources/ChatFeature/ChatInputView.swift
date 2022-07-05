@@ -35,10 +35,7 @@ public struct BasicInputView: View {
         send: { ChatInputAction.messageChanged($0.string) }
       ),
       placeholder: placeholder,
-      isEditing: viewStore.binding(
-        get: \.isEditing,
-        send: ChatInputAction.isEditingChanged
-      ),
+      isEditing: viewStore.binding(\.$isEditing),
       textAttributes: .chat
     )
     .accessibilityLabel(Text(L10n.A11y.ChatInput.label))

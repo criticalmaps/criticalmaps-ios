@@ -12,7 +12,7 @@ struct MapView: ViewRepresentable {
   typealias MenuActionHandle = () -> Void
 
   var riderCoordinates: [Rider]
-  @Binding var userTrackingMode: MKUserTrackingMode
+  @Binding var userTrackingMode: UserTrackingState
   var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
   var rideEvents: [Ride] = []
@@ -73,7 +73,7 @@ struct MapView: ViewRepresentable {
       mapView.setRegion(center.asMKCoordinateRegion, animated: true)
       mapView.setUserTrackingMode(.none, animated: false)
     } else {
-      mapView.setUserTrackingMode(userTrackingMode, animated: shouldAnimateUserTrackingMode)
+      mapView.setUserTrackingMode(userTrackingMode.mode, animated: shouldAnimateUserTrackingMode)
     }
   }
 
@@ -114,7 +114,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   }
 
   func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
-    parent.userTrackingMode = mode
+    parent.userTrackingMode = .init(userTrackingMode: mode)
   }
 
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
