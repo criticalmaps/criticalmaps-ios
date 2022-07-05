@@ -214,7 +214,6 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
 )
 .binding()
 
-
 private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Action, MapFeatureEnvironment> { state, action, environment in
   switch action {
   case .didChangeAuthorization(.authorizedAlways),

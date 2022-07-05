@@ -17,7 +17,7 @@ public struct NextRideState: Equatable {
   public var hasConnectivity: Bool
   public var nextRide: Ride?
   public var rideEvents: [Ride] = []
-  
+
   public var userLocation: Coordinate?
 }
 
@@ -113,7 +113,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
       .filter(\.enabled)
       .sorted { lhs, rhs in
         let byDate = lhs.dateTime < rhs.dateTime
-        
+
         guard
           let userLocation = state.userLocation,
           let lhsCoordinate = lhs.coordinate,
@@ -121,7 +121,7 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
         else {
           return byDate
         }
-        
+
         if Calendar.current.isDate(lhs.dateTime, inSameDayAs: rhs.dateTime) {
           return lhsCoordinate.distance(from: userLocation) < rhsCoordinate.distance(from: userLocation)
         } else {

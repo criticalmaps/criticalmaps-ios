@@ -38,7 +38,7 @@ public let appearanceSettingsReducer = AppearanceReducer { state, action, enviro
   case .binding(\.$appIcon):
     return environment.uiApplicationClient.setAlternateIconName(state.appIcon.rawValue)
       .fireAndForget()
-    
+
   case .binding:
     return .none
   }

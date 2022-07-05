@@ -53,11 +53,11 @@ public let chatInputReducer = Reducer<ChatInputState, ChatInputAction, ChatInput
   switch action {
   case .binding:
     return .none
-    
+
   case let .messageChanged(message):
     state.message = message
     return .none
-    
+
   case .onCommit:
     return .none
   }
