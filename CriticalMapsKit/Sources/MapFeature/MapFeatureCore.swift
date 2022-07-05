@@ -11,14 +11,16 @@ public struct MapFeatureState: Equatable {
   public var riderLocations: [Rider]
   public var nextRide: Ride?
 
+  @BindableState
   public var eventCenter: CoordinateRegion?
   public var rideEvents: [Ride] = []
-
+  @BindableState
   public var userTrackingMode: UserTrackingState
+  @BindableState
   public var centerRegion: CoordinateRegion?
   
   public var shouldAnimateTrackingMode = true
-  
+  @BindableState
   public var presentShareSheet = false
   
   public var isNextRideBannerVisible = false
@@ -43,11 +45,12 @@ public struct MapFeatureState: Equatable {
   }
 }
 
-public enum MapFeatureAction: Equatable {
+public enum MapFeatureAction: BindableAction, Equatable {
+  case binding(BindingAction<MapFeatureState>)
   case onAppear
   case locationRequested
   case nextTrackingMode
-  case updateUserTrackingMode(MKUserTrackingMode)
+  case updateUserTrackingMode(UserTrackingState)
   case updateCenterRegion(CoordinateRegion?)
   case focusNextRide(Coordinate?)
   case focusRideEvent(Coordinate?)
@@ -93,6 +96,9 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
   ),
   Reducer { state, action, environment in
     switch action {
+    case .binding:
+      return .none
+      
     case let .setNextRideBannerVisible(value):
       state.isNextRideBannerVisible = value
       return .none
@@ -146,18 +152,18 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
     case .nextTrackingMode:
       switch state.userTrackingMode.mode {
       case .follow:
-        return Effect(value: .updateUserTrackingMode(.followWithHeading))
+        return Effect(value: .updateUserTrackingMode(.init(userTrackingMode: .followWithHeading)))
       case .followWithHeading:
-        return Effect(value: .updateUserTrackingMode(.none))
+        return Effect(value: .updateUserTrackingMode(.init(userTrackingMode: .none)))
       case .none:
-        return Effect(value: .updateUserTrackingMode(.follow))
+        return Effect(value: .updateUserTrackingMode(.init(userTrackingMode: .follow)))
       @unknown default:
         fatalError()
       }
       
     case let .updateUserTrackingMode(mode):
-      state.shouldAnimateTrackingMode = mode.rawValue != state.userTrackingMode.mode.rawValue
-      state.userTrackingMode.mode = mode
+      state.shouldAnimateTrackingMode = mode.mode != state.userTrackingMode.mode
+      state.userTrackingMode.mode = mode.mode
       return .none
 
     case let .focusNextRide(coordinate):
@@ -206,6 +212,8 @@ public let mapFeatureReducer = Reducer<MapFeatureState, MapFeatureAction, MapFea
     }
   }
 )
+.binding()
+
 
 private let locationManagerReducer = Reducer<MapFeatureState, LocationManager.Action, MapFeatureEnvironment> { state, action, environment in
   switch action {

@@ -25,7 +25,7 @@ class AppearanceSettingsCoreTests: XCTestCase {
       reducer: appearanceSettingsReducer,
       environment: env
     )
-    store.send(.setAppIcon(.appIcon4)) { state in
+    store.send(.set(\.$appIcon, .appIcon4)) { state in
       state.appIcon = .appIcon4
     }
     XCTAssertNoDifference(overriddenIconName, "appIcon-4")
@@ -47,12 +47,12 @@ class AppearanceSettingsCoreTests: XCTestCase {
       environment: environment
     )
 
-    store.send(.setColorScheme(.light)) {
+    store.send(.set(\.$colorScheme, .light)) {
       $0.colorScheme = .light
     }
     XCTAssertNoDifference(overriddenUserInterfaceStyle, .light)
 
-    store.send(.setColorScheme(.system)) {
+    store.send(.set(\.$colorScheme, .system)) {
       $0.colorScheme = .system
     }
     XCTAssertNoDifference(overriddenUserInterfaceStyle, .unspecified)

@@ -1,6 +1,6 @@
 import Combine
 import ComposableArchitecture
-import CoreLocation
+import ComposableCoreLocation
 import Foundation
 import Logger
 import SharedModels
@@ -17,6 +17,8 @@ public struct NextRideState: Equatable {
   public var hasConnectivity: Bool
   public var nextRide: Ride?
   public var rideEvents: [Ride] = []
+  
+  public var userLocation: Coordinate?
 }
 
 // MARK: Actions
@@ -109,8 +111,24 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
           .contains(type)
       }
       .filter(\.enabled)
-      .sorted(by: \.dateTime)
-      .first(where: { ride in ride.dateTime > env.now() })
+      .sorted { lhs, rhs in
+        let byDate = lhs.dateTime < rhs.dateTime
+        
+        guard
+          let userLocation = state.userLocation,
+          let lhsCoordinate = lhs.coordinate,
+          let rhsCoordinate = rhs.coordinate
+        else {
+          return byDate
+        }
+        
+        if Calendar.current.isDate(lhs.dateTime, inSameDayAs: rhs.dateTime) {
+          return lhsCoordinate.distance(from: userLocation) < rhsCoordinate.distance(from: userLocation)
+        } else {
+          return byDate
+        }
+      }
+      .first { ride in ride.dateTime > env.now() }
 
     guard let filteredRide = ride else {
       logger.info("No upcoming events after filter")
@@ -153,10 +171,21 @@ private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .c
   return max(currentMonthOfFallback, month)
 }
 
+// MARK: Helper
+
 public extension Array where Element == Ride {
   func sortByDateAndFilterBeforeDate(_ now: () -> Date) -> Self {
     lazy
       .sorted(by: \.dateTime)
       .filter { $0.dateTime > now() }
+  }
+}
+
+extension SharedModels.Coordinate {
+  init(_ location: ComposableCoreLocation.Location) {
+    self = .init(
+      latitude: location.coordinate.latitude,
+      longitude: location.coordinate.longitude
+    )
   }
 }

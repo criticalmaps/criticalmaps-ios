@@ -17,13 +17,7 @@ public struct AppearanceSettingsView: View {
   public var body: some View {
     SettingsForm {
       SettingsSection(title: "Theme") {
-        Picker(
-          "",
-          selection: self.viewStore.binding(
-            get: \.colorScheme,
-            send: AppearanceSettingsAction.setColorScheme
-          )
-        ) {
+        Picker("", selection: viewStore.binding(\.$colorScheme)) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
             Text($0.title)
           }
@@ -33,12 +27,7 @@ public struct AppearanceSettingsView: View {
         .padding(.horizontal, .grid(4))
 
         SettingsSection(title: L10n.Settings.appIcon) {
-          AppIconPicker(
-            appIcon: viewStore.binding(
-              get: \.appIcon,
-              send: AppearanceSettingsAction.setAppIcon
-            )
-          )
+          AppIconPicker(appIcon: viewStore.binding(\.$appIcon))
         }
       }
     }

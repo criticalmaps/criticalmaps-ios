@@ -16,4 +16,14 @@ public extension Coordinate {
   var asCLLocationCoordinate: CLLocationCoordinate2D {
     CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
+  
+  func distance(from coordinate: Coordinate) -> Double {
+    CLLocation(self).distance(from: CLLocation(coordinate))
+  }
+}
+
+extension CLLocation {
+  convenience init(_ coordinate: Coordinate) {
+    self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+  }
 }

@@ -13,10 +13,10 @@ class ChatInputCoreTests: XCTestCase {
       environment: ChatInputEnvironment()
     )
     
-    testStore.send(.isEditingChanged(true)) { state in
+    testStore.send(.set(\.$isEditing, true)) { state in
       state.isEditing = true
     }
-    testStore.send(.isEditingChanged(false)) { state in
+    testStore.send(.set(\.$isEditing, false)) { state in
       state.isEditing = false
     }
   }
