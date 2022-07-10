@@ -21,13 +21,12 @@ http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 ## What's this app?
 
-This iOS app is made for Critical Maps. It tracks your location and shares it via a map with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
+This iOS app is made for Critical Maps. It tracks your location and shares it with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
 
 ## Where can I get the app?
 
-- **iTunes:** https://itunes.apple.com/app/critical-maps/id918669647
-- **TestFlight:** https://testflight.apple.com/join/nyGeQVxk
-- **Website:** https://criticalmaps.net
+- [AppStore](https://apps.apple.com/de/app/critical-maps/id918669647)
+- [TestFlight](https://testflight.apple.com/join/nyGeQVxk)
 
 ## Project Setup
 
