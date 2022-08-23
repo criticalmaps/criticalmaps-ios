@@ -25,7 +25,7 @@ public struct NextRideState: Equatable {
 
 public enum NextRideAction: Equatable {
   case getNextRide(Coordinate)
-  case nextRideResponse(Result<[Ride], NextRideService.Failure>)
+  case nextRideResponse(TaskResult<[Ride]>)
   case setNextRide(Ride)
 }
 
@@ -75,14 +75,16 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
 
     let requestRidesInMonth: Int = queryMonth(in: env.now)
 
-    return env.service.nextRide(
-      obfuscatedCoordinate,
-      env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
-      requestRidesInMonth
-    )
-    .receive(on: env.mainQueue)
-    .catchToEffect()
-    .map(NextRideAction.nextRideResponse)
+    return .task {
+      await .nextRideResponse(
+        TaskResult { try await env.service.nextRide(
+          obfuscatedCoordinate,
+          env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
+          requestRidesInMonth
+        )
+        }
+      )
+    }
 
   case let .nextRideResponse(.failure(error)):
     logger.error("Get next ride failed 🛑 with error: \(error)")
