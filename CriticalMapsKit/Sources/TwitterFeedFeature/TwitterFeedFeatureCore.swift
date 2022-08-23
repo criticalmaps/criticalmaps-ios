@@ -22,7 +22,7 @@ public struct TwitterFeedState: Equatable {
 public enum TwitterFeedAction: Equatable {
   case onAppear
   case fetchData
-  case fetchDataResponse(Result<[Tweet], NSError>)
+  case fetchDataResponse(TaskResult<[Tweet]>)
   case openTweet(Tweet)
 }
 
@@ -58,12 +58,10 @@ public let twitterFeedReducer =
 
       case .fetchData:
         state.twitterFeedIsLoading = true
-        return environment.service
-          .getTwitterFeed()
-          .receive(on: environment.mainQueue)
-          .catchToEffect()
-          .map(TwitterFeedAction.fetchDataResponse)
-
+        return .task {
+          await .fetchDataResponse(TaskResult { try await environment.service.getTweets() })
+        }
+        
       case let .fetchDataResponse(.success(tweets)):
         state.twitterFeedIsLoading = false
 
@@ -79,8 +77,7 @@ public let twitterFeedReducer =
         state.contentState = .error(
           ErrorState(
             title: ErrorState.default.title,
-            body: ErrorState.default.body,
-            error: error
+            body: ErrorState.default.body
           )
         )
         return .none
