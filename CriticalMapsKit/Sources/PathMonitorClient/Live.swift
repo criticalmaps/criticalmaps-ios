@@ -4,17 +4,14 @@ import Network
 public extension PathMonitorClient {
   static func live(queue: DispatchQueue) -> Self {
     let monitor = NWPathMonitor()
-    let subject = PassthroughSubject<NWPath, Never>()
-    monitor.pathUpdateHandler = subject.send
-
-    return Self(
-      networkPathPublisher: subject
-        .handleEvents(
-          receiveSubscription: { _ in monitor.start(queue: queue) },
-          receiveCancel: monitor.cancel
-        )
-        .map(NetworkPath.init(rawValue:))
-        .eraseToAnyPublisher()
-    )
+    monitor.start(queue: queue)
+    return Self {
+      AsyncStream { continuation in
+        monitor.pathUpdateHandler = { path in
+          continuation.yield(NetworkPath(rawValue: path))
+        }
+        continuation.onTermination = { _ in monitor.cancel() }
+      }
+    }
   }
 }
