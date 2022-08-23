@@ -1,15 +1,12 @@
-import Combine
 import Foundation
 import SharedModels
 
 // Interface
 /// A Service to send and fetch locations and chat messages from the Criticl Maps API
 public struct LocationsAndChatDataService {
-  public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, NSError>
-
-  public init(
-    getLocationsAndSendMessages: @escaping (SendLocationAndChatMessagesPostBody) -> AnyPublisher<LocationAndChatMessages, NSError>
-  ) {
+  public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages
+  
+  public init(getLocationsAndSendMessages: @escaping (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages) {
     self.getLocationsAndSendMessages = getLocationsAndSendMessages
   }
 }
@@ -19,19 +16,15 @@ public struct LocationsAndChatDataService {
 public extension LocationsAndChatDataService {
   static func live(
     apiClient: APIClient = .live
-  ) -> Self { Self(
-    getLocationsAndSendMessages: { body in
-      let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
+  ) -> Self {
+    Self(
+      getLocationsAndSendMessages: { body in
+        let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
 
-      return apiClient.dispatch(request)
-        .decode(
-          type: PostLocationAndChatMessagesRequest.ResponseDataType.self,
-          decoder: request.decoder
-        )
-        .mapError { $0 as NSError }
-        .eraseToAnyPublisher()
-    }
-  )
+        let data = try await apiClient.dispatch(request)
+        return try request.decode(data)
+      }
+    )
   }
 }
 
@@ -39,17 +32,12 @@ public extension LocationsAndChatDataService {
 
 public extension LocationsAndChatDataService {
   static let noop = Self(
-    getLocationsAndSendMessages: { _ in
-      Just(LocationAndChatMessages(locations: [:], chatMessages: [:]))
-        .setFailureType(to: NSError.self)
-        .eraseToAnyPublisher()
-    }
+    getLocationsAndSendMessages: { _ in LocationAndChatMessages(locations: [:], chatMessages: [:]) }
   )
 
   static let failing = Self(
     getLocationsAndSendMessages: { _ in
-      Fail(error: NSError(domain: "", code: 1))
-        .eraseToAnyPublisher()
+      throw NSError(domain: "", code: 1)
     }
   )
 }

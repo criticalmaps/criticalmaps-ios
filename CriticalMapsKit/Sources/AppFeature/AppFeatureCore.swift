@@ -21,7 +21,7 @@ import UserDefaultsClient
 
 public struct AppState: Equatable {
   public init(
-    locationsAndChatMessages: Result<LocationAndChatMessages, NSError>? = nil,
+    locationsAndChatMessages: TaskResult<LocationAndChatMessages>? = nil,
     didResolveInitialLocation: Bool = false,
     mapFeatureState: MapFeatureState = MapFeatureState(
       riders: [],
@@ -45,7 +45,7 @@ public struct AppState: Equatable {
     self.chatMessageBadgeCount = chatMessageBadgeCount
   }
   
-  public var locationsAndChatMessages: Result<LocationAndChatMessages, NSError>?
+  public var locationsAndChatMessages: TaskResult<LocationAndChatMessages>?
   public var didResolveInitialLocation = false
   
   // Children states
@@ -80,7 +80,7 @@ public enum AppAction: Equatable, BindableAction {
   case onAppear
   case onDisappear
   case fetchData
-  case fetchDataResponse(Result<LocationAndChatMessages, NSError>)
+  case fetchDataResponse(TaskResult<LocationAndChatMessages>)
   case userSettingsLoaded(Result<UserSettings, NSError>)
   case observeConnection
   case observeConnectionResponse(NetworkPath)
@@ -216,7 +216,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     }
   ),
   socialReducer.pullback(
-    state: \.socialState,
+    state: \AppState.socialState,
     action: /AppAction.social,
     environment: {
       SocialEnvironment(
@@ -273,12 +273,14 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         logger.info("AppAction.fetchData not executed. Not connected to internet")
         return .none
       }
-      return environment.service
-        .getLocationsAndSendMessages(postBody)
-        .receive(on: environment.mainQueue)
-        .catchToEffect()
-        .map(AppAction.fetchDataResponse)
-        .cancellable(id: GetLocationsId())
+      return .task {
+        await .fetchDataResponse(
+          TaskResult {
+            try await environment.service.getLocationsAndSendMessages(postBody)
+            
+          }
+        )
+      }
       
     case let .fetchDataResponse(.success(response)):
       state.locationsAndChatMessages = .success(response)
@@ -307,10 +309,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
       
     case .observeConnection:
-      return Effect(environment.pathMonitorClient.networkPathPublisher)
-        .receive(on: environment.mainQueue)
-        .eraseToEffect()
-        .map(AppAction.observeConnectionResponse)
+        return .run { send in
+            for await path in await environment.pathMonitorClient.networkPathPublisher() {
+                await send(.observeConnectionResponse(path))
+            }
+        }
         .cancellable(id: ObserveConnectionIdentifier())
       
     case let .observeConnectionResponse(networkPath):

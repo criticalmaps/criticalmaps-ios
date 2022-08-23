@@ -31,7 +31,7 @@ public struct ChatFeatureState: Equatable {
 
 public enum ChatFeatureAction: Equatable {
   case onAppear
-  case chatInputResponse(Result<LocationAndChatMessages, NSError>)
+  case chatInputResponse(TaskResult<LocationAndChatMessages>)
 
   case chatInput(ChatInputAction)
 }
@@ -121,11 +121,13 @@ public let chatReducer = Reducer<ChatFeatureState, ChatFeatureAction, ChatEnviro
         
         state.chatInputState.isSending = true
         
-        return environment.locationsAndChatDataService
-          .getLocationsAndSendMessages(body)
-          .receive(on: environment.mainQueue)
-          .catchToEffect()
-          .map(ChatFeatureAction.chatInputResponse)
+        return .task {
+          await .chatInputResponse(
+            TaskResult {
+              try await environment.locationsAndChatDataService.getLocationsAndSendMessages(body)
+            }
+          )
+        }
         
       default:
         return .none
