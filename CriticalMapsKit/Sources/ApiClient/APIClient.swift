@@ -1,32 +1,27 @@
-import Combine
 import Foundation
 
 /// A Client to dispatch network calls
 public struct APIClient {
-  var networkDispatcher: () -> NetworkDispatcher
+  var networkDispatcher: NetworkDispatcher
 
-  public init(networkDispatcher: @escaping () -> NetworkDispatcher) {
+  public init(networkDispatcher: NetworkDispatcher) {
     self.networkDispatcher = networkDispatcher
   }
-
-  /// Dispatches a Request and returns a publisher
+  
+  /// Dispatches a Request and returns its data
   /// - Parameter request: Request to Dispatch
-  /// - Returns: A publisher containing decoded data or an error
-  public func dispatch<R: APIRequest>(_ request: R) -> AnyPublisher<Data, NetworkRequestError> {
+  /// - Returns: The response data of the request
+  /// - Throws: A NetworkRquestError if the request fails
+  public func dispatch<R: APIRequest>(_ request: R) async throws -> Data {
     guard let urlRequest = try? request.makeRequest() else {
-      return Fail(
-        outputType: Data.self,
-        failure: NetworkRequestError.badRequest
-      )
-      .eraseToAnyPublisher()
+      throw NetworkRequestError.badRequest
     }
-    return networkDispatcher()
+    return try await networkDispatcher
       .dispatch(request: urlRequest)
-      .eraseToAnyPublisher()
   }
 }
 
 public extension APIClient {
-  static let live = Self(networkDispatcher: { .live })
-  static let noop = Self(networkDispatcher: { .noop })
+  static let live = Self(networkDispatcher: .live)
+  static let noop = Self(networkDispatcher: .noop)
 }

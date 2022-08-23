@@ -44,6 +44,10 @@ public extension APIRequest {
   var decoder: JSONDecoder {
     JSONDecoder()
   }
+  
+  func decode(_ data: Data) throws -> ResponseDataType {
+    try decoder.decode(ResponseDataType.self, from: data)
+  }
 }
 
 extension URLRequest {
