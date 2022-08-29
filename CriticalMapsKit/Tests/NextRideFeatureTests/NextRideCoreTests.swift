@@ -8,7 +8,7 @@ import UserDefaultsClient
 import XCTest
 
 // swiftlint:disable:next type_body_length
-final class NextRideCoreTests: XCTestCase {
+@MainActor final class NextRideCoreTests: XCTestCase {
   let now = {
     Calendar.current.date(
       from: .init(
@@ -91,12 +91,8 @@ final class NextRideCoreTests: XCTestCase {
     store.send(.getNextRide(coordinate))
   }
   
-  func test_getNextRide_shouldReturnMockRide() {
-    let service = NextRideService(nextRide: { _, _, _ in
-      Just(self.rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
-    })
+  func test_getNextRide_shouldReturnMockRide() async {
+    let service = NextRideService(nextRide: { _, _, _ in self.rides })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in try? RideEventSettings.default.encoded() }
     // when
@@ -112,19 +108,18 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    await _ = store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(rides[1])) {
+    await store.receive(.setNextRide(rides[1])) {
       $0.nextRide = self.rides[1]
     }
   }
   
-  func test_getNextRide_shouldReturnError() {
+  func test_getNextRide_shouldReturnError() async {
     let service = NextRideService(nextRide: { _, _, _ in
-      Fail(error: NextRideService.Failure(internalError: .badRequest))
-        .eraseToAnyPublisher()
+      throw NextRideService.Failure(internalError: .badRequest)
     })
     var settings = UserDefaultsClient.noop
     settings.dataForKey = { _ in
@@ -148,15 +143,13 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
   }
   
-  func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() {
+  func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(self.rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      self.rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -182,13 +175,13 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
   }
 
-  func test_getNextRide_shouldReturnRide_whenRideTypeNil() {
+  func test_getNextRide_shouldReturnRide_whenRideTypeNil() async {
     var ridesWithARideWithNilRideType: [Ride] {
       [
         Ride(
@@ -228,9 +221,7 @@ final class NextRideCoreTests: XCTestCase {
       ]
     }
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(ridesWithARideWithNilRideType)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      ridesWithARideWithNilRideType
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -249,16 +240,16 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType))) {
       $0.rideEvents = ridesWithARideWithNilRideType.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
+    await store.receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
       $0.nextRide = ridesWithARideWithNilRideType[1]
     }
   }
   
-  func test_getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() {
+  func test_getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() async {
     let rides = [
       Ride(
         id: 0,
@@ -279,9 +270,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -301,8 +290,8 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = rides
       $0.nextRide = nil
     }
@@ -320,7 +309,7 @@ final class NextRideCoreTests: XCTestCase {
     )!
   }
   
-  func test_getNextRide_returnRideFromThisMonth_whenTodayIsFriday() {
+  func test_getNextRide_returnRideFromThisMonth_whenTodayIsFriday() async {
     let rides = [
       Ride(
         id: 0,
@@ -358,9 +347,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -380,16 +367,16 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(rides[0])) {
+    await store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
     }
   }
   
-  func test_getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() {
+  func test_getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() async {
     let rides = [
       Ride(
         id: 0,
@@ -444,9 +431,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -469,16 +454,16 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(rides[2])) {
+    await store.receive(.setNextRide(rides[2])) {
       $0.nextRide = rides[2]
     }
   }
 
-  func test_getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() {
+  func test_getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() async {
     let rides = [
       Ride(
         id: 0,
@@ -516,9 +501,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -538,16 +521,16 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(rides[0])) {
+    await store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
     }
   }
 
-  func test_getNextRide_returnRideFromThisMonth_whenTodayIsSunday() {
+  func test_getNextRide_returnRideFromThisMonth_whenTodayIsSunday() async {
     let rides = [
       Ride(
         id: 0,
@@ -585,9 +568,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -607,16 +588,16 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(rides[0])) {
+    await store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
     }
   }
   
-  func test_getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() {
+  func test_getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() async {
     let rides = [
       Ride(
         id: 0,
@@ -654,9 +635,7 @@ final class NextRideCoreTests: XCTestCase {
       )
     ]
     let service = NextRideService(nextRide: { _, _, _ in
-      Just(rides)
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
+      rides
     })
     var settings: UserDefaultsClient = .noop
     settings.dataForKey = { _ in
@@ -676,11 +655,11 @@ final class NextRideCoreTests: XCTestCase {
       )
     )
     // then
-    store.send(.getNextRide(coordinate))
-    store.receive(.nextRideResponse(.success(rides))) {
+    _ = await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success(rides))) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
     }
-    store.receive(.setNextRide(rides[1])) {
+    await store.receive(.setNextRide(rides[1])) {
       $0.nextRide = rides[1]
     }
   }

@@ -1,22 +1,17 @@
 import ApiClient
 import ChatFeature
-import Combine
 import ComposableArchitecture
 import SharedModels
 import UserDefaultsClient
 import XCTest
 
-class ChatFeatureCore: XCTestCase {
+@MainActor final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
-  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() {
+  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
     let locationsAndChatDataService = LocationsAndChatDataService(
-      getLocationsAndSendMessages: { _ in
-        Just(mockResponse)
-          .setFailureType(to: NSError.self)
-          .eraseToAnyPublisher()
-      }
+      getLocationsAndSendMessages: { _ in mockResponse }
     )
     
     let testStore = TestStore(
@@ -38,23 +33,20 @@ class ChatFeatureCore: XCTestCase {
       )
     )
     
-    testStore.send(.chatInput(.onCommit)) { state in
+    _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
-    testStore.receive(.chatInputResponse(.success(mockResponse))) { state in
+    await testStore.receive(.chatInputResponse(.success(mockResponse))) { state in
       state.chatInputState.isSending = false
       state.chatInputState.message = ""
       state.chatMessages = .results(mockResponse.chatMessages)
     }
   }
   
-  func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() {
+  func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
     let error = NSError()
     let locationsAndChatDataService = LocationsAndChatDataService(
-      getLocationsAndSendMessages: { _ in
-        Fail(error: error)
-          .eraseToAnyPublisher()
-      }
+      getLocationsAndSendMessages: { _ in throw error }
     )
     
     let testStore = TestStore(
@@ -76,15 +68,15 @@ class ChatFeatureCore: XCTestCase {
       )
     )
             
-    testStore.send(.chatInput(.onCommit)) { state in
+    _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
-    testStore.receive(.chatInputResponse(.failure(error))) { state in
+    await testStore.receive(.chatInputResponse(.failure(error))) { state in
       state.chatInputState.isSending = false
     }
   }
   
-  func test_didAppear_ShouldSet_appearanceTimeinterval() {
+  func test_didAppear_ShouldSet_appearanceTimeinterval() async {
     let uuid: () -> UUID = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
     let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
     
@@ -111,10 +103,9 @@ class ChatFeatureCore: XCTestCase {
       )
     )
   
-    testStore.send(.onAppear) { _ in
-      XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
-      XCTAssertTrue(didWriteChatAppearanceTimeinterval)
-    }
+    _ = await testStore.send(.onAppear)
+    XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
+    XCTAssertTrue(didWriteChatAppearanceTimeinterval)
   }
   
   func test_chatViewState() {

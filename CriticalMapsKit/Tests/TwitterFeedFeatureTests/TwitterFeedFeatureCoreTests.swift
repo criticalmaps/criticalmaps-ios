@@ -7,19 +7,16 @@ import TwitterFeedFeature
 import UIApplicationClient
 import XCTest
 
+@MainActor
 class TwitterFeedCoreTests: XCTestCase {
-  func test_onAppear_shouldFetchTwitterData() throws {
-    let twitterFeedSubject = PassthroughSubject<[Tweet], NSError>()
-    
+  func test_onAppear_shouldFetchTwitterData() async throws {
     let request = TwitterFeedRequest()
     let decoder = request.decoder
     let tweetData = try XCTUnwrap(twitterFeedData)
     let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
     
     var service = TwitterFeedService.noop
-    service.getTwitterFeed = {
-      twitterFeedSubject.eraseToAnyPublisher()
-    }
+    service.getTweets = { feed.statuses }
     
     let store = TestStore(
       initialState: TwitterFeedState(),
@@ -31,17 +28,15 @@ class TwitterFeedCoreTests: XCTestCase {
       )
     )
     
-    store.send(.onAppear)
-    store.receive(.fetchData) {
+    await _ = store.send(.onAppear)
+    await store.receive(.fetchData) {
       $0.twitterFeedIsLoading = true
     }
     
-    twitterFeedSubject.send(feed.statuses)
-    store.receive(.fetchDataResponse(.success(feed.statuses))) {
+    await store.receive(.fetchDataResponse(.success(feed.statuses))) {
       $0.twitterFeedIsLoading = false
       $0.contentState = .results(feed.statuses)
     }
-    twitterFeedSubject.send(completion: .finished)
   }
   
   func test_openTweetUrl() throws {
