@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 
 public struct RequestTimerState: Equatable {
   public init(isTimerActive: Bool = false) {

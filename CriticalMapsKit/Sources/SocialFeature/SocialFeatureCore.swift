@@ -1,6 +1,7 @@
 import ApiClient
 import ChatFeature
 import ComposableArchitecture
+import Foundation
 import IDProvider
 import L10n
 import TwitterFeedFeature
