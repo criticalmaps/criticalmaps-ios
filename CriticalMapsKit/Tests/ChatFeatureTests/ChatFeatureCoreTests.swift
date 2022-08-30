@@ -15,15 +15,15 @@ import XCTest
     )
     
     let testStore = TestStore(
-      initialState: ChatFeatureState(
+      initialState: ChatFeature.State(
         chatMessages: .results([:]),
         chatInputState: .init(
           isEditing: true,
           message: "Hello World!"
         )
       ),
-      reducer: chatReducer,
-      environment: ChatEnvironment(
+      reducer: ChatFeature.reducer,
+      environment: ChatFeature.Environment(
         locationsAndChatDataService: locationsAndChatDataService,
         mainQueue: .immediate,
         idProvider: .noop,
@@ -50,15 +50,15 @@ import XCTest
     )
     
     let testStore = TestStore(
-      initialState: ChatFeatureState(
+      initialState: ChatFeature.State(
         chatMessages: .results([:]),
         chatInputState: .init(
           isEditing: true,
           message: "Hello World!"
         )
       ),
-      reducer: chatReducer,
-      environment: ChatEnvironment(
+      reducer: ChatFeature.reducer,
+      environment: ChatFeature.Environment(
         locationsAndChatDataService: locationsAndChatDataService,
         mainQueue: .immediate,
         idProvider: .noop,
@@ -91,9 +91,9 @@ import XCTest
     }
     
     let testStore = TestStore(
-      initialState: ChatFeatureState(),
-      reducer: chatReducer,
-      environment: ChatEnvironment(
+      initialState: ChatFeature.State(),
+      reducer: ChatFeature.reducer,
+      environment: ChatFeature.Environment(
         locationsAndChatDataService: .noop,
         mainQueue: .immediate,
         idProvider: .noop,
@@ -109,7 +109,7 @@ import XCTest
   }
   
   func test_chatViewState() {
-    let state = ChatFeatureState(
+    let state = ChatFeature.State(
       chatMessages: .results(mockResponse.chatMessages),
       chatInputState: .init()
     )

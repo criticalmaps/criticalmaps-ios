@@ -12,15 +12,15 @@ public enum SocialFeature {
   // MARK: State
   
   public struct State: Equatable {
-    public var chatFeautureState: ChatFeatureState
+    public var chatFeautureState: ChatFeature.State
     public var twitterFeedState: TwitterFeedFeature.State
     public var socialControl: SocialControl
-
+    
     public var hasConnectivity: Bool
-
+    
     public init(
       socialControl: SocialControl = .chat,
-      chatFeautureState: ChatFeatureState = .init(),
+      chatFeautureState: ChatFeature.State = .init(),
       twitterFeedState: TwitterFeedFeature.State = .init(),
       hasConnectivity: Bool = true
     ) {
@@ -30,10 +30,10 @@ public enum SocialFeature {
       self.hasConnectivity = hasConnectivity
     }
   }
-
+  
   public enum SocialControl: Int, Equatable {
     case chat, twitter
-
+    
     var title: String {
       switch self {
       case .chat:
@@ -45,16 +45,16 @@ public enum SocialFeature {
   }
   
   // MARK: Actions
-
+  
   public enum Action: Equatable {
     case setSocialSegment(Int)
-
-    case chat(ChatFeatureAction)
+    
+    case chat(ChatFeature.Action)
     case twitter(TwitterFeedFeature.Action)
   }
-
+  
   // MARK: Environment
-
+  
   public struct Environment {
     let mainQueue: AnySchedulerOf<DispatchQueue>
     let uiApplicationClient: UIApplicationClient
@@ -63,7 +63,7 @@ public enum SocialFeature {
     var uuid: () -> UUID
     var date: () -> Date
     var userDefaultsClient: UserDefaultsClient
-
+    
     public init(
       mainQueue: AnySchedulerOf<DispatchQueue>,
       uiApplicationClient: UIApplicationClient,
@@ -82,45 +82,45 @@ public enum SocialFeature {
       self.userDefaultsClient = userDefaultsClient
     }
   }
-
+  
   // MARK: Reducer
-
+  
   public static let reducer =
   Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment>.combine(
-      chatReducer.pullback(
-        state: \.chatFeautureState,
-        action: /SocialFeature.Action.chat,
-        environment: { global in
-          ChatEnvironment(
-            locationsAndChatDataService: global.locationsAndChatDataService,
-            mainQueue: global.mainQueue,
-            idProvider: global.idProvider,
-            uuid: global.uuid,
-            date: global.date,
-            userDefaultsClient: global.userDefaultsClient
-          )
-        }
-      ),
-      TwitterFeedFeature.reducer.pullback(
-        state: \.twitterFeedState,
-        action: /SocialFeature.Action.twitter,
-        environment: { global in
-          TwitterFeedFeature.Environment(
-            service: .live(),
-            mainQueue: global.mainQueue,
-            uiApplicationClient: global.uiApplicationClient
-          )
-        }
-      ),
-      Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment> { state, action, _ in
-        switch action {
-        case let .setSocialSegment(segment):
-          state.socialControl = .init(rawValue: segment)!
-          return .none
-
-        case .chat, .twitter:
-          return .none
-        }
+    ChatFeature.reducer.pullback(
+      state: \.chatFeautureState,
+      action: /SocialFeature.Action.chat,
+      environment: { global in
+        ChatFeature.Environment(
+          locationsAndChatDataService: global.locationsAndChatDataService,
+          mainQueue: global.mainQueue,
+          idProvider: global.idProvider,
+          uuid: global.uuid,
+          date: global.date,
+          userDefaultsClient: global.userDefaultsClient
+        )
       }
-    )
+    ),
+    TwitterFeedFeature.reducer.pullback(
+      state: \.twitterFeedState,
+      action: /SocialFeature.Action.twitter,
+      environment: { global in
+        TwitterFeedFeature.Environment(
+          service: .live(),
+          mainQueue: global.mainQueue,
+          uiApplicationClient: global.uiApplicationClient
+        )
+      }
+    ),
+    Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment> { state, action, _ in
+      switch action {
+      case let .setSocialSegment(segment):
+        state.socialControl = .init(rawValue: segment)!
+        return .none
+        
+      case .chat, .twitter:
+        return .none
+      }
+    }
+  )
 }

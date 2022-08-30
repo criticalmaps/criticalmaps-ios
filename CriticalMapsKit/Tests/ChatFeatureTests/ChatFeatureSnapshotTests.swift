@@ -15,7 +15,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           ]),
           chatInputState: .init()
         ),
-        reducer: chatReducer,
+        reducer: ChatFeature.reducer,
         environment: .init(
           locationsAndChatDataService: .noop,
           mainQueue: .immediate,
@@ -40,7 +40,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           ]),
           chatInputState: .init()
         ),
-        reducer: chatReducer,
+        reducer: ChatFeature.reducer,
         environment: .init(
           locationsAndChatDataService: .noop,
           mainQueue: .immediate,
