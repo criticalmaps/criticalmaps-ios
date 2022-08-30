@@ -174,6 +174,7 @@ import XCTest
     }
     
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
+    await store.receive(.observeConnectionResponse(.init(status: .satisfied)))
     await store.receive(.requestTimer(.timerTicked))
     await store.receive(.fetchData)
     await store.receive(.fetchDataResponse(.success(serviceResponse))) {
@@ -186,35 +187,21 @@ import XCTest
       $0.chatMessageBadgeCount = 6
     }
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
-    
+
     XCTAssertTrue(didRequestLocation)
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
-    
+
     await store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
       $0.mapFeatureState.isRequestingCurrentLocation = false
       $0.mapFeatureState.location = currentLocation
       $0.didResolveInitialLocation = true
       $0.nextRideState.userLocation = .init(currentLocation)
     }
-    await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
-    
-    await testScheduler.advance()
-    await store.receive(.nextRide(.nextRideResponse(.success([]))))
-//    await testScheduler.advance()
-//    await store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied)))
-    await store.receive(.nextRide(.nextRideResponse(.success([]))))
-    await testScheduler.advance(by: 12)
-    await store.receive(.requestTimer(.timerTicked))
+
     await store.receive(.fetchData)
-  
-//    await testScheduler.advance()
-    
-    await store.receive(.fetchDataResponse(.failure(testError))) {
-      $0.locationsAndChatMessages = .failure(testError)
-    }
-    await store.receive(.fetchDataResponse(.failure(testError)))
-    
-    XCTAssertTrue(didRequestAlwaysAuthorization)
+    await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
+    await store.receive(.nextRide(.nextRideResponse(.success([]))))
+    await store.receive(.fetchDataResponse(.success(serviceResponse)))
     
     // teardown
     await task.cancel()

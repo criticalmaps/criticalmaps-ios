@@ -91,7 +91,7 @@ class TweetListViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_tweetListViewSnapshot_empty_dark() {
@@ -108,7 +108,7 @@ class TweetListViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_tweetListViewSnapshot_error() {
