@@ -19,9 +19,9 @@ class TwitterFeedCoreTests: XCTestCase {
     service.getTweets = { feed.statuses }
     
     let store = TestStore(
-      initialState: TwitterFeedState(),
-      reducer: twitterFeedReducer,
-      environment: TwitterFeedEnvironment(
+      initialState: TwitterFeedFeature.State(),
+      reducer: TwitterFeedFeature.reducer,
+      environment: TwitterFeedFeature.Environment(
         service: service,
         mainQueue: .immediate,
         uiApplicationClient: .noop
@@ -54,9 +54,9 @@ class TwitterFeedCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: TwitterFeedState(),
-      reducer: twitterFeedReducer,
-      environment: TwitterFeedEnvironment(
+      initialState: TwitterFeedFeature.State(),
+      reducer: TwitterFeedFeature.reducer,
+      environment: TwitterFeedFeature.Environment(
         service: .noop,
         mainQueue: .immediate,
         uiApplicationClient: applicationClient

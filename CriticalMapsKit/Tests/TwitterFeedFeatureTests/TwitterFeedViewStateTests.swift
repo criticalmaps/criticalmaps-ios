@@ -4,7 +4,7 @@ import XCTest
 
 class TwitterFeedViewStateTests: XCTestCase {
   func test_setShouldDisplayPlaceholder() {
-    var feedState = TwitterFeedState(contentState: .loading([]))
+    var feedState = TwitterFeedFeature.State(contentState: .loading([]))
     feedState.twitterFeedIsLoading = true
     
     let viewState = TwitterFeedView.TwitterFeedViewState(feedState)
@@ -12,7 +12,7 @@ class TwitterFeedViewStateTests: XCTestCase {
   }
   
   func test_setShouldDisplayPlaceholder2() {
-    var feedState = TwitterFeedState(
+    var feedState = TwitterFeedFeature.State(
       contentState: .results([
         .init(
           id: "1",

@@ -13,7 +13,7 @@ public enum SocialFeature {
   
   public struct State: Equatable {
     public var chatFeautureState: ChatFeatureState
-    public var twitterFeedState: TwitterFeedState
+    public var twitterFeedState: TwitterFeedFeature.State
     public var socialControl: SocialControl
 
     public var hasConnectivity: Bool
@@ -21,7 +21,7 @@ public enum SocialFeature {
     public init(
       socialControl: SocialControl = .chat,
       chatFeautureState: ChatFeatureState = .init(),
-      twitterFeedState: TwitterFeedState = .init(),
+      twitterFeedState: TwitterFeedFeature.State = .init(),
       hasConnectivity: Bool = true
     ) {
       self.socialControl = socialControl
@@ -50,7 +50,7 @@ public enum SocialFeature {
     case setSocialSegment(Int)
 
     case chat(ChatFeatureAction)
-    case twitter(TwitterFeedAction)
+    case twitter(TwitterFeedFeature.Action)
   }
 
   // MARK: Environment
@@ -101,14 +101,15 @@ public enum SocialFeature {
           )
         }
       ),
-      twitterFeedReducer.pullback(
+      TwitterFeedFeature.reducer.pullback(
         state: \.twitterFeedState,
         action: /SocialFeature.Action.twitter,
-        environment: { global in TwitterFeedEnvironment(
-          service: .live(),
-          mainQueue: global.mainQueue,
-          uiApplicationClient: global.uiApplicationClient
-        )
+        environment: { global in
+          TwitterFeedFeature.Environment(
+            service: .live(),
+            mainQueue: global.mainQueue,
+            uiApplicationClient: global.uiApplicationClient
+          )
         }
       ),
       Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment> { state, action, _ in
