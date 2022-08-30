@@ -188,6 +188,7 @@ import XCTest
     }
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
 
+    XCTAssertTrue(didRequestAlwaysAuthorization)
     XCTAssertTrue(didRequestLocation)
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
 
@@ -200,8 +201,8 @@ import XCTest
 
     await store.receive(.fetchData)
     await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
-    await store.receive(.nextRide(.nextRideResponse(.success([]))))
     await store.receive(.fetchDataResponse(.success(serviceResponse)))
+    await store.receive(.nextRide(.nextRideResponse(.success([]))))
     
     // teardown
     await task.cancel()
@@ -651,7 +652,7 @@ import XCTest
     var didSaveUserSettings = false
     var didSetDidShowPrompt = false
     
-    var store = TestStore(
+    let store = TestStore(
       initialState: AppState(),
       reducer: appReducer,
       environment: AppEnvironment(
