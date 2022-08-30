@@ -77,11 +77,12 @@ public let nextRideReducer = Reducer<NextRideState, NextRideAction, NextRideEnvi
 
     return .task {
       await .nextRideResponse(
-        TaskResult { try await env.service.nextRide(
-          obfuscatedCoordinate,
-          env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
-          requestRidesInMonth
-        )
+        TaskResult {
+          try await env.service.nextRide(
+            obfuscatedCoordinate,
+            env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
+            requestRidesInMonth
+          )
         }
       )
     }
