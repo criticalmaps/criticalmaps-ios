@@ -27,7 +27,7 @@ public struct AppState: Equatable {
       riders: [],
       userTrackingMode: UserTrackingState(userTrackingMode: .follow)
     ),
-    socialState: SocialState = SocialState(),
+    socialState: SocialFeature.State = .init(),
     settingsState: SettingsState = SettingsState(),
     nextRideState: NextRideState = NextRideState(),
     requestTimer: RequestTimerState = RequestTimerState(),
@@ -53,7 +53,7 @@ public struct AppState: Equatable {
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
-  public var socialState = SocialState()
+  public var socialState = SocialFeature.State()
   public var settingsState = SettingsState()
   public var nextRideState = NextRideState()
   public var requestTimer = RequestTimerState()
@@ -96,7 +96,7 @@ public enum AppAction: Equatable, BindableAction {
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
-  case social(SocialAction)
+  case social(SocialFeature.Action)
 }
 
 // MARK: Environment
@@ -215,11 +215,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       )
     }
   ),
-  socialReducer.pullback(
+  SocialFeature.reducer.pullback(
     state: \AppState.socialState,
     action: /AppAction.social,
     environment: {
-      SocialEnvironment(
+      SocialFeature.Environment(
         mainQueue: $0.mainQueue,
         uiApplicationClient: $0.uiApplicationClient,
         locationsAndChatDataService: $0.locationsAndChatDataService,

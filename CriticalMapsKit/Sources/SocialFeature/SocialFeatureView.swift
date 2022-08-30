@@ -7,10 +7,13 @@ import TwitterFeedFeature
 public struct SocialView: View {
   @Environment(\.presentationMode) var presentationMode
 
-  let store: Store<SocialState, SocialAction>
-  @ObservedObject var viewStore: ViewStore<SocialState, SocialAction>
+  typealias State = SocialFeature.State
+  typealias Action = SocialFeature.Action
+  
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
 
-  public init(store: Store<SocialState, SocialAction>) {
+  public init(store: Store<SocialFeature.State, SocialFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -23,14 +26,14 @@ public struct SocialView: View {
           ChatView(
             store: store.scope(
               state: \.chatFeautureState,
-              action: SocialAction.chat
+              action: SocialFeature.Action.chat
             )
           )
         case .twitter:
           TwitterFeedView(
             store: store.scope(
               state: \.twitterFeedState,
-              action: SocialAction.twitter
+              action: SocialFeature.Action.twitter
             )
           )
         }
@@ -52,11 +55,11 @@ public struct SocialView: View {
             "Social Segment",
             selection: viewStore.binding(
               get: \.socialControl.rawValue,
-              send: { SocialAction.setSocialSegment(.init($0)) }
+              send: SocialFeature.Action.setSocialSegment
             )
           ) {
-            Text(SocialState.SocialControl.chat.title).tag(0)
-            Text(SocialState.SocialControl.twitter.title).tag(1)
+            Text(SocialFeature.SocialControl.chat.title).tag(0)
+            Text(SocialFeature.SocialControl.twitter.title).tag(1)
           }
           .pickerStyle(SegmentedPickerStyle())
           .frame(maxWidth: 180)
@@ -70,13 +73,13 @@ public struct SocialView: View {
 
 struct SocialView_Previews: PreviewProvider {
   static var previews: some View {
-    SocialView(store: Store<SocialState, SocialAction>(
-      initialState: SocialState(
+    SocialView(store: Store<SocialFeature.State, SocialFeature.Action>(
+      initialState: SocialFeature.State(
         chatFeautureState: .init(),
         twitterFeedState: .init()
       ),
-      reducer: socialReducer,
-      environment: SocialEnvironment(
+      reducer: SocialFeature.reducer,
+      environment: SocialFeature.Environment(
         mainQueue: .failing,
         uiApplicationClient: .noop,
         locationsAndChatDataService: .noop,

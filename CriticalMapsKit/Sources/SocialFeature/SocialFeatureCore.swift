@@ -8,25 +8,27 @@ import TwitterFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 
-// MARK: State
+public enum SocialFeature {
+  // MARK: State
+  
+  public struct State: Equatable {
+    public var chatFeautureState: ChatFeatureState
+    public var twitterFeedState: TwitterFeedState
+    public var socialControl: SocialControl
 
-public struct SocialState: Equatable {
-  public var chatFeautureState: ChatFeatureState
-  public var twitterFeedState: TwitterFeedState
-  public var socialControl: SocialControl
+    public var hasConnectivity: Bool
 
-  public var hasConnectivity: Bool
-
-  public init(
-    socialControl: SocialControl = .chat,
-    chatFeautureState: ChatFeatureState = .init(),
-    twitterFeedState: TwitterFeedState = .init(),
-    hasConnectivity: Bool = true
-  ) {
-    self.socialControl = socialControl
-    self.chatFeautureState = chatFeautureState
-    self.twitterFeedState = twitterFeedState
-    self.hasConnectivity = hasConnectivity
+    public init(
+      socialControl: SocialControl = .chat,
+      chatFeautureState: ChatFeatureState = .init(),
+      twitterFeedState: TwitterFeedState = .init(),
+      hasConnectivity: Bool = true
+    ) {
+      self.socialControl = socialControl
+      self.chatFeautureState = chatFeautureState
+      self.twitterFeedState = twitterFeedState
+      self.hasConnectivity = hasConnectivity
+    }
   }
 
   public enum SocialControl: Int, Equatable {
@@ -41,83 +43,83 @@ public struct SocialState: Equatable {
       }
     }
   }
-}
+  
+  // MARK: Actions
 
-// MARK: Actions
+  public enum Action: Equatable {
+    case setSocialSegment(Int)
 
-public enum SocialAction: Equatable {
-  case setSocialSegment(Int)
-
-  case chat(ChatFeatureAction)
-  case twitter(TwitterFeedAction)
-}
-
-// MARK: Environment
-
-public struct SocialEnvironment {
-  let mainQueue: AnySchedulerOf<DispatchQueue>
-  let uiApplicationClient: UIApplicationClient
-  var locationsAndChatDataService: LocationsAndChatDataService
-  var idProvider: IDProvider
-  var uuid: () -> UUID
-  var date: () -> Date
-  var userDefaultsClient: UserDefaultsClient
-
-  public init(
-    mainQueue: AnySchedulerOf<DispatchQueue>,
-    uiApplicationClient: UIApplicationClient,
-    locationsAndChatDataService: LocationsAndChatDataService,
-    idProvider: IDProvider,
-    uuid: @escaping () -> UUID,
-    date: @escaping () -> Date,
-    userDefaultsClient: UserDefaultsClient
-  ) {
-    self.mainQueue = mainQueue
-    self.uiApplicationClient = uiApplicationClient
-    self.locationsAndChatDataService = locationsAndChatDataService
-    self.idProvider = idProvider
-    self.uuid = uuid
-    self.date = date
-    self.userDefaultsClient = userDefaultsClient
+    case chat(ChatFeatureAction)
+    case twitter(TwitterFeedAction)
   }
-}
 
-// MARK: Reducer
+  // MARK: Environment
 
-public let socialReducer =
-  Reducer<SocialState, SocialAction, SocialEnvironment>.combine(
-    chatReducer.pullback(
-      state: \.chatFeautureState,
-      action: /SocialAction.chat,
-      environment: { global in
-        ChatEnvironment(
-          locationsAndChatDataService: global.locationsAndChatDataService,
-          mainQueue: global.mainQueue,
-          idProvider: global.idProvider,
-          uuid: global.uuid,
-          date: global.date,
-          userDefaultsClient: global.userDefaultsClient
-        )
-      }
-    ),
-    twitterFeedReducer.pullback(
-      state: \.twitterFeedState,
-      action: /SocialAction.twitter,
-      environment: { global in TwitterFeedEnvironment(
-        service: .live(),
-        mainQueue: global.mainQueue,
-        uiApplicationClient: global.uiApplicationClient
-      )
-      }
-    ),
-    Reducer<SocialState, SocialAction, SocialEnvironment> { state, action, _ in
-      switch action {
-      case let .setSocialSegment(segment):
-        state.socialControl = .init(rawValue: segment)!
-        return .none
+  public struct Environment {
+    let mainQueue: AnySchedulerOf<DispatchQueue>
+    let uiApplicationClient: UIApplicationClient
+    var locationsAndChatDataService: LocationsAndChatDataService
+    var idProvider: IDProvider
+    var uuid: () -> UUID
+    var date: () -> Date
+    var userDefaultsClient: UserDefaultsClient
 
-      case .chat, .twitter:
-        return .none
-      }
+    public init(
+      mainQueue: AnySchedulerOf<DispatchQueue>,
+      uiApplicationClient: UIApplicationClient,
+      locationsAndChatDataService: LocationsAndChatDataService,
+      idProvider: IDProvider,
+      uuid: @escaping () -> UUID,
+      date: @escaping () -> Date,
+      userDefaultsClient: UserDefaultsClient
+    ) {
+      self.mainQueue = mainQueue
+      self.uiApplicationClient = uiApplicationClient
+      self.locationsAndChatDataService = locationsAndChatDataService
+      self.idProvider = idProvider
+      self.uuid = uuid
+      self.date = date
+      self.userDefaultsClient = userDefaultsClient
     }
-  )
+  }
+
+  // MARK: Reducer
+
+  public static let reducer =
+  Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment>.combine(
+      chatReducer.pullback(
+        state: \.chatFeautureState,
+        action: /SocialFeature.Action.chat,
+        environment: { global in
+          ChatEnvironment(
+            locationsAndChatDataService: global.locationsAndChatDataService,
+            mainQueue: global.mainQueue,
+            idProvider: global.idProvider,
+            uuid: global.uuid,
+            date: global.date,
+            userDefaultsClient: global.userDefaultsClient
+          )
+        }
+      ),
+      twitterFeedReducer.pullback(
+        state: \.twitterFeedState,
+        action: /SocialFeature.Action.twitter,
+        environment: { global in TwitterFeedEnvironment(
+          service: .live(),
+          mainQueue: global.mainQueue,
+          uiApplicationClient: global.uiApplicationClient
+        )
+        }
+      ),
+      Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment> { state, action, _ in
+        switch action {
+        case let .setSocialSegment(segment):
+          state.socialControl = .init(rawValue: segment)!
+          return .none
+
+        case .chat, .twitter:
+          return .none
+        }
+      }
+    )
+}

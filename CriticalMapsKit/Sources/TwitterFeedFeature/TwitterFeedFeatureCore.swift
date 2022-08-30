@@ -52,9 +52,7 @@ public let twitterFeedReducer =
     Reducer<TwitterFeedState, TwitterFeedAction, TwitterFeedEnvironment> { state, action, environment in
       switch action {
       case .onAppear:
-        return .merge(
-          Effect(value: .fetchData)
-        )
+        return Effect(value: .fetchData)
 
       case .fetchData:
         state.twitterFeedIsLoading = true
