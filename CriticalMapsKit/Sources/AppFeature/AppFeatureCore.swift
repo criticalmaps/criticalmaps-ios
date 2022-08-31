@@ -28,7 +28,7 @@ public struct AppState: Equatable {
       userTrackingMode: UserTrackingState(userTrackingMode: .follow)
     ),
     socialState: SocialFeature.State = .init(),
-    settingsState: SettingsState = SettingsState(),
+    settingsState: SettingsFeature.State = .init(),
     nextRideState: NextRideFeature.State = .init(),
     requestTimer: RequestTimerState = RequestTimerState(),
     route: AppRoute? = nil,
@@ -54,7 +54,7 @@ public struct AppState: Equatable {
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
   public var socialState = SocialFeature.State()
-  public var settingsState = SettingsState()
+  public var settingsState = SettingsFeature.State()
   public var nextRideState = NextRideFeature.State()
   public var requestTimer = RequestTimerState()
     
@@ -95,7 +95,7 @@ public enum AppAction: Equatable, BindableAction {
   case map(MapFeature.Action)
   case nextRide(NextRideFeature.Action)
   case requestTimer(RequestTimerAction)
-  case settings(SettingsAction)
+  case settings(SettingsFeature.Action)
   case social(SocialFeature.Action)
 }
 
@@ -202,11 +202,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       )
     }
   ),
-  settingsReducer.pullback(
+  SettingsFeature.reducer.pullback(
     state: \.settingsState,
     action: /AppAction.settings,
     environment: {
-      SettingsEnvironment(
+      .init(
         uiApplicationClient: $0.uiApplicationClient,
         setUserInterfaceStyle: $0.setUserInterfaceStyle,
         fileClient: $0.fileClient,
@@ -219,7 +219,7 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     state: \AppState.socialState,
     action: /AppAction.social,
     environment: {
-      SocialFeature.Environment(
+      .init(
         mainQueue: $0.mainQueue,
         uiApplicationClient: $0.uiApplicationClient,
         locationsAndChatDataService: $0.locationsAndChatDataService,
