@@ -63,7 +63,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           isEditing: true,
           message: "Hello W"
         ),
-        reducer: chatInputReducer,
+        reducer: ChatInput.reducer,
         environment: .init()
       )
     )
@@ -78,7 +78,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           isEditing: false,
           message: ""
         ),
-        reducer: chatInputReducer,
+        reducer: ChatInput.reducer,
         environment: .init()
       )
     )

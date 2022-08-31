@@ -11,15 +11,15 @@ import UserDefaultsClient
 
 public enum ChatFeature {
   // MARK: State
-
+  
   public struct State: Equatable {
     public var chatMessages: ContentState<[String: ChatMessage]>
-    public var chatInputState: ChatInputState
+    public var chatInputState: ChatInput.State
     public var hasConnectivity: Bool
-      
+    
     public init(
       chatMessages: ContentState<[String: ChatMessage]> = .loading([:]),
-      chatInputState: ChatInputState = .init(),
+      chatInputState: ChatInput.State = .init(),
       hasConnectivity: Bool = true
     ) {
       self.chatMessages = chatMessages
@@ -27,18 +27,18 @@ public enum ChatFeature {
       self.hasConnectivity = hasConnectivity
     }
   }
-
+  
   // MARK: Actions
-
+  
   public enum Action: Equatable {
     case onAppear
     case chatInputResponse(TaskResult<LocationAndChatMessages>)
-
-    case chatInput(ChatInputAction)
+    
+    case chatInput(ChatInput.Action)
   }
-
+  
   // MARK: Environment
-
+  
   public struct Environment {
     public var locationsAndChatDataService: LocationsAndChatDataService
     public var mainQueue: AnySchedulerOf<DispatchQueue>
@@ -69,19 +69,19 @@ public enum ChatFeature {
         .joined()
     }
   }
-
+  
   // MARK: Reducer
-
+  
   /// Reducer responsible for handling logic from the chat feature.
   public static let reducer = Reducer<ChatFeature.State, ChatFeature.Action, ChatFeature.Environment>.combine(
-    chatInputReducer.pullback(
+    ChatInput.reducer.pullback(
       state: \.chatInputState,
       action: /ChatFeature.Action.chatInput,
       environment: { _ in
-        ChatInputEnvironment()
+        ChatInput.Environment()
       }
     ),
-    Reducer<ChatFeature.State, ChatFeature.Action, ChatFeature.Environment> { state, action, environment in
+    Reducer<State, Action, Environment> { state, action, environment in
       switch action {
       case .onAppear:
         return environment
@@ -136,5 +136,4 @@ public enum ChatFeature {
       }
     }
   )
-
 }
