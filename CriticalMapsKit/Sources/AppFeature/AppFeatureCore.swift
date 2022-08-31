@@ -23,7 +23,7 @@ public struct AppState: Equatable {
   public init(
     locationsAndChatMessages: TaskResult<LocationAndChatMessages>? = nil,
     didResolveInitialLocation: Bool = false,
-    mapFeatureState: MapFeatureState = MapFeatureState(
+    mapFeatureState: MapFeature.State = .init(
       riders: [],
       userTrackingMode: UserTrackingState(userTrackingMode: .follow)
     ),
@@ -49,7 +49,7 @@ public struct AppState: Equatable {
   public var didResolveInitialLocation = false
   
   // Children states
-  public var mapFeatureState = MapFeatureState(
+  public var mapFeatureState = MapFeature.State(
     riders: [],
     userTrackingMode: UserTrackingState(userTrackingMode: .follow)
   )
@@ -92,7 +92,7 @@ public enum AppAction: Equatable, BindableAction {
   case setObservationMode(Bool)
   case dismissAlert
   
-  case map(MapFeatureAction)
+  case map(MapFeature.Action)
   case nextRide(NextRideAction)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
@@ -170,11 +170,11 @@ struct ObserveConnectionIdentifier: Hashable {}
 
 /// Holds the logic for the AppFeature to update state and execute side effects
 public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
-  mapFeatureReducer.pullback(
+  MapFeature.reducer.pullback(
     state: \.mapFeatureState,
     action: /AppAction.map,
     environment: {
-      MapFeatureEnvironment(
+      MapFeature.Environment(
         locationManager: $0.locationManager,
         mainQueue: $0.mainQueue
       )

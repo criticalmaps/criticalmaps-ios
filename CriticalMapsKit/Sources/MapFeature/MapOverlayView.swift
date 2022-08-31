@@ -92,7 +92,7 @@ struct MapOverlayView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       MapOverlayView(
-        store: Store<MapFeatureState, Never>(
+        store: Store<MapFeature.State, Never>(
           initialState: .init(riders: [], userTrackingMode: .init(userTrackingMode: .follow)),
           reducer: .empty,
           environment: ()
@@ -112,7 +112,7 @@ struct MapOverlayView_Previews: PreviewProvider {
       )
       
       MapOverlayView(
-        store: Store<MapFeatureState, Never>(
+        store: Store<MapFeature.State, Never>(
           initialState: .init(riders: [], userTrackingMode: .init(userTrackingMode: .follow)),
           reducer: .empty,
           environment: ()
@@ -132,7 +132,7 @@ struct MapOverlayView_Previews: PreviewProvider {
       )
       
       MapOverlayView(
-        store: Store<MapFeatureState, Never>(
+        store: Store<MapFeature.State, Never>(
           initialState: .init(riders: [], userTrackingMode: .init(userTrackingMode: .follow)),
           reducer: .empty,
           environment: ()
