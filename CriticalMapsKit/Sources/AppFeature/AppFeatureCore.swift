@@ -29,7 +29,7 @@ public struct AppState: Equatable {
     ),
     socialState: SocialFeature.State = .init(),
     settingsState: SettingsState = SettingsState(),
-    nextRideState: NextRideState = NextRideState(),
+    nextRideState: NextRideFeature.State = .init(),
     requestTimer: RequestTimerState = RequestTimerState(),
     route: AppRoute? = nil,
     chatMessageBadgeCount: UInt = 0
@@ -55,7 +55,7 @@ public struct AppState: Equatable {
   )
   public var socialState = SocialFeature.State()
   public var settingsState = SettingsState()
-  public var nextRideState = NextRideState()
+  public var nextRideState = NextRideFeature.State()
   public var requestTimer = RequestTimerState()
     
   // Navigation
@@ -93,7 +93,7 @@ public enum AppAction: Equatable, BindableAction {
   case dismissAlert
   
   case map(MapFeature.Action)
-  case nextRide(NextRideAction)
+  case nextRide(NextRideFeature.Action)
   case requestTimer(RequestTimerAction)
   case settings(SettingsAction)
   case social(SocialFeature.Action)
@@ -189,11 +189,11 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       )
     }
   ),
-  nextRideReducer.pullback(
+  NextRideFeature.reducer.pullback(
     state: \.nextRideState,
     action: /AppAction.nextRide,
     environment: {
-      NextRideEnvironment(
+      NextRideFeature.Environment(
         service: $0.nextRideService,
         store: $0.userDefaultsClient,
         now: $0.date,

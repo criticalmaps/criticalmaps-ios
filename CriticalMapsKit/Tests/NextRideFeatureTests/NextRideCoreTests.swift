@@ -76,9 +76,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: .noop,
         store: settings,
         now: now,
@@ -97,9 +97,9 @@ import XCTest
     settings.dataForKey = { _ in try? RideEventSettings.default.encoded() }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -132,9 +132,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -164,9 +164,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -229,9 +229,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -279,9 +279,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -356,9 +356,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -439,13 +439,13 @@ import XCTest
         .encoded()
     }
     // when
-    var state = NextRideState()
+    var state = NextRideFeature.State()
     state.userLocation = .init(latitude: 53.1235, longitude: 13.4248)
   
     let store = TestStore(
       initialState: state,
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: now,
@@ -510,9 +510,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: { self.now().addingTimeInterval(60 * 60 * 24) },
@@ -577,9 +577,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: { self.now().addingTimeInterval(60 * 60 * 48) },
@@ -644,9 +644,9 @@ import XCTest
     }
     // when
     let store = TestStore(
-      initialState: NextRideState(),
-      reducer: nextRideReducer,
-      environment: NextRideEnvironment(
+      initialState: .init(),
+      reducer: NextRideFeature.reducer,
+      environment: .init(
         service: service,
         store: settings,
         now: { self.now().addingTimeInterval(60 * 60 * 72) }, // Mon. 2022-03-28
