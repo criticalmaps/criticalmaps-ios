@@ -10,15 +10,15 @@ import SwiftUI
 import TwitterFeedFeature
 
 public struct AppNavigationView: View {
-  let store: Store<AppState, AppAction>
-  @ObservedObject var viewStore: ViewStore<AppState, AppAction>
+  let store: Store<AppFeature.State, AppFeature.Action>
+  @ObservedObject var viewStore: ViewStore<AppFeature.State, AppFeature.Action>
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
   let minHeight: CGFloat = 56
   
-  public init(store: Store<AppState, AppAction>) {
+  public init(store: Store<AppFeature.State, AppFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -28,7 +28,7 @@ public struct AppNavigationView: View {
       UserTrackingButton(
         store: store.scope(
           state: { $0.mapFeatureState.userTrackingMode },
-          action: { AppAction.map(.userTracking($0)) }
+          action: { AppFeature.Action.map(.userTracking($0)) }
         )
       )
       .padding(10)
@@ -98,14 +98,14 @@ public struct AppNavigationView: View {
     .sheet(
       isPresented: viewStore.binding(
         get: \.isChatViewPresented,
-        send: AppAction.dismissSheetView
+        send: AppFeature.Action.dismissSheetView
       ),
       onDismiss: { viewStore.send(.dismissSheetView) },
       content: {
         SocialView(
           store: store.scope(
             state: \.socialState,
-            action: AppAction.social
+            action: AppFeature.Action.social
           )
         )
         .accessibilityAddTraits([.isModal])
@@ -131,7 +131,7 @@ public struct AppNavigationView: View {
     .sheet(
       isPresented: viewStore.binding(
         get: \.isRulesViewPresented,
-        send: AppAction.dismissSheetView
+        send: AppFeature.Action.dismissSheetView
       ),
       onDismiss: { viewStore.send(.dismissSheetView) },
       content: {
@@ -161,7 +161,7 @@ public struct AppNavigationView: View {
     .sheet(
       isPresented: viewStore.binding(
         get: \.isSettingsViewPresented,
-        send: AppAction.dismissSheetView
+        send: AppFeature.Action.dismissSheetView
       ),
       onDismiss: { viewStore.send(.dismissSheetView) },
       content: {
@@ -169,7 +169,7 @@ public struct AppNavigationView: View {
           SettingsView(
             store: store.scope(
               state: \.settingsState,
-              action: { AppAction.settings($0) }
+              action: { AppFeature.Action.settings($0) }
             )
           )
           .accessibilityAddTraits([.isModal])
@@ -191,10 +191,10 @@ public struct AppNavigationView: View {
 struct AppNavigationView_Previews: PreviewProvider {
   static var previews: some View {
     AppNavigationView(
-      store: Store<AppState, AppAction>(
-        initialState: AppState(),
-        reducer: appReducer,
-        environment: AppEnvironment(
+      store: Store<AppFeature.State, AppFeature.Action>(
+        initialState: .init(),
+        reducer: AppFeature.reducer,
+        environment: .init(
           service: .noop,
           idProvider: .noop,
           mainQueue: .failing,
