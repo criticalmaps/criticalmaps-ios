@@ -1,5 +1,4 @@
 import ApiClient
-import Combine
 import Foundation
 import SharedModels
 
@@ -7,7 +6,7 @@ import SharedModels
 
 /// Service to fetch tweets from `api.criticalmaps.net/twitter`
 public struct TwitterFeedService {
-  public var getTwitterFeed: () -> AnyPublisher<[Tweet], NSError>
+  public var getTweets: () async throws -> [Tweet]
 }
 
 // MARK: Live
@@ -15,17 +14,12 @@ public struct TwitterFeedService {
 public extension TwitterFeedService {
   static func live(apiClient: APIClient = .live) -> Self {
     Self(
-      getTwitterFeed: {
+      getTweets: {
         let request = TwitterFeedRequest()
-
-        return apiClient.dispatch(request)
-          .decode(
-            type: TwitterFeedRequest.ResponseDataType.self,
-            decoder: request.decoder
-          )
-          .map(\.statuses)
-          .mapError { $0 as NSError }
-          .eraseToAnyPublisher()
+        
+        let tweetData = try await apiClient.dispatch(request)
+        let tweets = try request.decode(tweetData)
+        return tweets.statuses
       }
     )
   }
@@ -34,17 +28,10 @@ public extension TwitterFeedService {
 // Mocks and failing used for previews and tests
 public extension TwitterFeedService {
   static let noop = Self(
-    getTwitterFeed: {
-      Just([])
-        .setFailureType(to: NSError.self)
-        .eraseToAnyPublisher()
-    }
+    getTweets: { return [] }
   )
 
   static let failing = Self(
-    getTwitterFeed: {
-      Fail(error: NSError(domain: "", code: 1))
-        .eraseToAnyPublisher()
-    }
+    getTweets: { throw NSError(domain: "", code: 1) }
   )
 }

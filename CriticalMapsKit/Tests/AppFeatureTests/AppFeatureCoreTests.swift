@@ -14,19 +14,16 @@ import UserDefaultsClient
 import XCTest
 
 // swiftlint:disable:next type_body_length
-class AppFeatureTests: XCTestCase {
+@MainActor final class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   
-  func test_onAppearAction_shouldSendEffectTimerStart_andMapOnAppear() {
+  func test_onAppearAction_shouldSendEffectTimerStart_andMapOnAppear() async {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
-    let serviceSubject = PassthroughSubject<LocationAndChatMessages, NSError>()
     
     var service: LocationsAndChatDataService = .noop
-    service.getLocationsAndSendMessages = { _ in
-      serviceSubject.eraseToAnyPublisher()
-    }
-    
+    service.getLocationsAndSendMessages = { _ in throw testError }
+  
     var locationManager: LocationManager = .failing
     locationManager.delegate = { locationManagerSubject.eraseToEffect() }
     locationManager.authorizationStatus = { .denied }
@@ -63,44 +60,41 @@ class AppFeatureTests: XCTestCase {
       environment: environment
     )
     
-    store.send(.onAppear)
-    store.receive(.observeConnection)
-    store.receive(.userSettingsLoaded(.success(.init())))
-    store.receive(.map(.onAppear))
-    store.receive(.requestTimer(.startTimer))
-    store.receive(.presentObservationModeAlert) {
+    let task = await store.send(.onAppear)
+    await store.receive(.observeConnection)
+    await store.receive(.userSettingsLoaded(.success(.init())))
+    await store.receive(.map(.onAppear))
+    await store.receive(.requestTimer(.startTimer)) {
+      $0.requestTimer.isTimerActive = true
+    }
+    await store.receive(.presentObservationModeAlert) {
       $0.alert = .viewingModeAlert
     }
-    store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-      $0.hasConnectivity = true
-    }
-    store.receive(.map(.locationRequested)) {
+    await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.alert = .goToSettingsAlert
     }
-    store.receive(.requestTimer(.timerTicked))
-    store.receive(.fetchData)
+    await store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied)))
+    await store.receive(.requestTimer(.timerTicked))
+    await store.receive(.fetchData)
   
-    serviceSubject.send(completion: .failure(testError))
-    testScheduler.advance()
+    await testScheduler.advance()
     
-    store.receive(.fetchDataResponse(.failure(testError))) {
+    await store.receive(.fetchDataResponse(.failure(testError))) {
       $0.locationsAndChatMessages = .failure(testError)
     }
     
-    store.send(.requestTimer(.stopTimer))
+    await task.cancel()
     
     setSubject.send(completion: .finished)
-    serviceSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
   }
   
-  func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() {
-    let setSubject = PassthroughSubject<Never, Never>()
+  func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() async {
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
+    
+    let setSubject = PassthroughSubject<Never, Never>()
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
-    let serviceSubject = PassthroughSubject<LocationAndChatMessages, NSError>()
-    let nextRideSubject = PassthroughSubject<[Ride], NextRideService.Failure>()
     
     let currentLocation = Location(
       altitude: 0,
@@ -111,14 +105,13 @@ class AppFeatureTests: XCTestCase {
       timestamp: Date(timeIntervalSince1970: 1234567890),
       verticalAccuracy: 0
     )
+    
+    let serviceResponse: LocationAndChatMessages = .make()
+    
     var service: LocationsAndChatDataService = .noop
-    service.getLocationsAndSendMessages = { _ in
-      serviceSubject.eraseToAnyPublisher()
-    }
-    var nextRideService: NextRideService = .noop
-    nextRideService.nextRide = { _, _, _ in
-      nextRideSubject.eraseToAnyPublisher()
-    }
+    service.getLocationsAndSendMessages = { _ in return serviceResponse }
+    let nextRideService: NextRideService = .noop
+
     var userDefaultsClient = UserDefaultsClient.noop
     userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
@@ -143,7 +136,7 @@ class AppFeatureTests: XCTestCase {
     var environment = AppEnvironment(
       service: service,
       idProvider: .noop,
-      mainQueue: testScheduler.eraseToAnyScheduler(),
+      mainQueue: .immediate,
       locationManager: locationManager,
       nextRideService: nextRideService,
       userDefaultsClient: userDefaultsClient,
@@ -169,41 +162,22 @@ class AppFeatureTests: XCTestCase {
       environment: environment
     )
     
-    let serviceResponse: LocationAndChatMessages = .make()
-    
-    store.send(.onAppear)
-    store.receive(.observeConnection)
-    store.receive(.userSettingsLoaded(.success(.init())))
-    store.receive(.map(.onAppear))
-    store.receive(.requestTimer(.startTimer))
-    store.receive(.map(.locationRequested)) {
+    let task = await store.send(.onAppear)
+    await store.receive(.observeConnection)
+    await store.receive(.userSettingsLoaded(.success(.init())))
+    await store.receive(.map(.onAppear))
+    await store.receive(.requestTimer(.startTimer)) {
+      $0.requestTimer.isTimerActive = true
+    }
+    await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.isRequestingCurrentLocation = true
     }
     
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
-    
-    store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
-    
-    XCTAssertTrue(didRequestLocation)
-    locationManagerSubject.send(.didUpdateLocations([currentLocation]))
-    
-    store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
-      $0.mapFeatureState.isRequestingCurrentLocation = false
-      $0.mapFeatureState.location = currentLocation
-      $0.didResolveInitialLocation = true
-      $0.nextRideState.userLocation = .init(currentLocation)
-    }
-    store.receive(.fetchData)
-    store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
-    
-    serviceSubject.send(serviceResponse)
-    nextRideSubject.send([])
-    testScheduler.advance()
-    
-    store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-      $0.hasConnectivity = true
-    }
-    store.receive(.fetchDataResponse(.success(serviceResponse))) {
+    await store.receive(.observeConnectionResponse(.init(status: .satisfied)))
+    await store.receive(.requestTimer(.timerTicked))
+    await store.receive(.fetchData)
+    await store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
         chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
@@ -212,37 +186,37 @@ class AppFeatureTests: XCTestCase {
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
       $0.chatMessageBadgeCount = 6
     }
-    store.receive(.nextRide(.nextRideResponse(.success([]))))
-    testScheduler.advance(by: 12)
-    store.receive(.requestTimer(.timerTicked))
-    store.receive(.fetchData)
-  
-    serviceSubject.send(completion: .failure(testError))
-    testScheduler.advance()
-    
-    store.receive(.fetchDataResponse(.failure(testError))) {
-      $0.locationsAndChatMessages = .failure(testError)
-    }
-    store.receive(.fetchDataResponse(.failure(testError)))
-    
+    await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
+
     XCTAssertTrue(didRequestAlwaysAuthorization)
+    XCTAssertTrue(didRequestLocation)
+    locationManagerSubject.send(.didUpdateLocations([currentLocation]))
+
+    await store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
+      $0.mapFeatureState.isRequestingCurrentLocation = false
+      $0.mapFeatureState.location = currentLocation
+      $0.didResolveInitialLocation = true
+      $0.nextRideState.userLocation = .init(currentLocation)
+    }
+
+    await store.receive(.fetchData)
+    await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
+    await store.receive(.fetchDataResponse(.success(serviceResponse)))
+    await store.receive(.nextRide(.nextRideResponse(.success([]))))
     
     // teardown
-    store.send(.requestTimer(.stopTimer))
+    await task.cancel()
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
-    serviceSubject.send(completion: .finished)
-    nextRideSubject.send(completion: .finished)
-    testScheduler.advance()
+    await testScheduler.advance()
   }
 
-  func test_onAppearWithEnabledLocationServicesRideEventDisabled_shouldNotRequestNextRide() {
+  func test_onAppearWithEnabledLocationServicesRideEventDisabled_shouldNotRequestNextRide() async {
     let setSubject = PassthroughSubject<Never, Never>()
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
-    let serviceSubject = PassthroughSubject<LocationAndChatMessages, NSError>()
-
+    
     let currentLocation = Location(
       altitude: 0,
       coordinate: CLLocationCoordinate2D(latitude: 20, longitude: 10),
@@ -252,14 +226,16 @@ class AppFeatureTests: XCTestCase {
       timestamp: Date(timeIntervalSince1970: 1234567890),
       verticalAccuracy: 0
     )
+    
+    let serviceResponse: LocationAndChatMessages = .make()
+    
     var service: LocationsAndChatDataService = .noop
-    service.getLocationsAndSendMessages = { _ in
-      serviceSubject.eraseToAnyPublisher()
-    }
+    service.getLocationsAndSendMessages = { _ in return serviceResponse }
+    
     let nextRideService: NextRideService = .noop
     var userDefaultsClient = UserDefaultsClient.noop
     userDefaultsClient.boolForKey = { _ in true }
-
+    
     let rideEventSettings = RideEventSettings(
       isEnabled: false,
       typeSettings: .all,
@@ -298,7 +274,7 @@ class AppFeatureTests: XCTestCase {
       rideEventSettings: rideEventSettings
     )
     environment.fileClient.load = { _ in
-      .init(value: try! JSONEncoder().encode(userSettings))
+        .init(value: try! JSONEncoder().encode(userSettings))
     }
     
     var appState = AppState(settingsState: .init(userSettings: userSettings))
@@ -310,40 +286,37 @@ class AppFeatureTests: XCTestCase {
       environment: environment
     )
     
-    let serviceResponse: LocationAndChatMessages = .make()
-    
-    store.send(.onAppear)
-    store.receive(.observeConnection)
-    store.receive(
+    let task = await store.send(.onAppear)
+    await store.receive(.observeConnection)
+    await store.receive(
       .userSettingsLoaded(.success(userSettings))
     )
-    store.receive(.map(.onAppear))
-    store.receive(.requestTimer(.startTimer))
-    store.receive(.map(.locationRequested)) {
+    await store.receive(.map(.onAppear))
+    await store.receive(.requestTimer(.startTimer)) {
+      $0.requestTimer.isTimerActive = true
+    }
+    await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.isRequestingCurrentLocation = true
     }
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
     
-    store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
+    await store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied)))
+    await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
     
     XCTAssertTrue(didRequestLocation)
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
     
-    store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
+    await store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
       $0.mapFeatureState.isRequestingCurrentLocation = false
       $0.mapFeatureState.location = currentLocation
       $0.didResolveInitialLocation = true
       $0.nextRideState.userLocation = .init(currentLocation)
     }
-    store.receive(.fetchData)
+    await store.receive(.fetchData)
     
-    serviceSubject.send(serviceResponse)
-    testScheduler.advance()
+    await testScheduler.advance()
     
-    store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied))) {
-      $0.hasConnectivity = true
-    }
-    store.receive(.fetchDataResponse(.success(serviceResponse))) {
+    await store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
         chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
@@ -352,15 +325,14 @@ class AppFeatureTests: XCTestCase {
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
       $0.chatMessageBadgeCount = 6
     }
-    store.send(.requestTimer(.stopTimer))
+    await task.cancel()
     
     XCTAssertTrue(didRequestAlwaysAuthorization)
     
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
-    serviceSubject.send(completion: .finished)
     
-    testScheduler.advance()
+    await testScheduler.advance()
   }
   
   func test_appNavigation() {
@@ -676,42 +648,37 @@ class AppFeatureTests: XCTestCase {
     }
   }
   
-  func test_viewingModePrompt() {
+  func test_viewingModePrompt() async {
     var didSaveUserSettings = false
-    
-    var fileClient = FileClient.noop
-    fileClient.save = { _, _ in
-      didSaveUserSettings = true
-      return .none
-    }
-    
     var didSetDidShowPrompt = false
-    var userdefaultsClient = UserDefaultsClient.noop
-    userdefaultsClient.setBool = { _, _ in
-      didSetDidShowPrompt = true
-      return .none
-    }
     
     let store = TestStore(
       initialState: AppState(),
       reducer: appReducer,
       environment: AppEnvironment(
         mainQueue: .immediate,
-        userDefaultsClient: userdefaultsClient,
+        userDefaultsClient: .noop,
         uiApplicationClient: .noop,
-        fileClient: fileClient,
+        fileClient: .noop,
         setUserInterfaceStyle: { _ in .none },
         pathMonitorClient: .satisfied
       )
     )
     
-    store.send(.presentObservationModeAlert) {
-      $0.alert = .viewingModeAlert
+    store.environment.fileClient.save = { _, _ in
+      didSaveUserSettings = true
+      return .none
+    }
+    store.environment.userDefaultsClient.setBool = { _, _ in
+      didSetDidShowPrompt = true
+      return .none
     }
     
-    store.send(.setObservationMode(false)) {
-      $0.settingsState.userSettings.enableObservationMode = false
+    await store.send(.presentObservationModeAlert) {
+      $0.alert = .viewingModeAlert
     }
+
+    await store.send(.setObservationMode(false))
     
     XCTAssertTrue(didSaveUserSettings)
     XCTAssertTrue(didSetDidShowPrompt)

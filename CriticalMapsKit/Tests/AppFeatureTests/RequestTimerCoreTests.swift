@@ -2,10 +2,11 @@
 import ComposableArchitecture
 import XCTest
 
-class RequestTimerCoreTests: XCTestCase {
+@MainActor
+final class RequestTimerCoreTests: XCTestCase {
   let testScheduler = DispatchQueue.test
 
-  func test_startTimerAction_shouldSendTickedEffect() {
+  func test_startTimerAction_shouldSendTickedEffect() async {
     let store = TestStore(
       initialState: RequestTimerState(),
       reducer: requestTimerReducer,
@@ -15,11 +16,14 @@ class RequestTimerCoreTests: XCTestCase {
       )
     )
 
-    store.send(.startTimer)
-    testScheduler.advance(by: 1)
-    store.receive(.timerTicked)
-    testScheduler.advance(by: 1)
-    store.receive(.timerTicked)
-    store.send(.stopTimer)
+    let task = await store.send(.startTimer) {
+      $0.isTimerActive = true
+    }
+    await testScheduler.advance(by: 1)
+    await store.receive(.timerTicked)
+    await testScheduler.advance(by: 1)
+    await store.receive(.timerTicked)
+    
+    await task.cancel()
   }
 }

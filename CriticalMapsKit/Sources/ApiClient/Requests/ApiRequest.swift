@@ -34,7 +34,7 @@ public extension APIRequest {
     }
     var request = URLRequest(url: url)
     request.httpMethod = httpMethod.rawValue
-    request.addHeaders(headers)
+    request.allHTTPHeaderFields = headers
     if let body = body {
       request.httpBody = body
     }
@@ -44,15 +44,8 @@ public extension APIRequest {
   var decoder: JSONDecoder {
     JSONDecoder()
   }
-}
-
-extension URLRequest {
-  mutating func addHeaders(_ httpHeaders: HTTPHeaders?) {
-    guard let headers = httpHeaders else {
-      return
-    }
-    for header in headers {
-      addValue(header.key, forHTTPHeaderField: header.value)
-    }
+  
+  func decode(_ data: Data) throws -> ResponseDataType {
+    try decoder.decode(ResponseDataType.self, from: data)
   }
 }

@@ -1,5 +1,4 @@
 import ApiClient
-import Combine
 import CoreLocation
 import Foundation
 import SharedModels
@@ -12,7 +11,7 @@ public struct NextRideService {
     _ coordinate: Coordinate,
     _ eventSearchRadius: Int,
     _ month: Int
-  ) -> AnyPublisher<[Ride], Failure>
+  ) async throws -> [Ride]
 }
 
 // MARK: Live
@@ -23,10 +22,9 @@ public extension NextRideService {
   ) -> Self { Self(
     nextRide: { coordinate, radius, month in
       let request = NextRidesRequest(coordinate: coordinate, radius: radius, month: month)
-      return apiClient.dispatch(request)
-        .decode(type: NextRidesRequest.ResponseDataType.self, decoder: request.decoder)
-        .mapError { Failure(internalError: $0 as! NetworkRequestError) }
-        .eraseToAnyPublisher()
+      let data = try await apiClient.dispatch(request)
+      let rides = try request.decode(data)
+      return rides
     }
   )
   }
@@ -36,11 +34,7 @@ public extension NextRideService {
 
 public extension NextRideService {
   static let noop = Self(
-    nextRide: { _, _, _ in
-      Just([])
-        .setFailureType(to: NextRideService.Failure.self)
-        .eraseToAnyPublisher()
-    }
+    nextRide: { _, _, _ in [] }
   )
 
   struct Failure: Error, Equatable {

@@ -11,7 +11,7 @@ class ErrorStateViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_ErrorStateView_withoutButton_dark() {
@@ -23,7 +23,7 @@ class ErrorStateViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_ErrorStateView_withButton_light() {
@@ -36,7 +36,7 @@ class ErrorStateViewSnapshotTests: XCTestCase {
       buttonText: "Reload"
     )
     
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
   
   func test_ErrorStateView_withButton_dark() {
@@ -50,6 +50,6 @@ class ErrorStateViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(view)
+    assertScreenSnapshot(view, sloppy: true)
   }
 }
