@@ -61,7 +61,7 @@ public let twitterFeedReducer =
         return .task {
           await .fetchDataResponse(TaskResult { try await environment.service.getTweets() })
         }
-        
+
       case let .fetchDataResponse(.success(tweets)):
         state.twitterFeedIsLoading = false
 

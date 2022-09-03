@@ -5,7 +5,7 @@ public struct RequestTimerState: Equatable {
   public init(isTimerActive: Bool = false) {
     self.isTimerActive = isTimerActive
   }
-  
+
   var isTimerActive = false
 }
 
@@ -21,7 +21,7 @@ public struct RequestTimerEnvironment {
   var interval: DispatchQueue.SchedulerTimeType.Stride {
     DispatchQueue.SchedulerTimeType.Stride(floatLiteral: timerInterval)
   }
-  
+
   public init(timerInterval: Double = 12.0, mainQueue: AnySchedulerOf<DispatchQueue>) {
     self.timerInterval = timerInterval
     self.mainQueue = mainQueue

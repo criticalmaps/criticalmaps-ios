@@ -23,7 +23,7 @@ final class RequestTimerCoreTests: XCTestCase {
     await store.receive(.timerTicked)
     await testScheduler.advance(by: 1)
     await store.receive(.timerTicked)
-    
+
     await task.cancel()
   }
 }
