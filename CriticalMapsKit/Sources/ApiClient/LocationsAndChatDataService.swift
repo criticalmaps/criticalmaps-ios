@@ -5,7 +5,7 @@ import SharedModels
 /// A Service to send and fetch locations and chat messages from the Criticl Maps API
 public struct LocationsAndChatDataService {
   public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages
-  
+
   public init(getLocationsAndSendMessages: @escaping (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages) {
     self.getLocationsAndSendMessages = getLocationsAndSendMessages
   }
