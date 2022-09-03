@@ -7,7 +7,7 @@ public struct APIClient {
   public init(networkDispatcher: NetworkDispatcher) {
     self.networkDispatcher = networkDispatcher
   }
-  
+
   /// Dispatches a Request and returns its data
   /// - Parameter request: Request to Dispatch
   /// - Returns: The response data of the request

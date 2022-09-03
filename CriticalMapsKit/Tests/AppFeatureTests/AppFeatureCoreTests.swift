@@ -109,7 +109,7 @@ import XCTest
     let serviceResponse: LocationAndChatMessages = .make()
     
     var service: LocationsAndChatDataService = .noop
-    service.getLocationsAndSendMessages = { _ in return serviceResponse }
+    service.getLocationsAndSendMessages = { _ in serviceResponse }
     let nextRideService: NextRideService = .noop
 
     var userDefaultsClient = UserDefaultsClient.noop
@@ -230,7 +230,7 @@ import XCTest
     let serviceResponse: LocationAndChatMessages = .make()
     
     var service: LocationsAndChatDataService = .noop
-    service.getLocationsAndSendMessages = { _ in return serviceResponse }
+    service.getLocationsAndSendMessages = { _ in serviceResponse }
     
     let nextRideService: NextRideService = .noop
     var userDefaultsClient = UserDefaultsClient.noop
@@ -274,7 +274,7 @@ import XCTest
       rideEventSettings: rideEventSettings
     )
     environment.fileClient.load = { _ in
-        .init(value: try! JSONEncoder().encode(userSettings))
+      .init(value: try! JSONEncoder().encode(userSettings))
     }
     
     var appState = AppState(settingsState: .init(userSettings: userSettings))

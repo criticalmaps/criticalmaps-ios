@@ -56,8 +56,8 @@ public extension NetworkDispatcher {
 }
 
 extension HTTPURLResponse {
-    /// Indicates that the client's request was successfully received, understood, and accepted
-    var isSuccessful: Bool {
-        (200...299).contains(self.statusCode)
-    }
+  /// Indicates that the client's request was successfully received, understood, and accepted
+  var isSuccessful: Bool {
+    (200 ... 299).contains(statusCode)
+  }
 }

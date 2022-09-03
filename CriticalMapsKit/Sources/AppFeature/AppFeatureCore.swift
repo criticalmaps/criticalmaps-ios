@@ -277,7 +277,6 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         await .fetchDataResponse(
           TaskResult {
             try await environment.service.getLocationsAndSendMessages(postBody)
-            
           }
         )
       }
@@ -309,12 +308,12 @@ public let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
       
     case .observeConnection:
-        return .run { send in
-            for await path in await environment.pathMonitorClient.networkPathPublisher() {
-                await send(.observeConnectionResponse(path))
-            }
+      return .run { send in
+        for await path in await environment.pathMonitorClient.networkPathPublisher() {
+          await send(.observeConnectionResponse(path))
         }
-        .cancellable(id: ObserveConnectionIdentifier())
+      }
+      .cancellable(id: ObserveConnectionIdentifier())
       
     case let .observeConnectionResponse(networkPath):
       state.hasConnectivity = networkPath.status == .satisfied

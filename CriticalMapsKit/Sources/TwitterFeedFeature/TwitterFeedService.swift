@@ -16,7 +16,7 @@ public extension TwitterFeedService {
     Self(
       getTweets: {
         let request = TwitterFeedRequest()
-        
+
         let tweetData = try await apiClient.dispatch(request)
         let tweets = try request.decode(tweetData)
         return tweets.statuses
@@ -28,7 +28,7 @@ public extension TwitterFeedService {
 // Mocks and failing used for previews and tests
 public extension TwitterFeedService {
   static let noop = Self(
-    getTweets: { return [] }
+    getTweets: { [] }
   )
 
   static let failing = Self(
