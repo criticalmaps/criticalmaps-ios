@@ -200,8 +200,8 @@ import XCTest
 
     await store.receive(.fetchData)
     await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
-    await store.receive(.nextRide(.nextRideResponse(.success([]))))
     await store.receive(.fetchDataResponse(.success(serviceResponse)))
+    await store.receive(.nextRide(.nextRideResponse(.success([]))))
     
     // teardown
     await task.cancel()
