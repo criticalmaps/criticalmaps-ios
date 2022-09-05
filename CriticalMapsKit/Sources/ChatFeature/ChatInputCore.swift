@@ -3,7 +3,6 @@ import Foundation
 import UIKit
 
 public enum ChatInput {
-  
   // MARK: State
 
   public struct State: Equatable {

@@ -9,7 +9,7 @@ public struct SocialView: View {
 
   typealias State = SocialFeature.State
   typealias Action = SocialFeature.Action
-  
+
   let store: Store<State, Action>
   @ObservedObject var viewStore: ViewStore<State, Action>
 

@@ -49,43 +49,43 @@ public enum TwitterFeedFeature {
   
   /// A reducer to handle twitter feature actions.
   public static let reducer =
-  Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment>.combine(
-    Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment> { state, action, environment in
-      switch action {
-      case .onAppear:
-        return Effect(value: .fetchData)
+    Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment>.combine(
+      Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment> { state, action, environment in
+        switch action {
+        case .onAppear:
+          return Effect(value: .fetchData)
         
-      case .fetchData:
-        state.twitterFeedIsLoading = true
-        return .task {
-          await .fetchDataResponse(TaskResult { try await environment.service.getTweets() })
-        }
+        case .fetchData:
+          state.twitterFeedIsLoading = true
+          return .task {
+            await .fetchDataResponse(TaskResult { try await environment.service.getTweets() })
+          }
 
-      case let .fetchDataResponse(.success(tweets)):
-        state.twitterFeedIsLoading = false
+        case let .fetchDataResponse(.success(tweets)):
+          state.twitterFeedIsLoading = false
         
-        if tweets.isEmpty {
-          state.contentState = .empty(.twitter)
+          if tweets.isEmpty {
+            state.contentState = .empty(.twitter)
+            return .none
+          }
+        
+          state.contentState = .results(tweets)
           return .none
-        }
-        
-        state.contentState = .results(tweets)
-        return .none
-      case let .fetchDataResponse(.failure(error)):
-        state.twitterFeedIsLoading = false
-        state.contentState = .error(
-          ErrorState(
-            title: ErrorState.default.title,
-            body: ErrorState.default.body
+        case let .fetchDataResponse(.failure(error)):
+          state.twitterFeedIsLoading = false
+          state.contentState = .error(
+            ErrorState(
+              title: ErrorState.default.title,
+              body: ErrorState.default.body
+            )
           )
-        )
-        return .none
+          return .none
         
-      case let .openTweet(tweet):
-        return environment.uiApplicationClient
-          .open(tweet.tweetUrl!, [:])
-          .fireAndForget()
+        case let .openTweet(tweet):
+          return environment.uiApplicationClient
+            .open(tweet.tweetUrl!, [:])
+            .fireAndForget()
+        }
       }
-    }
-  )
+    )
 }

@@ -26,8 +26,7 @@ public enum SettingsFeature {
       return path
     }
   }
-  
-  
+
   // MARK: Actions
 
   public enum Action: Equatable {
@@ -125,7 +124,6 @@ public enum SettingsFeature {
       .debounce(id: SaveDebounceId(), for: .seconds(1), scheduler: environment.mainQueue)
   }
 }
-
 
 // MARK: Helper
 

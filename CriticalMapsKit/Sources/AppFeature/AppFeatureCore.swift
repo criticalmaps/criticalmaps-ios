@@ -20,7 +20,6 @@ import UserDefaultsClient
 public enum AppFeature {
   // MARK: State
 
-  
   public struct State: Equatable {
     public init(
       locationsAndChatMessages: TaskResult<LocationAndChatMessages>? = nil,
@@ -73,7 +72,6 @@ public enum AppFeature {
     public var presentEventsBottomSheet = false
     public var alert: AlertState<Action>?
   }
-  
   
   // MARK: Actions
 
@@ -266,7 +264,6 @@ public enum AppFeature {
           await .fetchDataResponse(
             TaskResult {
               try await environment.service.getLocationsAndSendMessages(postBody)
-              
             }
           )
         }
@@ -298,12 +295,12 @@ public enum AppFeature {
         return .none
         
       case .observeConnection:
-          return .run { send in
-              for await path in await environment.pathMonitorClient.networkPathPublisher() {
-                  await send(.observeConnectionResponse(path))
-              }
+        return .run { send in
+          for await path in await environment.pathMonitorClient.networkPathPublisher() {
+            await send(.observeConnectionResponse(path))
           }
-          .cancellable(id: ObserveConnectionIdentifier())
+        }
+        .cancellable(id: ObserveConnectionIdentifier())
         
       case let .observeConnectionResponse(networkPath):
         state.hasConnectivity = networkPath.status == .satisfied
