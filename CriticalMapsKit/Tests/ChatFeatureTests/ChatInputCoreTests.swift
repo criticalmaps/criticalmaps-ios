@@ -5,12 +5,12 @@ import XCTest
 class ChatInputCoreTests: XCTestCase {
   func test_isEditingChanged_action() {
     let testStore = TestStore(
-      initialState: ChatInputState(
+      initialState: ChatInput.State(
         isEditing: false,
         message: ""
       ),
-      reducer: chatInputReducer,
-      environment: ChatInputEnvironment()
+      reducer: ChatInput.reducer,
+      environment: ChatInput.Environment()
     )
     
     testStore.send(.set(\.$isEditing, true)) { state in
@@ -22,7 +22,7 @@ class ChatInputCoreTests: XCTestCase {
   }
   
   func test_messageChanged_action() {
-    let state = ChatInputState(
+    let state = ChatInput.State(
       isEditing: false,
       message: ""
     )
@@ -31,8 +31,8 @@ class ChatInputCoreTests: XCTestCase {
     
     let testStore = TestStore(
       initialState: state,
-      reducer: chatInputReducer,
-      environment: ChatInputEnvironment()
+      reducer: ChatInput.reducer,
+      environment: ChatInput.Environment()
     )
     
     testStore.send(.messageChanged("Hello World!")) { state in

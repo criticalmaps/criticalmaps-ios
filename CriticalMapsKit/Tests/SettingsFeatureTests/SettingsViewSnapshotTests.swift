@@ -2,13 +2,13 @@ import SettingsFeature
 import TestHelper
 import XCTest
 
-class SettingsViewSnapshotTests: XCTestCase {
+final class SettingsViewSnapshotTests: XCTestCase {
   func test_settingsView_light() {
     let settingsView = SettingsView(
       store: .init(
         initialState: .init(),
-        reducer: settingsReducer,
-        environment: SettingsEnvironment(
+        reducer: SettingsFeature.reducer,
+        environment: .init(
           uiApplicationClient: .noop,
           setUserInterfaceStyle: { _ in .none },
           fileClient: .noop,

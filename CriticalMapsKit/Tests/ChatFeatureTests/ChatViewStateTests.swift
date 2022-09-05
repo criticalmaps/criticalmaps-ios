@@ -6,7 +6,7 @@ import XCTest
 class ChatViewStateTests: XCTestCase {
   func test_createChatViewState_shouldSortMessagesByDate() {
     // arrange
-    let chatFeatureState = ChatFeatureState(
+    let chatFeatureState = ChatFeature.State(
       chatMessages: .results([
         "1": .init(message: "Hello", timestamp: 1),
         "2": .init(message: "Hello", timestamp: 2),

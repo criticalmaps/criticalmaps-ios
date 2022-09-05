@@ -10,8 +10,8 @@ class AppNavigationViewSnapshotTests: XCTestCase {
       store: .init(
         initialState: .init(
           locationsAndChatMessages: nil),
-        reducer: appReducer,
-        environment: AppEnvironment(
+        reducer: AppFeature.reducer,
+        environment: .init(
           service: .noop,
           idProvider: .noop,
           mainQueue: .failing,
@@ -41,8 +41,8 @@ class AppNavigationViewSnapshotTests: XCTestCase {
       store: .init(
         initialState: .init(
           locationsAndChatMessages: nil),
-        reducer: appReducer,
-        environment: AppEnvironment(
+        reducer: AppFeature.reducer,
+        environment: .init(
           service: .noop,
           idProvider: .noop,
           mainQueue: .failing,
@@ -61,7 +61,7 @@ class AppNavigationViewSnapshotTests: XCTestCase {
   }
   
   func test_appNavigationView_WithBadge_dark() {
-    var appState: AppState = .init(
+    var appState: AppFeature.State = .init(
       locationsAndChatMessages: nil
     )
     appState.chatMessageBadgeCount = 13
@@ -69,8 +69,8 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     let view = AppNavigationView(
       store: .init(
         initialState: appState,
-        reducer: appReducer,
-        environment: AppEnvironment(
+        reducer: AppFeature.reducer,
+        environment: .init(
           service: .noop,
           idProvider: .noop,
           mainQueue: .failing,
@@ -89,7 +89,7 @@ class AppNavigationViewSnapshotTests: XCTestCase {
   }
   
   func test_appNavigationView_WithBadge() {
-    var appState: AppState = .init(
+    var appState: AppFeature.State = .init(
       locationsAndChatMessages: nil
     )
     appState.chatMessageBadgeCount = 13
@@ -97,8 +97,8 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     let view = AppNavigationView(
       store: .init(
         initialState: appState,
-        reducer: appReducer,
-        environment: AppEnvironment(
+        reducer: AppFeature.reducer,
+        environment: .init(
           service: .noop,
           idProvider: .noop,
           mainQueue: .failing,

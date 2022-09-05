@@ -9,7 +9,7 @@ public struct ChatView: View {
   public struct ChatViewState: Equatable {
     public var identifiedChatMessages: [IdentifiedChatMessage]
     
-    public init(_ state: ChatFeatureState) {
+    public init(_ state: ChatFeature.State) {
       identifiedChatMessages = state.chatMessages.elements?
         .compactMap { (key: String, value: ChatMessage) in
           IdentifiedChatMessage(
@@ -22,10 +22,10 @@ public struct ChatView: View {
     }
   }
   
-  let store: Store<ChatFeatureState, ChatFeatureAction>
-  @ObservedObject var viewStore: ViewStore<ChatViewState, ChatFeatureAction>
+  let store: Store<ChatFeature.State, ChatFeature.Action>
+  @ObservedObject var viewStore: ViewStore<ChatViewState, ChatFeature.Action>
   
-  public init(store: Store<ChatFeatureState, ChatFeatureAction>) {
+  public init(store: Store<ChatFeature.State, ChatFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store.scope(state: ChatViewState.init))
   }
@@ -65,7 +65,7 @@ public struct ChatView: View {
       BasicInputView(
         store: self.store.scope(
           state: \.chatInputState,
-          action: ChatFeatureAction.chatInput
+          action: ChatFeature.Action.chatInput
         ),
         placeholder: L10n.Chat.placeholder
       )
@@ -97,10 +97,10 @@ public struct ChatView: View {
 struct ChatView_Previews: PreviewProvider {
   static var previews: some View {
     ChatView(
-      store: Store<ChatFeatureState, ChatFeatureAction>(
-        initialState: ChatFeatureState(),
-        reducer: chatReducer,
-        environment: ChatEnvironment(
+      store: Store<ChatFeature.State, ChatFeature.Action>(
+        initialState: .init(),
+        reducer: ChatFeature.reducer,
+        environment: ChatFeature.Environment(
           locationsAndChatDataService: .noop,
           mainQueue: .failing,
           idProvider: .noop,

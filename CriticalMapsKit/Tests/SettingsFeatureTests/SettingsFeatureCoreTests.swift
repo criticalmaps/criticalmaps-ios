@@ -4,8 +4,8 @@ import SettingsFeature
 import SharedModels
 import XCTest
 
-class SettingsFeatureCoreTests: XCTestCase {
-  var defaultEnvironment = SettingsEnvironment(
+final class SettingsFeatureCoreTests: XCTestCase {
+  var defaultEnvironment = SettingsFeature.Environment(
     uiApplicationClient: .noop,
     setUserInterfaceStyle: { _ in .none },
     fileClient: .noop,
@@ -23,12 +23,12 @@ class SettingsFeatureCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
+      initialState: SettingsFeature.State(),
+      reducer: SettingsFeature.reducer,
       environment: env
     )
     
-    let row = SettingsState.InfoSectionRow.privacy
+    let row = SettingsFeature.State.InfoSectionRow.privacy
 
     store.send(.infoSectionRowTapped(row))
     store.receive(.openURL(row.url))
@@ -46,12 +46,12 @@ class SettingsFeatureCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
+      initialState: SettingsFeature.State(),
+      reducer: SettingsFeature.reducer,
       environment: env
     )
     
-    let row = SettingsState.InfoSectionRow.website
+    let row = SettingsFeature.State.InfoSectionRow.website
 
     store.send(.infoSectionRowTapped(row))
     store.receive(.openURL(row.url))
@@ -69,12 +69,12 @@ class SettingsFeatureCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
+      initialState: SettingsFeature.State(),
+      reducer: SettingsFeature.reducer,
       environment: env
     )
     
-    let row = SettingsState.InfoSectionRow.twitter
+    let row = SettingsFeature.State.InfoSectionRow.twitter
 
     store.send(.infoSectionRowTapped(row))
     store.receive(.openURL(row.url))
@@ -92,12 +92,12 @@ class SettingsFeatureCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
+      initialState: SettingsFeature.State(),
+      reducer: SettingsFeature.reducer,
       environment: env
     )
     
-    let row = SettingsState.SupportSectionRow.github
+    let row = SettingsFeature.State.SupportSectionRow.github
 
     store.send(.supportSectionRowTapped(row))
     store.receive(.openURL(row.url))
@@ -115,12 +115,12 @@ class SettingsFeatureCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
+      initialState: SettingsFeature.State(),
+      reducer: SettingsFeature.reducer,
       environment: env
     )
     
-    let row = SettingsState.SupportSectionRow.crowdin
+    let row = SettingsFeature.State.SupportSectionRow.crowdin
 
     store.send(.supportSectionRowTapped(row))
     store.receive(.openURL(row.url))
@@ -138,12 +138,12 @@ class SettingsFeatureCoreTests: XCTestCase {
     }
     
     let store = TestStore(
-      initialState: SettingsState(),
-      reducer: settingsReducer,
+      initialState: SettingsFeature.State(),
+      reducer: SettingsFeature.reducer,
       environment: env
     )
     
-    let row = SettingsState.SupportSectionRow.criticalMassDotIn
+    let row = SettingsFeature.State.SupportSectionRow.criticalMassDotIn
 
     store.send(.supportSectionRowTapped(row))
     store.receive(.openURL(row.url))

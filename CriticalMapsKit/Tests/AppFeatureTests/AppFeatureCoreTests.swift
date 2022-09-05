@@ -35,7 +35,7 @@ import XCTest
       false
     }
     
-    var environment = AppEnvironment(
+    var environment = AppFeature.Environment(
       service: service,
       idProvider: .noop,
       mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
@@ -55,8 +55,8 @@ import XCTest
     }
     
     let store = TestStore(
-      initialState: AppState(),
-      reducer: appReducer,
+      initialState: AppFeature.State(),
+      reducer: AppFeature.reducer,
       environment: environment
     )
     
@@ -133,7 +133,7 @@ import XCTest
     locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    var environment = AppEnvironment(
+    var environment = AppFeature.Environment(
       service: service,
       idProvider: .noop,
       mainQueue: .immediate,
@@ -153,12 +153,12 @@ import XCTest
       )
     }
     
-    var appState = AppState()
+    var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 3
     
     let store = TestStore(
       initialState: appState,
-      reducer: appReducer,
+      reducer: AppFeature.reducer,
       environment: environment
     )
     
@@ -188,7 +188,6 @@ import XCTest
     }
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
 
-    XCTAssertTrue(didRequestAlwaysAuthorization)
     XCTAssertTrue(didRequestLocation)
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
 
@@ -255,7 +254,7 @@ import XCTest
     locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    var environment = AppEnvironment(
+    var environment = AppFeature.Environment(
       service: service,
       idProvider: .noop,
       mainQueue: testScheduler.eraseToAnyScheduler(),
@@ -277,12 +276,12 @@ import XCTest
       .init(value: try! JSONEncoder().encode(userSettings))
     }
     
-    var appState = AppState(settingsState: .init(userSettings: userSettings))
+    var appState = AppFeature.State(settingsState: .init(userSettings: userSettings))
     appState.chatMessageBadgeCount = 3
     
     let store = TestStore(
       initialState: appState,
-      reducer: appReducer,
+      reducer: AppFeature.reducer,
       environment: environment
     )
     
@@ -337,9 +336,9 @@ import XCTest
   
   func test_appNavigation() {
     let store = TestStore(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironment(
+      initialState: AppFeature.State(),
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none }
       )
@@ -369,13 +368,13 @@ import XCTest
   }
 
   func test_resetUnreadMessagesCount_whenAction_chat_onAppear() {
-    var appState = AppState()
+    var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
 
     let store = TestStore(
       initialState: appState,
-      reducer: appReducer,
-      environment: AppEnvironment(
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none }
       )
@@ -388,9 +387,9 @@ import XCTest
 
   func test_animateNextRideBanner() {
     let store = TestStore(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironment(
+      initialState: AppFeature.State(),
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         mainQueue: testScheduler.eraseToAnyScheduler(),
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none },
@@ -436,9 +435,9 @@ import XCTest
     let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
     
     let store = TestStore(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironment(
+      initialState: AppFeature.State(),
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none },
         pathMonitorClient: .satisfied
@@ -517,7 +516,7 @@ import XCTest
   }
 
   func test_actionSetEventsBottomSheet_setsValue_andMapFeatureRideEvents() {
-    var appState = AppState()
+    var appState = AppFeature.State()
     let events = [
       Ride(
         id: 1,
@@ -558,8 +557,8 @@ import XCTest
 
     let store = TestStore(
       initialState: appState,
-      reducer: appReducer,
-      environment: AppEnvironment(
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none },
         pathMonitorClient: .satisfied
@@ -573,7 +572,7 @@ import XCTest
   }
 
   func test_actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() {
-    var appState = AppState()
+    var appState = AppFeature.State()
     let events = [
       Ride(
         id: 1,
@@ -614,8 +613,8 @@ import XCTest
 
     let store = TestStore(
       initialState: appState,
-      reducer: appReducer,
-      environment: AppEnvironment(
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none },
         pathMonitorClient: .satisfied
@@ -629,13 +628,13 @@ import XCTest
   }
 
   func test_focuesNextRide_whenAllEventsArePresented_shouldHideAllEventsBotttomSheet() {
-    var appState = AppState()
+    var appState = AppFeature.State()
     appState.presentEventsBottomSheet = true
 
     let store = TestStore(
       initialState: appState,
-      reducer: appReducer,
-      environment: AppEnvironment(
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none },
         pathMonitorClient: .satisfied
@@ -652,10 +651,10 @@ import XCTest
     var didSaveUserSettings = false
     var didSetDidShowPrompt = false
     
-    let store = TestStore(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironment(
+    var store = TestStore(
+      initialState: AppFeature.State(),
+      reducer: AppFeature.reducer,
+      environment: AppFeature.Environment(
         mainQueue: .immediate,
         userDefaultsClient: .noop,
         uiApplicationClient: .noop,

@@ -10,13 +10,13 @@ public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.connectivity) var isConnected
 
-  public init(store: Store<MapFeatureState, MapFeatureAction>) {
+  public init(store: Store<MapFeature.State, MapFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
 
-  let store: Store<MapFeatureState, MapFeatureAction>
-  @ObservedObject var viewStore: ViewStore<MapFeatureState, MapFeatureAction>
+  let store: Store<MapFeature.State, MapFeature.Action>
+  @ObservedObject var viewStore: ViewStore<MapFeature.State, MapFeature.Action>
 
   public var body: some View {
     ZStack(alignment: .topLeading) {
@@ -52,13 +52,13 @@ public struct MapFeatureView: View {
 struct MapFeatureView_Previews: PreviewProvider {
   static var previews: some View {
     MapFeatureView(
-      store: Store<MapFeatureState, MapFeatureAction>(
-        initialState: MapFeatureState(
+      store: Store<MapFeature.State, MapFeature.Action>(
+        initialState: MapFeature.State(
           riders: [],
           userTrackingMode: UserTrackingState(userTrackingMode: .follow)
         ),
-        reducer: mapFeatureReducer,
-        environment: MapFeatureEnvironment(
+        reducer: MapFeature.reducer,
+        environment: MapFeature.Environment(
           locationManager: .live,
           mainQueue: .failing
         )

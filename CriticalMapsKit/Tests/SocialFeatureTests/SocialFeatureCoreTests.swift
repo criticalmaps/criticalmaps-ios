@@ -5,9 +5,9 @@ import XCTest
 class SocialFeatureCoreTests: XCTestCase {
   func test_setSocialSegment() {
     let testStore = TestStore(
-      initialState: SocialState(socialControl: .chat),
-      reducer: socialReducer,
-      environment: SocialEnvironment(
+      initialState: SocialFeature.State(socialControl: .chat),
+      reducer: SocialFeature.reducer,
+      environment: SocialFeature.Environment(
         mainQueue: .immediate,
         uiApplicationClient: .noop,
         locationsAndChatDataService: .noop,
@@ -18,10 +18,10 @@ class SocialFeatureCoreTests: XCTestCase {
       )
     )
 
-    testStore.send(.setSocialSegment(SocialState.SocialControl.twitter.rawValue)) { state in
+    testStore.send(.setSocialSegment(SocialFeature.SocialControl.twitter.rawValue)) { state in
       state.socialControl = .twitter
     }
-    testStore.send(.setSocialSegment(SocialState.SocialControl.chat.rawValue)) { state in
+    testStore.send(.setSocialSegment(SocialFeature.SocialControl.chat.rawValue)) { state in
       state.socialControl = .chat
     }
   }

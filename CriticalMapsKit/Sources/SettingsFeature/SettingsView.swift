@@ -10,10 +10,10 @@ import SwiftUIHelpers
 public struct SettingsView: View {
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
-  let store: Store<SettingsState, SettingsAction>
-  @ObservedObject var viewStore: ViewStore<SettingsState, SettingsAction>
+  let store: Store<SettingsFeature.State, SettingsFeature.Action>
+  @ObservedObject var viewStore: ViewStore<SettingsFeature.State, SettingsFeature.Action>
   
-  public init(store: Store<SettingsState, SettingsAction>) {
+  public init(store: Store<SettingsFeature.State, SettingsFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store, removeDuplicates: ==)
   }
@@ -27,7 +27,7 @@ public struct SettingsView: View {
             destination: RideEventSettingsView(
               store: store.scope(
                 state: \.userSettings.rideEventSettings,
-                action: SettingsAction.rideevent
+                action: SettingsFeature.Action.rideevent
               )
             ),
             title: L10n.Settings.eventSettings
@@ -48,8 +48,8 @@ public struct SettingsView: View {
           SettingsNavigationLink(
             destination: AppearanceSettingsView(
               store: store.scope(
-                state: \SettingsState.userSettings.appearanceSettings,
-                action: SettingsAction.appearance
+                state: \SettingsFeature.State.userSettings.appearanceSettings,
+                action: SettingsFeature.Action.appearance
               )
             ),
             title: L10n.Settings.Theme.appearance
@@ -83,7 +83,7 @@ public struct SettingsView: View {
       Toggle(
         isOn: viewStore.binding(
           get: { $0.userSettings.enableObservationMode },
-          send: SettingsAction.setObservationMode
+          send: SettingsFeature.Action.setObservationMode
         ),
         label: { EmptyView() }
       )
@@ -240,8 +240,8 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView(
           store: .init(
             initialState: .init(),
-            reducer: settingsReducer,
-            environment: SettingsEnvironment(
+            reducer: SettingsFeature.reducer,
+            environment: SettingsFeature.Environment(
               uiApplicationClient: .noop,
               setUserInterfaceStyle: { _ in .none },
               fileClient: .noop,

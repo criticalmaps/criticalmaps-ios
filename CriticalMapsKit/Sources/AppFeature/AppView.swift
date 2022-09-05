@@ -9,8 +9,8 @@ import SwiftUI
 
 /// The apps main view
 public struct AppView: View {
-  let store: Store<AppState, AppAction>
-  @ObservedObject var viewStore: ViewStore<AppState, AppAction>
+  let store: Store<AppFeature.State, AppFeature.Action>
+  @ObservedObject var viewStore: ViewStore<AppFeature.State, AppFeature.Action>
 
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -19,7 +19,7 @@ public struct AppView: View {
   @State private var orientation = UIDeviceOrientation.unknown
 
   private let minHeight: CGFloat = 56
-  public init(store: Store<AppState, AppAction>) {
+  public init(store: Store<AppFeature.State, AppFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -29,7 +29,7 @@ public struct AppView: View {
       MapFeatureView(
         store: store.scope(
           state: \.mapFeatureState,
-          action: AppAction.map
+          action: AppFeature.Action.map
         )
       )
       .edgesIgnoringSafeArea(.vertical)
@@ -229,10 +229,10 @@ public struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
-    AppView(store: Store<AppState, AppAction>(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironment(
+    AppView(store: Store<AppFeature.State, AppFeature.Action>(
+      initialState: .init(),
+      reducer: AppFeature.reducer,
+      environment: .init(
         service: .noop,
         idProvider: .noop,
         mainQueue: .failing,

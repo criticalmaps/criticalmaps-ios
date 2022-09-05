@@ -9,7 +9,7 @@ public struct TwitterFeedView: View {
   public struct TwitterFeedViewState: Equatable {
     public let shouldDisplayPlaceholder: Bool
 
-    public init(_ state: TwitterFeedState) {
+    public init(_ state: TwitterFeedFeature.State) {
       if let tweets = state.contentState.elements {
         shouldDisplayPlaceholder = state.twitterFeedIsLoading && tweets.isEmpty
       } else {
@@ -18,10 +18,10 @@ public struct TwitterFeedView: View {
     }
   }
 
-  let store: Store<TwitterFeedState, TwitterFeedAction>
-  @ObservedObject var viewStore: ViewStore<TwitterFeedViewState, TwitterFeedAction>
+  let store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>
+  @ObservedObject var viewStore: ViewStore<TwitterFeedViewState, TwitterFeedFeature.Action>
 
-  public init(store: Store<TwitterFeedState, TwitterFeedAction>) {
+  public init(store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store.scope(state: TwitterFeedViewState.init))
   }
@@ -39,10 +39,10 @@ public struct TwitterFeedView: View {
 struct TwitterFeedView_Previews: PreviewProvider {
   static var previews: some View {
     TwitterFeedView(
-      store: Store<TwitterFeedState, TwitterFeedAction>(
-        initialState: TwitterFeedState(),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+      store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
+        initialState: .init(),
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -67,7 +67,7 @@ public extension Array where Element == Tweet {
   }
 }
 
-extension Store where State == TwitterFeedState, Action == TwitterFeedAction {
+extension Store where State == TwitterFeedFeature.State, Action == TwitterFeedFeature.Action {
   static let placeholder = Store(
     initialState: .init(contentState: .results(.placeHolder)),
     reducer: .empty,

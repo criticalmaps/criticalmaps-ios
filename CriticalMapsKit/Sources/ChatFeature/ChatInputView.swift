@@ -6,13 +6,13 @@ import UIKit
 
 public struct BasicInputView: View {
   private let placeholder: String
-  let store: Store<ChatInputState, ChatInputAction>
-  @ObservedObject var viewStore: ViewStore<ChatInputState, ChatInputAction>
+  let store: Store<ChatInput.State, ChatInput.Action>
+  @ObservedObject var viewStore: ViewStore<ChatInput.State, ChatInput.Action>
   
   @State private var contentSizeThatFits: CGSize = .zero
   
   public init(
-    store: Store<ChatInputState, ChatInputAction>,
+    store: Store<ChatInput.State, ChatInput.Action>,
     placeholder: String = ""
   ) {
     self.store = store
@@ -32,7 +32,7 @@ public struct BasicInputView: View {
     MultilineTextField(
       attributedText: viewStore.binding(
         get: \.internalAttributedMessage,
-        send: { ChatInputAction.messageChanged($0.string) }
+        send: { ChatInput.Action.messageChanged($0.string) }
       ),
       placeholder: placeholder,
       isEditing: viewStore.binding(\.$isEditing),

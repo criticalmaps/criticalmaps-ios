@@ -6,10 +6,10 @@ import Styleguide
 import SwiftUI
 
 public struct TweetListView: View {
-  let store: Store<TwitterFeedState, TwitterFeedAction>
-  @ObservedObject var viewStore: ViewStore<TwitterFeedState, TwitterFeedAction>
+  let store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>
+  @ObservedObject var viewStore: ViewStore<TwitterFeedFeature.State, TwitterFeedFeature.Action>
 
-  public init(store: Store<TwitterFeedState, TwitterFeedAction>) {
+  public init(store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -57,10 +57,10 @@ struct TweetListView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       TweetListView(
-        store: Store<TwitterFeedState, TwitterFeedAction>(
-          initialState: TwitterFeedState(contentState: .results(.placeHolder)),
-          reducer: twitterFeedReducer,
-          environment: TwitterFeedEnvironment(
+        store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
+          initialState: .init(contentState: .results(.placeHolder)),
+          reducer: TwitterFeedFeature.reducer,
+          environment: TwitterFeedFeature.Environment(
             service: .noop,
             mainQueue: .failing,
             uiApplicationClient: .noop

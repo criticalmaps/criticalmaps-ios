@@ -28,15 +28,15 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.set = { _ in setSubject.eraseToEffect() }
       
     let store = TestStore(
-      initialState: MapFeatureState(
+      initialState: MapFeature.State(
         alert: nil,
         isRequestingCurrentLocation: false,
         location: nil,
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: mapFeatureReducer,
-      environment: MapFeatureEnvironment(
+      reducer: MapFeature.reducer,
+      environment: MapFeature.Environment(
         locationManager: locationManager,
         mainQueue: testScheduler.eraseToAnyScheduler()
       )
@@ -88,19 +88,19 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.locationServicesEnabled = { false }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    let env = MapFeatureEnvironment(
+    let env = MapFeature.Environment(
       locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
-      initialState: MapFeatureState(
+      initialState: MapFeature.State(
         alert: nil,
         isRequestingCurrentLocation: false,
         location: nil,
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: mapFeatureReducer,
+      reducer: MapFeature.reducer,
       environment: env
     )
     
@@ -128,19 +128,19 @@ class MapFeatureCoreTests: XCTestCase {
     } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
 
-    let env = MapFeatureEnvironment(
+    let env = MapFeature.Environment(
       locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
-      initialState: MapFeatureState(
+      initialState: MapFeature.State(
         alert: nil,
         isRequestingCurrentLocation: false,
         location: nil,
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: mapFeatureReducer,
+      reducer: MapFeature.reducer,
       environment: env
     )
     
@@ -163,7 +163,7 @@ class MapFeatureCoreTests: XCTestCase {
   }
   
   func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() {
-    let env = MapFeatureEnvironment(
+    let env = MapFeature.Environment(
       locationManager: .failing,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -179,7 +179,7 @@ class MapFeatureCoreTests: XCTestCase {
     )
 
     let store = TestStore(
-      initialState: MapFeatureState(
+      initialState: MapFeature.State(
         alert: nil,
         isRequestingCurrentLocation: true,
         location: nil,
@@ -187,7 +187,7 @@ class MapFeatureCoreTests: XCTestCase {
         userTrackingMode: .init(userTrackingMode: .follow),
         nextRide: ride
       ),
-      reducer: mapFeatureReducer,
+      reducer: MapFeature.reducer,
       environment: env
     )
 
@@ -204,7 +204,7 @@ class MapFeatureCoreTests: XCTestCase {
   }
   
   func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() {
-    let env = MapFeatureEnvironment(
+    let env = MapFeature.Environment(
       locationManager: .failing,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
@@ -220,7 +220,7 @@ class MapFeatureCoreTests: XCTestCase {
     )
 
     let store = TestStore(
-      initialState: MapFeatureState(
+      initialState: MapFeature.State(
         alert: nil,
         isRequestingCurrentLocation: true,
         location: nil,
@@ -228,7 +228,7 @@ class MapFeatureCoreTests: XCTestCase {
         userTrackingMode: .init(userTrackingMode: .follow),
         nextRide: ride
       ),
-      reducer: mapFeatureReducer,
+      reducer: MapFeature.reducer,
       environment: env
     )
 
@@ -254,19 +254,19 @@ class MapFeatureCoreTests: XCTestCase {
     locationManager.locationServicesEnabled = { true }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    let env = MapFeatureEnvironment(
+    let env = MapFeature.Environment(
       locationManager: locationManager,
       mainQueue: testScheduler.eraseToAnyScheduler()
     )
     let store = TestStore(
-      initialState: MapFeatureState(
+      initialState: MapFeature.State(
         alert: nil,
         isRequestingCurrentLocation: false,
         location: nil,
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: mapFeatureReducer,
+      reducer: MapFeature.reducer,
       environment: env
     )
     

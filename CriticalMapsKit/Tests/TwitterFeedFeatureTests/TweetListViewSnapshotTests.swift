@@ -14,8 +14,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .results(.placeHolder)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -30,8 +30,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .results(.placeHolder)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -47,8 +47,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .results(.placeHolder)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -64,8 +64,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .results(.placeHolder)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -82,8 +82,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .empty(.twitter)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -98,8 +98,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .empty(.twitter)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -115,8 +115,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .error(.default)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
@@ -131,8 +131,8 @@ class TweetListViewSnapshotTests: XCTestCase {
     let view = TweetListView(
       store: .init(
         initialState: .init(contentState: .error(.default)),
-        reducer: twitterFeedReducer,
-        environment: TwitterFeedEnvironment(
+        reducer: TwitterFeedFeature.reducer,
+        environment: TwitterFeedFeature.Environment(
           service: .noop,
           mainQueue: .failing,
           uiApplicationClient: .noop
