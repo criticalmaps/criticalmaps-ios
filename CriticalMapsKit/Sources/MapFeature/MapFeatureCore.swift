@@ -7,7 +7,6 @@ import SharedModels
 public enum MapFeature {
   // MARK: State
   
-  
   public struct State: Equatable {
     public var alert: AlertState<Action>?
     public var isRequestingCurrentLocation: Bool

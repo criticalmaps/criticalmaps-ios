@@ -7,6 +7,7 @@ import SharedModels
 import UserDefaultsClient
 
 // MARK: State
+
 public enum NextRideFeature {
   public struct State: Equatable {
     public init(nextRide: Ride? = nil, hasConnectivity: Bool = true) {
