@@ -457,7 +457,7 @@ public enum AppFeature {
     }
     
     return Effect(value: .nextRide(.getNextRide(coordinate)))
-        .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
+      .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
   }
   .onChange(of: \.mapFeatureState.location) { location, state, _, _ in
     state.nextRideState.userLocation = Coordinate(location)
@@ -466,7 +466,6 @@ public enum AppFeature {
 }
 
 // MARK: - Helper
-
 
 public extension AppFeature.Environment {
   static let live = Self(
