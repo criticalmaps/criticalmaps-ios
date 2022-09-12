@@ -236,9 +236,10 @@ public enum AppFeature {
         ]
         if !environment.userDefaultsClient.didShowObservationModePrompt() {
           effects.append(
-            Effect(value: .presentObservationModeAlert)
-              .delay(for: 3, scheduler: environment.mainQueue)
-              .eraseToEffect()
+            Effect.run { send in
+              try? await environment.mainQueue.sleep(for: .seconds(3))
+              await send.send(.presentObservationModeAlert)
+            }
           )
         }
         
@@ -316,7 +317,7 @@ public enum AppFeature {
             if !state.didResolveInitialLocation {
               state.didResolveInitialLocation.toggle()
               if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled {
-                return Effect.merge(
+                return Effect.concatenate(
                   Effect(value: .fetchData),
                   Effect(value: .nextRide(.getNextRide(coordinate)))
                 )
@@ -346,15 +347,13 @@ public enum AppFeature {
         switch nextRideAction {
         case let .setNextRide(ride):
           state.mapFeatureState.nextRide = ride
-          return Effect.concatenate(
-            Effect(value: .map(.setNextRideBannerVisible(true))),
-            Effect(value: .map(.setNextRideBannerExpanded(true)))
-              .delay(for: 1.0, scheduler: environment.mainQueue)
-              .eraseToEffect(),
-            Effect(value: .map(.setNextRideBannerExpanded(false)))
-              .delay(for: 10, scheduler: environment.mainQueue)
-              .eraseToEffect()
-          )
+          return Effect.run { send in
+            await send.send(.map(.setNextRideBannerVisible(true)))
+            try? await environment.mainQueue.sleep(for: .seconds(1))
+            await send.send(.map(.setNextRideBannerExpanded(true)))
+            try? await environment.mainQueue.sleep(for: .seconds(8))
+            await send.send(.map(.setNextRideBannerExpanded(false)))
+          }
           
         default:
           return .none
@@ -453,18 +452,21 @@ public enum AppFeature {
     struct RideEventSettingsChange: Hashable {}
 
     // fetch next ride after settings have changed
-    if let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled {
-      return Effect(value: .nextRide(.getNextRide(coordinate)))
-        .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
-    } else {
+    guard let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled else {
       return .none
     }
+    
+    return Effect(value: .nextRide(.getNextRide(coordinate)))
+        .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
   }
   .onChange(of: \.mapFeatureState.location) { location, state, _, _ in
     state.nextRideState.userLocation = Coordinate(location)
     return .none
   }
 }
+
+// MARK: - Helper
+
 
 public extension AppFeature.Environment {
   static let live = Self(

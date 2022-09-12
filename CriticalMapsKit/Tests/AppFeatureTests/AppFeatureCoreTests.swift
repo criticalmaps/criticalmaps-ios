@@ -67,11 +67,11 @@ import XCTest
     await store.receive(.requestTimer(.startTimer)) {
       $0.requestTimer.isTimerActive = true
     }
-    await store.receive(.presentObservationModeAlert) {
-      $0.alert = .viewingModeAlert
-    }
     await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.alert = .goToSettingsAlert
+    }
+    await store.receive(.presentObservationModeAlert) {
+      $0.alert = .viewingModeAlert
     }
     await store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied)))
     await store.receive(.requestTimer(.timerTicked))
@@ -89,7 +89,7 @@ import XCTest
     locationManagerSubject.send(completion: .finished)
   }
   
-  func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() async {
+  func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() async throws {
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
     
@@ -200,6 +200,9 @@ import XCTest
 
     await store.receive(.fetchData)
     await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
+    
+    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 10)
+    
     await store.receive(.fetchDataResponse(.success(serviceResponse)))
     await store.receive(.nextRide(.nextRideResponse(.success([]))))
     
@@ -385,12 +388,12 @@ import XCTest
     }
   }
 
-  func test_animateNextRideBanner() {
+  func test_animateNextRideBanner() async {
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: AppFeature.reducer,
       environment: AppFeature.Environment(
-        mainQueue: testScheduler.eraseToAnyScheduler(),
+        mainQueue: .immediate,
         uiApplicationClient: .noop,
         setUserInterfaceStyle: { _ in .none },
         pathMonitorClient: .satisfied
@@ -414,19 +417,17 @@ import XCTest
       disabledReasonMessage: nil,
       rideType: .alleycat
     )
-    store.send(.nextRide(.setNextRide(ride))) {
+    await store.send(.nextRide(.setNextRide(ride))) {
       $0.nextRideState.nextRide = ride
       $0.mapFeatureState.nextRide = ride
     }
-    store.receive(.map(.setNextRideBannerVisible(true))) {
+    await store.receive(.map(.setNextRideBannerVisible(true))) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
-    testScheduler.advance(by: 1.2)
-    store.receive(.map(.setNextRideBannerExpanded(true))) {
+    await store.receive(.map(.setNextRideBannerExpanded(true))) {
       $0.mapFeatureState.isNextRideBannerExpanded = true
     }
-    testScheduler.advance(by: 10.0)
-    store.receive(.map(.setNextRideBannerExpanded(false))) {
+    await store.receive(.map(.setNextRideBannerExpanded(false))) {
       $0.mapFeatureState.isNextRideBannerExpanded = false
     }
   }

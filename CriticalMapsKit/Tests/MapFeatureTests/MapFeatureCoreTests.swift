@@ -6,7 +6,8 @@ import MapFeature
 import SharedModels
 import XCTest
 
-class MapFeatureCoreTests: XCTestCase {
+@MainActor
+final class MapFeatureCoreTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   
   func test_onAppearAction() {
@@ -162,10 +163,10 @@ class MapFeatureCoreTests: XCTestCase {
     locationManagerSubject.send(completion: .finished)
   }
   
-  func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() {
+  func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() async {
     let env = MapFeature.Environment(
       locationManager: .failing,
-      mainQueue: testScheduler.eraseToAnyScheduler()
+      mainQueue: .immediate
     )
 
     let ride = Ride(
@@ -191,22 +192,18 @@ class MapFeatureCoreTests: XCTestCase {
       environment: env
     )
 
-    store.send(.focusNextRide(ride.coordinate)) {
-      $0.centerRegion = CoordinateRegion(
-        center: .init(latitude: 13.13, longitude: 55.55),
-        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-      )
+    await store.send(.focusNextRide(ride.coordinate)) {
+      $0.centerRegion = CoordinateRegion(center: .init(latitude: 13.13, longitude: 55.55))
     }
-    testScheduler.advance(by: 1)
-    store.receive(.resetCenterRegion) {
+    await store.receive(.resetCenterRegion) {
       $0.centerRegion = nil
     }
   }
   
-  func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() {
+  func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() async {
     let env = MapFeature.Environment(
       locationManager: .failing,
-      mainQueue: testScheduler.eraseToAnyScheduler()
+      mainQueue: .immediate
     )
 
     let ride = Ride(
@@ -232,14 +229,10 @@ class MapFeatureCoreTests: XCTestCase {
       environment: env
     )
 
-    store.send(.focusRideEvent(ride.coordinate)) {
-      $0.eventCenter = CoordinateRegion(
-        center: .init(latitude: 13.13, longitude: 55.55),
-        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-      )
+    await store.send(.focusRideEvent(ride.coordinate)) {
+      $0.eventCenter = CoordinateRegion(center: .init(latitude: 13.13, longitude: 55.55))
     }
-    testScheduler.advance(by: 1)
-    store.receive(.resetRideEventCenter) {
+    await store.receive(.resetRideEventCenter) {
       $0.eventCenter = nil
     }
   }

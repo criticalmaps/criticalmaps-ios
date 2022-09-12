@@ -173,26 +173,24 @@ public enum MapFeature {
         guard let nextRideCoordinate = coordinate else {
           return .none
         }
-        state.centerRegion = CoordinateRegion(
-          center: nextRideCoordinate.asCLLocationCoordinate,
-          span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        )
-        return Effect(value: .resetCenterRegion)
-          .delay(for: 1, scheduler: environment.mainQueue)
-          .eraseToEffect()
+        state.centerRegion = CoordinateRegion(center: nextRideCoordinate.asCLLocationCoordinate)
+        
+        return Effect.run { send in
+          try await environment.mainQueue.sleep(for: .seconds(1))
+          await send.send(.resetCenterRegion)
+        }
 
       case let .focusRideEvent(coordinate):
         guard let coordinate = coordinate else {
           return .none
         }
 
-        state.eventCenter = CoordinateRegion(
-          center: coordinate.asCLLocationCoordinate,
-          span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        )
-        return Effect(value: .resetRideEventCenter)
-          .delay(for: 1, scheduler: environment.mainQueue)
-          .eraseToEffect()
+        state.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
+        
+        return Effect.run { send in
+          try await environment.mainQueue.sleep(for: .seconds(1))
+          await send.send(.resetRideEventCenter)
+        }
 
       case .resetRideEventCenter:
         state.eventCenter = nil
@@ -217,7 +215,7 @@ public enum MapFeature {
   )
   .binding()
 
-  private static let locationManagerReducer = Reducer<MapFeature.State, LocationManager.Action, MapFeature.Environment> { state, action, environment in
+  private static let locationManagerReducer = Reducer<State, LocationManager.Action, Environment> { state, action, environment in
     switch action {
     case .didChangeAuthorization(.authorizedAlways),
          .didChangeAuthorization(.authorizedWhenInUse):

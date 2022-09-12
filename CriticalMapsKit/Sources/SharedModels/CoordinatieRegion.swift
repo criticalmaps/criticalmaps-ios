@@ -9,7 +9,7 @@ public struct CoordinateRegion: Equatable {
 
   public init(
     center: CLLocationCoordinate2D,
-    span: MKCoordinateSpan
+    span: MKCoordinateSpan = .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
   ) {
     self.center = center
     self.span = span
