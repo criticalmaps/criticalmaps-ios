@@ -2,7 +2,7 @@ import Foundation
 import TwitterFeedFeature
 import XCTest
 
-class TwitterFeedViewStateTests: XCTestCase {
+final class TwitterFeedViewStateTests: XCTestCase {
   func test_setShouldDisplayPlaceholder() {
     var feedState = TwitterFeedFeature.State(contentState: .loading([]))
     feedState.twitterFeedIsLoading = true

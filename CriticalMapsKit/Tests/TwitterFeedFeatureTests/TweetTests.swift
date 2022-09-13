@@ -3,7 +3,7 @@ import Foundation
 import SharedModels
 import XCTest
 
-class TweetTests: XCTestCase {
+final class TweetTests: XCTestCase {
   func test_createdAt_dateformatting() {
     let date = Date(timeIntervalSince1970: 1635521516)
     

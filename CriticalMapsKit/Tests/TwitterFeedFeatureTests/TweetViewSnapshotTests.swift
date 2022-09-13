@@ -3,7 +3,7 @@ import TestHelper
 import TwitterFeedFeature
 import XCTest
 
-class TweetViewSnapshotTests: XCTestCase {
+final class TweetViewSnapshotTests: XCTestCase {
   func test_tweetViewSnapshot1() {
     let view = TweetView(
       tweet: Tweet(

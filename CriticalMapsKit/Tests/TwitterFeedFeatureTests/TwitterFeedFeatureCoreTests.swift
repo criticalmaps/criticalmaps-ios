@@ -2,31 +2,25 @@ import ApiClient
 import Combine
 import ComposableArchitecture
 import CustomDump
+import SharedEnvironment
 import SharedModels
 import TwitterFeedFeature
 import UIApplicationClient
 import XCTest
 
 @MainActor
-class TwitterFeedCoreTests: XCTestCase {
+final class TwitterFeedCoreTests: XCTestCase {
   func test_onAppear_shouldFetchTwitterData() async throws {
     let request = TwitterFeedRequest()
     let decoder = request.decoder
     let tweetData = try XCTUnwrap(twitterFeedData)
     let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
     
-    var service = TwitterFeedService.noop
-    service.getTweets = { feed.statuses }
-    
     let store = TestStore(
       initialState: TwitterFeedFeature.State(),
-      reducer: TwitterFeedFeature.reducer,
-      environment: TwitterFeedFeature.Environment(
-        service: service,
-        mainQueue: .immediate,
-        uiApplicationClient: .noop
-      )
+      reducer: TwitterFeedFeature()
     )
+    store.dependencies.twitterService.getTweets = { feed.statuses }
     
     await _ = store.send(.onAppear)
     await store.receive(.fetchData) {
@@ -47,22 +41,14 @@ class TwitterFeedCoreTests: XCTestCase {
     let tweetData = try XCTUnwrap(twitterFeedData)
     let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
     
-    var applicationClient = UIApplicationClient.noop
-    applicationClient.open = { url, _ in
+    let store = TestStore(
+      initialState: TwitterFeedFeature.State(),
+      reducer: TwitterFeedFeature()
+    )
+    store.dependencies.uiApplicationClient.open = { url, _ in
       tweetUrl = url
       return .none
     }
-    
-    let store = TestStore(
-      initialState: TwitterFeedFeature.State(),
-      reducer: TwitterFeedFeature.reducer,
-      environment: TwitterFeedFeature.Environment(
-        service: .noop,
-        mainQueue: .immediate,
-        uiApplicationClient: applicationClient
-      )
-    )
-    
     store.send(.openTweet(feed.statuses[0]))
     
     XCTAssertNoDifference(tweetUrl, feed.statuses[0].tweetUrl)
