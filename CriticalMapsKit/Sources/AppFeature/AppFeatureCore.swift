@@ -26,7 +26,7 @@ public enum AppFeature {
       didResolveInitialLocation: Bool = false,
       mapFeatureState: MapFeature.State = .init(
         riders: [],
-        userTrackingMode: UserTrackingState(userTrackingMode: .follow)
+        userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
       ),
       socialState: SocialFeature.State = .init(),
       settingsState: SettingsFeature.State = .init(),
@@ -52,7 +52,7 @@ public enum AppFeature {
     // Children states
     public var mapFeatureState = MapFeature.State(
       riders: [],
-      userTrackingMode: UserTrackingState(userTrackingMode: .follow)
+      userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
     )
     public var socialState = SocialFeature.State()
     public var settingsState = SettingsFeature.State()
@@ -157,16 +157,12 @@ public enum AppFeature {
 
   /// Holds the logic for the AppFeature to update state and execute side effects
   public static let reducer = Reducer<State, Action, Environment>.combine(
-    MapFeature.reducer.pullback(
-      state: \.mapFeatureState,
-      action: /AppFeature.Action.map,
-      environment: {
-        MapFeature.Environment(
-          locationManager: $0.locationManager,
-          mainQueue: $0.mainQueue
-        )
-      }
-    ),
+    AnyReducer { _ in MapFeature() }
+      .pullback(
+        state: \.mapFeatureState,
+        action: /AppFeature.Action.map,
+        environment: { $0 }
+      ),
     requestTimerReducer.pullback(
       state: \.requestTimer,
       action: /AppFeature.Action.requestTimer,
@@ -176,22 +172,18 @@ public enum AppFeature {
         )
       }
     ),
-    AnyReducer { _ in
-      NextRideFeature()
-    }
-    .pullback(
-      state: \.nextRideState,
-      action: /AppFeature.Action.nextRide,
-      environment: { $0 }
-    ),
-    AnyReducer { _ in
-      SettingsFeature()
-    }
-    .pullback(
-      state: \.settingsState,
-      action: /AppFeature.Action.settings,
-      environment: { $0 }
-    ),
+    AnyReducer { _ in NextRideFeature() }
+      .pullback(
+        state: \.nextRideState,
+        action: /AppFeature.Action.nextRide,
+        environment: { $0 }
+      ),
+    AnyReducer { _ in SettingsFeature() }
+      .pullback(
+        state: \.settingsState,
+        action: /AppFeature.Action.settings,
+        environment: { $0 }
+      ),
     AnyReducer { _ in SocialFeature() }
       .pullback(
         state: \.socialState,

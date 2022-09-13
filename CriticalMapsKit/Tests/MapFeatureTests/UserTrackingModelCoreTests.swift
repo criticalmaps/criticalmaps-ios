@@ -7,9 +7,8 @@ import XCTest
 class UserTrackingModeCoreTests: XCTestCase {
   func test_nextTrackingMode() {
     let store = TestStore(
-      initialState: UserTrackingState(userTrackingMode: .none),
-      reducer: userTrackingReducer,
-      environment: UserTrackingEnvironment()
+      initialState: UserTrackingFeature.State(userTrackingMode: .none),
+      reducer: UserTrackingFeature()
     )
 
     store.send(.nextTrackingMode) {

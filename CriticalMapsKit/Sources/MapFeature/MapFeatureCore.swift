@@ -4,7 +4,12 @@ import L10n
 import MapKit
 import SharedModels
 
-public enum MapFeature {
+public struct MapFeature: ReducerProtocol {
+  public init() {}
+  
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.locationManager) public var locationManager
+  
   // MARK: State
   
   public struct State: Equatable {
@@ -18,7 +23,7 @@ public enum MapFeature {
     public var eventCenter: CoordinateRegion?
     public var rideEvents: [Ride] = []
     @BindableState
-    public var userTrackingMode: UserTrackingState
+    public var userTrackingMode: UserTrackingFeature.State
     @BindableState
     public var centerRegion: CoordinateRegion?
     
@@ -34,7 +39,7 @@ public enum MapFeature {
       isRequestingCurrentLocation: Bool = false,
       location: ComposableCoreLocation.Location? = nil,
       riders: [Rider],
-      userTrackingMode: UserTrackingState,
+      userTrackingMode: UserTrackingFeature.State,
       nextRide: Ride? = nil,
       centerRegion: CoordinateRegion? = nil
     ) {
@@ -53,7 +58,7 @@ public enum MapFeature {
     case onAppear
     case locationRequested
     case nextTrackingMode
-    case updateUserTrackingMode(UserTrackingState)
+    case updateUserTrackingMode(UserTrackingFeature.State)
     case updateCenterRegion(CoordinateRegion?)
     case focusNextRide(Coordinate?)
     case focusRideEvent(Coordinate?)
@@ -67,7 +72,7 @@ public enum MapFeature {
     case setNextRideBannerVisible(Bool)
     
     case locationManager(LocationManager.Action)
-    case userTracking(UserTrackingAction)
+    case userTracking(UserTrackingFeature.Action)
   }
 
   public struct Environment {
@@ -85,19 +90,48 @@ public enum MapFeature {
 
   /// Used to identify locatioManager effects.
   private struct LocationManagerId: Hashable {}
-
-  public static let reducer = Reducer<State, Action, Environment>.combine(
-    userTrackingReducer.pullback(
-      state: \.userTrackingMode,
-      action: /MapFeature.Action.userTracking,
-      environment: { _ in UserTrackingEnvironment() }
-    ),
-    locationManagerReducer.pullback(
-      state: \.self,
-      action: /MapFeature.Action.locationManager,
-      environment: { $0 }
-    ),
-    Reducer { state, action, environment in
+  
+  public var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    
+    Scope(state: \.userTrackingMode, action: /MapFeature.Action.userTracking) {
+      UserTrackingFeature()
+    }
+    
+    Scope(state: \.self, action: /MapFeature.Action.locationManager) {
+      Reduce<State, LocationManager.Action> { state, action in
+        switch action {
+        case .didChangeAuthorization(.authorizedAlways),
+             .didChangeAuthorization(.authorizedWhenInUse):
+          if state.isRequestingCurrentLocation {
+            return locationManager
+              .requestLocation()
+              .fireAndForget()
+          }
+          return .none
+          
+        case .didChangeAuthorization(.denied):
+          if state.isRequestingCurrentLocation {
+            state.alert = AlertState(
+              title: TextState("Location makes this app better. Please consider giving us access.")
+            )
+            state.isRequestingCurrentLocation = false
+          }
+          return .none
+          
+        case let .didUpdateLocations(locations):
+          state.isRequestingCurrentLocation = false
+          guard let location = locations.first else { return .none }
+          state.location = location
+          return .none
+          
+        default:
+          return .none
+        }
+      }
+    }
+    
+    Reduce<State, Action> { state, action in
       switch action {
       case .binding:
         return .none
@@ -112,26 +146,26 @@ public enum MapFeature {
       
       case .onAppear:
         return .merge(
-          environment.locationManager
+          locationManager
             .delegate()
             .map(Action.locationManager),
           
-          environment.locationManager
+          locationManager
             .setup(id: LocationManagerId())
             .fireAndForget(),
           Effect(value: Action.locationRequested)
         )
         
       case .locationRequested:
-        guard environment.locationManager.locationServicesEnabled() else {
+        guard locationManager.locationServicesEnabled() else {
           state.alert = .servicesOff
           return .none
         }
-        switch environment.locationManager.authorizationStatus() {
+        switch locationManager.authorizationStatus() {
         case .notDetermined:
           state.isRequestingCurrentLocation = true
           
-          return environment.locationManager
+          return locationManager
             .requestAlwaysAuthorization()
             .fireAndForget()
           
@@ -144,7 +178,7 @@ public enum MapFeature {
           return .none
           
         case .authorizedAlways, .authorizedWhenInUse:
-          return environment.locationManager
+          return locationManager
             .startUpdatingLocation()
             .fireAndForget()
           
@@ -176,7 +210,7 @@ public enum MapFeature {
         state.centerRegion = CoordinateRegion(center: nextRideCoordinate.asCLLocationCoordinate)
         
         return Effect.run { send in
-          try await environment.mainQueue.sleep(for: .seconds(1))
+          try await mainQueue.sleep(for: .seconds(1))
           await send.send(.resetCenterRegion)
         }
 
@@ -188,7 +222,7 @@ public enum MapFeature {
         state.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
         
         return Effect.run { send in
-          try await environment.mainQueue.sleep(for: .seconds(1))
+          try await mainQueue.sleep(for: .seconds(1))
           await send.send(.resetRideEventCenter)
         }
 
@@ -211,38 +245,6 @@ public enum MapFeature {
       case .locationManager, .userTracking, .updateCenterRegion:
         return .none
       }
-    }
-  )
-  .binding()
-
-  private static let locationManagerReducer = Reducer<State, LocationManager.Action, Environment> { state, action, environment in
-    switch action {
-    case .didChangeAuthorization(.authorizedAlways),
-         .didChangeAuthorization(.authorizedWhenInUse):
-      if state.isRequestingCurrentLocation {
-        return environment.locationManager
-          .requestLocation()
-          .fireAndForget()
-      }
-      return .none
-      
-    case .didChangeAuthorization(.denied):
-      if state.isRequestingCurrentLocation {
-        state.alert = AlertState(
-          title: TextState("Location makes this app better. Please consider giving us access.")
-        )
-        state.isRequestingCurrentLocation = false
-      }
-      return .none
-      
-    case let .didUpdateLocations(locations):
-      state.isRequestingCurrentLocation = false
-      guard let location = locations.first else { return .none }
-      state.location = location
-      return .none
-      
-    default:
-      return .none
     }
   }
 }
@@ -278,4 +280,19 @@ public extension AlertState where Action == MapFeature.Action {
   static let provideAccessToLocationService = Self(
     title: TextState(L10n.Location.Alert.provideAccessToLocationService)
   )
+}
+
+
+// MARK: - Dependencies
+
+enum LocationManagerKey: DependencyKey {
+  static let liveValue = LocationManager.live
+  static let testValue = LocationManager.failing
+}
+
+public extension DependencyValues {
+  var locationManager: LocationManager {
+    get { self[LocationManagerKey.self] }
+    set { self[LocationManagerKey.self] = newValue }
+  }
 }

@@ -9,14 +9,17 @@ import SwiftUI
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.connectivity) var isConnected
+  
+  public typealias State = MapFeature.State
+  public typealias Action = MapFeature.Action
 
-  public init(store: Store<MapFeature.State, MapFeature.Action>) {
+  public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
 
-  let store: Store<MapFeature.State, MapFeature.Action>
-  @ObservedObject var viewStore: ViewStore<MapFeature.State, MapFeature.Action>
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
 
   public var body: some View {
     ZStack(alignment: .topLeading) {
@@ -55,13 +58,9 @@ struct MapFeatureView_Previews: PreviewProvider {
       store: Store<MapFeature.State, MapFeature.Action>(
         initialState: MapFeature.State(
           riders: [],
-          userTrackingMode: UserTrackingState(userTrackingMode: .follow)
+          userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
         ),
-        reducer: MapFeature.reducer,
-        environment: MapFeature.Environment(
-          locationManager: .live,
-          mainQueue: .failing
-        )
+        reducer: MapFeature()
       )
     )
   }
