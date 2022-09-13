@@ -99,15 +99,7 @@ struct ChatView_Previews: PreviewProvider {
     ChatView(
       store: Store<ChatFeature.State, ChatFeature.Action>(
         initialState: .init(),
-        reducer: ChatFeature.reducer,
-        environment: ChatFeature.Environment(
-          locationsAndChatDataService: .noop,
-          mainQueue: .failing,
-          idProvider: .noop,
-          uuid: UUID.init,
-          date: Date.init,
-          userDefaultsClient: .noop
-        )
+        reducer: ChatFeature()
       )
     )
   }

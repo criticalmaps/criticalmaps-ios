@@ -73,6 +73,7 @@ let package = Package(
         "IDProvider",
         "L10n",
         "Logger",
+        "SharedEnvironment",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -171,6 +172,8 @@ let package = Package(
     .target(
       name: "SharedEnvironment",
       dependencies: [
+        "ApiClient",
+        "IDProvider",
         "UIApplicationClient",
         "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")

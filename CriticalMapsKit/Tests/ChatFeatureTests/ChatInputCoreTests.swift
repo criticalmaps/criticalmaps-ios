@@ -2,15 +2,16 @@ import ChatFeature
 import ComposableArchitecture
 import XCTest
 
-class ChatInputCoreTests: XCTestCase {
+@MainActor
+final class ChatInputCoreTests: XCTestCase {
+  
   func test_isEditingChanged_action() {
     let testStore = TestStore(
       initialState: ChatInput.State(
         isEditing: false,
         message: ""
       ),
-      reducer: ChatInput.reducer,
-      environment: ChatInput.Environment()
+      reducer: ChatInput()
     )
     
     testStore.send(.set(\.$isEditing, true)) { state in
@@ -31,8 +32,7 @@ class ChatInputCoreTests: XCTestCase {
     
     let testStore = TestStore(
       initialState: state,
-      reducer: ChatInput.reducer,
-      environment: ChatInput.Environment()
+      reducer: ChatInput()
     )
     
     testStore.send(.messageChanged("Hello World!")) { state in

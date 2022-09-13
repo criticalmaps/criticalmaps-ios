@@ -5,15 +5,12 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
-@MainActor final class ChatFeatureCore: XCTestCase {
+@MainActor
+final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
-  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
-    let locationsAndChatDataService = LocationsAndChatDataService(
-      getLocationsAndSendMessages: { _ in mockResponse }
-    )
-    
+  func defaultTestStore() -> TestStore<ChatFeature, ChatFeature.State, ChatFeature.Action, ()> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
         chatMessages: .results([:]),
@@ -22,16 +19,17 @@ import XCTest
           message: "Hello World!"
         )
       ),
-      reducer: ChatFeature.reducer,
-      environment: ChatFeature.Environment(
-        locationsAndChatDataService: locationsAndChatDataService,
-        mainQueue: .immediate,
-        idProvider: .noop,
-        uuid: uuid,
-        date: date,
-        userDefaultsClient: .noop
-      )
+      reducer: ChatFeature()
     )
+    testStore.dependencies.uuid = .constant(uuid())
+    testStore.dependencies.date = .constant(date())
+    
+    return testStore
+  }
+  
+  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
+    let testStore = defaultTestStore()
+    testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in mockResponse }
     
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
@@ -45,28 +43,10 @@ import XCTest
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
     let error = NSError()
-    let locationsAndChatDataService = LocationsAndChatDataService(
-      getLocationsAndSendMessages: { _ in throw error }
-    )
-    
-    let testStore = TestStore(
-      initialState: ChatFeature.State(
-        chatMessages: .results([:]),
-        chatInputState: .init(
-          isEditing: true,
-          message: "Hello World!"
-        )
-      ),
-      reducer: ChatFeature.reducer,
-      environment: ChatFeature.Environment(
-        locationsAndChatDataService: locationsAndChatDataService,
-        mainQueue: .immediate,
-        idProvider: .noop,
-        uuid: uuid,
-        date: date,
-        userDefaultsClient: .noop
-      )
-    )
+    let testStore = defaultTestStore()
+    testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in
+      throw error
+    }
             
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
@@ -77,31 +57,20 @@ import XCTest
   }
   
   func test_didAppear_ShouldSet_appearanceTimeinterval() async {
-    let uuid: () -> UUID = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
-    let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
-    
     var didWriteChatAppearanceTimeinterval = false
     var chatAppearanceTimeinterval: TimeInterval = 0
     
-    var userDefaultsClient: UserDefaultsClient = .noop
-    userDefaultsClient.setDouble = { interval, _ in
+    let testStore = TestStore(
+      initialState: ChatFeature.State(),
+      reducer: ChatFeature()
+    )
+    testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
       didWriteChatAppearanceTimeinterval = true
       chatAppearanceTimeinterval = interval
       return .none
     }
-    
-    let testStore = TestStore(
-      initialState: ChatFeature.State(),
-      reducer: ChatFeature.reducer,
-      environment: ChatFeature.Environment(
-        locationsAndChatDataService: .noop,
-        mainQueue: .immediate,
-        idProvider: .noop,
-        uuid: uuid,
-        date: date,
-        userDefaultsClient: userDefaultsClient
-      )
-    )
+    testStore.dependencies.uuid = .constant(uuid())
+    testStore.dependencies.date = .constant(date())
   
     _ = await testStore.send(.onAppear)
     XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)

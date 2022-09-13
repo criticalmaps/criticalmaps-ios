@@ -1,4 +1,6 @@
+import ApiClient
 import ComposableArchitecture
+import IDProvider
 import SwiftUI
 import UIApplicationClient
 import UserDefaultsClient
@@ -26,18 +28,49 @@ public extension DependencyValues {
     get { self[UserDefaultsClientKey.self] }
     set { self[UserDefaultsClientKey.self] = newValue }
   }
+  
+  var idProvider: IDProvider {
+    get { self[IDProviderKey.self] }
+    set { self[IDProviderKey.self] = newValue }
+  }
+  
+  var apiClient: APIClient {
+    get { self[ApiClientKey.self] }
+    set { self[ApiClientKey.self] = newValue }
+  }
+  
+  var locationAndChatService: LocationsAndChatDataService {
+    get { self[LocationAndChatServiceKey.self] }
+    set { self[LocationAndChatServiceKey.self] = newValue }
+  }
 }
 
 
 // MARK: Keys
 
 
-private enum UserDefaultsClientKey: TestDependencyKey {
+
+enum ApiClientKey: DependencyKey {
+  static let liveValue = APIClient.live
+  static let testValue = APIClient.noop
+}
+
+enum IDProviderKey: DependencyKey {
+  static let liveValue = IDProvider.live()
+  static let testValue = IDProvider.noop
+}
+
+enum LocationAndChatServiceKey: DependencyKey {
+  static let liveValue = LocationsAndChatDataService.live()
+  static let testValue = LocationsAndChatDataService.failing
+}
+
+enum UserDefaultsClientKey: DependencyKey {
   static let liveValue = UserDefaultsClient.live()
   static let testValue = UserDefaultsClient.noop
 }
 
-private enum UIApplicationClientKey: TestDependencyKey {
+enum UIApplicationClientKey: DependencyKey {
   static let liveValue = UIApplicationClient.live
   static let testValue = UIApplicationClient.noop
 }

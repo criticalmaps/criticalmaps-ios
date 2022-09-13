@@ -2,7 +2,9 @@ import ComposableArchitecture
 import Foundation
 import UIKit
 
-public enum ChatInput {
+public struct ChatInput: ReducerProtocol {
+  public init() {}
+  
   // MARK: State
 
   public struct State: Equatable {
@@ -49,19 +51,21 @@ public enum ChatInput {
   }
 
   // MARK: Reducer
+  
+  public var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    Reduce { state, action in
+      switch action {
+      case .binding:
+        return .none
 
-  public static let reducer = Reducer<State, Action, Environment> { state, action, _ in
-    switch action {
-    case .binding:
-      return .none
+      case let .messageChanged(message):
+        state.message = message
+        return .none
 
-    case let .messageChanged(message):
-      state.message = message
-      return .none
-
-    case .onCommit:
-      return .none
+      case .onCommit:
+        return .none
+      }
     }
   }
-  .binding()
 }
