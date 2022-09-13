@@ -21,7 +21,7 @@ let package = Package(
     .package(
       name: "swift-composable-architecture",
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      .upToNextMajor(from: "0.18.0")
+      branch: "protocol-beta"
     ),
     .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0"),
