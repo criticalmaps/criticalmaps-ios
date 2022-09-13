@@ -170,7 +170,11 @@ let package = Package(
     ),
     .target(
       name: "SharedEnvironment",
-      dependencies: []
+      dependencies: [
+        "UIApplicationClient",
+        "UserDefaultsClient",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
     ),
     .target(
       name: "SharedModels",
@@ -212,6 +216,8 @@ let package = Package(
       name: "TwitterFeedFeature",
       dependencies: [
         "ApiClient",
+        "Logger",
+        "SharedEnvironment",
         "SharedModels",
         "Styleguide",
         "UIApplicationClient",
@@ -343,6 +349,7 @@ package.targets.append(contentsOf: [
     name: "TwitterFeedFeatureTests",
     dependencies: [
       "Helpers",
+      "SharedEnvironment",
       "TwitterFeedFeature",
       "TestHelper",
       .product(
