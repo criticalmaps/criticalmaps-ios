@@ -143,6 +143,7 @@ let package = Package(
         "Helpers",
         "L10n",
         "Logger",
+        "SharedEnvironment",
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient",

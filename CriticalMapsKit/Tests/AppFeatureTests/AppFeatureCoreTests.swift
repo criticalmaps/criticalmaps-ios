@@ -162,6 +162,7 @@ import XCTest
       reducer: AppFeature.reducer,
       environment: environment
     )
+    store.dependencies.date = .unimplemented
     
     let task = await store.send(.onAppear)
     await store.receive(.observeConnection)

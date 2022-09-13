@@ -176,18 +176,13 @@ public enum AppFeature {
         )
       }
     ),
-    NextRideFeature.reducer.pullback(
+    AnyReducer { _ in
+      NextRideFeature()
+    }
+    .pullback(
       state: \.nextRideState,
       action: /AppFeature.Action.nextRide,
-      environment: {
-        NextRideFeature.Environment(
-          service: $0.nextRideService,
-          store: $0.userDefaultsClient,
-          now: $0.date,
-          mainQueue: $0.mainQueue,
-          coordinateObfuscator: .live
-        )
-      }
+      environment: { $0 }
     ),
     AnyReducer { _ in
       SettingsFeature()
