@@ -11,12 +11,16 @@
   "defaultOptions" : {
     "language" : "en",
     "locationScenario" : {
-      "identifier" : "..\/App\/Berlin:Germany.gpx"
+      "identifier" : "..\/..\/App\/Berlin:Germany.gpx"
     },
     "region" : "DE"
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "AppNavigationViewSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "AppFeatureTests",
@@ -24,6 +28,10 @@
       }
     },
     {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "ChatFeatureSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "ChatFeatureTests",
@@ -31,6 +39,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "HelperTests",
@@ -38,6 +47,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "IDProviderTests",
@@ -45,6 +55,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "MapFeatureTests",
@@ -52,6 +63,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "NextRideFeatureTests",
@@ -59,6 +71,12 @@
       }
     },
     {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "AppearanceSettingsViewSnapshotTests",
+        "RideEventSettingsViewSnapshotTests",
+        "SettingsViewSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "SettingsFeatureTests",
@@ -66,6 +84,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "SocialFeatureTests",
@@ -73,6 +92,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "StyleguideTests",
@@ -80,6 +100,11 @@
       }
     },
     {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "TweetListViewSnapshotTests",
+        "TweetViewSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "TwitterFeedFeatureTests",
