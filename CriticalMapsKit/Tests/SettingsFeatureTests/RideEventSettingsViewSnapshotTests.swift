@@ -3,7 +3,7 @@ import SharedModels
 import TestHelper
 import XCTest
 
-class RideEventSettingsViewSnapshotTests: XCTestCase {
+final class RideEventSettingsViewSnapshotTests: XCTestCase {
   func test_rideEventSettingsView_light() {
     let settingsView = RideEventSettingsView(
       store: .init(
@@ -12,8 +12,7 @@ class RideEventSettingsViewSnapshotTests: XCTestCase {
           typeSettings: .all,
           eventDistance: .close
         ),
-        reducer: rideeventSettingsReducer,
-        environment: RideEventSettingsEnvironment()
+        reducer: RideEventsSettingsFeature()
       )
     )
     
@@ -28,8 +27,7 @@ class RideEventSettingsViewSnapshotTests: XCTestCase {
           typeSettings: .all,
           eventDistance: .close
         ),
-        reducer: rideeventSettingsReducer,
-        environment: RideEventSettingsEnvironment()
+        reducer: RideEventsSettingsFeature()
       )
     )
     

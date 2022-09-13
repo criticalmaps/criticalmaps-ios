@@ -240,14 +240,7 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView(
           store: .init(
             initialState: .init(),
-            reducer: SettingsFeature.reducer,
-            environment: SettingsFeature.Environment(
-              uiApplicationClient: .noop,
-              setUserInterfaceStyle: { _ in .none },
-              fileClient: .noop,
-              backgroundQueue: .failing,
-              mainQueue: .failing
-            )
+            reducer: SettingsFeature()
           )
         )
       }

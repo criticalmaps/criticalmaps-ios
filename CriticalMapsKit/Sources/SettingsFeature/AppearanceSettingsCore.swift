@@ -1,46 +1,45 @@
 import ComposableArchitecture
 import Helpers
+import SharedEnvironment
 import SharedModels
 import UIApplicationClient
 import UIKit.UIInterface
 
-// MARK: Action
+public struct AppearanceSettingsFeature: ReducerProtocol {
+  public init() {}
 
-public enum AppearanceSettingsAction: Equatable, BindableAction {
-  case binding(BindingAction<AppearanceSettings>)
-}
-
-// MARK: Environment
-
-public struct AppearanceSettingsEnvironment {
+  @Dependency(\.uiApplicationClient)
+  public var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle)
   public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
-  public var uiApplicationClient: UIApplicationClient
 
-  public init(
-    uiApplicationClient: UIApplicationClient,
-    setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>
-  ) {
-    self.uiApplicationClient = uiApplicationClient
-    self.setUserInterfaceStyle = setUserInterfaceStyle
+  
+  // MARK: State
+  
+  public typealias State = SharedModels.AppearanceSettings
+  
+  // MARK: Action
+  
+  public enum Action: Equatable, BindableAction {
+    case binding(BindingAction<AppearanceSettings>)
+  }
+  
+  public var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    
+    Reduce<State, Action> { state, action in
+      switch action {
+      case .binding(\.$colorScheme):
+        return setUserInterfaceStyle(state.colorScheme.userInterfaceStyle)
+          .fireAndForget()
+
+      case .binding(\.$appIcon):
+        return uiApplicationClient.setAlternateIconName(state.appIcon.rawValue)
+          .fireAndForget()
+
+      case .binding:
+        return .none
+      }
+    }
   }
 }
-
-// MARK: Reducer
-
-public typealias AppearanceReducer = Reducer<AppearanceSettings, AppearanceSettingsAction, AppearanceSettingsEnvironment>
-/// Reducer to handle appearance settings actions 
-public let appearanceSettingsReducer = AppearanceReducer { state, action, environment in
-  switch action {
-  case .binding(\.$colorScheme):
-    return environment.setUserInterfaceStyle(state.colorScheme.userInterfaceStyle)
-      .fireAndForget()
-
-  case .binding(\.$appIcon):
-    return environment.uiApplicationClient.setAlternateIconName(state.appIcon.rawValue)
-      .fireAndForget()
-
-  case .binding:
-    return .none
-  }
-}
-.binding()

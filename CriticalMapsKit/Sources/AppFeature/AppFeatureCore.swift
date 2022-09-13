@@ -189,18 +189,13 @@ public enum AppFeature {
         )
       }
     ),
-    SettingsFeature.reducer.pullback(
+    AnyReducer { _ in
+      SettingsFeature()
+    }
+    .pullback(
       state: \.settingsState,
       action: /AppFeature.Action.settings,
-      environment: {
-        .init(
-          uiApplicationClient: $0.uiApplicationClient,
-          setUserInterfaceStyle: $0.setUserInterfaceStyle,
-          fileClient: $0.fileClient,
-          backgroundQueue: $0.backgroundQueue,
-          mainQueue: $0.mainQueue
-        )
-      }
+      environment: { $0 }
     ),
     AnyReducer { _ in SocialFeature() }
       .pullback(

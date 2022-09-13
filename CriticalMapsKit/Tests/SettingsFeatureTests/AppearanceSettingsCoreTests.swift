@@ -4,55 +4,46 @@ import SettingsFeature
 import SharedModels
 import XCTest
 
-class AppearanceSettingsCoreTests: XCTestCase {
-  var defaultEnvironment = AppearanceSettingsEnvironment(
-    uiApplicationClient: .noop,
-    setUserInterfaceStyle: { _ in .none }
-  )
-
-  func test_selectAppIcon_shouldUpdateState() {
+@MainActor
+final class AppearanceSettingsCoreTests: XCTestCase {
+  
+  func test_selectAppIcon_shouldUpdateState() async {
     var overriddenIconName: String!
-
-    var env = defaultEnvironment
-    env.uiApplicationClient.setAlternateIconName = { newValue in
+    let store = TestStore(
+      initialState: AppearanceSettings(),
+      reducer: AppearanceSettingsFeature()
+    )
+    store.dependencies.uiApplicationClient.setAlternateIconName = { newValue in
       .fireAndForget {
         overriddenIconName = newValue
       }
     }
-
-    let store = TestStore(
-      initialState: AppearanceSettings(),
-      reducer: appearanceSettingsReducer,
-      environment: env
-    )
-    store.send(.set(\.$appIcon, .appIcon4)) { state in
+    
+    await store.send(.set(\.$appIcon, .appIcon4)) { state in
       state.appIcon = .appIcon4
     }
     XCTAssertNoDifference(overriddenIconName, "appIcon-4")
   }
 
-  func testSetColorScheme() {
+  func testSetColorScheme() async {
     var overriddenUserInterfaceStyle: UIUserInterfaceStyle!
 
-    var environment = defaultEnvironment
-    environment.setUserInterfaceStyle = { newValue in
+    let store = TestStore(
+      initialState: AppearanceSettings(),
+      reducer: AppearanceSettingsFeature()
+    )
+    store.dependencies.setUserInterfaceStyle = { newValue in
       .fireAndForget {
         overriddenUserInterfaceStyle = newValue
       }
     }
-
-    let store = TestStore(
-      initialState: AppearanceSettings(),
-      reducer: appearanceSettingsReducer,
-      environment: environment
-    )
-
-    store.send(.set(\.$colorScheme, .light)) {
+    
+    await store.send(.set(\.$colorScheme, .light)) {
       $0.colorScheme = .light
     }
     XCTAssertNoDifference(overriddenUserInterfaceStyle, .light)
 
-    store.send(.set(\.$colorScheme, .system)) {
+    await store.send(.set(\.$colorScheme, .system)) {
       $0.colorScheme = .system
     }
     XCTAssertNoDifference(overriddenUserInterfaceStyle, .unspecified)

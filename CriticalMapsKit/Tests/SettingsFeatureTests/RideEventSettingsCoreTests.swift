@@ -4,7 +4,8 @@ import SettingsFeature
 import SharedModels
 import XCTest
 
-class RideEventSettingsCoreTests: XCTestCase {
+final class RideEventSettingsCoreTests: XCTestCase {
+  
   func test_setRideEventsEnabled() {
     let store = TestStore(
       initialState: RideEventSettings(
@@ -12,8 +13,7 @@ class RideEventSettingsCoreTests: XCTestCase {
         typeSettings: .all,
         eventDistance: .close
       ),
-      reducer: rideeventSettingsReducer,
-      environment: RideEventSettingsEnvironment()
+      reducer: RideEventsSettingsFeature()
     )
     
     store.send(.setRideEventsEnabled(false)) {
@@ -32,8 +32,7 @@ class RideEventSettingsCoreTests: XCTestCase {
         typeSettings: .all,
         eventDistance: .close
       ),
-      reducer: rideeventSettingsReducer,
-      environment: RideEventSettingsEnvironment()
+      reducer: RideEventsSettingsFeature()
     )
     
     var updatedType = RideEventSettings.RideEventTypeSetting(type: .kidicalMass, isEnabled: false)
@@ -59,8 +58,7 @@ class RideEventSettingsCoreTests: XCTestCase {
         typeSettings: .all,
         eventDistance: .close
       ),
-      reducer: rideeventSettingsReducer,
-      environment: RideEventSettingsEnvironment()
+      reducer: RideEventsSettingsFeature()
     )
     
     store.send(.setRideEventRadius(.near)) {

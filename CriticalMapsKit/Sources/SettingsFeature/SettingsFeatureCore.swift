@@ -5,8 +5,18 @@ import SharedModels
 import UIApplicationClient
 import UIKit.UIInterface
 
-public enum SettingsFeature {
+public struct SettingsFeature: ReducerProtocol {
+  public init() {}
+  
   // MARK: State
+  @Dependency(\.backgroundQueue)
+  public var backgroundQueue
+  @Dependency(\.fileClient)
+  public var fileClient
+  @Dependency(\.mainQueue)
+  public var mainQueue
+  @Dependency(\.uiApplicationClient)
+  public var uiApplicationClient: UIApplicationClient
 
   public struct State: Equatable {
     public var userSettings: UserSettings
@@ -37,91 +47,58 @@ public enum SettingsFeature {
     case setObservationMode(Bool)
     case openURL(URL)
 
-    case appearance(AppearanceSettingsAction)
-    case rideevent(RideEventSettingsActions)
-  }
-
-  // MARK: Environment
-
-  public struct Environment {
-    public let backgroundQueue: AnySchedulerOf<DispatchQueue>
-    public var fileClient: FileClient
-    public let mainQueue: AnySchedulerOf<DispatchQueue>
-    public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
-    public var uiApplicationClient: UIApplicationClient
-
-    public init(
-      uiApplicationClient: UIApplicationClient,
-      setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>,
-      fileClient: FileClient,
-      backgroundQueue: AnySchedulerOf<DispatchQueue>,
-      mainQueue: AnySchedulerOf<DispatchQueue>
-    ) {
-      self.uiApplicationClient = uiApplicationClient
-      self.setUserInterfaceStyle = setUserInterfaceStyle
-      self.fileClient = fileClient
-      self.backgroundQueue = backgroundQueue
-      self.mainQueue = mainQueue
-    }
+    case appearance(AppearanceSettingsFeature.Action)
+    case rideevent(RideEventsSettingsFeature.Action)
   }
 
   // MARK: Reducer
-
-  /// A reducer to handle settings feature actions
-  public static let reducer = Reducer<State, Action, Environment> { state, action, environment in
-    switch action {
-    case .onAppear:
-      state.userSettings.appearanceSettings.appIcon = environment.uiApplicationClient.alternateIconName()
-        .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
-      return .none
-
-    case let .infoSectionRowTapped(row):
-      return Effect(value: .openURL(row.url))
-
-    case let .supportSectionRowTapped(row):
-      return Effect(value: .openURL(row.url))
-
-    case let .openURL(url):
-      return environment.uiApplicationClient
-        .open(url, [:])
-        .fireAndForget()
-
-    case let .setObservationMode(value):
-      state.userSettings.enableObservationMode = value
-      return .none
-
-    case .binding:
-      return .none
-
-    case .appearance, .rideevent:
-      return .none
-    }
-  }
-  .combined(
-    with: appearanceSettingsReducer.pullback(
+  
+  public var body: some ReducerProtocol<State, Action> {
+    Scope(
       state: \.userSettings.appearanceSettings,
-      action: /SettingsFeature.Action.appearance,
-      environment: { global in AppearanceSettingsEnvironment(
-        uiApplicationClient: global.uiApplicationClient,
-        setUserInterfaceStyle: global.setUserInterfaceStyle
-      )
-      }
-    )
-  )
-  .combined(
-    with: rideeventSettingsReducer.pullback(
-      state: \.userSettings.rideEventSettings,
-      action: /SettingsFeature.Action.rideevent,
-      environment: { _ in .init() }
-    )
-  )
-  .onChange(of: \.userSettings) { userSettings, _, _, environment in
-    struct SaveDebounceId: Hashable {}
+      action: /SettingsFeature.Action.appearance
+    ) {
+      AppearanceSettingsFeature()
+    }
+    
+    Scope(state: \.userSettings.rideEventSettings, action: /SettingsFeature.Action.rideevent) {
+      RideEventsSettingsFeature()
+    }
+  
+    Reduce<State, Action> { state, action in
+      switch action {
+      case .onAppear:
+        state.userSettings.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
+          .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
+        return .none
+        
+      case let .infoSectionRowTapped(row):
+        return Effect(value: .openURL(row.url))
+        
+      case let .supportSectionRowTapped(row):
+        return Effect(value: .openURL(row.url))
+        
+      case let .openURL(url):
+        return uiApplicationClient
+          .open(url, [:])
+          .fireAndForget()
+        
+      case let .setObservationMode(value):
+        state.userSettings.enableObservationMode = value
+        return .none
+        
+      case .binding:
+        return .none
+        
+      case .appearance, .rideevent:
+        struct SaveDebounceId: Hashable {}
 
-    return environment.fileClient
-      .saveUserSettings(userSettings: userSettings, on: environment.backgroundQueue)
-      .fireAndForget()
-      .debounce(id: SaveDebounceId(), for: .seconds(1), scheduler: environment.mainQueue)
+        return fileClient
+          .saveUserSettings(userSettings: state.userSettings, on: backgroundQueue)
+          .fireAndForget()
+          .debounce(id: SaveDebounceId(), for: .seconds(1), scheduler: mainQueue)
+      }
+    }
   }
 }
 

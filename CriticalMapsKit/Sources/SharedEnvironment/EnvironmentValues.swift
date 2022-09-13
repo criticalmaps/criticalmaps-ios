@@ -1,5 +1,6 @@
 import ApiClient
 import ComposableArchitecture
+import FileClient
 import IDProvider
 import SwiftUI
 import UIApplicationClient
@@ -19,6 +20,36 @@ private struct ConnectionStateKey: EnvironmentKey {
 
 
 public extension DependencyValues {
+  var apiClient: APIClient {
+    get { self[ApiClientKey.self] }
+    set { self[ApiClientKey.self] = newValue }
+  }
+  
+  var backgroundQueue: AnySchedulerOf<DispatchQueue> {
+    get { self[BackgroundQueueKey.self] }
+    set { self[BackgroundQueueKey.self] = newValue }
+  }
+  
+  var fileClient: FileClient {
+    get { self[FileClientKey.self] }
+    set { self[FileClientKey.self] = newValue }
+  }
+  
+  var idProvider: IDProvider {
+    get { self[IDProviderKey.self] }
+    set { self[IDProviderKey.self] = newValue }
+  }
+  
+  var locationAndChatService: LocationsAndChatDataService {
+    get { self[LocationAndChatServiceKey.self] }
+    set { self[LocationAndChatServiceKey.self] = newValue }
+  }
+  
+  var setUserInterfaceStyle: SetUserInterfaceStyleEffect {
+    get { self[SetUserInterfaceStyleKey.self] }
+    set { self[SetUserInterfaceStyleKey.self] = newValue }
+  }
+
   var uiApplicationClient: UIApplicationClient {
     get { self[UIApplicationClientKey.self] }
     set { self[UIApplicationClientKey.self] = newValue }
@@ -28,31 +59,25 @@ public extension DependencyValues {
     get { self[UserDefaultsClientKey.self] }
     set { self[UserDefaultsClientKey.self] = newValue }
   }
-  
-  var idProvider: IDProvider {
-    get { self[IDProviderKey.self] }
-    set { self[IDProviderKey.self] = newValue }
-  }
-  
-  var apiClient: APIClient {
-    get { self[ApiClientKey.self] }
-    set { self[ApiClientKey.self] = newValue }
-  }
-  
-  var locationAndChatService: LocationsAndChatDataService {
-    get { self[LocationAndChatServiceKey.self] }
-    set { self[LocationAndChatServiceKey.self] = newValue }
-  }
 }
 
 
 // MARK: Keys
 
 
-
 enum ApiClientKey: DependencyKey {
   static let liveValue = APIClient.live
   static let testValue = APIClient.noop
+}
+
+enum BackgroundQueueKey: DependencyKey {
+  static let liveValue: AnySchedulerOf<DispatchQueue> = DispatchQueue(label: "background-queue").eraseToAnyScheduler()
+  static let testValue: AnySchedulerOf<DispatchQueue> = .immediate
+}
+
+enum FileClientKey: DependencyKey {
+  static let liveValue = FileClient.live
+  static let testValue = FileClient.noop
 }
 
 enum IDProviderKey: DependencyKey {
@@ -63,6 +88,17 @@ enum IDProviderKey: DependencyKey {
 enum LocationAndChatServiceKey: DependencyKey {
   static let liveValue = LocationsAndChatDataService.live()
   static let testValue = LocationsAndChatDataService.failing
+}
+
+
+public typealias SetUserInterfaceStyleEffect = (UIUserInterfaceStyle) -> Effect<Never, Never>
+enum SetUserInterfaceStyleKey: DependencyKey {
+  static let liveValue: SetUserInterfaceStyleEffect = { userInterfaceStyle in
+      .fireAndForget {
+        UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
+      }
+  }
+  static let testValue: SetUserInterfaceStyleEffect = { _ in .none }
 }
 
 enum UserDefaultsClientKey: DependencyKey {

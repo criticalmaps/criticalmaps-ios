@@ -160,6 +160,7 @@ let package = Package(
         "L10n",
         "Logger",
         "Helpers",
+        "SharedEnvironment",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -173,6 +174,7 @@ let package = Package(
       name: "SharedEnvironment",
       dependencies: [
         "ApiClient",
+        "FileClient",
         "IDProvider",
         "UIApplicationClient",
         "UserDefaultsClient",
