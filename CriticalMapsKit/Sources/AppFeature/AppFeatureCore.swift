@@ -202,21 +202,12 @@ public enum AppFeature {
         )
       }
     ),
-    SocialFeature.reducer.pullback(
-      state: \AppFeature.State.socialState,
-      action: /AppFeature.Action.social,
-      environment: {
-        .init(
-          mainQueue: $0.mainQueue,
-          uiApplicationClient: $0.uiApplicationClient,
-          locationsAndChatDataService: $0.locationsAndChatDataService,
-          idProvider: $0.idProvider,
-          uuid: $0.uuid,
-          date: $0.date,
-          userDefaultsClient: $0.userDefaultsClient
-        )
-      }
-    ),
+    AnyReducer { _ in SocialFeature() }
+      .pullback(
+        state: \.socialState,
+        action: /AppFeature.Action.social,
+        environment: { $0 }
+      ),
     Reducer { state, action, environment in
       switch action {
       case .binding:

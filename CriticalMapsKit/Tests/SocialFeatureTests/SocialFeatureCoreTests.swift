@@ -2,20 +2,13 @@ import ComposableArchitecture
 import SocialFeature
 import XCTest
 
-class SocialFeatureCoreTests: XCTestCase {
+@MainActor
+final class SocialFeatureCoreTests: XCTestCase {
+  
   func test_setSocialSegment() {
     let testStore = TestStore(
       initialState: SocialFeature.State(socialControl: .chat),
-      reducer: SocialFeature.reducer,
-      environment: SocialFeature.Environment(
-        mainQueue: .immediate,
-        uiApplicationClient: .noop,
-        locationsAndChatDataService: .noop,
-        idProvider: .noop,
-        uuid: { UUID(uuidString: "00000")! },
-        date: { Date(timeIntervalSinceReferenceDate: 0) },
-        userDefaultsClient: .noop
-      )
+      reducer: SocialFeature()
     )
 
     testStore.send(.setSocialSegment(SocialFeature.SocialControl.twitter.rawValue)) { state in

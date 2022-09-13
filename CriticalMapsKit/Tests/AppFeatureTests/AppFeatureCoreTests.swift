@@ -16,6 +16,7 @@ import XCTest
 // swiftlint:disable:next type_body_length
 @MainActor final class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
+  let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
   
   func test_onAppearAction_shouldSendEffectTimerStart_andMapOnAppear() async {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
@@ -382,6 +383,7 @@ import XCTest
         setUserInterfaceStyle: { _ in .none }
       )
     )
+    store.dependencies.date = .constant(date())
 
     store.send(.social(.chat(.onAppear))) { state in
       state.chatMessageBadgeCount = 0
@@ -433,8 +435,6 @@ import XCTest
   }
   
   func test_unreadChatMessagesCount() {
-    let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
-    
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: AppFeature.reducer,
@@ -444,6 +444,7 @@ import XCTest
         pathMonitorClient: .satisfied
       )
     )
+    store.dependencies.date = .constant(date())
     
     let response: LocationAndChatMessages = .make(12)
     let response2: LocationAndChatMessages = .init(
@@ -471,7 +472,7 @@ import XCTest
     )
     
     store.environment.userDefaultsClient.doubleForKey = { _ in
-      date().timeIntervalSince1970
+      self.date().timeIntervalSince1970
     }
     
     store.send(.fetchDataResponse(.success(response))) { state in
@@ -483,7 +484,7 @@ import XCTest
     }
     
     store.environment.userDefaultsClient.doubleForKey = { _ in
-      date().timeIntervalSince1970 + 14
+      self.date().timeIntervalSince1970 + 14
     }
     
     store.send(.fetchDataResponse(.success(response2))) { state in

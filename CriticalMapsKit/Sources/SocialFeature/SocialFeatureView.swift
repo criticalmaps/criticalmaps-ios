@@ -73,22 +73,14 @@ public struct SocialView: View {
 
 struct SocialView_Previews: PreviewProvider {
   static var previews: some View {
-    SocialView(store: Store<SocialFeature.State, SocialFeature.Action>(
-      initialState: SocialFeature.State(
-        chatFeautureState: .init(),
-        twitterFeedState: .init()
-      ),
-      reducer: SocialFeature.reducer,
-      environment: SocialFeature.Environment(
-        mainQueue: .failing,
-        uiApplicationClient: .noop,
-        locationsAndChatDataService: .noop,
-        idProvider: .noop,
-        uuid: UUID.init,
-        date: Date.init,
-        userDefaultsClient: .noop
+    SocialView(
+      store: Store<SocialFeature.State, SocialFeature.Action>(
+        initialState: SocialFeature.State(
+          chatFeautureState: .init(),
+          twitterFeedState: .init()
+        ),
+        reducer: SocialFeature()
       )
-    )
     )
   }
 }

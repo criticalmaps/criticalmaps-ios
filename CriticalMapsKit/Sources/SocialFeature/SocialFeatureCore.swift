@@ -8,7 +8,9 @@ import TwitterFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 
-public enum SocialFeature {
+public struct SocialFeature: ReducerProtocol {
+  public init() {}
+  
   // MARK: State
   
   public struct State: Equatable {
@@ -52,72 +54,27 @@ public enum SocialFeature {
     case chat(ChatFeature.Action)
     case twitter(TwitterFeedFeature.Action)
   }
-  
-  // MARK: Environment
-  
-  public struct Environment {
-    let mainQueue: AnySchedulerOf<DispatchQueue>
-    let uiApplicationClient: UIApplicationClient
-    var locationsAndChatDataService: LocationsAndChatDataService
-    var idProvider: IDProvider
-    var uuid: () -> UUID
-    var date: () -> Date
-    var userDefaultsClient: UserDefaultsClient
     
-    public init(
-      mainQueue: AnySchedulerOf<DispatchQueue>,
-      uiApplicationClient: UIApplicationClient,
-      locationsAndChatDataService: LocationsAndChatDataService,
-      idProvider: IDProvider,
-      uuid: @escaping () -> UUID,
-      date: @escaping () -> Date,
-      userDefaultsClient: UserDefaultsClient
-    ) {
-      self.mainQueue = mainQueue
-      self.uiApplicationClient = uiApplicationClient
-      self.locationsAndChatDataService = locationsAndChatDataService
-      self.idProvider = idProvider
-      self.uuid = uuid
-      self.date = date
-      self.userDefaultsClient = userDefaultsClient
-    }
-  }
-  
   // MARK: Reducer
   
-  public static let reducer =
-    Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment>.combine(
-      ChatFeature.reducer.pullback(
-        state: \.chatFeautureState,
-        action: /SocialFeature.Action.chat,
-        environment: { global in
-          ChatFeature.Environment(
-            locationsAndChatDataService: global.locationsAndChatDataService,
-            mainQueue: global.mainQueue,
-            idProvider: global.idProvider,
-            uuid: global.uuid,
-            date: global.date,
-            userDefaultsClient: global.userDefaultsClient
-          )
-        }
-      ),
-      AnyReducer { _ in // TODO: Remove migration code
-        TwitterFeedFeature()
+  public var body: some ReducerProtocol<State, Action> {
+    Scope(state: \.chatFeautureState, action: /SocialFeature.Action.chat) {
+      ChatFeature()
+    }
+    
+    Scope(state: \.twitterFeedState, action: /SocialFeature.Action.twitter) {
+      TwitterFeedFeature()
+    }
+    
+    Reduce<State, Action> { state, action in
+      switch action {
+      case let .setSocialSegment(segment):
+        state.socialControl = .init(rawValue: segment)!
+        return .none
+      
+      case .chat, .twitter:
+        return .none
       }
-      .pullback(
-        state: \.twitterFeedState,
-        action: /SocialFeature.Action.twitter,
-        environment: { $0 }
-      ),
-      Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment> { state, action, _ in
-        switch action {
-        case let .setSocialSegment(segment):
-          state.socialControl = .init(rawValue: segment)!
-          return .none
-        
-        case .chat, .twitter:
-          return .none
-        }
-      }
-    )
+    }
+  }
 }
