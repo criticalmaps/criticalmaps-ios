@@ -101,16 +101,13 @@ public enum SocialFeature {
           )
         }
       ),
-      TwitterFeedFeature.reducer.pullback(
+      AnyReducer { _ in // TODO: Remove migration code
+        TwitterFeedFeature()
+      }
+      .pullback(
         state: \.twitterFeedState,
         action: /SocialFeature.Action.twitter,
-        environment: { global in
-          TwitterFeedFeature.Environment(
-            service: .live(),
-            mainQueue: global.mainQueue,
-            uiApplicationClient: global.uiApplicationClient
-          )
-        }
+        environment: { $0 }
       ),
       Reducer<SocialFeature.State, SocialFeature.Action, SocialFeature.Environment> { state, action, _ in
         switch action {

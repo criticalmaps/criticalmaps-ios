@@ -41,12 +41,7 @@ struct TwitterFeedView_Previews: PreviewProvider {
     TwitterFeedView(
       store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
         initialState: .init(),
-        reducer: TwitterFeedFeature.reducer,
-        environment: TwitterFeedFeature.Environment(
-          service: .noop,
-          mainQueue: .failing,
-          uiApplicationClient: .noop
-        )
+        reducer: TwitterFeedFeature()
       )
     )
   }

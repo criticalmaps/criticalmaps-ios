@@ -1,14 +1,22 @@
 import ComposableArchitecture
 import Foundation
 import Helpers
+import Logger
+import SharedEnvironment
 import SharedModels
 import Styleguide
 import SwiftUI
 import UIApplicationClient
 
-public enum TwitterFeedFeature {
-  // MARK: State
+public struct TwitterFeedFeature: ReducerProtocol {
+  public init() {}
   
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.twitterService) public var twitterService
+  @Dependency(\.uiApplicationClient) public var uiApplicationClient
+
+  // MARK: State
+
   public struct State: Equatable {
     public var contentState: ContentState<[Tweet]>
     public var twitterFeedIsLoading = false
@@ -31,61 +39,51 @@ public enum TwitterFeedFeature {
   
   public struct Environment {
     public let service: TwitterFeedService
-    public let mainQueue: AnySchedulerOf<DispatchQueue>
     public let uiApplicationClient: UIApplicationClient
     
     public init(
       service: TwitterFeedService,
-      mainQueue: AnySchedulerOf<DispatchQueue>,
       uiApplicationClient: UIApplicationClient
     ) {
       self.service = service
-      self.mainQueue = mainQueue
       self.uiApplicationClient = uiApplicationClient
     }
   }
   
   // MARK: Reducer
   
-  /// A reducer to handle twitter feature actions.
-  public static let reducer =
-    Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment>.combine(
-      Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment> { state, action, environment in
-        switch action {
-        case .onAppear:
-          return Effect(value: .fetchData)
-        
-        case .fetchData:
-          state.twitterFeedIsLoading = true
-          return .task {
-            await .fetchDataResponse(TaskResult { try await environment.service.getTweets() })
-          }
-
-        case let .fetchDataResponse(.success(tweets)):
-          state.twitterFeedIsLoading = false
-        
-          if tweets.isEmpty {
-            state.contentState = .empty(.twitter)
-            return .none
-          }
-        
-          state.contentState = .results(tweets)
-          return .none
-        case let .fetchDataResponse(.failure(error)):
-          state.twitterFeedIsLoading = false
-          state.contentState = .error(
-            ErrorState(
-              title: ErrorState.default.title,
-              body: ErrorState.default.body
-            )
-          )
-          return .none
-        
-        case let .openTweet(tweet):
-          return environment.uiApplicationClient
-            .open(tweet.tweetUrl!, [:])
-            .fireAndForget()
-        }
+  
+  public func reduce(into state: inout State, action: Action) -> ComposableArchitecture.Effect<Action, Never> {
+    switch action {
+    case .onAppear:
+      return Effect(value: .fetchData)
+    
+    case .fetchData:
+      state.twitterFeedIsLoading = true
+      return .task {
+        await .fetchDataResponse(TaskResult { try await twitterService.getTweets() })
       }
-    )
+
+    case let .fetchDataResponse(.success(tweets)):
+      state.twitterFeedIsLoading = false
+    
+      if tweets.isEmpty {
+        state.contentState = .empty(.twitter)
+        return .none
+      }
+    
+      state.contentState = .results(tweets)
+      return .none
+    case let .fetchDataResponse(.failure(error)):
+      logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
+      state.twitterFeedIsLoading = false
+      state.contentState = .error(.default)
+      return .none
+    
+    case let .openTweet(tweet):
+      return uiApplicationClient
+        .open(tweet.tweetUrl!, [:])
+        .fireAndForget()
+    }
+  }
 }
