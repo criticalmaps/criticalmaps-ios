@@ -82,7 +82,7 @@ final class ChatFeatureCore: XCTestCase {
       chatMessages: .results(mockResponse.chatMessages),
       chatInputState: .init()
     )
-    let sut = ChatView.ChatViewState(state)
+    let sut = ChatView.ViewState(state)
     
     let sortedMessages = sut.identifiedChatMessages
     

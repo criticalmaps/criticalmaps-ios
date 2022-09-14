@@ -22,17 +22,23 @@ public enum ObfuscationPrecisionType {
       let lowerBound: Double = -9
       let upperBound: Double = 9
       return (lowerBound / decimalFactor ... upperBound / decimalFactor)
-    case let .custom(customRange): return customRange
+    case let .custom(customRange):
+      return customRange
     }
   }
   
   private var decimalFactor: Double {
     switch self {
-    case .firstDecimal: return 10
-    case .secondDecimal: return 100
-    case .thirdDecimal: return 1000
-    case .fourthDecimal: return 10000
-    case .custom: return 1
+    case .firstDecimal:
+      return 10
+    case .secondDecimal:
+      return 100
+    case .thirdDecimal:
+      return 1000
+    case .fourthDecimal:
+      return 10000
+    case .custom:
+      return 1
     }
   }
 }

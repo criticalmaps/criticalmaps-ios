@@ -17,7 +17,7 @@ class ChatViewStateTests: XCTestCase {
     )
 
     // act
-    let chatViewState = ChatView.ChatViewState(chatFeatureState)
+    let chatViewState = ChatView.ViewState(chatFeatureState)
     let messages = chatViewState.identifiedChatMessages
 
     // assert

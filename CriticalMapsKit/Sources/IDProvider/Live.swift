@@ -4,7 +4,7 @@ import UIKit.UIDevice
 public extension IDProvider {
   static func live(
     deviceID: String = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString,
-    currentDate: Date = Date()
+    currentDate: @escaping () -> Date = Date.init
   ) -> Self {
     Self(
       id: { IDProvider.hash(id: deviceID, currentDate: currentDate) },

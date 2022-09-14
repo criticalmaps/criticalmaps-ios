@@ -4,9 +4,9 @@ import SharedModels
 import Styleguide
 import SwiftUI
 
-/// Chat Feature View
+/// A list to show messages from the chat and send a message
 public struct ChatView: View {
-  public struct ChatViewState: Equatable {
+  public struct ViewState: Equatable {
     public var identifiedChatMessages: [IdentifiedChatMessage]
     
     public init(_ state: ChatFeature.State) {
@@ -23,11 +23,11 @@ public struct ChatView: View {
   }
   
   let store: Store<ChatFeature.State, ChatFeature.Action>
-  @ObservedObject var viewStore: ViewStore<ChatViewState, ChatFeature.Action>
+  @ObservedObject var viewStore: ViewStore<ViewState, ChatFeature.Action>
   
   public init(store: Store<ChatFeature.State, ChatFeature.Action>) {
     self.store = store
-    viewStore = ViewStore(store.scope(state: ChatViewState.init))
+    viewStore = ViewStore(store.scope(state: ViewState.init))
   }
   
   public var body: some View {
@@ -98,7 +98,10 @@ struct ChatView_Previews: PreviewProvider {
   static var previews: some View {
     ChatView(
       store: Store<ChatFeature.State, ChatFeature.Action>(
-        initialState: .init(),
+        initialState: .init(
+          chatMessages: .results(
+            ["1": .init(message: "Hello World 🌐", timestamp: 1)])
+        ),
         reducer: ChatFeature()
       )
     )

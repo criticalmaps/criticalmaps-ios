@@ -16,7 +16,8 @@ public struct NextRidesRequest: APIRequest {
 
   init(
     coordinate: Coordinate,
-    radius: Int, date: () -> Date = Date.init,
+    radius: Int,
+    date: () -> Date = Date.init,
     month: Int
   ) {
     queryItems = [

@@ -3,12 +3,10 @@ import ComposableArchitecture
 import CryptoKit
 import Foundation
 import Helpers
-import IDProvider
 import L10n
 import Logger
 import SharedEnvironment
 import SharedModels
-import UserDefaultsClient
 
 public struct ChatFeature: ReducerProtocol {
   public init() {}
@@ -55,13 +53,12 @@ public struct ChatFeature: ReducerProtocol {
   
   // MARK: Reducer
   
-  
   public var body: some ReducerProtocol<State, Action> {
     Scope(state: \.chatInputState, action: /ChatFeature.Action.chatInput) {
       ChatInput()
     }
     
-    /// Reducer responsible for handling logic from the chat feature.
+    // Reducer responsible for handling logic from the chat feature.
     Reduce { state, action in
       switch action {
       case .onAppear:

@@ -386,11 +386,6 @@ public struct AppFeature: ReducerProtocol {
       }
     }
   }
-  
-//  .onChange(of: \.mapFeatureState.location) { location, state, _, _ in
-//    state.nextRideState.userLocation = Coordinate(location)
-//    return .none
-//  }
 }
 
 // MARK: - Helper

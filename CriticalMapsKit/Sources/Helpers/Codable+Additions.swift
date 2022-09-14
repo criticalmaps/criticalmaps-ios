@@ -11,10 +11,3 @@ public extension Data {
     try decoder.decode(T.self, from: self)
   }
 }
-
-public extension JSONDecoder {
-  convenience init(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) {
-    self.init()
-    self.dateDecodingStrategy = dateDecodingStrategy
-  }
-}

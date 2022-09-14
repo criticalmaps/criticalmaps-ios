@@ -49,4 +49,4 @@ public struct RequestTimer: ReducerProtocol {
   }
 }
 
-struct TimerId: Hashable {}
+private struct TimerId: Hashable {}

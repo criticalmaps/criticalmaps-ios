@@ -3,7 +3,6 @@ import Foundation
 import SharedModels
 import Styleguide
 import SwiftUI
-import UIApplicationClient
 
 public struct TwitterFeedView: View {
   public struct TwitterFeedViewState: Equatable {

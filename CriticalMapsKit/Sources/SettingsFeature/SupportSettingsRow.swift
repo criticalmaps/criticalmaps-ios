@@ -30,7 +30,7 @@ struct SupportSettingsRow: View {
         HStack {
           Text(link)
             .multilineTextAlignment(.leading)
-          Image(systemName: "arrow.right")
+          Image(systemName: "arrow.up.right")
         }
         .font(.body.bold())
       }

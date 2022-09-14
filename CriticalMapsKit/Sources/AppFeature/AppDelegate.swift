@@ -1,18 +1,7 @@
-import ApiClient
 import ComposableArchitecture
-import ComposableCoreLocation
-import FileClient
-import Helpers
-import IDProvider
-import Logger
-import MapFeature
-import MapKit
-import NextRideFeature
-import SettingsFeature
+import Foundation
 import SharedEnvironment
 import SharedModels
-import UIApplicationClient
-import UserDefaultsClient
 
 public struct AppDelegate: ReducerProtocol {
   public init() {}
@@ -26,7 +15,7 @@ public struct AppDelegate: ReducerProtocol {
   
   public enum Action: Equatable {
     case didFinishLaunching
-    case userSettingsLoaded(Result<UserSettings, NSError>)
+    case userSettingsLoaded(Result<State, NSError>)
   }
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {

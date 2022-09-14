@@ -15,7 +15,7 @@ public extension FileClient {
             at:
             documentDirectory
               .appendingPathComponent(fileName)
-              .appendingPathExtension("json")
+              .appendingPathExtension(fileExtension)
           )
         }
       },
@@ -25,7 +25,7 @@ public extension FileClient {
             contentsOf:
             documentDirectory
               .appendingPathComponent(fileName)
-              .appendingPathExtension("json")
+              .appendingPathExtension(fileExtension)
           )
         }
       },
@@ -35,10 +35,12 @@ public extension FileClient {
             to:
             documentDirectory
               .appendingPathComponent(fileName)
-              .appendingPathExtension("json")
+              .appendingPathExtension(fileExtension)
           )
         }
       }
     )
   }
 }
+
+let fileExtension = "json"

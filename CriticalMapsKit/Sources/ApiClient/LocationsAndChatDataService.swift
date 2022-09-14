@@ -1,7 +1,8 @@
 import Foundation
 import SharedModels
 
-// Interface
+// MARK: Interface
+
 /// A Service to send and fetch locations and chat messages from the Criticl Maps API
 public struct LocationsAndChatDataService {
   public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages
