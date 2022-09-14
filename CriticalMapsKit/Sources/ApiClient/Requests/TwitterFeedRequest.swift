@@ -24,11 +24,7 @@ public struct TwitterFeedRequest: APIRequest {
     self.httpMethod = httpMethod
   }
 
-  public var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .formatted(.twitterDateFormatter)
-    return decoder
-  }
+  public let decoder: JSONDecoder = .twitterFeedDecoder
 }
 
 private extension DateFormatter {
@@ -37,5 +33,13 @@ private extension DateFormatter {
     formatter.locale = Locale(identifier: "en_US_POSIX")
     formatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
     return formatter
+  }()
+}
+
+extension JSONDecoder {
+  static let twitterFeedDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .formatted(.twitterDateFormatter)
+    return decoder
   }()
 }

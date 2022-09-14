@@ -28,12 +28,7 @@ public struct NextRidesRequest: APIRequest {
     ]
   }
 
-  public var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .secondsSince1970
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    return decoder
-  }
+  public let decoder: JSONDecoder = .nextRideRequestDecoder
 }
 
 // MARK: Helper
@@ -44,4 +39,13 @@ enum NextRideQueryKeys {
   static let radius = "radius"
   static let year = "year"
   static let month = "month"
+}
+
+extension JSONDecoder {
+  static let nextRideRequestDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .secondsSince1970
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    return decoder
+  }()
 }
