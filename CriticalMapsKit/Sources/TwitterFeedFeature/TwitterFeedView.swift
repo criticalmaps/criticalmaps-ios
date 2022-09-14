@@ -65,7 +65,6 @@ public extension Array where Element == Tweet {
 extension Store where State == TwitterFeedFeature.State, Action == TwitterFeedFeature.Action {
   static let placeholder = Store(
     initialState: .init(contentState: .results(.placeHolder)),
-    reducer: .empty,
-    environment: ()
+    reducer: EmptyReducer()
   )
 }
