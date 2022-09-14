@@ -2,6 +2,7 @@ import ApiClient
 import ComposableArchitecture
 import FileClient
 import IDProvider
+import PathMonitorClient
 import SwiftUI
 import UIApplicationClient
 import UserDefaultsClient
@@ -43,6 +44,11 @@ public extension DependencyValues {
   var locationAndChatService: LocationsAndChatDataService {
     get { self[LocationAndChatServiceKey.self] }
     set { self[LocationAndChatServiceKey.self] = newValue }
+  }
+  
+  var pathMonitorClient: PathMonitorClient {
+    get { self[PathMonitorClientKey.self] }
+    set { self[PathMonitorClientKey.self] = newValue }
   }
   
   var setUserInterfaceStyle: SetUserInterfaceStyleEffect {
@@ -90,6 +96,10 @@ enum LocationAndChatServiceKey: DependencyKey {
   static let testValue = LocationsAndChatDataService.failing
 }
 
+enum PathMonitorClientKey: DependencyKey {
+  static let liveValue = PathMonitorClient.live(queue: .main)
+  static let testValue = PathMonitorClient.satisfied
+}
 
 public typealias SetUserInterfaceStyleEffect = (UIUserInterfaceStyle) -> Effect<Never, Never>
 enum SetUserInterfaceStyleKey: DependencyKey {

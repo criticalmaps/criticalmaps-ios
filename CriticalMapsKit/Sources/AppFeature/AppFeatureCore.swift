@@ -11,13 +11,30 @@ import MapKit
 import NextRideFeature
 import PathMonitorClient
 import SettingsFeature
+import SharedEnvironment
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 
-public enum AppFeature {
+public struct AppFeature: ReducerProtocol {
+  public init() {}
+  
+  @Dependency(\.fileClient) public var fileClient
+  @Dependency(\.locationAndChatService) public var locationsAndChatDataService
+  @Dependency(\.uuid) public var uuid
+  @Dependency(\.date) public var date
+  @Dependency(\.userDefaultsClient) public var userDefaultsClient
+  @Dependency(\.nextRideService) public var nextRideService
+  @Dependency(\.idProvider) public var idProvider
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.backgroundQueue) public var backgroundQueue
+  @Dependency(\.locationManager) public var locationManager
+  @Dependency(\.uiApplicationClient) public var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
+  @Dependency(\.pathMonitorClient) public var pathMonitorClient
+  
   // MARK: State
 
   public struct State: Equatable {
@@ -31,7 +48,7 @@ public enum AppFeature {
       socialState: SocialFeature.State = .init(),
       settingsState: SettingsFeature.State = .init(),
       nextRideState: NextRideFeature.State = .init(),
-      requestTimer: RequestTimerState = RequestTimerState(),
+      requestTimer: RequestTimer.State = .init(),
       route: AppRoute? = nil,
       chatMessageBadgeCount: UInt = 0
     ) {
@@ -57,7 +74,7 @@ public enum AppFeature {
     public var socialState = SocialFeature.State()
     public var settingsState = SettingsFeature.State()
     public var nextRideState = NextRideFeature.State()
-    public var requestTimer = RequestTimerState()
+    public var requestTimer = RequestTimer.State()
       
     // Navigation
     public var route: AppRoute?
@@ -77,7 +94,7 @@ public enum AppFeature {
 
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
-    case appDelegate(AppDelegateAction)
+    case appDelegate(AppDelegate.Action)
     case onAppear
     case onDisappear
     case fetchData
@@ -95,122 +112,60 @@ public enum AppFeature {
     
     case map(MapFeature.Action)
     case nextRide(NextRideFeature.Action)
-    case requestTimer(RequestTimerAction)
+    case requestTimer(RequestTimer.Action)
     case settings(SettingsFeature.Action)
     case social(SocialFeature.Action)
-  }
-
-  // MARK: Environment
-
-  public struct Environment {
-    let locationsAndChatDataService: LocationsAndChatDataService
-    let uuid: () -> UUID
-    let date: () -> Date
-    var userDefaultsClient: UserDefaultsClient
-    var nextRideService: NextRideService
-    var service: LocationsAndChatDataService
-    var idProvider: IDProvider
-    var mainQueue: AnySchedulerOf<DispatchQueue>
-    var backgroundQueue: AnySchedulerOf<DispatchQueue>
-    var locationManager: ComposableCoreLocation.LocationManager
-    var uiApplicationClient: UIApplicationClient
-    var fileClient: FileClient
-    public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
-    let pathMonitorClient: PathMonitorClient
-    
-    public init(
-      locationsAndChatDataService: LocationsAndChatDataService = .live(),
-      service: LocationsAndChatDataService = .live(),
-      idProvider: IDProvider = .live(),
-      mainQueue: AnySchedulerOf<DispatchQueue> = .main,
-      backgroundQueue: AnySchedulerOf<DispatchQueue> = DispatchQueue(label: "background-queue").eraseToAnyScheduler(),
-      locationManager: ComposableCoreLocation.LocationManager = .live,
-      nextRideService: NextRideService = .live(),
-      userDefaultsClient: UserDefaultsClient = .live(),
-      uuid: @escaping () -> UUID = UUID.init,
-      date: @escaping () -> Date = Date.init,
-      uiApplicationClient: UIApplicationClient,
-      fileClient: FileClient = .live,
-      setUserInterfaceStyle: @escaping (UIUserInterfaceStyle) -> Effect<Never, Never>,
-      pathMonitorClient: PathMonitorClient = .live(queue: .main)
-    ) {
-      self.locationsAndChatDataService = locationsAndChatDataService
-      self.service = service
-      self.idProvider = idProvider
-      self.mainQueue = mainQueue
-      self.backgroundQueue = backgroundQueue
-      self.locationManager = locationManager
-      self.nextRideService = nextRideService
-      self.userDefaultsClient = userDefaultsClient
-      self.uuid = uuid
-      self.date = date
-      self.uiApplicationClient = uiApplicationClient
-      self.fileClient = fileClient
-      self.setUserInterfaceStyle = setUserInterfaceStyle
-      self.pathMonitorClient = pathMonitorClient
-    }
   }
   
   // MARK: Reducer
 
   struct ObserveConnectionIdentifier: Hashable {}
 
-  /// Holds the logic for the AppFeature to update state and execute side effects
-  public static let reducer = Reducer<State, Action, Environment>.combine(
-    AnyReducer { _ in MapFeature() }
-      .pullback(
-        state: \.mapFeatureState,
-        action: /AppFeature.Action.map,
-        environment: { $0 }
-      ),
-    requestTimerReducer.pullback(
-      state: \.requestTimer,
-      action: /AppFeature.Action.requestTimer,
-      environment: {
-        RequestTimerEnvironment(
-          mainQueue: $0.mainQueue
-        )
-      }
-    ),
-    AnyReducer { _ in NextRideFeature() }
-      .pullback(
-        state: \.nextRideState,
-        action: /AppFeature.Action.nextRide,
-        environment: { $0 }
-      ),
-    AnyReducer { _ in SettingsFeature() }
-      .pullback(
-        state: \.settingsState,
-        action: /AppFeature.Action.settings,
-        environment: { $0 }
-      ),
-    AnyReducer { _ in SocialFeature() }
-      .pullback(
-        state: \.socialState,
-        action: /AppFeature.Action.social,
-        environment: { $0 }
-      ),
-    Reducer { state, action, environment in
+  public var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    
+    Scope(state: \.requestTimer, action: /AppFeature.Action.requestTimer) {
+      RequestTimer()
+    }
+    
+    Scope(state: \.mapFeatureState, action: /AppFeature.Action.map) {
+      MapFeature()
+    }
+    
+    Scope(state: \.nextRideState, action: /AppFeature.Action.nextRide) {
+      NextRideFeature()
+    }
+    
+    Scope(state: \.settingsState, action: /AppFeature.Action.settings) {
+      SettingsFeature()
+    }
+    
+    Scope(state: \.socialState, action: /AppFeature.Action.social) {
+      SocialFeature()
+    }
+    
+    /// Holds the logic for the AppFeature to update state and execute side effects
+    Reduce<State, Action> { state, action in
       switch action {
       case .binding:
         return .none
         
-      case let .appDelegate(appDelegateAction):
+      case .appDelegate:
         return .none
         
       case .onAppear:
         var effects: [Effect<Action, Never>] = [
           Effect(value: .observeConnection),
-          environment.fileClient
+          fileClient
             .loadUserSettings()
             .map(Action.userSettingsLoaded),
           Effect(value: .map(.onAppear)),
           Effect(value: .requestTimer(.startTimer))
         ]
-        if !environment.userDefaultsClient.didShowObservationModePrompt() {
+        if !userDefaultsClient.didShowObservationModePrompt() {
           effects.append(
             Effect.run { send in
-              try? await environment.mainQueue.sleep(for: .seconds(3))
+              try? await mainQueue.sleep(for: .seconds(3))
               await send.send(.presentObservationModeAlert)
             }
           )
@@ -224,7 +179,7 @@ public enum AppFeature {
       case .fetchData:
         struct GetLocationsId: Hashable {}
         let postBody = SendLocationAndChatMessagesPostBody(
-          device: environment.idProvider.id(),
+          device: idProvider.id(),
           location: state.settingsState.userSettings.enableObservationMode
             ? nil
             : Location(state.mapFeatureState.location)
@@ -237,7 +192,7 @@ public enum AppFeature {
         return .task {
           await .fetchDataResponse(
             TaskResult {
-              try await environment.service.getLocationsAndSendMessages(postBody)
+              try await locationsAndChatDataService.getLocationsAndSendMessages(postBody)
             }
           )
         }
@@ -255,7 +210,7 @@ public enum AppFeature {
           
           let unreadMessagesCount = UInt(
             cachedMessages
-              .filter { $0.timestamp > environment.userDefaultsClient.chatReadTimeInterval() }
+              .filter { $0.timestamp > userDefaultsClient.chatReadTimeInterval() }
               .count
           )
           state.chatMessageBadgeCount = unreadMessagesCount
@@ -270,7 +225,7 @@ public enum AppFeature {
         
       case .observeConnection:
         return .run { send in
-          for await path in await environment.pathMonitorClient.networkPathPublisher() {
+          for await path in await pathMonitorClient.networkPathPublisher() {
             await send(.observeConnectionResponse(path))
           }
         }
@@ -286,7 +241,12 @@ public enum AppFeature {
         switch mapFeatureAction {
         case let .locationManager(locationManagerAction):
           switch locationManagerAction {
+          
           case .didUpdateLocations:
+            
+            // synchronize with nextRideState
+            state.nextRideState.userLocation = Coordinate(state.mapFeatureState.location)
+            
             if !state.didResolveInitialLocation {
               state.didResolveInitialLocation.toggle()
               if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled {
@@ -322,9 +282,9 @@ public enum AppFeature {
           state.mapFeatureState.nextRide = ride
           return Effect.run { send in
             await send.send(.map(.setNextRideBannerVisible(true)))
-            try? await environment.mainQueue.sleep(for: .seconds(1))
+            try? await mainQueue.sleep(for: .seconds(1))
             await send.send(.map(.setNextRideBannerExpanded(true)))
-            try? await environment.mainQueue.sleep(for: .seconds(8))
+            try? await mainQueue.sleep(for: .seconds(8))
             await send.send(.map(.setNextRideBannerExpanded(false)))
           }
           
@@ -335,10 +295,10 @@ public enum AppFeature {
       case let .userSettingsLoaded(result):
         state.settingsState.userSettings = (try? result.get()) ?? UserSettings()
         return .merge(
-          environment.setUserInterfaceStyle(state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle)
+          setUserInterfaceStyle(state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle)
             // NB: This is necessary because UIKit needs at least one tick of the run loop before we
             //     can set the user interface style.
-            .subscribe(on: environment.mainQueue)
+            .subscribe(on: mainQueue)
             .fireAndForget()
         )
 
@@ -384,10 +344,10 @@ public enum AppFeature {
       case let .setObservationMode(value):
         state.settingsState.userSettings.enableObservationMode = value
         return .merge(
-          environment.fileClient
-            .saveUserSettings(userSettings: state.settingsState.userSettings, on: environment.mainQueue)
+          fileClient
+            .saveUserSettings(userSettings: state.settingsState.userSettings, on: mainQueue)
             .fireAndForget(),
-          environment.userDefaultsClient.setDidShowObservationModePrompt(true)
+          userDefaultsClient.setDidShowObservationModePrompt(true)
             .fireAndForget()
         )
         
@@ -411,7 +371,13 @@ public enum AppFeature {
           if !isEnabled {
             return Effect(value: .map(.setNextRideBannerVisible(false)))
           } else {
-            return .none
+            guard let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled else {
+              return .none
+            }
+            struct RideEventSettingsChange: Hashable {}
+            
+            return Effect(value: .nextRide(.getNextRide(coordinate)))
+              .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: mainQueue)
           }
           
         default:
@@ -419,40 +385,15 @@ public enum AppFeature {
         }
       }
     }
-  )
-  .binding()
-  .onChange(of: \.settingsState.userSettings.rideEventSettings) { rideEventSettings, state, _, environment in
-    struct RideEventSettingsChange: Hashable {}
-
-    // fetch next ride after settings have changed
-    guard let coordinate = Coordinate(state.mapFeatureState.location), rideEventSettings.isEnabled else {
-      return .none
-    }
-    
-    return Effect(value: .nextRide(.getNextRide(coordinate)))
-      .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: environment.mainQueue)
   }
-  .onChange(of: \.mapFeatureState.location) { location, state, _, _ in
-    state.nextRideState.userLocation = Coordinate(location)
-    return .none
-  }
+  
+//  .onChange(of: \.mapFeatureState.location) { location, state, _, _ in
+//    state.nextRideState.userLocation = Coordinate(location)
+//    return .none
+//  }
 }
 
 // MARK: - Helper
-
-public extension AppFeature.Environment {
-  static let live = Self(
-    service: .live(),
-    idProvider: .live(),
-    mainQueue: .main,
-    uiApplicationClient: .live,
-    setUserInterfaceStyle: { userInterfaceStyle in
-      .fireAndForget {
-        UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
-      }
-    }
-  )
-}
 
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location

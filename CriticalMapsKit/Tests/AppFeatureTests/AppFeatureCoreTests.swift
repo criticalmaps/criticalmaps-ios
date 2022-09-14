@@ -36,30 +36,22 @@ import XCTest
       false
     }
     
-    var environment = AppFeature.Environment(
-      service: service,
-      idProvider: .noop,
-      mainQueue: DispatchQueue.immediate.eraseToAnyScheduler(),
-      locationManager: locationManager,
-      userDefaultsClient: userDefaultsClient,
-      uiApplicationClient: .noop,
-      fileClient: .noop,
-      setUserInterfaceStyle: { _ in .none },
-      pathMonitorClient: .satisfied
+    let store = TestStore(
+      initialState: AppFeature.State(),
+      reducer: AppFeature()
     )
-    environment.fileClient.load = { _ in
+    store.dependencies.mainQueue = .immediate
+    store.dependencies.date = .constant(date())
+    store.dependencies.locationManager = locationManager
+    store.dependencies.userDefaultsClient = userDefaultsClient
+    store.dependencies.locationAndChatService = service
+    store.dependencies.fileClient.load = { _ in
       .init(
         value: try! JSONEncoder().encode(
           UserSettings()
         )
       )
     }
-    
-    let store = TestStore(
-      initialState: AppFeature.State(),
-      reducer: AppFeature.reducer,
-      environment: environment
-    )
     
     let task = await store.send(.onAppear)
     await store.receive(.observeConnection)
@@ -108,10 +100,8 @@ import XCTest
     )
     
     let serviceResponse: LocationAndChatMessages = .make()
-    
     var service: LocationsAndChatDataService = .noop
     service.getLocationsAndSendMessages = { _ in serviceResponse }
-    let nextRideService: NextRideService = .noop
 
     var userDefaultsClient = UserDefaultsClient.noop
     userDefaultsClient.dataForKey = { _ in
@@ -134,35 +124,25 @@ import XCTest
     locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    var environment = AppFeature.Environment(
-      service: service,
-      idProvider: .noop,
-      mainQueue: .immediate,
-      locationManager: locationManager,
-      nextRideService: nextRideService,
-      userDefaultsClient: userDefaultsClient,
-      uiApplicationClient: .noop,
-      fileClient: .noop,
-      setUserInterfaceStyle: { _ in .none },
-      pathMonitorClient: .satisfied
+    var appState = AppFeature.State()
+    appState.chatMessageBadgeCount = 3
+    
+    let store = TestStore(
+      initialState: appState,
+      reducer: AppFeature()
     )
-    environment.fileClient.load = { _ in
+    store.dependencies.date = .constant(date())
+    store.dependencies.mainQueue = .immediate
+    store.dependencies.locationManager = locationManager
+    store.dependencies.userDefaultsClient = userDefaultsClient
+    store.dependencies.locationAndChatService = service
+    store.dependencies.fileClient.load = { _ in
       .init(
         value: try! JSONEncoder().encode(
           UserSettings()
         )
       )
     }
-    
-    var appState = AppFeature.State()
-    appState.chatMessageBadgeCount = 3
-    
-    let store = TestStore(
-      initialState: appState,
-      reducer: AppFeature.reducer,
-      environment: environment
-    )
-    store.dependencies.date = .unimplemented
     
     let task = await store.send(.onAppear)
     await store.receive(.observeConnection)
@@ -221,6 +201,8 @@ import XCTest
     var didRequestLocation = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     
+    let mainQueue = DispatchQueue.test
+    
     let currentLocation = Location(
       altitude: 0,
       coordinate: CLLocationCoordinate2D(latitude: 20, longitude: 10),
@@ -236,7 +218,6 @@ import XCTest
     var service: LocationsAndChatDataService = .noop
     service.getLocationsAndSendMessages = { _ in serviceResponse }
     
-    let nextRideService: NextRideService = .noop
     var userDefaultsClient = UserDefaultsClient.noop
     userDefaultsClient.boolForKey = { _ in true }
     
@@ -258,37 +239,26 @@ import XCTest
     } }
     locationManager.requestLocation = { .fireAndForget { didRequestLocation = true } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
-    
-    var environment = AppFeature.Environment(
-      service: service,
-      idProvider: .noop,
-      mainQueue: testScheduler.eraseToAnyScheduler(),
-      locationManager: locationManager,
-      nextRideService: nextRideService,
-      userDefaultsClient: userDefaultsClient,
-      uiApplicationClient: .noop,
-      fileClient: .noop,
-      setUserInterfaceStyle: { _ in .none },
-      pathMonitorClient: .satisfied
-    )
-    
+  
     let userSettings = UserSettings(
       appearanceSettings: .init(),
       enableObservationMode: false,
       rideEventSettings: rideEventSettings
     )
-    environment.fileClient.load = { _ in
-      .init(value: try! JSONEncoder().encode(userSettings))
-    }
-    
     var appState = AppFeature.State(settingsState: .init(userSettings: userSettings))
     appState.chatMessageBadgeCount = 3
-    
+
     let store = TestStore(
       initialState: appState,
-      reducer: AppFeature.reducer,
-      environment: environment
+      reducer: AppFeature()
     )
+    store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+    store.dependencies.locationManager = locationManager
+    store.dependencies.locationAndChatService = service
+    store.dependencies.userDefaultsClient = userDefaultsClient
+    store.dependencies.fileClient.load = { _ in
+      .init(value: try! JSONEncoder().encode(userSettings))
+    }
     
     let task = await store.send(.onAppear)
     await store.receive(.observeConnection)
@@ -308,6 +278,7 @@ import XCTest
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
     
     XCTAssertTrue(didRequestLocation)
+    
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
     
     await store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
@@ -342,11 +313,7 @@ import XCTest
   func test_appNavigation() {
     let store = TestStore(
       initialState: AppFeature.State(),
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none }
-      )
+      reducer: AppFeature()
     )
 
     store.send(.setNavigation(tag: .chat)) {
@@ -378,11 +345,7 @@ import XCTest
 
     let store = TestStore(
       initialState: appState,
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none }
-      )
+      reducer: AppFeature()
     )
     store.dependencies.date = .constant(date())
 
@@ -392,16 +355,13 @@ import XCTest
   }
 
   func test_animateNextRideBanner() async {
+    let testScheduler = DispatchQueue.test
+    
     let store = TestStore(
       initialState: AppFeature.State(),
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        mainQueue: .immediate,
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none },
-        pathMonitorClient: .satisfied
-      )
+      reducer: AppFeature()
     )
+    store.dependencies.mainQueue = testScheduler.eraseToAnyScheduler()
 
     let ride = Ride(
       id: 123,
@@ -427,9 +387,11 @@ import XCTest
     await store.receive(.map(.setNextRideBannerVisible(true))) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
+    await testScheduler.advance(by: 1)
     await store.receive(.map(.setNextRideBannerExpanded(true))) {
       $0.mapFeatureState.isNextRideBannerExpanded = true
     }
+    await testScheduler.advance(by: 8)
     await store.receive(.map(.setNextRideBannerExpanded(false))) {
       $0.mapFeatureState.isNextRideBannerExpanded = false
     }
@@ -438,12 +400,7 @@ import XCTest
   func test_unreadChatMessagesCount() {
     let store = TestStore(
       initialState: AppFeature.State(),
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none },
-        pathMonitorClient: .satisfied
-      )
+      reducer: AppFeature()
     )
     store.dependencies.date = .constant(date())
     
@@ -472,7 +429,7 @@ import XCTest
       ]
     )
     
-    store.environment.userDefaultsClient.doubleForKey = { _ in
+    store.dependencies.userDefaultsClient.doubleForKey = { _ in
       self.date().timeIntervalSince1970
     }
     
@@ -484,7 +441,7 @@ import XCTest
       state.chatMessageBadgeCount = 6
     }
     
-    store.environment.userDefaultsClient.doubleForKey = { _ in
+    store.dependencies.userDefaultsClient.doubleForKey = { _ in
       self.date().timeIntervalSince1970 + 14
     }
     
@@ -560,12 +517,7 @@ import XCTest
 
     let store = TestStore(
       initialState: appState,
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none },
-        pathMonitorClient: .satisfied
-      )
+      reducer: AppFeature()
     )
 
     store.send(.setEventsBottomSheet(true)) {
@@ -616,12 +568,7 @@ import XCTest
 
     let store = TestStore(
       initialState: appState,
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none },
-        pathMonitorClient: .satisfied
-      )
+      reducer: AppFeature()
     )
 
     store.send(.setEventsBottomSheet(false)) {
@@ -636,12 +583,7 @@ import XCTest
 
     let store = TestStore(
       initialState: appState,
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none },
-        pathMonitorClient: .satisfied
-      )
+      reducer: AppFeature()
     )
 
     store.send(.map(.focusNextRide(nil)))
@@ -654,24 +596,16 @@ import XCTest
     var didSaveUserSettings = false
     var didSetDidShowPrompt = false
     
-    var store = TestStore(
+    let store = TestStore(
       initialState: AppFeature.State(),
-      reducer: AppFeature.reducer,
-      environment: AppFeature.Environment(
-        mainQueue: .immediate,
-        userDefaultsClient: .noop,
-        uiApplicationClient: .noop,
-        fileClient: .noop,
-        setUserInterfaceStyle: { _ in .none },
-        pathMonitorClient: .satisfied
-      )
+      reducer: AppFeature()
     )
-    
-    store.environment.fileClient.save = { _, _ in
+    store.dependencies.mainQueue = .immediate
+    store.dependencies.fileClient.save = { _, _ in
       didSaveUserSettings = true
       return .none
     }
-    store.environment.userDefaultsClient.setBool = { _, _ in
+    store.dependencies.userDefaultsClient.setBool = { _, _ in
       didSetDidShowPrompt = true
       return .none
     }

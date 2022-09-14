@@ -229,17 +229,11 @@ public struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
   static var previews: some View {
-    AppView(store: Store<AppFeature.State, AppFeature.Action>(
-      initialState: .init(),
-      reducer: AppFeature.reducer,
-      environment: .init(
-        service: .noop,
-        idProvider: .noop,
-        mainQueue: .failing,
-        uiApplicationClient: .noop,
-        setUserInterfaceStyle: { _ in .none }
+    AppView(
+      store: Store<AppFeature.State, AppFeature.Action>(
+        initialState: .init(),
+        reducer: AppFeature()
       )
-    )
     )
   }
 }

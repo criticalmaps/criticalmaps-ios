@@ -177,6 +177,7 @@ let package = Package(
         "ApiClient",
         "FileClient",
         "IDProvider",
+        "PathMonitorClient",
         "UIApplicationClient",
         "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")

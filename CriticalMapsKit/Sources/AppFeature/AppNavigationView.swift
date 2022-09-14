@@ -193,15 +193,7 @@ struct AppNavigationView_Previews: PreviewProvider {
     AppNavigationView(
       store: Store<AppFeature.State, AppFeature.Action>(
         initialState: .init(),
-        reducer: AppFeature.reducer,
-        environment: .init(
-          service: .noop,
-          idProvider: .noop,
-          mainQueue: .failing,
-          userDefaultsClient: .noop,
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        reducer: AppFeature()
       )
     )
   }

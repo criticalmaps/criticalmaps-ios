@@ -24,8 +24,7 @@ struct CriticalMapsApp: App {
 final class AppDelegate: NSObject, UIApplicationDelegate {
   let store = Store(
     initialState: .init(),
-    reducer: AppFeature.reducer,
-    environment: .live
+    reducer: AppFeature()
   )
   lazy var viewStore = ViewStore(
     self.store.scope(state: { _ in () }),
