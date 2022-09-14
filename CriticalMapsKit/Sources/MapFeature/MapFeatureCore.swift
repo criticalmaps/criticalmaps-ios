@@ -75,19 +75,6 @@ public struct MapFeature: ReducerProtocol {
     case userTracking(UserTrackingFeature.Action)
   }
 
-  public struct Environment {
-    public init(
-      locationManager: LocationManager,
-      mainQueue: AnySchedulerOf<DispatchQueue>
-    ) {
-      self.locationManager = locationManager
-      self.mainQueue = mainQueue
-    }
-    
-    let locationManager: LocationManager
-    let mainQueue: AnySchedulerOf<DispatchQueue>
-  }
-
   /// Used to identify locatioManager effects.
   private struct LocationManagerId: Hashable {}
   

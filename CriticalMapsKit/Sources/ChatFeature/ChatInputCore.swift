@@ -44,12 +44,6 @@ public struct ChatInput: ReducerProtocol {
     case onCommit
   }
 
-  // MARK: Environment
-
-  public struct Environment {
-    public init() {}
-  }
-
   // MARK: Reducer
   
   public var body: some ReducerProtocol<State, Action> {

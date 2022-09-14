@@ -35,23 +35,8 @@ public struct TwitterFeedFeature: ReducerProtocol {
     case openTweet(Tweet)
   }
   
-  // MARK: Environment
-  
-  public struct Environment {
-    public let service: TwitterFeedService
-    public let uiApplicationClient: UIApplicationClient
-    
-    public init(
-      service: TwitterFeedService,
-      uiApplicationClient: UIApplicationClient
-    ) {
-      self.service = service
-      self.uiApplicationClient = uiApplicationClient
-    }
-  }
   
   // MARK: Reducer
-  
   
   public func reduce(into state: inout State, action: Action) -> ComposableArchitecture.Effect<Action, Never> {
     switch action {
