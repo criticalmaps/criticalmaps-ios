@@ -8,11 +8,8 @@ import UIKit.UIInterface
 public struct AppearanceSettingsFeature: ReducerProtocol {
   public init() {}
 
-  @Dependency(\.uiApplicationClient)
-  public var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle)
-  public var setUserInterfaceStyle: @Sendable (UIUserInterfaceStyle) async -> Void
-
+  @Dependency(\.uiApplicationClient) public var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
   
   // MARK: State
   

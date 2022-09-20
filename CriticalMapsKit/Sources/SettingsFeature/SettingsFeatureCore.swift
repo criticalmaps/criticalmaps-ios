@@ -9,14 +9,10 @@ public struct SettingsFeature: ReducerProtocol {
   public init() {}
   
   // MARK: State
-  @Dependency(\.backgroundQueue)
-  public var backgroundQueue
-  @Dependency(\.fileClient)
-  public var fileClient
-  @Dependency(\.mainQueue)
-  public var mainQueue
-  @Dependency(\.uiApplicationClient)
-  public var uiApplicationClient: UIApplicationClient
+  @Dependency(\.backgroundQueue) public var backgroundQueue
+  @Dependency(\.fileClient) public var fileClient
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.uiApplicationClient) public var uiApplicationClient
 
   public struct State: Equatable {
     public var userSettings: UserSettings

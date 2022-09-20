@@ -17,13 +17,13 @@ public enum EventDistance: Int, CaseIterable, Codable {
   }
 
   public var displayValue: String {
-    var formatter = MeasurementFormatter.distanceFormatter
+    let formatter = MeasurementFormatter.distanceFormatter
     formatter.unitStyle = .short
     return formatter.string(from: length)
   }
 
   public var accessibilityLabel: String {
-    var formatter = MeasurementFormatter.distanceFormatter
+    let formatter = MeasurementFormatter.distanceFormatter
     formatter.unitStyle = .long
     return formatter.string(from: length)
   }

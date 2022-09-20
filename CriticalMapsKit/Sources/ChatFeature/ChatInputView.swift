@@ -425,7 +425,6 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     self.onCommit = onCommit
   }
   
-  // swiftlint:disable:next cyclomatic_complexity
   func makeUIView(context: Context) -> UITextView {
     let view = UITextView()
     

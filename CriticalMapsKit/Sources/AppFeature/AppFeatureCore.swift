@@ -2,21 +2,16 @@ import ApiClient
 import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
-import FileClient
-import IDProvider
 import L10n
 import Logger
 import MapFeature
 import MapKit
 import NextRideFeature
-import PathMonitorClient
 import SettingsFeature
 import SharedDependencies
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature
-import UIApplicationClient
-import UserDefaultsClient
 
 public struct AppFeature: ReducerProtocol {
   public init() {}
