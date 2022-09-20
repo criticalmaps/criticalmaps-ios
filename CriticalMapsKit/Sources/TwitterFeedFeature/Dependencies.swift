@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Foundation
 
-private enum TwitterServiceKey: TestDependencyKey {
+private enum TwitterServiceKey: DependencyKey {
   static let liveValue = TwitterFeedService.live()
   static let testValue = TwitterFeedService.noop
 }
