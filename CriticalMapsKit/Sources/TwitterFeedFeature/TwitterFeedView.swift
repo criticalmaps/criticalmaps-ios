@@ -40,7 +40,7 @@ struct TwitterFeedView_Previews: PreviewProvider {
     TwitterFeedView(
       store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
         initialState: .init(),
-        reducer: TwitterFeedFeature()
+        reducer: TwitterFeedFeature().debug()
       )
     )
   }

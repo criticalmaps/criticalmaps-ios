@@ -50,17 +50,20 @@ public struct MapFeatureView: View {
 }
 
 // MARK: Preview
+import SwiftUIHelpers
 
 struct MapFeatureView_Previews: PreviewProvider {
   static var previews: some View {
-    MapFeatureView(
-      store: Store<MapFeature.State, MapFeature.Action>(
-        initialState: MapFeature.State(
-          riders: [],
-          userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
-        ),
-        reducer: MapFeature()
+    Preview {
+      MapFeatureView(
+        store: Store<MapFeature.State, MapFeature.Action>(
+          initialState: MapFeature.State(
+            riders: [],
+            userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
+          ),
+          reducer: MapFeature().debug()
+        )
       )
-    )
+    }
   }
 }

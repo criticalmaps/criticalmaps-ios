@@ -63,19 +63,19 @@ struct UserTrackingButton_Previews: PreviewProvider {
         UserTrackingButton(
           store: .init(
             initialState: .init(userTrackingMode: .none),
-            reducer: UserTrackingFeature()
+            reducer: UserTrackingFeature().debug()
           )
         )
         UserTrackingButton(
           store: .init(
             initialState: .init(userTrackingMode: .follow),
-            reducer: UserTrackingFeature()
+            reducer: UserTrackingFeature().debug()
           )
         )
         UserTrackingButton(
           store: .init(
             initialState: .init(userTrackingMode: .followWithHeading),
-            reducer: UserTrackingFeature()
+            reducer: UserTrackingFeature().debug()
           )
         )
       }

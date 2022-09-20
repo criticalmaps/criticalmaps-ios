@@ -237,7 +237,7 @@ struct AppView_Previews: PreviewProvider {
     AppView(
       store: Store<AppFeature.State, AppFeature.Action>(
         initialState: .init(),
-        reducer: AppFeature()
+        reducer: AppFeature().debug()
       )
     )
   }

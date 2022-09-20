@@ -115,7 +115,7 @@ struct RideEventSettings_Previews: PreviewProvider {
               typeSettings: .all,
               eventDistance: .near
             ),
-            reducer: RideEventsSettingsFeature()
+            reducer: RideEventsSettingsFeature().debug()
           )
         )
       }

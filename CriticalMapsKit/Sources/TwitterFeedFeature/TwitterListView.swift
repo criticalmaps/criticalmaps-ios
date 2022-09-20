@@ -59,7 +59,7 @@ struct TweetListView_Previews: PreviewProvider {
       TweetListView(
         store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
           initialState: .init(contentState: .results(.placeHolder)),
-          reducer: TwitterFeedFeature()
+          reducer: TwitterFeedFeature().debug()
         )
       )
 
