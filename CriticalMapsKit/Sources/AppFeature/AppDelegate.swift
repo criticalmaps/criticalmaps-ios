@@ -30,12 +30,11 @@ public struct AppDelegate: ReducerProtocol {
 
     case let .userSettingsLoaded(result):
       state = (try? result.get()) ?? state
+      let style = state.appearanceSettings.colorScheme.userInterfaceStyle
       return .merge(
-        setUserInterfaceStyle(state.appearanceSettings.colorScheme.userInterfaceStyle)
-          // NB: This is necessary because UIKit needs at least one tick of the run loop before we
-          //     can set the user interface style.
-          .subscribe(on: mainQueue)
-          .fireAndForget()
+        .fireAndForget {
+          await setUserInterfaceStyle(style)
+        }
       )
     }
   }

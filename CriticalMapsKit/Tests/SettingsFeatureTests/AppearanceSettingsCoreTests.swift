@@ -26,26 +26,29 @@ final class AppearanceSettingsCoreTests: XCTestCase {
   }
 
   func testSetColorScheme() async {
-    var overriddenUserInterfaceStyle: UIUserInterfaceStyle!
+    let overriddenUserInterfaceStyle = ActorIsolated(UIUserInterfaceStyle.unspecified)
 
     let store = TestStore(
       initialState: AppearanceSettings(),
       reducer: AppearanceSettingsFeature()
     )
     store.dependencies.setUserInterfaceStyle = { newValue in
-      .fireAndForget {
-        overriddenUserInterfaceStyle = newValue
-      }
+      await overriddenUserInterfaceStyle.setValue(newValue)
+      return ()
     }
     
     await store.send(.set(\.$colorScheme, .light)) {
       $0.colorScheme = .light
     }
-    XCTAssertNoDifference(overriddenUserInterfaceStyle, .light)
+    await overriddenUserInterfaceStyle.withValue { stlye in
+      XCTAssertNoDifference(stlye, .light)
+    }
 
     await store.send(.set(\.$colorScheme, .system)) {
       $0.colorScheme = .system
     }
-    XCTAssertNoDifference(overriddenUserInterfaceStyle, .unspecified)
+    await overriddenUserInterfaceStyle.withValue { stlye in
+      XCTAssertNoDifference(stlye, .unspecified)
+    }
   }
 }

@@ -294,12 +294,11 @@ public struct AppFeature: ReducerProtocol {
         
       case let .userSettingsLoaded(result):
         state.settingsState.userSettings = (try? result.get()) ?? UserSettings()
+        let style = state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle
         return .merge(
-          setUserInterfaceStyle(state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle)
-            // NB: This is necessary because UIKit needs at least one tick of the run loop before we
-            //     can set the user interface style.
-            .subscribe(on: mainQueue)
-            .fireAndForget()
+          .fireAndForget {
+            await setUserInterfaceStyle(style)
+          }
         )
 
       case let .setNavigation(tag: tag):

@@ -11,7 +11,7 @@ public struct AppearanceSettingsFeature: ReducerProtocol {
   @Dependency(\.uiApplicationClient)
   public var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle)
-  public var setUserInterfaceStyle: (UIUserInterfaceStyle) -> Effect<Never, Never>
+  public var setUserInterfaceStyle: @Sendable (UIUserInterfaceStyle) async -> Void
 
   
   // MARK: State
@@ -30,8 +30,10 @@ public struct AppearanceSettingsFeature: ReducerProtocol {
     Reduce<State, Action> { state, action in
       switch action {
       case .binding(\.$colorScheme):
-        return setUserInterfaceStyle(state.colorScheme.userInterfaceStyle)
-          .fireAndForget()
+        let style = state.colorScheme.userInterfaceStyle
+        return .fireAndForget {
+          await setUserInterfaceStyle(style)
+        }
 
       case .binding(\.$appIcon):
         return uiApplicationClient.setAlternateIconName(state.appIcon.rawValue)

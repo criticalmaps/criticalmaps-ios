@@ -101,14 +101,15 @@ enum PathMonitorClientKey: DependencyKey {
   static let testValue = PathMonitorClient.satisfied
 }
 
-public typealias SetUserInterfaceStyleEffect = (UIUserInterfaceStyle) -> Effect<Never, Never>
+public typealias SetUserInterfaceStyleEffect = @Sendable (UIUserInterfaceStyle) async -> Void
 enum SetUserInterfaceStyleKey: DependencyKey {
+  
   static let liveValue: SetUserInterfaceStyleEffect = { userInterfaceStyle in
-      .fireAndForget {
-        UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
-      }
+    await MainActor.run {
+      UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
+    }
   }
-  static let testValue: SetUserInterfaceStyleEffect = { _ in .none }
+  static let testValue: SetUserInterfaceStyleEffect = { _ in () }
 }
 
 enum UserDefaultsClientKey: DependencyKey {
