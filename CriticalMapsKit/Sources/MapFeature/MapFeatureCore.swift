@@ -138,8 +138,9 @@ public struct MapFeature: ReducerProtocol {
             .map(Action.locationManager),
           
           locationManager
-            .setup(id: LocationManagerId())
+            .setup()
             .fireAndForget(),
+          
           Effect(value: Action.locationRequested)
         )
         
@@ -240,7 +241,7 @@ public struct MapFeature: ReducerProtocol {
 
 extension LocationManager {
   /// Configures the LocationManager
-  func setup(id _: AnyHashable) -> Effect<Never, Never> {
+  func setup() -> Effect<Never, Never> {
     set(
       .init(
         activityType: .otherNavigation,
