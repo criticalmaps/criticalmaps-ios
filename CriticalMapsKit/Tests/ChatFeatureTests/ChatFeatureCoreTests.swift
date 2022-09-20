@@ -23,6 +23,7 @@ final class ChatFeatureCore: XCTestCase {
     )
     testStore.dependencies.uuid = .constant(uuid())
     testStore.dependencies.date = .constant(date())
+    testStore.dependencies.isNetworkAvailable = true
     
     return testStore
   }
@@ -44,6 +45,7 @@ final class ChatFeatureCore: XCTestCase {
   func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
     let error = NSError()
     let testStore = defaultTestStore()
+    
     testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in
       throw error
     }

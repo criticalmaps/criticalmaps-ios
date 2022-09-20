@@ -29,6 +29,7 @@ public struct AppFeature: ReducerProtocol {
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
   @Dependency(\.pathMonitorClient) public var pathMonitorClient
+  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
   
   // MARK: State
 
@@ -70,6 +71,7 @@ public struct AppFeature: ReducerProtocol {
     public var settingsState = SettingsFeature.State()
     public var nextRideState = NextRideFeature.State()
     public var requestTimer = RequestTimer.State()
+    public var connectionObserverState = NetworkConnectionObserver.State()
       
     // Navigation
     public var route: AppRoute?
@@ -78,7 +80,6 @@ public struct AppFeature: ReducerProtocol {
     public var isSettingsViewPresented: Bool { route == .settings }
     
     public var chatMessageBadgeCount: UInt = 0
-    public var hasConnectivity = true
 
     @BindableState
     public var presentEventsBottomSheet = false
@@ -95,9 +96,7 @@ public struct AppFeature: ReducerProtocol {
     case fetchData
     case fetchDataResponse(TaskResult<LocationAndChatMessages>)
     case userSettingsLoaded(Result<UserSettings, NSError>)
-    case observeConnection
-    case observeConnectionResponse(NetworkPath)
-
+    
     case setEventsBottomSheet(Bool)
     case setNavigation(tag: AppRoute.Tag?)
     case dismissSheetView
@@ -110,6 +109,7 @@ public struct AppFeature: ReducerProtocol {
     case requestTimer(RequestTimer.Action)
     case settings(SettingsFeature.Action)
     case social(SocialFeature.Action)
+    case connectionObserver(NetworkConnectionObserver.Action)
   }
   
   // MARK: Reducer
@@ -118,6 +118,10 @@ public struct AppFeature: ReducerProtocol {
 
   public var body: some ReducerProtocol<State, Action> {
     BindingReducer()
+    
+    Scope(state: \.connectionObserverState, action: /AppFeature.Action.connectionObserver) {
+      NetworkConnectionObserver()
+    }
     
     Scope(state: \.requestTimer, action: /AppFeature.Action.requestTimer) {
       RequestTimer()
@@ -129,6 +133,7 @@ public struct AppFeature: ReducerProtocol {
     
     Scope(state: \.nextRideState, action: /AppFeature.Action.nextRide) {
       NextRideFeature()
+        .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
     Scope(state: \.settingsState, action: /AppFeature.Action.settings) {
@@ -137,6 +142,7 @@ public struct AppFeature: ReducerProtocol {
     
     Scope(state: \.socialState, action: /AppFeature.Action.social) {
       SocialFeature()
+        .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
     /// Holds the logic for the AppFeature to update state and execute side effects
@@ -150,7 +156,7 @@ public struct AppFeature: ReducerProtocol {
         
       case .onAppear:
         var effects: [Effect<Action, Never>] = [
-          Effect(value: .observeConnection),
+          Effect(value: .connectionObserver(.observeConnection)),
           fileClient
             .loadUserSettings()
             .map(Action.userSettingsLoaded),
@@ -180,7 +186,7 @@ public struct AppFeature: ReducerProtocol {
             : Location(state.mapFeatureState.location)
         )
         
-        guard state.hasConnectivity else {
+        guard isNetworkAvailable else {
           logger.info("AppAction.fetchData not executed. Not connected to internet")
           return .none
         }
@@ -216,20 +222,6 @@ public struct AppFeature: ReducerProtocol {
       case let .fetchDataResponse(.failure(error)):
         logger.info("FetchData failed: \(error)")
         state.locationsAndChatMessages = .failure(error)
-        return .none
-        
-      case .observeConnection:
-        return .run { send in
-          for await path in await pathMonitorClient.networkPathPublisher() {
-            await send(.observeConnectionResponse(path))
-          }
-        }
-        .cancellable(id: ObserveConnectionIdentifier())
-        
-      case let .observeConnectionResponse(networkPath):
-        state.hasConnectivity = networkPath.status == .satisfied
-        state.nextRideState.hasConnectivity = state.hasConnectivity
-        logger.info("Is connected: \(state.hasConnectivity)")
         return .none
 
       case let .map(mapFeatureAction):
@@ -365,7 +357,10 @@ public struct AppFeature: ReducerProtocol {
           if !isEnabled {
             return Effect(value: .map(.setNextRideBannerVisible(false)))
           } else {
-            guard let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled else {
+            guard
+              let coordinate = Coordinate(state.mapFeatureState.location),
+              state.settingsState.userSettings.rideEventSettings.isEnabled
+            else {
               return .none
             }
             struct RideEventSettingsChange: Hashable {}
@@ -377,6 +372,9 @@ public struct AppFeature: ReducerProtocol {
         default:
           return .none
         }
+        
+      case .connectionObserver:
+        return .none
       }
     }
   }

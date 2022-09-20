@@ -16,14 +16,13 @@ public struct NextRideFeature: ReducerProtocol {
   @Dependency(\.date) public var date
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.coordinateObfuscator) public var coordinateObfuscator
+  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
 
   public struct State: Equatable {
-    public init(nextRide: Ride? = nil, hasConnectivity: Bool = true) {
+    public init(nextRide: Ride? = nil) {
       self.nextRide = nextRide
-      self.hasConnectivity = hasConnectivity
     }
 
-    public var hasConnectivity: Bool
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
 
@@ -48,7 +47,7 @@ public struct NextRideFeature: ReducerProtocol {
         logger.debug("NextRide featue is disabled")
         return .none
       }
-      guard state.hasConnectivity else {
+      guard isNetworkAvailable else {
         logger.debug("Not fetching next ride. No connectivity")
         return .none
       }

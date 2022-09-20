@@ -77,6 +77,7 @@ import XCTest
       )
       .encoded()
     }
+    store.dependencies.isNetworkAvailable = true
     
     // no effect received
     store.send(.getNextRide(coordinate))
@@ -91,6 +92,8 @@ import XCTest
     }
     store.dependencies.nextRideService.nextRide = { _, _, _ in self.rides }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     await _ = store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
@@ -114,6 +117,7 @@ import XCTest
       )
       .encoded()
     }
+    store.dependencies.isNetworkAvailable = true
     store.dependencies.nextRideService.nextRide = { _, _, _ in
       throw NextRideService.Failure(internalError: .badRequest)
     }
@@ -132,6 +136,7 @@ import XCTest
     store.dependencies.nextRideService.nextRide = { _, _, _ in
       self.rides
     }
+    store.dependencies.isNetworkAvailable = true
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: true,
@@ -203,6 +208,7 @@ import XCTest
       try? RideEventSettings.default.encoded()
     }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -246,6 +252,7 @@ import XCTest
         .encoded()
     }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -316,6 +323,7 @@ import XCTest
     }
     store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -395,6 +403,7 @@ import XCTest
         .encoded()
     }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -455,6 +464,7 @@ import XCTest
         .encoded()
     }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -515,6 +525,7 @@ import XCTest
         .encoded()
     }
     store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -575,6 +586,7 @@ import XCTest
         .encoded()
     }
     store.dependencies.date = .constant(now().addingTimeInterval(60 * 60 * 72))
+    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))

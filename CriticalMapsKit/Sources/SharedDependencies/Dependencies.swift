@@ -30,7 +30,10 @@ public extension DependencyValues {
   
   var isNetworkAvailable: Bool {
     get { self[ConnectionStateKey.self] }
-    set { self[ConnectionStateKey.self] = newValue }
+    set {
+       _isNetworkAvailable = newValue
+      self[ConnectionStateKey.self] = newValue
+    }
   }
   
   var locationAndChatService: LocationsAndChatDataService {
@@ -115,6 +118,9 @@ enum UIApplicationClientKey: DependencyKey {
 }
 
 enum ConnectionStateKey: DependencyKey {
-  static var liveValue = true
+  static var liveValue = _isNetworkAvailable
   static var testValue = false
 }
+
+// swiftlint:disable:next identifier_name
+public var _isNetworkAvailable = true

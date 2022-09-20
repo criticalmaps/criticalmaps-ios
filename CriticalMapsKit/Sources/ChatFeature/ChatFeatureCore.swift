@@ -17,6 +17,7 @@ public struct ChatFeature: ReducerProtocol {
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.uuid) public var uuid
   @Dependency(\.userDefaultsClient) public var userDefaultsClient
+  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
   
   var md5Uuid: String {
     Insecure.MD5.hash(data: uuid().uuidString.data(using: .utf8)!)
@@ -29,16 +30,13 @@ public struct ChatFeature: ReducerProtocol {
   public struct State: Equatable {
     public var chatMessages: ContentState<[String: ChatMessage]>
     public var chatInputState: ChatInput.State
-    public var hasConnectivity: Bool
     
     public init(
       chatMessages: ContentState<[String: ChatMessage]> = .loading([:]),
-      chatInputState: ChatInput.State = .init(),
-      hasConnectivity: Bool = true
+      chatInputState: ChatInput.State = .init()
     ) {
       self.chatMessages = chatMessages
       self.chatInputState = chatInputState
-      self.hasConnectivity = hasConnectivity
     }
   }
   
@@ -92,7 +90,7 @@ public struct ChatFeature: ReducerProtocol {
             messages: [message]
           )
           
-          guard state.hasConnectivity else {
+          guard isNetworkAvailable else {
             logger.debug("Not sending chat input. No connectivity")
             return .none
           }

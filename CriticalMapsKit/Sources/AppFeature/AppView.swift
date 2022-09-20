@@ -17,6 +17,7 @@ public struct AppView: View {
 
   @State private var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
   @State private var orientation = UIDeviceOrientation.unknown
+  @State private var showOfflineBanner = false
 
   private let minHeight: CGFloat = 56
   public init(store: Store<AppFeature.State, AppFeature.Action>) {
@@ -48,10 +49,12 @@ public struct AppView: View {
             }
         }
 
-        offlineBanner
-          .clipShape(Circle())
-          .opacity(viewStore.hasConnectivity ? 0 : 1)
-          .accessibleAnimation(.easeOut, value: viewStore.hasConnectivity)
+        if !viewStore.connectionObserverState.isNetworkAvailable {
+          offlineBanner
+            .clipShape(Circle())
+            .opacity(showOfflineBanner ? 1 : 0)
+            .accessibleAnimation(.easeOut, value: showOfflineBanner)
+        }
       }
       .padding(.top, .grid(2))
       .padding(.horizontal)
@@ -84,9 +87,11 @@ public struct AppView: View {
       contentView: { bottomSheetContentView() }
     )
     .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
-    .environment(\.connectivity, viewStore.hasConnectivity)
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
+    .onChange(of: viewStore.connectionObserverState.isNetworkAvailable) { newValue in
+      self.showOfflineBanner = !newValue
+    }
   }
 
   func bottomSheetContentView() -> some View {
@@ -177,7 +182,7 @@ public struct AppView: View {
           ? Color.white
           : Color(.attention)
       )
-      .accessibilityRepresentation { viewStore.hasConnectivity ? Text("internet connection available") : Text("internet not available") }
+      .accessibilityLabel(Text("internet not available"))
       .padding()
       .background(
         Group {

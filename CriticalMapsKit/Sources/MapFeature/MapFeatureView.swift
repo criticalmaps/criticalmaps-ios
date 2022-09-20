@@ -8,7 +8,6 @@ import SwiftUI
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-  @Environment(\.connectivity) var isConnected
   
   public typealias State = MapFeature.State
   public typealias Action = MapFeature.Action

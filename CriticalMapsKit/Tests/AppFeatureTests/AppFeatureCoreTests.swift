@@ -52,9 +52,10 @@ import XCTest
         )
       )
     }
+    store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
-    await store.receive(.observeConnection)
+    await store.receive(.connectionObserver(.observeConnection))
     await store.receive(.userSettingsLoaded(.success(.init())))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
@@ -66,7 +67,7 @@ import XCTest
     await store.receive(.presentObservationModeAlert) {
       $0.alert = .viewingModeAlert
     }
-    await store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied)))
+    await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
     await store.receive(.requestTimer(.timerTicked))
     await store.receive(.fetchData)
   
@@ -143,9 +144,10 @@ import XCTest
         )
       )
     }
+    store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
-    await store.receive(.observeConnection)
+    await store.receive(.connectionObserver(.observeConnection))
     await store.receive(.userSettingsLoaded(.success(.init())))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
@@ -156,7 +158,7 @@ import XCTest
     }
     
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
-    await store.receive(.observeConnectionResponse(.init(status: .satisfied)))
+    await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
     await store.receive(.requestTimer(.timerTicked))
     await store.receive(.fetchData)
     await store.receive(.fetchDataResponse(.success(serviceResponse))) {
@@ -171,6 +173,7 @@ import XCTest
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
 
     XCTAssertTrue(didRequestLocation)
+    XCTAssertTrue(didRequestAlwaysAuthorization)
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
 
     await store.receive(.map(.locationManager(.didUpdateLocations([currentLocation])))) {
@@ -183,7 +186,7 @@ import XCTest
     await store.receive(.fetchData)
     await store.receive(.nextRide(.getNextRide(.init(latitude: 20, longitude: 10))))
     
-    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 10)
+    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 2)
     
     await store.receive(.fetchDataResponse(.success(serviceResponse)))
     await store.receive(.nextRide(.nextRideResponse(.success([]))))
@@ -259,9 +262,10 @@ import XCTest
     store.dependencies.fileClient.load = { _ in
       .init(value: try! JSONEncoder().encode(userSettings))
     }
+    store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
-    await store.receive(.observeConnection)
+    await store.receive(.connectionObserver(.observeConnection))
     await store.receive(
       .userSettingsLoaded(.success(userSettings))
     )
@@ -274,7 +278,7 @@ import XCTest
     }
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
     
-    await store.receive(.observeConnectionResponse(NetworkPath(status: .satisfied)))
+    await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
     
     XCTAssertTrue(didRequestLocation)
@@ -673,4 +677,4 @@ extension LocationAndChatMessages {
       chatMessages: .make(max)
     )
   }
-}
+} // swiftlint:disable:this file_length

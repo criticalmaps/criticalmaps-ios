@@ -51,13 +51,17 @@ opt_in_rules:
 included:
   - CriticalMapsKit/Sources
   - CriticalMapsKit/Tests
-excluded: # paths to ignore during linting. Takes precedence over `included`.
+excluded:
   - Package.swift
   - .build/
   - vendor/
   - Tests/
   - CriticalMapsKit/Sources/L10n/
 
+cyclomatic_complexity:
+  warning: 15
+type_body_length:
+  warning: 350
 nesting:
   type_level: 3
 line_length: 140
@@ -71,9 +75,9 @@ type_name:
     error: 50
   allowed_symbols: ["_Previews"]
 identifier_name:
-  min_length: # only min_length
-    warning: 2 # only error
-  excluded: # excluded via string array
+  min_length:
+    warning: 2
+  excluded:
     - t
     - a
     - b
