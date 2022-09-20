@@ -3,7 +3,7 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
 import Logger
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import UserDefaultsClient
 

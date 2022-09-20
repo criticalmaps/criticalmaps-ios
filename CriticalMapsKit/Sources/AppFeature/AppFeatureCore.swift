@@ -11,7 +11,7 @@ import MapKit
 import NextRideFeature
 import PathMonitorClient
 import SettingsFeature
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature

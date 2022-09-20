@@ -1,6 +1,6 @@
 import ComposableArchitecture
 import Foundation
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 
 public struct AppDelegate: ReducerProtocol {

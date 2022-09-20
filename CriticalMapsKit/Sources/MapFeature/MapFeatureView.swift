@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Helpers
 import L10n
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI

@@ -2,7 +2,7 @@ import BottomSheet
 import ComposableArchitecture
 import L10n
 import MapFeature
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI

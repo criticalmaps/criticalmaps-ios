@@ -7,19 +7,6 @@ import SwiftUI
 import UIApplicationClient
 import UserDefaultsClient
 
-public extension EnvironmentValues {
-  /// Environment key to get the apps connectivity state
-  var connectivity: Bool {
-    get { self[ConnectionStateKey.self] }
-    set { self[ConnectionStateKey.self] = newValue }
-  }
-}
-
-private struct ConnectionStateKey: EnvironmentKey {
-  static var defaultValue: Bool { true }
-}
-
-
 public extension DependencyValues {
   var apiClient: APIClient {
     get { self[ApiClientKey.self] }
@@ -39,6 +26,11 @@ public extension DependencyValues {
   var idProvider: IDProvider {
     get { self[IDProviderKey.self] }
     set { self[IDProviderKey.self] = newValue }
+  }
+  
+  var isNetworkAvailable: Bool {
+    get { self[ConnectionStateKey.self] }
+    set { self[ConnectionStateKey.self] = newValue }
   }
   
   var locationAndChatService: LocationsAndChatDataService {
@@ -120,4 +112,9 @@ enum UserDefaultsClientKey: DependencyKey {
 enum UIApplicationClientKey: DependencyKey {
   static let liveValue = UIApplicationClient.live
   static let testValue = UIApplicationClient.noop
+}
+
+enum ConnectionStateKey: DependencyKey {
+  static var liveValue = true
+  static var testValue = false
 }

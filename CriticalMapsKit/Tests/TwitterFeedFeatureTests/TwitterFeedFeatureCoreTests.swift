@@ -2,7 +2,7 @@ import ApiClient
 import Combine
 import ComposableArchitecture
 import CustomDump
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import TwitterFeedFeature
 import UIApplicationClient

@@ -56,7 +56,7 @@ let package = Package(
         "NextRideFeature",
         "PathMonitorClient",
         "SettingsFeature",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SocialFeature",
         "Styleguide",
         "UserDefaultsClient",
@@ -73,7 +73,7 @@ let package = Package(
         "IDProvider",
         "L10n",
         "Logger",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -128,7 +128,7 @@ let package = Package(
         "L10n",
         "Logger",
         "NextRideFeature",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -143,7 +143,7 @@ let package = Package(
         "Helpers",
         "L10n",
         "Logger",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient",
@@ -161,7 +161,7 @@ let package = Package(
         "L10n",
         "Logger",
         "Helpers",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -172,7 +172,7 @@ let package = Package(
       resources: [.process("Resources/")]
     ),
     .target(
-      name: "SharedEnvironment",
+      name: "SharedDependencies",
       dependencies: [
         "ApiClient",
         "FileClient",
@@ -224,7 +224,7 @@ let package = Package(
       dependencies: [
         "ApiClient",
         "Logger",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "UIApplicationClient",
@@ -356,7 +356,7 @@ package.targets.append(contentsOf: [
     name: "TwitterFeedFeatureTests",
     dependencies: [
       "Helpers",
-      "SharedEnvironment",
+      "SharedDependencies",
       "TwitterFeedFeature",
       "TestHelper",
       .product(

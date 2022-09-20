@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Foundation
 import Helpers
 import Logger
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI

@@ -1,6 +1,6 @@
 import ComposableArchitecture
 import Helpers
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import UIApplicationClient
 import UIKit.UIInterface

@@ -5,7 +5,7 @@ import Foundation
 import Helpers
 import L10n
 import Logger
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 
 public struct ChatFeature: ReducerProtocol {
