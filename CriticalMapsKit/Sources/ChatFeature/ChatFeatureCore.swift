@@ -91,7 +91,7 @@ public struct ChatFeature: ReducerProtocol {
           )
           
           guard isNetworkAvailable else {
-            logger.debug("Not sending chat input. No connectivity")
+            logger.debug("Not sending chat input. Network not available")
             return .none
           }
           

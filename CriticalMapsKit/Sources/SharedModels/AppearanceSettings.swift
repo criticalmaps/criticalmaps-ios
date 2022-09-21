@@ -4,10 +4,8 @@ import enum UIKit.UIUserInterfaceStyle
 
 /// A structure that represents a users appearance settings.
 public struct AppearanceSettings: Codable, Equatable {
-  @BindableState
-  public var appIcon: AppIcon
-  @BindableState
-  public var colorScheme: ColorScheme
+  @BindableState public var appIcon: AppIcon
+  @BindableState public var colorScheme: ColorScheme
 
   public init(appIcon: AppIcon = .appIcon2, colorScheme: ColorScheme = .system) {
     self.appIcon = appIcon
