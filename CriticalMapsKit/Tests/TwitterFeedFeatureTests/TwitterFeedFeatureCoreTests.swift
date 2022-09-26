@@ -33,8 +33,8 @@ final class TwitterFeedCoreTests: XCTestCase {
     }
   }
   
-  func test_openTweetUrl() throws {
-    var tweetUrl: URL!
+  func test_openTweetUrl() async throws {
+    let openedUrl = ActorIsolated<URL?>(nil)
     
     let request = TwitterFeedRequest()
     let decoder = request.decoder
@@ -45,13 +45,15 @@ final class TwitterFeedCoreTests: XCTestCase {
       initialState: TwitterFeedFeature.State(),
       reducer: TwitterFeedFeature()
     )
-    store.dependencies.uiApplicationClient.open = { url, _ in
-      tweetUrl = url
-      return .none
+    await store.dependencies.uiApplicationClient.open = { url, _ in
+      await openedUrl.setValue(url)
+      return true
     }
-    store.send(.openTweet(feed.statuses[0]))
+    await store.send(.openTweet(feed.statuses[0]))
     
-    XCTAssertNoDifference(tweetUrl, feed.statuses[0].tweetUrl)
+    await openedUrl.withValue({ url in
+      XCTAssertEqual(url, feed.statuses[0].tweetUrl)
+    })
   }
   
   func test_tweetDecodingTest() throws {

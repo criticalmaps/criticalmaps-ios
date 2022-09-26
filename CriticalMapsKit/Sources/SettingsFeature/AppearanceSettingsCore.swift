@@ -33,8 +33,10 @@ public struct AppearanceSettingsFeature: ReducerProtocol {
         }
 
       case .binding(\.$appIcon):
-        return uiApplicationClient.setAlternateIconName(state.appIcon.rawValue)
-          .fireAndForget()
+        let appIcon = state.appIcon.rawValue
+        return .fireAndForget {
+          try await uiApplicationClient.setAlternateIconName(appIcon)
+        }
 
       case .binding:
         return .none

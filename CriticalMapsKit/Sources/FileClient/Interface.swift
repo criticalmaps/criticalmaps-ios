@@ -8,41 +8,40 @@ import SharedModels
 
 /// Client handling FileManager interactions
 public struct FileClient {
-  public var delete: (String) -> Effect<Never, Error>
-  public var load: (String) -> Effect<Data, Error>
-  public var save: (String, Data) -> Effect<Never, Error>
-
+  public var delete: @Sendable (String) async throws -> Void
+  public var load: @Sendable (String) async throws -> Data
+  public var save: @Sendable (String, Data) async throws -> Void
+  
   public func load<A: Decodable>(
-    _ type: A.Type, from fileName: String
-  ) -> Effect<Result<A, NSError>, Never> {
-    load(fileName)
-      .decode(type: A.self, decoder: JSONDecoder())
-      .mapError { $0 as NSError }
-      .catchToEffect()
+    _ type: A.Type,
+    from fileName: String,
+    with decoder: JSONDecoder = JSONDecoder()
+  ) async throws -> A {
+    let data = try await load(fileName)
+    return try data.decoded(decoder: decoder)
   }
-
+  
   public func save<A: Encodable>(
-    _ data: A, to fileName: String, on queue: AnySchedulerOf<DispatchQueue>
-  ) -> Effect<Never, Never> {
-    Just(data)
-      .subscribe(on: queue)
-      .encode(encoder: JSONEncoder())
-      .flatMap { data in self.save(fileName, data) }
-      .ignoreFailure()
-      .eraseToEffect()
+    _ data: A,
+    to fileName: String,
+    with encoder: JSONEncoder = JSONEncoder()
+  ) async {
+    Task(priority: .background) {
+      let data = try data.encoded(encoder: encoder)
+      try await self.save(fileName, data)
+    }
   }
 }
 
+
 // Convenience methods for UserSettings handling
 public extension FileClient {
-  func loadUserSettings() -> Effect<Result<UserSettings, NSError>, Never> {
-    load(UserSettings.self, from: userSettingsFileName)
+  func loadUserSettings() async throws -> UserSettings {
+    try await load(UserSettings.self, from: userSettingsFileName)
   }
 
-  func saveUserSettings(
-    userSettings: UserSettings, on queue: AnySchedulerOf<DispatchQueue>
-  ) -> Effect<Never, Never> {
-    save(userSettings, to: userSettingsFileName, on: queue)
+  func saveUserSettings(userSettings: UserSettings) async {
+    await self.save(userSettings, to: userSettingsFileName)
   }
 }
 

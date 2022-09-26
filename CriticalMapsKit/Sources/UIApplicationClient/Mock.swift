@@ -3,10 +3,12 @@ import Foundation
 
 public extension UIApplicationClient {
   static let noop = Self(
-    alternateIconName: { "" },
-    open: { _, _ in .none },
+    alternateIconName: { nil },
+    alternateIconNameAsync: { nil },
+    open: { _, _ in false },
     openSettingsURLString: { "settings://criticalmaps/settings" },
-    setAlternateIconName: { _ in .none },
-    supportsAlternateIcons: { true }
+    setAlternateIconName: { _ in },
+    supportsAlternateIcons: { true },
+    supportsAlternateIconsAsync: { true }
   )
 }

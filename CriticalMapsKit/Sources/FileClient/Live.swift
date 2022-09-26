@@ -10,34 +10,28 @@ public extension FileClient {
 
     return Self(
       delete: { fileName in
-        .fireAndForget {
-          try? FileManager.default.removeItem(
-            at:
+        try? FileManager.default.removeItem(
+          at:
             documentDirectory
-              .appendingPathComponent(fileName)
-              .appendingPathExtension(fileExtension)
-          )
-        }
+            .appendingPathComponent(fileName)
+            .appendingPathExtension(fileExtension)
+        )
       },
       load: { fileName in
-        .catching {
-          try Data(
-            contentsOf:
+        try Data(
+          contentsOf:
             documentDirectory
-              .appendingPathComponent(fileName)
-              .appendingPathExtension(fileExtension)
-          )
-        }
+            .appendingPathComponent(fileName)
+            .appendingPathExtension(fileExtension)
+        )
       },
       save: { fileName, data in
-        .fireAndForget {
-          _ = try? data.write(
-            to:
+        _ = try? data.write(
+          to:
             documentDirectory
-              .appendingPathComponent(fileName)
-              .appendingPathExtension(fileExtension)
-          )
-        }
+            .appendingPathComponent(fileName)
+            .appendingPathExtension(fileExtension)
+        )
       }
     )
   }

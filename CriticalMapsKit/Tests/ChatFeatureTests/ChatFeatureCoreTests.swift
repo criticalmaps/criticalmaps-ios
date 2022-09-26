@@ -59,24 +59,28 @@ final class ChatFeatureCore: XCTestCase {
   }
   
   func test_didAppear_ShouldSet_appearanceTimeinterval() async {
-    var didWriteChatAppearanceTimeinterval = false
-    var chatAppearanceTimeinterval: TimeInterval = 0
+    let didWriteChatAppearanceTimeinterval = ActorIsolated(false)
+    let chatAppearanceTimeinterval: ActorIsolated<TimeInterval> = ActorIsolated(0)
     
     let testStore = TestStore(
       initialState: ChatFeature.State(),
       reducer: ChatFeature()
     )
     testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
-      didWriteChatAppearanceTimeinterval = true
-      chatAppearanceTimeinterval = interval
-      return .none
+      await didWriteChatAppearanceTimeinterval.setValue(true)
+      await chatAppearanceTimeinterval.setValue(interval)
+      return ()
     }
     testStore.dependencies.uuid = .constant(uuid())
     testStore.dependencies.date = .constant(date())
   
     _ = await testStore.send(.onAppear)
-    XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
-    XCTAssertTrue(didWriteChatAppearanceTimeinterval)
+    await chatAppearanceTimeinterval.withValue({ interval in
+      XCTAssertEqual(interval, date().timeIntervalSince1970)
+    })
+    await didWriteChatAppearanceTimeinterval.withValue({ val in
+      XCTAssertTrue(val)
+    })
   }
   
   func test_chatViewState() {

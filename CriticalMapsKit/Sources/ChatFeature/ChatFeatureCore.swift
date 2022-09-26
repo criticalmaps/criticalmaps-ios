@@ -60,9 +60,9 @@ public struct ChatFeature: ReducerProtocol {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        return userDefaultsClient
-          .setChatReadTimeInterval(date().timeIntervalSince1970)
-          .fireAndForget()
+        return .fireAndForget {
+          await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+        }
         
       case let .chatInputResponse(.success(response)):
         state.chatInputState.isSending = false

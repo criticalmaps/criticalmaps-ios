@@ -13,16 +13,22 @@ public struct AppDelegate: ReducerProtocol {
   
   public enum Action: Equatable {
     case didFinishLaunching
-    case userSettingsLoaded(Result<State, NSError>)
+    case userSettingsLoaded(TaskResult<State>)
   }
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
     case .didFinishLaunching:
-      return fileClient.loadUserSettings().map(Action.userSettingsLoaded)
+      return .task {
+        await .userSettingsLoaded(
+          TaskResult {
+            try await fileClient.loadUserSettings()
+          }
+        )
+      }
 
     case let .userSettingsLoaded(result):
-      state = (try? result.get()) ?? state
+      state = (try? result.value) ?? state
       let style = state.appearanceSettings.colorScheme.userInterfaceStyle
       return .fireAndForget {
         await setUserInterfaceStyle(style)

@@ -65,9 +65,9 @@ public struct TwitterFeedFeature: ReducerProtocol {
       return .none
     
     case let .openTweet(tweet):
-      return uiApplicationClient
-        .open(tweet.tweetUrl!, [:])
-        .fireAndForget()
+      return .fireAndForget {
+        _ = await uiApplicationClient.open(tweet.tweetUrl!, [:])
+      }
     }
   }
 }

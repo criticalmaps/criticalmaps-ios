@@ -45,18 +45,11 @@ import XCTest
     store.dependencies.locationManager = locationManager
     store.dependencies.userDefaultsClient = userDefaultsClient
     store.dependencies.locationAndChatService = service
-    store.dependencies.fileClient.load = { _ in
-      .init(
-        value: try! JSONEncoder().encode(
-          UserSettings()
-        )
-      )
-    }
+    store.dependencies.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(UserSettings()) }
     store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
     await store.receive(.connectionObserver(.observeConnection))
-    await store.receive(.userSettingsLoaded(.success(.init())))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
       $0.requestTimer.isTimerActive = true
@@ -64,6 +57,7 @@ import XCTest
     await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.alert = .goToSettingsAlert
     }
+    await store.receive(.userSettingsLoaded(.success(.init())))
     await store.receive(.presentObservationModeAlert) {
       $0.alert = .viewingModeAlert
     }
@@ -137,18 +131,11 @@ import XCTest
     store.dependencies.locationManager = locationManager
     store.dependencies.userDefaultsClient = userDefaultsClient
     store.dependencies.locationAndChatService = service
-    store.dependencies.fileClient.load = { _ in
-      .init(
-        value: try! JSONEncoder().encode(
-          UserSettings()
-        )
-      )
-    }
+    store.dependencies.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(UserSettings()) }
     store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
     await store.receive(.connectionObserver(.observeConnection))
-    await store.receive(.userSettingsLoaded(.success(.init())))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
       $0.requestTimer.isTimerActive = true
@@ -156,6 +143,7 @@ import XCTest
     await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.isRequestingCurrentLocation = true
     }
+    await store.receive(.userSettingsLoaded(.success(.init())))
     
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
     await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
@@ -259,16 +247,11 @@ import XCTest
     store.dependencies.locationManager = locationManager
     store.dependencies.locationAndChatService = service
     store.dependencies.userDefaultsClient = userDefaultsClient
-    store.dependencies.fileClient.load = { _ in
-      .init(value: try! JSONEncoder().encode(userSettings))
-    }
+    store.dependencies.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
     store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
     await store.receive(.connectionObserver(.observeConnection))
-    await store.receive(
-      .userSettingsLoaded(.success(userSettings))
-    )
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
       $0.requestTimer.isTimerActive = true
@@ -276,6 +259,9 @@ import XCTest
     await store.receive(.map(.locationRequested)) {
       $0.mapFeatureState.isRequestingCurrentLocation = true
     }
+    await store.receive(
+      .userSettingsLoaded(.success(userSettings))
+    )
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
     
     await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
@@ -343,7 +329,7 @@ import XCTest
     }
   }
 
-  func test_resetUnreadMessagesCount_whenAction_chat_onAppear() {
+  func test_resetUnreadMessagesCount_whenAction_chat_onAppear() async {
     var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
 
@@ -353,7 +339,7 @@ import XCTest
     )
     store.dependencies.date = .constant(date())
 
-    store.send(.social(.chat(.onAppear))) { state in
+    await store.send(.social(.chat(.onAppear))) { state in
       state.chatMessageBadgeCount = 0
     }
   }
@@ -401,7 +387,7 @@ import XCTest
     }
   }
   
-  func test_unreadChatMessagesCount() {
+  func test_unreadChatMessagesCount() async {
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: AppFeature()
@@ -437,7 +423,7 @@ import XCTest
       self.date().timeIntervalSince1970
     }
     
-    store.send(.fetchDataResponse(.success(response))) { state in
+    await store.send(.fetchDataResponse(.success(response))) { state in
       state.locationsAndChatMessages = .success(response)
       state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
       state.mapFeatureState.riderLocations = response.riderLocations
@@ -445,32 +431,32 @@ import XCTest
       state.chatMessageBadgeCount = 6
     }
     
-    store.dependencies.userDefaultsClient.doubleForKey = { _ in
+    await store.dependencies.userDefaultsClient.doubleForKey = { _ in
       self.date().timeIntervalSince1970 + 14
     }
     
-    store.send(.fetchDataResponse(.success(response2))) { state in
+    await store.send(.fetchDataResponse(.success(response2))) { state in
       state.locationsAndChatMessages = .success(response2)
       state.socialState.chatFeautureState.chatMessages = .results(response2.chatMessages)
       state.mapFeatureState.riderLocations = response2.riderLocations
       
       state.chatMessageBadgeCount = 1
     }
-    store.send(.fetchDataResponse(.success(response3))) { state in
+    await store.send(.fetchDataResponse(.success(response3))) { state in
       state.locationsAndChatMessages = .success(response3)
       state.socialState.chatFeautureState.chatMessages = .results(response3.chatMessages)
       state.mapFeatureState.riderLocations = response3.riderLocations
       
       state.chatMessageBadgeCount = 3
     }
-    store.send(.setNavigation(tag: .chat)) { state in
+    await store.send(.setNavigation(tag: .chat)) { state in
       state.route = .chat
       XCTAssertTrue(state.isChatViewPresented)
     }
-    store.send(.social(.chat(.onAppear))) { state in
+    await store.send(.social(.chat(.onAppear))) { state in
       state.chatMessageBadgeCount = 0
     }
-    store.send(.fetchDataResponse(.success(response4))) { state in
+    await store.send(.fetchDataResponse(.success(response4))) { state in
       state.locationsAndChatMessages = .success(response4)
       state.socialState.chatFeautureState.chatMessages = .results(response4.chatMessages)
       state.mapFeatureState.riderLocations = response4.riderLocations
@@ -596,32 +582,39 @@ import XCTest
     }
   }
   
-  func test_viewingModePrompt() async {
-    var didSaveUserSettings = false
-    var didSetDidShowPrompt = false
+  func test_viewingModePrompt() async throws {
+    let didSaveUserSettings = ActorIsolated(false)
+    let didSetDidShowPrompt = ActorIsolated(false)
+    
+    let testQueue = DispatchQueue.test
     
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: AppFeature()
     )
-    store.dependencies.mainQueue = .immediate
-    store.dependencies.fileClient.save = { _, _ in
-      didSaveUserSettings = true
-      return .none
+    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
+    store.dependencies.fileClient.save = { @Sendable _, _ in
+      await didSaveUserSettings.setValue(true)
+      return ()
     }
-    store.dependencies.userDefaultsClient.setBool = { _, _ in
-      didSetDidShowPrompt = true
-      return .none
+    store.dependencies.userDefaultsClient.setBool = { @Sendable _, _ in
+      await didSetDidShowPrompt.setValue(true)
+      return ()
     }
     
     await store.send(.presentObservationModeAlert) {
       $0.alert = .viewingModeAlert
     }
-
     await store.send(.setObservationMode(false))
     
-    XCTAssertTrue(didSaveUserSettings)
-    XCTAssertTrue(didSetDidShowPrompt)
+    try? await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
+    
+    await didSaveUserSettings.withValue { val in
+      XCTAssertTrue(val)
+    }
+    await didSetDidShowPrompt.withValue { val in
+      XCTAssertTrue(val)
+    }
   }
 }
 

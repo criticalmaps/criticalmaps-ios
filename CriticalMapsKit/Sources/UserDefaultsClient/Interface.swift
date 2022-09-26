@@ -5,67 +5,45 @@ import SharedModels
 
 /// A client to interact with UserDefaults
 public struct UserDefaultsClient {
-  public init(
-    boolForKey: @escaping (String) -> Bool,
-    dataForKey: @escaping (String) -> Data?,
-    doubleForKey: @escaping (String) -> Double,
-    integerForKey: @escaping (String) -> Int,
-    remove: @escaping (String) -> Effect<Never, Never>,
-    setBool: @escaping (Bool, String) -> Effect<Never, Never>,
-    setData: @escaping (Data?, String) -> Effect<Never, Never>,
-    setDouble: @escaping (Double, String) -> Effect<Never, Never>,
-    setInteger: @escaping (Int, String) -> Effect<Never, Never>
-  ) {
-    self.boolForKey = boolForKey
-    self.dataForKey = dataForKey
-    self.doubleForKey = doubleForKey
-    self.integerForKey = integerForKey
-    self.remove = remove
-    self.setBool = setBool
-    self.setData = setData
-    self.setDouble = setDouble
-    self.setInteger = setInteger
-  }
-
-  public var boolForKey: (String) -> Bool
-  public var dataForKey: (String) -> Data?
-  public var doubleForKey: (String) -> Double
-  public var integerForKey: (String) -> Int
-  public var remove: (String) -> Effect<Never, Never>
-  public var setBool: (Bool, String) -> Effect<Never, Never>
-  public var setData: (Data?, String) -> Effect<Never, Never>
-  public var setDouble: (Double, String) -> Effect<Never, Never>
-  public var setInteger: (Int, String) -> Effect<Never, Never>
+  public var boolForKey: @Sendable (String) -> Bool
+  public var dataForKey: @Sendable (String) -> Data?
+  public var doubleForKey: @Sendable (String) -> Double
+  public var integerForKey: @Sendable (String) -> Int
+  public var remove: @Sendable (String) async -> Void
+  public var setBool: @Sendable (Bool, String) async -> Void
+  public var setData: @Sendable (Data?, String) async -> Void
+  public var setDouble: @Sendable (Double, String) async -> Void
+  public var setInteger: @Sendable (Int, String) async -> Void
 
   /// Convenience getter for rideEvents
-  public var rideEventSettings: () -> RideEventSettings {
+  public var rideEventSettings: RideEventSettings {
     guard let data = dataForKey(rideEventSettingsKey) else {
-      return { .default }
+      return .default
     }
-    return { (try? data.decoded()) ?? .default }
+    return (try? data.decoded()) ?? .default
   }
 
   /// Convenience setter for rideEvents
-  public func setRideEventSettings(_ settings: RideEventSettings) -> Effect<Never, Never> {
-    setData(try? settings.encoded(), rideEventSettingsKey)
+  public func setRideEventSettings(_ settings: RideEventSettings) async {
+    await setData(try? settings.encoded(), rideEventSettingsKey)
   }
 
   /// Convenience getter for chat read timeinterval
-  public var chatReadTimeInterval: () -> Double {
-    { doubleForKey(chatReadTimeIntervalKey) }
+  public var chatReadTimeInterval: Double {
+    doubleForKey(chatReadTimeIntervalKey)
   }
 
   /// Convenience setter for chat read timeinterval
-  public func setChatReadTimeInterval(_ timeInterval: Double) -> Effect<Never, Never> {
-    setDouble(timeInterval, chatReadTimeIntervalKey)
+  public func setChatReadTimeInterval(_ timeInterval: Double) async {
+    await setDouble(timeInterval, chatReadTimeIntervalKey)
   }
 
-  public var didShowObservationModePrompt: () -> Bool {
-    { boolForKey(didShowObservationModePromptKey) }
+  public var didShowObservationModePrompt: Bool {
+    boolForKey(didShowObservationModePromptKey)
   }
 
-  public func setDidShowObservationModePrompt(_ value: Bool) -> Effect<Never, Never> {
-    setBool(value, didShowObservationModePromptKey)
+  public func setDidShowObservationModePrompt(_ value: Bool) async {
+    await setBool(value, didShowObservationModePromptKey)
   }
 }
 

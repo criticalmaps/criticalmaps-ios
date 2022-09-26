@@ -8,21 +8,21 @@ import XCTest
 final class AppearanceSettingsCoreTests: XCTestCase {
   
   func test_selectAppIcon_shouldUpdateState() async {
-    var overriddenIconName: String!
+    let overriddenIconName = ActorIsolated<String?>(nil)
     let store = TestStore(
       initialState: AppearanceSettings(),
       reducer: AppearanceSettingsFeature()
     )
     store.dependencies.uiApplicationClient.setAlternateIconName = { newValue in
-      .fireAndForget {
-        overriddenIconName = newValue
-      }
+      await overriddenIconName.setValue(newValue)
     }
     
     await store.send(.set(\.$appIcon, .appIcon4)) { state in
       state.appIcon = .appIcon4
     }
-    XCTAssertNoDifference(overriddenIconName, "appIcon-4")
+    await overriddenIconName.withValue({ iconName in
+      XCTAssertNoDifference(iconName, "appIcon-4")
+    })
   }
 
   func testSetColorScheme() async {

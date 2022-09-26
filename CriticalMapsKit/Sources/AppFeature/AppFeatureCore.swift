@@ -95,7 +95,7 @@ public struct AppFeature: ReducerProtocol {
     case onDisappear
     case fetchData
     case fetchDataResponse(TaskResult<LocationAndChatMessages>)
-    case userSettingsLoaded(Result<UserSettings, NSError>)
+    case userSettingsLoaded(TaskResult<UserSettings>)
     
     case setEventsBottomSheet(Bool)
     case setNavigation(tag: AppRoute.Tag?)
@@ -157,13 +157,17 @@ public struct AppFeature: ReducerProtocol {
       case .onAppear:
         var effects: [Effect<Action, Never>] = [
           Effect(value: .connectionObserver(.observeConnection)),
-          fileClient
-            .loadUserSettings()
-            .map(Action.userSettingsLoaded),
+          .task {
+            await .userSettingsLoaded(
+              TaskResult {
+                try await fileClient.loadUserSettings()
+              }
+            )
+          },
           Effect(value: .map(.onAppear)),
           Effect(value: .requestTimer(.startTimer))
         ]
-        if !userDefaultsClient.didShowObservationModePrompt() {
+        if !userDefaultsClient.didShowObservationModePrompt {
           effects.append(
             Effect.run { send in
               try? await mainQueue.sleep(for: .seconds(3))
@@ -211,7 +215,7 @@ public struct AppFeature: ReducerProtocol {
           
           let unreadMessagesCount = UInt(
             cachedMessages
-              .filter { $0.timestamp > userDefaultsClient.chatReadTimeInterval() }
+              .filter { $0.timestamp > userDefaultsClient.chatReadTimeInterval }
               .count
           )
           state.chatMessageBadgeCount = unreadMessagesCount
@@ -280,7 +284,7 @@ public struct AppFeature: ReducerProtocol {
         }
         
       case let .userSettingsLoaded(result):
-        state.settingsState.userSettings = (try? result.get()) ?? UserSettings()
+        state.settingsState.userSettings = (try? result.value) ?? UserSettings()
         let style = state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle
         return .merge(
           .fireAndForget {
@@ -329,13 +333,18 @@ public struct AppFeature: ReducerProtocol {
         
       case let .setObservationMode(value):
         state.settingsState.userSettings.enableObservationMode = value
-        return .merge(
-          fileClient
-            .saveUserSettings(userSettings: state.settingsState.userSettings, on: mainQueue)
-            .fireAndForget(),
-          userDefaultsClient.setDidShowObservationModePrompt(true)
-            .fireAndForget()
-        )
+        
+        let userSettings = state.settingsState.userSettings
+        return .fireAndForget {
+          await withTaskGroup(of: Void.self) { group in
+            group.addTask {
+              await fileClient.saveUserSettings(userSettings: userSettings)
+            }
+            group.addTask {
+              await userDefaultsClient.setDidShowObservationModePrompt(true)
+            }
+          }
+        }
         
       case .dismissAlert:
         state.alert = nil

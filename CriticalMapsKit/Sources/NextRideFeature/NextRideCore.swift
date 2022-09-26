@@ -43,7 +43,7 @@ public struct NextRideFeature: ReducerProtocol {
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
     case let .getNextRide(coordinate):
-      guard userDefaultsClient.rideEventSettings().isEnabled else {
+      guard userDefaultsClient.rideEventSettings.isEnabled else {
         logger.debug("NextRide featue is disabled")
         return .none
       }
@@ -64,7 +64,7 @@ public struct NextRideFeature: ReducerProtocol {
           TaskResult {
             try await service.nextRide(
               obfuscatedCoordinate,
-              userDefaultsClient.rideEventSettings().eventDistance.rawValue,
+              userDefaultsClient.rideEventSettings.eventDistance.rawValue,
               requestRidesInMonth
             )
           }
@@ -91,7 +91,7 @@ public struct NextRideFeature: ReducerProtocol {
         .lazy
         .filter {
           guard let type = $0.rideType else { return true }
-          return userDefaultsClient.rideEventSettings().typeSettings
+          return userDefaultsClient.rideEventSettings.typeSettings
             .lazy
             .filter(\.isEnabled)
             .map(\.type)

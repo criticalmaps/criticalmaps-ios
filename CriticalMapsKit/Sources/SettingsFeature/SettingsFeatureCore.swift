@@ -75,9 +75,9 @@ public struct SettingsFeature: ReducerProtocol {
         return Effect(value: .openURL(row.url))
         
       case let .openURL(url):
-        return uiApplicationClient
-          .open(url, [:])
-          .fireAndForget()
+        return .fireAndForget {
+          await uiApplicationClient.open(url, [:])
+        }
         
       case let .setObservationMode(value):
         state.userSettings.enableObservationMode = value
@@ -87,12 +87,15 @@ public struct SettingsFeature: ReducerProtocol {
         return .none
         
       case .appearance, .rideevent:
-        struct SaveDebounceId: Hashable {}
+        enum SaveDebounceId {}
 
-        return fileClient
-          .saveUserSettings(userSettings: state.userSettings, on: backgroundQueue)
-          .fireAndForget()
-          .debounce(id: SaveDebounceId(), for: .seconds(1), scheduler: mainQueue)
+        let userSettings = state.userSettings
+        return .fireAndForget {
+          try await withTaskCancellation(id: SaveDebounceId.self, cancelInFlight: true) {
+            try await mainQueue.sleep(for: .seconds(0.3))
+            await fileClient.saveUserSettings(userSettings: userSettings)
+          }
+        }
       }
     }
   }
