@@ -13,11 +13,6 @@ public extension DependencyValues {
     set { self[ApiClientKey.self] = newValue }
   }
   
-  var backgroundQueue: AnySchedulerOf<DispatchQueue> {
-    get { self[BackgroundQueueKey.self] }
-    set { self[BackgroundQueueKey.self] = newValue }
-  }
-  
   var fileClient: FileClient {
     get { self[FileClientKey.self] }
     set { self[FileClientKey.self] = newValue }
@@ -69,11 +64,6 @@ public extension DependencyValues {
 enum ApiClientKey: DependencyKey {
   static let liveValue = APIClient.live()
   static let testValue = APIClient.noop
-}
-
-enum BackgroundQueueKey: DependencyKey {
-  static let liveValue: AnySchedulerOf<DispatchQueue> = DispatchQueue(label: "background-queue").eraseToAnyScheduler()
-  static let testValue: AnySchedulerOf<DispatchQueue> = .immediate
 }
 
 enum FileClientKey: DependencyKey {

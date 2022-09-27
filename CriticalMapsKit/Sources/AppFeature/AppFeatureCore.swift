@@ -24,7 +24,6 @@ public struct AppFeature: ReducerProtocol {
   @Dependency(\.nextRideService) public var nextRideService
   @Dependency(\.idProvider) public var idProvider
   @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.backgroundQueue) public var backgroundQueue
   @Dependency(\.locationManager) public var locationManager
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle

@@ -9,7 +9,6 @@ public struct SettingsFeature: ReducerProtocol {
   public init() {}
   
   // MARK: State
-  @Dependency(\.backgroundQueue) public var backgroundQueue
   @Dependency(\.fileClient) public var fileClient
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
