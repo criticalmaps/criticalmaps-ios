@@ -28,7 +28,7 @@ let package = Package(
     .package(
       name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
-      .exact("1.8.2")
+      .upToNextMajor(from: "1.8.2")
     ),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
     .package(url: "https://github.com/vtourraine/AcknowList.git", .upToNextMajor(from: "2.1.0")),
