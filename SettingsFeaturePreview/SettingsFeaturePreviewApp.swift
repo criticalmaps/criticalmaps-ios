@@ -10,18 +10,7 @@ struct SettingsFeaturePreviewApp: App {
         SettingsView(
           store: .init(
             initialState: .init(),
-            reducer: settingsReducer,
-            environment: .init(
-              uiApplicationClient: .live,
-              setUserInterfaceStyle: { userInterfaceStyle in
-                .fireAndForget {
-                  UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
-                }
-              },
-              fileClient: .live,
-              backgroundQueue: DispatchQueue(label: "settingsFeaturePreview").eraseToAnyScheduler(),
-              mainQueue: .main
-            )
+            reducer: SettingsFeature()
           )
         )
       }
