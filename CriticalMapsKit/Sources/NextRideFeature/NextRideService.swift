@@ -17,16 +17,13 @@ public struct NextRideService {
 // MARK: Live
 
 public extension NextRideService {
-  static func live(
-    apiClient: APIClient = .live
-  ) -> Self { Self(
-    nextRide: { coordinate, radius, month in
+  static func live(apiClient: APIClient = .live()) -> Self {
+    Self { coordinate, radius, month in
       let request = NextRidesRequest(coordinate: coordinate, radius: radius, month: month)
-      let data = try await apiClient.dispatch(request)
+      let (data, _) = try await apiClient.request(request)
       let rides = try request.decode(data)
       return rides
     }
-  )
   }
 }
 

@@ -67,7 +67,7 @@ public extension DependencyValues {
 
 
 enum ApiClientKey: DependencyKey {
-  static let liveValue = APIClient.live
+  static let liveValue = APIClient.live()
   static let testValue = APIClient.noop
 }
 
