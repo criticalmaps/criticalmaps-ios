@@ -13,7 +13,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .results(.placeHolder)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -24,7 +24,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_dark() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .results(.placeHolder)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -36,7 +36,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_redacted() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .results(.placeHolder)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -48,7 +48,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_redacted_dark() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .results(.placeHolder)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -61,7 +61,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_empty() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .empty(.twitter)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -72,7 +72,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_empty_dark() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .empty(.twitter)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -84,7 +84,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_error() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .error(.default)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )
@@ -95,7 +95,7 @@ final class TweetListViewSnapshotTests: XCTestCase {
   func test_tweetListViewSnapshot_error_dark() {
     let view = TweetListView(
       store: .init(
-        initialState: .init(contentState: .error(.default)),
+        initialState: .init(tweets: .init(uniqueElements: [Tweet].placeHolder)),
         reducer: TwitterFeedFeature()
       )
     )

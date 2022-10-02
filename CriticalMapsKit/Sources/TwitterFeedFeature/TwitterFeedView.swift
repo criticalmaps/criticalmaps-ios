@@ -9,10 +9,10 @@ public struct TwitterFeedView: View {
     public let shouldDisplayPlaceholder: Bool
 
     public init(_ state: TwitterFeedFeature.State) {
-      if let tweets = state.contentState.elements {
-        shouldDisplayPlaceholder = state.twitterFeedIsLoading && tweets.isEmpty
+      if state.twitterFeedIsLoading && state.tweets.elements.isEmpty {
+        shouldDisplayPlaceholder = true
       } else {
-        shouldDisplayPlaceholder = state.twitterFeedIsLoading
+        shouldDisplayPlaceholder = false
       }
     }
   }
@@ -63,7 +63,7 @@ public extension Array where Element == Tweet {
 
 extension Store where State == TwitterFeedFeature.State, Action == TwitterFeedFeature.Action {
   static let placeholder = Store(
-    initialState: .init(contentState: .results(.placeHolder)),
+    initialState: .init(tweets: IdentifiedArray(uniqueElements: [Tweet].placeHolder)),
     reducer: EmptyReducer()
   )
 }

@@ -16,34 +16,37 @@ public struct TweetListView: View {
 
   public var body: some View {
     Group {
-      switch viewStore.contentState {
-      case let .empty(state):
+      if viewStore.tweets.isEmpty {
         EmptyStateView(
-          emptyState: state,
+          emptyState: .twitter,
           buttonAction: { viewStore.send(.fetchData) },
           buttonText: L10n.EmptyState.reload
         )
-      case let .results(tweets), let .loading(tweets):
+      } else if let error = viewStore.error {
+        ErrorStateView(
+          errorState: error,
+          buttonAction: { viewStore.send(.fetchData) },
+          buttonText: "Reload"
+        )
+      } else {
         ZStack {
           Color(.backgroundPrimary)
             .ignoresSafeArea()
-
-          List(tweets) { tweet in
-            TweetView(tweet: tweet)
-              .onTapGesture {
-                viewStore.send(.openTweet(tweet))
-              }
+          
+          List {
+            ForEachStore(
+              self.store.scope(
+                state: \.tweets,
+                action: TwitterFeedFeature.Action.tweet(id:action:)
+              )
+            ) {
+              TweetView(store: $0)
+            }
           }
           .listRowBackground(Color(.backgroundPrimary))
           .listStyle(PlainListStyle())
         }
-      case let .error(state):
-        ErrorStateView(
-          errorState: state,
-          buttonAction: { viewStore.send(.fetchData) },
-          buttonText: "Reload"
-        )
-      }
+      }      
     }
     .refreshable {
       await viewStore.send(.fetchData, while: \.twitterFeedIsLoading)
@@ -58,7 +61,7 @@ struct TweetListView_Previews: PreviewProvider {
     Group {
       TweetListView(
         store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
-          initialState: .init(contentState: .results(.placeHolder)),
+          initialState: .init(tweets: IdentifiedArray(uniqueElements: [Tweet].placeHolder)),
           reducer: TwitterFeedFeature().debug()
         )
       )

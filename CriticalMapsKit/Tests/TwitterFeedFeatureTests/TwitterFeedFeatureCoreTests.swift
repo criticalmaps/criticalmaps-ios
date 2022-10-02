@@ -29,31 +29,8 @@ final class TwitterFeedCoreTests: XCTestCase {
     
     await store.receive(.fetchDataResponse(.success(feed.statuses))) {
       $0.twitterFeedIsLoading = false
-      $0.contentState = .results(feed.statuses)
+      $0.tweets = IdentifiedArray(uniqueElements: feed.statuses)
     }
-  }
-  
-  func test_openTweetUrl() async throws {
-    let openedUrl = ActorIsolated<URL?>(nil)
-    
-    let request = TwitterFeedRequest()
-    let decoder = request.decoder
-    let tweetData = try XCTUnwrap(twitterFeedData)
-    let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
-    
-    let store = TestStore(
-      initialState: TwitterFeedFeature.State(),
-      reducer: TwitterFeedFeature()
-    )
-    await store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
-      return true
-    }
-    await store.send(.openTweet(feed.statuses[0]))
-    
-    await openedUrl.withValue({ url in
-      XCTAssertEqual(url, feed.statuses[0].tweetUrl)
-    })
   }
   
   func test_tweetDecodingTest() throws {

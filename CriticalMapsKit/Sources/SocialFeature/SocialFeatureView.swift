@@ -19,50 +19,52 @@ public struct SocialView: View {
   }
 
   public var body: some View {
-    NavigationView {
-      Group {
-        switch viewStore.socialControl {
-        case .chat:
-          ChatView(
-            store: store.scope(
-              state: \.chatFeautureState,
-              action: SocialFeature.Action.chat
+    WithViewStore(self.store.scope(state: { $0 })) { viewStore in
+      NavigationView {
+        Group {
+          switch viewStore.socialControl {
+          case .chat:
+            ChatView(
+              store: store.scope(
+                state: \.chatFeautureState,
+                action: SocialFeature.Action.chat
+              )
             )
-          )
-        case .twitter:
-          TwitterFeedView(
-            store: store.scope(
-              state: \.twitterFeedState,
-              action: SocialFeature.Action.twitter
+          case .twitter:
+            TwitterFeedView(
+              store: store.scope(
+                state: \.twitterFeedState,
+                action: SocialFeature.Action.twitter
+              )
             )
-          )
-        }
-      }
-      .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
-          Button(
-            action: { presentationMode.wrappedValue.dismiss() },
-            label: {
-              Image(systemName: "xmark")
-                .font(Font.system(size: 22, weight: .medium))
-                .foregroundColor(Color(.textPrimary))
-            }
-          )
-        }
-
-        ToolbarItem(placement: .principal) {
-          Picker(
-            "Social Segment",
-            selection: viewStore.binding(
-              get: \.socialControl.rawValue,
-              send: SocialFeature.Action.setSocialSegment
-            )
-          ) {
-            Text(SocialFeature.SocialControl.chat.title).tag(0)
-            Text(SocialFeature.SocialControl.twitter.title).tag(1)
           }
-          .pickerStyle(SegmentedPickerStyle())
-          .frame(maxWidth: 180)
+        }
+        .toolbar {
+          ToolbarItem(placement: .cancellationAction) {
+            Button(
+              action: { presentationMode.wrappedValue.dismiss() },
+              label: {
+                Image(systemName: "xmark")
+                  .font(Font.system(size: 22, weight: .medium))
+                  .foregroundColor(Color(.textPrimary))
+              }
+            )
+          }
+
+          ToolbarItem(placement: .principal) {
+            Picker(
+              "Social Segment",
+              selection: viewStore.binding(
+                get: \.socialControl.rawValue,
+                send: SocialFeature.Action.setSocialSegment
+              )
+            ) {
+              Text(SocialFeature.SocialControl.chat.title).tag(0)
+              Text(SocialFeature.SocialControl.twitter.title).tag(1)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .frame(maxWidth: 180)
+          }
         }
       }
     }

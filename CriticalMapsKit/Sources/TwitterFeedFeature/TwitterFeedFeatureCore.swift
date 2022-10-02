@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Foundation
 import Helpers
+import L10n
 import Logger
 import SharedDependencies
 import SharedModels
@@ -17,11 +18,12 @@ public struct TwitterFeedFeature: ReducerProtocol {
   // MARK: State
 
   public struct State: Equatable {
-    public var contentState: ContentState<[Tweet]>
+    public var tweets: IdentifiedArrayOf<TweetFeature.State>
     public var twitterFeedIsLoading = false
-    
-    public init(contentState: ContentState<[Tweet]> = .loading(.placeHolder)) {
-      self.contentState = contentState
+    public var error: ErrorState?
+        
+    public init(tweets: IdentifiedArrayOf<TweetFeature.State> = IdentifiedArray(uniqueElements: [Tweet].placeHolder, id: \.id)) {
+      self.tweets = tweets
     }
   }
   
@@ -31,43 +33,49 @@ public struct TwitterFeedFeature: ReducerProtocol {
     case onAppear
     case fetchData
     case fetchDataResponse(TaskResult<[Tweet]>)
-    case openTweet(Tweet)
+    case tweet(id: TweetFeature.State.ID, action: TweetFeature.Action)
   }
   
   
   // MARK: Reducer
-  
-  public func reduce(into state: inout State, action: Action) -> ComposableArchitecture.Effect<Action, Never> {
-    switch action {
-    case .onAppear:
-      return Effect(value: .fetchData)
-    
-    case .fetchData:
-      state.twitterFeedIsLoading = true
-      return .task {
-        await .fetchDataResponse(TaskResult { try await twitterService.getTweets() })
-      }
-
-    case let .fetchDataResponse(.success(tweets)):
-      state.twitterFeedIsLoading = false
-    
-      if tweets.isEmpty {
-        state.contentState = .empty(.twitter)
+  public var body: some ReducerProtocol<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .onAppear:
+        return Effect(value: .fetchData)
+        
+      case .fetchData:
+        state.twitterFeedIsLoading = true
+        return .task {
+          await .fetchDataResponse(TaskResult { try await twitterService.getTweets() })
+        }
+        
+      case let .fetchDataResponse(.success(tweets)):
+        state.twitterFeedIsLoading = false
+        
+        if tweets.isEmpty {
+          state.tweets = .init(uniqueElements: [])
+          return .none
+        }
+        
+        state.tweets = IdentifiedArray(uniqueElements: tweets)
+        return .none
+      case let .fetchDataResponse(.failure(error)):
+        logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
+        state.twitterFeedIsLoading = false
+        state.error = .init(
+          title: L10n.ErrorState.title,
+          body: L10n.ErrorState.message,
+          error: .init(error: error)
+        )
+        return .none
+        
+      case .tweet:
         return .none
       }
-    
-      state.contentState = .results(tweets)
-      return .none
-    case let .fetchDataResponse(.failure(error)):
-      logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
-      state.twitterFeedIsLoading = false
-      state.contentState = .error(.default)
-      return .none
-    
-    case let .openTweet(tweet):
-      return .fireAndForget {
-        _ = await uiApplicationClient.open(tweet.tweetUrl!, [:])
-      }
+    }
+    .forEach(\.tweets, action: /TwitterFeedFeature.Action.tweet(id:action:)) {
+      TweetFeature()
     }
   }
 }

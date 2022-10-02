@@ -5,12 +5,36 @@ import SwiftUIHelpers
 public struct ErrorState: Equatable {
   public let title: String
   public let body: String?
-  public let error: NSError?
+  public let error: Failure?
 
-  public init(title: String, body: String?, error: NSError? = nil) {
+  public init(title: String, body: String?, error: Failure? = nil) {
     self.title = title
     self.body = body
     self.error = error
+  }
+    
+  public struct Failure: Error, Equatable, LocalizedError {
+    public let errorDump: String
+    public let file: String
+    public let line: UInt
+    public let message: String
+
+    public init(
+      error: Error,
+      file: StaticString = #fileID,
+      line: UInt = #line
+    ) {
+      var string = ""
+      dump(error, to: &string)
+      self.errorDump = string
+      self.file = String(describing: file)
+      self.line = line
+      self.message = String(describing: error)
+    }
+
+    public var errorDescription: String? {
+      message
+    }
   }
 }
 
