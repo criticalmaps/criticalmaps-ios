@@ -36,5 +36,9 @@ public extension NextRideService {
 
   struct Failure: Error, Equatable {
     var internalError: NetworkRequestError
+
+    public init(internalError: NetworkRequestError) {
+      self.internalError = internalError
+    }
   }
 }

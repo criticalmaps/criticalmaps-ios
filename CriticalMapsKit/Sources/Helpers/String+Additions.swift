@@ -1,6 +1,6 @@
 import Foundation
 
-let datePattern = #" \\d{1,2}.\\d{1,2}.\\d{4}$"#
+let datePattern = #" \d{1,2}.\d{1,2}.\d{4}$"#
 
 extension String {
   

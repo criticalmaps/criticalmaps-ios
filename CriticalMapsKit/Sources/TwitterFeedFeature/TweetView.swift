@@ -185,8 +185,8 @@ public extension Tweet {
         .string(from: diffComponents.dateComponentFromBiggestComponent)
       return (value, a11yValue)
     } else {
-        let value = DateFormatter.mediumDateFormatter.string(from: createdAt)
-        return (value, a11yValue)
+      let value = createdAt.formatted(Date.FormatStyle.dateWithoutYear)
+      return (value, a11yValue)
     }
   }
 }

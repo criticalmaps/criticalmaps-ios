@@ -13,8 +13,8 @@ public struct NextRidesRequest: APIRequest {
   public var httpMethod: HTTPMethod = .get
   public var queryItems: [URLQueryItem] = []
   public var body: Data?
-
-  init(
+  
+  public init(
     coordinate: Coordinate,
     radius: Int,
     date: () -> Date = Date.init,

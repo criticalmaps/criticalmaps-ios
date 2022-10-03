@@ -1,4 +1,4 @@
-@testable import AppFeature
+import AppFeature
 import ComposableArchitecture
 import XCTest
 

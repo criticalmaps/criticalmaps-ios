@@ -8,7 +8,7 @@ import XCTest
 
 private let fixedDate = { Date(timeIntervalSinceReferenceDate: 0) }
 
-class RiderAnnotationUpdateClientTests: XCTestCase {
+final class RiderAnnotationUpdateClientTests: XCTestCase {
   let rider = [
     Rider(
       id: "SomeRandomID",

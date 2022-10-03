@@ -1,9 +1,9 @@
 import CoreLocation
-@testable import NextRideFeature
+import NextRideFeature
 import SharedModels
 import XCTest
 
-class CoordinateObfuscatorTests: XCTestCase {
+final class CoordinateObfuscatorTests: XCTestCase {
   var sut: CoordinateObfuscator!
   
   override func setUp() {

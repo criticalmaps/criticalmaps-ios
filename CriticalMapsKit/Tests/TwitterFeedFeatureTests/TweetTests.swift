@@ -30,12 +30,30 @@ final class TweetTests: XCTestCase {
   }
   
   func test_createdAt_dateformatting2() {
-    let date = Date(timeIntervalSince1970: 1635262316)
+    let date = Calendar.current.date(
+      from: .init(
+        timeZone: .init(secondsFromGMT: 0),
+        year: 2020,
+        month: 2,
+        day: 2,
+        hour: 2,
+        minute: 2
+      )
+    )!
     
     let tweet = Tweet(
       id: "ID",
       text: "TEXT T$ESXT",
-      createdAt: date.advanced(by: -232000),
+      createdAt: Calendar.current.date(
+        from: .init(
+          timeZone: .init(secondsFromGMT: 0),
+          year: 2020,
+          month: 2,
+          day: 1,
+          hour: 1,
+          minute: 2
+        )
+      )!,
       user: .init(
         name: "M",
         screenName: "mbnz",
@@ -44,8 +62,8 @@ final class TweetTests: XCTestCase {
     )
 
     let (value, a11yValue) = tweet.formattedCreationDate(currentDate: { date })
-    XCTAssertNoDifference(value, "24. Oct")
-    XCTAssertNoDifference(a11yValue, "2 days ago")
+    XCTAssertNoDifference(value, "1. Feb")
+    XCTAssertNoDifference(a11yValue, "yesterday")
   }
   
   func test_openTweetUrl() async throws {

@@ -18,7 +18,7 @@ public struct IdentifiedChatMessage: Equatable, Identifiable {
 
   /// Localized representation of the chat messages timestamp 
   public var chatTime: String {
-    let date = Date(timeIntervalSince1970: timestamp)
-    return DateFormatter.chatMessageViewFormatter().string(from: date)
+    Date(timeIntervalSince1970: timestamp)
+      .formatted(Date.FormatStyle.chatTime())
   }
 }

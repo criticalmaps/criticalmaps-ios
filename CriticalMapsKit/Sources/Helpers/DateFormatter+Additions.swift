@@ -1,38 +1,6 @@
 import Foundation
 
 public extension DateFormatter {
-  static func chatMessageViewFormatter(_ calendar: Calendar = .current) -> DateFormatter {
-    let formatter = DateFormatter.localeShortTimeFormatter
-    formatter.calendar = calendar
-    formatter.timeZone = calendar.timeZone
-    return formatter
-  }
-  
-  /// Short time formatter, without date.
-  static let localeShortTimeFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.timeZone = .autoupdatingCurrent
-    dateFormatter.dateStyle = .none
-    dateFormatter.timeStyle = .short
-    return dateFormatter
-  }()
-  
-  /// Short date formatter, without time.
-  static let localeShortDateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.timeZone = .autoupdatingCurrent
-    dateFormatter.dateStyle = .short
-    dateFormatter.timeStyle = .none
-    return dateFormatter
-  }()
-  
-  /// Format to display only the day and a medium format month -> 28 Okt.
-  static let mediumDateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.setLocalizedDateFormatFromTemplate("MMM. d")
-    return dateFormatter
-  }()
-  
   static let IDStoreHashDateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
@@ -45,9 +13,46 @@ public extension DateComponentsFormatter {
   static func tweetDateFormatter(_ calendar: Calendar = .current) -> DateComponentsFormatter {
     let formatter = DateComponentsFormatter()
     formatter.calendar = calendar
-    formatter.allowedUnits = [.day, .hour, .minute, .month]
+    formatter.allowedUnits = [.month, .day, .hour, .minute]
     formatter.unitsStyle = .short
     formatter.maximumUnitCount = 1
     return formatter
+  }
+}
+
+extension Date.FormatStyle {
+  /// Format to display only the day and a medium format month -> 28 Okt.
+  public static let dateWithoutYear: Self = {
+    .dateTime
+      .day(.defaultDigits)
+      .month(.abbreviated)
+  }()
+
+  public static let medium = Self(
+    date: .abbreviated,
+    time: .omitted,
+    locale: .autoupdatingCurrent
+  )
+  
+  public static let localeAwareShortDate = Self(
+    date: .numeric,
+    time: .omitted,
+    locale: .autoupdatingCurrent
+  )
+  
+  public static let localeAwareShortTime = Self(
+    date: .omitted,
+    time: .shortened,
+    locale: .autoupdatingCurrent
+  )
+  
+  public static func chatTime(_ cal: Calendar = .autoupdatingCurrent) -> Self {
+    var format = Self.dateTime
+      .hour(.twoDigits(amPM: .abbreviated))
+      .minute(.twoDigits)
+    format.locale = .autoupdatingCurrent
+    format.timeZone = cal.timeZone
+    format.calendar = cal
+    return format
   }
 }

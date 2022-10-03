@@ -1,7 +1,7 @@
-@testable import Helpers
+import Helpers
 import XCTest
 
-class CodableExtensionsTests: XCTestCase {
+final class CodableExtensionsTests: XCTestCase {
   let testModel = [1, 2, 3]
 
   func testencodedHelperFunctionShouldEncode() throws {

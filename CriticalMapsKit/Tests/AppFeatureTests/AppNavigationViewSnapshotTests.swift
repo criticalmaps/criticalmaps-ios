@@ -4,7 +4,7 @@ import SnapshotTesting
 import TestHelper
 import XCTest
 
-class AppNavigationViewSnapshotTests: XCTestCase {
+final class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_light() {
     let view = AppNavigationView(
       store: .init(

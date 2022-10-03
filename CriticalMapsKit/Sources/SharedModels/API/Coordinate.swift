@@ -13,6 +13,13 @@ public struct Coordinate: Codable, Hashable {
 }
 
 public extension Coordinate {
+  init(_ location: Location) {
+    self.latitude = location.coordinate.latitude
+    self.longitude = location.coordinate.longitude
+  }
+}
+
+public extension Coordinate {
   var asCLLocationCoordinate: CLLocationCoordinate2D {
     CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
@@ -23,7 +30,7 @@ public extension Coordinate {
 }
 
 extension CLLocation {
-  convenience init(_ coordinate: Coordinate) {
+  public convenience init(_ coordinate: Coordinate) {
     self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
   }
 }

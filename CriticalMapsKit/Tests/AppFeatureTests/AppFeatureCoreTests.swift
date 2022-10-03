@@ -1,5 +1,5 @@
 import ApiClient
-@testable import AppFeature
+import AppFeature
 import Combine
 import CombineSchedulers
 import ComposableArchitecture
@@ -14,7 +14,8 @@ import UserDefaultsClient
 import XCTest
 
 // swiftlint:disable:next type_body_length
-@MainActor final class AppFeatureTests: XCTestCase {
+@MainActor
+final class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
   
@@ -168,7 +169,10 @@ import XCTest
       $0.mapFeatureState.isRequestingCurrentLocation = false
       $0.mapFeatureState.location = currentLocation
       $0.didResolveInitialLocation = true
-      $0.nextRideState.userLocation = .init(currentLocation)
+      $0.nextRideState.userLocation = Coordinate(
+        latitude: currentLocation.coordinate.latitude,
+        longitude: currentLocation.coordinate.longitude
+      )
     }
 
     await store.receive(.fetchData)
@@ -275,7 +279,10 @@ import XCTest
       $0.mapFeatureState.isRequestingCurrentLocation = false
       $0.mapFeatureState.location = currentLocation
       $0.didResolveInitialLocation = true
-      $0.nextRideState.userLocation = .init(currentLocation)
+      $0.nextRideState.userLocation = Coordinate(
+        latitude: currentLocation.coordinate.latitude,
+        longitude: currentLocation.coordinate.longitude
+      )
     }
     await store.receive(.fetchData)
     

@@ -1,15 +1,8 @@
-//
-//  File.swift
-//  
-//
-//  Created by Malte on 20.06.21.
-//
-
 import Foundation
-@testable import IDProvider
+import IDProvider
 import XCTest
 
-class IDProviderTests: XCTestCase {
+final class IDProviderTests: XCTestCase {
   let deviceID = "0000-0000-0000-0000-0001"
   
   func testIDDoesChange() {

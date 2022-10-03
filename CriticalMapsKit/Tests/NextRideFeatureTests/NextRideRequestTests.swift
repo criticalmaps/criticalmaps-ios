@@ -1,15 +1,8 @@
-//
-//  File.swift
-//  File
-//
-//  Created by Malte on 29.07.21.
-//
-
-@testable import NextRideFeature
+import NextRideFeature
 import SharedModels
 import XCTest
 
-class NextRideReqeustTests: XCTestCase {
+final class NextRideReqeustTests: XCTestCase {
   let fixedDate = { Date(timeIntervalSince1970: 1557057968) }
   
   func test_constructor() throws {

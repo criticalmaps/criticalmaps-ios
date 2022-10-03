@@ -57,7 +57,7 @@ public struct NextRideFeature: ReducerProtocol {
         .thirdDecimal
       )
 
-      let requestRidesInMonth: Int = queryMonth(in: date.callAsFunction)
+      let requestRidesInMonth: Int = queryMonth(for: date.callAsFunction)
 
       return .task {
         await .nextRideResponse(
@@ -142,7 +142,7 @@ enum EventError: Error, LocalizedError {
   case rideDisabled
 }
 
-private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
+private func queryMonth(for date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
   let currentMonthOfFallback = calendar.dateComponents([.month], from: date()).month ?? 0
 
   guard !calendar.isDateInWeekend(date()) else { // current date is on a weekend

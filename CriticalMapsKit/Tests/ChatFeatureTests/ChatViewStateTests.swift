@@ -3,7 +3,7 @@ import Foundation
 import SharedModels
 import XCTest
 
-class ChatViewStateTests: XCTestCase {
+final class ChatViewStateTests: XCTestCase {
   func test_createChatViewState_shouldSortMessagesByDate() {
     // arrange
     let chatFeatureState = ChatFeature.State(

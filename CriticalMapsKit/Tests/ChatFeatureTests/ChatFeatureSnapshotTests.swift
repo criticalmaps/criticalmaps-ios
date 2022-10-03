@@ -4,7 +4,7 @@ import SwiftUI
 import TestHelper
 import XCTest
 
-class ChatFeatureSnapshotTests: XCTestCase {
+final class ChatFeatureSnapshotTests: XCTestCase {
   func test_chatFeatureViewSnapshot() {
     let view = ChatView(
       store: .init(

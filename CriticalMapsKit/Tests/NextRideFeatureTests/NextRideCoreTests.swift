@@ -2,13 +2,14 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import Helpers
-@testable import NextRideFeature
+import NextRideFeature
 import SharedModels
 import UserDefaultsClient
 import XCTest
 
 // swiftlint:disable:next type_body_length
-@MainActor final class NextRideCoreTests: XCTestCase {
+@MainActor
+final class NextRideCoreTests: XCTestCase {
   let now = {
     Calendar.current.date(
       from: .init(

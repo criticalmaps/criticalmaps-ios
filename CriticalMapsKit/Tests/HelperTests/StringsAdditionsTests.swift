@@ -4,7 +4,7 @@
 import Helpers
 import XCTest
 
-class StringAdditionsTests: XCTestCase {
+final class StringAdditionsTests: XCTestCase {
   func test_removeDatePatternShouldRemovePattern1() {
     // given
     let title = "Critical Mass Berlin"

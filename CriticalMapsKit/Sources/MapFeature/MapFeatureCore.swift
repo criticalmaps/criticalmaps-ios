@@ -19,18 +19,14 @@ public struct MapFeature: ReducerProtocol {
     public var riderLocations: [Rider]
     public var nextRide: Ride?
 
-    @BindableState
-    public var eventCenter: CoordinateRegion?
     public var rideEvents: [Ride] = []
-    @BindableState
-    public var userTrackingMode: UserTrackingFeature.State
-    @BindableState
-    public var centerRegion: CoordinateRegion?
-    
+
+    @BindableState public var eventCenter: CoordinateRegion?
+    @BindableState public var userTrackingMode: UserTrackingFeature.State
+    @BindableState public var centerRegion: CoordinateRegion?
+    @BindableState public var presentShareSheet = false
+        
     public var shouldAnimateTrackingMode = true
-    @BindableState
-    public var presentShareSheet = false
-    
     public var isNextRideBannerVisible = false
     public var isNextRideBannerExpanded = false
     

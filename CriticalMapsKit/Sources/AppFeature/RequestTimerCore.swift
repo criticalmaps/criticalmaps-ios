@@ -20,7 +20,7 @@ public struct RequestTimer: ReducerProtocol {
       self.isTimerActive = isTimerActive
     }
     
-    var isTimerActive = false
+    public var isTimerActive = false
   }
   
   // MARK: Action
