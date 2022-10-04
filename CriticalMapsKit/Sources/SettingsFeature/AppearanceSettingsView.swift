@@ -8,7 +8,7 @@ import SwiftUI
 public struct AppearanceSettingsView: View {
   public typealias State = SharedModels.AppearanceSettings
   public typealias Action = AppearanceSettingsFeature.Action
-  
+
   let store: Store<State, Action>
   @ObservedObject var viewStore: ViewStore<State, Action>
 

@@ -4,7 +4,6 @@ import XCTest
 
 @MainActor
 final class ChatInputCoreTests: XCTestCase {
-  
   func test_isEditingChanged_action() {
     let testStore = TestStore(
       initialState: ChatInput.State(

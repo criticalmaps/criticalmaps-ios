@@ -13,7 +13,7 @@ final class IdentifiedMessagesTests: XCTestCase {
       minute: 2
     )
   )!
-  
+
   func test_chatTime_Format() {
     let sut = IdentifiedChatMessage(
       id: "ID",
@@ -24,7 +24,7 @@ final class IdentifiedMessagesTests: XCTestCase {
     var cal = Calendar.current
     cal.timeZone = .init(secondsFromGMT: 0)!
     let chatTime = date.formatted(Date.FormatStyle.chatTime(cal))
-    
+
     XCTAssertEqual(
       chatTime,
       "02:02"

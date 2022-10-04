@@ -5,10 +5,10 @@ public struct RequestTimer: ReducerProtocol {
   public init(timerInterval: Double = 12.0) {
     self.timerInterval = timerInterval
   }
-  
+
   @Dependency(\.mainQueue) public var mainQueue
   let timerInterval: Double
-  
+
   var interval: DispatchQueue.SchedulerTimeType.Stride {
     DispatchQueue.SchedulerTimeType.Stride(floatLiteral: timerInterval)
   }
@@ -19,17 +19,17 @@ public struct RequestTimer: ReducerProtocol {
     public init(isTimerActive: Bool = false) {
       self.isTimerActive = isTimerActive
     }
-    
+
     public var isTimerActive = false
   }
-  
+
   // MARK: Action
-  
+
   public enum Action: Equatable {
     case timerTicked
     case startTimer
   }
-  
+
   /// Reducer responsible for the poll timer handling.
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {

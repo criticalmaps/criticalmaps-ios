@@ -4,16 +4,17 @@ import SharedModels
 
 public struct RideEventsSettingsFeature: ReducerProtocol {
   public init() {}
-  
+
   public typealias State = SharedModels.RideEventSettings
-  
+
   // MARK: Actions
+
   public enum Action: Equatable {
     case setRideEventsEnabled(Bool)
     case setRideEventTypeEnabled(RideEventSettings.RideEventTypeSetting)
     case setRideEventRadius(EventDistance)
   }
-  
+
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
     case let .setRideEventsEnabled(value):

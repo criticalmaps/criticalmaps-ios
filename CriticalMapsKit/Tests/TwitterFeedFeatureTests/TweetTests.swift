@@ -7,7 +7,6 @@ import XCTest
 
 @MainActor
 final class TweetTests: XCTestCase {
-  
   func test_createdAt_dateformatting() {
     let date = Date(timeIntervalSince1970: 1635521516)
     
@@ -91,8 +90,8 @@ final class TweetTests: XCTestCase {
     }
     await store.send(.openTweet)
     
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, tweet.tweetUrl)
-    })
+    }
   }
 }

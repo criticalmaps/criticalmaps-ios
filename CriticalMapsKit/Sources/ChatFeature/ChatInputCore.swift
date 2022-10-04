@@ -4,7 +4,7 @@ import UIKit
 
 public struct ChatInput: ReducerProtocol {
   public init() {}
-  
+
   // MARK: State
 
   public struct State: Equatable {
@@ -45,7 +45,7 @@ public struct ChatInput: ReducerProtocol {
   }
 
   // MARK: Reducer
-  
+
   public var body: some ReducerProtocol<State, Action> {
     BindingReducer()
     Reduce { state, action in

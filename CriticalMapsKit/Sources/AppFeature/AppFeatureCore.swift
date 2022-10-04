@@ -231,7 +231,6 @@ public struct AppFeature: ReducerProtocol {
         switch mapFeatureAction {
         case let .locationManager(locationManagerAction):
           switch locationManagerAction {
-          
           case .didUpdateLocations:
             
             // synchronize with nextRideState

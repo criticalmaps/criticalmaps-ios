@@ -9,7 +9,7 @@ import SwiftUIHelpers
 public struct RideEventSettingsView: View {
   public typealias State = RideEventSettings
   public typealias Action = RideEventsSettingsFeature.Action
-  
+
   let store: Store<State, Action>
   @ObservedObject var viewStore: ViewStore<State, Action>
 

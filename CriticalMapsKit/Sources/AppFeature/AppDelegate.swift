@@ -5,17 +5,17 @@ import SharedModels
 
 public struct AppDelegate: ReducerProtocol {
   public init() {}
-  
+
   @Dependency(\.fileClient) public var fileClient
   @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
 
   public typealias State = UserSettings
-  
+
   public enum Action: Equatable {
     case didFinishLaunching
     case userSettingsLoaded(TaskResult<State>)
   }
-  
+
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
     case .didFinishLaunching:

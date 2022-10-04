@@ -7,8 +7,9 @@ import UIKit.UIInterface
 
 public struct SettingsFeature: ReducerProtocol {
   public init() {}
-  
+
   // MARK: State
+
   @Dependency(\.fileClient) public var fileClient
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
@@ -47,7 +48,7 @@ public struct SettingsFeature: ReducerProtocol {
   }
 
   // MARK: Reducer
-  
+
   public var body: some ReducerProtocol<State, Action> {
     Scope(
       state: \.userSettings.appearanceSettings,
@@ -55,36 +56,36 @@ public struct SettingsFeature: ReducerProtocol {
     ) {
       AppearanceSettingsFeature()
     }
-    
+
     Scope(state: \.userSettings.rideEventSettings, action: /SettingsFeature.Action.rideevent) {
       RideEventsSettingsFeature()
     }
-  
+
     Reduce<State, Action> { state, action in
       switch action {
       case .onAppear:
         state.userSettings.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
           .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
         return .none
-        
+
       case let .infoSectionRowTapped(row):
         return Effect(value: .openURL(row.url))
-        
+
       case let .supportSectionRowTapped(row):
         return Effect(value: .openURL(row.url))
-        
+
       case let .openURL(url):
         return .fireAndForget {
           await uiApplicationClient.open(url, [:])
         }
-        
+
       case let .setObservationMode(value):
         state.userSettings.enableObservationMode = value
         return .none
-        
+
       case .binding:
         return .none
-        
+
       case .appearance, .rideevent:
         enum SaveDebounceId {}
 

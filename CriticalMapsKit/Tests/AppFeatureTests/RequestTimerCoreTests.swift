@@ -4,10 +4,9 @@ import XCTest
 
 @MainActor
 final class RequestTimerCoreTests: XCTestCase {
-
   func test_startTimerAction_shouldSendTickedEffect() async {
     let testScheduler = DispatchQueue.test
-  
+
     let store = TestStore(
       initialState: RequestTimer.State(),
       reducer: RequestTimer(timerInterval: 1)

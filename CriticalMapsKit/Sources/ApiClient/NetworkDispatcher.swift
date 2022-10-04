@@ -54,6 +54,7 @@ public extension NetworkDispatcher {
       return (data, response)
     }
   }
+
   static let noop = Self { _ in fatalError() }
 }
 

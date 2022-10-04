@@ -8,15 +8,15 @@ import SwiftUIHelpers
 public struct UserTrackingButton: View {
   public typealias State = UserTrackingFeature.State
   public typealias Action = UserTrackingFeature.Action
-  
+
   let store: Store<State, Action>
   @ObservedObject var viewStore: ViewStore<State, Action>
-  
+
   public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
-  
+
   public var body: some View {
     Button(
       action: {
@@ -35,7 +35,7 @@ public struct UserTrackingButton: View {
       Label(viewStore.mode.accessiblityLabel, systemImage: "location.fill")
     }
   }
-  
+
   var iconImage: some View {
     switch viewStore.mode {
     case .follow:

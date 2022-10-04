@@ -266,7 +266,6 @@ public extension AlertState where Action == MapFeature.Action {
   )
 }
 
-
 // MARK: - Dependencies
 
 enum LocationManagerKey: DependencyKey {

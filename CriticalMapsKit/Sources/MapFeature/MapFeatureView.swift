@@ -8,7 +8,7 @@ import SwiftUI
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-  
+
   public typealias State = MapFeature.State
   public typealias Action = MapFeature.Action
 
@@ -50,6 +50,7 @@ public struct MapFeatureView: View {
 }
 
 // MARK: Preview
+
 import SwiftUIHelpers
 
 struct MapFeatureView_Previews: PreviewProvider {

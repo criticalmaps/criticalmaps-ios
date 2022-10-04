@@ -5,7 +5,6 @@ import SharedModels
 import XCTest
 
 final class RideEventSettingsCoreTests: XCTestCase {
-  
   func test_setRideEventsEnabled() {
     let store = TestStore(
       initialState: RideEventSettings(

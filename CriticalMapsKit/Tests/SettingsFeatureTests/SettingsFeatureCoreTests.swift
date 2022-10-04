@@ -6,7 +6,6 @@ import XCTest
 
 @MainActor
 final class SettingsFeatureCoreTests: XCTestCase {
-  
   func test_openURLAction_shouldCallUIApplicationClient_privacy() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
@@ -24,9 +23,9 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
     
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
-    })
+    }
   }
   
   func test_openURLAction_shouldCallUIApplicationClient_cmWebsite() async {
@@ -46,9 +45,9 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
     
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
-    })
+    }
   }
   
   func test_openURLAction_shouldCallUIApplicationClient_cmTwitter() async {
@@ -68,9 +67,9 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
 
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
-    })
+    }
   }
   
   func test_openURLAction_shouldCallUIApplicationClient_github() async {
@@ -90,9 +89,9 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.supportSectionRowTapped(row))
     await store.receive(.openURL(row.url))
 
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
-    })
+    }
   }
   
   func test_openURLAction_shouldCallUIApplicationClient_crowdin() async {
@@ -112,9 +111,9 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.supportSectionRowTapped(row))
     await store.receive(.openURL(row.url))
     
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
-    })
+    }
   }
   
   func test_openURLAction_shouldCallUIApplicationClient_criticalMassDotIn() async {
@@ -134,8 +133,8 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.supportSectionRowTapped(row))
     await store.receive(.openURL(row.url))
 
-    await openedUrl.withValue({ url in
+    await openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
-    })
+    }
   }
 }

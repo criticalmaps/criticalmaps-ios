@@ -10,7 +10,7 @@ final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
-  func defaultTestStore() -> TestStore<ChatFeature, ChatFeature.State, ChatFeature.Action, ()> {
+  func defaultTestStore() -> TestStore<ChatFeature, ChatFeature.State, ChatFeature.Action, Void> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
         chatMessages: .results([:]),
@@ -75,12 +75,12 @@ final class ChatFeatureCore: XCTestCase {
     testStore.dependencies.date = .constant(date())
   
     _ = await testStore.send(.onAppear)
-    await chatAppearanceTimeinterval.withValue({ interval in
+    await chatAppearanceTimeinterval.withValue { interval in
       XCTAssertEqual(interval, date().timeIntervalSince1970)
-    })
-    await didWriteChatAppearanceTimeinterval.withValue({ val in
+    }
+    await didWriteChatAppearanceTimeinterval.withValue { val in
       XCTAssertTrue(val)
-    })
+    }
   }
   
   func test_chatViewState() {

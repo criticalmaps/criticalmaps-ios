@@ -24,5 +24,6 @@ public extension APIClient {
       return try await networkDispatcher.dispatch(urlRequest)
     }
   }
+
   static let noop = Self(request: { _ in fatalError() })
 }

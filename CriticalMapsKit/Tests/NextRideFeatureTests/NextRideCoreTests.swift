@@ -459,7 +459,7 @@ final class NextRideCoreTests: XCTestCase {
       initialState: .init(),
       reducer: NextRideFeature()
     )
-    store.dependencies.nextRideService.nextRide =  { _, _, _ in rides }
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings.default
         .encoded()

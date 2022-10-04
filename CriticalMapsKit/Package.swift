@@ -18,6 +18,7 @@ let package = Package(
     .library(name: "TwitterFeature", targets: ["SocialFeature"])
   ],
   dependencies: [
+    .package(url: "https://github.com/MarcoEidinger/SwiftFormatPlugin", from: "0.49.18"),
     .package(
       name: "swift-composable-architecture",
       url: "https://github.com/pointfreeco/swift-composable-architecture",

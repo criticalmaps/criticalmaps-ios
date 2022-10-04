@@ -4,19 +4,19 @@ import MapKit
 
 public struct UserTrackingFeature: ReducerProtocol {
   public init() {}
-  
+
   public struct State: Equatable {
     public init(userTrackingMode: MKUserTrackingMode) {
       mode = userTrackingMode
     }
-    
+
     public var mode: MKUserTrackingMode
   }
-  
+
   public enum Action: Equatable {
     case nextTrackingMode
   }
-  
+
   /// Reducer handling tracking mode button state changes
   public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
@@ -35,7 +35,6 @@ public struct UserTrackingFeature: ReducerProtocol {
     }
   }
 }
-
 
 public extension MKUserTrackingMode {
   var accessiblityLabel: String {
