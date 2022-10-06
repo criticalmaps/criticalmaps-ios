@@ -10,12 +10,7 @@ struct TwitterFeaturePreviewApp: App {
         TwitterFeedView(
           store: .init(
             initialState: .init(),
-            reducer: twitterFeedReducer,
-            environment: .init(
-              service: .live(),
-              mainQueue: .main,
-              uiApplicationClient: .live
-            )
+            reducer: TwitterFeedFeature()
           )
         )
         .navigationTitle("TwitterFeature Preview")

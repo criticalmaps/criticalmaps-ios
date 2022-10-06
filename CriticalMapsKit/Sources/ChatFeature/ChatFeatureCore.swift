@@ -3,28 +3,40 @@ import ComposableArchitecture
 import CryptoKit
 import Foundation
 import Helpers
-import IDProvider
 import L10n
 import Logger
+import SharedDependencies
 import SharedModels
-import UserDefaultsClient
 
-public enum ChatFeature {
+public struct ChatFeature: ReducerProtocol {
+  public init() {}
+  
+  @Dependency(\.date) public var date
+  @Dependency(\.idProvider) public var idProvider
+  @Dependency(\.locationAndChatService) public var locationAndChatService
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.uuid) public var uuid
+  @Dependency(\.userDefaultsClient) public var userDefaultsClient
+  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
+  
+  var md5Uuid: String {
+    Insecure.MD5.hash(data: uuid().uuidString.data(using: .utf8)!)
+      .map { String(format: "%02hhx", $0) }
+      .joined()
+  }
+
   // MARK: State
   
   public struct State: Equatable {
     public var chatMessages: ContentState<[String: ChatMessage]>
     public var chatInputState: ChatInput.State
-    public var hasConnectivity: Bool
     
     public init(
       chatMessages: ContentState<[String: ChatMessage]> = .loading([:]),
-      chatInputState: ChatInput.State = .init(),
-      hasConnectivity: Bool = true
+      chatInputState: ChatInput.State = .init()
     ) {
       self.chatMessages = chatMessages
       self.chatInputState = chatInputState
-      self.hasConnectivity = hasConnectivity
     }
   }
   
@@ -37,57 +49,20 @@ public enum ChatFeature {
     case chatInput(ChatInput.Action)
   }
   
-  // MARK: Environment
-  
-  public struct Environment {
-    public var locationsAndChatDataService: LocationsAndChatDataService
-    public var mainQueue: AnySchedulerOf<DispatchQueue>
-    public var idProvider: IDProvider
-    public var uuid: () -> UUID
-    public var date: () -> Date
-    public var userDefaultsClient: UserDefaultsClient
-    
-    public init(
-      locationsAndChatDataService: LocationsAndChatDataService,
-      mainQueue: AnySchedulerOf<DispatchQueue>,
-      idProvider: IDProvider,
-      uuid: @escaping () -> UUID,
-      date: @escaping () -> Date,
-      userDefaultsClient: UserDefaultsClient
-    ) {
-      self.locationsAndChatDataService = locationsAndChatDataService
-      self.mainQueue = mainQueue
-      self.idProvider = idProvider
-      self.uuid = uuid
-      self.date = date
-      self.userDefaultsClient = userDefaultsClient
-    }
-    
-    var md5Uuid: String {
-      Insecure.MD5.hash(data: uuid().uuidString.data(using: .utf8)!)
-        .map { String(format: "%02hhx", $0) }
-        .joined()
-    }
-  }
-  
   // MARK: Reducer
   
-  /// Reducer responsible for handling logic from the chat feature.
-  public static let reducer = Reducer<ChatFeature.State, ChatFeature.Action, ChatFeature.Environment>.combine(
-    ChatInput.reducer.pullback(
-      state: \.chatInputState,
-      action: /ChatFeature.Action.chatInput,
-      environment: { _ in
-        ChatInput.Environment()
-      }
-    ),
-    Reducer<State, Action, Environment> { state, action, environment in
+  public var body: some ReducerProtocol<State, Action> {
+    Scope(state: \.chatInputState, action: /ChatFeature.Action.chatInput) {
+      ChatInput()
+    }
+    
+    // Reducer responsible for handling logic from the chat feature.
+    Reduce { state, action in
       switch action {
       case .onAppear:
-        return environment
-          .userDefaultsClient
-          .setChatReadTimeInterval(environment.date().timeIntervalSince1970)
-          .fireAndForget()
+        return .fireAndForget {
+          await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+        }
         
       case let .chatInputResponse(.success(response)):
         state.chatInputState.isSending = false
@@ -106,17 +81,17 @@ public enum ChatFeature {
         case .onCommit:
           let message = ChatMessagePost(
             text: state.chatInputState.message,
-            timestamp: environment.date().timeIntervalSince1970,
-            identifier: environment.md5Uuid
+            timestamp: date().timeIntervalSince1970,
+            identifier: md5Uuid
           )
           let body = SendLocationAndChatMessagesPostBody(
-            device: environment.idProvider.id(),
+            device: idProvider.id(),
             location: nil,
             messages: [message]
           )
           
-          guard state.hasConnectivity else {
-            logger.debug("Not sending chat input. No connectivity")
+          guard isNetworkAvailable else {
+            logger.debug("Not sending chat input. Network not available")
             return .none
           }
           
@@ -125,7 +100,7 @@ public enum ChatFeature {
           return .task {
             await .chatInputResponse(
               TaskResult {
-                try await environment.locationsAndChatDataService.getLocationsAndSendMessages(body)
+                try await locationAndChatService.getLocationsAndSendMessages(body)
               }
             )
           }
@@ -135,5 +110,5 @@ public enum ChatFeature {
         }
       }
     }
-  )
+  }
 }

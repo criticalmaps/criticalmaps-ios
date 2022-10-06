@@ -10,7 +10,7 @@ import XCTest
 final class MapFeatureCoreTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   
-  func test_onAppearAction() {
+  func test_onAppearAction() async {
     let setSubject = PassthroughSubject<Never, Never>()
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
@@ -36,12 +36,9 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature.reducer,
-      environment: MapFeature.Environment(
-        locationManager: locationManager,
-        mainQueue: testScheduler.eraseToAnyScheduler()
-      )
+      reducer: MapFeature()
     )
+    store.dependencies.locationManager = locationManager
     
     let currentLocation = Location(
       altitude: 0,
@@ -53,9 +50,9 @@ final class MapFeatureCoreTests: XCTestCase {
       verticalAccuracy: 0
     )
     
-    store.send(.onAppear)
+    await store.send(.onAppear)
     // simulate user decision of segmented control
-    store.receive(.locationRequested) {
+    await store.receive(.locationRequested) {
       $0.isRequestingCurrentLocation = true
     }
     XCTAssertTrue(didRequestAlwaysAuthorization)
@@ -63,13 +60,13 @@ final class MapFeatureCoreTests: XCTestCase {
     
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
     
-    store.receive(.locationManager(.didChangeAuthorization(.authorizedAlways)))
+    await store.receive(.locationManager(.didChangeAuthorization(.authorizedAlways)))
     XCTAssertTrue(didRequestLocation)
     // Simulate finding the user's current location
     
     locationManagerSubject.send(.didUpdateLocations([currentLocation]))
     
-    store.receive(.locationManager(.didUpdateLocations([currentLocation]))) {
+    await store.receive(.locationManager(.didUpdateLocations([currentLocation]))) {
       $0.isRequestingCurrentLocation = false
       $0.location = currentLocation
     }
@@ -79,7 +76,7 @@ final class MapFeatureCoreTests: XCTestCase {
   }
   
   /// if locationServices disabled, test that alert state is set
-  func test_disabledLocationService_shouldSetAlert() {
+  func test_disabledLocationService_shouldSetAlert() async {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
     
@@ -89,10 +86,6 @@ final class MapFeatureCoreTests: XCTestCase {
     locationManager.locationServicesEnabled = { false }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    let env = MapFeature.Environment(
-      locationManager: locationManager,
-      mainQueue: testScheduler.eraseToAnyScheduler()
-    )
     let store = TestStore(
       initialState: MapFeature.State(
         alert: nil,
@@ -101,13 +94,13 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature.reducer,
-      environment: env
+      reducer: MapFeature()
     )
+    store.dependencies.locationManager = locationManager
     
-    store.send(.onAppear)
+    await store.send(.onAppear)
     // simulate user decision of segmented control
-    store.receive(.locationRequested) {
+    await store.receive(.locationRequested) {
       $0.isRequestingCurrentLocation = false
       $0.alert = .servicesOff
     }
@@ -115,7 +108,7 @@ final class MapFeatureCoreTests: XCTestCase {
     locationManagerSubject.send(completion: .finished)
   }
   
-  func test_deniedPermission_shouldSetAlert() {
+  func test_deniedPermission_shouldSetAlert() async {
     var didRequestAlwaysAuthorization = false
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     let setSubject = PassthroughSubject<Never, Never>()
@@ -129,10 +122,6 @@ final class MapFeatureCoreTests: XCTestCase {
     } }
     locationManager.set = { _ in setSubject.eraseToEffect() }
 
-    let env = MapFeature.Environment(
-      locationManager: locationManager,
-      mainQueue: testScheduler.eraseToAnyScheduler()
-    )
     let store = TestStore(
       initialState: MapFeature.State(
         alert: nil,
@@ -141,19 +130,19 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature.reducer,
-      environment: env
+      reducer: MapFeature()
     )
+    store.dependencies.locationManager = locationManager
     
-    store.send(.onAppear)
+    await store.send(.onAppear)
     // simulate user decision of segmented control
-    store.receive(.locationRequested) {
+    await store.receive(.locationRequested) {
       $0.isRequestingCurrentLocation = true
     }
     XCTAssertTrue(didRequestAlwaysAuthorization)
     // Simulate being given authorized to access location
     locationManagerSubject.send(.didChangeAuthorization(.denied))
-    store.receive(.locationManager(.didChangeAuthorization(.denied))) {
+    await store.receive(.locationManager(.didChangeAuthorization(.denied))) {
       $0.alert = AlertState(
         title: TextState("Location makes this app better. Please consider giving us access.")
       )
@@ -164,11 +153,6 @@ final class MapFeatureCoreTests: XCTestCase {
   }
   
   func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() async {
-    let env = MapFeature.Environment(
-      locationManager: .failing,
-      mainQueue: .immediate
-    )
-
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -188,9 +172,9 @@ final class MapFeatureCoreTests: XCTestCase {
         userTrackingMode: .init(userTrackingMode: .follow),
         nextRide: ride
       ),
-      reducer: MapFeature.reducer,
-      environment: env
+      reducer: MapFeature()
     )
+    store.dependencies.mainQueue = .immediate
 
     await store.send(.focusNextRide(ride.coordinate)) {
       $0.centerRegion = CoordinateRegion(center: .init(latitude: 13.13, longitude: 55.55))
@@ -201,11 +185,6 @@ final class MapFeatureCoreTests: XCTestCase {
   }
   
   func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() async {
-    let env = MapFeature.Environment(
-      locationManager: .failing,
-      mainQueue: .immediate
-    )
-
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -225,9 +204,9 @@ final class MapFeatureCoreTests: XCTestCase {
         userTrackingMode: .init(userTrackingMode: .follow),
         nextRide: ride
       ),
-      reducer: MapFeature.reducer,
-      environment: env
+      reducer: MapFeature()
     )
+    store.dependencies.mainQueue = .immediate
 
     await store.send(.focusRideEvent(ride.coordinate)) {
       $0.eventCenter = CoordinateRegion(center: .init(latitude: 13.13, longitude: 55.55))
@@ -247,10 +226,6 @@ final class MapFeatureCoreTests: XCTestCase {
     locationManager.locationServicesEnabled = { true }
     locationManager.set = { _ in setSubject.eraseToEffect() }
     
-    let env = MapFeature.Environment(
-      locationManager: locationManager,
-      mainQueue: testScheduler.eraseToAnyScheduler()
-    )
     let store = TestStore(
       initialState: MapFeature.State(
         alert: nil,
@@ -259,8 +234,7 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature.reducer,
-      environment: env
+      reducer: MapFeature()
     )
     
     store.send(.setNextRideBannerVisible(true)) {

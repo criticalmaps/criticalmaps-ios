@@ -13,10 +13,11 @@ public struct NextRidesRequest: APIRequest {
   public var httpMethod: HTTPMethod = .get
   public var queryItems: [URLQueryItem] = []
   public var body: Data?
-
-  init(
+  
+  public init(
     coordinate: Coordinate,
-    radius: Int, date: () -> Date = Date.init,
+    radius: Int,
+    date: () -> Date = Date.init,
     month: Int
   ) {
     queryItems = [
@@ -28,12 +29,7 @@ public struct NextRidesRequest: APIRequest {
     ]
   }
 
-  public var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .secondsSince1970
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    return decoder
-  }
+  public let decoder: JSONDecoder = .nextRideRequestDecoder
 }
 
 // MARK: Helper
@@ -44,4 +40,13 @@ enum NextRideQueryKeys {
   static let radius = "radius"
   static let year = "year"
   static let month = "month"
+}
+
+extension JSONDecoder {
+  static let nextRideRequestDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .secondsSince1970
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    return decoder
+  }()
 }

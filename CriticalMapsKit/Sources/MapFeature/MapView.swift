@@ -12,7 +12,7 @@ struct MapView: ViewRepresentable {
   typealias MenuActionHandle = () -> Void
 
   var riderCoordinates: [Rider]
-  @Binding var userTrackingMode: UserTrackingState
+  @Binding var userTrackingMode: UserTrackingFeature.State
   var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
   var rideEvents: [Ride] = []

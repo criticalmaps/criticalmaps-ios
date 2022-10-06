@@ -8,12 +8,15 @@ import SwiftUIHelpers
 
 /// A view to render the app settings.
 public struct SettingsView: View {
+  public typealias State = SettingsFeature.State
+  public typealias Action = SettingsFeature.Action
+  
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
-  let store: Store<SettingsFeature.State, SettingsFeature.Action>
-  @ObservedObject var viewStore: ViewStore<SettingsFeature.State, SettingsFeature.Action>
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
   
-  public init(store: Store<SettingsFeature.State, SettingsFeature.Action>) {
+  public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store, removeDuplicates: ==)
   }
@@ -226,7 +229,7 @@ struct SettingsInfoLink: View {
       Text(title)
         .font(.titleOne)
       Spacer()
-      Image(systemName: "link.circle.fill")
+      Image(systemName: "arrow.up.right")
         .font(.titleOne)
         .accessibilityHidden(true)
     }
@@ -240,14 +243,7 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView(
           store: .init(
             initialState: .init(),
-            reducer: SettingsFeature.reducer,
-            environment: SettingsFeature.Environment(
-              uiApplicationClient: .noop,
-              setUserInterfaceStyle: { _ in .none },
-              fileClient: .noop,
-              backgroundQueue: .failing,
-              mainQueue: .failing
-            )
+            reducer: SettingsFeature().debug()
           )
         )
       }

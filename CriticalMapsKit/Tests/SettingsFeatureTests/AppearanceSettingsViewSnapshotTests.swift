@@ -3,16 +3,12 @@ import SharedModels
 import TestHelper
 import XCTest
 
-class AppearanceSettingsViewSnapshotTests: XCTestCase {
+final class AppearanceSettingsViewSnapshotTests: XCTestCase {
   func test_appearanceEventSettingsView_light() {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettings(colorScheme: .system),
-        reducer: appearanceSettingsReducer,
-        environment: .init(
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        reducer: AppearanceSettingsFeature()
       )
     )
     
@@ -23,11 +19,7 @@ class AppearanceSettingsViewSnapshotTests: XCTestCase {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettings(appIcon: .appIcon5, colorScheme: .dark),
-        reducer: appearanceSettingsReducer,
-        environment: .init(
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        reducer: AppearanceSettingsFeature()
       )
     )
     

@@ -3,17 +3,16 @@ import Foundation
 import SharedModels
 import Styleguide
 import SwiftUI
-import UIApplicationClient
 
 public struct TwitterFeedView: View {
   public struct TwitterFeedViewState: Equatable {
     public let shouldDisplayPlaceholder: Bool
 
     public init(_ state: TwitterFeedFeature.State) {
-      if let tweets = state.contentState.elements {
-        shouldDisplayPlaceholder = state.twitterFeedIsLoading && tweets.isEmpty
+      if state.twitterFeedIsLoading && state.tweets.elements.isEmpty {
+        shouldDisplayPlaceholder = true
       } else {
-        shouldDisplayPlaceholder = state.twitterFeedIsLoading
+        shouldDisplayPlaceholder = false
       }
     }
   }
@@ -41,12 +40,7 @@ struct TwitterFeedView_Previews: PreviewProvider {
     TwitterFeedView(
       store: Store<TwitterFeedFeature.State, TwitterFeedFeature.Action>(
         initialState: .init(),
-        reducer: TwitterFeedFeature.reducer,
-        environment: TwitterFeedFeature.Environment(
-          service: .noop,
-          mainQueue: .failing,
-          uiApplicationClient: .noop
-        )
+        reducer: TwitterFeedFeature().debug()
       )
     )
   }
@@ -69,8 +63,7 @@ public extension Array where Element == Tweet {
 
 extension Store where State == TwitterFeedFeature.State, Action == TwitterFeedFeature.Action {
   static let placeholder = Store(
-    initialState: .init(contentState: .results(.placeHolder)),
-    reducer: .empty,
-    environment: ()
+    initialState: .init(tweets: IdentifiedArray(uniqueElements: [Tweet].placeHolder)),
+    reducer: EmptyReducer()
   )
 }

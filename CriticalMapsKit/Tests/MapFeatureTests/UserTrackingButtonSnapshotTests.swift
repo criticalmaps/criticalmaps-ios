@@ -2,13 +2,12 @@ import MapFeature
 import TestHelper
 import XCTest
 
-class UserTrackingButtonSnapshotTests: XCTestCase {
+final class UserTrackingButtonSnapshotTests: XCTestCase {
   func test_userTracking_none() {
     let sut = UserTrackingButton(
       store: .init(
         initialState: .init(userTrackingMode: .none),
-        reducer: userTrackingReducer,
-        environment: UserTrackingEnvironment()
+        reducer: UserTrackingFeature()
       )
     )
     
@@ -19,8 +18,7 @@ class UserTrackingButtonSnapshotTests: XCTestCase {
     let sut = UserTrackingButton(
       store: .init(
         initialState: .init(userTrackingMode: .follow),
-        reducer: userTrackingReducer,
-        environment: UserTrackingEnvironment()
+        reducer: UserTrackingFeature()
       )
     )
     
@@ -31,8 +29,7 @@ class UserTrackingButtonSnapshotTests: XCTestCase {
     let sut = UserTrackingButton(
       store: .init(
         initialState: .init(userTrackingMode: .followWithHeading),
-        reducer: userTrackingReducer,
-        environment: UserTrackingEnvironment()
+        reducer: UserTrackingFeature()
       )
     )
     

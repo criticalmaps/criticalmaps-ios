@@ -1,49 +1,52 @@
 import ComposableArchitecture
 import Foundation
 
-public struct RequestTimerState: Equatable {
-  public init(isTimerActive: Bool = false) {
-    self.isTimerActive = isTimerActive
+public struct RequestTimer: ReducerProtocol {
+  public init(timerInterval: Double = 12.0) {
+    self.timerInterval = timerInterval
   }
 
-  var isTimerActive = false
-}
-
-public enum RequestTimerAction: Equatable {
-  case timerTicked
-  case startTimer
-}
-
-public struct RequestTimerEnvironment {
+  @Dependency(\.mainQueue) public var mainQueue
   let timerInterval: Double
-  let mainQueue: AnySchedulerOf<DispatchQueue>
 
   var interval: DispatchQueue.SchedulerTimeType.Stride {
     DispatchQueue.SchedulerTimeType.Stride(floatLiteral: timerInterval)
   }
 
-  public init(timerInterval: Double = 12.0, mainQueue: AnySchedulerOf<DispatchQueue>) {
-    self.timerInterval = timerInterval
-    self.mainQueue = mainQueue
-  }
-}
+  // MARK: State
 
-/// Reducer responsible for the poll timer handling.
-public let requestTimerReducer = Reducer<RequestTimerState, RequestTimerAction, RequestTimerEnvironment> { state, action, environment in
-  struct TimerId: Hashable {}
-
-  switch action {
-  case .timerTicked:
-    return .none
-
-  case .startTimer:
-    state.isTimerActive = true
-    return .run { [isTimerActive = state.isTimerActive] send in
-      guard isTimerActive else { return }
-      for await _ in environment.mainQueue.timer(interval: environment.interval) {
-        await send(.timerTicked)
-      }
+  public struct State: Equatable {
+    public init(isTimerActive: Bool = false) {
+      self.isTimerActive = isTimerActive
     }
-    .cancellable(id: TimerId.self, cancelInFlight: true)
+
+    public var isTimerActive = false
+  }
+
+  // MARK: Action
+
+  public enum Action: Equatable {
+    case timerTicked
+    case startTimer
+  }
+
+  /// Reducer responsible for the poll timer handling.
+  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+    switch action {
+    case .timerTicked:
+      return .none
+
+    case .startTimer:
+      state.isTimerActive = true
+      return .run { [isTimerActive = state.isTimerActive] send in
+        guard isTimerActive else { return }
+        for await _ in mainQueue.timer(interval: interval) {
+          await send(.timerTicked)
+        }
+      }
+      .cancellable(id: TimerId.self, cancelInFlight: true)
+    }
   }
 }
+
+private struct TimerId: Hashable {}

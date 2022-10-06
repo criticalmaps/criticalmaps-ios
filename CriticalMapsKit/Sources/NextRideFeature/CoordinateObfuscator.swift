@@ -6,7 +6,7 @@ import SharedModels
 /// A client to obfuscate the users location.
 /// We value privacy and to request the next ride the API does not need to know the rides exact location.
 public struct CoordinateObfuscator {
-  var obfuscate: (Coordinate, ObfuscationPrecisionType) -> Coordinate
+  public var obfuscate: (Coordinate, ObfuscationPrecisionType) -> Coordinate
 }
 
 public extension CoordinateObfuscator {

@@ -24,7 +24,7 @@ public struct BasicInputView: View {
   private var messageEditorHeight: CGFloat {
     min(
       contentSizeThatFits.height,
-      0.25 * UIScreen.main.bounds.height
+      UIScreen.main.bounds.height * 0.25
     )
   }
   
@@ -425,7 +425,6 @@ internal struct UITextViewWrapper: UIViewRepresentable {
     self.onCommit = onCommit
   }
   
-  // swiftlint:disable:next cyclomatic_complexity
   func makeUIView(context: Context) -> UITextView {
     let view = UITextView()
     

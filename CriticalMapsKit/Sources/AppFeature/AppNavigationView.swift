@@ -10,15 +10,18 @@ import SwiftUI
 import TwitterFeedFeature
 
 public struct AppNavigationView: View {
-  let store: Store<AppFeature.State, AppFeature.Action>
-  @ObservedObject var viewStore: ViewStore<AppFeature.State, AppFeature.Action>
+  public typealias State = AppFeature.State
+  public typealias Action = AppFeature.Action
+  
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
   let minHeight: CGFloat = 56
   
-  public init(store: Store<AppFeature.State, AppFeature.Action>) {
+  public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -193,15 +196,7 @@ struct AppNavigationView_Previews: PreviewProvider {
     AppNavigationView(
       store: Store<AppFeature.State, AppFeature.Action>(
         initialState: .init(),
-        reducer: AppFeature.reducer,
-        environment: .init(
-          service: .noop,
-          idProvider: .noop,
-          mainQueue: .failing,
-          userDefaultsClient: .noop,
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        reducer: AppFeature().debug()
       )
     )
   }

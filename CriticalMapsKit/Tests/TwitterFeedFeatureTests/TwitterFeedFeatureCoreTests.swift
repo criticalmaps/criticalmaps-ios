@@ -2,31 +2,25 @@ import ApiClient
 import Combine
 import ComposableArchitecture
 import CustomDump
+import SharedDependencies
 import SharedModels
 import TwitterFeedFeature
 import UIApplicationClient
 import XCTest
 
 @MainActor
-class TwitterFeedCoreTests: XCTestCase {
+final class TwitterFeedCoreTests: XCTestCase {
   func test_onAppear_shouldFetchTwitterData() async throws {
     let request = TwitterFeedRequest()
     let decoder = request.decoder
     let tweetData = try XCTUnwrap(twitterFeedData)
     let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
     
-    var service = TwitterFeedService.noop
-    service.getTweets = { feed.statuses }
-    
     let store = TestStore(
       initialState: TwitterFeedFeature.State(),
-      reducer: TwitterFeedFeature.reducer,
-      environment: TwitterFeedFeature.Environment(
-        service: service,
-        mainQueue: .immediate,
-        uiApplicationClient: .noop
-      )
+      reducer: TwitterFeedFeature()
     )
+    store.dependencies.twitterService.getTweets = { feed.statuses }
     
     await _ = store.send(.onAppear)
     await store.receive(.fetchData) {
@@ -35,37 +29,8 @@ class TwitterFeedCoreTests: XCTestCase {
     
     await store.receive(.fetchDataResponse(.success(feed.statuses))) {
       $0.twitterFeedIsLoading = false
-      $0.contentState = .results(feed.statuses)
+      $0.tweets = IdentifiedArray(uniqueElements: feed.statuses)
     }
-  }
-  
-  func test_openTweetUrl() throws {
-    var tweetUrl: URL!
-    
-    let request = TwitterFeedRequest()
-    let decoder = request.decoder
-    let tweetData = try XCTUnwrap(twitterFeedData)
-    let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
-    
-    var applicationClient = UIApplicationClient.noop
-    applicationClient.open = { url, _ in
-      tweetUrl = url
-      return .none
-    }
-    
-    let store = TestStore(
-      initialState: TwitterFeedFeature.State(),
-      reducer: TwitterFeedFeature.reducer,
-      environment: TwitterFeedFeature.Environment(
-        service: .noop,
-        mainQueue: .immediate,
-        uiApplicationClient: applicationClient
-      )
-    )
-    
-    store.send(.openTweet(feed.statuses[0]))
-    
-    XCTAssertNoDifference(tweetUrl, feed.statuses[0].tweetUrl)
   }
   
   func test_tweetDecodingTest() throws {

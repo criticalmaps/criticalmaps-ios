@@ -7,14 +7,7 @@ final class SettingsViewSnapshotTests: XCTestCase {
     let settingsView = SettingsView(
       store: .init(
         initialState: .init(),
-        reducer: SettingsFeature.reducer,
-        environment: .init(
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none },
-          fileClient: .noop,
-          backgroundQueue: .immediate,
-          mainQueue: .immediate
-        )
+        reducer: SettingsFeature()
       )
     )
 

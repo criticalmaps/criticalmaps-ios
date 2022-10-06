@@ -3,18 +3,21 @@ import TestHelper
 import TwitterFeedFeature
 import XCTest
 
-class TweetViewSnapshotTests: XCTestCase {
+final class TweetViewSnapshotTests: XCTestCase {
   func test_tweetViewSnapshot1() {
     let view = TweetView(
-      tweet: Tweet(
-        id: "19283123120381203",
-        text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSince1970: 1580620614),
-        user: .init(
-          name: "Critical Maps",
-          screenName: "@maps",
-          profileImageUrl: ""
-        )
+      store: .init(
+        initialState: Tweet(
+          id: "19283123120381203",
+          text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
+          createdAt: .init(timeIntervalSince1970: 1580620614),
+          user: .init(
+            name: "Critical Maps",
+            screenName: "@maps",
+            profileImageUrl: ""
+          )
+        ),
+        reducer: TweetFeature()
       )
     )
 
@@ -23,15 +26,18 @@ class TweetViewSnapshotTests: XCTestCase {
 
   func test_tweetViewSnapshot2() {
     let view = TweetView(
-      tweet: Tweet(
-        id: "19283123120381203",
-        text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSince1970: 1635521516),
-        user: .init(
-          name: "Critical Maps",
-          screenName: "@maps",
-          profileImageUrl: ""
-        )
+      store: .init(
+        initialState: Tweet(
+          id: "19283123120381203",
+          text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
+          createdAt: .init(timeIntervalSince1970: 1635521516),
+          user: .init(
+            name: "Critical Maps",
+            screenName: "@maps",
+            profileImageUrl: ""
+          )
+        ),
+        reducer: TweetFeature()
       )
     )
 
@@ -40,15 +46,18 @@ class TweetViewSnapshotTests: XCTestCase {
 
   func test_tweetViewSnapshot() {
     let view = TweetView(
-      tweet: Tweet(
-        id: "19283123120381203",
-        text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceReferenceDate: 0),
-        user: .init(
-          name: "Critical Maps",
-          screenName: "@maps",
-          profileImageUrl: ""
-        )
+      store: .init(
+        initialState: Tweet(
+          id: "19283123120381203",
+          text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
+          createdAt: .init(timeIntervalSinceReferenceDate: 0),
+          user: .init(
+            name: "Critical Maps",
+            screenName: "@maps",
+            profileImageUrl: ""
+          )
+        ),
+        reducer: TweetFeature()
       )
     )
 
@@ -57,15 +66,18 @@ class TweetViewSnapshotTests: XCTestCase {
 
   func test_tweetViewSnapshot_dark() {
     let view = TweetView(
-      tweet: Tweet(
-        id: "19283123120381203",
-        text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceReferenceDate: 0),
-        user: .init(
-          name: "Critical Maps",
-          screenName: "@maps",
-          profileImageUrl: ""
-        )
+      store: .init(
+        initialState: Tweet(
+          id: "19283123120381203",
+          text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
+          createdAt: .init(timeIntervalSinceReferenceDate: 0),
+          user: .init(
+            name: "Critical Maps",
+            screenName: "@maps",
+            profileImageUrl: ""
+          )
+        ),
+        reducer: TweetFeature()
       )
     )
     .environment(\.colorScheme, .dark)
@@ -75,15 +87,18 @@ class TweetViewSnapshotTests: XCTestCase {
 
   func test_tweetViewSnapshot_redacted() {
     let view = TweetView(
-      tweet: Tweet(
-        id: "19283123120381203",
-        text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceReferenceDate: 0),
-        user: .init(
-          name: "Critical Maps",
-          screenName: "@maps",
-          profileImageUrl: ""
-        )
+      store: .init(
+        initialState: Tweet(
+          id: "19283123120381203",
+          text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
+          createdAt: .init(timeIntervalSinceReferenceDate: 0),
+          user: .init(
+            name: "Critical Maps",
+            screenName: "@maps",
+            profileImageUrl: ""
+          )
+        ),
+        reducer: TweetFeature()
       )
     )
     .redacted(reason: .placeholder)
@@ -93,15 +108,18 @@ class TweetViewSnapshotTests: XCTestCase {
 
   func test_tweetViewSnapshot_redacted_dark() {
     let view = TweetView(
-      tweet: Tweet(
-        id: "19283123120381203",
-        text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
-        createdAt: .init(timeIntervalSinceReferenceDate: 0),
-        user: .init(
-          name: "Critical Maps",
-          screenName: "@maps",
-          profileImageUrl: ""
-        )
+      store: .init(
+        initialState: Tweet(
+          id: "19283123120381203",
+          text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore",
+          createdAt: .init(timeIntervalSinceReferenceDate: 0),
+          user: .init(
+            name: "Critical Maps",
+            screenName: "@maps",
+            profileImageUrl: ""
+          )
+        ),
+        reducer: TweetFeature()
       )
     )
     .environment(\.colorScheme, .dark)

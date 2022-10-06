@@ -1,20 +1,29 @@
 import ComposableArchitecture
 import Foundation
 import Helpers
+import L10n
+import Logger
+import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI
-import UIApplicationClient
 
-public enum TwitterFeedFeature {
-  // MARK: State
+public struct TwitterFeedFeature: ReducerProtocol {
+  public init() {}
   
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.twitterService) public var twitterService
+  @Dependency(\.uiApplicationClient) public var uiApplicationClient
+
+  // MARK: State
+
   public struct State: Equatable {
-    public var contentState: ContentState<[Tweet]>
+    public var tweets: IdentifiedArrayOf<TweetFeature.State>
     public var twitterFeedIsLoading = false
-    
-    public init(contentState: ContentState<[Tweet]> = .loading(.placeHolder)) {
-      self.contentState = contentState
+    public var error: ErrorState?
+        
+    public init(tweets: IdentifiedArrayOf<TweetFeature.State> = IdentifiedArray(uniqueElements: [Tweet].placeHolder, id: \.id)) {
+      self.tweets = tweets
     }
   }
   
@@ -24,68 +33,49 @@ public enum TwitterFeedFeature {
     case onAppear
     case fetchData
     case fetchDataResponse(TaskResult<[Tweet]>)
-    case openTweet(Tweet)
+    case tweet(id: TweetFeature.State.ID, action: TweetFeature.Action)
   }
   
-  // MARK: Environment
-  
-  public struct Environment {
-    public let service: TwitterFeedService
-    public let mainQueue: AnySchedulerOf<DispatchQueue>
-    public let uiApplicationClient: UIApplicationClient
-    
-    public init(
-      service: TwitterFeedService,
-      mainQueue: AnySchedulerOf<DispatchQueue>,
-      uiApplicationClient: UIApplicationClient
-    ) {
-      self.service = service
-      self.mainQueue = mainQueue
-      self.uiApplicationClient = uiApplicationClient
-    }
-  }
   
   // MARK: Reducer
-  
-  /// A reducer to handle twitter feature actions.
-  public static let reducer =
-    Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment>.combine(
-      Reducer<TwitterFeedFeature.State, TwitterFeedFeature.Action, TwitterFeedFeature.Environment> { state, action, environment in
-        switch action {
-        case .onAppear:
-          return Effect(value: .fetchData)
+  public var body: some ReducerProtocol<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .onAppear:
+        return Effect(value: .fetchData)
         
-        case .fetchData:
-          state.twitterFeedIsLoading = true
-          return .task {
-            await .fetchDataResponse(TaskResult { try await environment.service.getTweets() })
-          }
-
-        case let .fetchDataResponse(.success(tweets)):
-          state.twitterFeedIsLoading = false
-        
-          if tweets.isEmpty {
-            state.contentState = .empty(.twitter)
-            return .none
-          }
-        
-          state.contentState = .results(tweets)
-          return .none
-        case let .fetchDataResponse(.failure(error)):
-          state.twitterFeedIsLoading = false
-          state.contentState = .error(
-            ErrorState(
-              title: ErrorState.default.title,
-              body: ErrorState.default.body
-            )
-          )
-          return .none
-        
-        case let .openTweet(tweet):
-          return environment.uiApplicationClient
-            .open(tweet.tweetUrl!, [:])
-            .fireAndForget()
+      case .fetchData:
+        state.twitterFeedIsLoading = true
+        return .task {
+          await .fetchDataResponse(TaskResult { try await twitterService.getTweets() })
         }
+        
+      case let .fetchDataResponse(.success(tweets)):
+        state.twitterFeedIsLoading = false
+        
+        if tweets.isEmpty {
+          state.tweets = .init(uniqueElements: [])
+          return .none
+        }
+        
+        state.tweets = IdentifiedArray(uniqueElements: tweets)
+        return .none
+      case let .fetchDataResponse(.failure(error)):
+        logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
+        state.twitterFeedIsLoading = false
+        state.error = .init(
+          title: L10n.ErrorState.title,
+          body: L10n.ErrorState.message,
+          error: .init(error: error)
+        )
+        return .none
+        
+      case .tweet:
+        return .none
       }
-    )
+    }
+    .forEach(\.tweets, action: /TwitterFeedFeature.Action.tweet(id:action:)) {
+      TweetFeature()
+    }
+  }
 }

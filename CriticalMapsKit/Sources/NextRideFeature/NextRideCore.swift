@@ -3,19 +3,26 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
 import Logger
+import SharedDependencies
 import SharedModels
-import UserDefaultsClient
 
 // MARK: State
 
-public enum NextRideFeature {
+public struct NextRideFeature: ReducerProtocol {
+  public init() {}
+  
+  @Dependency(\.nextRideService) public var service
+  @Dependency(\.userDefaultsClient) public var userDefaultsClient
+  @Dependency(\.date) public var date
+  @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.coordinateObfuscator) public var coordinateObfuscator
+  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
+
   public struct State: Equatable {
-    public init(nextRide: Ride? = nil, hasConnectivity: Bool = true) {
+    public init(nextRide: Ride? = nil) {
       self.nextRide = nextRide
-      self.hasConnectivity = hasConnectivity
     }
 
-    public var hasConnectivity: Bool
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
 
@@ -30,58 +37,34 @@ public enum NextRideFeature {
     case setNextRide(Ride)
   }
 
-  // MARK: Environment
-
-  public struct Environment {
-    public init(
-      service: NextRideService = .live(),
-      store: UserDefaultsClient = .live(),
-      now: @escaping () -> Date = Date.init,
-      mainQueue: AnySchedulerOf<DispatchQueue>,
-      coordinateObfuscator: CoordinateObfuscator = .live
-    ) {
-      self.service = service
-      userDefaultsClient = store
-      self.now = now
-      self.mainQueue = mainQueue
-      self.coordinateObfuscator = coordinateObfuscator
-    }
-
-    let service: NextRideService
-    let userDefaultsClient: UserDefaultsClient
-    let now: () -> Date
-    let mainQueue: AnySchedulerOf<DispatchQueue>
-    let coordinateObfuscator: CoordinateObfuscator
-  }
-
   // MARK: Reducer
 
   /// Reducer handling next ride feature actions
-  public static let reducer = Reducer<State, Action, Environment> { state, action, env in
+  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
     switch action {
     case let .getNextRide(coordinate):
-      guard env.userDefaultsClient.rideEventSettings().isEnabled else {
+      guard userDefaultsClient.rideEventSettings.isEnabled else {
         logger.debug("NextRide featue is disabled")
         return .none
       }
-      guard state.hasConnectivity else {
+      guard isNetworkAvailable else {
         logger.debug("Not fetching next ride. No connectivity")
         return .none
       }
 
-      let obfuscatedCoordinate = env.coordinateObfuscator.obfuscate(
+      let obfuscatedCoordinate = coordinateObfuscator.obfuscate(
         coordinate,
         .thirdDecimal
       )
 
-      let requestRidesInMonth: Int = queryMonth(in: env.now)
+      let requestRidesInMonth: Int = queryMonth(for: date.callAsFunction)
 
       return .task {
         await .nextRideResponse(
           TaskResult {
-            try await env.service.nextRide(
+            try await service.nextRide(
               obfuscatedCoordinate,
-              env.userDefaultsClient.rideEventSettings().eventDistance.rawValue,
+              userDefaultsClient.rideEventSettings.eventDistance.rawValue,
               requestRidesInMonth
             )
           }
@@ -101,14 +84,14 @@ public enum NextRideFeature {
         return .none
       }
 
-      state.rideEvents = rides.sortByDateAndFilterBeforeDate(env.now)
+      state.rideEvents = rides.sortByDateAndFilterBeforeDate(date.callAsFunction)
 
       // Sort rides by date and pick the first one with a date greater than now
       let ride = rides // swiftlint:disable:this sorted_first_last
         .lazy
         .filter {
           guard let type = $0.rideType else { return true }
-          return env.userDefaultsClient.rideEventSettings().typeSettings
+          return userDefaultsClient.rideEventSettings.typeSettings
             .lazy
             .filter(\.isEnabled)
             .map(\.type)
@@ -132,7 +115,7 @@ public enum NextRideFeature {
             return byDate
           }
         }
-        .first { ride in ride.dateTime > env.now() }
+        .first { ride in ride.dateTime > date() }
 
       guard let filteredRide = ride else {
         logger.info("No upcoming events after filter")
@@ -159,7 +142,7 @@ enum EventError: Error, LocalizedError {
   case rideDisabled
 }
 
-private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
+private func queryMonth(for date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
   let currentMonthOfFallback = calendar.dateComponents([.month], from: date()).month ?? 0
 
   guard !calendar.isDateInWeekend(date()) else { // current date is on a weekend
@@ -175,8 +158,6 @@ private func queryMonth(in date: () -> Date = Date.init, calendar: Calendar = .c
 
   return max(currentMonthOfFallback, month)
 }
-
-// MARK: Helper
 
 public extension Array where Element == Ride {
   func sortByDateAndFilterBeforeDate(_ now: () -> Date) -> Self {

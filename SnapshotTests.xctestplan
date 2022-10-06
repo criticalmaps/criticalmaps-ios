@@ -1,0 +1,87 @@
+{
+  "configurations" : [
+    {
+      "id" : "9D89E8D0-7418-462C-A6E0-2824BFA8D25D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "language" : "en",
+    "locationScenario" : {
+      "identifier" : "..\/..\/App\/Berlin:Germany.gpx"
+    },
+    "region" : "DE"
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "AppFeatureTests",
+        "RequestTimerCoreTests"
+      ],
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "AppFeatureTests",
+        "name" : "AppFeatureTests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "ChatFeatureCore",
+        "ChatInputCoreTests",
+        "ChatViewStateTests",
+        "IdentifiedMessagesTests"
+      ],
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "ChatFeatureTests",
+        "name" : "ChatFeatureTests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "MapFeatureCoreTests",
+        "RiderAnnotationUpdateClientTests",
+        "UserTrackingModeCoreTests"
+      ],
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "MapFeatureTests",
+        "name" : "MapFeatureTests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "AppearanceSettingsCoreTests",
+        "RideEventSettingsCoreTests",
+        "SettingsFeatureCoreTests"
+      ],
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "SettingsFeatureTests",
+        "name" : "SettingsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "StyleguideTests",
+        "name" : "StyleguideTests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "TweetTests",
+        "TwitterFeedCoreTests"
+      ],
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "TwitterFeedFeatureTests",
+        "name" : "TwitterFeedFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}

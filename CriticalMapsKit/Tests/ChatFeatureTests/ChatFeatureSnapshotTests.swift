@@ -4,7 +4,7 @@ import SwiftUI
 import TestHelper
 import XCTest
 
-class ChatFeatureSnapshotTests: XCTestCase {
+final class ChatFeatureSnapshotTests: XCTestCase {
   func test_chatFeatureViewSnapshot() {
     let view = ChatView(
       store: .init(
@@ -15,15 +15,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           ]),
           chatInputState: .init()
         ),
-        reducer: ChatFeature.reducer,
-        environment: .init(
-          locationsAndChatDataService: .noop,
-          mainQueue: .immediate,
-          idProvider: .noop,
-          uuid: { UUID(uuidString: "123")! },
-          date: { Date(timeIntervalSinceReferenceDate: 0) },
-          userDefaultsClient: .noop
-        )
+        reducer: ChatFeature()
       )
     )
     
@@ -40,15 +32,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           ]),
           chatInputState: .init()
         ),
-        reducer: ChatFeature.reducer,
-        environment: .init(
-          locationsAndChatDataService: .noop,
-          mainQueue: .immediate,
-          idProvider: .noop,
-          uuid: { UUID(uuidString: "123")! },
-          date: { Date(timeIntervalSinceReferenceDate: 0) },
-          userDefaultsClient: .noop
-        )
+        reducer: ChatFeature()
       )
     )
     .environment(\.colorScheme, .dark)
@@ -63,8 +47,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           isEditing: true,
           message: "Hello W"
         ),
-        reducer: ChatInput.reducer,
-        environment: .init()
+        reducer: ChatInput()
       )
     )
     
@@ -78,8 +61,7 @@ class ChatFeatureSnapshotTests: XCTestCase {
           isEditing: false,
           message: ""
         ),
-        reducer: ChatInput.reducer,
-        environment: .init()
+        reducer: ChatInput()
       )
     )
     

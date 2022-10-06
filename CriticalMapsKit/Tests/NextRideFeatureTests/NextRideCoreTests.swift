@@ -2,13 +2,14 @@ import Combine
 import ComposableArchitecture
 import Foundation
 import Helpers
-@testable import NextRideFeature
+import NextRideFeature
 import SharedModels
 import UserDefaultsClient
 import XCTest
 
 // swiftlint:disable:next type_body_length
-@MainActor final class NextRideCoreTests: XCTestCase {
+@MainActor
+final class NextRideCoreTests: XCTestCase {
   let now = {
     Calendar.current.date(
       from: .init(
@@ -65,8 +66,11 @@ import XCTest
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
   func test_disabledNextRideFeature_shouldNotRequestRides() {
-    var settings = UserDefaultsClient.noop
-    settings.dataForKey = { _ in
+    let store = TestStore(
+      initialState: .init(),
+      reducer: NextRideFeature()
+    )
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: false,
         typeSettings: [],
@@ -74,43 +78,27 @@ import XCTest
       )
       .encoded()
     }
-    // when
-    let store = TestStore(
-      initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: .noop,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
-    )
+    store.dependencies.isNetworkAvailable = true
     
     // no effect received
     store.send(.getNextRide(coordinate))
   }
   
   func test_getNextRide_shouldReturnMockRide() async {
-    let service = NextRideService(nextRide: { _, _, _ in self.rides })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in try? RideEventSettings.default.encoded() }
-    // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.userDefaultsClient.dataForKey = { _ in try? RideEventSettings.default.encoded()
+    }
+    store.dependencies.nextRideService.nextRide = { _, _, _ in self.rides }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     await _ = store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(rides[1])) {
       $0.nextRide = self.rides[1]
@@ -118,11 +106,11 @@ import XCTest
   }
   
   func test_getNextRide_shouldReturnError() async {
-    let service = NextRideService(nextRide: { _, _, _ in
-      throw NextRideService.Failure(internalError: .badRequest)
-    })
-    var settings = UserDefaultsClient.noop
-    settings.dataForKey = { _ in
+    let store = TestStore(
+      initialState: .init(),
+      reducer: NextRideFeature()
+    )
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [],
@@ -130,29 +118,27 @@ import XCTest
       )
       .encoded()
     }
-    // when
-    let store = TestStore(
-      initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
-    )
+    store.dependencies.isNetworkAvailable = true
+    store.dependencies.nextRideService.nextRide = { _, _, _ in
+      throw NextRideService.Failure(internalError: .badRequest)
+    }
+    store.dependencies.date = .constant(now())
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
   }
   
   func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
-    let service = NextRideService(nextRide: { _, _, _ in
+    let store = TestStore(
+      initialState: .init(),
+      reducer: NextRideFeature()
+    )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in
       self.rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
+    }
+    store.dependencies.isNetworkAvailable = true
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: true,
         typeSettings: [
@@ -162,22 +148,12 @@ import XCTest
       )
       .encoded()
     }
-    // when
-    let store = TestStore(
-      initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
-    )
+    store.dependencies.date = .constant(now())
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
   }
 
@@ -220,29 +196,25 @@ import XCTest
         )
       ]
     }
-    let service = NextRideService(nextRide: { _, _, _ in
-      ridesWithARideWithNilRideType
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default.encoded()
-    }
+   
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in
+      ridesWithARideWithNilRideType
+    }
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default.encoded()
+    }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType))) {
-      $0.rideEvents = ridesWithARideWithNilRideType.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = ridesWithARideWithNilRideType.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
       $0.nextRide = ridesWithARideWithNilRideType[1]
@@ -269,26 +241,20 @@ import XCTest
         rideType: .criticalMass
       )
     ]
-    let service = NextRideService(nextRide: { _, _, _ in
-      rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
+    
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
@@ -346,30 +312,24 @@ import XCTest
         rideType: .criticalMass
       )
     ]
-    let service = NextRideService(nextRide: { _, _, _ in
-      rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
+    
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
@@ -430,33 +390,26 @@ import XCTest
         rideType: .criticalMass
       )
     ]
-    let service = NextRideService(nextRide: { _, _, _ in
-      rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
+    
     // when
     var state = NextRideFeature.State()
     state.userLocation = .init(latitude: 53.1235, longitude: 13.4248)
-  
     let store = TestStore(
       initialState: state,
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: now,
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(rides[2])) {
       $0.nextRide = rides[2]
@@ -500,30 +453,24 @@ import XCTest
         rideType: .criticalMass
       )
     ]
-    let service = NextRideService(nextRide: { _, _, _ in
-      rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
+    
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: { self.now().addingTimeInterval(60 * 60 * 24) },
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
@@ -567,30 +514,24 @@ import XCTest
         rideType: .criticalMass
       )
     ]
-    let service = NextRideService(nextRide: { _, _, _ in
-      rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
+    
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: { self.now().addingTimeInterval(60 * 60 * 48) },
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    store.dependencies.date = .constant(now())
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(rides[0])) {
       $0.nextRide = rides[0]
@@ -634,30 +575,24 @@ import XCTest
         rideType: .criticalMass
       )
     ]
-    let service = NextRideService(nextRide: { _, _, _ in
-      rides
-    })
-    var settings: UserDefaultsClient = .noop
-    settings.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
+    
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature.reducer,
-      environment: .init(
-        service: service,
-        store: settings,
-        now: { self.now().addingTimeInterval(60 * 60 * 72) }, // Mon. 2022-03-28
-        mainQueue: testScheduler.eraseToAnyScheduler(),
-        coordinateObfuscator: .live
-      )
+      reducer: NextRideFeature()
     )
+    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
+    store.dependencies.userDefaultsClient.dataForKey = { _ in
+      try? RideEventSettings.default
+        .encoded()
+    }
+    store.dependencies.date = .constant(now().addingTimeInterval(60 * 60 * 72))
+    store.dependencies.isNetworkAvailable = true
+    
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.environment.now)
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
     await store.receive(.setNextRide(rides[1])) {
       $0.nextRide = rides[1]

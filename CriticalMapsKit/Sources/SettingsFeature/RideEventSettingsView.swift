@@ -7,10 +7,13 @@ import SwiftUIHelpers
 
 /// A view to render next ride event settings
 public struct RideEventSettingsView: View {
-  let store: Store<RideEventSettings, RideEventSettingsActions>
-  @ObservedObject var viewStore: ViewStore<RideEventSettings, RideEventSettingsActions>
+  public typealias State = RideEventSettings
+  public typealias Action = RideEventsSettingsFeature.Action
 
-  public init(store: Store<RideEventSettings, RideEventSettingsActions>) {
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
+
+  public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -24,7 +27,7 @@ public struct RideEventSettingsView: View {
           Toggle(
             isOn: viewStore.binding(
               get: \.isEnabled,
-              send: RideEventSettingsActions.setRideEventsEnabled
+              send: Action.setRideEventsEnabled
             ),
             label: { Text(L10n.Settings.eventSettingsEnable) }
           )
@@ -112,8 +115,7 @@ struct RideEventSettings_Previews: PreviewProvider {
               typeSettings: .all,
               eventDistance: .near
             ),
-            reducer: rideeventSettingsReducer,
-            environment: .init()
+            reducer: RideEventsSettingsFeature().debug()
           )
         )
       }

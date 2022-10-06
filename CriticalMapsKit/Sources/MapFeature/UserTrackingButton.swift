@@ -6,10 +6,13 @@ import SwiftUIHelpers
 
 /// Button to toggle tracking modes
 public struct UserTrackingButton: View {
-  let store: Store<UserTrackingState, UserTrackingAction>
-  @ObservedObject var viewStore: ViewStore<UserTrackingState, UserTrackingAction>
+  public typealias State = UserTrackingFeature.State
+  public typealias Action = UserTrackingFeature.Action
 
-  public init(store: Store<UserTrackingState, UserTrackingAction>) {
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
+
+  public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
@@ -60,22 +63,19 @@ struct UserTrackingButton_Previews: PreviewProvider {
         UserTrackingButton(
           store: .init(
             initialState: .init(userTrackingMode: .none),
-            reducer: userTrackingReducer,
-            environment: UserTrackingEnvironment()
+            reducer: UserTrackingFeature().debug()
           )
         )
         UserTrackingButton(
           store: .init(
             initialState: .init(userTrackingMode: .follow),
-            reducer: userTrackingReducer,
-            environment: UserTrackingEnvironment()
+            reducer: UserTrackingFeature().debug()
           )
         )
         UserTrackingButton(
           store: .init(
             initialState: .init(userTrackingMode: .followWithHeading),
-            reducer: userTrackingReducer,
-            environment: UserTrackingEnvironment()
+            reducer: UserTrackingFeature().debug()
           )
         )
       }

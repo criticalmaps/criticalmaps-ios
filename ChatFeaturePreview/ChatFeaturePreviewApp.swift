@@ -9,15 +9,7 @@ struct ChatFeaturePreviewApp: App {
         ChatView(
           store: .init(
             initialState: .init(),
-            reducer: chatReducer,
-            environment: .init(
-              locationsAndChatDataService: .live(),
-              mainQueue: .main,
-              idProvider: .live(),
-              uuid: UUID.init,
-              date: Date.init,
-              userDefaultsClient: .live()
-            )
+            reducer: ChatFeature()
           )
         )
       }

@@ -12,13 +12,13 @@ public struct TwitterFeedService {
 // MARK: Live
 
 public extension TwitterFeedService {
-  static func live(apiClient: APIClient = .live) -> Self {
+  static func live(apiClient: APIClient = .live()) -> Self {
     Self(
       getTweets: {
         let request = TwitterFeedRequest()
 
-        let tweetData = try await apiClient.dispatch(request)
-        let tweets = try request.decode(tweetData)
+        let (data, _) = try await apiClient.request(request)
+        let tweets = try request.decode(data)
         return tweets.statuses
       }
     )

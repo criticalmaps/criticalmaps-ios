@@ -1,22 +1,24 @@
 import ComposableArchitecture
 import Helpers
 import L10n
-import SharedEnvironment
+import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-  @Environment(\.connectivity) var isConnected
 
-  public init(store: Store<MapFeature.State, MapFeature.Action>) {
+  public typealias State = MapFeature.State
+  public typealias Action = MapFeature.Action
+
+  public init(store: Store<State, Action>) {
     self.store = store
     viewStore = ViewStore(store)
   }
 
-  let store: Store<MapFeature.State, MapFeature.Action>
-  @ObservedObject var viewStore: ViewStore<MapFeature.State, MapFeature.Action>
+  let store: Store<State, Action>
+  @ObservedObject var viewStore: ViewStore<State, Action>
 
   public var body: some View {
     ZStack(alignment: .topLeading) {
@@ -49,20 +51,20 @@ public struct MapFeatureView: View {
 
 // MARK: Preview
 
+import SwiftUIHelpers
+
 struct MapFeatureView_Previews: PreviewProvider {
   static var previews: some View {
-    MapFeatureView(
-      store: Store<MapFeature.State, MapFeature.Action>(
-        initialState: MapFeature.State(
-          riders: [],
-          userTrackingMode: UserTrackingState(userTrackingMode: .follow)
-        ),
-        reducer: MapFeature.reducer,
-        environment: MapFeature.Environment(
-          locationManager: .live,
-          mainQueue: .failing
+    Preview {
+      MapFeatureView(
+        store: Store<MapFeature.State, MapFeature.Action>(
+          initialState: MapFeature.State(
+            riders: [],
+            userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
+          ),
+          reducer: MapFeature().debug()
         )
       )
-    )
+    }
   }
 }

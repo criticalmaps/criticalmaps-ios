@@ -5,15 +5,12 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
-@MainActor final class ChatFeatureCore: XCTestCase {
+@MainActor
+final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
-  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
-    let locationsAndChatDataService = LocationsAndChatDataService(
-      getLocationsAndSendMessages: { _ in mockResponse }
-    )
-    
+  func defaultTestStore() -> TestStore<ChatFeature, ChatFeature.State, ChatFeature.Action, Void> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
         chatMessages: .results([:]),
@@ -22,16 +19,18 @@ import XCTest
           message: "Hello World!"
         )
       ),
-      reducer: ChatFeature.reducer,
-      environment: ChatFeature.Environment(
-        locationsAndChatDataService: locationsAndChatDataService,
-        mainQueue: .immediate,
-        idProvider: .noop,
-        uuid: uuid,
-        date: date,
-        userDefaultsClient: .noop
-      )
+      reducer: ChatFeature()
     )
+    testStore.dependencies.uuid = .constant(uuid())
+    testStore.dependencies.date = .constant(date())
+    testStore.dependencies.isNetworkAvailable = true
+    
+    return testStore
+  }
+  
+  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
+    let testStore = defaultTestStore()
+    testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in mockResponse }
     
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
@@ -45,28 +44,11 @@ import XCTest
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
     let error = NSError()
-    let locationsAndChatDataService = LocationsAndChatDataService(
-      getLocationsAndSendMessages: { _ in throw error }
-    )
+    let testStore = defaultTestStore()
     
-    let testStore = TestStore(
-      initialState: ChatFeature.State(
-        chatMessages: .results([:]),
-        chatInputState: .init(
-          isEditing: true,
-          message: "Hello World!"
-        )
-      ),
-      reducer: ChatFeature.reducer,
-      environment: ChatFeature.Environment(
-        locationsAndChatDataService: locationsAndChatDataService,
-        mainQueue: .immediate,
-        idProvider: .noop,
-        uuid: uuid,
-        date: date,
-        userDefaultsClient: .noop
-      )
-    )
+    testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in
+      throw error
+    }
             
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
@@ -77,35 +59,28 @@ import XCTest
   }
   
   func test_didAppear_ShouldSet_appearanceTimeinterval() async {
-    let uuid: () -> UUID = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
-    let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
-    
-    var didWriteChatAppearanceTimeinterval = false
-    var chatAppearanceTimeinterval: TimeInterval = 0
-    
-    var userDefaultsClient: UserDefaultsClient = .noop
-    userDefaultsClient.setDouble = { interval, _ in
-      didWriteChatAppearanceTimeinterval = true
-      chatAppearanceTimeinterval = interval
-      return .none
-    }
+    let didWriteChatAppearanceTimeinterval = ActorIsolated(false)
+    let chatAppearanceTimeinterval: ActorIsolated<TimeInterval> = ActorIsolated(0)
     
     let testStore = TestStore(
       initialState: ChatFeature.State(),
-      reducer: ChatFeature.reducer,
-      environment: ChatFeature.Environment(
-        locationsAndChatDataService: .noop,
-        mainQueue: .immediate,
-        idProvider: .noop,
-        uuid: uuid,
-        date: date,
-        userDefaultsClient: userDefaultsClient
-      )
+      reducer: ChatFeature()
     )
+    testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
+      await didWriteChatAppearanceTimeinterval.setValue(true)
+      await chatAppearanceTimeinterval.setValue(interval)
+      return ()
+    }
+    testStore.dependencies.uuid = .constant(uuid())
+    testStore.dependencies.date = .constant(date())
   
     _ = await testStore.send(.onAppear)
-    XCTAssertEqual(chatAppearanceTimeinterval, date().timeIntervalSince1970)
-    XCTAssertTrue(didWriteChatAppearanceTimeinterval)
+    await chatAppearanceTimeinterval.withValue { interval in
+      XCTAssertEqual(interval, date().timeIntervalSince1970)
+    }
+    await didWriteChatAppearanceTimeinterval.withValue { val in
+      XCTAssertTrue(val)
+    }
   }
   
   func test_chatViewState() {
@@ -113,7 +88,7 @@ import XCTest
       chatMessages: .results(mockResponse.chatMessages),
       chatInputState: .init()
     )
-    let sut = ChatView.ChatViewState(state)
+    let sut = ChatView.ViewState(state)
     
     let sortedMessages = sut.identifiedChatMessages
     

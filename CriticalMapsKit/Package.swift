@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 
 import PackageDescription
 
@@ -18,17 +18,18 @@ let package = Package(
     .library(name: "TwitterFeature", targets: ["SocialFeature"])
   ],
   dependencies: [
+    .package(url: "https://github.com/MarcoEidinger/SwiftFormatPlugin", from: "0.49.18"),
     .package(
       name: "swift-composable-architecture",
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      .upToNextMajor(from: "0.18.0")
+      branch: "protocol-beta"
     ),
     .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0"),
     .package(
       name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
-      .exact("1.8.2")
+      .upToNextMajor(from: "1.8.2")
     ),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
     .package(url: "https://github.com/vtourraine/AcknowList.git", .upToNextMajor(from: "2.1.0")),
@@ -56,7 +57,7 @@ let package = Package(
         "NextRideFeature",
         "PathMonitorClient",
         "SettingsFeature",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SocialFeature",
         "Styleguide",
         "UserDefaultsClient",
@@ -73,6 +74,7 @@ let package = Package(
         "IDProvider",
         "L10n",
         "Logger",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -127,7 +129,7 @@ let package = Package(
         "L10n",
         "Logger",
         "NextRideFeature",
-        "SharedEnvironment",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -142,6 +144,7 @@ let package = Package(
         "Helpers",
         "L10n",
         "Logger",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient",
@@ -159,6 +162,7 @@ let package = Package(
         "L10n",
         "Logger",
         "Helpers",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
@@ -169,8 +173,16 @@ let package = Package(
       resources: [.process("Resources/")]
     ),
     .target(
-      name: "SharedEnvironment",
-      dependencies: []
+      name: "SharedDependencies",
+      dependencies: [
+        "ApiClient",
+        "FileClient",
+        "IDProvider",
+        "PathMonitorClient",
+        "UIApplicationClient",
+        "UserDefaultsClient",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]
     ),
     .target(
       name: "SharedModels",
@@ -212,6 +224,8 @@ let package = Package(
       name: "TwitterFeedFeature",
       dependencies: [
         "ApiClient",
+        "Logger",
+        "SharedDependencies",
         "SharedModels",
         "Styleguide",
         "UIApplicationClient",
@@ -343,6 +357,7 @@ package.targets.append(contentsOf: [
     name: "TwitterFeedFeatureTests",
     dependencies: [
       "Helpers",
+      "SharedDependencies",
       "TwitterFeedFeature",
       "TestHelper",
       .product(

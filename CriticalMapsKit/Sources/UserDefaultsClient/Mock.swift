@@ -5,12 +5,12 @@ public extension UserDefaultsClient {
   static let noop = Self(
     boolForKey: { _ in false },
     dataForKey: { _ in nil },
-    doubleForKey: { _ in Double.leastNonzeroMagnitude },
-    integerForKey: { _ in -1 },
-    remove: { _ in .none },
-    setBool: { _, _ in .none },
-    setData: { _, _ in .none },
-    setDouble: { _, _ in .none },
-    setInteger: { _, _ in .none }
+    doubleForKey: { _ in 0 },
+    integerForKey: { _ in 0 },
+    remove: { _ in },
+    setBool: { _, _ in },
+    setData: { _, _ in },
+    setDouble: { _, _ in },
+    setInteger: { _, _ in }
   )
 }

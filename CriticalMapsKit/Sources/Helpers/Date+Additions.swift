@@ -16,11 +16,11 @@ public extension Date {
 
   /// - Returns: Formatted time without date components.
   var humanReadableTime: String {
-    DateFormatter.localeShortTimeFormatter.string(from: self)
+    self.formatted(Date.FormatStyle.localeAwareShortTime)
   }
 
   /// - Returns: Formatted date without time components.
   var humanReadableDate: String {
-    DateFormatter.localeShortDateFormatter.string(from: self)
+    self.formatted(Date.FormatStyle.localeAwareShortDate)
   }
 }

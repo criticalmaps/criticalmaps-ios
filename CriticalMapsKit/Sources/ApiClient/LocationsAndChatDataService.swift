@@ -1,12 +1,15 @@
 import Foundation
 import SharedModels
 
-// Interface
+// MARK: Interface
+
 /// A Service to send and fetch locations and chat messages from the Criticl Maps API
 public struct LocationsAndChatDataService {
-  public var getLocationsAndSendMessages: (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages
+  public typealias Body = SendLocationAndChatMessagesPostBody
 
-  public init(getLocationsAndSendMessages: @escaping (SendLocationAndChatMessagesPostBody) async throws -> LocationAndChatMessages) {
+  public var getLocationsAndSendMessages: @Sendable (Body) async throws -> LocationAndChatMessages
+
+  public init(getLocationsAndSendMessages: @Sendable @escaping (Body) async throws -> LocationAndChatMessages) {
     self.getLocationsAndSendMessages = getLocationsAndSendMessages
   }
 }
@@ -14,17 +17,13 @@ public struct LocationsAndChatDataService {
 // MARK: Live
 
 public extension LocationsAndChatDataService {
-  static func live(
-    apiClient: APIClient = .live
-  ) -> Self {
-    Self(
-      getLocationsAndSendMessages: { body in
-        let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
+  static func live(apiClient: APIClient = .live()) -> Self {
+    Self { body in
+      let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
 
-        let data = try await apiClient.dispatch(request)
-        return try request.decode(data)
-      }
-    )
+      let (data, _) = try await apiClient.request(request)
+      return try request.decode(data)
+    }
   }
 }
 

@@ -4,24 +4,12 @@ import SnapshotTesting
 import TestHelper
 import XCTest
 
-class AppNavigationViewSnapshotTests: XCTestCase {
+final class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_light() {
     let view = AppNavigationView(
       store: .init(
-        initialState: .init(
-          locationsAndChatMessages: nil),
-        reducer: AppFeature.reducer,
-        environment: .init(
-          service: .noop,
-          idProvider: .noop,
-          mainQueue: .failing,
-          locationManager: .failing,
-          nextRideService: .noop,
-          userDefaultsClient: .noop,
-          date: Date.init,
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        initialState: .init(locationsAndChatMessages: nil),
+        reducer: AppFeature()
       )
     )
     
@@ -39,20 +27,8 @@ class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_dark() {
     let view = AppNavigationView(
       store: .init(
-        initialState: .init(
-          locationsAndChatMessages: nil),
-        reducer: AppFeature.reducer,
-        environment: .init(
-          service: .noop,
-          idProvider: .noop,
-          mainQueue: .failing,
-          locationManager: .failing,
-          nextRideService: .noop,
-          userDefaultsClient: .noop,
-          date: Date.init,
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        initialState: .init(locationsAndChatMessages: nil),
+        reducer: AppFeature()
       )
     )
     .environment(\.colorScheme, .dark)
@@ -69,18 +45,7 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     let view = AppNavigationView(
       store: .init(
         initialState: appState,
-        reducer: AppFeature.reducer,
-        environment: .init(
-          service: .noop,
-          idProvider: .noop,
-          mainQueue: .failing,
-          locationManager: .failing,
-          nextRideService: .noop,
-          userDefaultsClient: .noop,
-          date: Date.init,
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        reducer: AppFeature()
       )
     )
     .environment(\.colorScheme, .dark)
@@ -97,18 +62,7 @@ class AppNavigationViewSnapshotTests: XCTestCase {
     let view = AppNavigationView(
       store: .init(
         initialState: appState,
-        reducer: AppFeature.reducer,
-        environment: .init(
-          service: .noop,
-          idProvider: .noop,
-          mainQueue: .failing,
-          locationManager: .failing,
-          nextRideService: .noop,
-          userDefaultsClient: .noop,
-          date: Date.init,
-          uiApplicationClient: .noop,
-          setUserInterfaceStyle: { _ in .none }
-        )
+        reducer: AppFeature()
       )
     )
     

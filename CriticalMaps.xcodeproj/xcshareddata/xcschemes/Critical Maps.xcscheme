@@ -27,7 +27,7 @@
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
             <TestPlanReference
-               reference = "container:App/ModulesTests.xctestplan">
+               reference = "container:App/UnitTests.xctestplan">
             </TestPlanReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,8 +39,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:App/ModulesTests.xctestplan"
+            reference = "container:App/UnitTests.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:SnapshotTests.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>
