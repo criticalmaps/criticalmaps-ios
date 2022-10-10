@@ -49,6 +49,7 @@ final class AppFeatureTests: XCTestCase {
     store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
+    await store.receive(.fetchData)
     await store.receive(.connectionObserver(.observeConnection))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
@@ -61,15 +62,16 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.presentObservationModeAlert) {
       $0.alert = .viewingModeAlert
     }
+    await store.receive(.fetchDataResponse(.failure(testError))) {
+      $0.locationsAndChatMessages = .failure(testError)
+    }
     await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
     await store.receive(.requestTimer(.timerTicked))
     await store.receive(.fetchData)
   
     await testScheduler.advance()
     
-    await store.receive(.fetchDataResponse(.failure(testError))) {
-      $0.locationsAndChatMessages = .failure(testError)
-    }
+    await store.receive(.fetchDataResponse(.failure(testError)))
     
     await task.cancel()
     
@@ -135,6 +137,7 @@ final class AppFeatureTests: XCTestCase {
     store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
+    await store.receive(.fetchData)
     await store.receive(.connectionObserver(.observeConnection))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
@@ -146,9 +149,6 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.userSettingsLoaded(.success(.init())))
     
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
-    await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
-    await store.receive(.requestTimer(.timerTicked))
-    await store.receive(.fetchData)
     await store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
@@ -158,6 +158,10 @@ final class AppFeatureTests: XCTestCase {
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
       $0.chatMessageBadgeCount = 6
     }
+    await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
+    await store.receive(.requestTimer(.timerTicked))
+    await store.receive(.fetchData)
+    await store.receive(.fetchDataResponse(.success(serviceResponse)))
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
 
     XCTAssertTrue(didRequestLocation)
@@ -254,6 +258,7 @@ final class AppFeatureTests: XCTestCase {
     store.dependencies.isNetworkAvailable = true
     
     let task = await store.send(.onAppear)
+    await store.receive(.fetchData)
     await store.receive(.connectionObserver(.observeConnection))
     await store.receive(.map(.onAppear))
     await store.receive(.requestTimer(.startTimer)) {
@@ -267,6 +272,15 @@ final class AppFeatureTests: XCTestCase {
     )
     locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
     
+    await store.receive(.fetchDataResponse(.success(serviceResponse))) {
+      $0.locationsAndChatMessages = .success(serviceResponse)
+      $0.socialState = .init(
+        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
+        twitterFeedState: .init()
+      )
+      $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
+      $0.chatMessageBadgeCount = 6
+    }
     await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
     
@@ -287,15 +301,7 @@ final class AppFeatureTests: XCTestCase {
     
     await testScheduler.advance()
     
-    await store.receive(.fetchDataResponse(.success(serviceResponse))) {
-      $0.locationsAndChatMessages = .success(serviceResponse)
-      $0.socialState = .init(
-        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
-        twitterFeedState: .init()
-      )
-      $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
-      $0.chatMessageBadgeCount = 6
-    }
+    await store.receive(.fetchDataResponse(.success(serviceResponse)))
     await task.cancel()
     
     XCTAssertTrue(didRequestAlwaysAuthorization)

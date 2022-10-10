@@ -10,7 +10,7 @@ final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
-  func defaultTestStore() -> TestStore<ChatFeature, ChatFeature.State, ChatFeature.Action, Void> {
+  func defaultTestStore() -> TestStore<ChatFeature.State, ChatFeature.Action, ChatFeature.State, ChatFeature.Action, ()> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
         chatMessages: .results([:]),

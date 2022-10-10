@@ -9,7 +9,7 @@ final class TwitterFeedViewStateTests: XCTestCase {
     feedState.twitterFeedIsLoading = true
     
     let viewState = TwitterFeedView.TwitterFeedViewState(feedState)
-    XCTAssertTrue(viewState.shouldDisplayPlaceholder)
+    XCTAssertTrue(viewState.displayPlaceholder)
   }
   
   func test_setShouldDisplayPlaceholder2() {
@@ -30,6 +30,6 @@ final class TwitterFeedViewStateTests: XCTestCase {
     feedState.twitterFeedIsLoading = false
     
     let viewState = TwitterFeedView.TwitterFeedViewState(feedState)
-    XCTAssertFalse(viewState.shouldDisplayPlaceholder)
+    XCTAssertFalse(viewState.displayPlaceholder)
   }
 }
