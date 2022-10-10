@@ -13,7 +13,6 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
-// swiftlint:disable:next type_body_length
 @MainActor
 final class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
@@ -589,9 +588,8 @@ final class AppFeatureTests: XCTestCase {
     }
   }
   
-  func test_viewingModePrompt() async throws {
+  func test_didSaveUserSettings() async throws {
     let didSaveUserSettings = ActorIsolated(false)
-    let didSetDidShowPrompt = ActorIsolated(false)
     
     let testQueue = DispatchQueue.test
     
@@ -604,21 +602,31 @@ final class AppFeatureTests: XCTestCase {
       await didSaveUserSettings.setValue(true)
       return ()
     }
-    store.dependencies.userDefaultsClient.setBool = { @Sendable _, _ in
-      await didSetDidShowPrompt.setValue(true)
-      return ()
-    }
     
-    await store.send(.presentObservationModeAlert) {
-      $0.alert = .viewingModeAlert
-    }
     await store.send(.setObservationMode(false))
-    
-    try? await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
     
     await didSaveUserSettings.withValue { val in
       XCTAssertTrue(val)
     }
+  }
+  
+  func test_viewingModePrompt() async throws {
+    let didSetDidShowPrompt = ActorIsolated(false)
+    
+    let testQueue = DispatchQueue.test
+    
+    let store = TestStore(
+      initialState: AppFeature.State(),
+      reducer: AppFeature()
+    )
+    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
+    store.dependencies.userDefaultsClient.setBool = { _, _ in
+      await didSetDidShowPrompt.setValue(true)
+      return ()
+    }
+    
+    await store.send(.setObservationMode(false))
+    
     await didSetDidShowPrompt.withValue { val in
       XCTAssertTrue(val)
     }

@@ -25,11 +25,9 @@ public struct FileClient {
     _ data: A,
     to fileName: String,
     with encoder: JSONEncoder = JSONEncoder()
-  ) async {
-    Task(priority: .background) {
-      let data = try data.encoded(encoder: encoder)
-      try await self.save(fileName, data)
-    }
+  ) async throws {
+    let data = try data.encoded(encoder: encoder)
+    try await self.save(fileName, data)
   }
 }
 
@@ -40,8 +38,8 @@ public extension FileClient {
     try await load(UserSettings.self, from: userSettingsFileName)
   }
 
-  func saveUserSettings(userSettings: UserSettings) async {
-    await self.save(userSettings, to: userSettingsFileName)
+  func saveUserSettings(userSettings: UserSettings) async throws {
+    try await self.save(userSettings, to: userSettingsFileName)
   }
 }
 
