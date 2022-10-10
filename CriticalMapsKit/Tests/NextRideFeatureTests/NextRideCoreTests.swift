@@ -158,44 +158,27 @@ final class NextRideCoreTests: XCTestCase {
   }
 
   func test_getNextRide_shouldReturnRide_whenRideTypeNil() async {
-    var ridesWithARideWithNilRideType: [Ride] {
-      [
-        Ride(
-          id: 0,
-          slug: nil,
-          title: "CriticalMaps Berlin",
-          description: nil,
-          dateTime: now().addingTimeInterval(36000),
-          location: nil,
-          latitude: 53.1235,
-          longitude: 13.4234,
-          estimatedParticipants: nil,
-          estimatedDistance: nil,
-          estimatedDuration: nil,
-          enabled: true,
-          disabledReason: nil,
-          disabledReasonMessage: nil,
-          rideType: .criticalMass
-        ),
-        Ride(
-          id: 0,
-          slug: nil,
-          title: "CriticalMaps Falkensee",
-          description: nil,
-          dateTime: now().addingTimeInterval(3600),
-          location: "Vorplatz der alten Stadthalle",
-          latitude: 53.1235,
-          longitude: 13.4234,
-          estimatedParticipants: nil,
-          estimatedDistance: nil,
-          estimatedDuration: nil,
-          enabled: true,
-          disabledReason: nil,
-          disabledReasonMessage: nil,
-          rideType: nil
-        )
-      ]
-    }
+    var ridesWithARideWithNilRideType: [Ride] = [
+      Ride(
+        id: 0,
+        title: "CriticalMaps Berlin",
+        dateTime: now().addingTimeInterval(36000),
+        latitude: 53.1235,
+        longitude: 13.4234,
+        enabled: true,
+        rideType: .criticalMass
+      ),
+      Ride(
+        id: 0,
+        title: "CriticalMaps Falkensee",
+        dateTime: now().addingTimeInterval(3600),
+        location: "Vorplatz der alten Stadthalle",
+        latitude: 53.1235,
+        longitude: 13.4234,
+        enabled: true,
+        rideType: .alleycat
+      )
+    ]
    
     // when
     let store = TestStore(
@@ -225,19 +208,11 @@ final class NextRideCoreTests: XCTestCase {
     let rides = [
       Ride(
         id: 0,
-        slug: nil,
         title: "CriticalMaps Berlin",
-        description: nil,
         dateTime: now().addingTimeInterval(3600),
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: false,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       )
     ]
@@ -279,36 +254,20 @@ final class NextRideCoreTests: XCTestCase {
     let rides = [
       Ride(
         id: 0,
-        slug: nil,
         title: "CriticalMaps Berlin",
-        description: nil,
         dateTime: now().addingTimeInterval(3600),
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       ),
       Ride(
         id: 0,
-        slug: nil,
         title: "Critical Maps Berlin",
-        description: nil,
         dateTime: firstOfApril,
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       )
     ]
@@ -340,53 +299,29 @@ final class NextRideCoreTests: XCTestCase {
     let rides = [
       Ride(
         id: 0,
-        slug: nil,
         title: "CriticalMaps Berlin",
-        description: nil,
         dateTime: firstOfApril.addingTimeInterval(74000),
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       ),
       Ride(
         id: 7,
-        slug: nil,
         title: "Critical Maps Berlin",
-        description: nil,
         dateTime: firstOfApril,
-        location: nil,
         latitude: 63.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       ),
       Ride(
         id: 4,
-        slug: nil,
         title: "Critical Maps Pankow",
-        description: nil,
         dateTime: firstOfApril,
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       )
     ]
@@ -420,36 +355,20 @@ final class NextRideCoreTests: XCTestCase {
     let rides = [
       Ride(
         id: 0,
-        slug: nil,
         title: "CriticalMaps Berlin",
-        description: nil,
         dateTime: now().addingTimeInterval(60 * 60 * 24).addingTimeInterval(3600),
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       ),
       Ride(
         id: 0,
-        slug: nil,
         title: "Critical Maps Berlin",
-        description: nil,
         dateTime: firstOfApril,
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       )
     ]
@@ -481,36 +400,20 @@ final class NextRideCoreTests: XCTestCase {
     let rides = [
       Ride(
         id: 0,
-        slug: nil,
         title: "CriticalMaps Berlin",
-        description: nil,
         dateTime: now().addingTimeInterval(60 * 60 * 48).addingTimeInterval(3600),
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       ),
       Ride(
         id: 0,
-        slug: nil,
         title: "Critical Maps Berlin",
-        description: nil,
         dateTime: firstOfApril,
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       )
     ]
@@ -542,36 +445,20 @@ final class NextRideCoreTests: XCTestCase {
     let rides = [
       Ride(
         id: 0,
-        slug: nil,
         title: "CriticalMaps Berlin",
-        description: nil,
         dateTime: now().addingTimeInterval(60 * 60 * 48).addingTimeInterval(3600),
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       ),
       Ride(
         id: 0,
-        slug: nil,
         title: "Critical Maps Berlin",
-        description: nil,
         dateTime: firstOfApril,
-        location: nil,
         latitude: 53.1235,
         longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
         enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
         rideType: .criticalMass
       )
     ]

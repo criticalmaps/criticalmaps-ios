@@ -7,10 +7,8 @@ import XCTest
 
 @MainActor
 final class TweetTests: XCTestCase {
-  func test_createdAt_dateformatting() {
-    let date = Date(timeIntervalSince1970: 1635521516)
-    
-    let tweet = Tweet(
+  func tweet(_ date: Date) -> Tweet {
+    .init(
       id: "ID",
       text: "TEXT T$ESXT",
       createdAt: date,
@@ -20,8 +18,13 @@ final class TweetTests: XCTestCase {
         profileImageUrl: ""
       )
     )
-    
+  }
+
+  func test_createdAt_dateformatting() {
+    let date = Date(timeIntervalSince1970: 1635521516)
+
     let currentDate = date.advanced(by: 3600)
+    let tweet = tweet(date)
     
     let (value, a11yValue) = tweet.formattedCreationDate(currentDate: { currentDate })
     XCTAssertNoDifference(value, "1 hr")
@@ -40,10 +43,8 @@ final class TweetTests: XCTestCase {
       )
     )!
     
-    let tweet = Tweet(
-      id: "ID",
-      text: "TEXT T$ESXT",
-      createdAt: Calendar.current.date(
+    let tweet = tweet(
+      Calendar.current.date(
         from: .init(
           timeZone: .init(secondsFromGMT: 0),
           year: 2020,
@@ -52,14 +53,8 @@ final class TweetTests: XCTestCase {
           hour: 1,
           minute: 2
         )
-      )!,
-      user: .init(
-        name: "M",
-        screenName: "mbnz",
-        profileImageUrl: ""
-      )
+      )!
     )
-
     let (value, a11yValue) = tweet.formattedCreationDate(currentDate: { date })
     XCTAssertNoDifference(value, "1. Feb")
     XCTAssertNoDifference(a11yValue, "yesterday")
@@ -70,16 +65,7 @@ final class TweetTests: XCTestCase {
     
     let openedUrl = ActorIsolated<URL?>(nil)
         
-    let tweet = Tweet(
-      id: "ID",
-      text: "TEXT T$ESXT",
-      createdAt: date,
-      user: .init(
-        name: "M",
-        screenName: "mbnz",
-        profileImageUrl: ""
-      )
-    )
+    let tweet = tweet(date)
     let store = TestStore(
       initialState: tweet,
       reducer: TweetFeature()

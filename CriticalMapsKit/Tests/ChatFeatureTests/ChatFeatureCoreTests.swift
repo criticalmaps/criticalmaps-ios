@@ -101,12 +101,12 @@ final class ChatFeatureCore: XCTestCase {
 
 let mockResponse = LocationAndChatMessages(
   locations: [
-    "1": Location(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)
+    "1": .init(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)
   ],
   chatMessages: [
-    "ID0": ChatMessage(message: "Hello World!", timestamp: 1889.0),
-    "ID1": ChatMessage(message: "Hello World!", timestamp: 1234.0),
-    "ID2": ChatMessage(message: "Hello World!", timestamp: 1235.0),
-    "ID3": ChatMessage(message: "Hello World!", timestamp: 1236.0)
+    "ID0": .init(message: "Hello World!", timestamp: 1889.0),
+    "ID1": .init(message: "Hello World!", timestamp: 1234.0),
+    "ID2": .init(message: "Hello World!", timestamp: 1235.0),
+    "ID3": .init(message: "Hello World!", timestamp: 1236.0)
   ]
 )
