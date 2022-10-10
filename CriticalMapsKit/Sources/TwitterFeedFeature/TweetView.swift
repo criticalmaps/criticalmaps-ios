@@ -96,9 +96,11 @@ public struct TweetView: View {
           tweetPostDatetime
         }
       } else {
-        HStack {
-          twitterUserName
-          twitterScreenName
+        HStack(alignment: .top) {
+          VStack(alignment: .leading) {
+            twitterUserName
+            twitterScreenName            
+          }
           Spacer()
           tweetPostDatetime
         }
