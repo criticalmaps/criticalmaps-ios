@@ -93,7 +93,7 @@ public struct SettingsFeature: ReducerProtocol {
         return .fireAndForget {
           try await withTaskCancellation(id: SaveDebounceId.self, cancelInFlight: true) {
             try await mainQueue.sleep(for: .seconds(0.3))
-            await fileClient.saveUserSettings(userSettings: userSettings)
+            try await fileClient.saveUserSettings(userSettings: userSettings)
           }
         }
       }

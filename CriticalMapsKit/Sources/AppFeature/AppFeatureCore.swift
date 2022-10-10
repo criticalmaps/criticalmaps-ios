@@ -334,9 +334,9 @@ public struct AppFeature: ReducerProtocol {
         
         let userSettings = state.settingsState.userSettings
         return .fireAndForget {
-          await withTaskGroup(of: Void.self) { group in
+          await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
-              await fileClient.saveUserSettings(userSettings: userSettings)
+              try await fileClient.saveUserSettings(userSettings: userSettings)
             }
             group.addTask {
               await userDefaultsClient.setDidShowObservationModePrompt(true)
