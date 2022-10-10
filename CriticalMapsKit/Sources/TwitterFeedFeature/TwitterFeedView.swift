@@ -6,13 +6,13 @@ import SwiftUI
 
 public struct TwitterFeedView: View {
   public struct TwitterFeedViewState: Equatable {
-    public let shouldDisplayPlaceholder: Bool
+    public let displayPlaceholder: Bool
 
     public init(_ state: TwitterFeedFeature.State) {
-      if state.twitterFeedIsLoading && state.tweets.elements.isEmpty {
-        shouldDisplayPlaceholder = true
+      if state.twitterFeedIsLoading && !state.isRefreshing {
+        displayPlaceholder = true
       } else {
-        shouldDisplayPlaceholder = false
+        displayPlaceholder = false
       }
     }
   }
@@ -26,9 +26,9 @@ public struct TwitterFeedView: View {
   }
 
   public var body: some View {
-    TweetListView(store: viewStore.shouldDisplayPlaceholder ? .placeholder : self.store)
+    TweetListView(store: viewStore.displayPlaceholder ? .placeholder : self.store)
       .navigationBarTitleDisplayMode(.inline)
-      .redacted(reason: viewStore.shouldDisplayPlaceholder ? .placeholder : [])
+      .redacted(reason: viewStore.displayPlaceholder ? .placeholder : [])
       .onAppear { viewStore.send(.onAppear) }
   }
 }
