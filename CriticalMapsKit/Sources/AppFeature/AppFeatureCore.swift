@@ -155,6 +155,7 @@ public struct AppFeature: ReducerProtocol {
         
       case .onAppear:
         var effects: [Effect<Action, Never>] = [
+          Effect(value: .fetchData),
           Effect(value: .connectionObserver(.observeConnection)),
           .task {
             await .userSettingsLoaded(
