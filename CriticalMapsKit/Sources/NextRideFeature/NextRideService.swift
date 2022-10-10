@@ -19,9 +19,9 @@ public struct NextRideService {
 public extension NextRideService {
   static func live(apiClient: APIClient = .live()) -> Self {
     Self { coordinate, radius, month in
-      let request = NextRidesRequest(coordinate: coordinate, radius: radius, month: month)
-      let (data, _) = try await apiClient.request(request)
-      let rides = try request.decode(data)
+      let request = Request.nextRides(coordinate: coordinate, radius: radius, month: month)
+      let (data, _) = try await apiClient.send(request)
+      let rides: [Ride] = try data.decoded(decoder: .nextRideRequestDecoder)
       return rides
     }
   }
@@ -41,4 +41,13 @@ public extension NextRideService {
       self.internalError = internalError
     }
   }
+}
+
+extension JSONDecoder {
+  static let nextRideRequestDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .secondsSince1970
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    return decoder
+  }()
 }

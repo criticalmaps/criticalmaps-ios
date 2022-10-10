@@ -19,10 +19,9 @@ public struct LocationsAndChatDataService {
 public extension LocationsAndChatDataService {
   static func live(apiClient: APIClient = .live()) -> Self {
     Self { body in
-      let request = PostLocationAndChatMessagesRequest(body: try? body.encoded())
-
-      let (data, _) = try await apiClient.request(request)
-      return try request.decode(data)
+      let request: Request = .locationsAndChats(body: try? body.encoded())
+      let (data, _) = try await apiClient.send(request)
+      return try data.decoded()
     }
   }
 }

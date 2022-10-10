@@ -11,8 +11,7 @@ import XCTest
 @MainActor
 final class TwitterFeedCoreTests: XCTestCase {
   func test_onAppear_shouldFetchTwitterData() async throws {
-    let request = TwitterFeedRequest()
-    let decoder = request.decoder
+    let decoder: JSONDecoder = .twitterFeedDecoder
     let tweetData = try XCTUnwrap(twitterFeedData)
     let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
     
@@ -34,9 +33,8 @@ final class TwitterFeedCoreTests: XCTestCase {
   }
   
   func test_tweetDecodingTest() throws {
-    let request = TwitterFeedRequest()
-    let decoder = request.decoder
-    
+    let decoder: JSONDecoder = .twitterFeedDecoder
+
     let tweetData = try XCTUnwrap(twitterFeedData)
     let feed = try decoder.decode(TwitterFeed.self, from: tweetData)
         

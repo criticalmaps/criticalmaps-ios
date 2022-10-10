@@ -6,12 +6,12 @@ public struct APIClient {
   /// - Parameter request: Request to Dispatch
   /// - Returns: The response data of the request
   /// - Throws: A NetworkRquestError if the request fails
-  public var request: @Sendable (any APIRequest) async throws -> (Data, URLResponse)
+  public var send: @Sendable (Request) async throws -> (Data, URLResponse)
 
   public init(
-    request: @escaping @Sendable (any APIRequest) async throws -> (Data, URLResponse)
+    send: @escaping @Sendable (Request) async throws -> (Data, URLResponse)
   ) {
-    self.request = request
+    self.send = send
   }
 }
 
@@ -25,5 +25,5 @@ public extension APIClient {
     }
   }
 
-  static let noop = Self(request: { _ in fatalError() })
+  static let noop = Self(send: { _ in fatalError() })
 }
