@@ -196,7 +196,7 @@ struct AppNavigationView_Previews: PreviewProvider {
     AppNavigationView(
       store: Store<AppFeature.State, AppFeature.Action>(
         initialState: .init(),
-        reducer: AppFeature().debug()
+        reducer: AppFeature()._printChanges()
       )
     )
   }

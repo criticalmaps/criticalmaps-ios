@@ -62,7 +62,7 @@ struct MapFeatureView_Previews: PreviewProvider {
             riders: [],
             userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
           ),
-          reducer: MapFeature().debug()
+          reducer: MapFeature()._printChanges()
         )
       )
     }

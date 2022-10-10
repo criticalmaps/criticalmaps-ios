@@ -81,7 +81,7 @@ struct SocialView_Previews: PreviewProvider {
           chatFeautureState: .init(),
           twitterFeedState: .init()
         ),
-        reducer: SocialFeature().debug()
+        reducer: SocialFeature()._printChanges()
       )
     )
   }

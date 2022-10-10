@@ -102,7 +102,7 @@ struct ChatView_Previews: PreviewProvider {
           chatMessages: .results(
             ["1": .init(message: "Hello World 🌐", timestamp: 1)])
         ),
-        reducer: ChatFeature().debug()
+        reducer: ChatFeature()._printChanges()
       )
     )
   }
