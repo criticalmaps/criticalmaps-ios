@@ -106,17 +106,17 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/fbernutz">
-            <img src="https://avatars.githubusercontent.com/u/26111180?v=4" width="100;" alt="fbernutz"/>
-            <br />
-            <sub><b>Felizia Bernutz</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/mltbnz">
             <img src="https://avatars.githubusercontent.com/u/14075359?v=4" width="100;" alt="mltbnz"/>
             <br />
             <sub><b>Malte Bünz</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/fbernutz">
+            <img src="https://avatars.githubusercontent.com/u/26111180?v=4" width="100;" alt="fbernutz"/>
+            <br />
+            <sub><b>Felizia Bernutz</b></sub>
         </a>
     </td>
     <td align="center">
