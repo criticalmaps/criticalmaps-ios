@@ -4,6 +4,25 @@ import L10n
 import MapKit
 import SharedModels
 
+@propertyWrapper
+public struct ShouldAnimateTrackingModeOverTime {
+  private var values = [false, true]
+  
+  public init() {}
+  
+  public var wrappedValue: Bool {
+    mutating get { getValue() }
+    set {}
+  }
+  
+  private mutating func getValue() -> Bool {
+    guard values.count != 1 else {
+      return values[0]
+    }
+    return values.removeFirst()
+  }
+}
+
 public struct MapFeature: ReducerProtocol {
   public init() {}
   
@@ -18,15 +37,16 @@ public struct MapFeature: ReducerProtocol {
     public var location: ComposableCoreLocation.Location?
     public var riderLocations: [Rider]
     public var nextRide: Ride?
-
+    
     public var rideEvents: [Ride] = []
-
+    
     @BindableState public var eventCenter: CoordinateRegion?
     @BindableState public var userTrackingMode: UserTrackingFeature.State
     @BindableState public var centerRegion: CoordinateRegion?
     @BindableState public var presentShareSheet = false
-        
-    public var shouldAnimateTrackingMode = true
+    
+    @ShouldAnimateTrackingModeOverTime
+    public var shouldAnimateTrackingMode: Bool
     public var isNextRideBannerVisible = false
     public var isNextRideBannerExpanded = false
     
@@ -42,10 +62,25 @@ public struct MapFeature: ReducerProtocol {
       self.alert = alert
       self.isRequestingCurrentLocation = isRequestingCurrentLocation
       self.location = location
-      riderLocations = riders
+      self.riderLocations = riders
       self.userTrackingMode = userTrackingMode
       self.nextRide = nextRide
       self.centerRegion = centerRegion
+    }
+    
+    public static func == (lhs: MapFeature.State, rhs: MapFeature.State) -> Bool {
+      lhs.alert == rhs.alert
+      && lhs.isNextRideBannerExpanded == rhs.isNextRideBannerExpanded
+      && lhs.isNextRideBannerVisible == rhs.isNextRideBannerVisible
+      && lhs.presentShareSheet == rhs.presentShareSheet
+      && lhs.isRequestingCurrentLocation == rhs.isRequestingCurrentLocation
+      && lhs.location == rhs.location
+      && lhs.riderLocations == rhs.riderLocations
+      && lhs.userTrackingMode == rhs.userTrackingMode
+      && lhs.nextRide == rhs.nextRide
+      && lhs.centerRegion == rhs.centerRegion
+      && lhs.isNextRideBannerVisible == rhs.isNextRideBannerVisible
+      && lhs.isNextRideBannerExpanded == rhs.isNextRideBannerExpanded
     }
   }
 

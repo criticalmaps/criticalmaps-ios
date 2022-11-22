@@ -25,7 +25,6 @@ public struct MapFeatureView: View {
       MapView(
         riderCoordinates: viewStore.riderLocations,
         userTrackingMode: viewStore.binding(\.$userTrackingMode),
-        shouldAnimateUserTrackingMode: viewStore.shouldAnimateTrackingMode,
         nextRide: viewStore.nextRide,
         rideEvents: viewStore.rideEvents,
         centerRegion: viewStore.binding(\.$centerRegion),

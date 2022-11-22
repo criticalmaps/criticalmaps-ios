@@ -2,16 +2,12 @@ import ComposableArchitecture
 import Foundation
 
 public struct RequestTimer: ReducerProtocol {
-  public init(timerInterval: Double = 12.0) {
-    self.timerInterval = timerInterval
+  public init(timerInterval: Int = 12) {
+    self.timerInterval = .seconds(timerInterval)
   }
 
-  @Dependency(\.mainQueue) public var mainQueue
-  let timerInterval: Double
-
-  var interval: DispatchQueue.SchedulerTimeType.Stride {
-    DispatchQueue.SchedulerTimeType.Stride(floatLiteral: timerInterval)
-  }
+  @Dependency(\.mainRunLoop) var mainRunLoop
+  let timerInterval: RunLoop.SchedulerTimeType.Stride
 
   // MARK: State
 
@@ -40,7 +36,7 @@ public struct RequestTimer: ReducerProtocol {
       state.isTimerActive = true
       return .run { [isTimerActive = state.isTimerActive] send in
         guard isTimerActive else { return }
-        for await _ in mainQueue.timer(interval: interval) {
+        for await _ in mainRunLoop.timer(interval: timerInterval) {
           await send(.timerTicked)
         }
       }

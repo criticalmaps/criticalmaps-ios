@@ -13,6 +13,7 @@ struct MapView: ViewRepresentable {
 
   var riderCoordinates: [Rider]
   @Binding var userTrackingMode: UserTrackingFeature.State
+  @ShouldAnimateTrackingModeOverTime
   var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
   var rideEvents: [Ride] = []
@@ -22,6 +23,26 @@ struct MapView: ViewRepresentable {
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
 
+  init(
+    riderCoordinates: [Rider],
+    userTrackingMode: Binding<UserTrackingFeature.State>,
+    nextRide: Ride? = nil,
+    rideEvents: [Ride] = [],
+    centerRegion: Binding<CoordinateRegion?>,
+    centerEventRegion: Binding<CoordinateRegion?>,
+    mapMenuShareEventHandler: MapView.MenuActionHandle? = nil,
+    mapMenuRouteEventHandler: MapView.MenuActionHandle? = nil
+  ) {
+    self.riderCoordinates = riderCoordinates
+    self._userTrackingMode = userTrackingMode
+    self.nextRide = nextRide
+    self.rideEvents = rideEvents
+    self._centerRegion = centerRegion
+    self._centerEventRegion = centerEventRegion
+    self.mapMenuShareEventHandler = mapMenuShareEventHandler
+    self.mapMenuRouteEventHandler = mapMenuRouteEventHandler
+  }
+  
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
   }
