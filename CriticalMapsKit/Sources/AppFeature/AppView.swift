@@ -15,8 +15,6 @@ public struct AppView: View {
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-  @State private var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
-  @State private var orientation = UIDeviceOrientation.unknown
   @State private var showOfflineBanner = false
 
   private let minHeight: CGFloat = 56
@@ -40,9 +38,9 @@ public struct AppView: View {
           nextRideBanner
             .contextMenu {
               Button(
-                action: { viewStore.send(.setEventsBottomSheet(!viewStore.presentEventsBottomSheet)) },
+                action: { viewStore.send(.set(\.$bottomSheetPosition, .relative(0.4))) },
                 label: {
-                  let title = viewStore.presentEventsBottomSheet ? L10n.Map.NextRideEvents.hideAll : L10n.Map.NextRideEvents.showAll
+                  let title = viewStore.bottomSheetPosition == .hidden ? L10n.Map.NextRideEvents.hideAll : L10n.Map.NextRideEvents.showAll
                   Label(title, systemImage: "list.bullet")
                 }
               )
@@ -70,22 +68,20 @@ public struct AppView: View {
       }
       .frame(maxWidth: .infinity, alignment: .center)
     }
-    .onRotate(perform: { newOrientation in
-      self.orientation = newOrientation
-    })
     .bottomSheet(
-      isPresented: viewStore.binding(\.$presentEventsBottomSheet),
-      detents: [.medium(), .large()],
-      largestUndimmedDetentIdentifier: .medium,
-      prefersGrabberVisible: true,
-      prefersScrollingExpandsWhenScrolledToEdge: true,
-      prefersEdgeAttachedInCompactHeight: true,
-      selectedDetentIdentifier: $selectedDetentIdentifier,
-      widthFollowsPreferredContentSizeWhenEdgeAttached: true,
-      isModalInPresentation: false,
-      onDismiss: { viewStore.send(.setEventsBottomSheet(false)) },
-      contentView: { bottomSheetContentView() }
+      bottomSheetPosition: viewStore.binding(\.$bottomSheetPosition),
+      switchablePositions: [
+        .relative(0.4),
+        .relativeTop(0.975)
+      ],
+      title: "Events",
+      content: { bottomSheetContentView() }
     )
+    .showCloseButton()
+    .backgroundBlurMaterial(.adaptive(.thin))
+    .showDragIndicator(true)
+    .enableSwipeToDismiss()
+    .onDismiss { viewStore.send(.set(\.$bottomSheetPosition, .hidden)) }
     .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
@@ -96,27 +92,6 @@ public struct AppView: View {
 
   func bottomSheetContentView() -> some View {
     VStack {
-      HStack {
-        Text("Events")
-          .foregroundColor(Color(.textPrimary))
-          .font(.title2)
-          .bold()
-
-        Spacer()
-
-        Button(
-          action: { viewStore.send(.setEventsBottomSheet(false)) },
-          label: {
-            Image(systemName: "xmark.circle.fill")
-              .resizable()
-              .frame(width: .grid(8), height: .grid(8))
-              .foregroundColor(Color(.lightGray))
-          }
-        )
-      }
-      .accessibility(addTraits: [.isHeader])
-      .padding(.grid(3))
-
       List(viewStore.nextRideState.rideEvents, id: \.id) { ride in
         HStack(alignment: .center, spacing: .grid(2)) {
           Image(uiImage: Asset.cm.image)
@@ -148,30 +123,20 @@ public struct AppView: View {
               }
             }
           }
+          Spacer()
         }
+        .contentShape(Rectangle())
         .padding(.vertical, .grid(1))
         .accessibilityElement(children: .combine)
-        .contentShape(Rectangle())
         .onTapGesture {
-          if orientation.isPortrait {
-            selectedDetentIdentifier = .medium
-
-            if let coordinate = ride.coordinate {
-              viewStore.send(
-                .map(
-                  .focusRideEvent(
-                    Coordinate(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                  )
-                )
-              )
-            }
-          }
+          viewStore.send(.onRideSelectedFromBottomSheet(ride))
         }
+        .listRowBackground(Color.clear)
       }
       .listStyle(.plain)
     }
     .accessibilityAction(.escape) {
-      viewStore.send(.setEventsBottomSheet(false))
+      viewStore.send(.set(\.$bottomSheetPosition, .hidden))
     }
   }
 

@@ -1,4 +1,5 @@
 import ApiClient
+import BottomSheet
 import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
@@ -80,8 +81,7 @@ public struct AppFeature: ReducerProtocol {
     
     public var chatMessageBadgeCount: UInt = 0
 
-    @BindableState
-    public var presentEventsBottomSheet = false
+    @BindingState public var bottomSheetPosition: BottomSheetPosition = .hidden
     public var alert: AlertState<Action>?
   }
   
@@ -96,7 +96,7 @@ public struct AppFeature: ReducerProtocol {
     case fetchDataResponse(TaskResult<LocationAndChatMessages>)
     case userSettingsLoaded(TaskResult<UserSettings>)
     
-    case setEventsBottomSheet(Bool)
+    case onRideSelectedFromBottomSheet(SharedModels.Ride)
     case setNavigation(tag: AppRoute.Tag?)
     case dismissSheetView
     case presentObservationModeAlert
@@ -147,16 +147,25 @@ public struct AppFeature: ReducerProtocol {
     /// Holds the logic for the AppFeature to update state and execute side effects
     Reduce<State, Action> { state, action in
       switch action {
-      case .binding:
+      case .binding(\.$bottomSheetPosition):
+        if state.bottomSheetPosition == .hidden {
+          state.mapFeatureState.rideEvents = []
+          state.mapFeatureState.eventCenter = nil
+        } else {
+          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+        }
         return .none
         
       case .appDelegate:
         return .none
         
+      case .onRideSelectedFromBottomSheet(let ride):
+        return EffectTask(value: .map(.focusRideEvent(ride.coordinate)))
+        
       case .onAppear:
-        var effects: [Effect<Action, Never>] = [
-          Effect(value: .fetchData),
-          Effect(value: .connectionObserver(.observeConnection)),
+        var effects: [EffectTask<Action>] = [
+          EffectTask(value: .fetchData),
+          EffectTask(value: .connectionObserver(.observeConnection)),
           .task {
             await .userSettingsLoaded(
               TaskResult {
@@ -164,12 +173,12 @@ public struct AppFeature: ReducerProtocol {
               }
             )
           },
-          Effect(value: .map(.onAppear)),
-          Effect(value: .requestTimer(.startTimer))
+          EffectTask(value: .map(.onAppear)),
+          EffectTask(value: .requestTimer(.startTimer))
         ]
         if !userDefaultsClient.didShowObservationModePrompt {
           effects.append(
-            Effect.run { send in
+            EffectTask.run { send in
               try? await mainQueue.sleep(for: .seconds(3))
               await send.send(.presentObservationModeAlert)
             }
@@ -179,7 +188,7 @@ public struct AppFeature: ReducerProtocol {
         return .merge(effects)
         
       case .onDisappear:
-        return Effect.cancel(id: ObserveConnectionIdentifier())
+        return EffectTask.cancel(id: ObserveConnectionIdentifier())
         
       case .fetchData:
         struct GetLocationsId: Hashable {}
@@ -240,12 +249,12 @@ public struct AppFeature: ReducerProtocol {
             if !state.didResolveInitialLocation {
               state.didResolveInitialLocation.toggle()
               if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled {
-                return Effect.concatenate(
-                  Effect(value: .fetchData),
-                  Effect(value: .nextRide(.getNextRide(coordinate)))
+                return EffectTask.concatenate(
+                  EffectTask(value: .fetchData),
+                  EffectTask(value: .nextRide(.getNextRide(coordinate)))
                 )
               } else {
-                return Effect(value: .fetchData)
+                return EffectTask(value: .fetchData)
               }
             } else {
               return .none
@@ -255,9 +264,9 @@ public struct AppFeature: ReducerProtocol {
             return .none
           }
 
-        case .focusNextRide:
-          if state.presentEventsBottomSheet {
-            return Effect(value: .setEventsBottomSheet(false))
+        case .focusRideEvent, .focusNextRide:
+          if state.bottomSheetPosition != .hidden {
+            return EffectTask(value: .set(\.$bottomSheetPosition, .relative(0.4)))
           } else {
             return .none
           }
@@ -270,7 +279,7 @@ public struct AppFeature: ReducerProtocol {
         switch nextRideAction {
         case let .setNextRide(ride):
           state.mapFeatureState.nextRide = ride
-          return Effect.run { send in
+          return EffectTask.run { send in
             await send.send(.map(.setNextRideBannerVisible(true)))
             try? await mainQueue.sleep(for: .seconds(1))
             await send.send(.map(.setNextRideBannerExpanded(true)))
@@ -304,16 +313,6 @@ public struct AppFeature: ReducerProtocol {
         }
         return .none
 
-      case let .setEventsBottomSheet(value):
-        if value {
-          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
-        } else {
-          state.mapFeatureState.rideEvents = []
-          state.mapFeatureState.eventCenter = nil
-        }
-        state.presentEventsBottomSheet = value
-        return .none
-
       case .dismissSheetView:
         state.route = .none
         return .none
@@ -321,7 +320,7 @@ public struct AppFeature: ReducerProtocol {
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
-          return Effect(value: .fetchData)
+          return EffectTask(value: .fetchData)
         default:
           return .none
         }
@@ -363,7 +362,7 @@ public struct AppFeature: ReducerProtocol {
         switch settingsAction {
         case let .rideevent(.setRideEventsEnabled(isEnabled)):
           if !isEnabled {
-            return Effect(value: .map(.setNextRideBannerVisible(false)))
+            return EffectTask(value: .map(.setNextRideBannerVisible(false)))
           } else {
             guard
               let coordinate = Coordinate(state.mapFeatureState.location),
@@ -373,7 +372,7 @@ public struct AppFeature: ReducerProtocol {
             }
             struct RideEventSettingsChange: Hashable {}
             
-            return Effect(value: .nextRide(.getNextRide(coordinate)))
+            return EffectTask(value: .nextRide(.getNextRide(coordinate)))
               .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: mainQueue)
           }
           
@@ -382,6 +381,9 @@ public struct AppFeature: ReducerProtocol {
         }
         
       case .connectionObserver:
+        return .none
+        
+      case .binding:
         return .none
       }
     }
