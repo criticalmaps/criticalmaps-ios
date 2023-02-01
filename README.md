@@ -178,10 +178,10 @@ However, **please do not ship this app** under your own account. Paid or free.
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/Ravi61">
-            <img src="https://avatars.githubusercontent.com/u/7421894?v=4" width="100;" alt="Ravi61"/>
+        <a href="https://github.com/ravi-tul-ios">
+            <img src="https://avatars.githubusercontent.com/u/91732598?v=4" width="100;" alt="ravi-tul-ios"/>
             <br />
-            <sub><b>Ravi Kumar Aggarwal</b></sub>
+            <sub><b>Ravi Aggarwal</b></sub>
         </a>
     </td>
     <td align="center">
