@@ -33,7 +33,7 @@ let package = Package(
     ),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
     .package(url: "https://github.com/vtourraine/AcknowList.git", .upToNextMajor(from: "2.1.0")),
-    .package(url: "https://github.com/adamfootdev/BottomSheet.git", from: "0.1.3")
+    .package(url: "https://github.com/lucaszischka/BottomSheet.git", from: "3.1.0")
   ],
   targets: [
     .target(
