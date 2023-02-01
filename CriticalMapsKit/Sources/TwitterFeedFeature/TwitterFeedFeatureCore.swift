@@ -44,11 +44,11 @@ public struct TwitterFeedFeature: ReducerProtocol {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        return Effect(value: .fetchData)
+        return EffectTask(value: .fetchData)
         
       case .refresh:
         state.isRefreshing = true
-        return Effect(value: .fetchData)
+        return EffectTask(value: .fetchData)
         
       case .fetchData:
         state.twitterFeedIsLoading = true

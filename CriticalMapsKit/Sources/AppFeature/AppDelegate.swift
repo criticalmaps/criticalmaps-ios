@@ -16,7 +16,7 @@ public struct AppDelegate: ReducerProtocol {
     case userSettingsLoaded(TaskResult<State>)
   }
 
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
     case .didFinishLaunching:
       return .task {

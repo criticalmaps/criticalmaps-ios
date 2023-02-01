@@ -40,10 +40,10 @@ public struct MapFeature: ReducerProtocol {
     
     public var rideEvents: [Ride] = []
     
-    @BindableState public var eventCenter: CoordinateRegion?
-    @BindableState public var userTrackingMode: UserTrackingFeature.State
-    @BindableState public var centerRegion: CoordinateRegion?
-    @BindableState public var presentShareSheet = false
+    @BindingState public var eventCenter: CoordinateRegion?
+    @BindingState public var userTrackingMode: UserTrackingFeature.State
+    @BindingState public var centerRegion: CoordinateRegion?
+    @BindingState public var presentShareSheet = false
     
     @ShouldAnimateTrackingModeOverTime
     public var shouldAnimateTrackingMode: Bool
@@ -172,7 +172,7 @@ public struct MapFeature: ReducerProtocol {
             .setup()
             .fireAndForget(),
           
-          Effect(value: Action.locationRequested)
+          EffectTask(value: Action.locationRequested)
         )
         
       case .locationRequested:
@@ -208,11 +208,11 @@ public struct MapFeature: ReducerProtocol {
       case .nextTrackingMode:
         switch state.userTrackingMode.mode {
         case .follow:
-          return Effect(value: .updateUserTrackingMode(.init(userTrackingMode: .followWithHeading)))
+          return EffectTask(value: .updateUserTrackingMode(.init(userTrackingMode: .followWithHeading)))
         case .followWithHeading:
-          return Effect(value: .updateUserTrackingMode(.init(userTrackingMode: .none)))
+          return EffectTask(value: .updateUserTrackingMode(.init(userTrackingMode: .none)))
         case .none:
-          return Effect(value: .updateUserTrackingMode(.init(userTrackingMode: .follow)))
+          return EffectTask(value: .updateUserTrackingMode(.init(userTrackingMode: .follow)))
         @unknown default:
           fatalError()
         }
@@ -228,7 +228,7 @@ public struct MapFeature: ReducerProtocol {
         }
         state.centerRegion = CoordinateRegion(center: nextRideCoordinate.asCLLocationCoordinate)
         
-        return Effect.run { send in
+        return EffectTask.run { send in
           try await mainQueue.sleep(for: .seconds(1))
           await send.send(.resetCenterRegion)
         }
@@ -240,7 +240,7 @@ public struct MapFeature: ReducerProtocol {
 
         state.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
         
-        return Effect.run { send in
+        return EffectTask.run { send in
           try await mainQueue.sleep(for: .seconds(1))
           await send.send(.resetRideEventCenter)
         }
@@ -272,7 +272,7 @@ public struct MapFeature: ReducerProtocol {
 
 extension LocationManager {
   /// Configures the LocationManager
-  func setup() -> Effect<Never, Never> {
+  func setup() -> EffectTask<Never> {
     set(
       .init(
         activityType: .otherNavigation,

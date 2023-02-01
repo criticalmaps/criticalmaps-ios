@@ -15,7 +15,7 @@ public struct TweetFeature: ReducerProtocol {
     case openTweet
   }
 
-  public func reduce(into state: inout Tweet, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout Tweet, action: Action) -> EffectTask<Action> {
     switch action {
     case .openTweet:
       return .fireAndForget { [tweet = state] in

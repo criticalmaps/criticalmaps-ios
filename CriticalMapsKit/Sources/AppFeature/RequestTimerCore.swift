@@ -27,7 +27,7 @@ public struct RequestTimer: ReducerProtocol {
   }
 
   /// Reducer responsible for the poll timer handling.
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
     case .timerTicked:
       return .none

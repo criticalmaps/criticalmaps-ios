@@ -69,10 +69,10 @@ public struct SettingsFeature: ReducerProtocol {
         return .none
 
       case let .infoSectionRowTapped(row):
-        return Effect(value: .openURL(row.url))
+        return EffectTask(value: .openURL(row.url))
 
       case let .supportSectionRowTapped(row):
-        return Effect(value: .openURL(row.url))
+        return EffectTask(value: .openURL(row.url))
 
       case let .openURL(url):
         return .fireAndForget {

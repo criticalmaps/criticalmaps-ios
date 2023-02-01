@@ -40,7 +40,7 @@ public struct NextRideFeature: ReducerProtocol {
   // MARK: Reducer
 
   /// Reducer handling next ride feature actions
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
     case let .getNextRide(coordinate):
       guard userDefaultsClient.rideEventSettings.isEnabled else {
@@ -122,7 +122,7 @@ public struct NextRideFeature: ReducerProtocol {
         return .none
       }
 
-      return Effect(value: .setNextRide(filteredRide))
+      return EffectTask(value: .setNextRide(filteredRide))
 
     case let .setNextRide(ride):
       state.nextRide = ride

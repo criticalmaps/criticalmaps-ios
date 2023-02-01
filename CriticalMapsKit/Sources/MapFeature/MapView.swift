@@ -94,7 +94,7 @@ struct MapView: ViewRepresentable {
       mapView.setRegion(center.asMKCoordinateRegion, animated: true)
       mapView.setUserTrackingMode(.none, animated: false)
     } else {
-      mapView.setUserTrackingMode(userTrackingMode.mode, animated: shouldAnimateUserTrackingMode)
+      mapView.setUserTrackingMode(userTrackingMode.mode, animated: true)
     }
   }
 

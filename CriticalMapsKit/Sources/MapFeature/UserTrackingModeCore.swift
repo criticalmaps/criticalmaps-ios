@@ -18,7 +18,7 @@ public struct UserTrackingFeature: ReducerProtocol {
   }
 
   /// Reducer handling tracking mode button state changes
-  public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
     case .nextTrackingMode:
       switch state.mode {
