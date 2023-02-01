@@ -208,12 +208,8 @@ final class MapFeatureCoreTests: XCTestCase {
     )
     store.dependencies.mainQueue = .immediate
 
-    await store.send(.focusRideEvent(ride.coordinate)) {
-      $0.eventCenter = CoordinateRegion(center: .init(latitude: 13.13, longitude: 55.55))
-    }
-    await store.receive(.resetRideEventCenter) {
-      $0.eventCenter = nil
-    }
+    await store.send(.focusRideEvent(ride.coordinate))
+    await store.receive(.resetRideEventCenter)
   }
 
   func test_InfoBanner_appearance() {

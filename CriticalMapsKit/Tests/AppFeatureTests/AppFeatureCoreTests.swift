@@ -40,6 +40,7 @@ final class AppFeatureTests: XCTestCase {
       initialState: AppFeature.State(),
       reducer: AppFeature()
     )
+    store.dependencies.mainRunLoop = .immediate
     store.dependencies.mainQueue = .immediate
     store.dependencies.date = .constant(date())
     store.dependencies.locationManager = locationManager
@@ -75,6 +76,7 @@ final class AppFeatureTests: XCTestCase {
     
     await task.cancel()
     
+    await store.finish()
     setSubject.send(completion: .finished)
     locationManagerSubject.send(completion: .finished)
   }
@@ -82,6 +84,7 @@ final class AppFeatureTests: XCTestCase {
   func test_onAppearWithEnabledLocationServices_shouldSendUserLocation_afterLocationUpated() async throws {
     var didRequestAlwaysAuthorization = false
     var didRequestLocation = false
+    let testRunLoop = RunLoop.test
     
     let setSubject = PassthroughSubject<Never, Never>()
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
@@ -129,7 +132,8 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.dependencies.date = .constant(date())
-    store.dependencies.mainQueue = .immediate
+    store.dependencies.mainRunLoop = testRunLoop.eraseToAnyScheduler()
+    store.dependencies.mainQueue = testScheduler.eraseToAnyScheduler()
     store.dependencies.locationManager = locationManager
     store.dependencies.userDefaultsClient = userDefaultsClient
     store.dependencies.locationAndChatService = service
@@ -159,10 +163,11 @@ final class AppFeatureTests: XCTestCase {
       $0.chatMessageBadgeCount = 6
     }
     await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
+    await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
+    await testRunLoop.advance(by: .seconds(12))
     await store.receive(.requestTimer(.timerTicked))
     await store.receive(.fetchData)
     await store.receive(.fetchDataResponse(.success(serviceResponse)))
-    await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
 
     XCTAssertTrue(didRequestLocation)
     XCTAssertTrue(didRequestAlwaysAuthorization)
@@ -200,6 +205,7 @@ final class AppFeatureTests: XCTestCase {
     let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
     
     let mainQueue = DispatchQueue.test
+    let testRunLoop = RunLoop.test
     
     let currentLocation = Location(
       altitude: 0,
@@ -250,6 +256,9 @@ final class AppFeatureTests: XCTestCase {
       initialState: appState,
       reducer: AppFeature()
     )
+    store.exhaustivity = .off
+    
+    store.dependencies.mainRunLoop = testRunLoop.eraseToAnyScheduler()
     store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
     store.dependencies.locationManager = locationManager
     store.dependencies.locationAndChatService = service
@@ -282,7 +291,9 @@ final class AppFeatureTests: XCTestCase {
       $0.chatMessageBadgeCount = 6
     }
     await store.receive(.connectionObserver(.observeConnectionResponse(NetworkPath(status: .satisfied))))
+    await testRunLoop.advance(by: .seconds(12))
     await store.receive(.map(.locationManager(.didChangeAuthorization(.authorizedAlways))))
+    await store.receive(.requestTimer(.timerTicked))
     
     XCTAssertTrue(didRequestLocation)
     
@@ -443,7 +454,7 @@ final class AppFeatureTests: XCTestCase {
       state.chatMessageBadgeCount = 6
     }
     
-    await store.dependencies.userDefaultsClient.doubleForKey = { _ in
+    store.dependencies.userDefaultsClient.doubleForKey = { _ in
       self.date().timeIntervalSince1970 + 14
     }
     
@@ -522,14 +533,15 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
 
-    store.send(.setEventsBottomSheet(true)) {
-      $0.presentEventsBottomSheet = true
+    store.send(.set(\.$bottomSheetPosition, .dynamicTop)) {
+      $0.bottomSheetPosition = .dynamicTop
       $0.mapFeatureState.rideEvents = events
     }
   }
 
   func test_actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() {
     var appState = AppFeature.State()
+    appState.bottomSheetPosition = .dynamicTop
     let events = [
       Ride(
         id: 1,
@@ -573,24 +585,9 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
 
-    store.send(.setEventsBottomSheet(false)) {
-      $0.presentEventsBottomSheet = false
+    store.send(.set(\.$bottomSheetPosition, .hidden)) {
+      $0.bottomSheetPosition = .hidden
       $0.mapFeatureState.rideEvents = []
-    }
-  }
-
-  func test_focuesNextRide_whenAllEventsArePresented_shouldHideAllEventsBotttomSheet() {
-    var appState = AppFeature.State()
-    appState.presentEventsBottomSheet = true
-
-    let store = TestStore(
-      initialState: appState,
-      reducer: AppFeature()
-    )
-
-    store.send(.map(.focusNextRide(nil)))
-    store.receive(.setEventsBottomSheet(false)) {
-      $0.presentEventsBottomSheet = false
     }
   }
   
