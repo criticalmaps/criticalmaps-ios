@@ -62,7 +62,7 @@ public enum L10n {
   }
 
   public enum Chat {
-    /// So quite here
+    /// So quiet here
     public static let emptyMessageTitle = L10n.tr("Localizable", "chat.emptyMessageTitle")
     /// Nobody's chatting at the moment...
     /// why don't you start?
