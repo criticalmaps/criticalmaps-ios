@@ -19,7 +19,7 @@
 
 "chat.noChatActivity" = "Nobody's chatting at the moment...\nwhy don't you start?";
 
-"chat.emptyMessageTitle" = "So quite here";
+"chat.emptyMessageTitle" = "So quiet here";
 
 
 "chat.placeholder" = "Write Message";
