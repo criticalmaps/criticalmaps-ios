@@ -150,7 +150,7 @@ However, **please do not ship this app** under your own account. Paid or free.
     </td>
     <td align="center">
         <a href="https://github.com/jacquealvesb">
-            <img src="https://avatars.githubusercontent.com/u/5198967?v=4" width="100;" alt="jacquealvesb"/>
+            <img src="https://avatars.githubusercontent.com/u/86978515?v=4" width="100;" alt="jacquealvesb"/>
             <br />
             <sub><b>Jacqueline Alves</b></sub>
         </a>
@@ -206,12 +206,20 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/k-nut">
+            <img src="https://avatars.githubusercontent.com/u/1096357?v=4" width="100;" alt="k-nut"/>
+            <br />
+            <sub><b>Knut Hühne</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/wacumov">
             <img src="https://avatars.githubusercontent.com/u/2861871?v=4" width="100;" alt="wacumov"/>
             <br />
             <sub><b>Mikhail Akopov</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/StartingCoding">
             <img src="https://avatars.githubusercontent.com/u/43170443?v=4" width="100;" alt="StartingCoding"/>
