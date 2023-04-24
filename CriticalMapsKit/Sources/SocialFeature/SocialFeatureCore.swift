@@ -16,17 +16,17 @@ public struct SocialFeature: ReducerProtocol {
   // MARK: State
   
   public struct State: Equatable {
-    public var chatFeautureState: ChatFeature.State
+    public var chatFeatureState: ChatFeature.State
     public var twitterFeedState: TwitterFeedFeature.State
     public var socialControl: SocialControl
         
     public init(
       socialControl: SocialControl = .chat,
-      chatFeautureState: ChatFeature.State = .init(),
+      chatFeatureState: ChatFeature.State = .init(),
       twitterFeedState: TwitterFeedFeature.State = .init()
     ) {
       self.socialControl = socialControl
-      self.chatFeautureState = chatFeautureState
+      self.chatFeatureState = chatFeatureState
       self.twitterFeedState = twitterFeedState
     }
   }
@@ -56,7 +56,7 @@ public struct SocialFeature: ReducerProtocol {
   // MARK: Reducer
   
   public var body: some ReducerProtocol<State, Action> {
-    Scope(state: \.chatFeautureState, action: /SocialFeature.Action.chat) {
+    Scope(state: \.chatFeatureState, action: /SocialFeature.Action.chat) {
       ChatFeature()
         .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }

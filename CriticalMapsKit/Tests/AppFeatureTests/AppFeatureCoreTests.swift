@@ -156,7 +156,7 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
-        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
+        chatFeatureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
         twitterFeedState: .init()
       )
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
@@ -284,7 +284,7 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.fetchDataResponse(.success(serviceResponse))) {
       $0.locationsAndChatMessages = .success(serviceResponse)
       $0.socialState = .init(
-        chatFeautureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
+        chatFeatureState: .init(chatMessages: .results(serviceResponse.chatMessages)),
         twitterFeedState: .init()
       )
       $0.mapFeatureState.riderLocations = serviceResponse.riderLocations
@@ -448,7 +448,7 @@ final class AppFeatureTests: XCTestCase {
     
     await store.send(.fetchDataResponse(.success(response))) { state in
       state.locationsAndChatMessages = .success(response)
-      state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
+      state.socialState.chatFeatureState.chatMessages = .results(response.chatMessages)
       state.mapFeatureState.riderLocations = response.riderLocations
       
       state.chatMessageBadgeCount = 6
@@ -460,14 +460,14 @@ final class AppFeatureTests: XCTestCase {
     
     await store.send(.fetchDataResponse(.success(response2))) { state in
       state.locationsAndChatMessages = .success(response2)
-      state.socialState.chatFeautureState.chatMessages = .results(response2.chatMessages)
+      state.socialState.chatFeatureState.chatMessages = .results(response2.chatMessages)
       state.mapFeatureState.riderLocations = response2.riderLocations
       
       state.chatMessageBadgeCount = 1
     }
     await store.send(.fetchDataResponse(.success(response3))) { state in
       state.locationsAndChatMessages = .success(response3)
-      state.socialState.chatFeautureState.chatMessages = .results(response3.chatMessages)
+      state.socialState.chatFeatureState.chatMessages = .results(response3.chatMessages)
       state.mapFeatureState.riderLocations = response3.riderLocations
       
       state.chatMessageBadgeCount = 3
@@ -481,7 +481,7 @@ final class AppFeatureTests: XCTestCase {
     }
     await store.send(.fetchDataResponse(.success(response4))) { state in
       state.locationsAndChatMessages = .success(response4)
-      state.socialState.chatFeautureState.chatMessages = .results(response4.chatMessages)
+      state.socialState.chatFeatureState.chatMessages = .results(response4.chatMessages)
       state.mapFeatureState.riderLocations = response4.riderLocations
       
       state.chatMessageBadgeCount = 0

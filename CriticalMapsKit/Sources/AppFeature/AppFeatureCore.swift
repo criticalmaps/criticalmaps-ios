@@ -214,7 +214,7 @@ public struct AppFeature: ReducerProtocol {
       case let .fetchDataResponse(.success(response)):
         state.locationsAndChatMessages = .success(response)
         
-        state.socialState.chatFeautureState.chatMessages = .results(response.chatMessages)
+        state.socialState.chatFeatureState.chatMessages = .results(response.chatMessages)
         state.mapFeatureState.riderLocations = response.riderLocations
         
         if !state.isChatViewPresented {
