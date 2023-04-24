@@ -8,7 +8,7 @@ public struct ChatInput: ReducerProtocol {
   // MARK: State
 
   public struct State: Equatable {
-    @BindableState
+    @BindingState
     public var isEditing = false
     public var message = ""
     public var isSending = false
