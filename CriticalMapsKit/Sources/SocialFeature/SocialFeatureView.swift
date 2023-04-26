@@ -26,7 +26,7 @@ public struct SocialView: View {
           case .chat:
             ChatView(
               store: store.scope(
-                state: \.chatFeautureState,
+                state: \.chatFeatureState,
                 action: SocialFeature.Action.chat
               )
             )
@@ -78,7 +78,7 @@ struct SocialView_Previews: PreviewProvider {
     SocialView(
       store: Store<SocialFeature.State, SocialFeature.Action>(
         initialState: SocialFeature.State(
-          chatFeautureState: .init(),
+          chatFeatureState: .init(),
           twitterFeedState: .init()
         ),
         reducer: SocialFeature()._printChanges()
