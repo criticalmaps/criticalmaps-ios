@@ -20,14 +20,12 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/MarcoEidinger/SwiftFormatPlugin", from: "0.49.18"),
     .package(
-      name: "swift-composable-architecture",
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       .upToNextMajor(from: "0.40.0")
     ),
     .package(url: "https://github.com/apple/swift-log.git", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/composable-core-location.git", from: "0.1.0"),
     .package(
-      name: "SnapshotTesting",
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
       .upToNextMajor(from: "1.8.2")
     ),
@@ -217,7 +215,7 @@ let package = Package(
     .target(
       name: "TestHelper",
       dependencies: [
-        .product(name: "SnapshotTesting", package: "SnapshotTesting")
+        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
       ]
     ),
     .target(
