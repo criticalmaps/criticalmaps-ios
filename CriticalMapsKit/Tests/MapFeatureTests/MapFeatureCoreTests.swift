@@ -68,7 +68,13 @@ final class MapFeatureCoreTests: XCTestCase {
     
     await store.receive(.locationManager(.didUpdateLocations([currentLocation]))) {
       $0.isRequestingCurrentLocation = false
-      $0.location = currentLocation
+      $0.location = Location(
+        coordinate: Coordinate(
+          latitude: currentLocation.coordinate.latitude,
+          longitude: currentLocation.coordinate.longitude
+        ),
+        timestamp: currentLocation.timestamp.timeIntervalSince1970
+      )
     }
     
     setSubject.send(completion: .finished)
@@ -208,8 +214,17 @@ final class MapFeatureCoreTests: XCTestCase {
     )
     store.dependencies.mainQueue = .immediate
 
-    await store.send(.focusRideEvent(ride.coordinate))
-    await store.receive(.resetRideEventCenter)
+    await store.send(.focusRideEvent(ride.coordinate)) {
+      $0.eventCenter = .init(
+        coordinateRegion: .init(
+          center: .init(latitude: 13.13, longitude: 55.55),
+          span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        )
+      )
+    }
+    await store.receive(.resetRideEventCenter) {
+      $0.eventCenter = nil
+    }
   }
 
   func test_InfoBanner_appearance() {
