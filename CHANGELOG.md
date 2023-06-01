@@ -2,6 +2,14 @@
 
 Changelog for Critical Maps iOS
 
+# [4.1.0] - 2023-06-01
+
+### Added
+
+- Adopt new Backend architecture
+- Update BottomSheet view that will focus on available next ride
+- Performance enhencements
+
 # [4.0.0] - 2022-03-18
 
 __Proposal for the release is to make it `4.0.0`__
