@@ -222,6 +222,7 @@ public struct AppFeature: ReducerProtocol {
         }
         
       case .fetchChatMessages:
+        state.socialState.chatFeatureState.chatMessages = .loading(state.socialState.chatFeatureState.chatMessages.elements ?? [])
         return .task {
           await .fetchChatMessagesResponse(
             TaskResult {
@@ -372,10 +373,12 @@ public struct AppFeature: ReducerProtocol {
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
-          return .run { [isChatPresented = state.isChatViewPresented] send in
+          return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
             await withThrowingTaskGroup(of: Void.self) { group in
-              group.addTask {
-                await send(.fetchLocations)
+              if !isPrentingSubView {
+                group.addTask {
+                  await send(.fetchLocations)
+                }
               }
               if isChatPresented {
                 group.addTask {
