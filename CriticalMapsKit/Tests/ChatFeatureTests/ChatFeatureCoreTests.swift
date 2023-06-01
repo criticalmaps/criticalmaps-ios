@@ -1,6 +1,7 @@
 import ApiClient
 import ChatFeature
 import ComposableArchitecture
+import L10n
 import SharedModels
 import UserDefaultsClient
 import XCTest
@@ -13,7 +14,7 @@ final class ChatFeatureCore: XCTestCase {
   func defaultTestStore() -> TestStore<ChatFeature.State, ChatFeature.Action, ChatFeature.State, ChatFeature.Action, ()> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
-        chatMessages: .results([:]),
+        chatMessages: .results([]),
         chatInputState: .init(
           isEditing: true,
           message: "Hello World!"
@@ -30,31 +31,32 @@ final class ChatFeatureCore: XCTestCase {
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
     let testStore = defaultTestStore()
-    testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in mockResponse }
+    testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
     
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
-    await testStore.receive(.chatInputResponse(.success(mockResponse))) { state in
+    await testStore.receive(.chatInputResponse(.success(.init(status: "ok")))) { state in
       state.chatInputState.isSending = false
       state.chatInputState.message = ""
-      state.chatMessages = .results(mockResponse.chatMessages)
     }
   }
   
   func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
-    let error = NSError()
+    let error = NSError(domain: "", code: 1)
     let testStore = defaultTestStore()
     
-    testStore.dependencies.locationAndChatService.getLocationsAndSendMessages = { _ in
-      throw error
-    }
+    testStore.dependencies.apiService.getChatMessages = { throw error }
             
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
     await testStore.receive(.chatInputResponse(.failure(error))) { state in
       state.chatInputState.isSending = false
+      state.alert = .init(
+        title: .init(L10n.error),
+        message: .init("Failed to send chat message")
+      )
     }
   }
   
@@ -85,28 +87,41 @@ final class ChatFeatureCore: XCTestCase {
   
   func test_chatViewState() {
     let state = ChatFeature.State(
-      chatMessages: .results(mockResponse.chatMessages),
+      chatMessages: .results(mockResponse),
       chatInputState: .init()
     )
     let sut = ChatView.ViewState(state)
     
-    let sortedMessages = sut.identifiedChatMessages
-    
     XCTAssertEqual(
-      sortedMessages.map(\.id),
+      sut.messages.map(\.identifier),
       ["ID0", "ID3", "ID2", "ID1"]
     )
   }
 }
 
-let mockResponse = LocationAndChatMessages(
-  locations: [
-    "1": .init(coordinate: Coordinate(latitude: 0.0, longitude: 1.1), timestamp: 1234.0)
-  ],
-  chatMessages: [
-    "ID0": .init(message: "Hello World!", timestamp: 1889.0),
-    "ID1": .init(message: "Hello World!", timestamp: 1234.0),
-    "ID2": .init(message: "Hello World!", timestamp: 1235.0),
-    "ID3": .init(message: "Hello World!", timestamp: 1236.0)
-  ]
-)
+let mockResponse = [
+  ChatMessage(
+    identifier: "ID0",
+    device: "Device",
+    message: "Hello World!",
+    timestamp: 1889.0
+  ),
+  ChatMessage(
+    identifier: "ID1",
+    device: "Device",
+    message: "Hello World!",
+    timestamp: 1234.0
+  ),
+  ChatMessage(
+    identifier: "ID2",
+    device: "Device",
+    message: "Hello World!",
+    timestamp: 1235.0
+  ),
+  ChatMessage(
+    identifier: "ID3",
+    device: "Device",
+    message: "Hello World!",
+    timestamp: 1236.0
+  )
+]

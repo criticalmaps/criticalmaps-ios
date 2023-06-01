@@ -1,5 +1,6 @@
 import ChatFeature
 import ComposableArchitecture
+import SharedModels
 import XCTest
 
 final class IdentifiedMessagesTests: XCTestCase {
@@ -15,8 +16,9 @@ final class IdentifiedMessagesTests: XCTestCase {
   )!
 
   func test_chatTime_Format() {
-    let sut = IdentifiedChatMessage(
-      id: "ID",
+    let sut = ChatMessage(
+      identifier: "ID",
+      device: "DEVICE",
       message: "Hello World",
       timestamp: date.timeIntervalSince1970
     )

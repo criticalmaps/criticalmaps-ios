@@ -1,4 +1,5 @@
 import ChatFeature
+import SharedModels
 import Styleguide
 import SwiftUI
 import TestHelper
@@ -10,8 +11,8 @@ final class ChatFeatureSnapshotTests: XCTestCase {
       store: .init(
         initialState: .init(
           chatMessages: .results([
-            "ID0": .init(message: "Hello World!", timestamp: 0),
-            "ID1": .init(message: "Hello World!", timestamp: 0)
+            ChatMessage(identifier: "ID0", device: "Device", message: "Hello World!", timestamp: 0),
+            ChatMessage(identifier: "ID1", device: "Device", message: "Hello World!", timestamp: 0)
           ]),
           chatInputState: .init()
         ),
@@ -27,8 +28,8 @@ final class ChatFeatureSnapshotTests: XCTestCase {
       store: .init(
         initialState: .init(
           chatMessages: .results([
-            "ID0": .init(message: "Hello World!", timestamp: 0),
-            "ID1": .init(message: "Hello World!", timestamp: 0)
+            ChatMessage(identifier: "", device: "Device", message: "Hello World!", timestamp: 0),
+            ChatMessage(identifier: "", device: "Device", message: "Hello World!", timestamp: 0)
           ]),
           chatInputState: .init()
         ),
