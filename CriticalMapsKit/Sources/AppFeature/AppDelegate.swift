@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import FileClient
 import Foundation
 import SharedDependencies
 import SharedModels
