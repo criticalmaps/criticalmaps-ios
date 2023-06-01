@@ -372,13 +372,15 @@ public struct AppFeature: ReducerProtocol {
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
-          return .run { send in
+          return .run { [isChatPresented = state.isChatViewPresented] send in
             await withThrowingTaskGroup(of: Void.self) { group in
               group.addTask {
                 await send(.fetchLocations)
               }
-              group.addTask {
-                await send(.fetchChatMessages)
+              if isChatPresented {
+                group.addTask {
+                  await send(.fetchChatMessages)
+                }
               }
             }
           }
