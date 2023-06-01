@@ -1,4 +1,5 @@
 import Foundation
+import MapKit
 
 /// Rider location with a coordinate and timestamp
 public struct Location: Equatable, Hashable {
@@ -17,6 +18,13 @@ public struct Location: Equatable, Hashable {
     self.timestamp = timestamp
     self.name = name
     self.color = color
+  }
+  
+  public var clLocation: CLLocation {
+    CLLocation(
+      latitude: coordinate.latitude,
+      longitude: coordinate.longitude
+    )
   }
 }
 
