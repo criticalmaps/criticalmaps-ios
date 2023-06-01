@@ -367,7 +367,7 @@ public struct AppFeature: ReducerProtocol {
 
       case .dismissSheetView:
         state.route = .none
-        return .none
+        return EffectTask(value: .fetchLocations)
               
       case let .requestTimer(timerAction):
         switch timerAction {
