@@ -3,20 +3,34 @@ import Foundation
 /// A structure to define an endpoint on the Critical Maps API
 public struct Endpoint {
   public let baseUrl: String
-  public let path: String?
+  public let pathComponents: [String]
 
-  public init(baseUrl: String, path: String? = nil) {
+  public init(baseUrl: String, pathComponents: [String] = []) {
     self.baseUrl = baseUrl
-    self.path = path
+    self.pathComponents = pathComponents
+  }
+  
+  var url: String {
+    guard !pathComponents.isEmpty else {
+      return baseUrl
+    }
+    let path = pathComponents.joined(separator: "/")
+    return "\(baseUrl)/\(path)"
   }
 }
 
 public extension Endpoint {
+  static let locations = Self(baseUrl: cdnBaseUrl, pathComponents: ["locations"])
+  static let chatMessages = Self(baseUrl: cdnBaseUrl, pathComponents: ["messages"])
   static let criticalmaps = Self(baseUrl: apiBaseUrl)
-  static let twitter = Self(baseUrl: apiBaseUrl, path: "/twitter")
+  static let twitter = Self(baseUrl: apiBaseUrl, pathComponents: ["twitter"])
 
-  static let criticalmass = Self(baseUrl: criticalmassInEndpoint, path: "/api/ride")
+  static let criticalmass = Self(
+    baseUrl: criticalmassInEndpoint,
+    pathComponents: ["api", "ride"]
+  )
 }
 
 let criticalmassInEndpoint = "criticalmass.in"
 let apiBaseUrl = "api.criticalmaps.net"
+let cdnBaseUrl = "api-cdn.criticalmaps.net"

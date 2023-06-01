@@ -25,12 +25,10 @@ public struct Request {
   }
 
   public func makeRequest() throws -> URLRequest {
-    var components = URLComponents()
-    components.scheme = "https"
-    components.host = endpoint.baseUrl
-    if let path = endpoint.path {
-      components.path = path
+    guard var components = URLComponents(string: endpoint.url) else {
+      throw APIRequestBuildError.invalidURL
     }
+    components.scheme = "https"
     if !queryItems.isEmpty {
       components.queryItems = queryItems
     }
@@ -44,6 +42,20 @@ public struct Request {
 
     request.cachePolicy = cachePolicy
     return request
+  }
+}
+
+public extension Request {
+  static func get(_ endpoint: Endpoint, query: [URLQueryItem] = []) -> Request {
+    Request(endpoint: endpoint, httpMethod: .get, queryItems: query)
+  }
+  
+  static func post(_ endpoint: Endpoint, body: Data?) -> Request {
+    Request(endpoint: endpoint, httpMethod: .post, body: body)
+  }
+  
+  static func put(_ endpoint: Endpoint, body: Data?) -> Request {
+    Request(endpoint: endpoint, httpMethod: .put, body: body)
   }
 }
 
