@@ -15,7 +15,8 @@ extension NetworkDispatcher {
   /// Parses a HTTP StatusCode and returns a proper error
   /// - Parameter statusCode: HTTP status code
   /// - Returns: Mapped Error
-  private static func httpError(_ statusCode: Int) -> NetworkRequestError {
+  private static func httpError(_ statusCode: Int?) -> NetworkRequestError {
+    guard let statusCode else { return .unknownError }
     switch statusCode {
     case 400: return .badRequest
     case 403: return .forbidden
@@ -48,7 +49,18 @@ public extension NetworkDispatcher {
   static func live(urlSession: URLSession = .shared) -> Self {
     Self { urlRequest in
       let (data, response) = try await urlSession.data(for: urlRequest)
-      if let response = response as? HTTPURLResponse, !response.isSuccessful {
+      
+      guard let response = response as? HTTPURLResponse else {
+        throw NetworkRequestError.invalidResponse
+      }
+      
+      // check for connection failure reasons
+      guard !NSURLErrorConnectionFailureCodes.contains(response.statusCode) else {
+        throw NetworkRequestError.connectionLost
+      }
+      
+      // check if response is successful
+      guard response.isSuccessful else {
         throw httpError(response.statusCode)
       }
       return (data, response)
@@ -64,3 +76,11 @@ extension HTTPURLResponse {
     (200 ... 299).contains(statusCode)
   }
 }
+
+let NSURLErrorConnectionFailureCodes: [Int] = [
+  NSURLErrorCannotFindHost, /// Error Code: ` -1003`
+  NSURLErrorCannotConnectToHost, /// Error Code: ` -1004`
+  NSURLErrorNetworkConnectionLost, /// Error Code: ` -1005`
+  NSURLErrorNotConnectedToInternet, /// Error Code: ` -1009`
+  NSURLErrorSecureConnectionFailed /// Error Code: ` -1200`
+]

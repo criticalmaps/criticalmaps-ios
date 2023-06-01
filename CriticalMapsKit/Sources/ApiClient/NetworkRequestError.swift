@@ -3,6 +3,8 @@ import Foundation
 /// Error type to describe network related errors
 public enum NetworkRequestError: LocalizedError, Equatable {
   case invalidRequest
+  case invalidResponse
+  case connectionLost
   case badRequest
   case forbidden
   case notFound
