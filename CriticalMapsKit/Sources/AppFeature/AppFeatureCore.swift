@@ -420,10 +420,7 @@ public struct AppFeature: ReducerProtocol {
         case .chat(.onAppear):
           state.chatMessageBadgeCount = 0
           return .none
-          
-        case .chat(.chatInputResponse(.success)):
-          return EffectTask(value: .fetchChatMessages)
-        
+
         default:
           return .none
         }

@@ -49,6 +49,8 @@ public struct ChatFeature: ReducerProtocol {
     case onAppear
     case chatInputResponse(TaskResult<ApiResponse>)
     case dismissAlert
+    case fetchChatMessages
+    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
     
     case chatInput(ChatInput.Action)
   }
@@ -64,9 +66,37 @@ public struct ChatFeature: ReducerProtocol {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        return .fireAndForget {
-          await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+        return .merge(
+          .fireAndForget {
+            await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+          },
+          EffectTask(value: .fetchChatMessages)
+        )
+        
+      case .fetchChatMessages:
+        state.chatMessages = .loading(state.chatMessages.elements ?? [])
+        return .task {
+          await .fetchChatMessagesResponse(
+            TaskResult {
+              try await apiService.getChatMessages()
+            }
+          )
         }
+        
+      case let .fetchChatMessagesResponse(.success(messages)):
+        state.chatMessages = .results(messages)
+        return .none
+        
+      case let .fetchChatMessagesResponse(.failure(error)):
+        state.chatMessages = .error(
+          .init(
+            title: L10n.error,
+            body: "Failed to fetch chat messages",
+            error: .init(error: error)
+          )
+        )
+        logger.info("FetchLocation failed: \(error)")
+        return .none
         
       case .dismissAlert:
         state.alert = nil
@@ -75,7 +105,7 @@ public struct ChatFeature: ReducerProtocol {
       case .chatInputResponse(.success):
         state.chatInputState.isSending = false
         state.chatInputState.message.removeAll()
-        return .none
+        return EffectTask(value: .fetchChatMessages)
         
       case let .chatInputResponse(.failure(error)):
         state.chatInputState.isSending = false
