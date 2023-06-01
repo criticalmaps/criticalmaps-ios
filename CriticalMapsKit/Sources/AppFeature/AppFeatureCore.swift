@@ -222,7 +222,6 @@ public struct AppFeature: ReducerProtocol {
         }
         
       case .fetchChatMessages:
-        state.socialState.chatFeatureState.chatMessages = .loading(state.socialState.chatFeatureState.chatMessages.elements ?? [])
         return .task {
           await .fetchChatMessagesResponse(
             TaskResult {
