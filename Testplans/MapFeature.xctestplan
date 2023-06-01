@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "E6B7A7C7-D211-490F-A31B-AD8F415AA081",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "language" : "en",
+    "locationScenario" : {
+      "identifier" : "..\/..\/App\/Berlin:Germany.gpx"
+    },
+    "region" : "DE"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MapFeatureTests",
+        "name" : "MapFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}

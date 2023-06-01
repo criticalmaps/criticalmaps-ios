@@ -34,6 +34,8 @@
 		732734462771172C0007579E /* CriticalMapsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CriticalMapsKit; sourceTree = "<group>"; };
 		7327344B277118670007579E /* TwitterFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatFeature.xctestplan; sourceTree = "<group>"; };
+		7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapFeature.xctestplan; sourceTree = "<group>"; };
 		73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7369207C28D0D92100EA0584 /* SnapshotTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SnapshotTests.xctestplan; sourceTree = "<group>"; };
 		738214EF271F49AB009847C7 /* appIcon-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-5.png"; sourceTree = "<group>"; };
@@ -44,7 +46,7 @@
 		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Berlin:Germany.gpx"; path = "App/Berlin:Germany.gpx"; sourceTree = "<group>"; };
 		73BABF82277B0A2900D9790F /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		73BABF83277B0A2900D9790F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		73CA9806268DCC0F004D81FA /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UnitTests.xctestplan; path = App/UnitTests.xctestplan; sourceTree = "<group>"; };
+		73CA9806268DCC0F004D81FA /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,6 +123,17 @@
 			path = TwitterFeaturePreview;
 			sourceTree = "<group>";
 		};
+		7347AB282A27C0CA00BCA949 /* Testplans */ = {
+			isa = PBXGroup;
+			children = (
+				7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */,
+				7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */,
+				7369207C28D0D92100EA0584 /* SnapshotTests.xctestplan */,
+				73CA9806268DCC0F004D81FA /* UnitTests.xctestplan */,
+			);
+			path = Testplans;
+			sourceTree = "<group>";
+		};
 		738214EE271F49AB009847C7 /* appicons */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,8 +154,7 @@
 				73BABF83277B0A2900D9790F /* README.md */,
 				732734462771172C0007579E /* CriticalMapsKit */,
 				739C4980276733E20001466A /* Berlin:Germany.gpx */,
-				7369207C28D0D92100EA0584 /* SnapshotTests.xctestplan */,
-				73CA9806268DCC0F004D81FA /* UnitTests.xctestplan */,
+				7347AB282A27C0CA00BCA949 /* Testplans */,
 				73CF5FF0263EB0A6001925A3 /* iOS App */,
 				7327344C277118670007579E /* TwitterFeaturePreview */,
 				73238EBB27728043003DE01F /* ChatFeaturePreview */,

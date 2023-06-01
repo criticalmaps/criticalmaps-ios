@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "32338BC3-301F-4E61-BC23-15A31C0106C9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "language" : "en",
+    "locationScenario" : {
+      "identifier" : "..\/..\/App\/Berlin:Germany.gpx"
+    },
+    "region" : "DE"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ChatFeatureTests",
+        "name" : "ChatFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}
