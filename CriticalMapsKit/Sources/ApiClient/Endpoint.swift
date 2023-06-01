@@ -22,16 +22,10 @@ public struct Endpoint {
 public extension Endpoint {
   static let locations = Self(baseUrl: cdnBaseUrl, pathComponents: ["locations"])
   static let chatMessages = Self(baseUrl: apiGWBaseUrl, pathComponents: ["messages"])
-  static let criticalmaps = Self(baseUrl: apiBaseUrl)
-  static let twitter = Self(baseUrl: apiBaseUrl, pathComponents: ["twitter"])
-
-  static let criticalmass = Self(
-    baseUrl: criticalmassInEndpoint,
-    pathComponents: ["api", "ride"]
-  )
+  static let twitter = Self(baseUrl: apiGWBaseUrl, pathComponents: ["twitter"])
+  static let criticalmass = Self(baseUrl: criticalmassInEndpoint, pathComponents: ["api", "ride"])
 }
 
 let criticalmassInEndpoint = "criticalmass.in"
-let apiBaseUrl = "api.criticalmaps.net"
 let cdnBaseUrl = "api-cdn.criticalmaps.net"
 let apiGWBaseUrl = "api-gw.criticalmaps.net"
