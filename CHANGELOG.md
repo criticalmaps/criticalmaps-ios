@@ -2,7 +2,7 @@
 
 Changelog for Critical Maps iOS
 
-# [4.1.0] - 2023-06-01
+# [4.2.0] - 2023-06-01
 
 ### Added
 
