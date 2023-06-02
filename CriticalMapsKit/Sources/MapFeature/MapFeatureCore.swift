@@ -5,7 +5,7 @@ import MapKit
 import SharedModels
 
 @propertyWrapper
-public struct ShouldAnimateTrackingModeOverTime {
+public struct ShouldAnimateTrackingModeOverTime: Equatable {
   private var values = [false, true]
   
   public init() {}
@@ -34,7 +34,7 @@ public struct MapFeature: ReducerProtocol {
   public struct State: Equatable {
     public var alert: AlertState<Action>?
     public var isRequestingCurrentLocation: Bool
-    public var location: ComposableCoreLocation.Location?
+    public var location: SharedModels.Location?
     public var riderLocations: [Rider]
     public var nextRide: Ride?
     
@@ -53,7 +53,7 @@ public struct MapFeature: ReducerProtocol {
     public init(
       alert: AlertState<Action>? = nil,
       isRequestingCurrentLocation: Bool = false,
-      location: ComposableCoreLocation.Location? = nil,
+      location: SharedModels.Location? = nil,
       riders: [Rider],
       userTrackingMode: UserTrackingFeature.State,
       nextRide: Ride? = nil,
@@ -66,21 +66,6 @@ public struct MapFeature: ReducerProtocol {
       self.userTrackingMode = userTrackingMode
       self.nextRide = nextRide
       self.centerRegion = centerRegion
-    }
-    
-    public static func == (lhs: MapFeature.State, rhs: MapFeature.State) -> Bool {
-      lhs.alert == rhs.alert
-      && lhs.isNextRideBannerExpanded == rhs.isNextRideBannerExpanded
-      && lhs.isNextRideBannerVisible == rhs.isNextRideBannerVisible
-      && lhs.presentShareSheet == rhs.presentShareSheet
-      && lhs.isRequestingCurrentLocation == rhs.isRequestingCurrentLocation
-      && lhs.location == rhs.location
-      && lhs.riderLocations == rhs.riderLocations
-      && lhs.userTrackingMode == rhs.userTrackingMode
-      && lhs.nextRide == rhs.nextRide
-      && lhs.centerRegion == rhs.centerRegion
-      && lhs.isNextRideBannerVisible == rhs.isNextRideBannerVisible
-      && lhs.isNextRideBannerExpanded == rhs.isNextRideBannerExpanded
     }
   }
 
@@ -140,7 +125,16 @@ public struct MapFeature: ReducerProtocol {
         case let .didUpdateLocations(locations):
           state.isRequestingCurrentLocation = false
           guard let location = locations.first else { return .none }
-          state.location = location
+          
+          let mapLocation = Location(
+            coordinate: .init(
+              latitude: location.coordinate.latitude,
+              longitude: location.coordinate.longitude
+            ),
+            timestamp: location.timestamp.timeIntervalSince1970
+          )
+          
+          state.location = mapLocation
           return .none
           
         default:
@@ -277,8 +271,8 @@ extension LocationManager {
       .init(
         activityType: .otherNavigation,
         allowsBackgroundLocationUpdates: true,
-        desiredAccuracy: kCLLocationAccuracyBestForNavigation,
-        distanceFilter: nil,
+        desiredAccuracy: kCLLocationAccuracyBest,
+        distanceFilter: 42.0,
         headingFilter: nil,
         pausesLocationUpdatesAutomatically: false,
         showsBackgroundLocationIndicator: true

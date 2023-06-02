@@ -47,7 +47,7 @@ public struct AppView: View {
             }
         }
 
-        if !viewStore.connectionObserverState.isNetworkAvailable {
+        if !viewStore.connectionObserverState.isNetworkAvailable || viewStore.hasOfflineError {
           offlineBanner
             .clipShape(Circle())
             .opacity(showOfflineBanner ? 1 : 0)

@@ -3,12 +3,12 @@ import Foundation
 /// A structure that represents new chat message post
 public struct ChatMessagePost: Codable, Hashable {
   public var text: String
-  public var timestamp: TimeInterval
+  public var device: String
   public var identifier: String
 
-  public init(text: String, timestamp: TimeInterval, identifier: String) {
+  public init(text: String, device: String, identifier: String) {
     self.text = text
-    self.timestamp = timestamp
+    self.device = device
     self.identifier = identifier
   }
 }

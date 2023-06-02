@@ -8,22 +8,22 @@ final class ChatViewStateTests: XCTestCase {
     // arrange
     let chatFeatureState = ChatFeature.State(
       chatMessages: .results([
-        "1": .init(message: "Hello", timestamp: 1),
-        "2": .init(message: "Hello", timestamp: 2),
-        "3": .init(message: "Hello", timestamp: 3)
+        ChatMessage(identifier: "1", device: "", message: "Hello", timestamp: 1),
+        ChatMessage(identifier: "2", device: "", message: "Hello", timestamp: 2),
+        ChatMessage(identifier: "3", device: "", message: "Hello", timestamp: 3)
       ]),
       chatInputState: .init()
     )
 
     // act
     let chatViewState = ChatView.ViewState(chatFeatureState)
-    let messages = chatViewState.identifiedChatMessages
+    let messages = chatViewState.messages
 
     // assert
-    let expectedMessages: [IdentifiedChatMessage] = [
-      .init(id: "3", message: "Hello", timestamp: 3),
-      .init(id: "2", message: "Hello", timestamp: 2),
-      .init(id: "1", message: "Hello", timestamp: 1)
+    let expectedMessages = [
+      ChatMessage(identifier: "3", device: "", message: "Hello", timestamp: 3),
+      ChatMessage(identifier: "2", device: "", message: "Hello", timestamp: 2),
+      ChatMessage(identifier: "1", device: "", message: "Hello", timestamp: 1)
     ]
     XCTAssertEqual(messages, expectedMessages)
   }

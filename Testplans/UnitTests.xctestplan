@@ -92,14 +92,6 @@
       }
     },
     {
-      "enabled" : false,
-      "target" : {
-        "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "StyleguideTests",
-        "name" : "StyleguideTests"
-      }
-    },
-    {
       "parallelizable" : true,
       "skippedTests" : [
         "TweetListViewSnapshotTests",

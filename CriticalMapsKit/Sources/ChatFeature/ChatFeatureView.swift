@@ -7,17 +7,10 @@ import SwiftUI
 /// A list to show messages from the chat and send a message
 public struct ChatView: View {
   public struct ViewState: Equatable {
-    public var identifiedChatMessages: [IdentifiedChatMessage]
+    public let messages: [ChatMessage]
     
     public init(_ state: ChatFeature.State) {
-      identifiedChatMessages = state.chatMessages.elements?
-        .compactMap { (key: String, value: ChatMessage) in
-          IdentifiedChatMessage(
-            id: key,
-            message: value.decodedMessage ?? "",
-            timestamp: value.timestamp
-          )
-        }
+      messages = state.chatMessages.elements?
         .sorted { $0.timestamp > $1.timestamp } ?? []
     }
   }
@@ -27,7 +20,7 @@ public struct ChatView: View {
   
   public init(store: Store<ChatFeature.State, ChatFeature.Action>) {
     self.store = store
-    viewStore = ViewStore(store.scope(state: ViewState.init))
+    viewStore = ViewStore(store.scope(state: ViewState.init), observe: { $0 })
   }
   
   public var body: some View {
@@ -37,24 +30,25 @@ public struct ChatView: View {
           .ignoresSafeArea()
           .accessibilityHidden(true)
         
-        if viewStore.identifiedChatMessages.isEmpty {
+        if viewStore.messages.isEmpty {
           emptyState
             .accessibilitySortPriority(-1)
         } else {
-          List(viewStore.identifiedChatMessages) { chat in
+          List(viewStore.messages) { chat in
             ChatMessageView(chat)
               .padding(.horizontal, .grid(4))
               .padding(.vertical, .grid(2))
-              .animation(nil, value: viewStore.identifiedChatMessages)
+              .animation(nil, value: viewStore.messages)
           }
           .listRowBackground(Color(.backgroundPrimary))
           .listStyle(PlainListStyle())
-          .accessibleAnimation(.easeOut, value: viewStore.identifiedChatMessages)
+          .accessibleAnimation(.easeOut, value: viewStore.messages)
         }
       }
       
       chatInput
     }
+    .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
     .onAppear { viewStore.send(.onAppear) }
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea(.container, edges: .bottom)
@@ -100,7 +94,15 @@ struct ChatView_Previews: PreviewProvider {
       store: Store<ChatFeature.State, ChatFeature.Action>(
         initialState: .init(
           chatMessages: .results(
-            ["1": .init(message: "Hello World 🌐", timestamp: 1)])
+            [
+              .init(
+                identifier: UUID().uuidString,
+                device: "DEVICE",
+                message: "Hello World",
+                timestamp: 123421231
+              )
+            ]
+          )
         ),
         reducer: ChatFeature()._printChanges()
       )

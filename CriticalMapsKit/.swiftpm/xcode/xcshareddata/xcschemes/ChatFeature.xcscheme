@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1330"
+   LastUpgradeVersion = "1430"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "MapFeature"
-               BuildableName = "MapFeature"
-               BlueprintName = "MapFeature"
+               BlueprintIdentifier = "ChatFeature"
+               BuildableName = "ChatFeature"
+               BlueprintName = "ChatFeature"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,7 +29,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:../MapFeature.xctestplan"
+            reference = "container:../Testplans/ChatFeature.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -54,9 +54,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "MapFeature"
-            BuildableName = "MapFeature"
-            BlueprintName = "MapFeature"
+            BlueprintIdentifier = "ChatFeature"
+            BuildableName = "ChatFeature"
+            BlueprintName = "ChatFeature"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

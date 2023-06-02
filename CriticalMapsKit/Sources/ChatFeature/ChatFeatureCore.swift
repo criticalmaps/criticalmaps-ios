@@ -3,17 +3,19 @@ import ComposableArchitecture
 import CryptoKit
 import Foundation
 import Helpers
+import IDProvider
 import L10n
 import Logger
 import SharedDependencies
 import SharedModels
+import UserDefaultsClient
 
 public struct ChatFeature: ReducerProtocol {
   public init() {}
   
   @Dependency(\.date) public var date
   @Dependency(\.idProvider) public var idProvider
-  @Dependency(\.locationAndChatService) public var locationAndChatService
+  @Dependency(\.apiService) public var apiService
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.uuid) public var uuid
   @Dependency(\.userDefaultsClient) public var userDefaultsClient
@@ -28,11 +30,12 @@ public struct ChatFeature: ReducerProtocol {
   // MARK: State
   
   public struct State: Equatable {
-    public var chatMessages: ContentState<[String: ChatMessage]>
+    public var chatMessages: ContentState<[ChatMessage]>
     public var chatInputState: ChatInput.State
+    public var alert: AlertState<Action>?
     
     public init(
-      chatMessages: ContentState<[String: ChatMessage]> = .loading([:]),
+      chatMessages: ContentState<[ChatMessage]> = .loading([]),
       chatInputState: ChatInput.State = .init()
     ) {
       self.chatMessages = chatMessages
@@ -44,7 +47,10 @@ public struct ChatFeature: ReducerProtocol {
   
   public enum Action: Equatable {
     case onAppear
-    case chatInputResponse(TaskResult<LocationAndChatMessages>)
+    case chatInputResponse(TaskResult<ApiResponse>)
+    case dismissAlert
+    case fetchChatMessages
+    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
     
     case chatInput(ChatInput.Action)
   }
@@ -60,19 +66,55 @@ public struct ChatFeature: ReducerProtocol {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        return .fireAndForget {
-          await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+        return .merge(
+          .fireAndForget {
+            await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+          },
+          EffectTask(value: .fetchChatMessages)
+        )
+        
+      case .fetchChatMessages:
+        state.chatMessages = .loading(state.chatMessages.elements ?? [])
+        return .task {
+          await .fetchChatMessagesResponse(
+            TaskResult {
+              try await apiService.getChatMessages()
+            }
+          )
         }
         
-      case let .chatInputResponse(.success(response)):
+      case let .fetchChatMessagesResponse(.success(messages)):
+        state.chatMessages = .results(messages)
+        return .none
+        
+      case let .fetchChatMessagesResponse(.failure(error)):
+        state.chatMessages = .error(
+          .init(
+            title: L10n.error,
+            body: "Failed to fetch chat messages",
+            error: .init(error: error)
+          )
+        )
+        logger.info("FetchLocation failed: \(error)")
+        return .none
+        
+      case .dismissAlert:
+        state.alert = nil
+        return .none
+        
+      case .chatInputResponse(.success):
         state.chatInputState.isSending = false
         state.chatInputState.message.removeAll()
-        
-        state.chatMessages = .results(response.chatMessages)
-        return .none
+        return EffectTask(value: .fetchChatMessages)
         
       case let .chatInputResponse(.failure(error)):
         state.chatInputState.isSending = false
+        
+        state.alert = AlertState(
+          title: .init(L10n.error),
+          message: .init("Failed to send chat message")
+        )
+        
         logger.debug("ChatInput Action failed with error: \(error.localizedDescription)")
         return .none
         
@@ -81,26 +123,16 @@ public struct ChatFeature: ReducerProtocol {
         case .onCommit:
           let message = ChatMessagePost(
             text: state.chatInputState.message,
-            timestamp: date().timeIntervalSince1970,
+            device: idProvider.id(),
             identifier: md5Uuid
           )
-          let body = SendLocationAndChatMessagesPostBody(
-            device: idProvider.id(),
-            location: nil,
-            messages: [message]
-          )
-          
-          guard isNetworkAvailable else {
-            logger.debug("Not sending chat input. Network not available")
-            return .none
-          }
           
           state.chatInputState.isSending = true
           
           return .task {
             await .chatInputResponse(
               TaskResult {
-                try await locationAndChatService.getLocationsAndSendMessages(body)
+                try await apiService.postChatMessage(message)
               }
             )
           }

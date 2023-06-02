@@ -1,15 +1,21 @@
+import SharedModels
 import SwiftUI
 
 public struct ChatMessageView: View {
-  public init(_ chat: IdentifiedChatMessage) {
+  public init(_ chat: ChatMessage) {
     self.chat = chat
   }
 
-  let chat: IdentifiedChatMessage
+  var chatTime: String {
+    Date(timeIntervalSince1970: chat.timestamp)
+      .formatted(Date.FormatStyle.chatTime())
+  }
+  
+  let chat: ChatMessage
 
   public var body: some View {
     VStack(alignment: .leading, spacing: .grid(1)) {
-      Text(chat.chatTime)
+      Text(chatTime)
         .foregroundColor(Color(.textPrimary))
         .font(.meta)
       Text(chat.message)
@@ -23,7 +29,8 @@ struct ChatMessageView_Previews: PreviewProvider {
   static var previews: some View {
     ChatMessageView(
       .init(
-        id: "",
+        identifier: "id",
+        device: "device",
         message: "Hello World!",
         timestamp: .pi
       )

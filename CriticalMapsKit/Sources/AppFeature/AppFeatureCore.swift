@@ -3,22 +3,27 @@ import BottomSheet
 import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
+import FileClient
+import IDProvider
 import L10n
 import Logger
 import MapFeature
 import MapKit
 import NextRideFeature
+import PathMonitorClient
 import SettingsFeature
 import SharedDependencies
 import SharedModels
 import SocialFeature
 import TwitterFeedFeature
+import UIApplicationClient
+import UserDefaultsClient
 
 public struct AppFeature: ReducerProtocol {
   public init() {}
   
   @Dependency(\.fileClient) public var fileClient
-  @Dependency(\.locationAndChatService) public var locationsAndChatDataService
+  @Dependency(\.apiService) public var apiService
   @Dependency(\.uuid) public var uuid
   @Dependency(\.date) public var date
   @Dependency(\.userDefaultsClient) public var userDefaultsClient
@@ -35,7 +40,7 @@ public struct AppFeature: ReducerProtocol {
 
   public struct State: Equatable {
     public init(
-      locationsAndChatMessages: TaskResult<LocationAndChatMessages>? = nil,
+      locationsAndChatMessages: TaskResult<[Rider]>? = nil,
       didResolveInitialLocation: Bool = false,
       mapFeatureState: MapFeature.State = .init(
         riders: [],
@@ -48,7 +53,7 @@ public struct AppFeature: ReducerProtocol {
       route: AppRoute? = nil,
       chatMessageBadgeCount: UInt = 0
     ) {
-      self.locationsAndChatMessages = locationsAndChatMessages
+      self.riderLocations = locationsAndChatMessages
       self.didResolveInitialLocation = didResolveInitialLocation
       self.mapFeatureState = mapFeatureState
       self.socialState = socialState
@@ -59,7 +64,7 @@ public struct AppFeature: ReducerProtocol {
       self.chatMessageBadgeCount = chatMessageBadgeCount
     }
     
-    public var locationsAndChatMessages: TaskResult<LocationAndChatMessages>?
+    public var riderLocations: TaskResult<[Rider]>?
     public var didResolveInitialLocation = false
     
     // Children states
@@ -83,6 +88,19 @@ public struct AppFeature: ReducerProtocol {
 
     @BindingState public var bottomSheetPosition: BottomSheetPosition = .hidden
     public var alert: AlertState<Action>?
+    
+    var hasOfflineError: Bool {
+      switch riderLocations {
+      case .failure(let error):
+        guard let networkError = error as? NetworkRequestError else {
+          return false
+        }
+        return networkError == .connectionLost
+        
+      default:
+        return false
+      }
+    }
   }
   
   // MARK: Actions
@@ -92,10 +110,13 @@ public struct AppFeature: ReducerProtocol {
     case appDelegate(AppDelegate.Action)
     case onAppear
     case onDisappear
-    case fetchData
-    case fetchDataResponse(TaskResult<LocationAndChatMessages>)
+    case fetchLocations
+    case fetchLocationsResponse(TaskResult<[Rider]>)
+    case postLocation
+    case postLocationResponse(TaskResult<ApiResponse>)
+    case fetchChatMessages
+    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
     case userSettingsLoaded(TaskResult<UserSettings>)
-    
     case onRideSelectedFromBottomSheet(SharedModels.Ride)
     case setNavigation(tag: AppRoute.Tag?)
     case dismissSheetView
@@ -145,6 +166,11 @@ public struct AppFeature: ReducerProtocol {
     }
     
     /// Holds the logic for the AppFeature to update state and execute side effects
+    self.core
+  }
+  
+  @ReducerBuilderOf<Self>
+  var core: some ReducerProtocol<State, Action> {
     Reduce<State, Action> { state, action in
       switch action {
       case .binding(\.$bottomSheetPosition):
@@ -164,7 +190,16 @@ public struct AppFeature: ReducerProtocol {
         
       case .onAppear:
         var effects: [EffectTask<Action>] = [
-          EffectTask(value: .fetchData),
+          .run { send in
+            await withThrowingTaskGroup(of: Void.self) { group in
+              group.addTask {
+                await send(.fetchChatMessages)
+              }
+              group.addTask {
+                await send(.fetchLocations)
+              }
+            }
+          },
           EffectTask(value: .connectionObserver(.observeConnection)),
           .task {
             await .userSettingsLoaded(
@@ -190,37 +225,28 @@ public struct AppFeature: ReducerProtocol {
       case .onDisappear:
         return EffectTask.cancel(id: ObserveConnectionIdentifier())
         
-      case .fetchData:
-        struct GetLocationsId: Hashable {}
-        let postBody = SendLocationAndChatMessagesPostBody(
-          device: idProvider.id(),
-          location: state.settingsState.userSettings.enableObservationMode
-            ? nil
-            : Location(state.mapFeatureState.location)
-        )
-        
-        guard isNetworkAvailable else {
-          logger.info("AppAction.fetchData not executed. Not connected to internet")
-          return .none
-        }
+      case .fetchLocations:
         return .task {
-          await .fetchDataResponse(
+          await .fetchLocationsResponse(
             TaskResult {
-              try await locationsAndChatDataService.getLocationsAndSendMessages(postBody)
+              try await apiService.getRiders()
             }
           )
         }
         
-      case let .fetchDataResponse(.success(response)):
-        state.locationsAndChatMessages = .success(response)
+      case .fetchChatMessages:
+        return .task {
+          await .fetchChatMessagesResponse(
+            TaskResult {
+              try await apiService.getChatMessages()
+            }
+          )
+        }
         
-        state.socialState.chatFeatureState.chatMessages = .results(response.chatMessages)
-        state.mapFeatureState.riderLocations = response.riderLocations
-        
+      case let .fetchChatMessagesResponse(.success(messages)):
+        state.socialState.chatFeatureState.chatMessages = .results(messages)
         if !state.isChatViewPresented {
-          let cachedMessages = response.chatMessages
-            .values
-            .sorted(by: \.timestamp)
+          let cachedMessages = messages.sorted(by: \.timestamp)
           
           let unreadMessagesCount = UInt(
             cachedMessages
@@ -229,46 +255,85 @@ public struct AppFeature: ReducerProtocol {
           )
           state.chatMessageBadgeCount = unreadMessagesCount
         }
-        
         return .none
         
-      case let .fetchDataResponse(.failure(error)):
-        logger.info("FetchData failed: \(error)")
-        state.locationsAndChatMessages = .failure(error)
+      case let .fetchChatMessagesResponse(.failure(error)):
+        state.socialState.chatFeatureState.chatMessages = .error(
+          .init(
+            title: L10n.error,
+            body: "Failed to fetch chat messages",
+            error: .init(error: error)
+          )
+        )
+        logger.info("FetchLocation failed: \(error)")
+        return .none
+        
+      case let .fetchLocationsResponse(.success(response)):
+        state.riderLocations = .success(response)
+        state.mapFeatureState.riderLocations = response
+        return .none
+        
+      case let .fetchLocationsResponse(.failure(error)):
+        logger.info("FetchLocation failed: \(error)")
+        state.riderLocations = .failure(error)
+        return .none
+        
+      case .postLocation:
+        guard state.settingsState.userSettings.enableObservationMode else {
+          return .none
+        }
+        
+        let postBody = SendLocationPostBody(
+          device: idProvider.id(),
+          location: state.mapFeatureState.location
+        )
+        return .task {
+          await .postLocationResponse(
+            TaskResult {
+              try await apiService.postRiderLocation(postBody)
+            }
+          )
+        }
+        
+      case .postLocationResponse(.success):
+        return .none
+        
+      case .postLocationResponse(.failure(let error)):
+        logger.debug("Failed to post location. Error: \(error.localizedDescription)")
         return .none
 
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
-        case let .locationManager(locationManagerAction):
-          switch locationManagerAction {
-          case .didUpdateLocations:
-            
-            // synchronize with nextRideState
-            state.nextRideState.userLocation = Coordinate(state.mapFeatureState.location)
-            
-            if !state.didResolveInitialLocation {
-              state.didResolveInitialLocation.toggle()
-              if let coordinate = Coordinate(state.mapFeatureState.location), state.settingsState.userSettings.rideEventSettings.isEnabled {
-                return EffectTask.concatenate(
-                  EffectTask(value: .fetchData),
-                  EffectTask(value: .nextRide(.getNextRide(coordinate)))
-                )
-              } else {
-                return EffectTask(value: .fetchData)
-              }
-            } else {
-              return .none
-            }
-            
-          default:
-            return .none
-          }
-
         case .focusRideEvent, .focusNextRide:
           if state.bottomSheetPosition != .hidden {
             return EffectTask(value: .set(\.$bottomSheetPosition, .relative(0.4)))
           } else {
             return .none
+          }
+          
+        case .locationManager(.didUpdateLocations):
+          let isInitialLocation = state.nextRideState.userLocation == nil
+          
+          // sync with nextRideState
+          state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
+          
+          if
+            let coordinate = state.mapFeatureState.location?.coordinate,
+            state.settingsState.userSettings.rideEventSettings.isEnabled,
+            isInitialLocation
+          {
+            return .run { send in
+              await withThrowingTaskGroup(of: Void.self) { group in
+                group.addTask {
+                  await send(.postLocation)
+                }
+                group.addTask {
+                  await send(.nextRide(.getNextRide(coordinate)))
+                }
+              }
+            }
+          } else {
+            return EffectTask(value: .postLocation)
           }
 
         default:
@@ -315,12 +380,26 @@ public struct AppFeature: ReducerProtocol {
 
       case .dismissSheetView:
         state.route = .none
-        return .none
+        return EffectTask(value: .fetchLocations)
               
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
-          return EffectTask(value: .fetchData)
+          return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
+            await withThrowingTaskGroup(of: Void.self) { group in
+              if !isPrentingSubView {
+                group.addTask {
+                  await send(.fetchLocations)
+                }
+              }
+              if isChatPresented {
+                group.addTask {
+                  await send(.fetchChatMessages)
+                }
+              }
+            }
+          }
+          
         default:
           return .none
         }
@@ -353,29 +432,24 @@ public struct AppFeature: ReducerProtocol {
         case .chat(.onAppear):
           state.chatMessageBadgeCount = 0
           return .none
-        
+
         default:
           return .none
         }
         
       case let .settings(settingsAction):
         switch settingsAction {
-        case let .rideevent(.setRideEventsEnabled(isEnabled)):
-          if !isEnabled {
-            return EffectTask(value: .map(.setNextRideBannerVisible(false)))
-          } else {
-            guard
-              let coordinate = Coordinate(state.mapFeatureState.location),
-              state.settingsState.userSettings.rideEventSettings.isEnabled
-            else {
-              return .none
-            }
-            struct RideEventSettingsChange: Hashable {}
-            
-            return EffectTask(value: .nextRide(.getNextRide(coordinate)))
-              .debounce(id: RideEventSettingsChange(), for: 1.5, scheduler: mainQueue)
+        case .rideevent:
+          guard
+            let coordinate = state.mapFeatureState.location?.coordinate,
+            state.settingsState.userSettings.rideEventSettings.isEnabled
+          else {
+            return .none
           }
-          
+          struct RideEventRadiusSettingChange: Hashable {}
+          return EffectTask(value: .nextRide(.getNextRide(coordinate)))
+            .debounce(id: RideEventRadiusSettingChange(), for: 1, scheduler: mainQueue)
+        
         default:
           return .none
         }
@@ -431,3 +505,5 @@ public extension AlertState where Action == AppFeature.Action {
     ]
   )
 }
+
+public typealias ReducerBuilderOf<R: ReducerProtocol> = ReducerBuilder<R.State, R.Action>

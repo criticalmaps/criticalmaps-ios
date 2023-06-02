@@ -31,9 +31,9 @@ public extension DependencyValues {
     }
   }
   
-  var locationAndChatService: LocationsAndChatDataService {
-    get { self[LocationAndChatServiceKey.self] }
-    set { self[LocationAndChatServiceKey.self] = newValue }
+  var apiService: APIService {
+    get { self[APIServiceKey.self] }
+    set { self[APIServiceKey.self] = newValue }
   }
   
   var pathMonitorClient: PathMonitorClient {
@@ -76,9 +76,9 @@ enum IDProviderKey: DependencyKey {
   static let testValue = IDProvider.noop
 }
 
-enum LocationAndChatServiceKey: DependencyKey {
-  static let liveValue = LocationsAndChatDataService.live()
-  static let testValue = LocationsAndChatDataService.failing
+enum APIServiceKey: DependencyKey {
+  static let liveValue = APIService.live()
+  static let testValue = APIService.failing
 }
 
 enum PathMonitorClientKey: DependencyKey {
