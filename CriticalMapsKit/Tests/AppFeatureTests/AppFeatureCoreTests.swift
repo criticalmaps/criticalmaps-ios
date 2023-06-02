@@ -214,7 +214,7 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
-    store.dependencies.nextRideService.nextRide = { _, radius, _ in
+    store.dependencies.nextRideService.nextRide = { _, _, _ in
       [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
     }
 
@@ -287,6 +287,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
+    store.dependencies.mainQueue = .immediate
     
     let coordinate = Coordinate.make()
     
@@ -341,7 +342,7 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
-    store.dependencies.nextRideService.nextRide = { _, radius, _ in
+    store.dependencies.nextRideService.nextRide = { _, _, _ in
       [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
     }
 
