@@ -88,6 +88,19 @@ public struct AppFeature: ReducerProtocol {
 
     @BindingState public var bottomSheetPosition: BottomSheetPosition = .hidden
     public var alert: AlertState<Action>?
+    
+    var hasOfflineError: Bool {
+      switch riderLocations {
+      case .failure(let error):
+        guard let networkError = error as? NetworkRequestError else {
+          return false
+        }
+        return networkError == .connectionLost
+        
+      default:
+        return false
+      }
+    }
   }
   
   // MARK: Actions
