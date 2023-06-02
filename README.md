@@ -170,13 +170,20 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/woxtu">
+            <img src="https://avatars.githubusercontent.com/u/5673994?v=4" width="100;" alt="woxtu"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
         <a href="https://github.com/jkandzi">
             <img src="https://avatars.githubusercontent.com/u/9692434?v=4" width="100;" alt="jkandzi"/>
             <br />
             <sub><b>Justus Kandzi</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/ravi-tul-ios">
             <img src="https://avatars.githubusercontent.com/u/91732598?v=4" width="100;" alt="ravi-tul-ios"/>
@@ -189,13 +196,6 @@ However, **please do not ship this app** under your own account. Paid or free.
             <img src="https://avatars.githubusercontent.com/u/64522679?v=4" width="100;" alt="Freelenzer"/>
             <br />
             <sub><b>Freelenzer</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/woxtu">
-            <img src="https://avatars.githubusercontent.com/u/5673994?v=4" width="100;" alt="woxtu"/>
-            <br />
-            <sub><b>Null</b></sub>
         </a>
     </td>
     <td align="center">
