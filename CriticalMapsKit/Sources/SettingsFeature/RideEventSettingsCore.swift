@@ -29,6 +29,9 @@ public struct RideEventsSettingsFeature: ReducerProtocol {
       return .none
 
     case let .setRideEventRadius(distance):
+      guard distance != state.eventDistance else {
+        return .none
+      }
       state.eventDistance = distance
       return .none
     }

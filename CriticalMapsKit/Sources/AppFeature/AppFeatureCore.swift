@@ -426,22 +426,17 @@ public struct AppFeature: ReducerProtocol {
         
       case let .settings(settingsAction):
         switch settingsAction {
-        case let .rideevent(.setRideEventsEnabled(isEnabled)):
-          if !isEnabled {
-            return EffectTask(value: .map(.setNextRideBannerVisible(false)))
-          } else {
-            guard
-              let coordinate = state.mapFeatureState.location?.coordinate,
-              state.settingsState.userSettings.rideEventSettings.isEnabled
-            else {
-              return .none
-            }
-            struct RideEventSettingsChange: Hashable {}
-            
-            return EffectTask(value: .nextRide(.getNextRide(coordinate)))
-              .debounce(id: RideEventSettingsChange(), for: 1, scheduler: mainQueue)
+        case .rideevent:
+          guard
+            let coordinate = state.mapFeatureState.location?.coordinate,
+            state.settingsState.userSettings.rideEventSettings.isEnabled
+          else {
+            return .none
           }
-          
+          struct RideEventRadiusSettingChange: Hashable {}
+          return EffectTask(value: .nextRide(.getNextRide(coordinate)))
+            .debounce(id: RideEventRadiusSettingChange(), for: 1, scheduler: mainQueue)
+        
         default:
           return .none
         }
