@@ -28,8 +28,8 @@ final class ChatFeatureSnapshotTests: XCTestCase {
       store: .init(
         initialState: .init(
           chatMessages: .results([
-            ChatMessage(identifier: "", device: "Device", message: "Hello World!", timestamp: 0),
-            ChatMessage(identifier: "", device: "Device", message: "Hello World!", timestamp: 0)
+            ChatMessage(identifier: "1", device: "Device", message: "Hello World!", timestamp: 0),
+            ChatMessage(identifier: "2", device: "Device", message: "Hello World!", timestamp: 4)
           ]),
           chatInputState: .init()
         ),

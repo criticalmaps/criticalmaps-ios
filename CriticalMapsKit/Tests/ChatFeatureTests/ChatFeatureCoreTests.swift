@@ -32,6 +32,7 @@ final class ChatFeatureCore: XCTestCase {
   func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
     let testStore = defaultTestStore()
     testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
+    testStore.dependencies.apiService.getChatMessages = { mockResponse }
     
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
@@ -39,6 +40,12 @@ final class ChatFeatureCore: XCTestCase {
     await testStore.receive(.chatInputResponse(.success(.init(status: "ok")))) { state in
       state.chatInputState.isSending = false
       state.chatInputState.message = ""
+    }
+    await testStore.receive(.fetchChatMessages) {
+      $0.chatMessages = .loading([])
+    }
+    await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
+      $0.chatMessages = .results(mockResponse)
     }
   }
   
@@ -68,6 +75,7 @@ final class ChatFeatureCore: XCTestCase {
       initialState: ChatFeature.State(),
       reducer: ChatFeature()
     )
+    testStore.dependencies.apiService.getChatMessages = { mockResponse }
     testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
       await didWriteChatAppearanceTimeinterval.setValue(true)
       await chatAppearanceTimeinterval.setValue(interval)
@@ -77,6 +85,10 @@ final class ChatFeatureCore: XCTestCase {
     testStore.dependencies.date = .constant(date())
   
     _ = await testStore.send(.onAppear)
+    await testStore.receive(.fetchChatMessages)
+    await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
+      $0.chatMessages = .results(mockResponse)
+    }
     await chatAppearanceTimeinterval.withValue { interval in
       XCTAssertEqual(interval, date().timeIntervalSince1970)
     }
