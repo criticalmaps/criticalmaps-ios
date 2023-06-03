@@ -23,6 +23,14 @@ public struct AppView: View {
     viewStore = ViewStore(store)
   }
 
+  private var contextMenuTitle: String {
+    if viewStore.bottomSheetPosition == .hidden {
+      return L10n.Map.NextRideEvents.showAll
+    } else {
+      return L10n.Map.NextRideEvents.hideAll
+    }
+  }
+  
   public var body: some View {
     ZStack(alignment: .topLeading) {
       MapFeatureView(
@@ -39,10 +47,7 @@ public struct AppView: View {
             .contextMenu {
               Button(
                 action: { viewStore.send(.set(\.$bottomSheetPosition, .relative(0.4))) },
-                label: {
-                  let title = viewStore.bottomSheetPosition == .hidden ? L10n.Map.NextRideEvents.hideAll : L10n.Map.NextRideEvents.showAll
-                  Label(title, systemImage: "list.bullet")
-                }
+                label: { Label(contextMenuTitle, systemImage: "list.bullet") }
               )
             }
         }
@@ -147,7 +152,7 @@ public struct AppView: View {
           ? Color.white
           : Color(.attention)
       )
-      .accessibilityLabel(Text("internet not available"))
+      .accessibilityLabel(Text("Internet not available"))
       .padding()
       .background(
         Group {
