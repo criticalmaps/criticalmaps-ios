@@ -3,9 +3,9 @@ import Foundation
 /// A structure to store ride event settings
 public struct RideEventSettings: Hashable, Codable {
   public init(
-    isEnabled: Bool,
-    typeSettings: [RideEventSettings.RideEventTypeSetting],
-    eventDistance: EventDistance
+    isEnabled: Bool = true,
+    typeSettings: [RideEventSettings.RideEventTypeSetting] = .all,
+    eventDistance: EventDistance = .near
   ) {
     self.isEnabled = isEnabled
     self.typeSettings = typeSettings
