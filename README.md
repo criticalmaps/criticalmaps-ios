@@ -149,6 +149,13 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/stephanlindauer">
+            <img src="https://avatars.githubusercontent.com/u/1323145?v=4" width="100;" alt="stephanlindauer"/>
+            <br />
+            <sub><b>Stephan Lindauer</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/jacquealvesb">
             <img src="https://avatars.githubusercontent.com/u/86978515?v=4" width="100;" alt="jacquealvesb"/>
             <br />
@@ -160,13 +167,6 @@ However, **please do not ship this app** under your own account. Paid or free.
             <img src="https://avatars.githubusercontent.com/u/879754?v=4" width="100;" alt="huschu"/>
             <br />
             <sub><b>Joscha</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/stephanlindauer">
-            <img src="https://avatars.githubusercontent.com/u/1323145?v=4" width="100;" alt="stephanlindauer"/>
-            <br />
-            <sub><b>Stephan Lindauer</b></sub>
         </a>
     </td>
     <td align="center">
