@@ -357,7 +357,9 @@ public struct AppFeature: ReducerProtocol {
         }
         
       case let .userSettingsLoaded(result):
-        state.settingsState.userSettings = (try? result.value) ?? UserSettings()
+        let userSettings = (try? result.value) ?? UserSettings()
+        state.settingsState.userSettings = userSettings
+        state.nextRideState.rideEventSettings = userSettings.rideEventSettings
         let style = state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle
         return .merge(
           .fireAndForget {
@@ -440,6 +442,8 @@ public struct AppFeature: ReducerProtocol {
       case let .settings(settingsAction):
         switch settingsAction {
         case .rideevent:
+          state.nextRideState.rideEventSettings = state.settingsState.userSettings.rideEventSettings
+          
           guard
             let coordinate = state.mapFeatureState.location?.coordinate,
             state.settingsState.userSettings.rideEventSettings.isEnabled
@@ -448,7 +452,7 @@ public struct AppFeature: ReducerProtocol {
           }
           struct RideEventRadiusSettingChange: Hashable {}
           return EffectTask(value: .nextRide(.getNextRide(coordinate)))
-            .debounce(id: RideEventRadiusSettingChange(), for: 1, scheduler: mainQueue)
+            .debounce(id: RideEventRadiusSettingChange(), for: 2, scheduler: mainQueue)
         
         default:
           return .none
