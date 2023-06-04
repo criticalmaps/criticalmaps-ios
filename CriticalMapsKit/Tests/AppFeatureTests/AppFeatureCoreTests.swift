@@ -266,6 +266,7 @@ final class AppFeatureTests: XCTestCase {
     )
     store.exhaustivity = .off
     store.dependencies.date = .init(date)
+    store.dependencies.apiService.postRiderLocation = { _ in .init(status: "ok") }
     
     let location = ComposableCoreLocation.Location(
       coordinate: .init(latitude: 11, longitude: 21),
@@ -277,6 +278,33 @@ final class AppFeatureTests: XCTestCase {
         coordinate: .init(latitude: 11, longitude: 21),
         timestamp: 2
       )
+    }
+    await store.receive(.postLocation)
+    await store.receive(.postLocationResponse(.success(.init(status: "ok"))))
+  }
+  
+  func test_mapAction_didUpdateLocations_shouldNotPostLocationWhenObserverModeIsEnabled() async {
+    var state = AppFeature.State()
+    state.settingsState.userSettings.enableObservationMode = true
+    
+    let store = TestStore(
+      initialState: state,
+      reducer: AppFeature()
+    )
+    store.dependencies.date = .init(date)
+    store.exhaustivity = .off(showSkippedAssertions: true)
+    
+    let location = ComposableCoreLocation.Location(
+      coordinate: .init(latitude: 11, longitude: 21),
+      timestamp: Date(timeIntervalSince1970: 2)
+    )
+    let locations: [ComposableCoreLocation.Location] = [location]
+    await store.send(.map(.locationManager(.didUpdateLocations(locations)))) {
+      $0.mapFeatureState.location = .init(
+        coordinate: .init(latitude: 11, longitude: 21),
+        timestamp: 2
+      )
+      $0.nextRideState.userLocation = .init(latitude: 11, longitude: 21)
     }
     await store.receive(.postLocation)
   }
