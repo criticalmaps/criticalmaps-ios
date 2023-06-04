@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Foundation
 
 public struct RequestTimer: ReducerProtocol {
-  public init(timerInterval: Int = 15) {
+  public init(timerInterval: Int = 60) {
     self.timerInterval = .seconds(timerInterval)
   }
 
