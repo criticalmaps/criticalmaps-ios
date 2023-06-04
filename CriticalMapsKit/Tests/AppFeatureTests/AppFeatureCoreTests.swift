@@ -212,6 +212,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
+    store.dependencies.date = .init(date)
     
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.nextRideService.nextRide = { _, _, _ in
@@ -221,7 +222,7 @@ final class AppFeatureTests: XCTestCase {
     await store.send(.settings(.rideevent(.setRideEventRadius(.far)))) {
       $0.settingsState.userSettings.rideEventSettings.eventDistance = .far
     }
-    await testQueue.advance(by: 1)
+    await testQueue.advance(by: 2)
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
   }
   
@@ -240,11 +241,12 @@ final class AppFeatureTests: XCTestCase {
     state.nextRideState.userLocation = nil
     state.mapFeatureState.location = sharedModelLocation
     
-    var store = TestStore(
+    let store = TestStore(
       initialState: state,
       reducer: AppFeature()
     )
     store.exhaustivity = .off
+    store.dependencies.date = .init(date)
         
     let locations: [ComposableCoreLocation.Location] = [location]
     await store.send(.map(.locationManager(.didUpdateLocations(locations)))) {
@@ -263,7 +265,8 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
-        
+    store.dependencies.date = .init(date)
+    
     let location = ComposableCoreLocation.Location(
       coordinate: .init(latitude: 11, longitude: 21),
       timestamp: Date(timeIntervalSince1970: 2)
@@ -340,6 +343,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
+    store.dependencies.date = .init(date)
     
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.nextRideService.nextRide = { _, _, _ in
@@ -349,8 +353,41 @@ final class AppFeatureTests: XCTestCase {
     await store.send(.settings(.rideevent(.setRideEventsEnabled(true)))) {
       $0.settingsState.userSettings.rideEventSettings.isEnabled = true
     }
-    await testQueue.advance(by: 1)
+    await testQueue.advance(by: 2)
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
+  }
+  
+  func test_updatingRideEventSettingRadius_ShouldRefetchNextRideInfo() async throws {
+    let updatedRaduis = ActorIsolated(0)
+    let testQueue = DispatchQueue.test
+    
+    var state = AppFeature.State()
+    let location = Location(coordinate: .make(), timestamp: 42)
+    state.settingsState.userSettings.rideEventSettings.eventDistance = .close
+    state.mapFeatureState.location = location
+    state.settingsState.userSettings.rideEventSettings.isEnabled = true
+    
+    let store = TestStore(
+      initialState: state,
+      reducer: AppFeature()
+    )
+    store.exhaustivity = .off
+    store.dependencies.date = .init(date)
+    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
+    store.dependencies.nextRideService.nextRide = { _, radius, _ in
+      await updatedRaduis.setValue(radius)
+      return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
+    }
+
+    await store.send(.settings(.rideevent(.setRideEventRadius(.far)))) {
+      $0.settingsState.userSettings.rideEventSettings.eventDistance = .far
+    }
+    await testQueue.advance(by: 2)
+    await store.receive(.nextRide(.getNextRide(location.coordinate)))
+    
+    await updatedRaduis.withValue { radius in
+      XCTAssertEqual(radius, EventDistance.far.rawValue)
+    }
   }
 
   func test_didSaveUserSettings() async throws {
