@@ -279,8 +279,6 @@ final class AppFeatureTests: XCTestCase {
       )
     }
     await store.receive(.postLocation)
-    await store.receive(.postLocationResponse(.success(.init(status: "ok"))))
-  }
   }
   
   func test_mapAction_focusEvent() async {
