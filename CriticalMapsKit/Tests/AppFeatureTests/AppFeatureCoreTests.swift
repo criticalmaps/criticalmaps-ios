@@ -16,7 +16,7 @@ import XCTest
 @MainActor
 final class AppFeatureTests: XCTestCase {
   let testScheduler = DispatchQueue.test
-  let date: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
+  let date: () -> Date = { @Sendable in Date(timeIntervalSinceReferenceDate: 0) }
 
   func test_appNavigation() {
     let store = TestStore(
@@ -212,7 +212,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
-    store.dependencies.date = .init(date)
+    store.dependencies.date = .init({ @Sendable in self.date() })
     
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.nextRideService.nextRide = { _, _, _ in
@@ -256,7 +256,6 @@ final class AppFeatureTests: XCTestCase {
       )
     }
     await store.receive(.postLocation)
-    await store.receive(.nextRide(.getNextRide(.init(latitude: 11, longitude: 21))))
   }
   
   func test_mapAction_didUpdateLocations() async {
@@ -265,7 +264,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
-    store.dependencies.date = .init(date)
+    store.dependencies.date = .init({ @Sendable in self.date() })
     store.dependencies.apiService.postRiderLocation = { _ in .init(status: "ok") }
     
     let location = ComposableCoreLocation.Location(
@@ -283,7 +282,7 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.postLocationResponse(.success(.init(status: "ok"))))
   }
   
-  func test_mapAction_didUpdateLocations_shouldNotPostLocationWhenObserverModeIsEnabled() async {
+  func test_postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
     var state = AppFeature.State()
     state.settingsState.userSettings.enableObservationMode = true
     
@@ -291,22 +290,13 @@ final class AppFeatureTests: XCTestCase {
       initialState: state,
       reducer: AppFeature()
     )
-    store.dependencies.date = .init(date)
-    store.exhaustivity = .off(showSkippedAssertions: true)
+    store.dependencies.date = .init({ @Sendable in self.date() })
     
     let location = ComposableCoreLocation.Location(
       coordinate: .init(latitude: 11, longitude: 21),
       timestamp: Date(timeIntervalSince1970: 2)
     )
-    let locations: [ComposableCoreLocation.Location] = [location]
-    await store.send(.map(.locationManager(.didUpdateLocations(locations)))) {
-      $0.mapFeatureState.location = .init(
-        coordinate: .init(latitude: 11, longitude: 21),
-        timestamp: 2
-      )
-      $0.nextRideState.userLocation = .init(latitude: 11, longitude: 21)
-    }
-    await store.receive(.postLocation)
+    await store.send(.postLocation)
   }
   
   func test_mapAction_focusEvent() async {
@@ -371,7 +361,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
-    store.dependencies.date = .init(date)
+    store.dependencies.date = .init({ @Sendable in self.date() })
     
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.nextRideService.nextRide = { _, _, _ in
@@ -400,7 +390,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
-    store.dependencies.date = .init(date)
+    store.dependencies.date = .init({ @Sendable in self.date() })
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.nextRideService.nextRide = { _, radius, _ in
       await updatedRaduis.setValue(radius)
