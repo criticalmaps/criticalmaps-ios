@@ -22,7 +22,15 @@ public struct SendLocationPostBody: Encodable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(self.device, forKey: .device)
-    try container.encodeIfPresent(self.location?.coordinate.latitude, forKey: .latitude)
-    try container.encodeIfPresent(self.location?.coordinate.longitude, forKey: .longitude)
+    if let location {
+      try container.encodeIfPresent(
+        location.coordinate.latitude * 1_000_000,
+        forKey: .latitude
+      )
+      try container.encodeIfPresent(
+        location.coordinate.longitude * 1_000_000,
+        forKey: .longitude
+      )
+    }
   }
 }
