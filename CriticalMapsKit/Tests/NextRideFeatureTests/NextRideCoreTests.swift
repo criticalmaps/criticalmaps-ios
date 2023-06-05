@@ -23,52 +23,56 @@ final class NextRideCoreTests: XCTestCase {
 
   let testScheduler = DispatchQueue.immediate
   
-  var rides: [Ride] {
-    [
-      Ride(
-        id: 0,
-        slug: nil,
-        title: "CriticalMaps Berlin",
-        description: nil,
-        dateTime: now().addingTimeInterval(36000),
-        location: nil,
-        latitude: 53.1235,
-        longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
-        enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
-        rideType: .criticalMass
-      ),
-      Ride(
-        id: 0,
-        slug: nil,
-        title: "CriticalMaps Falkensee",
-        description: nil,
-        dateTime: now().addingTimeInterval(3600),
-        location: "Vorplatz der alten Stadthalle",
-        latitude: 53.1235,
-        longitude: 13.4234,
-        estimatedParticipants: nil,
-        estimatedDistance: nil,
-        estimatedDuration: nil,
-        enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
-        rideType: .alleycat
-      )
-    ]
+  var berlin: Ride {
+    Ride(
+      id: 0,
+      slug: nil,
+      title: "CriticalMaps Berlin",
+      description: nil,
+      dateTime: now().addingTimeInterval(36000),
+      location: nil,
+      latitude: 53.1235,
+      longitude: 13.4234,
+      estimatedParticipants: nil,
+      estimatedDistance: nil,
+      estimatedDuration: nil,
+      enabled: true,
+      disabledReason: nil,
+      disabledReasonMessage: nil,
+      rideType: .criticalMass
+    )
   }
+  
+  var falkensee: Ride {
+    Ride(
+      id: 0,
+      slug: nil,
+      title: "CriticalMaps Falkensee",
+      description: nil,
+      dateTime: now().addingTimeInterval(3600),
+      location: "Vorplatz der alten Stadthalle",
+      latitude: 53.1235,
+      longitude: 13.4234,
+      estimatedParticipants: nil,
+      estimatedDistance: nil,
+      estimatedDuration: nil,
+      enabled: true,
+      disabledReason: nil,
+      disabledReasonMessage: nil,
+      rideType: .alleycat
+    )
+  }
+  
+  var rides: [Ride] { [berlin, falkensee] }
 
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
-  func test_disabledNextRideFeature_shouldNotRequestRides() {
+  func test_disabledNextRideFeature_shouldNotRequestRides() async {
     let store = TestStore(
       initialState: .init(),
       reducer: NextRideFeature()
     )
+    store.dependencies.date = .init(now)
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: false,
@@ -77,10 +81,10 @@ final class NextRideCoreTests: XCTestCase {
       )
       .encoded()
     }
-    store.dependencies.isNetworkAvailable = true
     
     // no effect received
-    store.send(.getNextRide(coordinate))
+    await store.send(.getNextRide(coordinate))
+    await store.receive(.nextRideResponse(.success([])))
   }
   
   func test_getNextRide_shouldReturnMockRide() async {
@@ -152,12 +156,15 @@ final class NextRideCoreTests: XCTestCase {
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
+      $0.rideEvents = [self.falkensee, self.berlin]
+    }
+    await store.receive(.setNextRide(rides.last!)) {
+      $0.nextRide = self.falkensee
     }
   }
 
   func test_getNextRide_shouldReturnRide_whenRideTypeNil() async {
-    var ridesWithARideWithNilRideType: [Ride] = [
+    let ridesWithARideWithNilRideType: [Ride] = [
       Ride(
         id: 0,
         title: "CriticalMaps Berlin",

@@ -15,19 +15,6 @@ public struct UserDefaultsClient {
   public var setDouble: @Sendable (Double, String) async -> Void
   public var setInteger: @Sendable (Int, String) async -> Void
 
-  /// Convenience getter for rideEvents
-  public var rideEventSettings: RideEventSettings {
-    guard let data = dataForKey(rideEventSettingsKey) else {
-      return .default
-    }
-    return (try? data.decoded()) ?? .default
-  }
-
-  /// Convenience setter for rideEvents
-  public func setRideEventSettings(_ settings: RideEventSettings) async {
-    await setData(try? settings.encoded(), rideEventSettingsKey)
-  }
-
   /// Convenience getter for chat read timeinterval
   public var chatReadTimeInterval: Double {
     doubleForKey(chatReadTimeIntervalKey)

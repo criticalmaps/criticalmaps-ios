@@ -12,7 +12,6 @@ public struct NextRideFeature: ReducerProtocol {
   public init() {}
   
   @Dependency(\.nextRideService) public var service
-  @Dependency(\.userDefaultsClient) public var userDefaultsClient
   @Dependency(\.date) public var date
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.coordinateObfuscator) public var coordinateObfuscator
@@ -25,6 +24,7 @@ public struct NextRideFeature: ReducerProtocol {
 
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
+    public var rideEventSettings = RideEventSettings()
 
     public var userLocation: Coordinate?
   }
@@ -43,12 +43,8 @@ public struct NextRideFeature: ReducerProtocol {
   public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
     case let .getNextRide(coordinate):
-      guard userDefaultsClient.rideEventSettings.isEnabled else {
+      guard state.rideEventSettings.isEnabled else {
         logger.debug("NextRide featue is disabled")
-        return .none
-      }
-      guard isNetworkAvailable else {
-        logger.debug("Not fetching next ride. No connectivity")
         return .none
       }
 
@@ -59,12 +55,12 @@ public struct NextRideFeature: ReducerProtocol {
 
       let requestRidesInMonth: Int = queryMonth(for: date.callAsFunction)
 
-      return .task {
+      return .task { [distance = state.rideEventSettings.eventDistance] in
         await .nextRideResponse(
           TaskResult {
             try await service.nextRide(
               obfuscatedCoordinate,
-              userDefaultsClient.rideEventSettings.eventDistance.rawValue,
+              distance.rawValue,
               requestRidesInMonth
             )
           }
@@ -83,7 +79,7 @@ public struct NextRideFeature: ReducerProtocol {
         logger.info("No upcoming events for filter selection rideType")
         return .none
       }
-
+      let typeSettings = state.rideEventSettings.typeSettings
       state.rideEvents = rides.sortByDateAndFilterBeforeDate(date.callAsFunction)
 
       // Sort rides by date and pick the first one with a date greater than now
@@ -91,7 +87,7 @@ public struct NextRideFeature: ReducerProtocol {
         .lazy
         .filter {
           guard let type = $0.rideType else { return true }
-          return userDefaultsClient.rideEventSettings.typeSettings
+          return typeSettings
             .lazy
             .filter(\.isEnabled)
             .map(\.type)
