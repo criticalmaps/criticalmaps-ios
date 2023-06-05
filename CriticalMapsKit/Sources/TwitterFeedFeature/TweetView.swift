@@ -3,6 +3,7 @@ import Foundation
 import SharedModels
 import Styleguide
 import SwiftUI
+import UIApplicationClient
 
 public struct TweetFeature: ReducerProtocol {
   public init() {}

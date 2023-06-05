@@ -7,6 +7,7 @@ import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI
+import UIApplicationClient
 
 public struct TwitterFeedFeature: ReducerProtocol {
   public init() {}
