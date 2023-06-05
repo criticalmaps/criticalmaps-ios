@@ -452,7 +452,7 @@ public struct AppFeature: ReducerProtocol {
           }
           struct RideEventRadiusSettingChange: Hashable {}
           return EffectTask(value: .nextRide(.getNextRide(coordinate)))
-            .debounce(id: RideEventRadiusSettingChange(), for: 1, scheduler: mainQueue)
+            .debounce(id: RideEventRadiusSettingChange(), for: 2, scheduler: mainQueue)
         
         default:
           return .none
