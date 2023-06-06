@@ -439,6 +439,23 @@ final class AppFeatureTests: XCTestCase {
       XCTAssertTrue(val)
     }
   }
+  
+  func test_postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
+      var state = AppFeature.State()
+      state.settingsState.userSettings.isObservationModeEnabled = true
+      
+      let store = TestStore(
+        initialState: state,
+        reducer: AppFeature()
+      )
+      store.dependencies.date = .init({ @Sendable in self.date() })
+      
+      let location = ComposableCoreLocation.Location(
+        coordinate: .init(latitude: 11, longitude: 21),
+        timestamp: Date(timeIntervalSince1970: 2)
+      )
+      await store.send(.postLocation)
+    }
 }
 
 // MARK: Helper
