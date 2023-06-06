@@ -279,7 +279,7 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case .postLocation:
-        guard state.settingsState.userSettings.enableObservationMode else {
+        if state.settingsState.userSettings.isObservationModeEnabled {
           return .none
         }
         
