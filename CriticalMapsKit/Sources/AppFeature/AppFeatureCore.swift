@@ -411,7 +411,7 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case let .setObservationMode(value):
-        state.settingsState.userSettings.enableObservationMode = value
+        state.settingsState.userSettings.isObservationModeEnabled = value
         
         let userSettings = state.settingsState.userSettings
         return .fireAndForget {

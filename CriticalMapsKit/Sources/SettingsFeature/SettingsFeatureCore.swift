@@ -80,7 +80,7 @@ public struct SettingsFeature: ReducerProtocol {
         }
 
       case let .setObservationMode(value):
-        state.userSettings.enableObservationMode = value
+        state.userSettings.isObservationModeEnabled = value
         return .none
 
       case .binding:

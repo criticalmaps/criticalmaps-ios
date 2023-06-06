@@ -39,12 +39,12 @@ public struct SettingsView: View {
           SettingsRow {
             observationModeRow
               .accessibilityValue(
-                viewStore.userSettings.enableObservationMode
+                viewStore.userSettings.isObservationModeEnabled
                   ? Text(L10n.A11y.General.on)
                   : Text(L10n.A11y.General.off)
               )
               .accessibilityAction {
-                viewStore.send(.setObservationMode(!viewStore.userSettings.enableObservationMode))
+                viewStore.send(.setObservationMode(!viewStore.userSettings.isObservationModeEnabled))
               }
           }
           
@@ -85,7 +85,7 @@ public struct SettingsView: View {
       Spacer()
       Toggle(
         isOn: viewStore.binding(
-          get: { $0.userSettings.enableObservationMode },
+          get: { $0.userSettings.isObservationModeEnabled },
           send: SettingsFeature.Action.setObservationMode
         ),
         label: { EmptyView() }
