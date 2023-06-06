@@ -272,7 +272,7 @@ extension LocationManager {
         activityType: .otherNavigation,
         allowsBackgroundLocationUpdates: true,
         desiredAccuracy: kCLLocationAccuracyBest,
-        distanceFilter: 42.0,
+        distanceFilter: 200.0,
         headingFilter: nil,
         pausesLocationUpdatesAutomatically: false,
         showsBackgroundLocationIndicator: true
