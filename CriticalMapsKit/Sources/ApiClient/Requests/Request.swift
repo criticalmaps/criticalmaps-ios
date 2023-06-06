@@ -1,4 +1,5 @@
 import Foundation
+import Helpers
 
 public struct Request {
   let endpoint: Endpoint
@@ -61,7 +62,10 @@ public extension Request {
 
 // MARK: Helper
 
-public let defaultHeaders = ["Content-Type": "application/json"]
+public let defaultHeaders = [
+  "Content-Type": "application/json",
+  "Client-Version": "iOS-\(Bundle.main.versionNumber).\(Bundle.main.buildNumber)"
+]
 
 enum APIRequestBuildError: Error {
   case invalidURL
