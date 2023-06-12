@@ -8,6 +8,7 @@ Changelog for Critical Maps iOS
 
 - Coordinate encoding to match expected format
 - RideEvent settings update now refetches the next ride
+- Bugfixes
 
 
 # [4.2.0] - 2023-06-01
