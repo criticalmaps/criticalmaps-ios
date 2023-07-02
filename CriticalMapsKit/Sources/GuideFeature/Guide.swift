@@ -17,7 +17,6 @@ public extension Guide {
   enum Rule: String, CaseIterable {
     case brake
     case contraflow
-    case cork
     case gently
     case green
     case haveFun
@@ -29,8 +28,6 @@ public extension Guide {
         return L10n.Rules.Title.brake
       case .contraflow:
         return L10n.Rules.Title.contraflow
-      case .cork:
-        return L10n.Rules.Title.cork
       case .gently:
         return L10n.Rules.Title.gently
       case .green:
@@ -48,8 +45,6 @@ public extension Guide {
         return L10n.Rules.Text.brake
       case .contraflow:
         return L10n.Rules.Text.contraflow
-      case .cork:
-        return L10n.Rules.Text.cork
       case .gently:
         return L10n.Rules.Text.gently
       case .green:
@@ -67,8 +62,6 @@ public extension Guide {
         return Asset.brake.image
       case .contraflow:
         return Asset.wrongLane.image
-      case .cork:
-        return Asset.corken.image
       case .gently:
         return Asset.slowly.image
       case .green:
