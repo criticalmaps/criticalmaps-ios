@@ -16,13 +16,6 @@ final class IdentifiedMessagesTests: XCTestCase {
   )!
 
   func test_chatTime_Format() {
-    let sut = ChatMessage(
-      identifier: "ID",
-      device: "DEVICE",
-      message: "Hello World",
-      timestamp: date.timeIntervalSince1970
-    )
-
     var cal = Calendar.current
     cal.timeZone = .init(secondsFromGMT: 0)!
     let chatTime = date.formatted(Date.FormatStyle.chatTime(cal))

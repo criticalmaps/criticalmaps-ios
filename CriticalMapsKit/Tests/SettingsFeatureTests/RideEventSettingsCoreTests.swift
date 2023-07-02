@@ -7,61 +7,50 @@ import XCTest
 final class RideEventSettingsCoreTests: XCTestCase {
   func test_setRideEventsEnabled() {
     let store = TestStore(
-      initialState: RideEventSettings(
-        isEnabled: true,
-        typeSettings: .all,
-        eventDistance: .close
+      initialState: .init(
+        settings: RideEventSettings(
+          isEnabled: true,
+          typeSettings: .all(),
+          eventDistance: .close
+        )
       ),
       reducer: RideEventsSettingsFeature()
     )
     
-    store.send(.setRideEventsEnabled(false)) {
+    store.send(.set(\.$isEnabled, false)) {
       $0.isEnabled = false
     }
     
-    store.send(.setRideEventsEnabled(true)) {
+    store.send(.set(\.$isEnabled, true)) {
       $0.isEnabled = true
     }
   }
   
   func test_setRideEventsTypeEnabled() {
     let store = TestStore(
-      initialState: RideEventSettings(
-        isEnabled: true,
-        typeSettings: .all,
-        eventDistance: .close
-      ),
-      reducer: RideEventsSettingsFeature()
+      initialState: RideEventType.State(rideType: .criticalMass, isEnabled: false),
+      reducer: RideEventType()
     )
     
-    var updatedType = RideEventSettings.RideEventTypeSetting(type: .kidicalMass, isEnabled: false)
-    store.send(.setRideEventTypeEnabled(updatedType)) {
-      var updatedSettings: [RideEventSettings.RideEventTypeSetting] = .all
-      let index = try XCTUnwrap(updatedSettings.firstIndex(where: { setting in
-        setting.type == updatedType.type
-      }))
-      updatedSettings[index] = updatedType
-      $0.typeSettings = updatedSettings
-    }
-    
-    updatedType.isEnabled = true
-    store.send(.setRideEventTypeEnabled(updatedType)) {
-      $0.typeSettings = .all
+    store.send(.set(\.$isEnabled, true)) {
+      $0.isEnabled = true
     }
   }
   
   func test_setRideEventsRadius() {
     let store = TestStore(
-      initialState: RideEventSettings(
-        isEnabled: true,
-        typeSettings: .all,
-        eventDistance: .close
+      initialState: .init(
+        settings: RideEventSettings(
+          isEnabled: true,
+          typeSettings: .all(),
+          eventDistance: .close
+        )
       ),
       reducer: RideEventsSettingsFeature()
     )
     
-    store.send(.setRideEventRadius(.near)) {
-      $0.eventDistance = .near
+    store.send(.set(\.$eventSearchRadius, .near)) {
+      $0.eventSearchRadius = .near
     }
   }
 }

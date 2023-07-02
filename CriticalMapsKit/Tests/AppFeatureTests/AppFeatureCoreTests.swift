@@ -204,8 +204,8 @@ final class AppFeatureTests: XCTestCase {
     var state = AppFeature.State()
     let location = Location(coordinate: .make(), timestamp: 42)
     state.mapFeatureState.location = location
-    state.settingsState.userSettings.rideEventSettings.isEnabled = true
-    state.settingsState.userSettings.rideEventSettings.eventDistance = .close
+    state.settingsState.rideEventSettings.isEnabled = true
+    state.settingsState.rideEventSettings.eventSearchRadius = .close
     
     let store = TestStore(
       initialState: state,
@@ -219,8 +219,8 @@ final class AppFeatureTests: XCTestCase {
       [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
     }
 
-    await store.send(.settings(.rideevent(.setRideEventRadius(.far)))) {
-      $0.settingsState.userSettings.rideEventSettings.eventDistance = .far
+    await store.send(.settings(.rideevent(.set(\.$eventSearchRadius, .far)))) {
+      $0.settingsState.rideEventSettings.eventSearchRadius = .far
     }
     await testQueue.advance(by: 2)
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
@@ -237,7 +237,7 @@ final class AppFeatureTests: XCTestCase {
     )
 
     var state = AppFeature.State()
-    state.settingsState.userSettings.rideEventSettings.isEnabled = true
+    state.settingsState.rideEventSettings.isEnabled = true
     state.nextRideState.userLocation = nil
     state.mapFeatureState.location = sharedModelLocation
     
@@ -246,7 +246,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: AppFeature()
     )
     store.exhaustivity = .off
-    store.dependencies.date = .init(date)
+    store.dependencies.date = .init({ @Sendable in self.date() })
         
     let locations: [ComposableCoreLocation.Location] = [location]
     await store.send(.map(.locationManager(.didUpdateLocations(locations)))) {
@@ -289,7 +289,6 @@ final class AppFeatureTests: XCTestCase {
       initialState: state,
       reducer: AppFeature()
     )
-    store.exhaustivity = .off
     store.dependencies.mainQueue = .immediate
     
     let coordinate = Coordinate.make()
@@ -297,8 +296,11 @@ final class AppFeatureTests: XCTestCase {
     await store.send(.map(.focusRideEvent(coordinate))) {
       $0.mapFeatureState.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
     }
-    await store.receive(.set(\.$bottomSheetPosition, .relative(0.4))) {
+    await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(CGFloat(0.4))))) {
       $0.bottomSheetPosition = .relative(0.4)
+    }
+    await store.receive(.map(.resetRideEventCenter)) {
+      $0.mapFeatureState.eventCenter = nil
     }
   }
   
@@ -336,7 +338,7 @@ final class AppFeatureTests: XCTestCase {
     var state = AppFeature.State()
     let location = Location(coordinate: .make(), timestamp: 42)
     state.mapFeatureState.location = location
-    state.settingsState.userSettings.rideEventSettings.isEnabled = true
+    state.settingsState.rideEventSettings.isEnabled = true
     
     let store = TestStore(
       initialState: state,
@@ -350,8 +352,8 @@ final class AppFeatureTests: XCTestCase {
       [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
     }
 
-    await store.send(.settings(.rideevent(.setRideEventsEnabled(true)))) {
-      $0.settingsState.userSettings.rideEventSettings.isEnabled = true
+    await store.send(.settings(.rideevent(.set(\.$isEnabled, true)))) {
+      $0.settingsState.rideEventSettings.isEnabled = true
     }
     await testQueue.advance(by: 2)
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
@@ -363,9 +365,9 @@ final class AppFeatureTests: XCTestCase {
     
     var state = AppFeature.State()
     let location = Location(coordinate: .make(), timestamp: 42)
-    state.settingsState.userSettings.rideEventSettings.eventDistance = .close
+    state.settingsState.rideEventSettings.eventSearchRadius = .close
     state.mapFeatureState.location = location
-    state.settingsState.userSettings.rideEventSettings.isEnabled = true
+    state.settingsState.rideEventSettings.isEnabled = true
     
     let store = TestStore(
       initialState: state,
@@ -378,43 +380,15 @@ final class AppFeatureTests: XCTestCase {
       await updatedRaduis.setValue(radius)
       return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
     }
-
-    await store.send(.settings(.rideevent(.setRideEventRadius(.far)))) {
-      $0.settingsState.userSettings.rideEventSettings.eventDistance = .far
+    
+    await store.send(.settings(.rideevent(.set(\.$eventSearchRadius, .far)))) {
+      $0.settingsState.rideEventSettings.eventSearchRadius = .far
     }
     await testQueue.advance(by: 2)
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
     
     await updatedRaduis.withValue { radius in
       XCTAssertEqual(radius, EventDistance.far.rawValue)
-    }
-  }
-
-  func test_didSaveUserSettings() async throws {
-    let didSaveUserSettings = ActorIsolated(false)
-    let didSaveObserverPromptSetting = ActorIsolated(false)
-
-    let testQueue = DispatchQueue.test
-
-    let store = TestStore(
-      initialState: AppFeature.State(),
-      reducer: AppFeature()
-    )
-    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
-    store.dependencies.fileClient.save = { @Sendable _, _ in
-      await didSaveUserSettings.setValue(true)
-    }
-    store.dependencies.userDefaultsClient.setBool = { @Sendable value, _ in
-      await didSaveObserverPromptSetting.setValue(value)
-    }
-
-    await store.send(.setObservationMode(false))
-
-    await didSaveUserSettings.withValue { val in
-      XCTAssertTrue(val, "Expected that save is invoked")
-    }
-    await didSaveObserverPromptSetting.withValue { val in
-      XCTAssertTrue(val, "Expected to store that user prompt has been seen")
     }
   }
 
@@ -442,18 +416,13 @@ final class AppFeatureTests: XCTestCase {
   
   func test_postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
       var state = AppFeature.State()
-      state.settingsState.userSettings.isObservationModeEnabled = true
+      state.settingsState.isObservationModeEnabled = true
       
       let store = TestStore(
         initialState: state,
         reducer: AppFeature()
       )
       store.dependencies.date = .init({ @Sendable in self.date() })
-      
-      let location = ComposableCoreLocation.Location(
-        coordinate: .init(latitude: 11, longitude: 21),
-        timestamp: Date(timeIntervalSince1970: 2)
-      )
       await store.send(.postLocation)
     }
 }

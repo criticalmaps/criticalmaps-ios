@@ -72,11 +72,11 @@ final class NextRideCoreTests: XCTestCase {
       initialState: .init(),
       reducer: NextRideFeature()
     )
-    store.dependencies.date = .init(now)
+    store.dependencies.date = .init({ @Sendable in self.now() })
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: false,
-        typeSettings: [],
+        typeSettings: [:],
         eventDistance: .near
       )
       .encoded()
@@ -116,7 +116,7 @@ final class NextRideCoreTests: XCTestCase {
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: true,
-        typeSettings: [],
+        typeSettings: [:],
         eventDistance: .near
       )
       .encoded()
@@ -144,9 +144,7 @@ final class NextRideCoreTests: XCTestCase {
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
         isEnabled: true,
-        typeSettings: [
-          RideEventSettings.RideEventTypeSetting(type: Ride.RideType.kidicalMass, isEnabled: true)
-        ],
+        typeSettings: [.kidicalMass: true],
         eventDistance: .near
       )
       .encoded()
