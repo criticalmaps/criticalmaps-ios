@@ -6,7 +6,7 @@ import SwiftUI
 
 /// A view to render appearance settings.
 public struct AppearanceSettingsView: View {
-  public typealias State = SharedModels.AppearanceSettings
+  public typealias State = AppearanceSettings
   public typealias Action = AppearanceSettingsFeature.Action
 
   let store: Store<State, Action>

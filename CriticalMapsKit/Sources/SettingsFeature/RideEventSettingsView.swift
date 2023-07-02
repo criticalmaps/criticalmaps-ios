@@ -7,7 +7,7 @@ import SwiftUIHelpers
 
 /// A view to render next ride event settings
 public struct RideEventSettingsView: View {
-  public typealias State = RideEventSettings
+  public typealias State = RideEventsSettingsFeature.State
   public typealias Action = RideEventsSettingsFeature.Action
 
   let store: Store<State, Action>
@@ -25,10 +25,7 @@ public struct RideEventSettingsView: View {
       SettingsRow {
         HStack {
           Toggle(
-            isOn: viewStore.binding(
-              get: \.isEnabled,
-              send: Action.setRideEventsEnabled
-            ),
+            isOn: viewStore.$isEnabled,
             label: { Text(L10n.Settings.eventSettingsEnable) }
           )
           .accessibilityRepresentation(representation: {
@@ -39,30 +36,14 @@ public struct RideEventSettingsView: View {
         }
         .accessibilityElement(children: .combine)
       }
+      
       ZStack(alignment: .top) {
         VStack {
           SettingsSection(title: L10n.Settings.eventTypes) {
-            ForEach(viewStore.typeSettings, id: \.type.title) { rideType in
-              SettingsRow {
-                Button(
-                  action: { viewStore.send(
-                    .setRideEventTypeEnabled(
-                      .init(
-                        type: rideType.type,
-                        isEnabled: !rideType.isEnabled
-                      )
-                    )
-                  )
-                  },
-                  label: {
-                    RideEventSettingsRow(
-                      title: rideType.type.title,
-                      isEnabled: rideType.isEnabled
-                    )
-                  }
-                )
-              }
-              .accessibilityValue(rideType.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
+            ForEachStore(
+              self.store.scope(state: \.rideEventTypes, action: Action.rideEventType)
+            ) {
+              RideEventTypeView(store: $0)
             }
           }
 
@@ -70,14 +51,14 @@ public struct RideEventSettingsView: View {
             ForEach(EventDistance.allCases, id: \.self) { radius in
               SettingsRow {
                 Button(
-                  action: { viewStore.send(.setRideEventRadius(radius)) },
+                  action: { viewStore.send(.set(\.$eventSearchRadius, radius)) },
                   label: {
                     HStack(spacing: .grid(3)) {
                       Text(String(radius.displayValue))
                         .accessibility(label: Text(radius.accessibilityLabel))
                         .padding(.vertical, .grid(2))
                       Spacer()
-                      if viewStore.eventDistance == radius {
+                      if viewStore.eventSearchRadius == radius {
                         Image(systemName: "checkmark.circle.fill")
                           .accessibilityRepresentation {
                             Text(L10n.A11y.General.selected)
@@ -104,24 +85,20 @@ public struct RideEventSettingsView: View {
 
 // MARK: Preview
 
-struct RideEventSettings_Previews: PreviewProvider {
+ struct RideEventSettings_Previews: PreviewProvider {
   static var previews: some View {
     Preview {
       NavigationView {
         RideEventSettingsView(
           store: .init(
-            initialState: .init(
-              isEnabled: true,
-              typeSettings: .all,
-              eventDistance: .near
-            ),
+            initialState: .init(settings: .init()),
             reducer: RideEventsSettingsFeature()._printChanges()
           )
         )
       }
     }
   }
-}
+ }
 
 // MARK: Helper
 

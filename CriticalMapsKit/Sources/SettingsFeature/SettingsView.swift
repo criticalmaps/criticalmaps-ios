@@ -29,7 +29,7 @@ public struct SettingsView: View {
           SettingsNavigationLink(
             destination: RideEventSettingsView(
               store: store.scope(
-                state: \.userSettings.rideEventSettings,
+                state: \.rideEventSettings,
                 action: SettingsFeature.Action.rideevent
               )
             ),
@@ -39,19 +39,21 @@ public struct SettingsView: View {
           SettingsRow {
             observationModeRow
               .accessibilityValue(
-                viewStore.userSettings.isObservationModeEnabled
+                viewStore.isObservationModeEnabled
                   ? Text(L10n.A11y.General.on)
                   : Text(L10n.A11y.General.off)
               )
               .accessibilityAction {
-                viewStore.send(.setObservationMode(!viewStore.userSettings.isObservationModeEnabled))
+                viewStore.send(
+                  .set(\.$isObservationModeEnabled, !viewStore.isObservationModeEnabled)
+                )
               }
           }
           
           SettingsNavigationLink(
             destination: AppearanceSettingsView(
               store: store.scope(
-                state: \SettingsFeature.State.userSettings.appearanceSettings,
+                state: \.appearanceSettings,
                 action: SettingsFeature.Action.appearance
               )
             ),
@@ -84,10 +86,7 @@ public struct SettingsView: View {
       }
       Spacer()
       Toggle(
-        isOn: viewStore.binding(
-          get: { $0.userSettings.isObservationModeEnabled },
-          send: SettingsFeature.Action.setObservationMode
-        ),
+        isOn: viewStore.$isObservationModeEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -236,17 +235,18 @@ struct SettingsInfoLink: View {
   }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+ struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     Preview {
       NavigationView {
         SettingsView(
           store: .init(
-            initialState: .init(),
-            reducer: SettingsFeature()._printChanges()
+            initialState: .init(userSettings: .init()),
+            reducer: SettingsFeature()
+              ._printChanges()
           )
         )
       }
     }
   }
-}
+ }

@@ -102,7 +102,7 @@ public extension Ride {
 }
 
 public extension Ride {
-  enum RideType: String, CaseIterable, Codable {
+  enum RideType: String, CaseIterable, Codable, Sendable {
     case criticalMass = "CRITICAL_MASS"
     case kidicalMass = "KIDICAL_MASS"
     case nightride = "NIGHT_RIDE"

@@ -87,11 +87,7 @@ public struct NextRideFeature: ReducerProtocol {
         .lazy
         .filter {
           guard let type = $0.rideType else { return true }
-          return typeSettings
-            .lazy
-            .filter(\.isEnabled)
-            .map(\.type)
-            .contains(type)
+          return typeSettings.contains(where: { $0.key == type })
         }
         .filter(\.enabled)
         .sorted { lhs, rhs in

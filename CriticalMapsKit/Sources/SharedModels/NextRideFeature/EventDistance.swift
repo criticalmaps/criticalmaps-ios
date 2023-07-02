@@ -1,7 +1,7 @@
 import Foundation
 
 /// Enum to represent event distance in kilometer
-public enum EventDistance: Int, CaseIterable, Codable {
+public enum EventDistance: Int, CaseIterable, Codable, Sendable {
   /// 5 km
   case close = 5
   /// 10 km
@@ -10,10 +10,7 @@ public enum EventDistance: Int, CaseIterable, Codable {
   case far = 20
   
   var length: Measurement<UnitLength> {
-    Measurement<UnitLength>(
-      value: Double(rawValue),
-      unit: .kilometers
-    )
+    Measurement<UnitLength>(value: Double(rawValue), unit: .kilometers)
   }
 
   public var displayValue: String {

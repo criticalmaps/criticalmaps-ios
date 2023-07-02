@@ -47,7 +47,7 @@ public struct AppFeature: ReducerProtocol {
         userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
       ),
       socialState: SocialFeature.State = .init(),
-      settingsState: SettingsFeature.State = .init(),
+      settingsState: SettingsFeature.State = .init(userSettings: .init()),
       nextRideState: NextRideFeature.State = .init(),
       requestTimer: RequestTimer.State = .init(),
       route: AppRoute? = nil,
@@ -73,7 +73,7 @@ public struct AppFeature: ReducerProtocol {
       userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
     )
     public var socialState = SocialFeature.State()
-    public var settingsState = SettingsFeature.State()
+    public var settingsState = SettingsFeature.State(userSettings: .init())
     public var nextRideState = NextRideFeature.State()
     public var requestTimer = RequestTimer.State()
     public var connectionObserverState = NetworkConnectionObserver.State()
@@ -200,7 +200,6 @@ public struct AppFeature: ReducerProtocol {
               }
             }
           },
-          EffectTask(value: .connectionObserver(.observeConnection)),
           .task {
             await .userSettingsLoaded(
               TaskResult {
@@ -215,7 +214,7 @@ public struct AppFeature: ReducerProtocol {
           effects.append(
             EffectTask.run { send in
               try? await mainQueue.sleep(for: .seconds(3))
-              await send.send(.presentObservationModeAlert)
+              await send.callAsFunction(.presentObservationModeAlert)
             }
           )
         }
@@ -279,7 +278,7 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case .postLocation:
-        if state.settingsState.userSettings.isObservationModeEnabled {
+        if state.settingsState.isObservationModeEnabled {
           return .none
         }
         
@@ -306,7 +305,7 @@ public struct AppFeature: ReducerProtocol {
         switch mapFeatureAction {
         case .focusRideEvent, .focusNextRide:
           if state.bottomSheetPosition != .hidden {
-            return EffectTask(value: .set(\.$bottomSheetPosition, .relative(0.4)))
+            return EffectTask.send(.set(\.$bottomSheetPosition, .relative(0.4)))
           } else {
             return .none
           }
@@ -319,7 +318,7 @@ public struct AppFeature: ReducerProtocol {
           
           if
             let coordinate = state.mapFeatureState.location?.coordinate,
-            state.settingsState.userSettings.rideEventSettings.isEnabled,
+            state.settingsState.rideEventSettings.isEnabled,
             isInitialLocation
           {
             return .run { send in
@@ -345,11 +344,11 @@ public struct AppFeature: ReducerProtocol {
         case let .setNextRide(ride):
           state.mapFeatureState.nextRide = ride
           return EffectTask.run { send in
-            await send.send(.map(.setNextRideBannerVisible(true)))
+            await send.callAsFunction(.map(.setNextRideBannerVisible(true)))
             try? await mainQueue.sleep(for: .seconds(1))
-            await send.send(.map(.setNextRideBannerExpanded(true)))
+            await send.callAsFunction(.map(.setNextRideBannerExpanded(true)))
             try? await mainQueue.sleep(for: .seconds(8))
-            await send.send(.map(.setNextRideBannerExpanded(false)))
+            await send.callAsFunction(.map(.setNextRideBannerExpanded(false)))
           }
           
         default:
@@ -358,9 +357,9 @@ public struct AppFeature: ReducerProtocol {
         
       case let .userSettingsLoaded(result):
         let userSettings = (try? result.value) ?? UserSettings()
-        state.settingsState.userSettings = userSettings
+        state.settingsState = .init(userSettings: userSettings)
         state.nextRideState.rideEventSettings = userSettings.rideEventSettings
-        let style = state.settingsState.userSettings.appearanceSettings.colorScheme.userInterfaceStyle
+        let style = state.settingsState.appearanceSettings.colorScheme.userInterfaceStyle
         return .merge(
           .fireAndForget {
             await setUserInterfaceStyle(style)
@@ -411,18 +410,9 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case let .setObservationMode(value):
-        state.settingsState.userSettings.isObservationModeEnabled = value
-        
-        let userSettings = state.settingsState.userSettings
-        return .fireAndForget {
-          await withThrowingTaskGroup(of: Void.self) { group in
-            group.addTask {
-              try await fileClient.saveUserSettings(userSettings: userSettings)
-            }
-            group.addTask {
-              await userDefaultsClient.setDidShowObservationModePrompt(true)
-            }
-          }
+        state.settingsState.isObservationModeEnabled = value
+        return .run { _ in
+          await userDefaultsClient.setDidShowObservationModePrompt(true)
         }
         
       case .dismissAlert:
@@ -442,11 +432,11 @@ public struct AppFeature: ReducerProtocol {
       case let .settings(settingsAction):
         switch settingsAction {
         case .rideevent:
-          state.nextRideState.rideEventSettings = state.settingsState.userSettings.rideEventSettings
-          
+          state.nextRideState.rideEventSettings = .init(state.settingsState.rideEventSettings)
+
           guard
             let coordinate = state.mapFeatureState.location?.coordinate,
-            state.settingsState.userSettings.rideEventSettings.isEnabled
+            state.settingsState.rideEventSettings.isEnabled
           else {
             return .none
           }

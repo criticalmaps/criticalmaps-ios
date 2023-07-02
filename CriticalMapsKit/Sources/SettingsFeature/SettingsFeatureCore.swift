@@ -15,12 +15,18 @@ public struct SettingsFeature: ReducerProtocol {
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
 
   public struct State: Equatable {
-    public var userSettings: UserSettings
+    @BindingState
+    public var isObservationModeEnabled = true
+    public var rideEventSettings: RideEventsSettingsFeature.State
+    public var appearanceSettings: AppearanceSettingsFeature.State
 
-    public init(
-      userSettings: UserSettings = UserSettings()
-    ) {
-      self.userSettings = userSettings
+    public init(userSettings: UserSettings = .init()) {
+      self.isObservationModeEnabled = userSettings.isObservationModeEnabled
+      self.rideEventSettings = .init(settings: userSettings.rideEventSettings)
+      self.appearanceSettings = .init(
+        appIcon: userSettings.appearanceSettings.appIcon,
+        colorScheme: userSettings.appearanceSettings.colorScheme
+      )
     }
 
     var versionNumber: String { "Critical Maps \(Bundle.main.versionNumber)" }
@@ -35,12 +41,11 @@ public struct SettingsFeature: ReducerProtocol {
 
   // MARK: Actions
 
-  public enum Action: Equatable {
+  public enum Action: BindableAction, Equatable {
     case onAppear
     case binding(BindingAction<State>)
     case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
     case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
-    case setObservationMode(Bool)
     case openURL(URL)
 
     case appearance(AppearanceSettingsFeature.Action)
@@ -50,21 +55,25 @@ public struct SettingsFeature: ReducerProtocol {
   // MARK: Reducer
 
   public var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    
     Scope(
-      state: \.userSettings.appearanceSettings,
+      state: \.appearanceSettings,
       action: /SettingsFeature.Action.appearance
     ) {
       AppearanceSettingsFeature()
     }
 
-    Scope(state: \.userSettings.rideEventSettings, action: /SettingsFeature.Action.rideevent) {
-      RideEventsSettingsFeature()
+    Scope(
+      state: \.rideEventSettings,
+      action: /SettingsFeature.Action.rideevent) {
+        RideEventsSettingsFeature()
     }
 
     Reduce<State, Action> { state, action in
       switch action {
       case .onAppear:
-        state.userSettings.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
+        state.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
           .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
         return .none
 
@@ -76,26 +85,23 @@ public struct SettingsFeature: ReducerProtocol {
 
       case let .openURL(url):
         return .fireAndForget {
-          await uiApplicationClient.open(url, [:])
+          _ = await uiApplicationClient.open(url, [:])
         }
 
-      case let .setObservationMode(value):
-        state.userSettings.isObservationModeEnabled = value
-        return .none
-
-      case .binding:
-        return .none
-
-      case .appearance, .rideevent:
-        enum SaveDebounceId {}
-
-        let userSettings = state.userSettings
-        return .fireAndForget {
-          try await withTaskCancellation(id: SaveDebounceId.self, cancelInFlight: true) {
-            try await mainQueue.sleep(for: .seconds(0.3))
-            try await fileClient.saveUserSettings(userSettings: userSettings)
+      case .appearance, .rideevent, .binding(\.$isObservationModeEnabled):
+        enum SaveDebounceId { case debounce }
+        
+        return .fireAndForget { [settings = state] in
+          try await withTaskCancellation(id: SaveDebounceId.debounce, cancelInFlight: true) {
+            try await mainQueue.sleep(for: .seconds(1))
+            try await fileClient.saveUserSettings(
+              userSettings: .init(settings: settings)
+            )
           }
         }
+        
+      case .binding:
+        return .none
       }
     }
   }
@@ -132,5 +138,27 @@ public extension SettingsFeature.State {
         return URL(string: "https://crowdin.com/project/critical-maps")!
       }
     }
+  }
+}
+
+extension UserSettings {
+  init(settings: SettingsFeature.State) {
+    self.init(
+      appearanceSettings: settings.appearanceSettings,
+      enableObservationMode: settings.isObservationModeEnabled,
+      rideEventSettings: .init(settings.rideEventSettings)
+    )
+  }
+}
+
+extension RideEventSettings {
+  public init(_ featureSettings: RideEventsSettingsFeature.State) {
+    self.init(
+      isEnabled: featureSettings.isEnabled,
+      typeSettings: featureSettings.rideEventTypes.elements.reduce(into: [Ride.RideType: Bool]()) { result, property in
+        result[property.rideType] = property.isEnabled
+      },
+      eventDistance: featureSettings.eventSearchRadius
+    )
   }
 }

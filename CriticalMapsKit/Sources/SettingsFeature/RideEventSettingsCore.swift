@@ -4,36 +4,56 @@ import SharedModels
 
 public struct RideEventsSettingsFeature: ReducerProtocol {
   public init() {}
-
-  public typealias State = SharedModels.RideEventSettings
+  
+  public struct State: Equatable, Sendable {
+    @BindingState public var isEnabled: Bool
+    @BindingState public var eventSearchRadius: EventDistance
+    public var rideEventTypes: IdentifiedArrayOf<RideEventType.State> = []
+    
+    public init(
+      isEnabled: Bool,
+      eventDistance: EventDistance,
+      rideEventTypes: [RideEventType.State]
+    ) {
+      self.isEnabled = isEnabled
+      self.eventSearchRadius = eventDistance
+      self.rideEventTypes = .init(uncheckedUniqueElements: rideEventTypes)
+    }
+  }
 
   // MARK: Actions
 
-  public enum Action: Equatable {
-    case setRideEventsEnabled(Bool)
-    case setRideEventTypeEnabled(RideEventSettings.RideEventTypeSetting)
-    case setRideEventRadius(EventDistance)
+  public enum Action: BindableAction, Equatable, Sendable {
+    case binding(BindingAction<State>)
+    case rideEventType(id: RideEventType.State.ID, action: RideEventType.Action)
   }
 
-  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    switch action {
-    case let .setRideEventsEnabled(value):
-      state.isEnabled = value
-      return .none
-
-    case let .setRideEventTypeEnabled(type):
-      guard let index = state.typeSettings.firstIndex(where: { $0.type == type.type }) else {
+  public var body: some ReducerProtocol<State, Action> {
+    BindingReducer()
+    
+    Reduce { _, action in
+      switch action {
+      case .binding:
+        return .none
+         
+      case .rideEventType:
         return .none
       }
-      state.typeSettings[index].isEnabled = type.isEnabled
-      return .none
-
-    case let .setRideEventRadius(distance):
-      guard distance != state.eventDistance else {
-        return .none
-      }
-      state.eventDistance = distance
-      return .none
     }
+    .forEach(\.rideEventTypes, action: /Action.rideEventType(id:action:)) {
+      RideEventType()
+    }
+  }
+}
+
+extension RideEventsSettingsFeature.State {
+  public init(settings: RideEventSettings) {
+    self.init(
+      isEnabled: settings.isEnabled,
+      eventDistance: settings.eventDistance,
+      rideEventTypes: settings.typeSettings
+        .map { RideEventType.State(rideType: $0.key, isEnabled: $0.value) }
+        .sorted(by: \.rideType.title)
+    )
   }
 }
