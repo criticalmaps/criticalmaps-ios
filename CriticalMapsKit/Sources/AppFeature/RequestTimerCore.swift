@@ -40,9 +40,9 @@ public struct RequestTimer: ReducerProtocol {
           await send(.timerTicked)
         }
       }
-      .cancellable(id: TimerId.self, cancelInFlight: true)
+      .cancellable(id: Timer.cancel, cancelInFlight: true)
     }
   }
 }
 
-private struct TimerId: Hashable {}
+enum Timer { case cancel }
