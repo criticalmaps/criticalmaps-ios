@@ -22,7 +22,7 @@ public struct ChatMessageView: View {
         Spacer()
         Text(chatTime)
           .foregroundColor(Color(.textPrimary))
-          .font(.meta)
+          .font(.footnote)
       }
     }
   }
