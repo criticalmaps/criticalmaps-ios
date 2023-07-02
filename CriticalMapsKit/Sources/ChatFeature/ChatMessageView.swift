@@ -15,12 +15,15 @@ public struct ChatMessageView: View {
 
   public var body: some View {
     VStack(alignment: .leading, spacing: .grid(1)) {
-      Text(chatTime)
-        .foregroundColor(Color(.textPrimary))
-        .font(.meta)
-      Text(chat.message)
+      Text(chat.decodedMessage)
         .foregroundColor(Color(.textSecondary))
         .font(.bodyOne)
+      HStack {
+        Spacer()
+        Text(chatTime)
+          .foregroundColor(Color(.textPrimary))
+          .font(.meta)
+      }
     }
   }
 }
@@ -31,7 +34,7 @@ struct ChatMessageView_Previews: PreviewProvider {
       .init(
         identifier: "id",
         device: "device",
-        message: "Hello World!",
+        message: "ich+sch%C3%A4tze+13.000",
         timestamp: .pi
       )
     )

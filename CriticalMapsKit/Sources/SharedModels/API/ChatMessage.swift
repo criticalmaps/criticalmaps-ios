@@ -21,10 +21,14 @@ public struct ChatMessage: Codable, Hashable, Identifiable {
     self.timestamp = timestamp
   }
   
-  public var decodedMessage: String? {
-    message
+  public var decodedMessage: String {
+    guard let formatted = message
       .replacingOccurrences(of: "+", with: " ")
       .removingPercentEncoding
+    else {
+      return message
+    }
+    return formatted
   }
     
   public func hash(into hasher: inout Hasher) {
