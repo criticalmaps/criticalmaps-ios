@@ -224,7 +224,7 @@ public struct MapFeature: ReducerProtocol {
         
         return EffectTask.run { send in
           try await mainQueue.sleep(for: .seconds(1))
-          await send.send(.resetCenterRegion)
+          await send.callAsFunction(.resetCenterRegion)
         }
 
       case let .focusRideEvent(coordinate):
@@ -236,7 +236,7 @@ public struct MapFeature: ReducerProtocol {
         
         return EffectTask.run { send in
           try await mainQueue.sleep(for: .seconds(1))
-          await send.send(.resetRideEventCenter)
+          await send.callAsFunction(.resetRideEventCenter)
         }
 
       case .resetRideEventCenter:
