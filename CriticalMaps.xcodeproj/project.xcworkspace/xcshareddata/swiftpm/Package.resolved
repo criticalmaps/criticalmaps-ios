@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "mastodonkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mltbnz/MastodonKit.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "db829c74ba16f809c9b894c356ee2df3ffb284ab"
+      }
+    },
+    {
       "identity" : "swift-case-paths",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
