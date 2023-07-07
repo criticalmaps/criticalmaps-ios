@@ -10,9 +10,9 @@ final class SocialFeatureCoreTests: XCTestCase {
       reducer: SocialFeature()
     )
 
-    let twitter: SocialFeature.SocialControl = .twitter
-    await testStore.send(.setSocialSegment(twitter.rawValue)) { state in
-      state.socialControl = .twitter
+    let toots: SocialFeature.SocialControl = .toots
+    await testStore.send(.setSocialSegment(toots.rawValue)) { state in
+      state.socialControl = .toots
     }
 
     let chat: SocialFeature.SocialControl = .chat
