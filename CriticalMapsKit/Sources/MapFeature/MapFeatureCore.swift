@@ -37,9 +37,9 @@ public struct MapFeature: ReducerProtocol {
     public var location: SharedModels.Location?
     public var riderLocations: [Rider]
     public var nextRide: Ride?
-    
     public var rideEvents: [Ride] = []
     
+    @BindingState public var visibleRidersCount: Int?
     @BindingState public var eventCenter: CoordinateRegion?
     @BindingState public var userTrackingMode: UserTrackingFeature.State
     @BindingState public var centerRegion: CoordinateRegion?

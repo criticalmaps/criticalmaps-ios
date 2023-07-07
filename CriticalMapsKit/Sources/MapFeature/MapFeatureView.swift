@@ -27,6 +27,7 @@ public struct MapFeatureView: View {
         userTrackingMode: viewStore.binding(\.$userTrackingMode),
         nextRide: viewStore.nextRide,
         rideEvents: viewStore.rideEvents,
+        annotationsCount: viewStore.binding(\.$visibleRidersCount),
         centerRegion: viewStore.binding(\.$centerRegion),
         centerEventRegion: viewStore.binding(\.$eventCenter),
         mapMenuShareEventHandler: {

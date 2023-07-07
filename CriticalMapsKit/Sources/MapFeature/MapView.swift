@@ -13,6 +13,7 @@ struct MapView: ViewRepresentable {
 
   var riderCoordinates: [Rider]
   @Binding var userTrackingMode: UserTrackingFeature.State
+  @Binding var annotationsCount: Int?
   @ShouldAnimateTrackingModeOverTime
   var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
@@ -28,6 +29,7 @@ struct MapView: ViewRepresentable {
     userTrackingMode: Binding<UserTrackingFeature.State>,
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
+    annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
     centerEventRegion: Binding<CoordinateRegion?>,
     mapMenuShareEventHandler: MapView.MenuActionHandle? = nil,
@@ -37,6 +39,7 @@ struct MapView: ViewRepresentable {
     self._userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.rideEvents = rideEvents
+    self._annotationsCount = annotationsCount
     self._centerRegion = centerRegion
     self._centerEventRegion = centerEventRegion
     self.mapMenuShareEventHandler = mapMenuShareEventHandler
@@ -161,5 +164,9 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
     }
 
     return MKAnnotationView()
+  }
+  
+  func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+    parent.annotationsCount = mapView.annotations(in: mapView.visibleMapRect).count
   }
 }
