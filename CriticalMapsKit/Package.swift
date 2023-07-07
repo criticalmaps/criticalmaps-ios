@@ -15,7 +15,8 @@ let package = Package(
     .library(name: "GuideFeature", targets: ["GuideFeature"]),
     .library(name: "MapFeature", targets: ["MapFeature"]),
     .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
-    .library(name: "TwitterFeature", targets: ["SocialFeature"])
+    .library(name: "MastodonFeedFeature", targets: ["SocialFeature"]),
+    .library(name: "Styleguide", targets: ["Styleguide"])
   ],
   dependencies: [
     .package(url: "https://github.com/MarcoEidinger/SwiftFormatPlugin", from: "0.49.18"),
@@ -31,7 +32,8 @@ let package = Package(
     ),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.1.0"),
     .package(url: "https://github.com/vtourraine/AcknowList.git", .upToNextMajor(from: "2.1.0")),
-    .package(url: "https://github.com/lucaszischka/BottomSheet.git", from: "3.1.0")
+    .package(url: "https://github.com/lucaszischka/BottomSheet.git", from: "3.1.0"),
+    .package(url: "https://github.com/mltbnz/MastodonKit.git", branch: "master")
   ],
   targets: [
     .target(
@@ -194,7 +196,7 @@ let package = Package(
       dependencies: [
         "ChatFeature",
         "L10n",
-        "TwitterFeedFeature",
+        "MastodonFeedFeature",
         "UserDefaultsClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
@@ -219,7 +221,7 @@ let package = Package(
       ]
     ),
     .target(
-      name: "TwitterFeedFeature",
+      name: "MastodonFeedFeature",
       dependencies: [
         "ApiClient",
         "Logger",
@@ -227,7 +229,8 @@ let package = Package(
         "SharedModels",
         "Styleguide",
         "UIApplicationClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "MastodonKit", package: "MastodonKit")
       ]
     ),
     .target(
@@ -352,16 +355,17 @@ package.targets.append(contentsOf: [
     exclude: ["__Snapshots__"]
   ),
   .testTarget(
-    name: "TwitterFeedFeatureTests",
+    name: "MastodonFeedFeatureTests",
     dependencies: [
       "Helpers",
       "SharedDependencies",
-      "TwitterFeedFeature",
+      "MastodonFeedFeature",
       "TestHelper",
       .product(
         name: "ComposableArchitecture",
         package: "swift-composable-architecture"
-      )
+      ),
+      .product(name: "MastodonKit", package: "MastodonKit")
     ],
     exclude: [
       "__Snapshots__"
