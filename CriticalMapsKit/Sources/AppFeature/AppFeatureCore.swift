@@ -9,13 +9,13 @@ import L10n
 import Logger
 import MapFeature
 import MapKit
+import MastodonFeedFeature
 import NextRideFeature
 import PathMonitorClient
 import SettingsFeature
 import SharedDependencies
 import SharedModels
 import SocialFeature
-import TwitterFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 

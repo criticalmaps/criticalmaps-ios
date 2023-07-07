@@ -3,11 +3,11 @@ import GuideFeature
 import Helpers
 import L10n
 import MapFeature
+import MastodonFeedFeature
 import SettingsFeature
 import SocialFeature
 import Styleguide
 import SwiftUI
-import TwitterFeedFeature
 
 public struct AppNavigationView: View {
   public typealias State = AppFeature.State
