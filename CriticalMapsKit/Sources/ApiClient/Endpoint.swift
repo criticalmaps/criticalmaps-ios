@@ -22,7 +22,6 @@ public struct Endpoint {
 public extension Endpoint {
   static let locations = Self(baseUrl: cdnBaseUrl, pathComponents: ["locations"])
   static let chatMessages = Self(baseUrl: apiGWBaseUrl, pathComponents: ["messages"])
-  static let twitter = Self(baseUrl: apiGWBaseUrl, pathComponents: ["twitter"])
   static let criticalmass = Self(baseUrl: criticalmassInEndpoint, pathComponents: ["api", "ride"])
 }
 
