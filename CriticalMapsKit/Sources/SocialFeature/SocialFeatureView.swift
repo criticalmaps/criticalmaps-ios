@@ -1,25 +1,22 @@
 import ChatFeature
 import ComposableArchitecture
+import MastodonFeedFeature
 import SwiftUI
-import TwitterFeedFeature
 
 /// A view that holds the chatfeature and twitterfeature and just offers a control to switch between the two.
 public struct SocialView: View {
-  typealias State = SocialFeature.State
-  typealias Action = SocialFeature.Action
-
   @Environment(\.presentationMode) var presentationMode
 
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
+  let store: StoreOf<SocialFeature>
+  @ObservedObject var viewStore: ViewStoreOf<SocialFeature>
 
-  public init(store: Store<SocialFeature.State, SocialFeature.Action>) {
+  public init(store: StoreOf<SocialFeature>) {
     self.store = store
     viewStore = ViewStore(store)
   }
 
   public var body: some View {
-    WithViewStore(self.store.scope(state: { $0 })) { viewStore in
+    WithViewStore(self.store.scope(state: { $0 }, action: { $0 })) { viewStore in
       NavigationView {
         Group {
           switch viewStore.socialControl {
@@ -30,11 +27,11 @@ public struct SocialView: View {
                 action: SocialFeature.Action.chat
               )
             )
-          case .twitter:
-            TwitterFeedView(
+          case .toots:
+            MastodonFeedView(
               store: store.scope(
-                state: \.twitterFeedState,
-                action: SocialFeature.Action.twitter
+                state: \.mastodonFeedState,
+                action: SocialFeature.Action.toots
               )
             )
           }
@@ -60,7 +57,7 @@ public struct SocialView: View {
               )
             ) {
               Text(SocialFeature.SocialControl.chat.title).tag(0)
-              Text(SocialFeature.SocialControl.twitter.title).tag(1)
+              Text(SocialFeature.SocialControl.toots.title).tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
             .frame(maxWidth: 180)
@@ -79,7 +76,7 @@ struct SocialView_Previews: PreviewProvider {
       store: Store<SocialFeature.State, SocialFeature.Action>(
         initialState: SocialFeature.State(
           chatFeatureState: .init(),
-          twitterFeedState: .init()
+          mastodonFeedState: .init()
         ),
         reducer: SocialFeature()._printChanges()
       )
