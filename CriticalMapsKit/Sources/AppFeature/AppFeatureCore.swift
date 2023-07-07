@@ -66,12 +66,26 @@ public struct AppFeature: ReducerProtocol {
     
     public var riderLocations: TaskResult<[Rider]>?
     public var didResolveInitialLocation = false
+    public var isRequestingRiderLocations = false
     
     // Children states
     public var mapFeatureState = MapFeature.State(
       riders: [],
       userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
     )
+    public var timerProgress: Double {
+      let progress = Double(requestTimer.secondsElapsed) / 60
+      return progress
+    }
+    public var timerValue: String {
+      let progress = 60 - requestTimer.secondsElapsed
+      return String(progress)
+    }
+    public var ridersCount: String {
+      let count = mapFeatureState.visibleRidersCount ?? 0
+      return NumberFormatter.riderCountFormatter.string(from: .init(value: count)) ?? ""
+    }
+    
     public var socialState = SocialFeature.State()
     public var settingsState = SettingsFeature.State(userSettings: .init())
     public var nextRideState = NextRideFeature.State()
@@ -225,6 +239,7 @@ public struct AppFeature: ReducerProtocol {
         return EffectTask.cancel(id: ObserveConnectionIdentifier())
         
       case .fetchLocations:
+        state.isRequestingRiderLocations = true
         return .task {
           await .fetchLocationsResponse(
             TaskResult {
@@ -268,11 +283,13 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case let .fetchLocationsResponse(.success(response)):
+        state.isRequestingRiderLocations = false
         state.riderLocations = .success(response)
         state.mapFeatureState.riderLocations = response
         return .none
         
       case let .fetchLocationsResponse(.failure(error)):
+        state.isRequestingRiderLocations = false
         logger.info("FetchLocation failed: \(error)")
         state.riderLocations = .failure(error)
         return .none
@@ -386,19 +403,25 @@ public struct AppFeature: ReducerProtocol {
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
-          return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
-            await withThrowingTaskGroup(of: Void.self) { group in
-              if !isPrentingSubView {
-                group.addTask {
-                  await send(.fetchLocations)
+          if state.requestTimer.secondsElapsed == 60 {
+            state.requestTimer.secondsElapsed = 0
+            
+            return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
+              await withThrowingTaskGroup(of: Void.self) { group in
+                if !isPrentingSubView {
+                  group.addTask {
+                    await send(.fetchLocations)
+                  }
                 }
-              }
-              if isChatPresented {
-                group.addTask {
-                  await send(.fetchChatMessages)
+                if isChatPresented {
+                  group.addTask {
+                    await send(.fetchChatMessages)
+                  }
                 }
               }
             }
+          } else {
+            return .none
           }
           
         default:
@@ -501,3 +524,12 @@ public extension AlertState where Action == AppFeature.Action {
 }
 
 public typealias ReducerBuilderOf<R: ReducerProtocol> = ReducerBuilder<R.State, R.Action>
+
+extension NumberFormatter {
+  static let riderCountFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.groupingSeparator = "."
+    return formatter
+  }()
+}
