@@ -20,7 +20,13 @@ public struct ChatView: View {
   
   public init(store: Store<ChatFeature.State, ChatFeature.Action>) {
     self.store = store
-    viewStore = ViewStore(store.scope(state: ViewState.init), observe: { $0 })
+    viewStore = ViewStore(
+      store.scope(
+        state: ViewState.init,
+        action: { $0 }
+      ),
+      observe: { $0 }
+    )
   }
   
   public var body: some View {
@@ -48,7 +54,7 @@ public struct ChatView: View {
       
       chatInput
     }
-    .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
+    .alert(store.scope(state: \.alert, action: { $0 }), dismiss: .dismissAlert)
     .onAppear { viewStore.send(.onAppear) }
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea(.container, edges: .bottom)
