@@ -105,9 +105,6 @@ public struct AppView: View {
     .alert(store.scope(state: \.alert, action: { $0 }), dismiss: .dismissAlert)
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
-    .onChange(of: viewStore.connectionObserverState.isNetworkAvailable) { newValue in
-      self.showOfflineBanner = !newValue
-    }
   }
 
   @ViewBuilder

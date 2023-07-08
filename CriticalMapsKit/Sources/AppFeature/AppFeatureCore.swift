@@ -10,7 +10,6 @@ import Logger
 import MapFeature
 import MapKit
 import NextRideFeature
-import PathMonitorClient
 import SettingsFeature
 import SharedDependencies
 import SharedModels
@@ -33,7 +32,6 @@ public struct AppFeature: ReducerProtocol {
   @Dependency(\.locationManager) public var locationManager
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
-  @Dependency(\.pathMonitorClient) public var pathMonitorClient
   @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
   
   // MARK: State
@@ -90,7 +88,6 @@ public struct AppFeature: ReducerProtocol {
     public var settingsState = SettingsFeature.State(userSettings: .init())
     public var nextRideState = NextRideFeature.State()
     public var requestTimer = RequestTimer.State()
-    public var connectionObserverState = NetworkConnectionObserver.State()
       
     // Navigation
     public var route: AppRoute?
@@ -143,19 +140,11 @@ public struct AppFeature: ReducerProtocol {
     case requestTimer(RequestTimer.Action)
     case settings(SettingsFeature.Action)
     case social(SocialFeature.Action)
-    case connectionObserver(NetworkConnectionObserver.Action)
   }
   
   // MARK: Reducer
-
-  struct ObserveConnectionIdentifier: Hashable {}
-
   public var body: some ReducerProtocol<State, Action> {
     BindingReducer()
-    
-    Scope(state: \.connectionObserverState, action: /AppFeature.Action.connectionObserver) {
-      NetworkConnectionObserver()
-    }
     
     Scope(state: \.requestTimer, action: /AppFeature.Action.requestTimer) {
       RequestTimer()
@@ -236,7 +225,7 @@ public struct AppFeature: ReducerProtocol {
         return .merge(effects)
         
       case .onDisappear:
-        return EffectTask.cancel(id: ObserveConnectionIdentifier())
+        return .none
         
       case .fetchLocations:
         state.isRequestingRiderLocations = true
@@ -470,10 +459,7 @@ public struct AppFeature: ReducerProtocol {
         default:
           return .none
         }
-        
-      case .connectionObserver:
-        return .none
-        
+
       case .binding:
         return .none
       }

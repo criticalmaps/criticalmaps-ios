@@ -8,7 +8,6 @@ import FileClient
 import Foundation
 import MapFeature
 import NextRideFeature
-import PathMonitorClient
 import SharedModels
 import UserDefaultsClient
 import XCTest
