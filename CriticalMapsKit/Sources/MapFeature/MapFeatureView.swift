@@ -8,17 +8,14 @@ import SwiftUI
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-
-  public typealias State = MapFeature.State
-  public typealias Action = MapFeature.Action
-
-  public init(store: Store<State, Action>) {
+  
+  public init(store: StoreOf<MapFeature>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
   }
 
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
+  let store: StoreOf<MapFeature>
+  @ObservedObject var viewStore: ViewStoreOf<MapFeature>
 
   public var body: some View {
     ZStack(alignment: .topLeading) {

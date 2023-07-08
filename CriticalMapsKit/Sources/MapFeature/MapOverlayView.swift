@@ -32,7 +32,7 @@ public struct MapOverlayView<Content>: View where Content: View {
     @ViewBuilder content: @escaping () -> Content
   ) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     self.action = action
     self.content = content
   }

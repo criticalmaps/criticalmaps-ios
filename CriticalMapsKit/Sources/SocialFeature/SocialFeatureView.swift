@@ -5,24 +5,25 @@ import TwitterFeedFeature
 
 /// A view that holds the chatfeature and twitterfeature and just offers a control to switch between the two.
 public struct SocialView: View {
-  typealias State = SocialFeature.State
-  typealias Action = SocialFeature.Action
-
   @Environment(\.presentationMode) var presentationMode
+  let store: StoreOf<SocialFeature>
 
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
-
-  public init(store: Store<SocialFeature.State, SocialFeature.Action>) {
+  struct ViewState: Equatable {
+    let selectedTab: SocialFeature.SocialControl
+    init(state: SocialFeature.State) {
+      self.selectedTab = state.socialControl
+    }
+  }
+  
+  public init(store: StoreOf<SocialFeature>) {
     self.store = store
-    viewStore = ViewStore(store)
   }
 
   public var body: some View {
-    WithViewStore(self.store.scope(state: { $0 })) { viewStore in
+    WithViewStore(store, observe: ViewState.init) { viewStore in
       NavigationView {
         Group {
-          switch viewStore.socialControl {
+          switch viewStore.selectedTab {
           case .chat:
             ChatView(
               store: store.scope(
@@ -55,7 +56,7 @@ public struct SocialView: View {
             Picker(
               "Social Segment",
               selection: viewStore.binding(
-                get: \.socialControl.rawValue,
+                get: \.selectedTab.rawValue,
                 send: SocialFeature.Action.setSocialSegment
               )
             ) {
@@ -76,7 +77,7 @@ public struct SocialView: View {
 struct SocialView_Previews: PreviewProvider {
   static var previews: some View {
     SocialView(
-      store: Store<SocialFeature.State, SocialFeature.Action>(
+      store: StoreOf<SocialFeature>(
         initialState: SocialFeature.State(
           chatFeatureState: .init(),
           twitterFeedState: .init()

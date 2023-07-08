@@ -11,15 +11,15 @@ import SwiftUI
 public struct AppView: View {
   @State var showsInfoStack = false
   
-  let store: Store<AppFeature.State, AppFeature.Action>
-  @ObservedObject var viewStore: ViewStore<AppFeature.State, AppFeature.Action>
+  let store: StoreOf<AppFeature>
+  @ObservedObject var viewStore: ViewStoreOf<AppFeature>
 
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   @State private var showOfflineBanner = false
 
-  public init(store: Store<AppFeature.State, AppFeature.Action>) {
+  public init(store: StoreOf<AppFeature>) {
     self.store = store
     viewStore = ViewStore(store, observe: { $0 })
   }

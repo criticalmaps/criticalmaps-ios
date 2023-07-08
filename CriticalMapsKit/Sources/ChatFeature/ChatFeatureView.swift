@@ -15,10 +15,10 @@ public struct ChatView: View {
     }
   }
   
-  let store: Store<ChatFeature.State, ChatFeature.Action>
+  let store: StoreOf<ChatFeature>
   @ObservedObject var viewStore: ViewStore<ViewState, ChatFeature.Action>
   
-  public init(store: Store<ChatFeature.State, ChatFeature.Action>) {
+  public init(store: StoreOf<ChatFeature>) {
     self.store = store
     viewStore = ViewStore(
       store.scope(

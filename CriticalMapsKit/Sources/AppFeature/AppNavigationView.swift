@@ -10,20 +10,18 @@ import SwiftUI
 import TwitterFeedFeature
 
 public struct AppNavigationView: View {
-  public typealias State = AppFeature.State
-  public typealias Action = AppFeature.Action
+  let store: StoreOf<AppFeature>
   
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
+  @ObservedObject var viewStore: ViewStoreOf<AppFeature>
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
   let minHeight: CGFloat = 56
   
-  public init(store: Store<State, Action>) {
+  public init(store: StoreOf<AppFeature>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
   }
   
   public var body: some View {

@@ -6,17 +6,17 @@ import UIKit
 
 public struct BasicInputView: View {
   private let placeholder: String
-  let store: Store<ChatInput.State, ChatInput.Action>
-  @ObservedObject var viewStore: ViewStore<ChatInput.State, ChatInput.Action>
+  let store: StoreOf<ChatInput>
+  @ObservedObject var viewStore: ViewStoreOf<ChatInput>
   
   @State private var contentSizeThatFits: CGSize = .zero
   
   public init(
-    store: Store<ChatInput.State, ChatInput.Action>,
+    store: StoreOf<ChatInput>,
     placeholder: String = ""
   ) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     self.placeholder = placeholder
     _contentSizeThatFits = State(initialValue: .zero)
   }
