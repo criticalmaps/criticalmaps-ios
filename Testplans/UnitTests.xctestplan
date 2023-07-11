@@ -92,15 +92,10 @@
       }
     },
     {
-      "parallelizable" : true,
-      "skippedTests" : [
-        "TweetListViewSnapshotTests",
-        "TweetViewSnapshotTests"
-      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "TwitterFeedFeatureTests",
-        "name" : "TwitterFeedFeatureTests"
+        "identifier" : "MastodonFeedFeatureTests",
+        "name" : "MastodonFeedFeatureTests"
       }
     }
   ],

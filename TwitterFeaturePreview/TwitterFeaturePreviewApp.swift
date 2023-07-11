@@ -10,7 +10,7 @@ struct TwitterFeaturePreviewApp: App {
         TwitterFeedView(
           store: .init(
             initialState: .init(),
-            reducer: TwitterFeedFeature()
+            reducer: TootFeedFeature()
           )
         )
         .navigationTitle("TwitterFeature Preview")

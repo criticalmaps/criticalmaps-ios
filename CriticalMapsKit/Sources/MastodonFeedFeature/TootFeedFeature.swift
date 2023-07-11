@@ -3,29 +3,32 @@ import Foundation
 import Helpers
 import L10n
 import Logger
+import MastodonKit
 import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI
 import UIApplicationClient
 
-public struct TwitterFeedFeature: ReducerProtocol {
+public struct TootFeedFeature: ReducerProtocol {
   public init() {}
   
   @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.twitterService) public var twitterService
+  @Dependency(\.tootService) public var tootService
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
 
   // MARK: State
 
   public struct State: Equatable {
-    public var tweets: IdentifiedArrayOf<TweetFeature.State>
-    public var twitterFeedIsLoading = false
+    public var toots: IdentifiedArrayOf<MastodonKit.Status>
+    public var isLoading = false
     public var isRefreshing = false
     public var error: ErrorState?
         
-    public init(tweets: IdentifiedArrayOf<TweetFeature.State> = IdentifiedArray(uniqueElements: [Tweet].placeHolder, id: \.id)) {
-      self.tweets = tweets
+    public init(
+      toots: IdentifiedArrayOf<Status> = []
+    ) {
+      self.toots = toots
     }
   }
   
@@ -35,8 +38,8 @@ public struct TwitterFeedFeature: ReducerProtocol {
     case onAppear
     case refresh
     case fetchData
-    case fetchDataResponse(TaskResult<[Tweet]>)
-    case tweet(id: TweetFeature.State.ID, action: TweetFeature.Action)
+    case fetchDataResponse(TaskResult<[Status]>)
+    case toot(id: TootFeature.State.ID, action: TootFeature.Action)
   }
   
   
@@ -52,26 +55,26 @@ public struct TwitterFeedFeature: ReducerProtocol {
         return EffectTask(value: .fetchData)
         
       case .fetchData:
-        state.twitterFeedIsLoading = true
+        state.isLoading = true
         return .task {
-          await .fetchDataResponse(TaskResult { try await twitterService.getTweets() })
+          await .fetchDataResponse(TaskResult { try await tootService.getToots() })
         }
         
-      case let .fetchDataResponse(.success(tweets)):
-        state.twitterFeedIsLoading = false
+      case let .fetchDataResponse(.success(toots)):
+        state.isLoading = false
         state.isRefreshing = false
         
-        if tweets.isEmpty {
-          state.tweets = .init(uniqueElements: [])
+        if toots.isEmpty {
+          state.toots = .init(uniqueElements: [])
           return .none
         }
         
-        state.tweets = IdentifiedArray(uniqueElements: tweets)
+        state.toots = IdentifiedArray(uniqueElements: toots)
         return .none
       case let .fetchDataResponse(.failure(error)):
         logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
         state.isRefreshing = false
-        state.twitterFeedIsLoading = false
+        state.isLoading = false
         state.error = .init(
           title: L10n.ErrorState.title,
           body: L10n.ErrorState.message,
@@ -79,12 +82,18 @@ public struct TwitterFeedFeature: ReducerProtocol {
         )
         return .none
         
-      case .tweet:
+      case .toot:
         return .none
       }
     }
-    .forEach(\.tweets, action: /TwitterFeedFeature.Action.tweet(id:action:)) {
-      TweetFeature()
+    .forEach(\.toots, action: /TootFeedFeature.Action.toot) {
+      TootFeature()
     }
+  }
+}
+
+extension MastodonKit.Status: Identifiable {
+  public static func == (lhs: MastodonKit.Status, rhs: MastodonKit.Status) -> Bool {
+    lhs.id == rhs.id
   }
 }
