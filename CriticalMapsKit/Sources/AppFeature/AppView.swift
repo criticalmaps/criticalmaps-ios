@@ -44,7 +44,7 @@ public struct AppView: View {
 
       HStack {
         VStack(alignment: .leading) {
-          if viewStore.state.mapFeatureState.isNextRideBannerVisible {
+          if viewStore.mapFeatureState.isNextRideBannerVisible, viewStore.settingsState.rideEventSettings.isEnabled {
             nextRideBanner()
               .contextMenu {
                 Button(
