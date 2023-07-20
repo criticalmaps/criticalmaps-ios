@@ -25,6 +25,34 @@ public struct SettingsView: View {
     SettingsForm {
       Spacer(minLength: 28)
       VStack {
+        SettingsRow {
+          observationModeRow
+            .accessibilityValue(
+              viewStore.isObservationModeEnabled
+                ? Text(L10n.A11y.General.on)
+                : Text(L10n.A11y.General.off)
+            )
+            .accessibilityAction {
+              viewStore.send(
+                .set(\.$isObservationModeEnabled, !viewStore.isObservationModeEnabled)
+              )
+            }
+        }
+        
+        SettingsRow {
+          infoRow
+            .accessibilityValue(
+              viewStore.infoViewEnabled
+                ? Text(L10n.A11y.General.on)
+                : Text(L10n.A11y.General.off)
+            )
+            .accessibilityAction {
+              viewStore.send(
+                .set(\.$infoViewEnabled, !viewStore.infoViewEnabled)
+              )
+            }
+        }
+        
         SettingsSection(title: "") {
           SettingsNavigationLink(
             destination: RideEventSettingsView(
@@ -35,20 +63,6 @@ public struct SettingsView: View {
             ),
             title: L10n.Settings.eventSettings
           )
-          
-          SettingsRow {
-            observationModeRow
-              .accessibilityValue(
-                viewStore.isObservationModeEnabled
-                  ? Text(L10n.A11y.General.on)
-                  : Text(L10n.A11y.General.off)
-              )
-              .accessibilityAction {
-                viewStore.send(
-                  .set(\.$isObservationModeEnabled, !viewStore.isObservationModeEnabled)
-                )
-              }
-          }
           
           SettingsNavigationLink(
             destination: AppearanceSettingsView(
@@ -87,6 +101,25 @@ public struct SettingsView: View {
       Spacer()
       Toggle(
         isOn: viewStore.$isObservationModeEnabled,
+        label: { EmptyView() }
+      )
+      .labelsHidden()
+    }
+    .accessibilityElement(children: .combine)
+  }
+  
+  var infoRow: some View {
+    HStack {
+      VStack(alignment: .leading, spacing: .grid(1)) {
+        Text("Show info view")
+          .font(.titleOne)
+        Text("Show info toogle over the map")
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
+          .font(.bodyOne)
+      }
+      Spacer()
+      Toggle(
+        isOn: viewStore.$infoViewEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
