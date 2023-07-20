@@ -29,7 +29,7 @@ public struct DataTile<Content: View>: View {
     }
     .foregroundColor(Color(.textPrimary))
     .padding(.grid(2))
-    .frame(width: 100, height: 80)
+    .frame(width: 100, height: 90)
     .background(
       reduceTransparency
       ? Color(.backgroundPrimary)
@@ -40,6 +40,7 @@ public struct DataTile<Content: View>: View {
       RoundedRectangle(cornerRadius: 8, style: .continuous)
         .stroke(Color(.textPrimary).opacity(0.2), lineWidth: 1)
     )
+    .accessibilityElement(children: .combine)
   }
 }
 

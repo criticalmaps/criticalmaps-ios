@@ -9,7 +9,7 @@ import SwiftUI
 
 /// The apps main view
 public struct AppView: View {
-  @State var showsInfoStack = false
+  @State var showsInfoExpanded = false
   
   let store: StoreOf<AppFeature>
   @ObservedObject var viewStore: ViewStoreOf<AppFeature>
@@ -57,8 +57,8 @@ public struct AppView: View {
           ZStack(alignment: .center) {
             Blur()
               .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-              .frame(width: showsInfoStack ? 120 : 50, height: showsInfoStack ? 210 : 50)
-              .accessibleAnimation(.cmSpring.speed(1.5), value: showsInfoStack)
+              .frame(width: showsInfoExpanded ? 120 : 50, height: showsInfoExpanded ? 230 : 50)
+              .accessibleAnimation(.cmSpring.speed(1.5), value: showsInfoExpanded)
             
             infoContent()
           }
@@ -109,7 +109,7 @@ public struct AppView: View {
 
   @ViewBuilder
   func infoContent() -> some View {
-    if showsInfoStack {
+    if showsInfoExpanded {
       VStack {
         Text("Info")
           .foregroundColor(Color(.textPrimary))
@@ -117,12 +117,7 @@ public struct AppView: View {
         
         DataTile("Next update") {
           CircularProgressView(progress: viewStore.timerProgress)
-            .padding(.grid(1))
             .frame(width: 44, height: 44)
-            .background(
-              Blur()
-                .clipShape(Circle())
-            )
             .overlay(alignment: .center) {
               if viewStore.isRequestingRiderLocations {
                 ProgressView()
@@ -132,16 +127,13 @@ public struct AppView: View {
                   .font(.system(size: 14).bold())
               }
             }
+            .padding(.top, .grid(1))
         }
   
         DataTile("Riders") {
           HStack {
-            Image(systemName: "bicycle.circle.fill")
-              .imageScale(.large)
-              .frame(width: 30, height: 30)
-            
             Text(viewStore.ridersCount)
-              .font(.bodyOne)
+              .font(.pageTitle)
           }
           .foregroundColor(Color(.textPrimary))
         }
@@ -154,10 +146,10 @@ public struct AppView: View {
       )
       .contentShape(Rectangle())
       .onTapGesture {
-        withAnimation { showsInfoStack = false }
+        withAnimation { showsInfoExpanded = false }
       }
     } else {
-      Button(action: { withAnimation { showsInfoStack = true } }) {
+      Button(action: { withAnimation { showsInfoExpanded = true } }) {
         Image(systemName: "info.circle")
           .resizable()
           .frame(width: 30, height: 30)
