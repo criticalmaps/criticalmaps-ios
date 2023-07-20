@@ -167,6 +167,9 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   }
   
   func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-    parent.annotationsCount = mapView.annotations(in: mapView.visibleMapRect).count
+    let riderAnnotations = mapView
+      .annotations(in: mapView.visibleMapRect)
+      .compactMap { $0 as? RiderAnnotation }
+    parent.annotationsCount = riderAnnotations.count
   }
 }
