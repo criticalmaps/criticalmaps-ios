@@ -71,9 +71,13 @@ public struct AppFeature: ReducerProtocol {
       riders: [],
       userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
     )
+    
     public var timerProgress: Double {
       let progress = Double(requestTimer.secondsElapsed) / 60
       return progress
+    }
+    public var sendLocation: Bool {
+      requestTimer.secondsElapsed == 30
     }
     public var timerValue: String {
       let progress = 60 - requestTimer.secondsElapsed
@@ -327,18 +331,20 @@ public struct AppFeature: ReducerProtocol {
             state.settingsState.rideEventSettings.isEnabled,
             isInitialLocation
           {
-            return .run { send in
+            return .run { [rideEventsEnabled = state.settingsState.rideEventSettings.isEnabled] send in
               await withThrowingTaskGroup(of: Void.self) { group in
                 group.addTask {
                   await send(.postLocation)
                 }
-                group.addTask {
-                  await send(.nextRide(.getNextRide(coordinate)))
+                if rideEventsEnabled {
+                  group.addTask {
+                    await send(.nextRide(.getNextRide(coordinate)))
+                  }
                 }
               }
             }
           } else {
-            return EffectTask(value: .postLocation)
+            return .none
           }
 
         default:
@@ -395,7 +401,10 @@ public struct AppFeature: ReducerProtocol {
           if state.requestTimer.secondsElapsed == 60 {
             state.requestTimer.secondsElapsed = 0
             
-            return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
+            return .run { [
+              isChatPresented = state.isChatViewPresented,
+              isPrentingSubView = state.route != nil
+            ] send in
               await withThrowingTaskGroup(of: Void.self) { group in
                 if !isPrentingSubView {
                   group.addTask {
@@ -409,6 +418,8 @@ public struct AppFeature: ReducerProtocol {
                 }
               }
             }
+          } else if state.sendLocation {
+            return EffectTask(value: .postLocation)
           } else {
             return .none
           }
