@@ -68,7 +68,7 @@ public struct AppView: View {
             offlineBanner()
               .clipShape(Circle())
               .opacity(showOfflineBanner ? 1 : 0)
-              .accessibleAnimation(.easeOut, value: showOfflineBanner)
+              .accessibleAnimation(.easeInOut(duration: 0.2), value: showOfflineBanner)
           }
         }
         .padding(.top, .grid(1))
