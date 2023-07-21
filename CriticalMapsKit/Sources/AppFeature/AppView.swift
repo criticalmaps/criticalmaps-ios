@@ -54,15 +54,17 @@ public struct AppView: View {
               }
           }
           
-          ZStack(alignment: .center) {
-            Blur()
-              .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-              .frame(width: showsInfoExpanded ? 120 : 50, height: showsInfoExpanded ? 230 : 50)
-              .accessibleAnimation(.cmSpring.speed(1.5), value: showsInfoExpanded)
-            
-            infoContent()
+          if viewStore.settingsState.infoViewEnabled {
+            ZStack(alignment: .center) {
+              Blur()
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .frame(width: showsInfoExpanded ? 120 : 50, height: showsInfoExpanded ? 230 : 50)
+                .accessibleAnimation(.cmSpring.speed(1.5), value: showsInfoExpanded)
+              
+              infoContent()
+            }
+            .padding(.bottom, .grid(2))
           }
-          .padding(.bottom, .grid(2))
           
           if viewStore.hasOfflineError {
             offlineBanner()
