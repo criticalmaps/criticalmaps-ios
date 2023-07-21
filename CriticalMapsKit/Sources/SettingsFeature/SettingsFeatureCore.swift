@@ -22,6 +22,7 @@ public struct SettingsFeature: ReducerProtocol {
 
     public init(userSettings: UserSettings = .init()) {
       self.isObservationModeEnabled = userSettings.isObservationModeEnabled
+      self.infoViewEnabled = userSettings.showInfoViewEnabled
       self.rideEventSettings = .init(settings: userSettings.rideEventSettings)
       self.appearanceSettings = .init(
         appIcon: userSettings.appearanceSettings.appIcon,
