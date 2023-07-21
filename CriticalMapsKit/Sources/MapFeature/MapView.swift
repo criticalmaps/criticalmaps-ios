@@ -100,6 +100,13 @@ struct MapView: ViewRepresentable {
       mapView.setUserTrackingMode(userTrackingMode.mode, animated: true)
     }
   }
+  
+  func setRiderAnnotationsCount(_ mapView: MKMapView) {
+    let riderAnnotations = mapView
+      .annotations(in: mapView.visibleMapRect)
+      .compactMap { $0 as? RiderAnnotation }
+    annotationsCount = riderAnnotations.count
+  }
 
   func centerRideEvents(in mapView: MKMapView) {
     if let eventCenter = centerEventRegion {
@@ -167,9 +174,6 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   }
   
   func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-    let riderAnnotations = mapView
-      .annotations(in: mapView.visibleMapRect)
-      .compactMap { $0 as? RiderAnnotation }
-    parent.annotationsCount = riderAnnotations.count
+    parent.setRiderAnnotationsCount(mapView)
   }
 }
