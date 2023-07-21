@@ -321,31 +321,8 @@ public struct AppFeature: ReducerProtocol {
           }
           
         case .locationManager(.didUpdateLocations):
-          let isInitialLocation = state.nextRideState.userLocation == nil
-          
-          // sync with nextRideState
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
-          
-          if
-            let coordinate = state.mapFeatureState.location?.coordinate,
-            state.settingsState.rideEventSettings.isEnabled,
-            isInitialLocation
-          {
-            return .run { [rideEventsEnabled = state.settingsState.rideEventSettings.isEnabled] send in
-              await withThrowingTaskGroup(of: Void.self) { group in
-                group.addTask {
-                  await send(.postLocation)
-                }
-                if rideEventsEnabled {
-                  group.addTask {
-                    await send(.nextRide(.getNextRide(coordinate)))
-                  }
-                }
-              }
-            }
-          } else {
-            return .none
-          }
+          return .none
 
         default:
           return .none
@@ -371,8 +348,17 @@ public struct AppFeature: ReducerProtocol {
         let userSettings = (try? result.value) ?? UserSettings()
         state.settingsState = .init(userSettings: userSettings)
         state.nextRideState.rideEventSettings = userSettings.rideEventSettings
+        
         let style = state.settingsState.appearanceSettings.colorScheme.userInterfaceStyle
+        let coordinate = state.mapFeatureState.location?.coordinate
+        let isRideEventsEnabled = state.settingsState.rideEventSettings.isEnabled
+        
         return .merge(
+          .run { send in
+            if isRideEventsEnabled, let coordinate {
+              await send(.nextRide(.getNextRide(coordinate)))
+            }
+          },
           .fireAndForget {
             await setUserInterfaceStyle(style)
           }
@@ -401,10 +387,7 @@ public struct AppFeature: ReducerProtocol {
           if state.requestTimer.secondsElapsed == 60 {
             state.requestTimer.secondsElapsed = 0
             
-            return .run { [
-              isChatPresented = state.isChatViewPresented,
-              isPrentingSubView = state.route != nil
-            ] send in
+            return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
               await withThrowingTaskGroup(of: Void.self) { group in
                 if !isPrentingSubView {
                   group.addTask {
