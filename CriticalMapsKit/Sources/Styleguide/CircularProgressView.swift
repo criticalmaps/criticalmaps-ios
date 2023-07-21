@@ -16,7 +16,7 @@ public struct CircularProgressView: View {
         )
       
       Circle()
-        .trim(from: 0, to: progress)
+        .trim(from: progress, to: 1)
         .stroke(
           Color(.brand500),
           style: StrokeStyle(

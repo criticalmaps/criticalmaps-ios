@@ -125,6 +125,7 @@ public struct AppView: View {
                 Text(verbatim: viewStore.timerValue)
                   .foregroundColor(Color(.textPrimary))
                   .font(.system(size: 14).bold())
+                  .monospacedDigit()
               }
             }
             .padding(.top, .grid(1))
