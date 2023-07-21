@@ -225,36 +225,49 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
   }
   
-  func test_mapAction_didUpdateLocations_shouldFireNextRideAndPostLocation() async {
-    let location = ComposableCoreLocation.Location(
-      coordinate: .init(latitude: 11, longitude: 21),
-      timestamp: Date(timeIntervalSince1970: 2)
-    )
+  func test_nextRide_shouldBeFetched_afterUserSettingsLoaded_andFeatureIsEnabled() async {
+    let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
+    let setSubject = PassthroughSubject<Never, Never>()
     let sharedModelLocation = SharedModels.Location(
       coordinate: .init(latitude: 11, longitude: 21),
       timestamp: 2
     )
+    var locationManager: LocationManager = .failing
+    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.locationServicesEnabled = { true }
+    locationManager.requestAlwaysAuthorization = { setSubject.eraseToEffect() }
+    locationManager.requestLocation = { setSubject.eraseToEffect() }
+    locationManager.set = { _ in setSubject.eraseToEffect() }
 
     var state = AppFeature.State()
-    state.settingsState.rideEventSettings.isEnabled = true
-    state.nextRideState.userLocation = nil
+    state.nextRideState.userLocation = sharedModelLocation.coordinate
     state.mapFeatureState.location = sharedModelLocation
+    
+    let userSettings = UserSettings(
+      enableObservationMode: false,
+      showInfoViewEnabled: false,
+      rideEventSettings: .init(
+        typeSettings: [.criticalMass: true]
+      )
+    )
     
     let store = TestStore(
       initialState: state,
       reducer: AppFeature()
     )
+    store.dependencies.locationManager = locationManager
+    store.dependencies.mainQueue = .immediate
+    store.dependencies.mainRunLoop = .immediate
     store.exhaustivity = .off
     store.dependencies.date = .init({ @Sendable in self.date() })
-        
-    let locations: [ComposableCoreLocation.Location] = [location]
-    await store.send(.map(.locationManager(.didUpdateLocations(locations)))) {
-      $0.mapFeatureState.location = .init(
-        coordinate: .init(latitude: 11, longitude: 21),
-        timestamp: 2
-      )
+    store.dependencies.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
+    
+    await store.send(.onAppear)
+    await store.receive(.userSettingsLoaded(.success(userSettings))) {
+      $0.settingsState = .init(userSettings: userSettings)
     }
-    await store.receive(.postLocation)
+    await store.receive(.nextRide(.getNextRide(sharedModelLocation.coordinate)))
   }
   
   func test_mapAction_didUpdateLocations() async {
@@ -277,7 +290,6 @@ final class AppFeatureTests: XCTestCase {
         timestamp: 2
       )
     }
-    await store.receive(.postLocation)
   }
   
   func test_mapAction_focusEvent() async throws {
