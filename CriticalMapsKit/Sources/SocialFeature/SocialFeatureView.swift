@@ -1,7 +1,7 @@
 import ChatFeature
 import ComposableArchitecture
+import MastodonFeedFeature
 import SwiftUI
-import TwitterFeedFeature
 
 /// A view that holds the chatfeature and twitterfeature and just offers a control to switch between the two.
 public struct SocialView: View {
@@ -31,11 +31,11 @@ public struct SocialView: View {
                 action: SocialFeature.Action.chat
               )
             )
-          case .twitter:
-            TwitterFeedView(
+          case .toots:
+            MastodonFeedView(
               store: store.scope(
-                state: \.twitterFeedState,
-                action: SocialFeature.Action.twitter
+                state: \.mastodonFeedState,
+                action: SocialFeature.Action.toots
               )
             )
           }
@@ -61,7 +61,7 @@ public struct SocialView: View {
               )
             ) {
               Text(SocialFeature.SocialControl.chat.title).tag(0)
-              Text(SocialFeature.SocialControl.twitter.title).tag(1)
+              Text(SocialFeature.SocialControl.toots.title).tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
             .frame(maxWidth: 180)
@@ -80,7 +80,7 @@ struct SocialView_Previews: PreviewProvider {
       store: StoreOf<SocialFeature>(
         initialState: SocialFeature.State(
           chatFeatureState: .init(),
-          twitterFeedState: .init()
+          mastodonFeedState: .init()
         ),
         reducer: SocialFeature()._printChanges()
       )

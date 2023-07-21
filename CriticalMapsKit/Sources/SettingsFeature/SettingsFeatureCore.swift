@@ -112,7 +112,7 @@ public struct SettingsFeature: ReducerProtocol {
 
 public extension SettingsFeature.State {
   enum InfoSectionRow: Equatable {
-    case website, twitter, privacy
+    case website, twitter, mastodon, privacy
 
     public var url: URL {
       switch self {
@@ -120,6 +120,8 @@ public extension SettingsFeature.State {
         return URL(string: "https://www.criticalmaps.net")!
       case .twitter:
         return URL(string: "https://twitter.com/criticalmaps/")!
+      case .mastodon:
+        return URL(string: "https://mastodon.social/@criticalmaps")!
       case .privacy:
         return URL(string: "https://www.criticalmaps.net/info")!
       }

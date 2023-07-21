@@ -4,7 +4,7 @@ import ComposableArchitecture
 import Foundation
 import IDProvider
 import L10n
-import TwitterFeedFeature
+import MastodonFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 
@@ -17,29 +17,29 @@ public struct SocialFeature: ReducerProtocol {
   
   public struct State: Equatable {
     public var chatFeatureState: ChatFeature.State
-    public var twitterFeedState: TwitterFeedFeature.State
+    public var mastodonFeedState: TootFeedFeature.State
     public var socialControl: SocialControl
         
     public init(
       socialControl: SocialControl = .chat,
       chatFeatureState: ChatFeature.State = .init(),
-      twitterFeedState: TwitterFeedFeature.State = .init()
+      mastodonFeedState: TootFeedFeature.State = .init()
     ) {
       self.socialControl = socialControl
       self.chatFeatureState = chatFeatureState
-      self.twitterFeedState = twitterFeedState
+      self.mastodonFeedState = mastodonFeedState
     }
   }
   
   public enum SocialControl: Int, Equatable {
-    case chat, twitter
+    case chat, toots
     
     var title: String {
       switch self {
       case .chat:
         return L10n.Chat.title
-      case .twitter:
-        return L10n.Twitter.title
+      case .toots:
+        return "Mastodon"
       }
     }
   }
@@ -50,7 +50,7 @@ public struct SocialFeature: ReducerProtocol {
     case setSocialSegment(Int)
     
     case chat(ChatFeature.Action)
-    case twitter(TwitterFeedFeature.Action)
+    case toots(TootFeedFeature.Action)
   }
     
   // MARK: Reducer
@@ -61,8 +61,8 @@ public struct SocialFeature: ReducerProtocol {
         .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
-    Scope(state: \.twitterFeedState, action: /SocialFeature.Action.twitter) {
-      TwitterFeedFeature()
+    Scope(state: \.mastodonFeedState, action: /SocialFeature.Action.toots) {
+      TootFeedFeature()
     }
     
     Reduce<State, Action> { state, action in
@@ -71,7 +71,7 @@ public struct SocialFeature: ReducerProtocol {
         state.socialControl = .init(rawValue: segment)!
         return .none
       
-      case .chat, .twitter:
+      case .chat, .toots:
         return .none
       }
     }
