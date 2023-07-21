@@ -197,6 +197,15 @@ public struct AppFeature: ReducerProtocol {
         
       case .onAppear:
         var effects: [EffectTask<Action>] = [
+          EffectTask(value: .map(.onAppear)),
+          EffectTask(value: .requestTimer(.startTimer)),
+          .task {
+            await .userSettingsLoaded(
+              TaskResult {
+                try await fileClient.loadUserSettings()
+              }
+            )
+          },
           .run { send in
             await withThrowingTaskGroup(of: Void.self) { group in
               group.addTask {
@@ -206,16 +215,7 @@ public struct AppFeature: ReducerProtocol {
                 await send(.fetchLocations)
               }
             }
-          },
-          .task {
-            await .userSettingsLoaded(
-              TaskResult {
-                try await fileClient.loadUserSettings()
-              }
-            )
-          },
-          EffectTask(value: .map(.onAppear)),
-          EffectTask(value: .requestTimer(.startTimer))
+          }
         ]
         if !userDefaultsClient.didShowObservationModePrompt {
           effects.append(
