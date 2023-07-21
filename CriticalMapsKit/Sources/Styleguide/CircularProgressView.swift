@@ -25,6 +25,7 @@ public struct CircularProgressView: View {
           )
         )
         .rotationEffect(.degrees(-90))
+        .animation(.linear, value: progress)
     }
   }
 }
