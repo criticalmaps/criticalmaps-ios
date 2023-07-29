@@ -2,6 +2,21 @@
 
 Changelog for Critical Maps iOS
 
+# [4.3.0] - 2023-07-21
+
+### Added
+
+- Info view with next update countdown and riders count view
+
+### Updated
+
+- Send location on a timly base
+
+### Fixed
+
+- Store user settings failure fixed
+
+
 # [4.2.1] - 2023-06-05
 
 ### Fixed

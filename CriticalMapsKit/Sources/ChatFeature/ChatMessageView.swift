@@ -1,4 +1,5 @@
 import SharedModels
+import Styleguide
 import SwiftUI
 
 public struct ChatMessageView: View {
@@ -7,8 +8,8 @@ public struct ChatMessageView: View {
   }
 
   var chatTime: String {
-    Date(timeIntervalSince1970: chat.timestamp)
-      .formatted(Date.FormatStyle.chatTime())
+    let date = Date(timeIntervalSince1970: chat.timestamp)
+    return date.formatted(Date.FormatStyle.chatTime())
   }
   
   let chat: ChatMessage
@@ -16,12 +17,13 @@ public struct ChatMessageView: View {
   public var body: some View {
     VStack(alignment: .leading, spacing: .grid(1)) {
       Text(chat.decodedMessage)
-        .foregroundColor(Color(.textSecondary))
+        .foregroundColor(Color(.textPrimary))
         .font(.bodyOne)
+      
       HStack {
         Spacer()
         Text(chatTime)
-          .foregroundColor(Color(.textPrimary))
+          .foregroundColor(Color(.textSecondary))
           .font(.footnote)
       }
     }
@@ -34,9 +36,19 @@ struct ChatMessageView_Previews: PreviewProvider {
       .init(
         identifier: "id",
         device: "device",
-        message: "ich+sch%C3%A4tze+13.000",
-        timestamp: .pi
+        message: "123",
+        timestamp: 1235
       )
     )
+  }
+}
+
+extension Array where Element == Color {
+  static func random(from colors: [Element] = [.blue, .pink, .green, .mint, .orange, .purple, .red]) -> [Element] {
+    var elements: [Element?] = []
+    for _ in 0..<4 {
+      elements.append(colors.randomElement())
+    }
+    return elements.compactMap { $0 }
   }
 }

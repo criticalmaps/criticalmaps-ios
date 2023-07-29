@@ -12,7 +12,7 @@ public struct RideEventRadius: ReducerProtocol {
     public let eventDistance: EventDistance
     @BindingState public var isSelected = false
     
-    public init(id: UUID = .init(), eventDistance: EventDistance, isSelected: Bool) {
+    public init(id: UUID, eventDistance: EventDistance, isSelected: Bool) {
       self.id = id
       self.eventDistance = eventDistance
       self.isSelected = isSelected

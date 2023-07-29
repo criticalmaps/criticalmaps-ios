@@ -27,7 +27,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     reducer: AppFeature()
   )
   lazy var viewStore = ViewStore(
-    self.store.scope(state: { _ in () }),
+    self.store.scope(state: { _ in () }, action: { $0 }),
     removeDuplicates: ==
   )
 

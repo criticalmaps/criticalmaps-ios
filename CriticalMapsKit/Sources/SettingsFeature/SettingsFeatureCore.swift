@@ -15,13 +15,14 @@ public struct SettingsFeature: ReducerProtocol {
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
 
   public struct State: Equatable {
-    @BindingState
-    public var isObservationModeEnabled = true
+    @BindingState public var isObservationModeEnabled = true
+    @BindingState public var infoViewEnabled = true
     public var rideEventSettings: RideEventsSettingsFeature.State
     public var appearanceSettings: AppearanceSettingsFeature.State
 
     public init(userSettings: UserSettings = .init()) {
       self.isObservationModeEnabled = userSettings.isObservationModeEnabled
+      self.infoViewEnabled = userSettings.showInfoViewEnabled
       self.rideEventSettings = .init(settings: userSettings.rideEventSettings)
       self.appearanceSettings = .init(
         appIcon: userSettings.appearanceSettings.appIcon,
@@ -88,7 +89,7 @@ public struct SettingsFeature: ReducerProtocol {
           _ = await uiApplicationClient.open(url, [:])
         }
 
-      case .appearance, .rideevent, .binding(\.$isObservationModeEnabled):
+      case .appearance, .rideevent, .binding(\.$isObservationModeEnabled), .binding(\.$infoViewEnabled):
         enum SaveDebounceId { case debounce }
         
         return .fireAndForget { [settings = state] in
@@ -148,6 +149,7 @@ extension UserSettings {
     self.init(
       appearanceSettings: settings.appearanceSettings,
       enableObservationMode: settings.isObservationModeEnabled,
+      showInfoViewEnabled: settings.infoViewEnabled,
       rideEventSettings: .init(settings.rideEventSettings)
     )
   }

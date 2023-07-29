@@ -11,7 +11,6 @@ import MapFeature
 import MapKit
 import MastodonFeedFeature
 import NextRideFeature
-import PathMonitorClient
 import SettingsFeature
 import SharedDependencies
 import SharedModels
@@ -33,7 +32,6 @@ public struct AppFeature: ReducerProtocol {
   @Dependency(\.locationManager) public var locationManager
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
-  @Dependency(\.pathMonitorClient) public var pathMonitorClient
   @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
   
   // MARK: State
@@ -66,17 +64,34 @@ public struct AppFeature: ReducerProtocol {
     
     public var riderLocations: TaskResult<[Rider]>?
     public var didResolveInitialLocation = false
+    public var isRequestingRiderLocations = false
     
     // Children states
     public var mapFeatureState = MapFeature.State(
       riders: [],
       userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
     )
+    
+    public var timerProgress: Double {
+      let progress = Double(requestTimer.secondsElapsed) / 60
+      return progress
+    }
+    public var sendLocation: Bool {
+      requestTimer.secondsElapsed == 30
+    }
+    public var timerValue: String {
+      let progress = 60 - requestTimer.secondsElapsed
+      return String(progress)
+    }
+    public var ridersCount: String {
+      let count = mapFeatureState.visibleRidersCount ?? 0
+      return NumberFormatter.riderCountFormatter.string(from: .init(value: count)) ?? ""
+    }
+    
     public var socialState = SocialFeature.State()
     public var settingsState = SettingsFeature.State(userSettings: .init())
     public var nextRideState = NextRideFeature.State()
     public var requestTimer = RequestTimer.State()
-    public var connectionObserverState = NetworkConnectionObserver.State()
       
     // Navigation
     public var route: AppRoute?
@@ -129,19 +144,11 @@ public struct AppFeature: ReducerProtocol {
     case requestTimer(RequestTimer.Action)
     case settings(SettingsFeature.Action)
     case social(SocialFeature.Action)
-    case connectionObserver(NetworkConnectionObserver.Action)
   }
   
   // MARK: Reducer
-
-  struct ObserveConnectionIdentifier: Hashable {}
-
   public var body: some ReducerProtocol<State, Action> {
     BindingReducer()
-    
-    Scope(state: \.connectionObserverState, action: /AppFeature.Action.connectionObserver) {
-      NetworkConnectionObserver()
-    }
     
     Scope(state: \.requestTimer, action: /AppFeature.Action.requestTimer) {
       RequestTimer()
@@ -190,6 +197,15 @@ public struct AppFeature: ReducerProtocol {
         
       case .onAppear:
         var effects: [EffectTask<Action>] = [
+          EffectTask(value: .map(.onAppear)),
+          EffectTask(value: .requestTimer(.startTimer)),
+          .task {
+            await .userSettingsLoaded(
+              TaskResult {
+                try await fileClient.loadUserSettings()
+              }
+            )
+          },
           .run { send in
             await withThrowingTaskGroup(of: Void.self) { group in
               group.addTask {
@@ -199,16 +215,7 @@ public struct AppFeature: ReducerProtocol {
                 await send(.fetchLocations)
               }
             }
-          },
-          .task {
-            await .userSettingsLoaded(
-              TaskResult {
-                try await fileClient.loadUserSettings()
-              }
-            )
-          },
-          EffectTask(value: .map(.onAppear)),
-          EffectTask(value: .requestTimer(.startTimer))
+          }
         ]
         if !userDefaultsClient.didShowObservationModePrompt {
           effects.append(
@@ -222,9 +229,10 @@ public struct AppFeature: ReducerProtocol {
         return .merge(effects)
         
       case .onDisappear:
-        return EffectTask.cancel(id: ObserveConnectionIdentifier())
+        return .none
         
       case .fetchLocations:
+        state.isRequestingRiderLocations = true
         return .task {
           await .fetchLocationsResponse(
             TaskResult {
@@ -268,11 +276,13 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case let .fetchLocationsResponse(.success(response)):
+        state.isRequestingRiderLocations = false
         state.riderLocations = .success(response)
         state.mapFeatureState.riderLocations = response
         return .none
         
       case let .fetchLocationsResponse(.failure(error)):
+        state.isRequestingRiderLocations = false
         logger.info("FetchLocation failed: \(error)")
         state.riderLocations = .failure(error)
         return .none
@@ -311,29 +321,8 @@ public struct AppFeature: ReducerProtocol {
           }
           
         case .locationManager(.didUpdateLocations):
-          let isInitialLocation = state.nextRideState.userLocation == nil
-          
-          // sync with nextRideState
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
-          
-          if
-            let coordinate = state.mapFeatureState.location?.coordinate,
-            state.settingsState.rideEventSettings.isEnabled,
-            isInitialLocation
-          {
-            return .run { send in
-              await withThrowingTaskGroup(of: Void.self) { group in
-                group.addTask {
-                  await send(.postLocation)
-                }
-                group.addTask {
-                  await send(.nextRide(.getNextRide(coordinate)))
-                }
-              }
-            }
-          } else {
-            return EffectTask(value: .postLocation)
-          }
+          return .none
 
         default:
           return .none
@@ -359,8 +348,17 @@ public struct AppFeature: ReducerProtocol {
         let userSettings = (try? result.value) ?? UserSettings()
         state.settingsState = .init(userSettings: userSettings)
         state.nextRideState.rideEventSettings = userSettings.rideEventSettings
+        
         let style = state.settingsState.appearanceSettings.colorScheme.userInterfaceStyle
+        let coordinate = state.mapFeatureState.location?.coordinate
+        let isRideEventsEnabled = state.settingsState.rideEventSettings.isEnabled
+        
         return .merge(
+          .run { send in
+            if isRideEventsEnabled, let coordinate {
+              await send(.nextRide(.getNextRide(coordinate)))
+            }
+          },
           .fireAndForget {
             await setUserInterfaceStyle(style)
           }
@@ -386,19 +384,27 @@ public struct AppFeature: ReducerProtocol {
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
-          return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
-            await withThrowingTaskGroup(of: Void.self) { group in
-              if !isPrentingSubView {
-                group.addTask {
-                  await send(.fetchLocations)
+          if state.requestTimer.secondsElapsed == 60 {
+            state.requestTimer.secondsElapsed = 0
+            
+            return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
+              await withThrowingTaskGroup(of: Void.self) { group in
+                if !isPrentingSubView {
+                  group.addTask {
+                    await send(.fetchLocations)
+                  }
                 }
-              }
-              if isChatPresented {
-                group.addTask {
-                  await send(.fetchChatMessages)
+                if isChatPresented {
+                  group.addTask {
+                    await send(.fetchChatMessages)
+                  }
                 }
               }
             }
+          } else if state.sendLocation {
+            return EffectTask(value: .postLocation)
+          } else {
+            return .none
           }
           
         default:
@@ -447,10 +453,7 @@ public struct AppFeature: ReducerProtocol {
         default:
           return .none
         }
-        
-      case .connectionObserver:
-        return .none
-        
+
       case .binding:
         return .none
       }
@@ -501,3 +504,12 @@ public extension AlertState where Action == AppFeature.Action {
 }
 
 public typealias ReducerBuilderOf<R: ReducerProtocol> = ReducerBuilder<R.State, R.Action>
+
+extension NumberFormatter {
+  static let riderCountFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.groupingSeparator = "."
+    return formatter
+  }()
+}

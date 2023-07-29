@@ -8,12 +8,13 @@ public struct RideEventType: ReducerProtocol {
   public init() {}
   
   public struct State: Equatable, Identifiable, Sendable, Codable {
-    public let id: UUID
+    public var id: String {
+      self.rideType.rawValue
+    }
     public let rideType: Ride.RideType
     @BindingState public var isEnabled = true
     
-    public init(id: UUID = .init(), rideType: Ride.RideType, isEnabled: Bool) {
-      self.id = id
+    public init(rideType: Ride.RideType, isEnabled: Bool) {
       self.rideType = rideType
       self.isEnabled = isEnabled
     }

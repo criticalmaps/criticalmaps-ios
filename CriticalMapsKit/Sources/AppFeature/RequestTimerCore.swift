@@ -17,6 +17,7 @@ public struct RequestTimer: ReducerProtocol {
     }
 
     public var isTimerActive = false
+    public var secondsElapsed = 0
   }
 
   // MARK: Action
@@ -30,13 +31,14 @@ public struct RequestTimer: ReducerProtocol {
   public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
     switch action {
     case .timerTicked:
+      state.secondsElapsed += 1
       return .none
 
     case .startTimer:
       state.isTimerActive = true
       return .run { [isTimerActive = state.isTimerActive] send in
         guard isTimerActive else { return }
-        for await _ in mainRunLoop.timer(interval: timerInterval) {
+        for await _ in mainRunLoop.timer(interval: .seconds(1)) {
           await send(.timerTicked)
         }
       }

@@ -168,7 +168,6 @@ final class SettingsFeatureCoreTests: XCTestCase {
   
   func test_didSaveUserSettings_onAppearanceSettingsChange() async throws {
     let didSaveUserSettings = ActorIsolated(false)
-    let testQueue = DispatchQueue.immediate
 
     let store = TestStore(
       initialState: SettingsFeature.State(
@@ -181,7 +180,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
       ),
       reducer: SettingsFeature()
     )
-    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
+    store.dependencies.mainQueue = .immediate
     store.dependencies.fileClient.save = { @Sendable _, _ in
       await didSaveUserSettings.setValue(true)
     }
@@ -195,6 +194,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
     }
+    await store.finish()
   }
   
   func test_didSaveUserSettings_onSettingsChange() async throws {

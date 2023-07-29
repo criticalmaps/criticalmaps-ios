@@ -32,7 +32,7 @@ public struct MapOverlayView<Content>: View where Content: View {
     @ViewBuilder content: @escaping () -> Content
   ) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     self.action = action
     self.content = content
   }
@@ -49,8 +49,8 @@ public struct MapOverlayView<Content>: View where Content: View {
               .padding(.grid(2))
               .transition(
                 .asymmetric(
-                  insertion: .opacity.animation(reduceMotion ? nil : .easeInOut(duration: 0.1).delay(0.2)),
-                  removal: .opacity.animation(reduceMotion ? nil : .easeOut(duration: 0.15))
+                  insertion: .opacity.animation(reduceMotion ? nil : .cmSpring.speed(1.6).delay(0.2)),
+                  removal: .opacity.animation(reduceMotion ? nil : .cmSpring.speed(1.6))
                 )
               )
           }
