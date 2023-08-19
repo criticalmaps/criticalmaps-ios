@@ -192,13 +192,6 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Freelenzer">
-            <img src="https://avatars.githubusercontent.com/u/64522679?v=4" width="100;" alt="Freelenzer"/>
-            <br />
-            <sub><b>Freelenzer</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/AlbanSagouis">
             <img src="https://avatars.githubusercontent.com/u/25483578?v=4" width="100;" alt="AlbanSagouis"/>
             <br />
@@ -218,15 +211,15 @@ However, **please do not ship this app** under your own account. Paid or free.
             <br />
             <sub><b>Knut Hühne</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/wacumov">
             <img src="https://avatars.githubusercontent.com/u/2861871?v=4" width="100;" alt="wacumov"/>
             <br />
             <sub><b>Mikhail Akopov</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/StartingCoding">
             <img src="https://avatars.githubusercontent.com/u/43170443?v=4" width="100;" alt="StartingCoding"/>
