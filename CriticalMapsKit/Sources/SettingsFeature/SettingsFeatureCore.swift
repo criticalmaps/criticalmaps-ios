@@ -30,8 +30,8 @@ public struct SettingsFeature: ReducerProtocol {
       )
     }
 
-    var versionNumber: String { "Critical Maps \(Bundle.main.versionNumber)" }
-    var buildNumber: String { "Build \(Bundle.main.buildNumber)" }
+    var versionNumber: String { "\(Bundle.main.versionNumber)" }
+    var buildNumber: String { "\(Bundle.main.buildNumber)" }
     var acknowledgementsPlistPath: String? {
       guard let path = Bundle.module.path(forResource: "Acknowledgements", ofType: "plist") else {
         return nil

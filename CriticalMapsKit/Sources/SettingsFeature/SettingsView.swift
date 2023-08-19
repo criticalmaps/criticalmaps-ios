@@ -240,10 +240,10 @@ public struct SettingsView: View {
       .accessibilityHidden(true)
       
       VStack(alignment: .leading) {
-        Text(viewStore.versionNumber)
+        Text("Critical Maps")
           .font(.titleTwo)
           .foregroundColor(Color(.textPrimary))
-        Text(viewStore.buildNumber)
+        Text("Version: \(viewStore.versionNumber)+\(viewStore.buildNumber)")
           .font(.bodyTwo)
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
       }

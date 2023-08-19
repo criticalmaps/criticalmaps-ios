@@ -7,6 +7,7 @@ Changelog for Critical Maps iOS
 ### Added
 
 - Info view with next update countdown and riders count view
+- Replace Twitter with a Mastodon feed to show toots with a tag of "CriticlMass"
 
 ### Updated
 
