@@ -135,13 +135,6 @@ However, **please do not ship this app** under your own account. Paid or free.
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/zutrinken">
-            <img src="https://avatars.githubusercontent.com/u/888679?v=4" width="100;" alt="zutrinken"/>
-            <br />
-            <sub><b>Peter Amende</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/besilva">
             <img src="https://avatars.githubusercontent.com/u/20118834?v=4" width="100;" alt="besilva"/>
             <br />
@@ -175,13 +168,20 @@ However, **please do not ship this app** under your own account. Paid or free.
             <br />
             <sub><b>Null</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jkandzi">
             <img src="https://avatars.githubusercontent.com/u/9692434?v=4" width="100;" alt="jkandzi"/>
             <br />
             <sub><b>Justus Kandzi</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/zutrinken">
+            <img src="https://avatars.githubusercontent.com/u/888679?v=4" width="100;" alt="zutrinken"/>
+            <br />
+            <sub><b>Peter Amende</b></sub>
         </a>
     </td>
     <td align="center">
