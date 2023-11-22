@@ -4,7 +4,7 @@
 
 ## Critical Maps iOS App
 
-[![CI](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/ci.yml)
+[![CI](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/tests.yml/badge.svg)](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/tests.yml)
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/critical-maps">
 	<img src="https://badges.crowdin.net/critical-maps/localized.svg" alt="Localized Status" />
 </a>
