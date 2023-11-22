@@ -5,10 +5,6 @@
 ## Critical Maps iOS App
 
 [![CI](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/criticalmaps/criticalmaps-ios/actions/workflows/ci.yml)
-<a title="TestFlight" target="_blank" href="https://testflight.apple.com/join/nyGeQVxk">
-	<img src="https://img.shields.io/badge/Join-TestFlight-blue.svg"
-				alt="Join TestFlight" />
-</a>
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/critical-maps">
 	<img src="https://badges.crowdin.net/critical-maps/localized.svg" alt="Localized Status" />
 </a>
