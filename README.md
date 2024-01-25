@@ -181,8 +181,8 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/ravi-tul-ios">
-            <img src="https://avatars.githubusercontent.com/u/91732598?v=4" width="100;" alt="ravi-tul-ios"/>
+        <a href="https://github.com/ravi-aggarwal-code">
+            <img src="https://avatars.githubusercontent.com/u/91732598?v=4" width="100;" alt="ravi-aggarwal-code"/>
             <br />
             <sub><b>Ravi Aggarwal</b></sub>
         </a>
