@@ -16,6 +16,7 @@ public struct NextRideFeature: ReducerProtocol {
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.coordinateObfuscator) public var coordinateObfuscator
   @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
+  @Dependency(\.calendar) public var calendar
 
   public struct State: Equatable {
     public init(nextRide: Ride? = nil) {
@@ -70,6 +71,7 @@ public struct NextRideFeature: ReducerProtocol {
     case let .nextRideResponse(.failure(error)):
       logger.error("Get next ride failed 🛑 with error: \(error)")
       return .none
+    
     case let .nextRideResponse(.success(rides)):
       guard !rides.isEmpty else {
         logger.info("Rides array is empty")
@@ -101,7 +103,7 @@ public struct NextRideFeature: ReducerProtocol {
             return byDate
           }
 
-          if Calendar.current.isDate(lhs.dateTime, inSameDayAs: rhs.dateTime) {
+          if calendar.isDate(lhs.dateTime, inSameDayAs: rhs.dateTime) {
             return lhsCoordinate.distance(from: userLocation) < rhsCoordinate.distance(from: userLocation)
           } else {
             return byDate
@@ -113,7 +115,6 @@ public struct NextRideFeature: ReducerProtocol {
         logger.info("No upcoming events after filter")
         return .none
       }
-
       return EffectTask(value: .setNextRide(filteredRide))
 
     case let .setNextRide(ride):
