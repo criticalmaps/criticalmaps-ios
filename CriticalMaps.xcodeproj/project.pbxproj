@@ -36,6 +36,7 @@
 		7327344D277118670007579E /* TwitterFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatFeature.xctestplan; sourceTree = "<group>"; };
 		7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapFeature.xctestplan; sourceTree = "<group>"; };
+		7355D2E42B91C4350097DD42 /* NextRideFeatureTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = NextRideFeatureTests.xctestplan; sourceTree = "<group>"; };
 		73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7369207C28D0D92100EA0584 /* SnapshotTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SnapshotTests.xctestplan; sourceTree = "<group>"; };
 		738214EF271F49AB009847C7 /* appIcon-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-5.png"; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 		7347AB282A27C0CA00BCA949 /* Testplans */ = {
 			isa = PBXGroup;
 			children = (
+				7355D2E42B91C4350097DD42 /* NextRideFeatureTests.xctestplan */,
 				7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */,
 				7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */,
 				7369207C28D0D92100EA0584 /* SnapshotTests.xctestplan */,
