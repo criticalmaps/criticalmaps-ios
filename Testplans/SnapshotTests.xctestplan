@@ -70,17 +70,6 @@
         "identifier" : "StyleguideTests",
         "name" : "StyleguideTests"
       }
-    },
-    {
-      "skippedTests" : [
-        "TweetTests",
-        "TwitterFeedCoreTests"
-      ],
-      "target" : {
-        "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "TwitterFeedFeatureTests",
-        "name" : "TwitterFeedFeatureTests"
-      }
     }
   ],
   "version" : 1

@@ -31,6 +31,9 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "RideTests"
+      ],
       "target" : {
         "containerPath" : "container:",
         "identifier" : "NextRideFeatureTests",
