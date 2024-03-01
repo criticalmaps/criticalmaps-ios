@@ -2,6 +2,7 @@ import ApiClient
 import ChatFeature
 import ComposableArchitecture
 import L10n
+import Helpers
 import SharedModels
 import UserDefaultsClient
 import XCTest
@@ -11,10 +12,12 @@ final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
-  func defaultTestStore() -> TestStore<ChatFeature.State, ChatFeature.Action, ChatFeature.State, ChatFeature.Action, ()> {
+  func defaultTestStore(
+    with state: ContentState<[ChatMessage]> = .results([])
+  ) -> TestStore<ChatFeature.State, ChatFeature.Action, ChatFeature.State, ChatFeature.Action, ()> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
-        chatMessages: .results([]),
+        chatMessages: state,
         chatInputState: .init(
           isEditing: true,
           message: "Hello World!"
@@ -44,6 +47,34 @@ final class ChatFeatureCore: XCTestCase {
     await testStore.receive(.fetchChatMessages) {
       $0.chatMessages = .loading([])
     }
+    await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
+      $0.chatMessages = .results(mockResponse)
+    }
+  }
+  
+  func test_storeWithItems_shouldTriggerNetworkCall_withSuccessResponse_andHaveElements() async {
+    let testStore = defaultTestStore(
+      with: .loading([
+        ChatMessage(
+            identifier: "ID88878",
+            device: "Device",
+            message: "Hello World!",
+            timestamp: 1889.1
+          )
+      ])
+    )
+    testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
+    testStore.dependencies.apiService.getChatMessages = { mockResponse }
+    
+    _ = await testStore.send(.chatInput(.onCommit)) { state in
+      state.chatInputState.isSending = true
+    }
+    await testStore.receive(.chatInputResponse(.success(.init(status: "ok")))) { state in
+      state.chatInputState.isSending = false
+      state.chatInputState.message = ""
+    }
+    await testStore.receive(.fetchChatMessages)
+    XCTAssertFalse(testStore.state.chatMessages.elements!.isEmpty)
     await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
       $0.chatMessages = .results(mockResponse)
     }
