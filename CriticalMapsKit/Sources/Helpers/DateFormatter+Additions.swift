@@ -1,3 +1,4 @@
+import ComposableArchitecture
 import Foundation
 
 public extension DateFormatter {
@@ -34,17 +35,25 @@ extension Date.FormatStyle {
     locale: .autoupdatingCurrent
   )
   
-  public static let localeAwareShortDate = Self(
-    date: .numeric,
-    time: .omitted,
-    locale: .autoupdatingCurrent
-  )
+  public static let localeAwareShortDate: Self = {
+    @Dependency(\.timeZone) var timezone
+    return Self(
+      date: .numeric,
+      time: .omitted,
+      locale: .autoupdatingCurrent,
+      timeZone: timezone
+    )
+  }()
   
-  public static let localeAwareShortTime = Self(
-    date: .omitted,
-    time: .shortened,
-    locale: .autoupdatingCurrent
-  )
+  public static let localeAwareShortTime: Self = {
+    @Dependency(\.timeZone) var timezone
+    return Self(
+      date: .omitted,
+      time: .shortened,
+      locale: .autoupdatingCurrent,
+      timeZone: timezone
+    )
+  }()
   
   public static func chatTime(_ cal: Calendar = .autoupdatingCurrent) -> Self {
     var format = Self.dateTime
