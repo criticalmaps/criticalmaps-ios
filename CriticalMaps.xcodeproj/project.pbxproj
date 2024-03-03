@@ -52,6 +52,7 @@
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73EB0310263F23A100941D57 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LisbonPortugal.gpx; sourceTree = "<group>"; };
 		73FD0B302779F5500061539D /* GuideFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FD0B322779F5500061539D /* GuideFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideFeaturePreviewApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +153,7 @@
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
+				73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */,
 				73BABF82277B0A2900D9790F /* CHANGELOG.md */,
 				73BABF83277B0A2900D9790F /* README.md */,
 				732734462771172C0007579E /* CriticalMapsKit */,
