@@ -45,15 +45,12 @@ extension Date.FormatStyle {
     )
   }()
   
-  public static let localeAwareShortTime: Self = {
-    @Dependency(\.timeZone) var timezone
-    return Self(
-      date: .omitted,
-      time: .shortened,
-      locale: .autoupdatingCurrent,
-      timeZone: timezone
-    )
-  }()
+  public static let localeAwareShortTime = Self(
+    date: .omitted,
+    time: .shortened,
+    locale: .autoupdatingCurrent,
+    timeZone: .germany
+  )
   
   public static func chatTime(_ cal: Calendar = .autoupdatingCurrent) -> Self {
     var format = Self.dateTime
