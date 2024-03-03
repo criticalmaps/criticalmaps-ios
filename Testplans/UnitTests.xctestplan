@@ -64,9 +64,6 @@
     },
     {
       "parallelizable" : true,
-      "skippedTests" : [
-        "RideTests"
-      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "NextRideFeatureTests",
