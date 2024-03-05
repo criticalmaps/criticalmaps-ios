@@ -10,7 +10,7 @@ public enum ContentState<T: Hashable>: Equatable {
 
   public var elements: T? {
     switch self {
-    case let .results(results):
+    case let .results(results), let .loading(results):
       return results
     default:
       return nil
