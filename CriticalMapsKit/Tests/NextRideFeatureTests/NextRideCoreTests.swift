@@ -12,7 +12,7 @@ final class NextRideCoreTests: XCTestCase {
   let now = {
     Calendar.current.date(
       from: .init(
-        timeZone: .init(secondsFromGMT: 0),
+        timeZone: .germany,
         year: 2022,
         month: 3,
         day: 25,
@@ -30,6 +30,26 @@ final class NextRideCoreTests: XCTestCase {
       title: "CriticalMaps Berlin",
       description: nil,
       dateTime: now().addingTimeInterval(36000),
+      location: nil,
+      latitude: 53.1235,
+      longitude: 13.4234,
+      estimatedParticipants: nil,
+      estimatedDistance: nil,
+      estimatedDuration: nil,
+      enabled: true,
+      disabledReason: nil,
+      disabledReasonMessage: nil,
+      rideType: .criticalMass
+    )
+  }
+  
+  var berlinNow: Ride {
+    Ride(
+      id: 0,
+      slug: nil,
+      title: "CriticalMaps Berlin",
+      description: nil,
+      dateTime: now(),
       location: nil,
       latitude: 53.1235,
       longitude: 13.4234,
@@ -64,7 +84,6 @@ final class NextRideCoreTests: XCTestCase {
   }
   
   var rides: [Ride] { [berlin, falkensee] }
-
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
   func test_disabledNextRideFeature_shouldNotRequestRides() async {
@@ -87,7 +106,7 @@ final class NextRideCoreTests: XCTestCase {
     await store.receive(.nextRideResponse(.success([])))
   }
   
-  func test_getNextRide_shouldReturnMockRide() async {
+  func test_getRides_shouldUpdateRidesInUserTimezone() async {
     let store = TestStore(
       initialState: .init(),
       reducer: NextRideFeature()
@@ -343,6 +362,7 @@ final class NextRideCoreTests: XCTestCase {
         .encoded()
     }
     store.dependencies.date = .constant(now())
+    store.dependencies.calendar = .autoupdatingCurrent
     store.dependencies.isNetworkAvailable = true
     
     // then

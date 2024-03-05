@@ -1,0 +1,42 @@
+{
+  "configurations" : [
+    {
+      "id" : "EC875105-37D8-413B-989B-09862018C3C9",
+      "name" : "Test Scheme Action",
+      "options" : {
+        "language" : "en",
+        "region" : "GB"
+      }
+    },
+    {
+      "id" : "1858BF7A-D057-468A-B31F-AD3EB6637E6E",
+      "name" : "Configuration 2",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "setenv(\"TZ\", identifier, 1)",
+            "value" : ""
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "language" : "en",
+    "locationScenario" : {
+      "identifier" : "London, England",
+      "referenceType" : "built-in"
+    },
+    "region" : "GB"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NextRideFeatureTests",
+        "name" : "NextRideFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}
