@@ -95,8 +95,8 @@ However, **please do not ship this app** under your own account. Paid or free.
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/headione">
-            <img src="https://avatars.githubusercontent.com/u/1220469?v=4" width="100;" alt="headione"/>
+        <a href="https://github.com/normansander">
+            <img src="https://avatars.githubusercontent.com/u/1220469?v=4" width="100;" alt="normansander"/>
             <br />
             <sub><b>Norman Sander</b></sub>
         </a>
