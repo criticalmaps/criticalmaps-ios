@@ -13,17 +13,17 @@ public struct AppView: View {
   
   let store: StoreOf<AppFeature>
   @ObservedObject var viewStore: ViewStoreOf<AppFeature>
-
+  
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+  
   @State private var showOfflineBanner = false
-
+  
   public init(store: StoreOf<AppFeature>) {
     self.store = store
     viewStore = ViewStore(store, observe: { $0 })
   }
-
+  
   private var contextMenuTitle: String {
     if viewStore.bottomSheetPosition == .hidden {
       return L10n.Map.NextRideEvents.showAll
@@ -41,7 +41,7 @@ public struct AppView: View {
         )
       )
       .edgesIgnoringSafeArea(.vertical)
-
+      
       HStack {
         VStack(alignment: .leading) {
           if viewStore.mapFeatureState.isNextRideBannerVisible, viewStore.settingsState.rideEventSettings.isEnabled {
@@ -74,11 +74,11 @@ public struct AppView: View {
           }
         }
         .padding(.top, .grid(1))
-
+        
         Spacer()
       }
       .padding(.horizontal)
-
+      
       VStack {
         Spacer()
         
@@ -108,7 +108,7 @@ public struct AppView: View {
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
   }
-
+  
   @ViewBuilder
   func infoContent() -> some View {
     if showsInfoExpanded {
@@ -132,7 +132,7 @@ public struct AppView: View {
             }
             .padding(.top, .grid(1))
         }
-  
+        
         DataTile("Riders") {
           HStack {
             Text(viewStore.ridersCount)
@@ -152,17 +152,21 @@ public struct AppView: View {
         withAnimation { showsInfoExpanded = false }
       }
     } else {
-      Button(action: { withAnimation { showsInfoExpanded = true } }) {
-        Image(systemName: "info.circle")
-          .resizable()
-          .frame(width: 30, height: 30)
-          .transition(
-            .asymmetric(
-              insertion: .opacity.combined(with: .scale(scale: 0, anchor: .bottomLeading)).animation(.easeIn(duration: 0.1)),
-              removal: .opacity.animation(.easeIn(duration: 0.1))
+      Button(
+        action: { withAnimation { showsInfoExpanded = true } },
+        label: {
+          Image(systemName: "info.circle")
+            .resizable()
+            .frame(width: 30, height: 30)
+            .transition(
+              .asymmetric(
+                insertion: .opacity.combined(with: .scale(scale: 0, anchor: .bottomLeading)).animation(.easeIn(duration: 0.1)),
+                removal: .opacity.animation(.easeIn(duration: 0.1))
+              )
             )
-          )
-      }
+        }
+      )
+      .foregroundStyle(Color(.textPrimary))
     }
   }
   
@@ -173,25 +177,25 @@ public struct AppView: View {
         HStack(alignment: .center, spacing: .grid(2)) {
           Image(uiImage: Asset.cm.image)
             .accessibilityHidden(true)
-
+          
           VStack(alignment: .leading, spacing: .grid(1)) {
             Text(ride.title)
               .multilineTextAlignment(.leading)
               .font(Font.body.weight(.semibold))
               .foregroundColor(Color(.textPrimary))
               .padding(.bottom, .grid(1))
-
+            
             VStack(alignment: .leading, spacing: 2) {
               Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
                 .multilineTextAlignment(.leading)
                 .font(.bodyTwo)
                 .foregroundColor(Color(.textSecondary))
-
+              
               Label(ride.dateTime.humanReadableTime, systemImage: "clock")
                 .multilineTextAlignment(.leading)
                 .font(.bodyTwo)
                 .foregroundColor(Color(.textSecondary))
-
+              
               if let location = ride.location {
                 Label(location, systemImage: "location.fill")
                   .multilineTextAlignment(.leading)
@@ -216,35 +220,29 @@ public struct AppView: View {
       viewStore.send(.set(\.$bottomSheetPosition, .hidden))
     }
   }
-
+  
   @ViewBuilder
   func offlineBanner() -> some View {
     Image(systemName: "wifi.slash")
       .foregroundColor(
         reduceTransparency
-          ? Color.white
-          : Color(.attention)
+        ? Color.white
+        : Color(.attention)
       )
       .accessibilityLabel(Text("Internet not available"))
       .padding()
       .background(
         Group {
           if reduceTransparency {
-            RoundedRectangle(
-              cornerRadius: 8,
-              style: .circular
-            )
-            .fill(reduceTransparency
-              ? Color(.attention)
-              : Color(.attention).opacity(0.8)
-            )
+            RoundedRectangle(cornerRadius: 8, style: .circular)
+              .fill(reduceTransparency ? Color(.attention) : Color(.attention).opacity(0.8))
           } else {
             Blur()
           }
         }
       )
   }
-
+  
   @ViewBuilder
   func nextRideBanner() -> some View {
     MapOverlayView(
