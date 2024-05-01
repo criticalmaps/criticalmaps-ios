@@ -12,6 +12,6 @@ jobs:
         name: A job to automate contributors in README
         steps:
             - name: Contribute List
-              uses: akhilmhdh/contributors-readme-action@v2.3.6
+              uses: akhilmhdh/contributors-readme-action@v2.3.8
               env:
                   GITHUB_TOKEN: ${{ secrets.PAT }}
