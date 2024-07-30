@@ -24,10 +24,6 @@ public struct GuideView: View {
   }
 }
 
-struct GuideView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      GuideView()
-    }
-  }
+#Preview {
+  GuideView()
 }

@@ -29,11 +29,9 @@ public struct GuideDetailView: View {
   }
 }
 
-struct GuideDetailView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      GuideDetailView(guide: .all[1])
-    }
+#Preview {
+  Preview {
+    GuideDetailView(guide: .all[1])
   }
 }
 
