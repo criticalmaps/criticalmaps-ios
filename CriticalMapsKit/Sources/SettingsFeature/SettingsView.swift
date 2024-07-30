@@ -18,7 +18,7 @@ public struct SettingsView: View {
   
   public init(store: Store<State, Action>) {
     self.store = store
-    viewStore = ViewStore(store, removeDuplicates: ==)
+    viewStore = ViewStore(store, observe: { $0 })
   }
   
   public var body: some View {
@@ -275,8 +275,7 @@ struct SettingsInfoLink: View {
         SettingsView(
           store: .init(
             initialState: .init(userSettings: .init()),
-            reducer: SettingsFeature()
-              ._printChanges()
+            reducer: { SettingsFeature() }
           )
         )
       }

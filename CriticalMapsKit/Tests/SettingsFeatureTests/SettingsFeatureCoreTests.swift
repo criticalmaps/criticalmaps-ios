@@ -4,14 +4,15 @@ import SettingsFeature
 import SharedModels
 import XCTest
 
-@MainActor
 final class SettingsFeatureCoreTests: XCTestCase {
+  
+  @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_privacy() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
       await openedUrl.setValue(url)
@@ -28,12 +29,13 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_cmWebsite() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
       await openedUrl.setValue(url)
@@ -50,12 +52,13 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_cmTwitter() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
       await openedUrl.setValue(url)
@@ -72,12 +75,13 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_github() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
       await openedUrl.setValue(url)
@@ -94,12 +98,13 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_crowdin() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
       await openedUrl.setValue(url)
@@ -116,12 +121,13 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_criticalMassDotIn() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
       await openedUrl.setValue(url)
@@ -138,6 +144,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_didSaveUserSettings_onRideEventSettingsChange() async throws {
     let didSaveUserSettings = ActorIsolated(false)
     let testQueue = DispatchQueue.immediate
@@ -148,7 +155,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
           rideEventSettings: .init(eventDistance: .close)
         )
       ),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.fileClient.save = { @Sendable _, _ in
@@ -166,6 +173,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_didSaveUserSettings_onAppearanceSettingsChange() async throws {
     let didSaveUserSettings = ActorIsolated(false)
 
@@ -178,7 +186,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
           )
         )
       ),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.mainQueue = .immediate
     store.dependencies.fileClient.save = { @Sendable _, _ in
@@ -197,6 +205,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.finish()
   }
   
+  @MainActor
   func test_didSaveUserSettings_onSettingsChange() async throws {
     let didSaveUserSettings = ActorIsolated(false)
     let testQueue = DispatchQueue.immediate
@@ -205,7 +214,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
       initialState: SettingsFeature.State(
         userSettings: .init(enableObservationMode: false)
       ),
-      reducer: SettingsFeature()
+      reducer: { SettingsFeature() }
     )
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.fileClient.save = { @Sendable _, _ in

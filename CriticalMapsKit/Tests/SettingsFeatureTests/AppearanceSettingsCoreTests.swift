@@ -4,13 +4,14 @@ import SettingsFeature
 import SharedModels
 import XCTest
 
-@MainActor
 final class AppearanceSettingsCoreTests: XCTestCase {
+  
+  @MainActor
   func test_selectAppIcon_shouldUpdateState() async {
     let overriddenIconName = ActorIsolated<String?>(nil)
     let store = TestStore(
       initialState: AppearanceSettings(),
-      reducer: AppearanceSettingsFeature()
+      reducer: { AppearanceSettingsFeature() }
     )
     store.dependencies.uiApplicationClient.setAlternateIconName = { newValue in
       await overriddenIconName.setValue(newValue)
@@ -24,12 +25,13 @@ final class AppearanceSettingsCoreTests: XCTestCase {
     }
   }
 
+  @MainActor
   func testSetColorScheme() async {
     let overriddenUserInterfaceStyle = ActorIsolated(UIUserInterfaceStyle.unspecified)
 
     let store = TestStore(
       initialState: AppearanceSettings(),
-      reducer: AppearanceSettingsFeature()
+      reducer: { AppearanceSettingsFeature() }
     )
     store.dependencies.setUserInterfaceStyle = { newValue in
       await overriddenUserInterfaceStyle.setValue(newValue)

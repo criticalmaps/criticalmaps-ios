@@ -14,7 +14,7 @@ final class RideEventSettingsViewSnapshotTests: XCTestCase {
             eventDistance: .close
           )
         ),
-        reducer: RideEventsSettingsFeature()
+        reducer: { RideEventsSettingsFeature() }
       )
     )
     
@@ -31,7 +31,7 @@ final class RideEventSettingsViewSnapshotTests: XCTestCase {
             eventDistance: .close
           )
         ),
-        reducer: RideEventsSettingsFeature()
+        reducer: { RideEventsSettingsFeature() }
       )
     )
     

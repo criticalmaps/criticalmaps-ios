@@ -15,7 +15,10 @@ public struct RideEventSettingsView: View {
 
   public init(store: Store<State, Action>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(
+      store,
+      observe: { $0 }
+    )
   }
 
   public var body: some View {
@@ -41,7 +44,10 @@ public struct RideEventSettingsView: View {
         VStack {
           SettingsSection(title: L10n.Settings.eventTypes) {
             ForEachStore(
-              self.store.scope(state: \.rideEventTypes, action: Action.rideEventType)
+              self.store.scope(
+                state: \.rideEventTypes,
+                action: Action.rideEventType
+              )
             ) {
               RideEventTypeView(store: $0)
             }
@@ -85,20 +91,20 @@ public struct RideEventSettingsView: View {
 
 // MARK: Preview
 
- struct RideEventSettings_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      NavigationView {
-        RideEventSettingsView(
-          store: .init(
-            initialState: .init(settings: .init()),
-            reducer: RideEventsSettingsFeature()._printChanges()
-          )
+#Preview {
+  Preview {
+    NavigationView {
+      RideEventSettingsView(
+        store: Store(
+          initialState: .init(settings: .init()),
+          reducer: {
+            RideEventsSettingsFeature()
+          }
         )
-      }
+      )
     }
   }
- }
+}
 
 // MARK: Helper
 

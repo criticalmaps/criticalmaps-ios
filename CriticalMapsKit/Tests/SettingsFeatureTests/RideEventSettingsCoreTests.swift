@@ -5,7 +5,9 @@ import SharedModels
 import XCTest
 
 final class RideEventSettingsCoreTests: XCTestCase {
-  func test_setRideEventsEnabled() {
+  
+  @MainActor
+  func test_setRideEventsEnabled() async {
     let store = TestStore(
       initialState: .init(
         settings: RideEventSettings(
@@ -14,30 +16,37 @@ final class RideEventSettingsCoreTests: XCTestCase {
           eventDistance: .close
         )
       ),
-      reducer: RideEventsSettingsFeature()
+      reducer: { RideEventsSettingsFeature() }
     )
     
-    store.send(.set(\.$isEnabled, false)) {
+    await store.send(.set(\.$isEnabled, false)) {
       $0.isEnabled = false
     }
     
-    store.send(.set(\.$isEnabled, true)) {
+    await store.send(.set(\.$isEnabled, true)) {
       $0.isEnabled = true
     }
   }
   
-  func test_setRideEventsTypeEnabled() {
+  @MainActor
+  func test_setRideEventsTypeEnabled() async {
     let store = TestStore(
-      initialState: RideEventType.State(rideType: .criticalMass, isEnabled: false),
-      reducer: RideEventType()
+      initialState: RideEventType.State(
+        rideType: .criticalMass,
+        isEnabled: false
+      ),
+      reducer: {
+        RideEventType()
+      }
     )
     
-    store.send(.set(\.$isEnabled, true)) {
+    await store.send(.set(\.$isEnabled, true)) {
       $0.isEnabled = true
     }
   }
   
-  func test_setRideEventsRadius() {
+  @MainActor
+  func test_setRideEventsRadius() async {
     let store = TestStore(
       initialState: .init(
         settings: RideEventSettings(
@@ -46,10 +55,10 @@ final class RideEventSettingsCoreTests: XCTestCase {
           eventDistance: .close
         )
       ),
-      reducer: RideEventsSettingsFeature()
+      reducer: { RideEventsSettingsFeature() }
     )
     
-    store.send(.set(\.$eventSearchRadius, .near)) {
+    await store.send(.set(\.$eventSearchRadius, .near)) {
       $0.eventSearchRadius = .near
     }
   }

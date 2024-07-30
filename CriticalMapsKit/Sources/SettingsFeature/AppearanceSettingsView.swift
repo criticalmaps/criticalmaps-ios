@@ -6,21 +6,18 @@ import SwiftUI
 
 /// A view to render appearance settings.
 public struct AppearanceSettingsView: View {
-  public typealias State = AppearanceSettings
-  public typealias Action = AppearanceSettingsFeature.Action
+  let store: StoreOf<AppearanceSettingsFeature>
+  @ObservedObject var viewStore: ViewStoreOf<AppearanceSettingsFeature>
 
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
-
-  public init(store: Store<State, Action>) {
+  public init(store: StoreOf<AppearanceSettingsFeature>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
   }
 
   public var body: some View {
     SettingsForm {
       SettingsSection(title: "Theme") {
-        Picker("", selection: viewStore.binding(\.$colorScheme)) {
+        Picker("", selection: viewStore.$colorScheme) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
             Text($0.title)
           }
@@ -30,7 +27,7 @@ public struct AppearanceSettingsView: View {
         .padding(.horizontal, .grid(4))
 
         SettingsSection(title: L10n.Settings.appIcon) {
-          AppIconPicker(appIcon: viewStore.binding(\.$appIcon))
+          AppIconPicker(appIcon: viewStore.$appIcon)
         }
       }
     }
