@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "7CCEFEF9-CC07-458B-8692-588D39A0E3B6",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SocialFeatureTests",
+        "name" : "SocialFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}

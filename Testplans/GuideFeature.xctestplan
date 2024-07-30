@@ -1,0 +1,18 @@
+{
+  "configurations" : [
+    {
+      "id" : "A39DCAFF-01DC-4265-B17B-4093F82CE893",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}

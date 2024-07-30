@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "0FC46AFF-0FAC-4138-B50F-2DBADC343F81",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MastodonFeedFeatureTests",
+        "name" : "MastodonFeedFeatureTests"
+      }
+    }
+  ],
+  "version" : 1
+}
