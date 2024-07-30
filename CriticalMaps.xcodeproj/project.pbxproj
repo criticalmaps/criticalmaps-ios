@@ -48,6 +48,7 @@
 		73BABF82277B0A2900D9790F /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		73BABF83277B0A2900D9790F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		73CA9806268DCC0F004D81FA /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
+		73CD4DA02C594402003CAEA2 /* SettingsFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = SettingsFeature.xctestplan; path = Testplans/SettingsFeature.xctestplan; sourceTree = "<group>"; };
 		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
 			children = (
+				73CD4DA02C594402003CAEA2 /* SettingsFeature.xctestplan */,
 				73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */,
 				73BABF82277B0A2900D9790F /* CHANGELOG.md */,
 				73BABF83277B0A2900D9790F /* README.md */,
