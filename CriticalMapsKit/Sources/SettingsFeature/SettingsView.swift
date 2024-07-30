@@ -58,7 +58,7 @@ public struct SettingsView: View {
             destination: RideEventSettingsView(
               store: store.scope(
                 state: \.rideEventSettings,
-                action: SettingsFeature.Action.rideevent
+                action: \.rideevent
               )
             ),
             title: L10n.Settings.eventSettings
@@ -68,7 +68,7 @@ public struct SettingsView: View {
             destination: AppearanceSettingsView(
               store: store.scope(
                 state: \.appearanceSettings,
-                action: SettingsFeature.Action.appearance
+                action: \.appearance
               )
             ),
             title: L10n.Settings.Theme.appearance
@@ -268,17 +268,15 @@ struct SettingsInfoLink: View {
   }
 }
 
- struct SettingsView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      NavigationView {
-        SettingsView(
-          store: .init(
-            initialState: .init(userSettings: .init()),
-            reducer: { SettingsFeature() }
-          )
+#Preview {
+  Preview {
+    NavigationView {
+      SettingsView(
+        store: .init(
+          initialState: .init(userSettings: .init()),
+          reducer: { SettingsFeature() }
         )
-      }
+      )
     }
   }
- }
+}

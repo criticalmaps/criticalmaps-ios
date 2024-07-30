@@ -42,6 +42,7 @@ public struct SettingsFeature: Reducer {
 
   // MARK: Actions
 
+  @CasePathable
   public enum Action: BindableAction, Equatable {
     case onAppear
     case binding(BindingAction<State>)
@@ -58,17 +59,12 @@ public struct SettingsFeature: Reducer {
   public var body: some ReducerOf<Self> {
     BindingReducer()
     
-    Scope(
-      state: \.appearanceSettings,
-      action: /SettingsFeature.Action.appearance
-    ) {
+    Scope(state: \.appearanceSettings, action: \.appearance) {
       AppearanceSettingsFeature()
     }
 
-    Scope(
-      state: \.rideEventSettings,
-      action: /SettingsFeature.Action.rideevent) {
-        RideEventsSettingsFeature()
+    Scope(state: \.rideEventSettings, action: \.rideevent) {
+      RideEventsSettingsFeature()
     }
 
     Reduce { state, action in

@@ -24,6 +24,7 @@ public struct RideEventsSettingsFeature: Reducer {
 
   // MARK: Actions
 
+  @CasePathable
   public enum Action: BindableAction, Equatable, Sendable {
     case binding(BindingAction<State>)
     case rideEventType(id: RideEventType.State.ID, action: RideEventType.Action)

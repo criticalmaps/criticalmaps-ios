@@ -4,7 +4,8 @@ import L10n
 import SharedModels
 import SwiftUI
 
-public struct RideEventRadius: Reducer {
+@Reducer
+public struct RideEventRadius {
   public init() {}
   
   public struct State: Equatable, Identifiable, Sendable, Codable {
