@@ -74,16 +74,14 @@ public struct SocialView: View {
 
 // MARK: Preview
 
-struct SocialView_Previews: PreviewProvider {
-  static var previews: some View {
-    SocialView(
-      store: StoreOf<SocialFeature>(
-        initialState: SocialFeature.State(
-          chatFeatureState: .init(),
-          mastodonFeedState: .init()
-        ),
-        reducer: SocialFeature()._printChanges()
-      )
+#Preview {
+  SocialView(
+    store: StoreOf<SocialFeature>(
+      initialState: SocialFeature.State(
+        chatFeatureState: .init(),
+        mastodonFeedState: .init()
+      ),
+      reducer: { SocialFeature()._printChanges() }
     )
-  }
+  )
 }

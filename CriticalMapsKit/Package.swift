@@ -16,7 +16,8 @@ let package = Package(
     .library(name: "MapFeature", targets: ["MapFeature"]),
     .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
     .library(name: "MastodonFeedFeature", targets: ["SocialFeature"]),
-    .library(name: "Styleguide", targets: ["Styleguide"])
+    .library(name: "SocialFeature", targets: ["SocialFeature"]),
+    .library(name: "Styleguide", targets: ["Styleguide"]),
   ],
   dependencies: [
     .package(

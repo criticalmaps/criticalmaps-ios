@@ -30,17 +30,15 @@ public struct ChatMessageView: View {
   }
 }
 
-struct ChatMessageView_Previews: PreviewProvider {
-  static var previews: some View {
-    ChatMessageView(
-      .init(
-        identifier: "id",
-        device: "device",
-        message: "123",
-        timestamp: 1235
-      )
+#Preview {
+  ChatMessageView(
+    .init(
+      identifier: "id",
+      device: "device",
+      message: "123",
+      timestamp: 1235
     )
-  }
+  )
 }
 
 extension Array where Element == Color {

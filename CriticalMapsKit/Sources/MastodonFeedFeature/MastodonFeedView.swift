@@ -23,7 +23,10 @@ public struct MastodonFeedView: View {
 
   public init(store: StoreOf<TootFeedFeature>) {
     self.store = store
-    viewStore = ViewStore(store.scope(state: MastodonFeedViewState.init, action: { $0 }))
+    viewStore = ViewStore(
+      store.scope(state: MastodonFeedViewState.init, action: { $0 }),
+      observe: { $0 }
+    )
   }
 
   public var body: some View {
@@ -35,15 +38,13 @@ public struct MastodonFeedView: View {
 
 // MARK: Preview
 
-struct MastodonFeedView_Previews: PreviewProvider {
-  static var previews: some View {
-    MastodonFeedView(
-      store: Store<TootFeedFeature.State, TootFeedFeature.Action>(
-        initialState: .init(),
-        reducer: TootFeedFeature()._printChanges()
-      )
+#Preview {
+  MastodonFeedView(
+    store: StoreOf<TootFeedFeature>(
+      initialState: .init(),
+      reducer: { TootFeedFeature()._printChanges() }
     )
-  }
+  )
 }
 
 public extension Array where Element == MastodonKit.Status {
@@ -102,6 +103,6 @@ extension Store where State == TootFeedFeature.State, Action == TootFeedFeature.
         uniqueElements: [MastodonKit.Status].placeHolder
       )
     ),
-    reducer: EmptyReducer()
+    reducer: { EmptyReducer() }
   )
 }

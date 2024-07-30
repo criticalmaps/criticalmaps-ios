@@ -7,14 +7,14 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
-@MainActor
 final class ChatFeatureCore: XCTestCase {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
+  @MainActor
   func defaultTestStore(
     with state: ContentState<[ChatMessage]> = .results([])
-  ) -> TestStore<ChatFeature.State, ChatFeature.Action, ChatFeature.State, ChatFeature.Action, ()> {
+  ) -> TestStoreOf<ChatFeature> {
     let testStore = TestStore(
       initialState: ChatFeature.State(
         chatMessages: state,
@@ -23,7 +23,7 @@ final class ChatFeatureCore: XCTestCase {
           message: "Hello World!"
         )
       ),
-      reducer: ChatFeature()
+      reducer: { ChatFeature() }
     )
     testStore.dependencies.uuid = .constant(uuid())
     testStore.dependencies.date = .constant(date())
@@ -32,6 +32,7 @@ final class ChatFeatureCore: XCTestCase {
     return testStore
   }
   
+  @MainActor
   func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
     let testStore = defaultTestStore()
     testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
@@ -52,6 +53,7 @@ final class ChatFeatureCore: XCTestCase {
     }
   }
   
+  @MainActor
   func test_storeWithItems_shouldTriggerNetworkCall_withSuccessResponse_andHaveElements() async {
     let testStore = defaultTestStore(
       with: .loading([
@@ -80,6 +82,7 @@ final class ChatFeatureCore: XCTestCase {
     }
   }
   
+  @MainActor
   func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
     let error = NSError(domain: "", code: 1)
     let testStore = defaultTestStore()
@@ -98,13 +101,14 @@ final class ChatFeatureCore: XCTestCase {
     }
   }
   
+  @MainActor
   func test_didAppear_ShouldSet_appearanceTimeinterval() async {
     let didWriteChatAppearanceTimeinterval = ActorIsolated(false)
     let chatAppearanceTimeinterval: ActorIsolated<TimeInterval> = ActorIsolated(0)
     
     let testStore = TestStore(
       initialState: ChatFeature.State(),
-      reducer: ChatFeature()
+      reducer: { ChatFeature() }
     )
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
     testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
@@ -128,6 +132,7 @@ final class ChatFeatureCore: XCTestCase {
     }
   }
   
+  @MainActor
   func test_chatViewState() {
     let state = ChatFeature.State(
       chatMessages: .results(mockResponse),

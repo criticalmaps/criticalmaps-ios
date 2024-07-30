@@ -2,26 +2,30 @@ import ChatFeature
 import ComposableArchitecture
 import XCTest
 
-@MainActor
 final class ChatInputCoreTests: XCTestCase {
-  func test_isEditingChanged_action() {
+  @MainActor
+  func test_isEditingChanged_action() async {
     let testStore = TestStore(
       initialState: ChatInput.State(
         isEditing: false,
         message: ""
       ),
-      reducer: ChatInput()
+      reducer: { ChatInput() },
+      withDependencies: {
+        $0.date = DateGenerator.constant(.distantFuture)
+      }
     )
     
-    testStore.send(.set(\.$isEditing, true)) { state in
+    await testStore.send(.set(\.$isEditing, true)) { state in
       state.isEditing = true
     }
-    testStore.send(.set(\.$isEditing, false)) { state in
+    await testStore.send(.set(\.$isEditing, false)) { state in
       state.isEditing = false
     }
   }
   
-  func test_messageChanged_action() {
+  @MainActor
+  func test_messageChanged_action() async {
     let state = ChatInput.State(
       isEditing: false,
       message: ""
@@ -31,15 +35,15 @@ final class ChatInputCoreTests: XCTestCase {
     
     let testStore = TestStore(
       initialState: state,
-      reducer: ChatInput()
+      reducer: { ChatInput() }
     )
     
-    testStore.send(.messageChanged("Hello World!")) { state in
+    await testStore.send(.messageChanged("Hello World!")) { state in
       state.message = "Hello World!"
       XCTAssertFalse(state.isSendButtonDisabled)
       XCTAssertEqual(state.internalAttributedMessage.string, state.message)
     }
-    testStore.send(.messageChanged("")) { state in
+    await testStore.send(.messageChanged("")) { state in
       state.message = ""
       XCTAssertTrue(state.isSendButtonDisabled)
     }

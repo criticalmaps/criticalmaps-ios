@@ -85,7 +85,7 @@ struct TootsListView_Previews: PreviewProvider {
       TootsListView(
         store: StoreOf<TootFeedFeature>(
           initialState: .init(toots: IdentifiedArray(uniqueElements: [Status].placeHolder)),
-          reducer: TootFeedFeature()._printChanges()
+          reducer: { TootFeedFeature()._printChanges() }
         )
       )
 

@@ -54,7 +54,7 @@ public struct ChatView: View {
       
       chatInput
     }
-    .alert(store.scope(state: \.alert, action: { $0 }), dismiss: .dismissAlert)
+//    .alert(store.scope(state: \.alert, action: { $0 }), dismiss: .dismissAlert)
     .onAppear { viewStore.send(.onAppear) }
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea(.container, edges: .bottom)
@@ -65,7 +65,7 @@ public struct ChatView: View {
       BasicInputView(
         store: self.store.scope(
           state: \.chatInputState,
-          action: ChatFeature.Action.chatInput
+          action: \.chatInput
         ),
         placeholder: L10n.Chat.placeholder
       )
@@ -94,24 +94,11 @@ public struct ChatView: View {
 
 // MARK: Preview
 
-struct ChatView_Previews: PreviewProvider {
-  static var previews: some View {
-    ChatView(
-      store: Store<ChatFeature.State, ChatFeature.Action>(
-        initialState: .init(
-          chatMessages: .results(
-            [
-              .init(
-                identifier: UUID().uuidString,
-                device: "DEVICE",
-                message: "Hello World",
-                timestamp: 123421231
-              )
-            ]
-          )
-        ),
-        reducer: ChatFeature()._printChanges()
-      )
+#Preview {
+  ChatView(
+    store: StoreOf<ChatFeature>(
+      initialState: ChatFeature.State(),
+      reducer: { ChatFeature()._printChanges() }
     )
-  }
+  )
 }

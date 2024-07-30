@@ -2,7 +2,8 @@ import ComposableArchitecture
 import Foundation
 import UIKit
 
-public struct ChatInput: ReducerProtocol {
+@Reducer
+public struct ChatInput {
   public init() {}
 
   // MARK: State
@@ -38,6 +39,7 @@ public struct ChatInput: ReducerProtocol {
 
   // MARK: Actions
 
+  @CasePathable
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
     case messageChanged(String)
@@ -46,7 +48,7 @@ public struct ChatInput: ReducerProtocol {
 
   // MARK: Reducer
 
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some ReducerOf<Self> {
     BindingReducer()
     Reduce { state, action in
       switch action {

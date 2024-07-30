@@ -8,14 +8,13 @@ import SharedDependencies
 import SharedModels
 import Styleguide
 import SwiftUI
-import UIApplicationClient
 
-public struct TootFeedFeature: ReducerProtocol {
+@Reducer
+public struct TootFeedFeature {
   public init() {}
   
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.tootService) public var tootService
-  @Dependency(\.uiApplicationClient) public var uiApplicationClient
 
   // MARK: State
 
@@ -34,6 +33,7 @@ public struct TootFeedFeature: ReducerProtocol {
   
   // MARK: Actions
   
+  @CasePathable
   public enum Action: Equatable {
     case onAppear
     case refresh
@@ -44,20 +44,24 @@ public struct TootFeedFeature: ReducerProtocol {
   
   
   // MARK: Reducer
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        return EffectTask(value: .fetchData)
+        return .send(.fetchData)
         
       case .refresh:
         state.isRefreshing = true
-        return EffectTask(value: .fetchData)
+        return .send(.fetchData)
         
       case .fetchData:
         state.isLoading = true
-        return .task {
-          await .fetchDataResponse(TaskResult { try await tootService.getToots() })
+        return .run { send in
+          await send(
+            await .fetchDataResponse(
+              TaskResult { try await tootService.getToots() }
+            )
+          )
         }
         
       case let .fetchDataResponse(.success(toots)):

@@ -16,7 +16,7 @@ final class ChatFeatureSnapshotTests: XCTestCase {
           ]),
           chatInputState: .init()
         ),
-        reducer: ChatFeature()
+        reducer: { ChatFeature() }
       )
     )
     
@@ -33,7 +33,7 @@ final class ChatFeatureSnapshotTests: XCTestCase {
           ]),
           chatInputState: .init()
         ),
-        reducer: ChatFeature()
+        reducer: { ChatFeature() }
       )
     )
     .environment(\.colorScheme, .dark)
@@ -48,7 +48,7 @@ final class ChatFeatureSnapshotTests: XCTestCase {
           isEditing: true,
           message: "Hello W"
         ),
-        reducer: ChatInput()
+        reducer: { ChatInput() }
       )
     )
     
@@ -62,7 +62,7 @@ final class ChatFeatureSnapshotTests: XCTestCase {
           isEditing: false,
           message: ""
         ),
-        reducer: ChatInput()
+        reducer: { ChatInput() }
       )
     )
     

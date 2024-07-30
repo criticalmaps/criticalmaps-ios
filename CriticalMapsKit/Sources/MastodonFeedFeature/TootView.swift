@@ -7,7 +7,7 @@ import Styleguide
 import SwiftUI
 import UIApplicationClient
 
-public struct TootFeature: ReducerProtocol {
+public struct TootFeature: Reducer {
   public init() {}
   
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
@@ -19,13 +19,13 @@ public struct TootFeature: ReducerProtocol {
     case openUser
   }
   
-  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .openTweet:
       guard let tootUrl = URL(string: state.uri) else {
         return .none
       }
-      return .fireAndForget {
+      return .run { _ in
         _ = await uiApplicationClient.open(tootUrl, [:])
       }
       
@@ -33,7 +33,7 @@ public struct TootFeature: ReducerProtocol {
       guard let accountUrl = URL(string: state.account.url) else {
         return .none
       }
-      return .fireAndForget {
+      return .run { _ in
         _ = await uiApplicationClient.open(accountUrl, [:])
       }
     }
@@ -171,25 +171,13 @@ public struct TootView: View {
 
 // MARK: Preview
 
-struct TweetView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      TootView(
-        store: .init(
-          initialState: [Status].placeHolder[0],
-          reducer: TootFeature()
-        )
-      )
-      
-      TootView(
-        store: .init(
-          initialState: [Status].placeHolder[0],
-          reducer: TootFeature()
-        )
-      )
-      .redacted(reason: .placeholder)
-    }
-  }
+#Preview {
+  TootView(
+    store: StoreOf<TootFeature>(
+      initialState: [Status].placeHolder[0],
+      reducer: { TootFeature() }
+    )
+  )
 }
 
 public extension MastodonKit.Status {

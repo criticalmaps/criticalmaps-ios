@@ -8,7 +8,8 @@ import MastodonFeedFeature
 import UIApplicationClient
 import UserDefaultsClient
 
-public struct SocialFeature: ReducerProtocol {
+@Reducer
+public struct SocialFeature {
   public init() {}
   
   @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
@@ -55,7 +56,7 @@ public struct SocialFeature: ReducerProtocol {
     
   // MARK: Reducer
   
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some ReducerOf<Self> {
     Scope(state: \.chatFeatureState, action: /SocialFeature.Action.chat) {
       ChatFeature()
         .dependency(\.isNetworkAvailable, isNetworkAvailable)

@@ -1,10 +1,12 @@
 import ApiClient
+import ComposableArchitecture
 import Foundation
 import MastodonKit
 import SharedModels
 
 // MARK: Interface
 
+@DependencyClient
 public struct TootService {
   public var getToots: () async throws -> [MastodonKit.Status]
 }

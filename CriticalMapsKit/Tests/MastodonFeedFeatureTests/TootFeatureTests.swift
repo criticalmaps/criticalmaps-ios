@@ -4,7 +4,6 @@ import MastodonFeedFeature
 import MastodonKit
 import XCTest
 
-@MainActor
 final class TootFeatureTests: XCTestCase {
   let status = Status(
     id: "123",
@@ -51,13 +50,13 @@ final class TootFeatureTests: XCTestCase {
     repliesCount: 44
   )
   
-  
+  @MainActor
   func test_openTweet() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: status,
-      reducer: TootFeature()
+      reducer: { TootFeature() }
     )
     store.dependencies.uiApplicationClient.open = { @Sendable url, _ in
       await openedUrl.setValue(url)
@@ -71,12 +70,13 @@ final class TootFeatureTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_openUser() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: status,
-      reducer: TootFeature()
+      reducer: { TootFeature() }
     )
     store.dependencies.uiApplicationClient.open = { @Sendable url, _ in
       await openedUrl.setValue(url)

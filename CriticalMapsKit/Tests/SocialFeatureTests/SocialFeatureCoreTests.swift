@@ -2,12 +2,12 @@ import ComposableArchitecture
 import SocialFeature
 import XCTest
 
-@MainActor
 final class SocialFeatureCoreTests: XCTestCase {
+  @MainActor
   func test_setSocialSegment() async {
     let testStore = TestStore(
       initialState: SocialFeature.State(),
-      reducer: SocialFeature()
+      reducer: { SocialFeature() }
     )
 
     let toots: SocialFeature.SocialControl = .toots
