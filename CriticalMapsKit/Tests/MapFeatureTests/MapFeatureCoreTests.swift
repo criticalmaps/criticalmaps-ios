@@ -2,31 +2,30 @@ import Combine
 import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
-import MapFeature
+@testable import MapFeature
 import SharedModels
 import XCTest
 
-@MainActor
 final class MapFeatureCoreTests: XCTestCase {
   let testScheduler = DispatchQueue.test
   
+  @MainActor
   func test_onAppearAction() async {
-    let setSubject = PassthroughSubject<Never, Never>()
-    var didRequestAlwaysAuthorization = false
-    var didRequestLocation = false
-    let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
+    let didRequestAlwaysAuthorization = ActorIsolated(false)
+    let didRequestLocation = ActorIsolated(false)
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
-    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    var locationManager = LocationManager.unimplemented
+    locationManager.set = { @Sendable _ in }
+    locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
-    locationManager.requestAlwaysAuthorization = { .fireAndForget {
-      didRequestAlwaysAuthorization = true
-    } }
-    locationManager.requestLocation = { .fireAndForget {
-      didRequestLocation = true
-    } }
-    locationManager.set = { _ in setSubject.eraseToEffect() }
+    locationManager.requestAlwaysAuthorization = {
+      await didRequestAlwaysAuthorization.setValue(true)
+    }
+    locationManager.requestLocation = {
+      await didRequestLocation.setValue(true)
+    }
       
     let store = TestStore(
       initialState: MapFeature.State(
@@ -36,9 +35,11 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature()
+      reducer: { MapFeature() }
     )
     store.dependencies.locationManager = locationManager
+    
+    store.exhaustivity = .off
     
     let currentLocation = Location(
       altitude: 0,
@@ -55,16 +56,19 @@ final class MapFeatureCoreTests: XCTestCase {
     await store.receive(.locationRequested) {
       $0.isRequestingCurrentLocation = true
     }
-    XCTAssertTrue(didRequestAlwaysAuthorization)
+    let didRequestAlwaysAuthorizationValue = await didRequestAlwaysAuthorization.value
+    XCTAssertTrue(didRequestAlwaysAuthorizationValue)
     // Simulate being given authorized to access location
     
-    locationManagerSubject.send(.didChangeAuthorization(.authorizedAlways))
+    locationObserver.continuation.yield(.didChangeAuthorization(.authorizedAlways))
     
     await store.receive(.locationManager(.didChangeAuthorization(.authorizedAlways)))
-    XCTAssertTrue(didRequestLocation)
+    let didRequestLocationValue = await
+    didRequestLocation.value
+    XCTAssertTrue(didRequestLocationValue)
     // Simulate finding the user's current location
     
-    locationManagerSubject.send(.didUpdateLocations([currentLocation]))
+    locationObserver.continuation.yield(.didUpdateLocations([currentLocation]))
     
     await store.receive(.locationManager(.didUpdateLocations([currentLocation]))) {
       $0.isRequestingCurrentLocation = false
@@ -76,21 +80,18 @@ final class MapFeatureCoreTests: XCTestCase {
         timestamp: currentLocation.timestamp.timeIntervalSince1970
       )
     }
-    
-    setSubject.send(completion: .finished)
-    locationManagerSubject.send(completion: .finished)
   }
   
   /// if locationServices disabled, test that alert state is set
+  @MainActor
   func test_disabledLocationService_shouldSetAlert() async {
-    let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
-    let setSubject = PassthroughSubject<Never, Never>()
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
-    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    var locationManager: LocationManager = .unimplemented
+    locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .denied }
     locationManager.locationServicesEnabled = { false }
-    locationManager.set = { _ in setSubject.eraseToEffect() }
+    locationManager.set = { @Sendable _ in }
     
     let store = TestStore(
       initialState: MapFeature.State(
@@ -100,9 +101,10 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature()
+      reducer: { MapFeature() }
     )
     store.dependencies.locationManager = locationManager
+    store.exhaustivity = .off
     
     await store.send(.onAppear)
     // simulate user decision of segmented control
@@ -110,23 +112,22 @@ final class MapFeatureCoreTests: XCTestCase {
       $0.isRequestingCurrentLocation = false
       $0.alert = .servicesOff
     }
-    setSubject.send(completion: .finished)
-    locationManagerSubject.send(completion: .finished)
+    await store.finish()
   }
   
+  @MainActor
   func test_deniedPermission_shouldSetAlert() async {
-    var didRequestAlwaysAuthorization = false
-    let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
-    let setSubject = PassthroughSubject<Never, Never>()
+    let didRequestAlwaysAuthorization = ActorIsolated(false)
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
-    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    var locationManager: LocationManager = .unimplemented
+    locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
-    locationManager.requestAlwaysAuthorization = { .fireAndForget {
-      didRequestAlwaysAuthorization = true
-    } }
-    locationManager.set = { _ in setSubject.eraseToEffect() }
+    locationManager.requestAlwaysAuthorization = {
+      await didRequestAlwaysAuthorization.setValue(true)
+    }
+    locationManager.set = { @Sendable _ in }
 
     let store = TestStore(
       initialState: MapFeature.State(
@@ -136,28 +137,29 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature()
+      reducer: { MapFeature() }
     )
     store.dependencies.locationManager = locationManager
+    store.exhaustivity = .off
     
     await store.send(.onAppear)
     // simulate user decision of segmented control
     await store.receive(.locationRequested) {
       $0.isRequestingCurrentLocation = true
     }
-    XCTAssertTrue(didRequestAlwaysAuthorization)
+    let didRequestAlwaysAuthorizationValue = await didRequestAlwaysAuthorization.value
+    XCTAssertTrue(didRequestAlwaysAuthorizationValue)
     // Simulate being given authorized to access location
-    locationManagerSubject.send(.didChangeAuthorization(.denied))
+    locationObserver.continuation.yield(.didChangeAuthorization(.denied))
     await store.receive(.locationManager(.didChangeAuthorization(.denied))) {
       $0.alert = AlertState(
         title: TextState("Location makes this app better. Please consider giving us access.")
       )
       $0.isRequestingCurrentLocation = false
     }
-    setSubject.send(completion: .finished)
-    locationManagerSubject.send(completion: .finished)
   }
   
+  @MainActor
   func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() async {
     let ride = Ride(
       id: 123,
@@ -178,18 +180,23 @@ final class MapFeatureCoreTests: XCTestCase {
         userTrackingMode: .init(userTrackingMode: .follow),
         nextRide: ride
       ),
-      reducer: MapFeature()
+      reducer: { MapFeature() }
     )
     store.dependencies.mainQueue = .immediate
+    let testClock = TestClock()
+    store.dependencies.continuousClock = testClock
+    store.exhaustivity = .off
 
     await store.send(.focusNextRide(ride.coordinate)) {
       $0.centerRegion = CoordinateRegion(center: .init(latitude: 13.13, longitude: 55.55))
     }
+    await testClock.advance(by: .seconds(1))
     await store.receive(.resetCenterRegion) {
       $0.centerRegion = nil
     }
   }
   
+  @MainActor
   func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() async {
     let ride = Ride(
       id: 123,
@@ -210,9 +217,12 @@ final class MapFeatureCoreTests: XCTestCase {
         userTrackingMode: .init(userTrackingMode: .follow),
         nextRide: ride
       ),
-      reducer: MapFeature()
+      reducer: { MapFeature() }
     )
     store.dependencies.mainQueue = .immediate
+    let testClock = TestClock()
+    store.dependencies.continuousClock = testClock
+    store.exhaustivity = .off
 
     await store.send(.focusRideEvent(ride.coordinate)) {
       $0.eventCenter = .init(
@@ -222,20 +232,21 @@ final class MapFeatureCoreTests: XCTestCase {
         )
       )
     }
+    await testClock.advance(by: .seconds(1))
     await store.receive(.resetRideEventCenter) {
       $0.eventCenter = nil
     }
   }
 
-  func test_InfoBanner_appearance() {
-    let locationManagerSubject = PassthroughSubject<LocationManager.Action, Never>()
-    let setSubject = PassthroughSubject<Never, Never>()
+  @MainActor
+  func test_InfoBanner_appearance() async {
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
-    locationManager.delegate = { locationManagerSubject.eraseToEffect() }
+    var locationManager: LocationManager = .unimplemented
+    locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .authorizedAlways }
     locationManager.locationServicesEnabled = { true }
-    locationManager.set = { _ in setSubject.eraseToEffect() }
+    locationManager.set = { @Sendable _ in }
     
     let store = TestStore(
       initialState: MapFeature.State(
@@ -245,17 +256,14 @@ final class MapFeatureCoreTests: XCTestCase {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: MapFeature()
+      reducer: { MapFeature() }
     )
     
-    store.send(.setNextRideBannerVisible(true)) {
+    await store.send(.setNextRideBannerVisible(true)) {
       $0.isNextRideBannerVisible = true
     }
-    store.send(.setNextRideBannerExpanded(true)) {
+    await store.send(.setNextRideBannerExpanded(true)) {
       $0.isNextRideBannerExpanded = true
     }
-        
-    setSubject.send(completion: .finished)
-    locationManagerSubject.send(completion: .finished)
   }
 }

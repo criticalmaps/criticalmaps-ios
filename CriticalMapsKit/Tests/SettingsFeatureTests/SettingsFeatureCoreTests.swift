@@ -157,6 +157,8 @@ final class SettingsFeatureCoreTests: XCTestCase {
       ),
       reducer: { SettingsFeature() }
     )
+    let testClock = TestClock()
+    store.dependencies.continuousClock = testClock
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.fileClient.save = { @Sendable _, _ in
       await didSaveUserSettings.setValue(true)
@@ -167,6 +169,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
       $0.rideEventSettings.eventSearchRadius = .far
     }
 
+    await testClock.advance(by: .seconds(2))
     // assert
     await didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
@@ -188,6 +191,8 @@ final class SettingsFeatureCoreTests: XCTestCase {
       ),
       reducer: { SettingsFeature() }
     )
+    let testClock = TestClock()
+    store.dependencies.continuousClock = testClock
     store.dependencies.mainQueue = .immediate
     store.dependencies.fileClient.save = { @Sendable _, _ in
       await didSaveUserSettings.setValue(true)
@@ -198,6 +203,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
       $0.appearanceSettings.colorScheme = .dark
     }
 
+    await testClock.advance(by: .seconds(2))
     // assert
     await didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
@@ -220,6 +226,8 @@ final class SettingsFeatureCoreTests: XCTestCase {
     store.dependencies.fileClient.save = { @Sendable _, _ in
       await didSaveUserSettings.setValue(true)
     }
+    let testClock = TestClock()
+    store.dependencies.continuousClock = testClock
     
     // act
     await store.send(.set(\.$isObservationModeEnabled, true)) {
@@ -227,6 +235,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
 
     // assert
+    await testClock.advance(by: .seconds(2))
     await didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
     }

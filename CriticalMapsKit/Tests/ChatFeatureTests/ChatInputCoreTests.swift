@@ -13,6 +13,7 @@ final class ChatInputCoreTests: XCTestCase {
       reducer: { ChatInput() },
       withDependencies: {
         $0.date = DateGenerator.constant(.distantFuture)
+        $0.apiService.getChatMessages = { [] }
       }
     )
     

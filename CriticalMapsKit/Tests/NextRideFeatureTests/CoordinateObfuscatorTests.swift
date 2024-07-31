@@ -8,7 +8,7 @@ final class CoordinateObfuscatorTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    sut = .live
+    sut = .liveValue
   }
   
   func test_ObfuscatorShouldReturnAlteredCoordinate() {

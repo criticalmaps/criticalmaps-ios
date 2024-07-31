@@ -5,11 +5,12 @@ import TestHelper
 import XCTest
 
 final class AppNavigationViewSnapshotTests: XCTestCase {
+  @MainActor
   func test_appNavigationView_light() {
     let view = AppNavigationView(
       store: .init(
         initialState: .init(locationsAndChatMessages: nil),
-        reducer: AppFeature()
+        reducer: { AppFeature() }
       )
     )
     
@@ -24,11 +25,12 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     )
   }
   
+  @MainActor
   func test_appNavigationView_dark() {
     let view = AppNavigationView(
       store: .init(
         initialState: .init(locationsAndChatMessages: nil),
-        reducer: AppFeature()
+        reducer: { AppFeature() }
       )
     )
     .environment(\.colorScheme, .dark)
@@ -36,6 +38,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     assertScreenSnapshot(view, sloppy: true)
   }
   
+  @MainActor
   func test_appNavigationView_WithBadge_dark() {
     var appState: AppFeature.State = .init(
       locationsAndChatMessages: nil
@@ -45,7 +48,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     let view = AppNavigationView(
       store: .init(
         initialState: appState,
-        reducer: AppFeature()
+        reducer: { AppFeature() }
       )
     )
     .environment(\.colorScheme, .dark)
@@ -53,6 +56,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     assertScreenSnapshot(view, sloppy: true)
   }
   
+  @MainActor
   func test_appNavigationView_WithBadge() {
     var appState: AppFeature.State = .init(
       locationsAndChatMessages: nil
@@ -62,7 +66,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     let view = AppNavigationView(
       store: .init(
         initialState: appState,
-        reducer: AppFeature()
+        reducer: { AppFeature() }
       )
     )
     

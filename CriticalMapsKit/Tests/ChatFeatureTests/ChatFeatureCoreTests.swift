@@ -88,6 +88,7 @@ final class ChatFeatureCore: XCTestCase {
     let testStore = defaultTestStore()
     
     testStore.dependencies.apiService.getChatMessages = { throw error }
+    testStore.dependencies.apiService.postChatMessage = { _ in throw error }
             
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true

@@ -4,20 +4,21 @@ import MapFeature
 import SharedModels
 import XCTest
 
-class UserTrackingModeCoreTests: XCTestCase {
-  func test_nextTrackingMode() {
+final class UserTrackingModeCoreTests: XCTestCase {
+  @MainActor
+  func test_nextTrackingMode() async {
     let store = TestStore(
       initialState: UserTrackingFeature.State(userTrackingMode: .none),
-      reducer: UserTrackingFeature()
+      reducer: { UserTrackingFeature() }
     )
 
-    store.send(.nextTrackingMode) {
+    await store.send(.nextTrackingMode) {
       $0.mode = .follow
     }
-    store.send(.nextTrackingMode) {
+    await store.send(.nextTrackingMode) {
       $0.mode = .followWithHeading
     }
-    store.send(.nextTrackingMode) {
+    await store.send(.nextTrackingMode) {
       $0.mode = .none
     }
   }

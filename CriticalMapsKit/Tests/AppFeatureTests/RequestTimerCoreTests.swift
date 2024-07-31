@@ -2,14 +2,14 @@ import AppFeature
 import ComposableArchitecture
 import XCTest
 
-@MainActor
 final class RequestTimerCoreTests: XCTestCase {
+  @MainActor
   func test_startTimerAction_shouldSendTickedEffect() async {
     let testRunLoop = RunLoop.test
     
     let store = TestStore(
       initialState: RequestTimer.State(),
-      reducer: RequestTimer(timerInterval: 1)
+      reducer: { RequestTimer(timerInterval: 1) }
     )
     store.dependencies.mainRunLoop = testRunLoop.eraseToAnyScheduler()
     

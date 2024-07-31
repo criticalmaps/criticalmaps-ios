@@ -3,33 +3,36 @@ import TestHelper
 import XCTest
 
 final class UserTrackingButtonSnapshotTests: XCTestCase {
+  @MainActor
   func test_userTracking_none() {
     let sut = UserTrackingButton(
       store: .init(
         initialState: .init(userTrackingMode: .none),
-        reducer: UserTrackingFeature()
+        reducer: { UserTrackingFeature() }
       )
     )
     
     assertViewSnapshot(sut, height: 60, sloppy: true)
   }
   
+  @MainActor
   func test_userTracking_follow() {
     let sut = UserTrackingButton(
       store: .init(
         initialState: .init(userTrackingMode: .follow),
-        reducer: UserTrackingFeature()
+        reducer: { UserTrackingFeature() }
       )
     )
     
     assertViewSnapshot(sut, height: 60, sloppy: true)
   }
   
+  @MainActor
   func test_userTracking_followWithHeading() {
     let sut = UserTrackingButton(
       store: .init(
         initialState: .init(userTrackingMode: .followWithHeading),
-        reducer: UserTrackingFeature()
+        reducer: { UserTrackingFeature() }
       )
     )
     

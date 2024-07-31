@@ -7,7 +7,6 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
-@MainActor
 final class NextRideCoreTests: XCTestCase {
   let now = {
     Calendar.current.date(
@@ -86,19 +85,22 @@ final class NextRideCoreTests: XCTestCase {
   var rides: [Ride] { [berlin, falkensee] }
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
+  @MainActor
   func test_disabledNextRideFeature_shouldNotRequestRides() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
-    )
-    store.dependencies.date = .init({ @Sendable in self.now() })
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings(
-        isEnabled: false,
-        typeSettings: [:],
-        eventDistance: .near
-      )
-      .encoded()
+      reducer: { NextRideFeature() }
+    ) {
+      $0.nextRideService.nextRide = { _, _, _ in [] }
+      $0.date = .init({ @Sendable in self.now() })
+      $0.userDefaultsClient.dataForKey = { _ in
+        try? RideEventSettings(
+          isEnabled: false,
+          typeSettings: [:],
+          eventDistance: .near
+        )
+        .encoded()
+      }
     }
     
     // no effect received
@@ -106,10 +108,11 @@ final class NextRideCoreTests: XCTestCase {
     await store.receive(.nextRideResponse(.success([])))
   }
   
+  @MainActor
   func test_getRides_shouldUpdateRidesInUserTimezone() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.userDefaultsClient.dataForKey = { _ in try? RideEventSettings.default.encoded()
     }
@@ -127,10 +130,11 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_getNextRide_shouldReturnError() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings(
@@ -151,10 +155,11 @@ final class NextRideCoreTests: XCTestCase {
     await store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
   }
   
+  @MainActor
   func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in
       self.rides
@@ -180,6 +185,7 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
 
+  @MainActor
   func test_getNextRide_shouldReturnRide_whenRideTypeNil() async {
     let ridesWithARideWithNilRideType: [Ride] = [
       Ride(
@@ -206,7 +212,7 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in
       ridesWithARideWithNilRideType
@@ -227,6 +233,7 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() async {
     let rides = [
       Ride(
@@ -243,7 +250,7 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.userDefaultsClient.dataForKey = { _ in
@@ -273,6 +280,7 @@ final class NextRideCoreTests: XCTestCase {
     )!
   }
   
+  @MainActor
   func test_getNextRide_returnRideFromThisMonth_whenTodayIsFriday() async {
     let rides = [
       Ride(
@@ -298,7 +306,7 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.userDefaultsClient.dataForKey = { _ in
       try? RideEventSettings.default
@@ -318,6 +326,7 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() async {
     let rides = [
       Ride(
@@ -354,7 +363,7 @@ final class NextRideCoreTests: XCTestCase {
     state.userLocation = .init(latitude: 53.1235, longitude: 13.4248)
     let store = TestStore(
       initialState: state,
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.userDefaultsClient.dataForKey = { _ in
@@ -375,6 +384,7 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
 
+  @MainActor
   func test_getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() async {
     let rides = [
       Ride(
@@ -400,7 +410,7 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.userDefaultsClient.dataForKey = { _ in
@@ -420,6 +430,7 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
 
+  @MainActor
   func test_getNextRide_returnRideFromThisMonth_whenTodayIsSunday() async {
     let rides = [
       Ride(
@@ -445,7 +456,7 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.userDefaultsClient.dataForKey = { _ in
@@ -465,6 +476,7 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() async {
     let rides = [
       Ride(
@@ -490,7 +502,7 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: NextRideFeature()
+      reducer: { NextRideFeature() }
     )
     store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
     store.dependencies.userDefaultsClient.dataForKey = { _ in
