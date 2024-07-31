@@ -7,6 +7,7 @@ import SharedModels
 // MARK: Interface
 
 /// Client handling FileManager interactions
+@DependencyClient
 public struct FileClient {
   public var delete: @Sendable (String) async throws -> Void
   public var load: @Sendable (String) async throws -> Data
@@ -42,5 +43,16 @@ public extension FileClient {
     try await self.save(userSettings, to: userSettingsFileName)
   }
 }
+
+// MARK: - DependencyValue
+
+extension DependencyValues {
+  public var fileClient: FileClient {
+    get { self[FileClient.self] }
+    set { self[FileClient.self] = newValue }
+  }
+}
+
+// MARK: Helper
 
 let userSettingsFileName = "user-settings"

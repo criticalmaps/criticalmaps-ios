@@ -8,21 +8,6 @@ import UIApplicationClient
 import UserDefaultsClient
 
 public extension DependencyValues {
-  var apiClient: APIClient {
-    get { self[ApiClientKey.self] }
-    set { self[ApiClientKey.self] = newValue }
-  }
-  
-  var fileClient: FileClient {
-    get { self[FileClientKey.self] }
-    set { self[FileClientKey.self] = newValue }
-  }
-  
-  var idProvider: IDProvider {
-    get { self[IDProviderKey.self] }
-    set { self[IDProviderKey.self] = newValue }
-  }
-  
   var isNetworkAvailable: Bool {
     get { self[ConnectionStateKey.self] }
     set {
@@ -31,60 +16,14 @@ public extension DependencyValues {
     }
   }
   
-  var apiService: APIService {
-    get { self[APIServiceKey.self] }
-    set { self[APIServiceKey.self] = newValue }
-  }
-  
-  var pathMonitorClient: PathMonitorClient {
-    get { self[PathMonitorClientKey.self] }
-    set { self[PathMonitorClientKey.self] = newValue }
-  }
-  
   var setUserInterfaceStyle: SetUserInterfaceStyleEffect {
     get { self[SetUserInterfaceStyleKey.self] }
     set { self[SetUserInterfaceStyleKey.self] = newValue }
-  }
-
-  var uiApplicationClient: UIApplicationClient {
-    get { self[UIApplicationClientKey.self] }
-    set { self[UIApplicationClientKey.self] = newValue }
-  }
-  
-  var userDefaultsClient: UserDefaultsClient {
-    get { self[UserDefaultsClientKey.self] }
-    set { self[UserDefaultsClientKey.self] = newValue }
   }
 }
 
 
 // MARK: Keys
-
-
-enum ApiClientKey: DependencyKey {
-  static let liveValue = APIClient.live()
-  static let testValue = APIClient.noop
-}
-
-enum FileClientKey: DependencyKey {
-  static let liveValue = FileClient.live
-  static let testValue = FileClient.noop
-}
-
-enum IDProviderKey: DependencyKey {
-  static let liveValue = IDProvider.live()
-  static let testValue = IDProvider.noop
-}
-
-enum APIServiceKey: DependencyKey {
-  static let liveValue = APIService.live()
-  static let testValue = APIService.failing
-}
-
-enum PathMonitorClientKey: DependencyKey {
-  static let liveValue = PathMonitorClient.live(queue: .main)
-  static let testValue = PathMonitorClient.satisfied
-}
 
 public typealias SetUserInterfaceStyleEffect = @Sendable (UIUserInterfaceStyle) async -> Void
 enum SetUserInterfaceStyleKey: DependencyKey {
@@ -95,16 +34,6 @@ enum SetUserInterfaceStyleKey: DependencyKey {
     }
   }
   static let testValue: SetUserInterfaceStyleEffect = { _ in () }
-}
-
-enum UserDefaultsClientKey: DependencyKey {
-  static let liveValue = UserDefaultsClient.live()
-  static let testValue = UserDefaultsClient.noop
-}
-
-enum UIApplicationClientKey: DependencyKey {
-  static let liveValue = UIApplicationClient.live
-  static let testValue = UIApplicationClient.noop
 }
 
 enum ConnectionStateKey: DependencyKey {

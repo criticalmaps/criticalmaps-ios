@@ -1,4 +1,5 @@
 import ApiClient
+import ComposableArchitecture
 import CoreLocation
 import Foundation
 import SharedModels
@@ -6,6 +7,7 @@ import SharedModels
 // MARK: Interface
 
 /// Service to fetch the next ride and decode the response
+@DependencyClient
 public struct NextRideService {
   public var nextRide: (
     _ coordinate: Coordinate,
@@ -16,9 +18,11 @@ public struct NextRideService {
 
 // MARK: Live
 
-public extension NextRideService {
-  static func live(apiClient: APIClient = .live()) -> Self {
-    Self { coordinate, radius, month in
+extension NextRideService: DependencyKey {
+  public static var liveValue: Self {
+    @Dependency(\.apiClient) var apiClient
+    
+    return Self { coordinate, radius, month in
       let request = Request.nextRides(coordinate: coordinate, radius: radius, month: month)
       let (data, _) = try await apiClient.send(request)
       let rides: [Ride] = try data.decoded(decoder: .nextRideRequestDecoder)
@@ -29,13 +33,15 @@ public extension NextRideService {
 
 // MARK: Mocks
 
-public extension NextRideService {
-  static let noop = Self(
+extension NextRideService: TestDependencyKey {
+  public static let previewValue: NextRideService = Self(
     nextRide: { _, _, _ in [] }
   )
+  
+  public static let testValue: NextRideService = Self()
 
-  struct Failure: Error, Equatable {
-    var internalError: NetworkRequestError
+  public struct Failure: Error, Equatable {
+    public var internalError: NetworkRequestError
 
     public init(internalError: NetworkRequestError) {
       self.internalError = internalError

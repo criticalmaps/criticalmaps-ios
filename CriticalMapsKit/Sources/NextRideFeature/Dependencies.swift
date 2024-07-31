@@ -3,24 +3,12 @@ import Foundation
 
 public extension DependencyValues {
   var nextRideService: NextRideService {
-    get { self[NextRideServiceKey.self] }
-    set { self[NextRideServiceKey.self] = newValue }
+    get { self[NextRideService.self] }
+    set { self[NextRideService.self] = newValue }
   }
   
   var coordinateObfuscator: CoordinateObfuscator {
-    get { self[CoordinateObfuscatorKey.self] }
-    set { self[CoordinateObfuscatorKey.self] = newValue }
+    get { self[CoordinateObfuscator.self] }
+    set { self[CoordinateObfuscator.self] = newValue }
   }
-}
-
-// MARK: Keys
-
-enum CoordinateObfuscatorKey: DependencyKey {
-  static let liveValue = CoordinateObfuscator.live
-  static let testValue = CoordinateObfuscator.live
-}
-
-enum NextRideServiceKey: DependencyKey {
-  static let liveValue = NextRideService.live()
-  static let testValue = NextRideService.noop
 }

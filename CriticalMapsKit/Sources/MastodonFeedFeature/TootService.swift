@@ -13,28 +13,31 @@ public struct TootService {
 
 // MARK: Live
 
-public extension TootService {
-  static func live() -> Self {
-    Self(
-      getToots: {
-        let client = MastodonKit.Client(baseURL: "https://mastodon.social")
-        let request = Timelines.tag("CriticalMass")
-        let statuses = try await client.run(request).value
-        return statuses
-      }
-    )
-  }
+extension TootService: DependencyKey {
+  public static let liveValue: TootService = Self(
+    getToots: {
+      let client = MastodonKit.Client(baseURL: "https://mastodon.social")
+      let request = Timelines.tag("CriticalMass")
+      let statuses = try await client.run(request).value
+      return statuses
+    }
+  )
 }
 
 // Mocks and failing used for previews and tests
-public extension TootService {
-  static let noop = Self(
+extension TootService: TestDependencyKey {
+  public static let previewValue = Self(
     getToots: { [] }
   )
 
-  static let failing = Self(
-    getToots: { throw NSError(domain: "", code: 1) }
-  )
+  public static let testValue = Self()
+}
+
+extension DependencyValues {
+  var tootService: TootService {
+    get { self[TootService.self] }
+    set { self[TootService.self] = newValue }
+  }
 }
 
 // MARK: Helper

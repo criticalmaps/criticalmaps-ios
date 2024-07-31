@@ -1,8 +1,11 @@
+import Combine
 import ComposableArchitecture
 import Foundation
+import UIKit.UIApplication
 
-public extension UIApplicationClient {
-  static let noop = Self(
+extension UIApplicationClient: TestDependencyKey {
+  public static let testValue = Self()
+  public static let previewValue: UIApplicationClient = Self(
     alternateIconName: { nil },
     alternateIconNameAsync: { nil },
     open: { _, _ in false },

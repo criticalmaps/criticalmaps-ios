@@ -1,11 +1,13 @@
+import ComposableArchitecture
 import CryptoKit
 import Foundation
 import Helpers
 
 /// Provides a hashed ID to create api update requests
+@DependencyClient
 public struct IDProvider {
-  public var id: () -> String
-  public var token: () -> String
+  public var id: () -> String = { "" }
+  public var token: () -> String = { "" }
 
   public static func hash(id: String, currentDate: () -> Date) -> String {
     let dateString = DateFormatter.IDStoreHashDateFormatter.string(from: currentDate())

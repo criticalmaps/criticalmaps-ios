@@ -1,13 +1,14 @@
+import ComposableArchitecture
 import Foundation
 
 // MARK: Live
 
-public extension FileClient {
-  static var live: Self {
+extension FileClient: DependencyKey {
+  public static var liveValue: Self {
     let documentDirectory = FileManager.default
       .urls(for: .documentDirectory, in: .userDomainMask)
       .first!
-
+    
     return Self(
       delete: { fileName in
         try? FileManager.default.removeItem(
@@ -35,6 +36,10 @@ public extension FileClient {
       }
     )
   }
+}
+
+extension FileClient: TestDependencyKey {
+  public static let testValue: FileClient = Self()
 }
 
 let fileExtension = "json"

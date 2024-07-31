@@ -1,10 +1,11 @@
 import Combine
+import ComposableArchitecture
 import Network
 
-public extension PathMonitorClient {
-  static func live(queue: DispatchQueue) -> Self {
+extension PathMonitorClient: DependencyKey {
+  public static var liveValue: PathMonitorClient {
     let monitor = NWPathMonitor()
-    monitor.start(queue: queue)
+    monitor.start(queue: .main)
     return Self {
       AsyncStream { continuation in
         monitor.pathUpdateHandler = { path in

@@ -1,14 +1,10 @@
+import ComposableArchitecture
 import Foundation
 
 /// A client to dispatch network request to URLSession
+@DependencyClient
 public struct NetworkDispatcher {
   var dispatch: @Sendable (URLRequest) async throws -> (Data, URLResponse)
-
-  public init(
-    dispatch: @escaping @Sendable (URLRequest) async throws -> (Data, URLResponse)
-  ) {
-    self.dispatch = dispatch
-  }
 }
 
 extension NetworkDispatcher {
@@ -45,9 +41,11 @@ extension NetworkDispatcher {
   }
 }
 
-public extension NetworkDispatcher {
-  static func live(urlSession: URLSession = .shared) -> Self {
-    Self { urlRequest in
+extension NetworkDispatcher: DependencyKey {
+  public static var liveValue: NetworkDispatcher {
+    @Dependency(\.urlSession) var urlSession
+    
+    return Self { urlRequest in
       let (data, response) = try await urlSession.data(for: urlRequest)
       
       guard let response = response as? HTTPURLResponse else {
@@ -66,8 +64,6 @@ public extension NetworkDispatcher {
       return (data, response)
     }
   }
-
-  static let noop = Self { _ in fatalError() }
 }
 
 extension HTTPURLResponse {
@@ -84,3 +80,10 @@ let NSURLErrorConnectionFailureCodes: [Int] = [
   NSURLErrorNotConnectedToInternet, /// Error Code: ` -1009`
   NSURLErrorSecureConnectionFailed /// Error Code: ` -1200`
 ]
+
+extension DependencyValues {
+  var networkDispatcher: NetworkDispatcher {
+    get { self[NetworkDispatcher.self] }
+    set { self[NetworkDispatcher.self] = newValue }
+  }
+}
