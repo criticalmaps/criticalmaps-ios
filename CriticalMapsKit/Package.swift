@@ -6,7 +6,7 @@ let package = Package(
   name: "CriticalMapsKit",
   defaultLocalization: "en",
   platforms: [
-    .iOS(.v15)
+    .iOS(.v16)
   ],
   products: [
     .library(name: "ApiClient", targets: ["ApiClient"]),
