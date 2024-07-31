@@ -41,10 +41,6 @@ let package = Package(
       .upToNextMajor(from: "1.8.2")
     ),
     .package(
-      url: "https://github.com/pointfreeco/swift-custom-dump",
-      from: "1.0.0"
-    ),
-    .package(
       url: "https://github.com/vtourraine/AcknowList.git",
       .upToNextMajor(from: "2.1.0")
     ),
@@ -84,7 +80,7 @@ let package = Package(
         "Styleguide",
         "UserDefaultsClient",
         "UIApplicationClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .tca,
         .product(name: "BottomSheet", package: "BottomSheet")
       ]
     ),
@@ -108,7 +104,7 @@ let package = Package(
       dependencies: [
         "Helpers",
         "SharedModels",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .tca
       ]
     ),
     .target(
@@ -125,12 +121,16 @@ let package = Package(
       name: "Helpers",
       dependencies: [
         "Styleguide",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .tca
       ]
     ),
     .target(
       name: "IDProvider",
-      dependencies: ["Helpers"]
+      dependencies: [
+        "Helpers",
+        .tca,
+        "UserDefaultsClient"
+      ]
     ),
     .target(
       name: "L10n",
@@ -155,8 +155,8 @@ let package = Package(
         "SharedModels",
         "Styleguide",
         "SwiftUIHelpers",
-        .product(name: "ComposableCoreLocation", package: "composable-core-location"),
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .composableCoreLocation,
+        .tca
       ]
     ),
     .target(
@@ -170,12 +170,15 @@ let package = Package(
         "SharedModels",
         "Styleguide",
         "UserDefaultsClient",
-        .product(name: "ComposableCoreLocation", package: "composable-core-location"),
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .composableCoreLocation,
+        .tca
       ]
     ),
     .target(
-      name: "PathMonitorClient"
+      name: "PathMonitorClient",
+      dependencies: [
+        .tca,
+      ]
     ),
     .target(
       name: "SettingsFeature",
@@ -189,7 +192,7 @@ let package = Package(
         "Styleguide",
         "SwiftUIHelpers",
         "UIApplicationClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .tca,
         .product(name: "AcknowList", package: "AcknowList")
       ],
       resources: [.process("Resources/")]
@@ -203,14 +206,14 @@ let package = Package(
         "PathMonitorClient",
         "UIApplicationClient",
         "UserDefaultsClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .tca
       ]
     ),
     .target(
       name: "SharedModels",
       dependencies: [
         "Helpers",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .tca
       ]
     ),
     .target(
@@ -220,7 +223,7 @@ let package = Package(
         "L10n",
         "MastodonFeedFeature",
         "UserDefaultsClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .tca
       ]
     ),
     .target(
@@ -251,14 +254,14 @@ let package = Package(
         "SharedModels",
         "Styleguide",
         "UIApplicationClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .tca,
         .product(name: "MastodonKit", package: "MastodonKit")
       ]
     ),
     .target(
       name: "UIApplicationClient",
       dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+        .tca
       ]
     ),
     .target(
@@ -266,10 +269,7 @@ let package = Package(
       dependencies: [
         "Helpers",
         "SharedModels",
-        .product(
-          name: "ComposableArchitecture",
-          package: "swift-composable-architecture"
-        )
+        .tca
       ]
     )
   ]
@@ -284,11 +284,7 @@ package.targets.append(contentsOf: [
       "AppFeature",
       "PathMonitorClient",
       "TestHelper",
-      .product(
-        name: "ComposableArchitecture",
-        package: "swift-composable-architecture"
-      ),
-      .product(name: "CustomDump", package: "swift-custom-dump")
+      .tca,
     ],
     exclude: [
       "__Snapshots__"
@@ -301,7 +297,7 @@ package.targets.append(contentsOf: [
       "TestHelper",
       "SharedModels",
       "UserDefaultsClient",
-      .product(name: "CustomDump", package: "swift-custom-dump")
+      .tca
     ],
     exclude: [
       "__Snapshots__"
@@ -323,10 +319,7 @@ package.targets.append(contentsOf: [
     dependencies: [
       "MapFeature",
       "TestHelper",
-      .product(
-        name: "ComposableArchitecture",
-        package: "swift-composable-architecture"
-      )
+      .tca
     ],
     exclude: [
       "__Snapshots__"
@@ -338,10 +331,7 @@ package.targets.append(contentsOf: [
       "Helpers",
       "UserDefaultsClient",
       "NextRideFeature",
-      .product(
-        name: "ComposableArchitecture",
-        package: "swift-composable-architecture"
-      )
+      .tca
     ]
   ),
   .testTarget(
@@ -349,7 +339,7 @@ package.targets.append(contentsOf: [
     dependencies: [
       "SocialFeature",
       "TestHelper",
-      .product(name: "CustomDump", package: "swift-custom-dump")
+      .tca
     ]
   ),
   .testTarget(
@@ -357,7 +347,7 @@ package.targets.append(contentsOf: [
     dependencies: [
       "Styleguide",
       "TestHelper",
-      .product(name: "CustomDump", package: "swift-custom-dump")
+      .tca
     ],
     exclude: ["__Snapshots__"]
   ),
@@ -369,10 +359,7 @@ package.targets.append(contentsOf: [
       "SettingsFeature",
       "TestHelper",
       "UserDefaultsClient",
-      .product(
-        name: "ComposableArchitecture",
-        package: "swift-composable-architecture"
-      )
+      .tca
     ],
     exclude: ["__Snapshots__"]
   ),
@@ -383,10 +370,7 @@ package.targets.append(contentsOf: [
       "SharedDependencies",
       "MastodonFeedFeature",
       "TestHelper",
-      .product(
-        name: "ComposableArchitecture",
-        package: "swift-composable-architecture"
-      ),
+      .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
     ],
     exclude: [
@@ -394,3 +378,15 @@ package.targets.append(contentsOf: [
     ]
   )
 ])
+
+extension Target.Dependency {
+  static let tca = product(
+    name: "ComposableArchitecture",
+    package: "swift-composable-architecture"
+  )
+  static let composableCoreLocation = product(
+    name: "ComposableCoreLocation",
+    package: "composable-core-location"
+  )
+  
+}
