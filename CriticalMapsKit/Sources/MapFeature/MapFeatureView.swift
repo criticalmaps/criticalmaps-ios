@@ -21,12 +21,12 @@ public struct MapFeatureView: View {
     ZStack(alignment: .topLeading) {
       MapView(
         riderCoordinates: viewStore.riderLocations,
-        userTrackingMode: viewStore.binding(\.$userTrackingMode),
+        userTrackingMode: viewStore.$userTrackingMode,
         nextRide: viewStore.nextRide,
         rideEvents: viewStore.rideEvents,
-        annotationsCount: viewStore.binding(\.$visibleRidersCount),
-        centerRegion: viewStore.binding(\.$centerRegion),
-        centerEventRegion: viewStore.binding(\.$eventCenter),
+        annotationsCount: viewStore.$visibleRidersCount,
+        centerRegion: viewStore.$centerRegion,
+        centerEventRegion: viewStore.$eventCenter,
         mapMenuShareEventHandler: {
           viewStore.send(.showShareSheet(true))
         },
@@ -37,7 +37,7 @@ public struct MapFeatureView: View {
       .edgesIgnoringSafeArea(.all)
     }
     .sheet(
-      isPresented: viewStore.binding(\.$presentShareSheet),
+      isPresented: viewStore.$presentShareSheet,
       onDismiss: { viewStore.send(.showShareSheet(false)) },
       content: {
         ShareSheetView(activityItems: [viewStore.nextRide?.shareMessage ?? ""])
@@ -50,18 +50,14 @@ public struct MapFeatureView: View {
 
 import SwiftUIHelpers
 
-struct MapFeatureView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      MapFeatureView(
-        store: Store<MapFeature.State, MapFeature.Action>(
-          initialState: MapFeature.State(
-            riders: [],
-            userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
-          ),
-          reducer: MapFeature()._printChanges()
-        )
-      )
-    }
-  }
+#Preview {
+  MapFeatureView(
+    store: Store<MapFeature.State, MapFeature.Action>(
+      initialState: MapFeature.State(
+        riders: [],
+        userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
+      ),
+      reducer: { MapFeature()._printChanges() }
+    )
+  )
 }
