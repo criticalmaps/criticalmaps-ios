@@ -1,7 +1,8 @@
 import ComposableArchitecture
 import Foundation
 
-public struct RequestTimer: ReducerProtocol {
+@Reducer
+public struct RequestTimer {
   public init(timerInterval: Int = 60) {
     self.timerInterval = .seconds(timerInterval)
   }
@@ -28,7 +29,7 @@ public struct RequestTimer: ReducerProtocol {
   }
 
   /// Reducer responsible for the poll timer handling.
-  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .timerTicked:
       state.secondsElapsed += 1

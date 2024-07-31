@@ -24,10 +24,14 @@ struct CriticalMapsApp: App {
 final class AppDelegate: NSObject, UIApplicationDelegate {
   let store = Store(
     initialState: .init(),
-    reducer: AppFeature()
+    reducer: { AppFeature() }
   )
   lazy var viewStore = ViewStore(
-    self.store.scope(state: { _ in () }, action: { $0 }),
+    self.store.scope(
+      state: { _ in () },
+      action: { $0 }
+    ),
+    observe: { $0 },
     removeDuplicates: ==
   )
 

@@ -23,11 +23,13 @@ public struct ShouldAnimateTrackingModeOverTime: Equatable {
   }
 }
 
-public struct MapFeature: ReducerProtocol {
+@Reducer
+public struct MapFeature {
   public init() {}
   
   @Dependency(\.mainQueue) public var mainQueue
   @Dependency(\.locationManager) public var locationManager
+  @Dependency(\.continuousClock) var clock
   
   // MARK: State
   
@@ -38,6 +40,7 @@ public struct MapFeature: ReducerProtocol {
     public var riderLocations: [Rider]
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
+    public var isObservationModeEnabled = false
     
     @BindingState public var visibleRidersCount: Int?
     @BindingState public var eventCenter: CoordinateRegion?
@@ -69,6 +72,7 @@ public struct MapFeature: ReducerProtocol {
     }
   }
 
+  @CasePathable
   public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case onAppear
@@ -93,8 +97,9 @@ public struct MapFeature: ReducerProtocol {
 
   /// Used to identify locatioManager effects.
   private struct LocationManagerId: Hashable {}
+  enum CancelID { case delegate }
   
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     
     Scope(state: \.userTrackingMode, action: /MapFeature.Action.userTracking) {
@@ -105,13 +110,14 @@ public struct MapFeature: ReducerProtocol {
       Reduce<State, LocationManager.Action> { state, action in
         switch action {
         case .didChangeAuthorization(.authorizedAlways),
-             .didChangeAuthorization(.authorizedWhenInUse):
+            .didChangeAuthorization(.authorizedWhenInUse):
           if state.isRequestingCurrentLocation {
-            return locationManager
-              .requestLocation()
-              .fireAndForget()
+            return .run { _ in
+              await locationManager.requestLocation()
+            }
+          } else {
+            return .none
           }
-          return .none
           
         case .didChangeAuthorization(.denied):
           if state.isRequestingCurrentLocation {
@@ -143,7 +149,7 @@ public struct MapFeature: ReducerProtocol {
       }
     }
     
-    Reduce<State, Action> { state, action in
+    Reduce { state, action in
       switch action {
       case .binding:
         return .none
@@ -158,15 +164,16 @@ public struct MapFeature: ReducerProtocol {
       
       case .onAppear:
         return .merge(
-          locationManager
-            .delegate()
-            .map(Action.locationManager),
-          
-          locationManager
-            .setup()
-            .fireAndForget(),
-          
-          EffectTask(value: Action.locationRequested)
+          .run { _ in
+            await locationManager.setup()
+          },
+          .run { send in
+            for await event in locationManager.delegate() {
+              await send(.locationManager(event))
+            }
+          }
+          .cancellable(id: CancelID.delegate),
+          .send(.locationRequested)
         )
         
       case .locationRequested:
@@ -177,10 +184,9 @@ public struct MapFeature: ReducerProtocol {
         switch locationManager.authorizationStatus() {
         case .notDetermined:
           state.isRequestingCurrentLocation = true
-          
-          return locationManager
-            .requestAlwaysAuthorization()
-            .fireAndForget()
+          return .run { _ in
+            await locationManager.requestAlwaysAuthorization()
+          }
           
         case .restricted:
           state.alert = .goToSettingsAlert
@@ -191,9 +197,9 @@ public struct MapFeature: ReducerProtocol {
           return .none
           
         case .authorizedAlways, .authorizedWhenInUse:
-          return locationManager
-            .startUpdatingLocation()
-            .fireAndForget()
+          return .run { _ in
+            await locationManager.startUpdatingLocation()
+          }
           
         @unknown default:
           return .none
@@ -202,11 +208,11 @@ public struct MapFeature: ReducerProtocol {
       case .nextTrackingMode:
         switch state.userTrackingMode.mode {
         case .follow:
-          return EffectTask(value: .updateUserTrackingMode(.init(userTrackingMode: .followWithHeading)))
+          return .send(.updateUserTrackingMode(.init(userTrackingMode: .followWithHeading)))
         case .followWithHeading:
-          return EffectTask(value: .updateUserTrackingMode(.init(userTrackingMode: .none)))
+          return .send(.updateUserTrackingMode(.init(userTrackingMode: .none)))
         case .none:
-          return EffectTask(value: .updateUserTrackingMode(.init(userTrackingMode: .follow)))
+          return .send(.updateUserTrackingMode(.init(userTrackingMode: .follow)))
         @unknown default:
           fatalError()
         }
@@ -222,9 +228,9 @@ public struct MapFeature: ReducerProtocol {
         }
         state.centerRegion = CoordinateRegion(center: nextRideCoordinate.asCLLocationCoordinate)
         
-        return EffectTask.run { send in
-          try await mainQueue.sleep(for: .seconds(1))
-          await send.callAsFunction(.resetCenterRegion)
+        return .run { send in
+          try await clock.sleep(for: .seconds(1))
+          await send(.resetCenterRegion)
         }
 
       case let .focusRideEvent(coordinate):
@@ -234,9 +240,9 @@ public struct MapFeature: ReducerProtocol {
 
         state.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
         
-        return EffectTask.run { send in
-          try await mainQueue.sleep(for: .seconds(1))
-          await send.callAsFunction(.resetRideEventCenter)
+        return .run { send in
+          try await clock.sleep(for: .seconds(1))
+          await send(.resetRideEventCenter)
         }
 
       case .resetRideEventCenter:
@@ -266,17 +272,15 @@ public struct MapFeature: ReducerProtocol {
 
 extension LocationManager {
   /// Configures the LocationManager
-  func setup() -> EffectTask<Never> {
-    set(
-      .init(
-        activityType: .otherNavigation,
-        allowsBackgroundLocationUpdates: true,
-        desiredAccuracy: kCLLocationAccuracyBest,
-        distanceFilter: 200.0,
-        headingFilter: nil,
-        pausesLocationUpdatesAutomatically: false,
-        showsBackgroundLocationIndicator: true
-      )
+  func setup() async {
+    await set(
+      activityType: .otherNavigation,
+      allowsBackgroundLocationUpdates: true,
+      desiredAccuracy: kCLLocationAccuracyBest,
+      distanceFilter: 200.0,
+      headingFilter: nil,
+      pausesLocationUpdatesAutomatically: false,
+      showsBackgroundLocationIndicator: true
     )
   }
 }
@@ -299,7 +303,7 @@ public extension AlertState where Action == MapFeature.Action {
 
 enum LocationManagerKey: DependencyKey {
   static let liveValue = LocationManager.live
-  static let testValue = LocationManager.failing
+  static let testValue = LocationManager.unimplemented
 }
 
 public extension DependencyValues {

@@ -9,12 +9,12 @@ public struct UserTrackingButton: View {
   public typealias State = UserTrackingFeature.State
   public typealias Action = UserTrackingFeature.Action
 
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
+  let store: StoreOf<UserTrackingFeature>
+  @ObservedObject var viewStore: ViewStoreOf<UserTrackingFeature>
 
-  public init(store: Store<State, Action>) {
+  public init(store: StoreOf<UserTrackingFeature>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
   }
 
   public var body: some View {
@@ -56,29 +56,27 @@ public struct UserTrackingButton: View {
 
 // MARK: Preview
 
-struct UserTrackingButton_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      Group {
-        UserTrackingButton(
-          store: .init(
-            initialState: .init(userTrackingMode: .none),
-            reducer: UserTrackingFeature()._printChanges()
-          )
+#Preview {
+  Preview {
+    Group {
+      UserTrackingButton(
+        store: .init(
+          initialState: .init(userTrackingMode: .none),
+          reducer: { UserTrackingFeature()._printChanges() }
         )
-        UserTrackingButton(
-          store: .init(
-            initialState: .init(userTrackingMode: .follow),
-            reducer: UserTrackingFeature()._printChanges()
-          )
+      )
+      UserTrackingButton(
+        store: .init(
+          initialState: .init(userTrackingMode: .follow),
+          reducer: { UserTrackingFeature()._printChanges() }
         )
-        UserTrackingButton(
-          store: .init(
-            initialState: .init(userTrackingMode: .followWithHeading),
-            reducer: UserTrackingFeature()._printChanges()
-          )
+      )
+      UserTrackingButton(
+        store: .init(
+          initialState: .init(userTrackingMode: .followWithHeading),
+          reducer: { UserTrackingFeature()._printChanges() }
         )
-      }
+      )
     }
   }
 }

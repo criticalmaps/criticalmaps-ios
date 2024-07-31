@@ -18,7 +18,8 @@ import SocialFeature
 import UIApplicationClient
 import UserDefaultsClient
 
-public struct AppFeature: ReducerProtocol {
+@Reducer
+public struct AppFeature {
   public init() {}
   
   @Dependency(\.fileClient) public var fileClient
@@ -29,6 +30,7 @@ public struct AppFeature: ReducerProtocol {
   @Dependency(\.nextRideService) public var nextRideService
   @Dependency(\.idProvider) public var idProvider
   @Dependency(\.mainQueue) public var mainQueue
+  @Dependency(\.continuousClock) public var clock
   @Dependency(\.locationManager) public var locationManager
   @Dependency(\.uiApplicationClient) public var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
@@ -120,6 +122,7 @@ public struct AppFeature: ReducerProtocol {
   
   // MARK: Actions
 
+  @CasePathable
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
     case appDelegate(AppDelegate.Action)
@@ -147,37 +150,32 @@ public struct AppFeature: ReducerProtocol {
   }
   
   // MARK: Reducer
-  public var body: some ReducerProtocol<State, Action> {
+  public var body: some Reducer<State, Action> {
     BindingReducer()
     
-    Scope(state: \.requestTimer, action: /AppFeature.Action.requestTimer) {
+    Scope(state: \.requestTimer, action: \.requestTimer) {
       RequestTimer()
     }
     
-    Scope(state: \.mapFeatureState, action: /AppFeature.Action.map) {
+    Scope(state: \.mapFeatureState, action: \.map) {
       MapFeature()
     }
     
-    Scope(state: \.nextRideState, action: /AppFeature.Action.nextRide) {
+    Scope(state: \.nextRideState, action: \.nextRide) {
       NextRideFeature()
         .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
-    Scope(state: \.settingsState, action: /AppFeature.Action.settings) {
+    Scope(state: \.settingsState, action: \.settings) {
       SettingsFeature()
     }
     
-    Scope(state: \.socialState, action: /AppFeature.Action.social) {
+    Scope(state: \.socialState, action: \.social) {
       SocialFeature()
         .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
     /// Holds the logic for the AppFeature to update state and execute side effects
-    self.core
-  }
-  
-  @ReducerBuilderOf<Self>
-  var core: some ReducerProtocol<State, Action> {
     Reduce<State, Action> { state, action in
       switch action {
       case .binding(\.$bottomSheetPosition):
@@ -193,17 +191,22 @@ public struct AppFeature: ReducerProtocol {
         return .none
         
       case .onRideSelectedFromBottomSheet(let ride):
-        return EffectTask(value: .map(.focusRideEvent(ride.coordinate)))
+        return .send(.map(.focusRideEvent(ride.coordinate)))
         
       case .onAppear:
-        var effects: [EffectTask<Action>] = [
-          EffectTask(value: .map(.onAppear)),
-          EffectTask(value: .requestTimer(.startTimer)),
-          .task {
-            await .userSettingsLoaded(
-              TaskResult {
-                try await fileClient.loadUserSettings()
-              }
+        var effects: [Effect<Action>] = [
+          .send(.map(.onAppear)),
+          .send(.requestTimer(.startTimer)),
+          .run { _ in
+            await userDefaultsClient.setSessionID(UUID().uuidString)
+          },
+          .run { send in
+            await send(
+              await .userSettingsLoaded(
+                TaskResult {
+                  try await fileClient.loadUserSettings()
+                }
+              )
             )
           },
           .run { send in
@@ -219,9 +222,9 @@ public struct AppFeature: ReducerProtocol {
         ]
         if !userDefaultsClient.didShowObservationModePrompt {
           effects.append(
-            EffectTask.run { send in
-              try? await mainQueue.sleep(for: .seconds(3))
-              await send.callAsFunction(.presentObservationModeAlert)
+            .run { send in
+              try? await clock.sleep(for: .seconds(3))
+              await send(.presentObservationModeAlert)
             }
           )
         }
@@ -233,20 +236,24 @@ public struct AppFeature: ReducerProtocol {
         
       case .fetchLocations:
         state.isRequestingRiderLocations = true
-        return .task {
-          await .fetchLocationsResponse(
-            TaskResult {
-              try await apiService.getRiders()
-            }
+        return .run { send in
+          await send(
+            await .fetchLocationsResponse(
+              TaskResult {
+                try await apiService.getRiders()
+              }
+            )
           )
         }
         
       case .fetchChatMessages:
-        return .task {
-          await .fetchChatMessagesResponse(
-            TaskResult {
-              try await apiService.getChatMessages()
-            }
+        return .run { send in
+          await send(
+            await .fetchChatMessagesResponse(
+              TaskResult {
+                try await apiService.getChatMessages()
+              }
+            )
           )
         }
         
@@ -296,11 +303,13 @@ public struct AppFeature: ReducerProtocol {
           device: idProvider.id(),
           location: state.mapFeatureState.location
         )
-        return .task {
-          await .postLocationResponse(
-            TaskResult {
-              try await apiService.postRiderLocation(postBody)
-            }
+        return .run { send in
+          await send(
+            await .postLocationResponse(
+              TaskResult {
+                try await apiService.postRiderLocation(postBody)
+              }
+            )
           )
         }
         
@@ -315,7 +324,7 @@ public struct AppFeature: ReducerProtocol {
         switch mapFeatureAction {
         case .focusRideEvent, .focusNextRide:
           if state.bottomSheetPosition != .hidden {
-            return EffectTask.send(.set(\.$bottomSheetPosition, .relative(0.4)))
+            return .send(.set(\.$bottomSheetPosition, .relative(0.4)))
           } else {
             return .none
           }
@@ -332,12 +341,12 @@ public struct AppFeature: ReducerProtocol {
         switch nextRideAction {
         case let .setNextRide(ride):
           state.mapFeatureState.nextRide = ride
-          return EffectTask.run { send in
-            await send.callAsFunction(.map(.setNextRideBannerVisible(true)))
-            try? await mainQueue.sleep(for: .seconds(1))
-            await send.callAsFunction(.map(.setNextRideBannerExpanded(true)))
-            try? await mainQueue.sleep(for: .seconds(8))
-            await send.callAsFunction(.map(.setNextRideBannerExpanded(false)))
+          return .run { send in
+            await send(.map(.setNextRideBannerVisible(true)))
+            try? await clock.sleep(for: .seconds(1))
+            await send(.map(.setNextRideBannerExpanded(true)))
+            try? await clock.sleep(for: .seconds(8))
+            await send(.map(.setNextRideBannerExpanded(false)))
           }
           
         default:
@@ -359,7 +368,7 @@ public struct AppFeature: ReducerProtocol {
               await send(.nextRide(.getNextRide(coordinate)))
             }
           },
-          .fireAndForget {
+          .run { _ in
             await setUserInterfaceStyle(style)
           }
         )
@@ -379,7 +388,7 @@ public struct AppFeature: ReducerProtocol {
 
       case .dismissSheetView:
         state.route = .none
-        return EffectTask(value: .fetchLocations)
+        return .send(.fetchLocations)
               
       case let .requestTimer(timerAction):
         switch timerAction {
@@ -402,7 +411,7 @@ public struct AppFeature: ReducerProtocol {
               }
             }
           } else if state.sendLocation {
-            return EffectTask(value: .postLocation)
+            return .send(.postLocation)
           } else {
             return .none
           }
@@ -447,9 +456,8 @@ public struct AppFeature: ReducerProtocol {
             return .none
           }
           struct RideEventRadiusSettingChange: Hashable {}
-          return EffectTask(value: .nextRide(.getNextRide(coordinate)))
+          return .send(.nextRide(.getNextRide(coordinate)))
             .debounce(id: RideEventRadiusSettingChange(), for: 2, scheduler: mainQueue)
-        
         default:
           return .none
         }
@@ -503,7 +511,7 @@ public extension AlertState where Action == AppFeature.Action {
   )
 }
 
-public typealias ReducerBuilderOf<R: ReducerProtocol> = ReducerBuilder<R.State, R.Action>
+public typealias ReducerBuilderOf<R: Reducer> = ReducerBuilder<R.State, R.Action>
 
 extension NumberFormatter {
   static let riderCountFormatter: NumberFormatter = {

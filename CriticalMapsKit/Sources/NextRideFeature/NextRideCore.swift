@@ -8,15 +8,14 @@ import SharedModels
 
 // MARK: State
 
-public struct NextRideFeature: ReducerProtocol {
+public struct NextRideFeature: Reducer {
   public init() {}
   
-  @Dependency(\.nextRideService) public var service
-  @Dependency(\.date) public var date
-  @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.coordinateObfuscator) public var coordinateObfuscator
-  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
-  @Dependency(\.calendar) public var calendar
+  @Dependency(\.nextRideService) private var service
+  @Dependency(\.date) private var date
+  @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
+  @Dependency(\.isNetworkAvailable) private var isNetworkAvailable
+  @Dependency(\.calendar) private var calendar
 
   public struct State: Equatable {
     public init(nextRide: Ride? = nil) {
@@ -41,7 +40,7 @@ public struct NextRideFeature: ReducerProtocol {
   // MARK: Reducer
 
   /// Reducer handling next ride feature actions
-  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case let .getNextRide(coordinate):
       guard state.rideEventSettings.isEnabled else {
@@ -56,15 +55,17 @@ public struct NextRideFeature: ReducerProtocol {
 
       let requestRidesInMonth: Int = queryMonth(for: date.callAsFunction)
 
-      return .task { [distance = state.rideEventSettings.eventDistance] in
-        await .nextRideResponse(
-          TaskResult {
-            try await service.nextRide(
-              obfuscatedCoordinate,
-              distance.rawValue,
-              requestRidesInMonth
-            )
-          }
+      return .run { [distance = state.rideEventSettings.eventDistance] send in
+        await send(
+          await .nextRideResponse(
+            TaskResult {
+              try await service.nextRide(
+                obfuscatedCoordinate,
+                distance.rawValue,
+                requestRidesInMonth
+              )
+            }
+          )
         )
       }
 
@@ -115,7 +116,9 @@ public struct NextRideFeature: ReducerProtocol {
         logger.info("No upcoming events after filter")
         return .none
       }
-      return EffectTask(value: .setNextRide(filteredRide))
+      return .run { send in
+        await send(.setNextRide(filteredRide))
+      }
 
     case let .setNextRide(ride):
       state.nextRide = ride

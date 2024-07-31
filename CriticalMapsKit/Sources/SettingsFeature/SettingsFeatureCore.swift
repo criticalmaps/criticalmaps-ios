@@ -10,10 +10,10 @@ public struct SettingsFeature: Reducer {
 
   // MARK: State
 
-  @Dependency(\.fileClient) public var fileClient
-  @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.uiApplicationClient) public var uiApplicationClient
-
+  @Dependency(\.fileClient) var fileClient
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
+  
   public struct State: Equatable {
     @BindingState public var isObservationModeEnabled = true
     @BindingState public var infoViewEnabled = true
@@ -90,7 +90,7 @@ public struct SettingsFeature: Reducer {
         
         return .run { [settings = state] _ in
           try await withTaskCancellation(id: SaveDebounceId.debounce, cancelInFlight: true) {
-            try await mainQueue.sleep(for: .seconds(1))
+            try await clock.sleep(for: .seconds(1))
             try await fileClient.saveUserSettings(
               userSettings: .init(settings: settings)
             )
