@@ -40,7 +40,7 @@ public struct RequestTimer {
       return .run { [isTimerActive = state.isTimerActive] send in
         guard isTimerActive else { return }
         for await _ in mainRunLoop.timer(interval: .seconds(1)) {
-          await send(.timerTicked)
+          await send(.timerTicked, animation: .spring)
         }
       }
       .cancellable(id: Timer.cancel, cancelInFlight: true)
