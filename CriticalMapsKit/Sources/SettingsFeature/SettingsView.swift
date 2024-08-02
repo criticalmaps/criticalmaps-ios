@@ -193,9 +193,9 @@ public struct SettingsView: View {
       
       SettingsRow {
         Button(
-          action: { viewStore.send(.infoSectionRowTapped(.twitter)) },
+          action: { viewStore.send(.infoSectionRowTapped(.mastodon)) },
           label: {
-            SettingsInfoLink(title: L10n.Settings.twitter)
+            SettingsInfoLink(title: "mastodon")
           }
         )
         .accessibilityAddTraits(.isLink)
