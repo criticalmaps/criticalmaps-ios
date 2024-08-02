@@ -2,7 +2,8 @@ import ComposableArchitecture
 import L10n
 import MapKit
 
-public struct UserTrackingFeature: Reducer {
+@Reducer
+public struct UserTrackingFeature {
   public init() {}
 
   public struct State: Equatable {

@@ -7,7 +7,8 @@ import Styleguide
 import SwiftUI
 import UIApplicationClient
 
-public struct TootFeature: Reducer {
+@Reducer
+public struct TootFeature {
   public init() {}
   
   @Dependency(\.uiApplicationClient) public var uiApplicationClient

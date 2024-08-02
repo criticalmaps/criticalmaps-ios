@@ -96,17 +96,22 @@ public struct MapFeature {
   }
 
   /// Used to identify locatioManager effects.
-  private struct LocationManagerId: Hashable {}
   enum CancelID { case delegate }
   
   public var body: some Reducer<State, Action> {
     BindingReducer()
     
-    Scope(state: \.userTrackingMode, action: /MapFeature.Action.userTracking) {
+    Scope(
+      state: \.userTrackingMode,
+      action: \.userTracking
+    ) {
       UserTrackingFeature()
     }
     
-    Scope(state: \.self, action: /MapFeature.Action.locationManager) {
+    Scope(
+      state: \.self,
+      action: \.locationManager
+    ) {
       Reduce<State, LocationManager.Action> { state, action in
         switch action {
         case .didChangeAuthorization(.authorizedAlways),

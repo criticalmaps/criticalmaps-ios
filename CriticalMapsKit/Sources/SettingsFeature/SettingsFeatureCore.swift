@@ -1,7 +1,6 @@
 import ComposableArchitecture
 import FileClient
 import Helpers
-import MapFeature
 import SharedModels
 import UIApplicationClient
 import UIKit.UIInterface
@@ -13,7 +12,6 @@ public struct SettingsFeature: Reducer {
 
   @Dependency(\.continuousClock) var clock
   @Dependency(\.fileClient) var fileClient
-  @Dependency(\.locationManager) var locationManager
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   
   public struct State: Equatable {
@@ -92,18 +90,14 @@ public struct SettingsFeature: Reducer {
         
         return .concatenate(
           .run { [settings = state] _ in
-            try await withTaskCancellation(id: SaveDebounceId.debounce, cancelInFlight: true) {
+            try await withTaskCancellation(
+              id: SaveDebounceId.debounce,
+              cancelInFlight: true)
+            {
               try await clock.sleep(for: .seconds(1.5))
               try await fileClient.saveUserSettings(
                 userSettings: .init(settings: settings)
               )
-            }
-          },
-          .run { [isObserving = state.isObservationModeEnabled] _ in
-            if isObserving {
-              await locationManager.stopUpdatingLocation()
-            } else {
-              await locationManager.startUpdatingLocation()
             }
           }
         )

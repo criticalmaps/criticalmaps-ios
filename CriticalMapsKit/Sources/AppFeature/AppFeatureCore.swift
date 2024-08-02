@@ -470,7 +470,6 @@ public struct AppFeature {
           else {
             return .none
           }
-          struct RideEventRadiusSettingChange: Hashable {}
           enum RideEventCancelID {
             case settingsChange
           }
