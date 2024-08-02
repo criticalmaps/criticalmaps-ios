@@ -13,13 +13,13 @@ import UserDefaultsClient
 public struct ChatFeature: Reducer {
   public init() {}
   
-  @Dependency(\.date) public var date
-  @Dependency(\.idProvider) public var idProvider
-  @Dependency(\.apiService) public var apiService
-  @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.uuid) public var uuid
-  @Dependency(\.userDefaultsClient) public var userDefaultsClient
-  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
+  @Dependency(\.date) var date
+  @Dependency(\.idProvider) var idProvider
+  @Dependency(\.apiService) var apiService
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.uuid) var uuid
+  @Dependency(\.userDefaultsClient) var userDefaultsClient
+  @Dependency(\.isNetworkAvailable) var isNetworkAvailable
   
   var md5Uuid: String {
     Insecure.MD5.hash(data: idProvider.id().data(using: .utf8)!)

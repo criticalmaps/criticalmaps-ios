@@ -39,8 +39,8 @@ extension Location: Codable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    let latitude = try container.decode(Double.self, forKey: .latitude) / 1_000_000
-    let longitude = try container.decode(Double.self, forKey: .longitude) / 1_000_000
+    let latitude = try container.decode(Double.self, forKey: .latitude) / locationFactor
+    let longitude = try container.decode(Double.self, forKey: .longitude) / locationFactor
     coordinate = Coordinate(latitude: latitude, longitude: longitude)
     try timestamp = container.decode(Double.self, forKey: .timestamp)
     try name = container.decodeIfPresent(String.self, forKey: .name)
@@ -49,8 +49,8 @@ extension Location: Codable {
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(coordinate.longitude * 1_000_000, forKey: .longitude)
-    try container.encode(coordinate.latitude * 1_000_000, forKey: .latitude)
+    try container.encode(coordinate.longitude * locationFactor, forKey: .longitude)
+    try container.encode(coordinate.latitude * locationFactor, forKey: .latitude)
     try container.encode(timestamp, forKey: .timestamp)
     try container.encodeIfPresent(color, forKey: .color)
     try container.encodeIfPresent(name, forKey: .name)

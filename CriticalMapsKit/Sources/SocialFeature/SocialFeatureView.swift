@@ -28,14 +28,14 @@ public struct SocialView: View {
             ChatView(
               store: store.scope(
                 state: \.chatFeatureState,
-                action: SocialFeature.Action.chat
+                action: \.chat
               )
             )
           case .toots:
             MastodonFeedView(
               store: store.scope(
                 state: \.mastodonFeedState,
-                action: SocialFeature.Action.toots
+                action: \.toots
               )
             )
           }

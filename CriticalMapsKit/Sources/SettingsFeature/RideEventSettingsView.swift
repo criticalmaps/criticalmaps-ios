@@ -46,7 +46,7 @@ public struct RideEventSettingsView: View {
             ForEachStore(
               self.store.scope(
                 state: \.rideEventTypes,
-                action: Action.rideEventType
+                action: \.rideEventType
               )
             ) {
               RideEventTypeView(store: $0)

@@ -12,7 +12,7 @@ import UserDefaultsClient
 public struct SocialFeature {
   public init() {}
   
-  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
+  @Dependency(\.isNetworkAvailable) var isNetworkAvailable
   
   // MARK: State
   
@@ -57,12 +57,18 @@ public struct SocialFeature {
   // MARK: Reducer
   
   public var body: some ReducerOf<Self> {
-    Scope(state: \.chatFeatureState, action: /SocialFeature.Action.chat) {
+    Scope(
+      state: \.chatFeatureState,
+      action: \.chat
+    ) {
       ChatFeature()
         .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
-    Scope(state: \.mastodonFeedState, action: /SocialFeature.Action.toots) {
+    Scope(
+      state: \.mastodonFeedState,
+      action: \.toots
+    ) {
       TootFeedFeature()
     }
     

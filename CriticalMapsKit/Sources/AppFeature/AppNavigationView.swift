@@ -19,6 +19,10 @@ public struct AppNavigationView: View {
   
   let minHeight: CGFloat = 56
   
+  private var shouldShowAccessiblyBackground: Bool {
+    reduceTransparency || colorSchemeContrast.isIncreased
+  }
+  
   public init(store: StoreOf<AppFeature>) {
     self.store = store
     viewStore = ViewStore(store, observe: { $0 })
@@ -52,7 +56,11 @@ public struct AppNavigationView: View {
         .accessibility(label: Text("App navigation \(L10n.Settings.title)"))
     }
     .font(.body)
-    .background(reduceTransparency || colorSchemeContrast.isIncreased ? Color(.backgroundSecondary) : Color(.backgroundTranslucent))
+    .background(
+      shouldShowAccessiblyBackground
+        ? Color(.backgroundSecondary)
+        : Color(.backgroundTranslucent)
+    )
     .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
   }

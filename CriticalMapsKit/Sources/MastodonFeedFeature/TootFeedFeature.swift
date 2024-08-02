@@ -13,8 +13,8 @@ import SwiftUI
 public struct TootFeedFeature {
   public init() {}
   
-  @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.tootService) public var tootService
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.tootService) var tootService
 
   // MARK: State
 

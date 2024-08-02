@@ -7,8 +7,8 @@ import SharedModels
 public struct AppDelegate: Reducer {
   public init() {}
 
-  @Dependency(\.fileClient) public var fileClient
-  @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
+  @Dependency(\.fileClient) var fileClient
+  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
 
   public typealias State = UserSettings
 

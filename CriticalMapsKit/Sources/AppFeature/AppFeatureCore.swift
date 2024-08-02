@@ -22,19 +22,19 @@ import UserDefaultsClient
 public struct AppFeature {
   public init() {}
   
-  @Dependency(\.fileClient) public var fileClient
-  @Dependency(\.apiService) public var apiService
-  @Dependency(\.uuid) public var uuid
-  @Dependency(\.date) public var date
-  @Dependency(\.userDefaultsClient) public var userDefaultsClient
-  @Dependency(\.nextRideService) public var nextRideService
-  @Dependency(\.idProvider) public var idProvider
-  @Dependency(\.mainQueue) public var mainQueue
-  @Dependency(\.continuousClock) public var clock
-  @Dependency(\.locationManager) public var locationManager
-  @Dependency(\.uiApplicationClient) public var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
-  @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
+  @Dependency(\.fileClient) var fileClient
+  @Dependency(\.apiService) var apiService
+  @Dependency(\.uuid) var uuid
+  @Dependency(\.date) var date
+  @Dependency(\.userDefaultsClient) var userDefaultsClient
+  @Dependency(\.nextRideService) var nextRideService
+  @Dependency(\.idProvider) var idProvider
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
+  @Dependency(\.isNetworkAvailable) var isNetworkAvailable
   
   // MARK: State
 

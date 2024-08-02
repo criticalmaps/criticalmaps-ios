@@ -7,8 +7,8 @@ public struct RideEventsSettingsFeature: Reducer {
   public init() {}
   
   public struct State: Equatable, Sendable {
-    @BindingState public var isEnabled: Bool
-    @BindingState public var eventSearchRadius: EventDistance
+    @BindingState var isEnabled: Bool
+    @BindingState var eventSearchRadius: EventDistance
     public var rideEventTypes: IdentifiedArrayOf<RideEventType.State> = []
     
     public init(
