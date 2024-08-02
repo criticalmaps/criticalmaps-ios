@@ -20,37 +20,40 @@ public struct UserTrackingButton: View {
   public var body: some View {
     Button(
       action: {
-        viewStore.send(.nextTrackingMode)
+        viewStore.send(.nextTrackingMode, animation: nil)
       },
-      label: {
-        iconImage
-      }
+      label: { iconImage }
     )
     .accessibility(label: Text(viewStore.mode.accessiblityLabel))
     .accessibilityAction(named: Text(L10n.A11y.Usertrackingbutton.hint)) {
-      viewStore.send(.nextTrackingMode)
+      viewStore.send(.nextTrackingMode, animation: nil)
     }
     .accessibilityHint(Text(L10n.A11y.Usertrackingbutton.hint))
     .accessibilityShowsLargeContentViewer {
-      Label(viewStore.mode.accessiblityLabel, systemImage: "location.fill")
+      Label(
+        viewStore.mode.accessiblityLabel,
+        systemImage: systemImageIdentifier
+      )
+    }
+  }
+  
+  private var systemImageIdentifier: String {
+    switch viewStore.mode {
+    case .follow:
+      return "location.fill"
+    case .followWithHeading:
+      return "location.north.line.fill"
+    case .none:
+      return "location"
+    @unknown default:
+      return "location"
     }
   }
 
+  @ViewBuilder
   var iconImage: some View {
-    switch viewStore.mode {
-    case .follow:
-      return Image(systemName: "location.fill")
-        .iconModifier()
-    case .followWithHeading:
-      return Image(systemName: "location.north.line.fill")
-        .iconModifier()
-    case .none:
-      return Image(systemName: "location")
-        .iconModifier()
-    @unknown default:
-      return Image(systemName: "location")
-        .iconModifier()
-    }
+    Image(systemName: systemImageIdentifier)
+      .iconModifier()
   }
 }
 
