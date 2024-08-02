@@ -187,6 +187,7 @@ let package = Package(
         "L10n",
         "Logger",
         "Helpers",
+        "MapFeature",
         "SharedDependencies",
         "SharedModels",
         "Styleguide",
