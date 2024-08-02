@@ -128,6 +128,7 @@ public struct AppView: View {
                   .foregroundColor(Color(.textPrimary))
                   .font(.system(size: 14).bold())
                   .monospacedDigit()
+                  .modifier(NumericContentTransition())
               }
             }
             .padding(.top, .grid(1))
@@ -137,6 +138,7 @@ public struct AppView: View {
           HStack {
             Text(viewStore.ridersCount)
               .font(.pageTitle)
+              .modifier(NumericContentTransition())
           }
           .foregroundColor(Color(.textPrimary))
         }
@@ -284,4 +286,15 @@ public struct AppView: View {
       reducer: { AppFeature()._printChanges() }
     )
   )
+}
+
+struct NumericContentTransition: ViewModifier {
+  func body(content: Content) -> some View {
+    if #available(iOS 17, *) {
+      content
+        .contentTransition(.numericText())
+    } else {
+      content
+    }
+  }
 }
