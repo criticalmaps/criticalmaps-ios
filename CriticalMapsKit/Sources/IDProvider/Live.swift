@@ -7,8 +7,9 @@ extension IDProvider: DependencyKey {
   public static var liveValue: IDProvider {
     @Dependency(\.userDefaultsClient) var defaultsClient
     @Dependency(\.date) var date
+    @Dependency(\.uuid) var uuid
     
-    let id = defaultsClient.getSessionID ?? UUID().uuidString
+    let id = defaultsClient.getSessionID ?? uuid().uuidString
     
     return Self(
       id: {

@@ -22,7 +22,7 @@ public struct ChatFeature: Reducer {
   @Dependency(\.isNetworkAvailable) public var isNetworkAvailable
   
   var md5Uuid: String {
-    Insecure.MD5.hash(data: uuid().uuidString.data(using: .utf8)!)
+    Insecure.MD5.hash(data: idProvider.id().data(using: .utf8)!)
       .map { String(format: "%02hhx", $0) }
       .joined()
   }
