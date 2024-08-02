@@ -104,7 +104,7 @@ public struct AppFeature {
     public var chatMessageBadgeCount: UInt = 0
 
     @BindingState public var bottomSheetPosition: BottomSheetPosition = .hidden
-    public var alert: AlertState<Action>?
+    @PresentationState var alert: AlertState<Action.Alert>?
     
     var hasOfflineError: Bool {
       switch riderLocations {
@@ -125,6 +125,7 @@ public struct AppFeature {
   @CasePathable
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
+    case alert(PresentationAction<Alert>)
     case appDelegate(AppDelegate.Action)
     case onAppear
     case onDisappear
@@ -139,14 +140,15 @@ public struct AppFeature {
     case setNavigation(tag: AppRoute.Tag?)
     case dismissSheetView
     case presentObservationModeAlert
-    case setObservationMode(Bool)
-    case dismissAlert
-    
     case map(MapFeature.Action)
     case nextRide(NextRideFeature.Action)
     case requestTimer(RequestTimer.Action)
     case settings(SettingsFeature.Action)
     case social(SocialFeature.Action)
+
+    public enum Alert: Equatable, Sendable {
+      case observationMode(enabled: Bool)
+    }
   }
   
   // MARK: Reducer
@@ -198,7 +200,7 @@ public struct AppFeature {
           .send(.map(.onAppear)),
           .send(.requestTimer(.startTimer)),
           .run { _ in
-            await userDefaultsClient.setSessionID(UUID().uuidString)
+            await userDefaultsClient.setSessionID(uuid().uuidString)
           },
           .run { send in
             await send(
@@ -319,10 +321,11 @@ public struct AppFeature {
       case .postLocationResponse(.failure(let error)):
         logger.debug("Failed to post location. Error: \(error.localizedDescription)")
         return .none
-
+        
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
-        case .focusRideEvent, .focusNextRide:
+        case .focusRideEvent,
+            .focusNextRide:
           if state.bottomSheetPosition != .hidden {
             return .send(.set(\.$bottomSheetPosition, .relative(0.4)))
           } else {
@@ -332,7 +335,7 @@ public struct AppFeature {
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
           return .none
-
+          
         default:
           return .none
         }
@@ -372,7 +375,7 @@ public struct AppFeature {
             await setUserInterfaceStyle(style)
           }
         )
-
+        
       case let .setNavigation(tag: tag):
         switch tag {
         case .chat:
@@ -385,11 +388,11 @@ public struct AppFeature {
           state.route = .none
         }
         return .none
-
+        
       case .dismissSheetView:
         state.route = .none
         return .send(.fetchLocations)
-              
+        
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
@@ -421,18 +424,29 @@ public struct AppFeature {
         }
         
       case .presentObservationModeAlert:
-        state.alert = .viewingModeAlert
+        state.alert = AlertState(
+          title: {
+            TextState(verbatim: L10n.Settings.Observationmode.title)
+          },
+          actions: { 
+            ButtonState(
+              action: .observationMode(enabled: false),
+              label: { TextState(L10n.AppCore.ViewingModeAlert.riding) }
+            )
+            ButtonState(
+              action: .observationMode(enabled: true),
+              label: { TextState(L10n.AppCore.ViewingModeAlert.watching) }
+            )
+          },
+          message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
+        )
         return .none
-        
-      case let .setObservationMode(value):
-        state.settingsState.isObservationModeEnabled = value
+
+      case let .alert(.presented(.observationMode(enabled: isEnabled))):
+        state.settingsState.isObservationModeEnabled = isEnabled
         return .run { _ in
           await userDefaultsClient.setDidShowObservationModePrompt(true)
         }
-        
-      case .dismissAlert:
-        state.alert = nil
-        return .none
         
       case let .social(socialAction):
         switch socialAction {
@@ -448,7 +462,7 @@ public struct AppFeature {
         switch settingsAction {
         case .rideevent:
           state.nextRideState.rideEventSettings = .init(state.settingsState.rideEventSettings)
-
+          
           guard
             let coordinate = state.mapFeatureState.location?.coordinate,
             state.settingsState.rideEventSettings.isEnabled
@@ -456,13 +470,23 @@ public struct AppFeature {
             return .none
           }
           struct RideEventRadiusSettingChange: Hashable {}
+          enum RideEventCancelID {
+            case settingsChange
+          }
           return .send(.nextRide(.getNextRide(coordinate)))
-            .debounce(id: RideEventRadiusSettingChange(), for: 2, scheduler: mainQueue)
+            .debounce(
+              id: RideEventCancelID.settingsChange,
+              for: 2,
+              scheduler: mainQueue
+            )
         default:
           return .none
         }
 
       case .binding:
+        return .none
+
+      case .alert:
         return .none
       }
     }
@@ -500,16 +524,22 @@ extension SharedModels.Coordinate {
   }
 }
 
-public extension AlertState where Action == AppFeature.Action {
-  static let viewingModeAlert = Self(
-    title: .init(L10n.Settings.Observationmode.title),
-    message: .init(L10n.AppCore.ViewingModeAlert.message),
-    buttons: [
-      .default(.init(L10n.AppCore.ViewingModeAlert.riding), action: .send(.setObservationMode(false))),
-      .default(.init(L10n.AppCore.ViewingModeAlert.watching), action: .send(.setObservationMode(true)))
-    ]
-  )
-}
+// public extension AlertState where Action == AppFeature.Action {
+//  static let viewingModeAlert = Self(
+//    title: .init(L10n.Settings.Observationmode.title),
+//    message: .init(L10n.AppCore.ViewingModeAlert.message),
+//    buttons: [
+//      .default(
+//        .init(L10n.AppCore.ViewingModeAlert.riding),
+//        action: .send(.setObservationMode(false))
+//      ),
+//      .default(
+//        .init(L10n.AppCore.ViewingModeAlert.watching),
+//        action: .send(.setObservationMode(true))
+//      )
+//    ]
+//  )
+// }
 
 public typealias ReducerBuilderOf<R: Reducer> = ReducerBuilder<R.State, R.Action>
 

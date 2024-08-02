@@ -54,7 +54,7 @@ public struct ChatView: View {
       
       chatInput
     }
-//    .alert(store.scope(state: \.alert, action: { $0 }), dismiss: .dismissAlert)
+    .alert(store: store.scope(state: \.$alert, action: \.alert))
     .onAppear { viewStore.send(.onAppear) }
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea(.container, edges: .bottom)

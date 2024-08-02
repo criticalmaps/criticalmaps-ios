@@ -21,7 +21,7 @@ final class AppearanceSettingsCoreTests: XCTestCase {
       state.appIcon = .appIcon4
     }
     await overriddenIconName.withValue { iconName in
-      XCTAssertNoDifference(iconName, "appIcon-4")
+      expectNoDifference(iconName, "appIcon-4")
     }
   }
 
@@ -42,14 +42,14 @@ final class AppearanceSettingsCoreTests: XCTestCase {
       $0.colorScheme = .light
     }
     await overriddenUserInterfaceStyle.withValue { stlye in
-      XCTAssertNoDifference(stlye, .light)
+      expectNoDifference(stlye, .light)
     }
 
     await store.send(.set(\.$colorScheme, .system)) {
       $0.colorScheme = .system
     }
     await overriddenUserInterfaceStyle.withValue { stlye in
-      XCTAssertNoDifference(stlye, .unspecified)
+      expectNoDifference(stlye, .unspecified)
     }
   }
 }

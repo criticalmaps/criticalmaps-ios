@@ -89,19 +89,20 @@ final class NextRideCoreTests: XCTestCase {
   func test_disabledNextRideFeature_shouldNotRequestRides() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
-    ) {
-      $0.nextRideService.nextRide = { _, _, _ in [] }
-      $0.date = .init({ @Sendable in self.now() })
-      $0.userDefaultsClient.dataForKey = { _ in
-        try? RideEventSettings(
-          isEnabled: false,
-          typeSettings: [:],
-          eventDistance: .near
-        )
-        .encoded()
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in [] }
+        $0.date = .init({ @Sendable in self.now() })
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings(
+            isEnabled: false,
+            typeSettings: [:],
+            eventDistance: .near
+          )
+          .encoded()
+        }
       }
-    }
+    )
     
     // no effect received
     await store.send(.getNextRide(coordinate))

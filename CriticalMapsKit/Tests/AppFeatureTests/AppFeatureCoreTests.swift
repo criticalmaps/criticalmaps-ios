@@ -61,10 +61,11 @@ final class AppFeatureTests: XCTestCase {
 
     let store = TestStore(
       initialState: AppFeature.State(),
-      reducer: { AppFeature() }
-    ) {
-      $0.continuousClock = testClock
-    }
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = testClock
+      }
+    )
     store.exhaustivity = .off(showSkippedAssertions: true)
 
     let ride = Ride(
@@ -219,15 +220,16 @@ final class AppFeatureTests: XCTestCase {
     
     let store = TestStore(
       initialState: state,
-      reducer: { AppFeature() }
-    ) {
-      $0.date = .init({ @Sendable in self.date() })
-      $0.continuousClock = testClock
-      $0.mainQueue = testQueue.eraseToAnyScheduler()
-      $0.nextRideService.nextRide = { _, _, _ in
-        [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.date = .init({ @Sendable in self.date() })
+        $0.continuousClock = testClock
+        $0.mainQueue = testQueue.eraseToAnyScheduler()
+        $0.nextRideService.nextRide = { _, _, _ in
+          [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
+        }
       }
-    }
+    )
     store.exhaustivity = .off
 
     await store.send(.settings(.rideevent(.set(\.$eventSearchRadius, .far)))) {
@@ -267,19 +269,21 @@ final class AppFeatureTests: XCTestCase {
     
     let store = TestStore(
       initialState: state,
-      reducer: { AppFeature() }
-    ) {
-      $0.locationManager = locationManager
-      $0.mainQueue = .immediate
-      $0.mainRunLoop = .immediate
-      $0.date = .init({ @Sendable in self.date() })
-      $0.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
-      $0.apiService.getChatMessages = { [] }
-      $0.apiService.getRiders = { [] }
-      $0.continuousClock = testClock
-      $0.nextRideService.nextRide = { _, _, _ in [] }
-      $0.userDefaultsClient.setString = { _, _ in }
-    }
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.uuid = .incrementing
+        $0.locationManager = locationManager
+        $0.mainQueue = .immediate
+        $0.mainRunLoop = .immediate
+        $0.date = .init({ @Sendable in self.date() })
+        $0.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
+        $0.apiService.getChatMessages = { [] }
+        $0.apiService.getRiders = { [] }
+        $0.continuousClock = testClock
+        $0.nextRideService.nextRide = { _, _, _ in [] }
+        $0.userDefaultsClient.setString = { _, _ in }
+      }
+    )
     store.exhaustivity = .off
     
     await store.send(.onAppear)
@@ -389,15 +393,16 @@ final class AppFeatureTests: XCTestCase {
     
     let store = TestStore(
       initialState: state,
-      reducer: { AppFeature() }
-    ) {
-      $0.date = .init({ @Sendable in self.date() })
-      $0.mainQueue = testQueue.eraseToAnyScheduler()
-      $0.nextRideService.nextRide = { _, _, _ in
-        [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.date = .init({ @Sendable in self.date() })
+        $0.mainQueue = testQueue.eraseToAnyScheduler()
+        $0.nextRideService.nextRide = { _, _, _ in
+          [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
+        }
+        $0.continuousClock = TestClock()
       }
-      $0.continuousClock = TestClock()
-    }
+    )
     store.exhaustivity = .off
 
     await store.send(.settings(.rideevent(.set(\.$isEnabled, true)))) {
@@ -420,16 +425,17 @@ final class AppFeatureTests: XCTestCase {
     
     let store = TestStore(
       initialState: state,
-      reducer: { AppFeature() }
-    ) {
-      $0.date = .init({ @Sendable in self.date() })
-      $0.mainQueue = testQueue.eraseToAnyScheduler()
-      $0.nextRideService.nextRide = { _, radius, _ in
-        await updatedRaduis.setValue(radius)
-        return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.date = .init({ @Sendable in self.date() })
+        $0.mainQueue = testQueue.eraseToAnyScheduler()
+        $0.nextRideService.nextRide = { _, radius, _ in
+          await updatedRaduis.setValue(radius)
+          return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
+        }
+        $0.continuousClock = TestClock()
       }
-      $0.continuousClock = TestClock()
-    }
+    )
     store.exhaustivity = .off
     
     await store.send(.settings(.rideevent(.set(\.$eventSearchRadius, .far)))) {
@@ -451,17 +457,18 @@ final class AppFeatureTests: XCTestCase {
 
     let store = TestStore(
       initialState: AppFeature.State(),
-      reducer: { AppFeature() }
-    ) {
-      $0.mainQueue = testQueue.eraseToAnyScheduler()
-      $0.userDefaultsClient.setBool = { _, _ in
-        await didSetDidShowPrompt.setValue(true)
-        return ()
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.mainQueue = testQueue.eraseToAnyScheduler()
+        $0.userDefaultsClient.setBool = { _, _ in
+          await didSetDidShowPrompt.setValue(true)
+          return ()
+        }
+        $0.continuousClock = TestClock()
       }
-      $0.continuousClock = TestClock()
-    }
+    )
 
-    await store.send(.setObservationMode(false))
+    await store.send(.alert(.presented(.observationMode(enabled: false))))
 
     await didSetDidShowPrompt.withValue { val in
       XCTAssertTrue(val)
@@ -475,11 +482,12 @@ final class AppFeatureTests: XCTestCase {
       
       let store = TestStore(
         initialState: state,
-        reducer: { AppFeature() }
-      ) {
-        $0.date = .init({ @Sendable in self.date() })
-        $0.continuousClock = TestClock()
-      }
+        reducer: { AppFeature() },
+        withDependencies: {
+          $0.date = .init({ @Sendable in self.date() })
+          $0.continuousClock = TestClock()
+        }
+      )
       await store.send(.postLocation)
     }
 }

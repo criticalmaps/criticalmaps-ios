@@ -32,7 +32,7 @@ public struct ChatFeature: Reducer {
   public struct State: Equatable {
     public var chatMessages: ContentState<[ChatMessage]>
     public var chatInputState: ChatInput.State
-    public var alert: AlertState<Action>?
+    @PresentationState public var alert: AlertState<Action.Alert>?
     
     public init(
       chatMessages: ContentState<[ChatMessage]> = .loading([]),
@@ -49,11 +49,15 @@ public struct ChatFeature: Reducer {
   public enum Action: Equatable {
     case onAppear
     case chatInputResponse(TaskResult<ApiResponse>)
-    case dismissAlert
     case fetchChatMessages
     case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
     
     case chatInput(ChatInput.Action)
+    case alert(PresentationAction<Alert>)
+    
+    public enum Alert {
+      case chat
+    }
   }
   
   // MARK: Reducer
@@ -66,6 +70,9 @@ public struct ChatFeature: Reducer {
     // Reducer responsible for handling logic from the chat feature.
     Reduce { state, action in
       switch action {
+      case .alert:
+        return .none
+        
       case .onAppear:
         return .merge(
           .run { _ in
@@ -101,10 +108,6 @@ public struct ChatFeature: Reducer {
         logger.info("FetchLocation failed: \(error)")
         return .none
         
-      case .dismissAlert:
-        state.alert = nil
-        return .none
-        
       case .chatInputResponse(.success):
         state.chatInputState.isSending = false
         state.chatInputState.message.removeAll()
@@ -114,8 +117,8 @@ public struct ChatFeature: Reducer {
         state.chatInputState.isSending = false
         
         state.alert = AlertState(
-          title: .init(L10n.error),
-          message: .init("Failed to send chat message")
+          title: TextState(L10n.error),
+          message: TextState("Failed to send chat message")
         )
         
         logger.debug("ChatInput Action failed with error: \(error.localizedDescription)")

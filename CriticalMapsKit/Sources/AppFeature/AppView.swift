@@ -104,7 +104,7 @@ public struct AppView: View {
     .showDragIndicator(true)
     .enableSwipeToDismiss()
     .onDismiss { viewStore.send(.set(\.$bottomSheetPosition, .hidden)) }
-//    .alert(store.scope(state: \.alert, action: { $0 }), dismiss: .dismissAlert)
+    .alert(store: store.scope(state: \.$alert, action: \.alert))
     .onAppear { viewStore.send(.onAppear) }
     .onDisappear { viewStore.send(.onDisappear) }
   }
