@@ -8,7 +8,8 @@ import SharedModels
 
 // MARK: State
 
-public struct NextRideFeature: Reducer {
+@Reducer
+public struct NextRideFeature {
   public init() {}
   
   @Dependency(\.nextRideService) private var service

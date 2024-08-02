@@ -4,7 +4,8 @@ import Foundation
 import SharedDependencies
 import SharedModels
 
-public struct AppDelegate: Reducer {
+@Reducer
+public struct AppDelegate {
   public init() {}
 
   @Dependency(\.fileClient) var fileClient

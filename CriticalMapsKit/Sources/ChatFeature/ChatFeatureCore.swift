@@ -10,7 +10,8 @@ import SharedDependencies
 import SharedModels
 import UserDefaultsClient
 
-public struct ChatFeature: Reducer {
+@Reducer
+public struct ChatFeature {
   public init() {}
   
   @Dependency(\.date) var date

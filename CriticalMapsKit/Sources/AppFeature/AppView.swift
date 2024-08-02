@@ -19,6 +19,11 @@ public struct AppView: View {
   
   @State private var showOfflineBanner = false
   
+  private var shouldShowNextRideBanner: Bool {
+    viewStore.mapFeatureState.isNextRideBannerVisible &&
+    viewStore.settingsState.rideEventSettings.isEnabled
+  }
+  
   public init(store: StoreOf<AppFeature>) {
     self.store = store
     viewStore = ViewStore(store, observe: { $0 })
@@ -44,7 +49,7 @@ public struct AppView: View {
       
       HStack {
         VStack(alignment: .leading) {
-          if viewStore.mapFeatureState.isNextRideBannerVisible, viewStore.settingsState.rideEventSettings.isEnabled {
+          if shouldShowNextRideBanner {
             nextRideBanner()
               .contextMenu {
                 Button(
