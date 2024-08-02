@@ -477,19 +477,71 @@ final class AppFeatureTests: XCTestCase {
   
   @MainActor
   func test_postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
-      var state = AppFeature.State()
-      state.settingsState.isObservationModeEnabled = true
-      
-      let store = TestStore(
-        initialState: state,
-        reducer: { AppFeature() },
-        withDependencies: {
-          $0.date = .init({ @Sendable in self.date() })
-          $0.continuousClock = TestClock()
+    var state = AppFeature.State()
+    state.settingsState.isObservationModeEnabled = true
+    
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.date = .init({ @Sendable in self.date() })
+        $0.continuousClock = TestClock()
+      }
+    )
+    await store.send(.postLocation)
+  }
+  
+  @MainActor
+  func test_bindingObservationStatus_shouldStopLocationUpdating() async {
+    let didStopLocationUpdating = ActorIsolated(false)
+    
+    let store = TestStore(
+      initialState: AppFeature.State(),
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.locationManager.stopUpdatingLocation = { 
+          await didStopLocationUpdating.setValue(true)
         }
-      )
-      await store.send(.postLocation)
+        $0.continuousClock = TestClock()
+      }
+    )
+    store.exhaustivity = .off
+    
+    await store.send(
+      .settings(.binding(.set(\.$isObservationModeEnabled, true)))
+    ) {
+      $0.settingsState.isObservationModeEnabled = true
     }
+    // assert
+    let didStopLocationObservationValue = await didStopLocationUpdating.value
+    XCTAssertTrue(didStopLocationObservationValue)
+  }
+
+  @MainActor
+  func test_bindingObservationStatus_shouldStartLocationUpdating() async {
+    let didStopLocationUpdating = ActorIsolated(false)
+    
+    let store = TestStore(
+      initialState: AppFeature.State(),
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.locationManager.startUpdatingLocation = {
+          await didStopLocationUpdating.setValue(true)
+        }
+        $0.continuousClock = TestClock()
+      }
+    )
+    store.exhaustivity = .off
+    
+    await store.send(
+      .settings(.binding(.set(\.$isObservationModeEnabled, false)))
+    ) {
+      $0.settingsState.isObservationModeEnabled = false
+    }
+    // assert
+    let didStopLocationObservationValue = await didStopLocationUpdating.value
+    XCTAssertTrue(didStopLocationObservationValue)
+  }
 }
 
 // MARK: Helper

@@ -461,6 +461,15 @@ public struct AppFeature {
         
       case let .settings(settingsAction):
         switch settingsAction {
+        case .binding(\.$isObservationModeEnabled):
+          return .run { [isObserving = state.settingsState.isObservationModeEnabled] _ in
+            if isObserving {
+              await locationManager.stopUpdatingLocation()
+            } else {
+              await locationManager.startUpdatingLocation()
+            }
+          }
+          
         case .rideevent:
           state.nextRideState.rideEventSettings = .init(state.settingsState.rideEventSettings)
           
