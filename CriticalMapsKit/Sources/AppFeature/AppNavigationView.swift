@@ -28,8 +28,8 @@ public struct AppNavigationView: View {
     HStack {
       UserTrackingButton(
         store: store.scope(
-          state: { $0.mapFeatureState.userTrackingMode },
-          action: { AppFeature.Action.map(.userTracking($0)) }
+          state: \.mapFeatureState.userTrackingMode,
+          action: \.map.userTracking
         )
       )
       .padding(10)
@@ -106,7 +106,7 @@ public struct AppNavigationView: View {
         SocialView(
           store: store.scope(
             state: \.socialState,
-            action: AppFeature.Action.social
+            action: \.social
           )
         )
         .accessibilityAddTraits([.isModal])
@@ -170,7 +170,7 @@ public struct AppNavigationView: View {
           SettingsView(
             store: store.scope(
               state: \.settingsState,
-              action: { AppFeature.Action.settings($0) }
+              action: \.settings
             )
           )
           .accessibilityAddTraits([.isModal])
