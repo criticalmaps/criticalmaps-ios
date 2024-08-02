@@ -444,6 +444,7 @@ public struct AppFeature {
 
       case let .alert(.presented(.observationMode(enabled: isEnabled))):
         state.settingsState.isObservationModeEnabled = isEnabled
+        state.alert = nil
         return .run { _ in
           await userDefaultsClient.setDidShowObservationModePrompt(true)
         }
