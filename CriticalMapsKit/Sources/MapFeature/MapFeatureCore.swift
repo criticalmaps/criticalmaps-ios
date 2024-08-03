@@ -84,7 +84,9 @@ public struct MapFeature {
     case focusRideEvent(Coordinate?)
     case resetCenterRegion
     case resetRideEventCenter
-
+    case startRequestingCurrentLocation
+    case setAlert(AlertState<Action>)
+    
     case showShareSheet(Bool)
     case routeToEvent
     
@@ -96,22 +98,16 @@ public struct MapFeature {
   }
 
   /// Used to identify locatioManager effects.
-  enum CancelID { case delegate }
+  enum CancelID { case locationManager }
   
   public var body: some Reducer<State, Action> {
     BindingReducer()
     
-    Scope(
-      state: \.userTrackingMode,
-      action: \.userTracking
-    ) {
+    Scope(state: \.userTrackingMode, action: \.userTracking) {
       UserTrackingFeature()
     }
     
-    Scope(
-      state: \.self,
-      action: \.locationManager
-    ) {
+    Scope(state: \.self, action: \.locationManager) {
       Reduce<State, LocationManager.Action> { state, action in
         switch action {
         case .didChangeAuthorization(.authorizedAlways),
@@ -159,6 +155,10 @@ public struct MapFeature {
       case .binding:
         return .none
         
+      case .setAlert(let alert):
+        state.alert = alert
+        return .none
+        
       case let .setNextRideBannerVisible(value):
         state.isNextRideBannerVisible = value
         return .none
@@ -173,41 +173,41 @@ public struct MapFeature {
             await locationManager.setup()
           },
           .run { send in
-            for await event in locationManager.delegate() {
-              await send(.locationManager(event))
+            await withTaskCancellation(id: CancelID.locationManager, cancelInFlight: true) {
+              for await action in await locationManager.delegate() {
+                await send(.locationManager(action), animation: .default)
+              }
             }
-          }
-          .cancellable(id: CancelID.delegate),
+          },
           .send(.locationRequested)
         )
         
-      case .locationRequested:
-        guard locationManager.locationServicesEnabled() else {
-          state.alert = .servicesOff
-          return .none
+      case .startRequestingCurrentLocation:
+        state.isRequestingCurrentLocation = true
+        return .run { _ in
+#if os(macOS)
+          await locationManager.requestAlwaysAuthorization()
+#else
+          await locationManager.requestAlwaysAuthorization()
+#endif
         }
-        switch locationManager.authorizationStatus() {
-        case .notDetermined:
-          state.isRequestingCurrentLocation = true
-          return .run { _ in
-            await locationManager.requestAlwaysAuthorization()
-          }
-          
-        case .restricted:
-          state.alert = .goToSettingsAlert
-          return .none
-          
-        case .denied:
-          state.alert = .goToSettingsAlert
-          return .none
-          
-        case .authorizedAlways, .authorizedWhenInUse:
-          return .run { _ in
+        
+      case .locationRequested:
+        return .run { send in
+          switch await locationManager.authorizationStatus() {
+          case .notDetermined:
+            await send(.startRequestingCurrentLocation)
+
+          case .restricted, .denied:
+            await send(.setAlert(.goToSettingsAlert))
+                        
+          case .authorizedAlways, .authorizedWhenInUse:
+            // check observermode here
             await locationManager.startUpdatingLocation()
+            
+          @unknown default:
+            break
           }
-          
-        @unknown default:
-          return .none
         }
         
       case .nextTrackingMode:
@@ -308,7 +308,7 @@ public extension AlertState where Action == MapFeature.Action {
 
 enum LocationManagerKey: DependencyKey {
   static let liveValue = LocationManager.live
-  static let testValue = LocationManager.unimplemented
+  static let testValue = LocationManager.failing
 }
 
 public extension DependencyValues {

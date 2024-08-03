@@ -34,7 +34,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/mltbnz/composable-core-location.git",
-      .revisionItem("eaa2e7d25d5a039ac090b66b866626792be4eeaa")
+      .revisionItem("1f9070ce561e4ef164cc8e124e37c77eaf2f4b4f")
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",

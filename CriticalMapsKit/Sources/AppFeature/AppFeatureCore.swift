@@ -41,7 +41,6 @@ public struct AppFeature {
   public struct State: Equatable {
     public init(
       locationsAndChatMessages: TaskResult<[Rider]>? = nil,
-      didResolveInitialLocation: Bool = false,
       mapFeatureState: MapFeature.State = .init(
         riders: [],
         userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
@@ -54,7 +53,6 @@ public struct AppFeature {
       chatMessageBadgeCount: UInt = 0
     ) {
       self.riderLocations = locationsAndChatMessages
-      self.didResolveInitialLocation = didResolveInitialLocation
       self.mapFeatureState = mapFeatureState
       self.socialState = socialState
       self.settingsState = settingsState
@@ -65,8 +63,8 @@ public struct AppFeature {
     }
     
     public var riderLocations: TaskResult<[Rider]>?
-    public var didResolveInitialLocation = false
     public var isRequestingRiderLocations = false
+    public var didRequestNextRide = false
     
     // Children states
     public var mapFeatureState = MapFeature.State(
@@ -100,7 +98,6 @@ public struct AppFeature {
     public var isChatViewPresented: Bool { route == .chat }
     public var isRulesViewPresented: Bool { route == .rules }
     public var isSettingsViewPresented: Bool { route == .settings }
-    
     public var chatMessageBadgeCount: UInt = 0
 
     @BindingState public var bottomSheetPosition: BottomSheetPosition = .hidden
@@ -334,7 +331,16 @@ public struct AppFeature {
           
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
-          return .none
+          let coordinate = state.mapFeatureState.location?.coordinate
+          let isRideEventsEnabled = state.settingsState.rideEventSettings.isEnabled
+          if isRideEventsEnabled, let coordinate, !state.didRequestNextRide {
+            state.didRequestNextRide = true
+            return .run { send in
+              await send(.nextRide(.getNextRide(coordinate)))
+            }
+          } else {
+            return .none
+          }
           
         default:
           return .none
@@ -362,19 +368,10 @@ public struct AppFeature {
         state.nextRideState.rideEventSettings = userSettings.rideEventSettings
         
         let style = state.settingsState.appearanceSettings.colorScheme.userInterfaceStyle
-        let coordinate = state.mapFeatureState.location?.coordinate
-        let isRideEventsEnabled = state.settingsState.rideEventSettings.isEnabled
         
-        return .merge(
-          .run { send in
-            if isRideEventsEnabled, let coordinate {
-              await send(.nextRide(.getNextRide(coordinate)))
-            }
-          },
-          .run { _ in
-            await setUserInterfaceStyle(style)
-          }
-        )
+        return .run { _ in
+          await setUserInterfaceStyle(style)
+        }
         
       case let .setNavigation(tag: tag):
         switch tag {
@@ -532,25 +529,6 @@ extension SharedModels.Coordinate {
     )
   }
 }
-
-// public extension AlertState where Action == AppFeature.Action {
-//  static let viewingModeAlert = Self(
-//    title: .init(L10n.Settings.Observationmode.title),
-//    message: .init(L10n.AppCore.ViewingModeAlert.message),
-//    buttons: [
-//      .default(
-//        .init(L10n.AppCore.ViewingModeAlert.riding),
-//        action: .send(.setObservationMode(false))
-//      ),
-//      .default(
-//        .init(L10n.AppCore.ViewingModeAlert.watching),
-//        action: .send(.setObservationMode(true))
-//      )
-//    ]
-//  )
-// }
-
-public typealias ReducerBuilderOf<R: Reducer> = ReducerBuilder<R.State, R.Action>
 
 extension NumberFormatter {
   static let riderCountFormatter: NumberFormatter = {
