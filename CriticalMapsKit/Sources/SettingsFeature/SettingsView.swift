@@ -8,15 +8,12 @@ import SwiftUIHelpers
 
 /// A view to render the app settings.
 public struct SettingsView: View {
-  public typealias State = SettingsFeature.State
-  public typealias Action = SettingsFeature.Action
-  
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
+  let store: StoreOf<SettingsFeature>
+  @ObservedObject var viewStore: ViewStoreOf<SettingsFeature>
   
-  public init(store: Store<State, Action>) {
+  public init(store: StoreOf<SettingsFeature>) {
     self.store = store
     viewStore = ViewStore(store, observe: { $0 })
   }
