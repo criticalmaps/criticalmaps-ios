@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import FileClient
 import Helpers
+import SharedDependencies
 import SharedModels
 import UIApplicationClient
 import UIKit.UIInterface
@@ -10,6 +11,7 @@ public struct SettingsFeature: Reducer {
 
   // MARK: State
 
+  @Dependency(\.observationModeStore) var observationModeStore
   @Dependency(\.continuousClock) var clock
   @Dependency(\.fileClient) var fileClient
   @Dependency(\.uiApplicationClient) var uiApplicationClient
@@ -72,8 +74,9 @@ public struct SettingsFeature: Reducer {
       case .onAppear:
         state.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
           .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
+        state.isObservationModeEnabled = observationModeStore.getObservationModeState()
         return .none
-
+        
       case let .infoSectionRowTapped(row):
         return .send(.openURL(row.url))
 
@@ -86,21 +89,20 @@ public struct SettingsFeature: Reducer {
         }
 
       case .appearance, .rideevent, .binding(\.$isObservationModeEnabled), .binding(\.$infoViewEnabled):
-        enum SaveDebounceId { case debounce }
+        enum CancelID { case debounce }
         
-        return .concatenate(
-          .run { [settings = state] _ in
-            try await withTaskCancellation(
-              id: SaveDebounceId.debounce,
-              cancelInFlight: true)
-            {
-              try await clock.sleep(for: .seconds(1.5))
-              try await fileClient.saveUserSettings(
-                userSettings: .init(settings: settings)
-              )
-            }
+        return .run { [settings = state] _ in
+          try await withTaskCancellation(
+            id: CancelID.debounce,
+            cancelInFlight: true)
+          {
+            try await clock.sleep(for: .seconds(1.5))
+            try await fileClient.saveUserSettings(
+              userSettings: .init(settings: settings)
+            )
+            observationModeStore.setObservationModeState(isEnabled: settings.isObservationModeEnabled)
           }
-        )
+        }
         
       case .binding:
         return .none
@@ -113,14 +115,12 @@ public struct SettingsFeature: Reducer {
 
 public extension SettingsFeature.State {
   enum InfoSectionRow: Equatable {
-    case website, twitter, mastodon, privacy
+    case website, mastodon, privacy
 
     public var url: URL {
       switch self {
       case .website:
         return URL(string: "https://www.criticalmaps.net")!
-      case .twitter:
-        return URL(string: "https://twitter.com/criticalmaps/")!
       case .mastodon:
         return URL(string: "https://mastodon.social/@criticalmaps")!
       case .privacy:

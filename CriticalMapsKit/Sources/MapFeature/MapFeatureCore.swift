@@ -2,6 +2,7 @@ import ComposableCoreLocation
 import Foundation
 import L10n
 import MapKit
+import SharedDependencies
 import SharedModels
 
 @propertyWrapper
@@ -27,6 +28,7 @@ public struct ShouldAnimateTrackingModeOverTime: Equatable {
 public struct MapFeature {
   public init() {}
   
+  @Dependency(\.observationModeStore) var observationModeStore
   @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.continuousClock) var clock
@@ -168,7 +170,7 @@ public struct MapFeature {
         return .none
       
       case .onAppear:
-        return .merge(
+        var effects: [Effect<Action>] = [
           .run { _ in
             await locationManager.setup()
           },
@@ -178,18 +180,18 @@ public struct MapFeature {
                 await send(.locationManager(action), animation: .default)
               }
             }
-          },
-          .send(.locationRequested)
-        )
+          }
+        ]
+        let isObservationModeEnabled = observationModeStore.getObservationModeState()
+        if !isObservationModeEnabled {
+          effects.append(.send(.locationRequested))
+        }
+        return .merge(effects)
         
       case .startRequestingCurrentLocation:
         state.isRequestingCurrentLocation = true
         return .run { _ in
-#if os(macOS)
           await locationManager.requestAlwaysAuthorization()
-#else
-          await locationManager.requestAlwaysAuthorization()
-#endif
         }
         
       case .locationRequested:
