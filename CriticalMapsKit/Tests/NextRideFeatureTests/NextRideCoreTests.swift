@@ -113,18 +113,20 @@ final class NextRideCoreTests: XCTestCase {
   func test_getRides_shouldUpdateRidesInUserTimezone() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.userDefaultsClient.dataForKey = { _ in try? RideEventSettings.default.encoded()
+        }
+        $0.nextRideService.nextRide = { _, _, _ in self.rides }
+        $0.date = .constant(self.now())
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.userDefaultsClient.dataForKey = { _ in try? RideEventSettings.default.encoded()
-    }
-    store.dependencies.nextRideService.nextRide = { _, _, _ in self.rides }
-    store.dependencies.date = .constant(now())
-    store.dependencies.isNetworkAvailable = true
     
     // then
     await _ = store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
+      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate({ self.now() })
     }
     await store.receive(.setNextRide(rides[1])) {
       $0.nextRide = self.rides[1]
@@ -135,21 +137,23 @@ final class NextRideCoreTests: XCTestCase {
   func test_getNextRide_shouldReturnError() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings(
+            isEnabled: true,
+            typeSettings: [:],
+            eventDistance: .near
+          )
+          .encoded()
+        }
+        $0.isNetworkAvailable = true
+        $0.nextRideService.nextRide = { _, _, _ in
+          throw NextRideService.Failure(internalError: .badRequest)
+        }
+        $0.date = .constant(now())
+      }
     )
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings(
-        isEnabled: true,
-        typeSettings: [:],
-        eventDistance: .near
-      )
-      .encoded()
-    }
-    store.dependencies.isNetworkAvailable = true
-    store.dependencies.nextRideService.nextRide = { _, _, _ in
-      throw NextRideService.Failure(internalError: .badRequest)
-    }
-    store.dependencies.date = .constant(now())
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -160,21 +164,23 @@ final class NextRideCoreTests: XCTestCase {
   func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in
+          self.rides
+        }
+        $0.isNetworkAvailable = true
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings(
+            isEnabled: true,
+            typeSettings: [.kidicalMass: true],
+            eventDistance: .near
+          )
+          .encoded()
+        }
+        $0.date = .constant(now())
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in
-      self.rides
-    }
-    store.dependencies.isNetworkAvailable = true
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings(
-        isEnabled: true,
-        typeSettings: [.kidicalMass: true],
-        eventDistance: .near
-      )
-      .encoded()
-    }
-    store.dependencies.date = .constant(now())
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -213,16 +219,18 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in
+          ridesWithARideWithNilRideType
+        }
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default.encoded()
+        }
+        $0.date = .constant(now())
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in
-      ridesWithARideWithNilRideType
-    }
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default.encoded()
-    }
-    store.dependencies.date = .constant(now())
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -251,15 +259,17 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default
+            .encoded()
+        }
+        $0.date = .constant(now())
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
-    store.dependencies.date = .constant(now())
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -307,15 +317,17 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default
+            .encoded()
+        }
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.date = .constant(now())
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
-    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
-    store.dependencies.date = .constant(now())
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -364,16 +376,18 @@ final class NextRideCoreTests: XCTestCase {
     state.userLocation = .init(latitude: 53.1235, longitude: 13.4248)
     let store = TestStore(
       initialState: state,
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default
+            .encoded()
+        }
+        $0.date = .constant(now())
+        $0.calendar = .autoupdatingCurrent
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
-    store.dependencies.date = .constant(now())
-    store.dependencies.calendar = .autoupdatingCurrent
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -411,15 +425,17 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default
+            .encoded()
+        }
+        $0.date = .constant(now())
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
-    store.dependencies.date = .constant(now())
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -457,15 +473,17 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default
+            .encoded()
+        }
+        $0.date = .constant(now())
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
-    store.dependencies.date = .constant(now())
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))
@@ -503,15 +521,17 @@ final class NextRideCoreTests: XCTestCase {
     // when
     let store = TestStore(
       initialState: .init(),
-      reducer: { NextRideFeature() }
+      reducer: { NextRideFeature() },
+      withDependencies: {
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.userDefaultsClient.dataForKey = { _ in
+          try? RideEventSettings.default
+            .encoded()
+        }
+        $0.date = .constant(now().addingTimeInterval(60 * 60 * 72))
+        $0.isNetworkAvailable = true
+      }
     )
-    store.dependencies.nextRideService.nextRide = { _, _, _ in rides }
-    store.dependencies.userDefaultsClient.dataForKey = { _ in
-      try? RideEventSettings.default
-        .encoded()
-    }
-    store.dependencies.date = .constant(now().addingTimeInterval(60 * 60 * 72))
-    store.dependencies.isNetworkAvailable = true
     
     // then
     _ = await store.send(.getNextRide(coordinate))

@@ -68,23 +68,7 @@ final class AppFeatureTests: XCTestCase {
     )
     store.exhaustivity = .off(showSkippedAssertions: true)
 
-    let ride = Ride(
-      id: 123,
-      slug: nil,
-      title: "Next Ride",
-      description: nil,
-      dateTime: Date(timeIntervalSince1970: 1234340120),
-      location: nil,
-      latitude: nil,
-      longitude: nil,
-      estimatedParticipants: 123,
-      estimatedDistance: 312,
-      estimatedDuration: 3,
-      enabled: true,
-      disabledReason: nil,
-      disabledReasonMessage: nil,
-      rideType: .alleycat
-    )
+    let ride = Ride.mock1
     await store.send(.nextRide(.setNextRide(ride))) {
       $0.nextRideState.nextRide = ride
       $0.mapFeatureState.nextRide = ride
@@ -106,40 +90,8 @@ final class AppFeatureTests: XCTestCase {
   func test_actionSetEventsBottomSheet_setsValue_andMapFeatureRideEvents() async {
     var appState = AppFeature.State()
     let events = [
-      Ride(
-        id: 1,
-        slug: nil,
-        title: "Next Ride",
-        description: nil,
-        dateTime: Date(timeIntervalSince1970: 1234340120),
-        location: nil,
-        latitude: nil,
-        longitude: nil,
-        estimatedParticipants: 123,
-        estimatedDistance: 312,
-        estimatedDuration: 3,
-        enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
-        rideType: .alleycat
-      ),
-      Ride(
-        id: 2,
-        slug: nil,
-        title: "Next Ride",
-        description: nil,
-        dateTime: Date(timeIntervalSince1970: 1234340120),
-        location: nil,
-        latitude: nil,
-        longitude: nil,
-        estimatedParticipants: 123,
-        estimatedDistance: 312,
-        estimatedDuration: 3,
-        enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
-        rideType: .criticalMass
-      )
+      Ride.mock1,
+      Ride.mock2
     ]
     appState.nextRideState.rideEvents = events
 
@@ -158,42 +110,7 @@ final class AppFeatureTests: XCTestCase {
   func test_actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() async {
     var appState = AppFeature.State()
     appState.bottomSheetPosition = .dynamicTop
-    let events = [
-      Ride(
-        id: 1,
-        slug: nil,
-        title: "Next Ride",
-        description: nil,
-        dateTime: Date(timeIntervalSince1970: 1234340120),
-        location: nil,
-        latitude: nil,
-        longitude: nil,
-        estimatedParticipants: 123,
-        estimatedDistance: 312,
-        estimatedDuration: 3,
-        enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
-        rideType: .alleycat
-      ),
-      Ride(
-        id: 2,
-        slug: nil,
-        title: "Next Ride",
-        description: nil,
-        dateTime: Date(timeIntervalSince1970: 1234340120),
-        location: nil,
-        latitude: nil,
-        longitude: nil,
-        estimatedParticipants: 123,
-        estimatedDistance: 312,
-        estimatedDuration: 3,
-        enabled: true,
-        disabledReason: nil,
-        disabledReasonMessage: nil,
-        rideType: .criticalMass
-      )
-    ]
+    let events = [Ride.mock1, .mock2]
     appState.mapFeatureState.rideEvents = events
     
     let store = TestStore(
@@ -226,8 +143,9 @@ final class AppFeatureTests: XCTestCase {
         $0.continuousClock = testClock
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, _, _ in
-          [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
+          [.mock1]
         }
+        $0.userDefaultsClient.setBool = { _, _ in }
       }
     )
     store.exhaustivity = .off
@@ -240,14 +158,14 @@ final class AppFeatureTests: XCTestCase {
   }
   
   @MainActor
-  func test_nextRide_shouldBeFetched_afterUserSettingsLoaded_andFeatureIsEnabled() async {
+  func test_loadUserSettings_shouldUpdateSettings() async {
     let testClock = TestClock()
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     let sharedModelLocation = SharedModels.Location(
       coordinate: .init(latitude: 11, longitude: 21),
       timestamp: 2
     )
-    var locationManager: LocationManager = .unimplemented
+    var locationManager: LocationManager = .failing
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
@@ -290,21 +208,23 @@ final class AppFeatureTests: XCTestCase {
     await store.receive(.userSettingsLoaded(.success(userSettings))) {
       $0.settingsState = .init(userSettings: userSettings)
     }
-    await store.receive(.nextRide(.getNextRide(sharedModelLocation.coordinate)))
   }
   
   @MainActor
-  func test_mapAction_didUpdateLocations() async {
+  func test_mapAction_didUpdateLocations_shouldFetchNextRide() async {
+    let testClock = TestClock()
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
       withDependencies: {
         $0.date = .init({ @Sendable in self.date() })
         $0.apiService.postRiderLocation = { _ in .init(status: "ok") }
-        $0.continuousClock = TestClock()
+        $0.continuousClock = testClock
+        $0.nextRideService.nextRide = { _, _, _ in
+          [.mock1, .mock2]
+        }
       }
     )
-    store.exhaustivity = .off
     
     let location = ComposableCoreLocation.Location(
       coordinate: .init(latitude: 11, longitude: 21),
@@ -316,6 +236,41 @@ final class AppFeatureTests: XCTestCase {
         coordinate: .init(latitude: 11, longitude: 21),
         timestamp: 2
       )
+      $0.nextRideState.userLocation = .init(latitude: 11, longitude: 21)
+      $0.didRequestNextRide = true
+    }
+    await store.receive(.nextRide(.getNextRide(.init(latitude: 11, longitude: 21))))
+    await store.receive(.nextRide(.nextRideResponse(.success([.mock1, .mock2])))) {
+      $0.nextRideState.rideEvents = [.mock1, .mock2]
+    }
+    await store.receive(.nextRide(.setNextRide(.mock1))) {
+      $0.mapFeatureState.nextRide = .mock1
+      $0.nextRideState.nextRide = .mock1
+    }
+    await store.receive(.map(.setNextRideBannerVisible(true))) {
+      $0.mapFeatureState.isNextRideBannerVisible = true
+    }
+    await testClock.advance(by: .seconds(1))
+    await store.receive(.map(.setNextRideBannerExpanded(true))) {
+      $0.mapFeatureState.isNextRideBannerExpanded = true
+    }
+    await testClock.advance(by: .seconds(8))
+    await store.receive(.map(.setNextRideBannerExpanded(false))) {
+      $0.mapFeatureState.isNextRideBannerExpanded = false
+    }
+    // should not fetch next Ride on next location update
+    let newLocations = [
+      Location(
+        coordinate: .init(latitude: 13, longitude: 31),
+        timestamp: Date(timeIntervalSince1970: 5)
+      )
+    ]
+    await store.send(.map(.locationManager(.didUpdateLocations(newLocations)))) {
+      $0.mapFeatureState.location = .init(
+        coordinate: .init(latitude: 13, longitude: 31),
+        timestamp: 5
+      )
+      $0.nextRideState.userLocation = .init(latitude: 13, longitude: 31)
     }
   }
   
@@ -401,6 +356,7 @@ final class AppFeatureTests: XCTestCase {
           [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
         }
         $0.continuousClock = TestClock()
+        $0.userDefaultsClient.setBool = { _, _ in }
       }
     )
     store.exhaustivity = .off
@@ -434,6 +390,7 @@ final class AppFeatureTests: XCTestCase {
           return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
         }
         $0.continuousClock = TestClock()
+        $0.userDefaultsClient.setBool = { _, _ in }
       }
     )
     store.exhaustivity = .off
@@ -606,4 +563,41 @@ extension Array where Element == ChatMessage {
     }
     return elements
   }
+}
+
+extension Ride {
+  static let mock1 = Ride(
+    id: 123,
+    slug: nil,
+    title: "Next Ride",
+    description: nil,
+    dateTime: Date(timeIntervalSince1970: 1234340120),
+    location: nil,
+    latitude: nil,
+    longitude: nil,
+    estimatedParticipants: 123,
+    estimatedDistance: 312,
+    estimatedDuration: 3,
+    enabled: true,
+    disabledReason: nil,
+    disabledReasonMessage: nil,
+    rideType: .criticalMass
+  )
+  static let mock2 = Ride(
+    id: 3,
+    slug: nil,
+    title: "Next Ride",
+    description: nil,
+    dateTime: Date(timeIntervalSince1970: 1234340120),
+    location: nil,
+    latitude: nil,
+    longitude: nil,
+    estimatedParticipants: 123,
+    estimatedDistance: 312,
+    estimatedDuration: 3,
+    enabled: true,
+    disabledReason: nil,
+    disabledReasonMessage: nil,
+    rideType: .alleycat
+  )
 }

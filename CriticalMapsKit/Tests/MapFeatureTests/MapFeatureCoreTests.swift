@@ -15,7 +15,7 @@ final class MapFeatureCoreTests: XCTestCase {
     let didRequestLocation = ActorIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager = LocationManager.unimplemented
+    var locationManager = LocationManager.failing
     locationManager.set = { @Sendable _ in }
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
@@ -53,9 +53,7 @@ final class MapFeatureCoreTests: XCTestCase {
     
     await store.send(.onAppear)
     // simulate user decision of segmented control
-    await store.receive(.locationRequested) {
-      $0.isRequestingCurrentLocation = true
-    }
+    await store.receive(.locationRequested)
     let didRequestAlwaysAuthorizationValue = await didRequestAlwaysAuthorization.value
     XCTAssertTrue(didRequestAlwaysAuthorizationValue)
     // Simulate being given authorized to access location
@@ -87,7 +85,7 @@ final class MapFeatureCoreTests: XCTestCase {
   func test_disabledLocationService_shouldSetAlert() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .unimplemented
+    var locationManager: LocationManager = .failing
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .denied }
     locationManager.locationServicesEnabled = { false }
@@ -108,11 +106,12 @@ final class MapFeatureCoreTests: XCTestCase {
     
     await store.send(.onAppear)
     // simulate user decision of segmented control
-    await store.receive(.locationRequested) {
-      $0.isRequestingCurrentLocation = false
-      $0.alert = .servicesOff
+    await store.receive(.locationRequested)
+    await store.receive(.setAlert(.goToSettingsAlert)) {
+      $0.alert = .goToSettingsAlert
     }
-    await store.finish()
+    
+    locationObserver.continuation.finish()
   }
   
   @MainActor
@@ -120,7 +119,7 @@ final class MapFeatureCoreTests: XCTestCase {
     let didRequestAlwaysAuthorization = ActorIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .unimplemented
+    var locationManager: LocationManager = .failing
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
@@ -144,9 +143,7 @@ final class MapFeatureCoreTests: XCTestCase {
     
     await store.send(.onAppear)
     // simulate user decision of segmented control
-    await store.receive(.locationRequested) {
-      $0.isRequestingCurrentLocation = true
-    }
+    await store.receive(.locationRequested)
     let didRequestAlwaysAuthorizationValue = await didRequestAlwaysAuthorization.value
     XCTAssertTrue(didRequestAlwaysAuthorizationValue)
     // Simulate being given authorized to access location
@@ -242,7 +239,7 @@ final class MapFeatureCoreTests: XCTestCase {
   func test_InfoBanner_appearance() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .unimplemented
+    var locationManager: LocationManager = .failing
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .authorizedAlways }
     locationManager.locationServicesEnabled = { true }

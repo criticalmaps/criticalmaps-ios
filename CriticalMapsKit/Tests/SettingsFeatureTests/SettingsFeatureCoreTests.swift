@@ -53,7 +53,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
   }
   
   @MainActor
-  func test_openURLAction_shouldCallUIApplicationClient_cmTwitter() async {
+  func test_openURLAction_shouldCallUIApplicationClient_cmMastodon() async {
     let openedUrl = ActorIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -65,7 +65,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
       return true
     }
     
-    let row = SettingsFeature.State.InfoSectionRow.twitter
+    let row = SettingsFeature.State.InfoSectionRow.mastodon
 
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
@@ -149,20 +149,23 @@ final class SettingsFeatureCoreTests: XCTestCase {
     let didSaveUserSettings = ActorIsolated(false)
     let testQueue = DispatchQueue.immediate
 
+    let testClock = TestClock()
     let store = TestStore(
       initialState: SettingsFeature.State(
         userSettings: .init(
           rideEventSettings: .init(eventDistance: .close)
         )
       ),
-      reducer: { SettingsFeature() }
+      reducer: { SettingsFeature() },
+      withDependencies: {
+        $0.continuousClock = testClock
+        $0.mainQueue = testQueue.eraseToAnyScheduler()
+        $0.fileClient.save = { @Sendable _, _ in
+          await didSaveUserSettings.setValue(true)
+        }
+        $0.observationModeStore.setObservationModeState = { _ in }
+      }
     )
-    let testClock = TestClock()
-    store.dependencies.continuousClock = testClock
-    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
-    store.dependencies.fileClient.save = { @Sendable _, _ in
-      await didSaveUserSettings.setValue(true)
-    }
     
     // act
     await store.send(.rideevent(.set(\.$eventSearchRadius, .far))) {
@@ -197,6 +200,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     store.dependencies.fileClient.save = { @Sendable _, _ in
       await didSaveUserSettings.setValue(true)
     }
+    store.dependencies.observationModeStore.setObservationModeState = { _ in }
     
     // act
     await store.send(.appearance(.set(\.$colorScheme, .dark))) {
@@ -228,6 +232,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
     }
     let testClock = TestClock()
     store.dependencies.continuousClock = testClock
+    store.dependencies.observationModeStore.setObservationModeState = { _ in }
     
     // act
     await store.send(.set(\.$isObservationModeEnabled, true)) {
