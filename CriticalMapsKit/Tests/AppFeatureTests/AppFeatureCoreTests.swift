@@ -200,6 +200,7 @@ final class AppFeatureTests: XCTestCase {
         $0.continuousClock = testClock
         $0.nextRideService.nextRide = { _, _, _ in [] }
         $0.userDefaultsClient.setString = { _, _ in }
+        $0.observationModeStore.setObservationModeState = { _ in }
       }
     )
     store.exhaustivity = .off

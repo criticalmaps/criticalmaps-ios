@@ -35,6 +35,7 @@ public struct AppFeature {
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
   @Dependency(\.isNetworkAvailable) var isNetworkAvailable
+  @Dependency(\.observationModeStore) var observationModeStore
   
   // MARK: State
 
@@ -366,6 +367,8 @@ public struct AppFeature {
         let userSettings = (try? result.value) ?? UserSettings()
         state.settingsState = .init(userSettings: userSettings)
         state.nextRideState.rideEventSettings = userSettings.rideEventSettings
+        
+        observationModeStore.setObservationModeState(isEnabled: userSettings.isObservationModeEnabled)
         
         let style = state.settingsState.appearanceSettings.colorScheme.userInterfaceStyle
         
