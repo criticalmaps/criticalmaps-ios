@@ -2,6 +2,18 @@
 
 Changelog for Critical Maps iOS
 
+# [4.4.0] - 2024-08-05
+
+### Updated
+
+- Adopt TCA 1.12
+- Replace Twitter with Mastodon in settings
+- Enabling observationmode will stop updating locations
+
+### Fixed
+
+- Location tracking Button Animation
+
 # [4.3.0] - 2023-07-21
 
 ### Added
