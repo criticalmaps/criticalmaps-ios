@@ -27,7 +27,7 @@ This iOS app is made for Critical Maps. It tracks your location and shares it wi
 ## Project Setup
 
 The App uses Apple's `Combine.framework` for operation scheduling. The UI-Layer is built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`.
-Minimum platform requirements are: iOS 15.0
+Minimum platform requirements are: iOS 16.0
 
 ### Modularization
 
