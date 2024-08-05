@@ -5,6 +5,12 @@ import TestHelper
 import XCTest
 
 final class AppNavigationViewSnapshotTests: XCTestCase {
+  
+  override func setUp() {
+    super.setUp()
+    
+  }
+  
   @MainActor
   func test_appNavigationView_light() {
     let view = AppNavigationView(
@@ -14,15 +20,17 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertSnapshots(
-      matching: view,
-      as: [
-        .image(precision: 0.9, layout: .device(config: .iPhoneX))
-      ],
-      file: #file,
-      testName: #function,
-      line: #line
-    )
+    withSnapshotTesting(diffTool: .ksdiff) {
+      assertSnapshots(
+        matching: view,
+        as: [
+          .image(precision: 0.9, layout: .device(config: .iPhoneX))
+        ],
+        file: #file,
+        testName: #function,
+        line: #line
+      )
+    }
   }
   
   @MainActor

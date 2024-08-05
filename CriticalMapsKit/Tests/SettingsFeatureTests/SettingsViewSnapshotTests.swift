@@ -8,9 +8,13 @@ final class SettingsViewSnapshotTests: XCTestCase {
     let settingsView = SettingsView(
       store: .init(
         initialState: .init(userSettings: .init()),
-        reducer: { SettingsFeature() }
+        reducer: { SettingsFeature() },
+        withDependencies: {
+          $0.uiApplicationClient.alternateIconName = { nil }
+        }
       )
     )
+    .environment(\.colorScheme, .light)
 
     assertScreenSnapshot(settingsView, sloppy: true)
   }

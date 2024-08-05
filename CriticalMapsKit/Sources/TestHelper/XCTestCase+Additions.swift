@@ -7,7 +7,7 @@ private let operatingSystemVersion = ProcessInfo().operatingSystemVersion
 public extension XCTestCase {
   private func enforceSnapshotDevice() {
     let is2XDevice = UIScreen.main.scale >= 2
-    let isMinVersion14 = operatingSystemVersion.majorVersion >= 14
+    let isMinVersion14 = operatingSystemVersion.majorVersion >= 15
     
     guard is2XDevice, isMinVersion14 else {
       fatalError("Screenshot test device should use @2x screen scale and iOS 14.4")
@@ -26,15 +26,23 @@ public extension XCTestCase {
     enforceSnapshotDevice()
     
     let precision: Float = (sloppy ? XCTestCase.sloppyPrecision : 1)
-    assertSnapshots(
-      matching: view,
-      as: [
-        .image(precision: precision, layout: .device(config: .iPhoneX))
-      ],
-      file: file,
-      testName: testName,
-      line: line
-    )
+    
+    withSnapshotTesting(diffTool: .ksdiff) {
+      assertSnapshots(
+        of: view,
+        as: [
+          .image(
+            precision: precision,
+            perceptualPrecision: precision,
+            layout: .device(config: .iPhone13),
+            traits: .iPhone13(.portrait)
+          )
+        ],
+        file: file,
+        testName: testName,
+        line: line
+      )
+    }
   }
   
   func assertViewSnapshot<V: View>(
