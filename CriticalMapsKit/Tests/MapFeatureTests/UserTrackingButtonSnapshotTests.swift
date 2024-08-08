@@ -12,7 +12,7 @@ final class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60, sloppy: true)
+    assertViewSnapshot(sut, height: 60, width: 60, sloppy: true)
   }
   
   @MainActor
@@ -24,7 +24,7 @@ final class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60, sloppy: true)
+    assertViewSnapshot(sut, height: 60, width: 60, sloppy: true)
   }
   
   @MainActor
@@ -36,6 +36,6 @@ final class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60, sloppy: true)
+    assertViewSnapshot(sut, height: 60, width: 60, sloppy: true)
   }
 }
