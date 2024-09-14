@@ -13,7 +13,7 @@ platform :ios do
     scan(
       project: "CriticalMaps.xcodeproj",
       scheme: Scheme,
-      device: 'iPhone 13',
+      device: 'iPhone 15',
       result_bundle: true,
       xcargs: '-skipPackagePluginValidation -skipMacroValidation'
     )
