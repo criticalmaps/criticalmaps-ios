@@ -1,7 +1,7 @@
 import Foundation
 import Helpers
 
-public struct Request {
+public struct Request: Sendable {
   let endpoint: Endpoint
   let httpMethod: HTTPMethod
   var headers: [String: String] = defaultHeaders
