@@ -689,6 +689,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Criticalmaps dist";
 				RUN_DOCUMENTATION_COMPILER = NO;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -719,6 +720,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Criticalmaps dist";
 				RUN_DOCUMENTATION_COMPILER = NO;
 				SKIP_INSTALL = NO;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -21,10 +21,6 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      url: "https://github.com/MarcoEidinger/SwiftFormatPlugin",
-      from: "0.49.18"
-    ),
-    .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       .upToNextMajor(from: "1.0.0")
     ),
@@ -34,7 +30,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/mltbnz/composable-core-location.git",
-      .revisionItem("1f9070ce561e4ef164cc8e124e37c77eaf2f4b4f")
+      branch: "main"
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
