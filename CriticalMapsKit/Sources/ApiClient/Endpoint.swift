@@ -1,7 +1,7 @@
 import Foundation
 
 /// A structure to define an endpoint on the Critical Maps API
-public struct Endpoint {
+public struct Endpoint: Sendable {
   public let baseUrl: String
   public let pathComponents: [String]
 

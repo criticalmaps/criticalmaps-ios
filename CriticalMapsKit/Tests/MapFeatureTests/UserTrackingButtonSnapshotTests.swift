@@ -1,4 +1,5 @@
 import MapFeature
+import SnapshotTesting
 import TestHelper
 import XCTest
 
@@ -12,7 +13,7 @@ final class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60, width: 60, sloppy: true)
+    assertSnapshot(of: sut, as: .image)
   }
   
   @MainActor
@@ -24,7 +25,7 @@ final class UserTrackingButtonSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(sut, height: 60, width: 60, sloppy: true)
+    assertSnapshot(of: sut, as: .image)
   }
   
   @MainActor
@@ -35,7 +36,6 @@ final class UserTrackingButtonSnapshotTests: XCTestCase {
         reducer: { UserTrackingFeature() }
       )
     )
-    
-    assertViewSnapshot(sut, height: 60, width: 60, sloppy: true)
+    assertSnapshot(of: sut, as: .image)
   }
 }

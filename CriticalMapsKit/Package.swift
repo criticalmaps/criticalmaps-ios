@@ -21,10 +21,6 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      url: "https://github.com/MarcoEidinger/SwiftFormatPlugin",
-      from: "0.49.18"
-    ),
-    .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       .upToNextMajor(from: "1.0.0")
     ),
@@ -34,7 +30,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/mltbnz/composable-core-location.git",
-      .revisionItem("1f9070ce561e4ef164cc8e124e37c77eaf2f4b4f")
+      branch: "main"
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
@@ -57,29 +53,29 @@ let package = Package(
     .target(
       name: "ApiClient",
       dependencies: [
-        "Helpers",
-        "SharedModels"
+        .helpers,
+        .sharedModels
       ]
     ),
     .target(
       name: "AppFeature",
       dependencies: [
-        "ApiClient",
-        "Helpers",
-        "FileClient",
+        .apiClient,
+        .helpers,
+        .fileClient,
         "GuideFeature",
-        "Logger",
-        "L10n",
-        "IDProvider",
+        .logger,
+        .l10n,
+        .idProvider,
         "MapFeature",
         "NextRideFeature",
-        "PathMonitorClient",
+        .pathMonitorClient,
         "SettingsFeature",
-        "SharedDependencies",
+        .sharedDependencies,
         "SocialFeature",
-        "Styleguide",
-        "UserDefaultsClient",
-        "UIApplicationClient",
+        .styleguide,
+        .userDefaultsClient,
+        .uiApplicationClient,
         .tca,
         .product(name: "BottomSheet", package: "BottomSheet")
       ]
@@ -87,49 +83,49 @@ let package = Package(
     .target(
       name: "ChatFeature",
       dependencies: [
-        "ApiClient",
-        "Helpers",
-        "IDProvider",
-        "L10n",
-        "Logger",
-        "SharedDependencies",
-        "SharedModels",
-        "Styleguide",
-        "SwiftUIHelpers",
-        "UserDefaultsClient"
+        .apiClient,
+        .helpers,
+        .idProvider,
+        .l10n,
+        .logger,
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .swiftUIHelpers,
+        .userDefaultsClient
       ]
     ),
     .target(
       name: "FileClient",
       dependencies: [
-        "Helpers",
-        "SharedModels",
+        .helpers,
+        .sharedModels,
         .tca
       ]
     ),
     .target(
       name: "GuideFeature",
       dependencies: [
-        "Helpers",
-        "L10n",
-        "Logger",
-        "Styleguide",
-        "SwiftUIHelpers"
+        .helpers,
+        .l10n,
+        .logger,
+        .styleguide,
+        .swiftUIHelpers
       ]
     ),
     .target(
       name: "Helpers",
       dependencies: [
-        "Styleguide",
+        .styleguide,
         .tca
       ]
     ),
     .target(
       name: "IDProvider",
       dependencies: [
-        "Helpers",
+        .helpers,
         .tca,
-        "UserDefaultsClient"
+        .userDefaultsClient
       ]
     ),
     .target(
@@ -146,15 +142,15 @@ let package = Package(
     .target(
       name: "MapFeature",
       dependencies: [
-        "ApiClient",
-        "Helpers",
-        "L10n",
-        "Logger",
+        .apiClient,
+        .helpers,
+        .l10n,
+        .logger,
         "NextRideFeature",
-        "SharedDependencies",
-        "SharedModels",
-        "Styleguide",
-        "SwiftUIHelpers",
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .swiftUIHelpers,
         .composableCoreLocation,
         .tca
       ]
@@ -162,14 +158,14 @@ let package = Package(
     .target(
       name: "NextRideFeature",
       dependencies: [
-        "ApiClient",
-        "Helpers",
-        "L10n",
-        "Logger",
-        "SharedDependencies",
-        "SharedModels",
-        "Styleguide",
-        "UserDefaultsClient",
+        .apiClient,
+        .helpers,
+        .l10n,
+        .logger,
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .userDefaultsClient,
         .composableCoreLocation,
         .tca
       ]
@@ -183,15 +179,15 @@ let package = Package(
     .target(
       name: "SettingsFeature",
       dependencies: [
-        "FileClient",
-        "L10n",
-        "Logger",
-        "Helpers",
-        "SharedDependencies",
-        "SharedModels",
-        "Styleguide",
-        "SwiftUIHelpers",
-        "UIApplicationClient",
+        .fileClient,
+        .l10n,
+        .logger,
+        .helpers,
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .swiftUIHelpers,
+        .uiApplicationClient,
         .tca,
         .product(name: "AcknowList", package: "AcknowList")
       ],
@@ -200,19 +196,19 @@ let package = Package(
     .target(
       name: "SharedDependencies",
       dependencies: [
-        "ApiClient",
-        "FileClient",
-        "IDProvider",
-        "PathMonitorClient",
-        "UIApplicationClient",
-        "UserDefaultsClient",
+        .apiClient,
+        .fileClient,
+        .idProvider,
+        .pathMonitorClient,
+        .uiApplicationClient,
+        .userDefaultsClient,
         .tca
       ]
     ),
     .target(
       name: "SharedModels",
       dependencies: [
-        "Helpers",
+        .helpers,
         .tca
       ]
     ),
@@ -220,17 +216,17 @@ let package = Package(
       name: "SocialFeature",
       dependencies: [
         "ChatFeature",
-        "L10n",
+        .l10n,
         "MastodonFeedFeature",
-        "UserDefaultsClient",
+        .userDefaultsClient,
         .tca
       ]
     ),
     .target(
       name: "Styleguide",
       dependencies: [
-        "L10n",
-        "SwiftUIHelpers"
+        .l10n,
+        .swiftUIHelpers
       ],
       exclude: ["README.md"],
       resources: [.process("Resources")]
@@ -248,12 +244,12 @@ let package = Package(
     .target(
       name: "MastodonFeedFeature",
       dependencies: [
-        "ApiClient",
-        "Logger",
-        "SharedDependencies",
-        "SharedModels",
-        "Styleguide",
-        "UIApplicationClient",
+        .apiClient,
+        .logger,
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .uiApplicationClient,
         .tca,
         .product(name: "MastodonKit", package: "MastodonKit")
       ]
@@ -267,8 +263,8 @@ let package = Package(
     .target(
       name: "UserDefaultsClient",
       dependencies: [
-        "Helpers",
-        "SharedModels",
+        .helpers,
+        .sharedModels,
         .tca
       ]
     )
@@ -282,8 +278,8 @@ package.targets.append(contentsOf: [
     name: "AppFeatureTests",
     dependencies: [
       "AppFeature",
-      "PathMonitorClient",
-      "TestHelper",
+      .pathMonitorClient,
+      .testHelper,
       .tca,
     ],
     exclude: [
@@ -294,9 +290,9 @@ package.targets.append(contentsOf: [
     name: "ChatFeatureTests",
     dependencies: [
       "ChatFeature",
-      "TestHelper",
-      "SharedModels",
-      "UserDefaultsClient",
+      .testHelper,
+      .sharedModels,
+      .userDefaultsClient,
       .tca
     ],
     exclude: [
@@ -306,19 +302,19 @@ package.targets.append(contentsOf: [
   .testTarget(
     name: "HelperTests",
     dependencies: [
-      "Helpers",
-      "UserDefaultsClient"
+      .helpers,
+      .userDefaultsClient
     ]
   ),
   .testTarget(
     name: "IDProviderTests",
-    dependencies: ["IDProvider"]
+    dependencies: [.idProvider]
   ),
   .testTarget(
     name: "MapFeatureTests",
     dependencies: [
       "MapFeature",
-      "TestHelper",
+      .testHelper,
       .tca
     ],
     exclude: [
@@ -328,8 +324,8 @@ package.targets.append(contentsOf: [
   .testTarget(
     name: "NextRideFeatureTests",
     dependencies: [
-      "Helpers",
-      "UserDefaultsClient",
+      .helpers,
+      .userDefaultsClient,
       "NextRideFeature",
       .tca
     ]
@@ -338,15 +334,15 @@ package.targets.append(contentsOf: [
     name: "SocialFeatureTests",
     dependencies: [
       "SocialFeature",
-      "TestHelper",
+      .testHelper,
       .tca
     ]
   ),
   .testTarget(
     name: "StyleguideTests",
     dependencies: [
-      "Styleguide",
-      "TestHelper",
+      .styleguide,
+      .testHelper,
       .tca
     ],
     exclude: ["__Snapshots__"]
@@ -354,11 +350,11 @@ package.targets.append(contentsOf: [
   .testTarget(
     name: "SettingsFeatureTests",
     dependencies: [
-      "Helpers",
-      "L10n",
+      .helpers,
+      .l10n,
       "SettingsFeature",
-      "TestHelper",
-      "UserDefaultsClient",
+      .testHelper,
+      .userDefaultsClient,
       .tca
     ],
     exclude: ["__Snapshots__"]
@@ -366,10 +362,10 @@ package.targets.append(contentsOf: [
   .testTarget(
     name: "MastodonFeedFeatureTests",
     dependencies: [
-      "Helpers",
-      "SharedDependencies",
+      .helpers,
+      .sharedDependencies,
       "MastodonFeedFeature",
-      "TestHelper",
+      .testHelper,
       .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
     ],
@@ -380,6 +376,23 @@ package.targets.append(contentsOf: [
 ])
 
 extension Target.Dependency {
+  // MARK: - Internal
+  static let apiClient = byName(name: "ApiClient")
+  static let fileClient = byName(name: "FileClient")
+  static let helpers = byName(name: "Helpers")
+  static let idProvider = byName(name: "IDProvider")
+  static let l10n = byName(name: "L10n")
+  static let logger = byName(name: "Logger")
+  static let pathMonitorClient = byName(name: "PathMonitorClient")
+  static let sharedDependencies = byName(name: "SharedDependencies")
+  static let sharedModels = byName(name: "SharedModels")
+  static let styleguide = byName(name: "Styleguide")
+  static let swiftUIHelpers = byName(name: "SwiftUIHelpers")
+  static let testHelper = byName(name: "TestHelper")
+  static let uiApplicationClient = byName(name: "UIApplicationClient")
+  static let userDefaultsClient = byName(name: "UserDefaultsClient")
+  
+  // MARK: - External
   static let tca = product(
     name: "ComposableArchitecture",
     package: "swift-composable-architecture"
