@@ -275,17 +275,22 @@ final class AppFeatureTests: XCTestCase {
     }
   }
   
+  @MainActor
   func test_mapAction_focusEvent() async throws {
-    throw XCTSkip("Seems to have issues comparing $bottomSheetPosition")
-    
     var state = AppFeature.State()
     state.bottomSheetPosition = .absolute(1)
     
+    let testClock = TestClock()
+    
     let store = TestStore(
       initialState: state,
-      reducer: { AppFeature() }
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = testClock
+        $0.mainQueue = .immediate
+      }
     )
-    store.dependencies.mainQueue = .immediate
+    store.exhaustivity = .off(showSkippedAssertions: false)
     
     let coordinate = Coordinate.make()
     
@@ -293,6 +298,7 @@ final class AppFeatureTests: XCTestCase {
       $0.mapFeatureState.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
     }
     await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(0.4))))
+    await testClock.advance(by: .seconds(1))
     await store.receive(.map(.resetRideEventCenter)) {
       $0.mapFeatureState.eventCenter = nil
     }
