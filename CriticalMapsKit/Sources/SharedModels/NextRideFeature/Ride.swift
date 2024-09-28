@@ -170,38 +170,3 @@ private extension Date.FormatStyle {
     )
   }
 }
-
-enum Helper {
-  static func displayEventDateTimeForUser(
-    eventDateTime: TimeInterval,
-    eventTimeZoneID: String,
-    userTimeZoneID: String
-  ) -> String? {
-      
-      // Create Date object from event's Unix timestamp
-      let eventDate = Date(timeIntervalSince1970: eventDateTime)
-      
-      // Get event's timezone
-      guard let eventTimeZone = TimeZone(identifier: eventTimeZoneID) else {
-          print("Invalid event timezone")
-          return nil
-      }
-      
-      // Get user's timezone (e.g., London timezone)
-      guard let userTimeZone = TimeZone(identifier: userTimeZoneID) else {
-          print("Invalid user timezone")
-          return nil
-      }
-      
-      // Formatter to display time in local timezone
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateStyle = .full
-      dateFormatter.timeStyle = .short
-      
-      // Convert event time to user's local timezone
-      dateFormatter.timeZone = userTimeZone
-      let formattedDateForUser = dateFormatter.string(from: eventDate)
-      
-      return formattedDateForUser
-  }
-}

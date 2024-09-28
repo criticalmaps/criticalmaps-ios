@@ -1,7 +1,7 @@
 import ComposableArchitecture
+import Foundation
 import Helpers
 import SharedModels
-import Foundation
 import Testing
 
 struct RideTimeTests {
