@@ -51,12 +51,6 @@ public struct AppView: View {
         VStack(alignment: .leading) {
           if shouldShowNextRideBanner {
             nextRideBanner()
-              .contextMenu {
-                Button(
-                  action: { viewStore.send(.set(\.$bottomSheetPosition, .relative(0.4))) },
-                  label: { Label(contextMenuTitle, systemImage: "list.bullet") }
-                )
-              }
           }
           
           if viewStore.settingsState.infoViewEnabled {
@@ -98,7 +92,7 @@ public struct AppView: View {
     .bottomSheet(
       bottomSheetPosition: viewStore.$bottomSheetPosition,
       switchablePositions: [
-        .relative(0.4),
+        .relative(0.3),
         .relativeTop(0.975)
       ],
       title: "Events",
@@ -262,7 +256,7 @@ public struct AppView: View {
         },
         action: { $0 }
       ),
-      action: { viewStore.send(.map(.focusNextRide(viewStore.nextRideState.nextRide?.coordinate))) },
+      action: { viewStore.send(.didTapNextEventBanner) },
       content: {
         VStack(alignment: .leading, spacing: .grid(1)) {
           Text(viewStore.state.nextRideState.nextRide?.title ?? "")

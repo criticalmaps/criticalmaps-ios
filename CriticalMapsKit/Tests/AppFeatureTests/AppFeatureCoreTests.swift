@@ -297,7 +297,7 @@ final class AppFeatureTests: XCTestCase {
     await store.send(.map(.focusRideEvent(coordinate))) {
       $0.mapFeatureState.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
     }
-    await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(0.4))))
+    await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(0.3))))
     await testClock.advance(by: .seconds(1))
     await store.receive(.map(.resetRideEventCenter)) {
       $0.mapFeatureState.eventCenter = nil
