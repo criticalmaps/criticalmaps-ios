@@ -506,6 +506,24 @@ final class AppFeatureTests: XCTestCase {
     let didStopLocationObservationValue = await didStopLocationUpdating.value
     XCTAssertTrue(didStopLocationObservationValue)
   }
+  
+  func test_didTapNextEventBanner() async {
+    let store = await TestStore(
+      initialState: AppFeature.State(nextRideState: NextRideFeature.State(nextRide: Ride.mock1)),
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = TestClock()
+      }
+    )
+    store.exhaustivity = .off
+    
+    // act
+    await store.send(.didTapNextEventBanner)
+    
+    // assert
+    await store.receive(.map(.focusNextRide(Ride.mock1.coordinate)))
+    await store.receive(.set(\.$bottomSheetPosition, .relative(0.3)))
+  }
 }
 
 // MARK: Helper
