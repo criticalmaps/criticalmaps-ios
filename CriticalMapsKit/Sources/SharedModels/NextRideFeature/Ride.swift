@@ -105,7 +105,7 @@ public extension Ride {
     {
       return dateTime.formatted(Date.FormatStyle.shortTimeWithEventTimeZone(timeZone))
     } else {
-      return dateTime.humanReadableTime
+      return dateTime.formatted(Date.FormatStyle.localeAwareShortTime)
     }
   }
 

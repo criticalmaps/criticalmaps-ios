@@ -14,11 +14,6 @@ public extension Date {
     return component
   }
 
-  /// - Returns: Formatted time without date components.
-  var humanReadableTime: String {
-    self.formatted(Date.FormatStyle.localeAwareShortTime)
-  }
-
   /// - Returns: Formatted date without time components.
   var humanReadableDate: String {
     self.formatted(Date.FormatStyle.localeAwareShortDate)
