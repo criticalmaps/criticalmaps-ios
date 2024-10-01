@@ -2,19 +2,24 @@
 
 Changelog for Critical Maps iOS
 
-# [4.4.0] - 2024-08-05
+## [4.4.0] - 2024-10-01
+
+### Added
+
+- Fetches extended ride infos with included ride event timezone.
+  This improves internal event time representations.
 
 ### Updated
 
-- Adopt TCA 1.12
+- Adopted TCA 1.12
 - Replace Twitter with Mastodon in settings
-- Enabling observationmode will stop updating locations
 
 ### Fixed
 
+- Enabling observationmode will stop updating locations
 - Location tracking Button Animation
 
-# [4.3.0] - 2023-07-21
+## [4.3.0] - 2023-07-21
 
 ### Added
 
@@ -30,7 +35,7 @@ Changelog for Critical Maps iOS
 - Store user settings failure fixed
 
 
-# [4.2.1] - 2023-06-05
+## [4.2.1] - 2023-06-05
 
 ### Fixed
 
@@ -39,7 +44,7 @@ Changelog for Critical Maps iOS
 - Bugfixes
 
 
-# [4.2.0] - 2023-06-01
+## [4.2.0] - 2023-06-01
 
 ### Added
 
@@ -47,7 +52,7 @@ Changelog for Critical Maps iOS
 - Update BottomSheet view that will focus on available next ride
 - Performance enhencements
 
-# [4.0.0] - 2022-03-18
+## [4.0.0] - 2022-03-18
 
 __Proposal for the release is to make it `4.0.0`__
 This release is a rebuild of the app built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`
@@ -62,7 +67,7 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 - Show observation mode prompt on first app launch
 
 
-# [3.9.2] - 2021-05-04
+## [3.9.2] - 2021-05-04
 
 ### Fixed
 
@@ -71,7 +76,7 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 - Fix Switching Appearance Settings and using `.system`
 - 🤞Should fix event feature related crashes.
 
-# [3.9.1] - 2020-11-20
+## [3.9.1] - 2020-11-20
 
 ### Fixed 
 
@@ -79,7 +84,7 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 - Make `BikeAnnotation` it is more accesible now(scales with preferredContentSizeCategory)
 - Minor layout fixes: accessory color in Settings and update chat input to follow the design from sketch
 
-# [3.9.0] - 2020-11-09
+## [3.9.0] - 2020-11-09
 
 ### Added
 
