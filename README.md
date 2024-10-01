@@ -26,7 +26,7 @@ This iOS app is made for Critical Maps. It tracks your location and shares it wi
 
 ## Project Setup
 
-The App uses Apple's `Combine.framework` for operation scheduling. The UI-Layer is built with [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and `SwiftUI`.
+The iOS client's logic is built in the [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and the UI is built in SwiftUI.
 Minimum platform requirements are: iOS 16.0
 
 ### Modularization
@@ -78,7 +78,7 @@ NOTES:
 
 ## Open Source & Copying
 
-We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use my code in your app, if you choose.
+We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use the code in your app, if you choose to.
 
 However, **please do not ship this app** under your own account. Paid or free.
 
