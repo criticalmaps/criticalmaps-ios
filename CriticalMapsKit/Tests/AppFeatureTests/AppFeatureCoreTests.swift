@@ -297,7 +297,7 @@ final class AppFeatureTests: XCTestCase {
     await store.send(.map(.focusRideEvent(coordinate))) {
       $0.mapFeatureState.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
     }
-    await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(0.4))))
+    await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(0.3))))
     await testClock.advance(by: .seconds(1))
     await store.receive(.map(.resetRideEventCenter)) {
       $0.mapFeatureState.eventCenter = nil
@@ -505,6 +505,24 @@ final class AppFeatureTests: XCTestCase {
     // assert
     let didStopLocationObservationValue = await didStopLocationUpdating.value
     XCTAssertTrue(didStopLocationObservationValue)
+  }
+  
+  func test_didTapNextEventBanner() async {
+    let store = await TestStore(
+      initialState: AppFeature.State(nextRideState: NextRideFeature.State(nextRide: Ride.mock1)),
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = TestClock()
+      }
+    )
+    store.exhaustivity = .off
+    
+    // act
+    await store.send(.didTapNextEventBanner)
+    
+    // assert
+    await store.receive(.map(.focusNextRide(Ride.mock1.coordinate)))
+    await store.receive(.set(\.$bottomSheetPosition, .relative(0.3)))
   }
 }
 

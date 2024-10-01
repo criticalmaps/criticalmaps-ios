@@ -17,7 +17,8 @@ public extension Request {
         URLQueryItem(name: NextRideQueryKeys.centerLatitude, value: String(coordinate.latitude)),
         URLQueryItem(name: NextRideQueryKeys.radius, value: String(radius)),
         URLQueryItem(name: NextRideQueryKeys.year, value: String(Date.getCurrent(\.year, date))),
-        URLQueryItem(name: NextRideQueryKeys.month, value: String(month))
+        URLQueryItem(name: NextRideQueryKeys.month, value: String(month)),
+        URLQueryItem(name: NextRideQueryKeys.extended, value: "true"),
       ]
     )
   }
@@ -31,4 +32,5 @@ enum NextRideQueryKeys {
   static let radius = "radius"
   static let year = "year"
   static let month = "month"
+  static let extended = "extended"
 }

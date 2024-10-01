@@ -51,12 +51,6 @@ public struct AppView: View {
         VStack(alignment: .leading) {
           if shouldShowNextRideBanner {
             nextRideBanner()
-              .contextMenu {
-                Button(
-                  action: { viewStore.send(.set(\.$bottomSheetPosition, .relative(0.4))) },
-                  label: { Label(contextMenuTitle, systemImage: "list.bullet") }
-                )
-              }
           }
           
           if viewStore.settingsState.infoViewEnabled {
@@ -98,7 +92,7 @@ public struct AppView: View {
     .bottomSheet(
       bottomSheetPosition: viewStore.$bottomSheetPosition,
       switchablePositions: [
-        .relative(0.4),
+        .relative(0.3),
         .relativeTop(0.975)
       ],
       title: "Events",
@@ -181,45 +175,14 @@ public struct AppView: View {
   func bottomSheetContentView() -> some View {
     VStack {
       List(viewStore.nextRideState.rideEvents, id: \.id) { ride in
-        HStack(alignment: .center, spacing: .grid(2)) {
-          Image(uiImage: Asset.cm.image)
-            .accessibilityHidden(true)
-          
-          VStack(alignment: .leading, spacing: .grid(1)) {
-            Text(ride.title)
-              .multilineTextAlignment(.leading)
-              .font(Font.body.weight(.semibold))
-              .foregroundColor(Color(.textPrimary))
-              .padding(.bottom, .grid(1))
-            
-            VStack(alignment: .leading, spacing: 2) {
-              Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
-                .multilineTextAlignment(.leading)
-                .font(.bodyTwo)
-                .foregroundColor(Color(.textSecondary))
-              
-              Label(ride.dateTime.humanReadableTime, systemImage: "clock")
-                .multilineTextAlignment(.leading)
-                .font(.bodyTwo)
-                .foregroundColor(Color(.textSecondary))
-              
-              if let location = ride.location {
-                Label(location, systemImage: "location.fill")
-                  .multilineTextAlignment(.leading)
-                  .font(.bodyTwo)
-                  .foregroundColor(Color(.textSecondary))
-              }
-            }
+        RideEventView(ride: ride)
+          .contentShape(Rectangle())
+          .padding(.vertical, .grid(1))
+          .accessibilityElement(children: .combine)
+          .onTapGesture {
+            viewStore.send(.onRideSelectedFromBottomSheet(ride))
           }
-          Spacer()
-        }
-        .contentShape(Rectangle())
-        .padding(.vertical, .grid(1))
-        .accessibilityElement(children: .combine)
-        .onTapGesture {
-          viewStore.send(.onRideSelectedFromBottomSheet(ride))
-        }
-        .listRowBackground(Color.clear)
+          .listRowBackground(Color.clear)
       }
       .listStyle(.plain)
     }
@@ -262,7 +225,7 @@ public struct AppView: View {
         },
         action: { $0 }
       ),
-      action: { viewStore.send(.map(.focusNextRide(viewStore.nextRideState.nextRide?.coordinate))) },
+      action: { viewStore.send(.didTapNextEventBanner) },
       content: {
         VStack(alignment: .leading, spacing: .grid(1)) {
           Text(viewStore.state.nextRideState.nextRide?.title ?? "")
@@ -300,6 +263,45 @@ struct NumericContentTransition: ViewModifier {
         .contentTransition(.numericText())
     } else {
       content
+    }
+  }
+}
+
+struct RideEventView: View {
+  let ride: Ride
+  
+  var body: some View {
+    HStack(alignment: .center, spacing: .grid(2)) {
+      Image(uiImage: Asset.cm.image)
+        .accessibilityHidden(true)
+      
+      VStack(alignment: .leading, spacing: .grid(1)) {
+        Text(ride.title)
+          .multilineTextAlignment(.leading)
+          .font(Font.body.weight(.semibold))
+          .foregroundColor(Color(.textPrimary))
+          .padding(.bottom, .grid(1))
+        
+        VStack(alignment: .leading, spacing: 2) {
+          Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
+            .multilineTextAlignment(.leading)
+            .font(.bodyTwo)
+            .foregroundColor(Color(.textSecondary))
+          
+          Label(ride.rideTime, systemImage: "clock")
+            .multilineTextAlignment(.leading)
+            .font(.bodyTwo)
+            .foregroundColor(Color(.textSecondary))
+          
+          if let location = ride.location {
+            Label(location, systemImage: "location.fill")
+              .multilineTextAlignment(.leading)
+              .font(.bodyTwo)
+              .foregroundColor(Color(.textSecondary))
+          }
+        }
+      }
+      Spacer()
     }
   }
 }

@@ -1,3 +1,4 @@
+import ComposableArchitecture
 import CoreLocation
 import Foundation
 import Helpers
@@ -5,6 +6,7 @@ import MapKit
 
 public struct Ride: Hashable, Codable, Identifiable {
   public let id: Int
+  public var city: City?
   public let slug: String?
   public let title: String
   public let description: String?
@@ -22,6 +24,7 @@ public struct Ride: Hashable, Codable, Identifiable {
 
   public init(
     id: Int,
+    city: City? = nil,
     slug: String? = nil,
     title: String,
     description: String? = nil,
@@ -38,6 +41,7 @@ public struct Ride: Hashable, Codable, Identifiable {
     rideType: Ride.RideType? = nil
   ) {
     self.id = id
+    self.city = city
     self.slug = slug
     self.title = title
     self.description = description
@@ -53,6 +57,25 @@ public struct Ride: Hashable, Codable, Identifiable {
     self.disabledReasonMessage = disabledReasonMessage
     self.rideType = rideType
   }
+}
+
+extension Ride {
+  public struct City: Codable, Hashable {
+    let id: Int
+    let name: String
+    let timezone: String
+  
+    public init(
+      id: Int,
+      name: String,
+      timezone: String
+    ) {
+      self.id = id
+      self.name = name
+      self.timezone = timezone
+    }
+  }
+  
 }
 
 public extension Ride {
@@ -72,7 +95,18 @@ public extension Ride {
   }
 
   var rideDateAndTime: String {
-    "\(dateTime.humanReadableDate) - \(dateTime.humanReadableTime)"
+    "\(dateTime.humanReadableDate) - \(rideTime)"
+  }
+  
+  var rideTime: String {
+    if
+      let cityTimeZone = city?.timezone,
+      let timeZone = TimeZone(identifier: cityTimeZone)
+    {
+      return dateTime.formatted(Date.FormatStyle.shortTimeWithEventTimeZone(timeZone))
+    } else {
+      return dateTime.formatted(Date.FormatStyle.localeAwareShortTime)
+    }
   }
 
   var shareMessage: String {
@@ -82,6 +116,8 @@ public extension Ride {
     return """
     \(titleAndTime)
     \(location)
+    
+    \(description ?? "")
     """
   }
 }
@@ -119,5 +155,18 @@ public extension Ride {
         .replacingOccurrences(of: "_", with: " ")
         .capitalized
     }
+  }
+}
+
+private extension Date.FormatStyle {
+  static func shortTimeWithEventTimeZone(_ timezone: TimeZone) -> Self {
+    @Dependency(\.locale) var locale
+    
+    return Self(
+      date: .omitted,
+      time: .shortened,
+      locale: locale,
+      timeZone: timezone
+    )
   }
 }

@@ -143,6 +143,7 @@ public struct AppFeature {
     case requestTimer(RequestTimer.Action)
     case settings(SettingsFeature.Action)
     case social(SocialFeature.Action)
+    case didTapNextEventBanner
 
     public enum Alert: Equatable, Sendable {
       case observationMode(enabled: Bool)
@@ -322,10 +323,9 @@ public struct AppFeature {
         
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
-        case .focusRideEvent,
-            .focusNextRide:
+        case .focusRideEvent, .focusNextRide:
           if state.bottomSheetPosition != .hidden {
-            return .send(.set(\.$bottomSheetPosition, .relative(0.4)))
+            return .send(.set(\.$bottomSheetPosition, .relative(0.3)))
           } else {
             return .none
           }
@@ -491,6 +491,12 @@ public struct AppFeature {
         default:
           return .none
         }
+        
+      case .didTapNextEventBanner:
+        return .merge(
+          .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
+          .send(.set(\.$bottomSheetPosition, .relative(0.3)))
+        )
 
       case .binding:
         return .none

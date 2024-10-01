@@ -7,6 +7,7 @@ public extension TimeZone {
   static let spain = TimeZone(identifier: "Europe/Madrid")!
   static let france = TimeZone(identifier: "Europe/Paris")!
   static let greece = TimeZone(identifier: "Europe/Athens")!
+  static let london = TimeZone(identifier: "Europe/London")!
   
   // America
   static let ecuador = TimeZone(identifier: "America/Guayaquil")!
