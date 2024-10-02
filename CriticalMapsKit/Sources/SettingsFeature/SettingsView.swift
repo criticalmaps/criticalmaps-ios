@@ -127,48 +127,55 @@ public struct SettingsView: View {
   var supportSection: some View {
     SettingsSection(title: L10n.Settings.support) {
       VStack(alignment: .leading, spacing: .grid(4)) {
-        Button(
-          action: { viewStore.send(.supportSectionRowTapped(.github)) },
-          label: {
-            SupportSettingsRow(
-              title: L10n.Settings.programming,
-              subTitle: L10n.Settings.Opensource.detail,
-              link: L10n.Settings.Opensource.action,
-              textStackForegroundColor: Color(.textPrimaryLight),
-              backgroundColor: Color(.brand500),
-              bottomImage: Image(uiImage: Asset.ghLogo.image)
-            )
-          }
+        SupportSettingsRow(
+          title: L10n.Settings.programming,
+          subTitle: L10n.Settings.Opensource.detail,
+          link: L10n.Settings.Opensource.action,
+          textStackForegroundColor: .white,
+          backgroundColor: Color(UIColor.hex(0x332F38)),
+          bottomImage: {
+            Image(uiImage: Asset.ghLogo.image)
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(width: 150, height: 150, alignment: .bottomTrailing)
+              .opacity(0.4)
+              .accessibilityHidden(true)
+          },
+          action: { viewStore.send(.supportSectionRowTapped(.github)) }
         )
         .accessibilityAddTraits(.isLink)
         
-        Button(
-          action: { viewStore.send(.supportSectionRowTapped(.crowdin)) },
-          label: {
-            SupportSettingsRow(
-              title: L10n.Settings.Translate.title,
-              subTitle: L10n.Settings.Translate.subtitle,
-              link: L10n.Settings.Translate.link,
-              textStackForegroundColor: .white,
-              backgroundColor: Color(.translateRowBackground),
-              bottomImage: Image(uiImage: Asset.translate.image)
-            )
-          }
+        SupportSettingsRow(
+          title: L10n.Settings.Translate.title,
+          subTitle: L10n.Settings.Translate.subtitle,
+          link: L10n.Settings.Translate.link,
+          textStackForegroundColor: .white,
+          backgroundColor: Color(.translateRowBackground),
+          bottomImage: {
+            Image(uiImage: Asset.translate.image)
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(width: 150, height: 150, alignment: .bottomTrailing)
+              .accessibilityHidden(true)
+          },
+          action: { viewStore.send(.supportSectionRowTapped(.crowdin)) }
         )
         .accessibilityAddTraits(.isLink)
         
-        Button(
-          action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) },
-          label: {
-            SupportSettingsRow(
-              title: L10n.Settings.CriticalMassDotIn.title,
-              subTitle: L10n.Settings.CriticalMassDotIn.detail,
-              link: L10n.Settings.CriticalMassDotIn.action,
-              textStackForegroundColor: Color(.textPrimaryLight),
-              backgroundColor: Color(.cmInRowBackground),
-              bottomImage: Image(uiImage: Asset.cmDotInLogo.image)
-            )
-          }
+        SupportSettingsRow(
+          title: L10n.Settings.CriticalMassDotIn.title,
+          subTitle: L10n.Settings.CriticalMassDotIn.detail,
+          link: L10n.Settings.CriticalMassDotIn.action,
+          textStackForegroundColor: Color(.textPrimaryLight),
+          backgroundColor: Color(.cmInRowBackground),
+          bottomImage: {
+            Image(uiImage: Asset.cmDotInLogo.image)
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(width: 150, height: 150, alignment: .bottomTrailing)
+              .accessibilityHidden(true)
+          },
+          action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) }
         )
         .accessibilityAddTraits(.isLink)
       }
@@ -192,7 +199,7 @@ public struct SettingsView: View {
         Button(
           action: { viewStore.send(.infoSectionRowTapped(.mastodon)) },
           label: {
-            SettingsInfoLink(title: "mastodon")
+            SettingsInfoLink(title: "Mastodon")
           }
         )
         .accessibilityAddTraits(.isLink)

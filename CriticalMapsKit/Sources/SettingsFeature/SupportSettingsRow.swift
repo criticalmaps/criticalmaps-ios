@@ -3,7 +3,7 @@ import Styleguide
 import SwiftUI
 import SwiftUIHelpers
 
-struct SupportSettingsRow: View {
+struct SupportSettingsRow<BottomImageView: View>: View {
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
 
   let title: String
@@ -11,15 +11,12 @@ struct SupportSettingsRow: View {
   let link: String
   let textStackForegroundColor: Color
   let backgroundColor: Color
-  let bottomImage: Image
+  @ViewBuilder var bottomImage: () -> BottomImageView
+  let action: () -> Void
 
   var body: some View {
     ZStack(alignment: .bottomTrailing) {
-      bottomImage
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 150, height: 150, alignment: .bottomTrailing)
-        .accessibilityHidden(true)
+      bottomImage()
 
       VStack(alignment: .leading, spacing: .grid(2)) {
         Text(title)
@@ -27,12 +24,19 @@ struct SupportSettingsRow: View {
         Text(subTitle)
           .multilineTextAlignment(.leading)
           .font(.bodyTwo)
-        HStack {
-          Text(link)
-            .multilineTextAlignment(.leading)
-          Image(systemName: "arrow.up.right")
-        }
-        .font(.body.bold())
+        Button(
+          action: action,
+          label: {
+            HStack {
+              Text(link)
+                .multilineTextAlignment(.leading)
+              Image(systemName: "arrow.up.right")
+            }
+            .font(.body.bold())
+            .padding(4)
+          }
+        )
+        .padding(.top, 2)
       }
       .accessibilityElement(children: .combine)
       .padding([.top, .bottom, .leading], .grid(6))
@@ -40,7 +44,21 @@ struct SupportSettingsRow: View {
       .foregroundColor(colorSchemeContrast.isIncreased ? Color(.backgroundPrimary) : textStackForegroundColor)
       .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
     }
-    .background(colorSchemeContrast.isIncreased ? Color(.textPrimary) : backgroundColor)
+    .background(
+      Group {
+        if colorSchemeContrast.isIncreased {
+          Color(.textPrimary)
+        } else {
+          backgroundColor
+            .overlay {
+              LinearGradient(
+                colors: [.clear, .white.opacity(0.3)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing)
+            }
+        }
+      }
+    )
     .clipShape(RoundedRectangle(cornerRadius: 16))
   }
 }
@@ -54,7 +72,8 @@ struct SwiftUIView_Previews: PreviewProvider {
         link: "GitHub",
         textStackForegroundColor: Color(.textPrimary),
         backgroundColor: .yellow,
-        bottomImage: Image(systemName: "chevron.left.circle.fill")
+        bottomImage: { Image(systemName: "chevron.left.circle.fill") }, 
+        action: {}
       )
     }
   }
