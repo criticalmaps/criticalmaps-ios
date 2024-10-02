@@ -77,7 +77,7 @@ public extension UIColor {
   }
   
   static var cmInRowBackground: Self {
-    Self.hex(0xB8E5D6)
+    Self.hex(0x6ADDB6)
   }
   
   static var textPrimaryLight: Self {
@@ -102,7 +102,7 @@ public extension UIColor {
 }
 
 extension UIColor {
-  static func hex(_ hex: UInt, alpha: CGFloat = 1) -> Self {
+  public static func hex(_ hex: UInt, alpha: CGFloat = 1) -> Self {
     Self(
       red: CGFloat((hex & 0xFF0000) >> 16) / 255,
       green: CGFloat((hex & 0x00FF00) >> 8) / 255,
