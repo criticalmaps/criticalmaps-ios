@@ -76,8 +76,8 @@ struct EmptyStateView_Previews: PreviewProvider {
     Preview {
       EmptyStateView(
         emptyState: .init(
-          icon: Asset.twitterEmpty.image,
-          text: "No tweets atm",
+          icon: Asset.toot.image,
+          text: "No toots atm",
           message: .init(string: "")
         )
       )

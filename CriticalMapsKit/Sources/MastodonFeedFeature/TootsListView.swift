@@ -45,7 +45,7 @@ public struct TootsListView: View {
   func contentView() -> some View {
     if viewStore.toots.isEmpty {
       EmptyStateView(
-        emptyState: .twitter,
+        emptyState: .mastodon,
         buttonAction: { viewStore.send(.fetchData) },
         buttonText: L10n.EmptyState.reload
       )
@@ -96,8 +96,8 @@ struct TootsListView_Previews: PreviewProvider {
 }
 
 public extension EmptyState {
-  static let twitter = Self(
-    icon: Asset.twitterEmpty.image,
+  static let mastodon = Self(
+    icon: Asset.toot.image,
     text: L10n.Twitter.noData,
     message: NSAttributedString(string: L10n.Twitter.Empty.message)
   )
