@@ -32,6 +32,7 @@ struct SupportSettingsRow<BottomImageView: View>: View {
                 .multilineTextAlignment(.leading)
               Image(systemName: "arrow.up.right")
             }
+            .shadow(color: textStackForegroundColor.opacity(0.15), radius: 4)
             .font(.body.bold())
             .padding(4)
           }

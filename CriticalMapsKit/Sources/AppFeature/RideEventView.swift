@@ -7,17 +7,18 @@ struct RideEventView: View {
   let ride: Ride
   
   var body: some View {
-    HStack(alignment: .center, spacing: .grid(2)) {
+    HStack(alignment: .top, spacing: .grid(2)) {
       Image(uiImage: Asset.cm.image)
-        .scaleEffect(0.8)
-        .aspectRatio(contentMode: .fit)
+        .resizable()
+        .frame(width: 44, height: 52)
         .shadow(color: .black.opacity(0.3), radius: 3)
-        .clipped()
         .accessibilityHidden(true)
+        .offset(y: -4)
+
       VStack(alignment: .leading, spacing: .grid(1)) {
-        Text(ride.title)
+        Text(ride.titleWithoutDatePattern)
           .multilineTextAlignment(.leading)
-          .font(Font.body.weight(.semibold))
+          .font(.headline.weight(.bold))
           .foregroundColor(Color(.textPrimary))
           .padding(.bottom, .grid(2))
         
@@ -46,28 +47,55 @@ struct RideEventView: View {
 }
 
 #Preview {
-  RideEventView(
-    ride: Ride(
-      id: 0,
-      city: Ride.City(
-        id: 1,
-        name: "Berlin",
-        timezone: TimeZone(identifier: "Europe/Berlin")!.identifier
-      ),
-      slug: nil,
-      title: "CriticalMaps Berlin",
-      description: nil,
-      dateTime: Date(timeIntervalSince1970: 1727905659),
-      location: "Berlin",
-      latitude: 53.1235,
-      longitude: 13.4234,
-      estimatedParticipants: nil,
-      estimatedDistance: nil,
-      estimatedDuration: nil,
-      enabled: true,
-      disabledReason: nil,
-      disabledReasonMessage: nil,
-      rideType: .criticalMass
+  List {
+    RideEventView(
+      ride: Ride(
+        id: 0,
+        city: Ride.City(
+          id: 1,
+          name: "Berlin",
+          timezone: TimeZone(identifier: "Europe/Berlin")!.identifier
+        ),
+        slug: nil,
+        title: "CriticalMaps Berlin",
+        description: "Enim magna ea nostrud irure elit pariatur ea dolore in. Enim magna ea nostrud irure elit pariatur ea dolore in.Enim magna ea nostrud irure elit pariatur ea dolore in.Enim magna ea nostrud irure elit pariatur ea dolore in.",
+        dateTime: Date(timeIntervalSince1970: 1727905659),
+        location: "Berlin",
+        latitude: 53.1235,
+        longitude: 13.4234,
+        estimatedParticipants: nil,
+        estimatedDistance: nil,
+        estimatedDuration: nil,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      )
     )
-  )
+    
+    RideEventView(
+      ride: Ride(
+        id: 1,
+        city: Ride.City(
+          id: 1,
+          name: "Berlin",
+          timezone: TimeZone(identifier: "Europe/Berlin")!.identifier
+        ),
+        slug: nil,
+        title: "CriticalMaps Berlin",
+        description: "Enim magna ea nostrud irure elit pariatur ea dolore in. Enim magna ea nostrud irure elit pariatur ea dolore in.Enim magna ea nostrud irure elit pariatur ea dolore in.Enim magna ea nostrud irure elit pariatur ea dolore in.",
+        dateTime: Date(timeIntervalSince1970: 1727905659),
+        location: "Berlin",
+        latitude: 53.1235,
+        longitude: 13.4234,
+        estimatedParticipants: nil,
+        estimatedDistance: nil,
+        estimatedDuration: nil,
+        enabled: true,
+        disabledReason: nil,
+        disabledReasonMessage: nil,
+        rideType: .criticalMass
+      )
+    )
+  }
 }

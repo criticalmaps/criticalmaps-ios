@@ -99,7 +99,7 @@ public struct AppView: View {
       content: { bottomSheetContentView() }
     )
     .showCloseButton()
-    .backgroundBlurMaterial(.adaptive(.thin))
+    .backgroundBlurMaterial(.adaptive(.ultraThin))
     .showDragIndicator(true)
     .enableSwipeToDismiss()
     .onDismiss { viewStore.send(.set(\.$bottomSheetPosition, .hidden)) }
@@ -228,7 +228,7 @@ public struct AppView: View {
       action: { viewStore.send(.didTapNextEventBanner) },
       content: {
         VStack(alignment: .leading, spacing: .grid(1)) {
-          Text(viewStore.state.nextRideState.nextRide?.title ?? "")
+          Text(viewStore.state.nextRideState.nextRide?.titleWithoutDatePattern ?? "")
             .multilineTextAlignment(.leading)
             .font(.titleTwo)
             .foregroundColor(Color(.textPrimary))

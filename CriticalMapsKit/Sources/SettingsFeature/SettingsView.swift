@@ -155,7 +155,7 @@ public struct SettingsView: View {
             Image(uiImage: Asset.translate.image)
               .resizable()
               .aspectRatio(contentMode: .fit)
-              .frame(width: 150, height: 150, alignment: .bottomTrailing)
+              .frame(width: 135, height: 135, alignment: .bottomTrailing)
               .accessibilityHidden(true)
           },
           action: { viewStore.send(.supportSectionRowTapped(.crowdin)) }
@@ -172,7 +172,7 @@ public struct SettingsView: View {
             Image(uiImage: Asset.cmDotInLogo.image)
               .resizable()
               .aspectRatio(contentMode: .fit)
-              .frame(width: 150, height: 150, alignment: .bottomTrailing)
+              .frame(width: 160, height: 160, alignment: .bottomTrailing)
               .accessibilityHidden(true)
           },
           action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) }

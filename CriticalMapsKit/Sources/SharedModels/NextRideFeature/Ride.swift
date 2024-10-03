@@ -85,11 +85,14 @@ public extension Ride {
     }
     return Coordinate(latitude: lat, longitude: lng)
   }
+  
+  var titleWithoutDatePattern: String {
+    title.removedDatePattern()
+  }
 
   var titleAndTime: String {
-    let titleWithoutDate = title.removedDatePattern()
-    return """
-    \(titleWithoutDate)
+    """
+    \(titleWithoutDatePattern)
     \(rideDateAndTime)
     """
   }
