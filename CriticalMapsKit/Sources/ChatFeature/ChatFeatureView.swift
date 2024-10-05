@@ -48,7 +48,7 @@ public struct ChatView: View {
           }
           .listRowBackground(Color(.backgroundPrimary))
           .listStyle(PlainListStyle())
-          .accessibleAnimation(.easeOut, value: viewStore.messages)
+          .accessibleAnimation(.spring, value: viewStore.messages)
         }
       }
       

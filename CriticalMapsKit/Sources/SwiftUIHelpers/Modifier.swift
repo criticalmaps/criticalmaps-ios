@@ -20,6 +20,6 @@ public extension View {
 struct MyModifier_Previews: PreviewProvider {
   static var previews: some View {
     Text("Hello, world!")
-      .modifier(AccessibleAnimation(animation: .easeOut, value: 0))
+      .modifier(AccessibleAnimation(animation: .spring, value: 0))
   }
 }
