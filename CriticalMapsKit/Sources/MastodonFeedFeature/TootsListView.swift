@@ -64,7 +64,7 @@ public struct TootsListView: View {
           ForEachStore(
             self.store.scope(
               state: \.toots,
-              action: TootFeedFeature.Action.toot
+              action: \.toot
             )
           ) {
             TootView(store: $0)

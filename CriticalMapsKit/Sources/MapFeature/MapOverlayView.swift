@@ -74,14 +74,20 @@ public struct MapOverlayView<Content>: View where Content: View {
         }
       }
     )
-    .transition(.scale.animation(reduceMotion ? nil : .easeOut(duration: 0.2)))
-    .onChange(of: viewStore.isExpanded, perform: { newValue in
-      let updateAction: () -> Void = { self.isExpanded = newValue }
-      reduceMotion ? updateAction() : withAnimation { updateAction() }
-    })
-    .onChange(of: viewStore.isVisible, perform: { newValue in
-      let updateAction: () -> Void = { self.isVisible = newValue }
-      reduceMotion ? updateAction() : withAnimation { updateAction() }
-    })
+    .transition(.scale.combined(with: .opacity).animation(reduceMotion ? nil : .spring(duration: 0.2)))
+    .onChange(
+      of: viewStore.isExpanded,
+      perform: { newValue in
+        let updateAction: () -> Void = { self.isExpanded = newValue }
+        reduceMotion ? updateAction() : withAnimation { updateAction() }
+      }
+    )
+    .onChange(
+      of: viewStore.isVisible,
+      perform: { newValue in
+        let updateAction: () -> Void = { self.isVisible = newValue }
+        reduceMotion ? updateAction() : withAnimation { updateAction() }
+      }
+    )
   }
 }

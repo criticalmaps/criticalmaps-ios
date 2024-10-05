@@ -375,9 +375,6 @@ package.targets.append(contentsOf: [
       .testHelper,
       .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
-    ],
-    exclude: [
-      "__Snapshots__"
     ]
   )
 ])

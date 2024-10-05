@@ -24,7 +24,10 @@ public struct MastodonFeedView: View {
   public init(store: StoreOf<TootFeedFeature>) {
     self.store = store
     viewStore = ViewStore(
-      store.scope(state: MastodonFeedViewState.init, action: { $0 }),
+      store.scope(
+        state: MastodonFeedViewState.init,
+        action: { $0 }
+      ),
       observe: { $0 }
     )
   }

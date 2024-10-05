@@ -8,14 +8,14 @@ final class SettingsFeatureCoreTests: XCTestCase {
   
   @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_privacy() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
       reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
@@ -24,21 +24,21 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
     
-    await openedUrl.withValue { url in
+    openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
     }
   }
   
   @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_cmWebsite() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
       reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
@@ -47,21 +47,21 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
     
-    await openedUrl.withValue { url in
+    openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
     }
   }
   
   @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_cmMastodon() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
       reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
@@ -70,21 +70,21 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.infoSectionRowTapped(row))
     await store.receive(.openURL(row.url))
 
-    await openedUrl.withValue { url in
+    openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
     }
   }
   
   @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_github() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
       reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
@@ -93,21 +93,21 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.supportSectionRowTapped(row))
     await store.receive(.openURL(row.url))
 
-    await openedUrl.withValue { url in
+    openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
     }
   }
   
   @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_crowdin() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
       reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
@@ -116,21 +116,21 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.supportSectionRowTapped(row))
     await store.receive(.openURL(row.url))
     
-    await openedUrl.withValue { url in
+    openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
     }
   }
   
   @MainActor
   func test_openURLAction_shouldCallUIApplicationClient_criticalMassDotIn() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: SettingsFeature.State(),
       reducer: { SettingsFeature() }
     )
     store.dependencies.uiApplicationClient.open = { url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
@@ -139,14 +139,14 @@ final class SettingsFeatureCoreTests: XCTestCase {
     await store.send(.supportSectionRowTapped(row))
     await store.receive(.openURL(row.url))
 
-    await openedUrl.withValue { url in
+    openedUrl.withValue { url in
       XCTAssertEqual(url, row.url)
     }
   }
   
   @MainActor
   func test_didSaveUserSettings_onRideEventSettingsChange() async throws {
-    let didSaveUserSettings = ActorIsolated(false)
+    let didSaveUserSettings = LockIsolated(false)
     let testQueue = DispatchQueue.immediate
 
     let testClock = TestClock()
@@ -161,7 +161,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
         $0.continuousClock = testClock
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.fileClient.save = { @Sendable _, _ in
-          await didSaveUserSettings.setValue(true)
+          didSaveUserSettings.setValue(true)
         }
         $0.observationModeStore.setObservationModeState = { _ in }
       }
@@ -174,14 +174,14 @@ final class SettingsFeatureCoreTests: XCTestCase {
 
     await testClock.advance(by: .seconds(2))
     // assert
-    await didSaveUserSettings.withValue { val in
+    didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
     }
   }
   
   @MainActor
   func test_didSaveUserSettings_onAppearanceSettingsChange() async throws {
-    let didSaveUserSettings = ActorIsolated(false)
+    let didSaveUserSettings = LockIsolated(false)
 
     let store = TestStore(
       initialState: SettingsFeature.State(
@@ -198,9 +198,9 @@ final class SettingsFeatureCoreTests: XCTestCase {
     store.dependencies.continuousClock = testClock
     store.dependencies.mainQueue = .immediate
     store.dependencies.fileClient.save = { @Sendable _, _ in
-      await didSaveUserSettings.setValue(true)
+      didSaveUserSettings.setValue(true)
     }
-    store.dependencies.observationModeStore.setObservationModeState = { _ in }
+    store.dependencies.observationModeStore.setObservationModeState = { @Sendable _ in }
     
     // act
     await store.send(.appearance(.set(\.$colorScheme, .dark))) {
@@ -209,7 +209,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
 
     await testClock.advance(by: .seconds(2))
     // assert
-    await didSaveUserSettings.withValue { val in
+    didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
     }
     await store.finish()
@@ -217,7 +217,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
   
   @MainActor
   func test_didSaveUserSettings_onSettingsChange() async throws {
-    let didSaveUserSettings = ActorIsolated(false)
+    let didSaveUserSettings = LockIsolated(false)
     let testQueue = DispatchQueue.immediate
 
     let store = TestStore(
@@ -228,11 +228,11 @@ final class SettingsFeatureCoreTests: XCTestCase {
     )
     store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
     store.dependencies.fileClient.save = { @Sendable _, _ in
-      await didSaveUserSettings.setValue(true)
+      didSaveUserSettings.setValue(true)
     }
     let testClock = TestClock()
     store.dependencies.continuousClock = testClock
-    store.dependencies.observationModeStore.setObservationModeState = { _ in }
+    store.dependencies.observationModeStore.setObservationModeState = { @Sendable _ in }
     
     // act
     await store.send(.set(\.$isObservationModeEnabled, true)) {
@@ -241,7 +241,7 @@ final class SettingsFeatureCoreTests: XCTestCase {
 
     // assert
     await testClock.advance(by: .seconds(2))
-    await didSaveUserSettings.withValue { val in
+    didSaveUserSettings.withValue { val in
       XCTAssertTrue(val, "Expected that save is invoked")
     }
   }

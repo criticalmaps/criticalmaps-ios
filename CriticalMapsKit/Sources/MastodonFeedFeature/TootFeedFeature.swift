@@ -39,7 +39,7 @@ public struct TootFeedFeature {
     case refresh
     case fetchData
     case fetchDataResponse(TaskResult<[Status]>)
-    case toot(id: TootFeature.State.ID, action: TootFeature.Action)
+    case toot(IdentifiedActionOf<TootFeature>)
   }
   
   
@@ -90,13 +90,13 @@ public struct TootFeedFeature {
         return .none
       }
     }
-    .forEach(\.toots, action: /TootFeedFeature.Action.toot) {
+    .forEach(\.toots, action: \.toot) {
       TootFeature()
     }
   }
 }
 
-extension MastodonKit.Status: Identifiable {
+extension MastodonKit.Status: @retroactive Identifiable {
   public static func == (lhs: MastodonKit.Status, rhs: MastodonKit.Status) -> Bool {
     lhs.id == rhs.id
   }

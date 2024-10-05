@@ -118,8 +118,8 @@ public struct ChatFeature {
         state.chatInputState.isSending = false
         
         state.alert = AlertState(
-          title: TextState(L10n.error),
-          message: TextState("Failed to send chat message")
+          title: { TextState(L10n.error) },
+          message: { TextState("Failed to send chat message") }
         )
         
         logger.debug("ChatInput Action failed with error: \(error.localizedDescription)")

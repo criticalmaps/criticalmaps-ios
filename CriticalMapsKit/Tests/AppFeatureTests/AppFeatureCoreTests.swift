@@ -377,7 +377,7 @@ final class AppFeatureTests: XCTestCase {
   
   @MainActor
   func test_updatingRideEventSettingRadius_ShouldRefetchNextRideInfo() async throws {
-    let updatedRaduis = ActorIsolated(0)
+    let updatedRaduis = LockIsolated(0)
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
@@ -393,7 +393,7 @@ final class AppFeatureTests: XCTestCase {
         $0.date = .init({ @Sendable in self.date() })
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, radius, _ in
-          await updatedRaduis.setValue(radius)
+          updatedRaduis.setValue(radius)
           return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
         }
         $0.continuousClock = TestClock()
@@ -408,14 +408,14 @@ final class AppFeatureTests: XCTestCase {
     await testQueue.advance(by: 2)
     await store.receive(.nextRide(.getNextRide(location.coordinate)))
     
-    await updatedRaduis.withValue { radius in
+    updatedRaduis.withValue { radius in
       XCTAssertEqual(radius, EventDistance.far.rawValue)
     }
   }
 
   @MainActor
   func test_viewingModePrompt() async throws {
-    let didSetDidShowPrompt = ActorIsolated(false)
+    let didSetDidShowPrompt = LockIsolated(false)
 
     let testQueue = DispatchQueue.test
 
@@ -425,7 +425,7 @@ final class AppFeatureTests: XCTestCase {
       withDependencies: {
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.userDefaultsClient.setBool = { _, _ in
-          await didSetDidShowPrompt.setValue(true)
+          didSetDidShowPrompt.setValue(true)
           return ()
         }
         $0.continuousClock = TestClock()
@@ -434,7 +434,7 @@ final class AppFeatureTests: XCTestCase {
 
     await store.send(.alert(.presented(.observationMode(enabled: false))))
 
-    await didSetDidShowPrompt.withValue { val in
+    didSetDidShowPrompt.withValue { val in
       XCTAssertTrue(val)
     }
   }
@@ -457,14 +457,14 @@ final class AppFeatureTests: XCTestCase {
   
   @MainActor
   func test_bindingObservationStatus_shouldStopLocationUpdating() async {
-    let didStopLocationUpdating = ActorIsolated(false)
+    let didStopLocationUpdating = LockIsolated(false)
     
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
       withDependencies: {
         $0.locationManager.stopUpdatingLocation = { 
-          await didStopLocationUpdating.setValue(true)
+          didStopLocationUpdating.setValue(true)
         }
         $0.continuousClock = TestClock()
       }
@@ -477,20 +477,20 @@ final class AppFeatureTests: XCTestCase {
       $0.settingsState.isObservationModeEnabled = true
     }
     // assert
-    let didStopLocationObservationValue = await didStopLocationUpdating.value
+    let didStopLocationObservationValue = didStopLocationUpdating.value
     XCTAssertTrue(didStopLocationObservationValue)
   }
 
   @MainActor
   func test_bindingObservationStatus_shouldStartLocationUpdating() async {
-    let didStopLocationUpdating = ActorIsolated(false)
+    let didStopLocationUpdating = LockIsolated(false)
     
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
       withDependencies: {
         $0.locationManager.startUpdatingLocation = {
-          await didStopLocationUpdating.setValue(true)
+          didStopLocationUpdating.setValue(true)
         }
         $0.continuousClock = TestClock()
       }
@@ -503,12 +503,13 @@ final class AppFeatureTests: XCTestCase {
       $0.settingsState.isObservationModeEnabled = false
     }
     // assert
-    let didStopLocationObservationValue = await didStopLocationUpdating.value
+    let didStopLocationObservationValue = didStopLocationUpdating.value
     XCTAssertTrue(didStopLocationObservationValue)
   }
   
+  @MainActor
   func test_didTapNextEventBanner() async {
-    let store = await TestStore(
+    let store = TestStore(
       initialState: AppFeature.State(nextRideState: NextRideFeature.State(nextRide: Ride.mock1)),
       reducer: { AppFeature() },
       withDependencies: {

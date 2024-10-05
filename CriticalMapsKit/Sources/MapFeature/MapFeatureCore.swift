@@ -124,9 +124,10 @@ public struct MapFeature {
           
         case .didChangeAuthorization(.denied):
           if state.isRequestingCurrentLocation {
-            state.alert = AlertState(
-              title: TextState("Location makes this app better. Please consider giving us access.")
-            )
+            state.alert = AlertState {
+              TextState("Location makes this app better. Please consider giving us access.")
+            }
+            
             state.isRequestingCurrentLocation = false
           }
           return .none
@@ -294,15 +295,17 @@ extension LocationManager {
 
 public extension AlertState where Action == MapFeature.Action {
   static let goToSettingsAlert = Self(
-    title: TextState(L10n.Location.Alert.provideAccessToLocationService),
-    primaryButton: .default(TextState(L10n.Settings.title)),
-    secondaryButton: .default(TextState(L10n.ok))
+    title: { TextState(L10n.Location.Alert.provideAccessToLocationService) },
+    actions: {
+      ButtonState<MapFeature.Action> { TextState(L10n.Settings.title) }
+      ButtonState<MapFeature.Action> { TextState(L10n.Settings.title) }
+    }
   )
   
-  static let provideAuth = Self(title: TextState(L10n.Location.Alert.provideAuth))
-  static let servicesOff = Self(title: TextState(L10n.Location.Alert.serviceIsOff))
+  static let provideAuth = Self(title: {TextState(L10n.Location.Alert.provideAuth)})
+  static let servicesOff = Self(title: {TextState(L10n.Location.Alert.serviceIsOff)})
   static let provideAccessToLocationService = Self(
-    title: TextState(L10n.Location.Alert.provideAccessToLocationService)
+    title: {TextState(L10n.Location.Alert.provideAccessToLocationService)}
   )
 }
 

@@ -7,13 +7,10 @@ import SwiftUIHelpers
 
 /// A view to render next ride event settings
 public struct RideEventSettingsView: View {
-  public typealias State = RideEventsSettingsFeature.State
-  public typealias Action = RideEventsSettingsFeature.Action
+  private let store: StoreOf<RideEventsSettingsFeature>
+  @ObservedObject var viewStore: ViewStoreOf<RideEventsSettingsFeature>
 
-  let store: Store<State, Action>
-  @ObservedObject var viewStore: ViewStore<State, Action>
-
-  public init(store: Store<State, Action>) {
+  public init(store: StoreOf<RideEventsSettingsFeature>) {
     self.store = store
     viewStore = ViewStore(
       store,

@@ -41,27 +41,31 @@ public struct RideEventRadiusView: View {
   let store: StoreOf<RideEventRadius>
   
   public var body: some View {
-    WithViewStore(self.store, observe: { $0 }) { viewStore in
-      SettingsRow {
-        Button(
-          action: { viewStore.send(.set(\.$isSelected, true)) },
-          label: {
-            HStack(spacing: .grid(3)) {
-              Text(String(viewStore.eventDistance.displayValue))
-                .accessibility(label: Text(viewStore.eventDistance.displayValue))
-                .padding(.vertical, .grid(2))
-              Spacer()
-              if viewStore.isSelected {
-                Image(systemName: "checkmark.circle.fill")
-                  .accessibilityRepresentation {
-                    Text(L10n.A11y.General.selected)
-                  }
+    WithViewStore(
+      self.store,
+      observe: { $0 },
+      content: { viewStore in
+        SettingsRow {
+          Button(
+            action: { viewStore.send(.set(\.$isSelected, true)) },
+            label: {
+              HStack(spacing: .grid(3)) {
+                Text(String(viewStore.eventDistance.displayValue))
+                  .accessibility(label: Text(viewStore.eventDistance.displayValue))
+                  .padding(.vertical, .grid(2))
+                Spacer()
+                if viewStore.isSelected {
+                  Image(systemName: "checkmark.circle.fill")
+                    .accessibilityRepresentation {
+                      Text(L10n.A11y.General.selected)
+                    }
+                }
               }
+              .accessibilityElement(children: .combine)
             }
-            .accessibilityElement(children: .combine)
-          }
-        )
+          )
+        }
       }
-    }
+    )
   }
 }

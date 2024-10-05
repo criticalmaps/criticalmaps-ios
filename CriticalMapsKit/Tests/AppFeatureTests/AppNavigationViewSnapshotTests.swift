@@ -22,7 +22,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     
     withSnapshotTesting(diffTool: .ksdiff) {
       assertSnapshots(
-        matching: view,
+        of: view,
         as: [
           .image(precision: 0.9, layout: .device(config: .iPhoneX))
         ],

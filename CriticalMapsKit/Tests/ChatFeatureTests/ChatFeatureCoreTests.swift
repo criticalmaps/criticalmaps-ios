@@ -96,16 +96,16 @@ final class ChatFeatureCore: XCTestCase {
     await testStore.receive(.chatInputResponse(.failure(error))) { state in
       state.chatInputState.isSending = false
       state.alert = .init(
-        title: .init(L10n.error),
-        message: .init("Failed to send chat message")
+        title: { .init(L10n.error) },
+        message: { .init("Failed to send chat message") }
       )
     }
   }
   
   @MainActor
   func test_didAppear_ShouldSet_appearanceTimeinterval() async {
-    let didWriteChatAppearanceTimeinterval = ActorIsolated(false)
-    let chatAppearanceTimeinterval: ActorIsolated<TimeInterval> = ActorIsolated(0)
+    let didWriteChatAppearanceTimeinterval = LockIsolated(false)
+    let chatAppearanceTimeinterval: LockIsolated<TimeInterval> = LockIsolated(0)
     
     let testStore = TestStore(
       initialState: ChatFeature.State(),
@@ -113,8 +113,8 @@ final class ChatFeatureCore: XCTestCase {
     )
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
     testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
-      await didWriteChatAppearanceTimeinterval.setValue(true)
-      await chatAppearanceTimeinterval.setValue(interval)
+      didWriteChatAppearanceTimeinterval.setValue(true)
+      chatAppearanceTimeinterval.setValue(interval)
       return ()
     }
     testStore.dependencies.uuid = .constant(uuid())
@@ -125,10 +125,10 @@ final class ChatFeatureCore: XCTestCase {
     await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
       $0.chatMessages = .results(mockResponse)
     }
-    await chatAppearanceTimeinterval.withValue { interval in
+    chatAppearanceTimeinterval.withValue { interval in
       XCTAssertEqual(interval, date().timeIntervalSince1970)
     }
-    await didWriteChatAppearanceTimeinterval.withValue { val in
+    didWriteChatAppearanceTimeinterval.withValue { val in
       XCTAssertTrue(val)
     }
   }

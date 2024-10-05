@@ -52,40 +52,40 @@ final class TootFeatureTests: XCTestCase {
   
   @MainActor
   func test_openTweet() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: status,
       reducer: { TootFeature() }
     )
     store.dependencies.uiApplicationClient.open = { @Sendable url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
     await store.send(.openTweet)
     
-    await openedUrl.withValue {
+    openedUrl.withValue {
       XCTAssertEqual($0?.absoluteString, "https://mastodon.social/@criticalmaps")
     }
   }
   
   @MainActor
   func test_openUser() async {
-    let openedUrl = ActorIsolated<URL?>(nil)
+    let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: status,
       reducer: { TootFeature() }
     )
     store.dependencies.uiApplicationClient.open = { @Sendable url, _ in
-      await openedUrl.setValue(url)
+      openedUrl.setValue(url)
       return true
     }
     
     await store.send(.openUser)
     
-    await openedUrl.withValue {
+    openedUrl.withValue {
       XCTAssertEqual($0?.absoluteString, "https://mastodon.social/account")
     }
   }
