@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import FeedbackGeneratorClient
 import Foundation
 import L10n
 import SharedModels
@@ -7,6 +8,8 @@ import SwiftUI
 @Reducer
 public struct RideEventRadius {
   public init() {}
+  
+  @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   public struct State: Equatable, Identifiable, Sendable, Codable {
     public let id: UUID
@@ -26,6 +29,11 @@ public struct RideEventRadius {
   
   public var body: some Reducer<State, Action> {
     BindingReducer()
+      .onChange(of: \.isSelected) { _, _ in
+        Reduce { _, _ in
+            .run { _ in await feedbackGenerator.selectionChanged() }
+        }
+      }
   }
 }
 

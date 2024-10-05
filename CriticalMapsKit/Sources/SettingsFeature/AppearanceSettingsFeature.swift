@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import FeedbackGeneratorClient
 import Helpers
 import SharedDependencies
 import SharedModels
@@ -9,8 +10,9 @@ import UIKit.UIInterface
 public struct AppearanceSettingsFeature {
   public init() {}
   
-  @Dependency(\.uiApplicationClient) public var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) public var setUserInterfaceStyle
+  @Dependency(\.uiApplicationClient) private var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) private var setUserInterfaceStyle
+  @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   // MARK: State
   
@@ -35,9 +37,10 @@ public struct AppearanceSettingsFeature {
 
       case .binding(\.$appIcon):
         let appIcon = state.appIcon.rawValue
-        return .run { _ in
-          try await uiApplicationClient.setAlternateIconName(appIcon)
-        }
+        return .merge(
+          .run { _ in try await uiApplicationClient.setAlternateIconName(appIcon) },
+          .run { _ in await feedbackGenerator.selectionChanged() }
+        )
 
       case .binding:
         return .none

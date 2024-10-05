@@ -62,6 +62,7 @@ let package = Package(
       dependencies: [
         .apiClient,
         .helpers,
+        .feedbackGeneratorClient,
         .fileClient,
         "GuideFeature",
         .logger,
@@ -102,6 +103,10 @@ let package = Package(
         .sharedModels,
         .tca
       ]
+    ),
+    .target(
+      name: "FeedbackGeneratorClient",
+      dependencies: [.tca,]
     ),
     .target(
       name: "GuideFeature",
@@ -179,7 +184,9 @@ let package = Package(
     .target(
       name: "SettingsFeature",
       dependencies: [
+        .feedbackGeneratorClient,
         .fileClient,
+        "GuideFeature",
         .l10n,
         .logger,
         .helpers,
@@ -379,6 +386,7 @@ extension Target.Dependency {
   // MARK: - Internal
   static let apiClient = byName(name: "ApiClient")
   static let fileClient = byName(name: "FileClient")
+  static let feedbackGeneratorClient = byName(name: "FeedbackGeneratorClient")
   static let helpers = byName(name: "Helpers")
   static let idProvider = byName(name: "IDProvider")
   static let l10n = byName(name: "L10n")

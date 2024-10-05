@@ -1,10 +1,13 @@
 import ComposableArchitecture
+import FeedbackGeneratorClient
 import Foundation
 import Helpers
 import SharedModels
 
 public struct RideEventsSettingsFeature: Reducer {
   public init() {}
+  
+  @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   public struct State: Equatable, Sendable {
     @BindingState public var isEnabled: Bool
@@ -27,7 +30,7 @@ public struct RideEventsSettingsFeature: Reducer {
   @CasePathable
   public enum Action: BindableAction, Equatable, Sendable {
     case binding(BindingAction<State>)
-    case rideEventType(id: RideEventType.State.ID, action: RideEventType.Action)
+    case rideEventType(IdentifiedActionOf<RideEventType>)
   }
 
   public var body: some Reducer<State, Action> {
@@ -35,14 +38,21 @@ public struct RideEventsSettingsFeature: Reducer {
     
     Reduce { _, action in
       switch action {
-      case .binding:
-        return .none
-         
+      case .binding(\.$eventSearchRadius):
+        return .run { _ in
+          await feedbackGenerator.selectionChanged()
+        }
+        
       case .rideEventType:
+        return .run { _ in
+          await feedbackGenerator.selectionChanged()
+        }
+        
+      case .binding:
         return .none
       }
     }
-    .forEach(\.rideEventTypes, action: /Action.rideEventType(id:action:)) {
+    .forEach(\.rideEventTypes, action: \.rideEventType) {
       RideEventType()
     }
   }

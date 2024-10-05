@@ -3,6 +3,7 @@ import BottomSheet
 import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
+import FeedbackGeneratorClient
 import FileClient
 import IDProvider
 import L10n
@@ -36,6 +37,7 @@ public struct AppFeature {
   @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
   @Dependency(\.isNetworkAvailable) var isNetworkAvailable
   @Dependency(\.observationModeStore) var observationModeStore
+  @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   // MARK: State
 
@@ -192,7 +194,10 @@ public struct AppFeature {
         return .none
         
       case .onRideSelectedFromBottomSheet(let ride):
-        return .send(.map(.focusRideEvent(ride.coordinate)))
+        return .merge(
+          .send(.map(.focusRideEvent(ride.coordinate))),
+          .run { _ in await feedbackGenerator.selectionChanged() }
+        )
         
       case .onAppear:
         var effects: [Effect<Action>] = [
@@ -219,6 +224,9 @@ public struct AppFeature {
                 await send(.fetchLocations)
               }
             }
+          },
+          .run { _ in
+            await feedbackGenerator.prepare()
           }
         ]
         if !userDefaultsClient.didShowObservationModePrompt {
@@ -494,6 +502,7 @@ public struct AppFeature {
         
       case .didTapNextEventBanner:
         return .merge(
+          .run { _ in await feedbackGenerator.selectionChanged() },
           .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
           .send(.set(\.$bottomSheetPosition, .relative(0.3)))
         )
