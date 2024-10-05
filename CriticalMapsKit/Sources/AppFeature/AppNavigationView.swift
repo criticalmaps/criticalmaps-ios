@@ -46,11 +46,6 @@ public struct AppNavigationView: View {
         .accessibility(label: Text("App navigation \(L10n.Chat.title)"))
       menuSeperator
       
-      // Rules
-      rulesFeature
-        .accessibility(label: Text("App navigation \(L10n.Rules.title)"))
-      menuSeperator
-      
       // Settings
       settingsFeature
         .accessibility(label: Text("App navigation \(L10n.Settings.title)"))
@@ -118,36 +113,6 @@ public struct AppNavigationView: View {
           )
         )
         .accessibilityAddTraits([.isModal])
-      }
-    )
-  }
-  
-  var rulesFeature: some View {
-    Button(
-      action: {
-        viewStore.send(.setNavigation(tag: .rules))
-      },
-      label: {
-        Image(systemName: "exclamationmark.square")
-          .iconModifier()
-      }
-    )
-    .frame(maxWidth: .infinity, minHeight: minHeight)
-    .contentShape(Rectangle())
-    .accessibilityShowsLargeContentViewer {
-      Label(L10n.Rules.title, systemImage: "exclamationmark.square")
-    }
-    .sheet(
-      isPresented: viewStore.binding(
-        get: \.isRulesViewPresented,
-        send: AppFeature.Action.dismissSheetView
-      ),
-      onDismiss: { viewStore.send(.dismissSheetView) },
-      content: {
-        CMNavigationView {
-          GuideView()
-            .accessibilityAddTraits([.isModal])
-        }
       }
     )
   }

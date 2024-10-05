@@ -88,6 +88,7 @@ public struct AppView: View {
           .frame(maxWidth: 400)
       }
       .frame(maxWidth: .infinity, alignment: .center)
+      .padding(.horizontal, .grid(8))
     }
     .bottomSheet(
       bottomSheetPosition: viewStore.$bottomSheetPosition,

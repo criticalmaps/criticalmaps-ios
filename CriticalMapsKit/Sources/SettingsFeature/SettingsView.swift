@@ -1,5 +1,6 @@
 import AcknowList
 import ComposableArchitecture
+import GuideFeature
 import Helpers
 import L10n
 import Styleguide
@@ -214,6 +215,11 @@ public struct SettingsView: View {
         )
         .accessibilityAddTraits(.isLink)
       }
+      
+      SettingsNavigationLink(
+        destination: GuideView(),
+        title: L10n.Rules.title
+      )
       
       if let acknowledgementsPlistPath = viewStore.acknowledgementsPlistPath {
         SettingsNavigationLink(
