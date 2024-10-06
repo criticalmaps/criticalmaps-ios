@@ -163,7 +163,8 @@ final class SettingsFeatureCoreTests: XCTestCase {
         $0.fileClient.save = { @Sendable _, _ in
           didSaveUserSettings.setValue(true)
         }
-        $0.observationModeStore.setObservationModeState = { _ in }
+        $0.observationModeStore.setObservationModeState = { @Sendable _ in }
+        $0.feedbackGenerator.selectionChanged = {}
       }
     )
     

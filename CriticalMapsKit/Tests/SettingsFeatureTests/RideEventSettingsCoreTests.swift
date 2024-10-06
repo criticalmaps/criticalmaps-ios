@@ -55,7 +55,10 @@ final class RideEventSettingsCoreTests: XCTestCase {
           eventDistance: .close
         )
       ),
-      reducer: { RideEventsSettingsFeature() }
+      reducer: { RideEventsSettingsFeature() },
+      withDependencies: {
+        $0.feedbackGenerator.selectionChanged = {}
+      }
     )
     
     await store.send(.set(\.$eventSearchRadius, .near)) {

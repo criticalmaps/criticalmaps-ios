@@ -146,6 +146,8 @@ final class AppFeatureTests: XCTestCase {
           [.mock1]
         }
         $0.userDefaultsClient.setBool = { _, _ in }
+        $0.feedbackGenerator.prepare = {}
+        $0.feedbackGenerator.selectionChanged = {}
       }
     )
     store.exhaustivity = .off
@@ -200,7 +202,8 @@ final class AppFeatureTests: XCTestCase {
         $0.continuousClock = testClock
         $0.nextRideService.nextRide = { _, _, _ in [] }
         $0.userDefaultsClient.setString = { _, _ in }
-        $0.observationModeStore.setObservationModeState = { _ in }
+        $0.observationModeStore.setObservationModeState = { @Sendable _ in }
+        $0.feedbackGenerator.prepare = { @Sendable in }
       }
     )
     store.exhaustivity = .off
@@ -398,6 +401,7 @@ final class AppFeatureTests: XCTestCase {
         }
         $0.continuousClock = TestClock()
         $0.userDefaultsClient.setBool = { _, _ in }
+        $0.feedbackGenerator.selectionChanged = {}
       }
     )
     store.exhaustivity = .off
@@ -514,6 +518,7 @@ final class AppFeatureTests: XCTestCase {
       reducer: { AppFeature() },
       withDependencies: {
         $0.continuousClock = TestClock()
+        $0.feedbackGenerator.selectionChanged = {}
       }
     )
     store.exhaustivity = .off

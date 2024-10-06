@@ -11,7 +11,10 @@ final class AppearanceSettingsCoreTests: XCTestCase {
     let overriddenIconName = LockIsolated<String?>(nil)
     let store = TestStore(
       initialState: AppearanceSettings(),
-      reducer: { AppearanceSettingsFeature() }
+      reducer: { AppearanceSettingsFeature() },
+      withDependencies: {
+        $0.feedbackGenerator.selectionChanged = {}
+      }
     )
     store.dependencies.uiApplicationClient.setAlternateIconName = { newValue in
       overriddenIconName.setValue(newValue)
