@@ -23,7 +23,7 @@ public struct SettingsForm<Content>: View where Content: View {
 
 // MARK: Row
 
-struct SettingsRow<Content>: View where Content: View {
+struct SettingsRow<Content: View>: View {
   let content: () -> Content
 
   init(@ViewBuilder content: @escaping () -> Content) {
@@ -51,7 +51,7 @@ struct SettingsRow<Content>: View where Content: View {
 // MARK: Section
 
 /// A view to wrap a form section.
-public struct SettingsSection<Content>: View where Content: View {
+public struct SettingsSection<Content: View>: View {
   let content: () -> Content
   let padContents: Bool
   let title: String
@@ -84,13 +84,13 @@ public struct SettingsSection<Content>: View where Content: View {
 // MARK: SettingsNavigationLink
 
 /// A view to that wraps the input view in a SettingsRow and NavigationLink
-public struct SettingsNavigationLink<Destination>: View where Destination: View {
+public struct SettingsNavigationLink<Destination: View, Label: View>: View {
   let destination: Destination
-  let title: String
+  let title: () -> Label
 
   public init(
     destination: Destination,
-    title: String
+    @ViewBuilder title: @escaping () -> Label
   ) {
     self.destination = destination
     self.title = title
@@ -107,7 +107,7 @@ public struct SettingsNavigationLink<Destination>: View where Destination: View 
 
   var content: some View {
     HStack {
-      Text(self.title)
+      title()
         .font(.titleOne)
       Spacer()
       Image(systemName: "chevron.forward")

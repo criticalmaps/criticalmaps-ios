@@ -59,7 +59,7 @@ public struct SettingsView: View {
                 action: \.rideevent
               )
             ),
-            title: L10n.Settings.eventSettings
+            title: { Text(L10n.Settings.eventSettings) }
           )
           
           SettingsNavigationLink(
@@ -69,13 +69,20 @@ public struct SettingsView: View {
                 action: \.appearance
               )
             ),
-            title: L10n.Settings.Theme.appearance
+            title: { Text(L10n.Settings.Theme.appearance) }
           )
         }
                 
         supportSection
         
         infoSection
+        
+        linksSection
+        
+        HStack {
+          appVersionAndBuildView
+          Spacer()
+        }
       }
     }
     .navigationTitle(L10n.Settings.title)
@@ -184,8 +191,9 @@ public struct SettingsView: View {
     }
   }
   
-  var infoSection: some View {
-    SettingsSection(title: L10n.Settings.Section.info) {
+  @ViewBuilder
+  var linksSection: some View {
+    SettingsSection(title: "Links") {
       SettingsRow {
         Button(
           action: { viewStore.send(.infoSectionRowTapped(.website)) },
@@ -215,20 +223,28 @@ public struct SettingsView: View {
         )
         .accessibilityAddTraits(.isLink)
       }
-      
+    }
+  }
+  
+  @ViewBuilder
+  var infoSection: some View {
+    SettingsSection(title: L10n.Settings.Section.info) {
       SettingsNavigationLink(
         destination: GuideView(),
-        title: L10n.Rules.title
+        title: {
+          HStack(spacing: .grid(2)) {
+            Text(L10n.Rules.title)
+            Image(systemName: "exclamationmark.bubble")
+          }
+        }
       )
       
       if let acknowledgementsPlistPath = viewStore.acknowledgementsPlistPath {
         SettingsNavigationLink(
           destination: AcknowListSwiftUIView(plistPath: acknowledgementsPlistPath),
-          title: "Acknowledgements"
+          title: { Text("Acknowledgements") }
         )
       }
-      
-      appVersionAndBuildView
     }
   }
   
@@ -279,14 +295,12 @@ struct SettingsInfoLink: View {
 }
 
 #Preview {
-  Preview {
-    NavigationView {
-      SettingsView(
-        store: .init(
-          initialState: .init(userSettings: .init()),
-          reducer: { SettingsFeature() }
-        )
+  NavigationView {
+    SettingsView(
+      store: .init(
+        initialState: .init(userSettings: .init()),
+        reducer: { SettingsFeature() }
       )
-    }
+    )
   }
 }
