@@ -2,22 +2,24 @@
 
 Changelog for Critical Maps iOS
 
-## [4.4.0] - 2024-10-01
+## [4.5.0] - 2024-10-28
 
 ### Added
 
-- Fetches extended ride infos with included ride event timezone.
-  This improves internal event time representations.
+- iOS 18: support tinted app icon
 
 ### Updated
 
-- Adopted TCA 1.12
+- Fetches extended ride infos with included ride event timezone.
+  This improves international event time representations.
+- Main navigation: Moved guides into settings
 - Replace Twitter with Mastodon in settings
+- Adopted TCA 1.12
 
 ### Fixed
 
 - Enabling observationmode will stop updating locations
-- Location tracking Button Animation
+- Location tracking Button animation
 
 ## [4.3.0] - 2023-07-21
 

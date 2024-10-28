@@ -674,7 +674,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 241001;
+				CURRENT_PROJECT_VERSION = 241028;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -685,7 +685,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.0;
+				MARKETING_VERSION = 4.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
@@ -704,7 +704,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 241001;
+				CURRENT_PROJECT_VERSION = 241028;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -715,7 +715,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.0;
+				MARKETING_VERSION = 4.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
