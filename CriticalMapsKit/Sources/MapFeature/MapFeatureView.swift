@@ -9,38 +9,51 @@ import SwiftUI
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   
+  @Bindable var store: StoreOf<MapFeature>
+
   public init(store: StoreOf<MapFeature>) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
   }
-
-  let store: StoreOf<MapFeature>
-  @ObservedObject var viewStore: ViewStoreOf<MapFeature>
 
   public var body: some View {
     ZStack(alignment: .topLeading) {
       MapView(
-        riderCoordinates: viewStore.riderLocations,
-        userTrackingMode: viewStore.$userTrackingMode,
-        nextRide: viewStore.nextRide,
-        rideEvents: viewStore.rideEvents,
-        annotationsCount: viewStore.$visibleRidersCount,
-        centerRegion: viewStore.$centerRegion,
-        centerEventRegion: viewStore.$eventCenter,
+        riderCoordinates: store.riderLocations,
+        userTrackingMode: Binding(
+          get: { store.userTrackingMode },
+          set: { store.send(.binding(.set(\.userTrackingMode, $0))) }
+        ),
+        nextRide: store.nextRide,
+        rideEvents: store.rideEvents,
+        annotationsCount: Binding(
+          get: { store.visibleRidersCount },
+          set: { store.send(.binding(.set(\.visibleRidersCount, $0))) }
+        ),
+        centerRegion: Binding(
+          get: { store.centerRegion },
+          set: { store.send(.binding(.set(\.centerRegion, $0))) }
+        ),
+        centerEventRegion: Binding(
+          get: { store.eventCenter },
+          set: { store.send(.binding(.set(\.eventCenter, $0))) }
+        ),
         mapMenuShareEventHandler: {
-          viewStore.send(.showShareSheet(true))
+          store.send(.showShareSheet(true))
         },
         mapMenuRouteEventHandler: {
-          viewStore.send(.routeToEvent)
+          store.send(.routeToEvent)
         }
       )
       .edgesIgnoringSafeArea(.all)
     }
     .sheet(
-      isPresented: viewStore.$presentShareSheet,
-      onDismiss: { viewStore.send(.showShareSheet(false)) },
+      isPresented: Binding<Bool>(
+        get: { store.presentShareSheet },
+        set: { store.send(.showShareSheet($0)) }
+      ),
+      onDismiss: { store.send(.showShareSheet(false)) },
       content: {
-        ShareSheetView(activityItems: [viewStore.nextRide?.shareMessage ?? ""])
+        ShareSheetView(activityItems: [store.nextRide?.shareMessage ?? ""])
       }
     )
   }
@@ -48,11 +61,9 @@ public struct MapFeatureView: View {
 
 // MARK: Preview
 
-import SwiftUIHelpers
-
 #Preview {
   MapFeatureView(
-    store: Store<MapFeature.State, MapFeature.Action>(
+    store: StoreOf<MapFeature>(
       initialState: MapFeature.State(
         riders: [],
         userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)

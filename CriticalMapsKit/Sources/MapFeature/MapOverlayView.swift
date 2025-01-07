@@ -3,43 +3,57 @@ import Foundation
 import Styleguide
 import SwiftUI
 
-/// A view to overlay the map and indicate the next ride
-public struct MapOverlayView<Content>: View where Content: View {
-  public struct ViewState: Equatable {
-    let isVisible: Bool
-    let isExpanded: Bool
-    
-    public init(isVisible: Bool, isExpanded: Bool) {
-      self.isVisible = isVisible
+@Reducer
+public struct MapOverlayFeature {
+  public init() {}
+  
+  @ObservableState
+  public struct State: Equatable {
+    public init(isExpanded: Bool, isVisible: Bool) {
       self.isExpanded = isExpanded
+      self.isVisible = isVisible
     }
+    
+    public var isExpanded: Bool
+    public var isVisible: Bool
   }
   
+  public enum Action: Equatable {
+    case didTapOverlayButton
+  }
+  
+  public var body: some ReducerOf<Self> {
+    Reduce { _, action in
+      switch action {
+      case .didTapOverlayButton:
+        return .none
+      }
+    }
+  }
+}
+
+/// A view to overlay the map and indicate the next ride
+public struct MapOverlayView<Content: View>: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Environment(\.accessibilityReduceMotion) var reduceMotion
   
-  let store: Store<ViewState, Never>
-  @ObservedObject var viewStore: ViewStore<ViewState, Never>
+  let store: StoreOf<MapOverlayFeature>
   
-  @State var isExpanded = false
-  @State var isVisible = false
-  let action: () -> Void
+  @State private var isExpanded = false
+  @State private var isVisible = false
   let content: () -> Content
   
   public init(
-    store: Store<ViewState, Never>,
-    action: @escaping () -> Void,
+    store: StoreOf<MapOverlayFeature>,
     @ViewBuilder content: @escaping () -> Content
   ) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
-    self.action = action
     self.content = content
   }
   
   public var body: some View {
     Button(
-      action: action,
+      action: { store.send(.didTapOverlayButton) },
       label: {
         HStack {
           Image(uiImage: Asset.cm.image)
@@ -76,14 +90,14 @@ public struct MapOverlayView<Content>: View where Content: View {
     )
     .transition(.scale.combined(with: .opacity).animation(reduceMotion ? nil : .spring(duration: 0.2)))
     .onChange(
-      of: viewStore.isExpanded,
+      of: store.isExpanded,
       perform: { newValue in
         let updateAction: () -> Void = { self.isExpanded = newValue }
         reduceMotion ? updateAction() : withAnimation { updateAction() }
       }
     )
     .onChange(
-      of: viewStore.isVisible,
+      of: store.isVisible,
       perform: { newValue in
         let updateAction: () -> Void = { self.isVisible = newValue }
         reduceMotion ? updateAction() : withAnimation { updateAction() }

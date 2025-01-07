@@ -6,6 +6,7 @@ import MapKit
 public struct UserTrackingFeature {
   public init() {}
 
+  @ObservableState
   public struct State: Equatable {
     public init(userTrackingMode: MKUserTrackingMode) {
       mode = userTrackingMode

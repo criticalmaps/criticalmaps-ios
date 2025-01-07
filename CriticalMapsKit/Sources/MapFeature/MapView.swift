@@ -93,11 +93,13 @@ struct MapView: ViewRepresentable {
   }
 
   func centerRider(in mapView: MKMapView) {
-    if let center = centerRegion {
-      mapView.setRegion(center.asMKCoordinateRegion, animated: true)
-      mapView.setUserTrackingMode(.none, animated: false)
-    } else {
-      mapView.setUserTrackingMode(userTrackingMode.mode, animated: true)
+    DispatchQueue.main.async {
+      if let center = centerRegion {
+        mapView.setRegion(center.asMKCoordinateRegion, animated: true)
+        mapView.setUserTrackingMode(.none, animated: false)
+      } else {
+        mapView.setUserTrackingMode(userTrackingMode.mode, animated: true)
+      }
     }
   }
   

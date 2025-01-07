@@ -35,6 +35,7 @@ public struct MapFeature {
   
   // MARK: State
   
+  @ObservableState
   public struct State: Equatable {
     public var alert: AlertState<Action>?
     public var isRequestingCurrentLocation: Bool
@@ -44,14 +45,13 @@ public struct MapFeature {
     public var rideEvents: [Ride] = []
     public var isObservationModeEnabled = false
     
-    @BindingState public var visibleRidersCount: Int?
-    @BindingState public var eventCenter: CoordinateRegion?
-    @BindingState public var userTrackingMode: UserTrackingFeature.State
-    @BindingState public var centerRegion: CoordinateRegion?
-    @BindingState public var presentShareSheet = false
+    public var visibleRidersCount: Int?
+    public var eventCenter: CoordinateRegion?
+    public var userTrackingMode: UserTrackingFeature.State
+    public var centerRegion: CoordinateRegion?
+    public var presentShareSheet = false
     
-    @ShouldAnimateTrackingModeOverTime
-    public var shouldAnimateTrackingMode: Bool
+    public var shouldAnimateTrackingMode: Bool = true
     public var isNextRideBannerVisible = false
     public var isNextRideBannerExpanded = false
     
