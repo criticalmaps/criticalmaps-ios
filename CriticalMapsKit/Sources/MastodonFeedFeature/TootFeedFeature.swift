@@ -18,14 +18,15 @@ public struct TootFeedFeature {
 
   // MARK: State
 
+  @ObservableState
   public struct State: Equatable {
-    public var toots: IdentifiedArrayOf<MastodonKit.Status>
+    public var toots: IdentifiedArrayOf<TootFeature.State>
     public var isLoading = false
     public var isRefreshing = false
     public var error: ErrorState?
         
     public init(
-      toots: IdentifiedArrayOf<Status> = []
+      toots: IdentifiedArrayOf<TootFeature.State> = []
     ) {
       self.toots = toots
     }
@@ -44,7 +45,7 @@ public struct TootFeedFeature {
   
   
   // MARK: Reducer
-  public var body: some Reducer<State, Action> {
+  public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
       case .onAppear:
@@ -73,7 +74,8 @@ public struct TootFeedFeature {
           return .none
         }
         
-        state.toots = IdentifiedArray(uniqueElements: toots)
+        let mappedStatuses = toots.map(TootFeature.State.init)
+        state.toots = IdentifiedArray(uniqueElements: mappedStatuses)
         return .none
       case let .fetchDataResponse(.failure(error)):
         logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")

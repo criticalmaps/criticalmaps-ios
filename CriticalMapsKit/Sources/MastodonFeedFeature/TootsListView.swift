@@ -7,23 +7,19 @@ import Styleguide
 import SwiftUI
 
 public struct TootsListView: View {
-  let store: StoreOf<TootFeedFeature>
-  @ObservedObject var viewStore: ViewStoreOf<TootFeedFeature>
+  @Bindable var store: StoreOf<TootFeedFeature>
 
   public init(store: StoreOf<TootFeedFeature>) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
   }
 
   public var body: some View {
-    if viewStore.isLoading, !viewStore.isRefreshing {
+    if store.isLoading, !store.isRefreshing {
       loadingView()
     } else {
       contentView()
       .refreshable {
-        Task {
-          await viewStore.send(.refresh, while: \.isLoading)
-        }
+        await store.send(.refresh).finish()
       }
     }
   }
@@ -43,16 +39,16 @@ public struct TootsListView: View {
   
   @ViewBuilder
   func contentView() -> some View {
-    if viewStore.toots.isEmpty {
+    if store.toots.isEmpty {
       EmptyStateView(
         emptyState: .mastodon,
-        buttonAction: { viewStore.send(.fetchData) },
+        buttonAction: { store.send(.fetchData) },
         buttonText: L10n.EmptyState.reload
       )
-    } else if let error = viewStore.error {
+    } else if let error = store.error {
       ErrorStateView(
         errorState: error,
-        buttonAction: { viewStore.send(.fetchData) },
+        buttonAction: { store.send(.fetchData) },
         buttonText: "Reload"
       )
     } else {
@@ -79,21 +75,21 @@ public struct TootsListView: View {
 
 // MARK: Preview
 
-struct TootsListView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      TootsListView(
-        store: StoreOf<TootFeedFeature>(
-          initialState: .init(toots: IdentifiedArray(uniqueElements: [Status].placeHolder)),
-          reducer: { TootFeedFeature()._printChanges() }
-        )
+#Preview {
+  Group {
+    TootsListView(
+      store: StoreOf<TootFeedFeature>(
+        initialState: .init(toots: IdentifiedArray(uniqueElements: [TootFeature.State].placeHolder)),
+        reducer: { TootFeedFeature()._printChanges() }
       )
-
-      TootsListView(store: .placeholder)
-        .redacted(reason: .placeholder)
-    }
+    )
+    
+    TootsListView(store: .placeholder)
+      .redacted(reason: .placeholder)
   }
 }
+
+// MARK: - Helper
 
 public extension EmptyState {
   static let mastodon = Self(
