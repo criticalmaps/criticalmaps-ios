@@ -1,46 +1,18 @@
 import AppFeature
-import BackgroundTasks
 import ComposableArchitecture
 import SwiftUI
-import UIKit
 
 @main
-struct CriticalMapsApp: App {
-  @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-  @Environment(\.scenePhase) var scenePhase
-
-  init() {}
+struct CriticalMapsApp: App {  
+  @MainActor
+  static let store = Store(initialState: AppFeature.State()) {
+    AppFeature()
+      ._printChanges()
+  }
 
   var body: some Scene {
     WindowGroup {
-      AppView(store: self.appDelegate.store)
+      AppView(store: Self.store)
     }
-    .onChange(of: scenePhase) { _ in }
-  }
-}
-
-// MARK: AppDelegate
-
-final class AppDelegate: NSObject, UIApplicationDelegate {
-  let store = Store(
-    initialState: .init(),
-    reducer: { AppFeature() }
-  )
-  lazy var viewStore = ViewStore(
-    self.store.scope(
-      state: { _ in () },
-      action: { $0 }
-    ),
-    observe: { $0 },
-    removeDuplicates: ==
-  )
-
-  func application(
-    _ application: UIApplication,
-    // swiftlint:disable:next discouraged_optional_collection
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-  ) -> Bool {
-    viewStore.send(.appDelegate(.didFinishLaunching))
-    return true
   }
 }

@@ -245,7 +245,6 @@
 				73CF5FBE263EAF5B001925A3 /* Sources */,
 				73CF5FBF263EAF5B001925A3 /* Frameworks */,
 				73CF5FC0263EAF5B001925A3 /* Resources */,
-				7353FBD2277258C0009D1AE4 /* Run Tools */,
 			);
 			buildRules = (
 			);
@@ -365,28 +364,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7353FBD2277258C0009D1AE4 /* Run Tools */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Tools";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash ./scripts/swiftlint.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		73238EB627728043003DE01F /* Sources */ = {
