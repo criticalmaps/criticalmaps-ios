@@ -18,6 +18,7 @@ public struct NextRideFeature {
   @Dependency(\.isNetworkAvailable) private var isNetworkAvailable
   @Dependency(\.calendar) private var calendar
 
+  @ObservableState
   public struct State: Equatable {
     public init(nextRide: Ride? = nil) {
       self.nextRide = nextRide
