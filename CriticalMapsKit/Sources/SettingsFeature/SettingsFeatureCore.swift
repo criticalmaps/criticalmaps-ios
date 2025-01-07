@@ -1,3 +1,4 @@
+import AcknowList
 import ComposableArchitecture
 import FileClient
 import Helpers
@@ -16,9 +17,9 @@ public struct SettingsFeature: Reducer {
   @Dependency(\.fileClient) var fileClient
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   
-  public struct State: Equatable {
-    @BindingState public var isObservationModeEnabled = true
-    @BindingState public var infoViewEnabled = true
+  @ObservableState public struct State: Equatable {
+    public var isObservationModeEnabled = true
+    public var infoViewEnabled = true
     public var rideEventSettings: RideEventsSettingsFeature.State
     public var appearanceSettings: AppearanceSettingsFeature.State
 
@@ -34,11 +35,14 @@ public struct SettingsFeature: Reducer {
 
     var versionNumber: String { "\(Bundle.main.versionNumber)" }
     var buildNumber: String { "\(Bundle.main.buildNumber)" }
-    var acknowledgementsPlistPath: String? {
-      guard let path = Bundle.module.path(forResource: "Acknowledgements", ofType: "plist") else {
+    var packageList: AcknowList? {
+      guard
+        let url = Bundle.module.url(forResource: "Package", withExtension: "resolved"),
+        let data = try? Data(contentsOf: url)
+      else {
         return nil
       }
-      return path
+      return try? AcknowPackageDecoder().decode(from: data)
     }
   }
 
@@ -88,7 +92,7 @@ public struct SettingsFeature: Reducer {
           _ = await uiApplicationClient.open(url, [:])
         }
 
-      case .appearance, .rideevent, .binding(\.$isObservationModeEnabled), .binding(\.$infoViewEnabled):
+      case .appearance, .rideevent, .binding(\.isObservationModeEnabled), .binding(\.infoViewEnabled):
         enum CancelID { case debounce }
         
         return .run { [settings = state] _ in

@@ -85,11 +85,11 @@ public struct SettingsSection<Content: View>: View {
 
 /// A view to that wraps the input view in a SettingsRow and NavigationLink
 public struct SettingsNavigationLink<Destination: View, Label: View>: View {
-  let destination: Destination
+  let destination: () -> Destination
   let title: () -> Label
 
   public init(
-    destination: Destination,
+    @ViewBuilder destination: @escaping () -> Destination,
     @ViewBuilder title: @escaping () -> Label
   ) {
     self.destination = destination
@@ -99,7 +99,7 @@ public struct SettingsNavigationLink<Destination: View, Label: View>: View {
   public var body: some View {
     SettingsRow {
       NavigationLink(
-        destination: self.destination,
+        destination: destination,
         label: { content }
       )
     }

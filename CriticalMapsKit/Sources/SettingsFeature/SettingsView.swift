@@ -11,12 +11,10 @@ import SwiftUIHelpers
 public struct SettingsView: View {
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
-  let store: StoreOf<SettingsFeature>
-  @ObservedObject var viewStore: ViewStoreOf<SettingsFeature>
+  @Bindable var store: StoreOf<SettingsFeature>
   
   public init(store: StoreOf<SettingsFeature>) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
   }
   
   public var body: some View {
@@ -26,13 +24,13 @@ public struct SettingsView: View {
         SettingsRow {
           observationModeRow
             .accessibilityValue(
-              viewStore.isObservationModeEnabled
+              store.isObservationModeEnabled
                 ? Text(L10n.A11y.General.on)
                 : Text(L10n.A11y.General.off)
             )
             .accessibilityAction {
-              viewStore.send(
-                .set(\.$isObservationModeEnabled, !viewStore.isObservationModeEnabled)
+              store.send(
+                .set(\.isObservationModeEnabled, !store.isObservationModeEnabled)
               )
             }
         }
@@ -40,35 +38,39 @@ public struct SettingsView: View {
         SettingsRow {
           infoRow
             .accessibilityValue(
-              viewStore.infoViewEnabled
+              store.infoViewEnabled
                 ? Text(L10n.A11y.General.on)
                 : Text(L10n.A11y.General.off)
             )
             .accessibilityAction {
-              viewStore.send(
-                .set(\.$infoViewEnabled, !viewStore.infoViewEnabled)
+              store.send(
+                .set(\.infoViewEnabled, !store.infoViewEnabled)
               )
             }
         }
         
         SettingsSection(title: "") {
           SettingsNavigationLink(
-            destination: RideEventSettingsView(
-              store: store.scope(
-                state: \.rideEventSettings,
-                action: \.rideevent
+            destination: {
+              RideEventSettingsView(
+                store: store.scope(
+                  state: \.rideEventSettings,
+                  action: \.rideevent
+                )
               )
-            ),
+            },
             title: { Text(L10n.Settings.eventSettings) }
           )
           
           SettingsNavigationLink(
-            destination: AppearanceSettingsView(
-              store: store.scope(
-                state: \.appearanceSettings,
-                action: \.appearance
+            destination: {
+              AppearanceSettingsView(
+                store: store.scope(
+                  state: \.appearanceSettings,
+                  action: \.appearance
+                )
               )
-            ),
+            },
             title: { Text(L10n.Settings.Theme.appearance) }
           )
         }
@@ -91,7 +93,7 @@ public struct SettingsView: View {
       maxHeight: .infinity,
       alignment: .topLeading
     )
-    .onAppear { viewStore.send(.onAppear) }
+    .onAppear { store.send(.onAppear) }
   }
   
   var observationModeRow: some View {
@@ -105,7 +107,7 @@ public struct SettingsView: View {
       }
       Spacer()
       Toggle(
-        isOn: viewStore.$isObservationModeEnabled,
+        isOn: $store.isObservationModeEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -124,7 +126,7 @@ public struct SettingsView: View {
       }
       Spacer()
       Toggle(
-        isOn: viewStore.$infoViewEnabled,
+        isOn: $store.infoViewEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -149,7 +151,7 @@ public struct SettingsView: View {
               .opacity(0.4)
               .accessibilityHidden(true)
           },
-          action: { viewStore.send(.supportSectionRowTapped(.github)) }
+          action: { store.send(.supportSectionRowTapped(.github)) }
         )
         .accessibilityAddTraits(.isLink)
         
@@ -166,7 +168,7 @@ public struct SettingsView: View {
               .frame(width: 135, height: 135, alignment: .bottomTrailing)
               .accessibilityHidden(true)
           },
-          action: { viewStore.send(.supportSectionRowTapped(.crowdin)) }
+          action: { store.send(.supportSectionRowTapped(.crowdin)) }
         )
         .accessibilityAddTraits(.isLink)
         
@@ -183,7 +185,7 @@ public struct SettingsView: View {
               .frame(width: 160, height: 160, alignment: .bottomTrailing)
               .accessibilityHidden(true)
           },
-          action: { viewStore.send(.supportSectionRowTapped(.criticalMassDotIn)) }
+          action: { store.send(.supportSectionRowTapped(.criticalMassDotIn)) }
         )
         .accessibilityAddTraits(.isLink)
       }
@@ -196,7 +198,7 @@ public struct SettingsView: View {
     SettingsSection(title: "Links") {
       SettingsRow {
         Button(
-          action: { viewStore.send(.infoSectionRowTapped(.website)) },
+          action: { store.send(.infoSectionRowTapped(.website)) },
           label: {
             SettingsInfoLink(title: L10n.Settings.website)
           }
@@ -206,7 +208,7 @@ public struct SettingsView: View {
       
       SettingsRow {
         Button(
-          action: { viewStore.send(.infoSectionRowTapped(.mastodon)) },
+          action: { store.send(.infoSectionRowTapped(.mastodon)) },
           label: {
             SettingsInfoLink(title: "Mastodon")
           }
@@ -216,7 +218,7 @@ public struct SettingsView: View {
       
       SettingsRow {
         Button(
-          action: { viewStore.send(.infoSectionRowTapped(.privacy)) },
+          action: { store.send(.infoSectionRowTapped(.privacy)) },
           label: {
             SettingsInfoLink(title: L10n.Settings.privacyPolicy)
           }
@@ -230,7 +232,7 @@ public struct SettingsView: View {
   var infoSection: some View {
     SettingsSection(title: L10n.Settings.Section.info) {
       SettingsNavigationLink(
-        destination: GuideView(),
+        destination: { GuideView() },
         title: {
           HStack(spacing: .grid(2)) {
             Text(L10n.Rules.title)
@@ -239,9 +241,11 @@ public struct SettingsView: View {
         }
       )
       
-      if let acknowledgementsPlistPath = viewStore.acknowledgementsPlistPath {
+      if let licenses = store.packageList {
         SettingsNavigationLink(
-          destination: AcknowListSwiftUIView(plistPath: acknowledgementsPlistPath),
+          destination: {
+            AcknowListSwiftUIView(acknowList: licenses)
+          },
           title: { Text("Acknowledgements") }
         )
       }
@@ -269,7 +273,7 @@ public struct SettingsView: View {
         Text("Critical Maps")
           .font(.titleTwo)
           .foregroundColor(Color(.textPrimary))
-        Text("Version: \(viewStore.versionNumber)+\(viewStore.buildNumber)")
+        Text("Version: \(store.versionNumber)+\(store.buildNumber)")
           .font(.bodyTwo)
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
       }

@@ -11,11 +11,10 @@ import UserDefaultsClient
 @Reducer
 public struct SocialFeature {
   public init() {}
-  
-  @Dependency(\.isNetworkAvailable) var isNetworkAvailable
-  
+    
   // MARK: State
   
+  @ObservableState
   public struct State: Equatable {
     public var chatFeatureState: ChatFeature.State
     public var mastodonFeedState: TootFeedFeature.State
@@ -48,7 +47,7 @@ public struct SocialFeature {
   // MARK: Actions
   
   public enum Action: Equatable {
-    case setSocialSegment(Int)
+    case setSocialSegment(SocialControl)
     
     case chat(ChatFeature.Action)
     case toots(TootFeedFeature.Action)
@@ -62,7 +61,6 @@ public struct SocialFeature {
       action: \.chat
     ) {
       ChatFeature()
-        .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
     Scope(
@@ -75,7 +73,7 @@ public struct SocialFeature {
     Reduce<State, Action> { state, action in
       switch action {
       case let .setSocialSegment(segment):
-        state.socialControl = .init(rawValue: segment)!
+        state.socialControl = segment
         return .none
       
       case .chat, .toots:
