@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.9
 
 import PackageDescription
 
@@ -6,18 +6,18 @@ let package = Package(
   name: "CriticalMapsKit",
   defaultLocalization: "en",
   platforms: [
-    .iOS(.v16)
+    .iOS(.v17)
   ],
   products: [
-    .library(name: "ApiClient", targets: ["ApiClient"]),
-    .library(name: "AppFeature", targets: ["AppFeature"]),
-    .library(name: "ChatFeature", targets: ["ChatFeature"]),
-    .library(name: "GuideFeature", targets: ["GuideFeature"]),
-    .library(name: "MapFeature", targets: ["MapFeature"]),
-    .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
-    .library(name: "MastodonFeedFeature", targets: ["SocialFeature"]),
-    .library(name: "SocialFeature", targets: ["SocialFeature"]),
-    .library(name: "Styleguide", targets: ["Styleguide"]),
+    .singleTargetLibrary("ApiClient"),
+    .singleTargetLibrary("AppFeature"),
+    .singleTargetLibrary("ChatFeature"),
+    .singleTargetLibrary("GuideFeature"),
+    .singleTargetLibrary("MapFeature"),
+    .singleTargetLibrary("SettingsFeature"),
+    .singleTargetLibrary("MastodonFeedFeature"),
+    .singleTargetLibrary("SocialFeature"),
+    .singleTargetLibrary("Styleguide"),
   ],
   dependencies: [
     .package(
@@ -29,7 +29,7 @@ let package = Package(
       from: "1.2.0"
     ),
     .package(
-      url: "https://github.com/mltbnz/composable-core-location.git",
+      url: "https://github.com/mltbnz/composable-core-location",
       branch: "main"
     ),
     .package(
@@ -37,8 +37,8 @@ let package = Package(
       .upToNextMajor(from: "1.8.2")
     ),
     .package(
-      url: "https://github.com/vtourraine/AcknowList.git",
-      .upToNextMajor(from: "2.1.0")
+      url: "https://github.com/vtourraine/AcknowList",
+      exact: "3.2.0"
     ),
     .package(
       url: "https://github.com/lucaszischka/BottomSheet.git",
@@ -406,5 +406,10 @@ extension Target.Dependency {
     name: "ComposableCoreLocation",
     package: "composable-core-location"
   )
-  
+}
+
+extension Product {
+  static func singleTargetLibrary(_ name: String) -> Product {
+    .library(name: name, targets: [name])
+  }
 }

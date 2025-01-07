@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vtourraine/AcknowList.git",
       "state" : {
-        "revision" : "125ff1915a639bf7d97471a4d5ae16765d0c50f2",
-        "version" : "3.2.0"
+        "revision" : "7cf70f24c97e86f1321f25ec24d128c1542eb7ef",
+        "version" : "3.0.1"
       }
     },
     {
