@@ -8,8 +8,8 @@ public struct ChatInput {
 
   // MARK: State
 
+  @ObservableState
   public struct State: Equatable {
-    @BindingState
     public var isEditing = false
     public var message = ""
     public var isSending = false
@@ -42,7 +42,7 @@ public struct ChatInput {
   @CasePathable
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
-    case messageChanged(String)
+    case messageChanged(NSAttributedString)
     case onCommit
   }
 
@@ -50,13 +50,14 @@ public struct ChatInput {
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
+    
     Reduce { state, action in
       switch action {
       case .binding:
         return .none
 
       case let .messageChanged(message):
-        state.message = message
+        state.message = message.string
         return .none
 
       case .onCommit:

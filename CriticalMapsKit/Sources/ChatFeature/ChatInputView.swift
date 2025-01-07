@@ -6,9 +6,7 @@ import UIKit
 
 public struct BasicInputView: View {
   private let placeholder: String
-  let store: StoreOf<ChatInput>
-  @ObservedObject var viewStore: ViewStoreOf<ChatInput>
-  
+  @Bindable var store: StoreOf<ChatInput>
   @State private var contentSizeThatFits: CGSize = .zero
   
   public init(
@@ -16,7 +14,6 @@ public struct BasicInputView: View {
     placeholder: String = ""
   ) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
     self.placeholder = placeholder
     _contentSizeThatFits = State(initialValue: .zero)
   }
@@ -30,16 +27,13 @@ public struct BasicInputView: View {
   
   private var messageEditorView: some View {
     MultilineTextField(
-      attributedText: viewStore.binding(
-        get: \.internalAttributedMessage,
-        send: { ChatInput.Action.messageChanged($0.string) }
-      ),
+      attributedText: $store.internalAttributedMessage.sending(\.messageChanged),
       placeholder: placeholder,
-      isEditing: viewStore.$isEditing,
+      isEditing: $store.isEditing,
       textAttributes: .chat
     )
     .accessibilityLabel(Text(L10n.A11y.ChatInput.label))
-    .accessibilityValue(viewStore.message)
+    .accessibilityValue(store.message)
     .onPreferenceChange(ContentSizeThatFitsKey.self) {
       self.contentSizeThatFits = $0
     }
@@ -48,19 +42,19 @@ public struct BasicInputView: View {
   
   private var sendButton: some View {
     Button(action: {
-      viewStore.send(.onCommit)
+      store.send(.onCommit)
     }, label: {
       Circle().fill(
         withAnimation {
-          viewStore.isSendButtonDisabled ? Color(.border) : .blue
+          store.isSendButtonDisabled ? Color(.border) : .blue
         }
       )
-      .accessibleAnimation(.spring(duration: 0.13), value: viewStore.isSendButtonDisabled)
+      .accessibleAnimation(.spring(duration: 0.13), value: store.isSendButtonDisabled)
       .accessibilityLabel(Text(L10n.Chat.send))
       .frame(width: 38, height: 38)
       .overlay(
         Group {
-          if viewStore.state.isSending {
+          if store.isSending {
             ProgressView()
           } else {
             Image(systemName: "paperplane.fill")
@@ -72,7 +66,7 @@ public struct BasicInputView: View {
         }
       )
     })
-    .disabled(viewStore.isSendButtonDisabled)
+    .disabled(store.isSendButtonDisabled)
   }
   
   public var body: some View {

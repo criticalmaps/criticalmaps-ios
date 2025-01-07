@@ -15,12 +15,11 @@ public struct ChatFeature {
   public init() {}
   
   @Dependency(\.date) var date
-  @Dependency(\.idProvider) var idProvider
   @Dependency(\.apiService) var apiService
+  @Dependency(\.idProvider) var idProvider
   @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.uuid) var uuid
   @Dependency(\.userDefaultsClient) var userDefaultsClient
-  @Dependency(\.isNetworkAvailable) var isNetworkAvailable
   
   var md5Uuid: String {
     Insecure.MD5.hash(data: idProvider.id().data(using: .utf8)!)
@@ -30,10 +29,16 @@ public struct ChatFeature {
 
   // MARK: State
   
+  @ObservableState
   public struct State: Equatable {
     public var chatMessages: ContentState<[ChatMessage]>
     public var chatInputState: ChatInput.State
-    @PresentationState public var alert: AlertState<Action.Alert>?
+    @Presents public var alert: AlertState<Action.Alert>?
+    
+    public var messages: [ChatMessage] {
+      chatMessages.elements?
+        .sorted { $0.timestamp > $1.timestamp } ?? []
+    }
     
     public init(
       chatMessages: ContentState<[ChatMessage]> = .loading([]),

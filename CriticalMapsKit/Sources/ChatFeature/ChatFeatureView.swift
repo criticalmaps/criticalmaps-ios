@@ -6,27 +6,10 @@ import SwiftUI
 
 /// A list to show messages from the chat and send a message
 public struct ChatView: View {
-  public struct ViewState: Equatable {
-    public let messages: [ChatMessage]
-    
-    public init(_ state: ChatFeature.State) {
-      messages = state.chatMessages.elements?
-        .sorted { $0.timestamp > $1.timestamp } ?? []
-    }
-  }
-  
-  let store: StoreOf<ChatFeature>
-  @ObservedObject var viewStore: ViewStore<ViewState, ChatFeature.Action>
+  @Bindable var store: StoreOf<ChatFeature>
   
   public init(store: StoreOf<ChatFeature>) {
     self.store = store
-    viewStore = ViewStore(
-      store.scope(
-        state: ViewState.init,
-        action: { $0 }
-      ),
-      observe: { $0 }
-    )
   }
   
   public var body: some View {
@@ -36,26 +19,26 @@ public struct ChatView: View {
           .ignoresSafeArea()
           .accessibilityHidden(true)
         
-        if viewStore.messages.isEmpty {
+        if store.messages.isEmpty {
           emptyState
             .accessibilitySortPriority(-1)
         } else {
-          List(viewStore.messages) { chat in
+          List(store.messages) { chat in
             ChatMessageView(chat)
               .padding(.horizontal, .grid(4))
               .padding(.vertical, .grid(2))
-              .animation(nil, value: viewStore.messages)
+              .animation(nil, value: store.messages)
           }
           .listRowBackground(Color(.backgroundPrimary))
           .listStyle(PlainListStyle())
-          .accessibleAnimation(.spring, value: viewStore.messages)
+          .accessibleAnimation(.spring, value: store.messages)
         }
       }
       
       chatInput
     }
     .alert(store: store.scope(state: \.$alert, action: \.alert))
-    .onAppear { viewStore.send(.onAppear) }
+    .onAppear { store.send(.onAppear) }
     .navigationBarTitleDisplayMode(.inline)
     .ignoresSafeArea(.container, edges: .bottom)
   }
