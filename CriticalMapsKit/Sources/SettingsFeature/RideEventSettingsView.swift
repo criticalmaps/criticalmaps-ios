@@ -7,15 +7,10 @@ import SwiftUIHelpers
 
 /// A view to render next ride event settings
 public struct RideEventSettingsView: View {
-  private let store: StoreOf<RideEventsSettingsFeature>
-  @ObservedObject var viewStore: ViewStoreOf<RideEventsSettingsFeature>
+  @State var store: StoreOf<RideEventsSettingsFeature>
 
   public init(store: StoreOf<RideEventsSettingsFeature>) {
     self.store = store
-    viewStore = ViewStore(
-      store,
-      observe: { $0 }
-    )
   }
 
   public var body: some View {
@@ -25,11 +20,11 @@ public struct RideEventSettingsView: View {
       SettingsRow {
         HStack {
           Toggle(
-            isOn: viewStore.$isEnabled,
+            isOn: $store.isEnabled,
             label: { Text(L10n.Settings.eventSettingsEnable) }
           )
           .accessibilityRepresentation(representation: {
-            viewStore.isEnabled
+            store.isEnabled
               ? Text(L10n.A11y.General.on)
               : Text(L10n.A11y.General.off)
           })
@@ -54,14 +49,14 @@ public struct RideEventSettingsView: View {
             ForEach(EventDistance.allCases, id: \.self) { radius in
               SettingsRow {
                 Button(
-                  action: { viewStore.send(.set(\.$eventSearchRadius, radius)) },
+                  action: { store.send(.set(\.eventSearchRadius, radius)) },
                   label: {
                     HStack(spacing: .grid(3)) {
                       Text(String(radius.displayValue))
                         .accessibility(label: Text(radius.accessibilityLabel))
                         .padding(.vertical, .grid(2))
                       Spacer()
-                      if viewStore.eventSearchRadius == radius {
+                      if store.eventSearchRadius == radius {
                         Image(systemName: "checkmark.circle.fill")
                           .accessibilityRepresentation {
                             Text(L10n.A11y.General.selected)
@@ -75,12 +70,12 @@ public struct RideEventSettingsView: View {
             }
           }
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: viewStore.isEnabled ? .none : 0)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: store.isEnabled ? .none : 0)
         .clipped()
-        .accessibleAnimation(.interactiveSpring(), value: viewStore.isEnabled)
+        .accessibleAnimation(.interactiveSpring(), value: store.isEnabled)
       }
       .foregroundColor(Color(.textPrimary))
-      .disabled(!viewStore.isEnabled)
+      .disabled(!store.isEnabled)
     }
     .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
   }

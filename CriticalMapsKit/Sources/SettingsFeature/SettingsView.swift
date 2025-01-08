@@ -11,7 +11,7 @@ import SwiftUIHelpers
 public struct SettingsView: View {
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
-  @Bindable var store: StoreOf<SettingsFeature>
+  @State var store: StoreOf<SettingsFeature>
   
   public init(store: StoreOf<SettingsFeature>) {
     self.store = store
@@ -24,13 +24,18 @@ public struct SettingsView: View {
         SettingsRow {
           observationModeRow
             .accessibilityValue(
-              store.isObservationModeEnabled
+              store.userSettings.isObservationModeEnabled
                 ? Text(L10n.A11y.General.on)
                 : Text(L10n.A11y.General.off)
             )
             .accessibilityAction {
               store.send(
-                .set(\.isObservationModeEnabled, !store.isObservationModeEnabled)
+                .binding(
+                  .set(
+                    \.userSettings.isObservationModeEnabled,
+                     !store.userSettings.isObservationModeEnabled
+                  )
+                )
               )
             }
         }
@@ -38,41 +43,47 @@ public struct SettingsView: View {
         SettingsRow {
           infoRow
             .accessibilityValue(
-              store.infoViewEnabled
+              store.userSettings.showInfoViewEnabled
                 ? Text(L10n.A11y.General.on)
                 : Text(L10n.A11y.General.off)
             )
             .accessibilityAction {
               store.send(
-                .set(\.infoViewEnabled, !store.infoViewEnabled)
+                .binding(
+                  .set(
+                    \.userSettings.showInfoViewEnabled,
+                     !store.userSettings.showInfoViewEnabled
+                  )
+                )
               )
             }
         }
         
         SettingsSection(title: "") {
-          SettingsNavigationLink(
-            destination: {
-              RideEventSettingsView(
-                store: store.scope(
-                  state: \.rideEventSettings,
-                  action: \.rideevent
-                )
-              )
-            },
-            title: { Text(L10n.Settings.eventSettings) }
-          )
+          SettingsRow {
+            Button(
+              action: { store.send(.rideEventSettingsRowTapped) },
+              label: {
+                HStack {
+                  Text(L10n.Settings.eventSettings) }
+                  Spacer()
+                  Image(systemName: "chevron.right")
+                }
+            )
+          }
           
-          SettingsNavigationLink(
-            destination: {
-              AppearanceSettingsView(
-                store: store.scope(
-                  state: \.appearanceSettings,
-                  action: \.appearance
-                )
-              )
-            },
-            title: { Text(L10n.Settings.Theme.appearance) }
-          )
+          SettingsRow {
+            Button(
+              action: { store.send(.appearanceSettingsRowTapped) },
+              label: {
+                HStack {
+                  Text(L10n.Settings.Theme.appearance)
+                  Spacer()
+                  Image(systemName: "chevron.right")
+                }
+              }
+            )
+          }
         }
                 
         supportSection
@@ -94,6 +105,24 @@ public struct SettingsView: View {
       alignment: .topLeading
     )
     .onAppear { store.send(.onAppear) }
+    .navigationDestination(
+      item: $store.scope(
+        state: \.destination?.appearance,
+        action: \.destination.appearance
+      ),
+      destination: { store in
+        AppearanceSettingsView(store: store)
+      }
+    )
+    .navigationDestination(
+      item: $store.scope(
+        state: \.destination?.rideEvents,
+        action: \.destination.rideEvents
+      ),
+      destination: { store in
+        RideEventSettingsView(store: store)
+      }
+    )
   }
   
   var observationModeRow: some View {
@@ -107,7 +136,7 @@ public struct SettingsView: View {
       }
       Spacer()
       Toggle(
-        isOn: $store.isObservationModeEnabled,
+        isOn: $store.userSettings.isObservationModeEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -126,7 +155,7 @@ public struct SettingsView: View {
       }
       Spacer()
       Toggle(
-        isOn: $store.infoViewEnabled,
+        isOn: $store.userSettings.showInfoViewEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -299,10 +328,10 @@ struct SettingsInfoLink: View {
 }
 
 #Preview {
-  NavigationView {
+  NavigationStack {
     SettingsView(
       store: .init(
-        initialState: .init(userSettings: .init()),
+        initialState: .init(),
         reducer: { SettingsFeature() }
       )
     )

@@ -10,28 +10,29 @@ import UIKit.UIInterface
 public struct SettingsFeature: Reducer {
   public init() {}
 
-  // MARK: State
+  @Reducer
+  public enum Destination {
+    case rideEvents(RideEventsSettingsFeature)
+    case appearance(AppearanceSettingsFeature)
+  }
 
   @Dependency(\.continuousClock) var clock
   @Dependency(\.fileClient) var fileClient
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   
-  @ObservableState public struct State: Equatable {
-    public var isObservationModeEnabled = true
-    public var infoViewEnabled = true
-    public var rideEventSettings: RideEventsSettingsFeature.State
-    public var appearanceSettings: AppearanceSettingsFeature.State
+  // MARK: State
 
-    public init(userSettings: UserSettings = .init()) {
-      self.isObservationModeEnabled = userSettings.isObservationModeEnabled
-      self.infoViewEnabled = userSettings.showInfoViewEnabled
-      self.rideEventSettings = .init(settings: userSettings.rideEventSettings)
-      self.appearanceSettings = .init(
-        appIcon: userSettings.appearanceSettings.appIcon,
-        colorScheme: userSettings.appearanceSettings.colorScheme
-      )
-    }
+  @ObservableState
+  public struct State {
+    @ObservationStateIgnored
+    @Shared(.fileStorage(.userSettingsURL))
+    public var userSettings = UserSettings()
+        
+    @Presents
+    var destination: Destination.State?
 
+    public init() {}
+    
     var versionNumber: String { "\(Bundle.main.versionNumber)" }
     var buildNumber: String { "\(Bundle.main.buildNumber)" }
     var packageList: AcknowList? {
@@ -48,37 +49,40 @@ public struct SettingsFeature: Reducer {
   // MARK: Actions
 
   @CasePathable
-  public enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction {
     case onAppear
     case binding(BindingAction<State>)
     case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
     case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
     case openURL(URL)
-
-    case appearance(AppearanceSettingsFeature.Action)
-    case rideevent(RideEventsSettingsFeature.Action)
+    case destination(PresentationAction<Destination.Action>)
+    case appearanceSettingsRowTapped
+    case rideEventSettingsRowTapped
   }
 
   // MARK: Reducer
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
-    
-    Scope(state: \.appearanceSettings, action: \.appearance) {
-      AppearanceSettingsFeature()
-    }
-
-    Scope(state: \.rideEventSettings, action: \.rideevent) {
-      RideEventsSettingsFeature()
-    }
 
     Reduce { state, action in
       switch action {
       case .onAppear:
-        state.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
+        state.userSettings.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
           .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
-        state.isObservationModeEnabled = observationModeStore.getObservationModeState()
         return .none
+        
+      case .appearanceSettingsRowTapped:
+        state.destination = .appearance(AppearanceSettingsFeature.State())
+        return .none
+        
+      case .rideEventSettingsRowTapped:
+        state.destination = .rideEvents(RideEventsSettingsFeature.State(settings: state.userSettings.rideEventSettings))
+        return .none
+
+      case .destination:
+        return .none
+    
         
       case let .infoSectionRowTapped(row):
         return .send(.openURL(row.url))
@@ -90,27 +94,12 @@ public struct SettingsFeature: Reducer {
         return .run { _ in
           _ = await uiApplicationClient.open(url, [:])
         }
-
-      case .appearance, .rideevent, .binding(\.isObservationModeEnabled), .binding(\.infoViewEnabled):
-        enum CancelID { case debounce }
-        
-        return .run { [settings = state] _ in
-          try await withTaskCancellation(
-            id: CancelID.debounce,
-            cancelInFlight: true)
-          {
-            try await clock.sleep(for: .seconds(1.5))
-            try await fileClient.saveUserSettings(
-              userSettings: .init(settings: settings)
-            )
-            observationModeStore.setObservationModeState(isEnabled: settings.isObservationModeEnabled)
-          }
-        }
         
       case .binding:
         return .none
       }
     }
+    .ifLet(\.$destination, action: \.destination)
   }
 }
 
@@ -145,17 +134,6 @@ public extension SettingsFeature.State {
         return URL(string: "https://crowdin.com/project/critical-maps")!
       }
     }
-  }
-}
-
-extension UserSettings {
-  init(settings: SettingsFeature.State) {
-    self.init(
-      appearanceSettings: settings.appearanceSettings,
-      enableObservationMode: settings.isObservationModeEnabled,
-      showInfoViewEnabled: settings.infoViewEnabled,
-      rideEventSettings: .init(settings.rideEventSettings)
-    )
   }
 }
 

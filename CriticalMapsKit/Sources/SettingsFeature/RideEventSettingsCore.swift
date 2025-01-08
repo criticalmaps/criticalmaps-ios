@@ -4,14 +4,16 @@ import Foundation
 import Helpers
 import SharedModels
 
-public struct RideEventsSettingsFeature: Reducer {
+@Reducer
+public struct RideEventsSettingsFeature {
   public init() {}
   
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
+  @ObservableState
   public struct State: Equatable, Sendable {
-    @BindingState public var isEnabled: Bool
-    @BindingState public var eventSearchRadius: EventDistance
+    public var isEnabled: Bool
+    public var eventSearchRadius: EventDistance
     public var rideEventTypes: IdentifiedArrayOf<RideEventType.State> = []
     
     public init(
@@ -38,7 +40,7 @@ public struct RideEventsSettingsFeature: Reducer {
     
     Reduce { _, action in
       switch action {
-      case .binding(\.$eventSearchRadius):
+      case .binding(\.eventSearchRadius):
         return .run { _ in
           await feedbackGenerator.selectionChanged()
         }

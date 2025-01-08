@@ -6,18 +6,16 @@ import SwiftUI
 
 /// A view to render appearance settings.
 public struct AppearanceSettingsView: View {
-  let store: StoreOf<AppearanceSettingsFeature>
-  @ObservedObject var viewStore: ViewStoreOf<AppearanceSettingsFeature>
+  @State private var store: StoreOf<AppearanceSettingsFeature>
 
   public init(store: StoreOf<AppearanceSettingsFeature>) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
   }
 
   public var body: some View {
     SettingsForm {
       SettingsSection(title: "Theme") {
-        Picker("", selection: viewStore.$colorScheme) {
+        Picker("", selection: $store.colorScheme) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
             Text($0.title)
           }
@@ -27,7 +25,7 @@ public struct AppearanceSettingsView: View {
         .padding(.horizontal, .grid(4))
 
         SettingsSection(title: L10n.Settings.appIcon) {
-          AppIconPicker(appIcon: viewStore.$appIcon)
+          AppIconPicker(appIcon: $store.appIcon)
         }
       }
     }

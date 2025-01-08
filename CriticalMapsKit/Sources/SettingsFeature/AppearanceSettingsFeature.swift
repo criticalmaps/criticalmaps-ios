@@ -29,13 +29,13 @@ public struct AppearanceSettingsFeature {
     
     Reduce<State, Action> { state, action in
       switch action {
-      case .binding(\.$colorScheme):
+      case .binding(\.colorScheme):
         let style = state.colorScheme.userInterfaceStyle
         return .run { _ in
           await setUserInterfaceStyle(style)
         }
 
-      case .binding(\.$appIcon):
+      case .binding(\.appIcon):
         let appIcon = state.appIcon.rawValue
         return .merge(
           .run { _ in try await uiApplicationClient.setAlternateIconName(appIcon) },

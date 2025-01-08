@@ -8,12 +8,13 @@ import SwiftUI
 public struct RideEventType {
   public init() {}
   
+  @ObservableState
   public struct State: Equatable, Identifiable, Sendable, Codable {
     public var id: String {
       self.rideType.rawValue
     }
     public let rideType: Ride.RideType
-    @BindingState public var isEnabled = true
+    public var isEnabled = true
     
     public init(rideType: Ride.RideType, isEnabled: Bool) {
       self.rideType = rideType
@@ -31,36 +32,30 @@ public struct RideEventType {
 }
 
 public struct RideEventTypeView: View {
-  let store: StoreOf<RideEventType>
+  @State private var store: StoreOf<RideEventType>
+  
+  public init(store: StoreOf<RideEventType>) {
+    self.store = store
+  }
   
   public var body: some View {
-    WithViewStore(
-      self.store,
-      observe: { $0 },
-      content: { viewStore in
-        SettingsRow {
-          Button(
-            action: {
-              viewStore.send(
-                .set(\.$isEnabled, !viewStore.state.isEnabled)
-              )
-            },
-            label: {
-              HStack(spacing: .grid(3)) {
-                Text(viewStore.rideType.title)
-                  .padding(.vertical, .grid(2))
-                Spacer()
-                if viewStore.isEnabled {
-                  Image(systemName: "checkmark.circle.fill")
-                } else {
-                  Image(systemName: "circle")
-                }
-              }
+    SettingsRow {
+      Button(
+        action: { store.send(.binding(.set(\.isEnabled, !store.isEnabled))) },
+        label: {
+          HStack(spacing: .grid(3)) {
+            Text(store.rideType.title)
+              .padding(.vertical, .grid(2))
+            Spacer()
+            if store.isEnabled {
+              Image(systemName: "checkmark.circle.fill")
+            } else {
+              Image(systemName: "circle")
             }
-          )
+          }
         }
-        .accessibilityValue(viewStore.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
-      }
-    )
+      )
+    }
+    .accessibilityValue(store.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
   }
 }

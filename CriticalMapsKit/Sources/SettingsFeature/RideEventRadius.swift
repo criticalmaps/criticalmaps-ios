@@ -11,10 +11,11 @@ public struct RideEventRadius {
   
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
+  @ObservableState
   public struct State: Equatable, Identifiable, Sendable, Codable {
     public let id: UUID
     public let eventDistance: EventDistance
-    @BindingState public var isSelected = false
+    public var isSelected = false
     
     public init(id: UUID, eventDistance: EventDistance, isSelected: Bool) {
       self.id = id
@@ -38,34 +39,28 @@ public struct RideEventRadius {
 }
 
 public struct RideEventRadiusView: View {
-  let store: StoreOf<RideEventRadius>
+  @Bindable var store: StoreOf<RideEventRadius>
   
   public var body: some View {
-    WithViewStore(
-      self.store,
-      observe: { $0 },
-      content: { viewStore in
-        SettingsRow {
-          Button(
-            action: { viewStore.send(.set(\.$isSelected, true)) },
-            label: {
-              HStack(spacing: .grid(3)) {
-                Text(String(viewStore.eventDistance.displayValue))
-                  .accessibility(label: Text(viewStore.eventDistance.displayValue))
-                  .padding(.vertical, .grid(2))
-                Spacer()
-                if viewStore.isSelected {
-                  Image(systemName: "checkmark.circle.fill")
-                    .accessibilityRepresentation {
-                      Text(L10n.A11y.General.selected)
-                    }
+    SettingsRow {
+      Button(
+        action: { store.send(.binding(.set(\.isSelected, true))) },
+        label: {
+          HStack(spacing: .grid(3)) {
+            Text(String(store.eventDistance.displayValue))
+              .accessibility(label: Text(store.eventDistance.displayValue))
+              .padding(.vertical, .grid(2))
+            Spacer()
+            if store.isSelected {
+              Image(systemName: "checkmark.circle.fill")
+                .accessibilityRepresentation {
+                  Text(L10n.A11y.General.selected)
                 }
-              }
-              .accessibilityElement(children: .combine)
             }
-          )
+          }
+          .accessibilityElement(children: .combine)
         }
-      }
-    )
+      )
+    }
   }
 }
