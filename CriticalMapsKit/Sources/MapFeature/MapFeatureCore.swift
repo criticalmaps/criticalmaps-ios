@@ -28,7 +28,6 @@ public struct ShouldAnimateTrackingModeOverTime: Equatable {
 public struct MapFeature {
   public init() {}
   
-  @Dependency(\.observationModeStore) var observationModeStore
   @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.continuousClock) var clock

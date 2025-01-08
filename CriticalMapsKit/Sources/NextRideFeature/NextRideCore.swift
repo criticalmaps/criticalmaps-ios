@@ -15,7 +15,6 @@ public struct NextRideFeature {
   @Dependency(\.nextRideService) private var service
   @Dependency(\.date) private var date
   @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
-  @Dependency(\.isNetworkAvailable) private var isNetworkAvailable
   @Dependency(\.calendar) private var calendar
 
   @ObservableState

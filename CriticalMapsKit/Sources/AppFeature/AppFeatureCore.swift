@@ -35,8 +35,6 @@ public struct AppFeature {
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
-  @Dependency(\.isNetworkAvailable) var isNetworkAvailable
-  @Dependency(\.observationModeStore) var observationModeStore
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   // MARK: State

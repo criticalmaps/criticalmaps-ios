@@ -12,7 +12,6 @@ public struct SettingsFeature: Reducer {
 
   // MARK: State
 
-  @Dependency(\.observationModeStore) var observationModeStore
   @Dependency(\.continuousClock) var clock
   @Dependency(\.fileClient) var fileClient
   @Dependency(\.uiApplicationClient) var uiApplicationClient
