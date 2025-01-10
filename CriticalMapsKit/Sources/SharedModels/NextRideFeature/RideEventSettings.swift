@@ -2,44 +2,40 @@ import ComposableArchitecture
 import Foundation
 
 /// A structure to store ride event settings
-public struct RideEventSettings: Hashable, Codable {
+public struct RideEventSettings: Equatable, Codable {
+  public var isEnabled: Bool
+  public var rideEvents: [RideEvent]
+  public var eventDistance: EventDistance
+
   public init(
     isEnabled: Bool = true,
-    typeSettings: [Ride.RideType: Bool] = .all(),
+    rideEvents: [RideEvent] = .default,
     eventDistance: EventDistance = .near
   ) {
     self.isEnabled = isEnabled
-    self.typeSettings = typeSettings
+    self.rideEvents = rideEvents
     self.eventDistance = eventDistance
   }
-
-  @BindingState public var isEnabled: Bool
-  @BindingState public var typeSettings: [Ride.RideType: Bool]
-  @BindingState public var eventDistance: EventDistance
 }
 
-public extension RideEventSettings {
-  struct RideEventTypeSetting: Hashable, Codable, Sendable {
-    public init(type: Ride.RideType, isEnabled: Bool) {
-      self.type = type
-      self.isEnabled = isEnabled
-    }
+public extension [RideEvent] {
+  static let `default`: Self = {
+    Ride.RideType.allCases
+      .map { RideEvent(rideType: $0, isEnabled: true) }
+  }()
+}
 
-    public let type: Ride.RideType
-    public var isEnabled: Bool
+private extension URL {
+  static var rideEventSettingsURL: URL {
+    URL
+      .applicationSupportDirectory
+      .appendingPathComponent("rideEventSettings")
+      .appendingPathExtension("json")
   }
-
-  static let `default` = Self(
-    isEnabled: true,
-    typeSettings: .all(),
-    eventDistance: .near
-  )
 }
 
-public extension Dictionary where Key == Ride.RideType, Value == Bool {
-  static func all() -> [Ride.RideType: Bool] {
-    var values = [Key: Value]()
-    Ride.RideType.allCases.forEach { values[$0] = true }
-    return values
+extension SharedKey where Self == Sharing.FileStorageKey<RideEventSettings> {
+  public static var rideEventSettings: Self {
+    fileStorage(.rideEventSettingsURL)
   }
 }

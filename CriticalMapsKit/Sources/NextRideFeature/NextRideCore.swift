@@ -25,7 +25,11 @@ public struct NextRideFeature {
 
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
-    public var rideEventSettings = RideEventSettings()
+    
+    @Shared(.userSettings)
+    public var userSettings = UserSettings()
+    @Shared(.rideEventSettings)
+    var rideEventSettings = RideEventSettings()
 
     public var userLocation: Coordinate?
   }
@@ -83,7 +87,7 @@ public struct NextRideFeature {
         logger.info("No upcoming events for filter selection rideType")
         return .none
       }
-      let typeSettings = state.rideEventSettings.typeSettings
+      let typeSettings = state.rideEventSettings.rideEvents
       state.rideEvents = rides.sortByDateAndFilterBeforeDate(date.callAsFunction)
 
       // Sort rides by date and pick the first one with a date greater than now
@@ -91,7 +95,7 @@ public struct NextRideFeature {
         .lazy
         .filter {
           guard let type = $0.rideType else { return true }
-          return typeSettings.contains(where: { $0.key == type })
+          return typeSettings.contains(where: { $0.rideType == type })
         }
         .filter(\.enabled)
         .sorted { lhs, rhs in
