@@ -7,7 +7,6 @@ struct CriticalMapsApp: App {
   @MainActor
   static let store = Store(initialState: AppFeature.State()) {
     AppFeature()
-      ._printChanges()
   }
 
   var body: some Scene {
