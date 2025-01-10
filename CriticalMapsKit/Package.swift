@@ -198,7 +198,7 @@ let package = Package(
         .tca,
         .product(name: "AcknowList", package: "AcknowList")
       ],
-      resources: [.process("Resources/")]
+      resources: [.process("_Resources/")]
     ),
     .target(
       name: "SharedDependencies",
