@@ -76,7 +76,7 @@ public struct TootView: View {
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize: DynamicTypeSize
   @Environment(\.colorScheme) private var colorScheme
   
-  private let store: StoreOf<TootFeature>
+  @State private var store: StoreOf<TootFeature>
   
   public init(store: StoreOf<TootFeature>) {
     self.store = store

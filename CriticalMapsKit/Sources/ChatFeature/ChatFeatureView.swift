@@ -6,7 +6,7 @@ import SwiftUI
 
 /// A list to show messages from the chat and send a message
 public struct ChatView: View {
-  @Bindable var store: StoreOf<ChatFeature>
+  @State private var store: StoreOf<ChatFeature>
   
   public init(store: StoreOf<ChatFeature>) {
     self.store = store

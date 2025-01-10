@@ -49,6 +49,7 @@ public struct TootFeedFeature {
     Reduce { state, action in
       switch action {
       case .onAppear:
+        guard state.toots.isEmpty else { return .none }
         return .send(.fetchData)
         
       case .refresh:

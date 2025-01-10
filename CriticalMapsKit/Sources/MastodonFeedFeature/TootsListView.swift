@@ -7,7 +7,7 @@ import Styleguide
 import SwiftUI
 
 public struct TootsListView: View {
-  @Bindable var store: StoreOf<TootFeedFeature>
+  @State private var store: StoreOf<TootFeedFeature>
 
   public init(store: StoreOf<TootFeedFeature>) {
     self.store = store

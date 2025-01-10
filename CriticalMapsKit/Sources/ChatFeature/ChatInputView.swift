@@ -6,7 +6,7 @@ import UIKit
 
 public struct BasicInputView: View {
   private let placeholder: String
-  @Bindable var store: StoreOf<ChatInput>
+  @State private var store: StoreOf<ChatInput>
   @State private var contentSizeThatFits: CGSize = .zero
   
   public init(
