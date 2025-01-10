@@ -94,10 +94,6 @@ public struct ErrorStateView: View {
   }
 }
 
-struct ErrorStateView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      ErrorStateView(errorState: .default)
-    }
-  }
+#Preview {
+  ErrorStateView(errorState: .default)
 }

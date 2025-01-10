@@ -71,16 +71,12 @@ public struct EmptyStateView: View {
   }
 }
 
-struct EmptyStateView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      EmptyStateView(
-        emptyState: .init(
-          icon: Asset.toot.image,
-          text: "No toots atm",
-          message: .init(string: "")
-        )
-      )
-    }
-  }
+#Preview {
+  EmptyStateView(
+    emptyState: .init(
+      icon: Asset.toot.image,
+      text: "No toots atm",
+      message: .init(string: "")
+    )
+  )
 }
