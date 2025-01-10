@@ -1,58 +1,53 @@
 import ChatFeature
 import ComposableArchitecture
+import L10n
 import MastodonFeedFeature
 import SwiftUI
 
-/// A view that holds the chatfeature and twitterfeature and just offers a control to switch between the two.
 public struct SocialView: View {
-  @Environment(\.presentationMode) var presentationMode
-  @SwiftUICore.Bindable var store: StoreOf<SocialFeature>
+  @Bindable private var store: StoreOf<SocialFeature>
   
   public init(store: StoreOf<SocialFeature>) {
     self.store = store
   }
 
   public var body: some View {
-    NavigationView {
+    NavigationStack {
       Group {
         switch store.socialControl {
         case .chat:
           ChatView(
-            store: store.scope(
-              state: \.chatFeatureState,
-              action: \.chat
-            )
+            store: store.scope(state: \.chatFeatureState, action: \.chat)
           )
         case .toots:
           MastodonFeedView(
-            store: store.scope(
-              state: \.mastodonFeedState,
-              action: \.toots
-            )
+            store: store.scope(state: \.mastodonFeedState, action: \.toots)
           )
         }
       }
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
           Button(
-            action: { presentationMode.wrappedValue.dismiss() },
+            action: { store.send(.dismiss) },
             label: {
               Image(systemName: "xmark")
                 .font(Font.system(size: 22, weight: .medium))
                 .foregroundColor(Color(.textPrimary))
             }
           )
+          .accessibilityLabel(L10n.Close.Button.label)
         }
         
         ToolbarItem(placement: .principal) {
           Picker(
             "Social Segment",
-            selection: $store.socialControl.sending(\.setSocialSegment)
+            selection: $store.socialControl.animation()
           ) {
-            Text(SocialFeature.SocialControl.chat.title).tag(0)
-            Text(SocialFeature.SocialControl.toots.title).tag(1)
+            ForEach(SocialFeature.SocialControl.allCases, id: \.self) { control in
+              Text(control.rawValue).tag(control)
+            }
           }
-          .pickerStyle(SegmentedPickerStyle())
+          .pickerStyle(.segmented)
           .frame(maxWidth: 180)
         }
       }
@@ -60,7 +55,7 @@ public struct SocialView: View {
   }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
   SocialView(

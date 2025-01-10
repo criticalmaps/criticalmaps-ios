@@ -1,4 +1,5 @@
 import ApiClient
+import SwiftUICore
 import ChatFeature
 import ComposableArchitecture
 import Foundation
@@ -11,43 +12,36 @@ import UserDefaultsClient
 @Reducer
 public struct SocialFeature {
   public init() {}
-    
+  
+  @Dependency(\.dismiss) var dismiss
+  
   // MARK: State
   
   @ObservableState
   public struct State: Equatable {
     public var chatFeatureState: ChatFeature.State
     public var mastodonFeedState: TootFeedFeature.State
-    public var socialControl: SocialControl
+    public var socialControl: SocialControl = .chat
         
     public init(
-      socialControl: SocialControl = .chat,
       chatFeatureState: ChatFeature.State = .init(),
       mastodonFeedState: TootFeedFeature.State = .init()
     ) {
-      self.socialControl = socialControl
       self.chatFeatureState = chatFeatureState
       self.mastodonFeedState = mastodonFeedState
     }
   }
   
-  public enum SocialControl: Int, Equatable {
-    case chat, toots
-    
-    var title: String {
-      switch self {
-      case .chat:
-        return L10n.Chat.title
-      case .toots:
-        return "Mastodon"
-      }
-    }
+  public enum SocialControl: LocalizedStringKey, CaseIterable, Hashable {
+    case chat = "Chat"
+    case toots = "Mastodon"
   }
   
   // MARK: Actions
   
-  public enum Action: Equatable {
-    case setSocialSegment(SocialControl)
+  public enum Action: BindableAction, Equatable {
+    case binding(BindingAction<State>)
+    case dismiss
     
     case chat(ChatFeature.Action)
     case toots(TootFeedFeature.Action)
@@ -56,27 +50,22 @@ public struct SocialFeature {
   // MARK: Reducer
   
   public var body: some ReducerOf<Self> {
-    Scope(
-      state: \.chatFeatureState,
-      action: \.chat
-    ) {
+    BindingReducer()
+    
+    Scope(state: \.chatFeatureState, action: \.chat) {
       ChatFeature()
     }
     
-    Scope(
-      state: \.mastodonFeedState,
-      action: \.toots
-    ) {
+    Scope(state: \.mastodonFeedState, action: \.toots) {
       TootFeedFeature()
     }
     
-    Reduce<State, Action> { state, action in
+    Reduce { state, action in
       switch action {
-      case let .setSocialSegment(segment):
-        state.socialControl = segment
-        return .none
+      case .dismiss:
+        return .run { _ in  await dismiss() }
       
-      case .chat, .toots:
+      case .chat, .toots, .binding:
         return .none
       }
     }
