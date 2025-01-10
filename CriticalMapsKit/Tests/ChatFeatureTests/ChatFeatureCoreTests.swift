@@ -27,7 +27,6 @@ final class ChatFeatureCore: XCTestCase {
     )
     testStore.dependencies.uuid = .constant(uuid())
     testStore.dependencies.date = .constant(date())
-    testStore.dependencies.isNetworkAvailable = true
     
     return testStore
   }

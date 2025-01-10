@@ -7,6 +7,7 @@ import SharedModels
 import UserDefaultsClient
 import XCTest
 
+// swiftlint:disable:next type_body_length
 final class NextRideCoreTests: XCTestCase {
   let now = {
     Calendar.current.date(
@@ -119,7 +120,6 @@ final class NextRideCoreTests: XCTestCase {
         }
         $0.nextRideService.nextRide = { _, _, _ in self.rides }
         $0.date = .constant(self.now())
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -147,7 +147,6 @@ final class NextRideCoreTests: XCTestCase {
           )
           .encoded()
         }
-        $0.isNetworkAvailable = true
         $0.nextRideService.nextRide = { _, _, _ in
           throw NextRideService.Failure(internalError: .badRequest)
         }
@@ -169,7 +168,6 @@ final class NextRideCoreTests: XCTestCase {
         $0.nextRideService.nextRide = { _, _, _ in
           self.rides
         }
-        $0.isNetworkAvailable = true
         $0.userDefaultsClient.dataForKey = { _ in
           try? RideEventSettings(
             isEnabled: true,
@@ -228,7 +226,6 @@ final class NextRideCoreTests: XCTestCase {
           try? RideEventSettings.default.encoded()
         }
         $0.date = .constant(now())
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -267,7 +264,6 @@ final class NextRideCoreTests: XCTestCase {
             .encoded()
         }
         $0.date = .constant(now())
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -325,7 +321,6 @@ final class NextRideCoreTests: XCTestCase {
         }
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.date = .constant(now())
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -385,7 +380,6 @@ final class NextRideCoreTests: XCTestCase {
         }
         $0.date = .constant(now())
         $0.calendar = .autoupdatingCurrent
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -433,7 +427,6 @@ final class NextRideCoreTests: XCTestCase {
             .encoded()
         }
         $0.date = .constant(now())
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -481,7 +474,6 @@ final class NextRideCoreTests: XCTestCase {
             .encoded()
         }
         $0.date = .constant(now())
-        $0.isNetworkAvailable = true
       }
     )
     
@@ -529,7 +521,6 @@ final class NextRideCoreTests: XCTestCase {
             .encoded()
         }
         $0.date = .constant(now().addingTimeInterval(60 * 60 * 72))
-        $0.isNetworkAvailable = true
       }
     )
     
