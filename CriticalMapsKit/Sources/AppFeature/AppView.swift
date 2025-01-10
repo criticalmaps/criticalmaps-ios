@@ -9,28 +9,19 @@ import SwiftUI
 
 /// The apps main view
 public struct AppView: View {
-  @State var showsInfoExpanded = false
-  
-  let store: StoreOf<AppFeature>
-  @ObservedObject var viewStore: ViewStoreOf<AppFeature>
+  @State private var showsInfoExpanded = false
+  @State private var store: StoreOf<AppFeature>
+  @State private var showOfflineBanner = false
   
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   
-  @State private var showOfflineBanner = false
-  
-  private var shouldShowNextRideBanner: Bool {
-    viewStore.mapFeatureState.isNextRideBannerVisible &&
-    viewStore.settingsState.rideEventSettings.isEnabled
-  }
-  
   public init(store: StoreOf<AppFeature>) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
   }
   
   private var contextMenuTitle: String {
-    if viewStore.bottomSheetPosition == .hidden {
+    if store.bottomSheetPosition == .hidden {
       return L10n.Map.NextRideEvents.showAll
     } else {
       return L10n.Map.NextRideEvents.hideAll
@@ -40,20 +31,17 @@ public struct AppView: View {
   public var body: some View {
     ZStack(alignment: .topLeading) {
       MapFeatureView(
-        store: store.scope(
-          state: \.mapFeatureState,
-          action: \.map
-        )
+        store: store.scope(state: \.mapFeatureState, action: \.map)
       )
       .edgesIgnoringSafeArea(.vertical)
       
       HStack {
         VStack(alignment: .leading) {
-          if shouldShowNextRideBanner {
+          if store.shouldShowNextRideBanner {
             nextRideBanner()
           }
           
-          if viewStore.settingsState.infoViewEnabled {
+          if store.userSettings.showInfoViewEnabled {
             ZStack(alignment: .center) {
               Blur()
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -65,7 +53,7 @@ public struct AppView: View {
             .padding(.bottom, .grid(2))
           }
           
-          if viewStore.hasOfflineError {
+          if store.hasOfflineError {
             offlineBanner()
               .clipShape(Circle())
               .opacity(showOfflineBanner ? 1 : 0)
@@ -91,7 +79,7 @@ public struct AppView: View {
       .padding(.horizontal, .grid(8))
     }
     .bottomSheet(
-      bottomSheetPosition: viewStore.$bottomSheetPosition,
+      bottomSheetPosition: $store.bottomSheetPosition,
       switchablePositions: [
         .relative(0.3),
         .relativeTop(0.975)
@@ -103,10 +91,10 @@ public struct AppView: View {
     .backgroundBlurMaterial(.adaptive(.ultraThin))
     .showDragIndicator(true)
     .enableSwipeToDismiss()
-    .onDismiss { viewStore.send(.set(\.$bottomSheetPosition, .hidden)) }
-    .alert(store: store.scope(state: \.$alert, action: \.alert))
-    .onAppear { viewStore.send(.onAppear) }
-    .onDisappear { viewStore.send(.onDisappear) }
+    .onDismiss { store.send(.set(\.bottomSheetPosition, .hidden)) }
+//    .alert(store: store.scope(state: \.$alert, action: \.alert))
+    .onAppear { store.send(.onAppear) }
+    .onDisappear { store.send(.onDisappear) }
   }
   
   @ViewBuilder
@@ -118,13 +106,13 @@ public struct AppView: View {
           .font(.titleTwo)
         
         DataTile("Next update") {
-          CircularProgressView(progress: viewStore.timerProgress)
+          CircularProgressView(progress: store.timerProgress)
             .frame(width: 44, height: 44)
             .overlay(alignment: .center) {
-              if viewStore.isRequestingRiderLocations {
+              if store.isRequestingRiderLocations {
                 ProgressView()
               } else {
-                Text(verbatim: viewStore.timerValue)
+                Text(verbatim: store.timerValue)
                   .foregroundColor(Color(.textPrimary))
                   .font(.system(size: 14).bold())
                   .monospacedDigit()
@@ -136,7 +124,7 @@ public struct AppView: View {
         
         DataTile("Riders") {
           HStack {
-            Text(viewStore.ridersCount)
+            Text(store.ridersCount)
               .font(.pageTitle)
               .modifier(NumericContentTransition())
           }
@@ -175,20 +163,20 @@ public struct AppView: View {
   @ViewBuilder
   func bottomSheetContentView() -> some View {
     VStack {
-      List(viewStore.nextRideState.rideEvents, id: \.id) { ride in
+      List(store.nextRideState.rideEvents, id: \.id) { ride in
         RideEventView(ride: ride)
           .contentShape(Rectangle())
           .padding(.vertical, .grid(1))
           .accessibilityElement(children: .combine)
           .onTapGesture {
-            viewStore.send(.onRideSelectedFromBottomSheet(ride))
+            store.send(.onRideSelectedFromBottomSheet(ride))
           }
           .listRowBackground(Color.clear)
       }
       .listStyle(.plain)
     }
     .accessibilityAction(.escape) {
-      viewStore.send(.set(\.$bottomSheetPosition, .hidden))
+      store.send(.set(\.bottomSheetPosition, .hidden))
     }
   }
   
@@ -218,22 +206,16 @@ public struct AppView: View {
   func nextRideBanner() -> some View {
     MapOverlayView(
       store: store.scope(
-        state: {
-          MapOverlayView.ViewState(
-            isVisible: $0.mapFeatureState.isNextRideBannerVisible,
-            isExpanded: $0.mapFeatureState.isNextRideBannerExpanded
-          )
-        },
-        action: { $0 }
+        state: \.mapOverlayState,
+        action: \.mapOverlayAction
       ),
-      action: { viewStore.send(.didTapNextEventBanner) },
       content: {
         VStack(alignment: .leading, spacing: .grid(1)) {
-          Text(viewStore.state.nextRideState.nextRide?.titleWithoutDatePattern ?? "")
+          Text(store.nextRideState.nextRide?.titleWithoutDatePattern ?? "")
             .multilineTextAlignment(.leading)
             .font(.titleTwo)
             .foregroundColor(Color(.textPrimary))
-          Text(viewStore.state.nextRideState.nextRide?.rideDateAndTime ?? "")
+          Text(store.state.nextRideState.nextRide?.rideDateAndTime ?? "")
             .multilineTextAlignment(.leading)
             .font(.bodyTwo)
             .foregroundColor(Color(.textSecondary))
@@ -250,7 +232,7 @@ public struct AppView: View {
 
 #Preview {
   AppView(
-    store: Store<AppFeature.State, AppFeature.Action>(
+    store: StoreOf<AppFeature>(
       initialState: .init(),
       reducer: { AppFeature()._printChanges() }
     )
@@ -259,11 +241,7 @@ public struct AppView: View {
 
 struct NumericContentTransition: ViewModifier {
   func body(content: Content) -> some View {
-    if #available(iOS 17, *) {
-      content
-        .contentTransition(.numericText())
-    } else {
-      content
-    }
+    content
+      .contentTransition(.numericText())
   }
 }

@@ -37,9 +37,23 @@ public struct AppFeature {
   @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
+  
+  @Reducer
+  public enum Destination {
+    case social(SocialFeature)
+    case settings(SettingsFeature)
+    case alert(AlertState<Alert>)
+    
+    @CasePathable
+    public enum Alert: Equatable, Sendable {
+      case setObservationMode(enabled: Bool)
+    }
+  }
+  
   // MARK: State
 
-  public struct State: Equatable {
+  @ObservableState
+  public struct State {
     public init(
       locationsAndChatMessages: TaskResult<[Rider]>? = nil,
       mapFeatureState: MapFeature.State = .init(
@@ -47,10 +61,9 @@ public struct AppFeature {
         userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
       ),
       socialState: SocialFeature.State = .init(),
-      settingsState: SettingsFeature.State = .init(userSettings: .init()),
+      settingsState: SettingsFeature.State = .init(),
       nextRideState: NextRideFeature.State = .init(),
       requestTimer: RequestTimer.State = .init(),
-      route: AppRoute? = nil,
       chatMessageBadgeCount: UInt = 0
     ) {
       self.riderLocations = locationsAndChatMessages
@@ -59,7 +72,6 @@ public struct AppFeature {
       self.settingsState = settingsState
       self.nextRideState = nextRideState
       self.requestTimer = requestTimer
-      self.route = route
       self.chatMessageBadgeCount = chatMessageBadgeCount
     }
     
@@ -67,7 +79,14 @@ public struct AppFeature {
     public var isRequestingRiderLocations = false
     public var didRequestNextRide = false
     
-    // Children states
+    @Shared(.userSettings)
+    var userSettings = UserSettings()
+    @Shared(.rideEventSettings)
+    var rideEventSettings = RideEventSettings()
+    @Shared(.appearanceSettings)
+    var appearanceSettings = AppearanceSettings()
+
+    // Child states
     public var mapFeatureState = MapFeature.State(
       riders: [],
       userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
@@ -88,21 +107,21 @@ public struct AppFeature {
       let count = mapFeatureState.visibleRidersCount ?? 0
       return NumberFormatter.riderCountFormatter.string(from: .init(value: count)) ?? ""
     }
+    var shouldShowNextRideBanner: Bool {
+      mapFeatureState.isNextRideBannerVisible &&
+      rideEventSettings.isEnabled
+    }
     
     public var socialState = SocialFeature.State()
-    public var settingsState = SettingsFeature.State(userSettings: .init())
+    public var settingsState = SettingsFeature.State()
     public var nextRideState = NextRideFeature.State()
     public var requestTimer = RequestTimer.State()
       
     // Navigation
-    public var route: AppRoute?
-    public var isChatViewPresented: Bool { route == .chat }
-    public var isRulesViewPresented: Bool { route == .rules }
-    public var isSettingsViewPresented: Bool { route == .settings }
-    public var chatMessageBadgeCount: UInt = 0
+    @Presents var destination: Destination.State?
+    public var bottomSheetPosition: BottomSheetPosition = .hidden
 
-    @BindingState public var bottomSheetPosition: BottomSheetPosition = .hidden
-    @PresentationState var alert: AlertState<Action.Alert>?
+    public var chatMessageBadgeCount: UInt = 0
     
     var hasOfflineError: Bool {
       switch riderLocations {
@@ -121,10 +140,9 @@ public struct AppFeature {
   // MARK: Actions
 
   @CasePathable
-  public enum Action: Equatable, BindableAction {
+  public enum Action: BindableAction {
     case binding(BindingAction<State>)
-    case alert(PresentationAction<Alert>)
-    case appDelegate(AppDelegate.Action)
+    case destination(PresentationAction<Destination.Action>)
     case onAppear
     case onDisappear
     case fetchLocations
@@ -133,21 +151,17 @@ public struct AppFeature {
     case postLocationResponse(TaskResult<ApiResponse>)
     case fetchChatMessages
     case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
-    case userSettingsLoaded(TaskResult<UserSettings>)
     case onRideSelectedFromBottomSheet(SharedModels.Ride)
-    case setNavigation(tag: AppRoute.Tag?)
-    case dismissSheetView
     case presentObservationModeAlert
+    
+    case socialButtonTapped
+    case settingsButtonTapped
+    case dismissDestination
+    
     case map(MapFeature.Action)
     case nextRide(NextRideFeature.Action)
     case requestTimer(RequestTimer.Action)
-    case settings(SettingsFeature.Action)
-    case social(SocialFeature.Action)
-    case didTapNextEventBanner
-
-    public enum Alert: Equatable, Sendable {
-      case observationMode(enabled: Bool)
-    }
+    case mapOverlayAction(MapOverlayFeature.Action)
   }
   
   // MARK: Reducer
@@ -164,31 +178,18 @@ public struct AppFeature {
     
     Scope(state: \.nextRideState, action: \.nextRide) {
       NextRideFeature()
-        .dependency(\.isNetworkAvailable, isNetworkAvailable)
-    }
-    
-    Scope(state: \.settingsState, action: \.settings) {
-      SettingsFeature()
-    }
-    
-    Scope(state: \.socialState, action: \.social) {
-      SocialFeature()
-        .dependency(\.isNetworkAvailable, isNetworkAvailable)
     }
     
     /// Holds the logic for the AppFeature to update state and execute side effects
-    Reduce<State, Action> { state, action in
+    Reduce { state, action in
       switch action {
-      case .binding(\.$bottomSheetPosition):
+      case .binding(\.bottomSheetPosition):
         if state.bottomSheetPosition == .hidden {
           state.mapFeatureState.rideEvents = []
           state.mapFeatureState.eventCenter = nil
         } else {
           state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
         }
-        return .none
-        
-      case .appDelegate:
         return .none
         
       case .onRideSelectedFromBottomSheet(let ride):
@@ -204,14 +205,8 @@ public struct AppFeature {
           .run { _ in
             await userDefaultsClient.setSessionID(uuid().uuidString)
           },
-          .run { send in
-            await send(
-              await .userSettingsLoaded(
-                TaskResult {
-                  try await fileClient.loadUserSettings()
-                }
-              )
-            )
+          .run { [style = state.appearanceSettings.colorScheme.userInterfaceStyle] _ in
+            await setUserInterfaceStyle(style)
           },
           .run { send in
             await withThrowingTaskGroup(of: Void.self) { group in
@@ -266,7 +261,7 @@ public struct AppFeature {
         
       case let .fetchChatMessagesResponse(.success(messages)):
         state.socialState.chatFeatureState.chatMessages = .results(messages)
-        if !state.isChatViewPresented {
+        if case .social(_) = state.destination {
           let cachedMessages = messages.sorted(by: \.timestamp)
           
           let unreadMessagesCount = UInt(
@@ -302,7 +297,7 @@ public struct AppFeature {
         return .none
         
       case .postLocation:
-        if state.settingsState.isObservationModeEnabled {
+        if state.userSettings.isObservationModeEnabled {
           return .none
         }
         
@@ -331,7 +326,7 @@ public struct AppFeature {
         switch mapFeatureAction {
         case .focusRideEvent, .focusNextRide:
           if state.bottomSheetPosition != .hidden {
-            return .send(.set(\.$bottomSheetPosition, .relative(0.3)))
+            return .send(.set(\.bottomSheetPosition, .relative(0.3)))
           } else {
             return .none
           }
@@ -339,7 +334,7 @@ public struct AppFeature {
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
           let coordinate = state.mapFeatureState.location?.coordinate
-          let isRideEventsEnabled = state.settingsState.rideEventSettings.isEnabled
+          let isRideEventsEnabled = state.rideEventSettings.isEnabled
           if isRideEventsEnabled, let coordinate, !state.didRequestNextRide {
             state.didRequestNextRide = true
             return .run { send in
@@ -369,50 +364,20 @@ public struct AppFeature {
           return .none
         }
         
-      case let .userSettingsLoaded(result):
-        let userSettings = (try? result.value) ?? UserSettings()
-        state.settingsState = .init(userSettings: userSettings)
-        state.nextRideState.rideEventSettings = userSettings.rideEventSettings
-        
-        observationModeStore.setObservationModeState(isEnabled: userSettings.isObservationModeEnabled)
-        
-        let style = state.settingsState.appearanceSettings.colorScheme.userInterfaceStyle
-        
-        return .run { _ in
-          await setUserInterfaceStyle(style)
-        }
-        
-      case let .setNavigation(tag: tag):
-        switch tag {
-        case .chat:
-          state.route = .chat
-        case .rules:
-          state.route = .rules
-        case .settings:
-          state.route = .settings
-        case .none:
-          state.route = .none
-        }
-        return .none
-        
-      case .dismissSheetView:
-        state.route = .none
-        return .send(.fetchLocations)
-        
       case let .requestTimer(timerAction):
         switch timerAction {
         case .timerTicked:
           if state.requestTimer.secondsElapsed == 60 {
             state.requestTimer.secondsElapsed = 0
             
-            return .run { [isChatPresented = state.isChatViewPresented, isPrentingSubView = state.route != nil] send in
+            return .run { [destination = state.destination] send in
               await withThrowingTaskGroup(of: Void.self) { group in
-                if !isPrentingSubView {
+                if destination != nil {
                   group.addTask {
                     await send(.fetchLocations)
                   }
                 }
-                if isChatPresented {
+                if case .social(_) = destination {
                   group.addTask {
                     await send(.fetchChatMessages)
                   }
@@ -429,59 +394,52 @@ public struct AppFeature {
           return .none
         }
         
+      case .socialButtonTapped:
+        state.destination = .social(SocialFeature.State())
+        return .none
+        
+      case .settingsButtonTapped:
+        state.destination = .settings(SettingsFeature.State())
+        return .none
+        
+      case .dismissDestination:
+        state.destination = nil
+        return .none
+        
       case .presentObservationModeAlert:
-        state.alert = AlertState(
-          title: {
-            TextState(verbatim: L10n.Settings.Observationmode.title)
-          },
-          actions: { 
-            ButtonState(
-              action: .observationMode(enabled: false),
-              label: { TextState(L10n.AppCore.ViewingModeAlert.riding) }
-            )
-            ButtonState(
-              action: .observationMode(enabled: true),
-              label: { TextState(L10n.AppCore.ViewingModeAlert.watching) }
-            )
-          },
-          message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
+        state.destination = .alert(
+          AlertState(
+            title: {
+              TextState(verbatim: L10n.Settings.Observationmode.title)
+            },
+            actions: {
+              ButtonState(
+                action: .setObservationMode(enabled: false),
+                label: { TextState(L10n.AppCore.ViewingModeAlert.riding) }
+              )
+              ButtonState(
+                action: .setObservationMode(enabled: true),
+                label: { TextState(L10n.AppCore.ViewingModeAlert.watching) }
+              )
+            },
+            message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
+          )
         )
         return .none
-
-      case let .alert(.presented(.observationMode(enabled: isEnabled))):
-        state.settingsState.isObservationModeEnabled = isEnabled
-        state.alert = nil
-        return .run { _ in
-          await userDefaultsClient.setDidShowObservationModePrompt(true)
-        }
         
-      case let .social(socialAction):
-        switch socialAction {
-        case .chat(.onAppear):
-          state.chatMessageBadgeCount = 0
-          return .none
-
-        default:
+      case let .destination(.presented(.alert(alertAction))):
+        switch alertAction {
+        case let .setObservationMode(enabled: mode):
+          state.$userSettings.withLock { $0.isObservationModeEnabled = mode }
           return .none
         }
         
-      case let .settings(settingsAction):
+      case .destination(.presented(.settings(let settingsAction))):
         switch settingsAction {
-        case .binding(\.$isObservationModeEnabled):
-          return .run { [isObserving = state.settingsState.isObservationModeEnabled] _ in
-            if isObserving {
-              await locationManager.stopUpdatingLocation()
-            } else {
-              await locationManager.startUpdatingLocation()
-            }
-          }
-          
-        case .rideevent:
-          state.nextRideState.rideEventSettings = .init(state.settingsState.rideEventSettings)
-          
+        case .destination(.presented(.rideEventSettings(.rideEventType(_)))), .destination(.presented(.rideEventSettings(.binding(\.eventSearchRadius)))):
           guard
             let coordinate = state.mapFeatureState.location?.coordinate,
-            state.settingsState.rideEventSettings.isEnabled
+            state.rideEventSettings.isEnabled
           else {
             return .none
           }
@@ -494,24 +452,50 @@ public struct AppFeature {
               for: 2,
               scheduler: mainQueue
             )
+          
         default:
           return .none
         }
         
-      case .didTapNextEventBanner:
+      case .destination(.presented(.social(.chat(.onAppear)))):
+        state.chatMessageBadgeCount = 0
+        return .none
+        
+      case .destination:
+        return .none
+        
+      case .binding(\.rideEventSettings.rideEvents):
+        guard
+          let coordinate = state.mapFeatureState.location?.coordinate,
+          state.rideEventSettings.isEnabled
+        else {
+          return .none
+        }
+        enum RideEventCancelID {
+          case settingsChange
+        }
+        return .send(.nextRide(.getNextRide(coordinate)))
+          .debounce(
+            id: RideEventCancelID.settingsChange,
+            for: 2,
+            scheduler: mainQueue
+          )
+        
+      case .mapOverlayAction:
         return .merge(
           .run { _ in await feedbackGenerator.selectionChanged() },
           .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
-          .send(.set(\.$bottomSheetPosition, .relative(0.3)))
+          .send(.set(\.bottomSheetPosition, .relative(0.3)))
         )
-
-      case .binding:
+      
+      case .destination:
         return .none
-
-      case .alert:
+        
+      case .binding:
         return .none
       }
     }
+    .ifLet(\.$destination, action: \.destination)
   }
 }
 
@@ -529,6 +513,15 @@ extension SharedModels.Location {
         longitude: location.coordinate.longitude
       ),
       timestamp: location.timestamp.timeIntervalSince1970
+    )
+  }
+}
+
+extension AppFeature.State {
+  var mapOverlayState: MapOverlayFeature.State {
+    MapOverlayFeature.State(
+      isExpanded: mapFeatureState.isNextRideBannerExpanded,
+      isVisible: mapFeatureState.isNextRideBannerVisible
     )
   }
 }

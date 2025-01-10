@@ -10,22 +10,18 @@ import Styleguide
 import SwiftUI
 
 public struct AppNavigationView: View {
-  let store: StoreOf<AppFeature>
+  @State private var store: StoreOf<AppFeature>
+  @Environment(\.colorScheme) private  var colorScheme
+  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
   
-  @ObservedObject var viewStore: ViewStoreOf<AppFeature>
-  @Environment(\.colorScheme) var colorScheme
-  @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-  @Environment(\.colorSchemeContrast) var colorSchemeContrast
-  
-  let minHeight: CGFloat = 56
-  
+  private let minHeight: CGFloat = 56
   private var shouldShowAccessiblyBackground: Bool {
     reduceTransparency || colorSchemeContrast.isIncreased
   }
   
   public init(store: StoreOf<AppFeature>) {
     self.store = store
-    viewStore = ViewStore(store, observe: { $0 })
   }
   
   public var body: some View {
@@ -53,38 +49,36 @@ public struct AppNavigationView: View {
     .font(.body)
     .background(
       shouldShowAccessiblyBackground
-        ? Color(.backgroundSecondary)
-        : Color(.backgroundTranslucent)
+      ? Color(.backgroundSecondary)
+      : Color(.backgroundTranslucent)
     )
     .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())
   }
   
   // MARK: Chat
-
+  
   var badge: some View {
     ZStack {
       Circle()
         .foregroundColor(.red)
       
-      Text(viewStore.chatMessageBadgeCount == 0 ? "" : String(viewStore.chatMessageBadgeCount))
+      Text(store.chatMessageBadgeCount == 0 ? "" : String(store.chatMessageBadgeCount))
         .animation(nil)
         .foregroundColor(.white)
         .font(Font.system(size: 12))
     }
     .frame(width: 20, height: 20)
     .offset(x: 14, y: -10)
-    .scaleEffect(viewStore.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
-    .opacity(viewStore.chatMessageBadgeCount == 0 ? 0 : 1)
-    .accessibleAnimation(.easeIn(duration: 0.1), value: viewStore.chatMessageBadgeCount)
-    .accessibilityLabel(Text("\(viewStore.chatMessageBadgeCount) unread messages"))
+    .scaleEffect(store.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
+    .opacity(store.chatMessageBadgeCount == 0 ? 0 : 1)
+    .accessibleAnimation(.easeIn(duration: 0.1), value: store.chatMessageBadgeCount)
+    .accessibilityLabel(Text("\(store.chatMessageBadgeCount) unread messages"))
   }
   
   var chatFeature: some View {
     Button(
-      action: {
-        viewStore.send(.setNavigation(tag: .chat))
-      },
+      action: { store.send(.socialButtonTapped) },
       label: {
         ZStack {
           Image(systemName: "bubble.left")
@@ -96,32 +90,24 @@ public struct AppNavigationView: View {
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
     .accessibilityShowsLargeContentViewer {
-      let unreadMessages = viewStore.state.chatMessageBadgeCount != 0 ? "\n Unread messages:  \(viewStore.chatMessageBadgeCount)" : ""
+      let unreadMessages = store.chatMessageBadgeCount != 0 ? "\n Unread messages:  \(store.chatMessageBadgeCount)" : ""
       Label(L10n.Chat.title + unreadMessages, systemImage: "bubble.left")
     }
     .sheet(
-      isPresented: viewStore.binding(
-        get: \.isChatViewPresented,
-        send: AppFeature.Action.dismissSheetView
+      item: $store.scope(
+        state: \.destination?.social,
+        action: \.destination.social
       ),
-      onDismiss: { viewStore.send(.dismissSheetView) },
-      content: {
-        SocialView(
-          store: store.scope(
-            state: \.socialState,
-            action: \.social
-          )
-        )
-        .accessibilityAddTraits([.isModal])
+      onDismiss: { store.send(.dismissDestination) },
+      content: { store in
+        SocialView(store: store)
       }
     )
   }
   
   var settingsFeature: some View {
     Button(
-      action: {
-        viewStore.send(.setNavigation(tag: .settings))
-      },
+      action: { store.send(.settingsButtonTapped) },
       label: {
         Image(systemName: "gearshape")
           .iconModifier()
@@ -133,22 +119,17 @@ public struct AppNavigationView: View {
       Label(L10n.Settings.title, systemImage: "gearshape")
     }
     .sheet(
-      isPresented: viewStore.binding(
-        get: \.isSettingsViewPresented,
-        send: AppFeature.Action.dismissSheetView
+      item: $store.scope(
+        state: \.destination?.settings,
+        action: \.destination.settings
       ),
-      onDismiss: { viewStore.send(.dismissSheetView) },
-      content: {
-        CMNavigationView {
-          SettingsView(
-            store: store.scope(
-              state: \.settingsState,
-              action: \.settings
-            )
-          )
-          .accessibilityAddTraits([.isModal])
-          .dismissable()
+      onDismiss: { store.send(.dismissDestination) },
+      content: { store in
+        NavigationStack {
+          SettingsView(store: store)
         }
+        .accentColor(Color(.textPrimary))
+        .navigationViewStyle(StackNavigationViewStyle())
       }
     )
   }
@@ -162,16 +143,16 @@ public struct AppNavigationView: View {
 
 // MARK: Preview
 
-struct AppNavigationView_Previews: PreviewProvider {
-  static var previews: some View {
-    AppNavigationView(
-      store: Store<AppFeature.State, AppFeature.Action>(
-        initialState: .init(),
-        reducer: { AppFeature()._printChanges() }
-      )
+#Preview {
+  AppNavigationView(
+    store: Store<AppFeature.State, AppFeature.Action>(
+      initialState: .init(),
+      reducer: { AppFeature() }
     )
-  }
+  )
 }
+
+// MARK: - Helper
 
 struct ShadowModifier: ViewModifier {
   @Environment(\.colorScheme) var colorScheme

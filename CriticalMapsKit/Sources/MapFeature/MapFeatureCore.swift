@@ -54,6 +54,9 @@ public struct MapFeature {
     public var isNextRideBannerVisible = false
     public var isNextRideBannerExpanded = false
     
+    @Shared(.userSettings)
+    var userSettings = UserSettings()
+    
     public init(
       alert: AlertState<Action>? = nil,
       isRequestingCurrentLocation: Bool = false,
@@ -182,7 +185,7 @@ public struct MapFeature {
             }
           }
         ]
-        let isObservationModeEnabled = observationModeStore.getObservationModeState()
+        let isObservationModeEnabled = state.userSettings.isObservationModeEnabled
         if !isObservationModeEnabled {
           effects.append(.send(.locationRequested))
         }

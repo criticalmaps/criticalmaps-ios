@@ -30,9 +30,7 @@ public struct GuideDetailView: View {
 }
 
 #Preview {
-  Preview {
-    GuideDetailView(guide: .all[1])
-  }
+  GuideDetailView(guide: .all[1])
 }
 
 /// Wraps an Image View and color inverts it when colorScheme is dark
