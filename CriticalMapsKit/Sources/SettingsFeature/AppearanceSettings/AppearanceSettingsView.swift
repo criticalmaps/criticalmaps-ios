@@ -6,7 +6,7 @@ import SwiftUI
 
 /// A view to render appearance settings.
 public struct AppearanceSettingsView: View {
-  @State private var store: StoreOf<AppearanceSettingsFeature>
+  @Bindable private var store: StoreOf<AppearanceSettingsFeature>
 
   public init(store: StoreOf<AppearanceSettingsFeature>) {
     self.store = store
@@ -15,7 +15,7 @@ public struct AppearanceSettingsView: View {
   public var body: some View {
     SettingsForm {
       SettingsSection(title: "Theme") {
-        Picker("", selection: $store.colorScheme) {
+        Picker("", selection: $store.colorScheme.animation()) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
             Text($0.title)
           }
@@ -25,7 +25,7 @@ public struct AppearanceSettingsView: View {
         .padding(.horizontal, .grid(4))
 
         SettingsSection(title: L10n.Settings.appIcon) {
-          AppIconPicker(appIcon: $store.appIcon)
+          AppIconPicker(appIcon: $store.appIcon.animation())
         }
       }
     }

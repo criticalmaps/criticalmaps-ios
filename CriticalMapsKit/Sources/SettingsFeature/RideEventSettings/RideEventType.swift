@@ -4,12 +4,14 @@ import L10n
 import SharedModels
 import SwiftUI
 
+// MARK: - Store
+
 @Reducer
 public struct RideEventType {
   public init() {}
   
   @ObservableState
-  public struct State: Equatable, Identifiable, Sendable, Codable {
+  public struct State: Equatable, Identifiable {
     public var id: String {
       self.rideType.rawValue
     }
@@ -22,7 +24,7 @@ public struct RideEventType {
     }
   }
   
-  public enum Action: BindableAction, Equatable, Sendable {
+  public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
   }
   
@@ -31,8 +33,10 @@ public struct RideEventType {
   }
 }
 
+// MARK: - View
+
 public struct RideEventTypeView: View {
-  @State private var store: StoreOf<RideEventType>
+  @Bindable private var store: StoreOf<RideEventType>
   
   public init(store: StoreOf<RideEventType>) {
     self.store = store
@@ -41,17 +45,13 @@ public struct RideEventTypeView: View {
   public var body: some View {
     SettingsRow {
       Button(
-        action: { store.send(.binding(.set(\.isEnabled, !store.isEnabled))) },
+        action: { store.isEnabled.toggle() },
         label: {
           HStack(spacing: .grid(3)) {
             Text(store.rideType.title)
               .padding(.vertical, .grid(2))
             Spacer()
-            if store.isEnabled {
-              Image(systemName: "checkmark.circle.fill")
-            } else {
-              Image(systemName: "circle")
-            }
+            Image(systemName: store.isEnabled ? "checkmark.circle.fill" : "circle")
           }
         }
       )

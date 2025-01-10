@@ -1,5 +1,7 @@
 import AcknowList
 import ComposableArchitecture
+import ComposableCoreLocation
+import MapFeature
 import FileClient
 import Helpers
 import SharedDependencies
@@ -7,26 +9,32 @@ import SharedModels
 import UIApplicationClient
 import UIKit.UIInterface
 
-public struct SettingsFeature: Reducer {
+@Reducer
+public struct SettingsFeature {
   public init() {}
 
   @Reducer
   public enum Destination {
-    case rideEvents(RideEventsSettingsFeature)
-    case appearance(AppearanceSettingsFeature)
+    case rideEventSettings(RideEventsSettingsFeature)
+    case appearanceSettings(AppearanceSettingsFeature)
   }
 
   @Dependency(\.continuousClock) var clock
   @Dependency(\.fileClient) var fileClient
   @Dependency(\.uiApplicationClient) var uiApplicationClient
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.dismiss) var dismiss
   
   // MARK: State
 
   @ObservableState
-  public struct State {
-    @ObservationStateIgnored
-    @Shared(.fileStorage(.userSettingsURL))
+  public struct State: Equatable {
+    @Shared(.userSettings)
     public var userSettings = UserSettings()
+    @Shared(.rideEventSettings)
+    public var rideEventSettings = RideEventSettings()
+    @Shared(.appearanceSettings)
+    public var appearanceSettings = AppearanceSettings()
         
     @Presents
     var destination: Destination.State?
@@ -52,6 +60,7 @@ public struct SettingsFeature: Reducer {
   public enum Action: BindableAction {
     case onAppear
     case binding(BindingAction<State>)
+    case dismiss
     case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
     case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
     case openURL(URL)
@@ -64,25 +73,40 @@ public struct SettingsFeature: Reducer {
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
+      .onChange(of: \.userSettings.isObservationModeEnabled) { oldValue, newValue in
+        Reduce { state, action in
+          return .run { [isObserving = newValue] _ in
+            if isObserving {
+              await locationManager.stopUpdatingLocation()
+            } else {
+              await locationManager.startUpdatingLocation()
+            }
+          }
+        }
+      }
 
     Reduce { state, action in
       switch action {
       case .onAppear:
-        state.userSettings.appearanceSettings.appIcon = uiApplicationClient.alternateIconName()
-          .flatMap(AppIcon.init(rawValue:)) ?? .appIcon2
         return .none
+      
+      case .dismiss:
+        return .run { _ in  await dismiss() }
         
       case .appearanceSettingsRowTapped:
-        state.destination = .appearance(AppearanceSettingsFeature.State())
+        state.destination = .appearanceSettings(
+          AppearanceSettingsFeature.State(appearanceSettings: state.appearanceSettings)
+        )
         return .none
         
       case .rideEventSettingsRowTapped:
-        state.destination = .rideEvents(RideEventsSettingsFeature.State(settings: state.userSettings.rideEventSettings))
+        state.destination = .rideEventSettings(
+          RideEventsSettingsFeature.State(settings: state.rideEventSettings)
+        )
         return .none
 
       case .destination:
         return .none
-    
         
       case let .infoSectionRowTapped(row):
         return .send(.openURL(row.url))
@@ -94,7 +118,7 @@ public struct SettingsFeature: Reducer {
         return .run { _ in
           _ = await uiApplicationClient.open(url, [:])
         }
-        
+
       case .binding:
         return .none
       }
@@ -103,12 +127,14 @@ public struct SettingsFeature: Reducer {
   }
 }
 
+extension SettingsFeature.Destination.State: Equatable {}
+
 // MARK: Helper
 
 public extension SettingsFeature.State {
   enum InfoSectionRow: Equatable {
     case website, mastodon, privacy
-
+    
     public var url: URL {
       switch self {
       case .website:
@@ -120,10 +146,10 @@ public extension SettingsFeature.State {
       }
     }
   }
-
+  
   enum SupportSectionRow: Equatable {
     case github, criticalMassDotIn, crowdin
-
+    
     public var url: URL {
       switch self {
       case .github:
@@ -134,17 +160,5 @@ public extension SettingsFeature.State {
         return URL(string: "https://crowdin.com/project/critical-maps")!
       }
     }
-  }
-}
-
-extension RideEventSettings {
-  public init(_ featureSettings: RideEventsSettingsFeature.State) {
-    self.init(
-      isEnabled: featureSettings.isEnabled,
-      typeSettings: featureSettings.rideEventTypes.elements.reduce(into: [Ride.RideType: Bool]()) { result, property in
-        result[property.rideType] = property.isEnabled
-      },
-      eventDistance: featureSettings.eventSearchRadius
-    )
   }
 }

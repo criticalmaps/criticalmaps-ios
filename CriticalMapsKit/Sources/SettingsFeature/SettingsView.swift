@@ -11,7 +11,7 @@ import SwiftUIHelpers
 public struct SettingsView: View {
   @Environment(\.colorSchemeContrast) var colorSchemeContrast
   
-  @State var store: StoreOf<SettingsFeature>
+  @Bindable var store: StoreOf<SettingsFeature>
   
   public init(store: StoreOf<SettingsFeature>) {
     self.store = store
@@ -29,14 +29,7 @@ public struct SettingsView: View {
                 : Text(L10n.A11y.General.off)
             )
             .accessibilityAction {
-              store.send(
-                .binding(
-                  .set(
-                    \.userSettings.isObservationModeEnabled,
-                     !store.userSettings.isObservationModeEnabled
-                  )
-                )
-              )
+              store.userSettings.isObservationModeEnabled.toggle()
             }
         }
         
@@ -48,14 +41,7 @@ public struct SettingsView: View {
                 : Text(L10n.A11y.General.off)
             )
             .accessibilityAction {
-              store.send(
-                .binding(
-                  .set(
-                    \.userSettings.showInfoViewEnabled,
-                     !store.userSettings.showInfoViewEnabled
-                  )
-                )
-              )
+              store.userSettings.showInfoViewEnabled.toggle()
             }
         }
         
@@ -104,11 +90,23 @@ public struct SettingsView: View {
       maxHeight: .infinity,
       alignment: .topLeading
     )
+    .toolbar {
+      ToolbarItem(placement: .cancellationAction) {
+        Button(
+          action: { store.send(.dismiss) },
+          label: {
+            Image(systemName: "xmark")
+              .font(Font.system(size: 22, weight: .medium))
+              .foregroundColor(Color(.textPrimary))
+          }
+        )
+      }
+    }
     .onAppear { store.send(.onAppear) }
     .navigationDestination(
       item: $store.scope(
-        state: \.destination?.appearance,
-        action: \.destination.appearance
+        state: \.destination?.appearanceSettings,
+        action: \.destination.appearanceSettings
       ),
       destination: { store in
         AppearanceSettingsView(store: store)
@@ -116,8 +114,8 @@ public struct SettingsView: View {
     )
     .navigationDestination(
       item: $store.scope(
-        state: \.destination?.rideEvents,
-        action: \.destination.rideEvents
+        state: \.destination?.rideEventSettings,
+        action: \.destination.rideEventSettings
       ),
       destination: { store in
         RideEventSettingsView(store: store)
