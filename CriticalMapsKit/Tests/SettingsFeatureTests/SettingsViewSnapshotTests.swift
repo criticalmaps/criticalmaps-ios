@@ -7,7 +7,7 @@ final class SettingsViewSnapshotTests: XCTestCase {
   func test_settingsView_light() {
     let settingsView = SettingsView(
       store: .init(
-        initialState: .init(userSettings: .init()),
+        initialState: .init(),
         reducer: { SettingsFeature() },
         withDependencies: {
           $0.uiApplicationClient.alternateIconName = { nil }

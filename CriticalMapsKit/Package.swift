@@ -190,6 +190,7 @@ let package = Package(
         .l10n,
         .logger,
         .helpers,
+        "MapFeature",
         .sharedDependencies,
         .sharedModels,
         .styleguide,

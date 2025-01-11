@@ -1,16 +1,19 @@
 import ComposableArchitecture
+import UIKit
 import Foundation
 import SettingsFeature
 import SharedModels
-import XCTest
+import Testing
 
-final class AppearanceSettingsCoreTests: XCTestCase {
+@Suite
+@MainActor
+struct AppearanceSettingsCoreTests {
   
-  @MainActor
-  func test_selectAppIcon_shouldUpdateState() async {
+  @Test("Select AppIcon should update state")
+  func selectAppIcon_shouldUpdateState() async {
     let overriddenIconName = LockIsolated<String?>(nil)
     let store = TestStore(
-      initialState: AppearanceSettings(),
+      initialState: AppearanceSettingsFeature.State(),
       reducer: { AppearanceSettingsFeature() },
       withDependencies: {
         $0.feedbackGenerator.selectionChanged = {}
@@ -20,20 +23,20 @@ final class AppearanceSettingsCoreTests: XCTestCase {
       overriddenIconName.setValue(newValue)
     }
 
-    await store.send(.set(\.$appIcon, .appIcon4)) { state in
+    await store.send(.binding(.set(\.appIcon, .appIcon4))) { state in
       state.appIcon = .appIcon4
     }
     overriddenIconName.withValue { iconName in
-      expectNoDifference(iconName, "appIcon-4")
+      #expect(iconName == "appIcon-4")
     }
   }
 
-  @MainActor
-  func testSetColorScheme() async {
+  @Test("Set Color scheme should update state")
+  func setColorScheme() async {
     let overriddenUserInterfaceStyle = LockIsolated(UIUserInterfaceStyle.unspecified)
 
     let store = TestStore(
-      initialState: AppearanceSettings(),
+      initialState: AppearanceSettingsFeature.State(),
       reducer: { AppearanceSettingsFeature() }
     )
     store.dependencies.setUserInterfaceStyle = { newValue in
@@ -41,14 +44,14 @@ final class AppearanceSettingsCoreTests: XCTestCase {
       return ()
     }
 
-    await store.send(.set(\.$colorScheme, .light)) {
+    await store.send(.binding(.set(\.colorScheme, .light))) {
       $0.colorScheme = .light
     }
     overriddenUserInterfaceStyle.withValue { stlye in
       expectNoDifference(stlye, .light)
     }
 
-    await store.send(.set(\.$colorScheme, .system)) {
+    await store.send(.binding(.set(\.colorScheme, .system))) {
       $0.colorScheme = .system
     }
     overriddenUserInterfaceStyle.withValue { stlye in

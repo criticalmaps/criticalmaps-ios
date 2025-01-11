@@ -1,12 +1,14 @@
 import ApiClient
+import Foundation
 import NextRideFeature
 import SharedModels
-import XCTest
+import Testing
 
-final class NextRideReqeustTests: XCTestCase {
+struct NextRideReqeustTests {
   let fixedDate = { Date(timeIntervalSince1970: 1557057968) }
   
-  func test_constructor() throws {
+  @Test
+  func constructor() throws {
     let coordinate = Coordinate(latitude: 13.13, longitude: 14.14)
     let radius = 20
     
@@ -18,7 +20,7 @@ final class NextRideReqeustTests: XCTestCase {
     )
     
     let urlRequest = try request.makeRequest()
-    let url = try XCTUnwrap(urlRequest.url)
+    let url = try #require(urlRequest.url)
     
     let queryItems = [
       "radius=20",
@@ -28,10 +30,11 @@ final class NextRideReqeustTests: XCTestCase {
       "month=5"
     ]
     
-    XCTAssertTrue(queryItems.contains(where: { url.absoluteString.contains($0) }))
+    #expect(queryItems.contains(where: { url.absoluteString.contains($0) }))
   }
   
-  func test_constructor_withCurrentDate() throws {
+  @Test
+  func constructor_withCurrentDate() throws {
     let coordinate = Coordinate(latitude: 13.13, longitude: 14.14)
     let radius = 20
     let year = Date.getCurrent(\.year)
@@ -44,7 +47,7 @@ final class NextRideReqeustTests: XCTestCase {
     )
 
     let urlRequest = try request.makeRequest()
-    let url = try XCTUnwrap(urlRequest.url)
+    let url = try #require(urlRequest.url)
     
     let queryItems = [
       "radius=20",
@@ -54,6 +57,6 @@ final class NextRideReqeustTests: XCTestCase {
       "month=\(month)"
     ]
     
-    XCTAssertTrue(queryItems.contains(where: { url.absoluteString.contains($0) }))
+    #expect(queryItems.contains(where: { url.absoluteString.contains($0) }))
   }
 }

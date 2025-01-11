@@ -1,92 +1,63 @@
 import ComposableArchitecture
 import Foundation
 import MastodonFeedFeature
-import MastodonKit
-import XCTest
+import Testing
 
-final class TootFeatureTests: XCTestCase {
-  let status = Status(
+@Suite
+@MainActor
+struct TootFeatureTests {
+  let status = TootFeature.State(
     id: "123",
+    createdAt: Date(timeIntervalSince1970: 0),
     uri: "https://mastodon.social/@criticalmaps",
-    url: nil,
-    account: .init(
-      id: "ID",
-      username: "user",
-      acct: "account",
-      displayName: "displayname",
-      note: "",
-      url: "https://mastodon.social/account",
-      avatar: "",
-      avatarStatic: "",
-      header: "",
-      headerStatic: "",
-      locked: false,
-      createdAt: Date(timeIntervalSince1970: 0),
-      followersCount: 1,
-      followingCount: 2,
-      statusesCount: 3
-    ),
-    inReplyToID: nil,
-    inReplyToAccountID: nil,
-    content: "",
-    createdAt: Date(timeIntervalSince1970: 1),
-    emojis: [],
-    reblogsCount: 3,
-    favouritesCount: 4,
-    reblogged: nil,
-    favourited: nil,
-    bookmarked: nil,
-    sensitive: nil,
-    spoilerText: "",
-    visibility: .public,
-    mediaAttachments: [],
-    mentions: [],
-    tags: [],
-    application: nil,
-    language: "",
-    reblog: nil,
-    pinned: false,
-    card: nil,
-    repliesCount: 44
+    accountURL: "https://mastodon.social/account",
+    accountAvatar: "",
+    accountDisplayName: "displayname",
+    accountAcct: "account",
+    content: ""
   )
   
-  @MainActor
-  func test_openTweet() async {
+  @Test("Open toot should open Mastodon URL")
+  func openToot() async throws {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: status,
-      reducer: { TootFeature() }
+      reducer: { TootFeature() },
+      withDependencies: {
+        $0.uiApplicationClient.open = { @Sendable url, _ in
+          openedUrl.setValue(url)
+          return true
+        }
+      }
     )
-    store.dependencies.uiApplicationClient.open = { @Sendable url, _ in
-      openedUrl.setValue(url)
-      return true
-    }
     
     await store.send(.openTweet)
     
     openedUrl.withValue {
-      XCTAssertEqual($0?.absoluteString, "https://mastodon.social/@criticalmaps")
+      #expect($0?.absoluteString == "https://mastodon.social/@criticalmaps")
     }
   }
   
-  @MainActor
-  func test_openUser() async {
+  @Test("Open user should open user Mastodon URL")
+  func openUser() async throws {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
       initialState: status,
-      reducer: { TootFeature() }
+      reducer: { TootFeature() },
+      withDependencies: {
+        $0.uiApplicationClient.open = { @Sendable url, _ in
+          openedUrl.setValue(url)
+          return true
+        }
+      }
     )
-    store.dependencies.uiApplicationClient.open = { @Sendable url, _ in
-      openedUrl.setValue(url)
-      return true
-    }
     
     await store.send(.openUser)
     
     openedUrl.withValue {
-      XCTAssertEqual($0?.absoluteString, "https://mastodon.social/account")
+      #expect($0?.absoluteString == "https://mastodon.social/account")
     }
   }
 }

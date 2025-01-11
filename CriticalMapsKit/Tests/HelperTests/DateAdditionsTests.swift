@@ -1,28 +1,32 @@
 import Helpers
-import XCTest
+import Testing
 
-class DateAdditionsTests: XCTestCase {
+@Suite
+struct DateAdditionsTests {
   // 21. January 2020 06:52:21 GMT
   let date = { Date(timeIntervalSince1970: 1579589541) }
   
-  func testGetCurrentDayShouldReturnDayAs21() {
+  @Test("Get current day")
+  func getCurrentDayShouldReturnDayAs21() {
     // when
     let day = Date.getCurrent(\.day, date)
     // then
-    XCTAssertEqual(day, 21)
+    #expect(day == 21)
   }
   
-  func testGetCurrentMonthShouldReturnMonth1() {
+  @Test("Get current month")
+  func getCurrentMonthShouldReturnMonth1() {
     // when
     let month = Date.getCurrent(\.month, date)
     // then
-    XCTAssertEqual(month, 1)
+    #expect(month == 1)
   }
   
-  func testGetCurrentYearShouldReturnDayAs2020() {
+  @Test("Get current year")
+  func getCurrentYearShouldReturnDayAs2020() {
     // when
     let year = Date.getCurrent(\.year, date)
     // then
-    XCTAssertEqual(year, 2020)
+    #expect(year == 2020)
   }
 }

@@ -5,10 +5,13 @@ import Helpers
 import NextRideFeature
 import SharedModels
 import UserDefaultsClient
-import XCTest
+import Testing
 
 // swiftlint:disable:next type_body_length
-final class NextRideCoreTests: XCTestCase {
+
+@Suite
+@MainActor
+struct NextRideCoreTests {
   let now = {
     Calendar.current.date(
       from: .init(
@@ -86,18 +89,18 @@ final class NextRideCoreTests: XCTestCase {
   var rides: [Ride] { [berlin, falkensee] }
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
-  @MainActor
-  func test_disabledNextRideFeature_shouldNotRequestRides() async {
+  @Test
+  func disabledNextRideFeature_shouldNotRequestRides() async {
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in [] }
-        $0.date = .init({ @Sendable in self.now() })
+        $0.date = .constant(now())
         $0.userDefaultsClient.dataForKey = { _ in
           try? RideEventSettings(
             isEnabled: false,
-            typeSettings: [:],
+            rideEvents: [],
             eventDistance: .near
           )
           .encoded()
@@ -116,7 +119,7 @@ final class NextRideCoreTests: XCTestCase {
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
-        $0.userDefaultsClient.dataForKey = { _ in try? RideEventSettings.default.encoded()
+        $0.userDefaultsClient.dataForKey = { _ in try? RideEventSettings().encoded()
         }
         $0.nextRideService.nextRide = { _, _, _ in self.rides }
         $0.date = .constant(self.now())
@@ -133,8 +136,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_getNextRide_shouldReturnError() async {
+  @Test
+  func getNextRide_shouldReturnError() async {
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
@@ -142,7 +145,7 @@ final class NextRideCoreTests: XCTestCase {
         $0.userDefaultsClient.dataForKey = { _ in
           try? RideEventSettings(
             isEnabled: true,
-            typeSettings: [:],
+            rideEvents: [],
             eventDistance: .near
           )
           .encoded()
@@ -159,8 +162,8 @@ final class NextRideCoreTests: XCTestCase {
     await store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
   }
   
-  @MainActor
-  func test_getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
+  @Test
+  func getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
@@ -171,7 +174,7 @@ final class NextRideCoreTests: XCTestCase {
         $0.userDefaultsClient.dataForKey = { _ in
           try? RideEventSettings(
             isEnabled: true,
-            typeSettings: [.kidicalMass: true],
+            rideEvents: [.init(rideType: .kidicalMass, isEnabled: true)],
             eventDistance: .near
           )
           .encoded()
@@ -190,8 +193,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
 
-  @MainActor
-  func test_getNextRide_shouldReturnRide_whenRideTypeNil() async {
+  @Test
+  func getNextRide_shouldReturnRide_whenRideTypeNil() async {
     let ridesWithARideWithNilRideType: [Ride] = [
       Ride(
         id: 0,
@@ -223,7 +226,7 @@ final class NextRideCoreTests: XCTestCase {
           ridesWithARideWithNilRideType
         }
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default.encoded()
+          try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
       }
@@ -239,8 +242,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() async {
+  @Test
+  func getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() async {
     let rides = [
       Ride(
         id: 0,
@@ -260,8 +263,7 @@ final class NextRideCoreTests: XCTestCase {
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default
-            .encoded()
+          try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
       }
@@ -287,8 +289,8 @@ final class NextRideCoreTests: XCTestCase {
     )!
   }
   
-  @MainActor
-  func test_getNextRide_returnRideFromThisMonth_whenTodayIsFriday() async {
+  @Test
+  func getNextRide_returnRideFromThisMonth_whenTodayIsFriday() async {
     let rides = [
       Ride(
         id: 0,
@@ -316,8 +318,7 @@ final class NextRideCoreTests: XCTestCase {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default
-            .encoded()
+          try? RideEventSettings().encoded()
         }
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.date = .constant(now())
@@ -334,8 +335,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() async {
+  @Test
+  func getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() async {
     let rides = [
       Ride(
         id: 0,
@@ -375,8 +376,7 @@ final class NextRideCoreTests: XCTestCase {
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default
-            .encoded()
+          try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
         $0.calendar = .autoupdatingCurrent
@@ -393,8 +393,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
 
-  @MainActor
-  func test_getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() async {
+  @Test
+  func getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() async {
     let rides = [
       Ride(
         id: 0,
@@ -423,8 +423,7 @@ final class NextRideCoreTests: XCTestCase {
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default
-            .encoded()
+          try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
       }
@@ -440,8 +439,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
 
-  @MainActor
-  func test_getNextRide_returnRideFromThisMonth_whenTodayIsSunday() async {
+  @Test
+  func getNextRide_returnRideFromThisMonth_whenTodayIsSunday() async {
     let rides = [
       Ride(
         id: 0,
@@ -470,8 +469,7 @@ final class NextRideCoreTests: XCTestCase {
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default
-            .encoded()
+          try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
       }
@@ -487,8 +485,8 @@ final class NextRideCoreTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() async {
+  @Test
+  func getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() async {
     let rides = [
       Ride(
         id: 0,
@@ -517,8 +515,7 @@ final class NextRideCoreTests: XCTestCase {
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings.default
-            .encoded()
+          try? RideEventSettings().encoded()
         }
         $0.date = .constant(now().addingTimeInterval(60 * 60 * 72))
       }

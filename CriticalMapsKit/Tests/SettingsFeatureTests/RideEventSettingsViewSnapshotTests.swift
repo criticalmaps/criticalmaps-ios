@@ -10,7 +10,7 @@ final class RideEventSettingsViewSnapshotTests: XCTestCase {
         initialState: .init(
           settings: RideEventSettings(
             isEnabled: true,
-            typeSettings: .all(),
+            rideEvents: .default,
             eventDistance: .close
           )
         ),
@@ -27,7 +27,7 @@ final class RideEventSettingsViewSnapshotTests: XCTestCase {
         initialState: .init(
           settings: RideEventSettings(
             isEnabled: true,
-            typeSettings: .all(),
+            rideEvents: .default,
             eventDistance: .close
           )
         ),

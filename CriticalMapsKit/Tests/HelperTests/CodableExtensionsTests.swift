@@ -1,20 +1,23 @@
 import Helpers
-import XCTest
+import Testing
 
-final class CodableExtensionsTests: XCTestCase {
+@Suite
+struct CodableExtensionsTests {
   let testModel = [1, 2, 3]
 
-  func testencodedHelperFunctionShouldEncode() throws {
+  @Test("Encoding Helper Function")
+  func encodedHelperFunctionShouldEncode() throws {
     let testModelEncoded = try testModel.encoded()
 
     let testData = try JSONEncoder().encode(testModel)
-    XCTAssertEqual(testModelEncoded, testData)
+    #expect(testModelEncoded == testData)
   }
 
-  func testDecodedHelperFunctionShouldDecode() throws {
+  @Test("Decoding Helper Function")
+  func decodedHelperFunctionShouldDecode() throws {
     let encodedTestModel = try JSONEncoder().encode(testModel)
     let decodedTestModed: [Int] = try encodedTestModel.decoded()
 
-    XCTAssertEqual(decodedTestModed, testModel)
+    #expect(decodedTestModed != testModel)
   }
 }

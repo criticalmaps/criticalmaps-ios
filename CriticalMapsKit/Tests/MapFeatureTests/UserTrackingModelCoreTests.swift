@@ -2,11 +2,13 @@ import Combine
 import ComposableArchitecture
 import MapFeature
 import SharedModels
-import XCTest
+import Testing
 
-final class UserTrackingModeCoreTests: XCTestCase {
-  @MainActor
-  func test_nextTrackingMode() async {
+@Suite
+@MainActor
+struct UserTrackingModeCoreTests {
+  @Test
+  func nextTrackingMode() async {
     let store = TestStore(
       initialState: UserTrackingFeature.State(userTrackingMode: .none),
       reducer: { UserTrackingFeature() }

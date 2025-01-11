@@ -4,11 +4,11 @@ import Foundation
 import MapFeature
 import MapKit
 import SharedModels
-import XCTest
+import Testing
 
 private let fixedDate = { Date(timeIntervalSinceReferenceDate: 0) }
 
-final class RiderAnnotationUpdateClientTests: XCTestCase {
+struct RiderAnnotationUpdateClientTests {
   let rider = [
     Rider(
       id: "SomeRandomID",
@@ -62,16 +62,18 @@ final class RiderAnnotationUpdateClientTests: XCTestCase {
     )
   ]
   
-  func test_mapWithNoAnnoations_shouldAddAll_andRemoveNone() {
+  @Test
+  func mapWithNoAnnoations_shouldAddAll_andRemoveNone() {
     let mapView = MKMapView()
     
     let updatedAnnotations = RiderAnnotationUpdateClient.update(rider, mapView)
     
-    XCTAssertEqual(updatedAnnotations.addedAnnotations.count, 2)
-    XCTAssertTrue(updatedAnnotations.removedAnnotations.isEmpty)
+    #expect(updatedAnnotations.addedAnnotations.count == 2)
+    #expect(updatedAnnotations.removedAnnotations.isEmpty)
   }
   
-  func test_mapWithNoAnnoations_shouldAddSome_andRemoveNone() {
+  @Test
+  func mapWithNoAnnoations_shouldAddSome_andRemoveNone() {
     let mapView = MKMapView()
     let annotations = rider.map(RiderAnnotation.init(rider:))
     mapView.addAnnotations(annotations)
@@ -79,28 +81,30 @@ final class RiderAnnotationUpdateClientTests: XCTestCase {
     let newRiders = rider + updatedRiders
     let updatedAnnotations = RiderAnnotationUpdateClient.update(newRiders, mapView)
     
-    XCTAssertEqual(updatedAnnotations.addedAnnotations.count, 2)
-    XCTAssertTrue(updatedAnnotations.removedAnnotations.isEmpty)
+    #expect(updatedAnnotations.addedAnnotations.count == 2)
+    #expect(updatedAnnotations.removedAnnotations.isEmpty)
   }
   
-  func test_mapWithNoAnnoations_shouldAdd2_andRemove2() {
+  @Test
+  func mapWithNoAnnoations_shouldAdd2_andRemove2() {
     let mapView = MKMapView()
     let annotations = rider.map(RiderAnnotation.init(rider:))
     mapView.addAnnotations(annotations)
     
     let updatedAnnotations = RiderAnnotationUpdateClient.update(updatedRiders, mapView)
     
-    XCTAssertEqual(updatedAnnotations.addedAnnotations.count, 2)
-    XCTAssertEqual(updatedAnnotations.removedAnnotations.count, 2)
+    #expect(updatedAnnotations.addedAnnotations.count == 2)
+    #expect(updatedAnnotations.removedAnnotations.count == 2)
     
     let addedIds = updatedAnnotations.addedAnnotations.map(\.rider.id).sorted()
-    XCTAssertEqual(addedIds, updatedRiders.map(\.id))
+    #expect(addedIds == updatedRiders.map(\.id))
 
     let removedIds = updatedAnnotations.removedAnnotations.map(\.rider.id).sorted()
-    XCTAssertEqual(removedIds, rider.map(\.id))
+    #expect(removedIds == rider.map(\.id))
   }
   
-  func test_mapWithNoAnnoations_shouldAdd1_andRemove1() {
+  @Test
+  func mapWithNoAnnoations_shouldAdd1_andRemove1() {
     let mapView = MKMapView()
     let newRiders = rider + [updatedRiders[1]]
     let annotations = newRiders.map(RiderAnnotation.init(rider:))
@@ -108,13 +112,13 @@ final class RiderAnnotationUpdateClientTests: XCTestCase {
     
     let updatedAnnotations = RiderAnnotationUpdateClient.update(rider + [updatedRiders[0]], mapView)
     
-    XCTAssertEqual(updatedAnnotations.addedAnnotations.count, 1)
-    XCTAssertEqual(updatedAnnotations.removedAnnotations.count, 1)
+    #expect(updatedAnnotations.addedAnnotations.count == 1)
+    #expect(updatedAnnotations.removedAnnotations.count == 1)
     
     let addedIds = updatedAnnotations.addedAnnotations.map(\.rider.id).sorted()
-    XCTAssertEqual(addedIds, [updatedRiders[0]].map(\.id))
+    #expect(addedIds == [updatedRiders[0]].map(\.id))
     
     let removedIds = updatedAnnotations.removedAnnotations.map(\.rider.id).sorted()
-    XCTAssertEqual(removedIds, [updatedRiders[1]].map(\.id))
+    #expect(removedIds == [updatedRiders[1]].map(\.id))
   }
 }

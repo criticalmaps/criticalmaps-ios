@@ -53,7 +53,28 @@ public struct AppFeature {
   // MARK: State
 
   @ObservableState
-  public struct State {
+  public struct State: Equatable {
+    public var riderLocations: TaskResult<[Rider]>?
+    public var isRequestingRiderLocations = false
+    public var didRequestNextRide = false
+    public var socialState = SocialFeature.State()
+    public var settingsState = SettingsFeature.State()
+    public var nextRideState = NextRideFeature.State()
+    public var requestTimer = RequestTimer.State()
+      
+    // Navigation
+    @Presents var destination: Destination.State?
+    public var bottomSheetPosition: BottomSheetPosition = .hidden
+
+    public var chatMessageBadgeCount: UInt = 0
+    
+    @Shared(.userSettings)
+    var userSettings = UserSettings()
+    @Shared(.rideEventSettings)
+    var rideEventSettings = RideEventSettings()
+    @Shared(.appearanceSettings)
+    var appearanceSettings = AppearanceSettings()
+    
     public init(
       locationsAndChatMessages: TaskResult<[Rider]>? = nil,
       mapFeatureState: MapFeature.State = .init(
@@ -74,19 +95,7 @@ public struct AppFeature {
       self.requestTimer = requestTimer
       self.chatMessageBadgeCount = chatMessageBadgeCount
     }
-    
-    public var riderLocations: TaskResult<[Rider]>?
-    public var isRequestingRiderLocations = false
-    public var didRequestNextRide = false
-    
-    @Shared(.userSettings)
-    var userSettings = UserSettings()
-    @Shared(.rideEventSettings)
-    var rideEventSettings = RideEventSettings()
-    @Shared(.appearanceSettings)
-    var appearanceSettings = AppearanceSettings()
 
-    // Child states
     public var mapFeatureState = MapFeature.State(
       riders: [],
       userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
@@ -111,17 +120,6 @@ public struct AppFeature {
       mapFeatureState.isNextRideBannerVisible &&
       rideEventSettings.isEnabled
     }
-    
-    public var socialState = SocialFeature.State()
-    public var settingsState = SettingsFeature.State()
-    public var nextRideState = NextRideFeature.State()
-    public var requestTimer = RequestTimer.State()
-      
-    // Navigation
-    @Presents var destination: Destination.State?
-    public var bottomSheetPosition: BottomSheetPosition = .hidden
-
-    public var chatMessageBadgeCount: UInt = 0
     
     var hasOfflineError: Bool {
       switch riderLocations {
@@ -487,9 +485,6 @@ public struct AppFeature {
           .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
           .send(.set(\.bottomSheetPosition, .relative(0.3)))
         )
-      
-      case .destination:
-        return .none
         
       case .binding:
         return .none
@@ -500,6 +495,8 @@ public struct AppFeature {
 }
 
 // MARK: - Helper
+
+extension AppFeature.Destination.State: Equatable {}
 
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location

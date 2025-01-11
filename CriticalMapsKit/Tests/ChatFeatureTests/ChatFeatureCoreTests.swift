@@ -1,13 +1,16 @@
 import ApiClient
+import Foundation
 import ChatFeature
 import ComposableArchitecture
 import Helpers
 import L10n
+import Testing
 import SharedModels
 import UserDefaultsClient
-import XCTest
 
-final class ChatFeatureCore: XCTestCase {
+@Suite
+@MainActor
+struct ChatFeatureCore {
   let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
   let date = { Date(timeIntervalSinceReferenceDate: 0) }
   
@@ -31,8 +34,8 @@ final class ChatFeatureCore: XCTestCase {
     return testStore
   }
   
-  @MainActor
-  func test_chatInputAction_onCommit_shouldTriggerNetworkCall_withSuccessResponse() async {
+  @Test("chat input action should trigger network call with success response")
+  func chatInputOnCommit() async throws {
     let testStore = defaultTestStore()
     testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
@@ -52,8 +55,8 @@ final class ChatFeatureCore: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_storeWithItems_shouldTriggerNetworkCall_withSuccessResponse_andHaveElements() async {
+  @Test("Store with items should trigger networkCall with success and have Elements")
+  func onCommitWithElements() async {
     let testStore = defaultTestStore(
       with: .loading([
         ChatMessage(
@@ -75,14 +78,14 @@ final class ChatFeatureCore: XCTestCase {
       state.chatInputState.message = ""
     }
     await testStore.receive(.fetchChatMessages)
-    XCTAssertFalse(testStore.state.chatMessages.elements!.isEmpty)
+    #expect(testStore.state.chatMessages.elements!.isEmpty == false)
     await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
       $0.chatMessages = .results(mockResponse)
     }
   }
   
-  @MainActor
-  func test_chatInputAction_onCommit_shouldTriggerNetworkCallWithFailureResponse() async {
+  @Test("OnCommit should trigger networkCall with failure response when service throws error")
+  func onCommitWithErrorResponse() async {
     let error = NSError(domain: "", code: 1)
     let testStore = defaultTestStore()
     
@@ -101,7 +104,7 @@ final class ChatFeatureCore: XCTestCase {
     }
   }
   
-  @MainActor
+  @Test("OnAppear should set appearanceTimeinterval")
   func test_didAppear_ShouldSet_appearanceTimeinterval() async {
     let didWriteChatAppearanceTimeinterval = LockIsolated(false)
     let chatAppearanceTimeinterval: LockIsolated<TimeInterval> = LockIsolated(0)
@@ -125,10 +128,10 @@ final class ChatFeatureCore: XCTestCase {
       $0.chatMessages = .results(mockResponse)
     }
     chatAppearanceTimeinterval.withValue { interval in
-      XCTAssertEqual(interval, date().timeIntervalSince1970)
+      #expect(interval == date().timeIntervalSince1970)
     }
     didWriteChatAppearanceTimeinterval.withValue { val in
-      XCTAssertTrue(val)
+      #expect(val)
     }
   }
   
@@ -138,10 +141,13 @@ final class ChatFeatureCore: XCTestCase {
       chatMessages: .results(mockResponse),
       chatInputState: .init()
     )
-    let sut = ChatView.ViewState(state)
-    
-    XCTAssertEqual(
-      sut.messages.map(\.identifier),
+    let testStore = TestStore(
+      initialState: state,
+      reducer: { ChatFeature() }
+    )
+  
+    expectNoDifference(
+      testStore.state.messages.map(\.identifier),
       ["ID0", "ID3", "ID2", "ID1"]
     )
   }

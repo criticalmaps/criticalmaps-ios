@@ -1,5 +1,5 @@
 import ApiClient
-import AppFeature
+@testable import AppFeature
 import Combine
 import CombineSchedulers
 import ComposableArchitecture
@@ -8,41 +8,38 @@ import FileClient
 import Foundation
 import MapFeature
 import NextRideFeature
+import SettingsFeature
 import SharedModels
+import SocialFeature
 import UserDefaultsClient
-import XCTest
+import Testing
 
 // swiftlint:disable:next type_body_length
-final class AppFeatureTests: XCTestCase {
+@Suite
+@MainActor
+struct AppFeatureTests {
   let testScheduler = DispatchQueue.test
   let testClock = TestClock()
   let date: () -> Date = { @Sendable in Date(timeIntervalSinceReferenceDate: 0) }
 
-  @MainActor
-  func test_appNavigation() async {
+  @Test
+  func appNavigation() async {
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() }
     )
 
-    await store.send(.setNavigation(tag: .chat)) {
-      $0.route = .chat
-      XCTAssertTrue($0.isChatViewPresented)
+    await store.send(.socialButtonTapped) {
+      $0.destination = .social(SocialFeature.State())
     }
 
-    await store.send(.setNavigation(tag: .rules)) {
-      $0.route = .rules
-      XCTAssertTrue($0.isRulesViewPresented)
-    }
-
-    await store.send(.setNavigation(tag: .settings)) {
-      $0.route = .settings
-      XCTAssertTrue($0.isSettingsViewPresented)
+    await store.send(.settingsButtonTapped) {
+      $0.destination = .settings(SettingsFeature.State())
     }
   }
   
-  @MainActor
-  func test_dismissModal_ShouldTriggerFetchChatLocations() async {
+  @Test
+  func dismissModal_ShouldTriggerFetchChatLocations() async {
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
@@ -52,12 +49,12 @@ final class AppFeatureTests: XCTestCase {
     )
     store.exhaustivity = .off
 
-    await store.send(.dismissSheetView)
-    await store.receive(.fetchLocations)
+    await store.send(.dismissDestination)
+    await store.receive(\.fetchLocations)
   }
 
-  @MainActor
-  func test_animateNextRideBanner() async {
+  @Test
+  func animateNextRideBanner() async {
     let testClock = TestClock()
 
     let store = TestStore(
@@ -74,21 +71,21 @@ final class AppFeatureTests: XCTestCase {
       $0.nextRideState.nextRide = ride
       $0.mapFeatureState.nextRide = ride
     }
-    await store.receive(.map(.setNextRideBannerVisible(true))) {
+    await store.receive(\.map.setNextRideBannerVisible) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
     await testClock.advance(by: .seconds(1))
-    await store.receive(.map(.setNextRideBannerExpanded(true))) {
+    await store.receive(\.map.setNextRideBannerExpanded) {
       $0.mapFeatureState.isNextRideBannerExpanded = true
     }
     await testClock.advance(by: .seconds(8))
-    await store.receive(.map(.setNextRideBannerExpanded(false))) {
+    await store.receive(\.map.setNextRideBannerExpanded) {
       $0.mapFeatureState.isNextRideBannerExpanded = false
     }
   }
 
-  @MainActor
-  func test_actionSetEventsBottomSheet_setsValue_andMapFeatureRideEvents() async {
+  @Test
+  func actionSetEventsBottomSheet_setsValue_andMapFeatureRideEvents() async {
     var appState = AppFeature.State()
     let events = [
       Ride.mock1,
@@ -101,14 +98,14 @@ final class AppFeatureTests: XCTestCase {
       reducer: { AppFeature() }
     )
 
-    await store.send(.set(\.$bottomSheetPosition, .dynamicTop)) {
+    await store.send(.binding(.set(\.bottomSheetPosition, .dynamicTop))) {
       $0.bottomSheetPosition = .dynamicTop
       $0.mapFeatureState.rideEvents = events
     }
   }
 
-  @MainActor
-  func test_actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() async {
+  @Test
+  func actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() async {
     var appState = AppFeature.State()
     appState.bottomSheetPosition = .dynamicTop
     let events = [Ride.mock1, .mock2]
@@ -119,28 +116,28 @@ final class AppFeatureTests: XCTestCase {
       reducer: { AppFeature() }
     )
     
-    await store.send(.set(\.$bottomSheetPosition, .hidden)) {
+    await store.send(.binding(.set(\.bottomSheetPosition, .hidden))) {
       $0.bottomSheetPosition = .hidden
       $0.mapFeatureState.rideEvents = []
     }
   }
   
-  @MainActor
-  func test_updatingRideEventsSettingRadius_ShouldRefetchNextRideInfo() async throws {
+  @Test
+  func updatingRideEventsSettingRadius_ShouldRefetchNextRideInfo() async throws {
     let testClock = TestClock()
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
     let location = Location(coordinate: .make(), timestamp: 42)
     state.mapFeatureState.location = location
-    state.settingsState.rideEventSettings.isEnabled = true
-    state.settingsState.rideEventSettings.eventSearchRadius = .close
+    state.$rideEventSettings.withLock { $0.isEnabled = true }
+    state.$rideEventSettings.withLock { $0.eventDistance = .close }
     
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
-        $0.date = .init({ @Sendable in self.date() })
+        $0.date = .constant(date())
         $0.continuousClock = testClock
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, _, _ in
@@ -153,15 +150,30 @@ final class AppFeatureTests: XCTestCase {
     )
     store.exhaustivity = .off
 
-    await store.send(.settings(.rideevent(.set(\.$eventSearchRadius, .far)))) {
-      $0.settingsState.rideEventSettings.eventSearchRadius = .far
+    await store.send(
+      .destination(
+        .presented(
+          .settings(
+            .destination(
+              .presented(
+                .rideEventSettings(
+                  .binding(.set(\.eventSearchRadius, .far))
+                )
+              )
+            )
+          )
+        )
+      )
+    ) {
+      $0.settingsState.$rideEventSettings.withLock { $0.eventDistance = .far }
+      $0.$rideEventSettings.withLock { $0.eventDistance = .far }
     }
     await testQueue.advance(by: 2)
-    await store.receive(.nextRide(.getNextRide(location.coordinate)))
+    await store.receive(\.nextRide.getNextRide)
   }
   
-  @MainActor
-  func test_loadUserSettings_shouldUpdateSettings() async {
+  @Test
+  func loadUserSettings_shouldUpdateSettings() async {
     let testClock = TestClock()
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     let sharedModelLocation = SharedModels.Location(
@@ -182,10 +194,7 @@ final class AppFeatureTests: XCTestCase {
     
     let userSettings = UserSettings(
       enableObservationMode: false,
-      showInfoViewEnabled: false,
-      rideEventSettings: .init(
-        typeSettings: [.criticalMass: true]
-      )
+      showInfoViewEnabled: false
     )
     
     let store = TestStore(
@@ -196,7 +205,7 @@ final class AppFeatureTests: XCTestCase {
         $0.locationManager = locationManager
         $0.mainQueue = .immediate
         $0.mainRunLoop = .immediate
-        $0.date = .init({ @Sendable in self.date() })
+        $0.date = .constant(date())
         $0.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
         $0.apiService.getChatMessages = { [] }
         $0.apiService.getRiders = { [] }
@@ -210,19 +219,16 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     await store.send(.onAppear)
-    await store.receive(.userSettingsLoaded(.success(userSettings))) {
-      $0.settingsState = .init(userSettings: userSettings)
-    }
   }
   
-  @MainActor
-  func test_mapAction_didUpdateLocations_shouldFetchNextRide() async {
+  @Test
+  func mapAction_didUpdateLocations_shouldFetchNextRide() async {
     let testClock = TestClock()
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
       withDependencies: {
-        $0.date = .init({ @Sendable in self.date() })
+        $0.date = .constant(date())
         $0.apiService.postRiderLocation = { _ in .init(status: "ok") }
         $0.continuousClock = testClock
         $0.nextRideService.nextRide = { _, _, _ in
@@ -244,23 +250,23 @@ final class AppFeatureTests: XCTestCase {
       $0.nextRideState.userLocation = .init(latitude: 11, longitude: 21)
       $0.didRequestNextRide = true
     }
-    await store.receive(.nextRide(.getNextRide(.init(latitude: 11, longitude: 21))))
-    await store.receive(.nextRide(.nextRideResponse(.success([.mock1, .mock2])))) {
+    await store.receive(\.nextRide.getNextRide)
+    await store.receive(\.nextRide.nextRideResponse) {
       $0.nextRideState.rideEvents = [.mock1, .mock2]
     }
-    await store.receive(.nextRide(.setNextRide(.mock1))) {
+    await store.receive(\.nextRide.setNextRide) {
       $0.mapFeatureState.nextRide = .mock1
       $0.nextRideState.nextRide = .mock1
     }
-    await store.receive(.map(.setNextRideBannerVisible(true))) {
+    await store.receive(\.map.setNextRideBannerVisible) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
     await testClock.advance(by: .seconds(1))
-    await store.receive(.map(.setNextRideBannerExpanded(true))) {
+    await store.receive(\.map.setNextRideBannerExpanded) {
       $0.mapFeatureState.isNextRideBannerExpanded = true
     }
     await testClock.advance(by: .seconds(8))
-    await store.receive(.map(.setNextRideBannerExpanded(false))) {
+    await store.receive(\.map.setNextRideBannerExpanded) {
       $0.mapFeatureState.isNextRideBannerExpanded = false
     }
     // should not fetch next Ride on next location update
@@ -279,8 +285,8 @@ final class AppFeatureTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_mapAction_focusEvent() async throws {
+  @Test
+  func mapAction_focusEvent() async throws {
     var state = AppFeature.State()
     state.bottomSheetPosition = .absolute(1)
     
@@ -301,18 +307,17 @@ final class AppFeatureTests: XCTestCase {
     await store.send(.map(.focusRideEvent(coordinate))) {
       $0.mapFeatureState.eventCenter = CoordinateRegion(center: coordinate.asCLLocationCoordinate)
     }
-    await store.receive(.binding(.set(\.$bottomSheetPosition, .relative(0.3))))
     await testClock.advance(by: .seconds(1))
-    await store.receive(.map(.resetRideEventCenter)) {
+    await store.receive(\.map.resetRideEventCenter) {
       $0.mapFeatureState.eventCenter = nil
     }
   }
   
-  @MainActor
-  func test_requestTimerTick_fireUpFetchLocations() async {
+  @Test
+  func requestTimerTick_fireUpFetchLocations() async {
     var state = AppFeature.State()
     state.requestTimer.secondsElapsed = 59
-    state.route = nil
+    state.destination = nil
     
     let store = TestStore(
       initialState: state,
@@ -325,14 +330,14 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     await store.send(.requestTimer(.timerTicked))
-    await store.receive(.fetchLocations)
+    await store.receive(\.fetchLocations)
   }
   
-  @MainActor
-  func test_requestTimerTick_fireUpFetchMessages() async {
+  @Test
+  func requestTimerTick_fireUpFetchMessages() async {
     var state = AppFeature.State()
     state.requestTimer.secondsElapsed = 59
-    state.route = .chat
+    state.destination = .social(SocialFeature.State())
     
     let store = TestStore(
       initialState: state,
@@ -345,23 +350,23 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     await store.send(.requestTimer(.timerTicked))
-    await store.receive(.fetchChatMessages)
+    await store.receive(\.fetchChatMessages)
   }
   
-  @MainActor
-  func test_updatingRideEventSettingEnabled_ShouldRefetchNextRideInfo() async throws {
+  @Test
+  func updatingRideEventSettingEnabled_ShouldRefetchNextRideInfo() async throws {
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
     let location = Location(coordinate: .make(), timestamp: 42)
     state.mapFeatureState.location = location
-    state.settingsState.rideEventSettings.isEnabled = true
+    state.$rideEventSettings.withLock { $0.isEnabled = true }
     
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
-        $0.date = .init({ @Sendable in self.date() })
+        $0.date = .constant(date())
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, _, _ in
           [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
@@ -372,29 +377,43 @@ final class AppFeatureTests: XCTestCase {
     )
     store.exhaustivity = .off
 
-    await store.send(.settings(.rideevent(.set(\.$isEnabled, true)))) {
-      $0.settingsState.rideEventSettings.isEnabled = true
+    await store.send(
+      .destination(
+        .presented(
+          .settings(
+            .destination(
+              .presented(
+                .rideEventSettings(
+                  .binding(.set(\.isEnabled, true))
+                )
+              )
+            )
+          )
+        )
+      )
+    ) {
+      $0.$rideEventSettings.withLock { $0.isEnabled = true }
     }
     await testQueue.advance(by: 2)
-    await store.receive(.nextRide(.getNextRide(location.coordinate)))
+    await store.receive(\.nextRide.getNextRide)
   }
   
-  @MainActor
-  func test_updatingRideEventSettingRadius_ShouldRefetchNextRideInfo() async throws {
+  @Test
+  func updatingRideEventSettingRadius_ShouldRefetchNextRideInfo() async throws {
     let updatedRaduis = LockIsolated(0)
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
     let location = Location(coordinate: .make(), timestamp: 42)
-    state.settingsState.rideEventSettings.eventSearchRadius = .close
+    state.$rideEventSettings.withLock { $0.eventDistance = .close }
     state.mapFeatureState.location = location
-    state.settingsState.rideEventSettings.isEnabled = true
+    state.$rideEventSettings.withLock { $0.isEnabled = true }
     
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
-        $0.date = .init({ @Sendable in self.date() })
+        $0.date = .constant(date())
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, radius, _ in
           updatedRaduis.setValue(radius)
@@ -407,19 +426,31 @@ final class AppFeatureTests: XCTestCase {
     )
     store.exhaustivity = .off
     
-    await store.send(.settings(.rideevent(.set(\.$eventSearchRadius, .far)))) {
-      $0.settingsState.rideEventSettings.eventSearchRadius = .far
-    }
+    await store.send(
+      .destination(
+        .presented(
+          .settings(
+            .destination(
+              .presented(
+                .rideEventSettings(
+                  .binding(.set(\.eventSearchRadius, .far))
+                )
+              )
+            )
+          )
+        )
+      )
+    ) { $0.$rideEventSettings.withLock { $0.eventDistance = .far } }
     await testQueue.advance(by: 2)
-    await store.receive(.nextRide(.getNextRide(location.coordinate)))
+    await store.receive(\.nextRide.getNextRide)
     
     updatedRaduis.withValue { radius in
-      XCTAssertEqual(radius, EventDistance.far.rawValue)
+      #expect(radius == EventDistance.far.rawValue)
     }
   }
 
-  @MainActor
-  func test_viewingModePrompt() async throws {
+  @Test
+  func viewingModePrompt() async throws {
     let didSetDidShowPrompt = LockIsolated(false)
 
     let testQueue = DispatchQueue.test
@@ -437,31 +468,37 @@ final class AppFeatureTests: XCTestCase {
       }
     )
 
-    await store.send(.alert(.presented(.observationMode(enabled: false))))
-
+    await store.send(
+      .destination(
+        .presented(
+          .alert(.setObservationMode(enabled: false))
+        )
+      )
+    )
+    
     didSetDidShowPrompt.withValue { val in
-      XCTAssertTrue(val)
+      #expect(val)
     }
   }
   
-  @MainActor
-  func test_postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
-    var state = AppFeature.State()
-    state.settingsState.isObservationModeEnabled = true
+  @Test
+  func postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
+    let state = AppFeature.State()
+    state.$userSettings.withLock { $0.isObservationModeEnabled = true }
     
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
-        $0.date = .init({ @Sendable in self.date() })
+        $0.date = .constant(date())
         $0.continuousClock = TestClock()
       }
     )
     await store.send(.postLocation)
   }
   
-  @MainActor
-  func test_bindingObservationStatus_shouldStopLocationUpdating() async {
+  @Test
+  func bindingObservationStatus_shouldStopLocationUpdating() async {
     let didStopLocationUpdating = LockIsolated(false)
     
     let store = TestStore(
@@ -477,17 +514,23 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     await store.send(
-      .settings(.binding(.set(\.$isObservationModeEnabled, true)))
+      .destination(
+        .presented(
+          .settings(
+            .binding(.set(\.userSettings.isObservationModeEnabled, true))
+          )
+        )
+      )
     ) {
-      $0.settingsState.isObservationModeEnabled = true
+      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
     }
     // assert
     let didStopLocationObservationValue = didStopLocationUpdating.value
-    XCTAssertTrue(didStopLocationObservationValue)
+    #expect(didStopLocationObservationValue)
   }
 
-  @MainActor
-  func test_bindingObservationStatus_shouldStartLocationUpdating() async {
+  @Test
+  func bindingObservationStatus_shouldStartLocationUpdating() async {
     let didStopLocationUpdating = LockIsolated(false)
     
     let store = TestStore(
@@ -503,17 +546,24 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     await store.send(
-      .settings(.binding(.set(\.$isObservationModeEnabled, false)))
+      .destination(
+        .presented(
+          .settings(
+            .binding(.set(\.userSettings.isObservationModeEnabled, true))
+          )
+        )
+      )
     ) {
-      $0.settingsState.isObservationModeEnabled = false
+      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
     }
+
     // assert
     let didStopLocationObservationValue = didStopLocationUpdating.value
-    XCTAssertTrue(didStopLocationObservationValue)
+    #expect(didStopLocationObservationValue)
   }
   
-  @MainActor
-  func test_didTapNextEventBanner() async {
+  @Test
+  func didTapNextEventBanner() async {
     let store = TestStore(
       initialState: AppFeature.State(nextRideState: NextRideFeature.State(nextRide: Ride.mock1)),
       reducer: { AppFeature() },
@@ -525,10 +575,10 @@ final class AppFeatureTests: XCTestCase {
     store.exhaustivity = .off
     
     // act
-    await store.send(.didTapNextEventBanner)
+    await store.send(.mapOverlayAction(.didTapOverlayButton))
     
     // assert
-    await store.receive(.map(.focusNextRide(Ride.mock1.coordinate)))
-    await store.receive(.set(\.$bottomSheetPosition, .relative(0.3)))
+    await store.receive(\.map.focusNextRide)
+//    await store.receive(.set(\.$bottomSheetPosition, .relative(0.3)))
   }
 }

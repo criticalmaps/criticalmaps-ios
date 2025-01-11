@@ -1,10 +1,12 @@
 import AppFeature
 import ComposableArchitecture
-import XCTest
+import Foundation
+import Testing
 
-final class RequestTimerCoreTests: XCTestCase {
-  @MainActor
-  func test_startTimerAction_shouldSendTickedEffect() async {
+@MainActor
+struct RequestTimerCoreTests {
+  @Test
+  func startTimerAction_shouldSendTickedEffect() async {
     let testRunLoop = RunLoop.test
     
     let store = TestStore(

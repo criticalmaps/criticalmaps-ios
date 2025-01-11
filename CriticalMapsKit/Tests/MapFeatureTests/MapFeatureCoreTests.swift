@@ -4,13 +4,15 @@ import ComposableCoreLocation
 import Foundation
 @testable import MapFeature
 import SharedModels
-import XCTest
+import Testing
 
-final class MapFeatureCoreTests: XCTestCase {
+@Suite
+@MainActor
+struct MapFeatureCoreTests {
   let testScheduler = DispatchQueue.test
   
-  @MainActor
-  func test_onAppearAction() async {
+  @Test
+  func onAppearAction() async {
     let didRequestAlwaysAuthorization = LockIsolated(false)
     let didRequestLocation = LockIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
@@ -55,14 +57,14 @@ final class MapFeatureCoreTests: XCTestCase {
     // simulate user decision of segmented control
     await store.receive(.locationRequested)
     let didRequestAlwaysAuthorizationValue = didRequestAlwaysAuthorization.value
-    XCTAssertTrue(didRequestAlwaysAuthorizationValue)
+    #expect(didRequestAlwaysAuthorizationValue)
     // Simulate being given authorized to access location
     
     locationObserver.continuation.yield(.didChangeAuthorization(.authorizedAlways))
     
     await store.receive(.locationManager(.didChangeAuthorization(.authorizedAlways)))
     let didRequestLocationValue = didRequestLocation.value
-    XCTAssertTrue(didRequestLocationValue)
+    #expect(didRequestLocationValue)
     // Simulate finding the user's current location
     
     locationObserver.continuation.yield(.didUpdateLocations([currentLocation]))
@@ -80,8 +82,8 @@ final class MapFeatureCoreTests: XCTestCase {
   }
   
   /// if locationServices disabled, test that alert state is set
-  @MainActor
-  func test_disabledLocationService_shouldSetAlert() async {
+  @Test
+  func disabledLocationService_shouldSetAlert() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
     var locationManager: LocationManager = .failing
@@ -113,8 +115,8 @@ final class MapFeatureCoreTests: XCTestCase {
     locationObserver.continuation.finish()
   }
   
-  @MainActor
-  func test_deniedPermission_shouldSetAlert() async {
+  @Test
+  func deniedPermission_shouldSetAlert() async {
     let didRequestAlwaysAuthorization = LockIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
@@ -144,7 +146,7 @@ final class MapFeatureCoreTests: XCTestCase {
     // simulate user decision of segmented control
     await store.receive(.locationRequested)
     let didRequestAlwaysAuthorizationValue = didRequestAlwaysAuthorization.value
-    XCTAssertTrue(didRequestAlwaysAuthorizationValue)
+    #expect(didRequestAlwaysAuthorizationValue)
     // Simulate being given authorized to access location
     locationObserver.continuation.yield(.didChangeAuthorization(.denied))
     await store.receive(.locationManager(.didChangeAuthorization(.denied))) {
@@ -155,8 +157,8 @@ final class MapFeatureCoreTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_focusNextRide_setsCenterRegion_andResetsItAfter1Second() async {
+  @Test
+  func focusNextRide_setsCenterRegion_andResetsItAfter1Second() async {
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -192,8 +194,8 @@ final class MapFeatureCoreTests: XCTestCase {
     }
   }
   
-  @MainActor
-  func test_focusRideEvent_setsEventCenter_andResetsItAfter1Second() async {
+  @Test
+  func focusRideEvent_setsEventCenter_andResetsItAfter1Second() async {
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -234,8 +236,8 @@ final class MapFeatureCoreTests: XCTestCase {
     }
   }
 
-  @MainActor
-  func test_InfoBanner_appearance() async {
+  @Test
+  func InfoBanner_appearance() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
     var locationManager: LocationManager = .failing

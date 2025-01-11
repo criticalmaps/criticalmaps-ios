@@ -1,18 +1,21 @@
+import Foundation
 import Helpers
-import XCTest
+import Testing
 
-final class DateFormattingTests: XCTestCase {
+struct DateFormattingTests {
   // 3.10.2022, 11:09
   let testDate = Date(timeIntervalSince1970: 1664788190)
 
-  func test_tweetDateFormatter() throws {
+  @Test("Dateformatter DateWithYear should format correctly")
+  func tootDateFormatter() throws {
     let formatted = testDate.formatted(Date.FormatStyle.dateWithoutYear)
 
-    XCTAssertEqual(formatted, "3. Oct")
+    #expect(formatted == "3. Oct")
   }
 
+  @Test("IDHashStoreFormatter DateWithYear should format correctly")
   func test_IDHashStoreFormatter() {
     let formatted = DateFormatter.IDStoreHashDateFormatter.string(from: testDate)
-    XCTAssertEqual(formatted, "2022-10-03")
+    #expect(formatted == "2022-10-03")
   }
 }

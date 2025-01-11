@@ -7,7 +7,7 @@ final class AppearanceSettingsViewSnapshotTests: XCTestCase {
   func test_appearanceEventSettingsView_light() {
     let settingsView = AppearanceSettingsView(
       store: .init(
-        initialState: AppearanceSettings(colorScheme: .system),
+        initialState: AppearanceSettingsFeature.State(colorScheme: .system),
         reducer: { AppearanceSettingsFeature() }
       )
     )
@@ -18,7 +18,10 @@ final class AppearanceSettingsViewSnapshotTests: XCTestCase {
   func test_appearanceEventSettingsView_disabled() {
     let settingsView = AppearanceSettingsView(
       store: .init(
-        initialState: AppearanceSettings(appIcon: .appIcon5, colorScheme: .dark),
+        initialState: AppearanceSettingsFeature.State(
+          appIcon: .appIcon5,
+          colorScheme: .system
+        ),
         reducer: { AppearanceSettingsFeature() }
       )
     )

@@ -1,57 +1,44 @@
 import ComposableArchitecture
 import Foundation
-import SettingsFeature
+@testable import SettingsFeature
 import SharedModels
-import XCTest
+import Testing
 
-final class RideEventSettingsCoreTests: XCTestCase {
+@Suite
+@MainActor
+struct RideEventSettingsCoreTests {
   
-  @MainActor
-  func test_setRideEventsEnabled() async {
+  @Test("Set event updates binding action should update store")
+  func setRideEventsEnabled() async {
     let store = TestStore(
       initialState: .init(
         settings: RideEventSettings(
           isEnabled: true,
-          typeSettings: .all(),
+          rideEvents: .default,
           eventDistance: .close
         )
       ),
       reducer: { RideEventsSettingsFeature() }
     )
     
-    await store.send(.set(\.$isEnabled, false)) {
+    await store.send(.binding(.set(\.isEnabled, false))) {
       $0.isEnabled = false
+      $0.$settings.withLock { $0.isEnabled = false }
     }
     
-    await store.send(.set(\.$isEnabled, true)) {
+    await store.send(.binding(.set(\.isEnabled, true))) {
       $0.isEnabled = true
+      $0.$settings.withLock { $0.isEnabled = true }
     }
   }
-  
-  @MainActor
-  func test_setRideEventsTypeEnabled() async {
-    let store = TestStore(
-      initialState: RideEventType.State(
-        rideType: .criticalMass,
-        isEnabled: false
-      ),
-      reducer: {
-        RideEventType()
-      }
-    )
-    
-    await store.send(.set(\.$isEnabled, true)) {
-      $0.isEnabled = true
-    }
-  }
-  
-  @MainActor
-  func test_setRideEventsRadius() async {
+
+  @Test("Set event search radius updates binding action should update store")
+  func setRideEventsRadius() async {
     let store = TestStore(
       initialState: .init(
         settings: RideEventSettings(
           isEnabled: true,
-          typeSettings: .all(),
+          rideEvents: .default,
           eventDistance: .close
         )
       ),
@@ -61,7 +48,7 @@ final class RideEventSettingsCoreTests: XCTestCase {
       }
     )
     
-    await store.send(.set(\.$eventSearchRadius, .near)) {
+    await store.send(.binding(.set(\.eventSearchRadius, .near))) {
       $0.eventSearchRadius = .near
     }
   }

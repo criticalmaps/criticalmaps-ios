@@ -1,11 +1,10 @@
-//
-// Created for CriticalMaps in 2020
-
 import Helpers
-import XCTest
+import Testing
 
-final class StringAdditionsTests: XCTestCase {
-  func test_removeDatePatternShouldRemovePattern1() {
+@Suite
+struct StringAdditionsTests {
+  @Test("Remove Date Pattern should remove date pattern")
+  func removeDatePatternShouldRemovePattern1() {
     // given
     let title = "Critical Mass Berlin"
     let date = "28.02.2020"
@@ -13,10 +12,11 @@ final class StringAdditionsTests: XCTestCase {
     // when
     let strippedTitle = titleWithDate.removedDatePattern()
     // then
-    XCTAssertEqual(strippedTitle, title)
+    #expect(strippedTitle == title)
   }
 
-  func test_removeDatePatternShouldRemovePattern2() {
+  @Test("Remove Date Pattern should remove date pattern with slash")
+  func removeDatePatternShouldRemovePattern2() {
     // given
     let title = "Critical Mass Berlin"
     let date = "28/02/2020"
@@ -24,10 +24,11 @@ final class StringAdditionsTests: XCTestCase {
     // when
     let strippedTitle = titleWithDate.removedDatePattern()
     // then
-    XCTAssertEqual(strippedTitle, title)
+    #expect(strippedTitle == title)
   }
 
-  func test_removeDatePatternShouldNotRemovePattern1() {
+  @Test("Remove Date Pattern should not remove pattern with slash")
+  func removeDatePatternShouldNotRemovePattern1() {
     // given
     let title = "Critical Mass Berlin"
     let date = "02/28/20"
@@ -35,10 +36,11 @@ final class StringAdditionsTests: XCTestCase {
     // when
     let strippedTitle = titleWithDate.removedDatePattern()
     // then
-    XCTAssertNotEqual(strippedTitle, title)
+    #expect(strippedTitle != title)
   }
 
-  func test_removeDatePatternShouldNotRemovePattern2() {
+  @Test("Remove Date Pattern should not remove pattern with special pattern")
+  func removeDatePatternShouldNotRemovePattern2() {
     // given
     let title = "Critical Mass Berlin"
     let pattern = "Special Edition"
@@ -46,6 +48,6 @@ final class StringAdditionsTests: XCTestCase {
     // when
     let strippedTitle = titleWithDate.removedDatePattern()
     // then
-    XCTAssertNotEqual(strippedTitle, title)
+    #expect(strippedTitle != title)
   }
 }

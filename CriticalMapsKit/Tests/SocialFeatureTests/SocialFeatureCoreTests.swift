@@ -1,22 +1,23 @@
 import ComposableArchitecture
 import SocialFeature
-import XCTest
+import Testing
 
-final class SocialFeatureCoreTests: XCTestCase {
-  @MainActor
-  func test_setSocialSegment() async {
+@Suite
+@MainActor
+struct SocialFeatureCoreTests {
+  
+  @Test("Set social segment should update state")
+  func setSocialSegment() async throws {
     let testStore = TestStore(
       initialState: SocialFeature.State(),
       reducer: { SocialFeature() }
     )
 
-    let toots: SocialFeature.SocialControl = .toots
-    await testStore.send(.setSocialSegment(toots.rawValue)) { state in
+    await testStore.send(.binding(.set(\.socialControl, .toots))) { state in
       state.socialControl = .toots
     }
 
-    let chat: SocialFeature.SocialControl = .chat
-    await testStore.send(.setSocialSegment(chat.rawValue)) { state in
+    await testStore.send(.binding(.set(\.socialControl, .chat))) { state in
       state.socialControl = .chat
     }
   }

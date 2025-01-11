@@ -25,6 +25,8 @@ public extension [RideEvent] {
   }()
 }
 
+// MARK: - Shared
+
 private extension URL {
   static var rideEventSettingsURL: URL {
     URL

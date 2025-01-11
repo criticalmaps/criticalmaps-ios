@@ -1,11 +1,13 @@
 import ComposableArchitecture
 import Foundation
 import IDProvider
-import XCTest
+import Testing
 
-final class IDProviderTests: XCTestCase {
+@Suite
+struct IDProviderTests {
   let deviceID = "00000000-0000-0000-0000-000000000001"
   
+  @Test("ID changes when device ID changes")
   func testIDDoesChange() {
     let date = Date(timeIntervalSince1970: 1557057968)
     let currentID = withDependencies { values in
@@ -23,9 +25,10 @@ final class IDProviderTests: XCTestCase {
       IDProvider.liveValue
     }
     
-    XCTAssertEqual(currentID.id(), newID.id())
+    #expect(currentID.id() == newID.id())
   }
   
+  @Test("ID does not change when device ID does not change")
   func testIDDoesNotChange() {
     let date = Date(timeIntervalSince1970: 1557057968)
     let currentID = withDependencies { values in
@@ -43,6 +46,6 @@ final class IDProviderTests: XCTestCase {
       IDProvider.liveValue
     }
     
-    XCTAssertNotEqual(currentID.id(), newID.id())
+    #expect(currentID.id() != newID.id())
   }
 }

@@ -1,53 +1,53 @@
 import CoreLocation
 import NextRideFeature
 import SharedModels
-import XCTest
+import Testing
 
-final class CoordinateObfuscatorTests: XCTestCase {
-  var sut: CoordinateObfuscator!
+struct CoordinateObfuscatorTests {
+  var sut: CoordinateObfuscator = .liveValue
   
-  override func setUp() {
-    super.setUp()
-    sut = .liveValue
-  }
-  
-  func test_ObfuscatorShouldReturnAlteredCoordinate() {
+  @Test("Obuscator should return coordinate with altered thirdDecimal")
+  func alteredCoordinate() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, .thirdDecimal)
     // then
-    XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
+    #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  func test_ObfuscatorShouldReturnCoordinateWithAlteredFirstDecimal() {
+  @Test("Obuscator should return coordinate with altered firstDecimal")
+  func firstDecimal() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, .firstDecimal)
     // then
-    XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
+    #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  func test_ObfuscatorShouldReturnCoordinateWithAlteredSecondDecimal() {
+  @Test("Obuscator should return coordinate with alteredThirdDecimal")
+  func thirdDecimal() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, .thirdDecimal)
     // then
-    XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
+    #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  func test_ObfuscatorShouldReturnCoordinateWithAlteredFourthDecimal() {
+  @Test("Obuscator should return coordinate with alteredFourthDecimal")
+  func fourthDecimal() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
     let alteredCoordinate = sut.obfuscate(alexanderPlatz, .fourthDecimal)
     // then
-    XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
+    #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  func test_ObfuscatorShouldReturnCoordinateWithCustomRange() {
+  @Test("Obfuscator should return coordinate with custom range")
+  func customRange() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
@@ -56,6 +56,6 @@ final class CoordinateObfuscatorTests: XCTestCase {
       .custom(0.0000004 ... 0.0004)
     )
     // then
-    XCTAssertNotEqual(alexanderPlatz, alteredCoordinate)
+    #expect(alexanderPlatz != alteredCoordinate)
   }
 }

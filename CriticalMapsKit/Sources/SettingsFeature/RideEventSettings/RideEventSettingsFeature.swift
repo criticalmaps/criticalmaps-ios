@@ -13,7 +13,7 @@ public struct RideEventsSettingsFeature {
   @ObservableState
   public struct State: Equatable, Sendable {
     @Shared(.rideEventSettings)
-    fileprivate var settings = RideEventSettings()
+    var settings = RideEventSettings()
     
     public var isEnabled: Bool
     public var eventSearchRadius: EventDistance
