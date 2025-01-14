@@ -370,10 +370,8 @@ public struct AppFeature {
             
             return .run { [destination = state.destination] send in
               await withThrowingTaskGroup(of: Void.self) { group in
-                if destination != nil {
-                  group.addTask {
-                    await send(.fetchLocations)
-                  }
+                group.addTask {
+                  await send(.fetchLocations)
                 }
                 if case .social(_) = destination {
                   group.addTask {
@@ -434,7 +432,10 @@ public struct AppFeature {
         
       case .destination(.presented(.settings(let settingsAction))):
         switch settingsAction {
-        case .destination(.presented(.rideEventSettings(.rideEventType(_)))), .destination(.presented(.rideEventSettings(.binding(\.eventSearchRadius)))):
+        case
+            .destination(.presented(.rideEventSettings(.rideEventType(_)))),
+            .destination(.presented(.rideEventSettings(.binding(\.eventSearchRadius)))),
+            .destination(.presented(.rideEventSettings(.binding(\.isEnabled)))):
           guard
             let coordinate = state.mapFeatureState.location?.coordinate,
             state.rideEventSettings.isEnabled

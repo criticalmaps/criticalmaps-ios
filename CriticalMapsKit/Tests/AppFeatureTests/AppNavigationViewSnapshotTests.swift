@@ -5,12 +5,6 @@ import TestHelper
 import XCTest
 
 final class AppNavigationViewSnapshotTests: XCTestCase {
-  
-  override func setUp() {
-    super.setUp()
-    
-  }
-  
   @MainActor
   func test_appNavigationView_light() {
     let view = AppNavigationView(

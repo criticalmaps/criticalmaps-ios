@@ -113,8 +113,8 @@ struct NextRideCoreTests {
     await store.receive(.nextRideResponse(.success([])))
   }
   
-  @MainActor
-  func test_getRides_shouldUpdateRidesInUserTimezone() async {
+  @Test
+  func getRides_shouldUpdateRidesInUserTimezone() async {
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },

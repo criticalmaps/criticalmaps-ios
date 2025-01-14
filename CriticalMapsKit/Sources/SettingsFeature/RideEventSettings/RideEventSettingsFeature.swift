@@ -11,7 +11,7 @@ public struct RideEventsSettingsFeature {
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   @ObservableState
-  public struct State: Equatable, Sendable {
+  public struct State: Equatable {
     @Shared(.rideEventSettings)
     var settings = RideEventSettings()
     

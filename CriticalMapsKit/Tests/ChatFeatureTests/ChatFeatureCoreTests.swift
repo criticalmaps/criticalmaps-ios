@@ -11,10 +11,9 @@ import UserDefaultsClient
 @Suite
 @MainActor
 struct ChatFeatureCore {
-  let uuid = { UUID(uuidString: "00000000-0000-0000-0000-000000000000")! }
-  let date = { Date(timeIntervalSinceReferenceDate: 0) }
+  let uuid = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
+  let date = Date(timeIntervalSinceReferenceDate: 0)
   
-  @MainActor
   func defaultTestStore(
     with state: ContentState<[ChatMessage]> = .results([])
   ) -> TestStoreOf<ChatFeature> {
@@ -28,8 +27,8 @@ struct ChatFeatureCore {
       ),
       reducer: { ChatFeature() }
     )
-    testStore.dependencies.uuid = .constant(uuid())
-    testStore.dependencies.date = .constant(date())
+    testStore.dependencies.uuid = .constant(uuid)
+    testStore.dependencies.date = .constant(date)
     
     return testStore
   }
@@ -119,8 +118,8 @@ struct ChatFeatureCore {
       chatAppearanceTimeinterval.setValue(interval)
       return ()
     }
-    testStore.dependencies.uuid = .constant(uuid())
-    testStore.dependencies.date = .constant(date())
+    testStore.dependencies.uuid = .constant(uuid)
+    testStore.dependencies.date = .constant(date)
   
     _ = await testStore.send(.onAppear)
     await testStore.receive(.fetchChatMessages)
@@ -128,14 +127,14 @@ struct ChatFeatureCore {
       $0.chatMessages = .results(mockResponse)
     }
     chatAppearanceTimeinterval.withValue { interval in
-      #expect(interval == date().timeIntervalSince1970)
+      #expect(interval == date.timeIntervalSince1970)
     }
     didWriteChatAppearanceTimeinterval.withValue { val in
       #expect(val)
     }
   }
   
-  @MainActor
+  @Test
   func test_chatViewState() {
     let state = ChatFeature.State(
       chatMessages: .results(mockResponse),

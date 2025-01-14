@@ -1,3 +1,4 @@
+import Foundation
 import Helpers
 import Testing
 
@@ -18,6 +19,6 @@ struct CodableExtensionsTests {
     let encodedTestModel = try JSONEncoder().encode(testModel)
     let decodedTestModed: [Int] = try encodedTestModel.decoded()
 
-    #expect(decodedTestModed != testModel)
+    #expect(decodedTestModed == testModel)
   }
 }

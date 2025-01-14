@@ -8,6 +8,7 @@ import Testing
 
 private let fixedDate = { Date(timeIntervalSinceReferenceDate: 0) }
 
+@MainActor
 struct RiderAnnotationUpdateClientTests {
   let rider = [
     Rider(

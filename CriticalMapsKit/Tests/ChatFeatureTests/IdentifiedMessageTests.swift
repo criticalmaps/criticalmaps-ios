@@ -1,9 +1,10 @@
 import ChatFeature
 import ComposableArchitecture
+import Foundation
 import SharedModels
-import XCTest
+import Testing
 
-final class IdentifiedMessagesTests: XCTestCase {
+struct IdentifiedMessagesTests {
   let date = Calendar.current.date(
     from: .init(
       timeZone: .init(secondsFromGMT: 0),
@@ -15,14 +16,12 @@ final class IdentifiedMessagesTests: XCTestCase {
     )
   )!
 
-  func test_chatTime_Format() {
+  @Test
+  func chatTime_Format() {
     var cal = Calendar.current
     cal.timeZone = .init(secondsFromGMT: 0)!
     let chatTime = date.formatted(Date.FormatStyle.chatTime(cal))
 
-    XCTAssertEqual(
-      chatTime,
-      "02:02"
-    )
+    #expect(chatTime == "02:02")
   }
 }

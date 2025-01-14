@@ -123,7 +123,7 @@ struct SettingsFeatureCoreTests {
     }
   }
   
-  @MainActor
+  @Test
   func openURLAction_shouldCallUIApplicationClient_criticalMassDotIn() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
@@ -212,24 +212,27 @@ struct SettingsFeatureCoreTests {
 //    await store.finish()
 //  }
   
-  @MainActor
-  func test_didSaveUserSettings_onSettingsChange() async throws {
+  @Test
+  func didSaveUserSettings_onSettingsChange() async throws {
     @Shared(.userSettings)
     var userSettings = UserSettings(enableObservationMode: false)
     
-    let didSaveUserSettings = LockIsolated(false)
+    let didCallStopLocationUpdates = LockIsolated(false)
     let testQueue = DispatchQueue.immediate
 
+    let testClock = TestClock()
     let store = TestStore(
       initialState: SettingsFeature.State(),
-      reducer: { SettingsFeature() }
+      reducer: { SettingsFeature() },
+      withDependencies: {
+        $0.mainQueue = testQueue.eraseToAnyScheduler()
+        $0.locationManager.stopUpdatingLocation = {
+          didCallStopLocationUpdates.setValue(true)
+        }
+        $0.continuousClock = testClock
+      }
     )
-    store.dependencies.mainQueue = testQueue.eraseToAnyScheduler()
-    
-    // TODO: Test @Shared did save
-    
-    let testClock = TestClock()
-    store.dependencies.continuousClock = testClock
+
     
     // act
     await store.send(.binding(.set(\.userSettings.isObservationModeEnabled, true))) {
@@ -238,7 +241,7 @@ struct SettingsFeatureCoreTests {
 
     // assert
     await testClock.advance(by: .seconds(2))
-    didSaveUserSettings.withValue { val in
+    didCallStopLocationUpdates.withValue { val in
       #expect(val == true, "Expected that save is invoked")
     }
   }

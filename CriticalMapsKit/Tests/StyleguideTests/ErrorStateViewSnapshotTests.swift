@@ -2,7 +2,7 @@ import Styleguide
 import TestHelper
 import XCTest
 
-class ErrorStateViewSnapshotTests: XCTestCase {
+final class ErrorStateViewSnapshotTests: XCTestCase {
   func test_ErrorStateView_withoutButton_light() {
     let view = ErrorStateView(
       errorState: .init(

@@ -21,7 +21,7 @@ struct AppFeatureTests {
   let testScheduler = DispatchQueue.test
   let testClock = TestClock()
   let date: () -> Date = { @Sendable in Date(timeIntervalSinceReferenceDate: 0) }
-
+  
   @Test
   func appNavigation() async {
     let store = TestStore(
@@ -47,10 +47,8 @@ struct AppFeatureTests {
         $0.apiService.getRiders = { [] }
       }
     )
-    store.exhaustivity = .off
 
     await store.send(.dismissDestination)
-    await store.receive(\.fetchLocations)
   }
 
   @Test
@@ -124,7 +122,6 @@ struct AppFeatureTests {
   
   @Test
   func updatingRideEventsSettingRadius_ShouldRefetchNextRideInfo() async throws {
-    let testClock = TestClock()
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
@@ -138,7 +135,7 @@ struct AppFeatureTests {
       reducer: { AppFeature() },
       withDependencies: {
         $0.date = .constant(date())
-        $0.continuousClock = testClock
+        $0.continuousClock = ImmediateClock()
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, _, _ in
           [.mock1]
@@ -150,6 +147,8 @@ struct AppFeatureTests {
     )
     store.exhaustivity = .off
 
+    await store.send(.settingsButtonTapped)
+    await store.send(.destination(.presented(.settings(.rideEventSettingsRowTapped))))
     await store.send(
       .destination(
         .presented(
@@ -174,7 +173,6 @@ struct AppFeatureTests {
   
   @Test
   func loadUserSettings_shouldUpdateSettings() async {
-    let testClock = TestClock()
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     let sharedModelLocation = SharedModels.Location(
       coordinate: .init(latitude: 11, longitude: 21),
@@ -209,7 +207,7 @@ struct AppFeatureTests {
         $0.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
         $0.apiService.getChatMessages = { [] }
         $0.apiService.getRiders = { [] }
-        $0.continuousClock = testClock
+        $0.continuousClock = ImmediateClock()
         $0.nextRideService.nextRide = { _, _, _ in [] }
         $0.userDefaultsClient.setString = { _, _ in }
         $0.observationModeStore.setObservationModeState = { @Sendable _ in }
@@ -323,7 +321,7 @@ struct AppFeatureTests {
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
         $0.apiService.getRiders = { [] }
       }
     )
@@ -343,8 +341,9 @@ struct AppFeatureTests {
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
         $0.apiService.getChatMessages = { [] }
+        $0.apiService.getRiders = { [] }
       }
     )
     store.exhaustivity = .off
@@ -371,12 +370,14 @@ struct AppFeatureTests {
         $0.nextRideService.nextRide = { _, _, _ in
           [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
         }
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
         $0.userDefaultsClient.setBool = { _, _ in }
       }
     )
     store.exhaustivity = .off
 
+    await store.send(.settingsButtonTapped)
+    await store.send(.destination(.presented(.settings(.rideEventSettingsRowTapped))))
     await store.send(
       .destination(
         .presented(
@@ -419,13 +420,15 @@ struct AppFeatureTests {
           updatedRaduis.setValue(radius)
           return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
         }
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
         $0.userDefaultsClient.setBool = { _, _ in }
         $0.feedbackGenerator.selectionChanged = {}
       }
     )
     store.exhaustivity = .off
     
+    await store.send(.settingsButtonTapped)
+    await store.send(.destination(.presented(.settings(.rideEventSettingsRowTapped))))
     await store.send(
       .destination(
         .presented(
@@ -449,10 +452,10 @@ struct AppFeatureTests {
     }
   }
 
+  var cancellables: Set<AnyCancellable> = []
+  
   @Test
-  func viewingModePrompt() async throws {
-    let didSetDidShowPrompt = LockIsolated(false)
-
+  mutating func viewingModePrompt() async throws {
     let testQueue = DispatchQueue.test
 
     let store = TestStore(
@@ -460,14 +463,20 @@ struct AppFeatureTests {
       reducer: { AppFeature() },
       withDependencies: {
         $0.mainQueue = testQueue.eraseToAnyScheduler()
-        $0.userDefaultsClient.setBool = { _, _ in
-          didSetDidShowPrompt.setValue(true)
-          return ()
-        }
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
       }
     )
-
+    
+    var didUpdateSettings: [Bool] = []
+    store.state.$userSettings
+      .publisher
+      .dropFirst()
+      .sink { didUpdateSettings.append($0.isObservationModeEnabled) }
+      .store(in: &cancellables)
+             
+    await store.send(.settingsButtonTapped) {
+      $0.destination = .settings(SettingsFeature.State())
+    }
     await store.send(
       .destination(
         .presented(
@@ -475,10 +484,7 @@ struct AppFeatureTests {
         )
       )
     )
-    
-    didSetDidShowPrompt.withValue { val in
-      #expect(val)
-    }
+    #expect(didUpdateSettings == [false])
   }
   
   @Test
@@ -491,7 +497,7 @@ struct AppFeatureTests {
       reducer: { AppFeature() },
       withDependencies: {
         $0.date = .constant(date())
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
       }
     )
     await store.send(.postLocation)
@@ -508,11 +514,12 @@ struct AppFeatureTests {
         $0.locationManager.stopUpdatingLocation = { 
           didStopLocationUpdating.setValue(true)
         }
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
       }
     )
     store.exhaustivity = .off
     
+    await store.send(.settingsButtonTapped)
     await store.send(
       .destination(
         .presented(
@@ -537,14 +544,15 @@ struct AppFeatureTests {
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
       withDependencies: {
-        $0.locationManager.startUpdatingLocation = {
+        $0.locationManager.stopUpdatingLocation = {
           didStopLocationUpdating.setValue(true)
         }
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
       }
     )
     store.exhaustivity = .off
     
+    await store.send(.settingsButtonTapped)
     await store.send(
       .destination(
         .presented(
@@ -568,7 +576,7 @@ struct AppFeatureTests {
       initialState: AppFeature.State(nextRideState: NextRideFeature.State(nextRide: Ride.mock1)),
       reducer: { AppFeature() },
       withDependencies: {
-        $0.continuousClock = TestClock()
+        $0.continuousClock = ImmediateClock()
         $0.feedbackGenerator.selectionChanged = {}
       }
     )

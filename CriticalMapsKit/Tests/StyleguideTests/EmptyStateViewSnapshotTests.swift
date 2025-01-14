@@ -2,7 +2,7 @@ import Styleguide
 import TestHelper
 import XCTest
 
-class EmptyStateViewSnapshotTests: XCTestCase {
+final class EmptyStateViewSnapshotTests: XCTestCase {
   func test_emptyStateView_withoutButton_light() {
     let view = EmptyStateView(
       emptyState: .init(

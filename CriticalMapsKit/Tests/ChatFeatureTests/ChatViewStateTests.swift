@@ -3,10 +3,12 @@ import ComposableArchitecture
 import CustomDump
 import Foundation
 import SharedModels
-import XCTest
+import Testing
 
-final class ChatViewStateTests: XCTestCase {
-  func test_createChatViewState_shouldSortMessagesByDate() {
+@MainActor
+struct ChatViewStateTests {
+  @Test
+  func createChatViewState_shouldSortMessagesByDate() {
     // arrange
     let chatFeatureState = ChatFeature.State(
       chatMessages: .results([
