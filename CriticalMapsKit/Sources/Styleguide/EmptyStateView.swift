@@ -40,7 +40,9 @@ public struct EmptyStateView: View {
 
       VStack(spacing: .grid(5)) {
         Image(uiImage: emptyState.icon)
+          .renderingMode(.template)
           .imageScale(.large)
+          .foregroundStyle(Color(.textPrimary))
           .accessibilityHidden(true)
 
         VStack(spacing: .grid(2)) {

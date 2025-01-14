@@ -1,4 +1,6 @@
 import SettingsFeature
+import Styleguide
+import SwiftUI
 import TestHelper
 import XCTest
 
@@ -15,6 +17,7 @@ final class SettingsViewSnapshotTests: XCTestCase {
       )
     )
     .environment(\.colorScheme, .light)
+    .accentColor(Color(.textPrimary))
 
     assertScreenSnapshot(settingsView, sloppy: true)
   }

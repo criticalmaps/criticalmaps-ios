@@ -2,6 +2,7 @@ import Styleguide
 import TestHelper
 import XCTest
 
+@MainActor
 final class EmptyStateViewSnapshotTests: XCTestCase {
   func test_emptyStateView_withoutButton_light() {
     let view = EmptyStateView(
@@ -9,7 +10,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
         icon: UIImage(systemName: "bicycle")!,
         text: "Critical Maps"
       )
-    )
+    ).environment(\.colorScheme, .light)
     
     assertScreenSnapshot(view)
   }
@@ -35,7 +36,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
       ),
       buttonAction: {},
       buttonText: "Reload"
-    )
+    ).environment(\.colorScheme, .light)
     
     assertScreenSnapshot(view)
   }
