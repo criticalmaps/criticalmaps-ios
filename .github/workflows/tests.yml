@@ -13,7 +13,7 @@ on:
 jobs:
   unit_tests:
     name: Unit Tests
-    runs-on: macos-latest-large
+    runs-on: macos-15
     strategy:
       matrix:
         platform:
