@@ -19,7 +19,7 @@ public struct AppearanceSettingsFeature {
   @ObservableState
   public struct State: Equatable {
     @Shared(.appearanceSettings)
-    fileprivate var settings = AppearanceSettings()
+    var settings = AppearanceSettings()
     
     public var appIcon: AppIcon
     public var colorScheme: AppearanceSettings.ColorScheme
