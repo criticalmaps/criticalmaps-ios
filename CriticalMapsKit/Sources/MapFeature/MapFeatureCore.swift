@@ -81,8 +81,6 @@ public struct MapFeature {
     case binding(BindingAction<State>)
     case onAppear
     case locationRequested
-    case nextTrackingMode
-    case updateUserTrackingMode(UserTrackingFeature.State)
     case updateCenterRegion(CoordinateRegion?)
     case focusNextRide(Coordinate?)
     case focusRideEvent(Coordinate?)
@@ -214,23 +212,6 @@ public struct MapFeature {
             break
           }
         }
-        
-      case .nextTrackingMode:
-        switch state.userTrackingMode.mode {
-        case .follow:
-          return .send(.updateUserTrackingMode(.init(userTrackingMode: .followWithHeading)))
-        case .followWithHeading:
-          return .send(.updateUserTrackingMode(.init(userTrackingMode: .none)))
-        case .none:
-          return .send(.updateUserTrackingMode(.init(userTrackingMode: .follow)))
-        @unknown default:
-          fatalError()
-        }
-        
-      case let .updateUserTrackingMode(mode):
-        state.shouldAnimateTrackingMode = mode.mode != state.userTrackingMode.mode
-        state.userTrackingMode.mode = mode.mode
-        return .none
 
       case let .focusNextRide(coordinate):
         guard let nextRideCoordinate = coordinate else {
@@ -270,7 +251,7 @@ public struct MapFeature {
       case .routeToEvent:
         state.nextRide?.openInMaps()
         return .none
-        
+
       case .locationManager, .userTracking, .updateCenterRegion:
         return .none
       }

@@ -5,7 +5,7 @@ import SwiftUI
 
 /// Button to toggle tracking modes
 public struct UserTrackingButton: View {
-  private let store: StoreOf<UserTrackingFeature>
+  @State private var store: StoreOf<UserTrackingFeature>
 
   public init(store: StoreOf<UserTrackingFeature>) {
     self.store = store

@@ -79,7 +79,7 @@ public struct AppFeature {
       locationsAndChatMessages: TaskResult<[Rider]>? = nil,
       mapFeatureState: MapFeature.State = .init(
         riders: [],
-        userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
+        userTrackingMode: UserTrackingFeature.State()
       ),
       socialState: SocialFeature.State = .init(),
       settingsState: SettingsFeature.State = .init(),
@@ -98,7 +98,7 @@ public struct AppFeature {
 
     public var mapFeatureState = MapFeature.State(
       riders: [],
-      userTrackingMode: UserTrackingFeature.State(userTrackingMode: .follow)
+      userTrackingMode: UserTrackingFeature.State()
     )
     
     public var timerProgress: Double {
@@ -432,10 +432,7 @@ public struct AppFeature {
         
       case .destination(.presented(.settings(let settingsAction))):
         switch settingsAction {
-        case
-            .destination(.presented(.rideEventSettings(.rideEventType(_)))),
-            .destination(.presented(.rideEventSettings(.binding(\.eventSearchRadius)))),
-            .destination(.presented(.rideEventSettings(.binding(\.isEnabled)))):
+        case .destination(.presented(.rideEventSettings)):
           guard
             let coordinate = state.mapFeatureState.location?.coordinate,
             state.rideEventSettings.isEnabled

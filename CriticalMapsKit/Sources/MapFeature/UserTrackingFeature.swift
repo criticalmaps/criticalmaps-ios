@@ -8,11 +8,11 @@ public struct UserTrackingFeature {
 
   @ObservableState
   public struct State: Equatable {
-    public init(userTrackingMode: MKUserTrackingMode) {
+    public var mode: MKUserTrackingMode
+
+    public init(userTrackingMode: MKUserTrackingMode = .follow) {
       mode = userTrackingMode
     }
-
-    public var mode: MKUserTrackingMode
   }
 
   public enum Action: Equatable {

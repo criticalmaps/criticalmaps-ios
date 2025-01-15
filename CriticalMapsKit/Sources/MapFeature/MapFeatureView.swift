@@ -19,7 +19,7 @@ public struct MapFeatureView: View {
     ZStack(alignment: .topLeading) {
       MapView(
         riderCoordinates: store.riderLocations,
-        userTrackingMode: $store.userTrackingMode,
+        userTrackingMode: $store.userTrackingMode.mode,
         nextRide: store.nextRide,
         rideEvents: store.rideEvents,
         annotationsCount: $store.visibleRidersCount,
