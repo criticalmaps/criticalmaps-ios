@@ -9,7 +9,7 @@ struct ChatFeaturePreviewApp: App {
         ChatView(
           store: .init(
             initialState: .init(),
-            reducer: ChatFeature()
+            reducer: { ChatFeature() }
           )
         )
       }

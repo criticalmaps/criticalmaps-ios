@@ -10,7 +10,7 @@ struct SettingsFeaturePreviewApp: App {
         SettingsView(
           store: .init(
             initialState: .init(),
-            reducer: SettingsFeature()
+            reducer: { SettingsFeature() }
           )
         )
       }
