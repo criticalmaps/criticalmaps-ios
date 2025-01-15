@@ -210,7 +210,6 @@ struct AppFeatureTests {
         $0.continuousClock = ImmediateClock()
         $0.nextRideService.nextRide = { _, _, _ in [] }
         $0.userDefaultsClient.setString = { _, _ in }
-        $0.observationModeStore.setObservationModeState = { @Sendable _ in }
         $0.feedbackGenerator.prepare = { @Sendable in }
       }
     )

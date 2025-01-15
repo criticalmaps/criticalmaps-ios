@@ -44,17 +44,15 @@ public struct DataTile<Content: View>: View {
   }
 }
 
-struct DateTileView_Previews: PreviewProvider {
-  static var previews: some View {
-    VStack {
-      DataTile("Riders") {
-        Label("342", systemImage: "bicycle.circle.fill")
-      }
-
-      DataTile("Next Update") {
-        CircularProgressView(progress: 0.3)
-          .frame(width: 24, height: 24)
-      }
+#Preview {
+  VStack {
+    DataTile("Riders") {
+      Label("342", systemImage: "bicycle.circle.fill")
+    }
+    
+    DataTile("Next Update") {
+      CircularProgressView(progress: 0.3)
+        .frame(width: 24, height: 24)
     }
   }
 }

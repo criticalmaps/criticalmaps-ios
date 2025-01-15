@@ -76,17 +76,15 @@ public struct RideEventSettingsView: View {
 // MARK: Preview
 
 #Preview {
-  Preview {
-    NavigationView {
-      RideEventSettingsView(
-        store: Store(
-          initialState: .init(isEnabled: true),
-          reducer: {
-            RideEventsSettingsFeature()
-          }
-        )
+  NavigationView {
+    RideEventSettingsView(
+      store: Store(
+        initialState: .init(isEnabled: true),
+        reducer: {
+          RideEventsSettingsFeature()
+        }
       )
-    }
+    )
   }
 }
 

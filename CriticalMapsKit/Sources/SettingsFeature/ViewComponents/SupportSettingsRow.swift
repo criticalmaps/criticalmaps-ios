@@ -64,18 +64,14 @@ struct SupportSettingsRow<BottomImageView: View>: View {
   }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-  static var previews: some View {
-    Preview {
-      SupportSettingsRow(
-        title: "Development",
-        subTitle: "Critical Maps is open source and we are always looking for people making this project better",
-        link: "GitHub",
-        textStackForegroundColor: Color(.textPrimary),
-        backgroundColor: .yellow,
-        bottomImage: { Image(systemName: "chevron.left.circle.fill") }, 
-        action: {}
-      )
-    }
-  }
+#Preview {
+  SupportSettingsRow(
+    title: "Development",
+    subTitle: "Critical Maps is open source and we are always looking for people making this project better",
+    link: "GitHub",
+    textStackForegroundColor: Color(.textPrimary),
+    backgroundColor: .yellow,
+    bottomImage: { Image(systemName: "chevron.left.circle.fill") },
+    action: {}
+  )
 }

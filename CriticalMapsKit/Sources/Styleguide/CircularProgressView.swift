@@ -30,8 +30,6 @@ public struct CircularProgressView: View {
   }
 }
 
-struct CircularProgressView_Previews: PreviewProvider {
-  static var previews: some View {
-    CircularProgressView(progress: 0.4)
-  }
+#Preview {
+  CircularProgressView(progress: 0.4)
 }
