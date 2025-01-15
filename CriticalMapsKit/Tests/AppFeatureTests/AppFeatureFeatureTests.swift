@@ -586,6 +586,5 @@ struct AppFeatureTests {
     
     // assert
     await store.receive(\.map.focusNextRide)
-//    await store.receive(.set(\.$bottomSheetPosition, .relative(0.3)))
   }
 }
