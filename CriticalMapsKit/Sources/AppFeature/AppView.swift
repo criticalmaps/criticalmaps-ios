@@ -92,7 +92,7 @@ public struct AppView: View {
     .showDragIndicator(true)
     .enableSwipeToDismiss()
     .onDismiss { store.send(.set(\.bottomSheetPosition, .hidden)) }
-//    .alert(store: store.scope(state: \.$alert, action: \.alert))
+    .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
     .onAppear { store.send(.onAppear) }
     .onDisappear { store.send(.onDisappear) }
   }
@@ -228,7 +228,7 @@ public struct AppView: View {
   }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
   AppView(
@@ -238,6 +238,8 @@ public struct AppView: View {
     )
   )
 }
+
+// MARK: - Helper
 
 struct NumericContentTransition: ViewModifier {
   func body(content: Content) -> some View {
