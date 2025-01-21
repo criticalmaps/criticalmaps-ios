@@ -7,7 +7,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
   func test_emptyStateView_withoutButton_light() {
     let view = EmptyStateView(
       emptyState: .init(
-        icon: UIImage(systemName: "bicycle")!,
+        icon: Asset.chatEmpty.image,
         text: "Critical Maps"
       )
     ).environment(\.colorScheme, .light)
@@ -18,7 +18,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
   func test_emptyStateView_withoutButton_dark() {
     let view = EmptyStateView(
       emptyState: .init(
-        icon: UIImage(systemName: "bicycle")!,
+        icon: Asset.chatEmpty.image,
         text: "Critical Maps"
       )
     )
@@ -30,7 +30,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
   func test_emptyStateView_withButton_light() {
     let view = EmptyStateView(
       emptyState: .init(
-        icon: UIImage(systemName: "bicycle")!,
+        icon: Asset.chatEmpty.image,
         text: "Critical Maps",
         message: .init(string: "No mass today")
       ),
@@ -44,7 +44,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
   func test_emptyStateView_withButton_dark() {
     let view = EmptyStateView(
       emptyState: .init(
-        icon: UIImage(systemName: "bicycle")!,
+        icon: Asset.chatEmpty.image,
         text: "Critical Maps",
         message: .init(string: "No mass today")
       ),
