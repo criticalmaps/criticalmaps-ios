@@ -43,8 +43,8 @@ public struct TootFeedFeature {
     case toot(IdentifiedActionOf<TootFeature>)
   }
   
-  
   // MARK: Reducer
+
   public var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
@@ -60,7 +60,7 @@ public struct TootFeedFeature {
         state.isLoading = true
         return .run { send in
           await send(
-            await .fetchDataResponse(
+            .fetchDataResponse(
               TaskResult { try await tootService.getToots() }
             )
           )
@@ -78,6 +78,7 @@ public struct TootFeedFeature {
         let mappedStatuses = toots.map(TootFeature.State.init)
         state.toots = IdentifiedArray(uniqueElements: mappedStatuses)
         return .none
+
       case let .fetchDataResponse(.failure(error)):
         logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
         state.isRefreshing = false

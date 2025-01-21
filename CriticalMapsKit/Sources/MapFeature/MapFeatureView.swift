@@ -8,7 +8,7 @@ import SwiftUI
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
-  
+
   @Bindable var store: StoreOf<MapFeature>
 
   public init(store: StoreOf<MapFeature>) {

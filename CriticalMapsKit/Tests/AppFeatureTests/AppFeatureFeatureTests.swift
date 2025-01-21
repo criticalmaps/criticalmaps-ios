@@ -11,8 +11,8 @@ import NextRideFeature
 import SettingsFeature
 import SharedModels
 import SocialFeature
-import UserDefaultsClient
 import Testing
+import UserDefaultsClient
 
 // swiftlint:disable:next type_body_length
 @Suite
@@ -182,8 +182,8 @@ struct AppFeatureTests {
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
-    locationManager.requestAlwaysAuthorization = { }
-    locationManager.requestLocation = { }
+    locationManager.requestAlwaysAuthorization = {}
+    locationManager.requestLocation = {}
     locationManager.set = { @Sendable _ in }
 
     var state = AppFeature.State()
@@ -417,7 +417,7 @@ struct AppFeatureTests {
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, radius, _ in
           updatedRaduis.setValue(radius)
-          return [Ride(id: 123, title: "Test", dateTime: self.date(), enabled: true)]
+          return [Ride(id: 123, title: "Test", dateTime: date(), enabled: true)]
         }
         $0.continuousClock = ImmediateClock()
         $0.userDefaultsClient.setBool = { _, _ in }

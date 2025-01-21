@@ -11,7 +11,7 @@ public struct ChatMessageView: View {
     let date = Date(timeIntervalSince1970: chat.timestamp)
     return date.formatted(Date.FormatStyle.chatTime())
   }
-  
+
   let chat: ChatMessage
 
   public var body: some View {
@@ -19,7 +19,7 @@ public struct ChatMessageView: View {
       Text(chat.decodedMessage)
         .foregroundColor(Color(.textPrimary))
         .font(.bodyOne)
-      
+
       HStack {
         Spacer()
         Text(chatTime)

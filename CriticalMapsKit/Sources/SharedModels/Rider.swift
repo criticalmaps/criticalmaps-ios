@@ -21,7 +21,7 @@ public struct Rider: Identifiable, Hashable {
     self.name = name
     self.color = color
   }
-  
+
   public var location: Location {
     Location(
       coordinate: coordinate,
@@ -38,12 +38,12 @@ extension Rider: Codable {
     location: Location
   ) {
     self.id = id
-    self.coordinate = location.coordinate
-    self.timestamp = location.timestamp
-    self.name = location.name
-    self.color = location.color
+    coordinate = location.coordinate
+    timestamp = location.timestamp
+    name = location.name
+    color = location.color
   }
-  
+
   private enum CodingKeys: String, CodingKey {
     case device
     case longitude
@@ -81,4 +81,4 @@ extension Rider: Codable {
   }
 }
 
-let locationFactor: Double = 1_000_000
+let locationFactor: Double = 1000000

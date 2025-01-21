@@ -26,20 +26,20 @@ final class RiderAnnoationView: MKAnnotationView {
   private func defineFrame() -> CGRect {
     switch traitCollection.preferredContentSizeCategory {
     case .extraSmall, .small, .medium, .large:
-      return .defaultSize
+      .defaultSize
     case .extraLarge:
-      return .large
+      .large
     case .extraExtraLarge:
-      return .extraLarge
+      .extraLarge
     case .extraExtraExtraLarge,
          .accessibilityMedium,
          .accessibilityLarge,
          .accessibilityExtraLarge,
          .accessibilityExtraExtraLarge,
          .accessibilityExtraExtraExtraLarge:
-      return .extraExtraLarge
+      .extraExtraLarge
     default:
-      return .defaultSize
+      .defaultSize
     }
   }
   

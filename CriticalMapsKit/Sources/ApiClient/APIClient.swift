@@ -14,7 +14,7 @@ public struct APIClient {
 extension APIClient: DependencyKey {
   public static var liveValue: APIClient {
     @Dependency(\.networkDispatcher) var networkDispatcher
-    
+
     return Self { request in
       guard let urlRequest = try? request.makeRequest() else {
         throw NetworkRequestError.badRequest
@@ -31,8 +31,8 @@ extension APIClient: TestDependencyKey {
   )
 }
 
-extension DependencyValues {
-  public var apiClient: APIClient {
+public extension DependencyValues {
+  var apiClient: APIClient {
     get { self[APIClient.self] }
     set { self[APIClient.self] = newValue }
   }

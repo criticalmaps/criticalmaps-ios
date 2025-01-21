@@ -12,7 +12,7 @@ public struct ErrorState: Equatable {
     self.body = body
     self.error = error
   }
-    
+
   public struct Failure: Error, Equatable, LocalizedError {
     public let errorDump: String
     public let file: String
@@ -26,10 +26,10 @@ public struct ErrorState: Equatable {
     ) {
       var string = ""
       dump(error, to: &string)
-      self.errorDump = string
+      errorDump = string
       self.file = String(describing: file)
       self.line = line
-      self.message = String(describing: error)
+      message = String(describing: error)
     }
 
     public var errorDescription: String? {

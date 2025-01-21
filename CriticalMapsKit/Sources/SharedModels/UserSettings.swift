@@ -12,7 +12,7 @@ public struct UserSettings: Codable, Equatable {
     enableObservationMode: Bool = false,
     showInfoViewEnabled: Bool = true
   ) {
-    self.isObservationModeEnabled = enableObservationMode
+    isObservationModeEnabled = enableObservationMode
     self.showInfoViewEnabled = showInfoViewEnabled
   }
 }
@@ -26,10 +26,10 @@ private extension URL {
   }
 }
 
-extension SharedKey
-where Self == Sharing.FileStorageKey<UserSettings> {
-  public static var userSettings: Self {
+public extension SharedKey
+  where Self == Sharing.FileStorageKey<UserSettings>
+{
+  static var userSettings: Self {
     fileStorage(.userSettingsURL)
   }
 }
-

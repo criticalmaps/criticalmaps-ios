@@ -7,7 +7,6 @@ import Testing
 @Suite
 @MainActor
 struct SettingsFeatureCoreTests {
-  
   @Test
   func openURLAction_shouldCallUIApplicationClient_privacy() async {
     let openedUrl = LockIsolated<URL?>(nil)
@@ -167,7 +166,6 @@ struct SettingsFeatureCoreTests {
       }
     )
 
-    
     // act
     await store.send(.binding(.set(\.userSettings.isObservationModeEnabled, true))) {
       $0.$userSettings.withLock { $0.isObservationModeEnabled = true }

@@ -18,11 +18,11 @@ public extension DependencyValues {
 
 public typealias SetUserInterfaceStyleEffect = @Sendable (UIUserInterfaceStyle) async -> Void
 enum SetUserInterfaceStyleKey: DependencyKey {
-  
   static let liveValue: SetUserInterfaceStyleEffect = { userInterfaceStyle in
     await MainActor.run {
       UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = userInterfaceStyle
     }
   }
+
   static let testValue: SetUserInterfaceStyleEffect = { _ in () }
 }

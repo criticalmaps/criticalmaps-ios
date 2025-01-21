@@ -6,7 +6,7 @@ import SwiftUI
 
 public struct SocialView: View {
   @Bindable private var store: StoreOf<SocialFeature>
-  
+
   public init(store: StoreOf<SocialFeature>) {
     self.store = store
   }
@@ -37,7 +37,7 @@ public struct SocialView: View {
           )
           .accessibilityLabel(L10n.Close.Button.label)
         }
-        
+
         ToolbarItem(placement: .principal) {
           Picker(
             "Social Segment",

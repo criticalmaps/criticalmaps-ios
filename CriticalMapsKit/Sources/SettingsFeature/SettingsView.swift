@@ -51,10 +51,11 @@ public struct SettingsView: View {
               action: { store.send(.rideEventSettingsRowTapped) },
               label: {
                 HStack {
-                  Text(L10n.Settings.eventSettings) }
-                  Spacer()
-                  Image(systemName: "chevron.right")
+                  Text(L10n.Settings.eventSettings)
                 }
+                Spacer()
+                Image(systemName: "chevron.right")
+              }
             )
           }
           

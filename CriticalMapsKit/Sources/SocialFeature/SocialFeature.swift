@@ -1,11 +1,11 @@
 import ApiClient
-import SwiftUICore
 import ChatFeature
 import ComposableArchitecture
 import Foundation
 import IDProvider
 import L10n
 import MastodonFeedFeature
+import SwiftUICore
 import UIApplicationClient
 import UserDefaultsClient
 
@@ -60,13 +60,13 @@ public struct SocialFeature {
       TootFeedFeature()
     }
     
-    Reduce { state, action in
+    Reduce { _, action in
       switch action {
       case .dismiss:
-        return .run { _ in  await dismiss() }
+        .run { _ in await dismiss() }
       
       case .chat, .toots, .binding:
-        return .none
+        .none
       }
     }
   }

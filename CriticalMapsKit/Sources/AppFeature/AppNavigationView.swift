@@ -11,7 +11,7 @@ import SwiftUI
 
 public struct AppNavigationView: View {
   @State private var store: StoreOf<AppFeature>
-  @Environment(\.colorScheme) private  var colorScheme
+  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
   
@@ -49,8 +49,8 @@ public struct AppNavigationView: View {
     .font(.body)
     .background(
       shouldShowAccessiblyBackground
-      ? Color(.backgroundSecondary)
-      : Color(.backgroundTranslucent)
+        ? Color(.backgroundSecondary)
+        : Color(.backgroundTranslucent)
     )
     .adaptiveCornerRadius(.allCorners, 18)
     .modifier(ShadowModifier())

@@ -1,9 +1,9 @@
 import AcknowList
 import ComposableArchitecture
 import ComposableCoreLocation
-import MapFeature
 import FileClient
 import Helpers
+import MapFeature
 import SharedDependencies
 import SharedModels
 import UIApplicationClient
@@ -24,7 +24,7 @@ public struct SettingsFeature {
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.dismiss) var dismiss
-  
+
   // MARK: State
 
   @ObservableState
@@ -35,12 +35,12 @@ public struct SettingsFeature {
     public var rideEventSettings = RideEventSettings()
     @Shared(.appearanceSettings)
     public var appearanceSettings = AppearanceSettings()
-        
+
     @Presents
     var destination: Destination.State?
 
     public init() {}
-    
+
     var versionNumber: String { "\(Bundle.main.versionNumber)" }
     var buildNumber: String { "\(Bundle.main.buildNumber)" }
     var packageList: AcknowList? {
@@ -73,9 +73,9 @@ public struct SettingsFeature {
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
-      .onChange(of: \.userSettings.isObservationModeEnabled) { oldValue, newValue in
-        Reduce { state, action in
-          return .run { [isObserving = newValue] _ in
+      .onChange(of: \.userSettings.isObservationModeEnabled) { _, newValue in
+        Reduce { _, _ in
+          .run { [isObserving = newValue] _ in
             if isObserving {
               await locationManager.stopUpdatingLocation()
             } else {
@@ -89,16 +89,16 @@ public struct SettingsFeature {
       switch action {
       case .onAppear:
         return .none
-      
+
       case .dismiss:
-        return .run { _ in  await dismiss() }
-        
+        return .run { _ in await dismiss() }
+
       case .appearanceSettingsRowTapped:
         state.destination = .appearanceSettings(
           AppearanceSettingsFeature.State(appearanceSettings: state.appearanceSettings)
         )
         return .none
-        
+
       case .rideEventSettingsRowTapped:
         state.destination = .rideEventSettings(
           RideEventsSettingsFeature.State(settings: state.rideEventSettings)
@@ -107,7 +107,7 @@ public struct SettingsFeature {
 
       case .destination:
         return .none
-        
+
       case let .infoSectionRowTapped(row):
         return .send(.openURL(row.url))
 
@@ -134,30 +134,30 @@ extension SettingsFeature.Destination.State: Equatable {}
 public extension SettingsFeature.State {
   enum InfoSectionRow: Equatable {
     case website, mastodon, privacy
-    
+
     public var url: URL {
       switch self {
       case .website:
-        return URL(string: "https://www.criticalmaps.net")!
+        URL(string: "https://www.criticalmaps.net")!
       case .mastodon:
-        return URL(string: "https://mastodon.social/@criticalmaps")!
+        URL(string: "https://mastodon.social/@criticalmaps")!
       case .privacy:
-        return URL(string: "https://www.criticalmaps.net/info")!
+        URL(string: "https://www.criticalmaps.net/info")!
       }
     }
   }
-  
+
   enum SupportSectionRow: Equatable {
     case github, criticalMassDotIn, crowdin
-    
+
     public var url: URL {
       switch self {
       case .github:
-        return URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!
+        URL(string: "https://github.com/criticalmaps/criticalmaps-ios")!
       case .criticalMassDotIn:
-        return URL(string: "https://criticalmass.in")!
+        URL(string: "https://criticalmass.in")!
       case .crowdin:
-        return URL(string: "https://crowdin.com/project/critical-maps")!
+        URL(string: "https://crowdin.com/project/critical-maps")!
       }
     }
   }

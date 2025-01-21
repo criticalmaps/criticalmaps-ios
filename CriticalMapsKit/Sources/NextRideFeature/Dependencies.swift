@@ -6,7 +6,7 @@ public extension DependencyValues {
     get { self[NextRideService.self] }
     set { self[NextRideService.self] = newValue }
   }
-  
+
   var coordinateObfuscator: CoordinateObfuscator {
     get { self[CoordinateObfuscator.self] }
     set { self[CoordinateObfuscator.self] = newValue }

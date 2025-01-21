@@ -18,12 +18,12 @@ public struct TootsListView: View {
       loadingView()
     } else {
       contentView()
-      .refreshable {
-        await store.send(.refresh).finish()
-      }
+        .refreshable {
+          await store.send(.refresh).finish()
+        }
     }
   }
-  
+
   @ViewBuilder
   func loadingView() -> some View {
     VStack {
@@ -36,7 +36,7 @@ public struct TootsListView: View {
       Spacer()
     }
   }
-  
+
   @ViewBuilder
   func contentView() -> some View {
     if store.toots.isEmpty {
@@ -55,10 +55,10 @@ public struct TootsListView: View {
       ZStack {
         Color(.backgroundPrimary)
           .ignoresSafeArea()
-        
+
         List {
           ForEachStore(
-            self.store.scope(
+            store.scope(
               state: \.toots,
               action: \.toot
             )
@@ -83,7 +83,7 @@ public struct TootsListView: View {
         reducer: { TootFeedFeature()._printChanges() }
       )
     )
-    
+
     TootsListView(store: .placeholder)
       .redacted(reason: .placeholder)
   }

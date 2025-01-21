@@ -24,15 +24,15 @@ extension FeedbackGeneratorClient: TestDependencyKey {
   public static let testValue = Self()
 }
 
-extension FeedbackGeneratorClient {
-  public static let noop = Self(
+public extension FeedbackGeneratorClient {
+  static let noop = Self(
     prepare: {},
     selectionChanged: {}
   )
 }
 
-extension DependencyValues {
-  public var feedbackGenerator: FeedbackGeneratorClient {
+public extension DependencyValues {
+  var feedbackGenerator: FeedbackGeneratorClient {
     get { self[FeedbackGeneratorClient.self] }
     set { self[FeedbackGeneratorClient.self] = newValue }
   }

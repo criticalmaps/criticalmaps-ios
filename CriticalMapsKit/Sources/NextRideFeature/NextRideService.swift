@@ -21,7 +21,7 @@ public struct NextRideService {
 extension NextRideService: DependencyKey {
   public static var liveValue: Self {
     @Dependency(\.apiClient) var apiClient
-    
+
     return Self { coordinate, radius, month in
       let request = Request.nextRides(coordinate: coordinate, radius: radius, month: month)
       let (data, _) = try await apiClient.send(request)
@@ -37,7 +37,7 @@ extension NextRideService: TestDependencyKey {
   public static let previewValue: NextRideService = Self(
     nextRide: { _, _, _ in [] }
   )
-  
+
   public static let testValue: NextRideService = Self()
 
   public struct Failure: Error, Equatable {

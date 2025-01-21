@@ -6,12 +6,12 @@ public enum NavPresentationStyle {
 }
 
 public extension View {
-  func navigationStyle<Title: View, Trailing: View>(
+  func navigationStyle(
     backgroundColor: Color = Color(.backgroundSecondary),
     foregroundColor: Color = Color(.textPrimary),
-    title: Title,
+    title: some View,
     navPresentationStyle: NavPresentationStyle = .navigation,
-    trailing: Trailing,
+    trailing: some View,
     onDismiss: @escaping () -> Void = {}
   ) -> some View {
     NavigationBar(
@@ -25,10 +25,10 @@ public extension View {
     )
   }
 
-  func navigationStyle<Title: View>(
+  func navigationStyle(
     backgroundColor: Color = Color(.backgroundSecondary),
     foregroundColor: Color = Color(.textPrimary),
-    title: Title,
+    title: some View,
     navPresentationStyle: NavPresentationStyle = .navigation,
     onDismiss: @escaping () -> Void = {}
   ) -> some View {
@@ -56,31 +56,31 @@ private struct NavigationBar<Title: View, Content: View, Trailing: View>: View {
   var body: some View {
     VStack {
       ZStack {
-        self.title
+        title
           .font(.pageTitle)
         HStack {
-          if self.navPresentationStyle == .navigation {
-            Button(action: self.dismiss) {
+          if navPresentationStyle == .navigation {
+            Button(action: dismiss) {
               Image(systemName: "arrow.left")
             }
           }
           Spacer()
-          if self.navPresentationStyle == .modal {
-            Button(action: self.dismiss) {
+          if navPresentationStyle == .modal {
+            Button(action: dismiss) {
               Image(systemName: "xmark")
                 .font(Font.system(size: 22, weight: .medium))
             }
           } else {
-            self.trailing
+            trailing
           }
         }
       }
       .padding()
 
-      self.content
+      content
     }
-    .background(self.backgroundColor.ignoresSafeArea())
-    .foregroundColor(self.foregroundColor)
+    .background(backgroundColor.ignoresSafeArea())
+    .foregroundColor(foregroundColor)
     .navigationBarHidden(true)
   }
 
@@ -106,7 +106,7 @@ public struct DismissableModifier: ViewModifier {
           placement: .cancellationAction,
           content: {
             Button(
-              action: { self.presentationMode.wrappedValue.dismiss() },
+              action: { presentationMode.wrappedValue.dismiss() },
               label: {
                 Image(systemName: "xmark")
                   .font(Font.system(size: 22).weight(.medium))

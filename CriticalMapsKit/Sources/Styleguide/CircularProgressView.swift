@@ -2,11 +2,11 @@ import SwiftUI
 
 public struct CircularProgressView: View {
   let progress: Double
-  
+
   public init(progress: Double) {
     self.progress = progress
   }
-  
+
   public var body: some View {
     ZStack {
       Circle()
@@ -14,7 +14,7 @@ public struct CircularProgressView: View {
           Color(.brand500).opacity(0.4),
           lineWidth: 8
         )
-      
+
       Circle()
         .trim(from: progress, to: 1)
         .stroke(

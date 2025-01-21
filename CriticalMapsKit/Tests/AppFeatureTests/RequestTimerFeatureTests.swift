@@ -8,13 +8,13 @@ struct RequestTimerCoreTests {
   @Test
   func startTimerAction_shouldSendTickedEffect() async {
     let testRunLoop = RunLoop.test
-    
+
     let store = TestStore(
       initialState: RequestTimer.State(),
       reducer: { RequestTimer(timerInterval: 1) }
     )
     store.dependencies.mainRunLoop = testRunLoop.eraseToAnyScheduler()
-    
+
     let task = await store.send(.startTimer) {
       $0.isTimerActive = true
     }

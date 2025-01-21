@@ -35,9 +35,9 @@ public struct BasicInputView: View {
     .accessibilityLabel(Text(L10n.A11y.ChatInput.label))
     .accessibilityValue(store.message)
     .onPreferenceChange(ContentSizeThatFitsKey.self) {
-      self.contentSizeThatFits = $0
+      contentSizeThatFits = $0
     }
-    .frame(height: self.messageEditorHeight)
+    .frame(height: messageEditorHeight)
   }
   
   private var sendButton: some View {
@@ -96,18 +96,18 @@ public struct ContentSizeThatFitsKey: PreferenceKey {
   }
 }
 
-internal struct TextAttributesKey: EnvironmentKey {
+struct TextAttributesKey: EnvironmentKey {
   static var defaultValue: TextAttributes = .init()
 }
 
-internal extension EnvironmentValues {
+extension EnvironmentValues {
   var textAttributes: TextAttributes {
     get { self[TextAttributesKey.self] }
     set { self[TextAttributesKey.self] = newValue }
   }
 }
 
-internal struct TextAttributesModifier: ViewModifier {
+struct TextAttributesModifier: ViewModifier {
   let textAttributes: TextAttributes
   
   func body(content: Content) -> some View {
@@ -115,7 +115,7 @@ internal struct TextAttributesModifier: ViewModifier {
   }
 }
 
-internal extension View {
+extension View {
   func textAttributes(_ textAttributes: TextAttributes) -> some View {
     modifier(TextAttributesModifier(textAttributes: textAttributes))
   }
@@ -177,9 +177,9 @@ public struct MultilineTextField: View {
       onCommit: onCommit
     )
     .onPreferenceChange(ContentSizeThatFitsKey.self) {
-      self.contentSizeThatFits = $0
+      contentSizeThatFits = $0
     }
-    .frame(idealHeight: self.contentSizeThatFits.height)
+    .frame(idealHeight: contentSizeThatFits.height)
     .background(placeholderView, alignment: .topLeading)
   }
   
@@ -193,7 +193,7 @@ public struct MultilineTextField: View {
 
 // MARK: - AttributedText
 
-internal struct AttributedText: View {
+struct AttributedText: View {
   @Environment(\.textAttributes)
   var envTextAttributes: TextAttributes
   
@@ -209,24 +209,24 @@ internal struct AttributedText: View {
   private let onCommit: (() -> Void)?
   
   var body: some View {
-    let textAttributes = self.textAttributes
-      .overriding(self.envTextAttributes)
+    let textAttributes = textAttributes
+      .overriding(envTextAttributes)
       .overriding(TextAttributes.default)
     
     return GeometryReader { geometry in
       UITextViewWrapper(
-        attributedText: self.$attributedText,
-        isEditing: self.$isEditing,
-        sizeThatFits: self.$sizeThatFits,
+        attributedText: $attributedText,
+        isEditing: $isEditing,
+        sizeThatFits: $sizeThatFits,
         maxSize: geometry.size,
         textAttributes: textAttributes,
-        onLinkInteraction: self.onLinkInteraction,
-        onEditingChanged: self.onEditingChanged,
-        onCommit: self.onCommit
+        onLinkInteraction: onLinkInteraction,
+        onEditingChanged: onEditingChanged,
+        onCommit: onCommit
       )
       .preference(
         key: ContentSizeThatFitsKey.self,
-        value: self.sizeThatFits
+        value: sizeThatFits
       )
     }
   }
@@ -378,7 +378,7 @@ public struct TextAttributes {
   }
 }
 
-internal struct UITextViewWrapper: UIViewRepresentable {
+struct UITextViewWrapper: UIViewRepresentable {
   typealias UIViewType = UITextView
   
   @Environment(\.textAttributes)
@@ -499,7 +499,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
       attributedText: $attributedText,
       isEditing: $isEditing,
       sizeThatFits: $sizeThatFits,
-      maxContentSize: { self.maxSize },
+      maxContentSize: { maxSize },
       onLinkInteraction: onLinkInteraction,
       onEditingChanged: onEditingChanged,
       onCommit: onCommit
@@ -597,7 +597,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
       shouldChangeTextIn range: NSRange,
       replacementText text: String
     ) -> Bool {
-      guard let onCommit = onCommit, text == "\n" else {
+      guard let onCommit, text == "\n" else {
         return true
       }
       

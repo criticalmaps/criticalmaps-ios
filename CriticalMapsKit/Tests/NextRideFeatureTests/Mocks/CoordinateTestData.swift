@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CoordinateTestData.swift
 //  
 //
 //  Created by Malte on 07.06.21.

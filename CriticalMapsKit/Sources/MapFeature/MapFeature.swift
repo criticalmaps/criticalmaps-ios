@@ -50,7 +50,7 @@ public struct MapFeature {
     public var centerRegion: CoordinateRegion?
     public var presentShareSheet = false
     
-    public var shouldAnimateTrackingMode: Bool = true
+    public var shouldAnimateTrackingMode = true
     public var isNextRideBannerVisible = false
     public var isNextRideBannerExpanded = false
     
@@ -69,7 +69,7 @@ public struct MapFeature {
       self.alert = alert
       self.isRequestingCurrentLocation = isRequestingCurrentLocation
       self.location = location
-      self.riderLocations = riders
+      riderLocations = riders
       self.userTrackingMode = userTrackingMode
       self.nextRide = nextRide
       self.centerRegion = centerRegion
@@ -113,7 +113,7 @@ public struct MapFeature {
       Reduce<State, LocationManager.Action> { state, action in
         switch action {
         case .didChangeAuthorization(.authorizedAlways),
-            .didChangeAuthorization(.authorizedWhenInUse):
+             .didChangeAuthorization(.authorizedWhenInUse):
           if state.isRequestingCurrentLocation {
             return .run { _ in
               await locationManager.requestLocation()
@@ -158,7 +158,7 @@ public struct MapFeature {
       case .binding:
         return .none
         
-      case .setAlert(let alert):
+      case let .setAlert(alert):
         state.alert = alert
         return .none
         
@@ -225,7 +225,7 @@ public struct MapFeature {
         }
 
       case let .focusRideEvent(coordinate):
-        guard let coordinate = coordinate else {
+        guard let coordinate else {
           return .none
         }
 
@@ -285,10 +285,10 @@ public extension AlertState where Action == MapFeature.Action {
     }
   )
   
-  static let provideAuth = Self(title: {TextState(L10n.Location.Alert.provideAuth)})
-  static let servicesOff = Self(title: {TextState(L10n.Location.Alert.serviceIsOff)})
+  static let provideAuth = Self(title: { TextState(L10n.Location.Alert.provideAuth) })
+  static let servicesOff = Self(title: { TextState(L10n.Location.Alert.serviceIsOff) })
   static let provideAccessToLocationService = Self(
-    title: {TextState(L10n.Location.Alert.provideAccessToLocationService)}
+    title: { TextState(L10n.Location.Alert.provideAccessToLocationService) }
   )
 }
 

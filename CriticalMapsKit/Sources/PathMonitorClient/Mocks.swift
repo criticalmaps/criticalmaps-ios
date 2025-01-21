@@ -4,7 +4,7 @@ import Network
 
 extension PathMonitorClient: TestDependencyKey {
   public static var testValue: PathMonitorClient = Self()
-  
+
   public static let satisfied = Self {
     AsyncStream { continuation in
       continuation.yield(NetworkPath(status: .satisfied))

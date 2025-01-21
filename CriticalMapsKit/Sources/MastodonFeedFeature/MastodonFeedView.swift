@@ -13,7 +13,7 @@ public struct MastodonFeedView: View {
   }
 
   public var body: some View {
-    TootsListView(store: self.store)
+    TootsListView(store: store)
       .navigationBarTitleDisplayMode(.inline)
       .onAppear { store.send(.onAppear) }
   }

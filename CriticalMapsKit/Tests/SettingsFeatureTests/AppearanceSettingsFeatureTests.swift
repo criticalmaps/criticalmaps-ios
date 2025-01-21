@@ -1,9 +1,9 @@
 import ComposableArchitecture
-import UIKit
 import Foundation
 @testable import SettingsFeature
 import SharedModels
 import Testing
+import UIKit
 
 @Suite
 @MainActor

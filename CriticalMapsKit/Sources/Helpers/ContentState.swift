@@ -11,9 +11,9 @@ public enum ContentState<T: Hashable>: Equatable {
   public var elements: T? {
     switch self {
     case let .results(results), let .loading(results):
-      return results
+      results
     default:
-      return nil
+      nil
     }
   }
 }

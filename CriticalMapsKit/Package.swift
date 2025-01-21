@@ -17,7 +17,7 @@ let package = Package(
     .singleTargetLibrary("SettingsFeature"),
     .singleTargetLibrary("MastodonFeedFeature"),
     .singleTargetLibrary("SocialFeature"),
-    .singleTargetLibrary("Styleguide"),
+    .singleTargetLibrary("Styleguide")
   ],
   dependencies: [
     .package(
@@ -106,7 +106,7 @@ let package = Package(
     ),
     .target(
       name: "FeedbackGeneratorClient",
-      dependencies: [.tca,]
+      dependencies: [.tca]
     ),
     .target(
       name: "GuideFeature",
@@ -178,7 +178,7 @@ let package = Package(
     .target(
       name: "PathMonitorClient",
       dependencies: [
-        .tca,
+        .tca
       ]
     ),
     .target(
@@ -288,7 +288,7 @@ package.targets.append(contentsOf: [
       "AppFeature",
       .pathMonitorClient,
       .testHelper,
-      .tca,
+      .tca
     ],
     exclude: [
       "__Snapshots__"
@@ -382,6 +382,7 @@ package.targets.append(contentsOf: [
 
 extension Target.Dependency {
   // MARK: - Internal
+
   static let apiClient = byName(name: "ApiClient")
   static let fileClient = byName(name: "FileClient")
   static let feedbackGeneratorClient = byName(name: "FeedbackGeneratorClient")
@@ -397,8 +398,9 @@ extension Target.Dependency {
   static let testHelper = byName(name: "TestHelper")
   static let uiApplicationClient = byName(name: "UIApplicationClient")
   static let userDefaultsClient = byName(name: "UserDefaultsClient")
-  
+
   // MARK: - External
+
   static let tca = product(
     name: "ComposableArchitecture",
     package: "swift-composable-architecture"

@@ -13,7 +13,7 @@ public struct SettingsForm<Content>: View where Content: View {
 
   public var body: some View {
     ScrollView {
-      self.content()
+      content()
         .font(.titleOne)
         .toggleStyle(SwitchToggleStyle(tint: Color(.brand500)))
     }
@@ -32,7 +32,7 @@ struct SettingsRow<Content: View>: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      self.content()
+      content()
         .padding(.vertical, .grid(2))
         .padding(.horizontal, .grid(4))
         .contentShape(Rectangle())
@@ -69,14 +69,14 @@ public struct SettingsSection<Content: View>: View {
   public var body: some View {
     VStack(alignment: .leading) {
       if !title.isEmpty {
-        Text(self.title)
+        Text(title)
           .font(.headlineTwo)
           .padding([.leading, .bottom], .grid(4))
           .padding(.top, .grid(6))
           .accessibilityAddTraits(.isHeader)
       }
 
-      self.content()
+      content()
     }
   }
 }

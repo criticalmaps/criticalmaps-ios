@@ -4,8 +4,8 @@ import Foundation
 import Helpers
 import NextRideFeature
 import SharedModels
-import UserDefaultsClient
 import Testing
+import UserDefaultsClient
 
 // swiftlint:disable:next type_body_length
 
@@ -121,18 +121,18 @@ struct NextRideCoreTests {
       withDependencies: {
         $0.userDefaultsClient.dataForKey = { _ in try? RideEventSettings().encoded()
         }
-        $0.nextRideService.nextRide = { _, _, _ in self.rides }
-        $0.date = .constant(self.now())
+        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.date = .constant(now())
       }
     )
     
     // then
     await _ = store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = self.rides.sortByDateAndFilterBeforeDate({ self.now() })
+      $0.rideEvents = rides.sortByDateAndFilterBeforeDate { now() }
     }
     await store.receive(.setNextRide(rides[1])) {
-      $0.nextRide = self.rides[1]
+      $0.nextRide = rides[1]
     }
   }
   
@@ -169,7 +169,7 @@ struct NextRideCoreTests {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in
-          self.rides
+          rides
         }
         $0.userDefaultsClient.dataForKey = { _ in
           try? RideEventSettings(
@@ -186,10 +186,10 @@ struct NextRideCoreTests {
     // then
     _ = await store.send(.getNextRide(coordinate))
     await store.receive(.nextRideResponse(.success(rides))) {
-      $0.rideEvents = [self.falkensee, self.berlin]
+      $0.rideEvents = [falkensee, berlin]
     }
     await store.receive(.setNextRide(rides.last!)) {
-      $0.nextRide = self.falkensee
+      $0.nextRide = falkensee
     }
   }
 

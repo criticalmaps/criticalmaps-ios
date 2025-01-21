@@ -59,12 +59,12 @@ public struct Ride: Hashable, Codable, Identifiable {
   }
 }
 
-extension Ride {
-  public struct City: Codable, Hashable {
+public extension Ride {
+  struct City: Codable, Hashable {
     let id: Int
     let name: String
     let timezone: String
-  
+
     public init(
       id: Int,
       name: String,
@@ -75,7 +75,6 @@ extension Ride {
       self.timezone = timezone
     }
   }
-  
 }
 
 public extension Ride {
@@ -85,7 +84,7 @@ public extension Ride {
     }
     return Coordinate(latitude: lat, longitude: lng)
   }
-  
+
   var titleWithoutDatePattern: String {
     title.removedDatePattern()
   }
@@ -100,26 +99,26 @@ public extension Ride {
   var rideDateAndTime: String {
     "\(dateTime.humanReadableDate) - \(rideTime)"
   }
-  
+
   var rideTime: String {
     if
       let cityTimeZone = city?.timezone,
       let timeZone = TimeZone(identifier: cityTimeZone)
     {
-      return dateTime.formatted(Date.FormatStyle.shortTimeWithEventTimeZone(timeZone))
+      dateTime.formatted(Date.FormatStyle.shortTimeWithEventTimeZone(timeZone))
     } else {
-      return dateTime.formatted(Date.FormatStyle.localeAwareShortTime)
+      dateTime.formatted(Date.FormatStyle.localeAwareShortTime)
     }
   }
 
   var shareMessage: String {
-    guard let location = location else {
+    guard let location else {
       return titleAndTime
     }
     return """
     \(titleAndTime)
     \(location)
-    
+
     \(description ?? "")
     """
   }
@@ -129,7 +128,7 @@ public extension Ride {
   func openInMaps(_ options: [String: Any] = [
     MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault
   ]) {
-    guard let coordinate = coordinate else {
+    guard let coordinate else {
       debugPrint("Coordinte is nil")
       return
     }
@@ -164,7 +163,7 @@ public extension Ride {
 private extension Date.FormatStyle {
   static func shortTimeWithEventTimeZone(_ timezone: TimeZone) -> Self {
     @Dependency(\.locale) var locale
-    
+
     return Self(
       date: .omitted,
       time: .shortened,

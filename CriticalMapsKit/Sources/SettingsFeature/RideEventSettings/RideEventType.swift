@@ -13,8 +13,9 @@ public struct RideEventType {
   @ObservableState
   public struct State: Equatable, Identifiable {
     public var id: String {
-      self.rideType.rawValue
+      rideType.rawValue
     }
+
     public let rideType: Ride.RideType
     public var isEnabled = true
     

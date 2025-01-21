@@ -55,7 +55,8 @@ struct SupportSettingsRow<BottomImageView: View>: View {
               LinearGradient(
                 colors: [.clear, .white.opacity(0.3)],
                 startPoint: .topLeading,
-                endPoint: .bottomTrailing)
+                endPoint: .bottomTrailing
+              )
             }
         }
       }

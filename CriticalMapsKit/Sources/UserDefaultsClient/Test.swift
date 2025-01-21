@@ -3,7 +3,7 @@ import Foundation
 
 extension UserDefaultsClient: TestDependencyKey {
   public static var testValue: UserDefaultsClient = Self()
-  
+
   public static var previewValue: UserDefaultsClient = Self(
     boolForKey: { _ in false },
     dataForKey: { _ in nil },

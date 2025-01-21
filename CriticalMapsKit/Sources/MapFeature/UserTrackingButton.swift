@@ -28,7 +28,7 @@ public struct UserTrackingButton: View {
       )
     }
   }
-  
+
   private var systemImageIdentifier: String {
     switch store.mode {
     case .follow:

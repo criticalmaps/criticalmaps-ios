@@ -124,7 +124,7 @@ public struct TootView: View {
               .accessibilityAction(
                 action: { store.send(.openTweet) },
                 label: { Text("Open tweet")
-                    .accessibilityHint("Opens the tweet in the twitter app if it is installed")
+                  .accessibilityHint("Opens the tweet in the twitter app if it is installed")
                 }
               )
           }
@@ -254,12 +254,12 @@ public extension TootFeature.State {
 
 extension DateComponents {
   var dateComponentFromBiggestComponent: DateComponents {
-    if let day = day, day != 0 {
-      return DateComponents(calendar: calendar, day: day)
-    } else if let hour = hour, hour != 0 {
-      return DateComponents(calendar: calendar, hour: hour)
+    if let day, day != 0 {
+      DateComponents(calendar: calendar, day: day)
+    } else if let hour, hour != 0 {
+      DateComponents(calendar: calendar, hour: hour)
     } else {
-      return DateComponents(calendar: calendar, minute: minute)
+      DateComponents(calendar: calendar, minute: minute)
     }
   }
 }
@@ -299,7 +299,7 @@ extension String {
     lineheight: Int = 5,
     csstextalign: String = "left"
   ) -> NSAttributedString? {
-    guard let font = font else {
+    guard let font else {
       return convertHtmlToNSAttributedString
     }
     let modifiedString = "<style>body{font-family: '\(font.fontName)'; font-size:\(font.pointSize)px; color: \(csscolor); line-height: \(lineheight)px; text-align: \(csstextalign);} a{color: \(linkColor)}</style>\(self)"

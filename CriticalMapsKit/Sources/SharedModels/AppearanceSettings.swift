@@ -20,13 +20,13 @@ public struct AppearanceSettings: Codable, Equatable {
     case appIcon
     case colorScheme
   }
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    self.appIcon = try container.decodeIfPresent(AppIcon.self, forKey: .appIcon) ?? .appIcon2
-    self.colorScheme = try container.decodeIfPresent(ColorScheme.self, forKey: .colorScheme) ?? .system
+    appIcon = try container.decodeIfPresent(AppIcon.self, forKey: .appIcon) ?? .appIcon2
+    colorScheme = try container.decodeIfPresent(ColorScheme.self, forKey: .colorScheme) ?? .system
   }
-  
+
   public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(appIcon, forKey: .appIcon)
@@ -43,11 +43,11 @@ public extension AppearanceSettings {
     public var userInterfaceStyle: UIUserInterfaceStyle {
       switch self {
       case .system:
-        return .unspecified
+        .unspecified
       case .dark:
-        return .dark
+        .dark
       case .light:
-        return .light
+        .light
       }
     }
   }
@@ -62,9 +62,10 @@ private extension URL {
   }
 }
 
-extension SharedKey
-where Self == Sharing.FileStorageKey<AppearanceSettings> {
-  public static var appearanceSettings: Self {
+public extension SharedKey
+  where Self == Sharing.FileStorageKey<AppearanceSettings>
+{
+  static var appearanceSettings: Self {
     fileStorage(.appearanceSettingsURL)
   }
 }

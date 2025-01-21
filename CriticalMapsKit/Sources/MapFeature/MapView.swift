@@ -36,16 +36,16 @@ struct MapView: ViewRepresentable {
     mapMenuRouteEventHandler: MapView.MenuActionHandle? = nil
   ) {
     self.riderCoordinates = riderCoordinates
-    self._userTrackingMode = userTrackingMode
+    _userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.rideEvents = rideEvents
-    self._annotationsCount = annotationsCount
-    self._centerRegion = centerRegion
-    self._centerEventRegion = centerEventRegion
+    _annotationsCount = annotationsCount
+    _centerRegion = centerRegion
+    _centerEventRegion = centerEventRegion
     self.mapMenuShareEventHandler = mapMenuShareEventHandler
     self.mapMenuRouteEventHandler = mapMenuRouteEventHandler
   }
-  
+
   func makeCoordinator() -> MapCoordinator {
     MapCoordinator(self)
   }
@@ -73,7 +73,7 @@ struct MapView: ViewRepresentable {
   }
 
   func setNextRideAnnotation(in mapView: MKMapView) {
-    if let nextRide = nextRide {
+    if let nextRide {
       if mapView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {
         let nextRideAnnotation = CriticalMassAnnotation(ride: nextRide)
         guard nextRide.coordinate != nil else { return }
@@ -102,7 +102,7 @@ struct MapView: ViewRepresentable {
       }
     }
   }
-  
+
   func setRiderAnnotationsCount(_ mapView: MKMapView) {
     let riderAnnotations = mapView
       .annotations(in: mapView.visibleMapRect)
@@ -127,7 +127,7 @@ struct MapView: ViewRepresentable {
         }
       }
     } else {
-      mapView.annotations.forEach { annotation in
+      for annotation in mapView.annotations {
         if let cmAnnotation = annotation as? CriticalMassAnnotation {
           if cmAnnotation.ride.id != nextRide?.id {
             mapView.removeAnnotation(annotation)
@@ -147,7 +147,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   }
 
   func mapView(_: MKMapView, didChange mode: MKUserTrackingMode, animated _: Bool) {
-    parent.userTrackingMode =  mode
+    parent.userTrackingMode = mode
   }
 
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -174,7 +174,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
 
     return MKAnnotationView()
   }
-  
+
   func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
     parent.setRiderAnnotationsCount(mapView)
   }

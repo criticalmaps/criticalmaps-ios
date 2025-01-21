@@ -91,7 +91,7 @@ public struct ChatFeature {
         state.chatMessages = .loading(state.chatMessages.elements ?? [])
         return .run { send in
           await send(
-            await .fetchChatMessagesResponse(
+            .fetchChatMessagesResponse(
               TaskResult {
                 try await apiService.getChatMessages()
               }
@@ -143,7 +143,7 @@ public struct ChatFeature {
           
           return .run { send in
             await send(
-              await .chatInputResponse(
+              .chatInputResponse(
                 TaskResult {
                   try await apiService.postChatMessage(message)
                 }

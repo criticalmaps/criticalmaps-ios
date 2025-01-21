@@ -5,7 +5,6 @@ import Testing
 @Suite
 @MainActor
 struct SocialFeatureCoreTests {
-  
   @Test("Set social segment should update state")
   func setSocialSegment() async throws {
     let testStore = TestStore(

@@ -79,11 +79,11 @@ extension AppearanceSettings.ColorScheme {
   var title: String {
     switch self {
     case .system:
-      return L10n.Settings.Theme.system
+      L10n.Settings.Theme.system
     case .light:
-      return L10n.Settings.Theme.light
+      L10n.Settings.Theme.light
     case .dark:
-      return L10n.Settings.Theme.dark
+      L10n.Settings.Theme.dark
     }
   }
 }
@@ -96,15 +96,15 @@ extension AppIcon {
   var title: String {
     switch self {
     case .appIcon1:
-      return "Dark"
+      "Dark"
     case .appIcon2:
-      return "Light"
+      "Light"
     case .appIcon3:
-      return "Neon"
+      "Neon"
     case .appIcon4:
-      return "Rainbow"
+      "Rainbow"
     case .appIcon5:
-      return "Yellow"
+      "Yellow"
     }
   }
 }

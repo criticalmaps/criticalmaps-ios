@@ -18,7 +18,7 @@ struct ChatViewStateTests {
       ]),
       chatInputState: .init()
     )
-    
+
     let testStore = TestStore(
       initialState: chatFeatureState, reducer: { ChatFeature() }
     )
@@ -28,7 +28,7 @@ struct ChatViewStateTests {
       ChatMessage(identifier: "2", device: "", message: "Hello", timestamp: 2),
       ChatMessage(identifier: "1", device: "", message: "Hello", timestamp: 1)
     ]
-    
+
     // act & assert
     expectNoDifference(testStore.state.messages, expectedMessages)
   }

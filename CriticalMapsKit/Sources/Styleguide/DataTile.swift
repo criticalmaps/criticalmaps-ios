@@ -32,8 +32,8 @@ public struct DataTile<Content: View>: View {
     .frame(width: 100, height: 90)
     .background(
       reduceTransparency
-      ? Color(.backgroundPrimary)
-      : Color(.backgroundPrimary).opacity(0.6)
+        ? Color(.backgroundPrimary)
+        : Color(.backgroundPrimary).opacity(0.6)
     )
     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     .overlay(

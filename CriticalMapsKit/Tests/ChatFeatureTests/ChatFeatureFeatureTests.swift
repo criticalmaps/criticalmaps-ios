@@ -1,11 +1,11 @@
 import ApiClient
-import Foundation
 import ChatFeature
 import ComposableArchitecture
+import Foundation
 import Helpers
 import L10n
-import Testing
 import SharedModels
+import Testing
 import UserDefaultsClient
 
 @Suite
@@ -36,7 +36,7 @@ struct ChatFeatureCore {
   @Test("chat input action should trigger network call with success response")
   func chatInputOnCommit() async throws {
     let testStore = defaultTestStore()
-    testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
+    testStore.dependencies.apiService.postChatMessage = { _ in ApiResponse(status: "ok") }
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
     
     _ = await testStore.send(.chatInput(.onCommit)) { state in
@@ -59,14 +59,14 @@ struct ChatFeatureCore {
     let testStore = defaultTestStore(
       with: .loading([
         ChatMessage(
-            identifier: "ID88878",
-            device: "Device",
-            message: "Hello World!",
-            timestamp: 1889.1
-          )
+          identifier: "ID88878",
+          device: "Device",
+          message: "Hello World!",
+          timestamp: 1889.1
+        )
       ])
     )
-    testStore.dependencies.apiService.postChatMessage = { _ in return ApiResponse(status: "ok") }
+    testStore.dependencies.apiService.postChatMessage = { _ in ApiResponse(status: "ok") }
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
     
     _ = await testStore.send(.chatInput(.onCommit)) { state in

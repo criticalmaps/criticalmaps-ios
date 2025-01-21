@@ -24,19 +24,19 @@ public extension UIColor {
   }
   
   static var attention: Self {
-    Self.hex(0xFF3355)
+    hex(0xFF3355)
   }
   
   static var attentionTranslucent: Self {
-    Self.hex(0xFF3355, alpha: 0.8)
+    hex(0xFF3355, alpha: 0.8)
   }
   
   static var brand500: Self {
-    Self.hex(0xFFD633)
+    hex(0xFFD633)
   }
   
   static var brand600: Self {
-    Self.hex(0xF2BF30)
+    hex(0xF2BF30)
   }
   
   static var border: Self {
@@ -61,23 +61,23 @@ public extension UIColor {
   }
   
   static var textLight: Self {
-    Self.hex(0xDADCE0)
+    hex(0xDADCE0)
   }
   
   static var textSilent: Self {
-    Self.hex(0x909399)
+    hex(0x909399)
   }
     
   static var twitterProfileInnerBorder: Self {
-    Self.hex(0x374052, alpha: 0.18)
+    hex(0x374052, alpha: 0.18)
   }
   
   static var translateRowBackground: Self {
-    Self.hex(0x175CE5)
+    hex(0x175CE5)
   }
   
   static var cmInRowBackground: Self {
-    Self.hex(0x6ADDB6)
+    hex(0x6ADDB6)
   }
   
   static var textPrimaryLight: Self {
@@ -101,8 +101,8 @@ public extension UIColor {
   }
 }
 
-extension UIColor {
-  public static func hex(_ hex: UInt, alpha: CGFloat = 1) -> Self {
+public extension UIColor {
+  static func hex(_ hex: UInt, alpha: CGFloat = 1) -> Self {
     Self(
       red: CGFloat((hex & 0xFF0000) >> 16) / 255,
       green: CGFloat((hex & 0x00FF00) >> 8) / 255,

@@ -30,13 +30,13 @@ extension NetworkDispatcher {
   private static func handleError(_ error: Error) -> NetworkRequestError {
     switch error {
     case is Swift.DecodingError:
-      return .decodingError
+      .decodingError
     case let urlError as URLError:
-      return .urlSessionFailed(urlError)
+      .urlSessionFailed(urlError)
     case let error as NetworkRequestError:
-      return error
+      error
     default:
-      return .unknownError
+      .unknownError
     }
   }
 }
@@ -44,19 +44,19 @@ extension NetworkDispatcher {
 extension NetworkDispatcher: DependencyKey {
   public static var liveValue: NetworkDispatcher {
     @Dependency(\.urlSession) var urlSession
-    
+
     return Self { urlRequest in
       let (data, response) = try await urlSession.data(for: urlRequest)
-      
+
       guard let response = response as? HTTPURLResponse else {
         throw NetworkRequestError.invalidResponse
       }
-      
+
       // check for connection failure reasons
       guard !NSURLErrorConnectionFailureCodes.contains(response.statusCode) else {
         throw NetworkRequestError.connectionLost
       }
-      
+
       // check if response is successful
       guard response.isSuccessful else {
         throw httpError(response.statusCode)

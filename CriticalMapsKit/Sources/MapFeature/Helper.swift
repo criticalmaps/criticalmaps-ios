@@ -7,7 +7,7 @@ extension MKAnnotationView {
 }
 
 extension MKMapView {
-  func register<T: MKAnnotationView>(annotationViewType: T.Type) {
+  func register(annotationViewType: (some MKAnnotationView).Type) {
     register(
       annotationViewType,
       forAnnotationViewWithReuseIdentifier: annotationViewType.reuseIdentifier

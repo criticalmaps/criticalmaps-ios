@@ -8,12 +8,12 @@ extension FileClient: DependencyKey {
     let documentDirectory = FileManager.default
       .urls(for: .documentDirectory, in: .userDomainMask)
       .first!
-    
+
     return Self(
       delete: { fileName in
         try? FileManager.default.removeItem(
           at:
-            documentDirectory
+          documentDirectory
             .appendingPathComponent(fileName)
             .appendingPathExtension(fileExtension)
         )
@@ -21,7 +21,7 @@ extension FileClient: DependencyKey {
       load: { fileName in
         try Data(
           contentsOf:
-            documentDirectory
+          documentDirectory
             .appendingPathComponent(fileName)
             .appendingPathExtension(fileExtension)
         )
@@ -29,7 +29,7 @@ extension FileClient: DependencyKey {
       save: { fileName, data in
         _ = try? data.write(
           to:
-            documentDirectory
+          documentDirectory
             .appendingPathComponent(fileName)
             .appendingPathExtension(fileExtension)
         )

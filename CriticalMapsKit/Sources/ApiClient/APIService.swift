@@ -18,7 +18,7 @@ public struct APIService {
 extension APIService: DependencyKey {
   public static var liveValue: APIService {
     @Dependency(\.apiClient) var apiClient
-    
+
     return Self(
       getRiders: {
         let request: Request = .get(.locations)
@@ -60,8 +60,8 @@ extension APIService: TestDependencyKey {
   )
 }
 
-extension DependencyValues {
-  public var apiService: APIService {
+public extension DependencyValues {
+  var apiService: APIService {
     get { self[APIService.self] }
     set { self[APIService.self] = newValue }
   }
@@ -71,6 +71,6 @@ public struct ApiResponse: Codable, Equatable {
   public init(status: String?) {
     self.status = status
   }
-  
+
   public var status: String?
 }

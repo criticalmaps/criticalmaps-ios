@@ -22,9 +22,9 @@ public struct AppView: View {
   
   private var contextMenuTitle: String {
     if store.bottomSheetPosition == .hidden {
-      return L10n.Map.NextRideEvents.showAll
+      L10n.Map.NextRideEvents.showAll
     } else {
-      return L10n.Map.NextRideEvents.hideAll
+      L10n.Map.NextRideEvents.hideAll
     }
   }
   
@@ -185,8 +185,8 @@ public struct AppView: View {
     Image(systemName: "wifi.slash")
       .foregroundColor(
         reduceTransparency
-        ? Color.white
-        : Color(.attention)
+          ? Color.white
+          : Color(.attention)
       )
       .accessibilityLabel(Text("Internet not available"))
       .padding()

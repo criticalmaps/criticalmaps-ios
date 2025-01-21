@@ -9,7 +9,7 @@ public struct Endpoint: Sendable {
     self.baseUrl = baseUrl
     self.pathComponents = pathComponents
   }
-  
+
   var url: String {
     guard !pathComponents.isEmpty else {
       return baseUrl

@@ -23,7 +23,7 @@ public struct RideEventSettingsView: View {
           label: { Text(L10n.Settings.eventSettingsEnable) }
         )
       }
-      
+
       ZStack(alignment: .top) {
         VStack {
           SettingsSection(title: L10n.Settings.eventTypes) {

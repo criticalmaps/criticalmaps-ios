@@ -37,7 +37,6 @@ public struct AppFeature {
   @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
-  
   @Reducer
   public enum Destination {
     case social(SocialFeature)
@@ -87,7 +86,7 @@ public struct AppFeature {
       requestTimer: RequestTimer.State = .init(),
       chatMessageBadgeCount: UInt = 0
     ) {
-      self.riderLocations = locationsAndChatMessages
+      riderLocations = locationsAndChatMessages
       self.mapFeatureState = mapFeatureState
       self.socialState = socialState
       self.settingsState = settingsState
@@ -105,25 +104,29 @@ public struct AppFeature {
       let progress = Double(requestTimer.secondsElapsed) / 60
       return progress
     }
+
     public var sendLocation: Bool {
       requestTimer.secondsElapsed == 30
     }
+
     public var timerValue: String {
       let progress = 60 - requestTimer.secondsElapsed
       return String(progress)
     }
+
     public var ridersCount: String {
       let count = mapFeatureState.visibleRidersCount ?? 0
       return NumberFormatter.riderCountFormatter.string(from: .init(value: count)) ?? ""
     }
+
     var shouldShowNextRideBanner: Bool {
       mapFeatureState.isNextRideBannerVisible &&
-      rideEventSettings.isEnabled
+        rideEventSettings.isEnabled
     }
     
     var hasOfflineError: Bool {
       switch riderLocations {
-      case .failure(let error):
+      case let .failure(error):
         guard let networkError = error as? NetworkRequestError else {
           return false
         }
@@ -163,6 +166,7 @@ public struct AppFeature {
   }
   
   // MARK: Reducer
+
   public var body: some Reducer<State, Action> {
     BindingReducer()
     
@@ -190,7 +194,7 @@ public struct AppFeature {
         }
         return .none
         
-      case .onRideSelectedFromBottomSheet(let ride):
+      case let .onRideSelectedFromBottomSheet(ride):
         return .merge(
           .send(.map(.focusRideEvent(ride.coordinate))),
           .run { _ in await feedbackGenerator.selectionChanged() }
@@ -238,7 +242,7 @@ public struct AppFeature {
         state.isRequestingRiderLocations = true
         return .run { send in
           await send(
-            await .fetchLocationsResponse(
+            .fetchLocationsResponse(
               TaskResult {
                 try await apiService.getRiders()
               }
@@ -249,7 +253,7 @@ public struct AppFeature {
       case .fetchChatMessages:
         return .run { send in
           await send(
-            await .fetchChatMessagesResponse(
+            .fetchChatMessagesResponse(
               TaskResult {
                 try await apiService.getChatMessages()
               }
@@ -259,7 +263,7 @@ public struct AppFeature {
         
       case let .fetchChatMessagesResponse(.success(messages)):
         state.socialState.chatFeatureState.chatMessages = .results(messages)
-        if case .social(_) = state.destination {
+        if case .social = state.destination {
           let cachedMessages = messages.sorted(by: \.timestamp)
           
           let unreadMessagesCount = UInt(
@@ -305,7 +309,7 @@ public struct AppFeature {
         )
         return .run { send in
           await send(
-            await .postLocationResponse(
+            .postLocationResponse(
               TaskResult {
                 try await apiService.postRiderLocation(postBody)
               }
@@ -316,7 +320,7 @@ public struct AppFeature {
       case .postLocationResponse(.success):
         return .none
         
-      case .postLocationResponse(.failure(let error)):
+      case let .postLocationResponse(.failure(error)):
         logger.debug("Failed to post location. Error: \(error.localizedDescription)")
         return .none
         
@@ -373,7 +377,7 @@ public struct AppFeature {
                 group.addTask {
                   await send(.fetchLocations)
                 }
-                if case .social(_) = destination {
+                if case .social = destination {
                   group.addTask {
                     await send(.fetchChatMessages)
                   }
@@ -430,7 +434,7 @@ public struct AppFeature {
           return .none
         }
         
-      case .destination(.presented(.settings(let settingsAction))):
+      case let .destination(.presented(.settings(settingsAction))):
         switch settingsAction {
         case .destination(.presented(.rideEventSettings)):
           guard
@@ -499,7 +503,7 @@ extension AppFeature.Destination.State: Equatable {}
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location
   init?(_ location: ComposableCoreLocation.Location?) {
-    guard let location = location else {
+    guard let location else {
       return nil
     }
     self = SharedModels.Location(
@@ -524,7 +528,7 @@ extension AppFeature.State {
 extension SharedModels.Coordinate {
   /// Creates a Location object from an optional ComposableCoreLocation.Location
   init?(_ location: ComposableCoreLocation.Location?) {
-    guard let location = location else {
+    guard let location else {
       return nil
     }
     self = Coordinate(

@@ -19,10 +19,8 @@ public struct RideEventSettings: Equatable, Codable {
 }
 
 public extension [RideEvent] {
-  static let `default`: Self = {
-    Ride.RideType.allCases
-      .map { RideEvent(rideType: $0, isEnabled: true) }
-  }()
+  static let `default`: Self = Ride.RideType.allCases
+    .map { RideEvent(rideType: $0, isEnabled: true) }
 }
 
 // MARK: - Shared
@@ -36,8 +34,8 @@ private extension URL {
   }
 }
 
-extension SharedKey where Self == Sharing.FileStorageKey<RideEventSettings> {
-  public static var rideEventSettings: Self {
+public extension SharedKey where Self == Sharing.FileStorageKey<RideEventSettings> {
+  static var rideEventSettings: Self {
     fileStorage(.rideEventSettingsURL)
   }
 }

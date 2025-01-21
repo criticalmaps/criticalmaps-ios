@@ -11,7 +11,7 @@ import SharedModels
 @Reducer
 public struct NextRideFeature {
   public init() {}
-  
+
   @Dependency(\.nextRideService) private var service
   @Dependency(\.date) private var date
   @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
@@ -25,7 +25,7 @@ public struct NextRideFeature {
 
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
-    
+
     @Shared(.userSettings)
     public var userSettings = UserSettings()
     @Shared(.rideEventSettings)
@@ -62,7 +62,7 @@ public struct NextRideFeature {
 
       return .run { [distance = state.rideEventSettings.eventDistance] send in
         await send(
-          await .nextRideResponse(
+          .nextRideResponse(
             TaskResult {
               try await service.nextRide(
                 obfuscatedCoordinate,
@@ -77,7 +77,7 @@ public struct NextRideFeature {
     case let .nextRideResponse(.failure(error)):
       logger.error("Get next ride failed 🛑 with error: \(error)")
       return .none
-    
+
     case let .nextRideResponse(.success(rides)):
       guard !rides.isEmpty else {
         logger.info("Rides array is empty")
@@ -160,7 +160,7 @@ private func queryMonth(for date: () -> Date = Date.init, calendar: Calendar = .
   return max(currentMonthOfFallback, month)
 }
 
-public extension Array where Element == Ride {
+public extension [Ride] {
   func sortByDateAndFilterBeforeDate(_ now: () -> Date) -> Self {
     lazy
       .sorted(by: \.dateTime)

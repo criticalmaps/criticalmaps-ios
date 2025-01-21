@@ -25,7 +25,7 @@ public struct RideEventsSettingsFeature {
       rideEventTypes: [RideEventType.State] = []
     ) {
       self.isEnabled = isEnabled
-      self.eventSearchRadius = eventDistance
+      eventSearchRadius = eventDistance
       self.rideEventTypes = .init(uncheckedUniqueElements: rideEventTypes)
     }
   }
@@ -75,8 +75,8 @@ public struct RideEventsSettingsFeature {
   }
 }
 
-extension RideEventsSettingsFeature.State {
-  public init(settings: RideEventSettings) {
+public extension RideEventsSettingsFeature.State {
+  init(settings: RideEventSettings) {
     self.init(
       isEnabled: settings.isEnabled,
       eventDistance: settings.eventDistance,

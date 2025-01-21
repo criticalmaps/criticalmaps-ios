@@ -12,23 +12,23 @@ public struct SendLocationPostBody: Encodable {
 
   public let device: String
   public let location: Location?
-  
+
   enum CodingKeys: CodingKey {
     case device
     case latitude
     case longitude
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(self.device, forKey: .device)
+    try container.encode(device, forKey: .device)
     if let location {
       try container.encodeIfPresent(
-        location.coordinate.latitude * 1_000_000,
+        location.coordinate.latitude * 1000000,
         forKey: .latitude
       )
       try container.encodeIfPresent(
-        location.coordinate.longitude * 1_000_000,
+        location.coordinate.longitude * 1000000,
         forKey: .longitude
       )
     }

@@ -32,7 +32,7 @@ public struct RideEventRadius {
     BindingReducer()
       .onChange(of: \.isSelected) { _, _ in
         Reduce { _, _ in
-            .run { _ in await feedbackGenerator.selectionChanged() }
+          .run { _ in await feedbackGenerator.selectionChanged() }
         }
       }
   }

@@ -25,51 +25,51 @@ public extension Guide {
     var title: String {
       switch self {
       case .brake:
-        return L10n.Rules.Title.brake
+        L10n.Rules.Title.brake
       case .contraflow:
-        return L10n.Rules.Title.contraflow
+        L10n.Rules.Title.contraflow
       case .gently:
-        return L10n.Rules.Title.gently
+        L10n.Rules.Title.gently
       case .green:
-        return L10n.Rules.Title.green
+        L10n.Rules.Title.green
       case .haveFun:
-        return L10n.Rules.Title.haveFun
+        L10n.Rules.Title.haveFun
       case .stayLoose:
-        return L10n.Rules.Title.stayLoose
+        L10n.Rules.Title.stayLoose
       }
     }
 
     var text: String {
       switch self {
       case .brake:
-        return L10n.Rules.Text.brake
+        L10n.Rules.Text.brake
       case .contraflow:
-        return L10n.Rules.Text.contraflow
+        L10n.Rules.Text.contraflow
       case .gently:
-        return L10n.Rules.Text.gently
+        L10n.Rules.Text.gently
       case .green:
-        return L10n.Rules.Text.green
+        L10n.Rules.Text.green
       case .haveFun:
-        return L10n.Rules.Text.haveFun
+        L10n.Rules.Text.haveFun
       case .stayLoose:
-        return L10n.Rules.Text.stayLoose
+        L10n.Rules.Text.stayLoose
       }
     }
 
     var image: UIImage {
       switch self {
       case .brake:
-        return Asset.brake.image
+        Asset.brake.image
       case .contraflow:
-        return Asset.wrongLane.image
+        Asset.wrongLane.image
       case .gently:
-        return Asset.slowly.image
+        Asset.slowly.image
       case .green:
-        return Asset.green.image
+        Asset.green.image
       case .haveFun:
-        return Asset.pose.image
+        Asset.pose.image
       case .stayLoose:
-        return Asset.friendly.image
+        Asset.friendly.image
       }
     }
   }

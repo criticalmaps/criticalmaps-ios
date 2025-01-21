@@ -16,6 +16,6 @@ public extension Date {
 
   /// - Returns: Formatted date without time components.
   var humanReadableDate: String {
-    self.formatted(Date.FormatStyle.localeAwareShortDate)
+    formatted(Date.FormatStyle.localeAwareShortDate)
   }
 }

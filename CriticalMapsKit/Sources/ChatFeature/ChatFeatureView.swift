@@ -46,7 +46,7 @@ public struct ChatView: View {
   private var chatInput: some View {
     ZStack(alignment: .top) {
       BasicInputView(
-        store: self.store.scope(
+        store: store.scope(
           state: \.chatInputState,
           action: \.chatInput
         ),

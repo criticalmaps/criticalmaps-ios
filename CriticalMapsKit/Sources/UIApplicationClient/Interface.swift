@@ -15,8 +15,8 @@ public struct UIApplicationClient {
   public var supportsAlternateIconsAsync: @Sendable () async -> Bool = { true }
 }
 
-extension DependencyValues {
-  public var uiApplicationClient: UIApplicationClient {
+public extension DependencyValues {
+  var uiApplicationClient: UIApplicationClient {
     get { self[UIApplicationClient.self] }
     set { self[UIApplicationClient.self] = newValue }
   }

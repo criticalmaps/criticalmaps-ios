@@ -21,21 +21,19 @@ public extension DateComponentsFormatter {
   }
 }
 
-extension Date.FormatStyle {
+public extension Date.FormatStyle {
   /// Format to display only the day and a medium format month -> 28 Okt.
-  public static let dateWithoutYear: Self = {
-    .dateTime
-      .day(.defaultDigits)
-      .month(.abbreviated)
-  }()
+  static let dateWithoutYear: Self = .dateTime
+    .day(.defaultDigits)
+    .month(.abbreviated)
 
-  public static let medium = Self(
+  static let medium = Self(
     date: .abbreviated,
     time: .omitted,
     locale: .autoupdatingCurrent
   )
-  
-  public static let localeAwareShortDate: Self = {
+
+  static let localeAwareShortDate: Self = {
     @Dependency(\.timeZone) var timezone
     return Self(
       date: .numeric,
@@ -44,15 +42,15 @@ extension Date.FormatStyle {
       timeZone: timezone
     )
   }()
-  
-  public static let localeAwareShortTime = Self(
+
+  static let localeAwareShortTime = Self(
     date: .omitted,
     time: .shortened,
     locale: .autoupdatingCurrent,
     timeZone: .germany
   )
-  
-  public static func chatTime(_ cal: Calendar = .autoupdatingCurrent) -> Self {
+
+  static func chatTime(_ cal: Calendar = .autoupdatingCurrent) -> Self {
     var format = Self.dateTime
       .hour(.twoDigits(amPM: .abbreviated))
       .minute(.twoDigits)

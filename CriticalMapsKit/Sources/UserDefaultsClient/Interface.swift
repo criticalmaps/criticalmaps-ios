@@ -35,7 +35,7 @@ public struct UserDefaultsClient {
   public func setDidShowObservationModePrompt(_ value: Bool) async {
     await setBool(value, didShowObservationModePromptKey)
   }
-  
+
   public var getSessionID: String? {
     stringForKey(sessionIDKey)
   }
@@ -46,8 +46,9 @@ public struct UserDefaultsClient {
 }
 
 // MARK: DependencyValue
-extension DependencyValues {
-  public var userDefaultsClient: UserDefaultsClient {
+
+public extension DependencyValues {
+  var userDefaultsClient: UserDefaultsClient {
     get { self[UserDefaultsClient.self] }
     set { self[UserDefaultsClient.self] = newValue }
   }

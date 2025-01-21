@@ -19,7 +19,7 @@ public struct Location: Equatable, Hashable {
     self.name = name
     self.color = color
   }
-  
+
   public var clLocation: CLLocation {
     CLLocation(
       latitude: coordinate.latitude,

@@ -8,7 +8,7 @@ public enum EventDistance: Int, CaseIterable, Codable, Sendable {
   case near = 10
   /// 20 km
   case far = 20
-  
+
   var length: Measurement<UnitLength> {
     Measurement<UnitLength>(value: Double(rawValue), unit: .kilometers)
   }

@@ -18,7 +18,7 @@ public extension Request {
         URLQueryItem(name: NextRideQueryKeys.radius, value: String(radius)),
         URLQueryItem(name: NextRideQueryKeys.year, value: String(Date.getCurrent(\.year, date))),
         URLQueryItem(name: NextRideQueryKeys.month, value: String(month)),
-        URLQueryItem(name: NextRideQueryKeys.extended, value: "true"),
+        URLQueryItem(name: NextRideQueryKeys.extended, value: "true")
       ]
     )
   }

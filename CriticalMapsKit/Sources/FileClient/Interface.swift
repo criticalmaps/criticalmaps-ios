@@ -12,7 +12,7 @@ public struct FileClient {
   public var delete: @Sendable (String) async throws -> Void
   public var load: @Sendable (String) async throws -> Data
   public var save: @Sendable (String, Data) async throws -> Void
-  
+
   public func load<A: Decodable>(
     _ type: A.Type,
     from fileName: String,
@@ -21,17 +21,16 @@ public struct FileClient {
     let data = try await load(fileName)
     return try data.decoded(decoder: decoder)
   }
-  
-  public func save<A: Encodable>(
-    _ data: A,
+
+  public func save(
+    _ data: some Encodable,
     to fileName: String,
     with encoder: JSONEncoder = JSONEncoder()
   ) async throws {
     let data = try data.encoded(encoder: encoder)
-    try await self.save(fileName, data)
+    try await save(fileName, data)
   }
 }
-
 
 // Convenience methods for UserSettings handling
 public extension FileClient {
@@ -40,14 +39,14 @@ public extension FileClient {
   }
 
   func saveUserSettings(userSettings: UserSettings) async throws {
-    try await self.save(userSettings, to: userSettingsFileName)
+    try await save(userSettings, to: userSettingsFileName)
   }
 }
 
 // MARK: - DependencyValue
 
-extension DependencyValues {
-  public var fileClient: FileClient {
+public extension DependencyValues {
+  var fileClient: FileClient {
     get { self[FileClient.self] }
     set { self[FileClient.self] = newValue }
   }

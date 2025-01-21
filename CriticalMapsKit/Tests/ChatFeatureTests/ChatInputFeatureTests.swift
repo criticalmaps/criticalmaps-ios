@@ -50,7 +50,7 @@ struct ChatInputCoreTests {
     }
     await testStore.send(.messageChanged(NSAttributedString(string: ""))) { state in
       state.message = ""
-      #expect(state.isSendButtonDisabled ==  true)
+      #expect(state.isSendButtonDisabled == true)
     }
   }
 }

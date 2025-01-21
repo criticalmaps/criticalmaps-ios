@@ -15,7 +15,7 @@ struct RideTimeTests {
       #expect(rideTime == "7:00 PM")
     }
   }
-  
+
   @Test("Ride in berlin timezone")
   func rideWithBerlinTimezone() {
     withDependencies {
@@ -26,7 +26,7 @@ struct RideTimeTests {
       #expect(rideTime == "14:00")
     }
   }
-  
+
   @Test("Ride in GMT timezone")
   func rideWithGMTTimezone() {
     withDependencies {

@@ -3,7 +3,6 @@ import Foundation
 let datePattern = #" \d{1,2}.\d{1,2}.\d{4}$"#
 
 extension String {
-  
   /// removes Date from a String which is formatted like: dd.MM.yyyy
   public func removedDatePattern() -> String {
     removedRegexMatches(pattern: datePattern)
@@ -16,7 +15,7 @@ extension String {
         options: NSRegularExpression.Options.caseInsensitive
       )
       let range = NSRange(location: 0, length: count)
-      
+
       return regex.stringByReplacingMatches(
         in: self,
         options: [],

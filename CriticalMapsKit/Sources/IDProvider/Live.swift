@@ -8,9 +8,9 @@ extension IDProvider: DependencyKey {
     @Dependency(\.userDefaultsClient) var defaultsClient
     @Dependency(\.date) var date
     @Dependency(\.uuid) var uuid
-    
+
     let id = defaultsClient.getSessionID ?? uuid().uuidString
-    
+
     return Self(
       id: {
         IDProvider.hash(
@@ -23,8 +23,8 @@ extension IDProvider: DependencyKey {
   }
 }
 
-extension DependencyValues {
-  public var idProvider: IDProvider {
+public extension DependencyValues {
+  var idProvider: IDProvider {
     get { self[IDProvider.self] }
     set { self[IDProvider.self] = newValue }
   }

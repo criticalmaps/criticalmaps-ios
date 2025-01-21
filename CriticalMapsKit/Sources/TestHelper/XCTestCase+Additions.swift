@@ -16,8 +16,8 @@ public extension XCTestCase {
   
   private static let sloppyPrecision: Float = 0.95
   
-  func assertScreenSnapshot<V: View>(
-    _ view: V,
+  func assertScreenSnapshot(
+    _ view: some View,
     sloppy: Bool = false,
     file: StaticString = #file,
     testName: String = #function,
@@ -45,8 +45,8 @@ public extension XCTestCase {
     }
   }
   
-  func assertViewSnapshot<V: View>(
-    _ view: V,
+  func assertViewSnapshot(
+    _ view: some View,
     height: CGFloat? = nil,
     width: CGFloat = 375,
     sloppy: Bool = false,
@@ -57,7 +57,7 @@ public extension XCTestCase {
     enforceSnapshotDevice()
     
     var layout = SwiftUISnapshotLayout.device(config: .iPhone8)
-    if let height = height {
+    if let height {
       layout = .fixed(width: width, height: height)
     }
     let precision: Float = (sloppy ? XCTestCase.sloppyPrecision : 1)

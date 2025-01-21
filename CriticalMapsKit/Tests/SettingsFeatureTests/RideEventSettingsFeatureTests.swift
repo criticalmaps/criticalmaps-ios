@@ -7,7 +7,6 @@ import Testing
 @Suite
 @MainActor
 struct RideEventSettingsCoreTests {
-  
   @Test("Set event updates binding action should update store")
   func setRideEventsEnabled() async {
     let store = TestStore(

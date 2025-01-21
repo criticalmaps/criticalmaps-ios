@@ -19,7 +19,7 @@ extension Coordinate {
 
 let testDate: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
 
-extension Dictionary where Key == String, Value == SharedModels.Location {
+extension [String: SharedModels.Location] {
   static func make(_ max: Int = 5) -> [Key: Value] {
     let locations = Array(0 ... max).map { index in
       SharedModels.Location(
@@ -35,18 +35,18 @@ extension Dictionary where Key == String, Value == SharedModels.Location {
   }
 }
 
-extension Array where Element == Rider {
+extension [Rider] {
   static func make(_ max: Int = 5) -> [Element] {
     var elements = [Element]()
-    for index in 0...max {
+    for index in 0 ... max {
       elements.append(
         Rider(
           id: String(describing: index),
           coordinate: .init(
-            latitude: Double.random(in: 0..<180),
-            longitude: Double.random(in: 0..<180)
+            latitude: Double.random(in: 0 ..< 180),
+            longitude: Double.random(in: 0 ..< 180)
           ),
-          timestamp: Double.random(in: 0..<180)
+          timestamp: Double.random(in: 0 ..< 180)
         )
       )
     }
@@ -54,10 +54,10 @@ extension Array where Element == Rider {
   }
 }
 
-extension Array where Element == ChatMessage {
+extension [ChatMessage] {
   static func make(_ max: Int = 5) -> [Element] {
     var elements = [Element]()
-    for index in 0...max {
+    for index in 0 ... max {
       let message = ChatMessage(
         identifier: "ID",
         device: "DEVICE",

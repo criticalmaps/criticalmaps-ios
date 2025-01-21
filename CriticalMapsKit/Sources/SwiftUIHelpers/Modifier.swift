@@ -12,7 +12,7 @@ public struct AccessibleAnimation<Value: Equatable>: ViewModifier {
 }
 
 public extension View {
-  func accessibleAnimation<Value: Equatable>(_ animation: Animation?, value: Value) -> some View {
+  func accessibleAnimation(_ animation: Animation?, value: some Equatable) -> some View {
     modifier(AccessibleAnimation(animation: animation, value: value))
   }
 }

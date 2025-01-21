@@ -26,7 +26,7 @@ public struct MapOverlayFeature {
     Reduce { _, action in
       switch action {
       case .didTapOverlayButton:
-        return .none
+        .none
       }
     }
   }
@@ -92,14 +92,14 @@ public struct MapOverlayView<Content: View>: View {
     .onChange(
       of: store.isExpanded,
       perform: { newValue in
-        let updateAction: () -> Void = { self.isExpanded = newValue }
+        let updateAction: () -> Void = { isExpanded = newValue }
         reduceMotion ? updateAction() : withAnimation { updateAction() }
       }
     )
     .onChange(
       of: store.isVisible,
       perform: { newValue in
-        let updateAction: () -> Void = { self.isVisible = newValue }
+        let updateAction: () -> Void = { isVisible = newValue }
         reduceMotion ? updateAction() : withAnimation { updateAction() }
       }
     )

@@ -14,8 +14,8 @@ public struct Coordinate: Codable, Hashable {
 
 public extension Coordinate {
   init(_ location: Location) {
-    self.latitude = location.coordinate.latitude
-    self.longitude = location.coordinate.longitude
+    latitude = location.coordinate.latitude
+    longitude = location.coordinate.longitude
   }
 }
 
@@ -29,8 +29,8 @@ public extension Coordinate {
   }
 }
 
-extension CLLocation {
-  public convenience init(_ coordinate: Coordinate) {
+public extension CLLocation {
+  convenience init(_ coordinate: Coordinate) {
     self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
   }
 }
