@@ -425,7 +425,9 @@ public struct AppFeature {
             message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
           )
         )
-        return .none
+        return .run { _ in
+          await userDefaultsClient.setDidShowObservationModePrompt(true)
+        }
         
       case let .destination(.presented(.alert(alertAction))):
         switch alertAction {
