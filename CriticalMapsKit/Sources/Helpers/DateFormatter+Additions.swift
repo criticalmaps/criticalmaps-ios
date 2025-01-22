@@ -36,7 +36,7 @@ public extension Date.FormatStyle {
   static let localeAwareShortDate: Self = {
     @Dependency(\.timeZone) var timezone
     return Self(
-      date: .numeric,
+      date: .abbreviated,
       time: .omitted,
       locale: .autoupdatingCurrent,
       timeZone: timezone
