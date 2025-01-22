@@ -5,25 +5,6 @@ import MapKit
 import SharedDependencies
 import SharedModels
 
-@propertyWrapper
-public struct ShouldAnimateTrackingModeOverTime: Equatable {
-  private var values = [false, true]
-  
-  public init() {}
-  
-  public var wrappedValue: Bool {
-    mutating get { getValue() }
-    set {}
-  }
-  
-  private mutating func getValue() -> Bool {
-    guard values.count != 1 else {
-      return values[0]
-    }
-    return values.removeFirst()
-  }
-}
-
 @Reducer
 public struct MapFeature {
   public init() {}
@@ -99,7 +80,7 @@ public struct MapFeature {
     case userTracking(UserTrackingFeature.Action)
   }
 
-  /// Used to identify locatioManager effects.
+  /// Used to identify locationManager effects.
   enum CancelID { case locationManager }
   
   public var body: some Reducer<State, Action> {
@@ -205,7 +186,10 @@ public struct MapFeature {
             await send(.setAlert(.goToSettingsAlert))
                         
           case .authorizedAlways, .authorizedWhenInUse:
-            // check observermode here
+            @Shared(.userSettings) var userSettings = UserSettings()
+            guard !userSettings.isObservationModeEnabled else {
+              return
+            }
             await locationManager.startUpdatingLocation()
             
           @unknown default:
