@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; settings = {ATTRIBUTES = (Required, ); }; };
-		73238EBD27728043003DE01F /* ChatFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */; };
 		73238EC927728081003DE01F /* ChatFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EC827728081003DE01F /* ChatFeature */; };
-		73238ED12773289F003DE01F /* SettingsFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73238ED02773289F003DE01F /* SettingsFeaturePreviewApp.swift */; };
 		73238EDD277328E8003DE01F /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EDC277328E8003DE01F /* SettingsFeature */; };
 		73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */; };
 		738214F4271F49AB009847C7 /* appIcon-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214EF271F49AB009847C7 /* appIcon-5.png */; };
@@ -18,17 +16,17 @@
 		738214F6271F49AB009847C7 /* appIcon-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F1271F49AB009847C7 /* appIcon-3.png */; };
 		738214F7271F49AB009847C7 /* appIcon-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F2271F49AB009847C7 /* appIcon-2.png */; };
 		738214F8271F49AB009847C7 /* appIcon-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F3271F49AB009847C7 /* appIcon-1.png */; };
+		739A582D2D41290F00B80B41 /* ChatFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A58262D41290F00B80B41 /* ChatFeaturePreviewApp.swift */; };
+		739A582E2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A582A2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift */; };
+		739A582F2D41290F00B80B41 /* GuideFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A58282D41290F00B80B41 /* GuideFeaturePreviewApp.swift */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
 		73EB0311263F23A100941D57 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* App.swift */; };
-		73FD0B332779F5500061539D /* GuideFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FD0B322779F5500061539D /* GuideFeaturePreviewApp.swift */; };
 		73FD0B3F2779F5970061539D /* GuideFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73FD0B3E2779F5970061539D /* GuideFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		73238EBA27728043003DE01F /* ChatFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFeaturePreviewApp.swift; sourceTree = "<group>"; };
-		73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SettingsFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		73238ED02773289F003DE01F /* SettingsFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		73238EBA27728043003DE01F /* ChatFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ChatFeaturePreview.app; path = "/Users/vanbillstedt/Developer/iOS/criticalmaps-ios/build/Debug-iphoneos/ChatFeaturePreview.app"; sourceTree = "<absolute>"; };
+		73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SettingsFeaturePreview.app; path = "/Users/vanbillstedt/Developer/iOS/criticalmaps-ios/build/Debug-iphoneos/SettingsFeaturePreview.app"; sourceTree = "<absolute>"; };
 		732734462771172C0007579E /* CriticalMapsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CriticalMapsKit; sourceTree = "<group>"; };
 		7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatFeature.xctestplan; sourceTree = "<group>"; };
 		7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapFeature.xctestplan; sourceTree = "<group>"; };
@@ -40,21 +38,23 @@
 		738214F1271F49AB009847C7 /* appIcon-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-3.png"; sourceTree = "<group>"; };
 		738214F2271F49AB009847C7 /* appIcon-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-2.png"; sourceTree = "<group>"; };
 		738214F3271F49AB009847C7 /* appIcon-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-1.png"; sourceTree = "<group>"; };
-		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Berlin:Germany.gpx"; path = "../Berlin:Germany.gpx"; sourceTree = "<group>"; };
+		739A58262D41290F00B80B41 /* ChatFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		739A58282D41290F00B80B41 /* GuideFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		739A582A2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		739A58302D414F4B00B80B41 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Berlin:Germany.gpx"; sourceTree = "<group>"; };
 		73BABF82277B0A2900D9790F /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		73BABF83277B0A2900D9790F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		73CA9806268DCC0F004D81FA /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		73CD4DA02C594402003CAEA2 /* SettingsFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SettingsFeature.xctestplan; sourceTree = "<group>"; };
 		73CD4DA12C595584003CAEA2 /* GuideFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GuideFeature.xctestplan; sourceTree = "<group>"; };
-		73CF5FC2263EAF5B001925A3 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73EA92422C595702008DEEFE /* MastodonFeedFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonFeedFeature.xctestplan; sourceTree = "<group>"; };
 		73EA92432C59585D008DEEFE /* SocialFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SocialFeature.xctestplan; sourceTree = "<group>"; };
 		73EB0310263F23A100941D57 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LisbonPortugal.gpx; sourceTree = "<group>"; };
-		73FD0B302779F5500061539D /* GuideFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		73FD0B322779F5500061539D /* GuideFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideFeaturePreviewApp.swift; sourceTree = "<group>"; };
+		73FD0B302779F5500061539D /* GuideFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = GuideFeaturePreview.app; path = "/Users/vanbillstedt/Developer/iOS/criticalmaps-ios/build/Debug-iphoneos/GuideFeaturePreview.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,24 +93,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		73238EBB27728043003DE01F /* ChatFeaturePreview */ = {
-			isa = PBXGroup;
-			children = (
-				73238EBC27728043003DE01F /* ChatFeaturePreviewApp.swift */,
-			);
-			name = ChatFeaturePreview;
-			path = App/Previews/ChatFeaturePreview;
-			sourceTree = "<group>";
-		};
-		73238ECF2773289F003DE01F /* SettingsFeaturePreview */ = {
-			isa = PBXGroup;
-			children = (
-				73238ED02773289F003DE01F /* SettingsFeaturePreviewApp.swift */,
-			);
-			name = SettingsFeaturePreview;
-			path = App/Previews/SettingsFeaturePreview;
-			sourceTree = "<group>";
-		};
 		7347AB282A27C0CA00BCA949 /* Testplans */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,8 +119,42 @@
 				738214F3271F49AB009847C7 /* appIcon-1.png */,
 			);
 			name = appicons;
-			path = App/appicons;
+			path = iOS/appicons;
 			sourceTree = SOURCE_ROOT;
+		};
+		739A58272D41290F00B80B41 /* ChatFeaturePreview */ = {
+			isa = PBXGroup;
+			children = (
+				739A58262D41290F00B80B41 /* ChatFeaturePreviewApp.swift */,
+			);
+			path = ChatFeaturePreview;
+			sourceTree = "<group>";
+		};
+		739A58292D41290F00B80B41 /* GuideFeaturePreview */ = {
+			isa = PBXGroup;
+			children = (
+				739A58282D41290F00B80B41 /* GuideFeaturePreviewApp.swift */,
+			);
+			path = GuideFeaturePreview;
+			sourceTree = "<group>";
+		};
+		739A582B2D41290F00B80B41 /* SettingsFeaturePreview */ = {
+			isa = PBXGroup;
+			children = (
+				739A582A2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift */,
+			);
+			path = SettingsFeaturePreview;
+			sourceTree = "<group>";
+		};
+		739A582C2D41290F00B80B41 /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				739A58272D41290F00B80B41 /* ChatFeaturePreview */,
+				739A58292D41290F00B80B41 /* GuideFeaturePreview */,
+				739A582B2D41290F00B80B41 /* SettingsFeaturePreview */,
+			);
+			path = Previews;
+			sourceTree = "<group>";
 		};
 		73CF5FB9263EAF5B001925A3 = {
 			isa = PBXGroup;
@@ -147,27 +163,13 @@
 				73BABF83277B0A2900D9790F /* README.md */,
 				732734462771172C0007579E /* CriticalMapsKit */,
 				7347AB282A27C0CA00BCA949 /* Testplans */,
-				73CF5FF0263EB0A6001925A3 /* iOS App */,
-				73238EBB27728043003DE01F /* ChatFeaturePreview */,
-				73238ECF2773289F003DE01F /* SettingsFeaturePreview */,
-				73FD0B312779F5500061539D /* GuideFeaturePreview */,
-				73CF5FC3263EAF5B001925A3 /* Products */,
-				73CF6014263F1DFD001925A3 /* Frameworks */,
+				73CF5FF0263EB0A6001925A3 /* iOS */,
+				739A582C2D41290F00B80B41 /* Previews */,
+				739A58302D414F4B00B80B41 /* Critical Maps.app */,
 			);
 			sourceTree = "<group>";
 		};
-		73CF5FC3263EAF5B001925A3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				73CF5FC2263EAF5B001925A3 /* Critical Maps.app */,
-				73238EBA27728043003DE01F /* ChatFeaturePreview.app */,
-				73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */,
-				73FD0B302779F5500061539D /* GuideFeaturePreview.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		73CF5FF0263EB0A6001925A3 /* iOS App */ = {
+		73CF5FF0263EB0A6001925A3 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				738214EE271F49AB009847C7 /* appicons */,
@@ -178,24 +180,7 @@
 				739C4980276733E20001466A /* Berlin:Germany.gpx */,
 				73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */,
 			);
-			name = "iOS App";
-			path = "App/iOS App";
-			sourceTree = "<group>";
-		};
-		73CF6014263F1DFD001925A3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		73FD0B312779F5500061539D /* GuideFeaturePreview */ = {
-			isa = PBXGroup;
-			children = (
-				73FD0B322779F5500061539D /* GuideFeaturePreviewApp.swift */,
-			);
-			name = GuideFeaturePreview;
-			path = App/Previews/GuideFeaturePreview;
+			path = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,7 +243,7 @@
 				731CFCC8267A745600F1093B /* AppFeature */,
 			);
 			productName = "Critical Maps";
-			productReference = 73CF5FC2263EAF5B001925A3 /* Critical Maps.app */;
+			productReference = 739A58302D414F4B00B80B41 /* Critical Maps.app */;
 			productType = "com.apple.product-type.application";
 		};
 		73FD0B2F2779F5500061539D /* GuideFeaturePreview */ = {
@@ -318,7 +303,7 @@
 				es,
 			);
 			mainGroup = 73CF5FB9263EAF5B001925A3;
-			productRefGroup = 73CF5FC3263EAF5B001925A3 /* Products */;
+			productRefGroup = 73CF5FB9263EAF5B001925A3;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -373,7 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73238EBD27728043003DE01F /* ChatFeaturePreviewApp.swift in Sources */,
+				739A582D2D41290F00B80B41 /* ChatFeaturePreviewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73238ED12773289F003DE01F /* SettingsFeaturePreviewApp.swift in Sources */,
+				739A582E2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73FD0B332779F5500061539D /* GuideFeaturePreviewApp.swift in Sources */,
+				739A582F2D41290F00B80B41 /* GuideFeaturePreviewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,7 +648,7 @@
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/App/iOS App/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -693,7 +678,7 @@
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/App/iOS App/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
