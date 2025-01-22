@@ -19,14 +19,12 @@
 		739A582D2D41290F00B80B41 /* ChatFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A58262D41290F00B80B41 /* ChatFeaturePreviewApp.swift */; };
 		739A582E2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A582A2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift */; };
 		739A582F2D41290F00B80B41 /* GuideFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A58282D41290F00B80B41 /* GuideFeaturePreviewApp.swift */; };
+		73CA22FA2D4158650040C7CF /* GuideFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73CA22F92D4158650040C7CF /* GuideFeature */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
 		73EB0311263F23A100941D57 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* App.swift */; };
-		73FD0B3F2779F5970061539D /* GuideFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73FD0B3E2779F5970061539D /* GuideFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		73238EBA27728043003DE01F /* ChatFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = ChatFeaturePreview.app; path = "/Users/vanbillstedt/Developer/iOS/criticalmaps-ios/build/Debug-iphoneos/ChatFeaturePreview.app"; sourceTree = "<absolute>"; };
-		73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SettingsFeaturePreview.app; path = "/Users/vanbillstedt/Developer/iOS/criticalmaps-ios/build/Debug-iphoneos/SettingsFeaturePreview.app"; sourceTree = "<absolute>"; };
 		732734462771172C0007579E /* CriticalMapsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CriticalMapsKit; sourceTree = "<group>"; };
 		7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatFeature.xctestplan; sourceTree = "<group>"; };
 		7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapFeature.xctestplan; sourceTree = "<group>"; };
@@ -42,6 +40,9 @@
 		739A58282D41290F00B80B41 /* GuideFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		739A582A2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		739A58302D414F4B00B80B41 /* Critical Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Critical Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		739A58312D4156F100B80B41 /* ChatFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		739A58322D4156F100B80B41 /* SettingsFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SettingsFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		739A58332D4156F100B80B41 /* GuideFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		739C4980276733E20001466A /* Berlin:Germany.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Berlin:Germany.gpx"; sourceTree = "<group>"; };
 		73BABF82277B0A2900D9790F /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		73BABF83277B0A2900D9790F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -54,7 +55,6 @@
 		73EA92432C59585D008DEEFE /* SocialFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SocialFeature.xctestplan; sourceTree = "<group>"; };
 		73EB0310263F23A100941D57 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LisbonPortugal.gpx; sourceTree = "<group>"; };
-		73FD0B302779F5500061539D /* GuideFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = GuideFeaturePreview.app; path = "/Users/vanbillstedt/Developer/iOS/criticalmaps-ios/build/Debug-iphoneos/GuideFeaturePreview.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73FD0B3F2779F5970061539D /* GuideFeature in Frameworks */,
+				73CA22FA2D4158650040C7CF /* GuideFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +153,15 @@
 				739A58292D41290F00B80B41 /* GuideFeaturePreview */,
 				739A582B2D41290F00B80B41 /* SettingsFeaturePreview */,
 			);
-			path = Previews;
+			name = Previews;
+			path = iOS/Previews;
+			sourceTree = "<group>";
+		};
+		73CA22F82D4158650040C7CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		73CF5FB9263EAF5B001925A3 = {
@@ -166,6 +174,10 @@
 				73CF5FF0263EB0A6001925A3 /* iOS */,
 				739A582C2D41290F00B80B41 /* Previews */,
 				739A58302D414F4B00B80B41 /* Critical Maps.app */,
+				739A58312D4156F100B80B41 /* ChatFeaturePreview.app */,
+				739A58322D4156F100B80B41 /* SettingsFeaturePreview.app */,
+				739A58332D4156F100B80B41 /* GuideFeaturePreview.app */,
+				73CA22F82D4158650040C7CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,7 +215,7 @@
 				73238EC827728081003DE01F /* ChatFeature */,
 			);
 			productName = ChatFeaturePreviewApp;
-			productReference = 73238EBA27728043003DE01F /* ChatFeaturePreview.app */;
+			productReference = 739A58312D4156F100B80B41 /* ChatFeaturePreview.app */;
 			productType = "com.apple.product-type.application";
 		};
 		73238ECD2773289F003DE01F /* SettingsFeaturePreview */ = {
@@ -223,7 +235,7 @@
 				73238EDC277328E8003DE01F /* SettingsFeature */,
 			);
 			productName = SettingsFeaturePreview;
-			productReference = 73238ECE2773289F003DE01F /* SettingsFeaturePreview.app */;
+			productReference = 739A58322D4156F100B80B41 /* SettingsFeaturePreview.app */;
 			productType = "com.apple.product-type.application";
 		};
 		73CF5FC1263EAF5B001925A3 /* Critical Maps */ = {
@@ -260,10 +272,10 @@
 			);
 			name = GuideFeaturePreview;
 			packageProductDependencies = (
-				73FD0B3E2779F5970061539D /* GuideFeature */,
+				73CA22F92D4158650040C7CF /* GuideFeature */,
 			);
 			productName = GuideFeaturePreview;
-			productReference = 73FD0B302779F5500061539D /* GuideFeaturePreview.app */;
+			productReference = 739A58332D4156F100B80B41 /* GuideFeaturePreview.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -823,7 +835,7 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = SettingsFeature;
 		};
-		73FD0B3E2779F5970061539D /* GuideFeature */ = {
+		73CA22F92D4158650040C7CF /* GuideFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GuideFeature;
 		};
