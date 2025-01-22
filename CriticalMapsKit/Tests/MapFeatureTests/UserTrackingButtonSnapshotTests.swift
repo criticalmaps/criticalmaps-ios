@@ -1,10 +1,9 @@
 import MapFeature
 import SnapshotTesting
 import TestHelper
-import Testing
+import XCTest
 
-struct UserTrackingButtonSnapshotTests {
-  @Test(.disabled("Due to CI issue with selecting iPhone"))
+final class UserTrackingButtonSnapshotTests: XCTestCase {
   func test_userTracking_none() {
     let sut = UserTrackingButton(
       store: .init(
@@ -13,10 +12,9 @@ struct UserTrackingButtonSnapshotTests {
       )
     )
     
-    assertSnapshot(of: sut, as: .image)
+    assertViewSnapshot(sut, height: 50, width: 50)
   }
   
-  @Test(.disabled("Due to CI issue with selecting iPhone"))
   func test_userTracking_follow() {
     let sut = UserTrackingButton(
       store: .init(
@@ -25,10 +23,9 @@ struct UserTrackingButtonSnapshotTests {
       )
     )
     
-    assertSnapshot(of: sut, as: .image)
+    assertViewSnapshot(sut, height: 50, width: 50)
   }
   
-  @Test(.disabled("Due to CI issue with selecting iPhone"))
   func test_userTracking_followWithHeading() {
     let sut = UserTrackingButton(
       store: .init(
@@ -36,6 +33,6 @@ struct UserTrackingButtonSnapshotTests {
         reducer: { UserTrackingFeature() }
       )
     )
-    assertSnapshot(of: sut, as: .image)
+    assertViewSnapshot(sut, height: 50, width: 50)
   }
 }
