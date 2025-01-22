@@ -11,7 +11,6 @@ import SwiftUI
 public struct AppView: View {
   @State private var showsInfoExpanded = false
   @State private var store: StoreOf<AppFeature>
-  @State private var showOfflineBanner = false
   
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -56,8 +55,8 @@ public struct AppView: View {
           if store.hasOfflineError {
             offlineBanner()
               .clipShape(Circle())
-              .opacity(showOfflineBanner ? 1 : 0)
-              .accessibleAnimation(.easeInOut(duration: 0.2), value: showOfflineBanner)
+              .opacity(store.hasOfflineError ? 1 : 0)
+              .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
           }
         }
         .padding(.top, .grid(1))

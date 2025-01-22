@@ -26,10 +26,8 @@ private extension URL {
   }
 }
 
-public extension SharedKey
-  where Self == Sharing.FileStorageKey<UserSettings>
-{
+public extension SharedKey where Self == FileStorageKey<UserSettings>.Default {
   static var userSettings: Self {
-    fileStorage(.userSettingsURL)
+    Self[.fileStorage(.userSettingsURL), default: UserSettings()]
   }
 }

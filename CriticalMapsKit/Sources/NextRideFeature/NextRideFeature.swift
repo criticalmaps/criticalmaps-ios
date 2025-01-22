@@ -26,10 +26,8 @@ public struct NextRideFeature {
     public var nextRide: Ride?
     public var rideEvents: [Ride] = []
 
-    @Shared(.userSettings)
-    public var userSettings = UserSettings()
-    @Shared(.rideEventSettings)
-    var rideEventSettings = RideEventSettings()
+    @Shared(.userSettings) var userSettings
+    @Shared(.rideEventSettings) var rideEventSettings
 
     public var userLocation: Coordinate?
   }

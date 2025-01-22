@@ -35,8 +35,7 @@ public struct MapFeature {
     public var isNextRideBannerVisible = false
     public var isNextRideBannerExpanded = false
     
-    @Shared(.userSettings)
-    var userSettings = UserSettings()
+    @Shared(.userSettings) var userSettings
     
     public init(
       alert: AlertState<Action>? = nil,
@@ -186,7 +185,7 @@ public struct MapFeature {
             await send(.setAlert(.goToSettingsAlert))
                         
           case .authorizedAlways, .authorizedWhenInUse:
-            @Shared(.userSettings) var userSettings = UserSettings()
+            @Shared(.userSettings) var userSettings
             guard !userSettings.isObservationModeEnabled else {
               return
             }

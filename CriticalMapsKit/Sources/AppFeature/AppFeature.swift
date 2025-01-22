@@ -67,12 +67,9 @@ public struct AppFeature {
 
     public var chatMessageBadgeCount: UInt = 0
     
-    @Shared(.userSettings)
-    var userSettings = UserSettings()
-    @Shared(.rideEventSettings)
-    var rideEventSettings = RideEventSettings()
-    @Shared(.appearanceSettings)
-    var appearanceSettings = AppearanceSettings()
+    @Shared(.userSettings) var userSettings
+    @Shared(.rideEventSettings) var rideEventSettings
+    @Shared(.appearanceSettings) var appearanceSettings
     
     public init(
       locationsAndChatMessages: TaskResult<[Rider]>? = nil,

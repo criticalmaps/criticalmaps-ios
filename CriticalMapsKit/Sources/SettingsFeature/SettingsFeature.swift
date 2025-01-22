@@ -29,12 +29,9 @@ public struct SettingsFeature {
 
   @ObservableState
   public struct State: Equatable {
-    @Shared(.userSettings)
-    public var userSettings = UserSettings()
-    @Shared(.rideEventSettings)
-    public var rideEventSettings = RideEventSettings()
-    @Shared(.appearanceSettings)
-    public var appearanceSettings = AppearanceSettings()
+    @Shared(.userSettings) public var userSettings
+    @Shared(.rideEventSettings) public var rideEventSettings
+    @Shared(.appearanceSettings) public var appearanceSettings
 
     @Presents
     var destination: Destination.State?

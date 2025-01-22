@@ -34,8 +34,8 @@ private extension URL {
   }
 }
 
-public extension SharedKey where Self == Sharing.FileStorageKey<RideEventSettings> {
+public extension SharedKey where Self == Sharing.FileStorageKey<RideEventSettings>.Default {
   static var rideEventSettings: Self {
-    fileStorage(.rideEventSettingsURL)
+    Self[.fileStorage(.rideEventSettingsURL), default: RideEventSettings()]
   }
 }
