@@ -38,9 +38,6 @@ public struct MapOverlayView<Content: View>: View {
   @Environment(\.accessibilityReduceMotion) var reduceMotion
   
   let store: StoreOf<MapOverlayFeature>
-  
-  @State private var isExpanded = false
-  @State private var isVisible = false
   let content: () -> Content
   
   public init(
@@ -58,18 +55,18 @@ public struct MapOverlayView<Content: View>: View {
         HStack {
           Image(uiImage: Asset.cm.image)
           
-          if isExpanded {
+          if store.isExpanded {
             content()
               .padding(.grid(2))
               .transition(
                 .asymmetric(
-                  insertion: .opacity.animation(reduceMotion ? nil : .cmSpring.speed(1.6).delay(0.2)),
-                  removal: .opacity.animation(reduceMotion ? nil : .cmSpring.speed(1.6))
+                  insertion: .opacity.animation(reduceMotion ? nil : .spring.delay(0.2)),
+                  removal: .opacity.animation(reduceMotion ? nil : .spring.speed(1.6))
                 )
               )
           }
         }
-        .padding(.horizontal, isExpanded ? .grid(2) : 0)
+        .padding(.horizontal, store.isExpanded ? .grid(2) : 0)
       }
     )
     .frame(minWidth: 50, minHeight: 50)
@@ -89,19 +86,5 @@ public struct MapOverlayView<Content: View>: View {
       }
     )
     .transition(.scale.combined(with: .opacity).animation(reduceMotion ? nil : .spring(duration: 0.2)))
-    .onChange(
-      of: store.isExpanded,
-      perform: { newValue in
-        let updateAction: () -> Void = { isExpanded = newValue }
-        reduceMotion ? updateAction() : withAnimation { updateAction() }
-      }
-    )
-    .onChange(
-      of: store.isVisible,
-      perform: { newValue in
-        let updateAction: () -> Void = { isVisible = newValue }
-        reduceMotion ? updateAction() : withAnimation { updateAction() }
-      }
-    )
   }
 }

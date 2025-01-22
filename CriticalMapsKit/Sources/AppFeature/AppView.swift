@@ -205,10 +205,7 @@ public struct AppView: View {
   @ViewBuilder
   func nextRideBanner() -> some View {
     MapOverlayView(
-      store: store.scope(
-        state: \.mapOverlayState,
-        action: \.mapOverlayAction
-      ),
+      store: store.scope(state: \.mapOverlayState, action: \.mapOverlayAction),
       content: {
         VStack(alignment: .leading, spacing: .grid(1)) {
           Text(store.nextRideState.nextRide?.titleWithoutDatePattern ?? "")

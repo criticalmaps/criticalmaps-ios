@@ -14,8 +14,6 @@ struct MapView: ViewRepresentable {
   var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
   @Binding var annotationsCount: Int?
-  @ShouldAnimateTrackingModeOverTime
-  var shouldAnimateUserTrackingMode: Bool
   var nextRide: Ride?
   var rideEvents: [Ride] = []
   @Binding var centerRegion: CoordinateRegion?

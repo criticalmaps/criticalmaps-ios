@@ -355,11 +355,11 @@ public struct AppFeature {
         case let .setNextRide(ride):
           state.mapFeatureState.nextRide = ride
           return .run { send in
-            await send(.map(.setNextRideBannerVisible(true)))
+            await send(.map(.setNextRideBannerVisible(true)), animation: .snappy)
             try? await clock.sleep(for: .seconds(1))
-            await send(.map(.setNextRideBannerExpanded(true)))
+            await send(.map(.setNextRideBannerExpanded(true)), animation: .snappy)
             try? await clock.sleep(for: .seconds(8))
-            await send(.map(.setNextRideBannerExpanded(false)))
+            await send(.map(.setNextRideBannerExpanded(false)), animation: .snappy)
           }
           
         default:
