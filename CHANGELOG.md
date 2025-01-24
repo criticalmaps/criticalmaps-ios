@@ -46,7 +46,7 @@ Critical Maps iOS
 
 ### Updated
 
-- Send location on a timly base
+- Send location on a timely base
 
 ### Fixed
 
@@ -68,7 +68,7 @@ Critical Maps iOS
 
 - Adopt new Backend architecture
 - Update BottomSheet view that will focus on available next ride
-- Performance enhencements
+- Performance enhancements
 
 ## [4.0.0] - 2022-03-18
 
@@ -78,7 +78,7 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 ### Added
 
 - ErrorStateView and EmtpyState view
-- Adopts new Styleguide
+- Adopts new Style-guide
 - Contribute with translation view to Settings
 - Add increased contrast support
 - Show all ride events from `NextRide` overlay button contextMenu
@@ -99,14 +99,14 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 ### Fixed 
 
 - Remove Container Background Color in MapInfoView
-- Make `BikeAnnotation` it is more accesible now(scales with preferredContentSizeCategory)
+- Make `BikeAnnotation` it is more accessible now(scales with preferredContentSizeCategory)
 - Minor layout fixes: accessory color in Settings and update chat input to follow the design from sketch
 
 ## [3.9.0] - 2020-11-09
 
 ### Added
 
-- Fullpage screenshots of the Map
+- Full-page screenshots of the Map
 - Large preview images on long press for the navigation buttons on devices that use large font sizes
 - Next event feature: See where the next Critical Mass close to you takes place.
 - Select an alternate app icon
@@ -141,7 +141,7 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 ### Added
 
 - Replace send text button in ChatInputView with an icon button
-- Accessability support for chat input textview
+- Accessibility support for chat input textview
 - VoiceOver improvements for the Navigation TabBar
 - Spanish translations
 
