@@ -1,6 +1,22 @@
 # Change Log
 
-Changelog for Critical Maps iOS
+Critical Maps iOS
+
+## [4.6.0] - 2025-01-24
+
+### Added
+
+- Adopted TCA 1.17.1
+- Unified Navigation handling
+
+### Updated
+
+- Updated macOS version from 14 to 15.
+- Updated Xcode version from 16.0 to 16.2.
+- Changed Swift version from 5.5 to 5.9.
+- Updated deployment target to iOS 17.6.
+- Updated dependency versions
+
 
 ## [4.5.0] - 2024-10-28
 
