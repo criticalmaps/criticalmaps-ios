@@ -24,7 +24,7 @@ public struct AppView: View {
       MapFeatureView(
         store: store.scope(state: \.mapFeatureState, action: \.map)
       )
-      .edgesIgnoringSafeArea(.vertical)
+      .ignoresSafeArea(edges: .vertical)
       
       HStack {
         VStack(alignment: .leading) {

@@ -11,13 +11,13 @@ public typealias ViewRepresentable = UIViewRepresentable
 struct MapView: ViewRepresentable {
   typealias MenuActionHandle = () -> Void
 
-  var riderCoordinates: [Rider]
   @Binding var userTrackingMode: MKUserTrackingMode
   @Binding var annotationsCount: Int?
-  var nextRide: Ride?
-  var rideEvents: [Ride] = []
   @Binding var centerRegion: CoordinateRegion?
   @Binding var centerEventRegion: CoordinateRegion?
+  var riderCoordinates: [Rider]
+  var nextRide: Ride?
+  var rideEvents: [Ride] = []
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
