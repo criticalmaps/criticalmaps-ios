@@ -19,14 +19,6 @@ public struct AppView: View {
     self.store = store
   }
   
-  private var contextMenuTitle: String {
-    if store.bottomSheetPosition == .hidden {
-      L10n.Map.NextRideEvents.showAll
-    } else {
-      L10n.Map.NextRideEvents.hideAll
-    }
-  }
-  
   public var body: some View {
     ZStack(alignment: .topLeading) {
       MapFeatureView(
