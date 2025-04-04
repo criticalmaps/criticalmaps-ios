@@ -55,7 +55,7 @@ public struct BasicInputView: View {
       .overlay(
         Group {
           if store.isSending {
-            ProgressView()
+            ProgressView().tint(.white)
           } else {
             Image(systemName: "paperplane.fill")
               .resizable()
