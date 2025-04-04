@@ -1,0 +1,277 @@
+"a11y.chatInput.label" = "Sohbet metin kutusu";
+"a11y.mapfeatureview.nextridebanner.hint" = "Size en yakın bir sonraki Critical Mass etkinliğini gösterir";
+"a11y.mapfeatureview.nextridebanner.label" = "Bir sonraki critical mass afişi";
+
+"a11y.usertrackingbutton.hint" = "Takip modunu aç/kapat";
+"a11y.usertrackingbutton.follow" = "Takip Et";
+/* a11y.usertrackingbutton.followWithHeading
+
+It’s describing a mode users can pick to set for the track current location button. This specific one will set the map to stay on your location and also update the direction it’s facing to align with the direction you are moving to */
+"a11y.usertrackingbutton.followWithHeading" = "Istikametime göre takip et";
+"a11y.usertrackingbutton.dontFollow" = "Takibi bırak";
+
+
+"a11y.general.on" = "Açık";
+"a11y.general.off" = "Kapalı";
+"a11y.general.selected" = "seçildi";
+
+
+"chat.noChatActivity" = "Şu anda kimse sohbet etmiyor... \nSen neden başlatmıyorsun?";
+
+"chat.emptyMessageTitle" = "Buralar çok sessiz";
+
+
+"chat.placeholder" = "Mesaj Yaz";
+
+
+"chat.send" = "Gönder";
+
+
+"chat.send.error" = "Mesajın gönderilemedi. Lütfen yeniden dene.";
+
+
+"chat.title" = "Sohbet";
+
+"chat.unreadbutton.accessibilityvalue" = "%@ okunmamış mesaj";
+
+
+"close.button.label" = "kapat";
+
+"emptyState.reload" = "Yeniden yükle";
+
+
+"error" = "Hata";
+
+
+"errorState.message" = "Üzgünüz, bir şeyler ters gitti";
+
+/* ErrorState */
+"errorState.title" = "Hata";
+
+"location.alert.provideAuth" = "Konum kullanımı bu uygulamayı daha iyi hale getirir. Lütfen erişim izni verin.";
+
+"location.alert.serviceIsOff" = "Konum servisleri kapalı.";
+
+"location.alert.provideAccessToLocationService" = "Lütfen ayarlardan konum erişimine izni verin.";
+
+
+"map.headingbutton.accessibilitylabel" = "Takip ediliyor";
+
+
+"map.headingbutton.accessibilityvalue.heading" = "Istikamete göre takip açık";
+
+
+"map.headingbutton.accessibilityvalue.off" = "Kapalı";
+
+
+"map.headingbutton.accessibilityvalue.on" = "Açık";
+
+
+"map.layer.info" = "Critical Maps, sizi diğer aktif kullanıcılar ile birlikte harita üzerinde gösterebilmek için GPS'inizi kullanmaya ihtiyaç duyar";
+
+
+"map.layer.info.title" = "GPS kapatıldı";
+
+
+"map.layer.info.errorMessage" = "Critical Maps güncellenemiyor. Lütfen daha sonra tekrar kontrol edin.";
+
+
+"map.locationButton.label" = "konum bulunuyor";
+
+
+"map.menu.route" = "Rota";
+
+
+"map.menu.share" = "Paylaş";
+
+
+"map.menu.title" = "Bir sonraki etkinlik";
+
+
+"map.title" = "Critical Maps";
+
+
+"ok" = "Tamam";
+
+
+"rules.text.brake" = "Ani duruşlardan kaçının. Ancak gerçekten durmanız gerekiyorsa, arkanızdaki insanları uyarmaya çalışın.";
+
+
+"rules.text.contraflow" = "Ters şeritte sürüşten kaçının.";
+
+
+"rules.text.cork" = "Sürücüleri kendilerinden korumak için yolu kapatın!\n\nGrubun bütünlüğünü korumak için, yan yollardan gelen trafiği engelleyerek grubun kırmızı ışıklarda durmadan kesintisiz ilerlemesini sağlayın.";
+
+
+"rules.text.gently" = "Önlerde sürerken: Hız yapmayın! \nArkalarda sürerken: Boşluk bırakmayın!";
+
+
+"rules.text.green" = "Grubun en başında sürüyosan ve kırmızı ışığı gördüysen, kesinlikle dur.";
+
+
+"rules.text.haveFun" = "Caddelerin keyfini sürün. Ses sistemi taşıyan bisikletlere yanaşın. Sürücüler ve yayalarla konuşarak onlara neler olduğunu anlatın.\n\nVe en önemlisi: Eğlenin!";
+
+
+"rules.text.stayLoose" = "Kışkırtmalara kapılmayın. Polise, motorlu taşıt sürücülerine ve diğer kişilere dostane davranın, onlar size öyle davranmıyor olsalar bile.";
+
+
+"rules.title" = "Kurallar";
+
+
+"rules.number" = "Kural No";
+
+
+"rules.title.brake" = "Ani durmayın!";
+
+
+"rules.title.contraflow" = "Akan trafiğe dikkat edin";
+
+
+"rules.title.cork" = "Yolu kapatmak!?";
+
+
+"rules.title.gently" = "Düzeni koruyun!";
+
+
+"rules.title.green" = "Önlerde sürerken: kırmızı ışıklarda durun!";
+
+
+"rules.title.haveFun" = "İyi eğlenceler!";
+
+
+"rules.title.stayLoose" = "Sakin olun";
+
+
+"settings.about" = "Hakkında";
+
+
+"settings.appDesign" = "Tasarım";
+
+
+"settings.cmBerlin" = "Critical Mass Berlin";
+
+
+"settings.criticalMassDotIn.detail" = "Bisiklet aktivizminizi criticalmass.in projesine gönderin ve bunu diğer bisiklet tutkunlarına duyurun.";
+
+
+"settings.criticalMassDotIn.title" = "Eksik bir etkinlik mi var?";
+
+
+"settings.criticalMassDotIn.action" = "Projeyi Görüntüle";
+
+
+"settings.donate" = "Takip sunucumuzun finansmanına yardımcı olun";
+
+
+"settings.appIcon" = "Uygulama Simgesi";
+
+
+"settings.eventSettings" = "Etkinlik Ayarları";
+
+
+"settings.settingsEventSearchRadius" = "Etkinlik arama radyusu";
+
+
+"settings.eventSettingsEnable" = "Etkinlik Bildirimleri";
+
+
+"settings.eventTypes" = "Etkinlik Türü";
+
+
+"settings.eventSearchRadius" = "Etkinlik arama radyusu";
+
+
+"settings.eventSearchRadiusDistance" = "%@ km";
+
+
+"settings.facebook" = "Facebook";
+
+
+"settings.friends" = "Arkadaşlar";
+
+
+"settings.friends.addFriendDescription" = "eklendi";
+
+
+"settings.friends.addFriendTitle" = "Arkadaş eklendi";
+
+
+"settings.friends.settings" = "Ayarlar";
+
+
+"settings.friends.showID" = "Kimliğini göster";
+
+
+"settings.gpsSettings" = "GPS ayarları";
+
+
+"settings.kniggeImages" = "Kurallar görselleri";
+
+
+"settings.logoDesign" = "Logo tasarımı";
+
+
+"settings.observationmode.detail" = "Kendiniz katılmasanız da, Critical Mass'ı takip etmek istiyorsanız.";
+
+
+"settings.observationmode.title" = "Seyirci Modu";
+
+
+"settings.openSource" = "Github";
+
+
+"settings.opensource.action" = "Veri havuzunu görüntüle";
+
+
+"settings.opensource.detail" = "Critical Maps, açık kaynaklı bir projedir ve üzerinde çalışmak isteyen geliştiricileri bekleriz.";
+
+
+"settings.opensource.title" = "Bir özellik mi eksik? Yoksa bir hatayı mı düzeltmek istiyorsunuz?";
+
+
+"settings.programming" = "Geliştirme";
+
+
+"settings.section.info" = "Bilgi";
+
+
+"settings.socialMedia" = "Sosyal Medya";
+
+/* Theme */
+"settings.theme" = "Gece modu";
+
+/* Theme appearance */
+"settings.theme.appearance" = "Görünüm";
+
+/* Theme appearance system */
+"settings.theme.system" = "Sistem";
+
+/* Theme appearance light */
+"settings.theme.light" = "Gündüz";
+
+/* Theme appearance dark */
+"settings.theme.dark" = "Gece";
+
+"settings.title" = "Ayarlar";
+
+"settings.twitter" = "Twitter";
+
+"settings.website" = "Web Sitesi";
+
+"settings.appIconTitle" = "Uygulama Simgesi";
+
+"settings.translate.title" = "Tercüme et";
+
+"settings.translate.subtitle" = "Critical Maps'ın diğer dillerde de kullanılabilir hale gelmesine yardımcı olun";
+
+"settings.translate.link" = "crowdin.com";
+
+"settings.privacyPolicy" = "Gizlilik Politikası";
+
+"settings.support" = "Destek";
+
+"twitter.noData" = "Henüz bir şey yok";
+
+"twitter.title" = "Twitter";
+
+"twitter.empty.message" = "Burada, @criticalmaps ve #criticalmass etiketli tweet'leri bulabilirsiniz";

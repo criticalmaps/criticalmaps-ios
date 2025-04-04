@@ -4,22 +4,21 @@
 
 "a11y.usertrackingbutton.hint" = "Changer le mode de suivi";
 "a11y.usertrackingbutton.follow" = "Suivre";
+/* a11y.usertrackingbutton.followWithHeading
+
+It’s describing a mode users can pick to set for the track current location button. This specific one will set the map to stay on your location and also update the direction it’s facing to align with the direction you are moving to */
 "a11y.usertrackingbutton.followWithHeading" = "Follow with heading";
-"a11y.usertrackingbutton.dontFollow" = "Don't follow";
+"a11y.usertrackingbutton.dontFollow" = "Ne pas suivre";
 
 
 "a11y.general.on" = "On";
 "a11y.general.off" = "Off";
 "a11y.general.selected" = "sélectionné(s)";
 
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
-"appCore.viewingModeAlert.riding" = "Riding";
-"appCore.viewingModeAlert.watching" = "Watching";
 
 "chat.noChatActivity" = "Personne ne discute pour l'instant...\nLance la conversation !";
 
-"chat.emptyMessageTitle" = "Donc ici";
+"chat.emptyMessageTitle" = "C'est calme par ici";
 
 
 "chat.placeholder" = "Écrire un message";
@@ -55,9 +54,6 @@
 
 "location.alert.provideAccessToLocationService" = "Veuillez nous donner accès à votre localisation dans les paramètres.";
 
-
-"map.nextRideEvents.showAll" = "Alle Events anzeigen";
-"map.nextRideEvents.hideAll" = "Alle Events verbergen";
 
 "map.headingbutton.accessibilitylabel" = "Tracking";
 

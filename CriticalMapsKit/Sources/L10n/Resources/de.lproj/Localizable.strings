@@ -1,9 +1,12 @@
-"a11y.chatInput.label" = "Chat Eingabetextfeld";
+"a11y.chatInput.label" = "Chat-Textfeld";
 "a11y.mapfeatureview.nextridebanner.hint" = "Zeigt die nächste Critical Mass in der Nähe deines Standortes an";
 "a11y.mapfeatureview.nextridebanner.label" = "Nächste Critical Mass-Banner";
 
 "a11y.usertrackingbutton.hint" = "Tracking an-/ausschalten";
 "a11y.usertrackingbutton.follow" = "Folgen";
+/* a11y.usertrackingbutton.followWithHeading
+
+It’s describing a mode users can pick to set for the track current location button. This specific one will set the map to stay on your location and also update the direction it’s facing to align with the direction you are moving to */
 "a11y.usertrackingbutton.followWithHeading" = "Folgen mit Richtung";
 "a11y.usertrackingbutton.dontFollow" = "Nicht folgen";
 
@@ -12,12 +15,8 @@
 "a11y.general.off" = "Off";
 "a11y.general.selected" = "ausgewählt";
 
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "Nimmst du an der Critical Mass teil oder schaust du nur zu?";
-"appCore.viewingModeAlert.riding" = "Fahre mit";
-"appCore.viewingModeAlert.watching" = "Beobachte";
 
-"chat.noChatActivity" = "Niemand chattet derzeit...\nWarum fängt du nicht an?";
+"chat.noChatActivity" = "Niemand chattet derzeit...\nWarum fängst du nicht an?";
 
 "chat.emptyMessageTitle" = "So leise hier";
 
@@ -38,7 +37,7 @@
 
 "close.button.label" = "schließen";
 
-"emptyState.reload" = "Erneut laden";
+"emptyState.reload" = "Aktualisieren";
 
 
 "error" = "Fehler";
@@ -55,8 +54,6 @@
 
 "location.alert.provideAccessToLocationService" = "Bitte geben Sie uns in den Einstellungen Zugriff auf Ihren Standort.";
 
-"map.nextRideEvents.showAll" = "Alle Events anzeigen";
-"map.nextRideEvents.hideAll" = "Alle Events verbergen";
 
 "map.headingbutton.accessibilitylabel" = "Tracking";
 
@@ -88,13 +85,13 @@
 "map.menu.share" = "Teilen";
 
 
-"map.menu.title" = "Nächstes Event";
+"map.menu.title" = "Nächster Event";
 
 
 "map.title" = "Critical Maps";
 
 
-"ok" = "OK";
+"ok" = "Ok";
 
 
 "rules.text.brake" = "Wenn's mal nicht anders geht, versuche die anderen per Handzeichen zu warnen.";
@@ -154,7 +151,7 @@
 "settings.cmBerlin" = "Critical Mass Berlin";
 
 
-"settings.criticalMassDotIn.detail" = "Trage deinen Bike Aktivismus beim criticalmass.in Projekt ein und promote es an andere Bike Enthusiasten.";
+"settings.criticalMassDotIn.detail" = "Trage deinen Bike-Aktivismus beim criticalmass.in-Projekt ein und promote es an andere Bike-Enthusiasten.";
 
 
 "settings.criticalMassDotIn.title" = "Fehlt eine Mass?";
@@ -166,19 +163,19 @@
 "settings.donate" = "Helfe unseren Server zu finanzieren";
 
 
-"settings.appIcon" = "App Icon";
+"settings.appIcon" = "App-Icon";
 
 
-"settings.eventSettings" = "Event Einstellungen";
+"settings.eventSettings" = "Event-Einstellungen";
 
 
 "settings.settingsEventSearchRadius" = "Event-Suchradius";
 
 
-"settings.eventSettingsEnable" = "Event Benachrichtigungen";
+"settings.eventSettingsEnable" = "Event-Benachrichtigungen";
 
 
-"settings.eventTypes" = "Art der Veranstaltung";
+"settings.eventTypes" = "Art des Events";
 
 
 "settings.eventSearchRadius" = "Event-Suchradius";
@@ -190,13 +187,13 @@
 "settings.facebook" = "Facebook";
 
 
-"settings.friends" = "Freunde";
+"settings.friends" = "Freund:innen";
 
 
 "settings.friends.addFriendDescription" = "hinzugefügt";
 
 
-"settings.friends.addFriendTitle" = "Freund hinzugefügt";
+"settings.friends.addFriendTitle" = "Freund:in hinzugefügt";
 
 
 "settings.friends.settings" = "Einstellungen";
@@ -226,7 +223,7 @@
 "settings.opensource.action" = "Repository anzeigen";
 
 
-"settings.opensource.detail" = "Critical Maps ist ein Open Source Projekt und wir freuen uns über Entwickler*innen, die an Critical Maps mitarbeiten wollen.";
+"settings.opensource.detail" = "Critical Maps ist ein Open-Source-Projekt und wir freuen uns über Entwickler*innen, die an Critical Maps mitarbeiten wollen.";
 
 
 "settings.opensource.title" = "Vermisst du Funktionen oder willst einen Bug fixen?";
@@ -261,7 +258,7 @@
 
 "settings.website" = "Website";
 
-"settings.appIconTitle" = "App Icon";
+"settings.appIconTitle" = "App-Icon";
 
 "settings.translate.title" = "Übersetzen";
 

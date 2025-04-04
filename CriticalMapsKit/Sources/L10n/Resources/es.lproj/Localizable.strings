@@ -1,21 +1,19 @@
-"a11y.chatInput.label" = "Chat input textfield";
+"a11y.chatInput.label" = "Campo de texto de entrada de chat";
 "a11y.mapfeatureview.nextridebanner.hint" = "Muestra el siguiente evento de masa crítica más cercano a tu ubicación";
-"a11y.mapfeatureview.nextridebanner.label" = "Next critical mass banner";
+"a11y.mapfeatureview.nextridebanner.label" = "Siguiente estandarte de masa crítica";
 
-"a11y.usertrackingbutton.hint" = "Toggle tracking mode";
+"a11y.usertrackingbutton.hint" = "Cambiar modo de seguimiento";
 "a11y.usertrackingbutton.follow" = "Seguir";
-"a11y.usertrackingbutton.followWithHeading" = "Follow with heading";
-"a11y.usertrackingbutton.dontFollow" = "Don't follow";
+/* a11y.usertrackingbutton.followWithHeading
+
+It’s describing a mode users can pick to set for the track current location button. This specific one will set the map to stay on your location and also update the direction it’s facing to align with the direction you are moving to */
+"a11y.usertrackingbutton.followWithHeading" = "Seguir con encabezado";
+"a11y.usertrackingbutton.dontFollow" = "No seguir";
 
 
-"a11y.general.on" = "On";
-"a11y.general.off" = "Off";
-"a11y.general.selected" = "selected";
-
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
-"appCore.viewingModeAlert.riding" = "Riding";
-"appCore.viewingModeAlert.watching" = "Watching";
+"a11y.general.on" = "Activado";
+"a11y.general.off" = "Desactivado";
+"a11y.general.selected" = "seleccionado";
 
 
 "chat.noChatActivity" = "Nadie está charlando en este momento...\n¿por qué no empezas?";
@@ -57,13 +55,10 @@
 "location.alert.provideAccessToLocationService" = "Por favor, danos acceso a tu ubicación en ajustes.";
 
 
-"map.nextRideEvents.showAll" = "Alle Events anzeigen";
-"map.nextRideEvents.hideAll" = "Alle Events verbergen";
-
 "map.headingbutton.accessibilitylabel" = "Tracking";
 
 
-"map.headingbutton.accessibilityvalue.heading" = "On with heading";
+"map.headingbutton.accessibilityvalue.heading" = "Encender con el encabezado";
 
 
 "map.headingbutton.accessibilityvalue.off" = "Off";
