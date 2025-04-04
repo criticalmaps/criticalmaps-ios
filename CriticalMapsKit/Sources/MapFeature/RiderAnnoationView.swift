@@ -14,13 +14,25 @@ final class RiderAnnoationView: MKAnnotationView {
   
   private func commonInit() {
     canShowCallout = false
-    backgroundColor = UIColor.label.resolvedColor(with: traitCollection)
     
-    frame = defineFrame()
-    layer.cornerRadius = frame.height / 2
+    configureView()
+    
     layer.shouldRasterize = true
     layer.rasterizationScale = UIScreen.main.scale
     isAccessibilityElement = false
+    
+    registerForTraitChanges(
+      [UITraitPreferredContentSizeCategory.self, UITraitUserInterfaceStyle.self],
+      handler: { (self: Self, previousTraitCollection: UITraitCollection) in
+        self.configureView()
+      }
+    )
+  }
+  
+  private func configureView() {
+    frame = defineFrame()
+    layer.cornerRadius = frame.height / 2
+    backgroundColor = UIColor.label.resolvedColor(with: traitCollection)
   }
   
   private func defineFrame() -> CGRect {
@@ -42,18 +54,9 @@ final class RiderAnnoationView: MKAnnotationView {
       .defaultSize
     }
   }
-  
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    // For some reason when this active the annotions disappear when sheets dismiss
-//    frame = defineFrame()
-//    layer.cornerRadius = frame.height / 2
-    backgroundColor = UIColor.label.resolvedColor(with: traitCollection)
-    setNeedsDisplay()
-  }
 }
 
-extension CGRect {
+private extension CGRect {
   static let defaultSize = Self(x: 0, y: 0, width: 7, height: 7)
   static let large = Self(x: 0, y: 0, width: 10, height: 10)
   static let extraLarge = Self(x: 0, y: 0, width: 14, height: 14)
