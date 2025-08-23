@@ -5,7 +5,7 @@ import Foundation
 import IDProvider
 import L10n
 import MastodonFeedFeature
-import SwiftUICore
+import SwiftUI
 import UIApplicationClient
 import UserDefaultsClient
 
