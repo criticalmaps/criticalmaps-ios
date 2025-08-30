@@ -21,6 +21,10 @@ let package = Package(
   ],
   dependencies: [
     .package(
+      url: "https://github.com/scinfu/SwiftSoup.git",
+      from: "2.8.8"
+    ),
+    .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       .upToNextMajor(from: "1.0.0")
     ),
@@ -161,6 +165,20 @@ let package = Package(
       ]
     ),
     .target(
+      name: "MastodonFeedFeature",
+      dependencies: [
+        .apiClient,
+        .logger,
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .uiApplicationClient,
+        .tca,
+        .product(name: "MastodonKit", package: "MastodonKit"),
+        .product(name: "SwiftSoup", package: "SwiftSoup"),
+      ]
+    ),
+    .target(
       name: "NextRideFeature",
       dependencies: [
         .apiClient,
@@ -247,19 +265,6 @@ let package = Package(
       name: "TestHelper",
       dependencies: [
         .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
-      ]
-    ),
-    .target(
-      name: "MastodonFeedFeature",
-      dependencies: [
-        .apiClient,
-        .logger,
-        .sharedDependencies,
-        .sharedModels,
-        .styleguide,
-        .uiApplicationClient,
-        .tca,
-        .product(name: "MastodonKit", package: "MastodonKit")
       ]
     ),
     .target(
@@ -376,7 +381,8 @@ package.targets.append(contentsOf: [
       .testHelper,
       .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
-    ]
+    ],
+    resources: [.process("_Resources/")]
   )
 ])
 
