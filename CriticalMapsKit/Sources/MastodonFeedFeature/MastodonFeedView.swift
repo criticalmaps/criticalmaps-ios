@@ -42,7 +42,7 @@ public extension [TootFeature.State] {
       accountAvatar: "",
       accountDisplayName: "",
       accountAcct: "",
-      content: ""
+      content: MastodonKit.HTMLString(stringValue: "")
     )
   }
 }

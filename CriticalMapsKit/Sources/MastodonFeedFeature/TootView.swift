@@ -22,7 +22,7 @@ public struct TootFeature {
     public let accountAvatar: String
     public let accountDisplayName: String
     public let accountAcct: String
-    public let content: String
+    public let content: MastodonKit.HTMLString
     
     public init(
       id: String,
@@ -32,7 +32,7 @@ public struct TootFeature {
       accountAvatar: String,
       accountDisplayName: String,
       accountAcct: String,
-      content: String
+      content: MastodonKit.HTMLString
     ) {
       self.id = id
       self.createdAt = createdAt
@@ -106,28 +106,17 @@ public struct TootView: View {
         .background(Color.gray)
         .clipShape(Circle())
         
-        VStack(alignment: .leading, spacing: .grid(2)) {
+        VStack(alignment: .leading, spacing: .grid(1)) {
           tweetheader()
             .contentShape(Rectangle())
             .onTapGesture {
               store.send(.openUser)
             }
           
-          if let content = store.content.convertHtmlToAttributedStringWithCSS(
-            csscolor: colorScheme == .light ? "black" : "white",
-            linkColor: colorScheme == .light ? "#1717E5" : "#FFD633"
-          ) {
-            Text(content)
-              .id(dynamicTypeSize.hashValue)
-              .contentShape(Rectangle())
-              .onTapGesture { store.send(.openTweet) }
-              .accessibilityAction(
-                action: { store.send(.openTweet) },
-                label: { Text("Open tweet")
-                  .accessibilityHint("Opens the tweet in the twitter app if it is installed")
-                }
-              )
-          }
+          Text(store.content.asSafeMarkdownAttributedString)
+            .font(.body)
+            .tint(Color(uiColor: colorScheme == .light ? .highlight : .brand500))
+            .fixedSize(horizontal: false, vertical: true)
         }
       }
     }
@@ -171,14 +160,14 @@ public struct TootView: View {
       }
     })
   }
-
+  
   private var displayName: some View {
     Text(store.accountDisplayName)
       .lineLimit(1)
       .font(.titleTwo)
       .foregroundColor(Color(.textPrimary))
   }
-
+  
   private var accountName: some View {
     Text(store.accountAcct)
       .lineLimit(1)
@@ -186,7 +175,7 @@ public struct TootView: View {
       .foregroundColor(Color(.textSilent))
       .accessibilityHidden(true)
   }
-
+  
   private var tweetPostDatetime: some View {
     let (text, a11yValue) = store.state.formattedCreationDate()
     return Text(text ?? "")
@@ -270,54 +259,4 @@ extension RelativeDateTimeFormatter {
     formatter.dateTimeStyle = .named
     return formatter
   }()
-}
-
-extension String {
-  private var convertHtmlToNSAttributedString: NSAttributedString? {
-    guard let data = data(using: .utf8) else {
-      return nil
-    }
-    do {
-      return try NSAttributedString(
-        data: data,
-        options: [
-          .documentType: NSAttributedString.DocumentType.html,
-          .characterEncoding: String.Encoding.unicode.rawValue
-        ],
-        documentAttributes: nil
-      )
-    } catch {
-      debugPrint(error.localizedDescription)
-      return nil
-    }
-  }
-  
-  public func convertHtmlToAttributedStringWithCSS(
-    font: UIFont? = UIFont(name: "Helvetica", size: UIFont.preferredFont(forTextStyle: .body).pointSize),
-    csscolor: String,
-    linkColor: String,
-    lineheight: Int = 5,
-    csstextalign: String = "left"
-  ) -> NSAttributedString? {
-    guard let font else {
-      return convertHtmlToNSAttributedString
-    }
-    let modifiedString = "<style>body{font-family: '\(font.fontName)'; font-size:\(font.pointSize)px; color: \(csscolor); line-height: \(lineheight)px; text-align: \(csstextalign);} a{color: \(linkColor)}</style>\(self)"
-    guard let data = modifiedString.data(using: .unicode) else {
-      return nil
-    }
-    do {
-      return try NSAttributedString(
-        data: data,
-        options: [
-          .documentType: NSAttributedString.DocumentType.html,
-          .characterEncoding: String.Encoding.unicode.rawValue
-        ],
-        documentAttributes: nil
-      )
-    } catch {
-      debugPrint(error.localizedDescription)
-      return nil
-    }
-  }
 }

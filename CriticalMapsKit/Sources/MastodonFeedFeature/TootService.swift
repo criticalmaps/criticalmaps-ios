@@ -17,8 +17,8 @@ extension TootService: DependencyKey {
   public static let liveValue: TootService = Self(
     getToots: {
       let client = MastodonKit.Client(baseURL: "https://mastodon.social")
-      let request = Timelines.tag("CriticalMass")
-      let statuses = try await client.run(request).value
+      let request = Timelines.tag("CriticalMass", range: .limit(40))
+      let statuses: [MastodonKit.Status] = try await client.run(request).value
       return statuses
     }
   )

@@ -57,13 +57,8 @@ public struct TootsListView: View {
           .ignoresSafeArea()
 
         List {
-          ForEachStore(
-            store.scope(
-              state: \.toots,
-              action: \.toot
-            )
-          ) {
-            TootView(store: $0)
+          ForEach(store.scope(state: \.toots, action: \.toot), id: \.id) { childStore in
+            TootView(store: childStore)
           }
         }
         .listRowBackground(Color(.backgroundPrimary))

@@ -39,7 +39,7 @@ public struct TootFeedFeature {
     case onAppear
     case refresh
     case fetchData
-    case fetchDataResponse(TaskResult<[Status]>)
+    case fetchDataResponse(TaskResult<[MastodonKit.Status]>)
     case toot(IdentifiedActionOf<TootFeature>)
   }
   
