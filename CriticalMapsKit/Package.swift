@@ -45,10 +45,6 @@ let package = Package(
       exact: "3.2.0"
     ),
     .package(
-      url: "https://github.com/lucaszischka/BottomSheet.git",
-      from: "3.1.0"
-    ),
-    .package(
       url: "https://github.com/mltbnz/MastodonKit.git",
       branch: "master"
     )
@@ -81,8 +77,7 @@ let package = Package(
         .styleguide,
         .userDefaultsClient,
         .uiApplicationClient,
-        .tca,
-        .product(name: "BottomSheet", package: "BottomSheet")
+        .tca
       ]
     ),
     .target(

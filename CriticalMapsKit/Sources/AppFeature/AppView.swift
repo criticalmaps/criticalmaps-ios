@@ -1,4 +1,3 @@
-import BottomSheet
 import ComposableArchitecture
 import L10n
 import MapFeature
@@ -82,7 +81,7 @@ public struct AppView: View {
     .listStyle(.plain)
     .padding(.top, .grid(2))
     .accessibilityAction(.escape) {
-      store.send(.set(\.bottomSheetPosition, .hidden))
+      store.send(.set(\.isEventListPresented, false))
     }
   }
   

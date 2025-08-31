@@ -1,5 +1,4 @@
 import ApiClient
-import BottomSheet
 import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
@@ -64,7 +63,6 @@ public struct AppFeature {
       
     // Navigation
     @Presents var destination: Destination.State?
-    public var bottomSheetPosition: BottomSheetPosition = .hidden
     public var eventListPresentation: PresentationDetent = .fraction(0.3)
     public var isEventListPresented = false
 
