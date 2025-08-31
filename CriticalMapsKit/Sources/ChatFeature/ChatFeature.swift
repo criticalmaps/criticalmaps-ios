@@ -52,11 +52,11 @@ public struct ChatFeature {
   // MARK: Actions
   
   @CasePathable
-  public enum Action: Equatable {
+  public enum Action {
     case onAppear
-    case chatInputResponse(TaskResult<ApiResponse>)
+    case chatInputResponse(Result<ApiResponse, any Error>)
     case fetchChatMessages
-    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
+    case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
     
     case chatInput(ChatInput.Action)
     case alert(PresentationAction<Alert>)
@@ -92,7 +92,7 @@ public struct ChatFeature {
         return .run { send in
           await send(
             .fetchChatMessagesResponse(
-              TaskResult {
+              Result {
                 try await apiService.getChatMessages()
               }
             )
@@ -144,7 +144,7 @@ public struct ChatFeature {
           return .run { send in
             await send(
               .chatInputResponse(
-                TaskResult {
+                Result {
                   try await apiService.postChatMessage(message)
                 }
               )

@@ -53,7 +53,7 @@ public struct AppFeature {
 
   @ObservableState
   public struct State: Equatable {
-    public var riderLocations: TaskResult<[Rider]>?
+    public var riderLocations: [Rider]?
     public var isRequestingRiderLocations = false
     public var didRequestNextRide = false
     public var socialState = SocialFeature.State()
@@ -73,7 +73,7 @@ public struct AppFeature {
     @Shared(.appearanceSettings) var appearanceSettings
     
     public init(
-      locationsAndChatMessages: TaskResult<[Rider]>? = nil,
+      locationsAndChatMessages: [Rider]? = nil,
       mapFeatureState: MapFeatureState = .init(
         riders: [],
         userTrackingMode: UserTrackingFeature.State()
@@ -120,16 +120,11 @@ public struct AppFeature {
     }
     
     var hasOfflineError: Bool {
-      switch riderLocations {
-      case let .failure(error):
-        guard let networkError = error as? NetworkRequestError else {
-          return false
-        }
-        return networkError == .connectionLost
-        
-      default:
+//      if riderLocations == nil {
+//        return networkError == .connectionLost
+//      } else {
         return false
-      }
+//      }
     }
   }
   
@@ -142,11 +137,11 @@ public struct AppFeature {
     case onAppear
     case onDisappear
     case fetchLocations
-    case fetchLocationsResponse(TaskResult<[Rider]>)
+    case fetchLocationsResponse(Result<[Rider], any Error>)
     case postLocation
-    case postLocationResponse(TaskResult<ApiResponse>)
+    case postLocationResponse(Result<ApiResponse, any Error>)
     case fetchChatMessages
-    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
+    case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
     case onRideSelectedFromBottomSheet(SharedModels.Ride)
     case presentObservationModeAlert
     
@@ -240,7 +235,7 @@ public struct AppFeature {
         return .run { send in
           await send(
             .fetchLocationsResponse(
-              TaskResult {
+              Result {
                 try await apiService.getRiders()
               }
             )
@@ -251,7 +246,7 @@ public struct AppFeature {
         return .run { send in
           await send(
             .fetchChatMessagesResponse(
-              TaskResult {
+              Result {
                 try await apiService.getChatMessages()
               }
             )
@@ -285,14 +280,14 @@ public struct AppFeature {
         
       case let .fetchLocationsResponse(.success(response)):
         state.isRequestingRiderLocations = false
-        state.riderLocations = .success(response)
+        state.riderLocations = response
         state.mapFeatureState.riderLocations = response
         return .none
         
       case let .fetchLocationsResponse(.failure(error)):
         state.isRequestingRiderLocations = false
         logger.info("FetchLocation failed: \(error)")
-        state.riderLocations = .failure(error)
+        state.riderLocations = []
         return .none
         
       case .postLocation:
@@ -307,7 +302,7 @@ public struct AppFeature {
         return .run { send in
           await send(
             .postLocationResponse(
-              TaskResult {
+              Result {
                 try await apiService.postRiderLocation(postBody)
               }
             )

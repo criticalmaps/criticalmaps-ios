@@ -34,9 +34,9 @@ public struct NextRideFeature {
 
   // MARK: Actions
 
-  public enum Action: Equatable {
+  public enum Action {
     case getNextRide(Coordinate)
-    case nextRideResponse(TaskResult<[Ride]>)
+    case nextRideResponse(Result<[Ride], any Error>)
     case setNextRide(Ride)
   }
 
@@ -61,7 +61,7 @@ public struct NextRideFeature {
       return .run { [distance = state.rideEventSettings.eventDistance] send in
         await send(
           .nextRideResponse(
-            TaskResult {
+            Result {
               try await service.nextRide(
                 obfuscatedCoordinate,
                 distance.rawValue,
