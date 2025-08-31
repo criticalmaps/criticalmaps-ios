@@ -92,7 +92,7 @@ public struct SettingsView: View {
       alignment: .topLeading
     )
     .toolbar {
-      ToolbarItem(placement: .cancellationAction) {
+      ToolbarItem(placement: .topBarLeading) {
         Button(
           action: { store.send(.dismiss) },
           label: {

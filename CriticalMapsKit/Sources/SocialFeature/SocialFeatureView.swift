@@ -26,7 +26,7 @@ public struct SocialView: View {
         }
       }
       .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
+        ToolbarItem(placement: .topBarLeading) {
           Button(
             action: { store.send(.dismiss) },
             label: {
