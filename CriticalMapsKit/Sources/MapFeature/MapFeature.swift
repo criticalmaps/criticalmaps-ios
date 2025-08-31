@@ -5,6 +5,9 @@ import MapKit
 import SharedDependencies
 import SharedModels
 
+public typealias MapFeatureState = MapFeature.State
+public typealias MapFeatureAction = MapFeature.Action
+
 @Reducer
 public struct MapFeature {
   public init() {}

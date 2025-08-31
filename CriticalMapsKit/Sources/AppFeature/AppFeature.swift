@@ -16,6 +16,7 @@ import SettingsFeature
 import SharedDependencies
 import SharedModels
 import SocialFeature
+import struct SwiftUI.PresentationDetent
 import UIApplicationClient
 import UserDefaultsClient
 
@@ -64,6 +65,8 @@ public struct AppFeature {
     // Navigation
     @Presents var destination: Destination.State?
     public var bottomSheetPosition: BottomSheetPosition = .hidden
+    public var eventListPresentation: PresentationDetent = .fraction(0.3)
+    public var isEventListPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
     
@@ -73,7 +76,7 @@ public struct AppFeature {
     
     public init(
       locationsAndChatMessages: TaskResult<[Rider]>? = nil,
-      mapFeatureState: MapFeature.State = .init(
+      mapFeatureState: MapFeatureState = .init(
         riders: [],
         userTrackingMode: UserTrackingFeature.State()
       ),
@@ -92,10 +95,7 @@ public struct AppFeature {
       self.chatMessageBadgeCount = chatMessageBadgeCount
     }
 
-    public var mapFeatureState = MapFeature.State(
-      riders: [],
-      userTrackingMode: UserTrackingFeature.State()
-    )
+    public var mapFeatureState: MapFeatureState
     
     public var timerProgress: Double {
       let progress = Double(requestTimer.secondsElapsed) / 60
@@ -156,7 +156,7 @@ public struct AppFeature {
     case settingsButtonTapped
     case dismissDestination
     
-    case map(MapFeature.Action)
+    case map(MapFeatureAction)
     case nextRide(NextRideFeature.Action)
     case requestTimer(RequestTimer.Action)
     case mapOverlayAction(MapOverlayFeature.Action)
@@ -166,6 +166,17 @@ public struct AppFeature {
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
+      .onChange(of: \.isEventListPresented) { old, new in
+        Reduce { state, _ in
+          if !new {
+            state.mapFeatureState.rideEvents = []
+            state.mapFeatureState.eventCenter = nil
+          } else {
+            state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+          }
+          return .none
+        }
+      }
     
     Scope(state: \.requestTimer, action: \.requestTimer) {
       RequestTimer()
@@ -182,15 +193,6 @@ public struct AppFeature {
     /// Holds the logic for the AppFeature to update state and execute side effects
     Reduce { state, action in
       switch action {
-      case .binding(\.bottomSheetPosition):
-        if state.bottomSheetPosition == .hidden {
-          state.mapFeatureState.rideEvents = []
-          state.mapFeatureState.eventCenter = nil
-        } else {
-          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
-        }
-        return .none
-        
       case let .onRideSelectedFromBottomSheet(ride):
         return .merge(
           .send(.map(.focusRideEvent(ride.coordinate))),
@@ -324,11 +326,10 @@ public struct AppFeature {
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
         case .focusRideEvent, .focusNextRide:
-          if state.bottomSheetPosition != .hidden {
-            return .send(.set(\.bottomSheetPosition, .relative(0.3)))
-          } else {
+          guard !state.isEventListPresented else {
             return .none
           }
+          return .send(.set(\.isEventListPresented, true))
           
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
@@ -484,7 +485,7 @@ public struct AppFeature {
         return .merge(
           .run { _ in await feedbackGenerator.selectionChanged() },
           .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
-          .send(.set(\.bottomSheetPosition, .relative(0.3)))
+          .send(.set(\.eventListPresentation, .fraction(0.3)))
         )
         
       case .binding:
