@@ -22,24 +22,18 @@ struct RideEventView: View {
           .foregroundColor(Color(.textPrimary))
           .padding(.bottom, .grid(2))
         
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: .grid(1)) {
           Label(ride.dateTime.humanReadableDate, systemImage: "calendar")
-            .multilineTextAlignment(.leading)
-            .font(.bodyTwo)
-            .foregroundColor(Color(.textSecondary))
           
           Label(ride.rideTime, systemImage: "clock")
-            .multilineTextAlignment(.leading)
-            .font(.bodyTwo)
-            .foregroundColor(Color(.textSecondary))
           
           if let location = ride.location {
-            Label(location, systemImage: "location.fill")
-              .multilineTextAlignment(.leading)
-              .font(.bodyTwo)
-              .foregroundColor(Color(.textSecondary))
+            Label(location, systemImage: "mappin.and.ellipse")
           }
         }
+        .multilineTextAlignment(.leading)
+        .font(.bodyTwo)
+        .foregroundColor(Color(.textSecondary))
       }
       Spacer()
     }

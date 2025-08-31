@@ -9,8 +9,8 @@ import SwiftUI
 
 /// The apps main view
 public struct AppView: View {
-  @State private var showsInfoExpanded = false
   @State private var store: StoreOf<AppFeature>
+  @Namespace private var namespace
   
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -27,31 +27,8 @@ public struct AppView: View {
       .ignoresSafeArea(edges: .vertical)
       
       HStack {
-        VStack(alignment: .leading) {
-          if store.shouldShowNextRideBanner {
-            nextRideBanner()
-          }
-          
-          if store.userSettings.showInfoViewEnabled {
-            ZStack(alignment: .center) {
-              Blur()
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                .frame(width: showsInfoExpanded ? 120 : 50, height: showsInfoExpanded ? 230 : 50)
-                .accessibleAnimation(.cmSpring.speed(1.5), value: showsInfoExpanded)
-              
-              infoContent()
-            }
-            .padding(.bottom, .grid(2))
-          }
-          
-          if store.hasOfflineError {
-            offlineBanner()
-              .clipShape(Circle())
-              .opacity(store.hasOfflineError ? 1 : 0)
-              .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
-          }
-        }
-        .padding(.top, .grid(1))
+        overlayViewsStack()
+          .padding(.top, .grid(1))
         
         Spacer()
       }
@@ -64,115 +41,53 @@ public struct AppView: View {
           .accessibilitySortPriority(1)
           .padding(.horizontal)
           .padding(.bottom, .grid(7))
-          .frame(maxWidth: 400)
+          .frame(maxWidth: 450)
       }
       .frame(maxWidth: .infinity, alignment: .center)
-      .padding(.horizontal, .grid(8))
+      .padding(.horizontal)
     }
-    .bottomSheet(
-      bottomSheetPosition: $store.bottomSheetPosition,
-      switchablePositions: [
-        .relative(0.3),
-        .relativeTop(0.975)
-      ],
-      title: "Events",
-      content: { bottomSheetContentView() }
+    .sheet(
+      isPresented: $store.isEventListPresented,
+      onDismiss: { store.send(.set(\.isEventListPresented, false))
+      },
+      content: {
+        NavigationStack {
+          bottomSheetContentView()
+            .presentationDetents(
+              [.fraction(0.3), .large],
+              selection: $store.eventListPresentation
+            )
+            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.3)))
+            .presentationBackgroundInteraction(.enabled)
+        }
+      }
     )
-    .showCloseButton()
-    .backgroundBlurMaterial(.adaptive(.ultraThin))
-    .showDragIndicator(true)
-    .enableSwipeToDismiss()
-    .onDismiss { store.send(.set(\.bottomSheetPosition, .hidden)) }
     .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
     .onAppear { store.send(.onAppear) }
     .onDisappear { store.send(.onDisappear) }
   }
   
   @ViewBuilder
-  func infoContent() -> some View {
-    if showsInfoExpanded {
-      VStack {
-        Text("Info")
-          .foregroundColor(Color(.textPrimary))
-          .font(.titleTwo)
-        
-        DataTile("Next update") {
-          CircularProgressView(progress: store.timerProgress)
-            .frame(width: 44, height: 44)
-            .overlay(alignment: .center) {
-              if store.isRequestingRiderLocations {
-                ProgressView()
-              } else {
-                Text(verbatim: store.timerValue)
-                  .foregroundColor(Color(.textPrimary))
-                  .font(.system(size: 14).bold())
-                  .monospacedDigit()
-                  .modifier(NumericContentTransition())
-              }
-            }
-            .padding(.top, .grid(1))
-        }
-        
-        DataTile("Riders") {
-          HStack {
-            Text(store.ridersCount)
-              .font(.pageTitle)
-              .modifier(NumericContentTransition())
-          }
-          .foregroundColor(Color(.textPrimary))
-        }
-      }
-      .transition(
-        .asymmetric(
-          insertion: .opacity.combined(with: .scale(scale: 1, anchor: .topLeading)).animation(.easeIn(duration: 0.2)),
-          removal: .opacity.combined(with: .scale(scale: 0, anchor: .topLeading)).animation(.easeIn(duration: 0.12))
-        )
-      )
-      .contentShape(Rectangle())
-      .onTapGesture {
-        withAnimation { showsInfoExpanded = false }
-      }
-    } else {
-      Button(
-        action: { withAnimation { showsInfoExpanded = true } },
-        label: {
-          Image(systemName: "info.circle")
-            .resizable()
-            .frame(width: 30, height: 30)
-            .transition(
-              .asymmetric(
-                insertion: .opacity.combined(with: .scale(scale: 0, anchor: .bottomLeading)).animation(.easeIn(duration: 0.1)),
-                removal: .opacity.animation(.easeIn(duration: 0.1))
-              )
-            )
-        }
-      )
-      .foregroundStyle(Color(.textPrimary))
-    }
-  }
-  
-  @ViewBuilder
   func bottomSheetContentView() -> some View {
-    VStack {
-      List(store.nextRideState.rideEvents, id: \.id) { ride in
-        RideEventView(ride: ride)
-          .contentShape(Rectangle())
-          .padding(.vertical, .grid(1))
-          .accessibilityElement(children: .combine)
-          .onTapGesture {
-            store.send(.onRideSelectedFromBottomSheet(ride))
-          }
-          .listRowBackground(Color.clear)
-      }
-      .listStyle(.plain)
+    List(store.nextRideState.rideEvents, id: \.id) { ride in
+      RideEventView(ride: ride)
+        .contentShape(Rectangle())
+        .padding(.vertical, .grid(1))
+        .accessibilityElement(children: .combine)
+        .onTapGesture {
+          store.send(.onRideSelectedFromBottomSheet(ride))
+        }
+        .listRowBackground(Color.clear)
     }
+    .listStyle(.plain)
+    .padding(.top, .grid(2))
     .accessibilityAction(.escape) {
       store.send(.set(\.bottomSheetPosition, .hidden))
     }
   }
   
   @ViewBuilder
-  func offlineBanner() -> some View {
+  private func offlineBanner() -> some View {
     Image(systemName: "wifi.slash")
       .foregroundColor(
         reduceTransparency
@@ -181,38 +96,77 @@ public struct AppView: View {
       )
       .accessibilityLabel(Text("Internet not available"))
       .padding()
-      .background(
-        Group {
-          if reduceTransparency {
-            RoundedRectangle(cornerRadius: 8, style: .circular)
-              .fill(reduceTransparency ? Color(.attention) : Color(.attention).opacity(0.8))
-          } else {
-            Blur()
-          }
-        }
-      )
+      .conditionalBackground(shouldUseBlur: true, shouldUseGlassEffect: true)
   }
   
   @ViewBuilder
-  func nextRideBanner() -> some View {
+  private func nextRideBanner() -> some View {
     MapOverlayView(
-      store: store.scope(state: \.mapOverlayState, action: \.mapOverlayAction),
-      content: {
-        VStack(alignment: .leading, spacing: .grid(1)) {
-          Text(store.nextRideState.nextRide?.titleWithoutDatePattern ?? "")
-            .multilineTextAlignment(.leading)
-            .font(.titleTwo)
-            .foregroundColor(Color(.textPrimary))
-          Text(store.state.nextRideState.nextRide?.rideDateAndTime ?? "")
-            .multilineTextAlignment(.leading)
-            .font(.bodyTwo)
-            .foregroundColor(Color(.textSecondary))
-        }
-      }
+      store: store.scope(
+        state: \.mapOverlayState,
+        action: \.mapOverlayAction
+      )
     )
     .accessibilityElement(children: .contain)
     .accessibilityHint(Text(L10n.A11y.Mapfeatureview.Nextridebanner.hint))
     .accessibilityLabel(Text(L10n.A11y.Mapfeatureview.Nextridebanner.label))
+  }
+  
+  @ViewBuilder
+  private func overlayViewsStack() -> some View {
+    VStack(alignment: .leading) {
+      if store.shouldShowNextRideBanner {
+        nextRideBanner()
+          .conditionalBackground(shouldUseBlur: true, shouldUseGlassEffect: true)
+      }
+      
+      if store.userSettings.showInfoViewEnabled {
+        InfoOverlayView(
+          timerProgress: store.timerProgress,
+          timerValue: store.timerValue,
+          ridersCountLabel: store.ridersCount
+        )
+      }
+      
+      if store.hasOfflineError {
+        offlineBanner()
+          .clipShape(Circle())
+          .opacity(store.hasOfflineError ? 1 : 0)
+          .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
+      }
+    }
+  }
+  
+  @available(iOS 26, *)
+  @ViewBuilder
+  private func overlayViewsStackWithGlass() -> some View {
+    GlassEffectContainer(spacing: .grid(2)) {
+      VStack(alignment: .leading) {
+        if store.shouldShowNextRideBanner {
+          nextRideBanner()
+            .glassEffect()
+            .glassEffectID("nextRide", in: namespace)
+        }
+        
+        if store.userSettings.showInfoViewEnabled {
+          InfoOverlayView(
+            timerProgress: store.timerProgress,
+            timerValue: store.timerValue,
+            ridersCountLabel: store.ridersCount
+          )
+          .glassEffectID("infos", in: namespace)
+        }
+        
+        if store.hasOfflineError {
+          offlineBanner()
+            .glassEffect()
+            .glassEffectID("offline", in: namespace)
+            .clipShape(Circle())
+            .opacity(store.hasOfflineError ? 1 : 0)
+            .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
+        }
+      }
+    }
   }
 }
 
@@ -220,8 +174,8 @@ public struct AppView: View {
 
 #Preview {
   AppView(
-    store: StoreOf<AppFeature>(
-      initialState: .init(),
+    store: Store(
+      initialState: AppFeature.State(),
       reducer: { AppFeature()._printChanges() }
     )
   )

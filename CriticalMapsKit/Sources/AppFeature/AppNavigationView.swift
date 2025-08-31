@@ -12,13 +12,7 @@ import SwiftUI
 public struct AppNavigationView: View {
   @State private var store: StoreOf<AppFeature>
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
-  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-  
   private let minHeight: CGFloat = 56
-  private var shouldShowAccessiblyBackground: Bool {
-    reduceTransparency || colorSchemeContrast.isIncreased
-  }
   
   public init(store: StoreOf<AppFeature>) {
     self.store = store
@@ -47,12 +41,7 @@ public struct AppNavigationView: View {
         .accessibility(label: Text("App navigation \(L10n.Settings.title)"))
     }
     .font(.body)
-    .background(
-      shouldShowAccessiblyBackground
-        ? Color(.backgroundSecondary)
-        : Color(.backgroundTranslucent)
-    )
-    .adaptiveCornerRadius(.allCorners, 18)
+    .modifier(AppNavigationBackgroundModifier())
     .modifier(ShadowModifier())
   }
   
@@ -154,7 +143,32 @@ public struct AppNavigationView: View {
 
 // MARK: - Helper
 
-struct ShadowModifier: ViewModifier {
+private struct AppNavigationBackgroundModifier: ViewModifier {
+  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  
+  private var shouldShowAccessiblyBackground: Bool {
+    reduceTransparency || colorSchemeContrast.isIncreased
+  }
+  
+  func body(content: Content) -> some View {
+    if #available(iOS 26.0, *) {
+      content
+        .glassEffect()
+        .clipShape(.capsule)
+    } else {
+      content
+        .background(
+          shouldShowAccessiblyBackground
+          ? Color(.backgroundSecondary)
+          : Color(.backgroundTranslucent)
+        )
+        .clipShape(.rect(cornerRadius: 18, style: .continuous))
+    }
+  }
+}
+
+private struct ShadowModifier: ViewModifier {
   @Environment(\.colorScheme) var colorScheme
   
   func body(content: Content) -> some View {
@@ -166,21 +180,5 @@ struct ShadowModifier: ViewModifier {
         content
       }
     }
-  }
-}
-
-struct CMNavigationView<Content>: View where Content: View {
-  let content: () -> Content
-  
-  init(@ViewBuilder content: @escaping () -> Content) {
-    self.content = content
-  }
-  
-  var body: some View {
-    NavigationView {
-      content()
-    }
-    .accentColor(Color(.textPrimary))
-    .navigationViewStyle(StackNavigationViewStyle())
   }
 }
