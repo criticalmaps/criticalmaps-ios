@@ -8,18 +8,25 @@ import SharedModels
 
 @DependencyClient
 public struct TootService {
-  public var getToots: () async throws -> [MastodonKit.Status]
+  public var getToots: (_ maxId: String?) async throws -> [MastodonKit.Status]
 }
 
 // MARK: Live
 
 extension TootService: DependencyKey {
   public static let liveValue: TootService = Self(
-    getToots: {
+    getToots: { maxId in
       let client = MastodonKit.Client(baseURL: "https://mastodon.social")
-      let request = Timelines.tag("CriticalMass", range: .limit(40))
-      let statuses: [MastodonKit.Status] = try await client.run(request).value
-      return statuses
+      let range: RequestRange
+      if let maxId = maxId {
+        range = .max(id: maxId, limit: 40)
+      } else {
+        range = .limit(40)
+      }
+      
+      let request = Timelines.tag("CriticalMass", range: range)
+      let statuses = try await client.run(request)
+      return statuses.value
     }
   )
 }
@@ -27,7 +34,7 @@ extension TootService: DependencyKey {
 // Mocks and failing used for previews and tests
 extension TootService: TestDependencyKey {
   public static let previewValue = Self(
-    getToots: { [] }
+    getToots: { _ in [] }
   )
 
   public static let testValue = Self()

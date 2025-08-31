@@ -23,6 +23,7 @@ public struct TootFeature {
     public let accountDisplayName: String
     public let accountAcct: String
     public let content: MastodonKit.HTMLString
+    public let mediaAttachments: [MastodonKit.Attachment]
     
     public init(
       id: String,
@@ -32,7 +33,8 @@ public struct TootFeature {
       accountAvatar: String,
       accountDisplayName: String,
       accountAcct: String,
-      content: MastodonKit.HTMLString
+      content: MastodonKit.HTMLString,
+      mediaAttachments: [MastodonKit.Attachment] = []
     ) {
       self.id = id
       self.createdAt = createdAt
@@ -42,6 +44,7 @@ public struct TootFeature {
       self.accountDisplayName = accountDisplayName
       self.accountAcct = accountAcct
       self.content = content
+      self.mediaAttachments = mediaAttachments
     }
   }
   
@@ -77,6 +80,7 @@ public struct TootView: View {
   @Environment(\.colorScheme) private var colorScheme
   
   @State private var store: StoreOf<TootFeature>
+  @State private var selectedImageItem: ImageSheetItem? = nil
   
   public init(store: StoreOf<TootFeature>) {
     self.store = store
@@ -117,7 +121,31 @@ public struct TootView: View {
             .font(.body)
             .tint(Color(uiColor: colorScheme == .light ? .highlight : .brand500))
             .fixedSize(horizontal: false, vertical: true)
+          
+          if !store.mediaAttachments.isEmpty {
+            mediaAttachmentsView
+          }
         }
+      }
+    }
+    .sheet(
+      item: $selectedImageItem,
+      onDismiss: { selectedImageItem = nil }
+    ) { item in
+      NavigationStack {
+        UIKitZoomableImageView(url: item.url)
+          .background(Color.black.opacity(0.95))
+          .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+              Button {
+                selectedImageItem = nil
+              } label: {
+                Image(systemName: "xmark")
+                  .font(Font.system(size: 22, weight: .medium))
+                  .foregroundStyle(Color.white)
+              }
+            }
+          }
       }
     }
     .accessibilityElement(children: .combine)
@@ -183,6 +211,37 @@ public struct TootView: View {
       .foregroundColor(Color(.textPrimary))
       .accessibilityLabel(a11yValue ?? "")
   }
+  
+  @ViewBuilder
+  private var mediaAttachmentsView: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(spacing: 8) {
+        ForEach(store.mediaAttachments, id: \.id) { attachment in
+          if attachment.type == .image, let url = URL(string: attachment.url) {
+            AsyncImage(url: url) { phase in
+              switch phase {
+              case .empty:
+                Color.gray.opacity(0.2)
+              case .success(let image):
+                image
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .frame(height: 180)
+                  .cornerRadius(8)
+                  .onTapGesture {
+                    selectedImageItem = ImageSheetItem(url: url)
+                  }
+              case .failure:
+                Color.red.opacity(0.2)
+              @unknown default:
+                EmptyView()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // MARK: Preview
@@ -197,49 +256,6 @@ public struct TootView: View {
 }
 
 // MARK: - Helper
-
-public extension TootFeature.State {
-  init(_ status: MastodonKit.Status) {
-    self.init(
-      id: status.id,
-      createdAt: status.createdAt,
-      uri: status.uri,
-      accountURL: status.account.url,
-      accountAvatar: status.account.avatar,
-      accountDisplayName: status.account.displayName,
-      accountAcct: status.account.acct,
-      content: status.content
-    )
-  }
-  
-  func formattedCreationDate() -> (String?, String?) {
-    @Dependency(\.date.now) var date
-    @Dependency(\.calendar) var calendar
-    
-    let components = calendar.dateComponents(
-      [.hour, .day, .month],
-      from: createdAt,
-      to: date
-    )
-    
-    let a11yValue = RelativeDateTimeFormatter.tweetDateFormatter.localizedString(for: createdAt, relativeTo: date)
-    
-    if let days = components.day, days == 0, let months = components.month, months == 0 {
-      let diffComponents = calendar.dateComponents(
-        [.hour, .minute],
-        from: createdAt,
-        to: date
-      )
-      
-      let value = DateComponentsFormatter.tweetDateFormatter()
-        .string(from: diffComponents.dateComponentFromBiggestComponent)
-      return (value, a11yValue)
-    } else {
-      let value = createdAt.formatted(Date.FormatStyle.dateWithoutYear)
-      return (value, a11yValue)
-    }
-  }
-}
 
 extension DateComponents {
   var dateComponentFromBiggestComponent: DateComponents {
@@ -259,4 +275,9 @@ extension RelativeDateTimeFormatter {
     formatter.dateTimeStyle = .named
     return formatter
   }()
+}
+
+struct ImageSheetItem: Identifiable, Hashable {
+  let url: URL
+  var id: URL { url }
 }

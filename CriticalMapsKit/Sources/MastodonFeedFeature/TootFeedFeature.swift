@@ -24,6 +24,8 @@ public struct TootFeedFeature {
     public var isLoading = false
     public var isRefreshing = false
     public var error: ErrorState?
+    public var hasMore: Bool = true
+    public var isLoadingNextPage: Bool = false
         
     public init(
       toots: IdentifiedArrayOf<TootFeature.State> = []
@@ -35,11 +37,13 @@ public struct TootFeedFeature {
   // MARK: Actions
   
   @CasePathable
-  public enum Action: Equatable {
+  public enum Action {
     case onAppear
     case refresh
     case fetchData
-    case fetchDataResponse(TaskResult<[MastodonKit.Status]>)
+    case fetchDataResponse(Result<[MastodonKit.Status], any Error>)
+    case loadNextPage
+    case fetchNextPageResponse(Result<[MastodonKit.Status], any Error>)
     case toot(IdentifiedActionOf<TootFeature>)
   }
   
@@ -58,10 +62,10 @@ public struct TootFeedFeature {
         
       case .fetchData:
         state.isLoading = true
-        return .run { send in
+        return .run { [lastId = state.toots.last?.id] send in
           await send(
             .fetchDataResponse(
-              TaskResult { try await tootService.getToots() }
+              Result { try await tootService.getToots(lastId) }
             )
           )
         }
@@ -90,6 +94,37 @@ public struct TootFeedFeature {
         )
         return .none
         
+      case .loadNextPage:
+        guard state.hasMore, !state.isLoadingNextPage, let lastId = state.toots.last?.id else { return .none }
+        state.isLoadingNextPage = true
+        return .run { send in
+          await send(
+            .fetchNextPageResponse(
+              Result { try await tootService.getToots(lastId) }
+            )
+          )
+        }
+
+      case let .fetchNextPageResponse(.success(newToots)):
+        state.isLoadingNextPage = false
+        if newToots.isEmpty {
+          state.hasMore = false
+        } else {
+          let mappedStatuses = newToots.map(TootFeature.State.init)
+          state.toots.append(contentsOf: mappedStatuses)
+        }
+        return .none
+
+      case let .fetchNextPageResponse(.failure(error)):
+        state.isLoadingNextPage = false
+        state.hasMore = false
+        state.error = .init(
+          title: L10n.ErrorState.title,
+          body: L10n.ErrorState.message,
+          error: .init(error: error)
+        )
+        return .none
+        
       case .toot:
         return .none
       }
@@ -100,8 +135,8 @@ public struct TootFeedFeature {
   }
 }
 
-extension MastodonKit.Status: @retroactive Identifiable {
-  public static func == (lhs: MastodonKit.Status, rhs: MastodonKit.Status) -> Bool {
-    lhs.id == rhs.id
-  }
-}
+//extension MastodonKit.Status: @retroactive Identifiable {
+//  public static func == (lhs: MastodonKit.Status, rhs: MastodonKit.Status) -> Bool {
+//    lhs.id == rhs.id
+//  }
+//}

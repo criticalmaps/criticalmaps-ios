@@ -39,7 +39,7 @@ public struct SocialFeature {
   
   // MARK: Actions
   
-  public enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction {
     case binding(BindingAction<State>)
     case dismiss
     
