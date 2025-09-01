@@ -6,8 +6,7 @@ public struct RequestTimer {
   public init(timerInterval: Int = 60) {
     self.timerInterval = .seconds(timerInterval)
   }
-
-  @Dependency(\.mainRunLoop) var mainRunLoop
+  
   let timerInterval: RunLoop.SchedulerTimeType.Stride
 
   // MARK: State
@@ -28,6 +27,8 @@ public struct RequestTimer {
     case startTimer
   }
 
+  @Dependency(\.mainRunLoop) var mainRunLoop
+  
   /// Reducer responsible for the poll timer handling.
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -40,7 +41,7 @@ public struct RequestTimer {
       return .run { [isTimerActive = state.isTimerActive] send in
         guard isTimerActive else { return }
         for await _ in mainRunLoop.timer(interval: .seconds(1)) {
-          await send(.timerTicked, animation: .spring)
+          await send(.timerTicked, animation: .snappy)
         }
       }
       .cancellable(id: Timer.cancel, cancelInFlight: true)

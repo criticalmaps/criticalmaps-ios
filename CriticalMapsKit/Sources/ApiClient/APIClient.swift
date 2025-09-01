@@ -7,7 +7,7 @@ public struct APIClient {
   /// Dispatches a Request and returns its data
   /// - Parameter request: Request to Dispatch
   /// - Returns: The response data of the request
-  /// - Throws: A NetworkRquestError if the request fails
+  /// - Throws: A NetworkRequestError if the request fails
   public var send: @Sendable (_ request: Request) async throws -> (Data, URLResponse)
 }
 

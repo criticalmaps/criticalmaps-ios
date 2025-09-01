@@ -4,7 +4,7 @@ import SharedModels
 
 // MARK: Interface
 
-/// A Service to send and fetch locations and chat messages from the Criticl Maps API
+/// A Service to send and fetch locations and chat messages from the Critical Maps API
 @DependencyClient
 public struct APIService {
   public var getRiders: @Sendable () async throws -> [Rider]
@@ -44,7 +44,7 @@ extension APIService: DependencyKey {
   }
 }
 
-// MARK: Mocks and failing used for previews and tests
+// MARK: Test and Preview Values
 
 extension APIService: TestDependencyKey {
   public static let testValue: APIService = Self()

@@ -17,7 +17,6 @@ struct RideEventView: View {
 
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(ride.titleWithoutDatePattern)
-          .multilineTextAlignment(.leading)
           .font(.headline.weight(.bold))
           .foregroundColor(Color(.textPrimary))
           .padding(.bottom, .grid(2))
@@ -31,10 +30,12 @@ struct RideEventView: View {
             Label(location, systemImage: "mappin.and.ellipse")
           }
         }
-        .multilineTextAlignment(.leading)
         .font(.bodyTwo)
         .foregroundColor(Color(.textSecondary))
       }
+      .multilineTextAlignment(.leading)
+      .accessibilityElement(children: .combine)
+      
       Spacer()
     }
   }
