@@ -127,10 +127,9 @@ public struct AppView: View {
         )
       }
       
-      if store.hasOfflineError {
+      if store.hasConnectionError {
         offlineBanner()
           .clipShape(Circle())
-          .opacity(store.hasOfflineError ? 1 : 0)
           .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
       }
     }
@@ -156,13 +155,12 @@ public struct AppView: View {
           .glassEffectID("infos", in: namespace)
         }
         
-        if store.hasOfflineError {
+        if store.hasConnectionError {
           offlineBanner()
             .glassEffect()
             .glassEffectID("offline", in: namespace)
             .clipShape(Circle())
-            .opacity(store.hasOfflineError ? 1 : 0)
-            .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
+            .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasConnectionError)
         }
       }
     }

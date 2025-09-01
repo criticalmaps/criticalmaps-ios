@@ -71,6 +71,7 @@ public struct AppFeature {
     @Shared(.userSettings) var userSettings
     @Shared(.rideEventSettings) var rideEventSettings
     @Shared(.appearanceSettings) var appearanceSettings
+    @Shared(.hasConnectionError) var hasConnectionError
     
     public init(
       locationsAndChatMessages: [Rider]? = nil,
@@ -117,14 +118,6 @@ public struct AppFeature {
     var shouldShowNextRideBanner: Bool {
       mapFeatureState.isNextRideBannerVisible &&
         rideEventSettings.isEnabled
-    }
-    
-    var hasOfflineError: Bool {
-//      if riderLocations == nil {
-//        return networkError == .connectionLost
-//      } else {
-        return false
-//      }
     }
   }
   
@@ -275,6 +268,7 @@ public struct AppFeature {
             error: .init(error: error)
           )
         )
+        
         logger.info("FetchLocation failed: \(error)")
         return .none
         
