@@ -17,14 +17,14 @@ public struct UserTrackingButton: View {
       label: { iconImage }
     )
     .contentTransition(.symbolEffect(.replace.downUp, options: .speed(3)))
-    .accessibility(label: Text(store.mode.accessiblityLabel))
+    .accessibility(label: Text(store.mode.accessibilityLabel))
     .accessibilityAction(named: Text(L10n.A11y.Usertrackingbutton.hint)) {
       store.send(.nextTrackingMode, animation: nil)
     }
     .accessibilityHint(Text(L10n.A11y.Usertrackingbutton.hint))
     .accessibilityShowsLargeContentViewer {
       Label(
-        store.mode.accessiblityLabel,
+        store.mode.accessibilityLabel,
         systemImage: systemImageIdentifier
       )
     }

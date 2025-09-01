@@ -1,7 +1,7 @@
 import MapKit
 import SharedModels
 
-public class IdentifiableAnnnotation: MKPointAnnotation {
+public class IdentifiableAnnotation: MKPointAnnotation {
   public enum UserType: Int, Decodable {
     case friend
     case user

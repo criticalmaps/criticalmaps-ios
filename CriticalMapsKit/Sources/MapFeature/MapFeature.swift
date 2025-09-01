@@ -12,10 +12,6 @@ public typealias MapFeatureAction = MapFeature.Action
 public struct MapFeature {
   public init() {}
   
-  @Dependency(\.mainQueue) var mainQueue
-  @Dependency(\.locationManager) var locationManager
-  @Dependency(\.continuousClock) var clock
-  
   // MARK: State
   
   @ObservableState
@@ -82,10 +78,13 @@ public struct MapFeature {
     case userTracking(UserTrackingFeature.Action)
   }
 
-  /// Used to identify locationManager effects.
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.continuousClock) var clock
+  
   enum CancelID { case locationManager }
   
-  public var body: some Reducer<State, Action> {
+  public var body: some ReducerOf<Self> {
     BindingReducer()
     
     Scope(state: \.userTrackingMode, action: \.userTracking) {

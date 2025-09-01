@@ -39,7 +39,7 @@ public struct UserTrackingFeature {
 }
 
 public extension MKUserTrackingMode {
-  var accessiblityLabel: String {
+  var accessibilityLabel: String {
     switch self {
     case .follow:
       return L10n.A11y.Usertrackingbutton.follow

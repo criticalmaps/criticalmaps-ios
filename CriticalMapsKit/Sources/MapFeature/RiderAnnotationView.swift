@@ -1,7 +1,7 @@
 import MapKit
 import UIKit
 
-final class RiderAnnoationView: MKAnnotationView {
+final class RiderAnnotationView: MKAnnotationView {
   override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
     super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
     commonInit()

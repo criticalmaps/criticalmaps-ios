@@ -54,7 +54,7 @@ struct MapView: ViewRepresentable {
     mapView.pointOfInterestFilter = .excludingAll
     mapView.delegate = context.coordinator
     mapView.showsUserLocation = true
-    mapView.register(annotationViewType: RiderAnnoationView.self)
+    mapView.register(annotationViewType: RiderAnnotationView.self)
     mapView.register(annotationViewType: CMMarkerAnnotationView.self)
     return mapView
   }
@@ -154,7 +154,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
     }
     if annotation is RiderAnnotation {
       let view = mapView.dequeueReusableAnnotationView(
-        withIdentifier: RiderAnnoationView.reuseIdentifier,
+        withIdentifier: RiderAnnotationView.reuseIdentifier,
         for: annotation
       )
       return view

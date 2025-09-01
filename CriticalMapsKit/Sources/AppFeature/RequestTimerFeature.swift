@@ -29,6 +29,8 @@ public struct RequestTimer {
 
   @Dependency(\.mainRunLoop) var mainRunLoop
   
+  enum CancelID { case timer }
+  
   /// Reducer responsible for the poll timer handling.
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -44,9 +46,9 @@ public struct RequestTimer {
           await send(.timerTicked, animation: .snappy)
         }
       }
-      .cancellable(id: Timer.cancel, cancelInFlight: true)
+      .cancellable(id: CancelID.timer, cancelInFlight: true)
     }
   }
 }
 
-enum Timer { case cancel }
+
