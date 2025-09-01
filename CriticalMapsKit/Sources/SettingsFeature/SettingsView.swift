@@ -92,15 +92,8 @@ public struct SettingsView: View {
       alignment: .topLeading
     )
     .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        Button(
-          action: { store.send(.dismiss) },
-          label: {
-            Image(systemName: "xmark")
-              .font(Font.system(size: 22, weight: .medium))
-              .foregroundColor(Color(.textPrimary))
-          }
-        )
+      ToolbarItem(placement: .topBarTrailing) {
+        CloseButton { store.send(.dismiss) }
       }
     }
     .onAppear { store.send(.onAppear) }

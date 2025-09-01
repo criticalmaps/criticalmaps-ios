@@ -2,6 +2,7 @@ import ChatFeature
 import ComposableArchitecture
 import L10n
 import MastodonFeedFeature
+import Styleguide
 import SwiftUI
 
 public struct SocialView: View {
@@ -12,44 +13,34 @@ public struct SocialView: View {
   }
 
   public var body: some View {
-    NavigationStack {
-      Group {
-        switch store.socialControl {
-        case .chat:
-          ChatView(
-            store: store.scope(state: \.chatFeatureState, action: \.chat)
-          )
-        case .toots:
-          MastodonFeedView(
-            store: store.scope(state: \.mastodonFeedState, action: \.toots)
-          )
-        }
+    Group {
+      switch store.socialControl {
+      case .chat:
+        ChatView(
+          store: store.scope(state: \.chatFeatureState, action: \.chat)
+        )
+      case .toots:
+        MastodonFeedView(
+          store: store.scope(state: \.mastodonFeedState, action: \.toots)
+        )
       }
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button(
-            action: { store.send(.dismiss) },
-            label: {
-              Image(systemName: "xmark")
-                .font(Font.system(size: 22, weight: .medium))
-                .foregroundColor(Color(.textPrimary))
-            }
-          )
-          .accessibilityLabel(L10n.Close.Button.label)
-        }
-
-        ToolbarItem(placement: .principal) {
-          Picker(
-            "Social Segment",
-            selection: $store.socialControl.animation()
-          ) {
-            ForEach(SocialFeature.SocialControl.allCases, id: \.self) { control in
-              Text(control.rawValue).tag(control)
-            }
+    }
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        CloseButton { store.send(.dismiss) }
+      }
+      
+      ToolbarItem(placement: .principal) {
+        Picker(
+          "Social Segment",
+          selection: $store.socialControl.animation()
+        ) {
+          ForEach(SocialFeature.SocialControl.allCases, id: \.self) { control in
+            Text(control.rawValue).tag(control)
           }
-          .pickerStyle(.segmented)
-          .frame(maxWidth: 180)
         }
+        .pickerStyle(.segmented)
+        .frame(maxWidth: 180)
       }
     }
   }
