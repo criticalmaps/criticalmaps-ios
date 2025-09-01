@@ -247,6 +247,7 @@ let package = Package(
       name: "Styleguide",
       dependencies: [
         .l10n,
+        .tca,
         .swiftUIHelpers
       ],
       exclude: ["README.md"],
