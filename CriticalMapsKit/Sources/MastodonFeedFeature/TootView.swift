@@ -11,8 +11,6 @@ import UIApplicationClient
 public struct TootFeature {
   public init() {}
   
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
-  
   @ObservableState
   public struct State: Equatable, Identifiable {
     public let id: String
@@ -52,6 +50,8 @@ public struct TootFeature {
     case openTweet
     case openUser
   }
+  
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
   
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {

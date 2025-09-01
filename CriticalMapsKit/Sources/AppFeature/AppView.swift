@@ -67,7 +67,7 @@ public struct AppView: View {
   }
   
   @ViewBuilder
-  func bottomSheetContentView() -> some View {
+  private func bottomSheetContentView() -> some View {
     List(store.nextRideState.rideEvents, id: \.id) { ride in
       RideEventView(ride: ride)
         .contentShape(Rectangle())
@@ -130,7 +130,7 @@ public struct AppView: View {
       if store.hasConnectionError {
         offlineBanner()
           .clipShape(Circle())
-          .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasOfflineError)
+          .accessibleAnimation(.snappy, value: store.hasConnectionError)
       }
     }
   }

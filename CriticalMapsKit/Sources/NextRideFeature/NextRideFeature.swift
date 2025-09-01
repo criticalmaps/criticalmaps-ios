@@ -12,11 +12,6 @@ import SharedModels
 public struct NextRideFeature {
   public init() {}
 
-  @Dependency(\.nextRideService) private var service
-  @Dependency(\.date) private var date
-  @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
-  @Dependency(\.calendar) private var calendar
-
   @ObservableState
   public struct State: Equatable {
     public init(nextRide: Ride? = nil) {
@@ -41,8 +36,12 @@ public struct NextRideFeature {
   }
 
   // MARK: Reducer
-
-  /// Reducer handling next ride feature actions
+  
+  @Dependency(\.nextRideService) private var service
+  @Dependency(\.date) private var date
+  @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
+  @Dependency(\.calendar) private var calendar
+  
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case let .getNextRide(coordinate):

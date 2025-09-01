@@ -13,9 +13,6 @@ import SwiftUI
 public struct TootFeedFeature {
   public init() {}
   
-  @Dependency(\.mainQueue) var mainQueue
-  @Dependency(\.tootService) var tootService
-
   // MARK: State
 
   @ObservableState
@@ -48,6 +45,9 @@ public struct TootFeedFeature {
   }
   
   // MARK: Reducer
+  
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.tootService) var tootService
 
   public var body: some ReducerOf<Self> {
     Reduce { state, action in

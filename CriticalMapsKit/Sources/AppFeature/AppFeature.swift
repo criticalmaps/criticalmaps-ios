@@ -23,20 +23,6 @@ import UserDefaultsClient
 public struct AppFeature {
   public init() {}
   
-  @Dependency(\.fileClient) var fileClient
-  @Dependency(\.apiService) var apiService
-  @Dependency(\.uuid) var uuid
-  @Dependency(\.date) var date
-  @Dependency(\.userDefaultsClient) var userDefaultsClient
-  @Dependency(\.nextRideService) var nextRideService
-  @Dependency(\.idProvider) var idProvider
-  @Dependency(\.mainQueue) var mainQueue
-  @Dependency(\.continuousClock) var clock
-  @Dependency(\.locationManager) var locationManager
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
-  @Dependency(\.feedbackGenerator) private var feedbackGenerator
-  
   @Reducer
   public enum Destination {
     case social(SocialFeature)
@@ -149,6 +135,20 @@ public struct AppFeature {
   }
   
   // MARK: Reducer
+  
+  @Dependency(\.fileClient) var fileClient
+  @Dependency(\.apiService) var apiService
+  @Dependency(\.uuid) var uuid
+  @Dependency(\.date) var date
+  @Dependency(\.userDefaultsClient) var userDefaultsClient
+  @Dependency(\.nextRideService) var nextRideService
+  @Dependency(\.idProvider) var idProvider
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
+  @Dependency(\.feedbackGenerator) var feedbackGenerator
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
