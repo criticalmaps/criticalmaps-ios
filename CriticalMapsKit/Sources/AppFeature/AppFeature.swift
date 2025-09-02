@@ -152,17 +152,6 @@ public struct AppFeature {
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
-      .onChange(of: \.isEventListPresented) { old, new in
-        Reduce { state, _ in
-          if !new {
-            state.mapFeatureState.rideEvents = []
-            state.mapFeatureState.eventCenter = nil
-          } else {
-            state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
-          }
-          return .none
-        }
-      }
     
     Scope(state: \.requestTimer, action: \.requestTimer) {
       RequestTimer()
@@ -474,6 +463,15 @@ public struct AppFeature {
           .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
           .send(.set(\.eventListPresentation, .fraction(0.3)))
         )
+        
+      case .binding(\.isEventListPresented):
+        if !state.isEventListPresented {
+          state.mapFeatureState.rideEvents = []
+          state.mapFeatureState.eventCenter = nil
+        } else {
+          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+        }
+        return .none
         
       case .binding:
         return .none

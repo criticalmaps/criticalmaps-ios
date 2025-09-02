@@ -96,16 +96,16 @@ struct AppFeatureTests {
       reducer: { AppFeature() }
     )
 
-    await store.send(.binding(.set(\.bottomSheetPosition, .dynamicTop))) {
-      $0.bottomSheetPosition = .dynamicTop
+    await store.send(.binding(.set(\.isEventListPresented, true))) {
       $0.mapFeatureState.rideEvents = events
+      $0.isEventListPresented = true
     }
   }
 
   @Test
   func actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() async {
     var appState = AppFeature.State()
-    appState.bottomSheetPosition = .dynamicTop
+    appState.eventListPresentation = .fraction(0.3)
     let events = [Ride.mock1, .mock2]
     appState.mapFeatureState.rideEvents = events
     
@@ -114,9 +114,9 @@ struct AppFeatureTests {
       reducer: { AppFeature() }
     )
     
-    await store.send(.binding(.set(\.bottomSheetPosition, .hidden))) {
-      $0.bottomSheetPosition = .hidden
+    await store.send(.binding(.set(\.isEventListPresented, false))) {
       $0.mapFeatureState.rideEvents = []
+      $0.isEventListPresented = false
     }
   }
   
@@ -143,6 +143,7 @@ struct AppFeatureTests {
         $0.userDefaultsClient.setBool = { _, _ in }
         $0.feedbackGenerator.prepare = {}
         $0.feedbackGenerator.selectionChanged = {}
+        $0.coordinateObfuscator = .previewValue
       }
     )
     store.exhaustivity = .off
@@ -210,6 +211,7 @@ struct AppFeatureTests {
         $0.continuousClock = ImmediateClock()
         $0.nextRideService.nextRide = { _, _, _ in [] }
         $0.userDefaultsClient.setString = { _, _ in }
+        $0.userDefaultsClient.boolForKey = { _ in false }
         $0.feedbackGenerator.prepare = { @Sendable in }
       }
     )
@@ -231,6 +233,7 @@ struct AppFeatureTests {
         $0.nextRideService.nextRide = { _, _, _ in
           [.mock1, .mock2]
         }
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
@@ -284,9 +287,7 @@ struct AppFeatureTests {
   
   @Test
   func mapAction_focusEvent() async throws {
-    var state = AppFeature.State()
-    state.bottomSheetPosition = .absolute(1)
-    
+    let state = AppFeature.State()
     let testClock = TestClock()
     
     let store = TestStore(
@@ -371,6 +372,7 @@ struct AppFeatureTests {
         }
         $0.continuousClock = ImmediateClock()
         $0.userDefaultsClient.setBool = { _, _ in }
+        $0.coordinateObfuscator = .previewValue
       }
     )
     store.exhaustivity = .off
@@ -422,6 +424,7 @@ struct AppFeatureTests {
         $0.continuousClock = ImmediateClock()
         $0.userDefaultsClient.setBool = { _, _ in }
         $0.feedbackGenerator.selectionChanged = {}
+        $0.coordinateObfuscator = .previewValue
       }
     )
     store.exhaustivity = .off

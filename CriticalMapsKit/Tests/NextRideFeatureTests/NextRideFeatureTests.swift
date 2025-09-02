@@ -9,7 +9,6 @@ import UserDefaultsClient
 
 // swiftlint:disable:next type_body_length
 
-@Suite
 @MainActor
 struct NextRideCoreTests {
   let now = {
@@ -105,12 +104,13 @@ struct NextRideCoreTests {
           )
           .encoded()
         }
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // no effect received
     await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success([])))
+    await store.receive(\.nextRideResponse.success, [Ride]())
   }
   
   @Test
@@ -123,15 +123,16 @@ struct NextRideCoreTests {
         }
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     await _ = store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate { now() }
     }
-    await store.receive(.setNextRide(rides[1])) {
+    await store.receive(\.setNextRide, rides[1]) {
       $0.nextRide = rides[1]
     }
   }
@@ -154,12 +155,13 @@ struct NextRideCoreTests {
           throw NextRideService.Failure(internalError: .badRequest)
         }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
-    _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.failure(NextRideService.Failure(internalError: .badRequest))))
+    await store.send(.getNextRide(coordinate))
+    await store.receive(\.nextRideResponse.failure)
   }
   
   @Test
@@ -180,15 +182,16 @@ struct NextRideCoreTests {
           .encoded()
         }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = [falkensee, berlin]
     }
-    await store.receive(.setNextRide(rides.last!)) {
+    await store.receive(\.setNextRide, rides.last!) {
       $0.nextRide = falkensee
     }
   }
@@ -229,15 +232,16 @@ struct NextRideCoreTests {
           try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(ridesWithARideWithNilRideType))) {
+    await store.receive(\.nextRideResponse.success, ridesWithARideWithNilRideType) {
       $0.rideEvents = ridesWithARideWithNilRideType.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
-    await store.receive(.setNextRide(ridesWithARideWithNilRideType[1])) {
+    await store.receive(\.setNextRide, ridesWithARideWithNilRideType[1]) {
       $0.nextRide = ridesWithARideWithNilRideType[1]
     }
   }
@@ -266,12 +270,13 @@ struct NextRideCoreTests {
           try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides
       $0.nextRide = nil
     }
@@ -322,15 +327,16 @@ struct NextRideCoreTests {
         }
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
-    await store.receive(.setNextRide(rides[0])) {
+    await store.receive(\.setNextRide, rides[0]) {
       $0.nextRide = rides[0]
     }
   }
@@ -380,15 +386,16 @@ struct NextRideCoreTests {
         }
         $0.date = .constant(now())
         $0.calendar = .autoupdatingCurrent
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
-    await store.receive(.setNextRide(rides[2])) {
+    await store.receive(\.setNextRide, rides[2]) {
       $0.nextRide = rides[2]
     }
   }
@@ -426,15 +433,16 @@ struct NextRideCoreTests {
           try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
-    await store.receive(.setNextRide(rides[0])) {
+    await store.receive(\.setNextRide, rides[0]) {
       $0.nextRide = rides[0]
     }
   }
@@ -472,15 +480,16 @@ struct NextRideCoreTests {
           try? RideEventSettings().encoded()
         }
         $0.date = .constant(now())
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
-    await store.receive(.setNextRide(rides[0])) {
+    await store.receive(\.setNextRide, rides[0]) {
       $0.nextRide = rides[0]
     }
   }
@@ -518,15 +527,16 @@ struct NextRideCoreTests {
           try? RideEventSettings().encoded()
         }
         $0.date = .constant(now().addingTimeInterval(60 * 60 * 72))
+        $0.coordinateObfuscator = .previewValue
       }
     )
     
     // then
     _ = await store.send(.getNextRide(coordinate))
-    await store.receive(.nextRideResponse(.success(rides))) {
+    await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = rides.sortByDateAndFilterBeforeDate(store.dependencies.date.callAsFunction)
     }
-    await store.receive(.setNextRide(rides[1])) {
+    await store.receive(\.setNextRide, rides[1]) {
       $0.nextRide = rides[1]
     }
   }
