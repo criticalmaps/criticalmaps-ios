@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Helpers
+import L10n
 import Styleguide
 import SwiftUI
 import SwiftUIHelpers
@@ -17,17 +18,13 @@ struct InfoOverlayView: View {
       if #available(iOS 26, *) {
         glassInfoContent()
       } else {
-        ZStack(alignment: .center) {
-          Blur()
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .frame(
-              width: isExpanded ? 120 : 50,
-              height: isExpanded ? 230 : 50
-            )
-            .accessibleAnimation(.cmSpring.speed(1.5), value: isExpanded)
-          
-          infoContent()
-        }
+        infoContent()
+          .padding(.grid(2))
+          .background(
+            .regularMaterial,
+            in: RoundedRectangle(cornerRadius: .grid(isExpanded ? 3 : 20), style: .continuous)
+          )
+          .accessibleAnimation(.snappy(duration: 0.3), value: isExpanded)
       }
     }
   }
@@ -40,11 +37,12 @@ struct InfoOverlayView: View {
       progress: progress,
       content: {
         expandedOverlayView()
-          .padding(4)
+          .padding(.grid(2))
       },
       label: {
         progressView()
           .frame(width: 34, height: 34)
+          .padding(.grid(2))
           .onTapGesture {
             withAnimation(.infoOverlay) { isExpanded.toggle() }
           }
@@ -68,30 +66,31 @@ struct InfoOverlayView: View {
           )
         )
     } else {
-      collapsedOverlayView()
+      progressView()
+        .frame(width: 34, height: 34)
+        .padding(.grid(1))
         .transition(
           .asymmetric(
             insertion: .opacity.combined(with: .scale(scale: 0, anchor: .bottomLeading)).animation(.easeIn(duration: 0.1)),
             removal: .opacity.animation(.easeIn(duration: 0.1))
           )
         )
+        .onTapGesture {
+          withAnimation(.infoOverlay) { isExpanded.toggle() }
+        }
     }
   }
   
   @ViewBuilder
   private func expandedOverlayView() -> some View {
     VStack {
-      Text("Info")
-        .foregroundStyle(Color(.textPrimary))
-        .font(.titleTwo)
-      
-      DataTile("Next update") {
+      DataTile(L10n.AppView.Overlay.nextUpdate) {
         progressView()
           .frame(width: 44, height: 44)
           .padding(.top, .grid(1))
       }
       
-      DataTile("Riders") {
+      DataTile(L10n.AppView.Overlay.riders) {
         HStack {
           Text(ridersCountLabel)
             .font(.pageTitle)
@@ -124,16 +123,12 @@ struct InfoOverlayView: View {
     Button(
       action: { withAnimation(.infoOverlay) { isExpanded.toggle() } },
       label: {
-        Label(
-          title: { Text("Info") },
-          icon: {
-            Image(systemName: "info.circle")
-              .resizable()
-              .frame(width: 30, height: 30)
+        progressView()
+          .frame(width: 34, height: 34)
+          .padding(2)
+          .onTapGesture {
+            withAnimation(.infoOverlay) { isExpanded.toggle() }
           }
-        )
-        .labelStyle(.iconOnly)
-        .padding(2)
       }
     )
     .buttonStyle(.plain)

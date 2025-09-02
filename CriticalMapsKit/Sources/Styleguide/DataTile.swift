@@ -17,6 +17,7 @@ public struct DataTile<Content: View>: View {
       Text(text)
         .font(.meta)
         .multilineTextAlignment(.leading)
+        .lineLimit(2, reservesSpace: true)
         
       Spacer()
       
@@ -30,13 +31,15 @@ public struct DataTile<Content: View>: View {
     }
     .foregroundColor(Color(.textPrimary))
     .padding(.grid(2))
-    .frame(width: 100, height: 90)
+    .frame(minHeight: 90)
+    .frame(maxHeight: 120)
+    .frame(width: 100)
     .conditionalBackground(shouldUseBlur: false, shouldUseGlassEffect: false)
     .adaptiveClipShape()
     .if(!.iOS26) { view in
       view
         .overlay(
-          RoundedRectangle(cornerRadius: 8, style: .continuous)
+          RoundedRectangle(cornerRadius: .grid(2), style: .continuous)
             .stroke(Color(.textPrimary).opacity(0.2), lineWidth: 1)
         )
     }
@@ -62,7 +65,6 @@ public extension View {
     shouldUseBlur: Bool = false,
     shouldUseGlassEffect: Bool = true
   ) -> some View {
-    @Environment(\.accessibilityReduceTransparency) var reduceTransparency
     if #available(iOS 26, *) {
       self
         .if(shouldUseGlassEffect) { view in
@@ -73,15 +75,11 @@ public extension View {
       self
         .background(
           Group {
-            if reduceTransparency {
-              Color(.backgroundPrimary)
+            if shouldUseBlur {
+              Blur()
+                .cornerRadius(12)
             } else {
-              if shouldUseBlur {
-                Blur()
-                  .cornerRadius(12)
-              } else {
-                Color(.backgroundPrimary).opacity(0.4)
-              }
+              Color(.backgroundPrimary).opacity(0.4)
             }
           }
         )

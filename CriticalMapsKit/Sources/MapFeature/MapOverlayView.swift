@@ -49,7 +49,7 @@ public struct MapOverlayView: View {
       label: { Image(uiImage: Asset.cm.image) }
     )
     .frame(minWidth: 50, minHeight: 50)
-    .foregroundStyle(reduceTransparency ? .white : Color(.textPrimary))
+    .foregroundStyle(Color(.textPrimary))
     .if(!.iOS26) { view in
       view
         .transition(
