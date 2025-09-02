@@ -2,6 +2,25 @@
 
 Critical Maps iOS
 
+## [4.7.0] - 2025-09-02
+
+### Added
+
+- Adds new localisations: Turkish, Polish, Portuguese-PT, Portuguese-BR
+- New App Icon
+
+### Updated
+
+- iOS26 glass design adoption
+- Uses native sheet for event list presentation
+- Adds MediaAttachments to mastodon posts
+- Adds paginated loading for mastodon posts
+
+### Fixed
+
+- Fixes a crash when scroll in Mastodon posts
+
+
 ## [4.6.0] - 2025-01-24
 
 ### Added

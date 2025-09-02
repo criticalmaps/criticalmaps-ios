@@ -12,13 +12,7 @@ import SwiftUI
 public struct AppNavigationView: View {
   @State private var store: StoreOf<AppFeature>
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
-  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-  
   private let minHeight: CGFloat = 56
-  private var shouldShowAccessiblyBackground: Bool {
-    reduceTransparency || colorSchemeContrast.isIncreased
-  }
   
   public init(store: StoreOf<AppFeature>) {
     self.store = store
@@ -47,18 +41,13 @@ public struct AppNavigationView: View {
         .accessibility(label: Text("App navigation \(L10n.Settings.title)"))
     }
     .font(.body)
-    .background(
-      shouldShowAccessiblyBackground
-        ? Color(.backgroundSecondary)
-        : Color(.backgroundTranslucent)
-    )
-    .adaptiveCornerRadius(.allCorners, 18)
+    .modifier(AppNavigationBackgroundModifier())
     .modifier(ShadowModifier())
   }
   
   // MARK: Chat
   
-  var badge: some View {
+  private var badge: some View {
     ZStack {
       Circle()
         .foregroundColor(.red)
@@ -67,6 +56,7 @@ public struct AppNavigationView: View {
         .animation(nil)
         .foregroundColor(.white)
         .font(Font.system(size: 12))
+        .contentTransition(.numericText())
     }
     .frame(width: 20, height: 20)
     .offset(x: 14, y: -10)
@@ -76,7 +66,7 @@ public struct AppNavigationView: View {
     .accessibilityLabel(Text("\(store.chatMessageBadgeCount) unread messages"))
   }
   
-  var chatFeature: some View {
+  private var chatFeature: some View {
     Button(
       action: { store.send(.socialButtonTapped) },
       label: {
@@ -100,12 +90,14 @@ public struct AppNavigationView: View {
       ),
       onDismiss: { store.send(.dismissDestination) },
       content: { store in
-        SocialView(store: store)
+        NavigationStack {
+          SocialView(store: store)
+        }
       }
     )
   }
   
-  var settingsFeature: some View {
+  private var settingsFeature: some View {
     Button(
       action: { store.send(.settingsButtonTapped) },
       label: {
@@ -129,12 +121,11 @@ public struct AppNavigationView: View {
           SettingsView(store: store)
         }
         .accentColor(Color(.textPrimary))
-        .navigationViewStyle(StackNavigationViewStyle())
       }
     )
   }
   
-  var menuSeperator: some View {
+  private var menuSeperator: some View {
     Color(.border)
       .frame(width: 1, height: minHeight)
       .accessibilityHidden(true)
@@ -154,7 +145,32 @@ public struct AppNavigationView: View {
 
 // MARK: - Helper
 
-struct ShadowModifier: ViewModifier {
+private struct AppNavigationBackgroundModifier: ViewModifier {
+  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  
+  private var shouldShowAccessiblyBackground: Bool {
+    reduceTransparency || colorSchemeContrast.isIncreased
+  }
+  
+  func body(content: Content) -> some View {
+    if #available(iOS 26.0, *) {
+      content
+        .glassEffect()
+        .clipShape(.capsule)
+    } else {
+      content
+        .background(
+          shouldShowAccessiblyBackground
+          ? Color(.backgroundSecondary)
+          : Color(.backgroundTranslucent)
+        )
+        .clipShape(.rect(cornerRadius: 18, style: .continuous))
+    }
+  }
+}
+
+private struct ShadowModifier: ViewModifier {
   @Environment(\.colorScheme) var colorScheme
   
   func body(content: Content) -> some View {
@@ -166,21 +182,5 @@ struct ShadowModifier: ViewModifier {
         content
       }
     }
-  }
-}
-
-struct CMNavigationView<Content>: View where Content: View {
-  let content: () -> Content
-  
-  init(@ViewBuilder content: @escaping () -> Content) {
-    self.content = content
-  }
-  
-  var body: some View {
-    NavigationView {
-      content()
-    }
-    .accentColor(Color(.textPrimary))
-    .navigationViewStyle(StackNavigationViewStyle())
   }
 }

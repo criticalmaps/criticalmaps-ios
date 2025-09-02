@@ -19,12 +19,6 @@ public struct SettingsFeature {
     case appearanceSettings(AppearanceSettingsFeature)
   }
 
-  @Dependency(\.continuousClock) var clock
-  @Dependency(\.fileClient) var fileClient
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
-  @Dependency(\.locationManager) var locationManager
-  @Dependency(\.dismiss) var dismiss
-
   // MARK: State
 
   @ObservableState
@@ -68,6 +62,12 @@ public struct SettingsFeature {
 
   // MARK: Reducer
 
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.fileClient) var fileClient
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.dismiss) var dismiss
+  
   public var body: some ReducerOf<Self> {
     BindingReducer()
       .onChange(of: \.userSettings.isObservationModeEnabled) { _, newValue in

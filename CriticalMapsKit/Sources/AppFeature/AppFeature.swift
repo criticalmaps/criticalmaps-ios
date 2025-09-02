@@ -1,5 +1,4 @@
 import ApiClient
-import BottomSheet
 import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
@@ -16,26 +15,13 @@ import SettingsFeature
 import SharedDependencies
 import SharedModels
 import SocialFeature
+import struct SwiftUI.PresentationDetent
 import UIApplicationClient
 import UserDefaultsClient
 
 @Reducer
 public struct AppFeature {
   public init() {}
-  
-  @Dependency(\.fileClient) var fileClient
-  @Dependency(\.apiService) var apiService
-  @Dependency(\.uuid) var uuid
-  @Dependency(\.date) var date
-  @Dependency(\.userDefaultsClient) var userDefaultsClient
-  @Dependency(\.nextRideService) var nextRideService
-  @Dependency(\.idProvider) var idProvider
-  @Dependency(\.mainQueue) var mainQueue
-  @Dependency(\.continuousClock) var clock
-  @Dependency(\.locationManager) var locationManager
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
-  @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   @Reducer
   public enum Destination {
@@ -53,7 +39,7 @@ public struct AppFeature {
 
   @ObservableState
   public struct State: Equatable {
-    public var riderLocations: TaskResult<[Rider]>?
+    public var riderLocations: [Rider]?
     public var isRequestingRiderLocations = false
     public var didRequestNextRide = false
     public var socialState = SocialFeature.State()
@@ -63,17 +49,19 @@ public struct AppFeature {
       
     // Navigation
     @Presents var destination: Destination.State?
-    public var bottomSheetPosition: BottomSheetPosition = .hidden
+    public var eventListPresentation: PresentationDetent = .fraction(0.3)
+    public var isEventListPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
     
     @Shared(.userSettings) var userSettings
     @Shared(.rideEventSettings) var rideEventSettings
     @Shared(.appearanceSettings) var appearanceSettings
+    @Shared(.hasConnectionError) var hasConnectionError
     
     public init(
-      locationsAndChatMessages: TaskResult<[Rider]>? = nil,
-      mapFeatureState: MapFeature.State = .init(
+      locationsAndChatMessages: [Rider]? = nil,
+      mapFeatureState: MapFeatureState = .init(
         riders: [],
         userTrackingMode: UserTrackingFeature.State()
       ),
@@ -92,10 +80,7 @@ public struct AppFeature {
       self.chatMessageBadgeCount = chatMessageBadgeCount
     }
 
-    public var mapFeatureState = MapFeature.State(
-      riders: [],
-      userTrackingMode: UserTrackingFeature.State()
-    )
+    public var mapFeatureState: MapFeatureState
     
     public var timerProgress: Double {
       let progress = Double(requestTimer.secondsElapsed) / 60
@@ -120,19 +105,6 @@ public struct AppFeature {
       mapFeatureState.isNextRideBannerVisible &&
         rideEventSettings.isEnabled
     }
-    
-    var hasOfflineError: Bool {
-      switch riderLocations {
-      case let .failure(error):
-        guard let networkError = error as? NetworkRequestError else {
-          return false
-        }
-        return networkError == .connectionLost
-        
-      default:
-        return false
-      }
-    }
   }
   
   // MARK: Actions
@@ -144,11 +116,11 @@ public struct AppFeature {
     case onAppear
     case onDisappear
     case fetchLocations
-    case fetchLocationsResponse(TaskResult<[Rider]>)
+    case fetchLocationsResponse(Result<[Rider], any Error>)
     case postLocation
-    case postLocationResponse(TaskResult<ApiResponse>)
+    case postLocationResponse(Result<ApiResponse, any Error>)
     case fetchChatMessages
-    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
+    case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
     case onRideSelectedFromBottomSheet(SharedModels.Ride)
     case presentObservationModeAlert
     
@@ -156,13 +128,27 @@ public struct AppFeature {
     case settingsButtonTapped
     case dismissDestination
     
-    case map(MapFeature.Action)
+    case map(MapFeatureAction)
     case nextRide(NextRideFeature.Action)
     case requestTimer(RequestTimer.Action)
     case mapOverlayAction(MapOverlayFeature.Action)
   }
   
   // MARK: Reducer
+  
+  @Dependency(\.fileClient) var fileClient
+  @Dependency(\.apiService) var apiService
+  @Dependency(\.uuid) var uuid
+  @Dependency(\.date) var date
+  @Dependency(\.userDefaultsClient) var userDefaultsClient
+  @Dependency(\.nextRideService) var nextRideService
+  @Dependency(\.idProvider) var idProvider
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
+  @Dependency(\.feedbackGenerator) var feedbackGenerator
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
@@ -182,15 +168,6 @@ public struct AppFeature {
     /// Holds the logic for the AppFeature to update state and execute side effects
     Reduce { state, action in
       switch action {
-      case .binding(\.bottomSheetPosition):
-        if state.bottomSheetPosition == .hidden {
-          state.mapFeatureState.rideEvents = []
-          state.mapFeatureState.eventCenter = nil
-        } else {
-          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
-        }
-        return .none
-        
       case let .onRideSelectedFromBottomSheet(ride):
         return .merge(
           .send(.map(.focusRideEvent(ride.coordinate))),
@@ -240,7 +217,7 @@ public struct AppFeature {
         return .run { send in
           await send(
             .fetchLocationsResponse(
-              TaskResult {
+              Result {
                 try await apiService.getRiders()
               }
             )
@@ -251,7 +228,7 @@ public struct AppFeature {
         return .run { send in
           await send(
             .fetchChatMessagesResponse(
-              TaskResult {
+              Result {
                 try await apiService.getChatMessages()
               }
             )
@@ -280,19 +257,20 @@ public struct AppFeature {
             error: .init(error: error)
           )
         )
+        
         logger.info("FetchLocation failed: \(error)")
         return .none
         
       case let .fetchLocationsResponse(.success(response)):
         state.isRequestingRiderLocations = false
-        state.riderLocations = .success(response)
+        state.riderLocations = response
         state.mapFeatureState.riderLocations = response
         return .none
         
       case let .fetchLocationsResponse(.failure(error)):
         state.isRequestingRiderLocations = false
         logger.info("FetchLocation failed: \(error)")
-        state.riderLocations = .failure(error)
+        state.riderLocations = []
         return .none
         
       case .postLocation:
@@ -307,7 +285,7 @@ public struct AppFeature {
         return .run { send in
           await send(
             .postLocationResponse(
-              TaskResult {
+              Result {
                 try await apiService.postRiderLocation(postBody)
               }
             )
@@ -324,11 +302,10 @@ public struct AppFeature {
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
         case .focusRideEvent, .focusNextRide:
-          if state.bottomSheetPosition != .hidden {
-            return .send(.set(\.bottomSheetPosition, .relative(0.3)))
-          } else {
+          guard !state.isEventListPresented else {
             return .none
           }
+          return .send(.set(\.isEventListPresented, true))
           
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
@@ -484,8 +461,17 @@ public struct AppFeature {
         return .merge(
           .run { _ in await feedbackGenerator.selectionChanged() },
           .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
-          .send(.set(\.bottomSheetPosition, .relative(0.3)))
+          .send(.set(\.eventListPresentation, .fraction(0.3)))
         )
+        
+      case .binding(\.isEventListPresented):
+        if !state.isEventListPresented {
+          state.mapFeatureState.rideEvents = []
+          state.mapFeatureState.eventCenter = nil
+        } else {
+          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+        }
+        return .none
         
       case .binding:
         return .none

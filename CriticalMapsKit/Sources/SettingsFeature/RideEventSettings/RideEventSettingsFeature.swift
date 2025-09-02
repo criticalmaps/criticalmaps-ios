@@ -8,8 +8,6 @@ import SharedModels
 public struct RideEventsSettingsFeature {
   public init() {}
   
-  @Dependency(\.feedbackGenerator) private var feedbackGenerator
-  
   @ObservableState
   public struct State: Equatable {
     @Shared(.rideEventSettings) var settings
@@ -34,6 +32,10 @@ public struct RideEventsSettingsFeature {
     case binding(BindingAction<State>)
     case rideEventType(IdentifiedActionOf<RideEventType>)
   }
+  
+  // MARK: Reducer
+  
+  @Dependency(\.feedbackGenerator) private var feedbackGenerator
 
   public var body: some ReducerOf<Self> {
     BindingReducer()

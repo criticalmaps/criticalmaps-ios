@@ -57,14 +57,19 @@ public struct TootsListView: View {
           .ignoresSafeArea()
 
         List {
-          ForEachStore(
-            store.scope(
-              state: \.toots,
-              action: \.toot
-            )
-          ) {
-            TootView(store: $0)
+          ForEach(store.scope(state: \.toots, action: \.toot), id: \.id) { childStore in
+            TootView(store: childStore)
+              .onAppear {
+                if childStore.id == store.toots.last?.id, store.hasMore {
+                  store.send(.loadNextPage)
+                }
+              }
           }
+          if store.isLoadingNextPage {
+            ProgressView()
+              .padding()
+              .frame(maxWidth: .infinity)
+            }
         }
         .listRowBackground(Color(.backgroundPrimary))
         .listStyle(PlainListStyle())

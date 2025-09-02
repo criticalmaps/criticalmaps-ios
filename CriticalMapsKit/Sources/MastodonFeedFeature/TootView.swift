@@ -11,8 +11,6 @@ import UIApplicationClient
 public struct TootFeature {
   public init() {}
   
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
-  
   @ObservableState
   public struct State: Equatable, Identifiable {
     public let id: String
@@ -22,7 +20,12 @@ public struct TootFeature {
     public let accountAvatar: String
     public let accountDisplayName: String
     public let accountAcct: String
-    public let content: String
+    public let content: MastodonKit.HTMLString
+    public let mediaAttachments: [MastodonKit.Attachment]
+    
+    var imageAttachments: [MastodonKit.Attachment] {
+      mediaAttachments.filter { $0.type == .image }
+    }
     
     public init(
       id: String,
@@ -32,7 +35,8 @@ public struct TootFeature {
       accountAvatar: String,
       accountDisplayName: String,
       accountAcct: String,
-      content: String
+      content: MastodonKit.HTMLString,
+      mediaAttachments: [MastodonKit.Attachment] = []
     ) {
       self.id = id
       self.createdAt = createdAt
@@ -42,6 +46,7 @@ public struct TootFeature {
       self.accountDisplayName = accountDisplayName
       self.accountAcct = accountAcct
       self.content = content
+      self.mediaAttachments = mediaAttachments
     }
   }
   
@@ -50,23 +55,27 @@ public struct TootFeature {
     case openUser
   }
   
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
+  
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .openTweet:
-      guard let tootUrl = URL(string: state.uri) else {
+      guard let tootURL = URL(string: state.uri) else {
         return .none
       }
-      return .run { _ in
-        _ = await uiApplicationClient.open(tootUrl, [:])
-      }
+      return openURL(tootURL)
       
     case .openUser:
-      guard let accountUrl = URL(string: state.accountURL) else {
+      guard let accountURL = URL(string: state.accountURL) else {
         return .none
       }
-      return .run { _ in
-        _ = await uiApplicationClient.open(accountUrl, [:])
-      }
+      return openURL(accountURL)
+    }
+  }
+  
+  private func openURL(_ url: URL) -> Effect<Action> {
+    return .run { _ in
+      _ = await uiApplicationClient.open(url, [:])
     }
   }
 }
@@ -77,6 +86,7 @@ public struct TootView: View {
   @Environment(\.colorScheme) private var colorScheme
   
   @State private var store: StoreOf<TootFeature>
+  @State private var selectedImageItem: ImageSheetItem? = nil
   
   public init(store: StoreOf<TootFeature>) {
     self.store = store
@@ -105,30 +115,41 @@ public struct TootView: View {
         .frame(width: 44, height: 44)
         .background(Color.gray)
         .clipShape(Circle())
+        .accessibilityHidden(true)
         
-        VStack(alignment: .leading, spacing: .grid(2)) {
+        VStack(alignment: .leading, spacing: .grid(1)) {
           tweetheader()
             .contentShape(Rectangle())
             .onTapGesture {
               store.send(.openUser)
             }
           
-          if let content = store.content.convertHtmlToAttributedStringWithCSS(
-            csscolor: colorScheme == .light ? "black" : "white",
-            linkColor: colorScheme == .light ? "#1717E5" : "#FFD633"
-          ) {
-            Text(content)
-              .id(dynamicTypeSize.hashValue)
-              .contentShape(Rectangle())
-              .onTapGesture { store.send(.openTweet) }
-              .accessibilityAction(
-                action: { store.send(.openTweet) },
-                label: { Text("Open tweet")
-                  .accessibilityHint("Opens the tweet in the twitter app if it is installed")
-                }
-              )
+          Text(store.content.asSafeMarkdownAttributedString)
+            .font(.body)
+            .tint(Color(uiColor: colorScheme == .light ? .highlight : .brand500))
+            .fixedSize(horizontal: false, vertical: true)
+          
+          if !store.imageAttachments.isEmpty {
+            imageAttachmentsView
+              .padding(.top, .grid(1))
           }
         }
+      }
+    }
+    .sheet(
+      item: $selectedImageItem,
+      onDismiss: { selectedImageItem = nil }
+    ) { imageSheetItem in
+      NavigationStack {
+        UIKitZoomableImageView(item: imageSheetItem)
+          .background(Color.black.opacity(0.95))
+          .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+              CloseButton(color: .white) {
+                selectedImageItem = nil
+              }
+            }
+          }
       }
     }
     .accessibilityElement(children: .combine)
@@ -166,19 +187,19 @@ public struct TootView: View {
           displayName
         }
         displayName
-        Text("posted")
+        Text("posted at")
         tweetPostDatetime
       }
     })
   }
-
+  
   private var displayName: some View {
     Text(store.accountDisplayName)
       .lineLimit(1)
       .font(.titleTwo)
       .foregroundColor(Color(.textPrimary))
   }
-
+  
   private var accountName: some View {
     Text(store.accountAcct)
       .lineLimit(1)
@@ -186,13 +207,49 @@ public struct TootView: View {
       .foregroundColor(Color(.textSilent))
       .accessibilityHidden(true)
   }
-
+  
   private var tweetPostDatetime: some View {
     let (text, a11yValue) = store.state.formattedCreationDate()
     return Text(text ?? "")
       .font(.meta)
       .foregroundColor(Color(.textPrimary))
       .accessibilityLabel(a11yValue ?? "")
+  }
+  
+  @ViewBuilder
+  private var imageAttachmentsView: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack {
+        ForEach(store.imageAttachments, id: \.id) { attachment in
+          if let url = URL(string: attachment.previewURL ?? attachment.url) {
+            AsyncImage(url: url) { phase in
+              switch phase {
+              case .empty:
+                Color.gray.opacity(0.2)
+              case .success(let image):
+                image
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .frame(height: 180)
+                  .cornerRadius(8)
+                  .onTapGesture {
+                    selectedImageItem = ImageSheetItem(
+                      url: url,
+                      description: attachment.description
+                    )
+                  }
+              case .failure:
+                Color.red.opacity(0.2)
+              @unknown default:
+                EmptyView()
+              }
+            }
+            .accessibilityHidden(attachment.description == nil)
+            .accessibilityLabel(attachment.description ?? "")
+          }
+        }
+      }
+    }
   }
 }
 
@@ -208,49 +265,6 @@ public struct TootView: View {
 }
 
 // MARK: - Helper
-
-public extension TootFeature.State {
-  init(_ status: MastodonKit.Status) {
-    self.init(
-      id: status.id,
-      createdAt: status.createdAt,
-      uri: status.uri,
-      accountURL: status.account.url,
-      accountAvatar: status.account.avatar,
-      accountDisplayName: status.account.displayName,
-      accountAcct: status.account.acct,
-      content: status.content
-    )
-  }
-  
-  func formattedCreationDate() -> (String?, String?) {
-    @Dependency(\.date.now) var date
-    @Dependency(\.calendar) var calendar
-    
-    let components = calendar.dateComponents(
-      [.hour, .day, .month],
-      from: createdAt,
-      to: date
-    )
-    
-    let a11yValue = RelativeDateTimeFormatter.tweetDateFormatter.localizedString(for: createdAt, relativeTo: date)
-    
-    if let days = components.day, days == 0, let months = components.month, months == 0 {
-      let diffComponents = calendar.dateComponents(
-        [.hour, .minute],
-        from: createdAt,
-        to: date
-      )
-      
-      let value = DateComponentsFormatter.tweetDateFormatter()
-        .string(from: diffComponents.dateComponentFromBiggestComponent)
-      return (value, a11yValue)
-    } else {
-      let value = createdAt.formatted(Date.FormatStyle.dateWithoutYear)
-      return (value, a11yValue)
-    }
-  }
-}
 
 extension DateComponents {
   var dateComponentFromBiggestComponent: DateComponents {
@@ -272,52 +286,9 @@ extension RelativeDateTimeFormatter {
   }()
 }
 
-extension String {
-  private var convertHtmlToNSAttributedString: NSAttributedString? {
-    guard let data = data(using: .utf8) else {
-      return nil
-    }
-    do {
-      return try NSAttributedString(
-        data: data,
-        options: [
-          .documentType: NSAttributedString.DocumentType.html,
-          .characterEncoding: String.Encoding.unicode.rawValue
-        ],
-        documentAttributes: nil
-      )
-    } catch {
-      debugPrint(error.localizedDescription)
-      return nil
-    }
-  }
+struct ImageSheetItem: Identifiable, Hashable {
+  let url: URL
+  var description: String?
   
-  public func convertHtmlToAttributedStringWithCSS(
-    font: UIFont? = UIFont(name: "Helvetica", size: UIFont.preferredFont(forTextStyle: .body).pointSize),
-    csscolor: String,
-    linkColor: String,
-    lineheight: Int = 5,
-    csstextalign: String = "left"
-  ) -> NSAttributedString? {
-    guard let font else {
-      return convertHtmlToNSAttributedString
-    }
-    let modifiedString = "<style>body{font-family: '\(font.fontName)'; font-size:\(font.pointSize)px; color: \(csscolor); line-height: \(lineheight)px; text-align: \(csstextalign);} a{color: \(linkColor)}</style>\(self)"
-    guard let data = modifiedString.data(using: .unicode) else {
-      return nil
-    }
-    do {
-      return try NSAttributedString(
-        data: data,
-        options: [
-          .documentType: NSAttributedString.DocumentType.html,
-          .characterEncoding: String.Encoding.unicode.rawValue
-        ],
-        documentAttributes: nil
-      )
-    } catch {
-      debugPrint(error.localizedDescription)
-      return nil
-    }
-  }
+  var id: URL { url }
 }

@@ -16,6 +16,8 @@
 "appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
 "appCore.viewingModeAlert.riding" = "Riding";
 "appCore.viewingModeAlert.watching" = "Watching";
+"appView.overlay.nextUpdate" = "Next update";
+"appView.overlay.riders" = "Riders";
 
 "chat.noChatActivity" = "Nobody's chatting at the moment...\nwhy don't you start?";
 

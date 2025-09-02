@@ -14,13 +14,6 @@ import UserDefaultsClient
 public struct ChatFeature {
   public init() {}
   
-  @Dependency(\.date) var date
-  @Dependency(\.apiService) var apiService
-  @Dependency(\.idProvider) var idProvider
-  @Dependency(\.mainQueue) var mainQueue
-  @Dependency(\.uuid) var uuid
-  @Dependency(\.userDefaultsClient) var userDefaultsClient
-  
   var md5Uuid: String {
     Insecure.MD5.hash(data: idProvider.id().data(using: .utf8)!)
       .map { String(format: "%02hhx", $0) }
@@ -52,11 +45,11 @@ public struct ChatFeature {
   // MARK: Actions
   
   @CasePathable
-  public enum Action: Equatable {
+  public enum Action {
     case onAppear
-    case chatInputResponse(TaskResult<ApiResponse>)
+    case chatInputResponse(Result<ApiResponse, any Error>)
     case fetchChatMessages
-    case fetchChatMessagesResponse(TaskResult<[ChatMessage]>)
+    case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
     
     case chatInput(ChatInput.Action)
     case alert(PresentationAction<Alert>)
@@ -67,6 +60,12 @@ public struct ChatFeature {
   }
   
   // MARK: Reducer
+  @Dependency(\.date) var date
+  @Dependency(\.apiService) var apiService
+  @Dependency(\.idProvider) var idProvider
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.uuid) var uuid
+  @Dependency(\.userDefaultsClient) var userDefaultsClient
   
   public var body: some Reducer<State, Action> {
     Scope(state: \.chatInputState, action: \.chatInput) {
@@ -80,19 +79,14 @@ public struct ChatFeature {
         return .none
         
       case .onAppear:
-        return .merge(
-          .run { _ in
-            await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
-          },
-          .send(.fetchChatMessages)
-        )
+        return .send(.fetchChatMessages)
         
       case .fetchChatMessages:
         state.chatMessages = .loading(state.chatMessages.elements ?? [])
         return .run { send in
           await send(
             .fetchChatMessagesResponse(
-              TaskResult {
+              Result {
                 try await apiService.getChatMessages()
               }
             )
@@ -101,7 +95,9 @@ public struct ChatFeature {
         
       case let .fetchChatMessagesResponse(.success(messages)):
         state.chatMessages = .results(messages)
-        return .none
+        return .run { _ in
+          await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
+        }
         
       case let .fetchChatMessagesResponse(.failure(error)):
         state.chatMessages = .error(
@@ -144,7 +140,7 @@ public struct ChatFeature {
           return .run { send in
             await send(
               .chatInputResponse(
-                TaskResult {
+                Result {
                   try await apiService.postChatMessage(message)
                 }
               )

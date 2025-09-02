@@ -10,6 +10,7 @@
 		731CFCC9267A745600F1093B /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 731CFCC8267A745600F1093B /* AppFeature */; settings = {ATTRIBUTES = (Required, ); }; };
 		73238EC927728081003DE01F /* ChatFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EC827728081003DE01F /* ChatFeature */; };
 		73238EDD277328E8003DE01F /* SettingsFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73238EDC277328E8003DE01F /* SettingsFeature */; };
+		73614B432E657DF00058F87D /* cmAppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 73614B422E657DF00058F87D /* cmAppIcon.icon */; };
 		73654C6C26C85FCF004BE38B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */; };
 		738214F4271F49AB009847C7 /* appIcon-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214EF271F49AB009847C7 /* appIcon-5.png */; };
 		738214F5271F49AB009847C7 /* appIcon-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 738214F0271F49AB009847C7 /* appIcon-4.png */; };
@@ -29,6 +30,7 @@
 		7347AB262A27BE2A00BCA949 /* ChatFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatFeature.xctestplan; sourceTree = "<group>"; };
 		7347AB272A27C0A900BCA949 /* MapFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MapFeature.xctestplan; sourceTree = "<group>"; };
 		7355D2E42B91C4350097DD42 /* NextRideFeatureTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = NextRideFeatureTests.xctestplan; sourceTree = "<group>"; };
+		73614B422E657DF00058F87D /* cmAppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = cmAppIcon.icon; sourceTree = "<group>"; };
 		73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7369207C28D0D92100EA0584 /* SnapshotTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SnapshotTests.xctestplan; sourceTree = "<group>"; };
 		738214EF271F49AB009847C7 /* appIcon-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appIcon-5.png"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */,
 				739C4980276733E20001466A /* Berlin:Germany.gpx */,
 				73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */,
+				73614B422E657DF00058F87D /* cmAppIcon.icon */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				738214F7271F49AB009847C7 /* appIcon-2.png in Resources */,
 				73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */,
 				738214F5271F49AB009847C7 /* appIcon-4.png in Resources */,
+				73614B432E657DF00058F87D /* cmAppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,11 +658,12 @@
 		73CF5FE8263EAF5C001925A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = cmAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 241028;
+				CURRENT_PROJECT_VERSION = 250902;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -669,7 +674,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
@@ -684,11 +689,12 @@
 		73CF5FE9263EAF5C001925A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = cmAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 241028;
+				CURRENT_PROJECT_VERSION = 250902;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -699,7 +705,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";

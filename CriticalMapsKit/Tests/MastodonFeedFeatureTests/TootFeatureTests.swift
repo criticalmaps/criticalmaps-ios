@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Foundation
+import MastodonKit
 import MastodonFeedFeature
 import Testing
 
@@ -14,7 +15,7 @@ struct TootFeatureTests {
     accountAvatar: "",
     accountDisplayName: "displayname",
     accountAcct: "account",
-    content: ""
+    content: HTMLString(stringValue: "")
   )
   
   @Test("Open toot should open Mastodon URL")

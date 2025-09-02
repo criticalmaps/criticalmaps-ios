@@ -12,11 +12,6 @@ import SharedModels
 public struct NextRideFeature {
   public init() {}
 
-  @Dependency(\.nextRideService) private var service
-  @Dependency(\.date) private var date
-  @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
-  @Dependency(\.calendar) private var calendar
-
   @ObservableState
   public struct State: Equatable {
     public init(nextRide: Ride? = nil) {
@@ -34,15 +29,19 @@ public struct NextRideFeature {
 
   // MARK: Actions
 
-  public enum Action: Equatable {
+  public enum Action {
     case getNextRide(Coordinate)
-    case nextRideResponse(TaskResult<[Ride]>)
+    case nextRideResponse(Result<[Ride], any Error>)
     case setNextRide(Ride)
   }
 
   // MARK: Reducer
-
-  /// Reducer handling next ride feature actions
+  
+  @Dependency(\.nextRideService) private var service
+  @Dependency(\.date) private var date
+  @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
+  @Dependency(\.calendar) private var calendar
+  
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case let .getNextRide(coordinate):
@@ -61,7 +60,7 @@ public struct NextRideFeature {
       return .run { [distance = state.rideEventSettings.eventDistance] send in
         await send(
           .nextRideResponse(
-            TaskResult {
+            Result {
               try await service.nextRide(
                 obfuscatedCoordinate,
                 distance.rawValue,

@@ -47,10 +47,13 @@ extension NetworkDispatcher: DependencyKey {
 
     return Self { urlRequest in
       let (data, response) = try await urlSession.data(for: urlRequest)
+      @Shared(.hasConnectionError) var hasConnectionError
 
       guard let response = response as? HTTPURLResponse else {
+        $hasConnectionError.withLock { $0 = true }
         throw NetworkRequestError.invalidResponse
       }
+      $hasConnectionError.withLock { $0 = false }
 
       // check for connection failure reasons
       guard !NSURLErrorConnectionFailureCodes.contains(response.statusCode) else {
@@ -85,5 +88,11 @@ extension DependencyValues {
   var networkDispatcher: NetworkDispatcher {
     get { self[NetworkDispatcher.self] }
     set { self[NetworkDispatcher.self] = newValue }
+  }
+}
+
+public extension SharedReaderKey where Self == InMemoryKey<Bool>.Default {
+  static var hasConnectionError: Self {
+    Self[.inMemory("hasConnectionError"), default: false]
   }
 }

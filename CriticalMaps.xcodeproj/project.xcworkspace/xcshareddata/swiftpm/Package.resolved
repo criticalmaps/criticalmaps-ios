@@ -3,19 +3,10 @@
     {
       "identity" : "acknowlist",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vtourraine/AcknowList.git",
+      "location" : "https://github.com/mltbnz/AcknowList",
       "state" : {
-        "revision" : "125ff1915a639bf7d97471a4d5ae16765d0c50f2",
-        "version" : "3.2.0"
-      }
-    },
-    {
-      "identity" : "bottomsheet",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/lucaszischka/BottomSheet.git",
-      "state" : {
-        "revision" : "720ddbd1371fef2a09cc1ab65fc503df37767f9c",
-        "version" : "3.1.1"
+        "branch" : "main",
+        "revision" : "a1d36b4b9acae3a256afeea33b5462581153fe81"
       }
     },
     {
@@ -33,7 +24,16 @@
       "location" : "https://github.com/mltbnz/composable-core-location",
       "state" : {
         "branch" : "main",
-        "revision" : "1f9070ce561e4ef164cc8e124e37c77eaf2f4b4f"
+        "revision" : "c8e14dfb07fc38a0102ba41fc9e804c20d6b8826"
+      }
+    },
+    {
+      "identity" : "lrucache",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicklockwood/LRUCache.git",
+      "state" : {
+        "revision" : "e0e9e039b33db8f2ef39b8e25607e38f46b13584",
+        "version" : "1.1.2"
       }
     },
     {
@@ -42,7 +42,16 @@
       "location" : "https://github.com/mltbnz/MastodonKit.git",
       "state" : {
         "branch" : "master",
-        "revision" : "db829c74ba16f809c9b894c356ee2df3ffb284ab"
+        "revision" : "b6717d8076596cf33228376ee73c88fd9c51518e"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "revision" : "b601256eab081c0f92f059e12818ac1d4f178ff7",
+        "version" : "1.3.0"
       }
     },
     {
@@ -77,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
-        "revision" : "d2c1bfb5859c81d1fd14437e9eb697137dd61bc9",
-        "version" : "1.22.1"
+        "revision" : "acd9bb8a7cf6e36a89d81a432c2e8eb3b1bb3771",
+        "version" : "1.22.2"
       }
     },
     {
@@ -86,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-concurrency-extras",
       "state" : {
-        "revision" : "82a4ae7170d98d8538ec77238b7eb8e7199ef2e8",
-        "version" : "1.3.1"
+        "revision" : "5a3825302b1a0d744183200915a47b508c828e6f",
+        "version" : "1.3.2"
       }
     },
     {
@@ -131,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-navigation",
       "state" : {
-        "revision" : "4e89284c1966538109dc783497405bc680e9bc96",
-        "version" : "2.4.0"
+        "revision" : "6b7f44d218e776bb7a5246efb940440d57c8b2cf",
+        "version" : "2.4.2"
       }
     },
     {
@@ -140,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-perception",
       "state" : {
-        "revision" : "7d3509c7f4de78ad3eb3d804e036fb62e3585141",
-        "version" : "2.0.5"
+        "revision" : "59b00dfa5548b5b91ebbda6d94d6328d82ca00fe",
+        "version" : "2.0.6"
       }
     },
     {
@@ -149,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-sharing",
       "state" : {
-        "revision" : "530c98ac2c3e393615616bd6d8fc604600c99f6f",
-        "version" : "2.7.2"
+        "revision" : "aaf605733bd93126d1a3658b4021146d95c94cb6",
+        "version" : "2.7.3"
       }
     },
     {
@@ -169,6 +178,15 @@
       "state" : {
         "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
         "version" : "601.0.1"
+      }
+    },
+    {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scinfu/SwiftSoup.git",
+      "state" : {
+        "revision" : "db0428bcfced386943c05ba8ea3e607baa715e45",
+        "version" : "2.11.0"
       }
     },
     {

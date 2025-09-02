@@ -13,8 +13,6 @@ import UserDefaultsClient
 public struct SocialFeature {
   public init() {}
   
-  @Dependency(\.dismiss) var dismiss
-  
   // MARK: State
   
   @ObservableState
@@ -39,7 +37,7 @@ public struct SocialFeature {
   
   // MARK: Actions
   
-  public enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction {
     case binding(BindingAction<State>)
     case dismiss
     
@@ -48,6 +46,8 @@ public struct SocialFeature {
   }
     
   // MARK: Reducer
+  
+  @Dependency(\.dismiss) var dismiss
   
   public var body: some ReducerOf<Self> {
     BindingReducer()

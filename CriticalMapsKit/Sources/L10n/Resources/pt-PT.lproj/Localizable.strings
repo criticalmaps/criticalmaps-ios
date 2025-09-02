@@ -1,0 +1,284 @@
+"a11y.chatInput.label" = "Chat input textfield";
+"a11y.mapfeatureview.nextridebanner.hint" = "Mostra o próximo evento de massa crítica mais próximo de sua localização";
+"a11y.mapfeatureview.nextridebanner.label" = "Próximo banner de massa crítica";
+
+"a11y.usertrackingbutton.hint" = "Alternar modo de acompanhamento";
+"a11y.usertrackingbutton.follow" = "Seguir";
+"a11y.usertrackingbutton.followWithHeading" = "Seguir com direção";
+"a11y.usertrackingbutton.dontFollow" = "Não seguir";
+
+
+"a11y.general.on" = "Ligado";
+"a11y.general.off" = "Desligado";
+"a11y.general.selected" = "selecionado";
+
+"appCore.viewingModeAlert.title" = "Modo de Visualização";
+"appCore.viewingModeAlert.message" = "Você está participando da massa crítica ou você está apenas assistindo?";
+"appCore.viewingModeAlert.riding" = "Equitação";
+"appCore.viewingModeAlert.watching" = "Assistindo";
+
+"appView.overlay.nextUpdate" = "Próxima actualização";
+"appView.overlay.riders" = "Pilotos";
+
+"chat.noChatActivity" = "Ninguém está conversando no momento...\npor que você não começa?";
+
+"chat.emptyMessageTitle" = "Tão logo aqui";
+
+
+"chat.placeholder" = "Escreve uma mensagem";
+
+
+"chat.send" = "Enviar";
+
+
+"chat.send.error" = "A mensagem não pôde ser enviada. Por favor, tente novamente.";
+
+
+"chat.title" = "Chat";
+
+"chat.unreadbutton.accessibilityvalue" = "%@ mensagens não lidas";
+
+
+"close.button.label" = "close";
+
+"emptyState.reload" = "Actualizar";
+
+
+"error" = "Erro";
+
+
+"errorState.message" = "Lamentamos, mas houve um problema";
+
+/* ErrorState */
+"errorState.title" = "Erro";
+
+"location.alert.provideAuth" = "O uso de localização torna este aplicativo melhor. Por favor, conceda-nos acesso.";
+
+"location.alert.serviceIsOff" = "Acesso desabilitado ao Serviço de Localização.";
+
+"location.alert.provideAccessToLocationService" = "Por favor, nos dê acesso à sua localização nas configurações.";
+
+
+"map.nextRideEvents.showAll" = "Mostrar eventos";
+"map.nextRideEvents.hideAll" = "Ocultar eventos";
+
+"map.headingbutton.accessibilitylabel" = "Tracking";
+
+
+"map.headingbutton.accessibilityvalue.heading" = "Ligado com título";
+
+
+"map.headingbutton.accessibilityvalue.off" = "Off";
+
+
+"map.headingbutton.accessibilityvalue.on" = "On";
+
+
+"map.layer.info" = "Mapas críticos precisam usar seu GPS para mostrar o mapa com outro usuário ativo";
+
+
+"map.layer.info.title" = "GPS desativado";
+
+
+"map.layer.info.errorMessage" = "Mapas críticos não estão atualizando. Por favor, verifique novamente mais tarde.";
+
+
+"map.locationButton.label" = "locating";
+
+
+"map.menu.route" = "Rota";
+
+
+"map.menu.share" = "Share";
+
+
+"map.menu.title" = "Próximos eventos";
+
+
+"map.title" = "Critical Maps";
+
+
+"ok" = "OK";
+
+
+"rules.text.brake" = "Evite paradas repentinas. Se você realmente tem que fazer, tente avisar as pessoas por trás de você.";
+
+
+"rules.text.contraflow" = "Evite de dirigir na faixa oposta.";
+
+
+"rules.text.cork" = "Protect motorists from themselves by corking!\n\nTo maintain the cohesion of the group, block traffic from side roads so that the mass can freely proceed through red lights without interruptions.";
+
+
+"rules.text.gently" = "When driving in the front: No speeding!\n\nWhen driving in the rear: Close gaps!";
+
+
+"rules.text.green" = "When you arrive at a red light while driving as part of the head of the mass, be sure to stop when the traffic light shows red.";
+
+
+"rules.text.haveFun" = "Enjoy reclaimed streets. Check out the Sound Bikes. Chat with motorists and pedestrian to let them know what's going on.\n\nAnd most importantly: Have fun!";
+
+
+"rules.text.stayLoose" = "Don't allow yourself to be provoked. Be friendly to the police, motorists and everybody else, even if they are not.";
+
+
+"rules.title" = "Regras";
+
+
+"rules.number" = "Rule Number";
+
+
+"rules.title.brake" = "Sem paras!";
+
+
+"rules.title.contraflow" = "Careful of oncoming traffic";
+
+
+"rules.title.cork" = "Corking!?";
+
+
+"rules.title.gently" = "Hold your horses!";
+
+
+"rules.title.green" = "When driving at the head: Stop at the redlights!";
+
+
+"rules.title.haveFun" = "Diverte-te!";
+
+
+"rules.title.stayLoose" = "Hang loose";
+
+
+"settings.about" = "Sobre";
+
+
+"settings.appDesign" = "Design";
+
+
+"settings.cmBerlin" = "Critical Mass Berlin";
+
+
+"settings.criticalMassDotIn.detail" = "Submit your bike activism to the criticalmass.in project and promote it to other bike enthusiasts.";
+
+
+"settings.criticalMassDotIn.title" = "Missing a mass?";
+
+
+"settings.criticalMassDotIn.action" = "View Project";
+
+
+"settings.donate" = "Help finacing our tracking server";
+
+
+"settings.appIcon" = "App Icon";
+
+
+"settings.eventSettings" = "Event Settings";
+
+
+"settings.settingsEventSearchRadius" = "Event Search Radius";
+
+
+"settings.eventSettingsEnable" = "Event Notifications";
+
+
+"settings.eventTypes" = "Event Types";
+
+
+"settings.eventSearchRadius" = "Event Search Radius";
+
+
+"settings.eventSearchRadiusDistance" = "%@ km";
+
+
+"settings.facebook" = "Facebook";
+
+
+"settings.friends" = "Friends";
+
+
+"settings.friends.addFriendDescription" = "added";
+
+
+"settings.friends.addFriendTitle" = "Added Friend";
+
+
+"settings.friends.settings" = "Settings";
+
+
+"settings.friends.showID" = "Show ID";
+
+
+"settings.gpsSettings" = "Configurações de GPS";
+
+
+"settings.kniggeImages" = "Rules images";
+
+
+"settings.logoDesign" = "Logo design";
+
+
+"settings.observationmode.detail" = "If you don’t take part yourself, but want to follow the Critical Mass.";
+
+
+"settings.observationmode.title" = "Observation Mode";
+
+
+"settings.openSource" = "Github";
+
+
+"settings.opensource.action" = "View Repository";
+
+
+"settings.opensource.detail" = "Critical Maps is an open source project and we are looking forward to developers who want to work on critical maps.";
+
+
+"settings.opensource.title" = "Do you miss features or want to fix a bug?";
+
+
+"settings.programming" = "Development";
+
+
+"settings.section.info" = "Informação";
+
+
+"settings.socialMedia" = "Redes Sociais";
+
+/* Theme */
+"settings.theme" = "Modo noturno";
+
+/* Theme appearance */
+"settings.theme.appearance" = "Appearance";
+
+/* Theme appearance system */
+"settings.theme.system" = "System";
+
+/* Theme appearance light */
+"settings.theme.light" = "Light";
+
+/* Theme appearance dark */
+"settings.theme.dark" = "Dark";
+
+"settings.title" = "Definições";
+
+"settings.twitter" = "Twitter";
+
+"settings.website" = "Website";
+
+"settings.appIconTitle" = "App Icon";
+
+"settings.translate.title" = "Translate";
+
+"settings.translate.subtitle" = "Help making Critical Maps available in other languages";
+
+"settings.translate.link" = "crowdin.com";
+
+"settings.privacyPolicy" = "Privacy Policy";
+
+"settings.support" = "Support";
+
+"twitter.noData" = "Nothing here at the momemt";
+
+"twitter.title" = "Twitter";
+
+"twitter.empty.message" = "Here you’ll find tweets tagged with @criticalmaps and #criticalmass";

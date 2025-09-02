@@ -4,9 +4,6 @@
 
 "a11y.usertrackingbutton.hint" = "Tracking an-/ausschalten";
 "a11y.usertrackingbutton.follow" = "Folgen";
-/* a11y.usertrackingbutton.followWithHeading
-
-It’s describing a mode users can pick to set for the track current location button. This specific one will set the map to stay on your location and also update the direction it’s facing to align with the direction you are moving to */
 "a11y.usertrackingbutton.followWithHeading" = "Folgen mit Richtung";
 "a11y.usertrackingbutton.dontFollow" = "Nicht folgen";
 
@@ -15,6 +12,13 @@ It’s describing a mode users can pick to set for the track current location bu
 "a11y.general.off" = "Off";
 "a11y.general.selected" = "ausgewählt";
 
+"appCore.viewingModeAlert.title" = "Anzeigemodus";
+"appCore.viewingModeAlert.message" = "Nimmst du teil oder schaust du zu?";
+"appCore.viewingModeAlert.riding" = "Fahre mit";
+"appCore.viewingModeAlert.watching" = "Schaue zu";
+
+"appView.overlay.nextUpdate" = "Nächstes Update";
+"appView.overlay.riders" = "Riders";
 
 "chat.noChatActivity" = "Niemand chattet derzeit...\nWarum fängst du nicht an?";
 
@@ -54,6 +58,9 @@ It’s describing a mode users can pick to set for the track current location bu
 
 "location.alert.provideAccessToLocationService" = "Bitte geben Sie uns in den Einstellungen Zugriff auf Ihren Standort.";
 
+
+"map.nextRideEvents.showAll" = "Events anzeigen";
+"map.nextRideEvents.hideAll" = "Events ausblenden";
 
 "map.headingbutton.accessibilitylabel" = "Tracking";
 

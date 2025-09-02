@@ -8,6 +8,10 @@ import SharedModels
 import Testing
 import UserDefaultsClient
 
+struct TestError: Equatable, Error {
+  let message: String = "ERROR"
+}
+
 @Suite
 @MainActor
 struct ChatFeatureCore {
@@ -26,9 +30,12 @@ struct ChatFeatureCore {
         )
       ),
       reducer: { ChatFeature() }
-    )
-    testStore.dependencies.uuid = .constant(uuid)
-    testStore.dependencies.date = .constant(date)
+    ) {
+      $0.uuid = .constant(uuid)
+      $0.date = .constant(date)
+      $0.idProvider = .noop
+      $0.userDefaultsClient.setDouble = { _, _ in }
+    }
     
     return testStore
   }
@@ -42,14 +49,14 @@ struct ChatFeatureCore {
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
-    await testStore.receive(.chatInputResponse(.success(.init(status: "ok")))) { state in
+    await testStore.receive(\.chatInputResponse.success, .init(status: "ok")) { state in
       state.chatInputState.isSending = false
       state.chatInputState.message = ""
     }
-    await testStore.receive(.fetchChatMessages) {
+    await testStore.receive(\.fetchChatMessages) {
       $0.chatMessages = .loading([])
     }
-    await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
+    await testStore.receive(\.fetchChatMessagesResponse.success, mockResponse) {
       $0.chatMessages = .results(mockResponse)
     }
   }
@@ -72,20 +79,20 @@ struct ChatFeatureCore {
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
-    await testStore.receive(.chatInputResponse(.success(.init(status: "ok")))) { state in
+    await testStore.receive(\.chatInputResponse.success, .init(status: "ok")) { state in
       state.chatInputState.isSending = false
       state.chatInputState.message = ""
     }
-    await testStore.receive(.fetchChatMessages)
+    await testStore.receive(\.fetchChatMessages)
     #expect(testStore.state.chatMessages.elements!.isEmpty == false)
-    await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
+    await testStore.receive(\.fetchChatMessagesResponse.success,  mockResponse) {
       $0.chatMessages = .results(mockResponse)
     }
   }
   
   @Test("OnCommit should trigger networkCall with failure response when service throws error")
   func onCommitWithErrorResponse() async {
-    let error = NSError(domain: "", code: 1)
+    let error = TestError()
     let testStore = defaultTestStore()
     
     testStore.dependencies.apiService.getChatMessages = { throw error }
@@ -94,7 +101,7 @@ struct ChatFeatureCore {
     _ = await testStore.send(.chatInput(.onCommit)) { state in
       state.chatInputState.isSending = true
     }
-    await testStore.receive(.chatInputResponse(.failure(error))) { state in
+    await testStore.receive(\.chatInputResponse.failure) { state in
       state.chatInputState.isSending = false
       state.alert = .init(
         title: { .init(L10n.error) },
@@ -122,8 +129,8 @@ struct ChatFeatureCore {
     testStore.dependencies.date = .constant(date)
   
     _ = await testStore.send(.onAppear)
-    await testStore.receive(.fetchChatMessages)
-    await testStore.receive(.fetchChatMessagesResponse(.success(mockResponse))) {
+    await testStore.receive(\.fetchChatMessages)
+    await testStore.receive(\.fetchChatMessagesResponse.success, mockResponse) {
       $0.chatMessages = .results(mockResponse)
     }
     chatAppearanceTimeinterval.withValue { interval in

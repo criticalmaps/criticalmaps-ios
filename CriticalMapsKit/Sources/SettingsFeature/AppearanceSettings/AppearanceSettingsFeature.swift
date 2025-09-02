@@ -10,10 +10,6 @@ import UIKit
 public struct AppearanceSettingsFeature {
   public init() {}
   
-  @Dependency(\.uiApplicationClient) private var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) private var setUserInterfaceStyle
-  @Dependency(\.feedbackGenerator) private var feedbackGenerator
-  
   // MARK: State
   
   @ObservableState
@@ -38,10 +34,16 @@ public struct AppearanceSettingsFeature {
     case binding(BindingAction<State>)
   }
   
+  // MARK: Reducer
+  
+  @Dependency(\.uiApplicationClient) private var uiApplicationClient
+  @Dependency(\.setUserInterfaceStyle) private var setUserInterfaceStyle
+  @Dependency(\.feedbackGenerator) private var feedbackGenerator
+  
   public var body: some ReducerOf<Self> {
     BindingReducer()
     
-    Reduce<State, Action> { state, action in
+    Reduce { state, action in
       switch action {
       case .binding(\.colorScheme):
         let colorScheme = state.colorScheme

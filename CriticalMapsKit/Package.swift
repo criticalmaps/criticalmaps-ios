@@ -22,7 +22,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      .upToNextMajor(from: "1.0.0")
+      from: "1.0.0"
     ),
     .package(
       url: "https://github.com/apple/swift-log.git",
@@ -37,12 +37,8 @@ let package = Package(
       .upToNextMajor(from: "1.8.2")
     ),
     .package(
-      url: "https://github.com/vtourraine/AcknowList",
-      exact: "3.2.0"
-    ),
-    .package(
-      url: "https://github.com/lucaszischka/BottomSheet.git",
-      from: "3.1.0"
+      url: "https://github.com/mltbnz/AcknowList",
+      branch: "main"
     ),
     .package(
       url: "https://github.com/mltbnz/MastodonKit.git",
@@ -77,8 +73,7 @@ let package = Package(
         .styleguide,
         .userDefaultsClient,
         .uiApplicationClient,
-        .tca,
-        .product(name: "BottomSheet", package: "BottomSheet")
+        .tca
       ]
     ),
     .target(
@@ -161,6 +156,19 @@ let package = Package(
       ]
     ),
     .target(
+      name: "MastodonFeedFeature",
+      dependencies: [
+        .apiClient,
+        .logger,
+        .sharedDependencies,
+        .sharedModels,
+        .styleguide,
+        .uiApplicationClient,
+        .tca,
+        .product(name: "MastodonKit", package: "MastodonKit"),
+      ]
+    ),
+    .target(
       name: "NextRideFeature",
       dependencies: [
         .apiClient,
@@ -234,6 +242,7 @@ let package = Package(
       name: "Styleguide",
       dependencies: [
         .l10n,
+        .tca,
         .swiftUIHelpers
       ],
       exclude: ["README.md"],
@@ -247,19 +256,6 @@ let package = Package(
       name: "TestHelper",
       dependencies: [
         .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
-      ]
-    ),
-    .target(
-      name: "MastodonFeedFeature",
-      dependencies: [
-        .apiClient,
-        .logger,
-        .sharedDependencies,
-        .sharedModels,
-        .styleguide,
-        .uiApplicationClient,
-        .tca,
-        .product(name: "MastodonKit", package: "MastodonKit")
       ]
     ),
     .target(
@@ -376,7 +372,8 @@ package.targets.append(contentsOf: [
       .testHelper,
       .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
-    ]
+    ],
+    resources: [.process("_Resources/")]
   )
 ])
 
