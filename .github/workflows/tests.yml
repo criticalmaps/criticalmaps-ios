@@ -28,6 +28,9 @@ jobs:
       with:
         xcode-version: '26.0-beta'
 
+    - name: List available simulators
+      run: xcrun simctl list devices
+
     - name: Run UnitTests
       run: fastlane test
 
