@@ -10,26 +10,31 @@ public enum EventDistance: Int, CaseIterable, Codable, Sendable {
   case far = 20
 
   var length: Measurement<UnitLength> {
-    Measurement<UnitLength>(value: Double(rawValue), unit: .kilometers)
+    Measurement<UnitLength>(
+      value: Double(rawValue),
+      unit: .kilometers
+    )
   }
 
   public var displayValue: String {
-    let formatter = MeasurementFormatter.distanceFormatter
-    formatter.unitStyle = .short
-    return formatter.string(from: length)
+    // Abbreviated width: e.g., "5 km"
+    length.formatted(
+      .measurement(
+        width: .abbreviated,
+        usage: .road,
+        numberFormatStyle: .number
+      )
+    )
   }
 
   public var accessibilityLabel: String {
-    let formatter = MeasurementFormatter.distanceFormatter
-    formatter.unitStyle = .long
-    return formatter.string(from: length)
+    // Wide width: e.g., "5 kilometers"
+    length.formatted(
+      .measurement(
+        width: .wide,
+        usage: .road,
+        numberFormatStyle: .number
+      )
+    )
   }
-}
-
-extension MeasurementFormatter {
-  static let distanceFormatter: MeasurementFormatter = {
-    let formatter = MeasurementFormatter()
-    formatter.unitOptions = [.providedUnit]
-    return formatter
-  }()
 }
