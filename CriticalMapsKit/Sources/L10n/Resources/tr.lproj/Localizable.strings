@@ -4,9 +4,6 @@
 
 "a11y.usertrackingbutton.hint" = "Takip modunu aç/kapat";
 "a11y.usertrackingbutton.follow" = "Takip Et";
-/* a11y.usertrackingbutton.followWithHeading
-
-It’s describing a mode users can pick to set for the track current location button. This specific one will set the map to stay on your location and also update the direction it’s facing to align with the direction you are moving to */
 "a11y.usertrackingbutton.followWithHeading" = "Istikametime göre takip et";
 "a11y.usertrackingbutton.dontFollow" = "Takibi bırak";
 
@@ -15,6 +12,13 @@ It’s describing a mode users can pick to set for the track current location bu
 "a11y.general.off" = "Kapalı";
 "a11y.general.selected" = "seçildi";
 
+"appCore.viewingModeAlert.title" = "Viewing Mode";
+"appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
+"appCore.viewingModeAlert.riding" = "Riding";
+"appCore.viewingModeAlert.watching" = "Watching";
+
+"appView.overlay.nextUpdate" = "Next update";
+"appView.overlay.riders" = "Riders";
 
 "chat.noChatActivity" = "Şu anda kimse sohbet etmiyor... \nSen neden başlatmıyorsun?";
 
@@ -54,6 +58,9 @@ It’s describing a mode users can pick to set for the track current location bu
 
 "location.alert.provideAccessToLocationService" = "Lütfen ayarlardan konum erişimine izni verin.";
 
+
+"map.nextRideEvents.showAll" = "Show events";
+"map.nextRideEvents.hideAll" = "Hide events";
 
 "map.headingbutton.accessibilitylabel" = "Takip ediliyor";
 

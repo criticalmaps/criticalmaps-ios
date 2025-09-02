@@ -58,6 +58,14 @@ public enum L10n {
       public static let watching = L10n.tr("Localizable", "appCore.viewingModeAlert.watching", fallback: "Watching")
     }
   }
+  public enum AppView {
+    public enum Overlay {
+      /// Next update
+      public static let nextUpdate = L10n.tr("Localizable", "appView.overlay.nextUpdate", fallback: "Next update")
+      /// Riders
+      public static let riders = L10n.tr("Localizable", "appView.overlay.riders", fallback: "Riders")
+    }
+  }
   public enum Chat {
     /// So quiet here
     public static let emptyMessageTitle = L10n.tr("Localizable", "chat.emptyMessageTitle", fallback: "So quiet here")

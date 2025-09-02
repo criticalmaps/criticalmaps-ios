@@ -6,6 +6,8 @@
 	<array>
 		<string>de.pokuslabs.fetchRidesAndChats</string>
 	</array>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -69,6 +71,10 @@
 		<string>es</string>
 		<string>fr</string>
 		<string>it</string>
+		<string>tr</string>
+		<string>pl</string>
+		<string>pt-BR</string>
+		<string>pt-PT</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
@@ -105,7 +111,7 @@
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
 	<key>UIRequiresFullScreen</key>
 	<true/>
