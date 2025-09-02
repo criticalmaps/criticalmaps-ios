@@ -3,10 +3,10 @@
     {
       "identity" : "acknowlist",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/vtourraine/AcknowList.git",
+      "location" : "https://github.com/mltbnz/AcknowList",
       "state" : {
-        "revision" : "125ff1915a639bf7d97471a4d5ae16765d0c50f2",
-        "version" : "3.2.0"
+        "branch" : "main",
+        "revision" : "a1d36b4b9acae3a256afeea33b5462581153fe81"
       }
     },
     {
@@ -158,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-sharing",
       "state" : {
-        "revision" : "530c98ac2c3e393615616bd6d8fc604600c99f6f",
-        "version" : "2.7.2"
+        "revision" : "aaf605733bd93126d1a3658b4021146d95c94cb6",
+        "version" : "2.7.3"
       }
     },
     {
