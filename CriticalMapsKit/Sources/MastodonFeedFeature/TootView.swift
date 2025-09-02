@@ -23,6 +23,10 @@ public struct TootFeature {
     public let content: MastodonKit.HTMLString
     public let mediaAttachments: [MastodonKit.Attachment]
     
+    var imageAttachments: [MastodonKit.Attachment] {
+      mediaAttachments.filter { $0.type == .image }
+    }
+    
     public init(
       id: String,
       createdAt: Date,
@@ -56,20 +60,22 @@ public struct TootFeature {
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .openTweet:
-      guard let tootUrl = URL(string: state.uri) else {
+      guard let tootURL = URL(string: state.uri) else {
         return .none
       }
-      return .run { _ in
-        _ = await uiApplicationClient.open(tootUrl, [:])
-      }
+      return openURL(tootURL)
       
     case .openUser:
-      guard let accountUrl = URL(string: state.accountURL) else {
+      guard let accountURL = URL(string: state.accountURL) else {
         return .none
       }
-      return .run { _ in
-        _ = await uiApplicationClient.open(accountUrl, [:])
-      }
+      return openURL(accountURL)
+    }
+  }
+  
+  private func openURL(_ url: URL) -> Effect<Action> {
+    return .run { _ in
+      _ = await uiApplicationClient.open(url, [:])
     }
   }
 }
@@ -109,6 +115,7 @@ public struct TootView: View {
         .frame(width: 44, height: 44)
         .background(Color.gray)
         .clipShape(Circle())
+        .accessibilityHidden(true)
         
         VStack(alignment: .leading, spacing: .grid(1)) {
           tweetheader()
@@ -122,8 +129,9 @@ public struct TootView: View {
             .tint(Color(uiColor: colorScheme == .light ? .highlight : .brand500))
             .fixedSize(horizontal: false, vertical: true)
           
-          if !store.mediaAttachments.isEmpty {
-            mediaAttachmentsView
+          if !store.imageAttachments.isEmpty {
+            imageAttachmentsView
+              .padding(.top, .grid(1))
           }
         }
       }
@@ -131,18 +139,14 @@ public struct TootView: View {
     .sheet(
       item: $selectedImageItem,
       onDismiss: { selectedImageItem = nil }
-    ) { item in
+    ) { imageSheetItem in
       NavigationStack {
-        UIKitZoomableImageView(url: item.url)
+        UIKitZoomableImageView(item: imageSheetItem)
           .background(Color.black.opacity(0.95))
           .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-              Button {
+              CloseButton(color: .white) {
                 selectedImageItem = nil
-              } label: {
-                Image(systemName: "xmark")
-                  .font(Font.system(size: 22, weight: .medium))
-                  .foregroundStyle(Color.white)
               }
             }
           }
@@ -183,7 +187,7 @@ public struct TootView: View {
           displayName
         }
         displayName
-        Text("posted")
+        Text("posted at")
         tweetPostDatetime
       }
     })
@@ -213,11 +217,11 @@ public struct TootView: View {
   }
   
   @ViewBuilder
-  private var mediaAttachmentsView: some View {
+  private var imageAttachmentsView: some View {
     ScrollView(.horizontal, showsIndicators: false) {
-      HStack(spacing: 8) {
-        ForEach(store.mediaAttachments, id: \.id) { attachment in
-          if attachment.type == .image, let url = URL(string: attachment.url) {
+      HStack {
+        ForEach(store.imageAttachments, id: \.id) { attachment in
+          if let url = URL(string: attachment.previewURL ?? attachment.url) {
             AsyncImage(url: url) { phase in
               switch phase {
               case .empty:
@@ -229,7 +233,10 @@ public struct TootView: View {
                   .frame(height: 180)
                   .cornerRadius(8)
                   .onTapGesture {
-                    selectedImageItem = ImageSheetItem(url: url)
+                    selectedImageItem = ImageSheetItem(
+                      url: url,
+                      description: attachment.description
+                    )
                   }
               case .failure:
                 Color.red.opacity(0.2)
@@ -237,6 +244,8 @@ public struct TootView: View {
                 EmptyView()
               }
             }
+            .accessibilityHidden(attachment.description == nil)
+            .accessibilityLabel(attachment.description ?? "")
           }
         }
       }
@@ -279,5 +288,7 @@ extension RelativeDateTimeFormatter {
 
 struct ImageSheetItem: Identifiable, Hashable {
   let url: URL
+  var description: String?
+  
   var id: URL { url }
 }

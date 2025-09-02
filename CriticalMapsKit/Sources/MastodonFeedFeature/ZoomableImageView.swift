@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct UIKitZoomableImageView: UIViewRepresentable {
-  let url: URL
+  let item: ImageSheetItem
   
   func makeUIView(context: Context) -> UIScrollView {
     let scrollView = UIScrollView()
@@ -13,6 +13,8 @@ struct UIKitZoomableImageView: UIViewRepresentable {
     imageView.contentMode = .scaleAspectFit
     imageView.clipsToBounds = true
     imageView.tag = 100
+    imageView.isAccessibilityElement = item.description != nil
+    imageView.accessibilityLabel = item.description ?? ""
     
     scrollView.addSubview(imageView)
     imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +29,7 @@ struct UIKitZoomableImageView: UIViewRepresentable {
     
     // Load image asynchronously
     DispatchQueue.global().async {
-      if let data = try? Data(contentsOf: url),
+      if let data = try? Data(contentsOf: item.url),
          let uiImage = UIImage(data: data) {
         DispatchQueue.main.async {
           imageView.image = uiImage
