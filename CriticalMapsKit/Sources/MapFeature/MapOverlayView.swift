@@ -46,7 +46,7 @@ public struct MapOverlayView: View {
   public var body: some View {
     Button(
       action: { store.send(.didTapOverlayButton) },
-      label: { Image(uiImage: Asset.cm.image) }
+      label: { Asset.cm.swiftUIImage }
     )
     .frame(minWidth: 50, minHeight: 50)
     .foregroundStyle(Color(.textPrimary))

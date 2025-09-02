@@ -8,7 +8,7 @@ struct RideEventView: View {
   
   var body: some View {
     HStack(alignment: .top, spacing: .grid(2)) {
-      Image(uiImage: Asset.cm.image)
+      Asset.cm.swiftUIImage
         .resizable()
         .frame(width: 44, height: 52)
         .shadow(color: .black.opacity(0.3), radius: 3)

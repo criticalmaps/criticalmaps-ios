@@ -165,7 +165,7 @@ public struct SettingsView: View {
           textStackForegroundColor: .white,
           backgroundColor: Color(UIColor.hex(0x332F38)),
           bottomImage: {
-            Image(uiImage: Asset.ghLogo.image)
+            Asset.ghLogo.swiftUIImage
               .resizable()
               .aspectRatio(contentMode: .fit)
               .frame(width: 150, height: 150, alignment: .bottomTrailing)
@@ -183,7 +183,7 @@ public struct SettingsView: View {
           textStackForegroundColor: .white,
           backgroundColor: Color(.translateRowBackground),
           bottomImage: {
-            Image(uiImage: Asset.translate.image)
+            Asset.translate.swiftUIImage
               .resizable()
               .aspectRatio(contentMode: .fit)
               .frame(width: 135, height: 135, alignment: .bottomTrailing)
@@ -200,7 +200,7 @@ public struct SettingsView: View {
           textStackForegroundColor: Color(.textPrimaryLight),
           backgroundColor: Color(.cmInRowBackground),
           bottomImage: {
-            Image(uiImage: Asset.cmDotInLogo.image)
+            Asset.cmDotInLogo.swiftUIImage
               .resizable()
               .aspectRatio(contentMode: .fit)
               .frame(width: 160, height: 160, alignment: .bottomTrailing)
@@ -283,7 +283,7 @@ public struct SettingsView: View {
             RoundedRectangle(cornerRadius: 12.5)
               .strokeBorder(Color(.border), lineWidth: 1)
           )
-        Image(uiImage: Asset.cmLogoC.image)
+        Asset.cmLogoC.swiftUIImage
           .resizable()
           .aspectRatio(contentMode: .fit)
           .frame(width: 48, height: 48, alignment: .center)

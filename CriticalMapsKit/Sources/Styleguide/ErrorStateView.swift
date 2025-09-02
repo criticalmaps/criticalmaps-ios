@@ -66,7 +66,7 @@ public struct ErrorStateView: View {
         .ignoresSafeArea()
 
       VStack(spacing: .grid(5)) {
-        Image(uiImage: Asset.error.image)
+        Asset.error.swiftUIImage
           .frame(maxWidth: .infinity)
           .accessibilityHidden(true)
 
