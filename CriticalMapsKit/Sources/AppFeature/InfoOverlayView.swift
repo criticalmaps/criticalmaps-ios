@@ -117,23 +117,6 @@ struct InfoOverlayView: View {
           .modifier(NumericContentTransition())
       }
   }
-  
-  @ViewBuilder
-  private func collapsedOverlayView() -> some View {
-    Button(
-      action: { withAnimation(.infoOverlay) { isExpanded.toggle() } },
-      label: {
-        progressView()
-          .frame(width: 34, height: 34)
-          .padding(2)
-          .onTapGesture {
-            withAnimation(.infoOverlay) { isExpanded.toggle() }
-          }
-      }
-    )
-    .buttonStyle(.plain)
-    .foregroundStyle(Color(.textPrimary))
-  }
 }
 
 // MARK: Extensions

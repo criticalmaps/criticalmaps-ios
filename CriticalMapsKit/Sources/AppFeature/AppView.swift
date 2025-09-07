@@ -61,7 +61,12 @@ public struct AppView: View {
         }
       }
     )
-    .alert($store.scope(state: \.destination?.alert, action: \.destination.alert))
+    .alert(
+      $store.scope(
+        state: \.destination?.alert,
+        action: \.destination.alert
+      )
+    )
     .onAppear { store.send(.onAppear) }
     .onDisappear { store.send(.onDisappear) }
   }
@@ -107,7 +112,7 @@ public struct AppView: View {
     .frame(minWidth: 50, minHeight: 50)
     .if(!.iOS26) { view in
       view
-        .padding(4)
+        .padding(.grid(1))
     }
     .foregroundStyle(Color(.textPrimary))
     .clipShape(.circle)
@@ -135,37 +140,6 @@ public struct AppView: View {
         offlineBanner()
           .clipShape(Circle())
           .accessibleAnimation(.snappy, value: store.hasConnectionError)
-      }
-    }
-  }
-  
-  @available(iOS 26, *)
-  @ViewBuilder
-  private func overlayViewsStackWithGlass() -> some View {
-    GlassEffectContainer(spacing: .grid(2)) {
-      VStack(alignment: .leading) {
-        if store.shouldShowNextRideBanner {
-          nextRideBanner()
-            .glassEffect()
-            .glassEffectID("nextRide", in: namespace)
-        }
-        
-        if store.userSettings.showInfoViewEnabled {
-          InfoOverlayView(
-            timerProgress: store.timerProgress,
-            timerValue: store.timerValue,
-            ridersCountLabel: store.ridersCount
-          )
-          .glassEffectID("infos", in: namespace)
-        }
-        
-        if store.hasConnectionError {
-          offlineBanner()
-            .glassEffect()
-            .glassEffectID("offline", in: namespace)
-            .clipShape(Circle())
-            .accessibleAnimation(.easeInOut(duration: 0.2), value: store.hasConnectionError)
-        }
       }
     }
   }
