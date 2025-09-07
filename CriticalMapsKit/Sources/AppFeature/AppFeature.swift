@@ -38,7 +38,7 @@ public struct AppFeature {
   // MARK: State
 
   @ObservableState
-  public struct State: Equatable {
+  public struct State {
     public var riderLocations: [Rider]?
     public var isRequestingRiderLocations = false
     public var didRequestNextRide = false
@@ -58,6 +58,7 @@ public struct AppFeature {
     @Shared(.rideEventSettings) var rideEventSettings
     @Shared(.appearanceSettings) var appearanceSettings
     @Shared(.hasConnectionError) var hasConnectionError
+    @Shared(.privacyZoneSettings) var privacyZoneSettings
     
     public init(
       locationsAndChatMessages: [Rider]? = nil,
@@ -275,6 +276,13 @@ public struct AppFeature {
         
       case .postLocation:
         if state.userSettings.isObservationModeEnabled {
+          return .none
+        }
+        
+        // Check if current location is in a privacy zone
+        if let currentLocation = state.mapFeatureState.location,
+           state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate) {
+          logger.debug("Location not posted - user is in a privacy zone")
           return .none
         }
         

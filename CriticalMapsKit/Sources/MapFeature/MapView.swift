@@ -18,6 +18,8 @@ struct MapView: ViewRepresentable {
   var riderCoordinates: [Rider]
   var nextRide: Ride?
   var rideEvents: [Ride] = []
+  var privacyZones: [PrivacyZone] = []
+  var showPrivacyZones: Bool = false
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
@@ -27,6 +29,8 @@ struct MapView: ViewRepresentable {
     userTrackingMode: Binding<MKUserTrackingMode>,
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
+    privacyZones: [PrivacyZone] = [],
+    showPrivacyZones: Bool = false,
     annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
     centerEventRegion: Binding<CoordinateRegion?>,
@@ -37,6 +41,8 @@ struct MapView: ViewRepresentable {
     _userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.rideEvents = rideEvents
+    self.privacyZones = privacyZones
+    self.showPrivacyZones = showPrivacyZones
     _annotationsCount = annotationsCount
     _centerRegion = centerRegion
     _centerEventRegion = centerEventRegion
@@ -68,6 +74,8 @@ struct MapView: ViewRepresentable {
     setNextRideAnnotation(in: uiView)
     centerRideEvents(in: uiView)
     updateRideEvents(in: uiView)
+    // privacy zones
+    updatePrivacyZoneOverlays(in: uiView)
   }
 
   func setNextRideAnnotation(in mapView: MKMapView) {
@@ -134,6 +142,24 @@ struct MapView: ViewRepresentable {
       }
     }
   }
+  
+  func updatePrivacyZoneOverlays(in mapView: MKMapView) {
+//    // Remove existing privacy zone overlays
+//    let existingPrivacyOverlays = mapView.overlays.compactMap { overlay in
+//      // Check if overlay has our privacy zone identifier
+//      overlay.title?.hasPrefix("privacy_zone_") == true ? overlay : nil
+//    }
+//    mapView.removeOverlays(existingPrivacyOverlays)
+//    
+//    // Add privacy zone overlays if enabled
+//    guard showPrivacyZones else { return }
+//    
+//    for zone in privacyZones where zone.isActive {
+//      let circle = zone.mkCircle
+//      circle.title = "privacy_zone_\(zone.id.uuidString)"
+//      mapView.addOverlay(circle)
+//    }
+  }
 }
 
 /// Coordinator to handle MKMapViewDelegate events
@@ -175,5 +201,19 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
 
   func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
     parent.setRiderAnnotationsCount(mapView)
+  }
+  
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    if let circle = overlay as? MKCircle,
+       let title = circle.title,
+       title.hasPrefix("privacy_zone_") {
+      let renderer = MKCircleRenderer(circle: circle)
+      renderer.fillColor = UIColor.systemRed.withAlphaComponent(0.15)
+      renderer.strokeColor = UIColor.systemRed
+      renderer.lineWidth = 1.5
+      return renderer
+    }
+    
+    return MKOverlayRenderer(overlay: overlay)
   }
 }
