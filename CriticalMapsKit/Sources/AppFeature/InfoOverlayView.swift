@@ -41,8 +41,8 @@ struct InfoOverlayView: View {
       },
       label: {
         progressView()
-          .frame(width: 34, height: 34)
-          .padding(.grid(2))
+          .frame(width: 36, height: 36)
+          .padding(.grid(1))
           .onTapGesture {
             withAnimation(.infoOverlay) { isExpanded.toggle() }
           }
@@ -67,7 +67,7 @@ struct InfoOverlayView: View {
         )
     } else {
       progressView()
-        .frame(width: 34, height: 34)
+        .frame(width: 36, height: 36)
         .padding(.grid(1))
         .transition(
           .asymmetric(

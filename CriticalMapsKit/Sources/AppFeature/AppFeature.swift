@@ -126,12 +126,12 @@ public struct AppFeature {
     
     case socialButtonTapped
     case settingsButtonTapped
+    case didTapNextRideOverlayButton
     case dismissDestination
     
     case map(MapFeatureAction)
     case nextRide(NextRideFeature.Action)
     case requestTimer(RequestTimer.Action)
-    case mapOverlayAction(MapOverlayFeature.Action)
   }
   
   // MARK: Reducer
@@ -302,10 +302,7 @@ public struct AppFeature {
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
         case .focusRideEvent, .focusNextRide:
-          guard !state.isEventListPresented else {
-            return .none
-          }
-          return .send(.set(\.isEventListPresented, true))
+          return .none
           
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
@@ -457,12 +454,16 @@ public struct AppFeature {
             scheduler: mainQueue
           )
         
-      case .mapOverlayAction:
-        return .merge(
-          .run { _ in await feedbackGenerator.selectionChanged() },
-          .send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))),
-          .send(.set(\.eventListPresentation, .fraction(0.3)))
-        )
+      case .didTapNextRideOverlayButton:
+        state.isEventListPresented.toggle()
+        
+        var effects: [Effect<Action>] = [
+          .run { _ in await feedbackGenerator.selectionChanged() }
+        ]
+        if state.isEventListPresented {
+          effects.append(.send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))))
+        }
+        return .merge(effects)
         
       case .binding(\.isEventListPresented):
         if !state.isEventListPresented {
@@ -478,6 +479,45 @@ public struct AppFeature {
       }
     }
     .ifLet(\.$destination, action: \.destination)
+  }
+}
+
+// MARK: - Result Builder
+
+@resultBuilder
+public struct EffectBuilder<Action> {
+  public static func buildBlock() -> Effect<Action> {
+    .none
+  }
+  
+  public static func buildBlock(_ effect: Effect<Action>) -> Effect<Action> {
+    effect
+  }
+  
+  public static func buildBlock(_ effects: Effect<Action>...) -> Effect<Action> {
+    .merge(effects)
+  }
+  
+  public static func buildArray(_ effects: [Effect<Action>]) -> Effect<Action> {
+    .merge(effects)
+  }
+  
+  public static func buildOptional(_ effect: Effect<Action>?) -> Effect<Action> {
+    effect ?? .none
+  }
+  
+  public static func buildEither(first effect: Effect<Action>) -> Effect<Action> {
+    effect
+  }
+  
+  public static func buildEither(second effect: Effect<Action>) -> Effect<Action> {
+    effect
+  }
+}
+
+extension Effect {
+  public static func build<Action>(@EffectBuilder<Action> _ builder: () -> Effect<Action>) -> Effect<Action> {
+    builder()
   }
 }
 
@@ -497,15 +537,6 @@ extension SharedModels.Location {
         longitude: location.coordinate.longitude
       ),
       timestamp: location.timestamp.timeIntervalSince1970
-    )
-  }
-}
-
-extension AppFeature.State {
-  var mapOverlayState: MapOverlayFeature.State {
-    MapOverlayFeature.State(
-      isExpanded: mapFeatureState.isNextRideBannerExpanded,
-      isVisible: mapFeatureState.isNextRideBannerVisible
     )
   }
 }

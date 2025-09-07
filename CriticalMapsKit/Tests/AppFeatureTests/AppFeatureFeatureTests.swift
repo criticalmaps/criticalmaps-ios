@@ -585,7 +585,7 @@ struct AppFeatureTests {
     store.exhaustivity = .off
     
     // act
-    await store.send(.mapOverlayAction(.didTapOverlayButton))
+    await store.send(.didTapNextRideOverlayButton)
     
     // assert
     await store.receive(\.map.focusNextRide)

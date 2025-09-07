@@ -4,7 +4,7 @@ import SwiftUI
 public struct ExpandableGlassMenu<Content: View, Label: View>: View, Animatable {
   public var alignment: Alignment
   public var progress: CGFloat
-  public var labelSize: CGSize = .init(width: 44, height: 44)
+  public var labelSize: CGSize = .init(width: 52, height: 52)
   public var cornerRadius: CGFloat = 24
   @ViewBuilder var content: () -> Content
   @ViewBuilder var label: () -> Label

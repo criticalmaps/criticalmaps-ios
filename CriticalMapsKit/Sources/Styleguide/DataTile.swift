@@ -34,12 +34,12 @@ public struct DataTile<Content: View>: View {
     .frame(minHeight: 90)
     .frame(maxHeight: 120)
     .frame(width: 100)
-    .conditionalBackground(shouldUseBlur: false, shouldUseGlassEffect: false)
+    .conditionalBackground(shouldUseGlassEffect: false)
     .adaptiveClipShape()
     .if(!.iOS26) { view in
       view
         .overlay(
-          RoundedRectangle(cornerRadius: .grid(2), style: .continuous)
+          RoundedRectangle(cornerRadius: .grid(3), style: .continuous)
             .stroke(Color(.textPrimary).opacity(0.2), lineWidth: 1)
         )
     }
@@ -76,8 +76,8 @@ public extension View {
         .background(
           Group {
             if shouldUseBlur {
-              Blur()
-                .cornerRadius(12)
+              Circle()
+                .fill(.regularMaterial)
             } else {
               Color(.backgroundPrimary).opacity(0.4)
             }

@@ -100,13 +100,17 @@ public struct AppView: View {
   
   @ViewBuilder
   private func nextRideBanner() -> some View {
-    MapOverlayView(
-      store: store.scope(
-        state: \.mapOverlayState,
-        action: \.mapOverlayAction
-      )
+    Button(
+      action: { store.send(.didTapNextRideOverlayButton) },
+      label: { Asset.cm.swiftUIImage }
     )
-    .accessibilityElement(children: .contain)
+    .frame(minWidth: 50, minHeight: 50)
+    .if(!.iOS26) { view in
+      view
+        .padding(4)
+    }
+    .foregroundStyle(Color(.textPrimary))
+    .clipShape(.circle)
     .accessibilityHint(Text(L10n.A11y.Mapfeatureview.Nextridebanner.hint))
     .accessibilityLabel(Text(L10n.A11y.Mapfeatureview.Nextridebanner.label))
   }
@@ -116,7 +120,7 @@ public struct AppView: View {
     VStack(alignment: .leading) {
       if store.shouldShowNextRideBanner {
         nextRideBanner()
-          .conditionalBackground(shouldUseBlur: true, shouldUseGlassEffect: true)
+          .conditionalBackground(shouldUseBlur: true)
       }
       
       if store.userSettings.showInfoViewEnabled {
