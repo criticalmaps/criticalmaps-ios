@@ -5,9 +5,6 @@ assets:
 
 dependencies: ruby
 
-licenses:
-	./tools/spm-ack generate-plist ./CriticalMaps.xcodeproj/project.xcworkspace ./CriticalMapsKit/Sources/SettingsFeature/Resources/Acknowledgements.plist
-
 lint:
 	./scripts/swiftlint.sh
 
