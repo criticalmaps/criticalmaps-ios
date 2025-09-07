@@ -6,7 +6,7 @@ public struct RequestTimer {
   public init(timerInterval: Int = 60) {
     self.timerInterval = .seconds(timerInterval)
   }
-
+  
   let timerInterval: RunLoop.SchedulerTimeType.Stride
 
   // MARK: State
@@ -28,9 +28,9 @@ public struct RequestTimer {
   }
 
   @Dependency(\.mainRunLoop) var mainRunLoop
-
+  
   enum CancelID { case timer }
-
+  
   /// Reducer responsible for the poll timer handling.
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
@@ -50,3 +50,5 @@ public struct RequestTimer {
     }
   }
 }
+
+

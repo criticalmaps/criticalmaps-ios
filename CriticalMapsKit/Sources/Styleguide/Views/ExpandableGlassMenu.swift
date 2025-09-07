@@ -91,15 +91,15 @@ public struct ExpandableGlassMenu<Content: View, Label: View>: View, Animatable 
   
   private var blurProgress: CGFloat {
     /// 0 -> 0.5 -> 0
-    progress > 0.5 ? (1 - progress) / 0.5 : progress / 0.5
+    return progress > 0.5 ? (1 - progress) / 0.5 : progress / 0.5
   }
   
   private var offset: CGFloat {
     switch alignment {
-    case .bottom, .bottomLeading, .bottomTrailing: -50
-    case .top, .topLeading, .topTrailing: 50
-    /// Center!
-    default: 0
+    case .bottom, .bottomLeading, .bottomTrailing: return -50
+    case .top, .topLeading, .topTrailing: return 50
+      /// Center!
+    default: return 0
     }
   }
   

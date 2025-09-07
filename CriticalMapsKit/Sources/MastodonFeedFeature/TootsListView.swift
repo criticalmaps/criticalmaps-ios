@@ -69,7 +69,7 @@ public struct TootsListView: View {
             ProgressView()
               .padding()
               .frame(maxWidth: .infinity)
-          }
+            }
         }
         .listRowBackground(Color(.backgroundPrimary))
         .listStyle(PlainListStyle())

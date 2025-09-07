@@ -30,8 +30,7 @@ struct UIKitZoomableImageView: UIViewRepresentable {
     // Load image asynchronously
     DispatchQueue.global().async {
       if let data = try? Data(contentsOf: item.url),
-         let uiImage = UIImage(data: data)
-      {
+         let uiImage = UIImage(data: data) {
         DispatchQueue.main.async {
           imageView.image = uiImage
         }

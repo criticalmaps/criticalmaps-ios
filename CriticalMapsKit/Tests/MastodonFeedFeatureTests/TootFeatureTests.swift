@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Foundation
-import MastodonFeedFeature
 import MastodonKit
+import MastodonFeedFeature
 import Testing
 
 @Suite

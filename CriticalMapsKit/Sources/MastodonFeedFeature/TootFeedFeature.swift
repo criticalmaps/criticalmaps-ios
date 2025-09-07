@@ -21,8 +21,8 @@ public struct TootFeedFeature {
     public var isLoading = false
     public var isRefreshing = false
     public var error: ErrorState?
-    public var hasMore = true
-    public var isLoadingNextPage = false
+    public var hasMore: Bool = true
+    public var isLoadingNextPage: Bool = false
         
     public init(
       toots: IdentifiedArrayOf<TootFeature.State> = []
@@ -135,8 +135,8 @@ public struct TootFeedFeature {
   }
 }
 
-// extension MastodonKit.Status: @retroactive Identifiable {
+//extension MastodonKit.Status: @retroactive Identifiable {
 //  public static func == (lhs: MastodonKit.Status, rhs: MastodonKit.Status) -> Bool {
 //    lhs.id == rhs.id
 //  }
-// }
+//}

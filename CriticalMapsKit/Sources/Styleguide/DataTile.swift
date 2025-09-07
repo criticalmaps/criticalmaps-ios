@@ -1,6 +1,6 @@
 import Foundation
-import SwiftUI
 import SwiftUIHelpers
+import SwiftUI
 
 public struct DataTile<Content: View>: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
@@ -72,16 +72,17 @@ public extension View {
             .glassEffect()
         }
     } else {
-      background(
-        Group {
-          if shouldUseBlur {
-            Blur()
-              .cornerRadius(12)
-          } else {
-            Color(.backgroundPrimary).opacity(0.4)
+      self
+        .background(
+          Group {
+            if shouldUseBlur {
+              Blur()
+                .cornerRadius(12)
+            } else {
+              Color(.backgroundPrimary).opacity(0.4)
+            }
           }
-        }
-      )
+        )
     }
   }
 }

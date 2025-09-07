@@ -74,7 +74,7 @@ public struct TootFeature {
   }
   
   private func openURL(_ url: URL) -> Effect<Action> {
-    .run { _ in
+    return .run { _ in
       _ = await uiApplicationClient.open(url, [:])
     }
   }
@@ -226,7 +226,7 @@ public struct TootView: View {
               switch phase {
               case .empty:
                 Color.gray.opacity(0.2)
-              case let .success(image):
+              case .success(let image):
                 image
                   .resizable()
                   .aspectRatio(contentMode: .fit)

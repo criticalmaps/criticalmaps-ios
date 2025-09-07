@@ -9,7 +9,7 @@ import Testing
 import UserDefaultsClient
 
 struct TestError: Equatable, Error {
-  let message = "ERROR"
+  let message: String = "ERROR"
 }
 
 @Suite
@@ -85,7 +85,7 @@ struct ChatFeatureCore {
     }
     await testStore.receive(\.fetchChatMessages)
     #expect(testStore.state.chatMessages.elements!.isEmpty == false)
-    await testStore.receive(\.fetchChatMessagesResponse.success, mockResponse) {
+    await testStore.receive(\.fetchChatMessagesResponse.success,  mockResponse) {
       $0.chatMessages = .results(mockResponse)
     }
   }
@@ -111,7 +111,7 @@ struct ChatFeatureCore {
   }
   
   @Test("OnAppear should set appearanceTimeinterval")
-  func didAppear_ShouldSet_appearanceTimeinterval() async {
+  func test_didAppear_ShouldSet_appearanceTimeinterval() async {
     let didWriteChatAppearanceTimeinterval = LockIsolated(false)
     let chatAppearanceTimeinterval: LockIsolated<TimeInterval> = LockIsolated(0)
     
@@ -142,7 +142,7 @@ struct ChatFeatureCore {
   }
   
   @Test
-  func chatViewState() {
+  func test_chatViewState() {
     let state = ChatFeature.State(
       chatMessages: .results(mockResponse),
       chatInputState: .init()
