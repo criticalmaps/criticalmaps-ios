@@ -17,13 +17,12 @@ extension TootService: DependencyKey {
   public static let liveValue: TootService = Self(
     getToots: { maxId in
       let client = MastodonKit.Client(baseURL: "https://mastodon.social")
-      let range: RequestRange
-      if let maxId = maxId {
-        range = .max(id: maxId, limit: 40)
+      let range: RequestRange = if let maxId {
+        .max(id: maxId, limit: 40)
       } else {
-        range = .limit(40)
+        .limit(40)
       }
-      
+
       let request = Timelines.tag("CriticalMass", range: range)
       let statuses = try await client.run(request)
       return statuses.value

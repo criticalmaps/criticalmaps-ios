@@ -68,4 +68,4 @@
 --disable trailingSpace
 --disable unusedArguments
 
---exclude ./CriticalMapsKit/Sources/L10n, ./CriticalMapsKit/Sources/Styleguide/Images.swift
+--exclude **/Generated/**

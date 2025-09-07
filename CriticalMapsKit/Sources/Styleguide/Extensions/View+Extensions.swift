@@ -8,8 +8,7 @@ public extension View {
     if #available(iOS 26, *) {
       self
     } else {
-      self
-        .clipShape(fallbackShape)
+      clipShape(fallbackShape)
     }
   }
 }

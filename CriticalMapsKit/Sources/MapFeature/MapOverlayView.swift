@@ -26,7 +26,7 @@ public struct MapOverlayFeature {
     Reduce { _, action in
       switch action {
       case .didTapOverlayButton:
-          .none
+        .none
       }
     }
   }

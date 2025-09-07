@@ -14,7 +14,7 @@ struct DateFormattingTests {
   }
 
   @Test("IDHashStoreFormatter DateWithYear should format correctly")
-  func test_IDHashStoreFormatter() {
+  func IDHashStoreFormatter() {
     let formatted = DateFormatter.IDStoreHashDateFormatter.string(from: testDate)
     #expect(formatted == "2022-10-03")
   }

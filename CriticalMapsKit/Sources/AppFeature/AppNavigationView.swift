@@ -162,8 +162,8 @@ private struct AppNavigationBackgroundModifier: ViewModifier {
       content
         .background(
           shouldShowAccessiblyBackground
-          ? Color(.backgroundSecondary)
-          : Color(.backgroundTranslucent)
+            ? Color(.backgroundSecondary)
+            : Color(.backgroundTranslucent)
         )
         .clipShape(.rect(cornerRadius: 18, style: .continuous))
     }

@@ -67,7 +67,7 @@ public struct SettingsFeature {
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.dismiss) var dismiss
-  
+
   public var body: some ReducerOf<Self> {
     BindingReducer()
       .onChange(of: \.userSettings.isObservationModeEnabled) { _, newValue in

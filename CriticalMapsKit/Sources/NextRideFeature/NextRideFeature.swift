@@ -36,12 +36,12 @@ public struct NextRideFeature {
   }
 
   // MARK: Reducer
-  
+
   @Dependency(\.nextRideService) private var service
   @Dependency(\.date) private var date
   @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
   @Dependency(\.calendar) private var calendar
-  
+
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case let .getNextRide(coordinate):

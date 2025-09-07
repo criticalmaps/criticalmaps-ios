@@ -165,7 +165,7 @@ let package = Package(
         .styleguide,
         .uiApplicationClient,
         .tca,
-        .product(name: "MastodonKit", package: "MastodonKit"),
+        .product(name: "MastodonKit", package: "MastodonKit")
       ]
     ),
     .target(
