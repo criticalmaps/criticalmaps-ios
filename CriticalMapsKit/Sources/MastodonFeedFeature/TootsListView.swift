@@ -49,7 +49,7 @@ public struct TootsListView: View {
       ErrorStateView(
         errorState: error,
         buttonAction: { store.send(.fetchData) },
-        buttonText: "Reload"
+        buttonText: L10n.EmptyState.reload
       )
     } else {
       ZStack {

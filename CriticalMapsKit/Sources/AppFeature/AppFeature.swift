@@ -98,7 +98,7 @@ public struct AppFeature {
 
     public var ridersCount: String {
       let count = mapFeatureState.visibleRidersCount ?? 0
-      return NumberFormatter.riderCountFormatter.string(from: .init(value: count)) ?? ""
+      return count.formatted(.number.grouping(.automatic))
     }
 
     var shouldShowNextRideBanner: Bool {
@@ -521,13 +521,4 @@ extension SharedModels.Coordinate {
       longitude: location.coordinate.longitude
     )
   }
-}
-
-extension NumberFormatter {
-  static let riderCountFormatter: NumberFormatter = {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .decimal
-    formatter.groupingSeparator = "."
-    return formatter
-  }()
 }

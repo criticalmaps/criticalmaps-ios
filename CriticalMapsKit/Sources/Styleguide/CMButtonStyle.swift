@@ -17,5 +17,9 @@ public struct CMButtonStyle: ButtonStyle {
       .padding(.vertical, .grid(2))
       .background(Color(.brand500))
       .cornerRadius(8)
+      .accessibleAnimation(
+        .snappy,
+        value: configuration.isPressed
+      )
   }
 }
