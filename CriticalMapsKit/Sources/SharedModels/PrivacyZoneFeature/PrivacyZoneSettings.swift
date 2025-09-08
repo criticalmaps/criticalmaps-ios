@@ -1,14 +1,15 @@
 import Foundation
+import IdentifiedCollections
 
 public struct PrivacyZoneSettings: Codable, Equatable {
   public var isEnabled: Bool
-  public var zones: [PrivacyZone]
+  public var zones: IdentifiedArrayOf<PrivacyZone>
   public var defaultRadius: Double
   public var showZonesOnMap: Bool
   
   public init(
     isEnabled: Bool = false,
-    zones: [PrivacyZone] = [],
+    zones: IdentifiedArrayOf<PrivacyZone> = [],
     defaultRadius: Double = 400,
     showZonesOnMap: Bool = true
   ) {
@@ -20,14 +21,9 @@ public struct PrivacyZoneSettings: Codable, Equatable {
   
   /// Returns active zones only
   public var activeZones: [PrivacyZone] {
-    zones.filter { $0.isActive }
+    zones.filter(\.isActive)
   }
-  
-  /// Returns inactive zones only
-  public var inactiveZones: [PrivacyZone] {
-    zones.filter { !$0.isActive }
-  }
-  
+    
   /// Check if any active zone contains the given coordinate
   public func isLocationInPrivacyZone(_ coordinate: Coordinate) -> Bool {
     guard isEnabled else { return false }
@@ -59,17 +55,7 @@ public struct PrivacyZoneSettings: Codable, Equatable {
   
   /// Toggle the active state of a zone
   public mutating func toggleZone(withID id: UUID) {
-    if let index = zones.firstIndex(where: { $0.id == id }) {
-      let currentZone = zones[index]
-      zones[index] = PrivacyZone(
-        id: currentZone.id,
-        name: currentZone.name,
-        center: currentZone.center,
-        radius: currentZone.radius,
-        isActive: !currentZone.isActive,
-        createdAt: currentZone.createdAt
-      )
-    }
+    zones[id: id]?.isActive.toggle()
   }
   
   /// Get zone by ID

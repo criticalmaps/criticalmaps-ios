@@ -6,7 +6,7 @@ public struct PrivacyZone: Codable, Identifiable, Equatable {
   public let name: String
   public let center: Coordinate
   public let radius: Double // in meters
-  public let isActive: Bool
+  public var isActive: Bool
   public let createdAt: Date
   
   public init(

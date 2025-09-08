@@ -18,71 +18,78 @@ public struct SettingsView: View {
   }
   
   public var body: some View {
-    SettingsForm {
-      Spacer(minLength: 28)
-      VStack {
-        SettingsRow {
-          observationModeRow
-            .accessibilityValue(
-              store.userSettings.isObservationModeEnabled
-                ? Text(L10n.A11y.General.on)
-                : Text(L10n.A11y.General.off)
-            )
-            .accessibilityAction {
-              store.userSettings.isObservationModeEnabled.toggle()
-            }
-        }
-        
-        SettingsRow {
-          infoRow
-            .accessibilityValue(
-              store.userSettings.showInfoViewEnabled
-                ? Text(L10n.A11y.General.on)
-                : Text(L10n.A11y.General.off)
-            )
-            .accessibilityAction {
-              store.userSettings.showInfoViewEnabled.toggle()
-            }
-        }
-        
-        SettingsSection(title: "") {
-          SettingsRow {
-            Button(
-              action: { store.send(.rideEventSettingsRowTapped) },
-              label: {
-                HStack {
-                  Text(L10n.Settings.eventSettings)
-                }
-                Spacer()
-                Image(systemName: "chevron.right")
-              }
-            )
+    List {
+      Section("Privacy") {
+        observationModeRow
+          .accessibilityValue(
+            store.userSettings.isObservationModeEnabled
+              ? Text(L10n.A11y.General.on)
+              : Text(L10n.A11y.General.off)
+          )
+          .accessibilityAction {
+            store.userSettings.isObservationModeEnabled.toggle()
           }
-          
-          SettingsRow {
-            Button(
-              action: { store.send(.appearanceSettingsRowTapped) },
-              label: {
-                HStack {
-                  Text(L10n.Settings.Theme.appearance)
-                  Spacer()
-                  Image(systemName: "chevron.right")
-                }
-              }
-            )
+        
+        Button(
+          action: { store.send(.view(.privacyZonesRowTapped)) },
+          label: {
+            HStack {
+              Label("Privacy Zones", systemImage: "location.slash.circle")
+              Spacer()
+              Image(systemName: "chevron.right")
+            }
           }
-        }
-                
-        supportSection
+        )
+        .font(.title3)
+      }
+      
+      Section("Map Overlays") {
+        infoRow
+          .accessibilityValue(
+            store.userSettings.showInfoViewEnabled
+              ? Text(L10n.A11y.General.on)
+              : Text(L10n.A11y.General.off)
+          )
+          .accessibilityAction {
+            store.userSettings.showInfoViewEnabled.toggle()
+          }
         
-        infoSection
-        
-        linksSection
-        
-        HStack {
-          appVersionAndBuildView
-          Spacer()
-        }
+        Button(
+          action: { store.send(.view(.rideEventSettingsRowTapped)) },
+          label: {
+            HStack {
+              Label(L10n.Settings.eventSettings, systemImage: "calendar")
+              Spacer()
+              Image(systemName: "chevron.right")
+            }
+          }
+        )
+        .font(.title3)
+      }
+      
+      Section("") {
+        Button(
+          action: { store.send(.view(.appearanceSettingsRowTapped)) },
+          label: {
+            HStack {
+              Label(L10n.Settings.Theme.appearance, systemImage: "paintpalette")
+              Spacer()
+              Image(systemName: "chevron.right")
+            }
+          }
+        )
+        .font(.title3)
+      }
+
+      infoSection
+      
+      linksSection
+      
+      supportSection
+      
+      HStack {
+        appVersionAndBuildView
+        Spacer()
       }
     }
     .navigationTitle(L10n.Settings.title)
@@ -93,10 +100,10 @@ public struct SettingsView: View {
     )
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        CloseButton { store.send(.dismiss) }
+        CloseButton { store.send(.view(.dismiss)) }
       }
     }
-    .onAppear { store.send(.onAppear) }
+    .onAppear { store.send(.view(.onAppear)) }
     .navigationDestination(
       item: $store.scope(
         state: \.destination?.appearanceSettings,
@@ -108,6 +115,15 @@ public struct SettingsView: View {
     )
     .navigationDestination(
       item: $store.scope(
+        state: \.destination?.privacyZonesSettings,
+        action: \.destination.privacyZonesSettings
+      ),
+      destination: { store in
+        PrivacyZoneSettingsView(store: store)
+      }
+    )
+    .navigationDestination(
+      item: $store.scope(
         state: \.destination?.rideEventSettings,
         action: \.destination.rideEventSettings
       ),
@@ -115,16 +131,30 @@ public struct SettingsView: View {
         RideEventSettingsView(store: store)
       }
     )
+    .navigationDestination(
+      isPresented: Binding<Bool>(
+        get: { store.destination.is(\.guideFeature) },
+        set: { _ in store.send(.view(.dismiss)) }
+      )) {
+        GuideView()
+      }
+    .navigationDestination(
+      isPresented: Binding<Bool>(
+        get: { store.destination.is(\.acknowledgements) },
+        set: { _ in store.send(.view(.dismiss)) }
+      )) {
+        AcknowListSwiftUIView(acknowList: store.packageList!)
+      }
   }
   
   var observationModeRow: some View {
-    HStack {
+    HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(L10n.Settings.Observationmode.title)
-          .font(.titleOne)
+          .font(.title3)
         Text(L10n.Settings.Observationmode.detail)
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
-          .font(.bodyOne)
+          .font(.callout)
       }
       Spacer()
       Toggle(
@@ -137,13 +167,13 @@ public struct SettingsView: View {
   }
   
   var infoRow: some View {
-    HStack {
+    HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text("Show info view")
-          .font(.titleOne)
+          .font(.title3)
         Text("Show info toogle over the map")
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
-          .font(.bodyOne)
+          .font(.callout)
       }
       Spacer()
       Toggle(
@@ -156,120 +186,119 @@ public struct SettingsView: View {
   }
   
   var supportSection: some View {
-    SettingsSection(title: L10n.Settings.support) {
-      VStack(alignment: .leading, spacing: .grid(4)) {
-        SupportSettingsRow(
-          title: L10n.Settings.programming,
-          subTitle: L10n.Settings.Opensource.detail,
-          link: L10n.Settings.Opensource.action,
-          textStackForegroundColor: .white,
-          backgroundColor: Color(UIColor.hex(0x332F38)),
-          bottomImage: {
-            Asset.ghLogo.swiftUIImage
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(width: 150, height: 150, alignment: .bottomTrailing)
-              .opacity(0.4)
-              .accessibilityHidden(true)
-          },
-          action: { store.send(.supportSectionRowTapped(.github)) }
-        )
-        .accessibilityAddTraits(.isLink)
-        
-        SupportSettingsRow(
-          title: L10n.Settings.Translate.title,
-          subTitle: L10n.Settings.Translate.subtitle,
-          link: L10n.Settings.Translate.link,
-          textStackForegroundColor: .white,
-          backgroundColor: Color(.translateRowBackground),
-          bottomImage: {
-            Asset.translate.swiftUIImage
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(width: 135, height: 135, alignment: .bottomTrailing)
-              .accessibilityHidden(true)
-          },
-          action: { store.send(.supportSectionRowTapped(.crowdin)) }
-        )
-        .accessibilityAddTraits(.isLink)
-        
-        SupportSettingsRow(
-          title: L10n.Settings.CriticalMassDotIn.title,
-          subTitle: L10n.Settings.CriticalMassDotIn.detail,
-          link: L10n.Settings.CriticalMassDotIn.action,
-          textStackForegroundColor: Color(.textPrimaryLight),
-          backgroundColor: Color(.cmInRowBackground),
-          bottomImage: {
-            Asset.cmDotInLogo.swiftUIImage
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(width: 160, height: 160, alignment: .bottomTrailing)
-              .accessibilityHidden(true)
-          },
-          action: { store.send(.supportSectionRowTapped(.criticalMassDotIn)) }
-        )
-        .accessibilityAddTraits(.isLink)
-      }
-      .padding(.horizontal, .grid(4))
+    VStack(alignment: .leading, spacing: .grid(4)) {
+      SupportSettingsRow(
+        title: L10n.Settings.programming,
+        subTitle: L10n.Settings.Opensource.detail,
+        link: L10n.Settings.Opensource.action,
+        textStackForegroundColor: .white,
+        backgroundColor: Color(UIColor.hex(0x332F38)),
+        bottomImage: {
+          Asset.ghLogo.swiftUIImage
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 150, height: 150, alignment: .bottomTrailing)
+            .opacity(0.4)
+            .accessibilityHidden(true)
+        },
+        action: { store.send(.view(.supportSectionRowTapped(.github))) }
+      )
+      .accessibilityAddTraits(.isLink)
+      
+      SupportSettingsRow(
+        title: L10n.Settings.Translate.title,
+        subTitle: L10n.Settings.Translate.subtitle,
+        link: L10n.Settings.Translate.link,
+        textStackForegroundColor: .white,
+        backgroundColor: Color(.translateRowBackground),
+        bottomImage: {
+          Asset.translate.swiftUIImage
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 135, height: 135, alignment: .bottomTrailing)
+            .accessibilityHidden(true)
+        },
+        action: { store.send(.view(.supportSectionRowTapped(.crowdin))) }
+      )
+      .accessibilityAddTraits(.isLink)
+      
+      SupportSettingsRow(
+        title: L10n.Settings.CriticalMassDotIn.title,
+        subTitle: L10n.Settings.CriticalMassDotIn.detail,
+        link: L10n.Settings.CriticalMassDotIn.action,
+        textStackForegroundColor: Color(.textPrimaryLight),
+        backgroundColor: Color(.cmInRowBackground),
+        bottomImage: {
+          Asset.cmDotInLogo.swiftUIImage
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 160, height: 160, alignment: .bottomTrailing)
+            .accessibilityHidden(true)
+        },
+        action: { store.send(.view(.supportSectionRowTapped(.criticalMassDotIn))) }
+      )
+      .accessibilityAddTraits(.isLink)
     }
   }
   
   @ViewBuilder
   var linksSection: some View {
-    SettingsSection(title: "Links") {
-      SettingsRow {
-        Button(
-          action: { store.send(.infoSectionRowTapped(.website)) },
-          label: {
-            SettingsInfoLink(title: L10n.Settings.website)
-          }
-        )
-        .accessibilityAddTraits(.isLink)
-      }
+    Section("Links") {
+      Button(
+        action: { store.send(.view(.infoSectionRowTapped(.website))) },
+        label: {
+          SettingsInfoLink(title: L10n.Settings.website)
+        }
+      )
+      .accessibilityAddTraits(.isLink)
       
-      SettingsRow {
-        Button(
-          action: { store.send(.infoSectionRowTapped(.mastodon)) },
-          label: {
-            SettingsInfoLink(title: "Mastodon")
-          }
-        )
-        .accessibilityAddTraits(.isLink)
-      }
+      Button(
+        action: { store.send(.view(.infoSectionRowTapped(.mastodon))) },
+        label: {
+          SettingsInfoLink(title: "Mastodon")
+        }
+      )
+      .accessibilityAddTraits(.isLink)
       
-      SettingsRow {
-        Button(
-          action: { store.send(.infoSectionRowTapped(.privacy)) },
-          label: {
-            SettingsInfoLink(title: L10n.Settings.privacyPolicy)
-          }
-        )
-        .accessibilityAddTraits(.isLink)
-      }
+      Button(
+        action: { store.send(.view(.infoSectionRowTapped(.privacy))) },
+        label: {
+          SettingsInfoLink(title: L10n.Settings.privacyPolicy)
+        }
+      )
+      .accessibilityAddTraits(.isLink)
     }
   }
   
   @ViewBuilder
   var infoSection: some View {
-    SettingsSection(title: L10n.Settings.Section.info) {
-      SettingsNavigationLink(
-        destination: { GuideView() },
-        title: {
-          HStack(spacing: .grid(2)) {
-            Text(L10n.Rules.title)
-            Image(systemName: "exclamationmark.bubble")
+    Section(L10n.Settings.Section.info) {
+      Button(
+        action: { store.send(.view(.guideRowTapped)) },
+        label: {
+          SettingsRow {
+            Label(
+              L10n.Rules.title,
+              systemImage: "exclamationmark.bubble"
+            )
           }
         }
       )
+      .font(.title3)
       
-      if let licenses = store.packageList {
-        SettingsNavigationLink(
-          destination: {
-            AcknowListSwiftUIView(acknowList: licenses)
-          },
-          title: { Text("Acknowledgements") }
-        )
-      }
+      
+      Button(
+        action: { store.send(.view(.acknowledgementsRowTapped)) },
+        label: {
+          SettingsRow {
+            Label(
+              "Acknowledgements",
+              systemImage: "text.document"
+            )
+          }
+        }
+      )
+      .font(.title3)
     }
   }
   
@@ -296,7 +325,7 @@ public struct SettingsView: View {
           .foregroundColor(Color(.textPrimary))
         Text("Version: \(store.versionNumber)+\(store.buildNumber)")
           .font(.bodyTwo)
-          .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
+          .foregroundStyle(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
       }
       .accessibilityElement(children: .combine)
     }
@@ -310,12 +339,11 @@ struct SettingsInfoLink: View {
   var body: some View {
     HStack {
       Text(title)
-        .font(.titleOne)
       Spacer()
       Image(systemName: "arrow.up.right")
-        .font(.titleOne)
         .accessibilityHidden(true)
     }
+    .font(.title3)
   }
 }
 

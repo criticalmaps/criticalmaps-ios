@@ -32,11 +32,10 @@ struct SettingsRow<Content: View>: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading) {
+    HStack {
       content()
-        .padding(.vertical, .grid(2))
-        .padding(.horizontal, .grid(4))
-        .contentShape(Rectangle())
+      Spacer()
+      Image(systemName: "chevron.right")
     }
   }
 }

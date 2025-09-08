@@ -13,7 +13,7 @@ public struct AppearanceSettingsView: View {
   }
 
   public var body: some View {
-    SettingsForm {
+    List {
       Section("Theme") {
         Picker("", selection: $store.colorScheme.animation()) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) {
@@ -22,15 +22,18 @@ public struct AppearanceSettingsView: View {
         }
         .pickerStyle(.segmented)
         .frame(height: 50)
-        .padding(.horizontal, .grid(4))
+        .padding(.horizontal, .grid(2))
       }
       
       Section(L10n.Settings.appIcon) {
-        AppIconPicker(appIcon: $store.appIcon.animation())
+        AppIconPicker(appIcon: $store.appIcon)
       }
     }
     .foregroundStyle(Color(.textPrimary))
-    .navigationBarTitle(L10n.Settings.Theme.appearance, displayMode: .inline)
+    .navigationBarTitle(
+      L10n.Settings.Theme.appearance,
+      displayMode: .inline
+    )
   }
 }
 
@@ -39,39 +42,45 @@ struct AppIconPicker: View {
   @Binding var appIcon: AppIcon
 
   var body: some View {
-    VStack(spacing: .grid(2)) {
-      ForEach(AppIcon.allCases, id: \.id) { appIcon in
-        SettingsRow {
-          Button(
-            action: { self.appIcon = appIcon },
-            label: {
-              HStack(spacing: .grid(3)) {
-                Image(uiImage: appIcon.image)
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 48, height: 48)
-                  .continuousCornerRadius(12)
-                  .id(appIcon.id)
-                  .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                      .stroke(Color(.textPrimary), lineWidth: 0.4)
-                  )
-
-                Text(appIcon.title)
-
-                Spacer()
-
-                if self.appIcon == appIcon {
-                  Image(systemName: "checkmark.circle.fill")
-                    .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
-                }
-              }
-              .accessibilityLabel(appIcon.title)
-            }
-          )
+    ForEach(AppIcon.allCases, id: \.id) { icon in
+      Button(
+        action: { self.appIcon = icon },
+        label: {
+          row(for: icon)
+            .accessibilityLabel(icon.title)
         }
+      )
+    }
+  }
+  
+  @ViewBuilder
+  private func row(for icon: AppIcon) -> some View {
+    HStack(spacing: .grid(3)) {
+      appIconView(icon)
+      
+      Text(icon.title)
+      
+      Spacer()
+      
+      if self.appIcon == icon {
+        Image(systemName: "checkmark.circle.fill")
+          .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
       }
     }
+  }
+  
+  @ViewBuilder
+  private func appIconView(_ icon: AppIcon) -> some View {
+    Image(uiImage: icon.image)
+      .resizable()
+      .scaledToFit()
+      .frame(width: 48, height: 48)
+      .continuousCornerRadius(12)
+      .id(icon.id)
+      .overlay(
+        RoundedRectangle(cornerRadius: 12)
+          .stroke(Color(.textPrimary), lineWidth: 0.4)
+      )
   }
 }
 

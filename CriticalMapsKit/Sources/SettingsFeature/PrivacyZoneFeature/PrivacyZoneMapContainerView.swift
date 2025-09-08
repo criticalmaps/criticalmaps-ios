@@ -56,7 +56,7 @@ public struct PrivacyZoneMapContainerView: View {
   private var mapSection: some View {
     VStack(spacing: 16) {
       PrivacyZoneMapView(
-        zones: .constant(store.settings.zones),
+        zones: .constant(store.settings.zones.elements),
         selectedZone: $store.selectedZone,
         isCreatingZone: .constant(false),
         newZoneRadius: .constant(400),

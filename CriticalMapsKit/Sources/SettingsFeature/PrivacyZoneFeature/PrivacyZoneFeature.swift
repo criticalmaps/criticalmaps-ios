@@ -99,7 +99,7 @@ public struct PrivacyZoneFeature {
   }
   
   @ObservableState
-  public struct State {
+  public struct State: Equatable {
     @Shared(.privacyZoneSettings) var settings
     
     @Presents var confirmationDialog: ConfirmationDialogState<Action.ConfirmationDialog>?
@@ -137,7 +137,7 @@ public struct PrivacyZoneFeature {
     case dismissConfirmationDialog
     
     @CasePathable
-    public enum ConfirmationDialog {
+    public enum ConfirmationDialog: Equatable {
       case deleteZoneButtonTapped
     }
   }
@@ -170,16 +170,7 @@ public struct PrivacyZoneFeature {
         
       case let .toggleZoneActive(zone):
         state.$settings.withLock { settings in
-          if let index = settings.zones.firstIndex(where: { $0.id == zone.id }) {
-            settings.zones[index] = PrivacyZone(
-              id: zone.id,
-              name: zone.name,
-              center: zone.center,
-              radius: zone.radius,
-              isActive: !zone.isActive,
-              createdAt: zone.createdAt
-            )
-          }
+          settings.toggleZone(withID: zone.id)
         }
         return .none
         
@@ -240,3 +231,5 @@ public struct PrivacyZoneFeature {
     .ifLet(\.$destination, action: \.destination)
   }
 }
+
+extension PrivacyZoneFeature.Destination.State: Equatable {}
