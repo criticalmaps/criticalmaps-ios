@@ -141,14 +141,7 @@ struct ZoneRow: View {
   let zone: PrivacyZone
   let onToggleActive: () -> Void
   let onDelete: () -> Void
-  
-  private var dateFormatter: DateFormatter {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .medium
-    formatter.timeStyle = .none
-    return formatter
-  }
-  
+    
   var body: some View {
     HStack(spacing: 12) {
       // Status indicator
@@ -166,7 +159,11 @@ struct ZoneRow: View {
             .font(.caption)
             .foregroundColor(.secondary)
           
-          Label(dateFormatter.string(from: zone.createdAt), systemImage: "calendar")
+          Label(
+            zone.createdAt
+              .formatted(.dateTime.day().month().hour().minute()),
+            systemImage: "calendar"
+          )
             .font(.caption)
             .foregroundColor(.secondary)
         }
@@ -177,7 +174,7 @@ struct ZoneRow: View {
       VStack(spacing: 4) {
         Toggle("", isOn: .constant(zone.isActive))
           .labelsHidden()
-          .onChange(of: zone.isActive) { _ in
+          .onChange(of: zone.isActive) {
             onToggleActive()
           }
         

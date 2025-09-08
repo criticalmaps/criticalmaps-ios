@@ -14,22 +14,22 @@ public struct AppearanceSettingsView: View {
 
   public var body: some View {
     SettingsForm {
-      SettingsSection(title: "Theme") {
+      Section("Theme") {
         Picker("", selection: $store.colorScheme.animation()) {
-          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
+          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) {
             Text($0.title)
           }
         }
-        .pickerStyle(SegmentedPickerStyle())
+        .pickerStyle(.segmented)
         .frame(height: 50)
         .padding(.horizontal, .grid(4))
-
-        SettingsSection(title: L10n.Settings.appIcon) {
-          AppIconPicker(appIcon: $store.appIcon.animation())
-        }
+      }
+      
+      Section(L10n.Settings.appIcon) {
+        AppIconPicker(appIcon: $store.appIcon.animation())
       }
     }
-    .foregroundColor(Color(.textPrimary))
+    .foregroundStyle(Color(.textPrimary))
     .navigationBarTitle(L10n.Settings.Theme.appearance, displayMode: .inline)
   }
 }
@@ -40,7 +40,7 @@ struct AppIconPicker: View {
 
   var body: some View {
     VStack(spacing: .grid(2)) {
-      ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { _, appIcon in
+      ForEach(AppIcon.allCases, id: \.id) { appIcon in
         SettingsRow {
           Button(
             action: { self.appIcon = appIcon },
@@ -51,7 +51,7 @@ struct AppIconPicker: View {
                   .scaledToFit()
                   .frame(width: 48, height: 48)
                   .continuousCornerRadius(12)
-                  .id(appIcon)
+                  .id(appIcon.id)
                   .overlay(
                     RoundedRectangle(cornerRadius: 12)
                       .stroke(Color(.textPrimary), lineWidth: 0.4)
@@ -66,7 +66,7 @@ struct AppIconPicker: View {
                     .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
                 }
               }
-              .accessibilityElement(children: .combine)
+              .accessibilityLabel(appIcon.title)
             }
           )
         }
@@ -107,4 +107,14 @@ extension AppIcon {
       "Yellow"
     }
   }
+}
+
+
+#Preview {
+  AppearanceSettingsView(
+    store: StoreOf<AppearanceSettingsFeature>(
+      initialState: AppearanceSettingsFeature.State(),
+      reducer: { AppearanceSettingsFeature() }
+    )
+  )
 }

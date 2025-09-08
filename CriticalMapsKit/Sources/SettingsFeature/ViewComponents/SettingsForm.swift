@@ -12,11 +12,12 @@ public struct SettingsForm<Content>: View where Content: View {
   }
 
   public var body: some View {
-    ScrollView {
+    List {
       content()
         .font(.titleOne)
         .toggleStyle(SwitchToggleStyle(tint: Color(.brand500)))
     }
+    .listStyle(.insetGrouped)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
   }
 }
@@ -36,15 +37,7 @@ struct SettingsRow<Content: View>: View {
         .padding(.vertical, .grid(2))
         .padding(.horizontal, .grid(4))
         .contentShape(Rectangle())
-      seperator
-        .accessibilityHidden(true)
     }
-  }
-
-  var seperator: some View {
-    Rectangle()
-      .fill(Color(.border))
-      .frame(maxWidth: .infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
   }
 }
 
@@ -67,15 +60,7 @@ public struct SettingsSection<Content: View>: View {
   }
 
   public var body: some View {
-    VStack(alignment: .leading) {
-      if !title.isEmpty {
-        Text(title)
-          .font(.headlineTwo)
-          .padding([.leading, .bottom], .grid(4))
-          .padding(.top, .grid(6))
-          .accessibilityAddTraits(.isHeader)
-      }
-
+    GroupBox(title) {
       content()
     }
   }

@@ -35,7 +35,7 @@ public struct AppearanceSettings: Codable, Equatable {
 }
 
 public extension AppearanceSettings {
-  enum ColorScheme: String, CaseIterable, Codable {
+  enum ColorScheme: String, CaseIterable, Codable, Identifiable {
     case system
     case dark
     case light
@@ -50,6 +50,8 @@ public extension AppearanceSettings {
         .light
       }
     }
+    
+    public var id: String { rawValue }
   }
 }
 
