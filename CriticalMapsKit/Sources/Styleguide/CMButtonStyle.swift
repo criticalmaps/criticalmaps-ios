@@ -12,13 +12,19 @@ public struct CMButtonStyle: ButtonStyle {
           ? Color(.textPrimaryLight).opacity(0.6)
           : Color(.textPrimaryLight)
       )
-      .scaleEffect(configuration.isPressed ? 0.9 : 1)
+      .font(.body)
       .padding(.horizontal, .grid(4))
-      .padding(.vertical, .grid(2))
+      .padding(.vertical, .grid(4))
       .background(Color(.brand500))
-      .cornerRadius(8)
+      .if(!.iOS26) { view in
+        view.clipShape(.rect(cornerRadius: .grid(2)))
+      }
+      .if(.iOS26) { view in
+        view.clipShape(.capsule)
+      }
+      .scaleEffect(configuration.isPressed ? 0.96 : 1)
       .accessibleAnimation(
-        .snappy,
+        .snappy(duration: 0.24),
         value: configuration.isPressed
       )
   }

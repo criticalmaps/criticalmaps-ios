@@ -109,6 +109,10 @@ public struct PrivacyZoneFeature {
     public var selectedZone: PrivacyZone?
     var zoneDeletionCandidate: PrivacyZone?
     
+    var shouldPresentDisabledView: Bool {
+      !settings.isEnabled && settings.zones.isEmpty
+    }
+    
     public init() {}
   }
   

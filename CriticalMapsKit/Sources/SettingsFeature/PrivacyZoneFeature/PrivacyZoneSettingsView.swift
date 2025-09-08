@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SharedModels
+import Styleguide
 import SwiftUI
 
 public struct PrivacyZoneSettingsView: View {
@@ -11,10 +12,12 @@ public struct PrivacyZoneSettingsView: View {
   
   public var body: some View {
     NavigationStack {
-      if store.settings.isEnabled {
-        settingsSection
+      if store.shouldPresentDisabledView {
+        PrivacyZoneDisabledView {
+          store.send(.togglePrivacyZones)
+        }
       } else {
-        disabledStateView
+        settingsSection
       }
     }
     .navigationTitle("Privacy Zone Settings")
@@ -100,39 +103,6 @@ public struct PrivacyZoneSettingsView: View {
           .padding(.vertical, 20)
         }
       }
-    }
-  }
-  
-  @ViewBuilder
-  private var disabledStateView: some View {
-    VStack(spacing: 24) {
-      Spacer()
-      
-      VStack(spacing: 16) {
-        Image(systemName: "location.slash.circle.fill")
-          .font(.system(size: 60))
-          .foregroundColor(.secondary)
-        
-        VStack(spacing: 8) {
-          Text("Privacy Zones")
-            .font(.title2)
-            .fontWeight(.semibold)
-          
-          Text("Create zones where your location won't be shared with other riders")
-            .font(.body)
-            .foregroundColor(.secondary)
-            .multilineTextAlignment(.center)
-            .padding(.horizontal, 32)
-        }
-      }
-      
-      Button("Enable Privacy Zones") {
-        store.send(.togglePrivacyZones)
-      }
-      .buttonStyle(.borderedProminent)
-      .controlSize(.large)
-      
-      Spacer()
     }
   }
 }
