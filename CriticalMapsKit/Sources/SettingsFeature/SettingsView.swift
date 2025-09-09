@@ -129,6 +129,7 @@ public struct SettingsView: View {
     }
   }
   
+  @ViewBuilder
   var observationModeRow: some View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
@@ -148,6 +149,7 @@ public struct SettingsView: View {
     .accessibilityElement(children: .combine)
   }
   
+  @ViewBuilder
   var infoRow: some View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
@@ -167,6 +169,7 @@ public struct SettingsView: View {
     .accessibilityElement(children: .combine)
   }
   
+  @ViewBuilder
   var supportSection: some View {
     VStack(alignment: .leading, spacing: .grid(4)) {
       SupportSettingsRow(
@@ -281,6 +284,7 @@ public struct SettingsView: View {
     }
   }
   
+  @ViewBuilder
   var appVersionAndBuildView: some View {
     HStack(spacing: .grid(4)) {
       ZStack {
