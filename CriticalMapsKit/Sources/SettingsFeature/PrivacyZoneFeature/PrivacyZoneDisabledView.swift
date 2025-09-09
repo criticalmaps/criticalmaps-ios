@@ -14,8 +14,8 @@ struct PrivacyZoneDisabledView: View {
       Spacer()
       
       VStack(spacing: .grid(4)) {
-        Image(systemName: "location.slash.circle.fill")
-          .font(.system(size: .grid(15)))
+        Image(systemName: "location.slash.circle")
+          .font(.system(size: 60))
           .foregroundColor(.secondary)
         
         VStack(spacing: .grid(2)) {

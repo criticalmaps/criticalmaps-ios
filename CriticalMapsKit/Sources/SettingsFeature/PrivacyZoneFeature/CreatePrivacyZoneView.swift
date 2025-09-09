@@ -2,7 +2,7 @@ import ComposableArchitecture
 import SharedModels
 import SwiftUI
 
-public struct CreateZoneView: View {
+public struct CreatePrivacyZoneView: View {
   @Bindable var store: StoreOf<CreateZoneFeature>
   
   public init(store: StoreOf<CreateZoneFeature>) {
@@ -135,7 +135,7 @@ public struct CreateZoneView: View {
 }
 
 #Preview {
-  CreateZoneView(
+  CreatePrivacyZoneView(
     store: Store(initialState: CreateZoneFeature.State()) {
       CreateZoneFeature()
     }

@@ -131,7 +131,6 @@ public struct PrivacyZoneFeature {
     // Settings
     case togglePrivacyZones
     case toggleShowZonesOnMap
-    case setDefaultRadius(Double)
     
     // UI
     case dismissConfirmationDialog
@@ -189,13 +188,7 @@ public struct PrivacyZoneFeature {
           settings.showZonesOnMap.toggle()
         }
         return .none
-        
-      case let .setDefaultRadius(radius):
-        state.$settings.withLock { settings in
-          settings.defaultRadius = radius
-        }
-        return .none
-        
+
       case .dismissConfirmationDialog:
         state.confirmationDialog = nil
         return .none

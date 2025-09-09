@@ -47,7 +47,7 @@ public struct PrivacyZoneMapContainerView: View {
           action: \.destination.createZoneSheet
         )
       ) { createZoneStore in
-        CreateZoneView(store: createZoneStore)
+        CreatePrivacyZoneView(store: createZoneStore)
       }
     }
   }
