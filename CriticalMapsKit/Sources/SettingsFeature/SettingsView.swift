@@ -131,20 +131,12 @@ public struct SettingsView: View {
         RideEventSettingsView(store: store)
       }
     )
-    .navigationDestination(
-      isPresented: Binding<Bool>(
-        get: { store.destination.is(\.guideFeature) },
-        set: { _ in store.send(.view(.dismiss)) }
-      )) {
-        GuideView()
-      }
-    .navigationDestination(
-      isPresented: Binding<Bool>(
-        get: { store.destination.is(\.acknowledgements) },
-        set: { _ in store.send(.view(.dismiss)) }
-      )) {
-        AcknowListSwiftUIView(acknowList: store.packageList!)
-      }
+    .navigationDestination(isPresented: Binding($store.destination.guideFeature)) {
+      GuideView()
+    }
+    .navigationDestination(isPresented: Binding($store.destination.acknowledgements)) {
+      AcknowListSwiftUIView(acknowList: store.packageList!)
+    }
   }
   
   var observationModeRow: some View {
