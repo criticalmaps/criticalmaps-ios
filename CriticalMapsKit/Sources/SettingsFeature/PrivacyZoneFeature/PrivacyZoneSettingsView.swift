@@ -78,7 +78,7 @@ public struct PrivacyZoneSettingsView: View {
           ForEach(store.settings.zones) { zone in
             ZoneRow(
               zone: zone,
-              onToggleActive: { store.send(.toggleZoneActive(zone)) },
+              toggleBinding: $store.state[isActiveID: zone.id],
               onDelete: { store.send(.deleteZone(zone)) }
             )
           }
@@ -109,7 +109,7 @@ public struct PrivacyZoneSettingsView: View {
 
 struct ZoneRow: View {
   let zone: PrivacyZone
-  let onToggleActive: () -> Void
+  var toggleBinding: Binding<Bool>
   let onDelete: () -> Void
     
   var body: some View {
@@ -141,17 +141,21 @@ struct ZoneRow: View {
       
       Spacer()
       
-      VStack(spacing: 4) {
-        Toggle("", isOn: .constant(zone.isActive))
-          .labelsHidden()
-          .onChange(of: zone.isActive) {
-            onToggleActive()
-          }
-        
-        Text(zone.isActive ? "Active" : "Inactive")
-          .font(.caption2)
+      Button(action: {
+        toggleBinding.wrappedValue.toggle()
+      }) {
+        Image(systemName: zone.isActive ? "location.fill" : "location.slash.fill")
+          .font(.title3)
           .foregroundColor(zone.isActive ? .green : .secondary)
+          .frame(width: 32, height: 32)
+          .background(
+            Circle()
+              .fill(zone.isActive ? Color.green.opacity(0.15) : Color.secondary.opacity(0.1))
+              .stroke(zone.isActive ? Color.green.opacity(0.3) : Color.secondary.opacity(0.2), lineWidth: 1)
+          )
       }
+      .buttonStyle(.plain)
+      .symbolTransition()
     }
     .padding(.vertical, 4)
     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -170,5 +174,23 @@ struct ZoneRow: View {
         PrivacyZoneFeature()
       }
     )
+  }
+}
+
+struct SymbolTransitionModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    if #available(iOS 18.0, *) {
+      content
+        .contentTransition(.symbolEffect(.replace.magic(fallback: .replace)))
+    } else {
+      content
+        .contentTransition(.symbolEffect(.replace))
+    }
+  }
+}
+
+extension View {
+  func symbolTransition() -> some View {
+    modifier(SymbolTransitionModifier())
   }
 }

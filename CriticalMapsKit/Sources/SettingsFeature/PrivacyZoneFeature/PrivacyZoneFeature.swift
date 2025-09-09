@@ -233,3 +233,12 @@ public struct PrivacyZoneFeature {
 }
 
 extension PrivacyZoneFeature.Destination.State: Equatable {}
+
+extension PrivacyZoneFeature.State {
+  subscript(isActiveID id: UUID) -> Bool {
+    get { settings.zones[id: id]?.isActive ?? false }
+    set {
+      $settings.withLock { $0.zones[id: id]?.isActive = newValue }
+    }
+  }
+}
