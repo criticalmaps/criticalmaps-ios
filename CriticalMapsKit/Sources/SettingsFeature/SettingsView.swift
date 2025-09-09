@@ -78,9 +78,8 @@ public struct SettingsView: View {
       
       supportSection
       
-      HStack {
+      Section {
         appVersionAndBuildView
-        Spacer()
       }
     }
     .navigationTitle(L10n.Settings.title)
@@ -226,7 +225,7 @@ public struct SettingsView: View {
   
   @ViewBuilder
   var linksSection: some View {
-    Section("Links") {
+    Section((L10n.Settings.Section.info)) {
       Button(
         action: { store.send(.view(.infoSectionRowTapped(.website))) },
         label: {
@@ -250,23 +249,6 @@ public struct SettingsView: View {
         }
       )
       .accessibilityAddTraits(.isLink)
-    }
-  }
-  
-  @ViewBuilder
-  var infoSection: some View {
-    Section(L10n.Settings.Section.info) {
-      Button(
-        action: { store.send(.view(.guideRowTapped)) },
-        label: {
-          SettingsRow {
-            Label(
-              L10n.Rules.title,
-              systemImage: "exclamationmark.bubble"
-            )
-          }
-        }
-      )
       
       Button(
         action: { store.send(.view(.acknowledgementsRowTapped)) },
@@ -275,6 +257,23 @@ public struct SettingsView: View {
             Label(
               "Acknowledgements",
               systemImage: "text.document"
+            )
+          }
+        }
+      )
+    }
+  }
+  
+  @ViewBuilder
+  var infoSection: some View {
+    Section {
+      Button(
+        action: { store.send(.view(.guideRowTapped)) },
+        label: {
+          SettingsRow {
+            Label(
+              L10n.Rules.title,
+              systemImage: "exclamationmark.bubble"
             )
           }
         }
