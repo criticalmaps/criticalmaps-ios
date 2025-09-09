@@ -33,14 +33,11 @@ public struct SettingsView: View {
         Button(
           action: { store.send(.view(.privacyZonesRowTapped)) },
           label: {
-            HStack {
+            SettingsRow {
               Label("Privacy Zones", systemImage: "location.slash.circle")
-              Spacer()
-              Image(systemName: "chevron.right")
             }
           }
         )
-        .font(.title3)
       }
       
       Section("Map Overlays") {
@@ -57,28 +54,22 @@ public struct SettingsView: View {
         Button(
           action: { store.send(.view(.rideEventSettingsRowTapped)) },
           label: {
-            HStack {
+            SettingsRow {
               Label(L10n.Settings.eventSettings, systemImage: "calendar")
-              Spacer()
-              Image(systemName: "chevron.right")
             }
           }
         )
-        .font(.title3)
       }
       
       Section("") {
         Button(
           action: { store.send(.view(.appearanceSettingsRowTapped)) },
           label: {
-            HStack {
+            SettingsRow {
               Label(L10n.Settings.Theme.appearance, systemImage: "paintpalette")
-              Spacer()
-              Image(systemName: "chevron.right")
             }
           }
         )
-        .font(.title3)
       }
 
       infoSection
@@ -98,12 +89,12 @@ public struct SettingsView: View {
       maxHeight: .infinity,
       alignment: .topLeading
     )
+    .onAppear { store.send(.view(.onAppear)) }
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         CloseButton { store.send(.view(.dismiss)) }
       }
     }
-    .onAppear { store.send(.view(.onAppear)) }
     .navigationDestination(
       item: $store.scope(
         state: \.destination?.appearanceSettings,
@@ -276,8 +267,6 @@ public struct SettingsView: View {
           }
         }
       )
-      .font(.title3)
-      
       
       Button(
         action: { store.send(.view(.acknowledgementsRowTapped)) },
@@ -290,18 +279,17 @@ public struct SettingsView: View {
           }
         }
       )
-      .font(.title3)
     }
   }
   
   var appVersionAndBuildView: some View {
     HStack(spacing: .grid(4)) {
       ZStack {
-        RoundedRectangle(cornerRadius: 12.5)
+        RoundedRectangle(cornerRadius: 12)
           .foregroundColor(.white)
           .frame(width: 56, height: 56, alignment: .center)
           .overlay(
-            RoundedRectangle(cornerRadius: 12.5)
+            RoundedRectangle(cornerRadius: 12)
               .strokeBorder(Color(.border), lineWidth: 1)
           )
         Asset.cmLogoC.swiftUIImage
@@ -344,7 +332,7 @@ struct SettingsInfoLink: View {
     SettingsView(
       store: .init(
         initialState: .init(),
-        reducer: { SettingsFeature() }
+        reducer: { SettingsFeature()._printChanges() }
       )
     )
   }

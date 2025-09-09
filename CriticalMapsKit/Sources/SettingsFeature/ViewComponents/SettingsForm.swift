@@ -37,6 +37,7 @@ struct SettingsRow<Content: View>: View {
       Spacer()
       Image(systemName: "chevron.right")
     }
+    .font(.title3)
   }
 }
 
