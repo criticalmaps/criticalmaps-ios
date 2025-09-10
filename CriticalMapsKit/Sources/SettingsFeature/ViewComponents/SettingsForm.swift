@@ -14,11 +14,11 @@ public struct SettingsForm<Content>: View where Content: View {
   public var body: some View {
     List {
       content()
-        .font(.titleOne)
+        .font(.title3)
         .toggleStyle(SwitchToggleStyle(tint: Color(.brand500)))
+        .foregroundStyle(Color(.textPrimary))
     }
     .listStyle(.insetGrouped)
-    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
   }
 }
 
@@ -38,66 +38,5 @@ struct SettingsRow<Content: View>: View {
       Image(systemName: "chevron.right")
     }
     .font(.title3)
-  }
-}
-
-// MARK: Section
-
-/// A view to wrap a form section.
-public struct SettingsSection<Content: View>: View {
-  let content: () -> Content
-  let padContents: Bool
-  let title: String
-
-  public init(
-    title: String,
-    padContents: Bool = false,
-    @ViewBuilder content: @escaping () -> Content
-  ) {
-    self.content = content
-    self.padContents = padContents
-    self.title = title
-  }
-
-  public var body: some View {
-    GroupBox(title) {
-      content()
-    }
-  }
-}
-
-// MARK: SettingsNavigationLink
-
-/// A view to that wraps the input view in a SettingsRow and NavigationLink
-public struct SettingsNavigationLink<Destination: View, Label: View>: View {
-  let destination: () -> Destination
-  let title: () -> Label
-
-  public init(
-    @ViewBuilder destination: @escaping () -> Destination,
-    @ViewBuilder title: @escaping () -> Label
-  ) {
-    self.destination = destination
-    self.title = title
-  }
-
-  public var body: some View {
-    SettingsRow {
-      NavigationLink(
-        destination: destination,
-        label: { content }
-      )
-    }
-  }
-
-  var content: some View {
-    HStack {
-      title()
-        .font(.titleOne)
-      Spacer()
-      Image(systemName: "chevron.forward")
-        .font(.titleOne)
-        .accessibilityHidden(true)
-    }
   }
 }

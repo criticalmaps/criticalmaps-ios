@@ -13,7 +13,7 @@ public struct AppearanceSettingsView: View {
   }
 
   public var body: some View {
-    List {
+    SettingsForm {
       Section("Theme") {
         Picker("", selection: $store.colorScheme.animation()) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) {
@@ -29,7 +29,6 @@ public struct AppearanceSettingsView: View {
         AppIconPicker(appIcon: $store.appIcon)
       }
     }
-    .foregroundStyle(Color(.textPrimary))
     .navigationBarTitle(
       L10n.Settings.Theme.appearance,
       displayMode: .inline

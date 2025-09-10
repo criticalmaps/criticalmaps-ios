@@ -130,14 +130,14 @@ class PrivacyZoneMapCoordinator: NSObject, MKMapViewDelegate {
     
     if circle.title == "preview" {
       // Preview zone styling
-      renderer.fillColor = UIColor.systemBlue.withAlphaComponent(0.2)
-      renderer.strokeColor = UIColor.systemBlue
+      renderer.fillColor = UIColor.brand500.withAlphaComponent(0.2)
+      renderer.strokeColor = UIColor.brand500
       renderer.lineWidth = 2
       renderer.lineDashPattern = [5, 3]
     } else {
       // Regular privacy zone styling
-      renderer.fillColor = UIColor.systemRed.withAlphaComponent(0.15)
-      renderer.strokeColor = UIColor.systemRed
+      renderer.fillColor = UIColor.attentionTranslucent
+      renderer.strokeColor = UIColor.attention
       renderer.lineWidth = 1.5
     }
     

@@ -14,7 +14,7 @@ public struct RideEventSettingsView: View {
   }
 
   public var body: some View {
-    List {
+    SettingsForm {
       Toggle(
         isOn: $store.isEnabled.animation(),
         label: { Text(L10n.Settings.eventSettingsEnable) }

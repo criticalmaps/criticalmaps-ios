@@ -50,7 +50,7 @@ public struct PrivacyZoneSettingsView: View {
   
   @ViewBuilder
   private var settingsSection: some View {
-    List {
+    SettingsForm {
       Section {
         Toggle(
           "Enable Privacy Zones",

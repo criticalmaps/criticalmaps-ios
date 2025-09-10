@@ -11,7 +11,7 @@ public struct CreatePrivacyZoneView: View {
   
   public var body: some View {
     NavigationStack {
-      VStack(spacing: 20) {
+      VStack(spacing: .grid(5)) {
         mapSection
         detailsSection
         Spacer()
@@ -39,7 +39,7 @@ public struct CreatePrivacyZoneView: View {
   
   @ViewBuilder
   private var mapSection: some View {
-    VStack(alignment: .leading, spacing: 12) {
+    VStack(alignment: .leading, spacing: .grid(3)) {
       Text("Choose Location")
         .font(.headline)
       
@@ -55,15 +55,19 @@ public struct CreatePrivacyZoneView: View {
         mapCenter: $store.mapCenter,
         showZones: false
       ) { coordinate in
-        store.send(.setMapCenter(Coordinate(
-          latitude: coordinate.latitude,
-          longitude: coordinate.longitude
-        )))
+        store.send(
+          .setMapCenter(
+            Coordinate(
+              latitude: coordinate.latitude,
+              longitude: coordinate.longitude
+            )
+          )
+        )
       }
       .frame(height: 300)
-      .cornerRadius(12)
+      .clipShape(.rect(cornerRadius: 24))
       .overlay(
-        RoundedRectangle(cornerRadius: 12)
+        RoundedRectangle(cornerRadius: 24)
           .stroke(Color(.systemGray4), lineWidth: 1)
       )
     }
@@ -71,16 +75,17 @@ public struct CreatePrivacyZoneView: View {
   
   @ViewBuilder
   private var detailsSection: some View {
-    VStack(alignment: .leading, spacing: 20) {
-      VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: .grid(5)) {
+      VStack(alignment: .leading, spacing: .grid(2)) {
         Text("Zone Name")
           .font(.headline)
         
         TextField("e.g., Home, Work, Gym", text: $store.newZoneName)
           .textFieldStyle(.roundedBorder)
+          .autocorrectionDisabled()
       }
       
-      VStack(alignment: .leading, spacing: 12) {
+      VStack(alignment: .leading, spacing: .grid(3)) {
         HStack {
           Text("Radius")
             .font(.headline)
@@ -88,8 +93,8 @@ public struct CreatePrivacyZoneView: View {
           Text("\(Int(store.newZoneRadius))m")
             .font(.subheadline)
             .foregroundColor(.primary)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .padding(.horizontal, .grid(2))
+            .padding(.vertical, .grid(1))
             .background(Color(.systemGray5))
             .cornerRadius(6)
         }
@@ -109,6 +114,7 @@ public struct CreatePrivacyZoneView: View {
             .font(.caption)
             .foregroundColor(.secondary)
         }
+        .tint(Color(.brand500))
       }
       
       if store.mapCenter != nil {

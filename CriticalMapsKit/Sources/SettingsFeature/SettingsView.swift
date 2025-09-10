@@ -18,7 +18,7 @@ public struct SettingsView: View {
   }
   
   public var body: some View {
-    List {
+    SettingsForm {
       Section("Privacy") {
         observationModeRow
           .accessibilityValue(
