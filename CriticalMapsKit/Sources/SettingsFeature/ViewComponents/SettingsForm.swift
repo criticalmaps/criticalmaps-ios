@@ -15,7 +15,7 @@ public struct SettingsForm<Content>: View where Content: View {
     List {
       content()
         .font(.title3)
-        .toggleStyle(SwitchToggleStyle(tint: Color(.brand500)))
+        .toggleStyle(SwitchToggleStyle(tint: Color(.brand600)))
         .foregroundStyle(Color(.textPrimary))
     }
     .listStyle(.insetGrouped)

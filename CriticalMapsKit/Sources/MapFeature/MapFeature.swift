@@ -71,7 +71,6 @@ public struct MapFeature {
     case showShareSheet(Bool)
     case routeToEvent
     
-    case setNextRideBannerExpanded(Bool)
     case setNextRideBannerVisible(Bool)
     
     case locationManager(LocationManager.Action)
@@ -107,7 +106,7 @@ public struct MapFeature {
         case .didChangeAuthorization(.denied):
           if state.isRequestingCurrentLocation {
             state.alert = AlertState {
-              TextState("Location makes this app better. Please consider giving us access.")
+              TextState("Location makes this app better. Please consider giving us access.") // TODO: L10n
             }
             
             state.isRequestingCurrentLocation = false
@@ -147,23 +146,18 @@ public struct MapFeature {
       case let .setNextRideBannerVisible(value):
         state.isNextRideBannerVisible = value
         return .none
-        
-      case let .setNextRideBannerExpanded(value):
-        state.isNextRideBannerExpanded = value
-        return .none
-      
+
       case .onAppear:
         var effects: [Effect<Action>] = [
           .run { _ in
             await locationManager.setup()
           },
           .run { send in
-            await withTaskCancellation(id: CancelID.locationManager, cancelInFlight: true) {
-              for await action in await locationManager.delegate() {
-                await send(.locationManager(action), animation: .default)
-              }
+            for await action in await locationManager.delegate() {
+              await send(.locationManager(action), animation: .default)
             }
           }
+          .cancellable(id: CancelID.locationManager, cancelInFlight: true)
         ]
         let isObservationModeEnabled = state.userSettings.isObservationModeEnabled
         if !isObservationModeEnabled {

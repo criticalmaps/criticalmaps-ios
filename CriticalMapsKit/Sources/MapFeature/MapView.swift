@@ -3,6 +3,7 @@ import Logger
 import MapKit
 import NextRideFeature
 import SharedModels
+import Sharing
 import Styleguide
 import SwiftUI
 
@@ -18,8 +19,7 @@ struct MapView: ViewRepresentable {
   var riderCoordinates: [Rider]
   var nextRide: Ride?
   var rideEvents: [Ride] = []
-  var privacyZones: [PrivacyZone] = []
-  var showPrivacyZones: Bool = false
+  @Shared(.privacyZoneSettings) var privacyZoneSettings: PrivacyZoneSettings
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
@@ -29,8 +29,6 @@ struct MapView: ViewRepresentable {
     userTrackingMode: Binding<MKUserTrackingMode>,
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
-    privacyZones: [PrivacyZone] = [],
-    showPrivacyZones: Bool = false,
     annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
     centerEventRegion: Binding<CoordinateRegion?>,
@@ -41,8 +39,6 @@ struct MapView: ViewRepresentable {
     _userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.rideEvents = rideEvents
-    self.privacyZones = privacyZones
-    self.showPrivacyZones = showPrivacyZones
     _annotationsCount = annotationsCount
     _centerRegion = centerRegion
     _centerEventRegion = centerEventRegion
@@ -144,21 +140,22 @@ struct MapView: ViewRepresentable {
   }
   
   func updatePrivacyZoneOverlays(in mapView: MKMapView) {
-//    // Remove existing privacy zone overlays
-//    let existingPrivacyOverlays = mapView.overlays.compactMap { overlay in
-//      // Check if overlay has our privacy zone identifier
-//      overlay.title?.hasPrefix("privacy_zone_") == true ? overlay : nil
-//    }
-//    mapView.removeOverlays(existingPrivacyOverlays)
-//    
-//    // Add privacy zone overlays if enabled
-//    guard showPrivacyZones else { return }
-//    
-//    for zone in privacyZones where zone.isActive {
-//      let circle = zone.mkCircle
-//      circle.title = "privacy_zone_\(zone.id.uuidString)"
-//      mapView.addOverlay(circle)
-//    }
+    // Remove existing privacy zone overlays
+    let existingPrivacyOverlays = mapView.overlays.compactMap { overlay in
+      // Check if overlay has our privacy zone identifier
+      let title = overlay.title ?? ""
+      return title?.hasPrefix("privacy_zone_") == true ? overlay : nil
+    }
+    mapView.removeOverlays(existingPrivacyOverlays)
+    
+    // Add privacy zone overlays if enabled
+    guard privacyZoneSettings.isEnabled else { return }
+    
+    for zone in privacyZoneSettings.zones where zone.isActive {
+      let circle = zone.mkCircle
+      circle.title = "privacy_zone_\(zone.id.uuidString)"
+      mapView.addOverlay(circle)
+    }
   }
 }
 
@@ -208,8 +205,8 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
        let title = circle.title,
        title.hasPrefix("privacy_zone_") {
       let renderer = MKCircleRenderer(circle: circle)
-      renderer.fillColor = UIColor.systemRed.withAlphaComponent(0.15)
-      renderer.strokeColor = UIColor.systemRed
+      renderer.fillColor = UIColor.attentionTranslucent
+      renderer.strokeColor = UIColor.attention
       renderer.lineWidth = 1.5
       return renderer
     }

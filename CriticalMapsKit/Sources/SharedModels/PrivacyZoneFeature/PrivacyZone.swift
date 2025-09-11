@@ -9,6 +9,10 @@ public struct PrivacyZone: Codable, Identifiable, Equatable {
   public var isActive: Bool
   public let createdAt: Date
   
+  public var radiusMeasurement: Measurement<UnitLength> {
+    Measurement<UnitLength>(value: radius, unit: .meters)
+  }
+  
   public init(
     id: UUID = UUID(),
     name: String,
@@ -39,7 +43,7 @@ extension PrivacyZone {
       return region
   }
 
-  /// Creates an MKCircle for map visualization
+  /// Creates an MKCircle for map visualisation
   public var mkCircle: MKCircle {
       MKCircle(center: center.asCLLocationCoordinate, radius: radius)
   }

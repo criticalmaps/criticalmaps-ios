@@ -14,6 +14,7 @@ public struct GuideView: View {
           Text(guide.rule.title)
             .font(.titleOne)
             .foregroundColor(Color(.textPrimary))
+            .padding(.vertical, .grid(1))
         }
       )
     }

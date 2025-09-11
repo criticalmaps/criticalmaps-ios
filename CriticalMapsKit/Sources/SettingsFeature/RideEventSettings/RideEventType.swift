@@ -52,7 +52,7 @@ public struct RideEventTypeView: View {
           Spacer()
           Image(systemName: store.isEnabled ? "checkmark.circle.fill" : "circle")
         }
-        .padding(.grid(1))
+        .padding(.vertical, .grid(1))
       }
     )
     .accessibilityValue(store.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))

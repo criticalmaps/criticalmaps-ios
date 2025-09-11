@@ -59,7 +59,7 @@ public struct RideEventSettingsView: View {
           }
       }
     }
-    .padding(.grid(1))
+    .padding(.vertical, .grid(1))
     .accessibilityElement(children: .combine)
   }
 }

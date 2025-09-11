@@ -61,7 +61,7 @@ public struct SettingsView: View {
         )
       }
       
-      Section("") {
+      Section {
         Button(
           action: { store.send(.view(.appearanceSettingsRowTapped)) },
           label: {

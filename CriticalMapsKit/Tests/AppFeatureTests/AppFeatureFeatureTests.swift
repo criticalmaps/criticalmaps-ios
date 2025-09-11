@@ -72,14 +72,6 @@ struct AppFeatureTests {
     await store.receive(\.map.setNextRideBannerVisible) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
-    await testClock.advance(by: .seconds(1))
-    await store.receive(\.map.setNextRideBannerExpanded) {
-      $0.mapFeatureState.isNextRideBannerExpanded = true
-    }
-    await testClock.advance(by: .seconds(8))
-    await store.receive(\.map.setNextRideBannerExpanded) {
-      $0.mapFeatureState.isNextRideBannerExpanded = false
-    }
   }
 
   @Test
@@ -149,7 +141,7 @@ struct AppFeatureTests {
     store.exhaustivity = .off
 
     await store.send(.settingsButtonTapped)
-    await store.send(.destination(.presented(.settings(.rideEventSettingsRowTapped))))
+    await store.send(.destination(.presented(.settings(.view(.rideEventSettingsRowTapped)))))
     await store.send(
       .destination(
         .presented(
@@ -261,14 +253,6 @@ struct AppFeatureTests {
     await store.receive(\.map.setNextRideBannerVisible) {
       $0.mapFeatureState.isNextRideBannerVisible = true
     }
-    await testClock.advance(by: .seconds(1))
-    await store.receive(\.map.setNextRideBannerExpanded) {
-      $0.mapFeatureState.isNextRideBannerExpanded = true
-    }
-    await testClock.advance(by: .seconds(8))
-    await store.receive(\.map.setNextRideBannerExpanded) {
-      $0.mapFeatureState.isNextRideBannerExpanded = false
-    }
     // should not fetch next Ride on next location update
     let newLocations = [
       Location(
@@ -378,7 +362,7 @@ struct AppFeatureTests {
     store.exhaustivity = .off
 
     await store.send(.settingsButtonTapped)
-    await store.send(.destination(.presented(.settings(.rideEventSettingsRowTapped))))
+    await store.send(.destination(.presented(.settings(.view(.rideEventSettingsRowTapped)))))
     await store.send(
       .destination(
         .presented(
@@ -430,7 +414,7 @@ struct AppFeatureTests {
     store.exhaustivity = .off
     
     await store.send(.settingsButtonTapped)
-    await store.send(.destination(.presented(.settings(.rideEventSettingsRowTapped))))
+    await store.send(.destination(.presented(.settings(.view(.rideEventSettingsRowTapped)))))
     await store.send(
       .destination(
         .presented(
@@ -503,6 +487,51 @@ struct AppFeatureTests {
       }
     )
     await store.send(.postLocation)
+  }
+  
+  @Test("Location should not be sent when it is in a privacy zone")
+  func postLocation_shouldNotPostLocationWhenInPrivazyZone() async {
+    let randomCoordinate = Coordinate.make()
+    
+    @Shared(.userSettings) var userSettings = UserSettings()
+    @Shared(.privacyZoneSettings) var zones = PrivacyZoneSettings(
+      isEnabled: true,
+      zones: [
+        PrivacyZone(
+          id: UUID(),
+          name: "Home",
+          center: .init(latitude: randomCoordinate.latitude, longitude: randomCoordinate.longitude),
+          radius: 400,
+          isActive: true,
+          createdAt: .now
+        )
+      ],
+      defaultRadius: 400,
+      showZonesOnMap: false
+    )
+
+    var state = AppFeature.State()
+    state.requestTimer.secondsElapsed = 29
+    state.mapFeatureState.location = SharedModels.Location(
+      coordinate: randomCoordinate,
+      timestamp: 1423423423423,
+      name: "test",
+      color: "#001122"
+    )
+    state.destination = nil
+    
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = ImmediateClock()
+        $0.apiService.getRiders = { [] }
+      }
+    )
+    await store.send(.requestTimer(.timerTicked)) {
+      $0.requestTimer.secondsElapsed = 30
+    }
+    await store.receive(\.postLocation)
   }
   
   @Test

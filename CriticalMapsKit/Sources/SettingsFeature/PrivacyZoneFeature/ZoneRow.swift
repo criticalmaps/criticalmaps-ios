@@ -8,49 +8,48 @@ struct ZoneRow: View {
   let onDelete: () -> Void
     
   var body: some View {
-    HStack(spacing: .grid(3)) {
+    HStack(spacing: .grid(4)) {
       // Status indicator
-      Circle()
-        .fill(zone.isActive ? Color.green : Color.secondary)
-        .frame(width: 8, height: 8)
+      Image(systemName: zone.isActive ? "location.slash.fill" : "location.fill")
+        .font(.title3)
+        .foregroundColor(zone.isActive ? .green : .secondary)
+        .frame(width: 32, height: 32)
+        .background(
+          Circle()
+            .fill(zone.isActive ? Color.green.opacity(0.15) : Color.secondary.opacity(0.1))
+            .stroke(zone.isActive ? Color.green.opacity(0.3) : Color.secondary.opacity(0.2), lineWidth: 1)
+        )
+        .symbolTransition()
       
-      VStack(alignment: .leading, spacing: .grid(1)) {
+      VStack(alignment: .leading, spacing: .grid(3)) {
         Text(zone.name)
           .font(.body)
           .fontWeight(.medium)
         
-        HStack(spacing: .grid(4)) {
-          Label("\(Int(zone.radius))m", systemImage: "circle.dashed")
-            .font(.caption)
-            .foregroundColor(.secondary)
+        HStack(alignment: .center, spacing: .grid(4)) {
+          HStack(spacing: .grid(2)) {
+            Image(systemName: "circle.dashed")
+            Text(zone.radiusMeasurement.formatted())
+          }
           
-          Label(
-            zone.createdAt
-              .formatted(.dateTime.day().month().hour().minute()),
-            systemImage: "calendar"
-          )
-            .font(.caption)
-            .foregroundColor(.secondary)
+          HStack(spacing: .grid(2)) {
+            Image(systemName: "calendar")
+            Text(
+              zone.createdAt
+                .formatted(.dateTime.day().month())
+            )
+          }
         }
+        .font(.callout)
+        .foregroundColor(.secondary)
       }
       
       Spacer()
       
-      Button(action: {
-        toggleBinding.wrappedValue.toggle()
-      }) {
-        Image(systemName: zone.isActive ? "location.fill" : "location.slash.fill")
-          .font(.title3)
-          .foregroundColor(zone.isActive ? .green : .secondary)
-          .frame(width: 32, height: 32)
-          .background(
-            Circle()
-              .fill(zone.isActive ? Color.green.opacity(0.15) : Color.secondary.opacity(0.1))
-              .stroke(zone.isActive ? Color.green.opacity(0.3) : Color.secondary.opacity(0.2), lineWidth: 1)
-          )
-      }
-      .buttonStyle(.plain)
-      .symbolTransition()
+      Toggle(isOn: toggleBinding) { EmptyView() }
+      .toggleStyle(.switch)
+      .scaleEffect(0.8)
+      .tint(Color(.brand600))
     }
     .padding(.vertical, .grid(1))
     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -63,16 +62,20 @@ struct ZoneRow: View {
 }
 
 #Preview {
-  ZoneRow(
-    zone: PrivacyZone(
-      name: "My Zone",
-      center: Coordinate(
-        latitude: 54.312,
-        longitude: 13.34
+  @Previewable @State var isOn: Bool = false
+  
+  List {
+    ZoneRow(
+      zone: PrivacyZone(
+        name: "My Zone",
+        center: Coordinate(
+          latitude: 54.312,
+          longitude: 13.34
+        ),
+        radius: 400
       ),
-      radius: 400
-    ),
-    toggleBinding: .constant(true),
-    onDelete: {}
-  )
+      toggleBinding: $isOn,
+      onDelete: {}
+    )
+  }
 }
