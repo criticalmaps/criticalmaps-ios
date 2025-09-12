@@ -507,7 +507,7 @@ struct AppFeatureTests {
         )
       ],
       defaultRadius: 400,
-      showZonesOnMap: false
+      shouldShowZonesOnMap: false
     )
 
     var state = AppFeature.State()

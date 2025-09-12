@@ -14,7 +14,7 @@ struct PrivacyZoneDisabledView: View {
       Spacer()
       
       VStack(spacing: .grid(4)) {
-        Image(systemName: "location.slash.circle")
+        Asset.pzLocationShield.swiftUIImage
           .font(.system(size: 60))
           .foregroundColor(.secondary)
         

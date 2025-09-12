@@ -84,7 +84,7 @@ public struct PrivacyZoneSettingsView: View {
       } else {
         Section {
           VStack(spacing: .grid(3)) {
-            Image(systemName: "location.slash.circle")
+            Asset.pzLocationShield.swiftUIImage
               .font(.title2)
               .foregroundColor(.secondary)
             

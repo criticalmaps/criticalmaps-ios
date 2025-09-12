@@ -34,7 +34,12 @@ public struct SettingsView: View {
           action: { store.send(.view(.privacyZonesRowTapped)) },
           label: {
             SettingsRow {
-              Label("Privacy Zones", systemImage: "location.slash.circle")
+              Label {
+                Text("Privacy Zones")
+              } icon: {
+                Asset.pzLocationShield.swiftUIImage
+              }
+
             }
           }
         )
