@@ -12,7 +12,7 @@ public struct GuideView: View {
         destination: GuideDetailView(guide: guide),
         label: {
           Text(guide.rule.title)
-            .font(.titleOne)
+            .font(.body)
             .foregroundColor(Color(.textPrimary))
             .padding(.vertical, .grid(1))
         }

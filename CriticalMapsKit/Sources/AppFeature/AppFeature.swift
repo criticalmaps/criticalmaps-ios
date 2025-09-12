@@ -283,11 +283,9 @@ public struct AppFeature {
         // Check if current location is in a privacy zone
         if let currentLocation = state.mapFeatureState.location,
            state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate) {
-          state.isCurrentLocationInPrivacyZone = true
           logger.debug("Location not posted - user is in a privacy zone")
           return .none
         }
-        state.isCurrentLocationInPrivacyZone = false
         
         let postBody = SendLocationPostBody(
           device: idProvider.id(),
@@ -317,6 +315,12 @@ public struct AppFeature {
           
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
+          
+          if let currentLocation = state.mapFeatureState.location {
+            let isLocationInPrivacyZone = state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate)
+            state.isCurrentLocationInPrivacyZone = isLocationInPrivacyZone
+          }
+          
           let coordinate = state.mapFeatureState.location?.coordinate
           let isRideEventsEnabled = state.rideEventSettings.isEnabled
           if isRideEventsEnabled, let coordinate, !state.didRequestNextRide {

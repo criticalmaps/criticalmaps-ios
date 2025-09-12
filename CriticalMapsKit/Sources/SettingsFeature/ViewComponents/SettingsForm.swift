@@ -33,9 +33,9 @@ struct SettingsRow<Content: View>: View {
   var body: some View {
     HStack {
       content()
+        .font(.body)
       Spacer()
       Image(systemName: "chevron.right")
     }
-    .font(.title3)
   }
 }

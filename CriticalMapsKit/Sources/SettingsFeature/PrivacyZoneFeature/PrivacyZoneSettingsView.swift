@@ -56,15 +56,19 @@ public struct PrivacyZoneSettingsView: View {
           "Enable Privacy Zones",
           isOn: $store.settings.isEnabled
         )
+        .font(.body)
         
         Toggle(
           "Show Zones on Map",
           isOn: $store.settings.shouldShowZonesOnMap
         )
+        .font(.body)
       } header: {
         Text("Settings")
+          .font(.callout)
       } footer: {
         Text("Privacy zones prevent your location from being shared when you're within the defined area.")
+          .font(.subheadline)
       }
       
       if !store.settings.zones.isEmpty {
@@ -72,7 +76,7 @@ public struct PrivacyZoneSettingsView: View {
           ForEach(store.settings.zones) { zone in
             ZoneRow(
               zone: zone,
-              toggleBinding: $store.state[isActiveID: zone.id],
+              isActive: $store.state[isActiveID: zone.id],
               onDelete: { store.send(.deleteZone(zone)) }
             )
           }

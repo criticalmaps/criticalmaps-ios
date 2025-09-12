@@ -4,24 +4,30 @@ import SwiftUI
 
 struct ZoneRow: View {
   let zone: PrivacyZone
-  var toggleBinding: Binding<Bool>
+  @Binding var isActive: Bool
   let onDelete: () -> Void
-    
+  
   var body: some View {
     HStack(spacing: .grid(4)) {
       // Status indicator
-      Image(systemName: zone.isActive ? "location.slash.fill" : "location.fill")
-        .font(.title3)
+      icon()
+        .font(.title2)
         .foregroundColor(zone.isActive ? .green : .secondary)
-        .frame(width: 32, height: 32)
+        .frame(width: 38, height: 38)
         .background(
           Circle()
-            .fill(zone.isActive ? Color.green.opacity(0.15) : Color.secondary.opacity(0.1))
-            .stroke(zone.isActive ? Color.green.opacity(0.3) : Color.secondary.opacity(0.2), lineWidth: 1)
+            .stroke(
+              zone.isActive
+              ? Color.green.opacity(0.3)
+              : Color.secondary.opacity(0.2),
+              style: zone.isActive
+              ? StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round)
+              : StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round, dash: [5, 3], dashPhase: 0)
+            )
         )
         .symbolTransition()
       
-      VStack(alignment: .leading, spacing: .grid(3)) {
+      VStack(alignment: .leading, spacing: .grid(2)) {
         Text(zone.name)
           .font(.body)
           .fontWeight(.medium)
@@ -46,10 +52,10 @@ struct ZoneRow: View {
       
       Spacer()
       
-      Toggle(isOn: toggleBinding) { EmptyView() }
-      .toggleStyle(.switch)
-      .scaleEffect(0.8)
-      .tint(Color(.brand600))
+      Toggle(isOn: $isActive) { EmptyView() }
+        .toggleStyle(.switch)
+        .scaleEffect(0.8)
+        .tint(Color(.brand600))
     }
     .padding(.vertical, .grid(1))
     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -59,11 +65,16 @@ struct ZoneRow: View {
     }
     .opacity(zone.isActive ? 1.0 : 0.7)
   }
+  
+  @ViewBuilder
+  private func icon() -> some View {
+    zone.isActive
+    ? Asset.pzLocationShieldSlash.swiftUIImage
+    : Asset.pzLocationShield.swiftUIImage
+  }
 }
 
 #Preview {
-  @Previewable @State var isOn: Bool = false
-  
   List {
     ZoneRow(
       zone: PrivacyZone(
@@ -74,7 +85,7 @@ struct ZoneRow: View {
         ),
         radius: 400
       ),
-      toggleBinding: $isOn,
+      isActive: .constant(false),
       onDelete: {}
     )
   }

@@ -2,6 +2,10 @@ import ComposableArchitecture
 import SharedModels
 import SwiftUI
 
+let zoneRadiusRangeMin = Measurement(value: 100, unit: UnitLength.meters)
+let zoneRadiusRangeMax = Measurement(value: 1000, unit: UnitLength.meters)
+let zoneRadiusRange: ClosedRange<Double> = zoneRadiusRangeMin.value...zoneRadiusRangeMax.value
+
 public struct CreatePrivacyZoneView: View {
   @Bindable var store: StoreOf<CreateZoneFeature>
   
@@ -101,18 +105,23 @@ public struct CreatePrivacyZoneView: View {
         
         Slider(
           value: $store.newZoneRadius,
-          in: 100...1000,
+          in: zoneRadiusRange,
           step: 50
         ) {
           Text("Radius")
         } minimumValueLabel: {
-          Text("100m")
+          Text(zoneRadiusRangeMin.formatted())
             .font(.caption)
             .foregroundColor(.secondary)
         } maximumValueLabel: {
-          Text("1km")
-            .font(.caption)
-            .foregroundColor(.secondary)
+          Text(zoneRadiusRangeMax.formatted(
+            .measurement(
+              width: .abbreviated,
+              usage: .general
+            ))
+          )
+          .font(.caption)
+          .foregroundColor(.secondary)
         }
         .tint(Color(.brand500))
       }

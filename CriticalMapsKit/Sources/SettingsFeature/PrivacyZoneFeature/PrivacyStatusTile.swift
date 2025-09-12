@@ -13,44 +13,65 @@ public struct PrivacyStatusTile: View {
   
   public var body: some View {
     DataTile(statusText) {
-      Image(systemName: iconName)
+      icon
         .font(.title2)
-        .foregroundColor(iconColor)
+        .accessibilityHidden(true)
     }
+    .accessibilityElement(children: .ignore)
+    .accessibilityLabel(accessibilityLabel)
+    .accessibilityValue(accessibilityValue)
   }
+  
+  // MARK: - Presentation
   
   private var statusText: String {
-    if isInPrivacyZone {
-      "Location\nProtected"
+    if !privacyZoneSettings.isEnabled {
+      "Privacy Zones Off"
+    } else if isInPrivacyZone {
+      "Location Hidden"
     } else {
-      "Privacy\nZones " + (privacyZoneSettings.isEnabled ? "On" : "Off")
+      "Privacy Zones On"
     }
   }
   
-  private var iconName: String {
-    if isInPrivacyZone {
-      "location.slash.circle"
+  @ViewBuilder
+  private var icon: some View {
+    if !privacyZoneSettings.isEnabled {
+      Asset.pzLocationShield.swiftUIImage
+        .tint(.secondary)
+    } else if isInPrivacyZone {
+      Asset.pzLocationShieldSlash.swiftUIImage
+        .tint(.green)
     } else {
-      privacyZoneSettings.isEnabled ? "location.slash.circle" : "location.circle"
+      Asset.pzLocationShieldSlash.swiftUIImage
+        .tint(.primary)
     }
   }
+  // MARK: - Accessibility
   
-  private var iconColor: Color {
-    if isInPrivacyZone {
-      .green
-    } else {
-      privacyZoneSettings.isEnabled ? .green : .primary
-    }
+  private var accessibilityLabel: String {
+    "Privacy status"
+  }
+  
+  private var accessibilityValue: String {
+    statusText
   }
 }
 
 #Preview {
-  HStack {
-    PrivacyStatusTile(isInPrivacyZone: false)
+  HStack(spacing: 16) {
+    PrivacyStatusTile(isInPrivacyZone: false) // Zones On
+      .environment(\.colorScheme, .dark)
     
-    PrivacyStatusTile(isInPrivacyZone: true)
+    PrivacyStatusTile(isInPrivacyZone: true)  // Location Hidden
     
-    PrivacyStatusTile(isInPrivacyZone: false)
+    PrivacyStatusTile(isInPrivacyZone: false) // Zones Off
+      .environment(\.colorScheme, .light)
+      .environment(\.dynamicTypeSize, .accessibility2)
+      .task {
+        @Shared(.privacyZoneSettings) var zones
+        $zones.withLock { $0.isEnabled = false }
+      }
   }
   .padding()
 }

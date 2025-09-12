@@ -19,7 +19,7 @@ public struct SettingsView: View {
   
   public var body: some View {
     SettingsForm {
-      Section("Privacy") {
+      Section {
         observationModeRow
           .accessibilityValue(
             store.userSettings.isObservationModeEnabled
@@ -40,7 +40,7 @@ public struct SettingsView: View {
         )
       }
       
-      Section("Map Overlays") {
+      Section {
         infoRow
           .accessibilityValue(
             store.userSettings.showInfoViewEnabled
@@ -136,10 +136,10 @@ public struct SettingsView: View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(L10n.Settings.Observationmode.title)
-          .font(.title3)
+          .font(.body)
         Text(L10n.Settings.Observationmode.detail)
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
-          .font(.callout)
+          .font(.subheadline)
       }
       Spacer()
       Toggle(
@@ -156,10 +156,10 @@ public struct SettingsView: View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text("Show info view")
-          .font(.title3)
+          .font(.body)
         Text("Show info toogle over the map")
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
-          .font(.callout)
+          .font(.subheadline)
       }
       Spacer()
       Toggle(
@@ -228,7 +228,7 @@ public struct SettingsView: View {
   
   @ViewBuilder
   var linksSection: some View {
-    Section((L10n.Settings.Section.info)) {
+    Section {
       Button(
         action: { store.send(.view(.infoSectionRowTapped(.website))) },
         label: {
@@ -325,7 +325,7 @@ struct SettingsInfoLink: View {
       Image(systemName: "arrow.up.right")
         .accessibilityHidden(true)
     }
-    .font(.title3)
+    .font(.body)
   }
 }
 

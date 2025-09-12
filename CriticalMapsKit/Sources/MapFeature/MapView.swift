@@ -6,6 +6,7 @@ import SharedModels
 import Sharing
 import Styleguide
 import SwiftUI
+import ComposableArchitecture
 
 public typealias ViewRepresentable = UIViewRepresentable
 
@@ -20,6 +21,7 @@ struct MapView: ViewRepresentable {
   var nextRide: Ride?
   var rideEvents: [Ride] = []
   @Shared(.privacyZoneSettings) var privacyZoneSettings: PrivacyZoneSettings
+  @Dependency(\.idProvider) var idProvider
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
@@ -85,7 +87,11 @@ struct MapView: ViewRepresentable {
   }
 
   func updateRiderAnnotations(in mapView: MKMapView) {
-    let updatedAnnotations = RiderAnnotationUpdateClient.update(riderCoordinates, mapView)
+    let updatedAnnotations = RiderAnnotationUpdateClient.update(
+      riderCoordinates,
+      mapView,
+      excludingId: idProvider.id()
+    )
     if !updatedAnnotations.removedAnnotations.isEmpty {
       mapView.removeAnnotations(updatedAnnotations.removedAnnotations)
     }

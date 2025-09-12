@@ -32,6 +32,19 @@ public struct Rider: Identifiable, Hashable {
   }
 }
 
+// Identity and hashing based solely on `id`
+extension Rider: Equatable {
+  public static func == (lhs: Rider, rhs: Rider) -> Bool {
+    lhs.id == rhs.id
+  }
+}
+
+extension Rider {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
+}
+
 extension Rider: Codable {
   public init(
     id: String,
