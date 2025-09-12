@@ -53,6 +53,7 @@ public struct AppFeature {
     public var isEventListPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
+    public var isCurrentLocationInPrivacyZone = false
     
     @Shared(.userSettings) var userSettings
     @Shared(.rideEventSettings) var rideEventSettings
@@ -282,9 +283,11 @@ public struct AppFeature {
         // Check if current location is in a privacy zone
         if let currentLocation = state.mapFeatureState.location,
            state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate) {
+          state.isCurrentLocationInPrivacyZone = true
           logger.debug("Location not posted - user is in a privacy zone")
           return .none
         }
+        state.isCurrentLocationInPrivacyZone = false
         
         let postBody = SendLocationPostBody(
           device: idProvider.id(),

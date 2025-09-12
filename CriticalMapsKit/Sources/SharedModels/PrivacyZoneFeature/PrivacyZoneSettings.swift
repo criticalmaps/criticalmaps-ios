@@ -5,18 +5,20 @@ public struct PrivacyZoneSettings: Codable, Equatable {
   public var isEnabled: Bool
   public var zones: IdentifiedArrayOf<PrivacyZone>
   public var defaultRadius: Double
-  public var showZonesOnMap: Bool
+  public var shouldShowZonesOnMap: Bool
+  
+  public var canShowOnMap: Bool { shouldShowZonesOnMap && isEnabled }
   
   public init(
     isEnabled: Bool = false,
     zones: IdentifiedArrayOf<PrivacyZone> = [],
     defaultRadius: Double = 400,
-    showZonesOnMap: Bool = true
+    shouldShowZonesOnMap: Bool = true
   ) {
     self.isEnabled = isEnabled
     self.zones = zones
     self.defaultRadius = defaultRadius
-    self.showZonesOnMap = showZonesOnMap
+    self.shouldShowZonesOnMap = shouldShowZonesOnMap
   }
   
   /// Returns active zones only

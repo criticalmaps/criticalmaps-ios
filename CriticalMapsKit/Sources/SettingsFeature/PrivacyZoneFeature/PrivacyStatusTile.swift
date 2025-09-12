@@ -4,12 +4,11 @@ import Styleguide
 import SwiftUI
 
 public struct PrivacyStatusTile: View {
+  @Shared(.privacyZoneSettings) private var privacyZoneSettings
   let isInPrivacyZone: Bool
-  let privacyZoneSettings: PrivacyZoneSettings
   
-  public init(isInPrivacyZone: Bool, privacyZoneSettings: PrivacyZoneSettings) {
+  public init(isInPrivacyZone: Bool) {
     self.isInPrivacyZone = isInPrivacyZone
-    self.privacyZoneSettings = privacyZoneSettings
   }
   
   public var body: some View {
@@ -21,52 +20,37 @@ public struct PrivacyStatusTile: View {
   }
   
   private var statusText: String {
-    if !privacyZoneSettings.isEnabled {
-      return "Privacy\nZones Off"
-    } else if isInPrivacyZone {
-      return "Location\nProtected"
+    if isInPrivacyZone {
+      "Location\nProtected"
     } else {
-      return "Location\nShared"
+      "Privacy\nZones " + (privacyZoneSettings.isEnabled ? "On" : "Off")
     }
   }
   
   private var iconName: String {
-    if !privacyZoneSettings.isEnabled {
-      return "location.slash.circle"
-    } else if isInPrivacyZone {
-      return "shield.checkered"
+    if isInPrivacyZone {
+      "location.slash.circle"
     } else {
-      return "location.circle"
+      privacyZoneSettings.isEnabled ? "location.slash.circle" : "location.circle"
     }
   }
   
   private var iconColor: Color {
-    if !privacyZoneSettings.isEnabled {
-      return .secondary
-    } else if isInPrivacyZone {
-      return .orange
+    if isInPrivacyZone {
+      .green
     } else {
-      return .green
+      privacyZoneSettings.isEnabled ? .green : .primary
     }
   }
 }
 
 #Preview {
   HStack {
-    PrivacyStatusTile(
-      isInPrivacyZone: false,
-      privacyZoneSettings: PrivacyZoneSettings(isEnabled: true)
-    )
+    PrivacyStatusTile(isInPrivacyZone: false)
     
-    PrivacyStatusTile(
-      isInPrivacyZone: true,
-      privacyZoneSettings: PrivacyZoneSettings(isEnabled: true)
-    )
+    PrivacyStatusTile(isInPrivacyZone: true)
     
-    PrivacyStatusTile(
-      isInPrivacyZone: false,
-      privacyZoneSettings: PrivacyZoneSettings(isEnabled: false)
-    )
+    PrivacyStatusTile(isInPrivacyZone: false)
   }
   .padding()
 }

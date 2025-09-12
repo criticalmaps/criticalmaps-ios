@@ -59,7 +59,7 @@ public struct PrivacyZoneSettingsView: View {
         
         Toggle(
           "Show Zones on Map",
-          isOn: $store.settings.showZonesOnMap
+          isOn: $store.settings.shouldShowZonesOnMap
         )
       } header: {
         Text("Settings")
@@ -79,7 +79,7 @@ public struct PrivacyZoneSettingsView: View {
         }
       } else {
         Section {
-          VStack(spacing: 12) {
+          VStack(spacing: .grid(3)) {
             Image(systemName: "location.slash.circle")
               .font(.title2)
               .foregroundColor(.secondary)
@@ -94,7 +94,7 @@ public struct PrivacyZoneSettingsView: View {
               .multilineTextAlignment(.center)
           }
           .frame(maxWidth: .infinity)
-          .padding(.vertical, 20)
+          .padding(.vertical, .grid(5))
         }
       }
     }

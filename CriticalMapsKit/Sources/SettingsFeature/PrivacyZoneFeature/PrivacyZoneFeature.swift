@@ -185,7 +185,7 @@ public struct PrivacyZoneFeature {
         
       case .toggleShowZonesOnMap:
         state.$settings.withLock { settings in
-          settings.showZonesOnMap.toggle()
+          settings.shouldShowZonesOnMap.toggle()
         }
         return .none
 

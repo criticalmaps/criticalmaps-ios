@@ -13,13 +13,13 @@ public enum RiderAnnotationUpdateClient {
   public static func update(
     _ riderCoordinates: [Rider],
     _ mapView: MKMapView
-  )
-    -> (
+  ) -> (
       removedAnnotations: [RiderAnnotation],
       addedAnnotations: [RiderAnnotation]
     )
   {
-    let currentlyDisplayedPOIs = mapView.annotations.compactMap { $0 as? RiderAnnotation }
+    let currentlyDisplayedPOIs = mapView.annotations
+      .compactMap { $0 as? RiderAnnotation }
       .map(\.rider)
     
     // Riders that should be added

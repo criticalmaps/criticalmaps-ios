@@ -22,6 +22,16 @@ struct PrivacyZoneMapView: UIViewRepresentable {
     mapView.mapType = .mutedStandard
     mapView.pointOfInterestFilter = .excludingAll
     mapView.showsUserLocation = true
+    mapView.userTrackingMode = .none
+    
+    if let userLocation = mapView.userLocation.location {
+        let region = MKCoordinateRegion(
+            center: userLocation.coordinate,
+            latitudinalMeters: 500,
+            longitudinalMeters: 500
+        )
+        mapView.setRegion(region, animated: true)
+    }
     
     // Add tap gesture for creating zones
     let tapGesture = UITapGestureRecognizer(
@@ -139,6 +149,7 @@ class PrivacyZoneMapCoordinator: NSObject, MKMapViewDelegate {
       renderer.fillColor = UIColor.attentionTranslucent
       renderer.strokeColor = UIColor.attention
       renderer.lineWidth = 1.5
+      renderer.lineDashPattern = [5, 3]
     }
     
     return renderer

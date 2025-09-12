@@ -77,10 +77,12 @@ public struct SettingsView: View {
       linksSection
       
       supportSection
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
       
-      Section {
-        appVersionAndBuildView
-      }
+      appVersionAndBuildView
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
     }
     .navigationTitle(L10n.Settings.title)
     .frame(
@@ -171,59 +173,57 @@ public struct SettingsView: View {
   
   @ViewBuilder
   var supportSection: some View {
-    VStack(alignment: .leading, spacing: .grid(4)) {
-      SupportSettingsRow(
-        title: L10n.Settings.programming,
-        subTitle: L10n.Settings.Opensource.detail,
-        link: L10n.Settings.Opensource.action,
-        textStackForegroundColor: .white,
-        backgroundColor: Color(UIColor.hex(0x332F38)),
-        bottomImage: {
-          Asset.ghLogo.swiftUIImage
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 150, height: 150, alignment: .bottomTrailing)
-            .opacity(0.4)
-            .accessibilityHidden(true)
-        },
-        action: { store.send(.view(.supportSectionRowTapped(.github))) }
-      )
-      .accessibilityAddTraits(.isLink)
-      
-      SupportSettingsRow(
-        title: L10n.Settings.Translate.title,
-        subTitle: L10n.Settings.Translate.subtitle,
-        link: L10n.Settings.Translate.link,
-        textStackForegroundColor: .white,
-        backgroundColor: Color(.translateRowBackground),
-        bottomImage: {
-          Asset.translate.swiftUIImage
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 135, height: 135, alignment: .bottomTrailing)
-            .accessibilityHidden(true)
-        },
-        action: { store.send(.view(.supportSectionRowTapped(.crowdin))) }
-      )
-      .accessibilityAddTraits(.isLink)
-      
-      SupportSettingsRow(
-        title: L10n.Settings.CriticalMassDotIn.title,
-        subTitle: L10n.Settings.CriticalMassDotIn.detail,
-        link: L10n.Settings.CriticalMassDotIn.action,
-        textStackForegroundColor: Color(.textPrimaryLight),
-        backgroundColor: Color(.cmInRowBackground),
-        bottomImage: {
-          Asset.cmDotInLogo.swiftUIImage
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 160, height: 160, alignment: .bottomTrailing)
-            .accessibilityHidden(true)
-        },
-        action: { store.send(.view(.supportSectionRowTapped(.criticalMassDotIn))) }
-      )
-      .accessibilityAddTraits(.isLink)
-    }
+    SupportSettingsRow(
+      title: L10n.Settings.programming,
+      subTitle: L10n.Settings.Opensource.detail,
+      link: L10n.Settings.Opensource.action,
+      textStackForegroundColor: .white,
+      backgroundColor: Color(UIColor.hex(0x332F38)),
+      bottomImage: {
+        Asset.ghLogo.swiftUIImage
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 150, height: 150, alignment: .bottomTrailing)
+          .opacity(0.4)
+          .accessibilityHidden(true)
+      },
+      action: { store.send(.view(.supportSectionRowTapped(.github))) }
+    )
+    .accessibilityAddTraits(.isLink)
+    
+    SupportSettingsRow(
+      title: L10n.Settings.Translate.title,
+      subTitle: L10n.Settings.Translate.subtitle,
+      link: L10n.Settings.Translate.link,
+      textStackForegroundColor: .white,
+      backgroundColor: Color(.translateRowBackground),
+      bottomImage: {
+        Asset.translate.swiftUIImage
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 135, height: 135, alignment: .bottomTrailing)
+          .accessibilityHidden(true)
+      },
+      action: { store.send(.view(.supportSectionRowTapped(.crowdin))) }
+    )
+    .accessibilityAddTraits(.isLink)
+    
+    SupportSettingsRow(
+      title: L10n.Settings.CriticalMassDotIn.title,
+      subTitle: L10n.Settings.CriticalMassDotIn.detail,
+      link: L10n.Settings.CriticalMassDotIn.action,
+      textStackForegroundColor: Color(.textPrimaryLight),
+      backgroundColor: Color(.cmInRowBackground),
+      bottomImage: {
+        Asset.cmDotInLogo.swiftUIImage
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 160, height: 160, alignment: .bottomTrailing)
+          .accessibilityHidden(true)
+      },
+      action: { store.send(.view(.supportSectionRowTapped(.criticalMassDotIn))) }
+    )
+    .accessibilityAddTraits(.isLink)
   }
   
   @ViewBuilder
@@ -312,7 +312,6 @@ public struct SettingsView: View {
       }
       .accessibilityElement(children: .combine)
     }
-    .padding(.grid(4))
   }
 }
 

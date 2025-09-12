@@ -61,11 +61,11 @@ public struct SettingsFeature {
       case acknowledgementsRowTapped
       case appearanceSettingsRowTapped
       case dismiss
-      case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
       case guideRowTapped
       case onAppear
       case rideEventSettingsRowTapped
       case privacyZonesRowTapped
+      case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
       case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
     }
   }

@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Helpers
 import L10n
+import SettingsFeature
 import Styleguide
 import SwiftUI
 import SwiftUIHelpers
@@ -12,6 +13,7 @@ struct InfoOverlayView: View {
   let timerProgress: Double
   let timerValue: String
   let ridersCountLabel: String
+  let isInPrivacyZone: Bool
   
   var body: some View {
     Group {
@@ -98,6 +100,8 @@ struct InfoOverlayView: View {
         }
         .foregroundStyle(Color(.textPrimary))
       }
+      
+      PrivacyStatusTile(isInPrivacyZone: isInPrivacyZone)
     }
     .contentShape(Rectangle())
     .adaptiveClipShape()

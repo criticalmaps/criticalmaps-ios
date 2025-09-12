@@ -34,7 +34,7 @@ struct SupportSettingsRow<BottomImageView: View>: View {
             }
             .shadow(color: textStackForegroundColor.opacity(0.15), radius: 4)
             .font(.body.bold())
-            .padding(4)
+            .padding(.grid(1))
           }
         )
         .padding(.top, 2)
@@ -42,8 +42,8 @@ struct SupportSettingsRow<BottomImageView: View>: View {
       .accessibilityElement(children: .combine)
       .padding([.top, .bottom, .leading], .grid(6))
       .padding(.trailing, 120)
-      .foregroundColor(colorSchemeContrast.isIncreased ? Color(.backgroundPrimary) : textStackForegroundColor)
       .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
+      .foregroundColor(colorSchemeContrast.isIncreased ? Color(.backgroundPrimary) : textStackForegroundColor)
     }
     .background(
       Group {
@@ -61,7 +61,7 @@ struct SupportSettingsRow<BottomImageView: View>: View {
         }
       }
     )
-    .clipShape(RoundedRectangle(cornerRadius: 16))
+    .clipShape(RoundedRectangle(cornerRadius: 24))
   }
 }
 
@@ -72,7 +72,7 @@ struct SupportSettingsRow<BottomImageView: View>: View {
     link: "GitHub",
     textStackForegroundColor: Color(.textPrimary),
     backgroundColor: .yellow,
-    bottomImage: { Image(systemName: "chevron.left.circle.fill") },
+    bottomImage: { Asset.ghLogo.swiftUIImage },
     action: {}
   )
 }

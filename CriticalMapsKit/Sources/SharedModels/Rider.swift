@@ -1,6 +1,6 @@
 import Foundation
 
-/// A structure the represents a paricipant.
+/// A structure the represents a participant.
 public struct Rider: Identifiable, Hashable {
   public let id: String
   public let coordinate: Coordinate

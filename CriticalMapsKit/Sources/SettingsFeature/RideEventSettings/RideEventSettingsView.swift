@@ -59,6 +59,7 @@ public struct RideEventSettingsView: View {
           }
       }
     }
+    .animation(nil)
     .padding(.vertical, .grid(1))
     .accessibilityElement(children: .combine)
   }

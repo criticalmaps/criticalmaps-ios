@@ -61,7 +61,7 @@ public struct PrivacyZoneMapContainerView: View {
         isCreatingZone: .constant(false),
         newZoneRadius: .constant(400),
         mapCenter: .constant(nil),
-        showZones: store.settings.showZonesOnMap
+        showZones: store.settings.shouldShowZonesOnMap
       ) { _ in
         // Map tap handling can be removed since we're using sheet-based creation
       }
@@ -82,7 +82,7 @@ public struct PrivacyZoneMapContainerView: View {
         Text("Quick Zone Toggle")
           .font(.headline)
         Spacer()
-        Button("Show All Zones", systemImage: store.settings.showZonesOnMap ? "eye.slash" : "eye") {
+        Button("Show All Zones", systemImage: store.settings.shouldShowZonesOnMap ? "eye.slash" : "eye") {
           store.send(.toggleShowZonesOnMap)
         }
         .font(.subheadline)

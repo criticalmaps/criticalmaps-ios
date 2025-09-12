@@ -149,7 +149,7 @@ struct MapView: ViewRepresentable {
     mapView.removeOverlays(existingPrivacyOverlays)
     
     // Add privacy zone overlays if enabled
-    guard privacyZoneSettings.isEnabled else { return }
+    guard privacyZoneSettings.canShowOnMap else { return }
     
     for zone in privacyZoneSettings.zones where zone.isActive {
       let circle = zone.mkCircle
@@ -205,9 +205,10 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
        let title = circle.title,
        title.hasPrefix("privacy_zone_") {
       let renderer = MKCircleRenderer(circle: circle)
-      renderer.fillColor = UIColor.attentionTranslucent
+      renderer.fillColor = UIColor.attentionTranslucent.withAlphaComponent(0.4)
       renderer.strokeColor = UIColor.attention
       renderer.lineWidth = 1.5
+      renderer.lineDashPattern = [5, 3]
       return renderer
     }
     
