@@ -138,19 +138,10 @@ class PrivacyZoneMapCoordinator: NSObject, MKMapViewDelegate {
     
     let renderer = MKCircleRenderer(circle: circle)
     
-    if circle.title == "preview" {
-      // Preview zone styling
-      renderer.fillColor = UIColor.brand500.withAlphaComponent(0.2)
-      renderer.strokeColor = UIColor.brand500
-      renderer.lineWidth = 2
-      renderer.lineDashPattern = [5, 3]
-    } else {
-      // Regular privacy zone styling
-      renderer.fillColor = UIColor.attentionTranslucent
-      renderer.strokeColor = UIColor.attention
-      renderer.lineWidth = 1.5
-      renderer.lineDashPattern = [5, 3]
-    }
+    renderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.15)
+    renderer.strokeColor = UIColor.systemGreen
+    renderer.lineWidth = 1.5
+    renderer.lineDashPattern = [5, 3]
     
     return renderer
   }

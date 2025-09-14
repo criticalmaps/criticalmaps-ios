@@ -14,7 +14,7 @@ public struct AppearanceSettingsView: View {
 
   public var body: some View {
     SettingsForm {
-      Section("Theme") {
+      Section {
         Picker("", selection: $store.colorScheme.animation()) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) {
             Text($0.title)
@@ -23,10 +23,18 @@ public struct AppearanceSettingsView: View {
         .pickerStyle(.segmented)
         .frame(height: 50)
         .padding(.horizontal, .grid(2))
+      } header: {
+        SectionHeader {
+          Text("Theme")
+        }
       }
       
-      Section(L10n.Settings.appIcon) {
+      Section {
         AppIconPicker(appIcon: $store.appIcon)
+      } header: {
+        SectionHeader {
+          Text(L10n.Settings.appIcon)
+        }
       }
     }
     .navigationBarTitle(
@@ -62,8 +70,9 @@ struct AppIconPicker: View {
       Spacer()
       
       if self.appIcon == icon {
-        Image(systemName: "checkmark.circle.fill")
+        Image(systemName: "checkmark")
           .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
+          .fontWeight(.medium)
       }
     }
   }

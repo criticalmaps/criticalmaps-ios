@@ -20,26 +20,31 @@ public struct RideEventSettingsView: View {
         label: { Text(L10n.Settings.eventSettingsEnable) }
       )
 
-      Section(L10n.Settings.eventTypes) {
+      Section {
         ForEach(store.scope(state: \.rideEventTypes, action: \.rideEventType)) {
           RideEventTypeView(store: $0)
         }
         .disabled(!store.isEnabled)
+      } header: {
+        SectionHeader {
+          Text(L10n.Settings.eventTypes)
+        }
       }
       
-      Section(L10n.Settings.eventSearchRadius) {
+      Section {
         ForEach(EventDistance.allCases, id: \.self) { radius in
           Button(
             action: {
-              store.send(
-                .binding(.set(\.eventSearchRadius, radius)),
-                animation: .spring
-              )
+              store.send(.binding(.set(\.eventSearchRadius, radius)))
             },
             label: { distanceRow(radius) }
           )
         }
         .disabled(!store.isEnabled)
+      } header: {
+        SectionHeader {
+          Text(L10n.Settings.eventSearchRadius)
+        }
       }
     }
     .accessibleAnimation(.snappy, value: store.isEnabled)
@@ -53,13 +58,12 @@ public struct RideEventSettingsView: View {
         .accessibility(label: Text(radius.accessibilityLabel))
       Spacer()
       if store.eventSearchRadius == radius {
-        Image(systemName: "checkmark.circle.fill")
-          .accessibilityRepresentation {
-            Text(L10n.A11y.General.selected)
-          }
+        Image(systemName: "checkmark")
+          .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
+          .fontWeight(.medium)
       }
     }
-    .animation(nil)
+    .animation(nil, value: store.isEnabled)
     .padding(.vertical, .grid(1))
     .accessibilityElement(children: .combine)
   }
@@ -77,25 +81,5 @@ public struct RideEventSettingsView: View {
         }
       )
     )
-  }
-}
-
-// MARK: Helper
-
-struct RideEventSettingsRow: View {
-  let title: String
-  let isEnabled: Bool
-
-  var body: some View {
-    HStack(spacing: .grid(3)) {
-      Text(title)
-        .padding(.vertical, .grid(2))
-      Spacer()
-      if isEnabled {
-        Image(systemName: "checkmark.circle.fill")
-      } else {
-        Image(systemName: "circle")
-      }
-    }
   }
 }

@@ -50,11 +50,15 @@ public struct RideEventTypeView: View {
         HStack(spacing: .grid(3)) {
           Text(store.rideType.title)
           Spacer()
-          Image(systemName: store.isEnabled ? "checkmark.circle.fill" : "circle")
+          if store.isEnabled {
+            Image(systemName: "checkmark")
+              .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
+              .fontWeight(.medium)
+          }
         }
         .padding(.vertical, .grid(1))
       }
     )
-    .accessibilityValue(store.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
+    .accessibilityElement(children: .combine)
   }
 }

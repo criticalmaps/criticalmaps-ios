@@ -211,8 +211,8 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
        let title = circle.title,
        title.hasPrefix("privacy_zone_") {
       let renderer = MKCircleRenderer(circle: circle)
-      renderer.fillColor = UIColor.attentionTranslucent.withAlphaComponent(0.4)
-      renderer.strokeColor = UIColor.attention
+      renderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.15)
+      renderer.strokeColor = UIColor.systemGreen
       renderer.lineWidth = 1.5
       renderer.lineDashPattern = [5, 3]
       return renderer

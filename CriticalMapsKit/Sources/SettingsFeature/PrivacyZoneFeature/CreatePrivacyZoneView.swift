@@ -23,14 +23,14 @@ public struct CreatePrivacyZoneView: View {
       .navigationTitle("Create Privacy Zone")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        ToolbarItem(placement: .navigationBarLeading) {
-          Button("Cancel") {
+        ToolbarItem(placement: .cancellationAction) {
+          Button("Cancel", systemImage: "xmark") {
             store.send(.dismiss)
           }
         }
         
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button("Create") {
+        ToolbarItem(placement: .confirmationAction) {
+          Button("Create", systemImage: "checkmark") {
             store.send(.createZone)
           }
           .disabled(!store.canCreateZone)
@@ -114,36 +114,11 @@ public struct CreatePrivacyZoneView: View {
             .font(.caption)
             .foregroundColor(.secondary)
         } maximumValueLabel: {
-          Text(zoneRadiusRangeMax.formatted(
-            .measurement(
-              width: .abbreviated,
-              usage: .general
-            ))
-          )
-          .font(.caption)
-          .foregroundColor(.secondary)
+          Text(zoneRadiusRangeMax.formatted())
+            .font(.caption)
+            .foregroundColor(.secondary)
         }
         .tint(Color(.brand500))
-      }
-      
-      if store.mapCenter != nil {
-        HStack {
-          Image(systemName: "checkmark.circle.fill")
-            .foregroundColor(.green)
-          Text("Location selected")
-            .font(.subheadline)
-            .foregroundColor(.secondary)
-          Spacer()
-        }
-      } else {
-        HStack {
-          Image(systemName: "location.circle")
-            .foregroundColor(.secondary)
-          Text("Tap the map to select a location")
-            .font(.subheadline)
-            .foregroundColor(.secondary)
-          Spacer()
-        }
       }
     }
   }

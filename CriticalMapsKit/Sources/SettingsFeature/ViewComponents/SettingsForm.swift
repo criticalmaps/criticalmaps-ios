@@ -39,3 +39,19 @@ struct SettingsRow<Content: View>: View {
     }
   }
 }
+
+struct SectionHeader<Content: View>: View {
+  let content: () -> Content
+
+  init(@ViewBuilder content: @escaping () -> Content) {
+    self.content = content
+  }
+
+  var body: some View {
+    HStack {
+      content()
+        .font(.callout)
+        .fontWeight(.semibold)
+    }
+  }
+}

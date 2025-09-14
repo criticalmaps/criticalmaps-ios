@@ -64,21 +64,26 @@ public struct PrivacyZoneSettingsView: View {
         )
         .font(.body)
       } header: {
-        Text("Settings")
-          .font(.callout)
+        SectionHeader {
+          Text("Settings")
+        }
       } footer: {
         Text("Privacy zones prevent your location from being shared when you're within the defined area.")
-          .font(.subheadline)
+          .font(.footnote)
       }
       
       if !store.settings.zones.isEmpty {
-        Section("Your Privacy Zones (\(store.settings.zones.count))") {
+        Section {
           ForEach(store.settings.zones) { zone in
             ZoneRow(
               zone: zone,
               isActive: $store.state[isActiveID: zone.id],
               onDelete: { store.send(.deleteZone(zone)) }
             )
+          }
+        } header: {
+          SectionHeader {
+            Text("Your Privacy Zones (\(store.settings.zones.count))")
           }
         }
       } else {
@@ -98,7 +103,6 @@ public struct PrivacyZoneSettingsView: View {
               .multilineTextAlignment(.center)
           }
           .frame(maxWidth: .infinity)
-          .padding(.vertical, .grid(5))
         }
       }
     }

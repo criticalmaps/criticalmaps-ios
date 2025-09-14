@@ -46,7 +46,7 @@ struct ZoneRow: View {
             )
           }
         }
-        .font(.callout)
+        .font(.footnote)
         .foregroundColor(.secondary)
       }
       
