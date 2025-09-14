@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import CoreLocation
 import L10n
 import SharedModels
 import Styleguide
@@ -29,6 +30,10 @@ public struct RideEventSettingsView: View {
         SectionHeader {
           Text(L10n.Settings.eventTypes)
         }
+      } footer: {
+        Text("Select which types of ride events you'd like to be notified about when they occur near your location.")
+          .font(.footnote)
+          .foregroundStyle(.secondary)
       }
       
       Section {
@@ -45,6 +50,10 @@ public struct RideEventSettingsView: View {
         SectionHeader {
           Text(L10n.Settings.eventSearchRadius)
         }
+      } footer: {
+        Text("Choose how far around your location to search for ride events. A larger radius will show more events but may include those less relevant to your ride.")
+          .font(.footnote)
+          .foregroundStyle(.secondary)
       }
     }
     .accessibleAnimation(.snappy, value: store.isEnabled)

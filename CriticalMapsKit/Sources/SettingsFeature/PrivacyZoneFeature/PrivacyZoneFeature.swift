@@ -227,6 +227,7 @@ public struct PrivacyZoneSettingsView: View {
       } footer: {
         Text("Privacy zones prevent your location from being shared when you're within the defined area.")
           .font(.footnote)
+          .foregroundStyle(.secondary)
       }
       
       if !store.settings.zones.isEmpty {

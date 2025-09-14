@@ -15,6 +15,10 @@ public struct CreateZoneFeature {
     public var newZoneRadius: Double = 400
     public var mapCenter: Coordinate?
     
+    public var newZoneRadiusMeasurement: Measurement<UnitLength> {
+      Measurement(value: newZoneRadius, unit: UnitLength.meters)
+    }
+    
     public init() {
       // Initialize radius with default from settings
       self.newZoneRadius = settings.defaultRadius
@@ -183,13 +187,13 @@ public struct CreatePrivacyZoneView: View {
           Text("Radius")
             .font(.headline)
           Spacer()
-          Text("\(Int(store.newZoneRadius))m")
+          Text(store.newZoneRadiusMeasurement.formatted())
             .font(.subheadline)
             .foregroundColor(.primary)
             .padding(.horizontal, .grid(2))
             .padding(.vertical, .grid(1))
             .background(Color(.systemGray5))
-            .cornerRadius(6)
+            .cornerRadius(8)
         }
         
         Slider(
