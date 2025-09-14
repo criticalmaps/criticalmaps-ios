@@ -5,97 +5,13 @@ import SwiftUI
 import CoreLocation
 
 @Reducer
-public struct CreateZoneFeature {
-  public init() {}
-  
-  @ObservableState
-  public struct State: Equatable {
-    @Shared(.privacyZoneSettings) var settings
-    public var newZoneName = ""
-    public var newZoneRadius: Double = 400
-    public var mapCenter: Coordinate?
-    
-    public init() {
-      // Initialize radius with default from settings
-      self.newZoneRadius = settings.defaultRadius
-    }
-    
-    public var canCreateZone: Bool {
-      !newZoneName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-      mapCenter != nil
-    }
-  }
-  
-  @CasePathable
-  public enum Action: BindableAction {
-    case binding(BindingAction<State>)
-    case createZone
-    case setMapCenter(Coordinate?)
-    case dismiss
-    case delegate(Delegate)
-    
-    @CasePathable
-    public enum Delegate {
-      case zoneCreated(PrivacyZone)
-    }
-  }
-  
-  @Dependency(\.uuid) var uuid
-  @Dependency(\.date) var date
-  @Dependency(\.dismiss) var dismiss
-  
-  public var body: some ReducerOf<Self> {
-    BindingReducer()
-    
-    Reduce { state, action in
-      switch action {
-      case .createZone:
-        guard
-          state.canCreateZone,
-          let center = state.mapCenter
-        else {
-          return .none
-        }
-        
-        let newZone = PrivacyZone(
-          id: uuid(),
-          name: state.newZoneName.trimmingCharacters(in: .whitespacesAndNewlines),
-          center: center,
-          radius: state.newZoneRadius,
-          createdAt: date()
-        )
-        
-        return .run { send in
-          await send(.delegate(.zoneCreated(newZone)))
-          await dismiss()
-        }
-        
-      case let .setMapCenter(coordinate):
-        state.mapCenter = coordinate
-        return .none
-        
-      case .dismiss:
-        return .run { _ in
-          await dismiss()
-        }
-        
-      case .delegate:
-        return .none
-        
-      case .binding:
-        return .none
-      }
-    }
-  }
-}
-
-@Reducer
 public struct PrivacyZoneFeature {
   public init() {}
   
   @Reducer
   public enum Destination {
     case createZoneSheet(CreateZoneFeature)
+    case confirmationDialog
   }
   
   @ObservableState
@@ -153,18 +69,7 @@ public struct PrivacyZoneFeature {
       case let .deleteZone(zone):
         state.zoneDeletionCandidate = zone
         
-        state.confirmationDialog = ConfirmationDialogState {
-          TextState("Delete Privacy Zone")
-        } actions: {
-          ButtonState(role: .cancel) {
-            TextState("Cancel")
-          }
-          ButtonState(action: .deleteZoneButtonTapped) {
-            TextState("Delete Zone")
-          }
-        } message: {
-          TextState("Are you sure you want to delete the privacy zone '\(zone.name)'? This action cannot be undone.")
-        }
+        state.confirmationDialog = .deletePrivacyZone(zone: zone)
         return .none
         
       case let .toggleZoneActive(zone):
@@ -231,5 +136,22 @@ extension PrivacyZoneFeature.State {
   subscript(isActiveID id: UUID) -> Bool {
     get { settings.zones[id: id]?.isActive ?? false }
     set { $settings.withLock { $0.zones[id: id]?.isActive = newValue } }
+  }
+}
+
+extension ConfirmationDialogState where Action == PrivacyZoneFeature.Action.ConfirmationDialog {
+  public static func deletePrivacyZone(zone: PrivacyZone) -> Self {
+    ConfirmationDialogState {
+      TextState("Delete Privacy Zone")
+    } actions: {
+      ButtonState(role: .cancel) {
+        TextState("Cancel")
+      }
+      ButtonState(action: .deleteZoneButtonTapped) {
+        TextState("Delete Zone")
+      }
+    } message: {
+      TextState("Are you sure you want to delete the privacy zone '\(zone.name)'? This action cannot be undone.")
+    }
   }
 }

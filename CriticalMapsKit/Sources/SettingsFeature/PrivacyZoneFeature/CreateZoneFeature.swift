@@ -2,6 +2,95 @@ import ComposableArchitecture
 import SharedModels
 import SwiftUI
 
+// MARK: - Reducer
+
+@Reducer
+public struct CreateZoneFeature {
+  public init() {}
+  
+  @ObservableState
+  public struct State: Equatable {
+    @Shared(.privacyZoneSettings) var settings
+    public var newZoneName = ""
+    public var newZoneRadius: Double = 400
+    public var mapCenter: Coordinate?
+    
+    public init() {
+      // Initialize radius with default from settings
+      self.newZoneRadius = settings.defaultRadius
+    }
+    
+    public var canCreateZone: Bool {
+      !newZoneName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+      mapCenter != nil
+    }
+  }
+  
+  @CasePathable
+  public enum Action: BindableAction {
+    case binding(BindingAction<State>)
+    case createZone
+    case setMapCenter(Coordinate?)
+    case dismiss
+    case delegate(Delegate)
+    
+    @CasePathable
+    public enum Delegate {
+      case zoneCreated(PrivacyZone)
+    }
+  }
+  
+  @Dependency(\.uuid) var uuid
+  @Dependency(\.date) var date
+  @Dependency(\.dismiss) var dismiss
+  
+  public var body: some ReducerOf<Self> {
+    BindingReducer()
+    
+    Reduce { state, action in
+      switch action {
+      case .createZone:
+        guard
+          state.canCreateZone,
+          let center = state.mapCenter
+        else {
+          return .none
+        }
+        
+        let newZone = PrivacyZone(
+          id: uuid(),
+          name: state.newZoneName.trimmingCharacters(in: .whitespacesAndNewlines),
+          center: center,
+          radius: state.newZoneRadius,
+          createdAt: date()
+        )
+        
+        return .run { send in
+          await send(.delegate(.zoneCreated(newZone)))
+          await dismiss()
+        }
+        
+      case let .setMapCenter(coordinate):
+        state.mapCenter = coordinate
+        return .none
+        
+      case .dismiss:
+        return .run { _ in
+          await dismiss()
+        }
+        
+      case .delegate:
+        return .none
+        
+      case .binding:
+        return .none
+      }
+    }
+  }
+}
+
+// MARK: - View
+
 let zoneRadiusRangeMin = Measurement(value: 100, unit: UnitLength.meters)
 let zoneRadiusRangeMax = Measurement(value: 1000, unit: UnitLength.meters)
 let zoneRadiusRange: ClosedRange<Double> = zoneRadiusRangeMin.value...zoneRadiusRangeMax.value
