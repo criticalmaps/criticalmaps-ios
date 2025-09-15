@@ -66,6 +66,14 @@ public enum L10n {
       public static let riders = L10n.tr("Localizable", "appView.overlay.riders", fallback: "Riders")
     }
   }
+  public enum AppearanceSettings {
+    public enum ThemePicker {
+      /// Select Theme
+      public static let label = L10n.tr("Localizable", "appearanceSettings.themePicker.label", fallback: "Select Theme")
+      /// Theme
+      public static let sectionHeader = L10n.tr("Localizable", "appearanceSettings.themePicker.sectionHeader", fallback: "Theme")
+    }
+  }
   public enum Chat {
     /// So quiet here
     public static let emptyMessageTitle = L10n.tr("Localizable", "chat.emptyMessageTitle", fallback: "So quiet here")
@@ -105,6 +113,16 @@ public enum L10n {
     /// ErrorState
     public static let title = L10n.tr("Localizable", "errorState.title", fallback: "Error")
   }
+  public enum Home {
+    public enum Tab {
+      public enum Social {
+        /// Unread messages: %@
+        public static func unreadMessages(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "home.tab.social.unreadMessages", String(describing: p1), fallback: "Unread messages: %@")
+        }
+      }
+    }
+  }
   public enum Location {
     public enum Alert {
       /// Please give us access to your location in settings.
@@ -140,6 +158,12 @@ public enum L10n {
         public static let title = L10n.tr("Localizable", "map.layer.info.title", fallback: "GPS deactivated")
       }
     }
+    public enum Location {
+      public enum Request {
+        /// Location makes this app better. Please consider giving us access.
+        public static let desciption = L10n.tr("Localizable", "map.location.request.desciption", fallback: "Location makes this app better. Please consider giving us access.")
+      }
+    }
     public enum LocationButton {
       /// locating
       public static let label = L10n.tr("Localizable", "map.locationButton.label", fallback: "locating")
@@ -157,6 +181,99 @@ public enum L10n {
       public static let hideAll = L10n.tr("Localizable", "map.nextRideEvents.hideAll", fallback: "Hide events")
       /// Show events
       public static let showAll = L10n.tr("Localizable", "map.nextRideEvents.showAll", fallback: "Show events")
+    }
+  }
+  public enum PrivacyZone {
+    public enum Settings {
+      /// Privacy Zone Settings
+      public static let navigationTitle = L10n.tr("Localizable", "privacyZone.settings.navigationTitle", fallback: "Privacy Zone Settings")
+      public enum Create {
+        /// Create Privacy Zone
+        public static let navigationTitle = L10n.tr("Localizable", "privacyZone.settings.create.navigationTitle", fallback: "Create Privacy Zone")
+        public enum Cta {
+          /// Create
+          public static let create = L10n.tr("Localizable", "privacyZone.settings.create.cta.create", fallback: "Create")
+        }
+        public enum Map {
+          /// Choose Location
+          public static let headline = L10n.tr("Localizable", "privacyZone.settings.create.map.headline", fallback: "Choose Location")
+          /// Radius
+          public static let radius = L10n.tr("Localizable", "privacyZone.settings.create.map.radius", fallback: "Radius")
+          /// Tap on the map to set the center of your privacy zone
+          public static let subheadline = L10n.tr("Localizable", "privacyZone.settings.create.map.subheadline", fallback: "Tap on the map to set the center of your privacy zone")
+          public enum Name {
+            /// Zone Name
+            public static let headline = L10n.tr("Localizable", "privacyZone.settings.create.map.name.headline", fallback: "Zone Name")
+            /// e.g., Home
+            public static let placeholder = L10n.tr("Localizable", "privacyZone.settings.create.map.name.placeholder", fallback: "e.g., Home")
+          }
+        }
+      }
+      public enum Dialog {
+        /// Are you sure you want to delete the privacy zone '%@'?
+        /// This action cannot be undone.
+        public static func message(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "privacyZone.settings.dialog.message", String(describing: p1), fallback: "Are you sure you want to delete the privacy zone '%@'?\nThis action cannot be undone.")
+        }
+        public enum Cta {
+          /// Cancel
+          public static let cancel = L10n.tr("Localizable", "privacyZone.settings.dialog.cta.cancel", fallback: "Cancel")
+          /// Delete
+          public static let delete = L10n.tr("Localizable", "privacyZone.settings.dialog.cta.delete", fallback: "Delete")
+        }
+        public enum Delete {
+          /// Delete Privacy Zone
+          public static let headline = L10n.tr("Localizable", "privacyZone.settings.dialog.delete.headline", fallback: "Delete Privacy Zone")
+        }
+      }
+      public enum Disabled {
+        /// Enable Privacy Zones
+        public static let cta = L10n.tr("Localizable", "privacyZone.settings.disabled.cta", fallback: "Enable Privacy Zones")
+        /// Privacy Zones
+        public static let headline = L10n.tr("Localizable", "privacyZone.settings.disabled.headline", fallback: "Privacy Zones")
+        /// Create zones where your location won't be shared with other riders
+        public static let subheadline = L10n.tr("Localizable", "privacyZone.settings.disabled.subheadline", fallback: "Create zones where your location won't be shared with other riders")
+      }
+      public enum Empty {
+        /// No privacy zones created yet
+        public static let headline = L10n.tr("Localizable", "privacyZone.settings.empty.headline", fallback: "No privacy zones created yet")
+        /// Create your first zone to start protecting your privacy
+        public static let subheadline = L10n.tr("Localizable", "privacyZone.settings.empty.subheadline", fallback: "Create your first zone to start protecting your privacy")
+      }
+      public enum Section {
+        /// Privacy zones prevent your location from being shared when you're within the defined area.
+        public static let footer = L10n.tr("Localizable", "privacyZone.settings.section.footer", fallback: "Privacy zones prevent your location from being shared when you're within the defined area.")
+        /// Settings
+        public static let header = L10n.tr("Localizable", "privacyZone.settings.section.header", fallback: "Settings")
+        /// Your Privacy Zones
+        public static let yourZones = L10n.tr("Localizable", "privacyZone.settings.section.yourZones", fallback: "Your Privacy Zones")
+      }
+      public enum Toggle {
+        /// Enable Privacy Zones
+        public static let enableFeature = L10n.tr("Localizable", "privacyZone.settings.toggle.enableFeature", fallback: "Enable Privacy Zones")
+        /// Show Zones on Map
+        public static let showZonesOnMap = L10n.tr("Localizable", "privacyZone.settings.toggle.showZonesOnMap", fallback: "Show Zones on Map")
+      }
+    }
+    public enum Tile {
+      public enum StatusText {
+        /// Location Hidden
+        public static let hidden = L10n.tr("Localizable", "privacyZone.tile.statusText.hidden", fallback: "Location Hidden")
+        /// Privacy Zones Off
+        public static let off = L10n.tr("Localizable", "privacyZone.tile.statusText.off", fallback: "Privacy Zones Off")
+        /// Privacy Zones On
+        public static let on = L10n.tr("Localizable", "privacyZone.tile.statusText.on", fallback: "Privacy Zones On")
+      }
+    }
+  }
+  public enum RideEventSettings {
+    public enum RideTypes {
+      /// Select which types of ride events you'd like to be notified about when they occur near your location.
+      public static let footer = L10n.tr("Localizable", "rideEventSettings.rideTypes.footer", fallback: "Select which types of ride events you'd like to be notified about when they occur near your location.")
+    }
+    public enum SearchRadius {
+      /// Choose how far around your location to search for ride events. A larger radius will show more events but may include those less relevant to your ride.
+      public static let footer = L10n.tr("Localizable", "rideEventSettings.searchRadius.footer", fallback: "Choose how far around your location to search for ride events. A larger radius will show more events but may include those less relevant to your ride.")
     }
   }
   public enum Rules {
@@ -276,6 +393,20 @@ public enum L10n {
       /// Show ID
       public static let showID = L10n.tr("Localizable", "settings.friends.showID", fallback: "Show ID")
     }
+    public enum Info {
+      public enum Toggle {
+        /// Show info toogle over the map
+        public static let description = L10n.tr("Localizable", "settings.info.toggle.description", fallback: "Show info toogle over the map")
+        /// Show info view
+        public static let label = L10n.tr("Localizable", "settings.info.toggle.label", fallback: "Show info view")
+      }
+    }
+    public enum Navigation {
+      public enum PrivacySettings {
+        /// Privacy Zones
+        public static let label = L10n.tr("Localizable", "settings.navigation.privacySettings.label", fallback: "Privacy Zones")
+      }
+    }
     public enum Observationmode {
       /// If you don’t take part yourself, but want to follow the Critical Mass.
       public static let detail = L10n.tr("Localizable", "settings.observationmode.detail", fallback: "If you don’t take part yourself, but want to follow the Critical Mass.")
@@ -311,6 +442,18 @@ public enum L10n {
       public static let subtitle = L10n.tr("Localizable", "settings.translate.subtitle", fallback: "Help making Critical Maps available in other languages")
       /// Translate
       public static let title = L10n.tr("Localizable", "settings.translate.title", fallback: "Translate")
+    }
+  }
+  public enum Social {
+    public enum Error {
+      /// Failed to fetch chat messages
+      public static let fetchMessages = L10n.tr("Localizable", "social.error.fetchMessages", fallback: "Failed to fetch chat messages")
+      /// Failed to send chat message
+      public static let sendMessage = L10n.tr("Localizable", "social.error.sendMessage", fallback: "Failed to send chat message")
+    }
+    public enum Feed {
+      /// Loading Feed
+      public static let loading = L10n.tr("Localizable", "social.feed.loading", fallback: "Loading Feed")
     }
   }
   public enum Twitter {

@@ -282,3 +282,53 @@
 "twitter.title" = "Twitter";
 
 "twitter.empty.message" = "Qui troverai i tweet taggati con @criticalmaps and #criticalmass";
+
+"privacyZone.settings.toggle.enableFeature" = "Attiva zone di privacy";
+"privacyZone.settings.toggle.showZonesOnMap" = "Mostra zone sulla mappa";
+"privacyZone.settings.navigationTitle" = "Impostazioni zone di privacy";
+
+"privacyZone.settings.dialog.delete.headline" = "Elimina zona di privacy";
+"privacyZone.settings.dialog.cta.cancel" = "Annulla";
+"privacyZone.settings.dialog.cta.delete" = "Elimina";
+"privacyZone.settings.dialog.message" = "Sei sicuro di voler eliminare la zona di privacy «%@»?\nQuesta azione non può essere annullata.";
+
+"privacyZone.settings.section.header" = "Impostazioni";
+"privacyZone.settings.section.footer" = "Le zone di privacy impediscono di condividere la tua posizione quando ti trovi all’interno dell’area definita.";
+"privacyZone.settings.section.yourZones" = "Le tue zone di privacy";
+
+"privacyZone.settings.empty.headline" = "Non hai ancora creato zone di privacy";
+"privacyZone.settings.empty.subheadline" = "Crea la tua prima zona per iniziare a proteggere la tua privacy";
+
+"privacyZone.settings.disabled.headline" = "Zone di privacy";
+"privacyZone.settings.disabled.subheadline" = "Crea zone in cui la tua posizione non verrà condivisa con altri ciclisti";
+"privacyZone.settings.disabled.cta" = "Attiva zone di privacy";
+
+"privacyZone.settings.create.navigationTitle" = "Crea zona di privacy";
+"privacyZone.settings.create.map.headline" = "Scegli posizione";
+"privacyZone.settings.create.map.subheadline" = "Tocca la mappa per impostare il centro della tua zona di privacy";
+"privacyZone.settings.create.map.name.headline" = "Nome della zona";
+"privacyZone.settings.create.map.name.placeholder" = "es. Casa";
+"privacyZone.settings.create.map.radius" = "Raggio";
+"privacyZone.settings.create.cta.create" = "Crea";
+
+"privacyZone.tile.statusText.off" = "Zone di privacy disattivate";
+"privacyZone.tile.statusText.on" = "Zone di privacy attivate";
+"privacyZone.tile.statusText.hidden" = "Posizione nascosta";
+
+"rideEventSettings.rideTypes.footer" = "Seleziona i tipi di eventi di corsa per cui vuoi ricevere notifiche quando si verificano vicino a te.";
+"rideEventSettings.searchRadius.footer" = "Scegli quanto lontano intorno alla tua posizione cercare eventi di corsa. Un raggio più ampio mostrerà più eventi, ma forse meno rilevanti.";
+
+"appearanceSettings.themePicker.label" = "Seleziona tema";
+"appearanceSettings.themePicker.sectionHeader" = "Tema";
+
+"settings.navigation.privacySettings.label" = "Zone di privacy";
+"settings.info.toggle.label" = "Mostra vista info";
+"settings.info.toggle.description" = "Mostra interruttore info sulla mappa";
+
+"home.tab.social.unreadMessages" = "Messaggi non letti: %@";
+
+"social.error.fetchMessages" = "Impossibile caricare i messaggi della chat";
+"social.error.sendMessage" = "Impossibile inviare il messaggio della chat";
+"social.feed.loading" = "Caricamento feed";
+
+"map.location.request.desciption" = "La tua posizione rende questa app migliore. Per favore concedici l’accesso.";

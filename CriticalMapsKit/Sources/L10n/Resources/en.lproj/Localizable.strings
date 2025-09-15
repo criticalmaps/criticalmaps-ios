@@ -281,3 +281,54 @@
 "twitter.title" = "Twitter";
 
 "twitter.empty.message" = "Here you’ll find tweets tagged with @criticalmaps and #criticalmass";
+
+
+"privacyZone.settings.toggle.enableFeature" = "Enable Privacy Zones";
+"privacyZone.settings.toggle.showZonesOnMap" = "Show Zones on Map";
+"privacyZone.settings.navigationTitle" = "Privacy Zone Settings";
+
+"privacyZone.settings.dialog.delete.headline" = "Delete Privacy Zone";
+"privacyZone.settings.dialog.cta.cancel" = "Cancel";
+"privacyZone.settings.dialog.cta.delete" = "Delete";
+"privacyZone.settings.dialog.message" = "Are you sure you want to delete the privacy zone '%@'?\nThis action cannot be undone.";
+
+"privacyZone.settings.section.header" = "Settings";
+"privacyZone.settings.section.footer" = "Privacy zones prevent your location from being shared when you're within the defined area.";
+"privacyZone.settings.section.yourZones" = "Your Privacy Zones";
+
+"privacyZone.settings.empty.headline" = "No privacy zones created yet";
+"privacyZone.settings.empty.subheadline" = "Create your first zone to start protecting your privacy";
+
+"privacyZone.settings.disabled.headline" = "Privacy Zones";
+"privacyZone.settings.disabled.subheadline" = "Create zones where your location won't be shared with other riders";
+"privacyZone.settings.disabled.cta" = "Enable Privacy Zones";
+
+"privacyZone.settings.create.navigationTitle" = "Create Privacy Zone";
+"privacyZone.settings.create.map.headline" = "Choose Location";
+"privacyZone.settings.create.map.subheadline" = "Tap on the map to set the center of your privacy zone";
+"privacyZone.settings.create.map.name.headline" = "Zone Name";
+"privacyZone.settings.create.map.name.placeholder" = "e.g., Home";
+"privacyZone.settings.create.map.radius" = "Radius";
+"privacyZone.settings.create.cta.create" = "Create";
+
+"privacyZone.tile.statusText.off" = "Privacy Zones Off";
+"privacyZone.tile.statusText.on" = "Privacy Zones On";
+"privacyZone.tile.statusText.hidden" = "Location Hidden";
+
+"rideEventSettings.rideTypes.footer" = "Select which types of ride events you'd like to be notified about when they occur near your location.";
+"rideEventSettings.searchRadius.footer" = "Choose how far around your location to search for ride events. A larger radius will show more events but may include those less relevant to your ride.";
+
+"appearanceSettings.themePicker.label" = "Select Theme";
+"appearanceSettings.themePicker.sectionHeader" = "Theme";
+
+"settings.navigation.privacySettings.label" = "Privacy Zones";
+"settings.info.toggle.label" = "Show info view";
+"settings.info.toggle.description" = "Show info toogle over the map";
+
+"home.tab.social.unreadMessages" = "Unread messages: %@";
+
+"social.error.fetchMessages" = "Failed to fetch chat messages";
+"social.error.sendMessage" = "Failed to send chat message";
+"social.feed.loading" = "Loading Feed";
+
+"map.location.request.desciption" = "Location makes this app better. Please consider giving us access.";

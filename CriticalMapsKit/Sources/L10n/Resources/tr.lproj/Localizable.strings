@@ -282,3 +282,53 @@
 "twitter.title" = "Twitter";
 
 "twitter.empty.message" = "Burada, @criticalmaps ve #criticalmass etiketli tweet'leri bulabilirsiniz";
+
+"privacyZone.settings.toggle.enableFeature" = "Gizlilik bölgelerini etkinleştir";
+"privacyZone.settings.toggle.showZonesOnMap" = "Bölgeleri haritada göster";
+"privacyZone.settings.navigationTitle" = "Gizlilik bölgesi ayarları";
+
+"privacyZone.settings.dialog.delete.headline" = "Gizlilik bölgesini sil";
+"privacyZone.settings.dialog.cta.cancel" = "İptal";
+"privacyZone.settings.dialog.cta.delete" = "Sil";
+"privacyZone.settings.dialog.message" = "«%@» gizlilik bölgesini silmek istediğine emin misin?\nBu işlem geri alınamaz.";
+
+"privacyZone.settings.section.header" = "Ayarlar";
+"privacyZone.settings.section.footer" = "Gizlilik bölgeleri, tanımlı alan içindeyken konumunun paylaşılmasını engeller.";
+"privacyZone.settings.section.yourZones" = "Gizlilik bölgelerin";
+
+"privacyZone.settings.empty.headline" = "Henüz gizlilik bölgesi oluşturmadın";
+"privacyZone.settings.empty.subheadline" = "İlk bölgeni oluştur ve gizliliğini korumaya başla";
+
+"privacyZone.settings.disabled.headline" = "Gizlilik bölgeleri";
+"privacyZone.settings.disabled.subheadline" = "Konumunun diğer sürücülerle paylaşılmayacağı bölgeler oluştur";
+"privacyZone.settings.disabled.cta" = "Gizlilik bölgelerini etkinleştir";
+
+"privacyZone.settings.create.navigationTitle" = "Gizlilik bölgesi oluştur";
+"privacyZone.settings.create.map.headline" = "Konum seç";
+"privacyZone.settings.create.map.subheadline" = "Haritaya dokunarak gizlilik bölgenin merkezini belirle";
+"privacyZone.settings.create.map.name.headline" = "Bölge adı";
+"privacyZone.settings.create.map.name.placeholder" = "örn. Ev";
+"privacyZone.settings.create.map.radius" = "Yarıçap";
+"privacyZone.settings.create.cta.create" = "Oluştur";
+
+"privacyZone.tile.statusText.off" = "Gizlilik bölgeleri kapalı";
+"privacyZone.tile.statusText.on" = "Gizlilik bölgeleri açık";
+"privacyZone.tile.statusText.hidden" = "Konum gizlendi";
+
+"rideEventSettings.rideTypes.footer" = "Yakınında gerçekleştiğinde hangi tür sürüş etkinlikleri hakkında bilgilendirilmek istediğini seç.";
+"rideEventSettings.searchRadius.footer" = "Sürüş etkinliklerini aramak için konumunun çevresinde ne kadar mesafe kullanılacağını seç. Daha geniş bir yarıçap daha fazla etkinlik gösterir, ancak daha az ilgili olabilir.";
+
+"appearanceSettings.themePicker.label" = "Tema seç";
+"appearanceSettings.themePicker.sectionHeader" = "Tema";
+
+"settings.navigation.privacySettings.label" = "Gizlilik bölgeleri";
+"settings.info.toggle.label" = "Bilgi görünümünü göster";
+"settings.info.toggle.description" = "Harita üzerinde bilgi düğmesini göster";
+
+"home.tab.social.unreadMessages" = "Okunmamış mesajlar: %@";
+
+"social.error.fetchMessages" = "Sohbet mesajları yüklenemedi";
+"social.error.sendMessage" = "Sohbet mesajı gönderilemedi";
+"social.feed.loading" = "Akış yükleniyor";
+
+"map.location.request.desciption" = "Konum bu uygulamayı daha iyi yapar. Lütfen bize erişim ver.";
