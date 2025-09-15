@@ -37,30 +37,3 @@ public struct RideEventRadius {
       }
   }
 }
-
-public struct RideEventRadiusView: View {
-  @Bindable var store: StoreOf<RideEventRadius>
-  
-  public var body: some View {
-    SettingsRow {
-      Button(
-        action: { store.send(.binding(.set(\.isSelected, true))) },
-        label: {
-          HStack(spacing: .grid(3)) {
-            Text(String(store.eventDistance.displayValue))
-              .accessibility(label: Text(store.eventDistance.displayValue))
-              .padding(.vertical, .grid(2))
-            Spacer()
-            if store.isSelected {
-              Image(systemName: "checkmark.circle.fill")
-                .accessibilityRepresentation {
-                  Text(L10n.A11y.General.selected)
-                }
-            }
-          }
-          .accessibilityElement(children: .combine)
-        }
-      )
-    }
-  }
-}

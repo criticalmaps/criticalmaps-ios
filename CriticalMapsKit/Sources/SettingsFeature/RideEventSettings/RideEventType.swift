@@ -44,19 +44,21 @@ public struct RideEventTypeView: View {
   }
   
   public var body: some View {
-    SettingsRow {
-      Button(
-        action: { store.isEnabled.toggle() },
-        label: {
-          HStack(spacing: .grid(3)) {
-            Text(store.rideType.title)
-              .padding(.vertical, .grid(2))
-            Spacer()
-            Image(systemName: store.isEnabled ? "checkmark.circle.fill" : "circle")
+    Button(
+      action: { store.isEnabled.toggle() },
+      label: {
+        HStack(spacing: .grid(3)) {
+          Text(store.rideType.title)
+          Spacer()
+          if store.isEnabled {
+            Image(systemName: "checkmark")
+              .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
+              .fontWeight(.medium)
           }
         }
-      )
-    }
-    .accessibilityValue(store.isEnabled ? Text(L10n.A11y.General.selected) : Text(""))
+        .padding(.vertical, .grid(1))
+      }
+    )
+    .accessibilityElement(children: .combine)
   }
 }

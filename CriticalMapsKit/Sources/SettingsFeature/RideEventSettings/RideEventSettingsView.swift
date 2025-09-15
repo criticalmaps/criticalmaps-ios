@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import CoreLocation
 import L10n
 import SharedModels
 import Styleguide
@@ -15,61 +16,65 @@ public struct RideEventSettingsView: View {
 
   public var body: some View {
     SettingsForm {
-      Spacer(minLength: 28)
+      Toggle(
+        isOn: $store.isEnabled.animation(),
+        label: { Text(L10n.Settings.eventSettingsEnable) }
+      )
 
-      SettingsRow {
-        Toggle(
-          isOn: $store.isEnabled.animation(),
-          label: { Text(L10n.Settings.eventSettingsEnable) }
-        )
-      }
-
-      ZStack(alignment: .top) {
-        VStack {
-          SettingsSection(title: L10n.Settings.eventTypes) {
-            ForEach(store.scope(state: \.rideEventTypes, action: \.rideEventType)) {
-              RideEventTypeView(store: $0)
-            }
-          }
-
-          SettingsSection(title: L10n.Settings.eventSearchRadius) {
-            ForEach(EventDistance.allCases, id: \.self) { radius in
-              SettingsRow {
-                Button(
-                  action: {
-                    store.send(
-                      .binding(.set(\.eventSearchRadius, radius)),
-                      animation: .spring
-                    )
-                  },
-                  label: {
-                    HStack(spacing: .grid(3)) {
-                      Text(String(radius.displayValue))
-                        .accessibility(label: Text(radius.accessibilityLabel))
-                        .padding(.vertical, .grid(2))
-                      Spacer()
-                      if store.eventSearchRadius == radius {
-                        Image(systemName: "checkmark.circle.fill")
-                          .accessibilityRepresentation {
-                            Text(L10n.A11y.General.selected)
-                          }
-                      }
-                    }
-                    .accessibilityElement(children: .combine)
-                  }
-                )
-              }
-            }
-          }
+      Section {
+        ForEach(store.scope(state: \.rideEventTypes, action: \.rideEventType)) {
+          RideEventTypeView(store: $0)
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: store.isEnabled ? .none : 0)
-        .clipped()
-        .accessibleAnimation(.interactiveSpring(), value: store.isEnabled)
+        .disabled(!store.isEnabled)
+      } header: {
+        SectionHeader {
+          Text(L10n.Settings.eventTypes)
+        }
+      } footer: {
+        Text(L10n.RideEventSettings.RideTypes.footer)
+          .font(.footnote)
+          .foregroundStyle(.secondary)
       }
-      .foregroundColor(Color(.textPrimary))
-      .disabled(!store.isEnabled)
+      
+      Section {
+        ForEach(EventDistance.allCases, id: \.self) { radius in
+          Button(
+            action: {
+              store.send(.binding(.set(\.eventSearchRadius, radius)))
+            },
+            label: { distanceRow(radius) }
+          )
+        }
+        .disabled(!store.isEnabled)
+      } header: {
+        SectionHeader {
+          Text(L10n.Settings.eventSearchRadius)
+        }
+      } footer: {
+        Text(L10n.RideEventSettings.SearchRadius.footer)
+          .font(.footnote)
+          .foregroundStyle(.secondary)
+      }
     }
+    .accessibleAnimation(.snappy, value: store.isEnabled)
     .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
+  }
+  
+  @ViewBuilder
+  private func distanceRow(_ radius: EventDistance) -> some View {
+    HStack(spacing: .grid(2)) {
+      Text(String(radius.displayValue))
+        .accessibility(label: Text(radius.accessibilityLabel))
+      Spacer()
+      if store.eventSearchRadius == radius {
+        Image(systemName: "checkmark")
+          .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
+          .fontWeight(.medium)
+      }
+    }
+    .animation(nil, value: store.isEnabled)
+    .padding(.vertical, .grid(1))
+    .accessibilityElement(children: .combine)
   }
 }
 
@@ -85,25 +90,5 @@ public struct RideEventSettingsView: View {
         }
       )
     )
-  }
-}
-
-// MARK: Helper
-
-struct RideEventSettingsRow: View {
-  let title: String
-  let isEnabled: Bool
-
-  var body: some View {
-    HStack(spacing: .grid(3)) {
-      Text(title)
-        .padding(.vertical, .grid(2))
-      Spacer()
-      if isEnabled {
-        Image(systemName: "checkmark.circle.fill")
-      } else {
-        Image(systemName: "circle")
-      }
-    }
   }
 }
