@@ -355,18 +355,7 @@ struct Settings_PrivacyZoneFeatureTests {
       
       await store.send(.deleteZone(zone)) {
         $0.zoneDeletionCandidate = zone
-        $0.confirmationDialog = ConfirmationDialogState {
-          TextState("Delete Privacy Zone")
-        } actions: {
-          ButtonState(role: .cancel) {
-            TextState("Cancel")
-          }
-          ButtonState(action: .deleteZoneButtonTapped) {
-            TextState("Delete Zone")
-          }
-        } message: {
-          TextState("Are you sure you want to delete the privacy zone 'Home'? This action cannot be undone.")
-        }
+        $0.confirmationDialog = .deletePrivacyZone(zone: zone)
       }
     }
     
