@@ -12,7 +12,7 @@ platform :ios do
     scan(
       project: "CriticalMaps.xcodeproj",
       scheme: Scheme,
-      destination: "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5",
+      destination: "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.0",
       result_bundle: true,
       output_directory: "./fastlane/test_output",
       xcargs: '-skipPackagePluginValidation -skipMacroValidation'
