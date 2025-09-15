@@ -15,13 +15,15 @@ public struct AppearanceSettingsView: View {
   public var body: some View {
     SettingsForm {
       Section {
-        Picker("", selection: $store.colorScheme.animation()) {
-          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) {
-            Text($0.title)
+        Picker("Select Theme", selection: $store.colorScheme) {
+          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) { theme in
+            Text(theme.title)
+              .tag(theme)
           }
         }
-        .pickerStyle(.segmented)
-        .frame(height: 50)
+        .pickerStyle(.palette)
+        .labelsHidden()
+        .frame(height: 40)
         .padding(.horizontal, .grid(2))
       } header: {
         SectionHeader {

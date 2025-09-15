@@ -108,10 +108,12 @@ public struct CreatePrivacyZoneView: View {
   
   public var body: some View {
     NavigationStack {
-      VStack(spacing: .grid(5)) {
-        mapSection
-        detailsSection
-        Spacer()
+      ScrollView(.vertical, showsIndicators: false) {
+        VStack(spacing: .grid(5)) {
+          mapSection
+          detailsSection
+          Spacer()
+        }
       }
       .navigationTitle("Create Privacy Zone")
       .navigationBarTitleDisplayMode(.inline)

@@ -18,7 +18,7 @@ struct ZoneRow: View {
           Circle()
             .stroke(
               zone.isActive
-              ? Color.green.opacity(0.3)
+              ? Color.green.opacity(0.4)
               : Color.secondary.opacity(0.2),
               style: zone.isActive
               ? StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round)
@@ -69,8 +69,8 @@ struct ZoneRow: View {
   @ViewBuilder
   private func icon() -> some View {
     zone.isActive
-    ? Asset.pzLocationShieldSlash.swiftUIImage
-    : Asset.pzLocationShield.swiftUIImage
+    ? Asset.pzLocationShield.swiftUIImage
+    : Asset.pzLocationShieldSlash.swiftUIImage
   }
 }
 

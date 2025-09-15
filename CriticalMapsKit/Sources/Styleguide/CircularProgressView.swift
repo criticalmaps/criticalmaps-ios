@@ -2,9 +2,14 @@ import SwiftUI
 
 public struct CircularProgressView: View {
   let progress: Double
+  let lineWidth: CGFloat
 
-  public init(progress: Double) {
+  public init(
+    progress: Double,
+    lineWidth: CGFloat = 8
+  ) {
     self.progress = progress
+    self.lineWidth = lineWidth
   }
 
   public var body: some View {
@@ -12,7 +17,7 @@ public struct CircularProgressView: View {
       Circle()
         .stroke(
           Color(.brand500).opacity(0.4),
-          lineWidth: 8
+          lineWidth: lineWidth
         )
 
       Circle()
@@ -20,7 +25,7 @@ public struct CircularProgressView: View {
         .stroke(
           Color(.brand500),
           style: StrokeStyle(
-            lineWidth: 8,
+            lineWidth: lineWidth,
             lineCap: .round
           )
         )

@@ -14,7 +14,8 @@ public struct PrivacyStatusTile: View {
   public var body: some View {
     DataTile(statusText) {
       icon
-        .font(.title2)
+        .font(.title)
+        .foregroundStyle(foregroundStyleColor)
         .accessibilityHidden(true)
     }
     .accessibilityElement(children: .ignore)
@@ -34,17 +35,27 @@ public struct PrivacyStatusTile: View {
     }
   }
   
+  private var foregroundStyleColor: Color {
+    if !privacyZoneSettings.isEnabled {
+      Color.secondary
+    } else if isInPrivacyZone {
+      Color.green
+    } else {
+      Color.primary
+    }
+  }
+  
   @ViewBuilder
   private var icon: some View {
     if !privacyZoneSettings.isEnabled {
-      Asset.pzLocationShield.swiftUIImage
-        .tint(.secondary)
+      Asset.pzLocationShieldSlash.swiftUIImage
+        .renderingMode(.template)
     } else if isInPrivacyZone {
-      Asset.pzLocationShieldSlash.swiftUIImage
-        .tint(.green)
+      Asset.pzLocationShield.swiftUIImage
+        .renderingMode(.template)
     } else {
-      Asset.pzLocationShieldSlash.swiftUIImage
-        .tint(.primary)
+      Asset.pzLocationShield.swiftUIImage
+        .renderingMode(.template)
     }
   }
   // MARK: - Accessibility
@@ -60,18 +71,22 @@ public struct PrivacyStatusTile: View {
 
 #Preview {
   HStack(spacing: 16) {
-    PrivacyStatusTile(isInPrivacyZone: false) // Zones On
-      .environment(\.colorScheme, .dark)
+    @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
+      isEnabled: true,
+      zones: [.init(
+        name: "",
+        center: Coordinate(latitude: 53.31, longitude: 13.43),
+        radius: 400
+      )],
+      defaultRadius: 400,
+      shouldShowZonesOnMap: true
+    )
     
     PrivacyStatusTile(isInPrivacyZone: true)  // Location Hidden
     
     PrivacyStatusTile(isInPrivacyZone: false) // Zones Off
       .environment(\.colorScheme, .light)
       .environment(\.dynamicTypeSize, .accessibility2)
-      .task {
-        @Shared(.privacyZoneSettings) var zones
-        $zones.withLock { $0.isEnabled = false }
-      }
   }
   .padding()
 }

@@ -20,7 +20,9 @@ struct MapView: ViewRepresentable {
   var riderCoordinates: [Rider]
   var nextRide: Ride?
   var rideEvents: [Ride] = []
-  @Shared(.privacyZoneSettings) var privacyZoneSettings: PrivacyZoneSettings
+  let privacyZones: IdentifiedArrayOf<PrivacyZone>
+  let canShowPrivacyZonesOnMap: Bool
+  
   @Dependency(\.idProvider) var idProvider
 
   var mapMenuShareEventHandler: MenuActionHandle?
@@ -31,6 +33,8 @@ struct MapView: ViewRepresentable {
     userTrackingMode: Binding<MKUserTrackingMode>,
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
+    privacyZones: IdentifiedArrayOf<PrivacyZone> = [],
+    canShowPrivacyZonesOnMap: Bool = false,
     annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
     centerEventRegion: Binding<CoordinateRegion?>,
@@ -41,6 +45,8 @@ struct MapView: ViewRepresentable {
     _userTrackingMode = userTrackingMode
     self.nextRide = nextRide
     self.rideEvents = rideEvents
+    self.privacyZones = privacyZones
+    self.canShowPrivacyZonesOnMap = canShowPrivacyZonesOnMap
     _annotationsCount = annotationsCount
     _centerRegion = centerRegion
     _centerEventRegion = centerEventRegion
@@ -155,9 +161,9 @@ struct MapView: ViewRepresentable {
     mapView.removeOverlays(existingPrivacyOverlays)
     
     // Add privacy zone overlays if enabled
-    guard privacyZoneSettings.canShowOnMap else { return }
+    guard canShowPrivacyZonesOnMap else { return }
     
-    for zone in privacyZoneSettings.zones where zone.isActive {
+    for zone in privacyZones where zone.isActive {
       let circle = zone.mkCircle
       circle.title = "privacy_zone_\(zone.id.uuidString)"
       mapView.addOverlay(circle)

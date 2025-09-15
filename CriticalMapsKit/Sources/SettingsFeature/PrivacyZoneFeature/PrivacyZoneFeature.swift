@@ -198,7 +198,6 @@ public struct PrivacyZoneSettingsView: View {
         Button("Add", systemImage: "plus") {
           store.send(.addZoneButtonTapped)
         }
-        .labelStyle(.iconOnly)
         .disabled(!store.settings.isEnabled)
       }
     }
@@ -220,6 +219,7 @@ public struct PrivacyZoneSettingsView: View {
           isOn: $store.settings.shouldShowZonesOnMap
         )
         .font(.body)
+        .disabled(!store.settings.isEnabled)
       } header: {
         SectionHeader {
           Text("Settings")
@@ -232,13 +232,14 @@ public struct PrivacyZoneSettingsView: View {
       
       if !store.settings.zones.isEmpty {
         Section {
-          ForEach(store.settings.zones) { zone in
+          ForEach(store.settings.zones, id: \.id) { zone in
             ZoneRow(
               zone: zone,
               isActive: $store.state[isActiveID: zone.id],
               onDelete: { store.send(.deleteZone(zone)) }
             )
           }
+          .disabled(!store.settings.isEnabled)
         } header: {
           SectionHeader {
             Text("Your Privacy Zones (\(store.settings.zones.count))")
