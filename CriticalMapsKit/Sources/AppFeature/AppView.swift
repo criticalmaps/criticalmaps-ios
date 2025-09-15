@@ -132,7 +132,8 @@ public struct AppView: View {
         InfoOverlayView(
           timerProgress: store.timerProgress,
           timerValue: store.timerValue,
-          ridersCountLabel: store.ridersCount
+          ridersCountLabel: store.ridersCount,
+          isInPrivacyZone: store.isCurrentLocationInPrivacyZone
         )
       }
       

@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Helpers
 import L10n
+import SettingsFeature
 import Styleguide
 import SwiftUI
 import SwiftUIHelpers
@@ -12,6 +13,7 @@ struct InfoOverlayView: View {
   let timerProgress: Double
   let timerValue: String
   let ridersCountLabel: String
+  let isInPrivacyZone: Bool
   
   var body: some View {
     Group {
@@ -40,7 +42,7 @@ struct InfoOverlayView: View {
           .padding(.grid(2))
       },
       label: {
-        progressView()
+        progressView(lineWidth: 5)
           .frame(width: 36, height: 36)
           .padding(.grid(1))
           .onTapGesture {
@@ -94,10 +96,12 @@ struct InfoOverlayView: View {
         HStack {
           Text(ridersCountLabel)
             .font(.pageTitle)
-            .modifier(NumericContentTransition())
+            .contentTransition(.numericText(countsDown: true))
         }
         .foregroundStyle(Color(.textPrimary))
       }
+      
+      PrivacyStatusTile(isInPrivacyZone: isInPrivacyZone)
     }
     .contentShape(Rectangle())
     .adaptiveClipShape()
@@ -107,14 +111,14 @@ struct InfoOverlayView: View {
   }
   
   @ViewBuilder
-  private func progressView() -> some View {
-    CircularProgressView(progress: timerProgress)
+  private func progressView(lineWidth: CGFloat = 8) -> some View {
+    CircularProgressView(progress: timerProgress, lineWidth: lineWidth)
       .overlay(alignment: .center) {
         Text(verbatim: timerValue)
           .foregroundStyle(Color(.textPrimary))
           .font(.system(size: 14).bold())
           .monospacedDigit()
-          .modifier(NumericContentTransition())
+          .contentTransition(.numericText(countsDown: true))
       }
   }
 }

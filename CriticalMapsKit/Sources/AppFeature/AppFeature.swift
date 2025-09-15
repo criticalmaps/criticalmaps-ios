@@ -53,11 +53,13 @@ public struct AppFeature {
     public var isEventListPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
+    public var isCurrentLocationInPrivacyZone = false
     
     @Shared(.userSettings) var userSettings
     @Shared(.rideEventSettings) var rideEventSettings
     @Shared(.appearanceSettings) var appearanceSettings
     @Shared(.hasConnectionError) var hasConnectionError
+    @Shared(.privacyZoneSettings) var privacyZoneSettings
     
     public init(
       locationsAndChatMessages: [Rider]? = nil,
@@ -87,7 +89,7 @@ public struct AppFeature {
       return progress
     }
 
-    public var sendLocation: Bool {
+    public var shouldSendLocation: Bool {
       requestTimer.secondsElapsed == 30
     }
 
@@ -274,7 +276,14 @@ public struct AppFeature {
         return .none
         
       case .postLocation:
-        if state.userSettings.isObservationModeEnabled {
+        guard !state.userSettings.isObservationModeEnabled else {
+          return .none
+        }
+        
+        // Check if current location is in a privacy zone
+        if let currentLocation = state.mapFeatureState.location,
+           state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate) {
+          logger.debug("Location not posted - user is in a privacy zone")
           return .none
         }
         
@@ -306,6 +315,12 @@ public struct AppFeature {
           
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
+          
+          if let currentLocation = state.mapFeatureState.location {
+            let isLocationInPrivacyZone = state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate)
+            state.isCurrentLocationInPrivacyZone = isLocationInPrivacyZone
+          }
+          
           let coordinate = state.mapFeatureState.location?.coordinate
           let isRideEventsEnabled = state.rideEventSettings.isEnabled
           if isRideEventsEnabled, let coordinate, !state.didRequestNextRide {
@@ -355,7 +370,7 @@ public struct AppFeature {
                 }
               }
             }
-          } else if state.sendLocation {
+          } else if state.shouldSendLocation {
             return .send(.postLocation)
           } else {
             return .none
