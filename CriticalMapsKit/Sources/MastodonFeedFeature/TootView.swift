@@ -26,6 +26,14 @@ public struct TootFeature {
     var imageAttachments: [MastodonKit.Attachment] {
       mediaAttachments.filter { $0.type == .image }
     }
+    // Build the full items array once for this render
+    var imageSheetItems: [ImageSheetItem] {
+      imageAttachments.compactMap { attachment in
+        let urlString = attachment.previewURL ?? attachment.url
+        guard let url = URL(string: urlString) else { return nil }
+        return ImageSheetItem(url: url, description: attachment.description)
+      }
+    }
     
     public init(
       id: String,
@@ -86,7 +94,10 @@ public struct TootView: View {
   @Environment(\.colorScheme) private var colorScheme
   
   @State private var store: StoreOf<TootFeature>
-  @State private var selectedImageItem: ImageSheetItem? = nil
+  // Holds all image items for the sheet
+  @State private var shouldPresentImageItems = false
+  // Which index to start at in the zoomable view
+  @State private var selectedImageStartIndex: Int = 0
   
   public init(store: StoreOf<TootFeature>) {
     self.store = store
@@ -118,7 +129,7 @@ public struct TootView: View {
         .accessibilityHidden(true)
         
         VStack(alignment: .leading, spacing: .grid(1)) {
-          tweetheader()
+          header()
             .contentShape(Rectangle())
             .onTapGesture {
               store.send(.openUser)
@@ -137,19 +148,24 @@ public struct TootView: View {
       }
     }
     .sheet(
-      item: $selectedImageItem,
-      onDismiss: { selectedImageItem = nil }
-    ) { imageSheetItem in
+      isPresented: $shouldPresentImageItems,
+      onDismiss: {
+        shouldPresentImageItems = false
+      }
+    ) {
       NavigationStack {
-        UIKitZoomableImageView(item: imageSheetItem)
-          .background(Color.black.opacity(0.95))
-          .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-              CloseButton(color: .white) {
-                selectedImageItem = nil
-              }
+        UIKitZoomableImageView(
+          items: store.imageSheetItems,
+          startIndex: selectedImageStartIndex
+        )
+        .background(Color.black.opacity(0.9))
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            CloseButton(color: .white) {
+              shouldPresentImageItems = false
             }
           }
+        }
       }
     }
     .accessibilityElement(children: .combine)
@@ -157,7 +173,7 @@ public struct TootView: View {
   }
   
   @ViewBuilder
-  func tweetheader() -> some View {
+  func header() -> some View {
     Group {
       if dynamicTypeSize.isAccessibilitySize {
         VStack(alignment: .leading) {
@@ -165,7 +181,7 @@ public struct TootView: View {
             displayName
           }
           accountName
-          tweetPostDatetime
+          postDatetime
         }
       } else {
         HStack(alignment: .top) {
@@ -176,7 +192,7 @@ public struct TootView: View {
             accountName
           }
           Spacer()
-          tweetPostDatetime
+          postDatetime
         }
       }
     }
@@ -188,7 +204,7 @@ public struct TootView: View {
         }
         displayName
         Text("posted at")
-        tweetPostDatetime
+        postDatetime
       }
     })
   }
@@ -208,7 +224,7 @@ public struct TootView: View {
       .accessibilityHidden(true)
   }
   
-  private var tweetPostDatetime: some View {
+  private var postDatetime: some View {
     let (text, a11yValue) = store.state.formattedCreationDate()
     return Text(text ?? "")
       .font(.meta)
@@ -220,33 +236,29 @@ public struct TootView: View {
   private var imageAttachmentsView: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {
-        ForEach(store.imageAttachments, id: \.id) { attachment in
-          if let url = URL(string: attachment.previewURL ?? attachment.url) {
-            AsyncImage(url: url) { phase in
-              switch phase {
-              case .empty:
-                Color.gray.opacity(0.2)
-              case .success(let image):
-                image
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(height: 180)
-                  .cornerRadius(8)
-                  .onTapGesture {
-                    selectedImageItem = ImageSheetItem(
-                      url: url,
-                      description: attachment.description
-                    )
-                  }
-              case .failure:
-                Color.red.opacity(0.2)
-              @unknown default:
-                EmptyView()
-              }
+        ForEach(Array(store.imageSheetItems.enumerated()), id: \.element.id) { index, item in
+          AsyncImage(url: item.url) { phase in
+            switch phase {
+            case .empty:
+              Color.gray.opacity(0.2)
+            case .success(let image):
+              image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 180)
+                .cornerRadius(8)
+                .onTapGesture {
+                  shouldPresentImageItems = true
+                  selectedImageStartIndex = index
+                }
+            case .failure:
+              Color.gray.opacity(0.2)
+            @unknown default:
+              EmptyView()
             }
-            .accessibilityHidden(attachment.description == nil)
-            .accessibilityLabel(attachment.description ?? "")
           }
+          .accessibilityHidden(item.description == nil)
+          .accessibilityLabel(item.description ?? "")
         }
       }
     }
