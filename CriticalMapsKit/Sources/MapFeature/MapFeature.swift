@@ -106,7 +106,7 @@ public struct MapFeature {
         case .didChangeAuthorization(.denied):
           if state.isRequestingCurrentLocation {
             state.alert = AlertState {
-              TextState("Location makes this app better. Please consider giving us access.") // TODO: L10n
+              TextState(L10n.Map.Location.Request.desciption)
             }
             
             state.isRequestingCurrentLocation = false

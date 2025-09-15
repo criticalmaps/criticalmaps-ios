@@ -35,7 +35,7 @@ public struct SettingsView: View {
           label: {
             SettingsRow {
               Label {
-                Text("Privacy Zones")
+                Text(L10n.Settings.Navigation.PrivacySettings.label)
               } icon: {
                 Asset.pzLocationShield.swiftUIImage
               }
@@ -160,9 +160,9 @@ public struct SettingsView: View {
   var infoRow: some View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
-        Text("Show info view")
+        Text(L10n.Settings.Info.Toggle.label)
           .font(.body)
-        Text("Show info toogle over the map")
+        Text(L10n.Settings.Info.Toggle.description)
           .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
           .font(.subheadline)
       }

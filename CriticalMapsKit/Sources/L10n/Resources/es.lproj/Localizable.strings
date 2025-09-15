@@ -282,3 +282,52 @@
 "twitter.title" = "Twitter";
 
 "twitter.empty.message" = "Aquí encontrarás tweets etiquetados con @criticalmaps y #criticalmass";
+
+"privacyZone.settings.toggle.enableFeature" = "Activar zonas de privacidad";
+"privacyZone.settings.toggle.showZonesOnMap" = "Mostrar zonas en el mapa";
+"privacyZone.settings.navigationTitle" = "Ajustes de zonas de privacidad";
+
+"privacyZone.settings.dialog.delete.headline" = "Eliminar zona de privacidad";
+"privacyZone.settings.dialog.cta.cancel" = "Cancelar";
+"privacyZone.settings.dialog.cta.delete" = "Eliminar";
+"privacyZone.settings.dialog.message" = "¿Seguro que quieres eliminar la zona de privacidad «%@»?\nEsta acción no se puede deshacer.";
+
+"privacyZone.settings.section.header" = "Ajustes";
+"privacyZone.settings.section.footer" = "Las zonas de privacidad evitan que se comparta tu ubicación cuando estés dentro del área definida.";
+"privacyZone.settings.section.yourZones" = "Tus zonas de privacidad";
+
+"privacyZone.settings.empty.headline" = "Aún no has creado ninguna zona de privacidad";
+"privacyZone.settings.empty.subheadline" = "Crea tu primera zona para empezar a proteger tu privacidad";
+
+"privacyZone.settings.disabled.headline" = "Zonas de privacidad";
+"privacyZone.settings.disabled.subheadline" = "Crea zonas donde tu ubicación no se comparta con otros ciclistas";
+"privacyZone.settings.disabled.cta" = "Activar zonas de privacidad";
+
+"privacyZone.settings.create.navigationTitle" = "Crear zona de privacidad";
+"privacyZone.settings.create.map.headline" = "Elige ubicación";
+"privacyZone.settings.create.map.subheadline" = "Toca en el mapa para establecer el centro de tu zona de privacidad";
+"privacyZone.settings.create.map.name.headline" = "Nombre de la zona";
+"privacyZone.settings.create.map.name.placeholder" = "p. ej., Casa";
+"privacyZone.settings.create.map.radius" = "Radio";
+
+"privacyZone.tile.statusText.off" = "Zonas de privacidad desactivadas";
+"privacyZone.tile.statusText.on" = "Zonas de privacidad activadas";
+"privacyZone.tile.statusText.hidden" = "Ubicación oculta";
+
+"rideEventSettings.rideTypes.footer" = "Selecciona sobre qué tipos de eventos de ruta quieres recibir notificaciones cuando ocurran cerca de tu ubicación.";
+"rideEventSettings.searchRadius.footer" = "Elige la distancia alrededor de tu ubicación para buscar eventos. Un radio mayor mostrará más eventos, pero quizás menos relevantes.";
+
+"appearanceSettings.themePicker.label" = "Seleccionar tema";
+"appearanceSettings.themePicker.sectionHeader" = "Tema";
+
+"settings.navigation.privacySettings.label" = "Zonas de privacidad";
+"settings.info.toggle.label" = "Mostrar vista de información";
+"settings.info.toggle.description" = "Mostrar interruptor de info sobre el mapa";
+
+"home.tab.social.unreadMessages" = "Mensajes sin leer: %@";
+
+"social.error.fetchMessages" = "No se pudieron cargar los mensajes del chat";
+"social.error.sendMessage" = "No se pudo enviar el mensaje del chat";
+"social.feed.loading" = "Cargando feed";
+
+"map.location.request.desciption" = "La ubicación mejora esta app. Por favor, danos acceso.";

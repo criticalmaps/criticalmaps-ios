@@ -1,3 +1,4 @@
+import L10n
 import Styleguide
 import SwiftUI
 
@@ -19,11 +20,11 @@ struct PrivacyZoneDisabledView: View {
           .foregroundColor(.secondary)
         
         VStack(spacing: .grid(2)) {
-          Text("Privacy Zones")
+          Text(L10n.PrivacyZone.Settings.Disabled.headline)
             .font(.title2)
             .fontWeight(.semibold)
           
-          Text("Create zones where your location won't be shared with other riders")
+          Text(L10n.PrivacyZone.Settings.Disabled.subheadline)
             .font(.body)
             .foregroundColor(.secondary)
             .multilineTextAlignment(.center)
@@ -31,7 +32,7 @@ struct PrivacyZoneDisabledView: View {
         }
       }
       
-      Button("Enable Privacy Zones") {
+      Button(L10n.PrivacyZone.Settings.Disabled.cta) {
         buttonTapAction()
       }
       .buttonStyle(CMButtonStyle())

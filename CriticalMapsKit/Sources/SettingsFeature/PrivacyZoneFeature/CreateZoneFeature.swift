@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import L10n
 import SharedModels
 import SwiftUI
 
@@ -115,7 +116,7 @@ public struct CreatePrivacyZoneView: View {
           Spacer()
         }
       }
-      .navigationTitle("Create Privacy Zone")
+      .navigationTitle(L10n.PrivacyZone.Settings.Create.navigationTitle)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
@@ -139,10 +140,10 @@ public struct CreatePrivacyZoneView: View {
   @ViewBuilder
   private var mapSection: some View {
     VStack(alignment: .leading, spacing: .grid(3)) {
-      Text("Choose Location")
+      Text(L10n.PrivacyZone.Settings.Create.Map.headline)
         .font(.headline)
       
-      Text("Tap on the map to set the center of your privacy zone")
+      Text(L10n.PrivacyZone.Settings.Create.Map.subheadline)
         .font(.subheadline)
         .foregroundColor(.secondary)
       
@@ -176,17 +177,17 @@ public struct CreatePrivacyZoneView: View {
   private var detailsSection: some View {
     VStack(alignment: .leading, spacing: .grid(5)) {
       VStack(alignment: .leading, spacing: .grid(2)) {
-        Text("Zone Name")
+        Text(L10n.PrivacyZone.Settings.Create.Map.Name.headline)
           .font(.headline)
         
-        TextField("e.g., Home, Work, Gym", text: $store.newZoneName)
+        TextField(L10n.PrivacyZone.Settings.Create.Map.Name.placeholder, text: $store.newZoneName)
           .textFieldStyle(.roundedBorder)
           .autocorrectionDisabled()
       }
       
       VStack(alignment: .leading, spacing: .grid(3)) {
         HStack {
-          Text("Radius")
+          Text(L10n.PrivacyZone.Settings.Create.Map.radius)
             .font(.headline)
           Spacer()
           Text(store.newZoneRadiusMeasurement.formatted())
@@ -203,7 +204,7 @@ public struct CreatePrivacyZoneView: View {
           in: zoneRadiusRange,
           step: 50
         ) {
-          Text("Radius")
+          Text(L10n.PrivacyZone.Settings.Create.Map.radius)
         } minimumValueLabel: {
           Text(zoneRadiusRangeMin.formatted())
             .font(.caption)

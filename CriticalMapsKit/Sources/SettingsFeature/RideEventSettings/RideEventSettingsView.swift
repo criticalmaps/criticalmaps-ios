@@ -31,7 +31,7 @@ public struct RideEventSettingsView: View {
           Text(L10n.Settings.eventTypes)
         }
       } footer: {
-        Text("Select which types of ride events you'd like to be notified about when they occur near your location.")
+        Text(L10n.RideEventSettings.RideTypes.footer)
           .font(.footnote)
           .foregroundStyle(.secondary)
       }
@@ -51,7 +51,7 @@ public struct RideEventSettingsView: View {
           Text(L10n.Settings.eventSearchRadius)
         }
       } footer: {
-        Text("Choose how far around your location to search for ride events. A larger radius will show more events but may include those less relevant to your ride.")
+        Text(L10n.RideEventSettings.SearchRadius.footer)
           .font(.footnote)
           .foregroundStyle(.secondary)
       }

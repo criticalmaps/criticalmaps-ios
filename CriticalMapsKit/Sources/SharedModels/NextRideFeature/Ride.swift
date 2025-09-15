@@ -129,7 +129,6 @@ public extension Ride {
     MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault
   ]) {
     guard let coordinate else {
-      debugPrint("Coordinte is nil")
       return
     }
     let placemark = MKPlacemark(coordinate: coordinate.asCLLocationCoordinate, addressDictionary: nil)

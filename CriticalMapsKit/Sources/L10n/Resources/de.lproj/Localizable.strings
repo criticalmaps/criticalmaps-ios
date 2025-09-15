@@ -282,3 +282,52 @@
 "twitter.title" = "Twitter";
 
 "twitter.empty.message" = "Hier findest Du Tweets mit @criticalmaps und #criticalmass";
+
+"privacyZone.settings.toggle.enableFeature" = "Privatzonen aktivieren";
+"privacyZone.settings.toggle.showZonesOnMap" = "Zonen auf der Karte anzeigen";
+"privacyZone.settings.navigationTitle" = "Privatzonen-Einstellungen";
+
+"privacyZone.settings.dialog.delete.headline" = "Privatzone löschen";
+"privacyZone.settings.dialog.cta.cancel" = "Abbrechen";
+"privacyZone.settings.dialog.cta.delete" = "Löschen";
+"privacyZone.settings.dialog.message" = "Möchten Sie die Privatzone '%@' wirklich löschen?\nDiese Aktion kann nicht rückgängig gemacht werden.";
+
+"privacyZone.settings.section.header" = "Einstellungen";
+"privacyZone.settings.section.footer" = "Privatzonen verhindern, dass dein Standort geteilt wird, wenn Du dich innerhalb des definierten Bereichs befindest.";
+"privacyZone.settings.section.yourZones" = "Deine Privatzonen";
+
+"privacyZone.settings.empty.headline" = "Noch keine Privatzonen erstellt";
+"privacyZone.settings.empty.subheadline" = "Erstelle deine erste Zone, um deine Privatsphäre zu schützen";
+
+"privacyZone.settings.disabled.headline" = "Privatzonen";
+"privacyZone.settings.disabled.subheadline" = "Erstelle deine Zonen, in denen dein Standort nicht mit anderen Fahrern geteilt wird";
+"privacyZone.settings.disabled.cta" = "Privatzonen aktivieren";
+
+"privacyZone.settings.create.navigationTitle" = "Privatzone erstellen";
+"privacyZone.settings.create.map.headline" = "Standort auswählen";
+"privacyZone.settings.create.map.subheadline" = "Tippe auf die Karte, um das Zentrum deiner Privatzone festzulegen";
+"privacyZone.settings.create.map.name.headline" = "Zonenname";
+"privacyZone.settings.create.map.name.placeholder" = "z. B. Zuhause";
+"privacyZone.settings.create.map.radius" = "Radius";
+
+"privacyZone.tile.statusText.off" = "Privatzonen aus";
+"privacyZone.tile.statusText.on" = "Privatzonen an";
+"privacyZone.tile.statusText.hidden" = "Standort verborgen";
+
+"rideEventSettings.rideTypes.footer" = "Wähle aus, über welche Arten von Fahrereignissen du benachrichtigt werden möchtest, wenn sie in deiner Nähe stattfinden.";
+"rideEventSettings.searchRadius.footer" = "Wähle aus, wie weit um deinen Standort nach Fahrereignissen gesucht werden soll. Ein größerer Radius zeigt mehr Ereignisse, kann aber weniger relevante enthalten.";
+
+"appearanceSettings.themePicker.label" = "Thema auswählen";
+"appearanceSettings.themePicker.sectionHeader" = "Thema";
+
+"settings.navigation.privacySettings.label" = "Privatzonen";
+"settings.info.toggle.label" = "Infoansicht anzeigen";
+"settings.info.toggle.description" = "Info-Overlay über der Karte anzeigen";
+
+"home.tab.social.unreadMessages" = "Ungelesene Nachrichten: %@";
+
+"social.error.fetchMessages" = "Chat-Nachrichten konnten nicht abgerufen werden";
+"social.error.sendMessage" = "Chat-Nachricht konnte nicht gesendet werden";
+"social.feed.loading" = "Feed wird geladen";
+
+"map.location.request.desciption" = "Der Standort verbessert diese App. Bitte gewähre uns Zugriff.";

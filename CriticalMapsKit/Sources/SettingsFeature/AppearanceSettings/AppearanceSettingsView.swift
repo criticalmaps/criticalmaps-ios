@@ -15,7 +15,7 @@ public struct AppearanceSettingsView: View {
   public var body: some View {
     SettingsForm {
       Section {
-        Picker("Select Theme", selection: $store.colorScheme) {
+        Picker(L10n.AppearanceSettings.ThemePicker.label, selection: $store.colorScheme) {
           ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) { theme in
             Text(theme.title)
               .tag(theme)
@@ -27,7 +27,7 @@ public struct AppearanceSettingsView: View {
         .padding(.horizontal, .grid(2))
       } header: {
         SectionHeader {
-          Text("Theme")
+          Text(L10n.AppearanceSettings.ThemePicker.sectionHeader)
         }
       }
       

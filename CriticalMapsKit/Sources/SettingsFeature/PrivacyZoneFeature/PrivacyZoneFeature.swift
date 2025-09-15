@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import CoreLocation
+import L10n
 import MapKit
 import SharedModels
 import Styleguide
@@ -143,16 +144,16 @@ extension PrivacyZoneFeature.State {
 extension ConfirmationDialogState where Action == PrivacyZoneFeature.Action.ConfirmationDialog {
   public static func deletePrivacyZone(zone: PrivacyZone) -> Self {
     ConfirmationDialogState {
-      TextState("Delete Privacy Zone")
+      TextState(L10n.PrivacyZone.Settings.Dialog.Delete.headline)
     } actions: {
       ButtonState(role: .cancel) {
-        TextState("Cancel")
+        TextState(L10n.PrivacyZone.Settings.Dialog.Cta.cancel)
       }
       ButtonState(action: .deleteZoneButtonTapped) {
-        TextState("Delete Zone")
+        TextState(L10n.PrivacyZone.Settings.Dialog.Cta.delete)
       }
     } message: {
-      TextState("Are you sure you want to delete the privacy zone '\(zone.name)'? This action cannot be undone.")
+      TextState(L10n.PrivacyZone.Settings.Dialog.message(zone.name))
     }
   }
 }
@@ -177,7 +178,7 @@ public struct PrivacyZoneSettingsView: View {
         settingsSection
       }
     }
-    .navigationTitle("Privacy Zone Settings")
+    .navigationTitle(L10n.PrivacyZone.Settings.navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
     .confirmationDialog(
       $store.scope(
@@ -209,23 +210,23 @@ public struct PrivacyZoneSettingsView: View {
     SettingsForm {
       Section {
         Toggle(
-          "Enable Privacy Zones",
+          L10n.PrivacyZone.Settings.Toggle.enableFeature,
           isOn: $store.settings.isEnabled
         )
         .font(.body)
         
         Toggle(
-          "Show Zones on Map",
+          L10n.PrivacyZone.Settings.Toggle.showZonesOnMap,
           isOn: $store.settings.shouldShowZonesOnMap
         )
         .font(.body)
         .disabled(!store.settings.isEnabled)
       } header: {
         SectionHeader {
-          Text("Settings")
+          Text(L10n.Settings.title)
         }
       } footer: {
-        Text("Privacy zones prevent your location from being shared when you're within the defined area.")
+        Text(L10n.PrivacyZone.Settings.Section.footer)
           .font(.footnote)
           .foregroundStyle(.secondary)
       }
@@ -242,7 +243,7 @@ public struct PrivacyZoneSettingsView: View {
           .disabled(!store.settings.isEnabled)
         } header: {
           SectionHeader {
-            Text("Your Privacy Zones (\(store.settings.zones.count))")
+            Text(L10n.PrivacyZone.Settings.Section.yourZones)
           }
         }
       } else {
@@ -252,11 +253,11 @@ public struct PrivacyZoneSettingsView: View {
               .font(.title2)
               .foregroundColor(.secondary)
             
-            Text("No privacy zones created yet")
+            Text(L10n.PrivacyZone.Settings.Empty.headline)
               .font(.subheadline)
               .foregroundColor(.secondary)
             
-            Text("Create your first zone to start protecting your privacy")
+            Text(L10n.PrivacyZone.Settings.Empty.subheadline)
               .font(.caption)
               .foregroundColor(.secondary)
               .multilineTextAlignment(.center)

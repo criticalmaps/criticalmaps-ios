@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import L10n
 import SharedModels
 import Styleguide
 import SwiftUI
@@ -27,11 +28,11 @@ public struct PrivacyStatusTile: View {
   
   private var statusText: String {
     if !privacyZoneSettings.isEnabled {
-      "Privacy Zones Off"
+      L10n.PrivacyZone.Tile.StatusText.off
     } else if isInPrivacyZone {
-      "Location Hidden"
+      L10n.PrivacyZone.Tile.StatusText.hidden
     } else {
-      "Privacy Zones On"
+      L10n.PrivacyZone.Tile.StatusText.on
     }
   }
   

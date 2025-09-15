@@ -255,7 +255,7 @@ public struct AppFeature {
         state.socialState.chatFeatureState.chatMessages = .error(
           .init(
             title: L10n.error,
-            body: "Failed to fetch chat messages",
+            body: L10n.Social.Error.fetchMessages,
             error: .init(error: error)
           )
         )

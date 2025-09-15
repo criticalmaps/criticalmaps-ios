@@ -1,3 +1,4 @@
+import L10n
 import SharedModels
 import Styleguide
 import SwiftUI
@@ -9,7 +10,6 @@ struct ZoneRow: View {
   
   var body: some View {
     HStack(spacing: .grid(4)) {
-      // Status indicator
       icon()
         .font(.title2)
         .foregroundColor(zone.isActive ? .green : .secondary)
@@ -59,7 +59,7 @@ struct ZoneRow: View {
     }
     .padding(.vertical, .grid(1))
     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-      Button("Delete", role: .destructive) {
+      Button(L10n.PrivacyZone.Settings.Dialog.Cta.delete, role: .destructive) {
         onDelete()
       }
     }
