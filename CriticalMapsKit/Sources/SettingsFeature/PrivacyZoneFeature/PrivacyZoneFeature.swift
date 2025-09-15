@@ -20,7 +20,7 @@ public struct PrivacyZoneFeature {
   public struct State: Equatable {
     @Shared(.privacyZoneSettings) var settings
     
-    @Presents var confirmationDialog: ConfirmationDialogState<Action.ConfirmationDialog>?
+    @Presents var alert: AlertState<Action.Alert>?
     @Presents var destination: Destination.State?
     
     // UI State
@@ -37,7 +37,7 @@ public struct PrivacyZoneFeature {
   @CasePathable
   public enum Action: BindableAction {
     case binding(BindingAction<State>)
-    case confirmationDialog(PresentationAction<ConfirmationDialog>)
+    case alert(PresentationAction<Alert>)
     case destination(PresentationAction<Destination.Action>)
     
     // Zone Management
@@ -49,12 +49,9 @@ public struct PrivacyZoneFeature {
     // Settings
     case togglePrivacyZones
     case toggleShowZonesOnMap
-    
-    // UI
-    case dismissConfirmationDialog
-    
+        
     @CasePathable
-    public enum ConfirmationDialog: Equatable {
+    public enum Alert: Equatable {
       case deleteZoneButtonTapped
     }
   }
@@ -71,7 +68,7 @@ public struct PrivacyZoneFeature {
       case let .deleteZone(zone):
         state.zoneDeletionCandidate = zone
         
-        state.confirmationDialog = .deletePrivacyZone(zone: zone)
+        state.alert = .deletePrivacyZone(zone: zone)
         return .none
         
       case let .toggleZoneActive(zone):
@@ -96,22 +93,18 @@ public struct PrivacyZoneFeature {
         }
         return .none
 
-      case .dismissConfirmationDialog:
-        state.confirmationDialog = nil
-        return .none
-        
-      case .confirmationDialog(.presented(.deleteZoneButtonTapped)):
+     case .alert(.presented(.deleteZoneButtonTapped)):
         guard let deleteCandidate = state.zoneDeletionCandidate else {
           return .none
         }
         state.$settings.withLock { settings in
-          settings.zones.removeAll { $0.id == deleteCandidate.id }
+          settings.zones.remove(id: deleteCandidate.id)
         }
         state.zoneDeletionCandidate = nil
-        state.confirmationDialog = nil
+        state.alert = nil
         return .none
       
-      case .confirmationDialog:
+      case .alert:
         return .none
         
       case .destination(.presented(.createZoneSheet(.delegate(.zoneCreated(let zone))))):
@@ -127,7 +120,7 @@ public struct PrivacyZoneFeature {
         return .none
       }
     }
-    .ifLet(\.$confirmationDialog, action: \.confirmationDialog)
+    .ifLet(\.$alert, action: \.alert)
     .ifLet(\.$destination, action: \.destination)
   }
 }
@@ -141,9 +134,9 @@ extension PrivacyZoneFeature.State {
   }
 }
 
-extension ConfirmationDialogState where Action == PrivacyZoneFeature.Action.ConfirmationDialog {
-  public static func deletePrivacyZone(zone: PrivacyZone) -> Self {
-    ConfirmationDialogState {
+public extension AlertState where Action == PrivacyZoneFeature.Action.Alert {
+  static func deletePrivacyZone(zone: PrivacyZone) -> Self {
+    AlertState {
       TextState(L10n.PrivacyZone.Settings.Dialog.Delete.headline)
     } actions: {
       ButtonState(role: .cancel) {
@@ -180,12 +173,7 @@ public struct PrivacyZoneSettingsView: View {
     }
     .navigationTitle(L10n.PrivacyZone.Settings.navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
-    .confirmationDialog(
-      $store.scope(
-        state: \.confirmationDialog,
-        action: \.confirmationDialog
-      )
-    )
+    .alert($store.scope(state: \.alert, action: \.alert))
     .sheet(
       item: $store.scope(
         state: \.destination?.createZoneSheet,

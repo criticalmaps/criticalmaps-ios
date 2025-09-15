@@ -355,7 +355,7 @@ struct Settings_PrivacyZoneFeatureTests {
       
       await store.send(.deleteZone(zone)) {
         $0.zoneDeletionCandidate = zone
-        $0.confirmationDialog = .deletePrivacyZone(zone: zone)
+        $0.alert = .deletePrivacyZone(zone: zone)
       }
     }
     
@@ -390,11 +390,11 @@ struct Settings_PrivacyZoneFeatureTests {
         reducer: { PrivacyZoneFeature() }
       )
       await store.send(.deleteZone(zone)) {
-        $0.confirmationDialog = .deletePrivacyZone(zone: zone)
+        $0.alert = .deletePrivacyZone(zone: zone)
       }
-      await store.send(.confirmationDialog(.presented(.deleteZoneButtonTapped))) { state in
+      await store.send(.alert(.presented(.deleteZoneButtonTapped))) { state in
         state.zoneDeletionCandidate = nil
-        state.confirmationDialog = nil
+        state.alert = nil
         state.$settings.withLock { $0.zones = [otherZone] }
       }
       
@@ -402,29 +402,7 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(settings.zones[id: zoneId] == nil)
       #expect(settings.zones.first?.name == "Work")
     }
-    
-    @Test("dismissConfirmationDialog clears dialog")
-    func dismissConfirmationDialog() async {
-      let zone = PrivacyZone(
-        id: UUID(),
-        name: "Home",
-        center: Coordinate(latitude: 52.5200, longitude: 13.4050),
-        radius: 400
-      )
-      
-      var state = PrivacyZoneFeature.State()
-      state.confirmationDialog = .deletePrivacyZone(zone: zone)
-      
-      let store = TestStore(
-        initialState: state,
-        reducer: { PrivacyZoneFeature() }
-      )
-      
-      await store.send(.dismissConfirmationDialog) {
-        $0.confirmationDialog = nil
-      }
-    }
-    
+        
     @Test("destination createZoneSheet zoneCreated adds zone to settings")
     func createZoneSheetAddsZone() async {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
