@@ -8,12 +8,15 @@ Critical Maps iOS
 
 - Adds new localisations: Turkish, Polish, Portuguese-PT, Portuguese-BR
 - New App Icon
-
+- PrivacyZones Feature:
+  - Create and manage zones where your location won't be shared with other riders
+- You can now browse image attachments of Mastodon posts
+  
 ### Updated
 
 - iOS26 glass design adoption
+- Settings UI Refresh
 - Uses native sheet for event list presentation
-- Adds MediaAttachments to mastodon posts
 - Adds paginated loading for mastodon posts
 
 ### Fixed
