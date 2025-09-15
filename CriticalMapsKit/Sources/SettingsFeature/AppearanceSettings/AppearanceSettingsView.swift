@@ -14,23 +14,35 @@ public struct AppearanceSettingsView: View {
 
   public var body: some View {
     SettingsForm {
-      SettingsSection(title: "Theme") {
-        Picker("", selection: $store.colorScheme.animation()) {
-          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.self) {
-            Text($0.title)
+      Section {
+        Picker(L10n.AppearanceSettings.ThemePicker.label, selection: $store.colorScheme) {
+          ForEach(AppearanceSettings.ColorScheme.allCases, id: \.id) { theme in
+            Text(theme.title)
+              .tag(theme)
           }
         }
-        .pickerStyle(SegmentedPickerStyle())
-        .frame(height: 50)
-        .padding(.horizontal, .grid(4))
-
-        SettingsSection(title: L10n.Settings.appIcon) {
-          AppIconPicker(appIcon: $store.appIcon.animation())
+        .pickerStyle(.palette)
+        .labelsHidden()
+        .frame(height: 40)
+        .padding(.horizontal, .grid(2))
+      } header: {
+        SectionHeader {
+          Text(L10n.AppearanceSettings.ThemePicker.sectionHeader)
+        }
+      }
+      
+      Section {
+        AppIconPicker(appIcon: $store.appIcon)
+      } header: {
+        SectionHeader {
+          Text(L10n.Settings.appIcon)
         }
       }
     }
-    .foregroundColor(Color(.textPrimary))
-    .navigationBarTitle(L10n.Settings.Theme.appearance, displayMode: .inline)
+    .navigationBarTitle(
+      L10n.Settings.Theme.appearance,
+      displayMode: .inline
+    )
   }
 }
 
@@ -39,39 +51,46 @@ struct AppIconPicker: View {
   @Binding var appIcon: AppIcon
 
   var body: some View {
-    VStack(spacing: .grid(2)) {
-      ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { _, appIcon in
-        SettingsRow {
-          Button(
-            action: { self.appIcon = appIcon },
-            label: {
-              HStack(spacing: .grid(3)) {
-                Image(uiImage: appIcon.image)
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 48, height: 48)
-                  .continuousCornerRadius(12)
-                  .id(appIcon)
-                  .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                      .stroke(Color(.textPrimary), lineWidth: 0.4)
-                  )
-
-                Text(appIcon.title)
-
-                Spacer()
-
-                if self.appIcon == appIcon {
-                  Image(systemName: "checkmark.circle.fill")
-                    .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
-                }
-              }
-              .accessibilityElement(children: .combine)
-            }
-          )
+    ForEach(AppIcon.allCases, id: \.id) { icon in
+      Button(
+        action: { self.appIcon = icon },
+        label: {
+          row(for: icon)
+            .accessibilityLabel(icon.title)
         }
+      )
+    }
+  }
+  
+  @ViewBuilder
+  private func row(for icon: AppIcon) -> some View {
+    HStack(spacing: .grid(3)) {
+      appIconView(icon)
+      
+      Text(icon.title)
+      
+      Spacer()
+      
+      if self.appIcon == icon {
+        Image(systemName: "checkmark")
+          .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
+          .fontWeight(.medium)
       }
     }
+  }
+  
+  @ViewBuilder
+  private func appIconView(_ icon: AppIcon) -> some View {
+    Image(uiImage: icon.image)
+      .resizable()
+      .scaledToFit()
+      .frame(width: 48, height: 48)
+      .continuousCornerRadius(12)
+      .id(icon.id)
+      .overlay(
+        RoundedRectangle(cornerRadius: 12)
+          .stroke(Color(.textPrimary), lineWidth: 0.4)
+      )
   }
 }
 
@@ -107,4 +126,14 @@ extension AppIcon {
       "Yellow"
     }
   }
+}
+
+
+#Preview {
+  AppearanceSettingsView(
+    store: StoreOf<AppearanceSettingsFeature>(
+      initialState: AppearanceSettingsFeature.State(),
+      reducer: { AppearanceSettingsFeature() }
+    )
+  )
 }
