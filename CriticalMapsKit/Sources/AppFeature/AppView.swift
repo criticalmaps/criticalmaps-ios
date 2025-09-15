@@ -100,7 +100,7 @@ public struct AppView: View {
       )
       .accessibilityLabel(Text("Internet not available"))
       .padding()
-      .conditionalBackground(shouldUseBlur: true, shouldUseGlassEffect: true)
+      .conditionalBackground(shouldUseBlur: true)
   }
   
   @ViewBuilder
@@ -155,13 +155,4 @@ public struct AppView: View {
       reducer: { AppFeature()._printChanges() }
     )
   )
-}
-
-// MARK: - Helper
-
-struct NumericContentTransition: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .contentTransition(.numericText())
-  }
 }

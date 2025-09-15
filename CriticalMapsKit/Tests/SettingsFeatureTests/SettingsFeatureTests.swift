@@ -22,7 +22,7 @@ struct SettingsFeatureCoreTests {
     
     let row = SettingsFeature.State.InfoSectionRow.privacy
 
-    await store.send(.infoSectionRowTapped(row))
+    await store.send(.view(.infoSectionRowTapped(row)))
     await store.receive(\.openURL)
     
     openedUrl.withValue { url in
@@ -45,7 +45,7 @@ struct SettingsFeatureCoreTests {
     
     let row = SettingsFeature.State.InfoSectionRow.website
 
-    await store.send(.infoSectionRowTapped(row))
+    await store.send(.view(.infoSectionRowTapped(row)))
     await store.receive(\.openURL)
     
     openedUrl.withValue { url in
@@ -68,7 +68,7 @@ struct SettingsFeatureCoreTests {
     
     let row = SettingsFeature.State.InfoSectionRow.mastodon
 
-    await store.send(.infoSectionRowTapped(row))
+    await store.send(.view(.infoSectionRowTapped(row)))
     await store.receive(\.openURL)
 
     openedUrl.withValue { url in
@@ -91,7 +91,7 @@ struct SettingsFeatureCoreTests {
     
     let row = SettingsFeature.State.SupportSectionRow.github
 
-    await store.send(.supportSectionRowTapped(row))
+    await store.send(.view(.supportSectionRowTapped(row)))
     await store.receive(\.openURL)
 
     openedUrl.withValue { url in
@@ -114,7 +114,7 @@ struct SettingsFeatureCoreTests {
     
     let row = SettingsFeature.State.SupportSectionRow.crowdin
 
-    await store.send(.supportSectionRowTapped(row))
+    await store.send(.view(.supportSectionRowTapped(row)))
     await store.receive(\.openURL)
     
     openedUrl.withValue { url in
@@ -137,7 +137,7 @@ struct SettingsFeatureCoreTests {
     
     let row = SettingsFeature.State.SupportSectionRow.criticalMassDotIn
 
-    await store.send(.supportSectionRowTapped(row))
+    await store.send(.view(.supportSectionRowTapped(row)))
     await store.receive(\.openURL)
 
     openedUrl.withValue { url in

@@ -71,7 +71,6 @@ public struct MapFeature {
     case showShareSheet(Bool)
     case routeToEvent
     
-    case setNextRideBannerExpanded(Bool)
     case setNextRideBannerVisible(Bool)
     
     case locationManager(LocationManager.Action)
@@ -147,11 +146,7 @@ public struct MapFeature {
       case let .setNextRideBannerVisible(value):
         state.isNextRideBannerVisible = value
         return .none
-        
-      case let .setNextRideBannerExpanded(value):
-        state.isNextRideBannerExpanded = value
-        return .none
-      
+
       case .onAppear:
         var effects: [Effect<Action>] = [
           .run { _ in

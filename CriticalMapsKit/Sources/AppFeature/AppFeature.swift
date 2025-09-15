@@ -342,10 +342,6 @@ public struct AppFeature {
           state.mapFeatureState.nextRide = ride
           return .run { send in
             await send(.map(.setNextRideBannerVisible(true)), animation: .snappy)
-            try? await clock.sleep(for: .seconds(1))
-            await send(.map(.setNextRideBannerExpanded(true)), animation: .snappy)
-            try? await clock.sleep(for: .seconds(8))
-            await send(.map(.setNextRideBannerExpanded(false)), animation: .snappy)
           }
           
         default:
@@ -494,45 +490,6 @@ public struct AppFeature {
       }
     }
     .ifLet(\.$destination, action: \.destination)
-  }
-}
-
-// MARK: - Result Builder
-
-@resultBuilder
-public struct EffectBuilder<Action> {
-  public static func buildBlock() -> Effect<Action> {
-    .none
-  }
-  
-  public static func buildBlock(_ effect: Effect<Action>) -> Effect<Action> {
-    effect
-  }
-  
-  public static func buildBlock(_ effects: Effect<Action>...) -> Effect<Action> {
-    .merge(effects)
-  }
-  
-  public static func buildArray(_ effects: [Effect<Action>]) -> Effect<Action> {
-    .merge(effects)
-  }
-  
-  public static func buildOptional(_ effect: Effect<Action>?) -> Effect<Action> {
-    effect ?? .none
-  }
-  
-  public static func buildEither(first effect: Effect<Action>) -> Effect<Action> {
-    effect
-  }
-  
-  public static func buildEither(second effect: Effect<Action>) -> Effect<Action> {
-    effect
-  }
-}
-
-extension Effect {
-  public static func build<Action>(@EffectBuilder<Action> _ builder: () -> Effect<Action>) -> Effect<Action> {
-    builder()
   }
 }
 

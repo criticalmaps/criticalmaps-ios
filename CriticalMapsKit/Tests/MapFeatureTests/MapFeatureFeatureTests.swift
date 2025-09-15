@@ -260,8 +260,5 @@ struct MapFeatureCoreTests {
     await store.send(.setNextRideBannerVisible(true)) {
       $0.isNextRideBannerVisible = true
     }
-    await store.send(.setNextRideBannerExpanded(true)) {
-      $0.isNextRideBannerExpanded = true
-    }
   }
 }
