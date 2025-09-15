@@ -12,12 +12,12 @@ public struct SettingsForm<Content>: View where Content: View {
   }
 
   public var body: some View {
-    ScrollView {
+    List {
       content()
-        .font(.titleOne)
-        .toggleStyle(SwitchToggleStyle(tint: Color(.brand500)))
+        .toggleStyle(SwitchToggleStyle(tint: Color(.brand600)))
+        .foregroundStyle(Color(.textPrimary))
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    .listStyle(.insetGrouped)
   }
 }
 
@@ -31,88 +31,27 @@ struct SettingsRow<Content: View>: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading) {
-      content()
-        .padding(.vertical, .grid(2))
-        .padding(.horizontal, .grid(4))
-        .contentShape(Rectangle())
-      seperator
-        .accessibilityHidden(true)
-    }
-  }
-
-  var seperator: some View {
-    Rectangle()
-      .fill(Color(.border))
-      .frame(maxWidth: .infinity, minHeight: 1, idealHeight: 1, maxHeight: 1)
-  }
-}
-
-// MARK: Section
-
-/// A view to wrap a form section.
-public struct SettingsSection<Content: View>: View {
-  let content: () -> Content
-  let padContents: Bool
-  let title: String
-
-  public init(
-    title: String,
-    padContents: Bool = false,
-    @ViewBuilder content: @escaping () -> Content
-  ) {
-    self.content = content
-    self.padContents = padContents
-    self.title = title
-  }
-
-  public var body: some View {
-    VStack(alignment: .leading) {
-      if !title.isEmpty {
-        Text(title)
-          .font(.headlineTwo)
-          .padding([.leading, .bottom], .grid(4))
-          .padding(.top, .grid(6))
-          .accessibilityAddTraits(.isHeader)
-      }
-
-      content()
-    }
-  }
-}
-
-// MARK: SettingsNavigationLink
-
-/// A view to that wraps the input view in a SettingsRow and NavigationLink
-public struct SettingsNavigationLink<Destination: View, Label: View>: View {
-  let destination: () -> Destination
-  let title: () -> Label
-
-  public init(
-    @ViewBuilder destination: @escaping () -> Destination,
-    @ViewBuilder title: @escaping () -> Label
-  ) {
-    self.destination = destination
-    self.title = title
-  }
-
-  public var body: some View {
-    SettingsRow {
-      NavigationLink(
-        destination: destination,
-        label: { content }
-      )
-    }
-  }
-
-  var content: some View {
     HStack {
-      title()
-        .font(.titleOne)
+      content()
+        .font(.body)
       Spacer()
-      Image(systemName: "chevron.forward")
-        .font(.titleOne)
-        .accessibilityHidden(true)
+      Image(systemName: "chevron.right")
+    }
+  }
+}
+
+struct SectionHeader<Content: View>: View {
+  let content: () -> Content
+
+  init(@ViewBuilder content: @escaping () -> Content) {
+    self.content = content
+  }
+
+  var body: some View {
+    HStack {
+      content()
+        .font(.callout)
+        .fontWeight(.semibold)
     }
   }
 }

@@ -17,6 +17,9 @@ public struct SettingsFeature {
   public enum Destination {
     case rideEventSettings(RideEventsSettingsFeature)
     case appearanceSettings(AppearanceSettingsFeature)
+    case privacyZonesSettings(PrivacyZoneFeature)
+    case guideFeature
+    case acknowledgements
   }
 
   // MARK: State
@@ -49,15 +52,22 @@ public struct SettingsFeature {
 
   @CasePathable
   public enum Action: BindableAction {
-    case onAppear
     case binding(BindingAction<State>)
-    case dismiss
-    case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
-    case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
-    case openURL(URL)
+    case view(ViewAction)
     case destination(PresentationAction<Destination.Action>)
-    case appearanceSettingsRowTapped
-    case rideEventSettingsRowTapped
+    case openURL(URL)
+    
+    public enum ViewAction {
+      case acknowledgementsRowTapped
+      case appearanceSettingsRowTapped
+      case dismiss
+      case guideRowTapped
+      case onAppear
+      case rideEventSettingsRowTapped
+      case privacyZonesRowTapped
+      case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
+      case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
+    }
   }
 
   // MARK: Reducer
@@ -84,32 +94,49 @@ public struct SettingsFeature {
 
     Reduce { state, action in
       switch action {
-      case .onAppear:
-        return .none
+      case let .view(viewAction):
+        switch viewAction {
+        case .onAppear:
+          return .none
+  
+        case .dismiss:
+          return .run { _ in await dismiss() }
+       
+        case .acknowledgementsRowTapped:
+          state.destination = .acknowledgements
+          return .none
+          
+        case .guideRowTapped:
+          state.destination = .guideFeature
+          return .none
+          
+        case .appearanceSettingsRowTapped:
+          state.destination = .appearanceSettings(
+            AppearanceSettingsFeature.State(appearanceSettings: state.appearanceSettings)
+          )
+          return .none
 
-      case .dismiss:
-        return .run { _ in await dismiss() }
+        case .rideEventSettingsRowTapped:
+          state.destination = .rideEventSettings(
+            RideEventsSettingsFeature.State(settings: state.rideEventSettings)
+          )
+          return .none
+          
+        case .privacyZonesRowTapped:
+          state.destination = .privacyZonesSettings(
+            PrivacyZoneFeature.State()
+          )
+          return .none
+          
+        case let .infoSectionRowTapped(row):
+          return .send(.openURL(row.url))
 
-      case .appearanceSettingsRowTapped:
-        state.destination = .appearanceSettings(
-          AppearanceSettingsFeature.State(appearanceSettings: state.appearanceSettings)
-        )
-        return .none
-
-      case .rideEventSettingsRowTapped:
-        state.destination = .rideEventSettings(
-          RideEventsSettingsFeature.State(settings: state.rideEventSettings)
-        )
-        return .none
+        case let .supportSectionRowTapped(row):
+          return .send(.openURL(row.url))
+        }
 
       case .destination:
         return .none
-
-      case let .infoSectionRowTapped(row):
-        return .send(.openURL(row.url))
-
-      case let .supportSectionRowTapped(row):
-        return .send(.openURL(row.url))
 
       case let .openURL(url):
         return .run { _ in
