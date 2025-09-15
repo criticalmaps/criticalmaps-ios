@@ -309,6 +309,7 @@
 "privacyZone.settings.create.map.name.headline" = "Zonenname";
 "privacyZone.settings.create.map.name.placeholder" = "z. B. Zuhause";
 "privacyZone.settings.create.map.radius" = "Radius";
+"privacyZone.settings.create.cta.create" = "Erstellen";
 
 "privacyZone.tile.statusText.off" = "Privatzonen aus";
 "privacyZone.tile.statusText.on" = "Privatzonen an";

@@ -309,6 +309,7 @@
 "privacyZone.settings.create.map.name.headline" = "Nome della zona";
 "privacyZone.settings.create.map.name.placeholder" = "es. Casa";
 "privacyZone.settings.create.map.radius" = "Raggio";
+"privacyZone.settings.create.cta.create" = "Crea";
 
 "privacyZone.tile.statusText.off" = "Zone di privacy disattivate";
 "privacyZone.tile.statusText.on" = "Zone di privacy attivate";

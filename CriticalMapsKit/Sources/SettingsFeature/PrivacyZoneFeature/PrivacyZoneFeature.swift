@@ -199,6 +199,7 @@ public struct PrivacyZoneSettingsView: View {
         Button("Add", systemImage: "plus") {
           store.send(.addZoneButtonTapped)
         }
+        .tint(.primary)
         .disabled(!store.settings.isEnabled)
       }
     }

@@ -309,6 +309,7 @@
 "privacyZone.settings.create.map.name.headline" = "Bölge adı";
 "privacyZone.settings.create.map.name.placeholder" = "örn. Ev";
 "privacyZone.settings.create.map.radius" = "Yarıçap";
+"privacyZone.settings.create.cta.create" = "Oluştur";
 
 "privacyZone.tile.statusText.off" = "Gizlilik bölgeleri kapalı";
 "privacyZone.tile.statusText.on" = "Gizlilik bölgeleri açık";

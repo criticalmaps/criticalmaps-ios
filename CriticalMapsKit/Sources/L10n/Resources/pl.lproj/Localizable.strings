@@ -309,6 +309,7 @@
 "privacyZone.settings.create.map.name.headline" = "Nazwa strefy";
 "privacyZone.settings.create.map.name.placeholder" = "np. Dom";
 "privacyZone.settings.create.map.radius" = "Promień";
+"privacyZone.settings.create.cta.create" = "Utwórz";
 
 "privacyZone.tile.statusText.off" = "Strefy prywatności wyłączone";
 "privacyZone.tile.statusText.on" = "Strefy prywatności włączone";

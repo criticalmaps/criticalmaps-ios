@@ -190,6 +190,10 @@ public enum L10n {
       public enum Create {
         /// Create Privacy Zone
         public static let navigationTitle = L10n.tr("Localizable", "privacyZone.settings.create.navigationTitle", fallback: "Create Privacy Zone")
+        public enum Cta {
+          /// Create
+          public static let create = L10n.tr("Localizable", "privacyZone.settings.create.cta.create", fallback: "Create")
+        }
         public enum Map {
           /// Choose Location
           public static let headline = L10n.tr("Localizable", "privacyZone.settings.create.map.headline", fallback: "Choose Location")

@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import L10n
 import SharedModels
+import Styleguide
 import SwiftUI
 
 // MARK: - Reducer
@@ -123,12 +124,15 @@ public struct CreatePrivacyZoneView: View {
           Button("Cancel", systemImage: "xmark") {
             store.send(.dismiss)
           }
+          .tint(.primary)
         }
         
         ToolbarItem(placement: .confirmationAction) {
-          Button("Create", systemImage: "checkmark") {
+          Button(L10n.PrivacyZone.Settings.Create.Cta.create, systemImage: "checkmark") {
             store.send(.createZone)
           }
+          .labelStyle(.titleOnly)
+          .tint(.primary)
           .disabled(!store.canCreateZone)
           .fontWeight(.semibold)
         }
