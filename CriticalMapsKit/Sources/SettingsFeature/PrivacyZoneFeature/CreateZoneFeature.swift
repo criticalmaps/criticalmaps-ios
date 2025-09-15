@@ -131,6 +131,7 @@ public struct CreatePrivacyZoneView: View {
           Button(L10n.PrivacyZone.Settings.Create.Cta.create, systemImage: "checkmark") {
             store.send(.createZone)
           }
+          .tint(.primary)
           .labelStyle(.titleOnly)
           .disabled(!store.canCreateZone)
         }
@@ -178,15 +179,6 @@ public struct CreatePrivacyZoneView: View {
   @ViewBuilder
   private var detailsSection: some View {
     VStack(alignment: .leading, spacing: .grid(5)) {
-      VStack(alignment: .leading, spacing: .grid(2)) {
-        Text(L10n.PrivacyZone.Settings.Create.Map.Name.headline)
-          .font(.headline)
-        
-        TextField(L10n.PrivacyZone.Settings.Create.Map.Name.placeholder, text: $store.newZoneName)
-          .textFieldStyle(.roundedBorder)
-          .autocorrectionDisabled()
-      }
-      
       VStack(alignment: .leading, spacing: .grid(3)) {
         HStack {
           Text(L10n.PrivacyZone.Settings.Create.Map.radius)
@@ -216,7 +208,17 @@ public struct CreatePrivacyZoneView: View {
             .font(.caption)
             .foregroundColor(.secondary)
         }
+        .disabled(store.mapCenter == nil)
         .tint(Color(.brand500))
+      }
+      
+      VStack(alignment: .leading, spacing: .grid(2)) {
+        Text(L10n.PrivacyZone.Settings.Create.Map.Name.headline)
+          .font(.headline)
+        
+        TextField(L10n.PrivacyZone.Settings.Create.Map.Name.placeholder, text: $store.newZoneName)
+          .textFieldStyle(.roundedBorder)
+          .autocorrectionDisabled()
       }
     }
   }
