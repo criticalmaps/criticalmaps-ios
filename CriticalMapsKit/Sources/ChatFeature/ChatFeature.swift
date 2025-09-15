@@ -103,7 +103,7 @@ public struct ChatFeature {
         state.chatMessages = .error(
           .init(
             title: L10n.error,
-            body: "Failed to fetch chat messages",
+            body: L10n.Social.Error.fetchMessages,
             error: .init(error: error)
           )
         )
@@ -120,7 +120,7 @@ public struct ChatFeature {
         
         state.alert = AlertState(
           title: { TextState(L10n.error) },
-          message: { TextState("Failed to send chat message") }
+          message: { TextState(L10n.Social.Error.sendMessage) }
         )
         
         logger.debug("ChatInput Action failed with error: \(error.localizedDescription)")

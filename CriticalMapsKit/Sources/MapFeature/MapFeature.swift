@@ -106,7 +106,7 @@ public struct MapFeature {
         case .didChangeAuthorization(.denied):
           if state.isRequestingCurrentLocation {
             state.alert = AlertState {
-              TextState("Location makes this app better. Please consider giving us access.")
+              TextState(L10n.Map.Location.Request.desciption)
             }
             
             state.isRequestingCurrentLocation = false
@@ -153,12 +153,11 @@ public struct MapFeature {
             await locationManager.setup()
           },
           .run { send in
-            await withTaskCancellation(id: CancelID.locationManager, cancelInFlight: true) {
-              for await action in await locationManager.delegate() {
-                await send(.locationManager(action), animation: .default)
-              }
+            for await action in await locationManager.delegate() {
+              await send(.locationManager(action), animation: .default)
             }
           }
+          .cancellable(id: CancelID.locationManager, cancelInFlight: true)
         ]
         let isObservationModeEnabled = state.userSettings.isObservationModeEnabled
         if !isObservationModeEnabled {

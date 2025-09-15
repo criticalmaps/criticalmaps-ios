@@ -63,7 +63,7 @@ public struct AppNavigationView: View {
     .scaleEffect(store.chatMessageBadgeCount == 0 ? 0 : 1, anchor: .topTrailing)
     .opacity(store.chatMessageBadgeCount == 0 ? 0 : 1)
     .accessibleAnimation(.easeIn(duration: 0.1), value: store.chatMessageBadgeCount)
-    .accessibilityLabel(Text("\(store.chatMessageBadgeCount) unread messages"))
+    .accessibilityLabel(Text(L10n.Home.Tab.Social.unreadMessages(store.chatMessageBadgeCount)))
   }
   
   private var chatFeature: some View {
@@ -80,7 +80,7 @@ public struct AppNavigationView: View {
     .frame(maxWidth: .infinity, minHeight: minHeight)
     .contentShape(Rectangle())
     .accessibilityShowsLargeContentViewer {
-      let unreadMessages = store.chatMessageBadgeCount != 0 ? "\n Unread messages:  \(store.chatMessageBadgeCount)" : ""
+      let unreadMessages = store.chatMessageBadgeCount != 0 ? "\n " + L10n.Home.Tab.Social.unreadMessages(store.chatMessageBadgeCount) : ""
       Label(L10n.Chat.title + unreadMessages, systemImage: "bubble.left")
     }
     .sheet(

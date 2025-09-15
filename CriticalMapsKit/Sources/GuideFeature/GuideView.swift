@@ -12,14 +12,15 @@ public struct GuideView: View {
         destination: GuideDetailView(guide: guide),
         label: {
           Text(guide.rule.title)
-            .font(.titleOne)
+            .font(.body)
             .foregroundColor(Color(.textPrimary))
-            .padding(.vertical, .grid(2))
+            .padding(.vertical, .grid(1))
         }
       )
     }
-    .listStyle(PlainListStyle())
+    .listStyle(.insetGrouped)
     .navigationTitle(L10n.Rules.title)
+    .navigationBarTitleDisplayMode(.inline)
   }
 }
 
