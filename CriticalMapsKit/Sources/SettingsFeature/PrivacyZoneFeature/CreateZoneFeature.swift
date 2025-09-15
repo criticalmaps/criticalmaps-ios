@@ -132,9 +132,9 @@ public struct CreatePrivacyZoneView: View {
             store.send(.createZone)
           }
           .labelStyle(.titleOnly)
-          .tint(.primary)
+          .tint(.blue)
+          .foregroundStyle(.primary)
           .disabled(!store.canCreateZone)
-          .fontWeight(.semibold)
         }
       }
       .padding()
