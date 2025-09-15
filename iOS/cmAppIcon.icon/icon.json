@@ -50,9 +50,14 @@
               "value" : true
             }
           ],
+          "hidden" : false,
           "image-name" : "Yellow 2.svg",
           "name" : "Yellow 2",
           "opacity-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : 0
+            },
             {
               "appearance" : "tinted",
               "value" : 1
@@ -95,6 +100,15 @@
           ],
           "image-name" : "White 2.svg",
           "name" : "White 2",
+          "opacity-specializations" : [
+            {
+              "value" : 1
+            },
+            {
+              "appearance" : "dark",
+              "value" : 0
+            }
+          ],
           "position" : {
             "scale" : 1,
             "translation-in-points" : [
@@ -157,6 +171,13 @@
           "value" : "individual"
         }
       ],
+      "position" : {
+        "scale" : 0.9,
+        "translation-in-points" : [
+          0,
+          0
+        ]
+      },
       "shadow" : {
         "kind" : "neutral",
         "opacity" : 0.5
