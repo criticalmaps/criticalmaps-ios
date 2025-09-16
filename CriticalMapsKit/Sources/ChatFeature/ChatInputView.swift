@@ -204,7 +204,7 @@ struct AttributedText: View {
   
   private let textAttributes: TextAttributes
   
-  private let onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?
+  private let onLinkInteraction: ((URL) -> Bool)?
   private let onEditingChanged: ((Bool) -> Void)?
   private let onCommit: (() -> Void)?
   
@@ -235,7 +235,7 @@ struct AttributedText: View {
     attributedText: Binding<NSAttributedString>,
     isEditing: Binding<Bool>,
     textAttributes: TextAttributes = .init(),
-    onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)? = nil,
+    onLinkInteraction: ((URL) -> Bool)? = nil,
     onEditingChanged: ((Bool) -> Void)? = nil,
     onCommit: (() -> Void)? = nil
   ) {
@@ -392,7 +392,7 @@ struct UITextViewWrapper: UIViewRepresentable {
   
   private let textAttributes: TextAttributes
   
-  private let onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?
+  private let onLinkInteraction: ((URL) -> Bool)?
   private let onEditingChanged: ((Bool) -> Void)?
   private let onCommit: (() -> Void)?
   
@@ -402,7 +402,7 @@ struct UITextViewWrapper: UIViewRepresentable {
     sizeThatFits: Binding<CGSize>,
     maxSize: CGSize,
     textAttributes: TextAttributes = .init(),
-    onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)? = nil,
+    onLinkInteraction: ((URL) -> Bool)? = nil,
     onEditingChanged: ((Bool) -> Void)? = nil,
     onCommit: (() -> Void)? = nil
   ) {
@@ -527,7 +527,7 @@ struct UITextViewWrapper: UIViewRepresentable {
     
     private let maxContentSize: () -> CGSize
     
-    private var onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?
+    private var onLinkInteraction: ((URL) -> Bool)?
     private var onEditingChanged: ((Bool) -> Void)?
     private var onCommit: (() -> Void)?
     
@@ -536,7 +536,7 @@ struct UITextViewWrapper: UIViewRepresentable {
       isEditing: Binding<Bool>,
       sizeThatFits: Binding<CGSize>,
       maxContentSize: @escaping () -> CGSize,
-      onLinkInteraction: ((URL, UITextItemInteraction) -> Bool)?,
+      onLinkInteraction: ((URL) -> Bool)?,
       onEditingChanged: ((Bool) -> Void)?,
       onCommit: (() -> Void)?
     ) {
@@ -586,10 +586,9 @@ struct UITextViewWrapper: UIViewRepresentable {
     func textView(
       _ textView: UITextView,
       shouldInteractWith url: URL,
-      in characterRange: NSRange,
-      interaction: UITextItemInteraction
+      in characterRange: NSRange
     ) -> Bool {
-      onLinkInteraction?(url, interaction) ?? true
+      onLinkInteraction?(url) ?? true
     }
     
     func textView(
