@@ -20,9 +20,7 @@ struct ZoneRow: View {
               zone.isActive
               ? Color.green.opacity(0.4)
               : Color.secondary.opacity(0.2),
-              style: zone.isActive
-              ? StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round)
-              : StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round, dash: [5, 3], dashPhase: 0)
+              style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round, dash: [5, 3], dashPhase: 0)
             )
         )
         .symbolTransition()
