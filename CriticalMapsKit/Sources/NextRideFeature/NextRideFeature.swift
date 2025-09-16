@@ -2,8 +2,7 @@ import Combine
 import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
-import Logger
-import SharedDependencies
+import os
 import SharedModels
 
 // MARK: State
@@ -46,7 +45,7 @@ public struct NextRideFeature {
     switch action {
     case let .getNextRide(coordinate):
       guard state.rideEventSettings.isEnabled else {
-        logger.debug("NextRide featue is disabled")
+        Logger.reducer.debug("NextRide featue is disabled")
         return .none
       }
 
@@ -72,16 +71,16 @@ public struct NextRideFeature {
       }
 
     case let .nextRideResponse(.failure(error)):
-      logger.error("Get next ride failed 🛑 with error: \(error)")
+      Logger.reducer.error("Get next ride failed 🛑 with error: \(error)")
       return .none
 
     case let .nextRideResponse(.success(rides)):
       guard !rides.isEmpty else {
-        logger.info("Rides array is empty")
+        Logger.reducer.debug("Rides array is empty")
         return .none
       }
       guard !rides.map(\.rideType).isEmpty else {
-        logger.info("No upcoming events for filter selection rideType")
+        Logger.reducer.info("No upcoming events for filter selection rideType")
         return .none
       }
       let typeSettings = state.rideEventSettings.rideEvents
@@ -115,7 +114,7 @@ public struct NextRideFeature {
         .first { ride in ride.dateTime > date() }
 
       guard let filteredRide = ride else {
-        logger.info("No upcoming events after filter")
+        Logger.reducer.info("No upcoming events after filter")
         return .none
       }
       return .run { send in
@@ -172,4 +171,15 @@ extension SharedModels.Coordinate {
       longitude: location.coordinate.longitude
     )
   }
+}
+
+private extension Logger {
+  /// Using your bundle identifier is a great way to ensure a unique identifier.
+  private static var subsystem = "NextRideFeature"
+  
+  /// Logs the view cycles like a view that appeared.
+  static let reducer = Logger(
+    subsystem: subsystem,
+    category: "Reducer"
+  )
 }

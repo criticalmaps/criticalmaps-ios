@@ -25,10 +25,6 @@ let package = Package(
       from: "1.0.0"
     ),
     .package(
-      url: "https://github.com/apple/swift-log.git",
-      from: "1.2.0"
-    ),
-    .package(
       url: "https://github.com/mltbnz/composable-core-location",
       branch: "main"
     ),
@@ -61,7 +57,6 @@ let package = Package(
         .feedbackGeneratorClient,
         .fileClient,
         "GuideFeature",
-        .logger,
         .l10n,
         .idProvider,
         "MapFeature",
@@ -83,7 +78,6 @@ let package = Package(
         .helpers,
         .idProvider,
         .l10n,
-        .logger,
         .sharedDependencies,
         .sharedModels,
         .styleguide,
@@ -108,7 +102,6 @@ let package = Package(
       dependencies: [
         .helpers,
         .l10n,
-        .logger,
         .styleguide,
         .swiftUIHelpers
       ]
@@ -174,7 +167,6 @@ let package = Package(
         .apiClient,
         .helpers,
         .l10n,
-        .logger,
         .sharedDependencies,
         .sharedModels,
         .styleguide,
@@ -196,7 +188,6 @@ let package = Package(
         .fileClient,
         "GuideFeature",
         .l10n,
-        .logger,
         .helpers,
         "MapFeature",
         .sharedDependencies,
@@ -386,7 +377,6 @@ extension Target.Dependency {
   static let helpers = byName(name: "Helpers")
   static let idProvider = byName(name: "IDProvider")
   static let l10n = byName(name: "L10n")
-  static let logger = byName(name: "Logger")
   static let pathMonitorClient = byName(name: "PathMonitorClient")
   static let sharedDependencies = byName(name: "SharedDependencies")
   static let sharedModels = byName(name: "SharedModels")

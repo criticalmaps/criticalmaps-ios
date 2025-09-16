@@ -5,8 +5,7 @@ import Foundation
 import Helpers
 import IDProvider
 import L10n
-import Logger
-import SharedDependencies
+import os
 import SharedModels
 import UserDefaultsClient
 
@@ -107,7 +106,7 @@ public struct ChatFeature {
             error: .init(error: error)
           )
         )
-        logger.info("FetchLocation failed: \(error)")
+        Logger.reducer.debug("FetchLocation failed: \(error)")
         return .none
         
       case .chatInputResponse(.success):
@@ -123,7 +122,7 @@ public struct ChatFeature {
           message: { TextState(L10n.Social.Error.sendMessage) }
         )
         
-        logger.debug("ChatInput Action failed with error: \(error.localizedDescription)")
+        Logger.reducer.debug("ChatInput Action failed with error: \(error.localizedDescription)")
         return .none
         
       case let .chatInput(chatInputAction):
@@ -153,4 +152,17 @@ public struct ChatFeature {
       }
     }
   }
+}
+
+// MARK: Logger
+
+private extension Logger {
+  /// Using your bundle identifier is a great way to ensure a unique identifier.
+  private static var subsystem = "ChatFeature"
+  
+  /// Logs the view cycles like a view that appeared.
+  static let reducer = Logger(
+    subsystem: subsystem,
+    category: "Reducer"
+  )
 }

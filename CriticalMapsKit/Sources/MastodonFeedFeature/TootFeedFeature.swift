@@ -2,9 +2,8 @@ import ComposableArchitecture
 import Foundation
 import Helpers
 import L10n
-import Logger
 import MastodonKit
-import SharedDependencies
+import os
 import SharedModels
 import Styleguide
 import SwiftUI
@@ -84,7 +83,7 @@ public struct TootFeedFeature {
         return .none
 
       case let .fetchDataResponse(.failure(error)):
-        logger.debug("Failed to fetch tweets with error: \(error.localizedDescription)")
+        Logger.reducer.debug("Failed to fetch tweets with error: \(error)")
         state.isRefreshing = false
         state.isLoading = false
         state.error = .init(
@@ -116,6 +115,8 @@ public struct TootFeedFeature {
         return .none
 
       case let .fetchNextPageResponse(.failure(error)):
+        Logger.reducer.debug("Failed to fetch next page response: \(error)")
+
         state.isLoadingNextPage = false
         state.hasMore = false
         state.error = .init(
@@ -135,8 +136,13 @@ public struct TootFeedFeature {
   }
 }
 
-//extension MastodonKit.Status: @retroactive Identifiable {
-//  public static func == (lhs: MastodonKit.Status, rhs: MastodonKit.Status) -> Bool {
-//    lhs.id == rhs.id
-//  }
-//}
+private extension Logger {
+  /// Using your bundle identifier is a great way to ensure a unique identifier.
+  private static var subsystem = "MastodonFeedFeature"
+  
+  /// Logs the view cycles like a view that appeared.
+  static let reducer = Logger(
+    subsystem: subsystem,
+    category: "Reducer"
+  )
+}

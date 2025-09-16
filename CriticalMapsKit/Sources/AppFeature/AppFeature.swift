@@ -3,16 +3,14 @@ import ChatFeature
 import ComposableArchitecture
 import ComposableCoreLocation
 import FeedbackGeneratorClient
-import FileClient
 import IDProvider
 import L10n
-import Logger
 import MapFeature
 import MapKit
 import MastodonFeedFeature
 import NextRideFeature
+import os
 import SettingsFeature
-import SharedDependencies
 import SharedModels
 import SocialFeature
 import struct SwiftUI.PresentationDetent
@@ -138,7 +136,6 @@ public struct AppFeature {
   
   // MARK: Reducer
   
-  @Dependency(\.fileClient) var fileClient
   @Dependency(\.apiService) var apiService
   @Dependency(\.uuid) var uuid
   @Dependency(\.date) var date
@@ -148,9 +145,8 @@ public struct AppFeature {
   @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.continuousClock) var clock
   @Dependency(\.locationManager) var locationManager
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) var setUserInterfaceStyle
   @Dependency(\.feedbackGenerator) var feedbackGenerator
+  @Dependency(\.uiApplicationClient) var uiApplicationClient
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
@@ -184,7 +180,7 @@ public struct AppFeature {
             await userDefaultsClient.setSessionID(uuid().uuidString)
           },
           .run { [style = state.appearanceSettings.colorScheme.userInterfaceStyle] _ in
-            await setUserInterfaceStyle(style)
+            await uiApplicationClient.setUserInterfaceStyle(style)
           },
           .run { send in
             await withThrowingTaskGroup(of: Void.self) { group in
@@ -260,7 +256,7 @@ public struct AppFeature {
           )
         )
         
-        logger.info("FetchLocation failed: \(error)")
+        Logger.reducer.debug("FetchLocation failed: \(error)")
         return .none
         
       case let .fetchLocationsResponse(.success(response)):
@@ -271,7 +267,7 @@ public struct AppFeature {
         
       case let .fetchLocationsResponse(.failure(error)):
         state.isRequestingRiderLocations = false
-        logger.info("FetchLocation failed: \(error)")
+        Logger.reducer.debug("FetchLocation failed: \(error)")
         state.riderLocations = []
         return .none
         
@@ -283,7 +279,7 @@ public struct AppFeature {
         // Check if current location is in a privacy zone
         if let currentLocation = state.mapFeatureState.location,
            state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate) {
-          logger.debug("Location not posted - user is in a privacy zone")
+          Logger.reducer.debug("Location not posted - user is in a privacy zone")
           return .none
         }
         
@@ -305,7 +301,7 @@ public struct AppFeature {
         return .none
         
       case let .postLocationResponse(.failure(error)):
-        logger.debug("Failed to post location. Error: \(error.localizedDescription)")
+        Logger.reducer.debug("Failed to post location. Error: \(error.localizedDescription)")
         return .none
         
       case let .map(mapFeatureAction):
@@ -524,4 +520,15 @@ extension SharedModels.Coordinate {
       longitude: location.coordinate.longitude
     )
   }
+}
+
+private extension Logger {
+  /// Using your bundle identifier is a great way to ensure a unique identifier.
+  private static var subsystem = "AppFeature"
+  
+  /// Logs the view cycles like a view that appeared.
+  static let reducer = Logger(
+    subsystem: subsystem,
+    category: "Reducer"
+  )
 }

@@ -1,5 +1,4 @@
 import Foundation
-import Logger
 import IdentifiedCollections
 import MapKit
 import NextRideFeature
