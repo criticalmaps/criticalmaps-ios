@@ -1,7 +1,6 @@
 import ComposableArchitecture
 import FeedbackGeneratorClient
 import Helpers
-import SharedDependencies
 import SharedModels
 import UIApplicationClient
 import UIKit
@@ -37,7 +36,6 @@ public struct AppearanceSettingsFeature {
   // MARK: Reducer
   
   @Dependency(\.uiApplicationClient) private var uiApplicationClient
-  @Dependency(\.setUserInterfaceStyle) private var setUserInterfaceStyle
   @Dependency(\.feedbackGenerator) private var feedbackGenerator
   
   public var body: some ReducerOf<Self> {
@@ -49,7 +47,7 @@ public struct AppearanceSettingsFeature {
         let colorScheme = state.colorScheme
         state.$settings.withLock { $0.colorScheme = colorScheme }
         return .run { _ in
-          await setUserInterfaceStyle(colorScheme.userInterfaceStyle)
+          await uiApplicationClient.setUserInterfaceStyle(colorScheme.userInterfaceStyle)
         }
 
       case .binding(\.appIcon):

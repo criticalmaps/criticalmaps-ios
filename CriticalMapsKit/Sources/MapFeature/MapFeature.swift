@@ -2,7 +2,6 @@ import ComposableCoreLocation
 import Foundation
 import L10n
 import MapKit
-import SharedDependencies
 import SharedModels
 
 public typealias MapFeatureState = MapFeature.State

@@ -11,6 +11,7 @@ extension UIApplicationClient: TestDependencyKey {
     open: { _, _ in false },
     openSettingsURLString: { "settings://criticalmaps/settings" },
     setAlternateIconName: { _ in },
+    setUserInterfaceStyle: { _ in },
     supportsAlternateIcons: { true },
     supportsAlternateIconsAsync: { true }
   )

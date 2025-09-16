@@ -39,7 +39,7 @@ struct AppearanceSettingsCoreTests {
       initialState: AppearanceSettingsFeature.State(),
       reducer: { AppearanceSettingsFeature() },
       withDependencies: {
-        $0.setUserInterfaceStyle = { newValue in
+        $0.uiApplicationClient.setUserInterfaceStyle = { newValue in
           overriddenUserInterfaceStyle.setValue(newValue)
           return ()
         }

@@ -63,7 +63,6 @@ let package = Package(
         "NextRideFeature",
         .pathMonitorClient,
         "SettingsFeature",
-        .sharedDependencies,
         "SocialFeature",
         .styleguide,
         .userDefaultsClient,
@@ -78,7 +77,6 @@ let package = Package(
         .helpers,
         .idProvider,
         .l10n,
-        .sharedDependencies,
         .sharedModels,
         .styleguide,
         .swiftUIHelpers,
@@ -140,7 +138,6 @@ let package = Package(
         .l10n,
         .logger,
         "NextRideFeature",
-        .sharedDependencies,
         .sharedModels,
         .styleguide,
         .swiftUIHelpers,
@@ -153,7 +150,6 @@ let package = Package(
       dependencies: [
         .apiClient,
         .logger,
-        .sharedDependencies,
         .sharedModels,
         .styleguide,
         .uiApplicationClient,
@@ -167,7 +163,6 @@ let package = Package(
         .apiClient,
         .helpers,
         .l10n,
-        .sharedDependencies,
         .sharedModels,
         .styleguide,
         .userDefaultsClient,
@@ -190,7 +185,6 @@ let package = Package(
         .l10n,
         .helpers,
         "MapFeature",
-        .sharedDependencies,
         .sharedModels,
         .styleguide,
         .swiftUIHelpers,
@@ -199,18 +193,6 @@ let package = Package(
         .product(name: "AcknowList", package: "AcknowList")
       ],
       resources: [.process("_Resources/")]
-    ),
-    .target(
-      name: "SharedDependencies",
-      dependencies: [
-        .apiClient,
-        .fileClient,
-        .idProvider,
-        .pathMonitorClient,
-        .uiApplicationClient,
-        .userDefaultsClient,
-        .tca
-      ]
     ),
     .target(
       name: "SharedModels",
@@ -358,7 +340,6 @@ package.targets.append(contentsOf: [
     name: "MastodonFeedFeatureTests",
     dependencies: [
       .helpers,
-      .sharedDependencies,
       "MastodonFeedFeature",
       .testHelper,
       .tca,
@@ -378,7 +359,6 @@ extension Target.Dependency {
   static let idProvider = byName(name: "IDProvider")
   static let l10n = byName(name: "L10n")
   static let pathMonitorClient = byName(name: "PathMonitorClient")
-  static let sharedDependencies = byName(name: "SharedDependencies")
   static let sharedModels = byName(name: "SharedModels")
   static let styleguide = byName(name: "Styleguide")
   static let swiftUIHelpers = byName(name: "SwiftUIHelpers")

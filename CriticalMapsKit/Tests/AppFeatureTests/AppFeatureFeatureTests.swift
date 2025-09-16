@@ -205,6 +205,7 @@ struct AppFeatureTests {
         $0.userDefaultsClient.setString = { _, _ in }
         $0.userDefaultsClient.boolForKey = { _ in false }
         $0.feedbackGenerator.prepare = { @Sendable in }
+        $0.uiApplicationClient.setUserInterfaceStyle = { _ in }
       }
     )
     store.exhaustivity = .off
