@@ -219,6 +219,7 @@ public struct CreatePrivacyZoneView: View {
         TextField(L10n.PrivacyZone.Settings.Create.Map.Name.placeholder, text: $store.newZoneName)
           .textFieldStyle(.roundedBorder)
           .autocorrectionDisabled()
+          .submitLabel(.done)
       }
     }
   }
