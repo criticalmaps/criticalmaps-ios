@@ -40,7 +40,7 @@ extension NextRideService: TestDependencyKey {
 
   public static let testValue: NextRideService = Self()
 
-  public struct Failure: Error, Equatable {
+  public struct Failure: Error {
     public var internalError: NetworkRequestError
 
     public init(internalError: NetworkRequestError) {

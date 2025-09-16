@@ -4,11 +4,10 @@ import Styleguide
 import UIKit.UIImage
 
 public struct Guide: Hashable, Identifiable {
-  public let id: String
   public let rule: Rule
+  public var id: String { rule.rawValue }
 
-  public init(id: String = UUID().uuidString, rule: Guide.Rule) {
-    self.id = id
+  public init(rule: Guide.Rule) {
     self.rule = rule
   }
 }

@@ -85,7 +85,12 @@ struct AppIconPicker: View {
       .resizable()
       .scaledToFit()
       .frame(width: 48, height: 48)
-      .continuousCornerRadius(12)
+      .clipShape(
+        RoundedRectangle(
+          cornerRadius: 12,
+          style: .continuous
+        )
+      )
       .id(icon.id)
       .overlay(
         RoundedRectangle(cornerRadius: 12)

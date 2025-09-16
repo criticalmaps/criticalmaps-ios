@@ -35,6 +35,12 @@ public struct CMButtonStyle: ButtonStyle {
   }
 }
 
+extension ButtonStyle where Self == CMButtonStyle {
+  public static var criticalMaps: CMButtonStyle {
+    CMButtonStyle()
+  }
+}
+
 public struct GlassButtonModifier: ViewModifier {
   public init() {}
   
