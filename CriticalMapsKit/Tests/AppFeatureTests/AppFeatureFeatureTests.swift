@@ -4,7 +4,6 @@ import Combine
 import CombineSchedulers
 import ComposableArchitecture
 import ComposableCoreLocation
-import FileClient
 import Foundation
 import MapFeature
 import NextRideFeature
@@ -197,7 +196,6 @@ struct AppFeatureTests {
         $0.mainQueue = .immediate
         $0.mainRunLoop = .immediate
         $0.date = .constant(date())
-        $0.fileClient.load = { @Sendable _ in try! JSONEncoder().encode(userSettings) }
         $0.apiService.getChatMessages = { [] }
         $0.apiService.getRiders = { [] }
         $0.continuousClock = ImmediateClock()

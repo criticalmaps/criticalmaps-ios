@@ -1,7 +1,6 @@
 import AcknowList
 import ComposableArchitecture
 import ComposableCoreLocation
-import FileClient
 import Helpers
 import MapFeature
 import SharedModels
@@ -72,7 +71,6 @@ public struct SettingsFeature {
   // MARK: Reducer
 
   @Dependency(\.continuousClock) var clock
-  @Dependency(\.fileClient) var fileClient
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.dismiss) var dismiss

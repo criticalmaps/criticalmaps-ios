@@ -55,7 +55,6 @@ let package = Package(
         .apiClient,
         .helpers,
         .feedbackGeneratorClient,
-        .fileClient,
         "GuideFeature",
         .l10n,
         .idProvider,
@@ -81,14 +80,6 @@ let package = Package(
         .styleguide,
         .swiftUIHelpers,
         .userDefaultsClient
-      ]
-    ),
-    .target(
-      name: "FileClient",
-      dependencies: [
-        .helpers,
-        .sharedModels,
-        .tca
       ]
     ),
     .target(
@@ -180,7 +171,6 @@ let package = Package(
       name: "SettingsFeature",
       dependencies: [
         .feedbackGeneratorClient,
-        .fileClient,
         "GuideFeature",
         .l10n,
         .helpers,
@@ -353,7 +343,6 @@ extension Target.Dependency {
   // MARK: - Internal
 
   static let apiClient = byName(name: "ApiClient")
-  static let fileClient = byName(name: "FileClient")
   static let feedbackGeneratorClient = byName(name: "FeedbackGeneratorClient")
   static let helpers = byName(name: "Helpers")
   static let idProvider = byName(name: "IDProvider")
