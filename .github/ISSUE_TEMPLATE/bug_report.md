@@ -1,38 +1,46 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+name: Bug Report
+about: Report a problem or unexpected behavior in Critical Maps iOS
+title: "[Bug] "
+labels: bug
 assignees: ''
+---
+
+## Description
+
+Briefly describe the bug.
+
+## Steps to Reproduce
+
+List the steps to reproduce the issue.
+
+1. 
+2. 
+3. 
+
+## Expected Behavior
+
+What did you expect to happen?
+
+## Actual Behavior
+
+What actually happened?
+
+## Device & Version Info
+
+- Device model:
+- iOS version:
+- App version:
+
+## Screenshots or Logs
+
+If applicable, add screenshots or logs to help explain your problem.
+
+## Willing to submit a pull request?
+
+- [ ] Yes! I’d like to help fix this bug.
+- [ ] No, I can’t right now.
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+Thank you for reporting!
