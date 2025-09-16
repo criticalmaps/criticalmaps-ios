@@ -116,18 +116,11 @@ let package = Package(
       resources: [.process("Resources")]
     ),
     .target(
-      name: "Logger",
-      dependencies: [
-        .product(name: "Logging", package: "swift-log")
-      ]
-    ),
-    .target(
       name: "MapFeature",
       dependencies: [
         .apiClient,
         .helpers,
         .l10n,
-        .logger,
         "NextRideFeature",
         .sharedModels,
         .styleguide,
@@ -140,7 +133,6 @@ let package = Package(
       name: "MastodonFeedFeature",
       dependencies: [
         .apiClient,
-        .logger,
         .sharedModels,
         .styleguide,
         .uiApplicationClient,
