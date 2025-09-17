@@ -35,13 +35,13 @@ public struct EmptyStateView: View {
 
   public var body: some View {
     ZStack {
-      Color(.backgroundPrimary)
+      Color.backgroundPrimary
         .ignoresSafeArea()
 
       VStack(spacing: .grid(5)) {
         Image(uiImage: emptyState.icon)
           .imageScale(.large)
-          .foregroundStyle(Color(.textPrimary))
+          .foregroundStyle(Color.textPrimary)
           .accessibilityHidden(true)
 
         VStack(spacing: .grid(2)) {
@@ -51,7 +51,7 @@ public struct EmptyStateView: View {
             Text(message)
               .multilineTextAlignment(.center)
               .font(.bodyOne)
-              .foregroundColor(Color(.textSecondary))
+              .foregroundColor(.textSecondary)
           }
           if buttonAction != nil {
             Button(
@@ -67,7 +67,7 @@ public struct EmptyStateView: View {
       }
       .accessibilityElement(children: .contain)
       .frame(maxHeight: .infinity, alignment: .center)
-      .foregroundColor(Color(.textPrimary))
+      .foregroundColor(.textPrimary)
     }
   }
 }

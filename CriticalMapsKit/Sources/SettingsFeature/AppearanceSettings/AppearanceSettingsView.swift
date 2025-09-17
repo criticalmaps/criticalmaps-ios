@@ -94,7 +94,7 @@ struct AppIconPicker: View {
       .id(icon.id)
       .overlay(
         RoundedRectangle(cornerRadius: 12)
-          .stroke(Color(.textPrimary), lineWidth: 0.4)
+          .stroke(Color.textPrimary, lineWidth: 0.4)
       )
   }
 }

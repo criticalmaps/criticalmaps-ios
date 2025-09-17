@@ -76,11 +76,11 @@ public struct BasicInputView: View {
         sendButton
       }
       .padding(.grid(1))
-      .background(Color(.backgroundPrimary))
+      .background(Color.backgroundPrimary)
       .clipShape(RoundedRectangle(cornerRadius: 23))
       .overlay(
         RoundedRectangle(cornerRadius: 23)
-          .stroke(Color(.innerBorder), lineWidth: 1)
+          .stroke(Color.innerBorder, lineWidth: 1)
       )
     }
   }

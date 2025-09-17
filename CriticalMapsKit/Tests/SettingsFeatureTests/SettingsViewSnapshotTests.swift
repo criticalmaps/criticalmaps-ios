@@ -17,7 +17,7 @@ final class SettingsViewSnapshotTests: XCTestCase {
       )
     )
     .environment(\.colorScheme, .light)
-    .accentColor(Color(.textPrimary))
+    .accentColor(.textPrimary)
 
     assertScreenSnapshot(settingsView, sloppy: true)
   }

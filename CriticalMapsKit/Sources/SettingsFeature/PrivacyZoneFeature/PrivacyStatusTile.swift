@@ -38,11 +38,11 @@ public struct PrivacyStatusTile: View {
   
   private var foregroundStyleColor: Color {
     if !privacyZoneSettings.isEnabled {
-      Color.secondary
+      Color.textSecondary
     } else if isInPrivacyZone {
       Color.green
     } else {
-      Color.primary
+      Color.textPrimary
     }
   }
   

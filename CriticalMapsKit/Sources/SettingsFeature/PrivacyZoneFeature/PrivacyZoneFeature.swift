@@ -217,7 +217,7 @@ public struct PrivacyZoneSettingsView: View {
       } footer: {
         Text(L10n.PrivacyZone.Settings.Section.footer)
           .font(.footnote)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(Color.textSecondary)
       }
       
       if !store.settings.zones.isEmpty {
@@ -240,17 +240,15 @@ public struct PrivacyZoneSettingsView: View {
           VStack(spacing: .grid(3)) {
             Asset.pzLocationShield.swiftUIImage
               .font(.title2)
-              .foregroundColor(.secondary)
             
             Text(L10n.PrivacyZone.Settings.Empty.headline)
               .font(.subheadline)
-              .foregroundColor(.secondary)
             
             Text(L10n.PrivacyZone.Settings.Empty.subheadline)
               .font(.caption)
-              .foregroundColor(.secondary)
               .multilineTextAlignment(.center)
           }
+          .foregroundColor(.textSecondary)
           .frame(maxWidth: .infinity)
         }
       }

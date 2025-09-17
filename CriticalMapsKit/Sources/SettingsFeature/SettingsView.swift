@@ -143,7 +143,7 @@ public struct SettingsView: View {
         Text(L10n.Settings.Observationmode.title)
           .font(.body)
         Text(L10n.Settings.Observationmode.detail)
-          .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
           .font(.subheadline)
       }
       Spacer()
@@ -163,7 +163,7 @@ public struct SettingsView: View {
         Text(L10n.Settings.Info.Toggle.label)
           .font(.body)
         Text(L10n.Settings.Info.Toggle.description)
-          .foregroundColor(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
           .font(.subheadline)
       }
       Spacer()
@@ -201,7 +201,7 @@ public struct SettingsView: View {
       subTitle: L10n.Settings.Translate.subtitle,
       link: L10n.Settings.Translate.link,
       textStackForegroundColor: .white,
-      backgroundColor: Color(.translateRowBackground),
+      backgroundColor: .translateRowBackground,
       bottomImage: {
         Asset.translate.swiftUIImage
           .resizable()
@@ -217,8 +217,8 @@ public struct SettingsView: View {
       title: L10n.Settings.CriticalMassDotIn.title,
       subTitle: L10n.Settings.CriticalMassDotIn.detail,
       link: L10n.Settings.CriticalMassDotIn.action,
-      textStackForegroundColor: Color(.textPrimaryLight),
-      backgroundColor: Color(.cmInRowBackground),
+      textStackForegroundColor: .textPrimaryLight,
+      backgroundColor: .cmInRowBackground,
       bottomImage: {
         Asset.cmDotInLogo.swiftUIImage
           .resizable()
@@ -298,7 +298,7 @@ public struct SettingsView: View {
           .frame(width: 56, height: 56, alignment: .center)
           .overlay(
             RoundedRectangle(cornerRadius: 12)
-              .strokeBorder(Color(.border), lineWidth: 1)
+              .strokeBorder(Color.border, lineWidth: 1)
           )
         Asset.cmLogoC.swiftUIImage
           .resizable()
@@ -310,10 +310,10 @@ public struct SettingsView: View {
       VStack(alignment: .leading) {
         Text("Critical Maps")
           .font(.titleTwo)
-          .foregroundColor(Color(.textPrimary))
+          .foregroundColor(.textPrimary)
         Text("Version: \(store.versionNumber)+\(store.buildNumber)")
           .font(.bodyTwo)
-          .foregroundStyle(colorSchemeContrast.isIncreased ? Color(.textPrimary) : Color(.textSilent))
+          .foregroundStyle(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
       }
       .accessibilityElement(children: .combine)
     }

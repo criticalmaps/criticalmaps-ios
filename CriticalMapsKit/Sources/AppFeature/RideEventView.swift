@@ -18,7 +18,7 @@ struct RideEventView: View {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(ride.titleWithoutDatePattern)
           .font(.headline.weight(.bold))
-          .foregroundColor(Color(.textPrimary))
+          .foregroundColor(.textPrimary)
           .padding(.bottom, .grid(2))
         
         VStack(alignment: .leading, spacing: .grid(1)) {
@@ -31,7 +31,7 @@ struct RideEventView: View {
           }
         }
         .font(.bodyTwo)
-        .foregroundColor(Color(.textSecondary))
+        .foregroundColor(.textSecondary)
       }
       .multilineTextAlignment(.leading)
       .accessibilityElement(children: .combine)

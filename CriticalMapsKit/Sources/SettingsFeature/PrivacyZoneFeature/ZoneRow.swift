@@ -45,7 +45,7 @@ struct ZoneRow: View {
           }
         }
         .font(.footnote)
-        .foregroundColor(.secondary)
+        .foregroundColor(.textSecondary)
       }
       
       Spacer()
@@ -53,7 +53,7 @@ struct ZoneRow: View {
       Toggle(isOn: $isActive) { EmptyView() }
         .toggleStyle(.switch)
         .scaleEffect(0.8)
-        .tint(Color(.brand600))
+        .tint(Color.brand600)
     }
     .padding(.vertical, .grid(1))
     .swipeActions(edge: .trailing, allowsFullSwipe: false) {

@@ -43,12 +43,12 @@ struct SupportSettingsRow<BottomImageView: View>: View {
       .padding([.top, .bottom, .leading], .grid(6))
       .padding(.trailing, 120)
       .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
-      .foregroundColor(colorSchemeContrast.isIncreased ? Color(.backgroundPrimary) : textStackForegroundColor)
+      .foregroundColor(colorSchemeContrast.isIncreased ? Color.backgroundPrimary : textStackForegroundColor)
     }
     .background(
       Group {
         if colorSchemeContrast.isIncreased {
-          Color(.textPrimary)
+          Color.textPrimary
         } else {
           backgroundColor
             .overlay {
@@ -70,7 +70,7 @@ struct SupportSettingsRow<BottomImageView: View>: View {
     title: "Development",
     subTitle: "Critical Maps is open source and we are always looking for people making this project better",
     link: "GitHub",
-    textStackForegroundColor: Color(.textPrimary),
+    textStackForegroundColor: .textPrimary,
     backgroundColor: .yellow,
     bottomImage: { Asset.ghLogo.swiftUIImage },
     action: {}

@@ -5,7 +5,7 @@ public extension Image {
     resizable()
       .aspectRatio(contentMode: .fit)
       .frame(width: 30, height: 30)
-      .foregroundColor(Color(.textPrimary))
+      .foregroundColor(.textPrimary)
       .padding(10)
   }
 }

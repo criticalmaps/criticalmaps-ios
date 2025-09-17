@@ -11,14 +11,14 @@ public struct CMButtonStyle: ButtonStyle {
       .label
       .foregroundColor(
         configuration.isPressed
-          ? Color(.textPrimaryLight).opacity(0.6)
-          : Color(.textPrimaryLight)
+          ? Color.textPrimaryLight.opacity(0.6)
+          : Color.textPrimaryLight
       )
       .font(.body)
       .padding(.horizontal, .grid(4))
       .padding(.vertical, .grid(4))
       .background(
-        Color(.brand500)
+        Color.brand500
           .opacity(isEnabled ? 1.0 : 0.4)
       )
       .if(!.iOS26) { view in

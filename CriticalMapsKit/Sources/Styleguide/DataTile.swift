@@ -29,7 +29,7 @@ public struct DataTile<Content: View>: View {
       
       Spacer()
     }
-    .foregroundColor(Color(.textPrimary))
+    .foregroundColor(.textPrimary)
     .padding(.grid(2))
     .frame(minHeight: 90)
     .frame(maxHeight: 120)
@@ -40,7 +40,7 @@ public struct DataTile<Content: View>: View {
       view
         .overlay(
           RoundedRectangle(cornerRadius: .grid(3), style: .continuous)
-            .stroke(Color(.textPrimary).opacity(0.2), lineWidth: 1)
+            .stroke(Color.textPrimary.opacity(0.2), lineWidth: 1)
         )
     }
     .accessibilityElement(children: .combine)
@@ -79,7 +79,7 @@ public extension View {
               Circle()
                 .fill(.regularMaterial)
             } else {
-              Color(.backgroundPrimary).opacity(0.4)
+              Color.backgroundPrimary.opacity(0.4)
             }
           }
         )

@@ -62,7 +62,7 @@ public struct ErrorStateView: View {
 
   public var body: some View {
     ZStack {
-      Color(.backgroundPrimary)
+      Color.backgroundPrimary
         .ignoresSafeArea()
 
       VStack(spacing: .grid(5)) {
@@ -73,11 +73,11 @@ public struct ErrorStateView: View {
         VStack(spacing: .grid(2)) {
           Text(errorState.title)
             .font(.titleOne)
-            .foregroundColor(Color(.textPrimary))
+            .foregroundColor(.textPrimary)
           if let message = errorState.body {
             Text(message)
               .font(.bodyOne)
-              .foregroundColor(Color(.textSecondary))
+              .foregroundColor(.textSecondary)
           }
           if buttonAction != nil {
             Button(

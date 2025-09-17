@@ -98,7 +98,7 @@ struct InfoOverlayView: View {
             .font(.pageTitle)
             .contentTransition(.numericText(countsDown: true))
         }
-        .foregroundStyle(Color(.textPrimary))
+        .foregroundStyle(Color.textPrimary)
       }
       
       PrivacyStatusTile(isInPrivacyZone: isInPrivacyZone)
@@ -115,7 +115,7 @@ struct InfoOverlayView: View {
     CircularProgressView(progress: timerProgress, lineWidth: lineWidth)
       .overlay(alignment: .center) {
         Text(verbatim: timerValue)
-          .foregroundStyle(Color(.textPrimary))
+          .foregroundStyle(Color.textPrimary)
           .font(.system(size: 14).bold())
           .monospacedDigit()
           .contentTransition(.numericText(countsDown: true))

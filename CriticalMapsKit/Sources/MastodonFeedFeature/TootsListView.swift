@@ -30,7 +30,7 @@ public struct TootsListView: View {
       Spacer()
       ProgressView {
         Text("Loading")
-          .foregroundColor(Color(.textPrimary))
+          .foregroundColor(.textPrimary)
           .font(.bodyOne)
       }
       Spacer()
@@ -53,7 +53,7 @@ public struct TootsListView: View {
       )
     } else {
       ZStack {
-        Color(.backgroundPrimary)
+        Color.backgroundPrimary
           .ignoresSafeArea()
 
         List {
@@ -71,7 +71,7 @@ public struct TootsListView: View {
               .frame(maxWidth: .infinity)
             }
         }
-        .listRowBackground(Color(.backgroundPrimary))
+        .listRowBackground(Color.backgroundPrimary)
         .listStyle(PlainListStyle())
       }
     }

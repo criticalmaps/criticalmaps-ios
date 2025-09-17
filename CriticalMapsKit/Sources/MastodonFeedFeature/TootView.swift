@@ -112,13 +112,13 @@ public struct TootView: View {
         ) { phase in
           switch phase {
           case .empty:
-            Color(.textSilent).opacity(0.6)
+            Color.textSilent.opacity(0.6)
           case let .success(image):
             image
               .resizable()
               .transition(.opacity)
           case .failure:
-            Color(.textSilent).opacity(0.6)
+            Color.textSilent.opacity(0.6)
           @unknown default:
             EmptyView()
           }
@@ -213,14 +213,14 @@ public struct TootView: View {
     Text(store.accountDisplayName)
       .lineLimit(1)
       .font(.titleTwo)
-      .foregroundColor(Color(.textPrimary))
+      .foregroundColor(.textPrimary)
   }
   
   private var accountName: some View {
     Text(store.accountAcct)
       .lineLimit(1)
       .font(.bodyTwo)
-      .foregroundColor(Color(.textSilent))
+      .foregroundColor(.textSilent)
       .accessibilityHidden(true)
   }
   
@@ -228,7 +228,7 @@ public struct TootView: View {
     let (text, a11yValue) = store.state.formattedCreationDate()
     return Text(text ?? "")
       .font(.meta)
-      .foregroundColor(Color(.textPrimary))
+      .foregroundColor(.textPrimary)
       .accessibilityLabel(a11yValue ?? "")
   }
   

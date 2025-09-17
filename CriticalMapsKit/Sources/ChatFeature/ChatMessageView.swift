@@ -17,13 +17,13 @@ public struct ChatMessageView: View {
   public var body: some View {
     VStack(alignment: .leading, spacing: .grid(1)) {
       Text(chat.decodedMessage)
-        .foregroundColor(Color(.textPrimary))
+        .foregroundColor(.textPrimary)
         .font(.bodyOne)
 
       HStack {
         Spacer()
         Text(chatTime)
-          .foregroundColor(Color(.textSecondary))
+          .foregroundColor(.textSecondary)
           .font(.footnote)
       }
     }

@@ -17,16 +17,17 @@ struct PrivacyZoneDisabledView: View {
       VStack(spacing: .grid(4)) {
         Asset.pzLocationShield.swiftUIImage
           .font(.system(size: 60))
-          .foregroundColor(.secondary)
+          .foregroundColor(.textSecondary)
         
         VStack(spacing: .grid(2)) {
           Text(L10n.PrivacyZone.Settings.Disabled.headline)
             .font(.title2)
+            .foregroundColor(.textPrimary)
             .fontWeight(.semibold)
           
           Text(L10n.PrivacyZone.Settings.Disabled.subheadline)
             .font(.body)
-            .foregroundColor(.secondary)
+            .foregroundColor(.textSecondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, .grid(8))
         }

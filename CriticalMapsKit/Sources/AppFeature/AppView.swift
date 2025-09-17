@@ -95,7 +95,7 @@ public struct AppView: View {
       .foregroundColor(
         reduceTransparency
           ? Color.white
-          : Color(.attention)
+          : Color.attention
       )
       .accessibilityLabel(Text("Internet not available"))
       .padding()
@@ -113,7 +113,7 @@ public struct AppView: View {
       view
         .padding(.grid(1))
     }
-    .foregroundStyle(Color(.textPrimary))
+    .foregroundStyle(Color.textPrimary)
     .clipShape(.circle)
     .accessibilityHint(Text(L10n.A11y.Mapfeatureview.Nextridebanner.hint))
     .accessibilityLabel(Text(L10n.A11y.Mapfeatureview.Nextridebanner.label))

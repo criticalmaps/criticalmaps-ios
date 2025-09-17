@@ -18,7 +18,7 @@ public struct GuideDetailView: View {
         Text(guide.rule.text)
           .multilineTextAlignment(.leading)
           .font(.bodyOne)
-          .foregroundColor(Color(.textPrimary))
+          .foregroundColor(.textPrimary)
           .padding(.horizontal, .grid(4))
           .accessibilitySortPriority(1)
         

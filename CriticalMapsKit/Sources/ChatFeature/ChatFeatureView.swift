@@ -29,8 +29,8 @@ public struct ChatView: View {
               .padding(.vertical, .grid(2))
               .animation(nil, value: store.messages)
           }
-          .listRowBackground(Color(.backgroundPrimary))
-          .listStyle(PlainListStyle())
+          .listRowBackground(Color.backgroundPrimary)
+          .listStyle(.plain)
           .accessibleAnimation(.spring, value: store.messages)
         }
       }
@@ -59,7 +59,7 @@ public struct ChatView: View {
       Color(.border)
         .frame(height: 2)
     }
-    .background(Color(.backgroundSecondary))
+    .background(Color.backgroundSecondary)
   }
   
   private var emptyState: some View {

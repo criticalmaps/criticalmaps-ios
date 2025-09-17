@@ -148,7 +148,7 @@ public struct CreatePrivacyZoneView: View {
       
       Text(L10n.PrivacyZone.Settings.Create.Map.subheadline)
         .font(.subheadline)
-        .foregroundColor(.secondary)
+        .foregroundColor(.textSecondary)
       
       PrivacyZoneMapView(
         zones: .constant([]),
@@ -171,7 +171,7 @@ public struct CreatePrivacyZoneView: View {
       .clipShape(.rect(cornerRadius: 24))
       .overlay(
         RoundedRectangle(cornerRadius: 24)
-          .stroke(Color(.systemGray4), lineWidth: 1)
+          .stroke(Color.border, lineWidth: 1)
       )
     }
   }
@@ -186,10 +186,10 @@ public struct CreatePrivacyZoneView: View {
           Spacer()
           Text(store.newZoneRadiusMeasurement.formatted())
             .font(.subheadline)
-            .foregroundColor(.primary)
+            .foregroundColor(.textPrimary)
             .padding(.horizontal, .grid(2))
             .padding(.vertical, .grid(1))
-            .background(Color(.systemGray5))
+            .background(Color.backgroundSecondary)
             .cornerRadius(8)
         }
         
@@ -202,14 +202,14 @@ public struct CreatePrivacyZoneView: View {
         } minimumValueLabel: {
           Text(zoneRadiusRangeMin.formatted())
             .font(.caption)
-            .foregroundColor(.secondary)
+            .foregroundColor(.textSecondary)
         } maximumValueLabel: {
           Text(zoneRadiusRangeMax.formatted())
             .font(.caption)
-            .foregroundColor(.secondary)
+            .foregroundColor(.textSecondary)
         }
         .disabled(store.mapCenter == nil)
-        .tint(Color(.brand500))
+        .tint(Color.brand500)
       }
       
       VStack(alignment: .leading, spacing: .grid(2)) {

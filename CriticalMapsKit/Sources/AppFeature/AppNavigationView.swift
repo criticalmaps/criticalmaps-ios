@@ -50,7 +50,7 @@ public struct AppNavigationView: View {
   private var badge: some View {
     ZStack {
       Circle()
-        .foregroundColor(.red)
+        .foregroundColor(.attention)
       
       Text(store.chatMessageBadgeCount == 0 ? "" : String(store.chatMessageBadgeCount))
         .animation(nil)
@@ -120,7 +120,7 @@ public struct AppNavigationView: View {
         NavigationStack {
           SettingsView(store: store)
         }
-        .accentColor(Color(.textPrimary))
+        .accentColor(.textPrimary)
       }
     )
   }
@@ -162,8 +162,8 @@ private struct AppNavigationBackgroundModifier: ViewModifier {
       content
         .background(
           shouldShowAccessiblyBackground
-          ? Color(.backgroundSecondary)
-          : Color(.backgroundTranslucent)
+          ? Color.backgroundSecondary
+          : Color.backgroundTranslucent
         )
         .clipShape(.rect(cornerRadius: 18, style: .continuous))
     }
