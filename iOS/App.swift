@@ -17,8 +17,6 @@ struct CriticalMapsApp: App {
   }
 
   init() {
-    if #available(iOS 16.0, *) {
-      CriticalMapsShortcuts.updateAppShortcutParameters()
-    }
+    CriticalMapsShortcuts.updateAppShortcutParameters()
   }
 }
