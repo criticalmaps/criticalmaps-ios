@@ -1,7 +1,9 @@
 import Foundation
+import L10n
 import SharedModels
 import Styleguide
 import SwiftUI
+import UIKit
 
 struct RideEventView: View {
   let ride: Ride
@@ -28,6 +30,16 @@ struct RideEventView: View {
           
           if let location = ride.location {
             Label(location, systemImage: "mappin.and.ellipse")
+              .contextMenu {
+                if let coordinate = ride.coordinate {
+                  Button(L10n.RideEvent.ContextMenu.copyCoordinates, systemImage: "doc.on.doc") {
+                    UIPasteboard.general.string = coordinate.formattedForCopying
+                  }
+                }
+                Button(L10n.RideEvent.ContextMenu.copyLocationName, systemImage: "location") {
+                  UIPasteboard.general.string = location
+                }
+              }
           }
         }
         .font(.bodyTwo)

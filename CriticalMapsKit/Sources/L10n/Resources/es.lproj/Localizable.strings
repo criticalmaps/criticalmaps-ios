@@ -332,3 +332,6 @@
 "social.feed.loading" = "Cargando feed";
 
 "map.location.request.desciption" = "La ubicación mejora esta app. Por favor, danos acceso.";
+
+"rideEvent.contextMenu.copyCoordinates" = "Copiar coordenadas";
+"rideEvent.contextMenu.copyLocationName" = "Copiar nombre del lugar";
