@@ -92,6 +92,8 @@
 	<string>CriticalMaps needs the access to be able to share your location with other Critical Maps users.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>CriticalMaps needs the access to be able to share your location with other Critical Maps users.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
