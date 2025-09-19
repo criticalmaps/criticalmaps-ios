@@ -58,6 +58,52 @@ public enum L10n {
       public static let watching = L10n.tr("Localizable", "appCore.viewingModeAlert.watching", fallback: "Watching")
     }
   }
+  public enum AppIntent {
+    public enum ObservationMode {
+      /// Enable or disable observation mode in CriticalMaps
+      public static let description = L10n.tr("Localizable", "appIntent.observationMode.description", fallback: "Enable or disable observation mode in CriticalMaps")
+      /// Toggle Observation Mode
+      public static let title = L10n.tr("Localizable", "appIntent.observationMode.title", fallback: "Toggle Observation Mode")
+      public enum Parameter {
+        /// Whether to enable or disable observation mode
+        public static let description = L10n.tr("Localizable", "appIntent.observationMode.parameter.description", fallback: "Whether to enable or disable observation mode")
+        /// Enable Observation Mode
+        public static let title = L10n.tr("Localizable", "appIntent.observationMode.parameter.title", fallback: "Enable Observation Mode")
+      }
+      public enum Result {
+        /// Observation mode disabled
+        public static let disabled = L10n.tr("Localizable", "appIntent.observationMode.result.disabled", fallback: "Observation mode disabled")
+        /// Observation mode enabled
+        public static let enabled = L10n.tr("Localizable", "appIntent.observationMode.result.enabled", fallback: "Observation mode enabled")
+      }
+      public enum Shortcut {
+        /// Observation Mode
+        public static let title = L10n.tr("Localizable", "appIntent.observationMode.shortcut.title", fallback: "Observation Mode")
+        public enum Phrase {
+          /// Disable observation mode in %@
+          public static func disable(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "appIntent.observationMode.shortcut.phrase.disable", String(describing: p1), fallback: "Disable observation mode in %@")
+          }
+          /// Enable observation mode in %@
+          public static func enable(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "appIntent.observationMode.shortcut.phrase.enable", String(describing: p1), fallback: "Enable observation mode in %@")
+          }
+          /// Toggle observation mode in %@
+          public static func toggle(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "appIntent.observationMode.shortcut.phrase.toggle", String(describing: p1), fallback: "Toggle observation mode in %@")
+          }
+          /// Turn off observation mode in %@
+          public static func turnOff(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "appIntent.observationMode.shortcut.phrase.turnOff", String(describing: p1), fallback: "Turn off observation mode in %@")
+          }
+          /// Turn on observation mode in %@
+          public static func turnOn(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "appIntent.observationMode.shortcut.phrase.turnOn", String(describing: p1), fallback: "Turn on observation mode in %@")
+          }
+        }
+      }
+    }
+  }
   public enum AppView {
     public enum Overlay {
       /// Next update
