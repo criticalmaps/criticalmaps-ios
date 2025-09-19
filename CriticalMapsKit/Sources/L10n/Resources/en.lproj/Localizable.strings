@@ -332,16 +332,3 @@
 "social.feed.loading" = "Loading Feed";
 
 "map.location.request.desciption" = "Location makes this app better. Please consider giving us access.";
-
-"appIntent.observationMode.title" = "Toggle Observation Mode";
-"appIntent.observationMode.description" = "Enable or disable observation mode in CriticalMaps";
-"appIntent.observationMode.parameter.title" = "Enable Observation Mode";
-"appIntent.observationMode.parameter.description" = "Whether to enable or disable observation mode";
-"appIntent.observationMode.result.enabled" = "Observation mode enabled";
-"appIntent.observationMode.result.disabled" = "Observation mode disabled";
-"appIntent.observationMode.shortcut.title" = "Observation Mode";
-"appIntent.observationMode.shortcut.phrase.enable" = "Enable observation mode in %@";
-"appIntent.observationMode.shortcut.phrase.turnOn" = "Turn on observation mode in %@";
-"appIntent.observationMode.shortcut.phrase.disable" = "Disable observation mode in %@";
-"appIntent.observationMode.shortcut.phrase.turnOff" = "Turn off observation mode in %@";
-"appIntent.observationMode.shortcut.phrase.toggle" = "Toggle observation mode in %@";

@@ -332,16 +332,3 @@
 "social.feed.loading" = "Feed wird geladen";
 
 "map.location.request.desciption" = "Der Standort verbessert diese App. Bitte gewähre uns Zugriff.";
-
-"appIntent.observationMode.title" = "Beobachtungsmodus umschalten";
-"appIntent.observationMode.description" = "Beobachtungsmodus in CriticalMaps aktivieren oder deaktivieren";
-"appIntent.observationMode.parameter.title" = "Beobachtungsmodus aktivieren";
-"appIntent.observationMode.parameter.description" = "Ob der Beobachtungsmodus aktiviert oder deaktiviert werden soll";
-"appIntent.observationMode.result.enabled" = "Beobachtungsmodus aktiviert";
-"appIntent.observationMode.result.disabled" = "Beobachtungsmodus deaktiviert";
-"appIntent.observationMode.shortcut.title" = "Beobachtungsmodus";
-"appIntent.observationMode.shortcut.phrase.enable" = "Beobachtungsmodus in %@ aktivieren";
-"appIntent.observationMode.shortcut.phrase.turnOn" = "Beobachtungsmodus in %@ einschalten";
-"appIntent.observationMode.shortcut.phrase.disable" = "Beobachtungsmodus in %@ deaktivieren";
-"appIntent.observationMode.shortcut.phrase.turnOff" = "Beobachtungsmodus in %@ ausschalten";
-"appIntent.observationMode.shortcut.phrase.toggle" = "Beobachtungsmodus in %@ umschalten";
