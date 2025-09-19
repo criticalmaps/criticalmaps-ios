@@ -148,7 +148,7 @@ public struct AppFeature {
   @Dependency(\.feedbackGenerator) var feedbackGenerator
   @Dependency(\.uiApplicationClient) var uiApplicationClient
 
-  public var body: some Reducer<State, Action> {
+  public var body: some ReducerOf<Self> {
     BindingReducer()
     
     Scope(state: \.requestTimer, action: \.requestTimer) {
@@ -472,20 +472,22 @@ public struct AppFeature {
         }
         return .merge(effects)
         
-      case .binding(\.isEventListPresented):
-        if !state.isEventListPresented {
+      case .binding:
+        return .none
+      }
+    }
+    .ifLet(\.$destination, action: \.destination)
+    .onChange(of: \.isEventListPresented) { _, newValue in
+      Reduce { state, action in
+        if !newValue {
           state.mapFeatureState.rideEvents = []
           state.mapFeatureState.eventCenter = nil
         } else {
           state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
         }
         return .none
-        
-      case .binding:
-        return .none
       }
     }
-    .ifLet(\.$destination, action: \.destination)
   }
 }
 
