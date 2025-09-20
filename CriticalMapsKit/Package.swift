@@ -11,6 +11,7 @@ let package = Package(
   products: [
     .singleTargetLibrary("ApiClient"),
     .singleTargetLibrary("AppFeature"),
+    .singleTargetLibrary("AppIntentFeature"),
     .singleTargetLibrary("ChatFeature"),
     .singleTargetLibrary("GuideFeature"),
     .singleTargetLibrary("MapFeature"),
@@ -66,6 +67,13 @@ let package = Package(
         .styleguide,
         .userDefaultsClient,
         .uiApplicationClient,
+        .tca
+      ]
+    ),
+    .target(
+      name: "AppIntentFeature",
+      dependencies: [
+        .sharedModels,
         .tca
       ]
     ),

@@ -85,29 +85,43 @@ struct AppFeatureTests {
     let store = TestStore(
       initialState: appState,
       reducer: { AppFeature() }
-    )
+    ) {
+      $0.feedbackGenerator = .noop
+    }
 
-    await store.send(.binding(.set(\.isEventListPresented, true))) {
+    await store.send(.didTapNextRideOverlayButton) {
       $0.mapFeatureState.rideEvents = events
       $0.isEventListPresented = true
     }
+    
+    await store.receive(\.map.focusNextRide)
   }
 
   @Test
   func actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() async {
     var appState = AppFeature.State()
-    appState.eventListPresentation = .fraction(0.3)
-    let events = [Ride.mock1, .mock2]
-    appState.mapFeatureState.rideEvents = events
-    
+    let events = [
+      Ride.mock1,
+      Ride.mock2
+    ]
+    appState.nextRideState.rideEvents = events
+
     let store = TestStore(
       initialState: appState,
       reducer: { AppFeature() }
-    )
+    ) {
+      $0.feedbackGenerator = .noop
+    }
+
+    await store.send(.didTapNextRideOverlayButton) {
+      $0.mapFeatureState.rideEvents = events
+      $0.isEventListPresented = true
+    }
+    await store.receive(\.map.focusNextRide)
     
-    await store.send(.binding(.set(\.isEventListPresented, false))) {
-      $0.mapFeatureState.rideEvents = []
+    await store.send(.dismissEventList) {
       $0.isEventListPresented = false
+      $0.mapFeatureState.rideEvents = []
     }
   }
   

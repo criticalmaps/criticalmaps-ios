@@ -127,6 +127,7 @@ public struct AppFeature {
     case socialButtonTapped
     case settingsButtonTapped
     case didTapNextRideOverlayButton
+    case dismissEventList
     case dismissDestination
     
     case map(MapFeatureAction)
@@ -148,7 +149,7 @@ public struct AppFeature {
   @Dependency(\.feedbackGenerator) var feedbackGenerator
   @Dependency(\.uiApplicationClient) var uiApplicationClient
 
-  public var body: some Reducer<State, Action> {
+  public var body: some ReducerOf<Self> {
     BindingReducer()
     
     Scope(state: \.requestTimer, action: \.requestTimer) {
@@ -471,14 +472,9 @@ public struct AppFeature {
           effects.append(.send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))))
         }
         return .merge(effects)
-        
-      case .binding(\.isEventListPresented):
-        if !state.isEventListPresented {
-          state.mapFeatureState.rideEvents = []
-          state.mapFeatureState.eventCenter = nil
-        } else {
-          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
-        }
+      
+      case .dismissEventList:
+        state.isEventListPresented = false
         return .none
         
       case .binding:
@@ -486,6 +482,17 @@ public struct AppFeature {
       }
     }
     .ifLet(\.$destination, action: \.destination)
+    .onChange(of: \.isEventListPresented) { _, newValue in
+      Reduce { state, action in
+        if !newValue {
+          state.mapFeatureState.rideEvents = []
+          state.mapFeatureState.eventCenter = nil
+        } else {
+          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+        }
+        return .none
+      }
+    }
   }
 }
 

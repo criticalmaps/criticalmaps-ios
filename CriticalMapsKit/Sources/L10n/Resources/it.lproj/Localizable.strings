@@ -331,4 +331,7 @@
 "social.error.sendMessage" = "Impossibile inviare il messaggio della chat";
 "social.feed.loading" = "Caricamento feed";
 
-"map.location.request.desciption" = "La tua posizione rende questa app migliore. Per favore concedici l’accesso.";
+"map.location.request.desciption" = "La tua posizione rende questa app migliore. Per favore concedici l'accesso.";
+
+"rideEvent.contextMenu.copyCoordinates" = "Copia coordinate";
+"rideEvent.contextMenu.copyLocationName" = "Copia nome del luogo";

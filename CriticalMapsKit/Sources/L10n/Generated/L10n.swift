@@ -266,6 +266,14 @@ public enum L10n {
       }
     }
   }
+  public enum RideEvent {
+    public enum ContextMenu {
+      /// Copy Coordinates
+      public static let copyCoordinates = L10n.tr("Localizable", "rideEvent.contextMenu.copyCoordinates", fallback: "Copy Coordinates")
+      /// Copy Location Name
+      public static let copyLocationName = L10n.tr("Localizable", "rideEvent.contextMenu.copyLocationName", fallback: "Copy Location Name")
+    }
+  }
   public enum RideEventSettings {
     public enum RideTypes {
       /// Select which types of ride events you'd like to be notified about when they occur near your location.

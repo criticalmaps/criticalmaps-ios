@@ -11,6 +11,7 @@ Critical Maps iOS
 - PrivacyZones Feature:
   - Create and manage zones where your location won't be shared with other riders
 - You can now browse image attachments of Mastodon posts
+- Adds an AppIntent so you can toggle the ObservationMode from Shortcuts and Siri
   
 ### Updated
 

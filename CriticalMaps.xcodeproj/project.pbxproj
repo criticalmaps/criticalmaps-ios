@@ -20,6 +20,7 @@
 		739A582D2D41290F00B80B41 /* ChatFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A58262D41290F00B80B41 /* ChatFeaturePreviewApp.swift */; };
 		739A582E2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A582A2D41290F00B80B41 /* SettingsFeaturePreviewApp.swift */; };
 		739A582F2D41290F00B80B41 /* GuideFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A58282D41290F00B80B41 /* GuideFeaturePreviewApp.swift */; };
+		73C137152E7D59F100E949D9 /* AppIntentFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73C137142E7D59F100E949D9 /* AppIntentFeature */; };
 		73CA22FA2D4158650040C7CF /* GuideFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 73CA22F92D4158650040C7CF /* GuideFeature */; };
 		73CF5FF7263EB0A6001925A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73CF5FF1263EB0A6001925A3 /* Assets.xcassets */; };
 		73EB0311263F23A100941D57 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EB0310263F23A100941D57 /* App.swift */; };
@@ -81,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				731CFCC9267A745600F1093B /* AppFeature in Frameworks */,
+				73C137152E7D59F100E949D9 /* AppIntentFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +258,7 @@
 			name = "Critical Maps";
 			packageProductDependencies = (
 				731CFCC8267A745600F1093B /* AppFeature */,
+				73C137142E7D59F100E949D9 /* AppIntentFeature */,
 			);
 			productName = "Critical Maps";
 			productReference = 739A58302D414F4B00B80B41 /* Critical Maps.app */;
@@ -842,6 +845,10 @@
 		73238EDC277328E8003DE01F /* SettingsFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SettingsFeature;
+		};
+		73C137142E7D59F100E949D9 /* AppIntentFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppIntentFeature;
 		};
 		73CA22F92D4158650040C7CF /* GuideFeature */ = {
 			isa = XCSwiftPackageProductDependency;

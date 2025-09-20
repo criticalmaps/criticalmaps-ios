@@ -1,9 +1,10 @@
 import AppFeature
+import AppIntentFeature
 import ComposableArchitecture
 import SwiftUI
 
 @main
-struct CriticalMapsApp: App {  
+struct CriticalMapsApp: App {
   @MainActor
   static let store = Store(initialState: AppFeature.State()) {
     AppFeature()
@@ -13,5 +14,9 @@ struct CriticalMapsApp: App {
     WindowGroup {
       AppView(store: Self.store)
     }
+  }
+
+  init() {
+    CriticalMapsShortcuts.updateAppShortcutParameters()
   }
 }

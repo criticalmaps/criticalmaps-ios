@@ -34,3 +34,16 @@ public extension CLLocation {
     self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
   }
 }
+
+public extension Coordinate {
+  /// Formats the coordinate in the format "42,47221° N, 2,43165° W"
+  var formattedForCopying: String {
+    let latDirection = latitude >= 0 ? "N" : "S"
+    let lonDirection = longitude >= 0 ? "E" : "W"
+
+    let absLatitude = abs(latitude)
+    let absLongitude = abs(longitude)
+
+    return String(format: "%.5f° %@, %.5f° %@", absLatitude, latDirection, absLongitude, lonDirection)
+  }
+}

@@ -46,8 +46,7 @@ public struct AppView: View {
     }
     .sheet(
       isPresented: $store.isEventListPresented,
-      onDismiss: { store.send(.set(\.isEventListPresented, false))
-      },
+      onDismiss: { store.send(.dismissEventList) },
       content: {
         NavigationStack {
           bottomSheetContentView()
