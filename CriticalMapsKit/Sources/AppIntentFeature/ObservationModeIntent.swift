@@ -43,16 +43,16 @@ public struct ObservationModeIntent: AppIntent {
     $userSettings.withLock { $0.isObservationModeEnabled = enableObservationMode }
 
     let statusMessage = userSettings.isObservationModeEnabled
-    ? String(
-      localized: "appIntent.observationMode.result.enabled",
-      defaultValue: "Observation mode enabled",
-      bundle: .module
-    )
-    : String(
-      localized: "appIntent.observationMode.result.disabled",
-      defaultValue: "Observation mode disabled",
-      bundle: .module
-    )
+      ? String(
+        localized: "appIntent.observationMode.result.enabled",
+        defaultValue: "Observation mode enabled",
+        bundle: .module
+      )
+      : String(
+        localized: "appIntent.observationMode.result.disabled",
+        defaultValue: "Observation mode disabled",
+        bundle: .module
+      )
 
     return .result(dialog: IntentDialog(stringLiteral: statusMessage))
   }

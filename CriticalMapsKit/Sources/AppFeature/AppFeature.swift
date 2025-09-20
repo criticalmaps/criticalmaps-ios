@@ -279,7 +279,8 @@ public struct AppFeature {
         
         // Check if current location is in a privacy zone
         if let currentLocation = state.mapFeatureState.location,
-           state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate) {
+           state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate)
+        {
           Logger.reducer.debug("Location not posted - user is in a privacy zone")
           return .none
         }
@@ -483,7 +484,7 @@ public struct AppFeature {
     }
     .ifLet(\.$destination, action: \.destination)
     .onChange(of: \.isEventListPresented) { _, newValue in
-      Reduce { state, action in
+      Reduce { state, _ in
         if !newValue {
           state.mapFeatureState.rideEvents = []
           state.mapFeatureState.eventCenter = nil

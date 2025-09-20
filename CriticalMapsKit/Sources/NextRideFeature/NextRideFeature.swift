@@ -35,12 +35,12 @@ public struct NextRideFeature {
   }
 
   // MARK: Reducer
-  
+
   @Dependency(\.nextRideService) private var service
   @Dependency(\.date) private var date
   @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
   @Dependency(\.calendar) private var calendar
-  
+
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case let .getNextRide(coordinate):
@@ -176,7 +176,7 @@ extension SharedModels.Coordinate {
 private extension Logger {
   /// Using your bundle identifier is a great way to ensure a unique identifier.
   private static var subsystem = "NextRideFeature"
-  
+
   /// Logs the view cycles like a view that appeared.
   static let reducer = Logger(
     subsystem: subsystem,

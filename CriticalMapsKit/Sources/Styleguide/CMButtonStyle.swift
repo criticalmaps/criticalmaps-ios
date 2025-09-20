@@ -3,7 +3,7 @@ import SwiftUI
 /// CM default ButtonStyle
 public struct CMButtonStyle: ButtonStyle {
   @Environment(\.isEnabled) var isEnabled
-  
+
   public init() {}
 
   public func makeBody(configuration: Configuration) -> some View {
@@ -35,15 +35,15 @@ public struct CMButtonStyle: ButtonStyle {
   }
 }
 
-extension ButtonStyle where Self == CMButtonStyle {
-  public static var criticalMaps: CMButtonStyle {
+public extension ButtonStyle where Self == CMButtonStyle {
+  static var criticalMaps: CMButtonStyle {
     CMButtonStyle()
   }
 }
 
 public struct GlassButtonModifier: ViewModifier {
   public init() {}
-  
+
   public func body(content: Content) -> some View {
     if #available(iOS 26, *) {
       content

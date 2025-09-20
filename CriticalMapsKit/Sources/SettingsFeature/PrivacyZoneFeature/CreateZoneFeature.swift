@@ -23,12 +23,12 @@ public struct CreateZoneFeature {
     
     public init() {
       // Initialize radius with default from settings
-      self.newZoneRadius = settings.defaultRadius
+      newZoneRadius = settings.defaultRadius
     }
     
     public var canCreateZone: Bool {
       !newZoneName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-      mapCenter != nil
+        mapCenter != nil
     }
   }
   
@@ -99,7 +99,7 @@ public struct CreateZoneFeature {
 
 let zoneRadiusRangeMin = Measurement(value: 100, unit: UnitLength.meters)
 let zoneRadiusRangeMax = Measurement(value: 1000, unit: UnitLength.meters)
-let zoneRadiusRange: ClosedRange<Double> = zoneRadiusRangeMin.value...zoneRadiusRangeMax.value
+let zoneRadiusRange: ClosedRange<Double> = zoneRadiusRangeMin.value ... zoneRadiusRangeMax.value
 
 public struct CreatePrivacyZoneView: View {
   @Bindable var store: StoreOf<CreateZoneFeature>

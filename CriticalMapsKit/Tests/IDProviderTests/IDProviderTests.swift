@@ -8,7 +8,7 @@ struct IDProviderTests {
   let deviceID = "00000000-0000-0000-0000-000000000001"
   
   @Test("ID changes when device ID changes")
-  func testIDDoesChange() {
+  func iDDoesChange() {
     let date = Date(timeIntervalSince1970: 1557057968)
     let currentID = withDependencies { values in
       values.date = DateGenerator { date }
@@ -29,7 +29,7 @@ struct IDProviderTests {
   }
   
   @Test("ID does not change when device ID does not change")
-  func testIDDoesNotChange() {
+  func iDDoesNotChange() {
     let date = Date(timeIntervalSince1970: 1557057968)
     let currentID = withDependencies { values in
       values.date = DateGenerator { date }

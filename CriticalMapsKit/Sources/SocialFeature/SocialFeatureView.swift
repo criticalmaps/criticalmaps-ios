@@ -29,7 +29,7 @@ public struct SocialView: View {
       ToolbarItem(placement: .topBarTrailing) {
         CloseButton { store.send(.dismiss) }
       }
-      
+
       ToolbarItem(placement: .principal) {
         Picker(
           "Social Segment",

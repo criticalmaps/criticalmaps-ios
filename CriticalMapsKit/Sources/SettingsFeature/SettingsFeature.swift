@@ -54,7 +54,7 @@ public struct SettingsFeature {
     case view(ViewAction)
     case destination(PresentationAction<Destination.Action>)
     case openURL(URL)
-    
+
     public enum ViewAction {
       case acknowledgementsRowTapped
       case appearanceSettingsRowTapped
@@ -74,7 +74,7 @@ public struct SettingsFeature {
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.dismiss) var dismiss
-  
+
   public var body: some ReducerOf<Self> {
     BindingReducer()
       .onChange(of: \.userSettings.isObservationModeEnabled) { _, newValue in
@@ -95,18 +95,18 @@ public struct SettingsFeature {
         switch viewAction {
         case .onAppear:
           return .none
-  
+
         case .dismiss:
           return .run { _ in await dismiss() }
-       
+
         case .acknowledgementsRowTapped:
           state.destination = .acknowledgements
           return .none
-          
+
         case .guideRowTapped:
           state.destination = .guideFeature
           return .none
-          
+
         case .appearanceSettingsRowTapped:
           state.destination = .appearanceSettings(
             AppearanceSettingsFeature.State(appearanceSettings: state.appearanceSettings)
@@ -118,13 +118,13 @@ public struct SettingsFeature {
             RideEventsSettingsFeature.State(settings: state.rideEventSettings)
           )
           return .none
-          
+
         case .privacyZonesRowTapped:
           state.destination = .privacyZonesSettings(
             PrivacyZoneFeature.State()
           )
           return .none
-          
+
         case let .infoSectionRowTapped(row):
           return .send(.openURL(row.url))
 

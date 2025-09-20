@@ -30,7 +30,7 @@ public struct AppearanceSettingsView: View {
           Text(L10n.AppearanceSettings.ThemePicker.sectionHeader)
         }
       }
-      
+
       Section {
         AppIconPicker(appIcon: $store.appIcon)
       } header: {
@@ -53,7 +53,7 @@ struct AppIconPicker: View {
   var body: some View {
     ForEach(AppIcon.allCases, id: \.id) { icon in
       Button(
-        action: { self.appIcon = icon },
+        action: { appIcon = icon },
         label: {
           row(for: icon)
             .accessibilityLabel(icon.title)
@@ -61,24 +61,24 @@ struct AppIconPicker: View {
       )
     }
   }
-  
+
   @ViewBuilder
   private func row(for icon: AppIcon) -> some View {
     HStack(spacing: .grid(3)) {
       appIconView(icon)
-      
+
       Text(icon.title)
-      
+
       Spacer()
-      
-      if self.appIcon == icon {
+
+      if appIcon == icon {
         Image(systemName: "checkmark")
           .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
           .fontWeight(.medium)
       }
     }
   }
-  
+
   @ViewBuilder
   private func appIconView(_ icon: AppIcon) -> some View {
     Image(uiImage: icon.image)
@@ -132,7 +132,6 @@ extension AppIcon {
     }
   }
 }
-
 
 #Preview {
   AppearanceSettingsView(

@@ -23,7 +23,7 @@ final class RiderAnnotationView: MKAnnotationView {
     
     registerForTraitChanges(
       [UITraitPreferredContentSizeCategory.self, UITraitUserInterfaceStyle.self],
-      handler: { (self: Self, previousTraitCollection: UITraitCollection) in
+      handler: { (self: Self, _: UITraitCollection) in
         self.configureView()
       }
     )

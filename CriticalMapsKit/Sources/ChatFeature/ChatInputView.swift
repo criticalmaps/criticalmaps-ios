@@ -8,7 +8,7 @@ public struct BasicInputView: View {
   private let placeholder: String
   @State private var store: StoreOf<ChatInput>
   @State private var contentSizeThatFits: CGSize = .zero
-  
+
   public init(
     store: StoreOf<ChatInput>,
     placeholder: String = ""
@@ -17,14 +17,14 @@ public struct BasicInputView: View {
     self.placeholder = placeholder
     _contentSizeThatFits = State(initialValue: .zero)
   }
-  
+
   private var messageEditorHeight: CGFloat {
     min(
       contentSizeThatFits.height,
       UIScreen.main.bounds.height * 0.25
     )
   }
-  
+
   private var messageEditorView: some View {
     MultilineTextField(
       attributedText: $store.internalAttributedMessage.sending(\.messageChanged),
@@ -39,7 +39,7 @@ public struct BasicInputView: View {
     }
     .frame(height: messageEditorHeight)
   }
-  
+
   private var sendButton: some View {
     Button(action: {
       store.send(.onCommit)
@@ -68,7 +68,7 @@ public struct BasicInputView: View {
     })
     .disabled(store.isSendButtonDisabled)
   }
-  
+
   public var body: some View {
     VStack {
       HStack(alignment: .bottom) {
@@ -90,7 +90,7 @@ public struct BasicInputView: View {
 
 public struct ContentSizeThatFitsKey: PreferenceKey {
   public static var defaultValue: CGSize = .zero
-  
+
   public static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
     value = nextValue()
   }
@@ -109,7 +109,7 @@ extension EnvironmentValues {
 
 struct TextAttributesModifier: ViewModifier {
   let textAttributes: TextAttributes
-  
+
   func body(content: Content) -> some View {
     content.environment(\.textAttributes, textAttributes)
   }

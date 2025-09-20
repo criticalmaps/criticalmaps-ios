@@ -9,7 +9,7 @@ import SwiftUI
 @Reducer
 public struct RideEventType {
   public init() {}
-  
+
   @ObservableState
   public struct State: Equatable, Identifiable {
     public var id: String {
@@ -18,17 +18,17 @@ public struct RideEventType {
 
     public let rideType: Ride.RideType
     public var isEnabled = true
-    
+
     public init(rideType: Ride.RideType, isEnabled: Bool) {
       self.rideType = rideType
       self.isEnabled = isEnabled
     }
   }
-  
+
   public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
   }
-  
+
   public var body: some Reducer<State, Action> {
     BindingReducer()
   }
@@ -38,11 +38,11 @@ public struct RideEventType {
 
 public struct RideEventTypeView: View {
   @Bindable private var store: StoreOf<RideEventType>
-  
+
   public init(store: StoreOf<RideEventType>) {
     self.store = store
   }
-  
+
   public var body: some View {
     Button(
       action: { store.isEnabled.toggle() },

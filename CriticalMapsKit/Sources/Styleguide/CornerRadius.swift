@@ -9,7 +9,7 @@ public extension View {
 
 private struct AdaptiveCornerRadius: ViewModifier {
   let radius: CGFloat
-  
+
   func body(content: Content) -> some View {
     if #available(iOS 26, *) {
       content

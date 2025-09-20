@@ -50,7 +50,7 @@ public extension AppearanceSettings {
         .light
       }
     }
-    
+
     public var id: String { rawValue }
   }
 }

@@ -1,8 +1,8 @@
 import Foundation
 import Sharing
 
-extension SharedKey where Self == FileStorageKey<PrivacyZoneSettings>.Default {
-  public static var privacyZoneSettings: Self {
+public extension SharedKey where Self == FileStorageKey<PrivacyZoneSettings>.Default {
+  static var privacyZoneSettings: Self {
     Self[
       .fileStorage(.privacyZones),
       default: PrivacyZoneSettings()

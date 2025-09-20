@@ -142,7 +142,7 @@ struct MapView: ViewRepresentable {
       }
     }
   }
-  
+
   func updatePrivacyZoneOverlays(in mapView: MKMapView) {
     // Remove existing privacy zone overlays
     let existingPrivacyOverlays = mapView.overlays.compactMap { overlay in
@@ -151,10 +151,10 @@ struct MapView: ViewRepresentable {
       return title?.hasPrefix("privacy_zone_") == true ? overlay : nil
     }
     mapView.removeOverlays(existingPrivacyOverlays)
-    
+
     // Add privacy zone overlays if enabled
     guard canShowPrivacyZonesOnMap else { return }
-    
+
     for zone in privacyZones where zone.isActive {
       let circle = zone.mkCircle
       circle.title = "privacy_zone_\(zone.id.uuidString)"
@@ -203,11 +203,12 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
     parent.setRiderAnnotationsCount(mapView)
   }
-  
+
   func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
     if let circle = overlay as? MKCircle,
        let title = circle.title,
-       title.hasPrefix("privacy_zone_") {
+       title.hasPrefix("privacy_zone_")
+    {
       let renderer = MKCircleRenderer(circle: circle)
       renderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.15)
       renderer.strokeColor = UIColor.systemGreen
@@ -215,7 +216,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       renderer.lineDashPattern = [5, 3]
       return renderer
     }
-    
+
     return MKOverlayRenderer(overlay: overlay)
   }
 }

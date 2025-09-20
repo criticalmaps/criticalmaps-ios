@@ -93,7 +93,7 @@ public struct PrivacyZoneFeature {
         }
         return .none
 
-     case .alert(.presented(.deleteZoneButtonTapped)):
+      case .alert(.presented(.deleteZoneButtonTapped)):
         guard let deleteCandidate = state.zoneDeletionCandidate else {
           return .none
         }
@@ -107,7 +107,7 @@ public struct PrivacyZoneFeature {
       case .alert:
         return .none
         
-      case .destination(.presented(.createZoneSheet(.delegate(.zoneCreated(let zone))))):
+      case let .destination(.presented(.createZoneSheet(.delegate(.zoneCreated(zone))))):
         state.$settings.withLock { settings in
           settings.zones.append(zone)
         }
@@ -151,7 +151,6 @@ public extension AlertState where Action == PrivacyZoneFeature.Action.Alert {
   }
 }
 
-
 // MARK: - View
 
 public struct PrivacyZoneSettingsView: View {
@@ -193,7 +192,6 @@ public struct PrivacyZoneSettingsView: View {
     }
   }
 
-  
   @ViewBuilder
   private var settingsSection: some View {
     SettingsForm {

@@ -1,13 +1,13 @@
 import ComposableArchitecture
 import Foundation
+@testable import SettingsFeature
 import SharedModels
 import Testing
-@testable import SettingsFeature
 
 @Suite("PrivacyZoneFeature Tests")
 @MainActor
 struct Settings_PrivacyZoneFeatureTests {
-  let testDate: Date = Date(timeIntervalSinceReferenceDate: 0)
+  let testDate = Date(timeIntervalSinceReferenceDate: 0)
   let testUUID = UUID(0)
   
   // MARK: - CreateZoneFeature Tests
@@ -15,7 +15,7 @@ struct Settings_PrivacyZoneFeatureTests {
   @MainActor
   @Suite("CreateZoneFeature")
   struct CreateZoneFeatureTests {
-    let testDate: Date = Date(timeIntervalSinceReferenceDate: 0)
+    let testDate = Date(timeIntervalSinceReferenceDate: 0)
     let testUUID = UUID(0)
     
     @Test("Initial state should use default radius from settings")
@@ -177,7 +177,7 @@ struct Settings_PrivacyZoneFeatureTests {
   @Suite("PrivacyZoneFeature")
   @MainActor
   struct PrivacyZoneFeatureTests {
-    let testDate: Date = Date(timeIntervalSinceReferenceDate: 0)
+    let testDate = Date(timeIntervalSinceReferenceDate: 0)
     
     @Test("shouldPresentDisabledView returns true when disabled and no zones")
     func shouldPresentDisabledView() async {

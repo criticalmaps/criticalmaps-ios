@@ -1,6 +1,6 @@
 disabled_rules: # rule identifiers to exclude from running
   - trailing_comma
-  - operator_whitespace
+  - function_name_whitespace # renamed from operator_whitespace
   - force_try
   - function_body_length
   - trailing_whitespace

@@ -26,6 +26,7 @@ public struct TootFeature {
     var imageAttachments: [MastodonKit.Attachment] {
       mediaAttachments.filter { $0.type == .image }
     }
+
     // Build the full items array once for this render
     var imageSheetItems: [ImageSheetItem] {
       imageAttachments.compactMap { attachment in
@@ -82,7 +83,7 @@ public struct TootFeature {
   }
   
   private func openURL(_ url: URL) -> Effect<Action> {
-    return .run { _ in
+    .run { _ in
       _ = await uiApplicationClient.open(url, [:])
     }
   }
@@ -97,7 +98,7 @@ public struct TootView: View {
   // Holds all image items for the sheet
   @State private var shouldPresentImageItems = false
   // Which index to start at in the zoomable view
-  @State private var selectedImageStartIndex: Int = 0
+  @State private var selectedImageStartIndex = 0
   
   public init(store: StoreOf<TootFeature>) {
     self.store = store
@@ -241,7 +242,7 @@ public struct TootView: View {
             switch phase {
             case .empty:
               Color.gray.opacity(0.2)
-            case .success(let image):
+            case let .success(image):
               image
                 .resizable()
                 .aspectRatio(contentMode: .fit)

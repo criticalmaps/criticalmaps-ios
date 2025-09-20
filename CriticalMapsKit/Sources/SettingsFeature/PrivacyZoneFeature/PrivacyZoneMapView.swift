@@ -25,12 +25,12 @@ struct PrivacyZoneMapView: UIViewRepresentable {
     mapView.userTrackingMode = .none
     
     if let userLocation = mapView.userLocation.location {
-        let region = MKCoordinateRegion(
-            center: userLocation.coordinate,
-            latitudinalMeters: 500,
-            longitudinalMeters: 500
-        )
-        mapView.setRegion(region, animated: true)
+      let region = MKCoordinateRegion(
+        center: userLocation.coordinate,
+        latitudinalMeters: 500,
+        longitudinalMeters: 500
+      )
+      mapView.setRegion(region, animated: true)
     }
     
     // Add tap gesture for creating zones

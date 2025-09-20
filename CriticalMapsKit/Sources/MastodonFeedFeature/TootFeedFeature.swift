@@ -20,8 +20,8 @@ public struct TootFeedFeature {
     public var isLoading = false
     public var isRefreshing = false
     public var error: ErrorState?
-    public var hasMore: Bool = true
-    public var isLoadingNextPage: Bool = false
+    public var hasMore = true
+    public var isLoadingNextPage = false
         
     public init(
       toots: IdentifiedArrayOf<TootFeature.State> = []

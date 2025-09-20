@@ -39,7 +39,6 @@ public struct SettingsView: View {
               } icon: {
                 Asset.pzLocationShield.swiftUIImage
               }
-
             }
           }
         )

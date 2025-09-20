@@ -80,7 +80,7 @@ final class PagedZoomController: UIPageViewController {
   
   init(items: [ImageSheetItem], startIndex: Int) {
     self.items = items
-    self.currentIndex = startIndex
+    currentIndex = startIndex
     super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
     // UIPageControl setup
@@ -104,6 +104,7 @@ final class PagedZoomController: UIPageViewController {
     view.backgroundColor = .clear
   }
   
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

@@ -35,7 +35,7 @@ public struct RideEventSettingsView: View {
           .font(.footnote)
           .foregroundStyle(.secondary)
       }
-      
+
       Section {
         ForEach(EventDistance.allCases, id: \.self) { radius in
           Button(
@@ -59,7 +59,7 @@ public struct RideEventSettingsView: View {
     .accessibleAnimation(.snappy, value: store.isEnabled)
     .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
   }
-  
+
   @ViewBuilder
   private func distanceRow(_ radius: EventDistance) -> some View {
     HStack(spacing: .grid(2)) {

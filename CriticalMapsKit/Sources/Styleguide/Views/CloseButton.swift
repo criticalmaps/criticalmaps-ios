@@ -5,7 +5,7 @@ import SwiftUI
 public struct CloseButton: View {
   let action: () -> Void
   let color: UIColor
-  
+
   public init(
     color: UIColor = .textPrimary,
     action: @escaping () -> Void
@@ -13,7 +13,7 @@ public struct CloseButton: View {
     self.color = color
     self.action = action
   }
-  
+
   public var body: some View {
     Button(
       action: action,

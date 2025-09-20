@@ -3,7 +3,6 @@ import Testing
 
 @Suite
 struct CoordinateFormattingTests {
-
   @Test("Format positive coordinates (Northern/Eastern hemisphere)")
   func formatPositiveCoordinates() {
     // given - Berlin coordinates

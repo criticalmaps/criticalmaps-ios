@@ -59,6 +59,7 @@ public struct PrivacyStatusTile: View {
         .renderingMode(.template)
     }
   }
+
   // MARK: - Accessibility
   
   private var accessibilityLabel: String {
@@ -83,7 +84,7 @@ public struct PrivacyStatusTile: View {
       shouldShowZonesOnMap: true
     )
     
-    PrivacyStatusTile(isInPrivacyZone: true)  // Location Hidden
+    PrivacyStatusTile(isInPrivacyZone: true) // Location Hidden
     
     PrivacyStatusTile(isInPrivacyZone: false) // Zones Off
       .environment(\.colorScheme, .light)
