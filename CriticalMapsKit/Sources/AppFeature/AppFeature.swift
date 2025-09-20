@@ -127,6 +127,7 @@ public struct AppFeature {
     case socialButtonTapped
     case settingsButtonTapped
     case didTapNextRideOverlayButton
+    case dismissEventList
     case dismissDestination
     
     case map(MapFeatureAction)
@@ -471,6 +472,10 @@ public struct AppFeature {
           effects.append(.send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))))
         }
         return .merge(effects)
+      
+      case .dismissEventList:
+        state.isEventListPresented = false
+        return .none
         
       case .binding:
         return .none

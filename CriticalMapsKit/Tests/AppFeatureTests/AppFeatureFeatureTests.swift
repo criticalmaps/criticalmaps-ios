@@ -117,11 +117,11 @@ struct AppFeatureTests {
       $0.mapFeatureState.rideEvents = events
       $0.isEventListPresented = true
     }
-    
     await store.receive(\.map.focusNextRide)
     
-    await store.send(.binding(.set(\.isEventListPresented, false))) {
+    await store.send(.dismissEventList) {
       $0.isEventListPresented = false
+      $0.mapFeatureState.rideEvents = []
     }
   }
   
