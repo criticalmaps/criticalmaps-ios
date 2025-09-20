@@ -19,6 +19,25 @@ http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 This iOS app is made for Critical Maps. It tracks your location and shares it with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
 
+## How the App Works
+
+Critical Maps connects cyclists during Critical Mass rides through real-time location sharing and communication.
+
+### Core Functionality
+- **🗺️ Real-time Location Tracking**: Your location is shared anonymously with other riders on an interactive map
+- **💬 Live Chat System**: Communicate with all participants in real-time during rides
+- **📅 Next Ride Events**: Discover upcoming Critical Mass events in your area
+- **🎨 Customizable Experience**: Personalize your rider appearance and app settings
+- **🌐 Social Integration**: Stay connected through integrated Mastodon feeds
+- **🔒 Privacy-Focused**: Anonymous participation with optional customization
+
+### Technical Architecture
+Built with modern iOS development practices:
+- **SwiftUI** for declarative, responsive user interfaces
+- **The Composable Architecture (TCA)** for predictable state management and unidirectional data flow
+- **Swift Package Manager** for dependency management
+- **Real-time API Integration** for live location sharing and chat
+
 ## Where can I get the app?
 
 - [AppStore](https://apps.apple.com/de/app/critical-maps/id918669647)
@@ -26,35 +45,118 @@ This iOS app is made for Critical Maps. It tracks your location and shares it wi
 ## Project Setup
 
 The iOS client's logic is built in the [`The Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) and the UI is built in SwiftUI.
-Minimum platform requirements are: iOS 16.0
 
-### Modularization
+**Minimum platform requirements**: iOS 17.0
 
-The application is built in a hyper-modularized style. This allows to work on features without building the entire application, which improves compile times and SwiftUI preview stability. Every feature is its own target which makes it also possible to build mini-apps to run in the simulator for preview.
+### Architecture Overview
+
+#### Modular Design Philosophy
+The application follows a hyper-modularized architecture with feature modules:
+
+**Core Features:**
+- `AppFeature` - Main app coordination and navigation
+- `MapFeature` - Interactive map with real-time rider locations
+- `ChatFeature` - Real-time messaging system
+- `NextRideFeature` - Event discovery and management
+- `SettingsFeature` - User preferences and app configuration
+- `SocialFeature` - Mastodon feed integration
+
+**Supporting Modules:**
+- `ApiClient` - Network layer and API communication
+- `SharedModels` - Data structures (e.g. `Rider`, `Location`, `Coordinate`)
+- `Styleguide` - Design system and UI components
+- `L10n` - Internationalization and localization
+- `IDProvider` - Unique identifier generation for anonymous riders
+
+#### Benefits of Modularization
+- **Faster Build Times**: Work on individual features without building the entire app
+- **Improved SwiftUI Previews**: More stable preview environments for each feature
+- **Independent Development**: Features can be developed and tested in isolation
+- **Mini-Apps**: Each feature can be built as a standalone app for development
+- **Scalable Architecture**: Easy to add new features without affecting existing code
+
+#### Data Flow & State Management
+The app uses TCA's unidirectional data flow:
+1. **Actions** represent user interactions and system events
+2. **Reducers** handle state mutations and side effects
+3. **Effects** manage asynchronous operations (API calls, location services)
+4. **State** is the single source of truth for each feature
+
+Example: Location sharing flow
+```
+User enables tracking → LocationAction → LocationReducer → API Effect → State Update → UI Re-render
+```
 
 ### Getting Started
 
-This repo contains both the client for running the entire [Critical Maps](https://itunes.apple.com/app/critical-maps/id918669647) application, as well as an extensive test suite. To get things running:
+This repo contains both the client for running the entire [Critical Maps](https://itunes.apple.com/app/critical-maps/id918669647) application, as well as an extensive test suite.
 
-1. Grab the code:
-    ```sh
-    git clone https://github.com/criticalmaps/criticalmaps-ios
-    cd criticalmaps-ios
-    ```
-2. Open the Xcode project `CriticalMaps.xcodeproj`.
-3. To run the client locally, select the `Critical Maps` target in Xcode and run (`⌘R`).
+#### Quick Start
+1. **Clone the repository**:
+2. **Open the Xcode project**: `CriticalMaps.xcodeproj`
+3. **Run the app**: Select the `Critical Maps` target in Xcode and run (`⌘R`)
 
-__Optional__
-Install `fastlane` with
+#### Development Setup (Optional)
+Install all development tools with:
 ```sh
-make dependencies
+make setup
 ```
 
-### Assets
+Or install components individually:
+```sh
+make dependencies  # Install Swift tools (SwiftLint, SwiftFormat, SwiftGen) + Ruby gems
+make ruby         # Install only Ruby dependencies (bundler, fastlane)
+```
 
-The project is using type-safe assets generated with [SwiftGen](https://github.com/SwiftGen/SwiftGen).
-If you add images to the project be sure to install it and run `make assets` from the root folder and add the changes to your PR.
+**Available Makefile Commands:**
+- `make help` - Show all available commands
+- `make setup` - Complete project setup for new developers
+- `make tests` - Run all tests
+- `make lint` - Run SwiftLint with auto-fix
+- `make format` - Format code with SwiftFormat
+- `make assets` - Generate type-safe assets
+- `make clean` - Clean build artifacts
 
+
+### Assets & Code Generation
+
+#### SwiftGen Integration
+The project uses type-safe assets generated with [SwiftGen](https://github.com/SwiftGen/SwiftGen):
+
+```sh
+# After adding new images or localization strings
+make assets
+```
+
+This generates strongly-typed Swift code for:
+- **Images**: `Asset.Images.iconName` instead of `"icon-name"`
+- **Localizations**: `L10n.buttonSave` instead of `NSLocalizedString`
+
+
+### Testing
+
+The project includes comprehensive testing across all feature modules:
+
+#### Running Tests
+```sh
+# Run all tests
+⌘U in Xcode
+
+# Run specific feature tests
+xcodebuild test -scheme MapFeatureTests -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+```
+
+#### Test Architecture
+- **Unit Tests**: Logic and reducer testing with TCA's testing utilities
+- **Snapshot Tests**: UI component visual regression testing
+- **Integration Tests**: Feature-level behavior testing
+
+**Test Coverage by Module:**
+- `AppFeatureTests` - Main app flow and navigation
+- `ChatFeatureTests` - Messaging functionality
+- `MapFeatureTests` - Location and map interactions
+- `SettingsFeatureTests` - User preference management
+- And more...
 
 ## Contribute
 
@@ -72,8 +174,16 @@ In general, we follow the "fork-and-pull" Git workflow.
 4.  **Push** your work back up to your fork
 5.  Submit a **Pull request** so that we can review your changes
 
-NOTES: 
+#### Development Guidelines
+- Follow the existing code style and SwiftLint rules
+- Write tests for new features and bug fixes
+- Update documentation and comments when adding new functionality
+- Run `make assets` after adding new images or localization strings
+- Ensure all CI checks pass before requesting review
+
+**Notes**:
 - Be sure to merge the latest from "upstream" before making a pull request!
+- For significant changes, consider opening an issue first to discuss the approach
 
 ## Open Source & Copying
 
