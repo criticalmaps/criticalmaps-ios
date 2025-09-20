@@ -17,7 +17,7 @@ http://en.wikipedia.org/wiki/Critical_Mass_(cycling)
 
 ## What's this app?
 
-This iOS app is made for Critical Maps. It tracks your location and shares it with all other participants of the Critical Mass bicycle protest. You can use the chat to communicate with all other participants.
+This iOS app is made for Critical Maps. It tracks your location and shares it with all other participants of the Critical Mass bicycle protest.
 
 ## How the App Works
 
@@ -27,20 +27,9 @@ Critical Maps connects cyclists during Critical Mass rides through real-time loc
 - **🗺️ Real-time Location Tracking**: Your location is shared anonymously with other riders on an interactive map
 - **💬 Live Chat System**: Communicate with all participants in real-time during rides
 - **📅 Next Ride Events**: Discover upcoming Critical Mass events in your area
+- **🌐 Social Integration**: Stay connected through an integrated Mastodon feed
+- **🔒 Privacy-Focused**: Anonymous participation with observationmode. Additional protection through privacy zones.
 - **🎨 Customizable Experience**: Personalize your rider appearance and app settings
-- **🌐 Social Integration**: Stay connected through integrated Mastodon feeds
-- **🔒 Privacy-Focused**: Anonymous participation with optional customization
-
-### Technical Architecture
-Built with modern iOS development practices:
-- **SwiftUI** for declarative, responsive user interfaces
-- **The Composable Architecture (TCA)** for predictable state management and unidirectional data flow
-- **Swift Package Manager** for dependency management
-- **Real-time API Integration** for live location sharing and chat
-
-## Where can I get the app?
-
-- [AppStore](https://apps.apple.com/de/app/critical-maps/id918669647)
 
 ## Project Setup
 
@@ -96,27 +85,12 @@ This repo contains both the client for running the entire [Critical Maps](https:
 2. **Open the Xcode project**: `CriticalMaps.xcodeproj`
 3. **Run the app**: Select the `Critical Maps` target in Xcode and run (`⌘R`)
 
-#### Development Setup (Optional)
-Install all development tools with:
+
+Install dependencies individually:
 ```sh
-make setup
+make bootstrap  # Install Swift tools (SwiftLint, SwiftFormat, SwiftGen)
+make ruby         # Install Ruby dependencies (bundler, fastlane)
 ```
-
-Or install components individually:
-```sh
-make dependencies  # Install Swift tools (SwiftLint, SwiftFormat, SwiftGen) + Ruby gems
-make ruby         # Install only Ruby dependencies (bundler, fastlane)
-```
-
-**Available Makefile Commands:**
-- `make help` - Show all available commands
-- `make setup` - Complete project setup for new developers
-- `make tests` - Run all tests
-- `make lint` - Run SwiftLint with auto-fix
-- `make format` - Format code with SwiftFormat
-- `make assets` - Generate type-safe assets
-- `make clean` - Clean build artifacts
-
 
 ### Assets & Code Generation
 
@@ -160,7 +134,7 @@ xcodebuild test -scheme MapFeatureTests -destination 'platform=iOS Simulator,nam
 
 ## Contribute
 
-- Please report bugs with GitHub [issues](https://github.com/CriticalMaps/criticalmaps-ios/issues).
+- Please report bugs or feature requests with GitHub [issues](https://github.com/CriticalMaps/criticalmaps-ios/issues).
 - If you can code please check the build & contribute guide below.
 - If you have some coins left you can help to finance the project on [Open Collective](https://opencollective.com/criticalmaps).
 
@@ -175,15 +149,37 @@ In general, we follow the "fork-and-pull" Git workflow.
 5.  Submit a **Pull request** so that we can review your changes
 
 #### Development Guidelines
-- Follow the existing code style and SwiftLint rules
+- Follow the existing code style and SwiftLint rules but not a hard rule
 - Write tests for new features and bug fixes
-- Update documentation and comments when adding new functionality
 - Run `make assets` after adding new images or localization strings
 - Ensure all CI checks pass before requesting review
+
+#### Pre-commit Hooks
+The project uses pre-commit hooks to automatically format and lint code before commits:
+
+**Manual Setup:**
+```sh
+make install-pre-commit  # Install hooks only
+```
+
+**What runs on each commit:**
+- **SwiftFormat** - Automatically formats Swift code
+- **SwiftLint Auto-fix** - Fixes violations that can be corrected automatically
+- **SwiftLint** - Reports remaining violations (warnings only, won't block commits)
+
+> [!NOTE]
+> Pre-commit hooks currently only process Swift files. Other file types (YAML, JSON, etc.) are not automatically processed.
+
+**Manual pre-commit run:**
+```sh
+make pre-commit-run      # Run on all files
+pre-commit run --files changed_file.swift  # Run on specific files
+```
 
 **Notes**:
 - Be sure to merge the latest from "upstream" before making a pull request!
 - For significant changes, consider opening an issue first to discuss the approach
+- Pre-commit hooks ensure code consistency across all contributors
 
 ## Open Source & Copying
 

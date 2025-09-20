@@ -1,4 +1,4 @@
-.PHONY: help default tests assets dependencies ruby lint format clean setup
+.PHONY: help default tests assets dependencies ruby lint format clean setup install-pre-commit pre-commit-run pre-commit-update check-versions
 
 default: tests
 
@@ -7,10 +7,36 @@ help: ## Show this help
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-setup: dependencies ## Complete project setup for new developers
-	@echo "🎉 Project setup complete! You can now run 'make tests' or open CriticalMaps.xcodeproj"
+check-versions: ## Check tool versions against .tool-versions
+	@echo "🔍 Checking tool versions..."
+	@echo "Expected versions (from .tool-versions):"
+	@grep -v '^#' .tool-versions | while read tool version; do \
+		echo "  $$tool: $$version"; \
+	done
+	@echo ""
+	@echo "Installed versions:"
+	@if command -v swiftformat >/dev/null 2>&1; then \
+		echo "  swiftformat: $$(swiftformat --version)"; \
+	else \
+		echo "  swiftformat: ❌ not installed"; \
+	fi
+	@if command -v swiftlint >/dev/null 2>&1; then \
+		echo "  swiftlint: $$(swiftlint version)"; \
+	else \
+		echo "  swiftlint: ❌ not installed"; \
+	fi
+	@if command -v swiftgen >/dev/null 2>&1; then \
+		echo "  swiftgen: $$(swiftgen --version | grep -o 'v[0-9\.]*' | head -1 | sed 's/v//')"; \
+	else \
+		echo "  swiftgen: ❌ not installed"; \
+	fi
+	@if command -v pre-commit >/dev/null 2>&1; then \
+		echo "  pre-commit: $$(pre-commit --version | grep -o '[0-9\.]*')"; \
+	else \
+		echo "  pre-commit: ❌ not installed"; \
+	fi
 
-dependencies: ruby ## Install all development dependencies
+dependencies: ruby check-versions ## Install all development dependencies
 	@echo "📦 Installing development tools..."
 	@if ! command -v swiftformat >/dev/null 2>&1; then \
 		echo "Installing swiftformat..."; \
@@ -29,6 +55,12 @@ dependencies: ruby ## Install all development dependencies
 		brew install swiftlint; \
 	else \
 		echo "✅ swiftlint already installed"; \
+	fi
+	@if ! command -v pre-commit >/dev/null 2>&1; then \
+		echo "Installing pre-commit..."; \
+		brew install pre-commit; \
+	else \
+		echo "✅ pre-commit already installed"; \
 	fi
 
 ruby: ## Install Ruby dependencies (bundler, fastlane)
@@ -68,10 +100,15 @@ tests: ## Run all tests via Fastlane
 	@echo "🧪 Running tests..."
 	@bundle exec fastlane ios test
 
-clean: ## Clean build artifacts and derived data
-	@echo "🗑️  Cleaning build artifacts..."
-	@rm -rf build/
-	@rm -rf .build/
-	@rm -rf CriticalMapsKit/.build/
-	@xcodebuild -project CriticalMaps.xcodeproj -alltargets clean 2>/dev/null || true
-	@echo "✅ Clean complete"
+install-pre-commit: ## Install pre-commit hooks
+	@echo "🪝 Installing pre-commit hooks..."
+	@pre-commit install
+	@echo "✅ Pre-commit hooks installed"
+
+pre-commit-run: ## Run pre-commit on all files
+	@echo "🔍 Running pre-commit on all files..."
+	@pre-commit run --all-files
+
+pre-commit-update: ## Update pre-commit hook versions
+	@echo "⬆️ Updating pre-commit hooks..."
+	@pre-commit autoupdate

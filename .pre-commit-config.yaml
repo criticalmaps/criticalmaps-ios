@@ -1,0 +1,48 @@
+# Pre-commit configuration for Critical Maps iOS
+# See https://pre-commit.com for more information
+
+repos:
+  - repo: local
+    hooks:
+      - id: swiftformat
+        name: SwiftFormat
+        entry: swiftformat
+        language: system
+        files: \.swift$
+        args: [--config, .swiftformat]
+        description: "Format Swift code with SwiftFormat"
+        minimum_pre_commit_version: "3.0.0"
+
+      - id: swiftlint-fix
+        name: SwiftLint Auto-fix
+        entry: swiftlint
+        language: system
+        files: \.swift$
+        args: [--fix, --quiet]
+        description: "Auto-fix SwiftLint violations"
+        minimum_pre_commit_version: "3.0.0"
+
+      - id: swiftlint
+        name: SwiftLint
+        entry: swiftlint
+        language: system
+        files: \.swift$
+        args: [--quiet]
+        description: "Lint Swift code with SwiftLint"
+        minimum_pre_commit_version: "3.0.0"
+
+# Commented out - only running Swift tools for now
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v4.4.0
+  #   hooks:
+  #     - id: trailing-whitespace
+  #       exclude: \.(md|swift)$
+  #     - id: end-of-file-fixer
+  #       exclude: \.(png|jpg|jpeg|gif|svg|ico|swift)$
+  #     - id: check-yaml
+  #       files: \.ya?ml$
+  #     - id: check-json
+  #       files: \.json$
+  #     - id: check-merge-conflict
+  #     - id: check-added-large-files
+  #       args: [--maxkb=1000]
