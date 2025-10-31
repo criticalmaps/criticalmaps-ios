@@ -139,21 +139,44 @@ enum EventError: Error, LocalizedError {
   case rideDisabled
 }
 
-private func queryMonth(for date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
-  let currentMonthOfFallback = calendar.dateComponents([.month], from: date()).month ?? 0
+func queryMonth(for date: () -> Date = Date.init, calendar: Calendar = .current) -> Int {
+  let today = date()
+  let currentMonth = calendar.dateComponents([.month], from: today).month ?? 0
+  let currentYear = calendar.dateComponents([.year], from: today).year ?? 0
 
-  guard !calendar.isDateInWeekend(date()) else { // current date is on a weekend
-    return currentMonthOfFallback
+  // Find the last Friday of the current month
+  // Critical Mass rides happen on the last Friday of each month
+  guard let lastFriday = findLastFriday(in: currentMonth, year: currentYear, calendar: calendar) else {
+    return currentMonth
   }
 
-  guard let startDateOfNextWeekend = calendar.nextWeekend(startingAfter: date())?.start else {
-    return currentMonthOfFallback
+  // If today is on or before the last Friday of the month, query current month
+  // If today is after the last Friday, query next month
+  if calendar.isDate(today, inSameDayAs: lastFriday) || today < lastFriday {
+    return currentMonth
+  } else {
+    // Move to next month (handles year boundary)
+    let nextMonthDate = calendar.date(byAdding: .month, value: 1, to: today) ?? today
+    return calendar.dateComponents([.month], from: nextMonthDate).month ?? currentMonth
   }
-  guard let month = calendar.dateComponents([.month], from: startDateOfNextWeekend).month else {
-    return currentMonthOfFallback
-  }
+}
 
-  return max(currentMonthOfFallback, month)
+/// Finds the last Friday of a given month and year
+private func findLastFriday(in month: Int, year: Int, calendar: Calendar) -> Date? {
+  let dateComponents = DateComponents(year: year, month: month)
+  guard let firstDay = calendar.date(from: dateComponents) else { return nil }
+  guard let range = calendar.range(of: .day, in: .month, for: firstDay) else { return nil }
+
+  // Find all Fridays in the month and return the last one
+  var fridays: [Date] = []
+  for day in range {
+    if let date = calendar.date(from: DateComponents(year: year, month: month, day: day)) {
+      if calendar.component(.weekday, from: date) == 6 { // Friday = 6
+        fridays.append(date)
+      }
+    }
+  }
+  return fridays.last
 }
 
 public extension [Ride] {
