@@ -183,9 +183,14 @@ pre-commit run --files changed_file.swift  # Run on specific files
 
 ## Open Source & Copying
 
-We ship CriticalMaps on the App Store for free and provide its entire source code for free as well. In the spirit of openness, CriticalMaps is licensed under MIT so that you can use the code in your app, if you choose to.
+CriticalMaps is licensed under the MIT License, which means you can freely use, modify, and distribute the code.
 
-However, **please do not ship this app** under your own account. Paid or free.
+**However, we kindly request** that you don't republish this exact app on the App Store under your own account. Instead, we encourage you to:
+- Contribute improvements back to this project
+- Fork it to create something new and different
+- Support the project on [Open Collective](https://opencollective.com/criticalmaps)
+
+This is a community request, not a legal restriction.
 
 ## Credits
 
@@ -339,4 +344,4 @@ However, **please do not ship this app** under your own account. Paid or free.
 
 ## Copyright & License
 
-Copyright (c) 2021 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/main/LICENSE).
+Copyright (c) 2025 headione - Released under the [MIT license](https://github.com/criticalmaps/criticalmaps-ios/blob/main/LICENSE).
