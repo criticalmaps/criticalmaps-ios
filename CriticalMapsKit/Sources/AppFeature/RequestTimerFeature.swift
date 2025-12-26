@@ -12,38 +12,54 @@ public struct RequestTimer {
   // MARK: State
 
   public struct State: Equatable {
-    public init(isTimerActive: Bool = false) {
+    public init(isTimerActive: Bool = false, cycleStartTime: Date? = nil) {
       self.isTimerActive = isTimerActive
+      self.cycleStartTime = cycleStartTime
     }
 
     public var isTimerActive = false
-    public var secondsElapsed = 0
+    /// Timestamp when the current 60s cycle started - used by View for countdown
+    public var cycleStartTime: Date?
   }
 
   // MARK: Action
 
   public enum Action: Equatable {
-    case timerTicked
     case startTimer
+    case halfwayPoint
+    case fullCycle
   }
 
-  @Dependency(\.mainRunLoop) var mainRunLoop
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.date.now) var now
 
   enum CancelID { case timer }
 
   /// Reducer responsible for the poll timer handling.
+  /// Fires specific actions at 30s (halfwayPoint) and 60s (fullCycle) intervals.
+  /// Visual countdown is handled in the View layer to avoid unnecessary reducer calls.
   public func reduce(into state: inout State, action: Action) -> Effect<Action> {
     switch action {
-    case .timerTicked:
-      state.secondsElapsed += 1
+    case .halfwayPoint, .fullCycle:
+      // Reset cycle start time for the next cycle
+      if action == .fullCycle {
+        state.cycleStartTime = now
+      }
       return .none
 
     case .startTimer:
       state.isTimerActive = true
-      return .run { [isTimerActive = state.isTimerActive] send in
-        guard isTimerActive else { return }
-        for await _ in mainRunLoop.timer(interval: .seconds(1)) {
-          await send(.timerTicked, animation: .snappy)
+      state.cycleStartTime = now
+
+      return .run { send in
+        while true {
+          // Sleep for 30 seconds
+          try await clock.sleep(for: .seconds(30))
+          await send(.halfwayPoint)
+
+          // Sleep for another 30 seconds
+          try await clock.sleep(for: .seconds(30))
+          await send(.fullCycle)
         }
       }
       .cancellable(id: CancelID.timer, cancelInFlight: true)
