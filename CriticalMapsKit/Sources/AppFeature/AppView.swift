@@ -128,8 +128,7 @@ public struct AppView: View {
       
       if store.userSettings.showInfoViewEnabled {
         InfoOverlayView(
-          timerProgress: store.timerProgress,
-          timerValue: store.timerValue,
+          cycleStartTime: store.requestTimer.cycleStartTime,
           ridersCountLabel: store.ridersCount,
           isInPrivacyZone: store.isCurrentLocationInPrivacyZone
         )

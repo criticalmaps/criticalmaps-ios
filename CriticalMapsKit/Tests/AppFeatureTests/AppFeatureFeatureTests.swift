@@ -308,32 +308,30 @@ struct AppFeatureTests {
     }
   }
   
-  @Test
-  func requestTimerTick_fireUpFetchLocations() async {
-    var state = AppFeature.State()
-    state.requestTimer.secondsElapsed = 59
-    state.destination = nil
-    
+  @Test("Full cycle triggers fetch locations")
+  func requestTimerFullCycle_fireUpFetchLocations() async {
+    let state = AppFeature.State()
+
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
         $0.continuousClock = ImmediateClock()
         $0.apiService.getRiders = { [] }
+        $0.date = .constant(date())
       }
     )
     store.exhaustivity = .off
-    
-    await store.send(.requestTimer(.timerTicked))
+
+    await store.send(.requestTimer(.fullCycle))
     await store.receive(\.fetchLocations)
   }
   
-  @Test
-  func requestTimerTick_fireUpFetchMessages() async {
+  @Test("Full cycle triggers fetch messages when social view is open")
+  func requestTimerFullCycle_fireUpFetchMessages() async {
     var state = AppFeature.State()
-    state.requestTimer.secondsElapsed = 59
     state.destination = .social(SocialFeature.State())
-    
+
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
@@ -341,11 +339,12 @@ struct AppFeatureTests {
         $0.continuousClock = ImmediateClock()
         $0.apiService.getChatMessages = { [] }
         $0.apiService.getRiders = { [] }
+        $0.date = .constant(date())
       }
     )
     store.exhaustivity = .off
-    
-    await store.send(.requestTimer(.timerTicked))
+
+    await store.send(.requestTimer(.fullCycle))
     await store.receive(\.fetchChatMessages)
   }
   
@@ -502,10 +501,30 @@ struct AppFeatureTests {
     await store.send(.postLocation)
   }
   
+  @Test("Halfway point triggers post location")
+  func requestTimerHalfwayPoint_triggersPostLocation() async {
+    let state = AppFeature.State()
+
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = ImmediateClock()
+        $0.idProvider.id = { "test-device-id" }
+        $0.date = .constant(date())
+        $0.apiService.postRiderLocation = { _ in ApiResponse(status: nil) }
+      }
+    )
+    store.exhaustivity = .off
+
+    await store.send(.requestTimer(.halfwayPoint))
+    await store.receive(\.postLocation)
+  }
+
   @Test("Location should not be sent when it is in a privacy zone")
-  func postLocation_shouldNotPostLocationWhenInPrivazyZone() async {
+  func postLocation_shouldNotPostLocationWhenInPrivacyZone() async {
     let randomCoordinate = Coordinate.make()
-    
+
     @Shared(.userSettings) var userSettings = UserSettings()
     @Shared(.privacyZoneSettings) var zones = PrivacyZoneSettings(
       isEnabled: true,
@@ -524,7 +543,6 @@ struct AppFeatureTests {
     )
 
     var state = AppFeature.State()
-    state.requestTimer.secondsElapsed = 29
     state.mapFeatureState.location = SharedModels.Location(
       coordinate: randomCoordinate,
       timestamp: 1423423423423,
@@ -532,19 +550,17 @@ struct AppFeatureTests {
       color: "#001122"
     )
     state.destination = nil
-    
+
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
       withDependencies: {
         $0.continuousClock = ImmediateClock()
-        $0.apiService.getRiders = { [] }
       }
     )
-    await store.send(.requestTimer(.timerTicked)) {
-      $0.requestTimer.secondsElapsed = 30
-    }
-    await store.receive(\.postLocation)
+
+    // Location is in privacy zone, should not post
+    await store.send(.postLocation)
   }
   
   @Test
