@@ -111,10 +111,10 @@ public struct SettingsView: View {
         RideEventSettingsView(store: store)
       }
     )
-    .navigationDestination(isPresented: Binding($store.destination.guideFeature)) {
+    .navigationDestination(isPresented: $store.destination.guideFeature) {
       GuideView()
     }
-    .navigationDestination(isPresented: Binding($store.destination.acknowledgements)) {
+    .navigationDestination(isPresented: $store.destination.acknowledgements) {
       AcknowListSwiftUIView(acknowList: store.packageList!)
     }
   }
@@ -124,7 +124,7 @@ public struct SettingsView: View {
 
 private struct ObservationModeRow: View {
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-  let store: StoreOf<SettingsFeature>
+  @Bindable var store: StoreOf<SettingsFeature>
 
   var body: some View {
     HStack(alignment: .top) {
@@ -137,10 +137,7 @@ private struct ObservationModeRow: View {
       }
       Spacer()
       Toggle(
-        isOn: Binding(
-          get: { store.userSettings.isObservationModeEnabled },
-          set: { _ in store.userSettings.isObservationModeEnabled.toggle() }
-        ),
+        isOn: $store.userSettings.isObservationModeEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -159,7 +156,7 @@ private struct ObservationModeRow: View {
 
 private struct InfoRow: View {
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-  let store: StoreOf<SettingsFeature>
+  @Bindable var store: StoreOf<SettingsFeature>
 
   var body: some View {
     HStack(alignment: .top) {
@@ -172,10 +169,7 @@ private struct InfoRow: View {
       }
       Spacer()
       Toggle(
-        isOn: Binding(
-          get: { store.userSettings.showInfoViewEnabled },
-          set: { _ in store.userSettings.showInfoViewEnabled.toggle() }
-        ),
+        isOn: $store.userSettings.showInfoViewEnabled,
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -348,7 +342,7 @@ private struct AppVersionView: View {
   }
 }
 
-struct SettingsInfoLink: View {
+private struct SettingsInfoLink: View {
   let title: String
   
   var body: some View {
@@ -361,6 +355,8 @@ struct SettingsInfoLink: View {
     .font(.body)
   }
 }
+
+// MARK: - Preview
 
 #Preview {
   NavigationStack {
