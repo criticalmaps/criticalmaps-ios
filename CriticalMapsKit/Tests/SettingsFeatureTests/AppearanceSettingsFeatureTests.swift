@@ -27,7 +27,7 @@ struct AppearanceSettingsCoreTests {
       state.$settings.withLock { $0.appIcon = .rainbow }
     }
     overriddenIconName.withValue { iconName in
-      #expect(iconName == "appIcon-4")
+      #expect(iconName == "AppIcon-Rainbow")
     }
   }
 
@@ -50,16 +50,16 @@ struct AppearanceSettingsCoreTests {
       $0.colorScheme = .light
       $0.$settings.withLock { $0.colorScheme = .light }
     }
-    overriddenUserInterfaceStyle.withValue { stlye in
-      expectNoDifference(stlye, .light)
+    overriddenUserInterfaceStyle.withValue { style in
+      expectNoDifference(style, .light)
     }
 
     await store.send(.binding(.set(\.colorScheme, .system))) {
       $0.colorScheme = .system
       $0.$settings.withLock { $0.colorScheme = .system }
     }
-    overriddenUserInterfaceStyle.withValue { stlye in
-      expectNoDifference(stlye, .unspecified)
+    overriddenUserInterfaceStyle.withValue { style in
+      expectNoDifference(style, .unspecified)
     }
   }
 }
