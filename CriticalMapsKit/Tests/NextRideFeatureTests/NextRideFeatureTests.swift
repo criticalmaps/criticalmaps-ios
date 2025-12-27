@@ -7,8 +7,6 @@ import SharedModels
 import Testing
 import UserDefaultsClient
 
-// swiftlint:disable:next type_body_length
-
 @MainActor
 struct NextRideCoreTests {
   let now = {

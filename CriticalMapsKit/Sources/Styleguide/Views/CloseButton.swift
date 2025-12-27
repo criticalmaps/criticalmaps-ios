@@ -19,7 +19,8 @@ public struct CloseButton: View {
       action: action,
       label: {
         Image(systemName: "xmark")
-          .font(.title3).fontWeight(.medium)
+          .font(.title3)
+          .fontWeight(.medium)
           .foregroundStyle(Color(uiColor: color))
       }
     )

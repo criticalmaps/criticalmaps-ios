@@ -18,7 +18,7 @@ import UIApplicationClient
 import UserDefaultsClient
 
 @Reducer
-public struct AppFeature {
+public struct AppFeature { // swiftlint:disable:this type_body_length
   public init() {}
   
   @Reducer
@@ -37,7 +37,7 @@ public struct AppFeature {
 
   @ObservableState
   public struct State: Equatable {
-    public var riderLocations: [Rider]?
+    public var riderLocations: [Rider]
     public var isRequestingRiderLocations = false
     public var didRequestNextRide = false
     public var socialState = SocialFeature.State()
@@ -60,7 +60,7 @@ public struct AppFeature {
     @Shared(.privacyZoneSettings) var privacyZoneSettings
     
     public init(
-      locationsAndChatMessages: [Rider]? = nil,
+      locationsAndChatMessages: [Rider] = [],
       mapFeatureState: MapFeatureState = .init(
         riders: [],
         userTrackingMode: UserTrackingFeature.State()
@@ -241,8 +241,7 @@ public struct AppFeature {
           
           let unreadMessagesCount = UInt(
             cachedMessages
-              .filter { $0.timestamp > userDefaultsClient.chatReadTimeInterval }
-              .count
+              .count(where: { $0.timestamp > userDefaultsClient.chatReadTimeInterval })
           )
           state.chatMessageBadgeCount = unreadMessagesCount
         }

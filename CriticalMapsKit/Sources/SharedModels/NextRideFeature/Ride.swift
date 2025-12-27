@@ -118,7 +118,7 @@ public extension Ride {
     return """
     \(titleAndTime)
     \(location)
-
+    
     \(description ?? "")
     """
   }
