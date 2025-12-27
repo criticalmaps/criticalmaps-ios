@@ -35,11 +35,7 @@ public struct BasicInputView: View {
           messageEditorHeight: messageEditorHeight
         )
 
-        SendButton(
-          isSendButtonDisabled: store.isSendButtonDisabled,
-          isSending: store.isSending,
-          onSend: { store.send(.onCommit) }
-        )
+        SendButton(store: store)
       }
       .padding(.grid(1))
       .background(Color.backgroundPrimary)
@@ -77,20 +73,18 @@ private struct MessageEditorView: View {
 }
 
 private struct SendButton: View {
-  let isSendButtonDisabled: Bool
-  let isSending: Bool
-  let onSend: () -> Void
+  let store: StoreOf<ChatInput>
 
   var body: some View {
-    Button(action: onSend) {
+    Button(action: { store.send(.onCommit) }) {
       Circle()
         .fill(Color.brand500)
-        .accessibleAnimation(.spring(duration: 0.13), value: isSendButtonDisabled)
+        .accessibleAnimation(.spring(duration: 0.13), value: store.isSendButtonDisabled)
         .accessibilityLabel(Text(L10n.Chat.send))
         .frame(width: 38, height: 38)
         .overlay(
           Group {
-            if isSending {
+            if store.isSending {
               ProgressView().tint(.textPrimaryLight)
             } else {
               Image(systemName: "paperplane.fill")
@@ -102,8 +96,8 @@ private struct SendButton: View {
           }
         )
     }
-    .opacity(isSendButtonDisabled ? 0 : 1)
-    .animation(.snappy.speed(2.5), value: isSendButtonDisabled)
+    .opacity(store.isSendButtonDisabled ? 0 : 1)
+    .animation(.snappy.speed(2.5), value: store.isSendButtonDisabled)
   }
 }
 
