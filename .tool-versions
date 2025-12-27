@@ -1,0 +1,8 @@
+# Tool versions for Critical Maps iOS
+# These versions should match what's available on GitHub Actions macOS runners
+# See: https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md
+
+swiftformat 0.58.7
+swiftlint 0.62.2
+swiftgen 6.6.3
+pre-commit 4.0.1

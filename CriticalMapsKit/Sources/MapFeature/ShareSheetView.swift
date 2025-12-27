@@ -1,7 +1,12 @@
 import SwiftUI
 
 public struct ShareSheetView: UIViewControllerRepresentable {
-  typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
+  typealias Callback = (
+    _ activityType: UIActivity.ActivityType?,
+    _ completed: Bool,
+    _ returnedItems: [Any]?, // swiftlint:disable:this discouraged_optional_collection
+    _ error: Error?
+  ) -> Void
 
   let activityItems: [Any]
   let applicationActivities: [UIActivity] = []

@@ -11,14 +11,12 @@ public struct CoordinateObfuscator {
   public var obfuscate: (
     _ coordinate: Coordinate,
     _ precision: ObfuscationPrecisionType
-  ) -> Coordinate = {
-    _,
-      _ in .init(
-        Location(
-          coordinate: .init(latitude: 0, longitude: 0),
-          timestamp: 0
-        )
-      )
+  ) -> Coordinate = { _, _ in .init(
+    Location(
+      coordinate: .init(latitude: 0, longitude: 0),
+      timestamp: 0
+    )
+  )
   }
 }
 
