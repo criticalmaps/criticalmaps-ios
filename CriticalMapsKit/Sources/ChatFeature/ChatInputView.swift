@@ -25,7 +25,42 @@ public struct BasicInputView: View {
     )
   }
 
-  private var messageEditorView: some View {
+  public var body: some View {
+    VStack {
+      HStack(alignment: .bottom) {
+        MessageEditorView(
+          store: $store,
+          placeholder: placeholder,
+          contentSizeThatFits: $contentSizeThatFits,
+          messageEditorHeight: messageEditorHeight
+        )
+
+        SendButton(
+          isSendButtonDisabled: store.isSendButtonDisabled,
+          isSending: store.isSending,
+          onSend: { store.send(.onCommit) }
+        )
+      }
+      .padding(.grid(1))
+      .background(Color.backgroundPrimary)
+      .clipShape(RoundedRectangle(cornerRadius: 23))
+      .overlay(
+        RoundedRectangle(cornerRadius: 23)
+          .stroke(Color.innerBorder, lineWidth: 1)
+      )
+    }
+  }
+}
+
+// MARK: - Subviews
+
+private struct MessageEditorView: View {
+  @Binding var store: StoreOf<ChatInput>
+  let placeholder: String
+  @Binding var contentSizeThatFits: CGSize
+  let messageEditorHeight: CGFloat
+
+  var body: some View {
     MultilineTextField(
       attributedText: $store.internalAttributedMessage.sending(\.messageChanged),
       placeholder: placeholder,
@@ -39,54 +74,40 @@ public struct BasicInputView: View {
     }
     .frame(height: messageEditorHeight)
   }
+}
 
-  private var sendButton: some View {
-    Button(action: {
-      store.send(.onCommit)
-    }, label: {
-      Circle().fill(
-        withAnimation {
-          store.isSendButtonDisabled ? Color(.border) : .blue
-        }
-      )
-      .accessibleAnimation(.spring(duration: 0.13), value: store.isSendButtonDisabled)
-      .accessibilityLabel(Text(L10n.Chat.send))
-      .frame(width: 38, height: 38)
-      .overlay(
-        Group {
-          if store.isSending {
-            ProgressView().tint(.white)
-          } else {
-            Image(systemName: "paperplane.fill")
-              .resizable()
-              .foregroundColor(.white)
-              .offset(x: -1, y: 1)
-              .padding(.grid(2))
+private struct SendButton: View {
+  let isSendButtonDisabled: Bool
+  let isSending: Bool
+  let onSend: () -> Void
+
+  var body: some View {
+    Button(action: onSend) {
+      Circle()
+        .fill(Color.brand500)
+        .accessibleAnimation(.spring(duration: 0.13), value: isSendButtonDisabled)
+        .accessibilityLabel(Text(L10n.Chat.send))
+        .frame(width: 38, height: 38)
+        .overlay(
+          Group {
+            if isSending {
+              ProgressView().tint(.textPrimaryLight)
+            } else {
+              Image(systemName: "paperplane.fill")
+                .resizable()
+                .foregroundColor(.textPrimaryLight)
+                .offset(x: -1, y: 1)
+                .padding(.grid(2))
+            }
           }
-        }
-      )
-    })
-    .disabled(store.isSendButtonDisabled)
-  }
-
-  public var body: some View {
-    VStack {
-      HStack(alignment: .bottom) {
-        messageEditorView
-        sendButton
-      }
-      .padding(.grid(1))
-      .background(Color.backgroundPrimary)
-      .clipShape(RoundedRectangle(cornerRadius: 23))
-      .overlay(
-        RoundedRectangle(cornerRadius: 23)
-          .stroke(Color.innerBorder, lineWidth: 1)
-      )
+        )
     }
+    .opacity(isSendButtonDisabled ? 0 : 1)
+    .animation(.snappy.speed(2.5), value: isSendButtonDisabled)
   }
 }
 
-// MARK: Implementation Details
+// MARK: - Implementation Details
 
 public struct ContentSizeThatFitsKey: PreferenceKey {
   public static var defaultValue: CGSize = .zero
