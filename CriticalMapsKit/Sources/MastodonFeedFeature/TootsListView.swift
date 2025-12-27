@@ -15,17 +15,20 @@ public struct TootsListView: View {
 
   public var body: some View {
     if store.isLoading, !store.isRefreshing {
-      loadingView()
+      LoadingView()
     } else {
-      contentView()
+      ContentView(store: store)
         .refreshable {
           await store.send(.refresh).finish()
         }
     }
   }
+}
 
-  @ViewBuilder
-  func loadingView() -> some View {
+// MARK: - Subviews
+
+private struct LoadingView: View {
+  var body: some View {
     VStack {
       Spacer()
       ProgressView {
@@ -36,9 +39,12 @@ public struct TootsListView: View {
       Spacer()
     }
   }
+}
 
-  @ViewBuilder
-  func contentView() -> some View {
+private struct ContentView: View {
+  let store: StoreOf<TootFeedFeature>
+
+  var body: some View {
     if store.toots.isEmpty {
       EmptyStateView(
         emptyState: .mastodon,
@@ -78,7 +84,7 @@ public struct TootsListView: View {
   }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
   Group {
