@@ -22,9 +22,9 @@ struct AppearanceSettingsCoreTests {
       }
     )
 
-    await store.send(.binding(.set(\.appIcon, .appIcon4))) { state in
-      state.appIcon = .appIcon4
-      state.$settings.withLock { $0.appIcon = .appIcon4 }
+    await store.send(.binding(.set(\.appIcon, .rainbow))) { state in
+      state.appIcon = .rainbow
+      state.$settings.withLock { $0.appIcon = .rainbow }
     }
     overriddenIconName.withValue { iconName in
       #expect(iconName == "appIcon-4")
