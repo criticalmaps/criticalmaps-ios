@@ -3,6 +3,7 @@ import SharedModels
 import TestHelper
 import XCTest
 
+@MainActor
 final class AppearanceSettingsViewSnapshotTests: XCTestCase {
   func test_appearanceEventSettingsView_light() {
     let settingsView = AppearanceSettingsView(

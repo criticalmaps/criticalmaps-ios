@@ -88,7 +88,8 @@ public struct BasicInputView: View {
 
 // MARK: Implementation Details
 
-public struct ContentSizeThatFitsKey: PreferenceKey {
+@MainActor
+public struct ContentSizeThatFitsKey: @MainActor PreferenceKey {
   public static var defaultValue: CGSize = .zero
 
   public static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
@@ -96,15 +97,8 @@ public struct ContentSizeThatFitsKey: PreferenceKey {
   }
 }
 
-struct TextAttributesKey: EnvironmentKey {
-  static var defaultValue: TextAttributes = .init()
-}
-
 extension EnvironmentValues {
-  var textAttributes: TextAttributes {
-    get { self[TextAttributesKey.self] }
-    set { self[TextAttributesKey.self] = newValue }
-  }
+  @Entry var textAttributes = TextAttributes()
 }
 
 struct TextAttributesModifier: ViewModifier {

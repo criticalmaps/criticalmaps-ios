@@ -10,13 +10,13 @@ import UIApplicationClient
 import UserDefaultsClient
 
 @Reducer
-public struct SocialFeature {
+public struct SocialFeature: Sendable {
   public init() {}
   
   // MARK: State
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     public var chatFeatureState: ChatFeature.State
     public var mastodonFeedState: TootFeedFeature.State
     public var socialControl: SocialControl = .chat
@@ -30,7 +30,7 @@ public struct SocialFeature {
     }
   }
   
-  public enum SocialControl: LocalizedStringKey, CaseIterable, Hashable {
+  public enum SocialControl: LocalizedStringKey, CaseIterable, Hashable, Sendable {
     case chat = "Chat"
     case toots = "Mastodon"
   }

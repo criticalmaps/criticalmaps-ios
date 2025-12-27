@@ -18,11 +18,11 @@ import UIApplicationClient
 import UserDefaultsClient
 
 @Reducer
-public struct AppFeature { // swiftlint:disable:this type_body_length
+public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   public init() {}
   
   @Reducer
-  public enum Destination {
+  public enum Destination: Sendable {
     case social(SocialFeature)
     case settings(SettingsFeature)
     case alert(AlertState<Alert>)
@@ -481,7 +481,7 @@ public struct AppFeature { // swiftlint:disable:this type_body_length
 
 // MARK: - Helper
 
-extension AppFeature.Destination.State: Equatable {}
+extension AppFeature.Destination.State: Equatable, Sendable {}
 
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location
@@ -514,7 +514,7 @@ extension SharedModels.Coordinate {
 
 private extension Logger {
   /// Using your bundle identifier is a great way to ensure a unique identifier.
-  private static var subsystem = "AppFeature"
+  private static let subsystem = "AppFeature"
   
   /// Logs the view cycles like a view that appeared.
   static let reducer = Logger(

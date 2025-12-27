@@ -75,6 +75,7 @@ public extension Guide {
 }
 
 public extension Guide {
+  @MainActor
   static let all: [Guide] =
     Guide.Rule.allCases.map {
       Guide(rule: $0)

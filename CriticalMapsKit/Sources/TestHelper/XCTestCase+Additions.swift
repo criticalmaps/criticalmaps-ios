@@ -4,6 +4,7 @@ import XCTest
 
 private let operatingSystemVersion = ProcessInfo().operatingSystemVersion
 
+@MainActor
 public extension XCTestCase {
   private func enforceSnapshotDevice() {
     let is2XDevice = UIScreen.main.scale >= 2

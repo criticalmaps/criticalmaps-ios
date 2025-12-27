@@ -100,6 +100,6 @@ public extension EmptyState {
   static let mastodon = Self(
     icon: Asset.toot.image,
     text: L10n.Twitter.noData,
-    message: NSAttributedString(string: L10n.Twitter.Empty.message)
+    message: AttributedString(L10n.Twitter.Empty.message)
   )
 }

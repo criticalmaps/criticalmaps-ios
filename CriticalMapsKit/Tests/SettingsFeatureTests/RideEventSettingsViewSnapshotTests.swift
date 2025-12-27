@@ -3,6 +3,7 @@ import SharedModels
 import TestHelper
 import XCTest
 
+@MainActor
 final class RideEventSettingsViewSnapshotTests: XCTestCase {
   func test_rideEventSettingsView_light() {
     let settingsView = RideEventSettingsView(

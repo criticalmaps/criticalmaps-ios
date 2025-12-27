@@ -7,8 +7,8 @@ import SharedModels
 /// A client to obfuscate the users location.
 /// We value privacy and to request the next ride the API does not need to know the rides exact location.
 @DependencyClient
-public struct CoordinateObfuscator {
-  public var obfuscate: (
+public struct CoordinateObfuscator: Sendable {
+  public var obfuscate: @Sendable (
     _ coordinate: Coordinate,
     _ precision: ObfuscationPrecisionType
   ) -> Coordinate = { _, _ in .init(

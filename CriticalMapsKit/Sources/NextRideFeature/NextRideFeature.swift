@@ -8,7 +8,7 @@ import SharedModels
 // MARK: State
 
 @Reducer
-public struct NextRideFeature {
+public struct NextRideFeature: Sendable {
   public init() {}
 
   @ObservableState
@@ -198,7 +198,7 @@ extension SharedModels.Coordinate {
 
 private extension Logger {
   /// Using your bundle identifier is a great way to ensure a unique identifier.
-  private static var subsystem = "NextRideFeature"
+  private static let subsystem = "NextRideFeature"
 
   /// Logs the view cycles like a view that appeared.
   static let reducer = Logger(

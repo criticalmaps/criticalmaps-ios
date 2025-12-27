@@ -17,7 +17,7 @@ extension Coordinate {
   }
 }
 
-let testDate: () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
+let testDate: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
 
 extension [String: SharedModels.Location] {
   static func make(_ max: Int = 5) -> [Key: Value] {

@@ -8,8 +8,8 @@ import SharedModels
 
 /// Service to fetch the next ride and decode the response
 @DependencyClient
-public struct NextRideService {
-  public var nextRide: (
+public struct NextRideService: Sendable {
+  public var nextRide: @Sendable (
     _ coordinate: Coordinate,
     _ eventSearchRadius: Int,
     _ month: Int

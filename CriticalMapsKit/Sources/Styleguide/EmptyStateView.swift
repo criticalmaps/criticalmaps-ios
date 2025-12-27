@@ -2,15 +2,15 @@ import L10n
 import SwiftUI
 import SwiftUIHelpers
 
-public struct EmptyState: Equatable {
+public struct EmptyState: Equatable, Sendable {
   public let icon: UIImage
   public let text: String
-  public var message: NSAttributedString?
+  public var message: AttributedString?
 
   public init(
     icon: UIImage,
     text: String,
-    message: NSAttributedString? = nil
+    message: AttributedString? = nil
   ) {
     self.icon = icon
     self.text = text
@@ -74,10 +74,10 @@ public struct EmptyStateView: View {
 
 #Preview {
   EmptyStateView(
-    emptyState: .init(
+    emptyState: EmptyState(
       icon: Asset.toot.image,
       text: "No toots atm",
-      message: .init(string: "")
+      message: AttributedString("")
     )
   )
 }

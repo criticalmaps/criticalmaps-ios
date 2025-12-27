@@ -5,6 +5,7 @@ import SwiftUI
 import TestHelper
 import XCTest
 
+@MainActor
 final class ChatFeatureSnapshotTests: XCTestCase {
   func test_chatFeatureViewSnapshot() {
     let view = ChatView(

@@ -1,3 +1,4 @@
+import ComposableArchitecture
 import SettingsFeature
 import Styleguide
 import SwiftUI
@@ -8,12 +9,9 @@ final class SettingsViewSnapshotTests: XCTestCase {
   @MainActor
   func test_settingsView_light() {
     let settingsView = SettingsView(
-      store: .init(
-        initialState: .init(),
-        reducer: { SettingsFeature() },
-        withDependencies: {
-          $0.uiApplicationClient.alternateIconName = { nil }
-        }
+      store: StoreOf<SettingsFeature>(
+        initialState: SettingsFeature.State(),
+        reducer: { SettingsFeature() }
       )
     )
     .environment(\.colorScheme, .light)

@@ -3,13 +3,13 @@ import Foundation
 import UIKit
 
 @Reducer
-public struct ChatInput {
+public struct ChatInput: Sendable {
   public init() {}
 
   // MARK: State
 
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     public var isEditing = false
     public var message = ""
     public var isSending = false

@@ -3,6 +3,7 @@ import SnapshotTesting
 import TestHelper
 import XCTest
 
+@MainActor
 final class UserTrackingButtonSnapshotTests: XCTestCase {
   func test_userTracking_none() {
     let sut = UserTrackingButton(

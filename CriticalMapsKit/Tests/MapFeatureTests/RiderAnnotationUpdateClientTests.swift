@@ -6,10 +6,10 @@ import MapKit
 import SharedModels
 import Testing
 
-private let fixedDate = { Date(timeIntervalSinceReferenceDate: 0) }
+let fixedDate: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
 
 @MainActor
-struct RiderAnnotationUpdateClientTests {
+struct RiderAnnotationUpdateClientTests {  
   let rider = [
     Rider(
       id: "SomeRandomID",

@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Foundation
 
 /// A structure to store ride event settings
-public struct RideEventSettings: Equatable, Codable {
+public struct RideEventSettings: Equatable, Codable, Sendable {
   public var isEnabled: Bool
   public var rideEvents: [RideEvent]
   public var eventDistance: EventDistance

@@ -19,7 +19,7 @@ import UserDefaultsClient
 struct AppFeatureTests {
   let testScheduler = DispatchQueue.test
   let testClock = TestClock()
-  let date: () -> Date = { @Sendable in Date(timeIntervalSinceReferenceDate: 0) }
+  let date: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
   
   @Test
   func appNavigation() async {

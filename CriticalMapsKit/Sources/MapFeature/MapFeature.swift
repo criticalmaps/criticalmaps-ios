@@ -8,7 +8,7 @@ public typealias MapFeatureState = MapFeature.State
 public typealias MapFeatureAction = MapFeature.Action
 
 @Reducer
-public struct MapFeature {
+public struct MapFeature: Sendable {
   public init() {}
   
   // MARK: State
@@ -55,7 +55,7 @@ public struct MapFeature {
   }
 
   @CasePathable
-  public enum Action: BindableAction, Equatable {
+  public enum Action: BindableAction, Equatable, Sendable {
     case binding(BindingAction<State>)
     case onAppear
     case locationRequested
@@ -255,7 +255,7 @@ extension LocationManager {
 }
 
 public extension AlertState where Action == MapFeature.Action {
-  static let goToSettingsAlert = Self(
+  @MainActor static let goToSettingsAlert = Self(
     title: { TextState(L10n.Location.Alert.provideAccessToLocationService) },
     actions: {
       ButtonState<MapFeature.Action> { TextState(L10n.Settings.title) }
@@ -263,9 +263,9 @@ public extension AlertState where Action == MapFeature.Action {
     }
   )
   
-  static let provideAuth = Self(title: { TextState(L10n.Location.Alert.provideAuth) })
-  static let servicesOff = Self(title: { TextState(L10n.Location.Alert.serviceIsOff) })
-  static let provideAccessToLocationService = Self(
+  @MainActor static let provideAuth = Self(title: { TextState(L10n.Location.Alert.provideAuth) })
+  @MainActor static let servicesOff = Self(title: { TextState(L10n.Location.Alert.serviceIsOff) })
+  @MainActor static let provideAccessToLocationService = Self(
     title: { TextState(L10n.Location.Alert.provideAccessToLocationService) }
   )
 }
@@ -283,3 +283,5 @@ public extension DependencyValues {
     set { self[LocationManagerKey.self] = newValue }
   }
 }
+
+extension LocationManager.Action: @retroactive @unchecked Sendable {}

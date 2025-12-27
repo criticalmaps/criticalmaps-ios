@@ -8,11 +8,11 @@ import SwiftUI
 import UIApplicationClient
 
 @Reducer
-public struct TootFeature {
+public struct TootFeature: Sendable {
   public init() {}
   
   @ObservableState
-  public struct State: Equatable, Identifiable {
+  public struct State: Equatable, Identifiable, Sendable {
     public let id: String
     public let createdAt: Date
     public let uri: String
@@ -291,17 +291,11 @@ extension DateComponents {
   }
 }
 
-extension RelativeDateTimeFormatter {
-  static let tweetDateFormatter: RelativeDateTimeFormatter = {
-    let formatter = RelativeDateTimeFormatter()
-    formatter.dateTimeStyle = .named
-    return formatter
-  }()
-}
-
 struct ImageSheetItem: Identifiable, Hashable {
   let url: URL
   var description: String?
   
   var id: URL { url }
 }
+
+extension MastodonKit.Attachment: @retroactive @unchecked Sendable {}
