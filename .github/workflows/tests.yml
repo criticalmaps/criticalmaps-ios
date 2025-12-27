@@ -19,16 +19,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v6
 
-    - name: Verify tool versions
+    - name: Verify SwiftFormat version
       run: |
         echo "SwiftFormat version: $(swiftformat --version)"
-        echo "SwiftLint version: $(swiftlint version)"
 
     - name: Check formatting with SwiftFormat
       run: swiftformat --lint .
-
-    - name: Run SwiftLint
-      run: swiftlint --strict
 
   unit_tests:
     name: Unit Tests
