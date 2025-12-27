@@ -48,7 +48,7 @@ public struct AppearanceSettingsView: View {
 
 // MARK: - Subviews
 
-struct AppIconPicker: View {
+private struct AppIconPicker: View {
   @Binding var appIcon: AppIcon
 
   var body: some View {
@@ -56,8 +56,11 @@ struct AppIconPicker: View {
       Button(
         action: { appIcon = icon },
         label: {
-          AppIconRow(selectedIcon: appIcon, icon: icon)
-            .accessibilityLabel(icon.title)
+          AppIconRow(
+            isSelectedIcon: icon == appIcon,
+            icon: icon
+          )
+          .accessibilityLabel(icon.title)
         }
       )
     }
@@ -65,7 +68,7 @@ struct AppIconPicker: View {
 }
 
 private struct AppIconRow: View {
-  let selectedIcon: AppIcon
+  let isSelectedIcon: Bool
   let icon: AppIcon
 
   var body: some View {
@@ -76,7 +79,7 @@ private struct AppIconRow: View {
 
       Spacer()
 
-      if selectedIcon == icon {
+      if isSelectedIcon {
         Image(systemName: "checkmark")
           .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
           .fontWeight(.medium)
@@ -127,19 +130,21 @@ extension AppIcon {
 
   var title: String {
     switch self {
-    case .appIcon1:
+    case .dark:
       "Dark"
-    case .appIcon2:
+    case .primary:
       "Light"
-    case .appIcon3:
+    case .neon:
       "Neon"
-    case .appIcon4:
+    case .rainbow:
       "Rainbow"
-    case .appIcon5:
-      "Yellow"
+    case .sun:
+      "Sun"
     }
   }
 }
+
+// MARK: - Preview
 
 #Preview {
   AppearanceSettingsView(
