@@ -23,18 +23,18 @@ public struct AppView: View {
         store: store.scope(state: \.mapFeatureState, action: \.map)
       )
       .ignoresSafeArea(edges: .vertical)
-      
+
       HStack {
-        overlayViewsStack()
+        OverlayViewsStack(store: store)
           .padding(.top, .grid(1))
-        
+
         Spacer()
       }
       .padding(.horizontal)
-      
+
       VStack {
         Spacer()
-        
+
         AppNavigationView(store: store)
           .accessibilitySortPriority(1)
           .padding(.horizontal)
@@ -49,13 +49,17 @@ public struct AppView: View {
       onDismiss: { store.send(.dismissEventList) },
       content: {
         NavigationStack {
-          bottomSheetContentView()
-            .presentationDetents(
-              [.fraction(0.3), .large],
-              selection: $store.eventListPresentation
-            )
-            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.3)))
-            .presentationBackgroundInteraction(.enabled)
+          RideEventBottomSheet(
+            rideEvents: store.nextRideState.rideEvents,
+            onRideSelected: { ride in store.send(.onRideSelectedFromBottomSheet(ride)) },
+            onDismiss: { store.send(.set(\.isEventListPresented, false)) }
+          )
+          .presentationDetents(
+            [.fraction(0.3), .large],
+            selection: $store.eventListPresentation
+          )
+          .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.3)))
+          .presentationBackgroundInteraction(.enabled)
         }
       }
     )
@@ -68,28 +72,14 @@ public struct AppView: View {
     .onAppear { store.send(.onAppear) }
     .onDisappear { store.send(.onDisappear) }
   }
-  
-  @ViewBuilder
-  private func bottomSheetContentView() -> some View {
-    List(store.nextRideState.rideEvents, id: \.id) { ride in
-      RideEventView(ride: ride)
-        .contentShape(Rectangle())
-        .padding(.vertical, .grid(1))
-        .accessibilityElement(children: .combine)
-        .onTapGesture {
-          store.send(.onRideSelectedFromBottomSheet(ride))
-        }
-        .listRowBackground(Color.clear)
-    }
-    .listStyle(.plain)
-    .padding(.top, .grid(2))
-    .accessibilityAction(.escape) {
-      store.send(.set(\.isEventListPresented, false))
-    }
-  }
-  
-  @ViewBuilder
-  private func offlineBanner() -> some View {
+}
+
+// MARK: - Subviews
+
+private struct OfflineBannerView: View {
+  @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+
+  var body: some View {
     Image(systemName: "wifi.slash")
       .foregroundColor(
         reduceTransparency
@@ -100,51 +90,77 @@ public struct AppView: View {
       .padding()
       .conditionalBackground(shouldUseBlur: true)
   }
-  
-  @ViewBuilder
-  private func nextRideBanner() -> some View {
+}
+
+private struct NextRideBannerButton: View {
+  let action: () -> Void
+
+  var body: some View {
     Button(
-      action: { store.send(.didTapNextRideOverlayButton) },
+      action: action,
       label: { Asset.cm.swiftUIImage }
     )
     .frame(minWidth: 50, minHeight: 50)
-    .if(!.iOS26) { view in
-      view
-        .padding(.grid(1))
-    }
+    .padding(Bool.iOS26 ? 0 : .grid(1))
     .foregroundStyle(Color.textPrimary)
     .clipShape(.circle)
     .accessibilityHint(Text(L10n.A11y.Mapfeatureview.Nextridebanner.hint))
     .accessibilityLabel(Text(L10n.A11y.Mapfeatureview.Nextridebanner.label))
   }
-  
-  @ViewBuilder
-  private func overlayViewsStack() -> some View {
+}
+
+private struct OverlayViewsStack: View {
+  let store: StoreOf<AppFeature>
+
+  var body: some View {
     VStack(alignment: .leading) {
       if store.shouldShowNextRideBanner {
-        nextRideBanner()
+        NextRideBannerButton(action: { store.send(.didTapNextRideOverlayButton) })
           .conditionalBackground(shouldUseBlur: true)
       }
-      
+
       if store.userSettings.showInfoViewEnabled {
         InfoOverlayView(
-          timerProgress: store.timerProgress,
-          timerValue: store.timerValue,
+          cycleStartTime: store.requestTimer.cycleStartTime,
           ridersCountLabel: store.ridersCount,
           isInPrivacyZone: store.isCurrentLocationInPrivacyZone
         )
       }
-      
+
       if store.hasConnectionError {
-        offlineBanner()
-          .clipShape(Circle())
+        OfflineBannerView()
+          .clipShape(.circle)
           .accessibleAnimation(.snappy, value: store.hasConnectionError)
       }
     }
   }
 }
 
-// MARK: - Preview
+private struct RideEventBottomSheet: View {
+  let rideEvents: [Ride]
+  let onRideSelected: (Ride) -> Void
+  let onDismiss: () -> Void
+
+  var body: some View {
+    List(rideEvents, id: \.id) { ride in
+      RideEventView(ride: ride)
+        .contentShape(.rect)
+        .padding(.vertical, .grid(1))
+        .accessibilityElement(children: .combine)
+        .onTapGesture {
+          onRideSelected(ride)
+        }
+        .listRowBackground(Color.clear)
+    }
+    .listStyle(.plain)
+    .padding(.top, .grid(2))
+    .accessibilityAction(.escape) {
+      onDismiss()
+    }
+  }
+}
+
+// MARK: - Previews
 
 #Preview {
   AppView(

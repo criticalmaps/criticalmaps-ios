@@ -81,20 +81,6 @@ public struct AppFeature { // swiftlint:disable:this type_body_length
     }
 
     public var mapFeatureState: MapFeatureState
-    
-    public var timerProgress: Double {
-      let progress = Double(requestTimer.secondsElapsed) / 60
-      return progress
-    }
-
-    public var shouldSendLocation: Bool {
-      requestTimer.secondsElapsed == 30
-    }
-
-    public var timerValue: String {
-      let progress = 60 - requestTimer.secondsElapsed
-      return String(progress)
-    }
 
     public var ridersCount: String {
       let count = mapFeatureState.visibleRidersCount ?? 0
@@ -347,28 +333,25 @@ public struct AppFeature { // swiftlint:disable:this type_body_length
         
       case let .requestTimer(timerAction):
         switch timerAction {
-        case .timerTicked:
-          if state.requestTimer.secondsElapsed == 60 {
-            state.requestTimer.secondsElapsed = 0
-            
-            return .run { [destination = state.destination] send in
-              await withThrowingTaskGroup(of: Void.self) { group in
+        case .halfwayPoint:
+          // At 30 seconds, post user location
+          return .send(.postLocation)
+
+        case .fullCycle:
+          // At 60 seconds, fetch fresh data
+          return .run { [destination = state.destination] send in
+            await withThrowingTaskGroup(of: Void.self) { group in
+              group.addTask {
+                await send(.fetchLocations)
+              }
+              if case .social = destination {
                 group.addTask {
-                  await send(.fetchLocations)
-                }
-                if case .social = destination {
-                  group.addTask {
-                    await send(.fetchChatMessages)
-                  }
+                  await send(.fetchChatMessages)
                 }
               }
             }
-          } else if state.shouldSendLocation {
-            return .send(.postLocation)
-          } else {
-            return .none
           }
-          
+
         default:
           return .none
         }
