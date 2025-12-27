@@ -131,6 +131,7 @@ public struct TootView: View {
 
         VStack(alignment: .leading, spacing: .grid(1)) {
           TootHeader(store: store)
+            .padding(.bottom, .grid(2))
 
           Text(store.content.asSafeMarkdownAttributedString)
             .font(.body)
