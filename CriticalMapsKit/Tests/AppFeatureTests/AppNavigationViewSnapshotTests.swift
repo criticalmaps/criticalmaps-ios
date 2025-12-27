@@ -9,7 +9,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_light() {
     let view = AppNavigationView(
       store: .init(
-        initialState: .init(locationsAndChatMessages: nil),
+        initialState: AppFeature.State(),
         reducer: { AppFeature() }
       )
     )
@@ -31,7 +31,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
   func test_appNavigationView_dark() {
     let view = AppNavigationView(
       store: .init(
-        initialState: .init(locationsAndChatMessages: nil),
+        initialState: AppFeature.State(),
         reducer: { AppFeature() }
       )
     )
@@ -42,9 +42,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
   
   @MainActor
   func test_appNavigationView_WithBadge_dark() {
-    var appState: AppFeature.State = .init(
-      locationsAndChatMessages: nil
-    )
+    var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
     
     let view = AppNavigationView(
@@ -60,9 +58,7 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
   
   @MainActor
   func test_appNavigationView_WithBadge() {
-    var appState: AppFeature.State = .init(
-      locationsAndChatMessages: nil
-    )
+    var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
     
     let view = AppNavigationView(
