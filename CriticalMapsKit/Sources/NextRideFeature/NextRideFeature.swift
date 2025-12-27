@@ -87,7 +87,7 @@ public struct NextRideFeature {
       state.rideEvents = rides.sortByDateAndFilterBeforeDate(date.callAsFunction)
 
       // Sort rides by date and pick the first one with a date greater than now
-      let ride = rides // swiftlint:disable:this sorted_first_last
+      let ride = rides
         .lazy
         .filter {
           guard let type = $0.rideType else { return true }

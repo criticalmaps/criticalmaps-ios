@@ -69,3 +69,9 @@
 --disable unusedArguments
 
 --exclude **/Generated/**
+--exclude **/build/**
+--exclude **/SourcePackages/**
+--exclude **/.build/**
+--exclude **/DerivedData/**
+--exclude **/*.generated.swift
+--exclude **/vendor/bundle/**

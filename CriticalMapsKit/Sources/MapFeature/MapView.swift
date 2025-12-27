@@ -127,17 +127,18 @@ struct MapView: ViewRepresentable {
   func updateRideEvents(in mapView: MKMapView) {
     if !rideEvents.isEmpty {
       let annotations = rideEvents.map { event in CriticalMassAnnotation(ride: event)! }
-      for annotation in annotations {
-        if mapView.annotations.contains(where: { a in a.title != annotation.title }) {
-          mapView.addAnnotations(annotations)
-        }
+      let containsCheck: (CriticalMassAnnotation) -> Bool = { annotation in
+        annotations.contains(where: { a in a.title != annotation.title })
+      }
+      for annotation in annotations where containsCheck(annotation) {
+        mapView.addAnnotations(annotations)
       }
     } else {
-      for annotation in mapView.annotations {
-        if let cmAnnotation = annotation as? CriticalMassAnnotation {
-          if cmAnnotation.ride.id != nextRide?.id {
-            mapView.removeAnnotation(annotation)
-          }
+      for annotation in mapView.annotations where annotation is CriticalMassAnnotation {
+        if let cmAnnotation = annotation as? CriticalMassAnnotation,
+           cmAnnotation.ride.id != nextRide?.id
+        {
+          mapView.removeAnnotation(annotation)
         }
       }
     }
@@ -148,7 +149,7 @@ struct MapView: ViewRepresentable {
     let existingPrivacyOverlays = mapView.overlays.compactMap { overlay in
       // Check if overlay has our privacy zone identifier
       let title = overlay.title ?? ""
-      return title?.hasPrefix("privacy_zone_") == true ? overlay : nil
+      return title?.hasPrefix(privacyZonePrefix) == true ? overlay : nil
     }
     mapView.removeOverlays(existingPrivacyOverlays)
 
@@ -157,7 +158,7 @@ struct MapView: ViewRepresentable {
 
     for zone in privacyZones where zone.isActive {
       let circle = zone.mkCircle
-      circle.title = "privacy_zone_\(zone.id.uuidString)"
+      circle.title = "\(privacyZonePrefix)\(zone.id.uuidString)"
       mapView.addOverlay(circle)
     }
   }
@@ -207,7 +208,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
     if let circle = overlay as? MKCircle,
        let title = circle.title,
-       title.hasPrefix("privacy_zone_")
+       title.hasPrefix(privacyZonePrefix)
     {
       let renderer = MKCircleRenderer(circle: circle)
       renderer.fillColor = UIColor.systemGreen.withAlphaComponent(0.15)
@@ -220,3 +221,5 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
     return MKOverlayRenderer(overlay: overlay)
   }
 }
+
+private let privacyZonePrefix = "privacy_zone_"
