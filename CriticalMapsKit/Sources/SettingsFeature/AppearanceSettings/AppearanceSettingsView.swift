@@ -46,7 +46,8 @@ public struct AppearanceSettingsView: View {
   }
 }
 
-// AppIcon grid view
+// MARK: - Subviews
+
 struct AppIconPicker: View {
   @Binding var appIcon: AppIcon
 
@@ -55,32 +56,39 @@ struct AppIconPicker: View {
       Button(
         action: { appIcon = icon },
         label: {
-          row(for: icon)
+          AppIconRow(selectedIcon: appIcon, icon: icon)
             .accessibilityLabel(icon.title)
         }
       )
     }
   }
+}
 
-  @ViewBuilder
-  private func row(for icon: AppIcon) -> some View {
+private struct AppIconRow: View {
+  let selectedIcon: AppIcon
+  let icon: AppIcon
+
+  var body: some View {
     HStack(spacing: .grid(3)) {
-      appIconView(icon)
+      AppIconImage(icon: icon)
 
       Text(icon.title)
 
       Spacer()
 
-      if appIcon == icon {
+      if selectedIcon == icon {
         Image(systemName: "checkmark")
           .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
           .fontWeight(.medium)
       }
     }
   }
+}
 
-  @ViewBuilder
-  private func appIconView(_ icon: AppIcon) -> some View {
+private struct AppIconImage: View {
+  let icon: AppIcon
+
+  var body: some View {
     Image(uiImage: icon.image)
       .resizable()
       .scaledToFit()

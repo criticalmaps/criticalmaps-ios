@@ -20,16 +20,8 @@ public struct SettingsView: View {
   public var body: some View {
     SettingsForm {
       Section {
-        observationModeRow
-          .accessibilityValue(
-            store.userSettings.isObservationModeEnabled
-              ? Text(L10n.A11y.General.on)
-              : Text(L10n.A11y.General.off)
-          )
-          .accessibilityAction {
-            store.userSettings.isObservationModeEnabled.toggle()
-          }
-        
+        ObservationModeRow(store: store)
+
         Button(
           action: { store.send(.view(.privacyZonesRowTapped)) },
           label: {
@@ -43,18 +35,10 @@ public struct SettingsView: View {
           }
         )
       }
-      
+
       Section {
-        infoRow
-          .accessibilityValue(
-            store.userSettings.showInfoViewEnabled
-              ? Text(L10n.A11y.General.on)
-              : Text(L10n.A11y.General.off)
-          )
-          .accessibilityAction {
-            store.userSettings.showInfoViewEnabled.toggle()
-          }
-        
+        InfoRow(store: store)
+
         Button(
           action: { store.send(.view(.rideEventSettingsRowTapped)) },
           label: {
@@ -64,7 +48,7 @@ public struct SettingsView: View {
           }
         )
       }
-      
+
       Section {
         Button(
           action: { store.send(.view(.appearanceSettingsRowTapped)) },
@@ -76,15 +60,15 @@ public struct SettingsView: View {
         )
       }
 
-      infoSection
-      
-      linksSection
-      
-      supportSection
+      InfoSection(store: store)
+
+      LinksSection(store: store)
+
+      SupportSection(store: store)
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-      
-      appVersionAndBuildView
+
+      AppVersionView(store: store)
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
     }
@@ -127,16 +111,22 @@ public struct SettingsView: View {
         RideEventSettingsView(store: store)
       }
     )
-    .navigationDestination(isPresented: Binding($store.destination.guideFeature)) {
+    .navigationDestination(isPresented: $store.destination.guideFeature) {
       GuideView()
     }
-    .navigationDestination(isPresented: Binding($store.destination.acknowledgements)) {
+    .navigationDestination(isPresented: $store.destination.acknowledgements) {
       AcknowListSwiftUIView(acknowList: store.packageList!)
     }
   }
-  
-  @ViewBuilder
-  var observationModeRow: some View {
+}
+
+// MARK: - Subviews
+
+private struct ObservationModeRow: View {
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  @Bindable var store: StoreOf<SettingsFeature>
+
+  var body: some View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(L10n.Settings.Observationmode.title)
@@ -153,10 +143,22 @@ public struct SettingsView: View {
       .labelsHidden()
     }
     .accessibilityElement(children: .combine)
+    .accessibilityValue(
+      store.userSettings.isObservationModeEnabled
+        ? Text(L10n.A11y.General.on)
+        : Text(L10n.A11y.General.off)
+    )
+    .accessibilityAction {
+      store.userSettings.isObservationModeEnabled.toggle()
+    }
   }
-  
-  @ViewBuilder
-  var infoRow: some View {
+}
+
+private struct InfoRow: View {
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  @Bindable var store: StoreOf<SettingsFeature>
+
+  var body: some View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(L10n.Settings.Info.Toggle.label)
@@ -173,10 +175,21 @@ public struct SettingsView: View {
       .labelsHidden()
     }
     .accessibilityElement(children: .combine)
+    .accessibilityValue(
+      store.userSettings.showInfoViewEnabled
+        ? Text(L10n.A11y.General.on)
+        : Text(L10n.A11y.General.off)
+    )
+    .accessibilityAction {
+      store.userSettings.showInfoViewEnabled.toggle()
+    }
   }
-  
-  @ViewBuilder
-  var supportSection: some View {
+}
+
+private struct SupportSection: View {
+  let store: StoreOf<SettingsFeature>
+
+  var body: some View {
     SupportSettingsRow(
       title: L10n.Settings.programming,
       subTitle: L10n.Settings.Opensource.detail,
@@ -194,7 +207,7 @@ public struct SettingsView: View {
       action: { store.send(.view(.supportSectionRowTapped(.github))) }
     )
     .accessibilityAddTraits(.isLink)
-    
+
     SupportSettingsRow(
       title: L10n.Settings.Translate.title,
       subTitle: L10n.Settings.Translate.subtitle,
@@ -211,7 +224,7 @@ public struct SettingsView: View {
       action: { store.send(.view(.supportSectionRowTapped(.crowdin))) }
     )
     .accessibilityAddTraits(.isLink)
-    
+
     SupportSettingsRow(
       title: L10n.Settings.CriticalMassDotIn.title,
       subTitle: L10n.Settings.CriticalMassDotIn.detail,
@@ -229,9 +242,12 @@ public struct SettingsView: View {
     )
     .accessibilityAddTraits(.isLink)
   }
-  
-  @ViewBuilder
-  var linksSection: some View {
+}
+
+private struct LinksSection: View {
+  let store: StoreOf<SettingsFeature>
+
+  var body: some View {
     Section {
       Button(
         action: { store.send(.view(.infoSectionRowTapped(.website))) },
@@ -240,7 +256,7 @@ public struct SettingsView: View {
         }
       )
       .accessibilityAddTraits(.isLink)
-      
+
       Button(
         action: { store.send(.view(.infoSectionRowTapped(.mastodon))) },
         label: {
@@ -248,7 +264,7 @@ public struct SettingsView: View {
         }
       )
       .accessibilityAddTraits(.isLink)
-      
+
       Button(
         action: { store.send(.view(.infoSectionRowTapped(.privacy))) },
         label: {
@@ -256,7 +272,7 @@ public struct SettingsView: View {
         }
       )
       .accessibilityAddTraits(.isLink)
-      
+
       Button(
         action: { store.send(.view(.acknowledgementsRowTapped)) },
         label: {
@@ -270,9 +286,12 @@ public struct SettingsView: View {
       )
     }
   }
-  
-  @ViewBuilder
-  var infoSection: some View {
+}
+
+private struct InfoSection: View {
+  let store: StoreOf<SettingsFeature>
+
+  var body: some View {
     Section {
       Button(
         action: { store.send(.view(.guideRowTapped)) },
@@ -287,9 +306,13 @@ public struct SettingsView: View {
       )
     }
   }
-  
-  @ViewBuilder
-  var appVersionAndBuildView: some View {
+}
+
+private struct AppVersionView: View {
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  let store: StoreOf<SettingsFeature>
+
+  var body: some View {
     HStack(spacing: .grid(4)) {
       ZStack {
         RoundedRectangle(cornerRadius: 12)
@@ -305,7 +328,7 @@ public struct SettingsView: View {
           .frame(width: 48, height: 48, alignment: .center)
       }
       .accessibilityHidden(true)
-      
+
       VStack(alignment: .leading) {
         Text("Critical Maps")
           .font(.titleTwo)
@@ -319,7 +342,7 @@ public struct SettingsView: View {
   }
 }
 
-struct SettingsInfoLink: View {
+private struct SettingsInfoLink: View {
   let title: String
   
   var body: some View {
@@ -332,6 +355,8 @@ struct SettingsInfoLink: View {
     .font(.body)
   }
 }
+
+// MARK: - Preview
 
 #Preview {
   NavigationStack {
