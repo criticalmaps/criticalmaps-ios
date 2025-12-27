@@ -79,25 +79,32 @@ private struct SendButton: View {
     Button(action: { store.send(.onCommit) }) {
       Circle()
         .fill(Color.brand500)
+        .frame(width: 38, height: 38)
+        .overlay(OverlayView(store: store))
         .accessibleAnimation(.spring(duration: 0.13), value: store.isSendButtonDisabled)
         .accessibilityLabel(Text(L10n.Chat.send))
-        .frame(width: 38, height: 38)
-        .overlay(
-          Group {
-            if store.isSending {
-              ProgressView().tint(.textPrimaryLight)
-            } else {
-              Image(systemName: "paperplane.fill")
-                .resizable()
-                .foregroundColor(.textPrimaryLight)
-                .offset(x: -1, y: 1)
-                .padding(.grid(2))
-            }
-          }
-        )
     }
     .opacity(store.isSendButtonDisabled ? 0 : 1)
     .animation(.snappy.speed(2.5), value: store.isSendButtonDisabled)
+  }
+}
+
+// MARK: - SubViews
+
+private struct OverlayView: View {
+  let store: StoreOf<ChatInput>
+  
+  var body: some View {
+    if store.isSending {
+      ProgressView()
+        .tint(.textPrimaryLight)
+    } else {
+      Image(systemName: "paperplane.fill")
+        .resizable()
+        .foregroundColor(.textPrimaryLight)
+        .offset(x: -1, y: 1)
+        .padding(.grid(2))
+    }
   }
 }
 
