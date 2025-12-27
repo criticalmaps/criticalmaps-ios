@@ -14,9 +14,10 @@ disabled_rules: # rule identifiers to exclude from running
   - file_name
   - missing_docs
   - opening_brace
+  - multiple_closures_with_trailing_closure
+  - attributes
 
 opt_in_rules:
-  - attributes
   - empty_count
   - force_unwrapping
   - unneeded_parentheses_in_closure_argument
@@ -50,13 +51,14 @@ opt_in_rules:
   - closure_end_indentation
 included:
   - CriticalMapsKit/Sources
-  - CriticalMapsKit/Tests
 excluded:
   - Package.swift
   - .build/
   - vendor/
   - Tests/
+  - CriticalMapsKit/Tests/
   - CriticalMapsKit/Sources/L10n/
+  - "**/Generated/"
 
 cyclomatic_complexity:
   warning: 15
@@ -82,3 +84,5 @@ identifier_name:
     - a
     - b
     - n
+    - x
+    - y
