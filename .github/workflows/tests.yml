@@ -11,9 +11,29 @@ on:
     - develop
 
 jobs:
+  lint_and_format:
+    name: Code Quality
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Verify tool versions
+      run: |
+        echo "SwiftFormat version: $(swiftformat --version)"
+        echo "SwiftLint version: $(swiftlint version)"
+
+    - name: Check formatting with SwiftFormat
+      run: swiftformat --lint .
+
+    - name: Run SwiftLint
+      run: swiftlint --strict
+
   unit_tests:
     name: Unit Tests
     runs-on: macos-latest
+    needs: lint_and_format
     strategy:
       matrix:
         platform:
@@ -43,7 +63,7 @@ jobs:
       run: fastlane test
 
     - name: Archive test artifacts
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       if: failure()
       with:
         name: test-artifacts
