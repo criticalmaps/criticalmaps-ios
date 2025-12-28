@@ -5,7 +5,7 @@ import XCTest
 
 @MainActor
 final class AppearanceSettingsViewSnapshotTests: XCTestCase {
-  func test_appearanceEventSettingsView_light() {
+  func test_appearanceEventSettingsView_light() throws {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettingsFeature.State(colorScheme: .system),
@@ -13,10 +13,10 @@ final class AppearanceSettingsViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(settingsView, sloppy: true)
+    try assertScreenSnapshot(settingsView, sloppy: true)
   }
   
-  func test_appearanceEventSettingsView_disabled() {
+  func test_appearanceEventSettingsView_disabled() throws {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettingsFeature.State(
@@ -27,6 +27,6 @@ final class AppearanceSettingsViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(settingsView, sloppy: true)
+    try assertScreenSnapshot(settingsView, sloppy: true)
   }
 }

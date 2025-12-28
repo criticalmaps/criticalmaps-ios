@@ -4,14 +4,18 @@ import XCTest
 
 private let operatingSystemVersion = ProcessInfo().operatingSystemVersion
 
+public enum SnapshotError: Error {
+  case deviceNot2XOrNotIOS16
+}
+
 @MainActor
 public extension XCTestCase {
-  private func enforceSnapshotDevice() {
+  private func enforceSnapshotDevice() throws {
     let is2XDevice = UIScreen.main.scale >= 2
     let isMinVersion16 = operatingSystemVersion.majorVersion >= 16
     
     guard is2XDevice, isMinVersion16 else {
-      fatalError("Screenshot test device should use @2x screen scale and iOS 14.4")
+      throw SnapshotError.deviceNot2XOrNotIOS16
     }
   }
   
@@ -20,11 +24,11 @@ public extension XCTestCase {
   func assertScreenSnapshot(
     _ view: some View,
     sloppy: Bool = false,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     testName: String = #function,
     line: UInt = #line
-  ) {
-    enforceSnapshotDevice()
+  ) throws {
+    try enforceSnapshotDevice()
     
     let precision: Float = (sloppy ? XCTestCase.sloppyPrecision : 1)
     
@@ -51,11 +55,11 @@ public extension XCTestCase {
     height: CGFloat? = nil,
     width: CGFloat = 375,
     sloppy: Bool = false,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     testName: String = #function,
     line: UInt = #line
-  ) {
-    enforceSnapshotDevice()
+  ) throws {
+    try enforceSnapshotDevice()
     
     var layout = SwiftUISnapshotLayout.device(config: .iPhone8)
     if let height {

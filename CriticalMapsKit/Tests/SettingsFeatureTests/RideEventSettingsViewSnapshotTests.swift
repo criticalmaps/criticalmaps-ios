@@ -5,7 +5,7 @@ import XCTest
 
 @MainActor
 final class RideEventSettingsViewSnapshotTests: XCTestCase {
-  func test_rideEventSettingsView_light() {
+  func test_rideEventSettingsView_light() throws {
     let settingsView = RideEventSettingsView(
       store: .init(
         initialState: .init(
@@ -19,10 +19,10 @@ final class RideEventSettingsViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(settingsView, sloppy: true)
+    try assertScreenSnapshot(settingsView, sloppy: true)
   }
   
-  func test_rideEventSettingsView_disabled() {
+  func test_rideEventSettingsView_disabled() throws {
     let settingsView = RideEventSettingsView(
       store: .init(
         initialState: .init(
@@ -36,6 +36,6 @@ final class RideEventSettingsViewSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(settingsView, sloppy: true)
+    try assertScreenSnapshot(settingsView, sloppy: true)
   }
 }

@@ -7,7 +7,7 @@ import XCTest
 
 @MainActor
 final class SettingsViewSnapshotTests: XCTestCase {
-  func test_settingsView_light() {
+  func test_settingsView_light() throws {
     let settingsView = SettingsView(
       store: StoreOf<SettingsFeature>(
         initialState: SettingsFeature.State(),
@@ -17,6 +17,6 @@ final class SettingsViewSnapshotTests: XCTestCase {
     .environment(\.colorScheme, .light)
     .accentColor(.textPrimary)
 
-    assertScreenSnapshot(settingsView, sloppy: true)
+    try assertScreenSnapshot(settingsView, sloppy: true)
   }
 }

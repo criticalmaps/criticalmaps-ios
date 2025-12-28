@@ -7,7 +7,7 @@ import XCTest
 
 @MainActor
 final class ChatFeatureSnapshotTests: XCTestCase {
-  func test_chatFeatureViewSnapshot() {
+  func test_chatFeatureViewSnapshot() throws {
     let view = ChatView(
       store: .init(
         initialState: .init(
@@ -21,10 +21,10 @@ final class ChatFeatureSnapshotTests: XCTestCase {
       )
     )
     
-    assertScreenSnapshot(view, sloppy: true)
+    try assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_chatFeatureViewSnapshot_dark() {
+  func test_chatFeatureViewSnapshot_dark() throws {
     let view = ChatView(
       store: .init(
         initialState: .init(
@@ -39,10 +39,10 @@ final class ChatFeatureSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(view, sloppy: true)
+    try assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_chatInputViewSnapshot_nonEmpty() {
+  func test_chatInputViewSnapshot_nonEmpty() throws {
     let view = BasicInputView(
       store: .init(
         initialState: .init(
@@ -53,10 +53,10 @@ final class ChatFeatureSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(view, height: 100, sloppy: true)
+    try assertViewSnapshot(view, height: 100, sloppy: true)
   }
   
-  func test_chatInputViewSnapshot_empty() {
+  func test_chatInputViewSnapshot_empty() throws {
     let view = BasicInputView(
       store: .init(
         initialState: .init(
@@ -67,6 +67,6 @@ final class ChatFeatureSnapshotTests: XCTestCase {
       )
     )
     
-    assertViewSnapshot(view, height: 100, sloppy: true)
+    try assertViewSnapshot(view, height: 100, sloppy: true)
   }
 }

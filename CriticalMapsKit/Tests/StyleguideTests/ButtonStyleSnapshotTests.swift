@@ -5,17 +5,17 @@ import XCTest
 
 @MainActor
 final class ButtonStylesSnapshotTests: XCTestCase {
-  func test_cmButtonStyle() {
+  func test_cmButtonStyle() throws {
     let button = Button(
       action: {},
       label: { Text("Critical Maps") }
     )
     .buttonStyle(CMButtonStyle())
     
-    assertViewSnapshot(button, height: 100)
+    try assertViewSnapshot(button, height: 100)
   }
   
-  func test_cmButtonStyle_withIcon() {
+  func test_cmButtonStyle_withIcon() throws {
     let button = Button(
       action: {},
       label: {
@@ -28,10 +28,10 @@ final class ButtonStylesSnapshotTests: XCTestCase {
     )
     .buttonStyle(CMButtonStyle())
     
-    assertViewSnapshot(button, height: 100)
+    try assertViewSnapshot(button, height: 100)
   }
   
-  func test_cmButtonStyle_withIcon2() {
+  func test_cmButtonStyle_withIcon2() throws {
     let button = Button(
       action: {},
       label: {
@@ -44,6 +44,6 @@ final class ButtonStylesSnapshotTests: XCTestCase {
     )
     .buttonStyle(CMButtonStyle())
     
-    assertViewSnapshot(button, height: 150)
+    try assertViewSnapshot(button, height: 150)
   }
 }

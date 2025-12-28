@@ -196,11 +196,6 @@ struct AppFeatureTests {
     state.nextRideState.userLocation = sharedModelLocation.coordinate
     state.mapFeatureState.location = sharedModelLocation
     
-    let userSettings = UserSettings(
-      enableObservationMode: false,
-      showInfoViewEnabled: false
-    )
-    
     let store = TestStore(
       initialState: state,
       reducer: { AppFeature() },
