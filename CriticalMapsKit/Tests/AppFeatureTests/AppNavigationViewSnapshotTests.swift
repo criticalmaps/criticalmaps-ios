@@ -4,8 +4,8 @@ import SnapshotTesting
 import TestHelper
 import XCTest
 
+@MainActor
 final class AppNavigationViewSnapshotTests: XCTestCase {
-  @MainActor
   func test_appNavigationView_light() {
     let view = AppNavigationView(
       store: .init(
@@ -27,7 +27,6 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     }
   }
   
-  @MainActor
   func test_appNavigationView_dark() {
     let view = AppNavigationView(
       store: .init(
@@ -40,7 +39,6 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     assertScreenSnapshot(view, sloppy: true)
   }
   
-  @MainActor
   func test_appNavigationView_WithBadge_dark() {
     var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
@@ -56,7 +54,6 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     assertScreenSnapshot(view, sloppy: true)
   }
   
-  @MainActor
   func test_appNavigationView_WithBadge() {
     var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13

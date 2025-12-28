@@ -5,8 +5,8 @@ import SwiftUI
 import TestHelper
 import XCTest
 
+@MainActor
 final class SettingsViewSnapshotTests: XCTestCase {
-  @MainActor
   func test_settingsView_light() {
     let settingsView = SettingsView(
       store: StoreOf<SettingsFeature>(

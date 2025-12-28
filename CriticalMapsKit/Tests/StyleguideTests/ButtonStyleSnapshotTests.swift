@@ -3,6 +3,7 @@ import SwiftUI
 import TestHelper
 import XCTest
 
+@MainActor
 final class ButtonStylesSnapshotTests: XCTestCase {
   func test_cmButtonStyle() {
     let button = Button(

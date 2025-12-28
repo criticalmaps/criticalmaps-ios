@@ -32,7 +32,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
       emptyState: .init(
         icon: Asset.chatEmpty.image,
         text: "Critical Maps",
-        message: .init(string: "No mass today")
+        message: AttributedString("No mass today")
       ),
       buttonAction: {},
       buttonText: "Reload"
@@ -46,7 +46,7 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
       emptyState: .init(
         icon: Asset.chatEmpty.image,
         text: "Critical Maps",
-        message: .init(string: "No mass today")
+        message: AttributedString("No mass today")
       ),
       buttonAction: {},
       buttonText: "Reload"
