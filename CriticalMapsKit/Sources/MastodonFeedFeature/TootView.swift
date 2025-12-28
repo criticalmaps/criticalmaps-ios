@@ -128,22 +128,25 @@ public struct TootView: View {
         .background(Color.gray)
         .clipShape(Circle())
         .accessibilityHidden(true)
-        
+
         VStack(alignment: .leading, spacing: .grid(1)) {
-          header()
-            .contentShape(Rectangle())
-            .onTapGesture {
-              store.send(.openUser)
-            }
-          
+          TootHeader(store: store)
+            .padding(.bottom, .grid(2))
+
           Text(store.content.asSafeMarkdownAttributedString)
             .font(.body)
             .tint(Color(uiColor: colorScheme == .light ? .highlight : .brand500))
             .fixedSize(horizontal: false, vertical: true)
-          
+
           if !store.imageAttachments.isEmpty {
-            imageAttachmentsView
-              .padding(.top, .grid(1))
+            ImageAttachmentsView(
+              store: store,
+              onImageTap: { index in
+                shouldPresentImageItems = true
+                selectedImageStartIndex = index
+              }
+            )
+            .padding(.top, .grid(1))
           }
         }
       }
@@ -172,9 +175,16 @@ public struct TootView: View {
     .accessibilityElement(children: .combine)
     .padding(.vertical, .grid(2))
   }
-  
-  @ViewBuilder
-  func header() -> some View {
+}
+
+// MARK: - Subviews
+
+private struct TootHeader: View {
+  @Environment(\.dynamicTypeSize) private var dynamicTypeSize: DynamicTypeSize
+
+  let store: StoreOf<TootFeature>
+
+  var body: some View {
     Group {
       if dynamicTypeSize.isAccessibilitySize {
         VStack(alignment: .leading) {
@@ -197,26 +207,27 @@ public struct TootView: View {
         }
       }
     }
+    .contentShape(Rectangle())
+    .onTapGesture { store.send(.openUser) }
     .accessibilityElement(children: .combine)
-    .accessibilityRepresentation(representation: {
+    .accessibilityRepresentation {
       HStack {
         if !store.accountDisplayName.isEmpty {
           displayName
         }
-        displayName
         Text("posted at")
         postDatetime
       }
-    })
+    }
   }
-  
+
   private var displayName: some View {
     Text(store.accountDisplayName)
       .lineLimit(1)
       .font(.titleTwo)
       .foregroundColor(.textPrimary)
   }
-  
+
   private var accountName: some View {
     Text(store.accountAcct)
       .lineLimit(1)
@@ -224,17 +235,22 @@ public struct TootView: View {
       .foregroundColor(.textSilent)
       .accessibilityHidden(true)
   }
-  
+
   private var postDatetime: some View {
     let (text, a11yValue) = store.state.formattedCreationDate()
+
     return Text(text ?? "")
       .font(.meta)
       .foregroundColor(.textPrimary)
       .accessibilityLabel(a11yValue ?? "")
   }
-  
-  @ViewBuilder
-  private var imageAttachmentsView: some View {
+}
+
+private struct ImageAttachmentsView: View {
+  let store: StoreOf<TootFeature>
+  let onImageTap: (Int) -> Void
+
+  var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {
         ForEach(Array(store.imageSheetItems.enumerated()), id: \.element.id) { index, item in
@@ -249,8 +265,7 @@ public struct TootView: View {
                 .frame(height: 180)
                 .cornerRadius(8)
                 .onTapGesture {
-                  shouldPresentImageItems = true
-                  selectedImageStartIndex = index
+                  onImageTap(index)
                 }
             case .failure:
               Color.gray.opacity(0.2)
@@ -266,7 +281,7 @@ public struct TootView: View {
   }
 }
 
-// MARK: Preview
+// MARK: - Preview
 
 #Preview {
   TootView(
