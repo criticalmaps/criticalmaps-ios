@@ -335,8 +335,7 @@ package.targets.append(contentsOf: [
       .testHelper,
       .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
-    ],
-    resources: [.process("_Resources/")]
+    ]
   )
 ])
 
