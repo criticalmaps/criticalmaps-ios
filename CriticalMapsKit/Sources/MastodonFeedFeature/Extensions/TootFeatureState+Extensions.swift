@@ -30,7 +30,7 @@ public extension TootFeature.State {
     let a11yValue = createdAt.formatted(.relativeToTootDate)
     
     if let days = components.day, days == 0, let months = components.month, months == 0 {
-      let value = tweetDateFormatted(from: createdAt, to: date)
+      let value = tootDateFormatted(from: createdAt, to: date)
       return (value, a11yValue)
     } else {
       let value = createdAt.formatted(Date.FormatStyle.dateWithoutYear)
@@ -38,7 +38,7 @@ public extension TootFeature.State {
     }
   }
   
-  private func tweetDateFormatted(
+  private func tootDateFormatted(
     from: Date,
     to: Date
   ) -> String {

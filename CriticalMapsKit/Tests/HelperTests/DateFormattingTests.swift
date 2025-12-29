@@ -8,7 +8,7 @@ struct DateFormattingTests {
 
   @Test("Dateformatter DateWithYear should format correctly")
   func tootDateFormatter() throws {
-    let formatted = testDate.formatted(.dateWithoutYear)
+    let formatted = testDate.formatted(Date.FormatStyle.dateWithoutYear)
 
     #expect(formatted == "3. Oct")
   }
