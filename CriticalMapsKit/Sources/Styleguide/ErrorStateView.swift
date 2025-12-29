@@ -21,7 +21,7 @@ public struct ErrorState: Equatable, Sendable {
 
     public init(
       error: Error,
-      file: StaticString = #fileID,
+      file: StaticString = #filePath,
       line: UInt = #line
     ) {
       var string = ""
