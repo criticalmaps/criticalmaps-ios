@@ -33,7 +33,7 @@ public struct MastodonFeedView: View {
 // MARK: - Helper
 
 public extension [TootFeature.State] {
-  @MainActor static let placeHolder: Self = [0, 1, 2, 3, 4].map {
+  static let placeHolder: Self = [0, 1, 2, 3, 4].map {
     TootFeature.State(
       id: String($0),
       createdAt: .init(timeIntervalSince1970: TimeInterval(1635521516)),
