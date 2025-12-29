@@ -5,7 +5,7 @@ import SharedModels
 
 /// A client to interact with UserDefaults
 @DependencyClient
-public struct UserDefaultsClient {
+public struct UserDefaultsClient: Sendable {
   public var boolForKey: @Sendable (String) -> Bool = { _ in false }
   public var dataForKey: @Sendable (String) -> Data?
   public var doubleForKey: @Sendable (String) -> Double = { _ in .leastNonzeroMagnitude }

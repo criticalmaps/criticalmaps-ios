@@ -3,7 +3,7 @@ import L10n
 import Styleguide
 import UIKit.UIImage
 
-public struct Guide: Hashable, Identifiable {
+public struct Guide: Hashable, Identifiable, Sendable {
   public let rule: Rule
   public var id: String { rule.rawValue }
 
@@ -13,7 +13,7 @@ public struct Guide: Hashable, Identifiable {
 }
 
 public extension Guide {
-  enum Rule: String, CaseIterable {
+  enum Rule: String, CaseIterable, Sendable {
     case brake
     case contraflow
     case gently

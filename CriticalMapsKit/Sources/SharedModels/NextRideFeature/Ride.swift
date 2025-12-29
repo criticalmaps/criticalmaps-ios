@@ -4,7 +4,7 @@ import Foundation
 import Helpers
 import MapKit
 
-public struct Ride: Hashable, Codable, Identifiable {
+public struct Ride: Hashable, Codable, Identifiable, Sendable {
   public let id: Int
   public var city: City?
   public let slug: String?
@@ -60,7 +60,7 @@ public struct Ride: Hashable, Codable, Identifiable {
 }
 
 public extension Ride {
-  struct City: Codable, Hashable {
+  struct City: Codable, Hashable, Sendable {
     let id: Int
     let name: String
     let timezone: String

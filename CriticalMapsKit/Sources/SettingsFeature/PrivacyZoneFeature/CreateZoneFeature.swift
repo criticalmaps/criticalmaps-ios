@@ -7,11 +7,11 @@ import SwiftUI
 // MARK: - Reducer
 
 @Reducer
-public struct CreateZoneFeature {
+public struct CreateZoneFeature: Sendable {
   public init() {}
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     @Shared(.privacyZoneSettings) var settings
     public var newZoneName = ""
     public var newZoneRadius: Double = 400

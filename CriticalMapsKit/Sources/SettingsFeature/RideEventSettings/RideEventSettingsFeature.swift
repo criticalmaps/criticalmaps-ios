@@ -5,11 +5,11 @@ import Helpers
 import SharedModels
 
 @Reducer
-public struct RideEventsSettingsFeature {
+public struct RideEventsSettingsFeature: Sendable {
   public init() {}
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     @Shared(.rideEventSettings) var settings
     
     public var isEnabled: Bool

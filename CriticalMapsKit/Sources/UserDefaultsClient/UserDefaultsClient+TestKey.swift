@@ -2,9 +2,9 @@ import ComposableArchitecture
 import Foundation
 
 extension UserDefaultsClient: TestDependencyKey {
-  public static var testValue: UserDefaultsClient = Self()
+  public static let testValue: UserDefaultsClient = Self()
 
-  public static var previewValue: UserDefaultsClient = Self(
+  public static let previewValue: UserDefaultsClient = Self(
     boolForKey: { _ in false },
     dataForKey: { _ in nil },
     doubleForKey: { _ in 0 },

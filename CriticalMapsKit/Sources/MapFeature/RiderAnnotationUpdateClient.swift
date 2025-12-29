@@ -3,6 +3,7 @@ import MapKit
 import SharedModels
 
 /// A client to update rider annotations on a map.
+@MainActor
 public enum RiderAnnotationUpdateClient {
   /// Calculates the difference between displayed annotations and a collection of new rider elements.
   ///

@@ -2,12 +2,8 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-public struct RequestTimer {
-  public init(timerInterval: Int = 60) {
-    self.timerInterval = .seconds(timerInterval)
-  }
-
-  let timerInterval: RunLoop.SchedulerTimeType.Stride
+public struct RequestTimer: Sendable {
+  public init() {}
 
   // MARK: State
 

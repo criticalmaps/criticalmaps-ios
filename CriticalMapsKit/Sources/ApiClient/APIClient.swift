@@ -3,7 +3,7 @@ import Foundation
 
 /// A Client to dispatch network calls
 @DependencyClient
-public struct APIClient {
+public struct APIClient: Sendable {
   /// Dispatches a Request and returns its data
   /// - Parameter request: Request to Dispatch
   /// - Returns: The response data of the request
@@ -25,7 +25,7 @@ extension APIClient: DependencyKey {
 }
 
 extension APIClient: TestDependencyKey {
-  public static var testValue: APIClient = Self()
+  public static let testValue: APIClient = Self()
   public static let previewValue: APIClient = Self(
     send: { _ in (Data(), HTTPURLResponse()) }
   )

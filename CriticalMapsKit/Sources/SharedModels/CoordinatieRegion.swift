@@ -3,7 +3,7 @@ import Foundation
 import MapKit
 
 /// A structure for region data
-public struct CoordinateRegion: Equatable {
+public struct CoordinateRegion: Equatable, Sendable {
   public var center: CLLocationCoordinate2D
   public var span: MKCoordinateSpan
 

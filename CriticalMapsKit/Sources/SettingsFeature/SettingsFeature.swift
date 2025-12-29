@@ -8,7 +8,7 @@ import UIApplicationClient
 import UIKit.UIInterface
 
 @Reducer
-public struct SettingsFeature {
+public struct SettingsFeature: Sendable {
   public init() {}
 
   @Reducer
@@ -23,7 +23,7 @@ public struct SettingsFeature {
   // MARK: State
 
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     @Shared(.userSettings) public var userSettings
     @Shared(.rideEventSettings) public var rideEventSettings
     @Shared(.appearanceSettings) public var appearanceSettings
@@ -148,12 +148,12 @@ public struct SettingsFeature {
   }
 }
 
-extension SettingsFeature.Destination.State: Equatable {}
+extension SettingsFeature.Destination.State: Equatable, Sendable {}
 
 // MARK: Helper
 
 public extension SettingsFeature.State {
-  enum InfoSectionRow: Equatable {
+  enum InfoSectionRow: Equatable, Sendable {
     case website, mastodon, privacy
 
     public var url: URL {
@@ -168,7 +168,7 @@ public extension SettingsFeature.State {
     }
   }
 
-  enum SupportSectionRow: Equatable {
+  enum SupportSectionRow: Equatable, Sendable {
     case github, criticalMassDotIn, crowdin
 
     public var url: URL {

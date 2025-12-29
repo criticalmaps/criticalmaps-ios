@@ -19,7 +19,7 @@ import UserDefaultsClient
 struct AppFeatureTests {
   let testScheduler = DispatchQueue.test
   let testClock = TestClock()
-  let date: () -> Date = { @Sendable in Date(timeIntervalSinceReferenceDate: 0) }
+  let date: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
   
   @Test
   func appNavigation() async {
@@ -195,11 +195,6 @@ struct AppFeatureTests {
     var state = AppFeature.State()
     state.nextRideState.userLocation = sharedModelLocation.coordinate
     state.mapFeatureState.location = sharedModelLocation
-    
-    let userSettings = UserSettings(
-      enableObservationMode: false,
-      showInfoViewEnabled: false
-    )
     
     let store = TestStore(
       initialState: state,

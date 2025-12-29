@@ -4,7 +4,7 @@ import Sharing
 import SwiftUI
 
 /// A structure to store a users settings
-public struct UserSettings: Codable, Equatable {
+public struct UserSettings: Codable, Equatable, Sendable {
   public var isObservationModeEnabled: Bool
   public var showInfoViewEnabled: Bool
 

@@ -3,7 +3,7 @@ import Foundation
 import Network
 
 extension PathMonitorClient: TestDependencyKey {
-  public static var testValue: PathMonitorClient = Self()
+  public static let testValue: PathMonitorClient = Self()
 
   public static let satisfied = Self {
     AsyncStream { continuation in

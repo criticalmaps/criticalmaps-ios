@@ -3,7 +3,7 @@ import Foundation
 
 /// A client to dispatch network request to URLSession
 @DependencyClient
-public struct NetworkDispatcher {
+public struct NetworkDispatcher: Sendable {
   var dispatch: @Sendable (URLRequest) async throws -> (Data, URLResponse)
 }
 

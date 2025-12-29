@@ -77,9 +77,7 @@ private struct ChatEmptyStateView: View {
       emptyState: .init(
         icon: Asset.chatEmpty.image,
         text: L10n.Chat.emptyMessageTitle,
-        message: .init(
-          string: L10n.Chat.noChatActivity
-        )
+        message: AttributedString(L10n.Chat.noChatActivity)
       )
     )
   }

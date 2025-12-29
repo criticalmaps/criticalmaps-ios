@@ -4,7 +4,7 @@ import XCTest
 
 @MainActor
 final class EmptyStateViewSnapshotTests: XCTestCase {
-  func test_emptyStateView_withoutButton_light() {
+  func test_emptyStateView_withoutButton_light() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
@@ -12,10 +12,10 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
       )
     ).environment(\.colorScheme, .light)
     
-    assertScreenSnapshot(view)
+    try assertScreenSnapshot(view)
   }
   
-  func test_emptyStateView_withoutButton_dark() {
+  func test_emptyStateView_withoutButton_dark() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
@@ -24,35 +24,35 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(view)
+    try assertScreenSnapshot(view)
   }
   
-  func test_emptyStateView_withButton_light() {
+  func test_emptyStateView_withButton_light() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
         text: "Critical Maps",
-        message: .init(string: "No mass today")
+        message: AttributedString("No mass today")
       ),
       buttonAction: {},
       buttonText: "Reload"
     ).environment(\.colorScheme, .light)
     
-    assertScreenSnapshot(view)
+    try assertScreenSnapshot(view)
   }
   
-  func test_emptyStateView_withButton_dark() {
+  func test_emptyStateView_withButton_dark() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
         text: "Critical Maps",
-        message: .init(string: "No mass today")
+        message: AttributedString("No mass today")
       ),
       buttonAction: {},
       buttonText: "Reload"
     )
     .environment(\.colorScheme, .dark)
     
-    assertScreenSnapshot(view)
+    try assertScreenSnapshot(view)
   }
 }

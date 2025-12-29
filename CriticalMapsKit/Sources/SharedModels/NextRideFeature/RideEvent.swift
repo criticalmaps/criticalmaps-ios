@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Foundation
 
 @ObservableState
-public struct RideEvent: Equatable, Identifiable, Codable {
+public struct RideEvent: Equatable, Identifiable, Codable, Sendable {
   public var id: String {
     rideType.rawValue
   }

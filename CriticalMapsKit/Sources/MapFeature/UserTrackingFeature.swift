@@ -3,7 +3,7 @@ import L10n
 import MapKit
 
 @Reducer
-public struct UserTrackingFeature {
+public struct UserTrackingFeature: Sendable {
   public init() {}
 
   @ObservableState
@@ -15,7 +15,7 @@ public struct UserTrackingFeature {
     }
   }
 
-  public enum Action: Equatable {
+  public enum Action: Equatable, Sendable {
     case nextTrackingMode
   }
 
