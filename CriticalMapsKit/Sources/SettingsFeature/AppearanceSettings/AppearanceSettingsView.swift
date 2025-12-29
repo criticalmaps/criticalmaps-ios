@@ -46,8 +46,9 @@ public struct AppearanceSettingsView: View {
   }
 }
 
-// AppIcon grid view
-struct AppIconPicker: View {
+// MARK: - Subviews
+
+private struct AppIconPicker: View {
   @Binding var appIcon: AppIcon
 
   var body: some View {
@@ -55,32 +56,42 @@ struct AppIconPicker: View {
       Button(
         action: { appIcon = icon },
         label: {
-          row(for: icon)
-            .accessibilityLabel(icon.title)
+          AppIconRow(
+            isSelectedIcon: icon == appIcon,
+            icon: icon
+          )
+          .accessibilityLabel(icon.title)
         }
       )
     }
   }
+}
 
-  @ViewBuilder
-  private func row(for icon: AppIcon) -> some View {
+private struct AppIconRow: View {
+  let isSelectedIcon: Bool
+  let icon: AppIcon
+
+  var body: some View {
     HStack(spacing: .grid(3)) {
-      appIconView(icon)
+      AppIconImage(icon: icon)
 
       Text(icon.title)
 
       Spacer()
 
-      if appIcon == icon {
+      if isSelectedIcon {
         Image(systemName: "checkmark")
           .accessibilityRepresentation { Text(L10n.A11y.General.selected) }
           .fontWeight(.medium)
       }
     }
   }
+}
 
-  @ViewBuilder
-  private func appIconView(_ icon: AppIcon) -> some View {
+private struct AppIconImage: View {
+  let icon: AppIcon
+
+  var body: some View {
     Image(uiImage: icon.image)
       .resizable()
       .scaledToFit()
@@ -119,19 +130,21 @@ extension AppIcon {
 
   var title: String {
     switch self {
-    case .appIcon1:
+    case .dark:
       "Dark"
-    case .appIcon2:
+    case .primary:
       "Light"
-    case .appIcon3:
+    case .neon:
       "Neon"
-    case .appIcon4:
+    case .rainbow:
       "Rainbow"
-    case .appIcon5:
-      "Yellow"
+    case .sun:
+      "Sun"
     }
   }
 }
+
+// MARK: - Preview
 
 #Preview {
   AppearanceSettingsView(

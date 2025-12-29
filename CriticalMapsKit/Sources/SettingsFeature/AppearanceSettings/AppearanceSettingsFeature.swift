@@ -19,7 +19,7 @@ public struct AppearanceSettingsFeature: Sendable {
     public var colorScheme: AppearanceSettings.ColorScheme
     
     public init(
-      appIcon: AppIcon = .appIcon2,
+      appIcon: AppIcon = .primary,
       colorScheme: AppearanceSettings.ColorScheme = .system
     ) {
       self.appIcon = appIcon
@@ -54,7 +54,13 @@ public struct AppearanceSettingsFeature: Sendable {
         let appIcon = state.appIcon
         state.$settings.withLock { $0.appIcon = appIcon }
         return .merge(
-          .run { _ in try await uiApplicationClient.setAlternateIconName(appIcon.rawValue) },
+          .run { _ in
+            do {
+              try await uiApplicationClient.setAlternateIconName(appIcon.rawValue)
+            } catch {
+              debugPrint(error)
+            }
+          },
           .run { _ in await feedbackGenerator.selectionChanged() }
         )
 

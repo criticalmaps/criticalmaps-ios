@@ -5,11 +5,11 @@ import enum UIKit.UIUserInterfaceStyle
 /// A structure that represents a users appearance settings.
 @ObservableState
 public struct AppearanceSettings: Codable, Equatable, Sendable {
-  public var appIcon: AppIcon = .appIcon2
+  public var appIcon: AppIcon
   public var colorScheme: ColorScheme = .system
 
   public init(
-    appIcon: AppIcon = .appIcon2,
+    appIcon: AppIcon = .primary,
     colorScheme: ColorScheme = .system
   ) {
     self.appIcon = appIcon
@@ -23,7 +23,7 @@ public struct AppearanceSettings: Codable, Equatable, Sendable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    appIcon = try container.decodeIfPresent(AppIcon.self, forKey: .appIcon) ?? .appIcon2
+    appIcon = try container.decodeIfPresent(AppIcon.self, forKey: .appIcon) ?? .primary
     colorScheme = try container.decodeIfPresent(ColorScheme.self, forKey: .colorScheme) ?? .system
   }
 

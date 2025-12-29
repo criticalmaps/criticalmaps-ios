@@ -20,7 +20,7 @@ final class AppearanceSettingsViewSnapshotTests: XCTestCase {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettingsFeature.State(
-          appIcon: .appIcon5,
+          appIcon: .sun,
           colorScheme: .system
         ),
         reducer: { AppearanceSettingsFeature() }

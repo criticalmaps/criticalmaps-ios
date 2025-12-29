@@ -1,6 +1,7 @@
 import Combine
 import ComposableArchitecture
 import Foundation
+import OSLog
 import UIKit.UIApplication
 
 extension UIApplicationClient: DependencyKey {
@@ -9,7 +10,15 @@ extension UIApplicationClient: DependencyKey {
     open: { @MainActor in await UIApplication.shared.open($0, options: $1) },
     openSettingsURLString: { @MainActor in UIApplication.openSettingsURLString },
     setAlternateIconName: { @MainActor in
-      try await UIApplication.shared.setAlternateIconName($0)
+      // Set the icon name to nil to use the primary icon.
+      let iconName: String? = ($0 != "appIcon-2") ? $0 : nil
+      // Avoid setting the name if the app already uses that icon.
+      guard UIApplication.shared.alternateIconName != iconName else {
+        Logger.client.debug("IconName already set")
+        return
+      }
+      
+      try await UIApplication.shared.setAlternateIconName(iconName)
     },
     setUserInterfaceStyle: { @MainActor in
       UIApplication.shared.firstWindowSceneWindow?.overrideUserInterfaceStyle = $0
@@ -24,4 +33,12 @@ private extension UIApplication {
     let windowScene = scenes.first as? UIWindowScene
     return windowScene?.windows.first
   }
+}
+
+private extension Logger {
+  private static let subsystem = "UIApplicationClient"
+  static let client = Logger(
+    subsystem: subsystem,
+    category: "LiveKey"
+  )
 }

@@ -42,7 +42,12 @@ public struct RideEventSettingsView: View {
             action: {
               store.send(.binding(.set(\.eventSearchRadius, radius)))
             },
-            label: { distanceRow(radius) }
+            label: {
+              DistanceRow(
+                store: store,
+                radius: radius
+              )
+            }
           )
         }
         .disabled(!store.isEnabled)
@@ -59,9 +64,15 @@ public struct RideEventSettingsView: View {
     .accessibleAnimation(.snappy, value: store.isEnabled)
     .navigationBarTitle(L10n.Settings.eventSettings, displayMode: .inline)
   }
+}
 
-  @ViewBuilder
-  private func distanceRow(_ radius: EventDistance) -> some View {
+// MARK: - Subviews
+
+private struct DistanceRow: View {
+  let store: StoreOf<RideEventsSettingsFeature>
+  let radius: EventDistance
+
+  var body: some View {
     HStack(spacing: .grid(2)) {
       Text(String(radius.displayValue))
         .accessibility(label: Text(radius.accessibilityLabel))
