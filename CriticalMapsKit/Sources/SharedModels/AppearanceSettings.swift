@@ -4,7 +4,7 @@ import enum UIKit.UIUserInterfaceStyle
 
 /// A structure that represents a users appearance settings.
 @ObservableState
-public struct AppearanceSettings: Codable, Equatable {
+public struct AppearanceSettings: Codable, Equatable, Sendable {
   public var appIcon: AppIcon
   public var colorScheme: ColorScheme = .system
 
@@ -35,7 +35,7 @@ public struct AppearanceSettings: Codable, Equatable {
 }
 
 public extension AppearanceSettings {
-  enum ColorScheme: String, CaseIterable, Codable, Identifiable {
+  enum ColorScheme: String, CaseIterable, Codable {
     case system
     case dark
     case light
@@ -50,9 +50,11 @@ public extension AppearanceSettings {
         .light
       }
     }
-
-    public var id: String { rawValue }
   }
+}
+
+extension AppearanceSettings.ColorScheme: Sendable, Identifiable {
+  public var id: String { rawValue }
 }
 
 private extension URL {

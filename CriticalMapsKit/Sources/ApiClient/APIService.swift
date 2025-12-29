@@ -6,7 +6,7 @@ import SharedModels
 
 /// A Service to send and fetch locations and chat messages from the Critical Maps API
 @DependencyClient
-public struct APIService {
+public struct APIService: Sendable {
   public var getRiders: @Sendable () async throws -> [Rider]
   public var postRiderLocation: @Sendable (SendLocationPostBody) async throws -> ApiResponse
   public var getChatMessages: @Sendable () async throws -> [ChatMessage]

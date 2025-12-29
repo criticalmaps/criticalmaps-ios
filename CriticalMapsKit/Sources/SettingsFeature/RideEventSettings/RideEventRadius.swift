@@ -6,7 +6,7 @@ import SharedModels
 import SwiftUI
 
 @Reducer
-public struct RideEventRadius {
+public struct RideEventRadius: Sendable {
   public init() {}
   
   @Dependency(\.feedbackGenerator) private var feedbackGenerator

@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 
 @DependencyClient
-public struct FeedbackGeneratorClient {
+public struct FeedbackGeneratorClient: Sendable {
   public var prepare: @Sendable () async -> Void
   public var selectionChanged: @Sendable () async -> Void
 }

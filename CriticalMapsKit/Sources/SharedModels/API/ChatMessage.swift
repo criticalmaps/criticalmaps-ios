@@ -1,7 +1,7 @@
 import Foundation
 
 /// A structire that represents a chat message. On create it creates a unique id for itself.
-public struct ChatMessage: Codable, Hashable, Identifiable {
+public struct ChatMessage: Codable, Hashable, Identifiable, Sendable {
   public var id: String { identifier }
   
   public let identifier: String

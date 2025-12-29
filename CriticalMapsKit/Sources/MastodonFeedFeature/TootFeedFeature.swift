@@ -9,13 +9,13 @@ import Styleguide
 import SwiftUI
 
 @Reducer
-public struct TootFeedFeature {
+public struct TootFeedFeature: Sendable {
   public init() {}
   
   // MARK: State
 
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     public var toots: IdentifiedArrayOf<TootFeature.State>
     public var isLoading = false
     public var isRefreshing = false
@@ -138,7 +138,7 @@ public struct TootFeedFeature {
 
 private extension Logger {
   /// Using your bundle identifier is a great way to ensure a unique identifier.
-  private static var subsystem = "MastodonFeedFeature"
+  private static let subsystem = "MastodonFeedFeature"
   
   /// Logs the view cycles like a view that appeared.
   static let reducer = Logger(

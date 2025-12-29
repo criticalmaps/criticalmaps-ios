@@ -2,7 +2,7 @@ import Foundation
 import MapKit
 
 /// Rider location with a coordinate and timestamp
-public struct Location: Equatable, Hashable {
+public struct Location: Equatable, Hashable, Sendable {
   public let coordinate: Coordinate
   public var timestamp: Double
   public var name: String?

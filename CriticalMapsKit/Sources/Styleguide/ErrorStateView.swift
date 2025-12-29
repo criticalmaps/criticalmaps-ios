@@ -2,7 +2,7 @@ import L10n
 import SwiftUI
 import SwiftUIHelpers
 
-public struct ErrorState: Equatable {
+public struct ErrorState: Equatable, Sendable {
   public let title: String
   public let body: String?
   public let error: Failure?

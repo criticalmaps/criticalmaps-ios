@@ -27,21 +27,46 @@ public extension TootFeature.State {
       to: date
     )
     
-    let a11yValue = RelativeDateTimeFormatter.tweetDateFormatter.localizedString(for: createdAt, relativeTo: date)
+    let a11yValue = createdAt.formatted(.relativeToTootDate)
     
     if let days = components.day, days == 0, let months = components.month, months == 0 {
-      let diffComponents = calendar.dateComponents(
-        [.hour, .minute],
-        from: createdAt,
-        to: date
-      )
-      
-      let value = DateComponentsFormatter.tweetDateFormatter()
-        .string(from: diffComponents.dateComponentFromBiggestComponent)
+      let value = tootDateFormatted(from: createdAt, to: date)
       return (value, a11yValue)
     } else {
       let value = createdAt.formatted(Date.FormatStyle.dateWithoutYear)
       return (value, a11yValue)
     }
   }
+  
+  private func tootDateFormatted(
+    from: Date,
+    to: Date
+  ) -> String {
+    @Dependency(\.calendar) var calendar
+    let timeInterval = to.timeIntervalSince(from)
+    let duration = Duration.seconds(timeInterval)
+    
+    return duration.formatted(
+      .units(
+        allowed: [.days, .hours, .minutes],
+        width: .abbreviated,
+        maximumUnitCount: 1
+      )
+    )
+  }
+}
+
+private struct TootDate: FormatStyle {
+  typealias FormatInput = Date
+  typealias FormatOutput = String
+	
+  static let relativeToTootDate = Date.RelativeFormatStyle(presentation: .named)
+	
+  func format(_ value: Date) -> String {
+    TootDate.relativeToTootDate.format(value)
+  }
+}
+
+private extension FormatStyle where Self == TootDate {
+  static var relativeToTootDate: TootDate { TootDate() }
 }

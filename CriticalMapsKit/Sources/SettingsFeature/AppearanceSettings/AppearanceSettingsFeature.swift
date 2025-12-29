@@ -6,13 +6,13 @@ import UIApplicationClient
 import UIKit
 
 @Reducer
-public struct AppearanceSettingsFeature {
+public struct AppearanceSettingsFeature: Sendable {
   public init() {}
   
   // MARK: State
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     @Shared(.appearanceSettings) var settings
     
     public var appIcon: AppIcon

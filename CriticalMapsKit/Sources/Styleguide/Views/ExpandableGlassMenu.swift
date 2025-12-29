@@ -1,7 +1,7 @@
 import SwiftUI
 
 @available(iOS 26, *)
-public struct ExpandableGlassMenu<Content: View, Label: View>: View, Animatable {
+public struct ExpandableGlassMenu<Content: View, Label: View>: View, @MainActor Animatable {
   public var alignment: Alignment
   public var progress: CGFloat
   public var labelSize: CGSize = .init(width: 52, height: 52)

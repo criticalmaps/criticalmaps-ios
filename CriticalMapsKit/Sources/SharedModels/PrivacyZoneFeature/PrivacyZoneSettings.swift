@@ -1,7 +1,7 @@
 import Foundation
 import IdentifiedCollections
 
-public struct PrivacyZoneSettings: Codable, Equatable {
+public struct PrivacyZoneSettings: Codable, Equatable, Sendable {
   public var isEnabled: Bool
   public var zones: IdentifiedArrayOf<PrivacyZone>
   public var defaultRadius: Double

@@ -7,11 +7,11 @@ import SwiftUI
 // MARK: - Store
 
 @Reducer
-public struct RideEventType {
+public struct RideEventType: Sendable {
   public init() {}
 
   @ObservableState
-  public struct State: Equatable, Identifiable {
+  public struct State: Equatable, Identifiable, Sendable {
     public var id: String {
       rideType.rawValue
     }

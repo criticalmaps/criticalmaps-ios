@@ -4,12 +4,12 @@ import SharedModels
 import Sharing
 
 public struct ObservationModeIntent: AppIntent {
-  public static var title = LocalizedStringResource(
+  public static let title = LocalizedStringResource(
     "appIntent.observationMode.title",
     defaultValue: "Toggle Observation Mode",
     bundle: .module
   )
-  public static var description = IntentDescription(
+  public static let description = IntentDescription(
     LocalizedStringResource(
       "appIntent.observationMode.description",
       defaultValue: "Enable or disable observation mode in CriticalMaps",

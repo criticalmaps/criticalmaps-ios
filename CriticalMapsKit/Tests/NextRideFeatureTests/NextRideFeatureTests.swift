@@ -119,7 +119,7 @@ struct NextRideCoreTests {
       withDependencies: {
         $0.userDefaultsClient.dataForKey = { _ in try? RideEventSettings().encoded()
         }
-        $0.nextRideService.nextRide = { _, _, _ in rides }
+        $0.nextRideService.nextRide = { _, _, _ in await rides }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
       }
@@ -168,9 +168,7 @@ struct NextRideCoreTests {
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
-        $0.nextRideService.nextRide = { _, _, _ in
-          rides
-        }
+        $0.nextRideService.nextRide = { _, _, _ in await rides }
         $0.userDefaultsClient.dataForKey = { _ in
           try? RideEventSettings(
             isEnabled: true,

@@ -1,7 +1,7 @@
 import Foundation
 
 /// A structure that represents new chat message post
-public struct ChatMessagePost: Codable, Hashable {
+public struct ChatMessagePost: Codable, Hashable, Sendable {
   public var text: String
   public var device: String
   public var identifier: String

@@ -7,7 +7,7 @@ import Styleguide
 import SwiftUI
 
 @Reducer
-public struct PrivacyZoneFeature {
+public struct PrivacyZoneFeature: Sendable {
   public init() {}
   
   @Reducer
@@ -17,7 +17,7 @@ public struct PrivacyZoneFeature {
   }
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     @Shared(.privacyZoneSettings) var settings
     
     @Presents var alert: AlertState<Action.Alert>?
@@ -51,7 +51,7 @@ public struct PrivacyZoneFeature {
     case toggleShowZonesOnMap
         
     @CasePathable
-    public enum Alert: Equatable {
+    public enum Alert: Equatable, Sendable {
       case deleteZoneButtonTapped
     }
   }
@@ -125,7 +125,7 @@ public struct PrivacyZoneFeature {
   }
 }
 
-extension PrivacyZoneFeature.Destination.State: Equatable {}
+extension PrivacyZoneFeature.Destination.State: Equatable, Sendable {}
 
 extension PrivacyZoneFeature.State {
   subscript(isActiveID id: UUID) -> Bool {

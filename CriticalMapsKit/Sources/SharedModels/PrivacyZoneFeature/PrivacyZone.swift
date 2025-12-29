@@ -1,7 +1,7 @@
 import Foundation
 import MapKit
 
-public struct PrivacyZone: Codable, Identifiable, Equatable {
+public struct PrivacyZone: Codable, Identifiable, Equatable, Sendable {
   public let id: UUID
   public let name: String
   public let center: Coordinate

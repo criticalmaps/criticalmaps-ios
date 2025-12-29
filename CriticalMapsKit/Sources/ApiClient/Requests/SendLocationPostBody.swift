@@ -1,7 +1,7 @@
 import Foundation
 import SharedModels
 
-public struct SendLocationPostBody: Encodable {
+public struct SendLocationPostBody: Encodable, Sendable {
   public init(
     device: String,
     location: Location? = nil

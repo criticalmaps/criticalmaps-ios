@@ -10,7 +10,7 @@ import SharedModels
 import UserDefaultsClient
 
 @Reducer
-public struct ChatFeature {
+public struct ChatFeature: Sendable {
   public init() {}
   
   var md5Uuid: String {
@@ -22,7 +22,7 @@ public struct ChatFeature {
   // MARK: State
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State: Equatable, Sendable {
     public var chatMessages: ContentState<[ChatMessage]>
     public var chatInputState: ChatInput.State
     @Presents public var alert: AlertState<Action.Alert>?
@@ -53,7 +53,7 @@ public struct ChatFeature {
     case chatInput(ChatInput.Action)
     case alert(PresentationAction<Alert>)
     
-    public enum Alert {
+    public enum Alert: Sendable {
       case chat
     }
   }
@@ -159,7 +159,7 @@ public struct ChatFeature {
 
 private extension Logger {
   /// Using your bundle identifier is a great way to ensure a unique identifier.
-  private static var subsystem = "ChatFeature"
+  private static let subsystem = "ChatFeature"
   
   /// Logs the view cycles like a view that appeared.
   static let reducer = Logger(

@@ -9,18 +9,6 @@ public extension DateFormatter {
   }()
 }
 
-public extension DateComponentsFormatter {
-  /// Formatter to handle Twitter
-  static func tweetDateFormatter(_ calendar: Calendar = .current) -> DateComponentsFormatter {
-    let formatter = DateComponentsFormatter()
-    formatter.calendar = calendar
-    formatter.allowedUnits = [.month, .day, .hour, .minute]
-    formatter.unitsStyle = .short
-    formatter.maximumUnitCount = 1
-    return formatter
-  }
-}
-
 public extension Date.FormatStyle {
   /// Format to display only the day and a medium format month -> 28 Okt.
   static let dateWithoutYear: Self = .dateTime

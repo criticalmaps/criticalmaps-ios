@@ -7,8 +7,8 @@ import SharedModels
 // MARK: Interface
 
 @DependencyClient
-public struct TootService {
-  public var getToots: (_ maxId: String?) async throws -> [MastodonKit.Status]
+public struct TootService: Sendable {
+  public var getToots: @Sendable (_ maxId: String?) async throws -> [MastodonKit.Status]
 }
 
 // MARK: Live
