@@ -56,18 +56,3 @@ public extension AppearanceSettings {
 extension AppearanceSettings.ColorScheme: Sendable, Identifiable {
   public var id: String { rawValue }
 }
-
-private extension URL {
-  static var appearanceSettingsURL: URL {
-    URL
-      .applicationSupportDirectory
-      .appendingPathComponent("appearanceSettings")
-      .appendingPathExtension("json")
-  }
-}
-
-public extension SharedKey where Self == FileStorageKey<AppearanceSettings>.Default {
-  static var appearanceSettings: Self {
-    Self[.fileStorage(.appearanceSettingsURL), default: AppearanceSettings()]
-  }
-}

@@ -185,6 +185,13 @@ let package = Package(
       resources: [.process("_Resources/")]
     ),
     .target(
+      name: "SharedKeys",
+      dependencies: [
+        .sharedModels,
+        .tca
+      ]
+    ),
+    .target(
       name: "SharedModels",
       dependencies: [
         .helpers,
@@ -348,6 +355,7 @@ extension Target.Dependency {
   static let idProvider = byName(name: "IDProvider")
   static let l10n = byName(name: "L10n")
   static let pathMonitorClient = byName(name: "PathMonitorClient")
+  static let sharedKeys = byName(name: "SharedKeys")
   static let sharedModels = byName(name: "SharedModels")
   static let styleguide = byName(name: "Styleguide")
   static let swiftUIHelpers = byName(name: "SwiftUIHelpers")
