@@ -1,0 +1,50 @@
+name: Snapshot Tests
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  snapshot_tests:
+    name: Snapshot Tests
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Create Required Simulators
+      run: |
+        set -eo pipefail
+        xcrun simctl delete all
+        fastlane create_simulators platform:iOS version:18
+
+    - name: List available simulators
+      run: xcrun simctl list devices available
+
+    - name: Setup Xcode version
+      uses: maxim-lobanov/setup-xcode@v1.6.0
+      with:
+        xcode-version: latest-stable
+
+    - name: Run Snapshot Tests
+      run: fastlane snapshot_tests
+
+    - name: Archive test artifacts
+      uses: actions/upload-artifact@v6
+      if: failure()
+      with:
+        name: snapshot-test-artifacts
+        path: |
+          ./fastlane/test_output/*.xcresult
+
+    - name: Upload snapshot failures
+      uses: actions/upload-artifact@v6
+      if: failure()
+      with:
+        name: snapshot-failures
+        path: |
+          **/__Snapshots__/**/*.png
+          **/FailureDiffs/*.png

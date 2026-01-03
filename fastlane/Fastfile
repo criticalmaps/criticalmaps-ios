@@ -17,6 +17,21 @@ platform :ios do
     scan(
       project: "CriticalMaps.xcodeproj",
       scheme: Scheme,
+      testplan: "UnitTests",
+      destination: "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6",
+      result_bundle: true,
+      output_directory: "./fastlane/test_output",
+      xcargs: '-skipPackagePluginValidation -skipMacroValidation'
+    )
+    trainer(path: "./fastlane/test_output", output_directory: "./fastlane")
+  end
+
+  desc 'Run snapshot tests'
+  lane :snapshot_tests do
+    scan(
+      project: "CriticalMaps.xcodeproj",
+      scheme: Scheme,
+      testplan: "SnapshotTests",
       destination: "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.6",
       result_bundle: true,
       output_directory: "./fastlane/test_output",
