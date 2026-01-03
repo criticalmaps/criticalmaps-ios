@@ -1,10 +1,13 @@
+import Foundation
 import Styleguide
 import TestHelper
-import XCTest
+import Testing
 
 @MainActor
-final class ErrorStateViewSnapshotTests: XCTestCase {
-  func test_ErrorStateView_withoutButton_light() throws {
+@Suite("ErrorStateView  📸 Tests", .tags(.snapshot))
+struct ErrorStateViewSnapshotTests {
+  @Test
+  func errorStateView_withoutButton_light() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",
@@ -15,7 +18,8 @@ final class ErrorStateViewSnapshotTests: XCTestCase {
     try assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_ErrorStateView_withoutButton_dark() throws {
+  @Test
+  func errorStateView_withoutButton_dark() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",
@@ -27,7 +31,8 @@ final class ErrorStateViewSnapshotTests: XCTestCase {
     try assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_ErrorStateView_withButton_light() throws {
+  @Test
+  func errorStateView_withButton_light() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",
@@ -40,7 +45,8 @@ final class ErrorStateViewSnapshotTests: XCTestCase {
     try assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_ErrorStateView_withButton_dark() throws {
+  @Test
+  func errorStateView_withButton_dark() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",

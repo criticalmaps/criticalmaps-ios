@@ -1,10 +1,13 @@
+import Foundation
 import Styleguide
 import TestHelper
-import XCTest
+import Testing
 
 @MainActor
-final class EmptyStateViewSnapshotTests: XCTestCase {
-  func test_emptyStateView_withoutButton_light() throws {
+@Suite("EmptyStateView  📸 Tests", .tags(.snapshot))
+struct EmptyStateViewSnapshotTests {
+  @Test
+  func emptyStateView_withoutButton_light() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
@@ -15,7 +18,8 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
     try assertScreenSnapshot(view)
   }
   
-  func test_emptyStateView_withoutButton_dark() throws {
+  @Test
+  func emptyStateView_withoutButton_dark() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
@@ -27,7 +31,8 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
     try assertScreenSnapshot(view)
   }
   
-  func test_emptyStateView_withButton_light() throws {
+  @Test
+  func emptyStateView_withButton_light() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
@@ -41,7 +46,8 @@ final class EmptyStateViewSnapshotTests: XCTestCase {
     try assertScreenSnapshot(view)
   }
   
-  func test_emptyStateView_withButton_dark() throws {
+  @Test
+  func emptyStateView_withButton_dark() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
