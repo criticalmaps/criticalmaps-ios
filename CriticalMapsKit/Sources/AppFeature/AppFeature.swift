@@ -56,7 +56,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     @Shared(.userSettings) var userSettings
     @Shared(.rideEventSettings) var rideEventSettings
     @Shared(.appearanceSettings) var appearanceSettings
-    @Shared(.hasConnectionError) var hasConnectionError
+    @Shared(.connectionError) var connectionError
     @Shared(.privacyZoneSettings) var privacyZoneSettings
     
     public init(

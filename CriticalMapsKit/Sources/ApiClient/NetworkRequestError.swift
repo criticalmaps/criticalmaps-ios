@@ -1,6 +1,8 @@
+import CasePaths
 import Foundation
 
 /// Error type to describe network related errors
+@CasePathable
 public enum NetworkRequestError: LocalizedError, Equatable {
   case invalidRequest
   case invalidResponse

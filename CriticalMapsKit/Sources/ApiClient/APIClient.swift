@@ -19,7 +19,18 @@ extension APIClient: DependencyKey {
       guard let urlRequest = try? request.makeRequest() else {
         throw NetworkRequestError.badRequest
       }
-      return try await networkDispatcher.dispatch(urlRequest)
+			
+      @Shared(.connectionError) var connectionError
+      do {
+        let result = try await networkDispatcher.dispatch(urlRequest)
+        $connectionError.withLock { $0 = .none }
+        return result
+      } catch let networkError as NetworkRequestError {
+        $connectionError.withLock { $0 = networkError.connectionErrorType }
+        throw networkError
+      } catch {
+        throw error
+      }
     }
   }
 }
@@ -35,5 +46,27 @@ public extension DependencyValues {
   var apiClient: APIClient {
     get { self[APIClient.self] }
     set { self[APIClient.self] = newValue }
+  }
+}
+
+private extension NetworkRequestError {
+  var connectionErrorType: ConnectionErrorType {
+    switch self {
+    case
+      .badRequest,
+      .decodingError,
+      .error4xx,
+      .forbidden,
+      .invalidRequest,
+      .invalidResponse,
+      .notFound,
+      .unknownError,
+      .urlSessionFailed:
+      .invalidResponse
+    case .error5xx, .serverError:
+      .serverUnavailable
+    case .connectionLost:
+      .noInternetConnection
+    }
   }
 }
