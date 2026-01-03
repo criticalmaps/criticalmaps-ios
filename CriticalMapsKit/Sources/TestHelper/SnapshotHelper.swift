@@ -2,15 +2,9 @@ import SnapshotTesting
 import SwiftUI
 import XCTest
 
-private let operatingSystemVersion = ProcessInfo().operatingSystemVersion
-
-public enum SnapshotError: Error {
-  case deviceNot2XOrNotIOS16
-}
-
-@MainActor
-public extension XCTestCase {
-  private func enforceSnapshotDevice() throws {
+public enum SnapshotHelper {
+  @MainActor
+  private static func enforceSnapshotDevice() throws {
     let is2XDevice = UIScreen.main.scale >= 2
     let isMinVersion16 = operatingSystemVersion.majorVersion >= 16
     
@@ -18,10 +12,9 @@ public extension XCTestCase {
       throw SnapshotError.deviceNot2XOrNotIOS16
     }
   }
-  
-  private static let sloppyPrecision: Float = 0.95
-  
-  func assertScreenSnapshot(
+
+  @MainActor
+  public static func assertScreenSnapshot(
     _ view: some View,
     sloppy: Bool = false,
     file: StaticString = #filePath,
@@ -30,7 +23,7 @@ public extension XCTestCase {
   ) throws {
     try enforceSnapshotDevice()
     
-    let precision: Float = (sloppy ? XCTestCase.sloppyPrecision : 1)
+    let precision: Float = (sloppy ? .sloppyPrecision : 1)
     
     withSnapshotTesting(diffTool: .ksdiff) {
       assertSnapshots(
@@ -49,8 +42,9 @@ public extension XCTestCase {
       )
     }
   }
-  
-  func assertViewSnapshot(
+
+  @MainActor
+  public static func assertViewSnapshot(
     _ view: some View,
     height: CGFloat? = nil,
     width: CGFloat = 375,
@@ -65,7 +59,7 @@ public extension XCTestCase {
     if let height {
       layout = .fixed(width: width, height: height)
     }
-    let precision: Float = (sloppy ? XCTestCase.sloppyPrecision : 1)
+    let precision: Float = (sloppy ? .sloppyPrecision : 1)
     
     withSnapshotTesting(diffTool: .ksdiff) {
       assertSnapshot(
@@ -77,4 +71,16 @@ public extension XCTestCase {
       )
     }
   }
+}
+
+// MARK: - Helper
+
+private extension Float {
+  static let sloppyPrecision: Float = 0.95
+}
+
+private let operatingSystemVersion = ProcessInfo().operatingSystemVersion
+
+public enum SnapshotError: Error {
+  case deviceNot2XOrNotIOS16
 }

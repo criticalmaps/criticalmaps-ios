@@ -15,7 +15,7 @@ struct EmptyStateViewSnapshotTests {
       )
     ).environment(\.colorScheme, .light)
     
-    try assertScreenSnapshot(view)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
   
   @Test
@@ -28,7 +28,7 @@ struct EmptyStateViewSnapshotTests {
     )
     .environment(\.colorScheme, .dark)
     
-    try assertScreenSnapshot(view)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
   
   @Test
@@ -43,7 +43,7 @@ struct EmptyStateViewSnapshotTests {
       buttonText: "Reload"
     ).environment(\.colorScheme, .light)
     
-    try assertScreenSnapshot(view)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
   
   @Test
@@ -59,6 +59,6 @@ struct EmptyStateViewSnapshotTests {
     )
     .environment(\.colorScheme, .dark)
     
-    try assertScreenSnapshot(view)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
 }

@@ -2,11 +2,13 @@ import AppFeature
 import Foundation
 import SnapshotTesting
 import TestHelper
-import XCTest
+import Testing
 
 @MainActor
-final class AppNavigationViewSnapshotTests: XCTestCase {
-  func test_appNavigationView_light() {
+@Suite("AppNavigationView  📸 Tests", .tags(.snapshot))
+struct AppNavigationViewSnapshotTests {
+  @Test
+  func appNavigationView_light() {
     let view = AppNavigationView(
       store: .init(
         initialState: AppFeature.State(),
@@ -27,7 +29,8 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     }
   }
   
-  func test_appNavigationView_dark() throws {
+  @Test
+  func appNavigationView_dark() throws {
     let view = AppNavigationView(
       store: .init(
         initialState: AppFeature.State(),
@@ -36,10 +39,11 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_appNavigationView_WithBadge_dark() throws {
+  @Test
+  func appNavigationView_WithBadge_dark() throws {
     var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
     
@@ -51,10 +55,11 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
     )
     .environment(\.colorScheme, .dark)
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
   
-  func test_appNavigationView_WithBadge() throws {
+  @Test
+  func appNavigationView_WithBadge() throws {
     var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
     
@@ -65,6 +70,6 @@ final class AppNavigationViewSnapshotTests: XCTestCase {
       )
     )
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
 }

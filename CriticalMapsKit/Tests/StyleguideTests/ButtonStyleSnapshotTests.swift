@@ -14,7 +14,7 @@ struct ButtonStylesSnapshotTests {
     )
     .buttonStyle(CMButtonStyle())
     
-    try assertViewSnapshot(button, height: 100)
+    try SnapshotHelper.assertViewSnapshot(button, height: 100)
   }
   
   @Test
@@ -31,7 +31,7 @@ struct ButtonStylesSnapshotTests {
     )
     .buttonStyle(CMButtonStyle())
     
-    try assertViewSnapshot(button, height: 100)
+    try SnapshotHelper.assertViewSnapshot(button, height: 100)
   }
   
   @Test
@@ -48,6 +48,6 @@ struct ButtonStylesSnapshotTests {
     )
     .buttonStyle(CMButtonStyle())
     
-    try assertViewSnapshot(button, height: 150)
+    try SnapshotHelper.assertViewSnapshot(button, height: 150)
   }
 }

@@ -1,72 +1,95 @@
 import ChatFeature
+import ComposableArchitecture
+import Foundation
 import SharedModels
 import Styleguide
 import SwiftUI
 import TestHelper
-import XCTest
+import Testing
 
 @MainActor
-final class ChatFeatureSnapshotTests: XCTestCase {
-  func test_chatFeatureViewSnapshot() throws {
-    let view = ChatView(
-      store: .init(
-        initialState: .init(
-          chatMessages: .results([
-            ChatMessage(identifier: "ID0", device: "Device", message: "Hello World!", timestamp: 0),
-            ChatMessage(identifier: "ID1", device: "Device", message: "Hello World!", timestamp: 0)
-          ]),
-          chatInputState: .init()
-        ),
-        reducer: { ChatFeature() }
+@Suite("ChatFeatureView  📸 Tests", .tags(.snapshot))
+struct ChatFeatureSnapshotTests {
+  @Test
+  func chatFeatureViewSnapshot() throws {
+    try withDependencies { values in
+      values.apiService.getChatMessages = { [] }
+    } operation: {
+      let view = ChatView(
+        store: .init(
+          initialState: .init(
+            chatMessages: .results([
+              ChatMessage(identifier: "ID0", device: "Device", message: "Hello World!", timestamp: 0),
+              ChatMessage(identifier: "ID1", device: "Device", message: "Hello World!", timestamp: 0)
+            ]),
+            chatInputState: .init()
+          ),
+          reducer: { ChatFeature() }
+        )
       )
-    )
-    
-    try assertScreenSnapshot(view, sloppy: true)
+      
+      try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
+    }
   }
   
-  func test_chatFeatureViewSnapshot_dark() throws {
-    let view = ChatView(
-      store: .init(
-        initialState: .init(
-          chatMessages: .results([
-            ChatMessage(identifier: "1", device: "Device", message: "Hello World!", timestamp: 0),
-            ChatMessage(identifier: "2", device: "Device", message: "Hello World!", timestamp: 4)
-          ]),
-          chatInputState: .init()
-        ),
-        reducer: { ChatFeature() }
+  @Test
+  func chatFeatureViewSnapshot_dark() throws {
+    try withDependencies { values in
+      values.apiService.getChatMessages = { [] }
+    } operation: {
+      let view = ChatView(
+        store: .init(
+          initialState: .init(
+            chatMessages: .results([
+              ChatMessage(identifier: "1", device: "Device", message: "Hello World!", timestamp: 0),
+              ChatMessage(identifier: "2", device: "Device", message: "Hello World!", timestamp: 4)
+            ]),
+            chatInputState: .init()
+          ),
+          reducer: { ChatFeature() }
+        )
       )
-    )
-    .environment(\.colorScheme, .dark)
-    
-    try assertScreenSnapshot(view, sloppy: true)
+      .environment(\.colorScheme, .dark)
+      
+      try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
+    }
   }
   
-  func test_chatInputViewSnapshot_nonEmpty() throws {
-    let view = BasicInputView(
-      store: .init(
-        initialState: .init(
-          isEditing: true,
-          message: "Hello W"
-        ),
-        reducer: { ChatInput() }
+  @Test
+  func chatInputViewSnapshot_nonEmpty() throws {
+    try withDependencies { values in
+      values.apiService.getChatMessages = { [] }
+    } operation: {
+      let view = BasicInputView(
+        store: .init(
+          initialState: .init(
+            isEditing: true,
+            message: "Hello W"
+          ),
+          reducer: { ChatInput() }
+        )
       )
-    )
-    
-    try assertViewSnapshot(view, height: 100, sloppy: true)
+      
+      try SnapshotHelper.assertViewSnapshot(view, height: 100, sloppy: true)
+    }
   }
   
-  func test_chatInputViewSnapshot_empty() throws {
-    let view = BasicInputView(
-      store: .init(
-        initialState: .init(
-          isEditing: false,
-          message: ""
-        ),
-        reducer: { ChatInput() }
+  @Test
+  func chatInputViewSnapshot_empty() throws {
+    try withDependencies { values in
+      values.apiService.getChatMessages = { [] }
+    } operation: {
+      let view = BasicInputView(
+        store: .init(
+          initialState: .init(
+            isEditing: false,
+            message: ""
+          ),
+          reducer: { ChatInput() }
+        )
       )
-    )
-    
-    try assertViewSnapshot(view, height: 100, sloppy: true)
+      
+      try SnapshotHelper.assertViewSnapshot(view, height: 100, sloppy: true)
+    }
   }
 }

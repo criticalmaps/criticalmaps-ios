@@ -15,7 +15,7 @@ struct ErrorStateViewSnapshotTests {
       )
     )
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
   
   @Test
@@ -28,7 +28,7 @@ struct ErrorStateViewSnapshotTests {
     )
     .environment(\.colorScheme, .dark)
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
   
   @Test
@@ -42,7 +42,7 @@ struct ErrorStateViewSnapshotTests {
       buttonText: "Reload"
     )
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
   
   @Test
@@ -57,6 +57,6 @@ struct ErrorStateViewSnapshotTests {
     )
     .environment(\.colorScheme, .dark)
     
-    try assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
   }
 }
