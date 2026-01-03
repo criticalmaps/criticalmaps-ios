@@ -78,17 +78,34 @@ public struct AppView: View {
 
 private struct OfflineBannerView: View {
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
-
+  @Shared(.connectionError) var connectionError
+	
   var body: some View {
-    Image(systemName: "wifi.slash")
-      .foregroundColor(
-        reduceTransparency
-          ? Color.white
-          : Color.attention
-      )
-      .accessibilityLabel(Text("Internet not available"))
+    image
+      .foregroundColor(.textPrimary)
+      .accessibilityLabel(Text("Connection error"))
       .padding()
       .conditionalBackground(shouldUseBlur: true)
+  }
+	
+  @ViewBuilder
+  var image: some View {
+    switch connectionError {
+    case .invalidResponse:
+      Image(systemName: "exclamationmark")
+        .renderingMode(.template)
+        .symbolVariant(.circle)
+    case .noInternetConnection:
+      Image(systemName: "wifi")
+        .renderingMode(.template)
+        .symbolVariant(.slash)
+    case .serverUnavailable:
+      Asset.customServerRackBadgeExclamationmark.swiftUIImage
+        .renderingMode(.template)
+        .symbolRenderingMode(.multicolor)
+    case .none:
+      EmptyView()
+    }
   }
 }
 
@@ -127,10 +144,10 @@ private struct OverlayViewsStack: View {
         )
       }
 
-      if store.hasConnectionError {
+      if !store.connectionError.is(\.none) {
         OfflineBannerView()
           .clipShape(.circle)
-          .accessibleAnimation(.snappy, value: store.hasConnectionError)
+          .accessibleAnimation(.snappy, value: store.connectionError.is(\.none))
       }
     }
   }
