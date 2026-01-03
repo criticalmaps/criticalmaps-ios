@@ -48,7 +48,7 @@ struct UITextViewWrapper: UIViewRepresentable {
     view.delegate = context.coordinator
     
     view.font = UIFont.preferredFont(forTextStyle: .body)
-    view.textColor = UIColor.label
+    view.textColor = UIColor.textPrimary
     view.backgroundColor = .clear
     
     let attrs = textAttributes
