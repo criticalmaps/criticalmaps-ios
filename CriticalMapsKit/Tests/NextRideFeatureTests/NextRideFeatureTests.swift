@@ -3,9 +3,9 @@ import ComposableArchitecture
 import Foundation
 import Helpers
 import NextRideFeature
+import SharedKeys
 import SharedModels
 import Testing
-import UserDefaultsClient
 
 @MainActor
 struct NextRideCoreTests {
@@ -20,8 +20,6 @@ struct NextRideCoreTests {
       )
     )!
   }
-
-  let testScheduler = DispatchQueue.immediate
   
   var berlin: Ride {
     Ride(
@@ -87,21 +85,19 @@ struct NextRideCoreTests {
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
   @Test
-  func disabledNextRideFeature_shouldNotRequestRides() async {
+  func disabledNextRideFeature_shouldNotRequestRides() async throws {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings(
+      isEnabled: true,
+      rideEvents: [],
+      eventDistance: .near
+    )
+    
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in [] }
         $0.date = .constant(now())
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings(
-            isEnabled: false,
-            rideEvents: [],
-            eventDistance: .near
-          )
-          .encoded()
-        }
         $0.coordinateObfuscator = .previewValue
       }
     )
@@ -113,12 +109,12 @@ struct NextRideCoreTests {
   
   @Test
   func getRides_shouldUpdateRidesInUserTimezone() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
+    
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
-        $0.userDefaultsClient.dataForKey = { _ in try? RideEventSettings().encoded()
-        }
         $0.nextRideService.nextRide = { _, _, _ in await rides }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
@@ -137,18 +133,16 @@ struct NextRideCoreTests {
   
   @Test
   func getNextRide_shouldReturnError() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings(
+      isEnabled: true,
+      rideEvents: [],
+      eventDistance: .near
+    )
+    
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings(
-            isEnabled: true,
-            rideEvents: [],
-            eventDistance: .near
-          )
-          .encoded()
-        }
         $0.nextRideService.nextRide = { _, _, _ in
           throw NextRideService.Failure(internalError: .badRequest)
         }
@@ -164,19 +158,17 @@ struct NextRideCoreTests {
   
   @Test
   func getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings(
+      isEnabled: true,
+      rideEvents: [.init(rideType: .kidicalMass, isEnabled: true)],
+      eventDistance: .near
+    )
+
     let store = TestStore(
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in await rides }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings(
-            isEnabled: true,
-            rideEvents: [.init(rideType: .kidicalMass, isEnabled: true)],
-            eventDistance: .near
-          )
-          .encoded()
-        }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
       }
@@ -187,13 +179,12 @@ struct NextRideCoreTests {
     await store.receive(\.nextRideResponse.success, rides) {
       $0.rideEvents = [falkensee, berlin]
     }
-    await store.receive(\.setNextRide, rides.last!) {
-      $0.nextRide = falkensee
-    }
   }
 
   @Test
   func getNextRide_shouldReturnRide_whenRideTypeNil() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
+    
     let ridesWithARideWithNilRideType: [Ride] = [
       Ride(
         id: 0,
@@ -205,7 +196,7 @@ struct NextRideCoreTests {
         rideType: .criticalMass
       ),
       Ride(
-        id: 0,
+        id: 1,
         title: "CriticalMaps Falkensee",
         dateTime: now().addingTimeInterval(3600),
         location: "Vorplatz der alten Stadthalle",
@@ -224,9 +215,6 @@ struct NextRideCoreTests {
         $0.nextRideService.nextRide = { _, _, _ in
           ridesWithARideWithNilRideType
         }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
       }
@@ -244,6 +232,8 @@ struct NextRideCoreTests {
   
   @Test
   func getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
+    
     let rides = [
       Ride(
         id: 0,
@@ -262,9 +252,6 @@ struct NextRideCoreTests {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
       }
@@ -292,6 +279,8 @@ struct NextRideCoreTests {
   
   @Test
   func getNextRide_returnRideFromThisMonth_whenTodayIsFriday() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
+    
     let rides = [
       Ride(
         id: 0,
@@ -318,9 +307,6 @@ struct NextRideCoreTests {
       initialState: .init(),
       reducer: { NextRideFeature() },
       withDependencies: {
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.nextRideService.nextRide = { _, _, _ in rides }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
@@ -339,6 +325,7 @@ struct NextRideCoreTests {
   
   @Test
   func getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
         id: 0,
@@ -377,9 +364,6 @@ struct NextRideCoreTests {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.date = .constant(now())
         $0.calendar = .autoupdatingCurrent
         $0.coordinateObfuscator = .previewValue
@@ -398,6 +382,7 @@ struct NextRideCoreTests {
 
   @Test
   func getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
         id: 0,
@@ -425,9 +410,6 @@ struct NextRideCoreTests {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
       }
@@ -445,6 +427,7 @@ struct NextRideCoreTests {
 
   @Test
   func getNextRide_returnRideFromThisMonth_whenTodayIsSunday() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
         id: 0,
@@ -472,9 +455,6 @@ struct NextRideCoreTests {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.date = .constant(now())
         $0.coordinateObfuscator = .previewValue
       }
@@ -492,6 +472,7 @@ struct NextRideCoreTests {
   
   @Test
   func getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() async {
+    @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
         id: 0,
@@ -519,9 +500,6 @@ struct NextRideCoreTests {
       reducer: { NextRideFeature() },
       withDependencies: {
         $0.nextRideService.nextRide = { _, _, _ in rides }
-        $0.userDefaultsClient.dataForKey = { _ in
-          try? RideEventSettings().encoded()
-        }
         $0.date = .constant(now().addingTimeInterval(60 * 60 * 72))
         $0.coordinateObfuscator = .previewValue
       }

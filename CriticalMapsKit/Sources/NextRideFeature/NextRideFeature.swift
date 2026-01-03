@@ -3,6 +3,7 @@ import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
 import os
+import SharedKeys
 import SharedModels
 
 // MARK: State
@@ -45,7 +46,7 @@ public struct NextRideFeature: Sendable {
     switch action {
     case let .getNextRide(coordinate):
       guard state.rideEventSettings.isEnabled else {
-        Logger.reducer.debug("NextRide featue is disabled")
+        Logger.reducer.debug("NextRide feature is disabled")
         return .none
       }
 
