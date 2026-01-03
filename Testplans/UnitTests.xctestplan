@@ -29,21 +29,10 @@
     },
     {
       "parallelizable" : true,
-      "skippedTests" : [
-        "ChatFeatureSnapshotTests"
-      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "ChatFeatureTests",
-        "name" : "ChatFeatureTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "HelperTests",
-        "name" : "HelperTests"
+        "identifier" : "NextRideFeatureTests",
+        "name" : "NextRideFeatureTests"
       }
     },
     {
@@ -52,22 +41,6 @@
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "IDProviderTests",
         "name" : "IDProviderTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "MapFeatureTests",
-        "name" : "MapFeatureTests"
-      }
-    },
-    {
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "NextRideFeatureTests",
-        "name" : "NextRideFeatureTests"
       }
     },
     {
@@ -85,10 +58,13 @@
     },
     {
       "parallelizable" : true,
+      "skippedTests" : [
+        "ChatFeatureSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
-        "identifier" : "SocialFeatureTests",
-        "name" : "SocialFeatureTests"
+        "identifier" : "ChatFeatureTests",
+        "name" : "ChatFeatureTests"
       }
     },
     {
@@ -96,6 +72,37 @@
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "MastodonFeedFeatureTests",
         "name" : "MastodonFeedFeatureTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "MapFeatureTests",
+        "name" : "MapFeatureTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "SocialFeatureTests",
+        "name" : "SocialFeatureTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "HelperTests",
+        "name" : "HelperTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:CriticalMapsKit",
+        "identifier" : "StyleguideTests",
+        "name" : "StyleguideTests"
       }
     }
   ],

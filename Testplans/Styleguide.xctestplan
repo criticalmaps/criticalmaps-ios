@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "D8A9AD81-2B6E-401E-B544-D0175F042EDF",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "StyleguideTests",
+        "name" : "StyleguideTests"
+      }
+    }
+  ],
+  "version" : 1
+}

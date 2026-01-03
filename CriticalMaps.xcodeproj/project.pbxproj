@@ -52,6 +52,7 @@
 		73CD4DA12C595584003CAEA2 /* GuideFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GuideFeature.xctestplan; sourceTree = "<group>"; };
 		73CF5FF1263EB0A6001925A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73CF5FF6263EB0A6001925A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73D622122F096BD200B72BF1 /* Styleguide.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Styleguide.xctestplan; sourceTree = "<group>"; };
 		73EA92422C595702008DEEFE /* MastodonFeedFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonFeedFeature.xctestplan; sourceTree = "<group>"; };
 		73EA92432C59585D008DEEFE /* SocialFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SocialFeature.xctestplan; sourceTree = "<group>"; };
 		73EB0310263F23A100941D57 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		7347AB282A27C0CA00BCA949 /* Testplans */ = {
 			isa = PBXGroup;
 			children = (
+				73D622122F096BD200B72BF1 /* Styleguide.xctestplan */,
 				73EA92432C59585D008DEEFE /* SocialFeature.xctestplan */,
 				73EA92422C595702008DEEFE /* MastodonFeedFeature.xctestplan */,
 				73CD4DA12C595584003CAEA2 /* GuideFeature.xctestplan */,
