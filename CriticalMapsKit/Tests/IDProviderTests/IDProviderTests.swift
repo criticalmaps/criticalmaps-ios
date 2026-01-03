@@ -1,18 +1,20 @@
 import ComposableArchitecture
 import Foundation
 import IDProvider
+import SharedKeys
 import Testing
 
 @Suite
 struct IDProviderTests {
   let deviceID = "00000000-0000-0000-0000-000000000001"
   
-  @Test("ID changes when device ID changes")
-  func iDDoesChange() {
+  @Test
+  func `ID changes when device ID changes`() {
     let date = Date(timeIntervalSince1970: 1557057968)
+    @Shared(.sessionID) var sessionID = deviceID
+    
     let currentID = withDependencies { values in
       values.date = DateGenerator { date }
-      values.userDefaultsClient.stringForKey = { _ in deviceID }
     } operation: {
       IDProvider.liveValue
     }
@@ -20,7 +22,6 @@ struct IDProviderTests {
     let newDate = date.addingTimeInterval(7200)
     let newID = withDependencies { values in
       values.date = DateGenerator { newDate }
-      values.userDefaultsClient.stringForKey = { _ in deviceID }
     } operation: {
       IDProvider.liveValue
     }
@@ -31,9 +32,9 @@ struct IDProviderTests {
   @Test("ID does not change when device ID does not change")
   func iDDoesNotChange() {
     let date = Date(timeIntervalSince1970: 1557057968)
+    @Shared(.sessionID) var sessionID = deviceID
     let currentID = withDependencies { values in
       values.date = DateGenerator { date }
-      values.userDefaultsClient.stringForKey = { _ in deviceID }
     } operation: {
       IDProvider.liveValue
     }
@@ -41,7 +42,6 @@ struct IDProviderTests {
     let newDate = date.addingTimeInterval(86400)
     let newID = withDependencies { values in
       values.date = DateGenerator { newDate }
-      values.userDefaultsClient.stringForKey = { _ in deviceID }
     } operation: {
       IDProvider.liveValue
     }

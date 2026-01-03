@@ -1,15 +1,15 @@
 import ComposableArchitecture
 import Foundation
+import SharedKeys
 import UIKit.UIDevice
-import UserDefaultsClient
 
 extension IDProvider: DependencyKey {
   public static var liveValue: IDProvider {
-    @Dependency(\.userDefaultsClient) var defaultsClient
     @Dependency(\.date) var date
     @Dependency(\.uuid) var uuid
+    @Shared(.sessionID) var sessionID
 
-    let id = defaultsClient.getSessionID ?? uuid().uuidString
+    let id = sessionID ?? uuid().uuidString
 
     return Self(
       id: {
