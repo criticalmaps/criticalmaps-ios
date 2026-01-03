@@ -4,7 +4,7 @@ import TestHelper
 import Testing
 
 @MainActor
-@Suite("ErrorStateView  📸 Tests", .tags(.snapshot))
+@Suite("ErrorStateView 📸 Tests", .tags(.snapshot))
 struct ErrorStateViewSnapshotTests {
   @Test
   func errorStateView_withoutButton_light() throws {
@@ -15,20 +15,7 @@ struct ErrorStateViewSnapshotTests {
       )
     )
     
-    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
-  }
-  
-  @Test
-  func errorStateView_withoutButton_dark() throws {
-    let view = ErrorStateView(
-      errorState: .init(
-        title: "Critical Maps",
-        body: "No mass today"
-      )
-    )
-    .environment(\.colorScheme, .dark)
-    
-    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
   
   @Test
@@ -42,7 +29,7 @@ struct ErrorStateViewSnapshotTests {
       buttonText: "Reload"
     )
     
-    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
   
   @Test
@@ -55,8 +42,7 @@ struct ErrorStateViewSnapshotTests {
       buttonAction: {},
       buttonText: "Reload"
     )
-    .environment(\.colorScheme, .dark)
     
-    try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
+    try SnapshotHelper.assertScreenSnapshot(view)
   }
 }

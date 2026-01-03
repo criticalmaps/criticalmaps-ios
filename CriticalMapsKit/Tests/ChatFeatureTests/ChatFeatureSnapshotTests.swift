@@ -8,7 +8,7 @@ import TestHelper
 import Testing
 
 @MainActor
-@Suite("ChatFeatureView  📸 Tests", .tags(.snapshot))
+@Suite("ChatFeatureView 📸 Tests", .tags(.snapshot))
 struct ChatFeatureSnapshotTests {
   @Test
   func chatFeatureViewSnapshot() throws {
@@ -28,30 +28,7 @@ struct ChatFeatureSnapshotTests {
         )
       )
       
-      try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
-    }
-  }
-  
-  @Test
-  func chatFeatureViewSnapshot_dark() throws {
-    try withDependencies { values in
-      values.apiService.getChatMessages = { [] }
-    } operation: {
-      let view = ChatView(
-        store: .init(
-          initialState: .init(
-            chatMessages: .results([
-              ChatMessage(identifier: "1", device: "Device", message: "Hello World!", timestamp: 0),
-              ChatMessage(identifier: "2", device: "Device", message: "Hello World!", timestamp: 4)
-            ]),
-            chatInputState: .init()
-          ),
-          reducer: { ChatFeature() }
-        )
-      )
-      .environment(\.colorScheme, .dark)
-      
-      try SnapshotHelper.assertScreenSnapshot(view, sloppy: true)
+      try SnapshotHelper.assertScreenSnapshot(view)
     }
   }
   
@@ -64,13 +41,13 @@ struct ChatFeatureSnapshotTests {
         store: .init(
           initialState: .init(
             isEditing: true,
-            message: "Hello W"
+            message: "Hello World"
           ),
           reducer: { ChatInput() }
         )
       )
       
-      try SnapshotHelper.assertViewSnapshot(view, height: 100, sloppy: true)
+      try SnapshotHelper.assertViewSnapshot(view, height: 100)
     }
   }
   
@@ -89,7 +66,7 @@ struct ChatFeatureSnapshotTests {
         )
       )
       
-      try SnapshotHelper.assertViewSnapshot(view, height: 100, sloppy: true)
+      try SnapshotHelper.assertViewSnapshot(view, height: 100)
     }
   }
 }

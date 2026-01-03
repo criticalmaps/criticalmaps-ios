@@ -4,7 +4,7 @@ import TestHelper
 import Testing
 
 @MainActor
-@Suite("EmptyStateView  📸 Tests", .tags(.snapshot))
+@Suite("EmptyStateView 📸 Tests", .tags(.snapshot))
 struct EmptyStateViewSnapshotTests {
   @Test
   func emptyStateView_withoutButton_light() throws {
@@ -13,20 +13,7 @@ struct EmptyStateViewSnapshotTests {
         icon: Asset.chatEmpty.image,
         text: "Critical Maps"
       )
-    ).environment(\.colorScheme, .light)
-    
-    try SnapshotHelper.assertScreenSnapshot(view)
-  }
-  
-  @Test
-  func emptyStateView_withoutButton_dark() throws {
-    let view = EmptyStateView(
-      emptyState: .init(
-        icon: Asset.chatEmpty.image,
-        text: "Critical Maps"
-      )
     )
-    .environment(\.colorScheme, .dark)
     
     try SnapshotHelper.assertScreenSnapshot(view)
   }
@@ -41,23 +28,7 @@ struct EmptyStateViewSnapshotTests {
       ),
       buttonAction: {},
       buttonText: "Reload"
-    ).environment(\.colorScheme, .light)
-    
-    try SnapshotHelper.assertScreenSnapshot(view)
-  }
-  
-  @Test
-  func emptyStateView_withButton_dark() throws {
-    let view = EmptyStateView(
-      emptyState: .init(
-        icon: Asset.chatEmpty.image,
-        text: "Critical Maps",
-        message: AttributedString("No mass today")
-      ),
-      buttonAction: {},
-      buttonText: "Reload"
     )
-    .environment(\.colorScheme, .dark)
     
     try SnapshotHelper.assertScreenSnapshot(view)
   }

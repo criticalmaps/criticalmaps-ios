@@ -17,8 +17,6 @@ struct SettingsViewSnapshotTests {
         reducer: { SettingsFeature() }
       )
     )
-    .environment(\.colorScheme, .light)
-    .accentColor(.textPrimary)
 
     try SnapshotHelper.assertScreenSnapshot(settingsView, sloppy: true)
   }

@@ -282,9 +282,6 @@ package.targets.append(contentsOf: [
       "MapFeature",
       .testHelper,
       .tca
-    ],
-    exclude: [
-      "__Snapshots__"
     ]
   ),
   .testTarget(
