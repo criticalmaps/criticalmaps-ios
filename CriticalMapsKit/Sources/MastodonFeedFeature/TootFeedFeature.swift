@@ -58,13 +58,13 @@ public struct TootFeedFeature: Sendable {
       case .refresh:
         state.isRefreshing = true
         return .send(.fetchData)
-        
+
       case .fetchData:
         state.isLoading = true
-        return .run { [lastId = state.toots.last?.id] send in
+        return .run { send in
           await send(
             .fetchDataResponse(
-              Result { try await tootService.getToots(lastId) }
+              Result { try await tootService.getToots(nil) }
             )
           )
         }
@@ -88,8 +88,7 @@ public struct TootFeedFeature: Sendable {
         state.isLoading = false
         state.error = .init(
           title: L10n.ErrorState.title,
-          body: L10n.ErrorState.message,
-          error: .init(error: error)
+          body: L10n.ErrorState.message
         )
         return .none
         
@@ -121,8 +120,7 @@ public struct TootFeedFeature: Sendable {
         state.hasMore = false
         state.error = .init(
           title: L10n.ErrorState.title,
-          body: L10n.ErrorState.message,
-          error: .init(error: error)
+          body: L10n.ErrorState.message
         )
         return .none
         
