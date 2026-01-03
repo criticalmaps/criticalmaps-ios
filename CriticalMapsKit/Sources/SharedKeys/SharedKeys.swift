@@ -5,14 +5,14 @@ import Sharing
 public extension SharedReaderKey where Self == AppStorageKey<Double>.Default {
   /// Chat read timestamp with default value of 0
   static var chatReadTimeInterval: Self {
-    Self[.appStorage("chatReadTimeInterval"), default: 0]
+    Self[.appStorage("chatReadTimeinterval"), default: 0]
   }
 }
 
 public extension SharedReaderKey where Self == AppStorageKey<String?> {
   /// Session ID (optional, no default)
   static var sessionID: Self {
-    .appStorage("sessionID")
+    .appStorage("sessionIDKey")
   }
 }
 
