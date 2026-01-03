@@ -2,7 +2,22 @@
 
 Critical Maps iOS
 
-## [4.7.0] - 2025-09-02
+## [4.9.0] - 2026-01-03
+
+### Updated
+
+- Migrated to `swift-tools-version:6.2`
+- Refactored SwiftUI views following best practices for improved performance:
+- Performance optimization for RequestTimer and InfoOverlayView
+- Updated dependencies
+
+### Fixed
+
+- Pagination issue when refreshing Mastodon feed
+- queryMonth year boundary bug (December → January transitions)
+- Guard against empty location to prevent server error
+
+## [4.8.0] - 2025-09-02
 
 ### Added
 
