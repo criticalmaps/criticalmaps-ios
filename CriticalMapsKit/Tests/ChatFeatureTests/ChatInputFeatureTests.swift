@@ -17,7 +17,6 @@ struct ChatInputCoreTests {
       withDependencies: {
         $0.date = DateGenerator.constant(.distantFuture)
         $0.apiService.getChatMessages = { [] }
-        $0.userDefaultsClient.setDouble = { _, _ in }
       }
     )
     
