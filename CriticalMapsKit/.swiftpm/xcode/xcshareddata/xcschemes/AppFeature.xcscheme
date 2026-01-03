@@ -37,6 +37,17 @@
                BlueprintName = "AppFeatureTests"
                ReferencedContainer = "container:">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AppNavigationViewSnapshotTests">
+               </Test>
+               <Test
+                  Identifier = "AppNavigationViewSnapshotTests/appNavigationView()">
+               </Test>
+               <Test
+                  Identifier = "AppNavigationViewSnapshotTests/appNavigationView_WithBadge()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

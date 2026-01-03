@@ -493,9 +493,13 @@ struct AppFeatureTests {
     await store.send(.postLocation)
   }
   
-  @Test("Halfway point triggers post location")
-  func requestTimerHalfwayPoint_triggersPostLocation() async {
-    let state = AppFeature.State()
+  @Test
+  func `Halfway point triggers post location`() async {
+    var state = AppFeature.State()
+    state.mapFeatureState.location = Location(
+      coordinate: .make(),
+      timestamp: 1321321
+    )
 
     let store = TestStore(
       initialState: state,
@@ -508,6 +512,26 @@ struct AppFeatureTests {
       }
     )
     store.exhaustivity = .off
+
+    await store.send(.requestTimer(.halfwayPoint))
+    await store.receive(\.postLocation)
+    await store.receive(\.postLocationResponse.success, ApiResponse(status: nil))
+  }
+	
+  @Test
+  func `Halfway point does not post location when location is nil`() async {
+    let state = AppFeature.State()
+
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = ImmediateClock()
+        $0.idProvider.id = { "test-device-id" }
+        $0.date = .constant(date())
+        $0.apiService.postRiderLocation = { _ in ApiResponse(status: nil) }
+      }
+    )
 
     await store.send(.requestTimer(.halfwayPoint))
     await store.receive(\.postLocation)

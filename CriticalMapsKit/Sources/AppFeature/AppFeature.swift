@@ -243,7 +243,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
           )
         )
         
-        Logger.reducer.debug("FetchLocation failed: \(error)")
+        Logger.reducer.error("FetchLocation failed: \(error)")
         return .none
         
       case let .fetchLocationsResponse(.success(response)):
@@ -254,7 +254,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         
       case let .fetchLocationsResponse(.failure(error)):
         state.isRequestingRiderLocations = false
-        Logger.reducer.debug("FetchLocation failed: \(error)")
+        Logger.reducer.error("FetchLocation failed: \(error)")
         state.riderLocations = []
         return .none
         
@@ -263,33 +263,39 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
           return .none
         }
         
-        // Check if current location is in a privacy zone
-        if let currentLocation = state.mapFeatureState.location,
-           state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate)
-        {
+        guard let location = state.mapFeatureState.location else {
+          Logger.reducer.error("Location is nil. Aborting postLocation")
+          return .none
+        }
+        // Check if current location is not in a privacy zone
+        guard !state.privacyZoneSettings.isLocationInPrivacyZone(location.coordinate) else {
           Logger.reducer.debug("Location not posted - user is in a privacy zone")
           return .none
         }
-        
-        let postBody = SendLocationPostBody(
-          device: idProvider.id(),
-          location: state.mapFeatureState.location
-        )
+				
         return .run { send in
           await send(
             .postLocationResponse(
               Result {
-                try await apiService.postRiderLocation(postBody)
+                try await apiService.postRiderLocation(
+                  SendLocationPostBody(
+                    device: idProvider.id(),
+                    location: location
+                  )
+                )
               }
             )
           )
         }
         
-      case .postLocationResponse(.success):
+      case let .postLocationResponse(.success(apiResponse)):
+        if let status = apiResponse.status {
+          Logger.reducer.info("Posted location. Response: \(status)")
+        }
         return .none
         
       case let .postLocationResponse(.failure(error)):
-        Logger.reducer.debug("Failed to post location. Error: \(error.localizedDescription)")
+        Logger.reducer.error("Failed to post location. Error: \(error.localizedDescription)")
         return .none
         
       case let .map(mapFeatureAction):
