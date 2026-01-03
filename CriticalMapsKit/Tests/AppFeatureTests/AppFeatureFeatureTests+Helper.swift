@@ -4,7 +4,6 @@ import Foundation
 import MapFeature
 import NextRideFeature
 import SharedModels
-import UserDefaultsClient
 
 // MARK: Helper
 
