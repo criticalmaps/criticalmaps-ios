@@ -11,7 +11,6 @@ import SettingsFeature
 import SharedModels
 import SocialFeature
 import Testing
-import UserDefaultsClient
 
 // swiftlint:disable:next type_body_length
 @Suite
@@ -19,7 +18,7 @@ import UserDefaultsClient
 struct AppFeatureTests {
   let testScheduler = DispatchQueue.test
   let testClock = TestClock()
-  let date: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 0) }
+  let date: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 3600) }
   
   @Test
   func appNavigation() async {
@@ -145,7 +144,6 @@ struct AppFeatureTests {
         $0.nextRideService.nextRide = { _, _, _ in
           [.mock1]
         }
-        $0.userDefaultsClient.setBool = { _, _ in }
         $0.feedbackGenerator.prepare = {}
         $0.feedbackGenerator.selectionChanged = {}
         $0.coordinateObfuscator = .previewValue
@@ -178,7 +176,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func loadUserSettings_shouldUpdateSettings() async {
+  func `onAppear should load UserSettings`() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     let sharedModelLocation = SharedModels.Location(
       coordinate: .init(latitude: 11, longitude: 21),
@@ -209,8 +207,6 @@ struct AppFeatureTests {
         $0.apiService.getRiders = { [] }
         $0.continuousClock = ImmediateClock()
         $0.nextRideService.nextRide = { _, _, _ in [] }
-        $0.userDefaultsClient.setString = { _, _ in }
-        $0.userDefaultsClient.boolForKey = { _ in false }
         $0.feedbackGenerator.prepare = { @Sendable in }
         $0.uiApplicationClient.setUserInterfaceStyle = { _ in }
       }
@@ -218,6 +214,9 @@ struct AppFeatureTests {
     store.exhaustivity = .off
     
     await store.send(.onAppear)
+    
+    @Shared(.sessionID) var sessionID
+    #expect(sessionID == "00000000-0000-0000-0000-000000000000")
   }
   
   @Test
@@ -362,7 +361,6 @@ struct AppFeatureTests {
           [Ride(id: 123, title: "Test", dateTime: Date(timeIntervalSince1970: 0), enabled: true)]
         }
         $0.continuousClock = ImmediateClock()
-        $0.userDefaultsClient.setBool = { _, _ in }
         $0.coordinateObfuscator = .previewValue
       }
     )
@@ -393,7 +391,7 @@ struct AppFeatureTests {
   
   @Test
   func updatingRideEventSettingRadius_ShouldRefetchNextRideInfo() async throws {
-    let updatedRaduis = LockIsolated(0)
+    let updatedRadius = LockIsolated(0)
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
@@ -409,11 +407,10 @@ struct AppFeatureTests {
         $0.date = .constant(date())
         $0.mainQueue = testQueue.eraseToAnyScheduler()
         $0.nextRideService.nextRide = { _, radius, _ in
-          updatedRaduis.setValue(radius)
+          updatedRadius.setValue(radius)
           return [Ride(id: 123, title: "Test", dateTime: date(), enabled: true)]
         }
         $0.continuousClock = ImmediateClock()
-        $0.userDefaultsClient.setBool = { _, _ in }
         $0.feedbackGenerator.selectionChanged = {}
         $0.coordinateObfuscator = .previewValue
       }
@@ -440,7 +437,7 @@ struct AppFeatureTests {
     await testQueue.advance(by: 2)
     await store.receive(\.nextRide.getNextRide)
     
-    updatedRaduis.withValue { radius in
+    updatedRadius.withValue { radius in
       #expect(radius == EventDistance.far.rawValue)
     }
   }

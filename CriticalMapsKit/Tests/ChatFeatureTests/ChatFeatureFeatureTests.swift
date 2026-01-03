@@ -4,9 +4,9 @@ import ComposableArchitecture
 import Foundation
 import Helpers
 import L10n
+import SharedKeys
 import SharedModels
 import Testing
-import UserDefaultsClient
 
 struct TestError: Equatable, Error {
   let message = "ERROR"
@@ -34,14 +34,13 @@ struct ChatFeatureCore {
       $0.uuid = .constant(uuid)
       $0.date = .constant(date)
       $0.idProvider = .noop
-      $0.userDefaultsClient.setDouble = { _, _ in }
     }
     
     return testStore
   }
   
-  @Test("chat input action should trigger network call with success response")
-  func chatInputOnCommit() async throws {
+  @Test
+  func `chat input action should trigger network call with success response`() async throws {
     let testStore = defaultTestStore()
     testStore.dependencies.apiService.postChatMessage = { _ in ApiResponse(status: "ok") }
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
@@ -61,8 +60,8 @@ struct ChatFeatureCore {
     }
   }
   
-  @Test("Store with items should trigger networkCall with success and have Elements")
-  func onCommitWithElements() async {
+  @Test
+  func `Store with items should trigger networkCall with success and have Elements`() async {
     let testStore = defaultTestStore(
       with: .loading([
         ChatMessage(
@@ -90,8 +89,8 @@ struct ChatFeatureCore {
     }
   }
   
-  @Test("OnCommit should trigger networkCall with failure response when service throws error")
-  func onCommitWithErrorResponse() async {
+  @Test
+  func `OnCommit should trigger networkCall with failure response when service throws error`() async {
     let error = TestError()
     let testStore = defaultTestStore()
     
@@ -110,35 +109,25 @@ struct ChatFeatureCore {
     }
   }
   
-  @Test("OnAppear should set appearanceTimeinterval")
-  func didAppear_ShouldSet_appearanceTimeinterval() async {
-    let didWriteChatAppearanceTimeinterval = LockIsolated(false)
-    let chatAppearanceTimeinterval: LockIsolated<TimeInterval> = LockIsolated(0)
-    
+  @Test
+  func `OnAppear should set appearanceTimeInterval`() async {
+    @Shared(.chatReadTimeInterval) var chatTimeInterval = 0
     let testStore = TestStore(
       initialState: ChatFeature.State(),
       reducer: { ChatFeature() }
-    )
-    testStore.dependencies.apiService.getChatMessages = { mockResponse }
-    testStore.dependencies.userDefaultsClient.setDouble = { interval, _ in
-      didWriteChatAppearanceTimeinterval.setValue(true)
-      chatAppearanceTimeinterval.setValue(interval)
-      return ()
+    ) {
+      $0.apiService.getChatMessages = { mockResponse }
+      $0.uuid = .constant(uuid)
+      $0.date = .constant(date)
     }
-    testStore.dependencies.uuid = .constant(uuid)
-    testStore.dependencies.date = .constant(date)
   
     _ = await testStore.send(.onAppear)
     await testStore.receive(\.fetchChatMessages)
     await testStore.receive(\.fetchChatMessagesResponse.success, mockResponse) {
       $0.chatMessages = .results(mockResponse)
     }
-    chatAppearanceTimeinterval.withValue { interval in
-      #expect(interval == date.timeIntervalSince1970)
-    }
-    didWriteChatAppearanceTimeinterval.withValue { val in
-      #expect(val)
-    }
+
+    #expect(chatTimeInterval == date.timeIntervalSince1970)
   }
   
   @Test

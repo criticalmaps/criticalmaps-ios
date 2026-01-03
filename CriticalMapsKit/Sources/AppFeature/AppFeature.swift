@@ -11,11 +11,11 @@ import MastodonFeedFeature
 import NextRideFeature
 import os
 import SettingsFeature
+import SharedKeys
 import SharedModels
 import SocialFeature
 import struct SwiftUI.PresentationDetent
 import UIApplicationClient
-import UserDefaultsClient
 
 @Reducer
 public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
@@ -126,7 +126,6 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   @Dependency(\.apiService) var apiService
   @Dependency(\.uuid) var uuid
   @Dependency(\.date) var date
-  @Dependency(\.userDefaultsClient) var userDefaultsClient
   @Dependency(\.nextRideService) var nextRideService
   @Dependency(\.idProvider) var idProvider
   @Dependency(\.mainQueue) var mainQueue
@@ -160,39 +159,40 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         )
         
       case .onAppear:
-        var effects: [Effect<Action>] = [
-          .send(.map(.onAppear)),
-          .send(.requestTimer(.startTimer)),
-          .run { _ in
-            await userDefaultsClient.setSessionID(uuid().uuidString)
-          },
-          .run { [style = state.appearanceSettings.colorScheme.userInterfaceStyle] _ in
-            await uiApplicationClient.setUserInterfaceStyle(style)
-          },
-          .run { send in
-            await withThrowingTaskGroup(of: Void.self) { group in
-              group.addTask {
-                await send(.fetchChatMessages)
-              }
-              group.addTask {
-                await send(.fetchLocations)
-              }
-            }
-          },
-          .run { _ in
-            await feedbackGenerator.prepare()
-          }
-        ]
-        if !userDefaultsClient.didShowObservationModePrompt {
-          effects.append(
-            .run { send in
-              try? await clock.sleep(for: .seconds(3))
-              await send(.presentObservationModeAlert)
-            }
-          )
-        }
+        @Shared(.sessionID) var sessionID
+        $sessionID.withLock { $0 = uuid().uuidString }
+
+        StorageMigration.migratePrivacyZones()
         
-        return .merge(effects)
+        return .merge(
+          [
+            .send(.map(.onAppear)),
+            .send(.requestTimer(.startTimer)),
+            .run { [style = state.appearanceSettings.colorScheme.userInterfaceStyle] _ in
+              await uiApplicationClient.setUserInterfaceStyle(style)
+            },
+            .run { send in
+              await withThrowingTaskGroup(of: Void.self) { group in
+                group.addTask {
+                  await send(.fetchChatMessages)
+                }
+                group.addTask {
+                  await send(.fetchLocations)
+                }
+              }
+            },
+            .run { _ in
+              await feedbackGenerator.prepare()
+            },
+            .run { send in
+              @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
+              if !didShowObservationModePrompt {
+                try? await clock.sleep(for: .seconds(3))
+                await send(.presentObservationModeAlert)
+              }
+            }
+          ]
+        )
         
       case .onDisappear:
         return .none
@@ -225,9 +225,10 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         if case .social = state.destination {
           let cachedMessages = messages.sorted(by: \.timestamp)
           
+          @Shared(.chatReadTimeInterval) var chatReadTimeInterval
           let unreadMessagesCount = UInt(
             cachedMessages
-              .count(where: { $0.timestamp > userDefaultsClient.chatReadTimeInterval })
+              .count(where: { $0.timestamp > chatReadTimeInterval })
           )
           state.chatMessageBadgeCount = unreadMessagesCount
         }
@@ -387,9 +388,9 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
           )
         )
-        return .run { _ in
-          await userDefaultsClient.setDidShowObservationModePrompt(true)
-        }
+        @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
+        $didShowObservationModePrompt.withLock { $0 = true }
+        return .none
         
       case let .destination(.presented(.alert(alertAction))):
         switch alertAction {

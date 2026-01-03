@@ -6,8 +6,8 @@ import Helpers
 import IDProvider
 import L10n
 import os
+import SharedKeys
 import SharedModels
-import UserDefaultsClient
 
 @Reducer
 public struct ChatFeature: Sendable {
@@ -65,7 +65,6 @@ public struct ChatFeature: Sendable {
   @Dependency(\.idProvider) var idProvider
   @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.uuid) var uuid
-  @Dependency(\.userDefaultsClient) var userDefaultsClient
   
   public var body: some Reducer<State, Action> {
     Scope(state: \.chatInputState, action: \.chatInput) {
@@ -95,9 +94,11 @@ public struct ChatFeature: Sendable {
         
       case let .fetchChatMessagesResponse(.success(messages)):
         state.chatMessages = .results(messages)
-        return .run { _ in
-          await userDefaultsClient.setChatReadTimeInterval(date().timeIntervalSince1970)
-        }
+        
+        @Shared(.chatReadTimeInterval) var chatReadTimeInterval
+        $chatReadTimeInterval.withLock { $0 = date().timeIntervalSince1970 }
+        
+        return .none
         
       case let .fetchChatMessagesResponse(.failure(error)):
         state.chatMessages = .error(

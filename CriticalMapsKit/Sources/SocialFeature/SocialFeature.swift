@@ -7,7 +7,6 @@ import L10n
 import MastodonFeedFeature
 import SwiftUI
 import UIApplicationClient
-import UserDefaultsClient
 
 @Reducer
 public struct SocialFeature: Sendable {

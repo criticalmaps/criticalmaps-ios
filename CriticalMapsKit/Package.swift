@@ -63,9 +63,9 @@ let package = Package(
         "NextRideFeature",
         .pathMonitorClient,
         "SettingsFeature",
+        .sharedKeys,
         "SocialFeature",
         .styleguide,
-        .userDefaultsClient,
         .uiApplicationClient,
         .tca
       ]
@@ -84,10 +84,10 @@ let package = Package(
         .helpers,
         .idProvider,
         .l10n,
+        .sharedKeys,
         .sharedModels,
         .styleguide,
-        .swiftUIHelpers,
-        .userDefaultsClient
+        .swiftUIHelpers
       ]
     ),
     .target(
@@ -114,8 +114,8 @@ let package = Package(
       name: "IDProvider",
       dependencies: [
         .helpers,
-        .tca,
-        .userDefaultsClient
+        .sharedKeys,
+        .tca
       ]
     ),
     .target(
@@ -154,9 +154,9 @@ let package = Package(
         .apiClient,
         .helpers,
         .l10n,
+        .sharedKeys,
         .sharedModels,
         .styleguide,
-        .userDefaultsClient,
         .composableCoreLocation,
         .tca
       ]
@@ -175,6 +175,7 @@ let package = Package(
         .l10n,
         .helpers,
         "MapFeature",
+        .sharedKeys,
         .sharedModels,
         .styleguide,
         .swiftUIHelpers,
@@ -183,6 +184,13 @@ let package = Package(
         .product(name: "AcknowList", package: "AcknowList")
       ],
       resources: [.process("_Resources/")]
+    ),
+    .target(
+      name: "SharedKeys",
+      dependencies: [
+        .sharedModels,
+        .tca
+      ]
     ),
     .target(
       name: "SharedModels",
@@ -197,7 +205,6 @@ let package = Package(
         "ChatFeature",
         .l10n,
         "MastodonFeedFeature",
-        .userDefaultsClient,
         .tca
       ]
     ),
@@ -227,14 +234,6 @@ let package = Package(
       dependencies: [
         .tca
       ]
-    ),
-    .target(
-      name: "UserDefaultsClient",
-      dependencies: [
-        .helpers,
-        .sharedModels,
-        .tca
-      ]
     )
   ]
 )
@@ -260,7 +259,6 @@ package.targets.append(contentsOf: [
       "ChatFeature",
       .testHelper,
       .sharedModels,
-      .userDefaultsClient,
       .tca
     ],
     exclude: [
@@ -271,7 +269,7 @@ package.targets.append(contentsOf: [
     name: "HelperTests",
     dependencies: [
       .helpers,
-      .userDefaultsClient
+      .sharedModels
     ]
   ),
   .testTarget(
@@ -293,7 +291,6 @@ package.targets.append(contentsOf: [
     name: "NextRideFeatureTests",
     dependencies: [
       .helpers,
-      .userDefaultsClient,
       "NextRideFeature",
       .tca
     ]
@@ -322,7 +319,6 @@ package.targets.append(contentsOf: [
       .l10n,
       "SettingsFeature",
       .testHelper,
-      .userDefaultsClient,
       .tca
     ],
     exclude: ["__Snapshots__"]
@@ -348,12 +344,12 @@ extension Target.Dependency {
   static let idProvider = byName(name: "IDProvider")
   static let l10n = byName(name: "L10n")
   static let pathMonitorClient = byName(name: "PathMonitorClient")
+  static let sharedKeys = byName(name: "SharedKeys")
   static let sharedModels = byName(name: "SharedModels")
   static let styleguide = byName(name: "Styleguide")
   static let swiftUIHelpers = byName(name: "SwiftUIHelpers")
   static let testHelper = byName(name: "TestHelper")
   static let uiApplicationClient = byName(name: "UIApplicationClient")
-  static let userDefaultsClient = byName(name: "UserDefaultsClient")
 
   // MARK: - External
 
