@@ -161,8 +161,8 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
       case .onAppear:
         @Shared(.sessionID) var sessionID
         $sessionID.withLock { $0 = uuid().uuidString }
-        
-        URL.migratePrivacyZones()
+
+        StorageMigration.migratePrivacyZones()
         
         return .merge(
           [

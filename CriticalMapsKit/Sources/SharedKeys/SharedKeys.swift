@@ -60,18 +60,30 @@ private extension URL {
   }
 }
 
-public extension URL {
-  static func migratePrivacyZones() {
+// MARK: - StorageMigration
+
+/// Namespace for storage-related data migrations between app versions
+public enum StorageMigration {
+  /// Migrates privacy zones from the old Documents directory to the new Application Support directory.
+  ///
+  /// This migration ensures that privacy zone data is moved from:
+  /// - Old location: `~/Documents/privacy-zones.json`
+  /// - New location: `~/Application Support/privacy-zones.json`
+  ///
+  /// The migration only occurs if the old file exists and the new file doesn't exist yet.
+  public static func migratePrivacyZones() {
     let fileManager = FileManager.default
+
     let oldURL = URL.documentsDirectory
       .appending(component: "privacy-zones.json")
+    let newURL = URL.privacyZones
 
     let doesOldFileExist = fileManager.fileExists(atPath: oldURL.path())
-    let doesNewFileExist = fileManager.fileExists(atPath: privacyZones.path())
-        
+    let doesNewFileExist = fileManager.fileExists(atPath: newURL.path())
+
     // Only migrate if old file exists and new one doesn't
     if doesOldFileExist, !doesNewFileExist {
-      try? fileManager.moveItem(at: oldURL, to: privacyZones)
+      try? fileManager.moveItem(at: oldURL, to: newURL)
     }
   }
 }
