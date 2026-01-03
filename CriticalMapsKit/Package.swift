@@ -234,14 +234,6 @@ let package = Package(
       dependencies: [
         .tca
       ]
-    ),
-    .target(
-      name: "UserDefaultsClient",
-      dependencies: [
-        .helpers,
-        .sharedModels,
-        .tca
-      ]
     )
   ]
 )
@@ -361,7 +353,6 @@ extension Target.Dependency {
   static let swiftUIHelpers = byName(name: "SwiftUIHelpers")
   static let testHelper = byName(name: "TestHelper")
   static let uiApplicationClient = byName(name: "UIApplicationClient")
-  static let userDefaultsClient = byName(name: "UserDefaultsClient")
 
   // MARK: - External
 
