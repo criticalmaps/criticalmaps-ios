@@ -29,15 +29,12 @@ public struct TootsListView: View {
 
 private struct LoadingView: View {
   var body: some View {
-    VStack {
-      Spacer()
-      ProgressView {
-        Text("Loading")
-          .foregroundColor(.textPrimary)
-          .font(.bodyOne)
-      }
-      Spacer()
+    ProgressView {
+      Text(L10n.Social.Feed.loading)
+        .foregroundColor(.textPrimary)
+        .font(.bodyOne)
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
   }
 }
 
