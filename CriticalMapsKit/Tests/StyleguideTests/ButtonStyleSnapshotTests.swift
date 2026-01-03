@@ -1,21 +1,24 @@
 import Styleguide
 import SwiftUI
 import TestHelper
-import XCTest
+import Testing
 
 @MainActor
-final class ButtonStylesSnapshotTests: XCTestCase {
-  func test_cmButtonStyle() throws {
+@Suite("ButtonStyles  📸 Tests", .tags(.snapshot))
+struct ButtonStylesSnapshotTests {
+  @Test
+  func cmButtonStyle() throws {
     let button = Button(
       action: {},
       label: { Text("Critical Maps") }
     )
     .buttonStyle(CMButtonStyle())
     
-    try assertViewSnapshot(button, height: 100)
+    try SnapshotHelper.assertViewSnapshot(button, height: 100)
   }
   
-  func test_cmButtonStyle_withIcon() throws {
+  @Test
+  func cmButtonStyle_withIcon() throws {
     let button = Button(
       action: {},
       label: {
@@ -28,10 +31,11 @@ final class ButtonStylesSnapshotTests: XCTestCase {
     )
     .buttonStyle(CMButtonStyle())
     
-    try assertViewSnapshot(button, height: 100)
+    try SnapshotHelper.assertViewSnapshot(button, height: 100)
   }
   
-  func test_cmButtonStyle_withIcon2() throws {
+  @Test
+  func cmButtonStyle_withIcon2() throws {
     let button = Button(
       action: {},
       label: {
@@ -44,6 +48,6 @@ final class ButtonStylesSnapshotTests: XCTestCase {
     )
     .buttonStyle(CMButtonStyle())
     
-    try assertViewSnapshot(button, height: 150)
+    try SnapshotHelper.assertViewSnapshot(button, height: 150)
   }
 }

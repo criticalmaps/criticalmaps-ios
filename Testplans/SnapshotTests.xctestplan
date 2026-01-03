@@ -17,6 +17,11 @@
   },
   "testTargets" : [
     {
+      "selectedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "AppFeatureTests",
         "RequestTimerCoreTests"
@@ -28,6 +33,11 @@
       }
     },
     {
+      "selectedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "ChatFeatureCore",
         "ChatInputCoreTests",
@@ -41,6 +51,11 @@
       }
     },
     {
+      "selectedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "MapFeatureCoreTests",
         "RiderAnnotationUpdateClientTests",
@@ -53,6 +68,11 @@
       }
     },
     {
+      "selectedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "AppearanceSettingsCoreTests",
         "RideEventSettingsCoreTests",
@@ -65,6 +85,11 @@
       }
     },
     {
+      "selectedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "StyleguideTests",
