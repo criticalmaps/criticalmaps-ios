@@ -18,6 +18,11 @@
   "testTargets" : [
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "AppNavigationViewSnapshotTests"
       ],
@@ -29,6 +34,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "NextRideFeatureTests",
@@ -37,6 +47,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "IDProviderTests",
@@ -45,6 +60,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "AppearanceSettingsViewSnapshotTests",
         "RideEventSettingsViewSnapshotTests",
@@ -58,6 +78,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "skippedTests" : [
         "ChatFeatureSnapshotTests"
       ],
@@ -68,6 +93,11 @@
       }
     },
     {
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "MastodonFeedFeatureTests",
@@ -76,6 +106,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "MapFeatureTests",
@@ -84,6 +119,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "SocialFeatureTests",
@@ -92,6 +132,11 @@
     },
     {
       "parallelizable" : true,
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "HelperTests",
@@ -99,6 +144,11 @@
       }
     },
     {
+      "skippedTags" : {
+        "tags" : [
+          ".snapshot"
+        ]
+      },
       "target" : {
         "containerPath" : "container:CriticalMapsKit",
         "identifier" : "StyleguideTests",
