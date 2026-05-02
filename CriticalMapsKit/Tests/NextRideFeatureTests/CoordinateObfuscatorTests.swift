@@ -6,8 +6,8 @@ import Testing
 struct CoordinateObfuscatorTests {
   var sut: CoordinateObfuscator = .liveValue
   
-  @Test("Obuscator should return coordinate with altered thirdDecimal")
-  func alteredCoordinate() {
+  @Test
+  func `Obuscator should return coordinate with altered thirdDecimal`() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
@@ -16,8 +16,8 @@ struct CoordinateObfuscatorTests {
     #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  @Test("Obuscator should return coordinate with altered firstDecimal")
-  func firstDecimal() {
+  @Test
+  func `Obuscator should return coordinate with altered firstDecimal`() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
@@ -26,8 +26,8 @@ struct CoordinateObfuscatorTests {
     #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  @Test("Obuscator should return coordinate with alteredThirdDecimal")
-  func thirdDecimal() {
+  @Test
+  func `Obuscator should return coordinate with alteredThirdDecimal`() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
@@ -36,8 +36,8 @@ struct CoordinateObfuscatorTests {
     #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  @Test("Obuscator should return coordinate with alteredFourthDecimal")
-  func fourthDecimal() {
+  @Test
+  func `Obuscator should return coordinate with alteredFourthDecimal`() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when
@@ -46,8 +46,8 @@ struct CoordinateObfuscatorTests {
     #expect(alexanderPlatz != alteredCoordinate)
   }
   
-  @Test("Obfuscator should return coordinate with custom range")
-  func customRange() {
+  @Test
+  func `Obfuscator should return coordinate with custom range`() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
     // when

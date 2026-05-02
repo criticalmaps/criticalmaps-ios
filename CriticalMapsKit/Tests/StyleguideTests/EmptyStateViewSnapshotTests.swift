@@ -7,7 +7,7 @@ import Testing
 @Suite("EmptyStateView 📸 Tests", .tags(.snapshot))
 struct EmptyStateViewSnapshotTests {
   @Test
-  func emptyStateView_withoutButton_light() throws {
+  func `empty state view without button light`() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,
@@ -19,7 +19,7 @@ struct EmptyStateViewSnapshotTests {
   }
   
   @Test
-  func emptyStateView_withButton_light() throws {
+  func `empty state view with button light`() throws {
     let view = EmptyStateView(
       emptyState: .init(
         icon: Asset.chatEmpty.image,

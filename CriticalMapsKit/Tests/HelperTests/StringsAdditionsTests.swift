@@ -1,10 +1,9 @@
 import Helpers
 import Testing
 
-@Suite
 struct StringAdditionsTests {
-  @Test("Remove Date Pattern should remove date pattern")
-  func removeDatePatternShouldRemovePattern1() {
+  @Test
+  func `Remove Date Pattern should remove date pattern`() {
     // given
     let title = "Critical Mass Berlin"
     let date = "28.02.2020"
@@ -15,8 +14,8 @@ struct StringAdditionsTests {
     #expect(strippedTitle == title)
   }
 
-  @Test("Remove Date Pattern should remove date pattern with slash")
-  func removeDatePatternShouldRemovePattern2() {
+  @Test
+  func `Remove Date Pattern should remove date pattern with slash`() {
     // given
     let title = "Critical Mass Berlin"
     let date = "28/02/2020"
@@ -27,8 +26,8 @@ struct StringAdditionsTests {
     #expect(strippedTitle == title)
   }
 
-  @Test("Remove Date Pattern should not remove pattern with slash")
-  func removeDatePatternShouldNotRemovePattern1() {
+  @Test
+  func `Remove Date Pattern should not remove pattern with slash`() {
     // given
     let title = "Critical Mass Berlin"
     let date = "02/28/20"
@@ -39,8 +38,8 @@ struct StringAdditionsTests {
     #expect(strippedTitle != title)
   }
 
-  @Test("Remove Date Pattern should not remove pattern with special pattern")
-  func removeDatePatternShouldNotRemovePattern2() {
+  @Test
+  func `Remove Date Pattern should not remove pattern with special pattern`() {
     // given
     let title = "Critical Mass Berlin"
     let pattern = "Special Edition"

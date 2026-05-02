@@ -11,7 +11,7 @@ import Testing
 @Suite("ChatFeatureView 📸 Tests", .tags(.snapshot))
 struct ChatFeatureSnapshotTests {
   @Test
-  func chatFeatureViewSnapshot() throws {
+  func `chat feature view snapshot`() throws {
     try withDependencies { values in
       values.apiService.getChatMessages = { [] }
     } operation: {
@@ -33,7 +33,7 @@ struct ChatFeatureSnapshotTests {
   }
   
   @Test
-  func chatInputViewSnapshot_nonEmpty() throws {
+  func `chat input view snapshot non empty`() throws {
     try withDependencies { values in
       values.apiService.getChatMessages = { [] }
     } operation: {
@@ -52,7 +52,7 @@ struct ChatFeatureSnapshotTests {
   }
   
   @Test
-  func chatInputViewSnapshot_empty() throws {
+  func `chat input view snapshot empty`() throws {
     try withDependencies { values in
       values.apiService.getChatMessages = { [] }
     } operation: {

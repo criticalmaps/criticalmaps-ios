@@ -17,9 +17,9 @@ struct IdentifiedMessagesTests {
   )!
 
   @Test
-  func chatTime_Format() {
+  func `chat time format`() throws {
     var cal = Calendar.current
-    cal.timeZone = .init(secondsFromGMT: 0)!
+    cal.timeZone = try #require(.init(secondsFromGMT: 0))
     let chatTime = date.formatted(Date.FormatStyle.chatTime(cal))
 
     #expect(chatTime == "02:02")
