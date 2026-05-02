@@ -36,7 +36,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   // MARK: State
 
   @ObservableState
-  public struct State: Equatable {
+  public struct State {
     public var riderLocations: [Rider]
     public var isRequestingRiderLocations = false
     public var didRequestNextRide = false

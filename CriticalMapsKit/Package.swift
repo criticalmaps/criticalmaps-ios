@@ -27,7 +27,7 @@ let package = Package(
     ),
     .package(
       url: "https://github.com/mltbnz/composable-core-location",
-      branch: "main"
+      branch: "tca-migration"
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-snapshot-testing.git",

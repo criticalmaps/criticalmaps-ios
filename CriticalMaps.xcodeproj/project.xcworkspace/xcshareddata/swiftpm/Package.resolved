@@ -1,5 +1,5 @@
 {
-  "originHash" : "59b0aace93eb3002a090848766e930baf8b2d37a9696bae9b2d7af82e6739e5d",
+  "originHash" : "85966381afb81d5ff19282f74ad45cfb456a873812c61d1789c9df4866528a4d",
   "pins" : [
     {
       "identity" : "acknowlist",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mltbnz/composable-core-location",
       "state" : {
-        "branch" : "main",
-        "revision" : "c8e14dfb07fc38a0102ba41fc9e804c20d6b8826"
+        "branch" : "tca-migration",
+        "revision" : "a87aef34182f7449666c9efef9347f8a6854d43c"
       }
     },
     {

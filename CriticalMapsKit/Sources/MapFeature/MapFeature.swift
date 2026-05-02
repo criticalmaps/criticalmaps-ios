@@ -1,3 +1,4 @@
+import ComposableArchitecture
 import ComposableCoreLocation
 import Foundation
 import L10n
@@ -14,7 +15,7 @@ public struct MapFeature: Sendable {
   // MARK: State
   
   @ObservableState
-  public struct State: Equatable {
+  public struct State {
     public var alert: AlertState<Action>?
     public var isRequestingCurrentLocation: Bool
     public var location: SharedModels.Location?
@@ -96,7 +97,7 @@ public struct MapFeature: Sendable {
              .didChangeAuthorization(.authorizedWhenInUse):
           if state.isRequestingCurrentLocation {
             return .run { _ in
-              await locationManager.requestLocation()
+              locationManager.requestLocation()
             }
           } else {
             return .none
@@ -147,32 +148,28 @@ public struct MapFeature: Sendable {
         return .none
 
       case .onAppear:
-        var effects: [Effect<Action>] = [
-          .run { _ in
-            await locationManager.setup()
-          },
-          .run { send in
-            for await action in await locationManager.delegate() {
-              await send(.locationManager(action), animation: .default)
-            }
-          }
-          .cancellable(id: CancelID.locationManager, cancelInFlight: true)
-        ]
+        locationManager.setup()
         let isObservationModeEnabled = state.userSettings.isObservationModeEnabled
-        if !isObservationModeEnabled {
-          effects.append(.send(.locationRequested))
+        return .run { send in
+          if !isObservationModeEnabled {
+            await send(.locationRequested)
+          }
+					
+          for await action in locationManager.delegate() {
+            await send(.locationManager(action), animation: .default)
+          }
         }
-        return .merge(effects)
+        .cancellable(id: CancelID.locationManager, cancelInFlight: true)
         
       case .startRequestingCurrentLocation:
         state.isRequestingCurrentLocation = true
         return .run { _ in
-          await locationManager.requestAlwaysAuthorization()
+          locationManager.requestAlwaysAuthorization()
         }
         
       case .locationRequested:
         return .run { send in
-          switch await locationManager.authorizationStatus() {
+          switch locationManager.authorizationStatus() {
           case .notDetermined:
             await send(.startRequestingCurrentLocation)
 
@@ -184,7 +181,7 @@ public struct MapFeature: Sendable {
             guard !userSettings.isObservationModeEnabled else {
               return
             }
-            await locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
             
           @unknown default:
             break
@@ -241,8 +238,8 @@ public struct MapFeature: Sendable {
 
 extension LocationManager {
   /// Configures the LocationManager
-  func setup() async {
-    await set(
+  func setup() {
+    set(
       activityType: .otherNavigation,
       allowsBackgroundLocationUpdates: true,
       desiredAccuracy: kCLLocationAccuracyBest,
@@ -269,19 +266,3 @@ public extension AlertState where Action == MapFeature.Action {
     title: { TextState(L10n.Location.Alert.provideAccessToLocationService) }
   )
 }
-
-// MARK: - Dependencies
-
-enum LocationManagerKey: DependencyKey {
-  static let liveValue = LocationManager.live
-  static let testValue = LocationManager.failing
-}
-
-public extension DependencyValues {
-  var locationManager: LocationManager {
-    get { self[LocationManagerKey.self] }
-    set { self[LocationManagerKey.self] = newValue }
-  }
-}
-
-extension LocationManager.Action: @retroactive @unchecked Sendable {}
