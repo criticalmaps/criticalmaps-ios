@@ -33,7 +33,7 @@ jobs:
       run: fastlane snapshot_tests
 
     - name: Archive test artifacts
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: snapshot-test-artifacts
@@ -41,7 +41,7 @@ jobs:
           ./fastlane/test_output/*.xcresult
 
     - name: Upload snapshot failures
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: failure()
       with:
         name: snapshot-failures
