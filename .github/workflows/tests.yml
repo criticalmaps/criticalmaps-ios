@@ -22,12 +22,21 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.x"
+        python-version: "3.12"
 
-    - name: Run pre-commit (swiftformat)
-      uses: pre-commit/action@v3.0.1
+    - name: Install pre-commit
+      run: pip install pre-commit
+
+    - name: Cache pre-commit hooks
+      uses: actions/cache@v4
       with:
-        extra_args: swiftformat --all-files
+        path: ~/.cache/pre-commit
+        key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          pre-commit-${{ runner.os }}-
+
+    - name: Run swiftformat
+      run: pre-commit run swiftformat --all-files --show-diff-on-failure --color=always
 
   unit_tests:
     name: Unit Tests
