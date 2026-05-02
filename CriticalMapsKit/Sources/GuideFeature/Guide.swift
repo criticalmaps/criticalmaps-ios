@@ -5,7 +5,9 @@ import UIKit.UIImage
 
 public struct Guide: Hashable, Identifiable, Sendable {
   public let rule: Rule
-  public var id: String { rule.rawValue }
+  public var id: String {
+    rule.rawValue
+  }
 
   public init(rule: Guide.Rule) {
     self.rule = rule

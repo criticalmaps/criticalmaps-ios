@@ -70,7 +70,9 @@ private struct MenuSeparator: View {
 private struct ChatBadgeView: View {
   let messageCount: UInt
   
-  private var isEmpty: Bool { messageCount == 0 }
+  private var isEmpty: Bool {
+    messageCount == 0
+  }
 
   var body: some View {
     if isEmpty {

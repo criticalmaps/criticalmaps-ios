@@ -5,8 +5,8 @@ import SharedModels
 import Testing
 
 struct RideTimeTests {
-  @Test("Ride in new york timezone")
-  func rideWithNewYorkTimezone() {
+  @Test
+  func `Ride in new york timezone`() {
     withDependencies {
       $0.locale = Locale(identifier: "en_US")
     } operation: {
@@ -16,8 +16,8 @@ struct RideTimeTests {
     }
   }
 
-  @Test("Ride in berlin timezone")
-  func rideWithBerlinTimezone() {
+  @Test
+  func `Ride in berlin timezone`() {
     withDependencies {
       $0.locale = Locale(identifier: "de_DE")
     } operation: {
@@ -27,8 +27,8 @@ struct RideTimeTests {
     }
   }
 
-  @Test("Ride in GMT timezone")
-  func rideWithGMTTimezone() {
+  @Test
+  func `Ride in GMT timezone`() {
     withDependencies {
       $0.locale = Locale(identifier: "pt_PT")
     } operation: {

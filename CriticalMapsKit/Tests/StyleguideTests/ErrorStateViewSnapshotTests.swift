@@ -7,7 +7,7 @@ import Testing
 @Suite("ErrorStateView 📸 Tests", .tags(.snapshot))
 struct ErrorStateViewSnapshotTests {
   @Test
-  func errorStateView_withoutButton_light() throws {
+  func `error state view without button light`() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",
@@ -19,7 +19,7 @@ struct ErrorStateViewSnapshotTests {
   }
   
   @Test
-  func errorStateView_withButton_light() throws {
+  func `error state view with button light`() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",
@@ -33,7 +33,7 @@ struct ErrorStateViewSnapshotTests {
   }
   
   @Test
-  func errorStateView_withButton_dark() throws {
+  func `error state view with button dark`() throws {
     let view = ErrorStateView(
       errorState: .init(
         title: "Critical Maps",

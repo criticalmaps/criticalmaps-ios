@@ -7,7 +7,7 @@ import Testing
 @Suite("ButtonStyles  📸 Tests", .tags(.snapshot))
 struct ButtonStylesSnapshotTests {
   @Test
-  func cmButtonStyle() throws {
+  func `cm button style`() throws {
     let button = Button(
       action: {},
       label: { Text("Critical Maps") }
@@ -18,7 +18,7 @@ struct ButtonStylesSnapshotTests {
   }
   
   @Test
-  func cmButtonStyle_withIcon() throws {
+  func `cm button style with icon`() throws {
     let button = Button(
       action: {},
       label: {
@@ -35,7 +35,7 @@ struct ButtonStylesSnapshotTests {
   }
   
   @Test
-  func cmButtonStyle_withIcon2() throws {
+  func `cm button style with icon 2`() throws {
     let button = Button(
       action: {},
       label: {

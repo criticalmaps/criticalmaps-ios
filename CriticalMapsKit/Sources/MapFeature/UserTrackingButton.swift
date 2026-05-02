@@ -43,7 +43,6 @@ public struct UserTrackingButton: View {
     }
   }
 
-  @ViewBuilder
   var iconImage: some View {
     Image(systemName: systemImageIdentifier)
       .iconModifier()

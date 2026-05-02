@@ -1,10 +1,9 @@
 import SharedModels
 import Testing
 
-@Suite
 struct CoordinateFormattingTests {
-  @Test("Format positive coordinates (Northern/Eastern hemisphere)")
-  func formatPositiveCoordinates() {
+  @Test
+  func `Format positive coordinates (Northern/Eastern hemisphere)`() {
     // given - Berlin coordinates
     let berlin = Coordinate(latitude: 52.524657, longitude: 13.413939)
 
@@ -15,8 +14,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "52.52466° N, 13.41394° E")
   }
 
-  @Test("Format negative longitude (Western hemisphere)")
-  func formatNegativeLongitude() {
+  @Test
+  func `Format negative longitude (Western hemisphere)`() {
     // given - San Francisco coordinates
     let sanFrancisco = Coordinate(latitude: 37.774929, longitude: -122.419416)
 
@@ -27,8 +26,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "37.77493° N, 122.41942° W")
   }
 
-  @Test("Format negative latitude (Southern hemisphere)")
-  func formatNegativeLatitude() {
+  @Test
+  func `Format negative latitude (Southern hemisphere)`() {
     // given - Melbourne coordinates
     let melbourne = Coordinate(latitude: -37.813628, longitude: 144.963058)
 
@@ -39,8 +38,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "37.81363° S, 144.96306° E")
   }
 
-  @Test("Format both negative coordinates (Southern/Western hemisphere)")
-  func formatBothNegativeCoordinates() {
+  @Test
+  func `Format both negative coordinates (Southern/Western hemisphere)`() {
     // given - Santiago, Chile coordinates
     let santiago = Coordinate(latitude: -33.448457, longitude: -70.669265)
 
@@ -51,8 +50,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "33.44846° S, 70.66926° W")
   }
 
-  @Test("Format coordinates at equator and prime meridian")
-  func formatZeroCoordinates() {
+  @Test
+  func `Format coordinates at equator and prime meridian`() {
     // given - Null Island (0,0)
     let nullIsland = Coordinate(latitude: 0.0, longitude: 0.0)
 
@@ -63,8 +62,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "0.00000° N, 0.00000° E")
   }
 
-  @Test("Format coordinates with small decimal values")
-  func formatSmallDecimalValues() {
+  @Test
+  func `Format coordinates with small decimal values`() {
     // given - very precise coordinates
     let precise = Coordinate(latitude: 0.000001, longitude: -0.000001)
 
@@ -75,8 +74,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "0.00000° N, 0.00000° W")
   }
 
-  @Test("Format coordinates using existing test data - Alexander Platz")
-  func formatAlexanderPlatz() {
+  @Test
+  func `Format coordinates using existing test data - Alexander Platz`() {
     // given
     let alexanderPlatz = Coordinate.TestData.alexanderPlatz
 
@@ -87,8 +86,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "52.52466° N, 13.41394° E")
   }
 
-  @Test("Format coordinates using existing test data - Rendsburg")
-  func formatRendsburg() {
+  @Test
+  func `Format coordinates using existing test data - Rendsburg`() {
     // given
     let rendsburg = Coordinate.TestData.rendsburg
 
@@ -99,8 +98,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "54.30855° N, 9.65664° E")
   }
 
-  @Test("Verify decimal precision is exactly 5 places")
-  func verifyDecimalPrecision() {
+  @Test
+  func `Verify decimal precision is exactly 5 places`() {
     // given - coordinate with many decimal places
     let manyDecimals = Coordinate(latitude: 52.12345678901234, longitude: 13.98765432109876)
 
@@ -129,8 +128,8 @@ struct CoordinateFormattingTests {
     #expect(lngDecimalPlaces == 5)
   }
 
-  @Test("Format coordinates at maximum valid latitude")
-  func formatMaxLatitude() {
+  @Test
+  func `Format coordinates at maximum valid latitude`() {
     // given - maximum valid latitude (90°)
     let maxLat = Coordinate(latitude: 90.0, longitude: 0.0)
 
@@ -141,8 +140,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "90.00000° N, 0.00000° E")
   }
 
-  @Test("Format coordinates at minimum valid latitude")
-  func formatMinLatitude() {
+  @Test
+  func `Format coordinates at minimum valid latitude`() {
     // given - minimum valid latitude (-90°)
     let minLat = Coordinate(latitude: -90.0, longitude: 0.0)
 
@@ -153,8 +152,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "90.00000° S, 0.00000° E")
   }
 
-  @Test("Format coordinates at maximum valid longitude")
-  func formatMaxLongitude() {
+  @Test
+  func `Format coordinates at maximum valid longitude`() {
     // given - maximum valid longitude (180°)
     let maxLng = Coordinate(latitude: 0.0, longitude: 180.0)
 
@@ -165,8 +164,8 @@ struct CoordinateFormattingTests {
     #expect(formatted == "0.00000° N, 180.00000° E")
   }
 
-  @Test("Format coordinates at minimum valid longitude")
-  func formatMinLongitude() {
+  @Test
+  func `Format coordinates at minimum valid longitude`() {
     // given - minimum valid longitude (-180°)
     let minLng = Coordinate(latitude: 0.0, longitude: -180.0)
 

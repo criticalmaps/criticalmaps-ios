@@ -4,7 +4,6 @@ import IDProvider
 import SharedKeys
 import Testing
 
-@Suite
 struct IDProviderTests {
   let deviceID = "00000000-0000-0000-0000-000000000001"
   
@@ -29,8 +28,8 @@ struct IDProviderTests {
     #expect(currentID.id() == newID.id())
   }
   
-  @Test("ID does not change when device ID does not change")
-  func iDDoesNotChange() {
+  @Test
+  func `ID does not change when device ID does not change`() {
     let date = Date(timeIntervalSince1970: 1557057968)
     @Shared(.sessionID) var sessionID = deviceID
     let currentID = withDependencies { values in

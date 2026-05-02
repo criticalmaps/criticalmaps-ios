@@ -5,8 +5,8 @@ import Testing
 
 @MainActor
 struct RequestTimerCoreTests {
-  @Test("Timer fires halfwayPoint at 30s and fullCycle at 60s")
-  func startTimer_firesActionsAtCorrectIntervals() async {
+  @Test
+  func `Timer fires halfwayPoint at 30s and fullCycle at 60s`() async {
     let testClock = TestClock()
     let testDate = Date(timeIntervalSince1970: 1000)
 
@@ -39,8 +39,8 @@ struct RequestTimerCoreTests {
     await task.cancel()
   }
 
-  @Test("Timer can be cancelled mid-cycle")
-  func startTimer_canBeCancelled() async {
+  @Test
+  func `Timer can be cancelled mid-cycle`() async {
     let testClock = TestClock()
     let testDate = Date(timeIntervalSince1970: 1000)
 
@@ -66,8 +66,8 @@ struct RequestTimerCoreTests {
     await testClock.advance(by: .seconds(100))
   }
 
-  @Test("Multiple timer starts cancel previous timer")
-  func startTimer_cancelsPreviousTimer() async {
+  @Test
+  func `Multiple timer starts cancel previous timer`() async {
     let testClock = TestClock()
     let testDate = Date(timeIntervalSince1970: 1000)
 

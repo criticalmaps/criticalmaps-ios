@@ -6,13 +6,12 @@ import Foundation
 import SharedModels
 import Testing
 
-@Suite
 @MainActor
 struct MapFeatureCoreTests {
   let testScheduler = DispatchQueue.test
   
   @Test
-  func onAppearAction() async {
+  func `on appear action`() async {
     let didRequestAlwaysAuthorization = LockIsolated(false)
     let didRequestLocation = LockIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
@@ -83,7 +82,7 @@ struct MapFeatureCoreTests {
   
   /// if locationServices disabled, test that alert state is set
   @Test
-  func disabledLocationService_shouldSetAlert() async {
+  func `disabled location service should set alert`() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
     var locationManager: LocationManager = .failing
@@ -116,7 +115,7 @@ struct MapFeatureCoreTests {
   }
   
   @Test
-  func deniedPermission_shouldSetAlert() async {
+  func `denied permission should set alert`() async {
     let didRequestAlwaysAuthorization = LockIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
@@ -158,7 +157,7 @@ struct MapFeatureCoreTests {
   }
   
   @Test
-  func focusNextRide_setsCenterRegion_andResetsItAfter1Second() async {
+  func `focus next ride sets center region and resets it after 1 second`() async {
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -195,7 +194,7 @@ struct MapFeatureCoreTests {
   }
   
   @Test
-  func focusRideEvent_setsEventCenter_andResetsItAfter1Second() async {
+  func `focus ride event sets event center and resets it after 1 second`() async {
     let ride = Ride(
       id: 123,
       slug: "SLUG",
@@ -237,7 +236,7 @@ struct MapFeatureCoreTests {
   }
 
   @Test
-  func InfoBanner_appearance() async {
+  func `info banner appearance`() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
     var locationManager: LocationManager = .failing

@@ -8,7 +8,7 @@ import Testing
 @Suite("RideEventSettings 📸 Tests", .tags(.snapshot))
 struct RideEventSettingsViewSnapshotTests {
   @Test
-  func rideEventSettingsView_light() throws {
+  func `ride event settings view light`() throws {
     let settingsView = RideEventSettingsView(
       store: .init(
         initialState: .init(
@@ -26,7 +26,7 @@ struct RideEventSettingsViewSnapshotTests {
   }
   
   @Test
-  func rideEventSettingsView_disabled() throws {
+  func `ride event settings view disabled`() throws {
     let settingsView = RideEventSettingsView(
       store: .init(
         initialState: .init(

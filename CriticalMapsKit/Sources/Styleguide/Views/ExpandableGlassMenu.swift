@@ -90,7 +90,7 @@ public struct ExpandableGlassMenu<Content: View, Label: View>: View, @MainActor 
   }
   
   private var blurProgress: CGFloat {
-    /// 0 -> 0.5 -> 0
+    // 0 -> 0.5 -> 0
     progress > 0.5 ? (1 - progress) / 0.5 : progress / 0.5
   }
   
@@ -98,7 +98,7 @@ public struct ExpandableGlassMenu<Content: View, Label: View>: View, @MainActor 
     switch alignment {
     case .bottom, .bottomLeading, .bottomTrailing: -50
     case .top, .topLeading, .topTrailing: 50
-    /// Center!
+    // Center!
     default: 0
     }
   }

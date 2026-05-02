@@ -18,8 +18,8 @@ struct Settings_PrivacyZoneFeatureTests {
     let testDate = Date(timeIntervalSinceReferenceDate: 0)
     let testUUID = UUID(0)
     
-    @Test("Initial state should use default radius from settings")
-    func initialStateUsesDefaultRadius() async {
+    @Test
+    func `Initial state should use default radius from settings`() {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: true,
         zones: [],
@@ -35,8 +35,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.canCreateZone == false)
     }
     
-    @Test("canCreateZone returns true when name and center are set")
-    func canCreateZoneWithValidData() async {
+    @Test
+    func `canCreateZone returns true when name and center are set`() {
       var state = CreateZoneFeature.State()
       state.newZoneName = "Home"
       state.mapCenter = Coordinate(latitude: 52.5200, longitude: 13.4050)
@@ -44,8 +44,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.canCreateZone == true)
     }
     
-    @Test("canCreateZone returns false when name is empty")
-    func canCreateZoneWithEmptyName() async {
+    @Test
+    func `canCreateZone returns false when name is empty`() {
       var state = CreateZoneFeature.State()
       state.newZoneName = ""
       state.mapCenter = Coordinate(latitude: 52.5200, longitude: 13.4050)
@@ -53,8 +53,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.canCreateZone == false)
     }
     
-    @Test("canCreateZone returns false when name is whitespace only")
-    func canCreateZoneWithWhitespaceOnlyName() async {
+    @Test
+    func `canCreateZone returns false when name is whitespace only`() {
       var state = CreateZoneFeature.State()
       state.newZoneName = "   \n\t  "
       state.mapCenter = Coordinate(latitude: 52.5200, longitude: 13.4050)
@@ -62,8 +62,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.canCreateZone == false)
     }
     
-    @Test("canCreateZone returns false when center is nil")
-    func canCreateZoneWithoutCenter() async {
+    @Test
+    func `canCreateZone returns false when center is nil`() {
       var state = CreateZoneFeature.State()
       state.newZoneName = "Home"
       state.mapCenter = nil
@@ -71,8 +71,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.canCreateZone == false)
     }
     
-    @Test("setMapCenter updates the map center")
-    func setMapCenter() async {
+    @Test
+    func `setMapCenter updates the map center`() async {
       let store = TestStore(
         initialState: CreateZoneFeature.State(),
         reducer: { CreateZoneFeature() }
@@ -85,8 +85,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("createZone creates and delegates new zone")
-    func createZoneSuccess() async {
+    @Test
+    func `createZone creates and delegates new zone`() async {
       let store = TestStore(
         initialState: CreateZoneFeature.State(),
         reducer: { CreateZoneFeature() },
@@ -115,8 +115,8 @@ struct Settings_PrivacyZoneFeatureTests {
       await store.receive(\.delegate.zoneCreated)
     }
     
-    @Test("createZone trims whitespace from name")
-    func createZoneTrimsWhitespace() async {
+    @Test
+    func `createZone trims whitespace from name`() async {
       let store = TestStore(
         initialState: CreateZoneFeature.State(),
         reducer: { CreateZoneFeature() },
@@ -141,8 +141,8 @@ struct Settings_PrivacyZoneFeatureTests {
       await store.receive(\.delegate.zoneCreated)
     }
     
-    @Test("createZone does nothing when canCreateZone is false")
-    func createZoneWhenInvalid() async {
+    @Test
+    func `createZone does nothing when canCreateZone is false`() async {
       let store = TestStore(
         initialState: CreateZoneFeature.State(),
         reducer: { CreateZoneFeature() }
@@ -152,8 +152,8 @@ struct Settings_PrivacyZoneFeatureTests {
       // No effects should be received
     }
     
-    @Test("dismiss action triggers dismiss dependency")
-    func dismissAction() async {
+    @Test
+    func `dismiss action triggers dismiss dependency`() async {
       let dismissCalled = LockIsolated(false)
       
       let store = TestStore(
@@ -179,8 +179,8 @@ struct Settings_PrivacyZoneFeatureTests {
   struct PrivacyZoneFeatureTests {
     let testDate = Date(timeIntervalSinceReferenceDate: 0)
     
-    @Test("shouldPresentDisabledView returns true when disabled and no zones")
-    func shouldPresentDisabledView() async {
+    @Test
+    func `shouldPresentDisabledView returns true when disabled and no zones`() {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: false,
         zones: [],
@@ -193,8 +193,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.shouldPresentDisabledView == true)
     }
     
-    @Test("shouldPresentDisabledView returns false when enabled")
-    func shouldPresentDisabledViewWhenEnabled() async {
+    @Test
+    func `shouldPresentDisabledView returns false when enabled`() {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: true,
         zones: [],
@@ -207,8 +207,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.shouldPresentDisabledView == false)
     }
     
-    @Test("shouldPresentDisabledView returns false when disabled but has zones")
-    func shouldPresentDisabledViewWithZones() async {
+    @Test
+    func `shouldPresentDisabledView returns false when disabled but has zones`() {
       let zone = PrivacyZone(
         id: UUID(),
         name: "Home",
@@ -228,8 +228,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state.shouldPresentDisabledView == false)
     }
     
-    @Test("addZoneButtonTapped presents create zone sheet")
-    func addZoneButtonTapped() async {
+    @Test
+    func `addZoneButtonTapped presents create zone sheet`() async {
       let store = TestStore(
         initialState: PrivacyZoneFeature.State(),
         reducer: { PrivacyZoneFeature() }
@@ -240,8 +240,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("selectZone updates selectedZone")
-    func selectZone() async {
+    @Test
+    func `selectZone updates selectedZone`() async {
       let store = TestStore(
         initialState: PrivacyZoneFeature.State(),
         reducer: { PrivacyZoneFeature() }
@@ -263,8 +263,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("togglePrivacyZones toggles settings enabled state")
-    func togglePrivacyZones() async {
+    @Test
+    func `togglePrivacyZones toggles settings enabled state`() async {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: false,
         zones: [],
@@ -285,8 +285,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("toggleShowZonesOnMap toggles map visibility setting")
-    func toggleShowZonesOnMap() async {
+    @Test
+    func `toggleShowZonesOnMap toggles map visibility setting`() async {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: true,
         zones: [],
@@ -308,8 +308,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("toggleZoneActive toggles zone active state")
-    func toggleZoneActive() async {
+    @Test
+    func `toggleZoneActive toggles zone active state`() async {
       let zoneId = UUID()
       let zone = PrivacyZone(
         id: zoneId,
@@ -339,8 +339,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("deleteZone presents confirmation dialog")
-    func deleteZonePresentsConfirmation() async {
+    @Test
+    func `deleteZone presents confirmation dialog`() async {
       let zone = PrivacyZone(
         id: UUID(),
         name: "Home",
@@ -359,8 +359,8 @@ struct Settings_PrivacyZoneFeatureTests {
       }
     }
     
-    @Test("confirmationDialog deleteZoneButtonTapped removes zone")
-    func deleteZoneConfirmed() async {
+    @Test
+    func `confirmationDialog deleteZoneButtonTapped removes zone`() async {
       let zoneId = UUID()
       let zone = PrivacyZone(
         id: zoneId,
@@ -403,8 +403,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(settings.zones.first?.name == "Work")
     }
         
-    @Test("destination createZoneSheet zoneCreated adds zone to settings")
-    func createZoneSheetAddsZone() async {
+    @Test
+    func `destination createZoneSheet zoneCreated adds zone to settings`() async {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: true,
         zones: [],
@@ -435,8 +435,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(settings.zones.first == newZone)
     }
     
-    @Test("State subscript isActiveID gets and sets zone active state")
-    func stateSubscriptIsActiveID() async {
+    @Test
+    func `State subscript isActiveID gets and sets zone active state`() {
       let zoneId = UUID()
       let zone = PrivacyZone(
         id: zoneId,
@@ -463,8 +463,8 @@ struct Settings_PrivacyZoneFeatureTests {
       #expect(state[isActiveID: zoneId] == false)
     }
     
-    @Test("State subscript isActiveID returns false for non-existent zone")
-    func stateSubscriptIsActiveIDNonExistentZone() async {
+    @Test
+    func `State subscript isActiveID returns false for non-existent zone`() {
       @Shared(.privacyZoneSettings) var settings = PrivacyZoneSettings(
         isEnabled: true,
         zones: [],

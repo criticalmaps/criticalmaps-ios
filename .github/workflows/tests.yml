@@ -19,12 +19,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v6
 
-    - name: Verify SwiftFormat version
-      run: |
-        echo "SwiftFormat version: $(swiftformat --version)"
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
 
-    - name: Check formatting with SwiftFormat
-      run: swiftformat --lint .
+    - name: Run pre-commit (swiftformat)
+      uses: pre-commit/action@v3.0.1
+      with:
+        extra_args: swiftformat --all-files
 
   unit_tests:
     name: Unit Tests

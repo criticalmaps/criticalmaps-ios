@@ -9,7 +9,6 @@ struct PrivacyZoneDisabledView: View {
     content
   }
   
-  @ViewBuilder
   private var content: some View {
     VStack(spacing: .grid(6)) {
       Spacer()
