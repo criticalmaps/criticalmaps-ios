@@ -81,11 +81,14 @@ struct NextRideCoreTests {
     )
   }
   
-  var rides: [Ride] { [berlin, falkensee] }
+  var rides: [Ride] {
+    [berlin, falkensee]
+  }
+
   let coordinate = Coordinate(latitude: 53.1234, longitude: 13.4233)
   
   @Test
-  func disabledNextRideFeature_shouldNotRequestRides() async throws {
+  func `disabled next ride feature should not request rides`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings(
       isEnabled: true,
       rideEvents: [],
@@ -108,7 +111,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getRides_shouldUpdateRidesInUserTimezone() async {
+  func `get rides should update rides in user timezone`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     
     let store = TestStore(
@@ -132,7 +135,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getNextRide_shouldReturnError() async {
+  func `get next ride should return error`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings(
       isEnabled: true,
       rideEvents: [],
@@ -157,7 +160,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getNextRide_shouldNotSetRide_whenRideTypeIsNotEnabled() async {
+  func `get next ride should not set ride when ride type is not enabled`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings(
       isEnabled: true,
       rideEvents: [.init(rideType: .kidicalMass, isEnabled: true)],
@@ -182,7 +185,7 @@ struct NextRideCoreTests {
   }
 
   @Test
-  func getNextRide_shouldReturnRide_whenRideTypeNil() async {
+  func `get next ride should return ride when ride type nil`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     
     let ridesWithARideWithNilRideType: [Ride] = [
@@ -231,7 +234,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getNextRide_shouldNotSetRide_whenRideTypeIsEnabledButRideIsCancelled() async {
+  func `get next ride should not set ride when ride type is enabled but ride is cancelled`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     
     let rides = [
@@ -278,7 +281,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getNextRide_returnRideFromThisMonth_whenTodayIsFriday() async {
+  func `get next ride return ride from this month when today is friday`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     
     let rides = [
@@ -324,7 +327,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getNextRide_returnRideFromThisMonth_whenTwoRidesHaveTheSameDate() async {
+  func `get next ride return ride from this month when two rides have the same date`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
@@ -381,7 +384,7 @@ struct NextRideCoreTests {
   }
 
   @Test
-  func getNextRide_returnRideFromThisMonth_whenTodayIsSaturday() async {
+  func `get next ride return ride from this month when today is saturday`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
@@ -426,7 +429,7 @@ struct NextRideCoreTests {
   }
 
   @Test
-  func getNextRide_returnRideFromThisMonth_whenTodayIsSunday() async {
+  func `get next ride return ride from this month when today is sunday`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(
@@ -471,7 +474,7 @@ struct NextRideCoreTests {
   }
   
   @Test
-  func getNextRide_returnRideFromNextMonth_whenNextWeekendIsInNextMonth() async {
+  func `get next ride return ride from next month when next weekend is in next month`() async {
     @Shared(.rideEventSettings) var rideEventSettings = RideEventSettings()
     let rides = [
       Ride(

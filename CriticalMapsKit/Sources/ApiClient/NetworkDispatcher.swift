@@ -77,11 +77,11 @@ extension HTTPURLResponse {
 }
 
 let NSURLErrorConnectionFailureCodes: [Int] = [
-  NSURLErrorCannotFindHost, /// Error Code: ` -1003`
-  NSURLErrorCannotConnectToHost, /// Error Code: ` -1004`
-  NSURLErrorNetworkConnectionLost, /// Error Code: ` -1005`
-  NSURLErrorNotConnectedToInternet, /// Error Code: ` -1009`
-  NSURLErrorSecureConnectionFailed /// Error Code: ` -1200`
+  NSURLErrorCannotFindHost, // Error Code: ` -1003`
+  NSURLErrorCannotConnectToHost, // Error Code: ` -1004`
+  NSURLErrorNetworkConnectionLost, // Error Code: ` -1005`
+  NSURLErrorNotConnectedToInternet, // Error Code: ` -1009`
+  NSURLErrorSecureConnectionFailed // Error Code: ` -1200`
 ]
 
 extension DependencyValues {

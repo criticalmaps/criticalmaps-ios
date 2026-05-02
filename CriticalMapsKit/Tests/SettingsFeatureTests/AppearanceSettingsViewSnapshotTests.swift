@@ -8,7 +8,7 @@ import Testing
 @Suite("AppearanceSettingsView 📸 Tests", .tags(.snapshot))
 struct AppearanceSettingsViewSnapshotTests {
   @Test
-  func appearanceEventSettingsView_light() throws {
+  func `appearance event settings view light`() throws {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettingsFeature.State(colorScheme: .system),
@@ -20,7 +20,7 @@ struct AppearanceSettingsViewSnapshotTests {
   }
   
   @Test
-  func appearanceEventSettingsView_disabled() throws {
+  func `appearance event settings view disabled`() throws {
     let settingsView = AppearanceSettingsView(
       store: .init(
         initialState: AppearanceSettingsFeature.State(

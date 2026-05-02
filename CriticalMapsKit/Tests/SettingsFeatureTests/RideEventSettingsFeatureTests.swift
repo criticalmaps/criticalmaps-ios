@@ -4,11 +4,10 @@ import Foundation
 import SharedModels
 import Testing
 
-@Suite
 @MainActor
 struct RideEventSettingsCoreTests {
-  @Test("Set event updates binding action should update store")
-  func setRideEventsEnabled() async {
+  @Test
+  func `Set event updates binding action should update store`() async {
     let store = TestStore(
       initialState: .init(
         settings: RideEventSettings(
@@ -31,8 +30,8 @@ struct RideEventSettingsCoreTests {
     }
   }
 
-  @Test("Set event search radius updates binding action should update store")
-  func setRideEventsRadius() async {
+  @Test
+  func `Set event search radius updates binding action should update store`() async {
     let store = TestStore(
       initialState: .init(
         settings: RideEventSettings(

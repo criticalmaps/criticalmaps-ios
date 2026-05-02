@@ -68,5 +68,7 @@ private struct TootDate: FormatStyle {
 }
 
 private extension FormatStyle where Self == TootDate {
-  static var relativeToTootDate: TootDate { TootDate() }
+  static var relativeToTootDate: TootDate {
+    TootDate()
+  }
 }

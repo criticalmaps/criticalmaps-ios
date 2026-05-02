@@ -5,11 +5,10 @@ import SharedModels
 import Testing
 import UIKit
 
-@Suite
 @MainActor
 struct AppearanceSettingsCoreTests {
-  @Test("Select AppIcon should update state")
-  func selectAppIcon_shouldUpdateState() async {
+  @Test
+  func `Select AppIcon should update state`() async {
     let overriddenIconName = LockIsolated<String?>(nil)
     let store = TestStore(
       initialState: AppearanceSettingsFeature.State(),
@@ -31,8 +30,8 @@ struct AppearanceSettingsCoreTests {
     }
   }
 
-  @Test("Set Color scheme should update state")
-  func setColorScheme() async {
+  @Test
+  func `Set Color scheme should update state`() async {
     let overriddenUserInterfaceStyle = LockIsolated(UIUserInterfaceStyle.unspecified)
 
     let store = TestStore(

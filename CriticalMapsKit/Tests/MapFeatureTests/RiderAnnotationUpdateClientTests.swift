@@ -64,7 +64,7 @@ struct RiderAnnotationUpdateClientTests {
   ]
   
   @Test
-  func mapWithNoAnnoations_shouldAddAll_andRemoveNone() {
+  func `map with no annoations should add all and remove none`() {
     let mapView = MKMapView()
     
     let updatedAnnotations = RiderAnnotationUpdateClient.update(rider, mapView)
@@ -74,7 +74,7 @@ struct RiderAnnotationUpdateClientTests {
   }
   
   @Test
-  func mapWithNoAnnoations_shouldAddSome_andRemoveNone() {
+  func `map with no annoations should add some and remove none`() {
     let mapView = MKMapView()
     let annotations = rider.map(RiderAnnotation.init(rider:))
     mapView.addAnnotations(annotations)
@@ -87,7 +87,7 @@ struct RiderAnnotationUpdateClientTests {
   }
   
   @Test
-  func mapWithNoAnnoations_shouldAdd2_andRemove2() {
+  func `map with no annoations should add 2 and remove 2`() {
     let mapView = MKMapView()
     let annotations = rider.map(RiderAnnotation.init(rider:))
     mapView.addAnnotations(annotations)
@@ -105,7 +105,7 @@ struct RiderAnnotationUpdateClientTests {
   }
   
   @Test
-  func mapWithNoAnnoations_shouldAdd1_andRemove1() {
+  func `map with no annoations should add 1 and remove 1`() {
     let mapView = MKMapView()
     let newRiders = rider + [updatedRiders[1]]
     let annotations = newRiders.map(RiderAnnotation.init(rider:))

@@ -181,11 +181,10 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       return nil
     }
     if annotation is RiderAnnotation {
-      let view = mapView.dequeueReusableAnnotationView(
+      return mapView.dequeueReusableAnnotationView(
         withIdentifier: RiderAnnotationView.reuseIdentifier,
         for: annotation
       )
-      return view
     }
 
     if annotation is CriticalMassAnnotation {

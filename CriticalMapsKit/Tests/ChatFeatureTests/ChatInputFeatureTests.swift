@@ -3,11 +3,10 @@ import ComposableArchitecture
 import Foundation
 import Testing
 
-@Suite
 @MainActor
 struct ChatInputCoreTests {
   @Test
-  func isEditingChanged_action() async throws {
+  func `is editing changed action`() async {
     let testStore = TestStore(
       initialState: ChatInput.State(
         isEditing: false,
@@ -29,7 +28,7 @@ struct ChatInputCoreTests {
   }
   
   @Test
-  func messageChanged_action() async {
+  func `message changed action`() async {
     let state = ChatInput.State(
       isEditing: false,
       message: ""

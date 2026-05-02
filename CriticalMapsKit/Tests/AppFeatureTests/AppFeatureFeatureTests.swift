@@ -13,7 +13,6 @@ import SocialFeature
 import Testing
 
 // swiftlint:disable:next type_body_length
-@Suite
 @MainActor
 struct AppFeatureTests {
   let testScheduler = DispatchQueue.test
@@ -21,7 +20,7 @@ struct AppFeatureTests {
   let date: @Sendable () -> Date = { Date(timeIntervalSinceReferenceDate: 3600) }
   
   @Test
-  func appNavigation() async {
+  func `app navigation`() async {
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() }
@@ -37,7 +36,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func dismissModal_ShouldTriggerFetchChatLocations() async {
+  func `dismiss modal should trigger fetch chat locations`() async {
     let store = TestStore(
       initialState: AppFeature.State(),
       reducer: { AppFeature() },
@@ -50,7 +49,7 @@ struct AppFeatureTests {
   }
 
   @Test
-  func animateNextRideBanner() async {
+  func `animate next ride banner`() async {
     let testClock = TestClock()
 
     let store = TestStore(
@@ -73,7 +72,7 @@ struct AppFeatureTests {
   }
 
   @Test
-  func actionSetEventsBottomSheet_setsValue_andMapFeatureRideEvents() async {
+  func `action set events bottom sheet sets value and map feature ride events`() async {
     var appState = AppFeature.State()
     let events = [
       Ride.mock1,
@@ -97,7 +96,7 @@ struct AppFeatureTests {
   }
 
   @Test
-  func actionSetEventsBottomSheet_setsValue_andSetEmptyMapFeatureRideEvents() async {
+  func `action set events bottom sheet sets value and set empty map feature ride events`() async {
     var appState = AppFeature.State()
     let events = [
       Ride.mock1,
@@ -125,7 +124,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func updatingRideEventsSettingRadius_ShouldRefetchNextRideInfo() async throws {
+  func `updating ride events setting radius should refetch next ride info`() async {
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
@@ -220,7 +219,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func mapAction_didUpdateLocations_shouldFetchNextRide() async {
+  func `map action did update locations should fetch next ride`() async {
     let testClock = TestClock()
     let store = TestStore(
       initialState: AppFeature.State(),
@@ -277,7 +276,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func mapAction_focusEvent() async throws {
+  func `map action focus event`() async {
     let state = AppFeature.State()
     let testClock = TestClock()
     
@@ -302,8 +301,8 @@ struct AppFeatureTests {
     }
   }
   
-  @Test("Full cycle triggers fetch locations")
-  func requestTimerFullCycle_fireUpFetchLocations() async {
+  @Test
+  func `Full cycle triggers fetch locations`() async {
     let state = AppFeature.State()
 
     let store = TestStore(
@@ -321,8 +320,8 @@ struct AppFeatureTests {
     await store.receive(\.fetchLocations)
   }
   
-  @Test("Full cycle triggers fetch messages when social view is open")
-  func requestTimerFullCycle_fireUpFetchMessages() async {
+  @Test
+  func `Full cycle triggers fetch messages when social view is open`() async {
     var state = AppFeature.State()
     state.destination = .social(SocialFeature.State())
 
@@ -343,7 +342,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func updatingRideEventSettingEnabled_ShouldRefetchNextRideInfo() async throws {
+  func `updating ride event setting enabled should refetch next ride info`() async {
     let testQueue = DispatchQueue.test
     
     var state = AppFeature.State()
@@ -390,7 +389,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func updatingRideEventSettingRadius_ShouldRefetchNextRideInfo() async throws {
+  func `updating ride event setting radius should refetch next ride info`() async {
     let updatedRadius = LockIsolated(0)
     let testQueue = DispatchQueue.test
     
@@ -445,7 +444,7 @@ struct AppFeatureTests {
   var cancellables: Set<AnyCancellable> = []
   
   @Test
-  mutating func viewingModePrompt() async throws {
+  mutating func `viewing mode prompt`() async {
     let testQueue = DispatchQueue.test
 
     let store = TestStore(
@@ -478,7 +477,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func postLocation_shouldNotPostLocationWhenObserverModeIsEnabled() async {
+  func `post location should not post location when observer mode is enabled`() async {
     let state = AppFeature.State()
     state.$userSettings.withLock { $0.isObservationModeEnabled = true }
     
@@ -537,8 +536,8 @@ struct AppFeatureTests {
     await store.receive(\.postLocation)
   }
 
-  @Test("Location should not be sent when it is in a privacy zone")
-  func postLocation_shouldNotPostLocationWhenInPrivacyZone() async {
+  @Test
+  func `Location should not be sent when it is in a privacy zone`() async {
     let randomCoordinate = Coordinate.make()
 
     @Shared(.userSettings) var userSettings = UserSettings()
@@ -580,7 +579,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func bindingObservationStatus_shouldStopLocationUpdating() async {
+  func `binding observation status should stop location updating`() async {
     let didStopLocationUpdating = LockIsolated(false)
     
     let store = TestStore(
@@ -613,7 +612,7 @@ struct AppFeatureTests {
   }
 
   @Test
-  func bindingObservationStatus_shouldStartLocationUpdating() async {
+  func `binding observation status should start location updating`() async {
     let didStopLocationUpdating = LockIsolated(false)
     
     let store = TestStore(
@@ -647,7 +646,7 @@ struct AppFeatureTests {
   }
   
   @Test
-  func didTapNextEventBanner() async {
+  func `did tap next event banner`() async {
     let store = TestStore(
       initialState: AppFeature.State(nextRideState: NextRideFeature.State(nextRide: Ride.mock1)),
       reducer: { AppFeature() },

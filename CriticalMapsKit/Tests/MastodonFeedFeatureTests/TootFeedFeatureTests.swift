@@ -5,13 +5,12 @@ import L10n
 import MastodonKit
 import Testing
 
-@Suite
 @MainActor
 struct TootFeedFeatureTests {
   // MARK: - Initial Load Tests
 
   @Test
-  func `Initial load fetches latest toots without lastId`() async throws {
+  func `Initial load fetches latest toots without lastId`() async {
     let receivedLastId = LockIsolated<String?>(nil)
 
     let mockToots: [MastodonKit.Status] = [
@@ -74,7 +73,7 @@ struct TootFeedFeatureTests {
   // MARK: - Refresh Tests
 
   @Test
-  func `Refresh keeps existing toots visible and fetches latest`() async throws {
+  func `Refresh keeps existing toots visible and fetches latest`() async {
     let receivedLastId = LockIsolated<String?>(nil)
 
     let existingToots = [
@@ -143,7 +142,7 @@ struct TootFeedFeatureTests {
   }
 
   @Test
-  func `Refresh does not paginate from last toot`() async throws {
+  func `Refresh does not paginate from last toot`() async {
     let callCount = LockIsolated(0)
     let receivedLastIds = LockIsolated<[String?]>([])
 
@@ -213,7 +212,7 @@ struct TootFeedFeatureTests {
   // MARK: - Pagination Tests
 
   @Test
-  func `Load next page uses lastId for pagination`() async throws {
+  func `Load next page uses lastId for pagination`() async {
     let receivedLastId = LockIsolated<String?>(nil)
 
     let existingToots = [
@@ -298,7 +297,7 @@ struct TootFeedFeatureTests {
   }
 
   @Test
-  func `Load next page sets hasMore to false when empty response`() async throws {
+  func `Load next page sets hasMore to false when empty response`() async {
     let toot = TootFeature.State(
       id: "1",
       createdAt: Date(),
@@ -331,7 +330,7 @@ struct TootFeedFeatureTests {
   // MARK: - Error Handling Tests
 
   @Test
-  func `Fetch data handles errors gracefully`() async throws {
+  func `Fetch data handles errors gracefully`() async {
     struct TestError: Error, Equatable {}
 
     let store = TestStore(
@@ -357,7 +356,7 @@ struct TootFeedFeatureTests {
   }
 
   @Test
-  func `Refresh handles errors and stops refreshing`() async throws {
+  func `Refresh handles errors and stops refreshing`() async {
     struct TestError: Error, Equatable {}
 
     let store = TestStore(

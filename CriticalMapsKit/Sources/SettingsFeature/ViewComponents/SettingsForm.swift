@@ -4,7 +4,7 @@ import SwiftUI
 // MARK: Form
 
 /// A view to unify style for form like view
-public struct SettingsForm<Content>: View where Content: View {
+public struct SettingsForm<Content: View>: View {
   let content: () -> Content
 
   public init(@ViewBuilder content: @escaping () -> Content) {
@@ -24,11 +24,7 @@ public struct SettingsForm<Content>: View where Content: View {
 // MARK: Row
 
 struct SettingsRow<Content: View>: View {
-  let content: () -> Content
-
-  init(@ViewBuilder content: @escaping () -> Content) {
-    self.content = content
-  }
+  @ViewBuilder let content: () -> Content
 
   var body: some View {
     HStack {
@@ -41,11 +37,7 @@ struct SettingsRow<Content: View>: View {
 }
 
 struct SectionHeader<Content: View>: View {
-  let content: () -> Content
-
-  init(@ViewBuilder content: @escaping () -> Content) {
-    self.content = content
-  }
+  @ViewBuilder let content: () -> Content
 
   var body: some View {
     HStack {

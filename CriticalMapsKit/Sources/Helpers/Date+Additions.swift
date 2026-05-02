@@ -10,8 +10,7 @@ public extension Date {
     _ calendar: Calendar = .current
   ) -> Int {
     let components = calendar.dateComponents([.year, .month, .day], from: date())
-    let component = components[keyPath: keyPath] ?? 0
-    return component
+    return components[keyPath: keyPath] ?? 0
   }
 
   /// - Returns: Formatted date without time components.

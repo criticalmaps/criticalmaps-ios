@@ -27,7 +27,7 @@ public struct TootFeature: Sendable {
       mediaAttachments.filter { $0.type == .image }
     }
 
-    // Build the full items array once for this render
+    /// Build the full items array once for this render
     var imageSheetItems: [ImageSheetItem] {
       imageAttachments.compactMap { attachment in
         let urlString = attachment.previewURL ?? attachment.url
@@ -95,9 +95,9 @@ public struct TootView: View {
   @Environment(\.colorScheme) private var colorScheme
   
   @State private var store: StoreOf<TootFeature>
-  // Holds all image items for the sheet
+  /// Holds all image items for the sheet
   @State private var shouldPresentImageItems = false
-  // Which index to start at in the zoomable view
+  /// Which index to start at in the zoomable view
   @State private var selectedImageStartIndex = 0
   
   public init(store: StoreOf<TootFeature>) {
@@ -310,7 +310,9 @@ struct ImageSheetItem: Identifiable, Hashable {
   let url: URL
   var description: String?
   
-  var id: URL { url }
+  var id: URL {
+    url
+  }
 }
 
 extension MastodonKit.Attachment: @retroactive @unchecked Sendable {}
