@@ -4,11 +4,10 @@ import MapFeature
 import SharedModels
 import Testing
 
-@Suite
 @MainActor
 struct UserTrackingModeCoreTests {
   @Test
-  func nextTrackingMode() async {
+  func `next tracking mode`() async {
     let store = TestStore(
       initialState: UserTrackingFeature.State(userTrackingMode: .none),
       reducer: { UserTrackingFeature() }

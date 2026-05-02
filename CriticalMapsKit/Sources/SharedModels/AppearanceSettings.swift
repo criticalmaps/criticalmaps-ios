@@ -54,5 +54,7 @@ public extension AppearanceSettings {
 }
 
 extension AppearanceSettings.ColorScheme: Sendable, Identifiable {
-  public var id: String { rawValue }
+  public var id: String {
+    rawValue
+  }
 }

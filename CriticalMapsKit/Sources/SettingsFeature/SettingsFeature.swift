@@ -33,8 +33,14 @@ public struct SettingsFeature: Sendable {
 
     public init() {}
 
-    var versionNumber: String { "\(Bundle.main.versionNumber)" }
-    var buildNumber: String { "\(Bundle.main.buildNumber)" }
+    var versionNumber: String {
+      "\(Bundle.main.versionNumber)"
+    }
+
+    var buildNumber: String {
+      "\(Bundle.main.buildNumber)"
+    }
+
     var packageList: AcknowList? {
       guard
         let url = Bundle.module.url(forResource: "Package", withExtension: "resolved"),

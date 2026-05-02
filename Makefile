@@ -14,17 +14,10 @@ check-versions: ## Check tool versions against .tool-versions
 		echo "  $$tool: $$version"; \
 	done
 	@echo ""
+	@echo "Note: swiftformat and swiftlint are pinned in .pre-commit-config.yaml"
+	@echo "and managed by pre-commit, not brew."
+	@echo ""
 	@echo "Installed versions:"
-	@if command -v swiftformat >/dev/null 2>&1; then \
-		echo "  swiftformat: $$(swiftformat --version)"; \
-	else \
-		echo "  swiftformat: ❌ not installed"; \
-	fi
-	@if command -v swiftlint >/dev/null 2>&1; then \
-		echo "  swiftlint: $$(swiftlint version)"; \
-	else \
-		echo "  swiftlint: ❌ not installed"; \
-	fi
 	@if command -v swiftgen >/dev/null 2>&1; then \
 		echo "  swiftgen: $$(swiftgen --version | grep -o 'v[0-9\.]*' | head -1 | sed 's/v//')"; \
 	else \
@@ -38,23 +31,11 @@ check-versions: ## Check tool versions against .tool-versions
 
 dependencies: ruby check-versions ## Install all development dependencies
 	@echo "📦 Installing development tools..."
-	@if ! command -v swiftformat >/dev/null 2>&1; then \
-		echo "Installing swiftformat..."; \
-		brew install swiftformat; \
-	else \
-		echo "✅ swiftformat already installed"; \
-	fi
 	@if ! command -v swiftgen >/dev/null 2>&1; then \
 		echo "Installing swiftgen..."; \
 		brew install swiftgen; \
 	else \
 		echo "✅ swiftgen already installed"; \
-	fi
-	@if ! command -v swiftlint >/dev/null 2>&1; then \
-		echo "Installing swiftlint..."; \
-		brew install swiftlint; \
-	else \
-		echo "✅ swiftlint already installed"; \
 	fi
 	@if ! command -v pre-commit >/dev/null 2>&1; then \
 		echo "Installing pre-commit..."; \
@@ -62,6 +43,8 @@ dependencies: ruby check-versions ## Install all development dependencies
 	else \
 		echo "✅ pre-commit already installed"; \
 	fi
+	@echo "Building swiftformat / swiftlint via pre-commit (first run only)..."
+	@pre-commit install-hooks
 
 ruby: ## Install Ruby dependencies (bundler, fastlane)
 	@echo "💎 Setting up Ruby environment..."
@@ -78,23 +61,14 @@ assets: ## Generate type-safe assets with SwiftGen
 	@echo "🎨 Generating type-safe assets..."
 	@swiftgen
 
-lint: ## Run SwiftLint with auto-fix
+lint: ## Run SwiftLint with auto-fix via pre-commit
 	@echo "🔍 Running SwiftLint..."
-	@if command -v swiftlint >/dev/null 2>&1; then \
-		swiftlint --fix && swiftlint; \
-	else \
-		echo "❌ SwiftLint not installed. Run 'make dependencies' first."; \
-		exit 1; \
-	fi
+	@pre-commit run swiftlint-fix --all-files || true
+	@pre-commit run swiftlint --all-files
 
-format: ## Format Swift code with SwiftFormat
+format: ## Format Swift code with SwiftFormat via pre-commit
 	@echo "✨ Formatting Swift code..."
-	@if command -v swiftformat >/dev/null 2>&1; then \
-		swiftformat .; \
-	else \
-		echo "❌ SwiftFormat not installed. Run 'make dependencies' first."; \
-		exit 1; \
-	fi
+	@pre-commit run swiftformat --all-files
 
 tests: ## Run all tests via Fastlane
 	@echo "🧪 Running tests..."

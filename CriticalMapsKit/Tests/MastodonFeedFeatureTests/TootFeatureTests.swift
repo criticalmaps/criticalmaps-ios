@@ -4,7 +4,6 @@ import MastodonFeedFeature
 import MastodonKit
 import Testing
 
-@Suite
 @MainActor
 struct TootFeatureTests {
   let status = TootFeature.State(
@@ -18,8 +17,8 @@ struct TootFeatureTests {
     content: HTMLString(stringValue: "")
   )
   
-  @Test("Open toot should open Mastodon URL")
-  func openToot() async throws {
+  @Test
+  func `Open toot should open Mastodon URL`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -40,8 +39,8 @@ struct TootFeatureTests {
     }
   }
   
-  @Test("Open user should open user Mastodon URL")
-  func openUser() async throws {
+  @Test
+  func `Open user should open user Mastodon URL`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(

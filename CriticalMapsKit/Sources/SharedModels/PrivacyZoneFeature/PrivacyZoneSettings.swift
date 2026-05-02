@@ -7,7 +7,9 @@ public struct PrivacyZoneSettings: Codable, Equatable, Sendable {
   public var defaultRadius: Double
   public var shouldShowZonesOnMap: Bool
   
-  public var canShowOnMap: Bool { shouldShowZonesOnMap && isEnabled }
+  public var canShowOnMap: Bool {
+    shouldShowZonesOnMap && isEnabled
+  }
   
   public init(
     isEnabled: Bool = false,

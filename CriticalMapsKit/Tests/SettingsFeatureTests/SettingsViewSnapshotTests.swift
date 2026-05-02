@@ -10,7 +10,7 @@ import Testing
 @Suite("SettingsView 📸 Tests", .tags(.snapshot))
 struct SettingsViewSnapshotTests {
   @Test
-  func settingsView_light() throws {
+  func `settings view light`() throws {
     let settingsView = SettingsView(
       store: StoreOf<SettingsFeature>(
         initialState: SettingsFeature.State(),

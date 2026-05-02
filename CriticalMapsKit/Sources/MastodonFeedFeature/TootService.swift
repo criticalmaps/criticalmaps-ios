@@ -30,7 +30,7 @@ extension TootService: DependencyKey {
   )
 }
 
-// Mocks and failing used for previews and tests
+/// Mocks and failing used for previews and tests
 extension TootService: TestDependencyKey {
   public static let previewValue = Self(
     getToots: { _ in [] }

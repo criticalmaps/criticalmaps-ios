@@ -4,11 +4,10 @@ import SettingsFeature
 import SharedModels
 import Testing
 
-@Suite
 @MainActor
 struct SettingsFeatureCoreTests {
   @Test
-  func openURLAction_shouldCallUIApplicationClient_privacy() async {
+  func `open URL action should call UI application client privacy`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -31,7 +30,7 @@ struct SettingsFeatureCoreTests {
   }
   
   @Test
-  func openURLAction_shouldCallUIApplicationClient_cmWebsite() async {
+  func `open URL action should call UI application client cm website`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -54,7 +53,7 @@ struct SettingsFeatureCoreTests {
   }
   
   @Test
-  func openURLAction_shouldCallUIApplicationClient_cmMastodon() async {
+  func `open URL action should call UI application client cm mastodon`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -77,7 +76,7 @@ struct SettingsFeatureCoreTests {
   }
   
   @Test
-  func openURLAction_shouldCallUIApplicationClient_github() async {
+  func `open URL action should call UI application client github`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -100,7 +99,7 @@ struct SettingsFeatureCoreTests {
   }
   
   @Test
-  func openURLAction_shouldCallUIApplicationClient_crowdin() async {
+  func `open URL action should call UI application client crowdin`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -123,7 +122,7 @@ struct SettingsFeatureCoreTests {
   }
   
   @Test
-  func openURLAction_shouldCallUIApplicationClient_criticalMassDotIn() async {
+  func `open URL action should call UI application client critical mass dot in`() async {
     let openedUrl = LockIsolated<URL?>(nil)
     
     let store = TestStore(
@@ -146,7 +145,7 @@ struct SettingsFeatureCoreTests {
   }
   
   @Test
-  func didSaveUserSettings_onSettingsChange() async throws {
+  func `did save user settings on settings change`() async {
     @Shared(.userSettings)
     var userSettings = UserSettings(enableObservationMode: false)
     

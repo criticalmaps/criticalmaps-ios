@@ -8,7 +8,7 @@ import Testing
 @MainActor
 struct ChatViewStateTests {
   @Test
-  func createChatViewState_shouldSortMessagesByDate() {
+  func `create chat view state should sort messages by date`() {
     // arrange
     let chatFeatureState = ChatFeature.State(
       chatMessages: .results([

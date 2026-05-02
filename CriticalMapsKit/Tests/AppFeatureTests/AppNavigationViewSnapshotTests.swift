@@ -8,7 +8,7 @@ import Testing
 @Suite("AppNavigationView 📸 Tests", .tags(.snapshot))
 struct AppNavigationViewSnapshotTests {
   @Test
-  func appNavigationView() throws {
+  func `app navigation view`() throws {
     let view = AppNavigationView(
       store: .init(
         initialState: AppFeature.State(),
@@ -20,7 +20,7 @@ struct AppNavigationViewSnapshotTests {
   }
     
   @Test
-  func appNavigationView_WithBadge() throws {
+  func `app navigation view with badge`() throws {
     var appState = AppFeature.State()
     appState.chatMessageBadgeCount = 13
     

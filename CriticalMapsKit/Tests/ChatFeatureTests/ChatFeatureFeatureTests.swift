@@ -12,7 +12,6 @@ struct TestError: Equatable, Error {
   let message = "ERROR"
 }
 
-@Suite
 @MainActor
 struct ChatFeatureCore {
   let uuid = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
@@ -21,7 +20,7 @@ struct ChatFeatureCore {
   func defaultTestStore(
     with state: ContentState<[ChatMessage]> = .results([])
   ) -> TestStoreOf<ChatFeature> {
-    let testStore = TestStore(
+    TestStore(
       initialState: ChatFeature.State(
         chatMessages: state,
         chatInputState: .init(
@@ -35,12 +34,10 @@ struct ChatFeatureCore {
       $0.date = .constant(date)
       $0.idProvider = .noop
     }
-    
-    return testStore
   }
   
   @Test
-  func `chat input action should trigger network call with success response`() async throws {
+  func `chat input action should trigger network call with success response`() async {
     let testStore = defaultTestStore()
     testStore.dependencies.apiService.postChatMessage = { _ in ApiResponse(status: "ok") }
     testStore.dependencies.apiService.getChatMessages = { mockResponse }
@@ -83,7 +80,7 @@ struct ChatFeatureCore {
       state.chatInputState.message = ""
     }
     await testStore.receive(\.fetchChatMessages)
-    #expect(testStore.state.chatMessages.elements!.isEmpty == false)
+    #expect(testStore.state.chatMessages.elements?.isEmpty == false)
     await testStore.receive(\.fetchChatMessagesResponse.success, mockResponse) {
       $0.chatMessages = .results(mockResponse)
     }
@@ -131,7 +128,7 @@ struct ChatFeatureCore {
   }
   
   @Test
-  func chatViewState() {
+  func `chat view state`() {
     let state = ChatFeature.State(
       chatMessages: .results(mockResponse),
       chatInputState: .init()

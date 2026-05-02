@@ -2,11 +2,10 @@ import ComposableArchitecture
 import SocialFeature
 import Testing
 
-@Suite
 @MainActor
 struct SocialFeatureCoreTests {
-  @Test("Set social segment should update state")
-  func setSocialSegment() async throws {
+  @Test
+  func `Set social segment should update state`() async {
     let testStore = TestStore(
       initialState: SocialFeature.State(),
       reducer: { SocialFeature() }

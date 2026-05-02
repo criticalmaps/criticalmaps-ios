@@ -64,7 +64,6 @@ struct ZoneRow: View {
     .opacity(zone.isActive ? 1.0 : 0.7)
   }
   
-  @ViewBuilder
   private func icon() -> some View {
     zone.isActive
       ? Asset.pzLocationShield.swiftUIImage

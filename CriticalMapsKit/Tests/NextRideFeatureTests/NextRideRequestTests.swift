@@ -34,7 +34,7 @@ struct NextRideReqeustTests {
   }
   
   @Test
-  func constructor_withCurrentDate() throws {
+  func `constructor with current date`() throws {
     let coordinate = Coordinate(latitude: 13.13, longitude: 14.14)
     let radius = 20
     let year = Date.getCurrent(\.year)
