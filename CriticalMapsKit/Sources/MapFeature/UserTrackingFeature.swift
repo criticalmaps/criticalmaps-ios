@@ -20,20 +20,22 @@ public struct UserTrackingFeature: Sendable {
   }
 
   /// Reducer handling tracking mode button state changes
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case .nextTrackingMode:
-      switch state.mode {
-      case .follow:
-        state.mode = .followWithHeading
-      case .followWithHeading:
-        state.mode = .none
-      case .none:
-        state.mode = .follow
-      @unknown default:
-        fatalError()
+  public var body: some ReducerOf<Self> {
+    Reduce { state, action in
+      switch action {
+      case .nextTrackingMode:
+        switch state.mode {
+        case .follow:
+          state.mode = .followWithHeading
+        case .followWithHeading:
+          state.mode = .none
+        case .none:
+          state.mode = .follow
+        @unknown default:
+          fatalError()
+        }
+        return .none
       }
-      return .none
     }
   }
 }

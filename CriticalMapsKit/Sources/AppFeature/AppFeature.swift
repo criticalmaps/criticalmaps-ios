@@ -124,18 +124,21 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   // MARK: Reducer
   
   @Dependency(\.apiService) var apiService
-  @Dependency(\.uuid) var uuid
-  @Dependency(\.date) var date
-  @Dependency(\.nextRideService) var nextRideService
-  @Dependency(\.idProvider) var idProvider
-  @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.continuousClock) var clock
-  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.date) var date
   @Dependency(\.feedbackGenerator) var feedbackGenerator
+  @Dependency(\.idProvider) var idProvider
+  @Dependency(\.locationManager) var locationManager
+  @Dependency(\.mainQueue) var mainQueue
+  @Dependency(\.nextRideService) var nextRideService
   @Dependency(\.uiApplicationClient) var uiApplicationClient
+  @Dependency(\.uuid) var uuid
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
+      .onChange(of: \.rideEventSettings.rideEvents) { _, state in
+        sendGetNextRideAction(state: &state)
+      }
     
     Scope(state: \.requestTimer, action: \.requestTimer) {
       RequestTimer()
@@ -408,21 +411,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
       case let .destination(.presented(.settings(settingsAction))):
         switch settingsAction {
         case .destination(.presented(.rideEventSettings)):
-          guard
-            let coordinate = state.mapFeatureState.location?.coordinate,
-            state.rideEventSettings.isEnabled
-          else {
-            return .none
-          }
-          enum RideEventCancelID {
-            case settingsChange
-          }
-          return .send(.nextRide(.getNextRide(coordinate)))
-            .debounce(
-              id: RideEventCancelID.settingsChange,
-              for: 2,
-              scheduler: mainQueue
-            )
+          return sendGetNextRideAction(state: &state)
           
         default:
           return .none
@@ -434,23 +423,6 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         
       case .destination:
         return .none
-        
-      case .binding(\.rideEventSettings.rideEvents):
-        guard
-          let coordinate = state.mapFeatureState.location?.coordinate,
-          state.rideEventSettings.isEnabled
-        else {
-          return .none
-        }
-        enum RideEventCancelID {
-          case settingsChange
-        }
-        return .send(.nextRide(.getNextRide(coordinate)))
-          .debounce(
-            id: RideEventCancelID.settingsChange,
-            for: 2,
-            scheduler: mainQueue
-          )
         
       case .didTapNextRideOverlayButton:
         state.isEventListPresented.toggle()
@@ -483,6 +455,27 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         return .none
       }
     }
+  }
+}
+
+private extension AppFeature {
+  func sendGetNextRideAction(state: inout State) -> Effect<Action> {
+    enum RideEventCancelID {
+      case settingsChange
+    }
+		
+    guard
+      let coordinate = state.mapFeatureState.location?.coordinate,
+      state.rideEventSettings.isEnabled
+    else {
+      return .none
+    }
+				
+    return .run { send in
+      try await clock.sleep(for: .seconds(2))
+      await send(.nextRide(.getNextRide(coordinate)))
+    }
+    .cancellable(id: RideEventCancelID.settingsChange, cancelInFlight: true)
   }
 }
 

@@ -66,19 +66,21 @@ public struct TootFeature: Sendable {
   
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case .openTweet:
-      guard let tootURL = URL(string: state.uri) else {
-        return .none
-      }
-      return openURL(tootURL)
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .openTweet:
+        guard let tootURL = URL(string: state.uri) else {
+          return .none
+        }
+        return openURL(tootURL)
       
-    case .openUser:
-      guard let accountURL = URL(string: state.accountURL) else {
-        return .none
+      case .openUser:
+        guard let accountURL = URL(string: state.accountURL) else {
+          return .none
+        }
+        return openURL(accountURL)
       }
-      return openURL(accountURL)
     }
   }
   
