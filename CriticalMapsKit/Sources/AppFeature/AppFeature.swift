@@ -149,7 +149,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
       NextRideFeature()
     }
     
-    /// Holds the logic for the AppFeature to update state and execute side effects
+    // Holds the logic for the AppFeature to update state and execute side effects
     Reduce { state, action in
       switch action {
       case let .onRideSelectedFromBottomSheet(ride):

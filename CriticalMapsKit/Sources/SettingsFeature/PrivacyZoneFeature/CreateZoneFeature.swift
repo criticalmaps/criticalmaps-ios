@@ -141,7 +141,6 @@ public struct CreatePrivacyZoneView: View {
     }
   }
   
-  @ViewBuilder
   private var mapSection: some View {
     VStack(alignment: .leading, spacing: .grid(3)) {
       Text(L10n.PrivacyZone.Settings.Create.Map.headline)
@@ -177,7 +176,6 @@ public struct CreatePrivacyZoneView: View {
     }
   }
   
-  @ViewBuilder
   private var detailsSection: some View {
     VStack(alignment: .leading, spacing: .grid(5)) {
       VStack(alignment: .leading, spacing: .grid(3)) {

@@ -193,7 +193,6 @@ public struct PrivacyZoneSettingsView: View {
     }
   }
 
-  @ViewBuilder
   private var settingsSection: some View {
     SettingsForm {
       Section {
