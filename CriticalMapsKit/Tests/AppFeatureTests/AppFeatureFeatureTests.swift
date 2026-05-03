@@ -181,7 +181,7 @@ struct AppFeatureTests {
       coordinate: .init(latitude: 11, longitude: 21),
       timestamp: 2
     )
-    var locationManager: LocationManager = .failing
+    var locationManager: LocationManager = .testValue
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
