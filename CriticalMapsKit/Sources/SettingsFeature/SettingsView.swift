@@ -137,7 +137,7 @@ private struct ObservationModeRow: View {
       }
       Spacer()
       Toggle(
-        isOn: $store.userSettings.isObservationModeEnabled,
+        isOn: Binding(store.$userSettings.isObservationModeEnabled),
         label: { EmptyView() }
       )
       .labelsHidden()
@@ -170,7 +170,7 @@ private struct InfoRow: View {
       }
       Spacer()
       Toggle(
-        isOn: $store.userSettings.showInfoViewEnabled,
+        isOn: Binding(store.$userSettings.showInfoViewEnabled),
         label: { EmptyView() }
       )
       .labelsHidden()

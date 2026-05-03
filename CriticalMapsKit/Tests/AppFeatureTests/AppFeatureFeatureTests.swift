@@ -597,7 +597,7 @@ struct AppFeatureTests {
       .destination(
         .presented(
           .settings(
-            .binding(.set(\.userSettings.isObservationModeEnabled, true))
+            .view(.observationModeChanged(true))
           )
         )
       )
@@ -630,7 +630,7 @@ struct AppFeatureTests {
       .destination(
         .presented(
           .settings(
-            .binding(.set(\.userSettings.isObservationModeEnabled, true))
+            .view(.observationModeChanged(true))
           )
         )
       )
