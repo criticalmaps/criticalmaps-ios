@@ -69,6 +69,7 @@ public struct SettingsFeature: Sendable {
       case onAppear
       case rideEventSettingsRowTapped
       case privacyZonesRowTapped
+      case observationModeChanged(Bool)
       case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
       case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
     }
@@ -83,25 +84,32 @@ public struct SettingsFeature: Sendable {
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
-      .onChange(of: \.userSettings.isObservationModeEnabled) { _, state in
-        let isObserving = state.userSettings.isObservationModeEnabled
-        if isObserving {
-          locationManager.stopUpdatingLocation()
-        } else {
-          locationManager.startUpdatingLocation()
-        }
-        return .none
-      }
 
     Reduce { state, action in
       switch action {
       case let .view(viewAction):
         switch viewAction {
         case .onAppear:
-          return .none
-
+          return .publisher {
+            state.$userSettings.publisher
+              .map(\.isObservationModeEnabled)
+              .removeDuplicates()
+              .map { .view(.observationModeChanged($0)) }
+          }
+					
         case .dismiss:
           return .run { _ in await dismiss() }
+					
+        case let .observationModeChanged(isObserving):
+          guard isObserving != state.userSettings.isObservationModeEnabled else {
+            return .none
+          }
+          if isObserving {
+            locationManager.stopUpdatingLocation()
+          } else {
+            locationManager.startUpdatingLocation()
+          }
+          return .none
 
         case .acknowledgementsRowTapped:
           state.destination = .acknowledgements

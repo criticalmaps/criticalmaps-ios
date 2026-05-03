@@ -198,13 +198,13 @@ public struct PrivacyZoneSettingsView: View {
       Section {
         Toggle(
           L10n.PrivacyZone.Settings.Toggle.enableFeature,
-          isOn: $store.settings.isEnabled
+          isOn: Binding(store.$settings.isEnabled)
         )
         .font(.body)
         
         Toggle(
           L10n.PrivacyZone.Settings.Toggle.showZonesOnMap,
-          isOn: $store.settings.shouldShowZonesOnMap
+          isOn: Binding(store.$settings.shouldShowZonesOnMap)
         )
         .font(.body)
         .disabled(!store.settings.isEnabled)

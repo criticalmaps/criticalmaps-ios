@@ -597,13 +597,11 @@ struct AppFeatureTests {
       .destination(
         .presented(
           .settings(
-            .binding(.set(\.userSettings.isObservationModeEnabled, true))
+            .view(.observationModeChanged(true))
           )
         )
       )
-    ) {
-      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
-    }
+    )
     // assert
     let didStopLocationObservationValue = didStopLocationUpdating.value
     #expect(didStopLocationObservationValue)
@@ -630,13 +628,11 @@ struct AppFeatureTests {
       .destination(
         .presented(
           .settings(
-            .binding(.set(\.userSettings.isObservationModeEnabled, true))
+            .view(.observationModeChanged(true))
           )
         )
       )
-    ) {
-      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
-    }
+    )
 
     // assert
     let didStopLocationObservationValue = didStopLocationUpdating.value

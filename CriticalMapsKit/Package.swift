@@ -30,10 +30,6 @@ let package = Package(
       branch: "tca-migration"
     ),
     .package(
-      url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
-      .upToNextMajor(from: "1.8.2")
-    ),
-    .package(
       url: "https://github.com/mltbnz/AcknowList",
       branch: "main"
     ),
@@ -224,12 +220,6 @@ let package = Package(
       dependencies: []
     ),
     .target(
-      name: "TestHelper",
-      dependencies: [
-        .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
-      ]
-    ),
-    .target(
       name: "UIApplicationClient",
       dependencies: [
         .tca
@@ -246,23 +236,15 @@ package.targets.append(contentsOf: [
     dependencies: [
       "AppFeature",
       .pathMonitorClient,
-      .testHelper,
       .tca
-    ],
-    exclude: [
-      "__Snapshots__"
     ]
   ),
   .testTarget(
     name: "ChatFeatureTests",
     dependencies: [
       "ChatFeature",
-      .testHelper,
       .sharedModels,
       .tca
-    ],
-    exclude: [
-      "__Snapshots__"
     ]
   ),
   .testTarget(
@@ -280,7 +262,6 @@ package.targets.append(contentsOf: [
     name: "MapFeatureTests",
     dependencies: [
       "MapFeature",
-      .testHelper,
       .tca
     ]
   ),
@@ -296,18 +277,8 @@ package.targets.append(contentsOf: [
     name: "SocialFeatureTests",
     dependencies: [
       "SocialFeature",
-      .testHelper,
       .tca
     ]
-  ),
-  .testTarget(
-    name: "StyleguideTests",
-    dependencies: [
-      .styleguide,
-      .testHelper,
-      .tca
-    ],
-    exclude: ["__Snapshots__"]
   ),
   .testTarget(
     name: "SettingsFeatureTests",
@@ -315,17 +286,14 @@ package.targets.append(contentsOf: [
       .helpers,
       .l10n,
       "SettingsFeature",
-      .testHelper,
       .tca
-    ],
-    exclude: ["__Snapshots__"]
+    ]
   ),
   .testTarget(
     name: "MastodonFeedFeatureTests",
     dependencies: [
       .helpers,
       "MastodonFeedFeature",
-      .testHelper,
       .tca,
       .product(name: "MastodonKit", package: "MastodonKit")
     ]
@@ -345,7 +313,6 @@ extension Target.Dependency {
   static let sharedModels = byName(name: "SharedModels")
   static let styleguide = byName(name: "Styleguide")
   static let swiftUIHelpers = byName(name: "SwiftUIHelpers")
-  static let testHelper = byName(name: "TestHelper")
   static let uiApplicationClient = byName(name: "UIApplicationClient")
 
   // MARK: - External
