@@ -83,16 +83,14 @@ public struct SettingsFeature: Sendable {
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
-      .onChange(of: \.userSettings.isObservationModeEnabled) { _, newValue in
-        Reduce { _, _ in
-          .run { [isObserving = newValue] _ in
-            if isObserving {
-              await locationManager.stopUpdatingLocation()
-            } else {
-              await locationManager.startUpdatingLocation()
-            }
-          }
+      .onChange(of: \.userSettings.isObservationModeEnabled) { _, state in
+        let isObserving = state.userSettings.isObservationModeEnabled
+        if isObserving {
+          locationManager.stopUpdatingLocation()
+        } else {
+          locationManager.startUpdatingLocation()
         }
+        return .none
       }
 
     Reduce { state, action in

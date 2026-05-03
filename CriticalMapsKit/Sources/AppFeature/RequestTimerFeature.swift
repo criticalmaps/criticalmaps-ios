@@ -34,31 +34,33 @@ public struct RequestTimer: Sendable {
   /// Reducer responsible for the poll timer handling.
   /// Fires specific actions at 30s (halfwayPoint) and 60s (fullCycle) intervals.
   /// Visual countdown is handled in the View layer to avoid unnecessary reducer calls.
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case .halfwayPoint, .fullCycle:
-      // Reset cycle start time for the next cycle
-      if action == .fullCycle {
-        state.cycleStartTime = now
-      }
-      return .none
-
-    case .startTimer:
-      state.isTimerActive = true
-      state.cycleStartTime = now
-
-      return .run { send in
-        while true {
-          // Sleep for 30 seconds
-          try await clock.sleep(for: .seconds(30))
-          await send(.halfwayPoint)
-
-          // Sleep for another 30 seconds
-          try await clock.sleep(for: .seconds(30))
-          await send(.fullCycle)
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .halfwayPoint, .fullCycle:
+        // Reset cycle start time for the next cycle
+        if action == .fullCycle {
+          state.cycleStartTime = now
         }
+        return .none
+
+      case .startTimer:
+        state.isTimerActive = true
+        state.cycleStartTime = now
+
+        return .run { send in
+          while true {
+            // Sleep for 30 seconds
+            try await clock.sleep(for: .seconds(30))
+            await send(.halfwayPoint)
+
+            // Sleep for another 30 seconds
+            try await clock.sleep(for: .seconds(30))
+            await send(.fullCycle)
+          }
+        }
+        .cancellable(id: CancelID.timer, cancelInFlight: true)
       }
-      .cancellable(id: CancelID.timer, cancelInFlight: true)
     }
   }
 }

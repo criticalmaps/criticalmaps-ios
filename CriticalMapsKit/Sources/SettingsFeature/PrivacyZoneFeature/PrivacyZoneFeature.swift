@@ -98,7 +98,7 @@ public struct PrivacyZoneFeature: Sendable {
         guard let deleteCandidate = state.zoneDeletionCandidate else {
           return .none
         }
-        state.$settings.withLock { settings in
+        _ = state.$settings.withLock { settings in
           settings.zones.remove(id: deleteCandidate.id)
         }
         state.zoneDeletionCandidate = nil
@@ -109,7 +109,7 @@ public struct PrivacyZoneFeature: Sendable {
         return .none
         
       case let .destination(.presented(.createZoneSheet(.delegate(.zoneCreated(zone))))):
-        state.$settings.withLock { settings in
+        _ = state.$settings.withLock { settings in
           settings.zones.append(zone)
         }
         return .none

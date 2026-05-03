@@ -42,89 +42,91 @@ public struct NextRideFeature: Sendable {
   @Dependency(\.coordinateObfuscator) private var coordinateObfuscator
   @Dependency(\.calendar) private var calendar
 
-  public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-    switch action {
-    case let .getNextRide(coordinate):
-      guard state.rideEventSettings.isEnabled else {
-        Logger.reducer.debug("NextRide feature is disabled")
-        return .none
-      }
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case let .getNextRide(coordinate):
+        guard state.rideEventSettings.isEnabled else {
+          Logger.reducer.debug("NextRide feature is disabled")
+          return .none
+        }
 
-      let obfuscatedCoordinate = coordinateObfuscator.obfuscate(
-        coordinate,
-        .thirdDecimal
-      )
-
-      let requestRidesInMonth: Int = queryMonth(for: date.callAsFunction)
-
-      return .run { [distance = state.rideEventSettings.eventDistance] send in
-        await send(
-          .nextRideResponse(
-            Result {
-              try await service.nextRide(
-                obfuscatedCoordinate,
-                distance.rawValue,
-                requestRidesInMonth
-              )
-            }
-          )
+        let obfuscatedCoordinate = coordinateObfuscator.obfuscate(
+          coordinate,
+          .thirdDecimal
         )
-      }
 
-    case let .nextRideResponse(.failure(error)):
-      Logger.reducer.error("Get next ride failed 🛑 with error: \(error)")
-      return .none
+        let requestRidesInMonth: Int = queryMonth(for: date.callAsFunction)
 
-    case let .nextRideResponse(.success(rides)):
-      guard !rides.isEmpty else {
-        Logger.reducer.debug("Rides array is empty")
-        return .none
-      }
-      guard !rides.map(\.rideType).isEmpty else {
-        Logger.reducer.info("No upcoming events for filter selection rideType")
-        return .none
-      }
-      let typeSettings = state.rideEventSettings.rideEvents
-      state.rideEvents = rides.sortByDateAndFilterBeforeDate(date.callAsFunction)
-
-      // Sort rides by date and pick the first one with a date greater than now
-      let ride = rides
-        .lazy
-        .filter {
-          guard let type = $0.rideType else { return true }
-          return typeSettings.contains(where: { $0.rideType == type })
+        return .run { [distance = state.rideEventSettings.eventDistance] send in
+          await send(
+            .nextRideResponse(
+              Result {
+                try await service.nextRide(
+                  obfuscatedCoordinate,
+                  distance.rawValue,
+                  requestRidesInMonth
+                )
+              }
+            )
+          )
         }
-        .filter(\.enabled)
-        .sorted { lhs, rhs in
-          let byDate = lhs.dateTime < rhs.dateTime
 
-          guard
-            let userLocation = state.userLocation,
-            let lhsCoordinate = lhs.coordinate,
-            let rhsCoordinate = rhs.coordinate
-          else {
-            return byDate
-          }
+      case let .nextRideResponse(.failure(error)):
+        Logger.reducer.error("Get next ride failed 🛑 with error: \(error)")
+        return .none
 
-          if calendar.isDate(lhs.dateTime, inSameDayAs: rhs.dateTime) {
-            return lhsCoordinate.distance(from: userLocation) < rhsCoordinate.distance(from: userLocation)
-          } else {
-            return byDate
-          }
+      case let .nextRideResponse(.success(rides)):
+        guard !rides.isEmpty else {
+          Logger.reducer.debug("Rides array is empty")
+          return .none
         }
-        .first { ride in ride.dateTime > date() }
+        guard !rides.map(\.rideType).isEmpty else {
+          Logger.reducer.info("No upcoming events for filter selection rideType")
+          return .none
+        }
+        let typeSettings = state.rideEventSettings.rideEvents
+        state.rideEvents = rides.sortByDateAndFilterBeforeDate(date.callAsFunction)
 
-      guard let filteredRide = ride else {
-        Logger.reducer.info("No upcoming events after filter")
+        // Sort rides by date and pick the first one with a date greater than now
+        let ride = rides
+          .lazy
+          .filter {
+            guard let type = $0.rideType else { return true }
+            return typeSettings.contains(where: { $0.rideType == type })
+          }
+          .filter(\.enabled)
+          .sorted { lhs, rhs in
+            let byDate = lhs.dateTime < rhs.dateTime
+
+            guard
+              let userLocation = state.userLocation,
+              let lhsCoordinate = lhs.coordinate,
+              let rhsCoordinate = rhs.coordinate
+            else {
+              return byDate
+            }
+
+            if calendar.isDate(lhs.dateTime, inSameDayAs: rhs.dateTime) {
+              return lhsCoordinate.distance(from: userLocation) < rhsCoordinate.distance(from: userLocation)
+            } else {
+              return byDate
+            }
+          }
+          .first { ride in ride.dateTime > date() }
+
+        guard let filteredRide = ride else {
+          Logger.reducer.info("No upcoming events after filter")
+          return .none
+        }
+        return .run { send in
+          await send(.setNextRide(filteredRide))
+        }
+
+      case let .setNextRide(ride):
+        state.nextRide = ride
         return .none
       }
-      return .run { send in
-        await send(.setNextRide(filteredRide))
-      }
-
-    case let .setNextRide(ride):
-      state.nextRide = ride
-      return .none
     }
   }
 }

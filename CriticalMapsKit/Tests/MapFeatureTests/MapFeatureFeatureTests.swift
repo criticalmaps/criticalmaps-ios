@@ -16,7 +16,7 @@ struct MapFeatureCoreTests {
     let didRequestLocation = LockIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager = LocationManager.failing
+    var locationManager = LocationManager.testValue
     locationManager.set = { @Sendable _ in }
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
@@ -36,9 +36,11 @@ struct MapFeatureCoreTests {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: { MapFeature() }
+      reducer: { MapFeature() },
+      withDependencies: {
+        $0.locationManager = locationManager
+      }
     )
-    store.dependencies.locationManager = locationManager
     
     store.exhaustivity = .off
     
@@ -85,7 +87,7 @@ struct MapFeatureCoreTests {
   func `disabled location service should set alert`() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
+    var locationManager: LocationManager = .testValue
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .denied }
     locationManager.locationServicesEnabled = { false }
@@ -119,7 +121,7 @@ struct MapFeatureCoreTests {
     let didRequestAlwaysAuthorization = LockIsolated(false)
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
+    var locationManager: LocationManager = .testValue
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
     locationManager.locationServicesEnabled = { true }
@@ -239,7 +241,7 @@ struct MapFeatureCoreTests {
   func `info banner appearance`() async {
     let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
     
-    var locationManager: LocationManager = .failing
+    var locationManager: LocationManager = .testValue
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .authorizedAlways }
     locationManager.locationServicesEnabled = { true }

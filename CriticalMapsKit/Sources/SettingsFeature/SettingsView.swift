@@ -149,7 +149,8 @@ private struct ObservationModeRow: View {
         : Text(L10n.A11y.General.off)
     )
     .accessibilityAction {
-      store.userSettings.isObservationModeEnabled.toggle()
+      @Shared(.userSettings) var userSettings
+      $userSettings.withLock { $0.isObservationModeEnabled.toggle() }
     }
   }
 }
@@ -181,7 +182,8 @@ private struct InfoRow: View {
         : Text(L10n.A11y.General.off)
     )
     .accessibilityAction {
-      store.userSettings.showInfoViewEnabled.toggle()
+      @Shared(.userSettings) var userSettings
+      $userSettings.withLock { $0.showInfoViewEnabled.toggle() }
     }
   }
 }
