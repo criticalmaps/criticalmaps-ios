@@ -166,9 +166,7 @@ struct SettingsFeatureCoreTests {
     )
 
     // act
-    await store.send(.view(.observationModeChanged(true))) {
-      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
-    }
+    await store.send(.view(.observationModeChanged(true)))
 
     // assert
     await testClock.advance(by: .seconds(2))

@@ -20,7 +20,7 @@ public struct SettingsView: View {
   public var body: some View {
     SettingsForm {
       Section {
-        ObservationModeRow(store: store)
+        ObservationModeRow()
 
         Button(
           action: { store.send(.view(.privacyZonesRowTapped)) },
@@ -37,7 +37,7 @@ public struct SettingsView: View {
       }
 
       Section {
-        InfoRow(store: store)
+        InfoRow()
 
         Button(
           action: { store.send(.view(.rideEventSettingsRowTapped)) },
@@ -124,7 +124,7 @@ public struct SettingsView: View {
 
 private struct ObservationModeRow: View {
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-  @Bindable var store: StoreOf<SettingsFeature>
+  @Shared(.userSettings) var userSettings
 
   var body: some View {
     HStack(alignment: .top) {
@@ -137,19 +137,18 @@ private struct ObservationModeRow: View {
       }
       Spacer()
       Toggle(
-        isOn: Binding(store.$userSettings.isObservationModeEnabled),
+        isOn: Binding($userSettings.isObservationModeEnabled),
         label: { EmptyView() }
       )
       .labelsHidden()
     }
     .accessibilityElement(children: .combine)
     .accessibilityValue(
-      store.userSettings.isObservationModeEnabled
+      userSettings.isObservationModeEnabled
         ? Text(L10n.A11y.General.on)
         : Text(L10n.A11y.General.off)
     )
     .accessibilityAction {
-      @Shared(.userSettings) var userSettings
       $userSettings.withLock { $0.isObservationModeEnabled.toggle() }
     }
   }
@@ -157,7 +156,7 @@ private struct ObservationModeRow: View {
 
 private struct InfoRow: View {
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
-  @Bindable var store: StoreOf<SettingsFeature>
+  @Shared(.userSettings) var userSettings
 
   var body: some View {
     HStack(alignment: .top) {
@@ -170,19 +169,18 @@ private struct InfoRow: View {
       }
       Spacer()
       Toggle(
-        isOn: Binding(store.$userSettings.showInfoViewEnabled),
+        isOn: Binding($userSettings.showInfoViewEnabled),
         label: { EmptyView() }
       )
       .labelsHidden()
     }
     .accessibilityElement(children: .combine)
     .accessibilityValue(
-      store.userSettings.showInfoViewEnabled
+      userSettings.showInfoViewEnabled
         ? Text(L10n.A11y.General.on)
         : Text(L10n.A11y.General.off)
     )
     .accessibilityAction {
-      @Shared(.userSettings) var userSettings
       $userSettings.withLock { $0.showInfoViewEnabled.toggle() }
     }
   }

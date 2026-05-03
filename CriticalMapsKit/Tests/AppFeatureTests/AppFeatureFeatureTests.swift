@@ -601,9 +601,7 @@ struct AppFeatureTests {
           )
         )
       )
-    ) {
-      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
-    }
+    )
     // assert
     let didStopLocationObservationValue = didStopLocationUpdating.value
     #expect(didStopLocationObservationValue)
@@ -634,9 +632,7 @@ struct AppFeatureTests {
           )
         )
       )
-    ) {
-      $0.$userSettings.withLock { $0.isObservationModeEnabled = true }
-    }
+    )
 
     // assert
     let didStopLocationObservationValue = didStopLocationUpdating.value

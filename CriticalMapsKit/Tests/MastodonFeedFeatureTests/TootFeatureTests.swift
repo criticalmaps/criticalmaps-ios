@@ -25,7 +25,7 @@ struct TootFeatureTests {
       initialState: status,
       reducer: { TootFeature() },
       withDependencies: {
-        $0.uiApplicationClient.open = { @Sendable url, _ in
+        $0.uiApplicationClient.open = { url, _ in
           openedUrl.setValue(url)
           return true
         }
