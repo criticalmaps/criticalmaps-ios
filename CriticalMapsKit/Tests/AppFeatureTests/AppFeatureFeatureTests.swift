@@ -184,9 +184,7 @@ struct AppFeatureTests {
     var locationManager: LocationManager = .testValue
     locationManager.delegate = { locationObserver.stream }
     locationManager.authorizationStatus = { .notDetermined }
-    locationManager.locationServicesEnabled = { true }
     locationManager.requestAlwaysAuthorization = {}
-    locationManager.requestLocation = {}
     locationManager.set = { @Sendable _ in }
 
     var state = AppFeature.State()

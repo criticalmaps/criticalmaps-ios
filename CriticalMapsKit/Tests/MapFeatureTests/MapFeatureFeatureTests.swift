@@ -36,9 +36,11 @@ struct MapFeatureCoreTests {
         riders: [],
         userTrackingMode: .init(userTrackingMode: .follow)
       ),
-      reducer: { MapFeature() }
+      reducer: { MapFeature() },
+      withDependencies: {
+        $0.locationManager = locationManager
+      }
     )
-    store.dependencies.locationManager = locationManager
     
     store.exhaustivity = .off
     
