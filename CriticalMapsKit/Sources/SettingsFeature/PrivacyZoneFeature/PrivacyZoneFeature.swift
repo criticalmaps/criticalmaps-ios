@@ -220,14 +220,14 @@ public struct PrivacyZoneSettingsView: View {
       
       if !store.settings.zones.isEmpty {
         Section {
-          ForEach(store.settings.zones, id: \.id) { zone in
+          ForEach(store.settings.zones) { zone in
             ZoneRow(
               zone: zone,
               isActive: $store.state[isActiveID: zone.id],
               onDelete: { store.send(.deleteZone(zone)) }
             )
+            .opacity(store.settings.isEnabled ? 1.0 : 0.6)
           }
-          .disabled(!store.settings.isEnabled)
         } header: {
           SectionHeader {
             Text(L10n.PrivacyZone.Settings.Section.yourZones)
