@@ -8,6 +8,7 @@ import SwiftUI
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Shared(.privacyZoneSettings) var privacyZoneSettings: PrivacyZoneSettings
+  @Shared(.userSettings) var userSettings: UserSettings
 
   @Bindable var store: StoreOf<MapFeature>
 

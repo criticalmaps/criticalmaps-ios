@@ -20,6 +20,7 @@ struct MapView: ViewRepresentable {
   var rideEvents: [Ride] = []
   let privacyZones: IdentifiedArrayOf<PrivacyZone>
   let canShowPrivacyZonesOnMap: Bool
+  let showActiveRidersOnly: Bool
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
@@ -30,6 +31,7 @@ struct MapView: ViewRepresentable {
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
     privacyZones: IdentifiedArrayOf<PrivacyZone> = [],
+    showActiveRidersOnly: Bool = false,
     canShowPrivacyZonesOnMap: Bool = false,
     annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
@@ -42,6 +44,7 @@ struct MapView: ViewRepresentable {
     self.nextRide = nextRide
     self.rideEvents = rideEvents
     self.privacyZones = privacyZones
+    self.showActiveRidersOnly = showActiveRidersOnly
     self.canShowPrivacyZonesOnMap = canShowPrivacyZonesOnMap
     _annotationsCount = annotationsCount
     _centerRegion = centerRegion
@@ -89,7 +92,11 @@ struct MapView: ViewRepresentable {
   }
 
   func updateRiderAnnotations(in mapView: MKMapView) {
-    let updatedAnnotations = RiderAnnotationUpdateClient.update(riderCoordinates, mapView)
+    let updatedAnnotations = RiderAnnotationUpdateClient.update(
+      riderCoordinates,
+      mapView,
+      showActiveRidersOnly: showActiveRidersOnly
+    )
     if !updatedAnnotations.removedAnnotations.isEmpty {
       mapView.removeAnnotations(updatedAnnotations.removedAnnotations)
     }
@@ -177,26 +184,28 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   }
 
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard annotation is MKUserLocation == false else {
-      return nil
-    }
-    if annotation is RiderAnnotation {
-      return mapView.dequeueReusableAnnotationView(
+    guard annotation is MKUserLocation == false else { return nil }
+		
+    if let riderAnnotation = annotation as? RiderAnnotation {
+      let view = mapView.dequeueReusableAnnotationView(
         withIdentifier: RiderAnnotationView.reuseIdentifier,
-        for: annotation
-      )
+        for: riderAnnotation
+      ) as? RiderAnnotationView
+      view?.isRiderActive = riderAnnotation.isActive
+      view?.isFilterActive = parent.showActiveRidersOnly
+      return view
     }
-
-    if annotation is CriticalMassAnnotation {
+		
+    if let criticalMassAnnotation = annotation as? CriticalMassAnnotation {
       let view = mapView.dequeueReusableAnnotationView(
         withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
-        for: annotation
+        for: criticalMassAnnotation
       ) as? CMMarkerAnnotationView
       view?.shareEventClosure = parent.mapMenuShareEventHandler
       view?.routeEventClosure = parent.mapMenuRouteEventHandler
       return view
     }
-
+		
     return MKAnnotationView()
   }
 
