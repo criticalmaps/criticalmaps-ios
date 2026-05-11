@@ -38,6 +38,8 @@ public struct SettingsView: View {
 
       Section {
         InfoRow()
+				
+        ActiveRidersSettingRow()
 
         Button(
           action: { store.send(.view(.rideEventSettingsRowTapped)) },
@@ -183,6 +185,25 @@ private struct InfoRow: View {
     .accessibilityAction {
       $userSettings.withLock { $0.showInfoViewEnabled.toggle() }
     }
+  }
+}
+
+private struct ActiveRidersSettingRow: View {
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  @Shared(.userSettings) var userSettings
+	
+  var body: some View {
+    Toggle(isOn: Binding($userSettings.showActiveRidersOnly)) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text("Show active riders only")
+          .font(.body)
+        Text("Highlights cyclists riding in groups")
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
+          .font(.subheadline)
+      }
+    }
+    .accessibilityLabel("Show active riders only")
+    .accessibilityHint("When enabled, solo or stationary riders appear dimmed on the map")
   }
 }
 
