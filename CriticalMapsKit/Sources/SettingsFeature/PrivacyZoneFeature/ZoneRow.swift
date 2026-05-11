@@ -56,7 +56,7 @@ struct ZoneRow: View {
         .tint(Color.brand600)
     }
     .padding(.vertical, .grid(1))
-    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+    .swipeActions(edge: .trailing) {
       Button(L10n.PrivacyZone.Settings.Dialog.Cta.delete, role: .destructive) {
         onDelete()
       }
