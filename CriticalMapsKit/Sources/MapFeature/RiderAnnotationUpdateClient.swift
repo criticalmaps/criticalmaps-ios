@@ -7,6 +7,9 @@ import SharedModels
 /// A client to update rider annotations on a map.
 @MainActor
 public enum RiderAnnotationUpdateClient {
+  /// internal so tests can reset between runs
+  static var previousPositions: [String: (coordinate: Coordinate, timestamp: Double)] = [:]
+	
   public static func update(
     _ riderCoordinates: [Rider],
     _ mapView: MKMapView,
