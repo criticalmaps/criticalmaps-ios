@@ -18,15 +18,25 @@ public struct APIService: Sendable {
 extension APIService: DependencyKey {
   public static var liveValue: APIService {
     @Dependency(\.apiClient) var apiClient
+    @Dependency(\.serverConfiguration) var serverConfiguration
+
+    // The locations endpoint honors the injected server configuration so a dev
+    // build can point it at a local mock server. Defaults resolve to production.
+    let locationsEndpoint = Endpoint(
+      baseUrl: serverConfiguration.locationsHost,
+      pathComponents: ["locations"],
+      scheme: serverConfiguration.scheme,
+      port: serverConfiguration.locationsPort
+    )
 
     return Self(
       getRiders: {
-        let request: Request = .get(.locations)
+        let request: Request = .get(locationsEndpoint)
         let (data, _) = try await apiClient.send(request)
         return try data.decoded()
-      }, 
+      },
       postRiderLocation: { body in
-        let request: Request = .put(.locations, body: try? body.encoded())
+        let request: Request = .put(locationsEndpoint, body: try? body.encoded())
         let (data, _) = try await apiClient.send(request)
         return try data.decoded()
       },
