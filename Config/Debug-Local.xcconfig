@@ -1,0 +1,10 @@
+// Build configuration for running against the local mock server, which lives in
+// its own repository (criticalmaps-mock-server).
+//
+// Used by the "Debug Local" build configuration / "Critical Maps (Local)" scheme.
+// Sets the DEBUG_LOCAL compile flag so the app target injects a ServerConfiguration
+// pointing at http://localhost:8080 (see iOS/AppConfiguration.swift).
+
+#include "Shared.xcconfig"
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) DEBUG_LOCAL

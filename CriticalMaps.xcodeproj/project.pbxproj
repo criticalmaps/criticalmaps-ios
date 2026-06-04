@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5ECACE0EB79FB71190DA0CCC /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32ED4D6F091FA6990994EBE /* AppConfiguration.swift */; };
 		730741DD2F00737D0080985D /* AppIcon-Sun.icon in Resources */ = {isa = PBXBuildFile; fileRef = 730741DC2F00737D0080985D /* AppIcon-Sun.icon */; };
 		730741DE2F00737D0080985D /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 730741D82F00737D0080985D /* AppIcon.icon */; };
 		730741DF2F00737D0080985D /* AppIcon-Dark.icon in Resources */ = {isa = PBXBuildFile; fileRef = 730741D92F00737D0080985D /* AppIcon-Dark.icon */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20A6EB76B0234461A4A91977 /* Debug-Local.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Debug-Local.xcconfig"; sourceTree = "<group>"; };
 		730741D82F00737D0080985D /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		730741D92F00737D0080985D /* AppIcon-Dark.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "AppIcon-Dark.icon"; sourceTree = "<group>"; };
 		730741DA2F00737D0080985D /* AppIcon-Neon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "AppIcon-Neon.icon"; sourceTree = "<group>"; };
@@ -57,6 +59,8 @@
 		73EA92432C59585D008DEEFE /* SocialFeature.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SocialFeature.xctestplan; sourceTree = "<group>"; };
 		73EB0310263F23A100941D57 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LisbonPortugal.gpx; sourceTree = "<group>"; };
+		A2505A49BB8F102AF4496DBD /* Shared.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		D32ED4D6F091FA6990994EBE /* AppConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 				739A58322D4156F100B80B41 /* SettingsFeaturePreview.app */,
 				739A58332D4156F100B80B41 /* GuideFeaturePreview.app */,
 				73CA22F82D4158650040C7CF /* Frameworks */,
+				895C7647794A2614C2AA6100 /* Config */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,8 +191,19 @@
 				73654C6B26C85FCF004BE38B /* Launch Screen.storyboard */,
 				739C4980276733E20001466A /* Berlin:Germany.gpx */,
 				73F010D82B94A19700C2B613 /* LisbonPortugal.gpx */,
+				D32ED4D6F091FA6990994EBE /* AppConfiguration.swift */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		895C7647794A2614C2AA6100 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				20A6EB76B0234461A4A91977 /* Debug-Local.xcconfig */,
+				A2505A49BB8F102AF4496DBD /* Shared.xcconfig */,
+			);
+			name = Config;
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73EB0311263F23A100941D57 /* App.swift in Sources */,
+				5ECACE0EB79FB71190DA0CCC /* AppConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +416,71 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		1479D1E4E7FFDDA1E9B95334 /* Debug Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = "Debug Local";
+		};
 		73238EC527728043003DE01F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -774,6 +856,39 @@
 			};
 			name = Release;
 		};
+		F588BCFCE13D3727E800503D /* Debug Local */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20A6EB76B0234461A4A91977 /* Debug-Local.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Sun AppIcon-Rainbow AppIcon-Neon AppIcon-Dark";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 250902;
+				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 4.7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Criticalmaps dist";
+				RUN_DOCUMENTATION_COMPILER = NO;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug Local";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -800,6 +915,7 @@
 			buildConfigurations = (
 				73CF5FE5263EAF5C001925A3 /* Debug */,
 				73CF5FE6263EAF5C001925A3 /* Release */,
+				1479D1E4E7FFDDA1E9B95334 /* Debug Local */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -809,6 +925,7 @@
 			buildConfigurations = (
 				73CF5FE8263EAF5C001925A3 /* Debug */,
 				73CF5FE9263EAF5C001925A3 /* Release */,
+				F588BCFCE13D3727E800503D /* Debug Local */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

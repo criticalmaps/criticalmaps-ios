@@ -1,0 +1,5 @@
+// Shared base settings for app build configurations.
+//
+// Intentionally minimal today — a place to put settings common to all
+// configurations (e.g. an externalized API host) without touching the project
+// file. The "Debug Local" configuration includes this via Debug-Local.xcconfig.
