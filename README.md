@@ -132,6 +132,31 @@ xcodebuild test -scheme MapFeatureTests -destination 'platform=iOS Simulator,nam
 - `SettingsFeatureTests` - User preference management
 - And more...
 
+### Local development with a mock server
+
+To develop the live map against fake but realistic ride data (instead of the
+production API), use the local mock server. It lives in its own repository,
+[`criticalmaps-mock-server`](https://github.com/CriticalMaps/criticalmaps-mock-server),
+and plays back a moving cluster of riders on a Berlin loop.
+
+There is **no build dependency** between the app and the server — the app only
+talks to it over HTTP. To use it:
+
+1. Clone and start the server (it listens on `http://localhost:8080`):
+   ```sh
+   git clone https://github.com/mltbnz/critical-maps-mock-server
+   cd criticalmaps-mock-server && swift run
+   ```
+2. In Xcode, select the **`Critical Maps (Local)`** scheme and run. This build
+   sets a `DEBUG_LOCAL` flag (via `Config/Debug-Local.xcconfig`) so the app
+   injects a `ServerConfiguration` pointing at the local server with a fast poll
+   interval — see [`iOS/AppConfiguration.swift`](iOS/AppConfiguration.swift).
+3. The boot log prints the active environment (`environment=LOCAL …`), and the
+   server logs each incoming request. Set the simulator location to Berlin
+   (Simulator → Features → Location → Custom: `52.515, 13.366`) to see the ride.
+
+The normal **`Critical Maps`** scheme is unaffected and always uses production.
+
 ## Contribute
 
 - Please report bugs or feature requests with GitHub [issues](https://github.com/CriticalMaps/criticalmaps-ios/issues).
