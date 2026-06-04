@@ -1,3 +1,4 @@
+import ApiClient
 import ComposableArchitecture
 import Foundation
 
@@ -28,6 +29,7 @@ public struct RequestTimer: Sendable {
 
   @Dependency(\.continuousClock) var clock
   @Dependency(\.date.now) var now
+  @Dependency(\.serverConfiguration) var serverConfiguration
 
   enum CancelID { case timer }
 
@@ -48,14 +50,19 @@ public struct RequestTimer: Sendable {
         state.isTimerActive = true
         state.cycleStartTime = now
 
+        // Split the poll cycle into two halves: post location at the halfway
+        // point, fetch riders at the full cycle. Production = 60s (30s + 30s);
+        // a dev build can shorten this via `serverConfiguration`.
+        let fullCycle = serverConfiguration.pollIntervalSeconds
+        let firstHalf = fullCycle / 2
+        let secondHalf = fullCycle - firstHalf
+
         return .run { send in
           while true {
-            // Sleep for 30 seconds
-            try await clock.sleep(for: .seconds(30))
+            try await clock.sleep(for: .seconds(firstHalf))
             await send(.halfwayPoint)
 
-            // Sleep for another 30 seconds
-            try await clock.sleep(for: .seconds(30))
+            try await clock.sleep(for: .seconds(secondHalf))
             await send(.fullCycle)
           }
         }
