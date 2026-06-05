@@ -20,7 +20,7 @@ struct MapView: ViewRepresentable {
   var rideEvents: [Ride] = []
   let privacyZones: IdentifiedArrayOf<PrivacyZone>
   let canShowPrivacyZonesOnMap: Bool
-  let showActiveRidersOnly: Bool
+  let highlightActiveRiders: Bool
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
@@ -31,7 +31,7 @@ struct MapView: ViewRepresentable {
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
     privacyZones: IdentifiedArrayOf<PrivacyZone> = [],
-    showActiveRidersOnly: Bool = false,
+    highlightActiveRiders: Bool = false,
     canShowPrivacyZonesOnMap: Bool = false,
     annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
@@ -44,7 +44,7 @@ struct MapView: ViewRepresentable {
     self.nextRide = nextRide
     self.rideEvents = rideEvents
     self.privacyZones = privacyZones
-    self.showActiveRidersOnly = showActiveRidersOnly
+    self.highlightActiveRiders = highlightActiveRiders
     self.canShowPrivacyZonesOnMap = canShowPrivacyZonesOnMap
     _annotationsCount = annotationsCount
     _centerRegion = centerRegion
@@ -95,7 +95,7 @@ struct MapView: ViewRepresentable {
     let updatedAnnotations = RiderAnnotationUpdateClient.update(
       riderCoordinates,
       mapView,
-      showActiveRidersOnly: showActiveRidersOnly
+      highlightActiveRiders: highlightActiveRiders
     )
     if !updatedAnnotations.removedAnnotations.isEmpty {
       mapView.removeAnnotations(updatedAnnotations.removedAnnotations)
@@ -192,7 +192,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
         for: riderAnnotation
       ) as? RiderAnnotationView
       view?.isRiderActive = riderAnnotation.isActive
-      view?.isFilterActive = parent.showActiveRidersOnly
+      view?.highlightActiveRiders = parent.highlightActiveRiders
       return view
     }
 		

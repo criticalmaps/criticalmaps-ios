@@ -335,3 +335,7 @@
 
 "rideEvent.contextMenu.copyCoordinates" = "Copiar coordenadas";
 "rideEvent.contextMenu.copyLocationName" = "Copiar nombre del lugar";
+
+"settings.highlightActiveRiders.label" = "Resaltar ciclistas activos";
+"settings.highlightActiveRiders.description" = "Resalta a los ciclistas que circulan en grupo";
+"a11y.settings.highlightActiveRiders.hint" = "Cuando está activado, los ciclistas en grupo se resaltan y los demás aparecen atenuados en el mapa";

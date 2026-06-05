@@ -35,6 +35,12 @@ public enum L10n {
         public static let label = L10n.tr("Localizable", "a11y.mapfeatureview.nextridebanner.label", fallback: "Next critical mass banner")
       }
     }
+    public enum Settings {
+      public enum HighlightActiveRiders {
+        /// When enabled, riders in a group are highlighted and others appear dimmed on the map
+        public static let hint = L10n.tr("Localizable", "a11y.settings.highlightActiveRiders.hint", fallback: "When enabled, riders in a group are highlighted and others appear dimmed on the map")
+      }
+    }
     public enum Usertrackingbutton {
       /// Don't follow
       public static let dontFollow = L10n.tr("Localizable", "a11y.usertrackingbutton.dontFollow", fallback: "Don't follow")
@@ -400,6 +406,12 @@ public enum L10n {
       public static let settings = L10n.tr("Localizable", "settings.friends.settings", fallback: "Settings")
       /// Show ID
       public static let showID = L10n.tr("Localizable", "settings.friends.showID", fallback: "Show ID")
+    }
+    public enum HighlightActiveRiders {
+      /// Highlights cyclists riding in groups
+      public static let description = L10n.tr("Localizable", "settings.highlightActiveRiders.description", fallback: "Highlights cyclists riding in groups")
+      /// Highlight active riders
+      public static let label = L10n.tr("Localizable", "settings.highlightActiveRiders.label", fallback: "Highlight active riders")
     }
     public enum Info {
       public enum Toggle {

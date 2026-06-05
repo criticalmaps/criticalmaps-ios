@@ -4,11 +4,12 @@ import UIKit
 final class RiderAnnotationView: MKAnnotationView {
   // MARK: - State
 
-  /// When the filter is ON, inactive riders are hidden entirely.
-  /// When OFF, they're dimmed but still visible.
-  var isFilterActive = false {
+  /// Whether active-group highlighting is enabled (the `highlightActiveRiders`
+  /// setting). When ON, riders in an active group are highlighted red; when OFF,
+  /// all riders are shown in neutral gray.
+  var highlightActiveRiders = false {
     didSet {
-      guard oldValue != isFilterActive else { return }
+      guard oldValue != highlightActiveRiders else { return }
       updateAppearance(animated: true)
     }
   }
@@ -59,11 +60,15 @@ final class RiderAnnotationView: MKAnnotationView {
   }
 
   private func updateAppearance(animated: Bool) {
-    let targetColor: UIColor = isRiderActive
+    // Only highlight a rider as part of an active group when the toggle is on.
+    // With the toggle off no rider is highlighted (all neutral gray).
+    let highlightAsActive = isRiderActive && highlightActiveRiders
+
+    let targetColor: UIColor = highlightAsActive
       ? .systemRed
       : .systemGray
 
-    let targetScale: CGFloat = isRiderActive ? 1.0 : 0.75
+    let targetScale: CGFloat = highlightAsActive ? 1.0 : 0.75
 
     let applyChanges = {
       self.backgroundColor = targetColor.resolvedColor(with: self.traitCollection)

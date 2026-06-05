@@ -332,3 +332,7 @@
 "social.feed.loading" = "A carregar feed";
 
 "map.location.request.desciption" = "A localização torna esta app melhor. Por favor dá-nos acesso.";
+
+"settings.highlightActiveRiders.label" = "Destacar ciclistas ativos";
+"settings.highlightActiveRiders.description" = "Destaca os ciclistas que circulam em grupo";
+"a11y.settings.highlightActiveRiders.hint" = "Quando ativado, os ciclistas em grupo são destacados e os restantes aparecem esbatidos no mapa";

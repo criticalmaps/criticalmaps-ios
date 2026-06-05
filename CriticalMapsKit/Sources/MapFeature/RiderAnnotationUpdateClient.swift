@@ -13,7 +13,7 @@ public enum RiderAnnotationUpdateClient {
   public static func update(
     _ riderCoordinates: [Rider],
     _ mapView: MKMapView,
-    showActiveRidersOnly: Bool
+    highlightActiveRiders: Bool
   ) -> (
     removedAnnotations: [RiderAnnotation],
     addedAnnotations: [RiderAnnotation]
@@ -37,7 +37,7 @@ public enum RiderAnnotationUpdateClient {
       .compactMap { $0 as? RiderAnnotation }
       .filter { removedRider.contains($0.rider) }
 
-    // Refresh isActive + isFilterActive on already-displayed annotations
+    // Refresh isActive + highlightActiveRiders on already-displayed annotations
     // so existing views reflect the latest classification and toggle state.
     mapView.annotations
       .compactMap { $0 as? RiderAnnotation }
@@ -45,7 +45,7 @@ public enum RiderAnnotationUpdateClient {
       .forEach { annotation in
         let view = mapView.view(for: annotation) as? RiderAnnotationView
         view?.isRiderActive = activeIDs.contains(annotation.rider.id)
-        view?.isFilterActive = showActiveRidersOnly
+        view?.highlightActiveRiders = highlightActiveRiders
       }
 
     return (removedAnnotations, addedAnnotations)

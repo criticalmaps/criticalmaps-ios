@@ -70,7 +70,7 @@ struct RiderAnnotationUpdateClientTests {
     let updatedAnnotations = RiderAnnotationUpdateClient.update(
       rider,
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
     
     #expect(updatedAnnotations.addedAnnotations.count == 2)
@@ -87,7 +87,7 @@ struct RiderAnnotationUpdateClientTests {
     let updatedAnnotations = RiderAnnotationUpdateClient.update(
       newRiders,
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
     
     #expect(updatedAnnotations.addedAnnotations.count == 2)
@@ -103,7 +103,7 @@ struct RiderAnnotationUpdateClientTests {
     let updatedAnnotations = RiderAnnotationUpdateClient.update(
       updatedRiders,
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
     
     #expect(updatedAnnotations.addedAnnotations.count == 2)
@@ -126,7 +126,7 @@ struct RiderAnnotationUpdateClientTests {
     let updatedAnnotations = RiderAnnotationUpdateClient.update(
       rider + [updatedRiders[0]],
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
     
     #expect(updatedAnnotations.addedAnnotations.count == 1)
@@ -160,7 +160,7 @@ struct RiderAnnotationUpdateClientTests {
     let result = RiderAnnotationUpdateClient.update(
       clusterRiders,
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
 
     #expect(result.addedAnnotations.count == 4)
@@ -184,7 +184,7 @@ struct RiderAnnotationUpdateClientTests {
     let result = RiderAnnotationUpdateClient.update(
       [loneRider],
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
 
     #expect(result.addedAnnotations.count == 1)
@@ -221,7 +221,7 @@ struct RiderAnnotationUpdateClientTests {
     let result = RiderAnnotationUpdateClient.update(
       existingRiders + [newRider],
       mapView,
-      showActiveRidersOnly: false
+      highlightActiveRiders: false
     )
 
     // New rider joins the cluster — should be active

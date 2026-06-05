@@ -7,16 +7,16 @@ import SwiftUI
 public struct UserSettings: Codable, Equatable, Sendable {
   public var isObservationModeEnabled: Bool
   public var showInfoViewEnabled: Bool
-  public var showActiveRidersOnly: Bool
+  public var highlightActiveRiders: Bool
 
   public init(
     enableObservationMode: Bool = false,
     showInfoViewEnabled: Bool = true,
-    showActiveRidersOnly: Bool = false
+    highlightActiveRiders: Bool = false
   ) {
     isObservationModeEnabled = enableObservationMode
     self.showInfoViewEnabled = showInfoViewEnabled
-    self.showActiveRidersOnly = showActiveRidersOnly
+    self.highlightActiveRiders = highlightActiveRiders
   }
 }
 

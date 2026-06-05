@@ -335,3 +335,7 @@
 
 "rideEvent.contextMenu.copyCoordinates" = "Copier les coordonnées";
 "rideEvent.contextMenu.copyLocationName" = "Copier le nom du lieu";
+
+"settings.highlightActiveRiders.label" = "Mettre en évidence les cyclistes actifs";
+"settings.highlightActiveRiders.description" = "Met en évidence les cyclistes roulant en groupe";
+"a11y.settings.highlightActiveRiders.hint" = "Lorsque cette option est activée, les cyclistes en groupe sont mis en évidence et les autres apparaissent estompés sur la carte";

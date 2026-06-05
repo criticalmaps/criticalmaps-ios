@@ -335,3 +335,7 @@
 
 "rideEvent.contextMenu.copyCoordinates" = "Koordinaten kopieren";
 "rideEvent.contextMenu.copyLocationName" = "Ortsname kopieren";
+
+"settings.highlightActiveRiders.label" = "Aktive Teilnehmer hervorheben";
+"settings.highlightActiveRiders.description" = "Hebt Radfahrer hervor, die in Gruppen fahren";
+"a11y.settings.highlightActiveRiders.hint" = "Wenn aktiviert, werden Teilnehmer in einer Gruppe hervorgehoben und andere auf der Karte abgeblendet";

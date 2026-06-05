@@ -193,17 +193,17 @@ private struct ActiveRidersSettingRow: View {
   @Shared(.userSettings) var userSettings
 	
   var body: some View {
-    Toggle(isOn: Binding($userSettings.showActiveRidersOnly)) {
+    Toggle(isOn: Binding($userSettings.highlightActiveRiders)) {
       VStack(alignment: .leading, spacing: 2) {
-        Text("Show active riders only")
+        Text(L10n.Settings.HighlightActiveRiders.label)
           .font(.body)
-        Text("Highlights cyclists riding in groups")
+        Text(L10n.Settings.HighlightActiveRiders.description)
           .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
           .font(.subheadline)
       }
     }
-    .accessibilityLabel("Show active riders only")
-    .accessibilityHint("When enabled, solo or stationary riders appear dimmed on the map")
+    .accessibilityLabel(L10n.Settings.HighlightActiveRiders.label)
+    .accessibilityHint(L10n.A11y.Settings.HighlightActiveRiders.hint)
   }
 }
 

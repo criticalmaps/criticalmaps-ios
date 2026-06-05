@@ -332,3 +332,7 @@
 "social.feed.loading" = "Ładowanie kanału";
 
 "map.location.request.desciption" = "Twoja lokalizacja sprawia, że ta aplikacja działa lepiej. Proszę daj nam dostęp.";
+
+"settings.highlightActiveRiders.label" = "Wyróżnij aktywnych rowerzystów";
+"settings.highlightActiveRiders.description" = "Wyróżnia rowerzystów jadących w grupie";
+"a11y.settings.highlightActiveRiders.hint" = "Po włączeniu rowerzyści w grupie są wyróżnieni, a pozostali są przyciemnieni na mapie";

@@ -136,7 +136,7 @@ xcodebuild test -scheme MapFeatureTests -destination 'platform=iOS Simulator,nam
 
 To develop the live map against fake but realistic ride data (instead of the
 production API), use the local mock server. It lives in its own repository,
-[`criticalmaps-mock-server`](https://github.com/CriticalMaps/criticalmaps-mock-server),
+[`criticalmaps-mock-server`](https://github.com/mltbnz/critical-maps-mock-server),
 and plays back a moving cluster of riders on a Berlin loop.
 
 There is **no build dependency** between the app and the server — the app only
