@@ -68,7 +68,12 @@ struct MapView: ViewRepresentable {
     return mapView
   }
 
-  func updateUIView(_ uiView: MKMapView, context _: Context) {
+  func updateUIView(_ uiView: MKMapView, context: Context) {
+    // Keep the coordinator's snapshot current so delegate callbacks (e.g.
+    // `viewFor`, which reads `highlightActiveRiders`) see the latest values
+    // instead of the stale `MapView` captured at `makeCoordinator()` time.
+    context.coordinator.parent = self
+
     // rider handling
     centerRider(in: uiView)
     updateRiderAnnotations(in: uiView)

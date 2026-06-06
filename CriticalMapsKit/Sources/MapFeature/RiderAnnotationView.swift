@@ -75,7 +75,10 @@ final class RiderAnnotationView: MKAnnotationView {
       self.transform = CGAffineTransform(scaleX: targetScale, y: targetScale)
     }
 
-    if animated {
+    // Only animate changes for a view that's already on-screen. While a view is
+    // being configured before display (no window yet), apply instantly so newly
+    // added annotations render in their final color rather than fading in from gray.
+    if animated, window != nil {
       UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut]) {
         applyChanges()
       }

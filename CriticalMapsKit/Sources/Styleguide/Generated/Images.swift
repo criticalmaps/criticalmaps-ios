@@ -37,6 +37,7 @@ public enum Asset {
   public static let ghLogo = ImageAsset(name: "gh-logo")
   public static let translate = ImageAsset(name: "translate")
   public static let error = ImageAsset(name: "error")
+  public static let highlightActiveUsersFeature = ImageAsset(name: "highlightActiveUsersFeature")
   public static let pzLocationShieldSlash = SymbolAsset(name: "pz.location.shield.slash")
   public static let pzLocationShield = SymbolAsset(name: "pz.location.shield")
   public static let toot = ImageAsset(name: "toot")

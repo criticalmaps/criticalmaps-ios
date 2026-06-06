@@ -49,6 +49,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     @Presents var destination: Destination.State?
     public var eventListPresentation: PresentationDetent = .fraction(0.3)
     public var isEventListPresented = false
+    public var isWhatsNewPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
     public var isCurrentLocationInPrivacyZone = false
@@ -58,6 +59,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     @Shared(.appearanceSettings) var appearanceSettings
     @Shared(.hasConnectionError) var hasConnectionError
     @Shared(.privacyZoneSettings) var privacyZoneSettings
+    @Shared(.lastSeenWhatsNewVersion) var lastSeenWhatsNewVersion
     
     public init(
       locationsAndChatMessages: [Rider] = [],
@@ -115,6 +117,8 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     case didTapNextRideOverlayButton
     case dismissEventList
     case dismissDestination
+    case whatsNewContinueTapped
+    case whatsNewDismissed
     
     case map(MapFeatureAction)
     case nextRide(NextRideFeature.Action)
@@ -123,7 +127,14 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   
   // MARK: Reducer
   
+  /// The app version whose release the "What's New" sheet announces. The sheet is
+  /// shown once to users running this exact version (both fresh installs and
+  /// updates), and never on other versions. Bump this together with the sheet copy
+  /// when a future release should announce something new.
+  static let whatsNewVersion = "4.7.0"
+
   @Dependency(\.apiService) var apiService
+  @Dependency(\.appVersion) var appVersion
   @Dependency(\.continuousClock) var clock
   @Dependency(\.date) var date
   @Dependency(\.feedbackGenerator) var feedbackGenerator
@@ -166,7 +177,16 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         $sessionID.withLock { $0 = uuid().uuidString }
 
         StorageMigration.migratePrivacyZones()
-        
+
+        // Show the "What's New" sheet once to users running the release it
+        // announces (`whatsNewVersion`), then never again. Pinning to a specific
+        // version avoids re-showing it on every future update.
+        let shouldShowWhatsNew = appVersion == Self.whatsNewVersion
+          && state.lastSeenWhatsNewVersion != Self.whatsNewVersion
+        if shouldShowWhatsNew {
+          state.isWhatsNewPresented = true
+        }
+
         return .merge(
           [
             .send(.map(.onAppear)),
@@ -188,6 +208,9 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
               await feedbackGenerator.prepare()
             },
             .run { send in
+              // Don't stack the observation-mode prompt on top of "What's New";
+              // it will show on a later launch instead.
+              guard !shouldShowWhatsNew else { return }
               @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
               if !didShowObservationModePrompt {
                 try? await clock.sleep(for: .seconds(3))
@@ -376,6 +399,18 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         
       case .dismissDestination:
         state.destination = nil
+        return .none
+
+      case .whatsNewContinueTapped:
+        // Decision: Continue simply dismisses; discovery happens in Settings.
+        state.isWhatsNewPresented = false
+        return .none
+
+      case .whatsNewDismissed:
+        // Mark this What's New as seen so it isn't shown again on this version.
+        // Fires for both Continue and swipe-to-dismiss.
+        state.isWhatsNewPresented = false
+        state.$lastSeenWhatsNewVersion.withLock { $0 = Self.whatsNewVersion }
         return .none
         
       case .presentObservationModeAlert:

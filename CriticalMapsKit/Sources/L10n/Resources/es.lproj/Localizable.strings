@@ -339,3 +339,8 @@
 "settings.highlightActiveRiders.label" = "Resaltar ciclistas activos";
 "settings.highlightActiveRiders.description" = "Resalta a los ciclistas que circulan en grupo";
 "a11y.settings.highlightActiveRiders.hint" = "Cuando está activado, los ciclistas en grupo se resaltan y los demás aparecen atenuados en el mapa";
+
+"whatsNew.header" = "Novedades de esta versión";
+"whatsNew.highlightActiveRiders.description" = "Obtén una visión más clara de lo que ocurre en el mapa.\n\nLos participantes que están cerca unos de otros se resaltan como grupos, mientras que los ciclistas fuera de un grupo siguen visibles pero menos destacados.";
+"whatsNew.observationMode.description" = "Mejora la calidad del mapa aportando observaciones de ubicación adicionales.";
+"whatsNew.continue" = "Continuar";

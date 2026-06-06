@@ -336,3 +336,8 @@
 "settings.highlightActiveRiders.label" = "Aktif sürücüleri vurgula";
 "settings.highlightActiveRiders.description" = "Grup hâlinde giden bisikletçileri vurgular";
 "a11y.settings.highlightActiveRiders.hint" = "Etkinleştirildiğinde, gruptaki sürücüler vurgulanır ve diğerleri haritada soluk görünür";
+
+"whatsNew.header" = "Bu sürümde yeni";
+"whatsNew.highlightActiveRiders.description" = "Haritada olanları daha net gör.\n\nBirbirine yakın katılımcılar grup olarak vurgulanır; bir grubun dışındaki sürücüler görünür kalır ancak daha az belirgindir.";
+"whatsNew.observationMode.description" = "Ek konum gözlemleri toplayarak harita kalitesini iyileştir.";
+"whatsNew.continue" = "Devam et";

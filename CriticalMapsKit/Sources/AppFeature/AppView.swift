@@ -69,6 +69,13 @@ public struct AppView: View {
         action: \.destination.alert
       )
     )
+    .sheet(
+      isPresented: $store.isWhatsNewPresented,
+      onDismiss: { store.send(.whatsNewDismissed) },
+      content: {
+        WhatsNewSheet(onContinue: { store.send(.whatsNewContinueTapped) })
+      }
+    )
     .onAppear { store.send(.onAppear) }
     .onDisappear { store.send(.onDisappear) }
   }

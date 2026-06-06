@@ -339,3 +339,8 @@
 "settings.highlightActiveRiders.label" = "Highlight active riders";
 "settings.highlightActiveRiders.description" = "Highlights cyclists riding in groups";
 "a11y.settings.highlightActiveRiders.hint" = "When enabled, riders in a group are highlighted and others appear dimmed on the map";
+
+"whatsNew.header" = "New in this version";
+"whatsNew.highlightActiveRiders.description" = "Get a clearer view of what's happening on the map.\n\nParticipants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.";
+"whatsNew.observationMode.description" = "Improve map quality by collecting additional location observations.";
+"whatsNew.continue" = "Continue";

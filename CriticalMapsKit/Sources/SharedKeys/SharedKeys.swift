@@ -26,6 +26,14 @@ public extension SharedReaderKey where Self == AppStorageKey<Bool>.Default {
   }
 }
 
+public extension SharedReaderKey where Self == AppStorageKey<String>.Default {
+  /// The "What's New" version the user has already seen. Empty by default; set to
+  /// the announced version once dismissed so that release's sheet isn't shown again.
+  static var lastSeenWhatsNewVersion: Self {
+    Self[.appStorage("lastSeenWhatsNewVersion"), default: ""]
+  }
+}
+
 // MARK: FileStorageKey
 
 public extension SharedKey where Self == FileStorageKey<RideEventSettings>.Default {

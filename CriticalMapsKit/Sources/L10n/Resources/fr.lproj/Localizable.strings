@@ -339,3 +339,8 @@
 "settings.highlightActiveRiders.label" = "Mettre en évidence les cyclistes actifs";
 "settings.highlightActiveRiders.description" = "Met en évidence les cyclistes roulant en groupe";
 "a11y.settings.highlightActiveRiders.hint" = "Lorsque cette option est activée, les cyclistes en groupe sont mis en évidence et les autres apparaissent estompés sur la carte";
+
+"whatsNew.header" = "Nouveautés de cette version";
+"whatsNew.highlightActiveRiders.description" = "Obtenez une vue plus claire de ce qui se passe sur la carte.\n\nLes participants proches les uns des autres sont mis en évidence en tant que groupes, tandis que les cyclistes hors d'un groupe restent visibles mais moins en évidence.";
+"whatsNew.observationMode.description" = "Améliorez la qualité de la carte en fournissant des observations de localisation supplémentaires.";
+"whatsNew.continue" = "Continuer";

@@ -486,6 +486,22 @@ public enum L10n {
       public static let message = L10n.tr("Localizable", "twitter.empty.message", fallback: "Here you’ll find tweets tagged with @criticalmaps and #criticalmass")
     }
   }
+  public enum WhatsNew {
+    /// Continue
+    public static let `continue` = L10n.tr("Localizable", "whatsNew.continue", fallback: "Continue")
+    /// New in this version
+    public static let header = L10n.tr("Localizable", "whatsNew.header", fallback: "New in this version")
+    public enum HighlightActiveRiders {
+      /// Get a clearer view of what's happening on the map.
+      /// 
+      /// Participants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.
+      public static let description = L10n.tr("Localizable", "whatsNew.highlightActiveRiders.description", fallback: "Get a clearer view of what's happening on the map.\n\nParticipants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.")
+    }
+    public enum ObservationMode {
+      /// Improve map quality by collecting additional location observations.
+      public static let description = L10n.tr("Localizable", "whatsNew.observationMode.description", fallback: "Improve map quality by collecting additional location observations.")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

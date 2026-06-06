@@ -339,3 +339,8 @@
 "settings.highlightActiveRiders.label" = "Aktive Teilnehmer hervorheben";
 "settings.highlightActiveRiders.description" = "Hebt Radfahrer hervor, die in Gruppen fahren";
 "a11y.settings.highlightActiveRiders.hint" = "Wenn aktiviert, werden Teilnehmer in einer Gruppe hervorgehoben und andere auf der Karte abgeblendet";
+
+"whatsNew.header" = "Neu in dieser Version";
+"whatsNew.highlightActiveRiders.description" = "Behalte den Überblick über die Karte.\n\nTeilnehmer, die nah beieinander sind, werden als Gruppen hervorgehoben, während Fahrer außerhalb einer Gruppe sichtbar bleiben, aber weniger auffällig sind.";
+"whatsNew.observationMode.description" = "Verbessere die Kartenqualität, indem du zusätzliche Standortdaten beisteuerst.";
+"whatsNew.continue" = "Weiter";

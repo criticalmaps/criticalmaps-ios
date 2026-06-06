@@ -336,3 +336,8 @@
 "settings.highlightActiveRiders.label" = "Destacar ciclistas ativos";
 "settings.highlightActiveRiders.description" = "Destaca os ciclistas que pedalam em grupo";
 "a11y.settings.highlightActiveRiders.hint" = "Quando ativado, os ciclistas em grupo são destacados e os demais aparecem esmaecidos no mapa";
+
+"whatsNew.header" = "Novidades nesta versão";
+"whatsNew.highlightActiveRiders.description" = "Tenha uma visão mais clara do que está acontecendo no mapa.\n\nOs participantes próximos uns dos outros são destacados como grupos, enquanto os ciclistas fora de um grupo permanecem visíveis, mas menos proeminentes.";
+"whatsNew.observationMode.description" = "Melhore a qualidade do mapa coletando observações de localização adicionais.";
+"whatsNew.continue" = "Continuar";

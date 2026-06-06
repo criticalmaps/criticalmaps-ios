@@ -209,11 +209,135 @@ struct AppFeatureTests {
       }
     )
     store.exhaustivity = .off
-    
+
     await store.send(.onAppear)
-    
+
     @Shared(.sessionID) var sessionID
     #expect(sessionID == "00000000-0000-0000-0000-000000000000")
+  }
+
+  @Test
+  func `onAppear presents WhatsNew sheet on the announced release`() async {
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
+    var locationManager: LocationManager = .testValue
+    locationManager.delegate = { locationObserver.stream }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.requestAlwaysAuthorization = {}
+    locationManager.set = { @Sendable _ in }
+
+    let store = TestStore(
+      initialState: AppFeature.State(), // lastSeenWhatsNewVersion empty
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.appVersion = AppFeature.whatsNewVersion
+        $0.uuid = .incrementing
+        $0.locationManager = locationManager
+        $0.mainQueue = .immediate
+        $0.mainRunLoop = .immediate
+        $0.date = .constant(date())
+        $0.apiService.getChatMessages = { [] }
+        $0.apiService.getRiders = { [] }
+        $0.continuousClock = ImmediateClock()
+        $0.nextRideService.nextRide = { _, _, _ in [] }
+        $0.feedbackGenerator.prepare = { @Sendable in }
+        $0.uiApplicationClient.setUserInterfaceStyle = { _ in }
+      }
+    )
+    store.exhaustivity = .off
+
+    await store.send(.onAppear) {
+      $0.isWhatsNewPresented = true
+    }
+  }
+
+  @Test
+  func `onAppear does not present WhatsNew sheet on a different version`() async {
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
+    var locationManager: LocationManager = .testValue
+    locationManager.delegate = { locationObserver.stream }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.requestAlwaysAuthorization = {}
+    locationManager.set = { @Sendable _ in }
+
+    let store = TestStore(
+      initialState: AppFeature.State(),
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.appVersion = "9999.0.0" // not the announced version
+        $0.uuid = .incrementing
+        $0.locationManager = locationManager
+        $0.mainQueue = .immediate
+        $0.mainRunLoop = .immediate
+        $0.date = .constant(date())
+        $0.apiService.getChatMessages = { [] }
+        $0.apiService.getRiders = { [] }
+        $0.continuousClock = ImmediateClock()
+        $0.nextRideService.nextRide = { _, _, _ in [] }
+        $0.feedbackGenerator.prepare = { @Sendable in }
+        $0.uiApplicationClient.setUserInterfaceStyle = { _ in }
+      }
+    )
+    store.exhaustivity = .off
+
+    await store.send(.onAppear)
+
+    #expect(store.state.isWhatsNewPresented == false)
+  }
+
+  @Test
+  func `onAppear does not present WhatsNew sheet once it has been seen`() async {
+    let locationObserver = AsyncStream<LocationManager.Action>.makeStream()
+    var locationManager: LocationManager = .testValue
+    locationManager.delegate = { locationObserver.stream }
+    locationManager.authorizationStatus = { .notDetermined }
+    locationManager.requestAlwaysAuthorization = {}
+    locationManager.set = { @Sendable _ in }
+
+    var state = AppFeature.State()
+    state.$lastSeenWhatsNewVersion.withLock { $0 = AppFeature.whatsNewVersion } // already seen
+
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.appVersion = AppFeature.whatsNewVersion
+        $0.uuid = .incrementing
+        $0.locationManager = locationManager
+        $0.mainQueue = .immediate
+        $0.mainRunLoop = .immediate
+        $0.date = .constant(date())
+        $0.apiService.getChatMessages = { [] }
+        $0.apiService.getRiders = { [] }
+        $0.continuousClock = ImmediateClock()
+        $0.nextRideService.nextRide = { _, _, _ in [] }
+        $0.feedbackGenerator.prepare = { @Sendable in }
+        $0.uiApplicationClient.setUserInterfaceStyle = { _ in }
+      }
+    )
+    store.exhaustivity = .off
+
+    await store.send(.onAppear)
+
+    #expect(store.state.isWhatsNewPresented == false)
+  }
+
+  @Test
+  func `dismissing WhatsNew records the announced version`() async {
+    var state = AppFeature.State()
+    state.isWhatsNewPresented = true
+
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.appVersion = AppFeature.whatsNewVersion
+      }
+    )
+
+    await store.send(.whatsNewDismissed) {
+      $0.isWhatsNewPresented = false
+      $0.$lastSeenWhatsNewVersion.withLock { $0 = AppFeature.whatsNewVersion }
+    }
   }
   
   @Test

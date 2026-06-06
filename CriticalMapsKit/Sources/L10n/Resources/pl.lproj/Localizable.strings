@@ -336,3 +336,8 @@
 "settings.highlightActiveRiders.label" = "Wyróżnij aktywnych rowerzystów";
 "settings.highlightActiveRiders.description" = "Wyróżnia rowerzystów jadących w grupie";
 "a11y.settings.highlightActiveRiders.hint" = "Po włączeniu rowerzyści w grupie są wyróżnieni, a pozostali są przyciemnieni na mapie";
+
+"whatsNew.header" = "Nowości w tej wersji";
+"whatsNew.highlightActiveRiders.description" = "Zyskaj wyraźniejszy obraz tego, co dzieje się na mapie.\n\nUczestnicy znajdujący się blisko siebie są wyróżniani jako grupy, podczas gdy rowerzyści poza grupą pozostają widoczni, ale mniej wyeksponowani.";
+"whatsNew.observationMode.description" = "Popraw jakość mapy, zbierając dodatkowe obserwacje lokalizacji.";
+"whatsNew.continue" = "Kontynuuj";
