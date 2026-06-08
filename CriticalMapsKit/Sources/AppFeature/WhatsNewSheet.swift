@@ -1,43 +1,48 @@
 import L10n
+import SharedKeys
+import SharedModels
 import Styleguide
 import SwiftUI
 
 /// "What's New" onboarding sheet shown once after updating to a version with new
-/// features. Purely presentational — the gating and dismissal live in `AppFeature`.
-/// Highlights the "Highlight active riders" feature (hero) and Observation Mode.
+/// features. Presentational — the gating/dismissal live in `AppFeature`. Lets the
+/// user toggle the announced features (Highlight active riders, Observation Mode)
+/// right from the sheet; the hero image previews the highlight effect on/off.
 struct WhatsNewSheet: View {
+  @Shared(.userSettings) private var userSettings: UserSettings
   var onContinue: () -> Void
 
   var body: some View {
     NavigationStack {
       ScrollView {
         VStack(spacing: .grid(6)) {
-          Asset.highlightActiveUsersFeature.swiftUIImage
+          heroImage
             .resizable()
             .scaledToFit()
             .clipShape(RoundedRectangle(cornerRadius: .grid(5)))
             .accessibilityHidden(true)
+            .animation(.snappy, value: userSettings.highlightActiveRiders)
 
-          VStack(spacing: .grid(2)) {
-            Text(L10n.WhatsNew.header)
-              .font(.headline)
-              .foregroundStyle(.secondary)
+          Text(L10n.WhatsNew.header)
+            .font(.headline)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(L10n.Settings.HighlightActiveRiders.label)
-              .font(.title.bold())
-              .multilineTextAlignment(.center)
+          VStack(spacing: .grid(4)) {
+            FeatureCard(
+              icon: "person.3.fill",
+              title: L10n.Settings.HighlightActiveRiders.label,
+              description: L10n.WhatsNew.HighlightActiveRiders.description,
+              isOn: Binding($userSettings.highlightActiveRiders)
+            )
 
-            Text(L10n.WhatsNew.HighlightActiveRiders.description)
-              .multilineTextAlignment(.center)
+            FeatureCard(
+              icon: "eye",
+              title: L10n.Settings.Observationmode.title,
+              description: L10n.WhatsNew.ObservationMode.description,
+              isOn: Binding($userSettings.isObservationModeEnabled)
+            )
           }
-
-          Divider()
-
-          featureCard(
-            icon: "eye",
-            title: L10n.Settings.Observationmode.title,
-            description: L10n.WhatsNew.ObservationMode.description
-          )
         }
         .padding()
       }
@@ -53,11 +58,19 @@ struct WhatsNewSheet: View {
     .presentationDetents([.large])
   }
 
-  private func featureCard(
-    icon: String,
-    title: String,
-    description: String
-  ) -> some View {
+  private var heroImage: Image {
+    (userSettings.highlightActiveRiders ? Asset.highlightActiveOn : Asset.highlightActiveOff)
+      .swiftUIImage
+  }
+}
+
+private struct FeatureCard: View {
+  let icon: String
+  let title: String
+  let description: String
+  let isOn: Binding<Bool>
+	
+  var body: some View {
     HStack(alignment: .top, spacing: .grid(4)) {
       Image(systemName: icon)
         .font(.title2)
@@ -70,10 +83,21 @@ struct WhatsNewSheet: View {
           .foregroundStyle(.secondary)
       }
 
-      Spacer()
+      Spacer(minLength: .grid(2))
+
+      // `labelsHidden` keeps `title` as the toggle's accessibility label.
+      Toggle(title, isOn: isOn)
+        .labelsHidden()
+        .tint(.brand500)
     }
     .padding()
     .background(.regularMaterial)
     .clipShape(RoundedRectangle(cornerRadius: .grid(5)))
+  }
+}
+
+#Preview {
+  WhatsNewSheet {
+    print("continue")
   }
 }

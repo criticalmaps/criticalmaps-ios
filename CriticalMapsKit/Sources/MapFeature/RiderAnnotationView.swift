@@ -56,7 +56,7 @@ final class RiderAnnotationView: MKAnnotationView {
     let dotFrame = defineFrame()
     frame = dotFrame
     layer.cornerRadius = dotFrame.height / 2
-    updateAppearance(animated: false) // ← replaces the direct backgroundColor set
+    updateAppearance(animated: false)
   }
 
   private func updateAppearance(animated: Bool) {
@@ -65,8 +65,8 @@ final class RiderAnnotationView: MKAnnotationView {
     let highlightAsActive = isRiderActive && highlightActiveRiders
 
     let targetColor: UIColor = highlightAsActive
-      ? .systemRed
-      : .systemGray
+      ? .brand500
+      : highlightAsActive ? .systemGray : .label
 
     let targetScale: CGFloat = highlightAsActive ? 1.0 : 0.75
 
