@@ -31,7 +31,7 @@ public struct SettingsFeature: Sendable {
     @Presents
     var destination: Destination.State?
 
-    var isImportingGPXRoute = false
+    public var isImportingGPXRoute = false
 
     public init() {}
 
