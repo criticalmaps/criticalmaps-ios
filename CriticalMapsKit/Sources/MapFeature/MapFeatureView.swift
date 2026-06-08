@@ -8,6 +8,7 @@ import SwiftUI
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
   @Shared(.privacyZoneSettings) var privacyZoneSettings: PrivacyZoneSettings
+  @Shared(.userSettings) var userSettings: UserSettings
 
   @Bindable var store: StoreOf<MapFeature>
 
@@ -24,6 +25,7 @@ public struct MapFeatureView: View {
         rideEvents: store.rideEvents,
         privacyZones: privacyZoneSettings.zones,
         canShowPrivacyZonesOnMap: privacyZoneSettings.canShowOnMap,
+        gpxRoute: userSettings.gpxRoute,
         annotationsCount: $store.visibleRidersCount,
         centerRegion: $store.centerRegion,
         centerEventRegion: $store.eventCenter,

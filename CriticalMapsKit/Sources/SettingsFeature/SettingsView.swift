@@ -6,6 +6,7 @@ import L10n
 import Styleguide
 import SwiftUI
 import SwiftUIHelpers
+import UniformTypeIdentifiers
 
 /// A view to render the app settings.
 public struct SettingsView: View {
@@ -47,6 +48,10 @@ public struct SettingsView: View {
             }
           }
         )
+      }
+
+      Section {
+        GPXRouteRow(store: store)
       }
 
       Section {
@@ -117,10 +122,61 @@ public struct SettingsView: View {
     .navigationDestination(isPresented: $store.destination.acknowledgements) {
       AcknowListSwiftUIView(acknowList: store.packageList!)
     }
+    .fileImporter(
+      isPresented: $store.isImportingGPXRoute,
+      allowedContentTypes: [.gpx],
+      onCompletion: { store.send(.view(.gpxFileSelected($0))) }
+    )
   }
 }
 
 // MARK: - Subviews
+
+private struct GPXRouteRow: View {
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  @Shared(.userSettings) var userSettings
+  let store: StoreOf<SettingsFeature>
+
+  var body: some View {
+    HStack(alignment: .top) {
+      VStack(alignment: .leading, spacing: .grid(1)) {
+        Text("Route Overlay")
+          .font(.body)
+        if let route = userSettings.gpxRoute {
+          Text(route.name ?? "GPX Route")
+            .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
+            .font(.subheadline)
+            .lineLimit(1)
+        } else {
+          Text("Import a GPX file to show a route on the map")
+            .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
+            .font(.subheadline)
+        }
+      }
+
+      Spacer()
+
+      if userSettings.gpxRoute != nil {
+        Button(role: .destructive) {
+          store.send(.view(.gpxRouteRemoved))
+        } label: {
+          Image(systemName: "trash")
+            .foregroundStyle(.red)
+        }
+        .buttonStyle(.plain)
+      } else {
+        Button {
+          store.send(.view(.gpxImportButtonTapped))
+        } label: {
+          Text("Import")
+            .font(.subheadline)
+        }
+        .buttonStyle(.plain)
+      }
+    }
+    .accessibilityElement(children: .combine)
+  }
+}
 
 private struct ObservationModeRow: View {
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
@@ -354,6 +410,12 @@ private struct SettingsInfoLink: View {
     }
     .font(.body)
   }
+}
+
+// MARK: - UTType
+
+private extension UTType {
+  static let gpx = UTType(importedAs: "com.topografix.gpx")
 }
 
 // MARK: - Preview

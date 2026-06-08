@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Helpers
 import L10n
 import SettingsFeature
+import SharedModels
 import Styleguide
 import SwiftUI
 import SwiftUIHelpers
@@ -127,6 +128,7 @@ private struct InfoOverlayLegacyContent: View {
 
 private struct InfoOverlayExpandedContent: View {
   @Binding var isExpanded: Bool
+  @Shared(.userSettings) private var userSettings
 
   let cycleStartTime: Date?
   let ridersCountLabel: String
@@ -150,12 +152,53 @@ private struct InfoOverlayExpandedContent: View {
       }
 
       PrivacyStatusTile(isInPrivacyZone: isInPrivacyZone)
+
+      if let route = userSettings.gpxRoute {
+        GPXRouteTile(routeName: route.name) {
+          $userSettings.withLock { $0.gpxRoute = nil }
+        }
+      }
     }
     .contentShape(.rect)
     .adaptiveClipShape()
     .onTapGesture {
       withAnimation(.infoOverlay) { isExpanded.toggle() }
     }
+  }
+}
+
+// MARK: - GPX Route Tile
+
+private struct GPXRouteTile: View {
+  let routeName: String?
+  let onRemove: () -> Void
+
+  var body: some View {
+    DataTile("Route") {
+      Button {
+        onRemove()
+      } label: {
+        Image(systemName: "xmark.circle.fill")
+          .font(.title3)
+          .foregroundStyle(Color.textPrimary)
+      }
+      .buttonStyle(.plain)
+    }
+    .overlay(alignment: .bottomLeading) {
+      if let routeName {
+        Text(routeName)
+          .font(.system(size: 9))
+          .foregroundStyle(Color.textPrimary.opacity(0.7))
+          .lineLimit(1)
+          .truncationMode(.tail)
+          .padding(.horizontal, .grid(1))
+          .padding(.bottom, .grid(1))
+      }
+    }
+    .accessibilityLabel("GPX Route: \(routeName ?? "Route")")
+    .accessibilityHint("Double tap to remove")
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { onRemove() }
   }
 }
 

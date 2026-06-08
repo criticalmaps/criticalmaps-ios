@@ -31,6 +31,8 @@ public struct SettingsFeature: Sendable {
     @Presents
     var destination: Destination.State?
 
+    var isImportingGPXRoute = false
+
     public init() {}
 
     var versionNumber: String {
@@ -60,6 +62,7 @@ public struct SettingsFeature: Sendable {
     case view(ViewAction)
     case destination(PresentationAction<Destination.Action>)
     case openURL(URL)
+    case gpxRouteParsed(GPXRoute)
 
     public enum ViewAction {
       case acknowledgementsRowTapped
@@ -72,6 +75,9 @@ public struct SettingsFeature: Sendable {
       case observationModeChanged(Bool)
       case infoSectionRowTapped(SettingsFeature.State.InfoSectionRow)
       case supportSectionRowTapped(SettingsFeature.State.SupportSectionRow)
+      case gpxImportButtonTapped
+      case gpxFileSelected(Result<URL, any Error>)
+      case gpxRouteRemoved
     }
   }
 
@@ -142,6 +148,26 @@ public struct SettingsFeature: Sendable {
 
         case let .supportSectionRowTapped(row):
           return .send(.openURL(row.url))
+
+        case .gpxImportButtonTapped:
+          state.isImportingGPXRoute = true
+          return .none
+
+        case let .gpxFileSelected(result):
+          state.isImportingGPXRoute = false
+          guard case let .success(url) = result else { return .none }
+          return .run { send in
+            let accessing = url.startAccessingSecurityScopedResource()
+            defer { if accessing { url.stopAccessingSecurityScopedResource() } }
+            guard let data = try? Data(contentsOf: url),
+                  let route = GPXParser.parse(data: data)
+            else { return }
+            await send(.gpxRouteParsed(route))
+          }
+
+        case .gpxRouteRemoved:
+          state.$userSettings.withLock { $0.gpxRoute = nil }
+          return .none
         }
 
       case .destination:
@@ -151,6 +177,10 @@ public struct SettingsFeature: Sendable {
         return .run { _ in
           _ = await uiApplicationClient.open(url, [:])
         }
+
+      case let .gpxRouteParsed(route):
+        state.$userSettings.withLock { $0.gpxRoute = route }
+        return .none
 
       case .binding:
         return .none

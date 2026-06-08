@@ -20,6 +20,7 @@ struct MapView: ViewRepresentable {
   var rideEvents: [Ride] = []
   let privacyZones: IdentifiedArrayOf<PrivacyZone>
   let canShowPrivacyZonesOnMap: Bool
+  var gpxRoute: GPXRoute?
 
   var mapMenuShareEventHandler: MenuActionHandle?
   var mapMenuRouteEventHandler: MenuActionHandle?
@@ -31,6 +32,7 @@ struct MapView: ViewRepresentable {
     rideEvents: [Ride] = [],
     privacyZones: IdentifiedArrayOf<PrivacyZone> = [],
     canShowPrivacyZonesOnMap: Bool = false,
+    gpxRoute: GPXRoute? = nil,
     annotationsCount: Binding<Int?>,
     centerRegion: Binding<CoordinateRegion?>,
     centerEventRegion: Binding<CoordinateRegion?>,
@@ -43,6 +45,7 @@ struct MapView: ViewRepresentable {
     self.rideEvents = rideEvents
     self.privacyZones = privacyZones
     self.canShowPrivacyZonesOnMap = canShowPrivacyZonesOnMap
+    self.gpxRoute = gpxRoute
     _annotationsCount = annotationsCount
     _centerRegion = centerRegion
     _centerEventRegion = centerEventRegion
@@ -76,6 +79,8 @@ struct MapView: ViewRepresentable {
     updateRideEvents(in: uiView)
     // privacy zones
     updatePrivacyZoneOverlays(in: uiView)
+    // gpx route
+    updateGPXRouteOverlay(in: uiView)
   }
 
   func setNextRideAnnotation(in mapView: MKMapView) {
@@ -162,6 +167,17 @@ struct MapView: ViewRepresentable {
       mapView.addOverlay(circle)
     }
   }
+
+  func updateGPXRouteOverlay(in mapView: MKMapView) {
+    mapView.removeOverlays(
+      mapView.overlays.filter { $0.title == gpxRouteOverlayTitle }
+    )
+    guard let route = gpxRoute, !route.coordinates.isEmpty else { return }
+    var clCoordinates = route.coordinates.map(\.asCLLocationCoordinate)
+    let polyline = MKPolyline(coordinates: &clCoordinates, count: clCoordinates.count)
+    polyline.title = gpxRouteOverlayTitle
+    mapView.addOverlay(polyline, level: .aboveRoads)
+  }
 }
 
 /// Coordinator to handle MKMapViewDelegate events
@@ -217,8 +233,18 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       return renderer
     }
 
+    if let polyline = overlay as? MKPolyline, overlay.title == gpxRouteOverlayTitle {
+      let renderer = MKPolylineRenderer(polyline: polyline)
+      renderer.strokeColor = UIColor.systemBlue.withAlphaComponent(0.8)
+      renderer.lineWidth = 3
+      renderer.lineJoin = .round
+      renderer.lineCap = .round
+      return renderer
+    }
+
     return MKOverlayRenderer(overlay: overlay)
   }
 }
 
 private let privacyZonePrefix = "privacy_zone_"
+private let gpxRouteOverlayTitle = "gpx_route"

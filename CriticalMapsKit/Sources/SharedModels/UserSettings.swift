@@ -7,13 +7,16 @@ import SwiftUI
 public struct UserSettings: Codable, Equatable, Sendable {
   public var isObservationModeEnabled: Bool
   public var showInfoViewEnabled: Bool
+  public var gpxRoute: GPXRoute?
 
   public init(
     enableObservationMode: Bool = false,
-    showInfoViewEnabled: Bool = true
+    showInfoViewEnabled: Bool = true,
+    gpxRoute: GPXRoute? = nil
   ) {
     isObservationModeEnabled = enableObservationMode
     self.showInfoViewEnabled = showInfoViewEnabled
+    self.gpxRoute = gpxRoute
   }
 }
 
