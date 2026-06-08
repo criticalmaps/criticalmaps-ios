@@ -124,7 +124,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   /// shown once to users running this exact version (both fresh installs and
   /// updates), and never on other versions. Bump this together with the sheet copy
   /// when a future release should announce something new.
-  static let whatsNewVersion = "4.7.0"
+  static let whatsNewVersion = "4.10.0"
 
   @Dependency(\.apiService) var apiService
   @Dependency(\.appVersion) var appVersion
