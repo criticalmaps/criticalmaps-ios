@@ -5,9 +5,7 @@ import Styleguide
 import SwiftUI
 
 /// "What's New" onboarding sheet shown once after updating to a version with new
-/// features. Presentational — the gating/dismissal live in `AppFeature`. Lets the
-/// user toggle the announced features (Highlight active riders, Observation Mode)
-/// right from the sheet; the hero image previews the highlight effect on/off.
+/// features. Presentational — the gating/dismissal live in `AppFeature`
 struct WhatsNewSheet: View {
   @Shared(.userSettings) private var userSettings: UserSettings
   var onContinue: () -> Void
@@ -30,14 +28,12 @@ struct WhatsNewSheet: View {
 
           VStack(spacing: .grid(4)) {
             FeatureCard(
-              icon: "person.3.fill",
               title: L10n.Settings.HighlightActiveRiders.label,
               description: L10n.WhatsNew.HighlightActiveRiders.description,
               isOn: Binding($userSettings.highlightActiveRiders)
             )
 
             FeatureCard(
-              icon: "eye",
               title: L10n.Settings.Observationmode.title,
               description: L10n.WhatsNew.ObservationMode.description,
               isOn: Binding($userSettings.isObservationModeEnabled)
@@ -65,17 +61,12 @@ struct WhatsNewSheet: View {
 }
 
 private struct FeatureCard: View {
-  let icon: String
   let title: String
   let description: String
   let isOn: Binding<Bool>
 	
   var body: some View {
     HStack(alignment: .top, spacing: .grid(4)) {
-      Image(systemName: icon)
-        .font(.title2)
-        .accessibilityHidden(true)
-
       VStack(alignment: .leading, spacing: .grid(1)) {
         Text(title)
           .font(.headline)
@@ -85,14 +76,13 @@ private struct FeatureCard: View {
 
       Spacer(minLength: .grid(2))
 
-      // `labelsHidden` keeps `title` as the toggle's accessibility label.
       Toggle(title, isOn: isOn)
         .labelsHidden()
         .tint(.brand500)
     }
     .padding()
     .background(.regularMaterial)
-    .clipShape(RoundedRectangle(cornerRadius: .grid(5)))
+    .clipShape(.rect(cornerRadius: .grid(5)))
   }
 }
 
