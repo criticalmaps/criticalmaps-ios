@@ -12,10 +12,6 @@
 "a11y.general.off" = "Spento";
 "a11y.general.selected" = "selezionato";
 
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "Partecipa alla Messa Critica o stai solo guardando?";
-"appCore.viewingModeAlert.riding" = "Riding";
-"appCore.viewingModeAlert.watching" = "Watching";
 
 "appView.overlay.nextUpdate" = "Prossimo update";
 "appView.overlay.riders" = "Riders";
@@ -340,7 +336,7 @@
 "settings.highlightActiveRiders.description" = "Evidenzia i ciclisti che pedalano in gruppo";
 "a11y.settings.highlightActiveRiders.hint" = "Se attivato, i ciclisti in gruppo vengono evidenziati e gli altri appaiono attenuati sulla mappa";
 
-"whatsNew.header" = "Novità di questa versione";
+"whatsNew.header" = "Scopri";
 "whatsNew.highlightActiveRiders.description" = "Ottieni una visione più chiara di ciò che accade sulla mappa.\n\nI partecipanti vicini tra loro vengono evidenziati come gruppi, mentre i ciclisti al di fuori di un gruppo restano visibili ma meno in evidenza.";
-"whatsNew.observationMode.description" = "Migliora la qualità della mappa fornendo ulteriori osservazioni sulla posizione.";
+"whatsNew.observationMode.description" = "Segui la pedalata senza parteciparvi, come passeggero, conducente o spettatore? Attivalo così la tua posizione non viene condivisa come partecipante.";
 "whatsNew.continue" = "Continua";

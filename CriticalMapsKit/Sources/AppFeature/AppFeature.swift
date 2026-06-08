@@ -25,12 +25,6 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   public enum Destination: Sendable {
     case social(SocialFeature)
     case settings(SettingsFeature)
-    case alert(AlertState<Alert>)
-    
-    @CasePathable
-    public enum Alert: Equatable, Sendable {
-      case setObservationMode(enabled: Bool)
-    }
   }
   
   // MARK: State
@@ -110,8 +104,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     case fetchChatMessages
     case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
     case onRideSelectedFromBottomSheet(SharedModels.Ride)
-    case presentObservationModeAlert
-    
+
     case socialButtonTapped
     case settingsButtonTapped
     case didTapNextRideOverlayButton
@@ -178,12 +171,14 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
 
         StorageMigration.migratePrivacyZones()
 
-        // Show the "What's New" sheet once to users running the release it
-        // announces (`whatsNewVersion`), then never again. Pinning to a specific
-        // version avoids re-showing it on every future update.
-        let shouldShowWhatsNew = appVersion == Self.whatsNewVersion
+        // Show the "What's New" sheet once: to every fresh install (onboarding,
+        // any version) and to users updating to the release it announces
+        // (`whatsNewVersion`). The sheet carries the feature toggles, so it also
+        // replaces the old observation-mode prompt.
+        let isFreshInstall = state.lastSeenWhatsNewVersion.isEmpty
+        let isAnnouncedUpdate = appVersion == Self.whatsNewVersion
           && state.lastSeenWhatsNewVersion != Self.whatsNewVersion
-        if shouldShowWhatsNew {
+        if isFreshInstall || isAnnouncedUpdate {
           state.isWhatsNewPresented = true
         }
 
@@ -206,16 +201,6 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             },
             .run { _ in
               await feedbackGenerator.prepare()
-            },
-            .run { send in
-              // Don't stack the observation-mode prompt on top of "What's New";
-              // it will show on a later launch instead.
-              guard !shouldShowWhatsNew else { return }
-              @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
-              if !didShowObservationModePrompt {
-                try? await clock.sleep(for: .seconds(3))
-                await send(.presentObservationModeAlert)
-              }
             }
           ]
         )
@@ -407,42 +392,12 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         return .none
 
       case .whatsNewDismissed:
-        // Mark this What's New as seen so it isn't shown again on this version.
+        // Mark the sheet as seen for this version so it isn't shown again.
         // Fires for both Continue and swipe-to-dismiss.
         state.isWhatsNewPresented = false
-        state.$lastSeenWhatsNewVersion.withLock { $0 = Self.whatsNewVersion }
+        state.$lastSeenWhatsNewVersion.withLock { $0 = appVersion }
         return .none
-        
-      case .presentObservationModeAlert:
-        state.destination = .alert(
-          AlertState(
-            title: {
-              TextState(verbatim: L10n.Settings.Observationmode.title)
-            },
-            actions: {
-              ButtonState(
-                action: .setObservationMode(enabled: false),
-                label: { TextState(L10n.AppCore.ViewingModeAlert.riding) }
-              )
-              ButtonState(
-                action: .setObservationMode(enabled: true),
-                label: { TextState(L10n.AppCore.ViewingModeAlert.watching) }
-              )
-            },
-            message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
-          )
-        )
-        @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
-        $didShowObservationModePrompt.withLock { $0 = true }
-        return .none
-        
-      case let .destination(.presented(.alert(alertAction))):
-        switch alertAction {
-        case let .setObservationMode(enabled: mode):
-          state.$userSettings.withLock { $0.isObservationModeEnabled = mode }
-          return .none
-        }
-        
+
       case let .destination(.presented(.settings(settingsAction))):
         switch settingsAction {
         case .destination(.presented(.rideEventSettings)):

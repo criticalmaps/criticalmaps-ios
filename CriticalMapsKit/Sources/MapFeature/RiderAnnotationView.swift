@@ -5,8 +5,7 @@ final class RiderAnnotationView: MKAnnotationView {
   // MARK: - State
 
   /// Whether active-group highlighting is enabled (the `highlightActiveRiders`
-  /// setting). When ON, riders in an active group are highlighted red; when OFF,
-  /// all riders are shown in neutral gray.
+  /// setting).
   var highlightActiveRiders = false {
     didSet {
       guard oldValue != highlightActiveRiders else { return }

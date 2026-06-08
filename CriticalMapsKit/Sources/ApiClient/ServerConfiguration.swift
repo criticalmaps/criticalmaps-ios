@@ -5,10 +5,6 @@ import Foundation
 /// polls. The default is production; a development build (e.g. the
 /// `Critical Maps (Local)` scheme) overrides this dependency at the app's
 /// composition root to point at a local mock server with a fast poll interval.
-///
-/// This type intentionally contains **no** global-state reads (no `Bundle.main`,
-/// no `ProcessInfo`): the app target resolves the value and injects it, keeping
-/// this package free of build-configuration awareness.
 public struct ServerConfiguration: Sendable, Equatable {
   /// URL scheme for the locations endpoint, e.g. `"https"` or `"http"`.
   public var scheme: String
@@ -22,7 +18,7 @@ public struct ServerConfiguration: Sendable, Equatable {
 
   public init(
     scheme: String = "https",
-    locationsHost: String = "api-cdn.criticalmaps.net", // == cdnBaseUrl (kept in sync)
+    locationsHost: String = "api-cdn.criticalmaps.net",
     locationsPort: Int? = nil,
     pollIntervalSeconds: Int = 60
   ) {

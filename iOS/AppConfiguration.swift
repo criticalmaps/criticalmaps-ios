@@ -20,11 +20,6 @@ enum AppConfiguration {
 
   static var serverConfiguration: ServerConfiguration {
     #if DEBUG_LOCAL
-      // Points at the local mock server, which lives in its own repository
-      // (criticalmaps-mock-server). Start it with `swift run`, then launch the
-      // "Critical Maps (Local)" scheme. Fast poll cycle so the simulated ride is
-      // visible to move within seconds.
-      // Real device: replace "localhost" with your Mac's LAN IP.
       return ServerConfiguration(
         scheme: "http",
         locationsHost: "localhost",

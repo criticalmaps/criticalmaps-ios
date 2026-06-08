@@ -52,18 +52,6 @@ public enum L10n {
       public static let hint = L10n.tr("Localizable", "a11y.usertrackingbutton.hint", fallback: "Toggle tracking mode")
     }
   }
-  public enum AppCore {
-    public enum ViewingModeAlert {
-      /// Are you participating in the Critical Mass or are you only watching?
-      public static let message = L10n.tr("Localizable", "appCore.viewingModeAlert.message", fallback: "Are you participating in the Critical Mass or are you only watching?")
-      /// Riding
-      public static let riding = L10n.tr("Localizable", "appCore.viewingModeAlert.riding", fallback: "Riding")
-      /// Viewing Mode
-      public static let title = L10n.tr("Localizable", "appCore.viewingModeAlert.title", fallback: "Viewing Mode")
-      /// Watching
-      public static let watching = L10n.tr("Localizable", "appCore.viewingModeAlert.watching", fallback: "Watching")
-    }
-  }
   public enum AppView {
     public enum Overlay {
       /// Next update
@@ -489,8 +477,8 @@ public enum L10n {
   public enum WhatsNew {
     /// Continue
     public static let `continue` = L10n.tr("Localizable", "whatsNew.continue", fallback: "Continue")
-    /// New in this version
-    public static let header = L10n.tr("Localizable", "whatsNew.header", fallback: "New in this version")
+    /// Discover
+    public static let header = L10n.tr("Localizable", "whatsNew.header", fallback: "Discover")
     public enum HighlightActiveRiders {
       /// Get a clearer view of what's happening on the map.
       /// 
@@ -498,8 +486,8 @@ public enum L10n {
       public static let description = L10n.tr("Localizable", "whatsNew.highlightActiveRiders.description", fallback: "Get a clearer view of what's happening on the map.\n\nParticipants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.")
     }
     public enum ObservationMode {
-      /// Improve map quality by collecting additional location observations.
-      public static let description = L10n.tr("Localizable", "whatsNew.observationMode.description", fallback: "Improve map quality by collecting additional location observations.")
+      /// Following the ride without taking part — as a passenger, driver or onlooker? Turn this on so your location isn't shared as a rider.
+      public static let description = L10n.tr("Localizable", "whatsNew.observationMode.description", fallback: "Following the ride without taking part — as a passenger, driver or onlooker? Turn this on so your location isn't shared as a rider.")
     }
   }
 }

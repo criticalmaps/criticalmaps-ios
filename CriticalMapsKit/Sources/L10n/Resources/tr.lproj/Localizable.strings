@@ -12,10 +12,6 @@
 "a11y.general.off" = "Kapalı";
 "a11y.general.selected" = "seçildi";
 
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
-"appCore.viewingModeAlert.riding" = "Riding";
-"appCore.viewingModeAlert.watching" = "Watching";
 
 "appView.overlay.nextUpdate" = "Next update";
 "appView.overlay.riders" = "Riders";
@@ -337,7 +333,7 @@
 "settings.highlightActiveRiders.description" = "Grup hâlinde giden bisikletçileri vurgular";
 "a11y.settings.highlightActiveRiders.hint" = "Etkinleştirildiğinde, gruptaki sürücüler vurgulanır ve diğerleri haritada soluk görünür";
 
-"whatsNew.header" = "Bu sürümde yeni";
+"whatsNew.header" = "Keşfet";
 "whatsNew.highlightActiveRiders.description" = "Haritada olanları daha net gör.\n\nBirbirine yakın katılımcılar grup olarak vurgulanır; bir grubun dışındaki sürücüler görünür kalır ancak daha az belirgindir.";
-"whatsNew.observationMode.description" = "Ek konum gözlemleri toplayarak harita kalitesini iyileştir.";
+"whatsNew.observationMode.description" = "Sürüşe katılmadan mı takip ediyorsun – yolcu, sürücü ya da izleyici olarak? Bunu aç, böylece konumun bir katılımcı olarak paylaşılmaz.";
 "whatsNew.continue" = "Devam et";

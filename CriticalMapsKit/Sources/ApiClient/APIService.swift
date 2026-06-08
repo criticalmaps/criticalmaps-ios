@@ -20,8 +20,6 @@ extension APIService: DependencyKey {
     @Dependency(\.apiClient) var apiClient
     @Dependency(\.serverConfiguration) var serverConfiguration
 
-    // The locations endpoint honors the injected server configuration so a dev
-    // build can point it at a local mock server. Defaults resolve to production.
     let locationsEndpoint = Endpoint(
       baseUrl: serverConfiguration.locationsHost,
       pathComponents: ["locations"],
