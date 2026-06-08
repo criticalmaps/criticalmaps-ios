@@ -36,13 +36,10 @@ public struct DataTile<Content: View>: View {
     .frame(width: 100)
     .conditionalBackground(shouldUseGlassEffect: false)
     .adaptiveClipShape()
-    .if(!.iOS26) { view in
-      view
-        .overlay(
-          RoundedRectangle(cornerRadius: .grid(3), style: .continuous)
-            .stroke(Color.textPrimary.opacity(0.2), lineWidth: 1)
-        )
-    }
+    .overlay(
+      RoundedRectangle(cornerRadius: .grid(3), style: .continuous)
+        .stroke(Color.textPrimary.opacity(0.15), lineWidth: 1)
+    )
     .accessibilityElement(children: .combine)
   }
 }

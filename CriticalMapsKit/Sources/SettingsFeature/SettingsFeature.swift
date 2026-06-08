@@ -159,9 +159,11 @@ public struct SettingsFeature: Sendable {
           return .run { send in
             let accessing = url.startAccessingSecurityScopedResource()
             defer { if accessing { url.stopAccessingSecurityScopedResource() } }
-            guard let data = try? Data(contentsOf: url),
-                  let route = GPXParser.parse(data: data)
+            guard
+              let data = try? Data(contentsOf: url),
+              var route = GPXParser.parse(data: data)
             else { return }
+            route.name = url.lastPathComponent
             await send(.gpxRouteParsed(route))
           }
 

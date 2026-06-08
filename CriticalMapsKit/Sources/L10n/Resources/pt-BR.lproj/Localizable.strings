@@ -332,3 +332,8 @@
 "social.feed.loading" = "Carregando feed";
 
 "map.location.request.desciption" = "A localização torna este app melhor. Por favor nos dê acesso.";
+
+"settings.routeOverlay.title" = "Sobreposição de rota";
+"settings.routeOverlay.description" = "Importe um arquivo GPX para exibir uma rota no mapa";
+"settings.routeOverlay.import" = "Importar";
+"appView.overlay.route" = "Rota";

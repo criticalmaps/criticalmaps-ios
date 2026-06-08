@@ -332,3 +332,8 @@
 "social.feed.loading" = "Ładowanie kanału";
 
 "map.location.request.desciption" = "Twoja lokalizacja sprawia, że ta aplikacja działa lepiej. Proszę daj nam dostęp.";
+
+"settings.routeOverlay.title" = "Nakładka trasy";
+"settings.routeOverlay.description" = "Zaimportuj plik GPX, aby wyświetlić trasę na mapie";
+"settings.routeOverlay.import" = "Importuj";
+"appView.overlay.route" = "Trasa";

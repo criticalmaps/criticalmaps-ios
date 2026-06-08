@@ -174,28 +174,28 @@ private struct GPXRouteTile: View {
   let onRemove: () -> Void
 
   var body: some View {
-    DataTile("Route") {
-      Button {
+    DataTile(L10n.AppView.Overlay.route) {
+      Button(role: .destructive) {
         onRemove()
       } label: {
-        Image(systemName: "xmark.circle.fill")
-          .font(.title3)
-          .foregroundStyle(Color.textPrimary)
+        VStack {
+          Image(systemName: "xmark.circle")
+            .font(.pageTitle)
+            .foregroundStyle(.red)
+
+          if let routeName {
+            Text(routeName)
+              .font(.system(size: 9))
+              .foregroundStyle(Color.textPrimary.opacity(0.7))
+              .lineLimit(1)
+              .truncationMode(.tail)
+              .padding(.bottom, .grid(1))
+          }
+        }
       }
       .buttonStyle(.plain)
     }
-    .overlay(alignment: .bottomLeading) {
-      if let routeName {
-        Text(routeName)
-          .font(.system(size: 9))
-          .foregroundStyle(Color.textPrimary.opacity(0.7))
-          .lineLimit(1)
-          .truncationMode(.tail)
-          .padding(.horizontal, .grid(1))
-          .padding(.bottom, .grid(1))
-      }
-    }
-    .accessibilityLabel("GPX Route: \(routeName ?? "Route")")
+    .accessibilityLabel(L10n.AppView.Overlay.route + ": " + (routeName ?? L10n.AppView.Overlay.route))
     .accessibilityHint("Double tap to remove")
     .accessibilityAddTraits(.isButton)
     .accessibilityAction { onRemove() }

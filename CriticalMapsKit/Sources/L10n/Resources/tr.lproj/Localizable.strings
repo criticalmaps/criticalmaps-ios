@@ -332,3 +332,8 @@
 "social.feed.loading" = "Akış yükleniyor";
 
 "map.location.request.desciption" = "Konum bu uygulamayı daha iyi yapar. Lütfen bize erişim ver.";
+
+"settings.routeOverlay.title" = "Rota Katmanı";
+"settings.routeOverlay.description" = "Haritada bir rota göstermek için GPX dosyası içe aktarın";
+"settings.routeOverlay.import" = "İçe Aktar";
+"appView.overlay.route" = "Rota";

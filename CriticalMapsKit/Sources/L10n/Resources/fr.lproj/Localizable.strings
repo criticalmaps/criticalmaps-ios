@@ -335,3 +335,8 @@
 
 "rideEvent.contextMenu.copyCoordinates" = "Copier les coordonnées";
 "rideEvent.contextMenu.copyLocationName" = "Copier le nom du lieu";
+
+"settings.routeOverlay.title" = "Superposition d'itinéraire";
+"settings.routeOverlay.description" = "Importez un fichier GPX pour afficher un itinéraire sur la carte";
+"settings.routeOverlay.import" = "Importer";
+"appView.overlay.route" = "Itinéraire";

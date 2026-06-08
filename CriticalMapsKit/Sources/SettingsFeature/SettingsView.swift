@@ -140,15 +140,16 @@ private struct GPXRouteRow: View {
   var body: some View {
     HStack(alignment: .top) {
       VStack(alignment: .leading, spacing: .grid(1)) {
-        Text("Route Overlay")
+        Text(L10n.Settings.RouteOverlay.title)
           .font(.body)
+				
         if let route = userSettings.gpxRoute {
-          Text(route.name ?? "GPX Route")
+          Text(route.name ?? L10n.Settings.RouteOverlay.title)
             .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
             .font(.subheadline)
             .lineLimit(1)
         } else {
-          Text("Import a GPX file to show a route on the map")
+          Text(L10n.Settings.RouteOverlay.description)
             .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
             .font(.subheadline)
         }
@@ -160,7 +161,7 @@ private struct GPXRouteRow: View {
         Button(role: .destructive) {
           store.send(.view(.gpxRouteRemoved))
         } label: {
-          Image(systemName: "trash")
+          Image(systemName: "xmark.circle")
             .foregroundStyle(.red)
         }
         .buttonStyle(.plain)
@@ -168,7 +169,7 @@ private struct GPXRouteRow: View {
         Button {
           store.send(.view(.gpxImportButtonTapped))
         } label: {
-          Text("Import")
+          Text(L10n.Settings.RouteOverlay.import)
             .font(.subheadline)
         }
         .buttonStyle(.plain)

@@ -335,3 +335,8 @@
 
 "rideEvent.contextMenu.copyCoordinates" = "Copy Coordinates";
 "rideEvent.contextMenu.copyLocationName" = "Copy Location Name";
+
+"settings.routeOverlay.title" = "Route Overlay";
+"settings.routeOverlay.description" = "Import a GPX file to show a route on the map";
+"settings.routeOverlay.import" = "Import";
+"appView.overlay.route" = "Route";
