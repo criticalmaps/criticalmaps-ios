@@ -1,6 +1,6 @@
 import ComposableArchitecture
 import Foundation
-import SettingsFeature
+@testable import SettingsFeature
 import SharedModels
 import Testing
 
