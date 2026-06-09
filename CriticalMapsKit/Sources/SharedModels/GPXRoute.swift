@@ -10,15 +10,35 @@ public struct GPXRoute: Codable, Equatable, Sendable {
   }
 }
 
+// MARK: - Parse Error
+
+public enum GPXParseError: LocalizedError, Equatable, Sendable {
+  case malformedXML
+  case noCoordinatesFound
+
+  public var errorDescription: String? {
+    switch self {
+    case .malformedXML:
+      "The file could not be read as a valid GPX file."
+    case .noCoordinatesFound:
+      "The GPX file does not contain any route coordinates."
+    }
+  }
+}
+
 // MARK: - Parser
 
 public enum GPXParser {
-  public static func parse(data: Data) -> GPXRoute? {
+  public static func parse(data: Data) throws -> GPXRoute {
     let delegate = ParserDelegate()
     let parser = XMLParser(data: data)
     parser.delegate = delegate
-    parser.parse()
-    guard !delegate.coordinates.isEmpty else { return nil }
+    guard parser.parse() else {
+      throw GPXParseError.malformedXML
+    }
+    guard !delegate.coordinates.isEmpty else {
+      throw GPXParseError.noCoordinatesFound
+    }
     return GPXRoute(coordinates: delegate.coordinates)
   }
 }

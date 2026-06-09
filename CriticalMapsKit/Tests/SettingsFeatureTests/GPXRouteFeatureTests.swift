@@ -22,7 +22,7 @@ struct GPXRouteFeatureTests {
   }
 
   @Test
-  func `file selected with failure clears importing flag`() async {
+  func `file selected with failure shows alert`() async {
     var initialState = SettingsFeature.State()
     initialState.isImportingGPXRoute = true
 
@@ -33,6 +33,7 @@ struct GPXRouteFeatureTests {
 
     await store.send(.view(.gpxFileSelected(.failure(TestError.stub)))) {
       $0.isImportingGPXRoute = false
+      $0.alert = .gpxImportFailed(error: TestError.stub)
     }
   }
 
@@ -69,7 +70,7 @@ struct GPXRouteFeatureTests {
   }
 
   @Test
-  func `file selected with unparsable content sends no action`() async throws {
+  func `file selected with unparsable content shows alert`() async throws {
     let url = try makeGPXFile(named: "broken", content: "this is not xml at all")
 
     let store = TestStore(
@@ -83,11 +84,13 @@ struct GPXRouteFeatureTests {
     await store.send(.view(.gpxFileSelected(.success(url)))) {
       $0.isImportingGPXRoute = false
     }
-    // no gpxRouteParsed action expected
+    await store.receive(\.gpxImportFailed) {
+      $0.alert = .gpxImportFailed(error: GPXParseError.malformedXML)
+    }
   }
 
   @Test
-  func `file selected with GPX having no trackpoints sends no action`() async throws {
+  func `file selected with GPX having no trackpoints shows alert`() async throws {
     let url = try makeGPXFile(named: "empty", content: emptyTrackGPXContent)
 
     let store = TestStore(
@@ -101,7 +104,9 @@ struct GPXRouteFeatureTests {
     await store.send(.view(.gpxFileSelected(.success(url)))) {
       $0.isImportingGPXRoute = false
     }
-    // no gpxRouteParsed action expected
+    await store.receive(\.gpxImportFailed) {
+      $0.alert = .gpxImportFailed(error: GPXParseError.noCoordinatesFound)
+    }
   }
 
   @Test
@@ -148,15 +153,15 @@ struct GPXRouteFeatureTests {
 @Suite("GPXParser")
 struct GPXParserTests {
   @Test
-  func `parses track points`() {
-    let route = GPXParser.parse(data: Data(validGPXContent.utf8))
-    #expect(route?.coordinates.count == 3)
-    #expect(route?.coordinates.first == Coordinate(latitude: 52.5200, longitude: 13.4050))
-    #expect(route?.coordinates.last == Coordinate(latitude: 52.5220, longitude: 13.4070))
+  func `parses track points`() throws {
+    let route = try GPXParser.parse(data: Data(validGPXContent.utf8))
+    #expect(route.coordinates.count == 3)
+    #expect(route.coordinates.first == Coordinate(latitude: 52.5200, longitude: 13.4050))
+    #expect(route.coordinates.last == Coordinate(latitude: 52.5220, longitude: 13.4070))
   }
 
   @Test
-  func `parses waypoints`() {
+  func `parses waypoints`() throws {
     let gpx = """
     <?xml version="1.0"?>
     <gpx version="1.1">
@@ -164,39 +169,41 @@ struct GPXParserTests {
       <wpt lat="48.1384" lon="11.5765"><name>Next</name></wpt>
     </gpx>
     """
-    let route = GPXParser.parse(data: Data(gpx.utf8))
-    #expect(route?.coordinates.count == 2)
-    #expect(route?.coordinates.first == Coordinate(latitude: 48.1374, longitude: 11.5755))
+    let route = try GPXParser.parse(data: Data(gpx.utf8))
+    #expect(route.coordinates.count == 2)
+    #expect(route.coordinates.first == Coordinate(latitude: 48.1374, longitude: 11.5755))
   }
 
   @Test
-  func `parses route points`() {
+  func `parses route points`() throws {
     let gpx = """
     <?xml version="1.0"?>
     <gpx version="1.1">
       <rte><rtept lat="52.0" lon="13.0"/><rtept lat="52.1" lon="13.1"/></rte>
     </gpx>
     """
-    let route = GPXParser.parse(data: Data(gpx.utf8))
-    #expect(route?.coordinates.count == 2)
+    let route = try GPXParser.parse(data: Data(gpx.utf8))
+    #expect(route.coordinates.count == 2)
   }
 
   @Test
-  func `returns nil for empty track`() {
-    let route = GPXParser.parse(data: Data(emptyTrackGPXContent.utf8))
-    #expect(route == nil)
+  func `throws noCoordinatesFound for empty track`() {
+    #expect(throws: GPXParseError.noCoordinatesFound) {
+      try GPXParser.parse(data: Data(emptyTrackGPXContent.utf8))
+    }
   }
 
   @Test
-  func `returns nil for invalid XML`() {
-    let route = GPXParser.parse(data: Data("not xml".utf8))
-    #expect(route == nil)
+  func `throws malformedXML for invalid XML`() {
+    #expect(throws: GPXParseError.malformedXML) {
+      try GPXParser.parse(data: Data("not xml".utf8))
+    }
   }
 
   @Test
-  func `does not set name from XML`() {
-    let route = GPXParser.parse(data: Data(validGPXContent.utf8))
-    #expect(route?.name == nil)
+  func `does not set name from XML`() throws {
+    let route = try GPXParser.parse(data: Data(validGPXContent.utf8))
+    #expect(route.name == nil)
   }
 }
 

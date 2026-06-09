@@ -122,6 +122,7 @@ public struct SettingsView: View {
     .navigationDestination(isPresented: $store.destination.acknowledgements) {
       AcknowListSwiftUIView(acknowList: store.packageList!)
     }
+    .alert($store.scope(state: \.alert, action: \.alert))
     .fileImporter(
       isPresented: $store.isImportingGPXRoute,
       allowedContentTypes: [.gpx],

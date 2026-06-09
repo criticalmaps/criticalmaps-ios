@@ -2,6 +2,7 @@ import AcknowList
 import ComposableArchitecture
 import ComposableCoreLocation
 import Helpers
+import L10n
 import MapFeature
 import SharedModels
 import UIApplicationClient
@@ -19,6 +20,11 @@ public struct SettingsFeature: Sendable {
     case guideFeature
     case acknowledgements
   }
+	
+  @CasePathable
+  public enum Alert: Sendable {
+    case gpxImportError
+  }
 
   // MARK: State
 
@@ -30,7 +36,9 @@ public struct SettingsFeature: Sendable {
 
     @Presents
     var destination: Destination.State?
-
+    @Presents
+    var alert: AlertState<Action.Alert>?
+		
     public var isImportingGPXRoute = false
 
     public init() {}
@@ -61,8 +69,10 @@ public struct SettingsFeature: Sendable {
     case binding(BindingAction<State>)
     case view(ViewAction)
     case destination(PresentationAction<Destination.Action>)
+    case alert(PresentationAction<Alert>)
     case openURL(URL)
     case gpxRouteParsed(GPXRoute)
+    case gpxImportFailed(any Error)
 
     public enum ViewAction {
       case acknowledgementsRowTapped
@@ -79,14 +89,16 @@ public struct SettingsFeature: Sendable {
       case gpxFileSelected(Result<URL, any Error>)
       case gpxRouteRemoved
     }
+		
+    public enum Alert: Sendable {
+      case gpxImportError
+    }
   }
 
   // MARK: Reducer
 
   @Dependency(\.continuousClock) var clock
-  @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.locationManager) var locationManager
-  @Dependency(\.dismiss) var dismiss
 
   public var body: some ReducerOf<Self> {
     BindingReducer()
@@ -104,7 +116,10 @@ public struct SettingsFeature: Sendable {
           }
 					
         case .dismiss:
-          return .run { _ in await dismiss() }
+          return .run { _ in
+            @Dependency(\.dismiss) var dismiss
+            await dismiss()
+          }
 					
         case let .observationModeChanged(isObserving):
           guard isObserving != state.userSettings.isObservationModeEnabled else {
@@ -153,18 +168,27 @@ public struct SettingsFeature: Sendable {
           state.isImportingGPXRoute = true
           return .none
 
-        case let .gpxFileSelected(result):
+        case let .gpxFileSelected(.failure(error)):
           state.isImportingGPXRoute = false
-          guard case let .success(url) = result else { return .none }
+          state.alert = .gpxImportFailed(error: error)
+          return .none
+					
+        case let .gpxFileSelected(.success(url)):
+          state.isImportingGPXRoute = false
           return .run { send in
             let accessing = url.startAccessingSecurityScopedResource()
             defer { if accessing { url.stopAccessingSecurityScopedResource() } }
-            guard
-              let data = try? Data(contentsOf: url),
-              var route = GPXParser.parse(data: data)
-            else { return }
-            route.name = url.lastPathComponent
-            await send(.gpxRouteParsed(route))
+            do {
+              guard let data = try? Data(contentsOf: url) else {
+                await send(.gpxImportFailed(URLError(.cannotOpenFile)))
+                return
+              }
+              var route = try GPXParser.parse(data: data)
+              route.name = url.lastPathComponent
+              await send(.gpxRouteParsed(route))
+            } catch {
+              await send(.gpxImportFailed(error))
+            }
           }
 
         case .gpxRouteRemoved:
@@ -172,11 +196,12 @@ public struct SettingsFeature: Sendable {
           return .none
         }
 
-      case .destination:
+      case .destination, .alert:
         return .none
 
       case let .openURL(url):
         return .run { _ in
+          @Dependency(\.uiApplicationClient) var uiApplicationClient
           _ = await uiApplicationClient.open(url, [:])
         }
 
@@ -184,15 +209,21 @@ public struct SettingsFeature: Sendable {
         state.$userSettings.withLock { $0.gpxRoute = route }
         return .none
 
+      case let .gpxImportFailed(error):
+        state.alert = .gpxImportFailed(error: error)
+        return .none
+
       case .binding:
         return .none
       }
     }
     .ifLet(\.$destination, action: \.destination)
+    .ifLet(\.$alert, action: \.alert)
   }
 }
 
 extension SettingsFeature.Destination.State: Equatable, Sendable {}
+extension SettingsFeature.Alert: Equatable {}
 
 // MARK: Helper
 
@@ -224,6 +255,20 @@ public extension SettingsFeature.State {
       case .crowdin:
         URL(string: "https://crowdin.com/project/critical-maps")!
       }
+    }
+  }
+}
+
+public extension AlertState where Action == SettingsFeature.Action.Alert {
+  static func gpxImportFailed(error: any Error) -> Self {
+    AlertState {
+      TextState("Failed to import GPX file")
+    } actions: {
+      ButtonState(action: .gpxImportError) {
+        TextState(L10n.ok)
+      }
+    } message: {
+      TextState(error.localizedDescription)
     }
   }
 }
