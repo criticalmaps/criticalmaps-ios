@@ -59,15 +59,22 @@ final class RiderAnnotationView: MKAnnotationView {
   }
 
   private func updateAppearance(animated: Bool) {
-    // Only highlight a rider as part of an active group when the toggle is on.
-    // With the toggle off no rider is highlighted (all neutral gray).
-    let highlightAsActive = isRiderActive && highlightActiveRiders
-
-    let targetColor: UIColor = highlightAsActive
-      ? .brand500
-      : highlightAsActive ? .systemGray : .label
-
-    let targetScale: CGFloat = highlightAsActive ? 1.0 : 0.75
+    // Three states:
+    //  • highlighting off          → every rider neutral, full size
+    //  • highlighting on, active   → brand color, full size (highlighted group)
+    //  • highlighting on, inactive → gray, shrunk (de-emphasized, still visible)
+    let targetColor: UIColor
+    let targetScale: CGFloat
+    if !highlightActiveRiders {
+      targetColor = .label
+      targetScale = 1.0
+    } else if isRiderActive {
+      targetColor = .brand500
+      targetScale = 1.0
+    } else {
+      targetColor = .systemGray
+      targetScale = 0.8
+    }
 
     let applyChanges = {
       self.backgroundColor = targetColor.resolvedColor(with: self.traitCollection)
