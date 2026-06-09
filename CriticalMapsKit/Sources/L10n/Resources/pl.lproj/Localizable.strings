@@ -337,3 +337,7 @@
 "whatsNew.highlightActiveRiders.description" = "Zyskaj wyraźniejszy obraz tego, co dzieje się na mapie.\n\nUczestnicy znajdujący się blisko siebie są wyróżniani jako grupy, podczas gdy rowerzyści poza grupą pozostają widoczni, ale mniej wyeksponowani.";
 "whatsNew.observationMode.description" = "Śledzisz przejazd, nie biorąc w nim udziału – jako pasażer, kierowca lub obserwator? Włącz to, aby Twoja lokalizacja nie była udostępniana jako uczestnik.";
 "whatsNew.continue" = "Kontynuuj";
+"settings.routeOverlay.title" = "Nakładka trasy";
+"settings.routeOverlay.description" = "Zaimportuj plik GPX, aby wyświetlić trasę na mapie";
+"settings.routeOverlay.import" = "Importuj";
+"appView.overlay.route" = "Trasa";

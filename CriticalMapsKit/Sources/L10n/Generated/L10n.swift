@@ -58,6 +58,8 @@ public enum L10n {
       public static let nextUpdate = L10n.tr("Localizable", "appView.overlay.nextUpdate", fallback: "Next update")
       /// Riders
       public static let riders = L10n.tr("Localizable", "appView.overlay.riders", fallback: "Riders")
+      /// Route
+      public static let route = L10n.tr("Localizable", "appView.overlay.route", fallback: "Route")
     }
   }
   public enum AppearanceSettings {
@@ -428,6 +430,14 @@ public enum L10n {
       public static let detail = L10n.tr("Localizable", "settings.opensource.detail", fallback: "Critical Maps is an open source project and we are looking forward to developers who want to work on critical maps.")
       /// Do you miss features or want to fix a bug?
       public static let title = L10n.tr("Localizable", "settings.opensource.title", fallback: "Do you miss features or want to fix a bug?")
+    }
+    public enum RouteOverlay {
+      /// Import a GPX file to show a route on the map
+      public static let description = L10n.tr("Localizable", "settings.routeOverlay.description", fallback: "Import a GPX file to show a route on the map")
+      /// Import
+      public static let `import` = L10n.tr("Localizable", "settings.routeOverlay.import", fallback: "Import")
+      /// Route Overlay
+      public static let title = L10n.tr("Localizable", "settings.routeOverlay.title", fallback: "Route Overlay")
     }
     public enum Section {
       /// Info

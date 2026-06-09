@@ -340,3 +340,8 @@
 "whatsNew.highlightActiveRiders.description" = "Behalte den Überblick über die Karte.\n\nTeilnehmer, die nah beieinander sind, werden als Gruppen hervorgehoben, während Fahrer außerhalb einer Gruppe sichtbar bleiben, aber weniger auffällig sind.";
 "whatsNew.observationMode.description" = "Du verfolgst die Tour, ohne mitzufahren – als Beifahrer, Fahrer oder Zuschauer? Aktiviere dies, damit dein Standort nicht als Teilnehmer geteilt wird.";
 "whatsNew.continue" = "Weiter";
+
+"settings.routeOverlay.title" = "Route einblenden";
+"settings.routeOverlay.description" = "Importiere eine GPX-Datei, um eine Route auf der Karte anzuzeigen";
+"settings.routeOverlay.import" = "Importieren";
+"appView.overlay.route" = "Route";

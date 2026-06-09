@@ -340,3 +340,7 @@
 "whatsNew.highlightActiveRiders.description" = "Obtén una visión más clara de lo que ocurre en el mapa.\n\nLos participantes que están cerca unos de otros se resaltan como grupos, mientras que los ciclistas fuera de un grupo siguen visibles pero menos destacados.";
 "whatsNew.observationMode.description" = "¿Sigues la marcha sin participar, como pasajero, conductor o espectador? Actívalo para que tu ubicación no se comparta como ciclista.";
 "whatsNew.continue" = "Continuar";
+"settings.routeOverlay.title" = "Superposición de ruta";
+"settings.routeOverlay.description" = "Importa un archivo GPX para mostrar una ruta en el mapa";
+"settings.routeOverlay.import" = "Importar";
+"appView.overlay.route" = "Ruta";

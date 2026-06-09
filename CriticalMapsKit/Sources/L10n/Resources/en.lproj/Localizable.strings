@@ -340,3 +340,7 @@
 "whatsNew.highlightActiveRiders.description" = "Get a clearer view of what's happening on the map.\n\nParticipants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.";
 "whatsNew.observationMode.description" = "Following the ride without taking part — as a passenger, driver or onlooker? Turn this on so your location isn't shared as a rider.";
 "whatsNew.continue" = "Continue";
+"settings.routeOverlay.title" = "Route Overlay";
+"settings.routeOverlay.description" = "Import a GPX file to show a route on the map";
+"settings.routeOverlay.import" = "Import";
+"appView.overlay.route" = "Route";

@@ -337,3 +337,7 @@
 "whatsNew.highlightActiveRiders.description" = "Haritada olanları daha net gör.\n\nBirbirine yakın katılımcılar grup olarak vurgulanır; bir grubun dışındaki sürücüler görünür kalır ancak daha az belirgindir.";
 "whatsNew.observationMode.description" = "Sürüşe katılmadan mı takip ediyorsun – yolcu, sürücü ya da izleyici olarak? Bunu aç, böylece konumun bir katılımcı olarak paylaşılmaz.";
 "whatsNew.continue" = "Devam et";
+"settings.routeOverlay.title" = "Rota Katmanı";
+"settings.routeOverlay.description" = "Haritada bir rota göstermek için GPX dosyası içe aktarın";
+"settings.routeOverlay.import" = "İçe Aktar";
+"appView.overlay.route" = "Rota";

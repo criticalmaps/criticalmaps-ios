@@ -340,3 +340,7 @@
 "whatsNew.highlightActiveRiders.description" = "Obtenez une vue plus claire de ce qui se passe sur la carte.\n\nLes participants proches les uns des autres sont mis en évidence en tant que groupes, tandis que les cyclistes hors d'un groupe restent visibles mais moins en évidence.";
 "whatsNew.observationMode.description" = "Vous suivez la balade sans y participer — passager, conducteur ou spectateur ? Activez ceci pour que votre position ne soit pas partagée comme participant.";
 "whatsNew.continue" = "Continuer";
+"settings.routeOverlay.title" = "Superposition d'itinéraire";
+"settings.routeOverlay.description" = "Importez un fichier GPX pour afficher un itinéraire sur la carte";
+"settings.routeOverlay.import" = "Importer";
+"appView.overlay.route" = "Itinéraire";

@@ -8,15 +8,18 @@ public struct UserSettings: Codable, Equatable, Sendable {
   public var isObservationModeEnabled: Bool
   public var showInfoViewEnabled: Bool
   public var highlightActiveRiders: Bool
+  public var gpxRoute: GPXRoute?
 
   public init(
     enableObservationMode: Bool = false,
     showInfoViewEnabled: Bool = true,
-    highlightActiveRiders: Bool = false
+    highlightActiveRiders: Bool = false,
+    gpxRoute: GPXRoute? = nil
   ) {
     isObservationModeEnabled = enableObservationMode
     self.showInfoViewEnabled = showInfoViewEnabled
     self.highlightActiveRiders = highlightActiveRiders
+    self.gpxRoute = gpxRoute
   }
 }
 
