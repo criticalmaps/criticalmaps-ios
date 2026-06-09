@@ -21,6 +21,14 @@ public struct SettingsView: View {
   public var body: some View {
     SettingsForm {
       Section {
+        InfoRow()
+        ActiveRidersSettingRow()
+        GPXRouteRow(store: store)
+      } header: {
+        Text("Map")
+      }
+
+      Section {
         ObservationModeRow()
 
         Button(
@@ -35,13 +43,11 @@ public struct SettingsView: View {
             }
           }
         )
+      } header: {
+        Text("Privacy")
       }
 
       Section {
-        InfoRow()
-				
-        ActiveRidersSettingRow()
-
         Button(
           action: { store.send(.view(.rideEventSettingsRowTapped)) },
           label: {
@@ -50,10 +56,8 @@ public struct SettingsView: View {
             }
           }
         )
-      }
-
-      Section {
-        GPXRouteRow(store: store)
+      } header: {
+        Text("Events")
       }
 
       Section {
@@ -65,6 +69,8 @@ public struct SettingsView: View {
             }
           }
         )
+      } header: {
+        Text("Appearance")
       }
 
       InfoSection(store: store)
