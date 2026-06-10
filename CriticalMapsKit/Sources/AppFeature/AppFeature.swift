@@ -25,12 +25,6 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   public enum Destination: Sendable {
     case social(SocialFeature)
     case settings(SettingsFeature)
-    case alert(AlertState<Alert>)
-    
-    @CasePathable
-    public enum Alert: Equatable, Sendable {
-      case setObservationMode(enabled: Bool)
-    }
   }
   
   // MARK: State
@@ -49,6 +43,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     @Presents var destination: Destination.State?
     public var eventListPresentation: PresentationDetent = .fraction(0.3)
     public var isEventListPresented = false
+    public var isWhatsNewPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
     public var isCurrentLocationInPrivacyZone = false
@@ -58,6 +53,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     @Shared(.appearanceSettings) var appearanceSettings
     @Shared(.hasConnectionError) var hasConnectionError
     @Shared(.privacyZoneSettings) var privacyZoneSettings
+    @Shared(.lastSeenWhatsNewVersion) var lastSeenWhatsNewVersion
     
     public init(
       locationsAndChatMessages: [Rider] = [],
@@ -108,13 +104,14 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     case fetchChatMessages
     case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
     case onRideSelectedFromBottomSheet(SharedModels.Ride)
-    case presentObservationModeAlert
-    
+
     case socialButtonTapped
     case settingsButtonTapped
     case didTapNextRideOverlayButton
     case dismissEventList
     case dismissDestination
+    case whatsNewContinueTapped
+    case whatsNewDismissed
     
     case map(MapFeatureAction)
     case nextRide(NextRideFeature.Action)
@@ -123,7 +120,14 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   
   // MARK: Reducer
   
+  /// The app version whose release the "What's New" sheet announces. The sheet is
+  /// shown once to users running this exact version (both fresh installs and
+  /// updates), and never on other versions. Bump this together with the sheet copy
+  /// when a future release should announce something new.
+  static let whatsNewVersion = "4.10.0"
+
   @Dependency(\.apiService) var apiService
+  @Dependency(\.appVersion) var appVersion
   @Dependency(\.continuousClock) var clock
   @Dependency(\.date) var date
   @Dependency(\.feedbackGenerator) var feedbackGenerator
@@ -166,7 +170,18 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         $sessionID.withLock { $0 = uuid().uuidString }
 
         StorageMigration.migratePrivacyZones()
-        
+
+        // Show the "What's New" sheet once: to every fresh install (onboarding,
+        // any version) and to users updating to the release it announces
+        // (`whatsNewVersion`). The sheet carries the feature toggles, so it also
+        // replaces the old observation-mode prompt.
+        let isFreshInstall = state.lastSeenWhatsNewVersion.isEmpty
+        let isAnnouncedUpdate = appVersion == Self.whatsNewVersion
+          && state.lastSeenWhatsNewVersion != Self.whatsNewVersion
+        if isFreshInstall || isAnnouncedUpdate {
+          state.isWhatsNewPresented = true
+        }
+
         return .merge(
           [
             .send(.map(.onAppear)),
@@ -186,13 +201,6 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             },
             .run { _ in
               await feedbackGenerator.prepare()
-            },
-            .run { send in
-              @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
-              if !didShowObservationModePrompt {
-                try? await clock.sleep(for: .seconds(3))
-                await send(.presentObservationModeAlert)
-              }
             }
           ]
         )
@@ -377,37 +385,19 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
       case .dismissDestination:
         state.destination = nil
         return .none
-        
-      case .presentObservationModeAlert:
-        state.destination = .alert(
-          AlertState(
-            title: {
-              TextState(verbatim: L10n.Settings.Observationmode.title)
-            },
-            actions: {
-              ButtonState(
-                action: .setObservationMode(enabled: false),
-                label: { TextState(L10n.AppCore.ViewingModeAlert.riding) }
-              )
-              ButtonState(
-                action: .setObservationMode(enabled: true),
-                label: { TextState(L10n.AppCore.ViewingModeAlert.watching) }
-              )
-            },
-            message: { TextState(L10n.AppCore.ViewingModeAlert.message) }
-          )
-        )
-        @Shared(.didShowObservationModePrompt) var didShowObservationModePrompt
-        $didShowObservationModePrompt.withLock { $0 = true }
+
+      case .whatsNewContinueTapped:
+        // Decision: Continue simply dismisses; discovery happens in Settings.
+        state.isWhatsNewPresented = false
         return .none
-        
-      case let .destination(.presented(.alert(alertAction))):
-        switch alertAction {
-        case let .setObservationMode(enabled: mode):
-          state.$userSettings.withLock { $0.isObservationModeEnabled = mode }
-          return .none
-        }
-        
+
+      case .whatsNewDismissed:
+        // Mark the sheet as seen for this version so it isn't shown again.
+        // Fires for both Continue and swipe-to-dismiss.
+        state.isWhatsNewPresented = false
+        state.$lastSeenWhatsNewVersion.withLock { $0 = appVersion }
+        return .none
+
       case let .destination(.presented(.settings(settingsAction))):
         switch settingsAction {
         case .destination(.presented(.rideEventSettings)):

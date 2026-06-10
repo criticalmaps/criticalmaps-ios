@@ -35,6 +35,12 @@ public enum L10n {
         public static let label = L10n.tr("Localizable", "a11y.mapfeatureview.nextridebanner.label", fallback: "Next critical mass banner")
       }
     }
+    public enum Settings {
+      public enum HighlightActiveRiders {
+        /// When enabled, riders in a group are highlighted and others appear dimmed on the map
+        public static let hint = L10n.tr("Localizable", "a11y.settings.highlightActiveRiders.hint", fallback: "When enabled, riders in a group are highlighted and others appear dimmed on the map")
+      }
+    }
     public enum Usertrackingbutton {
       /// Don't follow
       public static let dontFollow = L10n.tr("Localizable", "a11y.usertrackingbutton.dontFollow", fallback: "Don't follow")
@@ -44,18 +50,6 @@ public enum L10n {
       public static let followWithHeading = L10n.tr("Localizable", "a11y.usertrackingbutton.followWithHeading", fallback: "Follow with heading")
       /// Toggle tracking mode
       public static let hint = L10n.tr("Localizable", "a11y.usertrackingbutton.hint", fallback: "Toggle tracking mode")
-    }
-  }
-  public enum AppCore {
-    public enum ViewingModeAlert {
-      /// Are you participating in the Critical Mass or are you only watching?
-      public static let message = L10n.tr("Localizable", "appCore.viewingModeAlert.message", fallback: "Are you participating in the Critical Mass or are you only watching?")
-      /// Riding
-      public static let riding = L10n.tr("Localizable", "appCore.viewingModeAlert.riding", fallback: "Riding")
-      /// Viewing Mode
-      public static let title = L10n.tr("Localizable", "appCore.viewingModeAlert.title", fallback: "Viewing Mode")
-      /// Watching
-      public static let watching = L10n.tr("Localizable", "appCore.viewingModeAlert.watching", fallback: "Watching")
     }
   }
   public enum AppView {
@@ -403,6 +397,12 @@ public enum L10n {
       /// Show ID
       public static let showID = L10n.tr("Localizable", "settings.friends.showID", fallback: "Show ID")
     }
+    public enum HighlightActiveRiders {
+      /// Highlights cyclists riding in groups
+      public static let description = L10n.tr("Localizable", "settings.highlightActiveRiders.description", fallback: "Highlights cyclists riding in groups")
+      /// Highlight active riders
+      public static let label = L10n.tr("Localizable", "settings.highlightActiveRiders.label", fallback: "Highlight active riders")
+    }
     public enum Info {
       public enum Toggle {
         /// Show info toogle over the map
@@ -482,6 +482,22 @@ public enum L10n {
     public enum Empty {
       /// Here you’ll find tweets tagged with @criticalmaps and #criticalmass
       public static let message = L10n.tr("Localizable", "twitter.empty.message", fallback: "Here you’ll find tweets tagged with @criticalmaps and #criticalmass")
+    }
+  }
+  public enum WhatsNew {
+    /// Continue
+    public static let `continue` = L10n.tr("Localizable", "whatsNew.continue", fallback: "Continue")
+    /// Discover
+    public static let header = L10n.tr("Localizable", "whatsNew.header", fallback: "Discover")
+    public enum HighlightActiveRiders {
+      /// Get a clearer view of what's happening on the map.
+      /// 
+      /// Participants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.
+      public static let description = L10n.tr("Localizable", "whatsNew.highlightActiveRiders.description", fallback: "Get a clearer view of what's happening on the map.\n\nParticipants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.")
+    }
+    public enum ObservationMode {
+      /// Following the ride without taking part — as a passenger, driver or onlooker? Turn this on so your location isn't shared as a rider.
+      public static let description = L10n.tr("Localizable", "whatsNew.observationMode.description", fallback: "Following the ride without taking part — as a passenger, driver or onlooker? Turn this on so your location isn't shared as a rider.")
     }
   }
 }

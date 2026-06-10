@@ -12,10 +12,6 @@
 "a11y.general.off" = "Off";
 "a11y.general.selected" = "ausgewählt";
 
-"appCore.viewingModeAlert.title" = "Anzeigemodus";
-"appCore.viewingModeAlert.message" = "Nimmst du teil oder schaust du zu?";
-"appCore.viewingModeAlert.riding" = "Fahre mit";
-"appCore.viewingModeAlert.watching" = "Schaue zu";
 
 "appView.overlay.nextUpdate" = "Nächstes Update";
 "appView.overlay.riders" = "Riders";
@@ -335,6 +331,15 @@
 
 "rideEvent.contextMenu.copyCoordinates" = "Koordinaten kopieren";
 "rideEvent.contextMenu.copyLocationName" = "Ortsname kopieren";
+
+"settings.highlightActiveRiders.label" = "Aktive Teilnehmer hervorheben";
+"settings.highlightActiveRiders.description" = "Hebt Radfahrer hervor, die in Gruppen fahren";
+"a11y.settings.highlightActiveRiders.hint" = "Wenn aktiviert, werden Teilnehmer in einer Gruppe hervorgehoben und andere auf der Karte abgeblendet";
+
+"whatsNew.header" = "Entdecken";
+"whatsNew.highlightActiveRiders.description" = "Behalte den Überblick über die Karte.\n\nTeilnehmer, die nah beieinander sind, werden als Gruppen hervorgehoben, während Fahrer außerhalb einer Gruppe sichtbar bleiben, aber weniger auffällig sind.";
+"whatsNew.observationMode.description" = "Du verfolgst die Tour, ohne mitzufahren – als Beifahrer, Fahrer oder Zuschauer? Aktiviere dies, damit dein Standort nicht als Teilnehmer geteilt wird.";
+"whatsNew.continue" = "Weiter";
 
 "settings.routeOverlay.title" = "Route einblenden";
 "settings.routeOverlay.description" = "Importiere eine GPX-Datei, um eine Route auf der Karte anzuzeigen";

@@ -12,10 +12,6 @@
 "a11y.general.off" = "Desactivado";
 "a11y.general.selected" = "seleccionado";
 
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "¿Estás participando en la Máscara Crítica o solo estás mirando?";
-"appCore.viewingModeAlert.riding" = "Riding";
-"appCore.viewingModeAlert.watching" = "Observando";
 
 "appView.overlay.nextUpdate" = "Próxima actualización";
 "appView.overlay.riders" = "Riders";
@@ -336,6 +332,14 @@
 "rideEvent.contextMenu.copyCoordinates" = "Copiar coordenadas";
 "rideEvent.contextMenu.copyLocationName" = "Copiar nombre del lugar";
 
+"settings.highlightActiveRiders.label" = "Resaltar ciclistas activos";
+"settings.highlightActiveRiders.description" = "Resalta a los ciclistas que circulan en grupo";
+"a11y.settings.highlightActiveRiders.hint" = "Cuando está activado, los ciclistas en grupo se resaltan y los demás aparecen atenuados en el mapa";
+
+"whatsNew.header" = "Descubre";
+"whatsNew.highlightActiveRiders.description" = "Obtén una visión más clara de lo que ocurre en el mapa.\n\nLos participantes que están cerca unos de otros se resaltan como grupos, mientras que los ciclistas fuera de un grupo siguen visibles pero menos destacados.";
+"whatsNew.observationMode.description" = "¿Sigues la marcha sin participar, como pasajero, conductor o espectador? Actívalo para que tu ubicación no se comparta como ciclista.";
+"whatsNew.continue" = "Continuar";
 "settings.routeOverlay.title" = "Superposición de ruta";
 "settings.routeOverlay.description" = "Importa un archivo GPX para mostrar una ruta en el mapa";
 "settings.routeOverlay.import" = "Importar";

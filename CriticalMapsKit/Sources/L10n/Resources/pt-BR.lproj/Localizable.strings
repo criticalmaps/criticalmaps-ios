@@ -12,10 +12,6 @@
 "a11y.general.off" = "Desativado";
 "a11y.general.selected" = "selecionado";
 
-"appCore.viewingModeAlert.title" = "Viewing Mode";
-"appCore.viewingModeAlert.message" = "Are you participating in the Critical Mass or are you only watching?";
-"appCore.viewingModeAlert.riding" = "Riding";
-"appCore.viewingModeAlert.watching" = "Watching";
 
 "appView.overlay.nextUpdate" = "Next update";
 "appView.overlay.riders" = "Riders";
@@ -333,6 +329,14 @@
 
 "map.location.request.desciption" = "A localização torna este app melhor. Por favor nos dê acesso.";
 
+"settings.highlightActiveRiders.label" = "Destacar ciclistas ativos";
+"settings.highlightActiveRiders.description" = "Destaca os ciclistas que pedalam em grupo";
+"a11y.settings.highlightActiveRiders.hint" = "Quando ativado, os ciclistas em grupo são destacados e os demais aparecem esmaecidos no mapa";
+
+"whatsNew.header" = "Descubra";
+"whatsNew.highlightActiveRiders.description" = "Tenha uma visão mais clara do que está acontecendo no mapa.\n\nOs participantes próximos uns dos outros são destacados como grupos, enquanto os ciclistas fora de um grupo permanecem visíveis, mas menos proeminentes.";
+"whatsNew.observationMode.description" = "Acompanha o passeio sem participar — como passageiro, motorista ou espectador? Ative para que sua localização não seja compartilhada como participante.";
+"whatsNew.continue" = "Continuar";
 "settings.routeOverlay.title" = "Sobreposição de rota";
 "settings.routeOverlay.description" = "Importe um arquivo GPX para exibir uma rota no mapa";
 "settings.routeOverlay.import" = "Importar";

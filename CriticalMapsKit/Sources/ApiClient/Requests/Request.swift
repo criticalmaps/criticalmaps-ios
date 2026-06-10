@@ -26,10 +26,15 @@ public struct Request: Sendable {
   }
 
   public func makeRequest() throws -> URLRequest {
-    guard var components = URLComponents(string: endpoint.url) else {
-      throw APIRequestBuildError.invalidURL
+    // Build from discrete components so hosts with an explicit port (e.g. a local
+    // mock server at `localhost:8080`) are not mis-parsed as a scheme.
+    var components = URLComponents()
+    components.scheme = endpoint.scheme
+    components.host = endpoint.baseUrl
+    components.port = endpoint.port
+    if !endpoint.pathComponents.isEmpty {
+      components.path = "/" + endpoint.pathComponents.joined(separator: "/")
     }
-    components.scheme = "https"
     if !queryItems.isEmpty {
       components.queryItems = queryItems
     }

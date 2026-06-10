@@ -2,13 +2,23 @@
 
 Critical Maps iOS
 
+## [4.10.0] - 2026-06-08
+
+### Added 
+
+- Highlight groups feature - Participants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.
+
+### Updated
+
+- Updated dependencies
+
 ## [4.9.0] - 2026-01-03
 
 ### Updated
 
 - Migrated to `swift-tools-version:6.2`
-- Refactored SwiftUI views following best practices for improved performance:
-- Performance optimization for RequestTimer and InfoOverlayView
+- Refactored SwiftUI views following best practices for improved performance
+- Performance optimisation for RequestTimer and InfoOverlayView
 - Updated dependencies
 
 ### Fixed

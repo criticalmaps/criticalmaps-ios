@@ -24,6 +24,7 @@ public struct MapFeatureView: View {
         nextRide: store.nextRide,
         rideEvents: store.rideEvents,
         privacyZones: privacyZoneSettings.zones,
+        highlightActiveRiders: userSettings.highlightActiveRiders,
         canShowPrivacyZonesOnMap: privacyZoneSettings.canShowOnMap,
         gpxRoute: userSettings.gpxRoute,
         annotationsCount: $store.visibleRidersCount,

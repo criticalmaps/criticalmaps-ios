@@ -20,6 +20,7 @@ struct MapView: ViewRepresentable {
   var rideEvents: [Ride] = []
   let privacyZones: IdentifiedArrayOf<PrivacyZone>
   let canShowPrivacyZonesOnMap: Bool
+  let highlightActiveRiders: Bool
   var gpxRoute: GPXRoute?
 
   var mapMenuShareEventHandler: MenuActionHandle?
@@ -31,6 +32,7 @@ struct MapView: ViewRepresentable {
     nextRide: Ride? = nil,
     rideEvents: [Ride] = [],
     privacyZones: IdentifiedArrayOf<PrivacyZone> = [],
+    highlightActiveRiders: Bool = false,
     canShowPrivacyZonesOnMap: Bool = false,
     gpxRoute: GPXRoute? = nil,
     annotationsCount: Binding<Int?>,
@@ -44,6 +46,7 @@ struct MapView: ViewRepresentable {
     self.nextRide = nextRide
     self.rideEvents = rideEvents
     self.privacyZones = privacyZones
+    self.highlightActiveRiders = highlightActiveRiders
     self.canShowPrivacyZonesOnMap = canShowPrivacyZonesOnMap
     self.gpxRoute = gpxRoute
     _annotationsCount = annotationsCount
@@ -68,7 +71,12 @@ struct MapView: ViewRepresentable {
     return mapView
   }
 
-  func updateUIView(_ uiView: MKMapView, context _: Context) {
+  func updateUIView(_ uiView: MKMapView, context: Context) {
+    // Keep the coordinator's snapshot current so delegate callbacks (e.g.
+    // `viewFor`, which reads `highlightActiveRiders`) see the latest values
+    // instead of the stale `MapView` captured at `makeCoordinator()` time.
+    context.coordinator.parent = self
+
     // rider handling
     centerRider(in: uiView)
     updateRiderAnnotations(in: uiView)
@@ -94,7 +102,11 @@ struct MapView: ViewRepresentable {
   }
 
   func updateRiderAnnotations(in mapView: MKMapView) {
-    let updatedAnnotations = RiderAnnotationUpdateClient.update(riderCoordinates, mapView)
+    let updatedAnnotations = RiderAnnotationUpdateClient.update(
+      riderCoordinates,
+      mapView,
+      highlightActiveRiders: highlightActiveRiders
+    )
     if !updatedAnnotations.removedAnnotations.isEmpty {
       mapView.removeAnnotations(updatedAnnotations.removedAnnotations)
     }
@@ -193,26 +205,28 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
   }
 
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard annotation is MKUserLocation == false else {
-      return nil
-    }
-    if annotation is RiderAnnotation {
-      return mapView.dequeueReusableAnnotationView(
+    guard annotation is MKUserLocation == false else { return nil }
+		
+    if let riderAnnotation = annotation as? RiderAnnotation {
+      let view = mapView.dequeueReusableAnnotationView(
         withIdentifier: RiderAnnotationView.reuseIdentifier,
-        for: annotation
-      )
+        for: riderAnnotation
+      ) as? RiderAnnotationView
+      view?.isRiderActive = riderAnnotation.isActive
+      view?.highlightActiveRiders = parent.highlightActiveRiders
+      return view
     }
-
-    if annotation is CriticalMassAnnotation {
+		
+    if let criticalMassAnnotation = annotation as? CriticalMassAnnotation {
       let view = mapView.dequeueReusableAnnotationView(
         withIdentifier: CMMarkerAnnotationView.reuseIdentifier,
-        for: annotation
+        for: criticalMassAnnotation
       ) as? CMMarkerAnnotationView
       view?.shareEventClosure = parent.mapMenuShareEventHandler
       view?.routeEventClosure = parent.mapMenuRouteEventHandler
       return view
     }
-
+		
     return MKAnnotationView()
   }
 

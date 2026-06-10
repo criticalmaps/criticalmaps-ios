@@ -21,6 +21,14 @@ public struct SettingsView: View {
   public var body: some View {
     SettingsForm {
       Section {
+        InfoRow()
+        ActiveRidersSettingRow()
+        GPXRouteRow(store: store)
+      } header: {
+        Text("Map")
+      }
+
+      Section {
         ObservationModeRow()
 
         Button(
@@ -35,11 +43,11 @@ public struct SettingsView: View {
             }
           }
         )
+      } header: {
+        Text("Privacy")
       }
 
       Section {
-        InfoRow()
-
         Button(
           action: { store.send(.view(.rideEventSettingsRowTapped)) },
           label: {
@@ -48,10 +56,8 @@ public struct SettingsView: View {
             }
           }
         )
-      }
-
-      Section {
-        GPXRouteRow(store: store)
+      } header: {
+        Text("Events")
       }
 
       Section {
@@ -63,6 +69,8 @@ public struct SettingsView: View {
             }
           }
         )
+      } header: {
+        Text("Appearance")
       }
 
       InfoSection(store: store)
@@ -241,6 +249,25 @@ private struct InfoRow: View {
     .accessibilityAction {
       $userSettings.withLock { $0.showInfoViewEnabled.toggle() }
     }
+  }
+}
+
+private struct ActiveRidersSettingRow: View {
+  @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+  @Shared(.userSettings) var userSettings
+	
+  var body: some View {
+    Toggle(isOn: Binding($userSettings.highlightActiveRiders)) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text(L10n.Settings.HighlightActiveRiders.label)
+          .font(.body)
+        Text(L10n.Settings.HighlightActiveRiders.description)
+          .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
+          .font(.subheadline)
+      }
+    }
+    .accessibilityLabel(L10n.Settings.HighlightActiveRiders.label)
+    .accessibilityHint(L10n.A11y.Settings.HighlightActiveRiders.hint)
   }
 }
 

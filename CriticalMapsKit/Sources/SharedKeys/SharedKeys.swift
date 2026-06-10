@@ -19,10 +19,11 @@ public extension SharedReaderKey where Self == AppStorageKey<String?> {
   }
 }
 
-public extension SharedReaderKey where Self == AppStorageKey<Bool>.Default {
-  /// Whether observation mode prompt was shown, defaults to false
-  static var didShowObservationModePrompt: Self {
-    Self[.appStorage("didShowObservationModePrompt"), default: false]
+public extension SharedReaderKey where Self == AppStorageKey<String>.Default {
+  /// The "What's New" version the user has already seen. Empty by default; set to
+  /// the announced version once dismissed so that release's sheet isn't shown again.
+  static var lastSeenWhatsNewVersion: Self {
+    Self[.appStorage("lastSeenWhatsNewVersion"), default: ""]
   }
 }
 

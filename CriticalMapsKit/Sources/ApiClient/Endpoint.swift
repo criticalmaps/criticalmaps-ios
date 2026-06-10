@@ -2,12 +2,21 @@ import Foundation
 
 /// A structure to define an endpoint on the Critical Maps API
 public struct Endpoint: Sendable {
+  public let scheme: String
   public let baseUrl: String
+  public let port: Int?
   public let pathComponents: [String]
 
-  public init(baseUrl: String, pathComponents: [String] = []) {
+  public init(
+    baseUrl: String,
+    pathComponents: [String] = [],
+    scheme: String = "https",
+    port: Int? = nil
+  ) {
     self.baseUrl = baseUrl
     self.pathComponents = pathComponents
+    self.scheme = scheme
+    self.port = port
   }
 
   var url: String {
