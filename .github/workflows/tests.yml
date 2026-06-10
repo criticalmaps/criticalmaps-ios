@@ -40,7 +40,7 @@ jobs:
 
   unit_tests:
     name: Unit Tests
-    runs-on: macos-26-large
+    runs-on: macos-latest
     needs: lint_and_format
     strategy:
       matrix:
