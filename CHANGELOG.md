@@ -2,11 +2,16 @@
 
 Critical Maps iOS
 
-## [4.10.0] - 2026-06-08
+## [4.10.0] - 2026-06-19
 
 ### Added 
 
-- Highlight groups feature - Participants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent.
+- Highlight groups feature - Participants that are close to one another are highlighted as groups, while riders outside of a group remain visible but less prominent  -> [PullRequest][https://github.com/criticalmaps/criticalmaps-ios/pull/542]
+- GPX overlay feature - Adds GPX route overlay support to the app -> [PullRequest][https://github.com/criticalmaps/criticalmaps-ios/pull/547]
+
+### Fixed
+
+PrivacyZone rows should be deletable when the feature is off 
 
 ### Updated
 
@@ -369,3 +374,6 @@ This release is a rebuild of the app built with [`The Composable Architecture`](
 - redesign by zutrinken
 
 previous versions are not tracked
+
+
+[def]: https://github.com/criticalmaps/criticalmaps-ios/pull/547
