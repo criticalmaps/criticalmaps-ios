@@ -202,7 +202,6 @@
 				20A6EB76B0234461A4A91977 /* Debug-Local.xcconfig */,
 				A2505A49BB8F102AF4496DBD /* Shared.xcconfig */,
 			);
-			name = Config;
 			path = Config;
 			sourceTree = "<group>";
 		};
@@ -605,6 +604,27 @@
 			};
 			name = Release;
 		};
+		73A346C32FE5677D00E92C69 /* Debug Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = ChatFeaturePreviewApp;
+			};
+			name = "Debug Local";
+		};
+		73A346C42FE5677D00E92C69 /* Debug Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = SettingsFeaturePreview;
+			};
+			name = "Debug Local";
+		};
+		73A346C52FE5677D00E92C69 /* Debug Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = GuideFeaturePreview;
+			};
+			name = "Debug Local";
+		};
 		73CF5FE5263EAF5C001925A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -738,7 +758,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250902;
+				CURRENT_PROJECT_VERSION = 260619;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -749,7 +769,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.7.0;
+				MARKETING_VERSION = 4.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
@@ -770,7 +790,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250902;
+				CURRENT_PROJECT_VERSION = 260619;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -781,7 +801,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.7.0;
+				MARKETING_VERSION = 4.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
@@ -866,7 +886,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250902;
+				CURRENT_PROJECT_VERSION = 260619;
 				DEVELOPMENT_TEAM = 5YLLXUZBZ2;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5YLLXUZBZ2;
 				ENABLE_PREVIEWS = YES;
@@ -877,7 +897,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.7.0;
+				MARKETING_VERSION = 4.10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pokuslabs.criticalmassberlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Critical Maps Prov Profile";
@@ -897,6 +917,7 @@
 			buildConfigurations = (
 				73238EC527728043003DE01F /* Debug */,
 				73238EC627728043003DE01F /* Release */,
+				73A346C32FE5677D00E92C69 /* Debug Local */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -906,6 +927,7 @@
 			buildConfigurations = (
 				73238EDA277328A0003DE01F /* Debug */,
 				73238EDB277328A0003DE01F /* Release */,
+				73A346C42FE5677D00E92C69 /* Debug Local */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -935,6 +957,7 @@
 			buildConfigurations = (
 				73FD0B3B2779F5510061539D /* Debug */,
 				73FD0B3C2779F5510061539D /* Release */,
+				73A346C52FE5677D00E92C69 /* Debug Local */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
