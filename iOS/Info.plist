@@ -14,44 +14,6 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
 	<dict>
-		<key>CFBundleAlternateIcons</key>
-		<dict>
-			<key>appIcon-1</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>appIcon-1</string>
-				</array>
-			</dict>
-			<key>appIcon-2</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>appIcon-2</string>
-				</array>
-			</dict>
-			<key>appIcon-3</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>appIcon-3</string>
-				</array>
-			</dict>
-			<key>appIcon-4</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>appIcon-4</string>
-				</array>
-			</dict>
-			<key>appIcon-5</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>appIcon-5</string>
-				</array>
-			</dict>
-		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>
@@ -120,18 +82,31 @@
 	<array>
 		<string>arm64</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>UTTypeIdentifier</key>
-			<string>com.topografix.gpx</string>
-			<key>UTTypeDescription</key>
-			<string>GPX File</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.xml</string>
 				<string>public.data</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>GPX File</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.topografix.gpx</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -142,14 +117,6 @@
 				<string>application/gpx+xml</string>
 			</dict>
 		</dict>
-	</array>
-	<key>UIRequiresFullScreen</key>
-	<true/>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>
