@@ -23,8 +23,10 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   
   @Reducer
   public enum Destination: Sendable {
+    case rideEvents(RideEvents)
     case social(SocialFeature)
     case settings(SettingsFeature)
+    case whatsNew(WhatsNew)
   }
   
   // MARK: State
@@ -42,8 +44,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     // Navigation
     @Presents var destination: Destination.State?
     public var eventListPresentation: PresentationDetent = .fraction(0.3)
-    public var isEventListPresented = false
-    public var isWhatsNewPresented = false
+//    public var isEventListPresented = false
 
     public var chatMessageBadgeCount: UInt = 0
     public var isCurrentLocationInPrivacyZone = false
@@ -103,14 +104,12 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     case postLocationResponse(Result<ApiResponse, any Error>)
     case fetchChatMessages
     case fetchChatMessagesResponse(Result<[ChatMessage], any Error>)
-    case onRideSelectedFromBottomSheet(SharedModels.Ride)
 
     case socialButtonTapped
     case settingsButtonTapped
     case didTapNextRideOverlayButton
     case dismissEventList
     case dismissDestination
-    case whatsNewContinueTapped
     case whatsNewDismissed
     
     case map(MapFeatureAction)
@@ -159,18 +158,12 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     // Holds the logic for the AppFeature to update state and execute side effects
     Reduce { state, action in
       switch action {
-      case let .onRideSelectedFromBottomSheet(ride):
-        return .merge(
-          .send(.map(.focusRideEvent(ride.coordinate))),
-          .run { _ in await feedbackGenerator.selectionChanged() }
-        )
-        
       case .onAppear:
         @Shared(.sessionID) var sessionID
         $sessionID.withLock { $0 = uuid().uuidString }
-
+				
         StorageMigration.migratePrivacyZones()
-
+				
         // Show the "What's New" sheet once: to every fresh install (onboarding,
         // any version) and to users updating to the release it announces
         // (`whatsNewVersion`). The sheet carries the feature toggles, so it also
@@ -178,10 +171,10 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         let isFreshInstall = state.lastSeenWhatsNewVersion.isEmpty
         let isAnnouncedUpdate = appVersion == Self.whatsNewVersion
           && state.lastSeenWhatsNewVersion != Self.whatsNewVersion
-        if isFreshInstall || isAnnouncedUpdate {
-          state.isWhatsNewPresented = true
-        }
-
+        //				if isFreshInstall || isAnnouncedUpdate {
+        state.destination = .whatsNew(WhatsNew.State())
+        //				}
+				
         return .merge(
           [
             .send(.map(.onAppear)),
@@ -204,10 +197,10 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             }
           ]
         )
-        
+				
       case .onDisappear:
         return .none
-        
+				
       case .fetchLocations:
         state.isRequestingRiderLocations = true
         return .run { send in
@@ -219,7 +212,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             )
           )
         }
-        
+				
       case .fetchChatMessages:
         return .run { send in
           await send(
@@ -230,12 +223,12 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             )
           )
         }
-        
+				
       case let .fetchChatMessagesResponse(.success(messages)):
         state.socialState.chatFeatureState.chatMessages = .results(messages)
         if case .social = state.destination {
           let cachedMessages = messages.sorted(by: \.timestamp)
-          
+					
           @Shared(.chatReadTimeInterval) var chatReadTimeInterval
           let unreadMessagesCount = UInt(
             cachedMessages
@@ -244,7 +237,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
           state.chatMessageBadgeCount = unreadMessagesCount
         }
         return .none
-        
+				
       case let .fetchChatMessagesResponse(.failure(error)):
         state.socialState.chatFeatureState.chatMessages = .error(
           .init(
@@ -253,27 +246,27 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             error: .init(error: error)
           )
         )
-        
+				
         Logger.reducer.error("FetchLocation failed: \(error)")
         return .none
-        
+				
       case let .fetchLocationsResponse(.success(response)):
         state.isRequestingRiderLocations = false
         state.riderLocations = response
         state.mapFeatureState.riderLocations = response
         return .none
-        
+				
       case let .fetchLocationsResponse(.failure(error)):
         state.isRequestingRiderLocations = false
         Logger.reducer.error("FetchLocation failed: \(error)")
         state.riderLocations = []
         return .none
-        
+				
       case .postLocation:
         guard !state.userSettings.isObservationModeEnabled else {
           return .none
         }
-        
+				
         guard let location = state.mapFeatureState.location else {
           Logger.reducer.error("Location is nil. Aborting postLocation")
           return .none
@@ -298,33 +291,37 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
             )
           )
         }
-        
+				
       case let .postLocationResponse(.success(apiResponse)):
         if let status = apiResponse.status {
           Logger.reducer.info("Posted location. Response: \(status)")
         }
         return .none
-        
+				
       case let .postLocationResponse(.failure(error)):
         Logger.reducer.error("Failed to post location. Error: \(error.localizedDescription)")
         return .none
-        
+				
       case let .map(mapFeatureAction):
         switch mapFeatureAction {
-        case .focusRideEvent, .focusNextRide:
+        case .focusRideEvent,
+             .focusNextRide:
           return .none
-          
+					
         case .locationManager(.didUpdateLocations):
           state.nextRideState.userLocation = state.mapFeatureState.location?.coordinate
-          
+					
           if let currentLocation = state.mapFeatureState.location {
             let isLocationInPrivacyZone = state.privacyZoneSettings.isLocationInPrivacyZone(currentLocation.coordinate)
             state.isCurrentLocationInPrivacyZone = isLocationInPrivacyZone
           }
-          
+					
           let coordinate = state.mapFeatureState.location?.coordinate
           let isRideEventsEnabled = state.rideEventSettings.isEnabled
-          if isRideEventsEnabled, let coordinate, !state.didRequestNextRide {
+          if isRideEventsEnabled,
+             let coordinate,
+             !state.didRequestNextRide
+          {
             state.didRequestNextRide = true
             return .run { send in
               await send(.nextRide(.getNextRide(coordinate)))
@@ -332,11 +329,11 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
           } else {
             return .none
           }
-          
+					
         default:
           return .none
         }
-        
+				
       case let .nextRide(nextRideAction):
         switch nextRideAction {
         case let .setNextRide(ride):
@@ -344,17 +341,17 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
           return .run { send in
             await send(.map(.setNextRideBannerVisible(true)), animation: .snappy)
           }
-          
+					
         default:
           return .none
         }
-        
+				
       case let .requestTimer(timerAction):
         switch timerAction {
         case .halfwayPoint:
           // At 30 seconds, post user location
           return .send(.postLocation)
-
+					
         case .fullCycle:
           // At 60 seconds, fetch fresh data
           return .run { [destination = state.destination] send in
@@ -369,78 +366,86 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
               }
             }
           }
-
+					
         default:
           return .none
         }
-        
+				
       case .socialButtonTapped:
         state.destination = .social(SocialFeature.State())
         return .none
-        
+				
       case .settingsButtonTapped:
         state.destination = .settings(SettingsFeature.State())
         return .none
-        
+				
       case .dismissDestination:
         state.destination = nil
         return .none
-
-      case .whatsNewContinueTapped:
-        // Decision: Continue simply dismisses; discovery happens in Settings.
-        state.isWhatsNewPresented = false
+				
+      case .didTapNextRideOverlayButton:
+        state.destination = .rideEvents(
+          RideEvents.State(rideEvents: state.nextRideState.rideEvents)
+        )
+				
+        var effects: [Effect<Action>] = [
+          .run { _ in await feedbackGenerator.selectionChanged() }
+        ]
+        if state.destination.is(\.rideEvents) {
+          effects.append(.send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))))
+        }
+        return .merge(effects)
+			
+      case .dismissEventList:
+        state.destination = nil
         return .none
-
+				
       case .whatsNewDismissed:
         // Mark the sheet as seen for this version so it isn't shown again.
-        // Fires for both Continue and swipe-to-dismiss.
-        state.isWhatsNewPresented = false
+        state.destination = nil
         state.$lastSeenWhatsNewVersion.withLock { $0 = appVersion }
         return .none
-
+				
+      case .destination(.presented(.whatsNew(.continueButtonTapped))):
+        return .send(.whatsNewDismissed)
+				
+      case .destination(.presented(.whatsNew(.closeButtonTapped))):
+        return .send(.dismissDestination)
+				
       case let .destination(.presented(.settings(settingsAction))):
         switch settingsAction {
         case .destination(.presented(.rideEventSettings)):
           return sendGetNextRideAction(state: &state)
-          
+					
         default:
           return .none
         }
-        
+				
       case .destination(.presented(.social(.chat(.onAppear)))):
         state.chatMessageBadgeCount = 0
         return .none
+				
+      case let .destination(.presented(.rideEvents(.selectRide(selectedRide)))):
+        return .merge(
+          .send(.map(.focusRideEvent(selectedRide.coordinate))),
+          .run { _ in await feedbackGenerator.selectionChanged() }
+        )
         
       case .destination:
         return .none
-        
-      case .didTapNextRideOverlayButton:
-        state.isEventListPresented.toggle()
-        
-        var effects: [Effect<Action>] = [
-          .run { _ in await feedbackGenerator.selectionChanged() }
-        ]
-        if state.isEventListPresented {
-          effects.append(.send(.map(.focusNextRide(state.nextRideState.nextRide?.coordinate))))
-        }
-        return .merge(effects)
-      
-      case .dismissEventList:
-        state.isEventListPresented = false
-        return .none
-        
+				
       case .binding:
         return .none
       }
     }
     .ifLet(\.$destination, action: \.destination)
-    .onChange(of: \.isEventListPresented) { _, newValue in
+    .onChange(of: \.destination?.rideEvents) { _, newValue in
       Reduce { state, _ in
-        if !newValue {
+        if newValue != nil {
+          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
+        } else {
           state.mapFeatureState.rideEvents = []
           state.mapFeatureState.eventCenter = nil
-        } else {
-          state.mapFeatureState.rideEvents = state.nextRideState.rideEvents
         }
         return .none
       }
