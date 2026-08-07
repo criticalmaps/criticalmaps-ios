@@ -171,9 +171,9 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         let isFreshInstall = state.lastSeenWhatsNewVersion.isEmpty
         let isAnnouncedUpdate = appVersion == Self.whatsNewVersion
           && state.lastSeenWhatsNewVersion != Self.whatsNewVersion
-        //				if isFreshInstall || isAnnouncedUpdate {
-        state.destination = .whatsNew(WhatsNew.State())
-        //				}
+        if isFreshInstall || isAnnouncedUpdate {
+          state.destination = .whatsNew(WhatsNew.State())
+        }
 				
         return .merge(
           [
