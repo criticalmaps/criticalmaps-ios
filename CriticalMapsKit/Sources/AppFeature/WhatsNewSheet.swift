@@ -123,8 +123,8 @@ public struct WhatsNewSheet: View {
 }
 
 private struct FeatureCard<Content: View>: View {
-  @ViewBuilder @ViewBuilder let content: Content
-		
+  @ViewBuilder let content: Content
+
   var body: some View {
     content
       .padding()
