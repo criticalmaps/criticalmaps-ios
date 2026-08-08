@@ -334,6 +334,7 @@
 
 "settings.highlightActiveRiders.label" = "Highlight active riders";
 "settings.highlightActiveRiders.description" = "Highlights cyclists riding in groups";
+"settings.highlightActiveRiders.colorLabel" = "Highlight color";
 "a11y.settings.highlightActiveRiders.hint" = "When enabled, riders in a group are highlighted and others appear dimmed on the map";
 
 "whatsNew.header" = "Discover";
