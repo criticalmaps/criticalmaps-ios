@@ -53,10 +53,10 @@ public struct AppView: View {
       NavigationStack {
         RideEventBottomSheet(store: rideEventsStore)
           .presentationDetents(
-            [.fraction(0.3), .large],
+            [.partial, .large],
             selection: $store.eventListPresentation
           )
-          .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.3)))
+          .presentationBackgroundInteraction(.enabled(upThrough: .partial))
           .presentationBackgroundInteraction(.enabled)
       }
     }

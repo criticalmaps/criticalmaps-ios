@@ -43,8 +43,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
       
     // Navigation
     @Presents var destination: Destination.State?
-    public var eventListPresentation: PresentationDetent = .fraction(0.3)
-//    public var isEventListPresented = false
+    public var eventListPresentation: PresentationDetent = .partial
 
     public var chatMessageBadgeCount: UInt = 0
     public var isCurrentLocationInPrivacyZone = false
@@ -426,6 +425,9 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
         return .none
 				
       case let .destination(.presented(.rideEvents(.selectRide(selectedRide)))):
+        if state.eventListPresentation != .partial {
+          state.eventListPresentation = .partial
+        }
         return .merge(
           .send(.map(.focusRideEvent(selectedRide.coordinate))),
           .run { _ in await feedbackGenerator.selectionChanged() }
@@ -477,6 +479,10 @@ private extension AppFeature {
 // MARK: - Helper
 
 extension AppFeature.Destination.State: Equatable, Sendable {}
+
+extension PresentationDetent {
+  static let partial = Self.fraction(0.3)
+}
 
 extension SharedModels.Location {
   /// Creates a Location object from an optional ComposableCoreLocation.Location
