@@ -44,34 +44,32 @@ public struct AppView: View {
       .frame(maxWidth: .infinity, alignment: .center)
       .padding(.horizontal)
     }
+    .onAppear { store.send(.onAppear) }
+    .onDisappear { store.send(.onDisappear) }
     .sheet(
-      isPresented: $store.isEventListPresented,
-      onDismiss: { store.send(.dismissEventList) },
-      content: {
-        NavigationStack {
-          RideEventBottomSheet(
-            rideEvents: store.nextRideState.rideEvents,
-            onRideSelected: { ride in store.send(.onRideSelectedFromBottomSheet(ride)) },
-            onDismiss: { store.send(.set(\.isEventListPresented, false)) }
-          )
+      item: $store.scope(\.$destination.rideEvents, action: \.destination.rideEvents),
+      onDismiss: { store.send(.dismissEventList) }
+    ) { rideEventsStore in
+      NavigationStack {
+        RideEventBottomSheet(store: rideEventsStore)
           .presentationDetents(
-            [.fraction(0.3), .large],
+            [.partial, .large],
             selection: $store.eventListPresentation
           )
-          .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.3)))
+          .presentationBackgroundInteraction(.enabled(upThrough: .partial))
           .presentationBackgroundInteraction(.enabled)
+      }
+    }
+    .sheet(
+      item: $store.scope(\.$destination.whatsNew, action: \.destination.whatsNew),
+      onDismiss: { store.send(.whatsNewDismissed) },
+      content: { whatsNewStore in
+        NavigationStack {
+          WhatsNewSheet(store: whatsNewStore)
+            .navigationTitle("Whats new")
         }
       }
     )
-    .sheet(
-      isPresented: $store.isWhatsNewPresented,
-      onDismiss: { store.send(.whatsNewDismissed) },
-      content: {
-        WhatsNewSheet(onContinue: { store.send(.whatsNewContinueTapped) })
-      }
-    )
-    .onAppear { store.send(.onAppear) }
-    .onDisappear { store.send(.onDisappear) }
   }
 }
 
@@ -137,26 +135,58 @@ private struct OverlayViewsStack: View {
   }
 }
 
-private struct RideEventBottomSheet: View {
-  let rideEvents: [Ride]
-  let onRideSelected: (Ride) -> Void
-  let onDismiss: () -> Void
+// MARK: - RideEventSheet
 
+@Reducer
+public struct RideEvents: Sendable {
+  public init() {}
+	
+  @ObservableState
+  public struct State: Equatable, Sendable {
+    let rideEvents: [Ride]
+
+    public init(
+      rideEvents: [Ride]
+    ) {
+      self.rideEvents = rideEvents
+    }
+  }
+	
+  public enum Action {
+    case selectRide(Ride)
+    case dismiss
+  }
+	
+  public var body: some ReducerOf<Self> {
+    Reduce { _, action in
+      switch action {
+      case .selectRide:
+        .none
+      case .dismiss:
+        .none
+      }
+    }
+  }
+}
+
+private struct RideEventBottomSheet: View {
+  @State var store: StoreOf<RideEvents>
+	
   var body: some View {
-    List(rideEvents, id: \.id) { ride in
+    List(store.rideEvents) { ride in
       RideEventView(ride: ride)
         .contentShape(.rect)
         .padding(.vertical, .grid(1))
         .accessibilityElement(children: .combine)
         .onTapGesture {
-          onRideSelected(ride)
+          store.send(.selectRide(ride))
         }
         .listRowBackground(Color.clear)
     }
     .listStyle(.plain)
     .padding(.top, .grid(2))
     .accessibilityAction(.escape) {
-      onDismiss()
+      store.send(.dismiss)
     }
   }
 }

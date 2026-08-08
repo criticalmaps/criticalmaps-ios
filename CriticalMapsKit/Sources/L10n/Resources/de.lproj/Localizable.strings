@@ -334,6 +334,7 @@
 
 "settings.highlightActiveRiders.label" = "Aktive Teilnehmer hervorheben";
 "settings.highlightActiveRiders.description" = "Hebt Radfahrer hervor, die in Gruppen fahren";
+"settings.highlightActiveRiders.colorLabel" = "Highlight-Farbe";
 "a11y.settings.highlightActiveRiders.hint" = "Wenn aktiviert, werden Teilnehmer in einer Gruppe hervorgehoben und andere auf der Karte abgeblendet";
 
 "whatsNew.header" = "Entdecken";

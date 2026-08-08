@@ -1,4 +1,5 @@
 import MapKit
+import Styleguide
 import UIKit
 
 final class RiderAnnotationView: MKAnnotationView {
@@ -16,6 +17,15 @@ final class RiderAnnotationView: MKAnnotationView {
   var isRiderActive = false {
     didSet {
       guard oldValue != isRiderActive else { return }
+      updateAppearance(animated: true)
+    }
+  }
+
+  /// The color used for the highlighted (active) group, user-configurable
+  /// via the `highlightColor` setting.
+  var activeColor: UIColor = .brand500 {
+    didSet {
+      guard oldValue != activeColor else { return }
       updateAppearance(animated: true)
     }
   }
@@ -69,7 +79,7 @@ final class RiderAnnotationView: MKAnnotationView {
       targetColor = .label
       targetScale = 1.0
     } else if isRiderActive {
-      targetColor = .brand500
+      targetColor = activeColor
       targetScale = 1.0
     } else {
       targetColor = .systemGray

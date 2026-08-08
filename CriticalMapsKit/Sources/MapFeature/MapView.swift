@@ -21,6 +21,7 @@ struct MapView: ViewRepresentable {
   let privacyZones: IdentifiedArrayOf<PrivacyZone>
   let canShowPrivacyZonesOnMap: Bool
   let highlightActiveRiders: Bool
+  let highlightColor: UIColor
   var gpxRoute: GPXRoute?
 
   var mapMenuShareEventHandler: MenuActionHandle?
@@ -33,6 +34,7 @@ struct MapView: ViewRepresentable {
     rideEvents: [Ride] = [],
     privacyZones: IdentifiedArrayOf<PrivacyZone> = [],
     highlightActiveRiders: Bool = false,
+    highlightColor: UIColor = .brand500,
     canShowPrivacyZonesOnMap: Bool = false,
     gpxRoute: GPXRoute? = nil,
     annotationsCount: Binding<Int?>,
@@ -47,6 +49,7 @@ struct MapView: ViewRepresentable {
     self.rideEvents = rideEvents
     self.privacyZones = privacyZones
     self.highlightActiveRiders = highlightActiveRiders
+    self.highlightColor = highlightColor
     self.canShowPrivacyZonesOnMap = canShowPrivacyZonesOnMap
     self.gpxRoute = gpxRoute
     _annotationsCount = annotationsCount
@@ -214,6 +217,7 @@ final class MapCoordinator: NSObject, MKMapViewDelegate {
       ) as? RiderAnnotationView
       view?.isRiderActive = riderAnnotation.isActive
       view?.highlightActiveRiders = parent.highlightActiveRiders
+      view?.activeColor = parent.highlightColor
       return view
     }
 		

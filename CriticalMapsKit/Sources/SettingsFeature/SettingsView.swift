@@ -3,6 +3,7 @@ import ComposableArchitecture
 import GuideFeature
 import Helpers
 import L10n
+import SharedModels
 import Styleguide
 import SwiftUI
 import SwiftUIHelpers
@@ -255,19 +256,39 @@ private struct InfoRow: View {
 private struct ActiveRidersSettingRow: View {
   @Environment(\.colorSchemeContrast) private var colorSchemeContrast
   @Shared(.userSettings) var userSettings
-	
+
+  private var highlightColorBinding: Binding<Color> {
+    Binding(
+      get: { userSettings.highlightColor?.color ?? .brand500 },
+      set: { newColor in
+        $userSettings.withLock { $0.highlightColor = RiderHighlightColor(color: newColor) }
+      }
+    )
+  }
+
   var body: some View {
-    Toggle(isOn: Binding($userSettings.highlightActiveRiders)) {
-      VStack(alignment: .leading, spacing: 2) {
-        Text(L10n.Settings.HighlightActiveRiders.label)
-          .font(.body)
-        Text(L10n.Settings.HighlightActiveRiders.description)
-          .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
-          .font(.subheadline)
+    VStack(alignment: .leading, spacing: .grid(2)) {
+      Toggle(isOn: Binding($userSettings.highlightActiveRiders)) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(L10n.Settings.HighlightActiveRiders.label)
+            .font(.body)
+          Text(L10n.Settings.HighlightActiveRiders.description)
+            .foregroundColor(colorSchemeContrast.isIncreased ? Color.textPrimary : Color.textSilent)
+            .font(.subheadline)
+        }
+      }
+      .accessibilityLabel(L10n.Settings.HighlightActiveRiders.label)
+      .accessibilityHint(L10n.A11y.Settings.HighlightActiveRiders.hint)
+
+      if userSettings.highlightActiveRiders {
+        ColorPicker(
+          L10n.Settings.HighlightActiveRiders.colorLabel,
+          selection: highlightColorBinding,
+          supportsOpacity: false
+        )
+        .font(.subheadline)
       }
     }
-    .accessibilityLabel(L10n.Settings.HighlightActiveRiders.label)
-    .accessibilityHint(L10n.A11y.Settings.HighlightActiveRiders.hint)
   }
 }
 

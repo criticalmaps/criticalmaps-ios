@@ -331,6 +331,7 @@
 
 "settings.highlightActiveRiders.label" = "Wyróżnij aktywnych rowerzystów";
 "settings.highlightActiveRiders.description" = "Wyróżnia rowerzystów jadących w grupie";
+"settings.highlightActiveRiders.colorLabel" = "Kolor wyróżnienia";
 "a11y.settings.highlightActiveRiders.hint" = "Po włączeniu rowerzyści w grupie są wyróżnieni, a pozostali są przyciemnieni na mapie";
 
 "whatsNew.header" = "Odkryj";

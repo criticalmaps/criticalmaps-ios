@@ -334,6 +334,7 @@
 
 "settings.highlightActiveRiders.label" = "Evidenzia i ciclisti attivi";
 "settings.highlightActiveRiders.description" = "Evidenzia i ciclisti che pedalano in gruppo";
+"settings.highlightActiveRiders.colorLabel" = "Colore evidenziazione";
 "a11y.settings.highlightActiveRiders.hint" = "Se attivato, i ciclisti in gruppo vengono evidenziati e gli altri appaiono attenuati sulla mappa";
 
 "whatsNew.header" = "Scopri";

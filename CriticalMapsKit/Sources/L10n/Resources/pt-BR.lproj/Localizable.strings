@@ -331,6 +331,7 @@
 
 "settings.highlightActiveRiders.label" = "Destacar ciclistas ativos";
 "settings.highlightActiveRiders.description" = "Destaca os ciclistas que pedalam em grupo";
+"settings.highlightActiveRiders.colorLabel" = "Cor de destaque";
 "a11y.settings.highlightActiveRiders.hint" = "Quando ativado, os ciclistas em grupo são destacados e os demais aparecem esmaecidos no mapa";
 
 "whatsNew.header" = "Descubra";

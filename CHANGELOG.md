@@ -2,6 +2,12 @@
 
 Critical Maps iOS
 
+## [4.10.1] - 2026-08-07
+
+### Fixed
+
+- Whats new sheet presentation and dismissal  
+
 ## [4.10.0] - 2026-06-19
 
 ### Added 
