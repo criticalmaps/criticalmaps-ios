@@ -10,17 +10,20 @@ before_all do |lane, options|
     create_simulators(platform: options[:platform], version: options[:version])
 end
 
-# Finds the highest installed & available iOS simulator runtime version for
-# a given major version (e.g. 18 -> "18.5"). Falls back to `fallback` if no
-# matching runtime is installed, so a machine with a newer/older Xcode still runs.
-def latest_ios_runtime_version(major, fallback:)
+# Picks an installed & available iOS simulator runtime version, preferring
+# `preferred_major` (e.g. 18 -> "18.5") but falling back to whatever iOS
+# runtime is actually installed (CI images don't always ship older runtimes
+# for the latest Xcode), and finally to `fallback` if nothing is installed at all.
+def resolve_ios_runtime_version(preferred_major:, fallback:)
     require 'json'
     runtimes = JSON.parse(sh("xcrun simctl list -j runtimes", log: false))["runtimes"] || []
-    matching = runtimes.select { |rt| rt["isAvailable"] && rt["name"] =~ /\Aios #{major}\./i }
-    return fallback if matching.empty?
-    matching.max_by { |rt| Gem::Version.new(rt["version"]) }["version"]
+    available = runtimes.select { |rt| rt["isAvailable"] && rt["name"] =~ /\Aios /i }
+    return fallback if available.empty?
+    preferred = available.select { |rt| rt["name"] =~ /\Aios #{preferred_major}\./i }
+    chosen = preferred.empty? ? available : preferred
+    chosen.max_by { |rt| Gem::Version.new(rt["version"]) }["version"]
 rescue => e
-    UI.message("Could not determine installed iOS #{major}.x runtime, falling back to #{fallback}: #{e}")
+    UI.message("Could not determine installed iOS runtime, falling back to #{fallback}: #{e}")
     fallback
 end
 
@@ -28,7 +31,7 @@ platform :ios do
 
   desc 'Run unit tests'
   lane :test do
-    os_version = latest_ios_runtime_version(18, fallback: "18.6")
+    os_version = resolve_ios_runtime_version(preferred_major: 18, fallback: "18.6")
     scan(
       project: "CriticalMaps.xcodeproj",
       scheme: Scheme,
@@ -43,7 +46,7 @@ platform :ios do
 
   desc 'Run snapshot tests'
   lane :snapshot_tests do
-    os_version = latest_ios_runtime_version(18, fallback: "18.6")
+    os_version = resolve_ios_runtime_version(preferred_major: 18, fallback: "18.6")
     scan(
       project: "CriticalMaps.xcodeproj",
       scheme: Scheme,
@@ -148,15 +151,21 @@ lane :create_simulators do |options|
                 runtime_name = "#{os_name} #{runtime_version}"
                 runtime_major = runtime_version.split('.').first
 
-                # Exact patch match first; otherwise fall back to the highest installed
-                # runtime with the same major version (patch versions drift between Xcode installs).
-                closest_runtime_name = runtime_name_to_id.keys
+                # Exact patch match first; otherwise the highest installed runtime with the
+                # same major version; otherwise whatever runtime for this OS is installed at
+                # all (CI images don't always ship every major version for a given Xcode).
+                same_major_runtime_name = runtime_name_to_id.keys
                     .select { |name| name =~ /\A#{Regexp.escape(os_name)} #{Regexp.escape(runtime_major)}\./ }
+                    .max_by { |name| Gem::Version.new(name.split(' ').last) }
+
+                any_runtime_name = runtime_name_to_id.keys
+                    .select { |name| name =~ /\A#{Regexp.escape(os_name)} /i }
                     .max_by { |name| Gem::Version.new(name.split(' ').last) }
 
                 device_type_id = device_name_to_id[device_name] || build_device_type_id.call(device_name)
                 runtime_id = runtime_name_to_id[runtime_name] ||
-                    (closest_runtime_name && runtime_name_to_id[closest_runtime_name]) ||
+                    (same_major_runtime_name && runtime_name_to_id[same_major_runtime_name]) ||
+                    (any_runtime_name && runtime_name_to_id[any_runtime_name]) ||
                     build_runtime_id.call(os_name, runtime_version)
 
                 # Use the device name without the version suffix as the simulator name
