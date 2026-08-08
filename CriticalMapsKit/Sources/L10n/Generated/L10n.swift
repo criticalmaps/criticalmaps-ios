@@ -398,6 +398,8 @@ public enum L10n {
       public static let showID = L10n.tr("Localizable", "settings.friends.showID", fallback: "Show ID")
     }
     public enum HighlightActiveRiders {
+      /// Highlight color
+      public static let colorLabel = L10n.tr("Localizable", "settings.highlightActiveRiders.colorLabel", fallback: "Highlight color")
       /// Highlights cyclists riding in groups
       public static let description = L10n.tr("Localizable", "settings.highlightActiveRiders.description", fallback: "Highlights cyclists riding in groups")
       /// Highlight active riders

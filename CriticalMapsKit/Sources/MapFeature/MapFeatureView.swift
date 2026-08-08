@@ -4,6 +4,7 @@ import L10n
 import SharedModels
 import Styleguide
 import SwiftUI
+import UIKit
 
 public struct MapFeatureView: View {
   @Environment(\.accessibilityReduceTransparency) var reduceTransparency
@@ -25,6 +26,7 @@ public struct MapFeatureView: View {
         rideEvents: store.rideEvents,
         privacyZones: privacyZoneSettings.zones,
         highlightActiveRiders: userSettings.highlightActiveRiders,
+        highlightColor: userSettings.highlightColor.map { UIColor($0.color) } ?? .brand500,
         canShowPrivacyZonesOnMap: privacyZoneSettings.canShowOnMap,
         gpxRoute: userSettings.gpxRoute,
         annotationsCount: $store.visibleRidersCount,

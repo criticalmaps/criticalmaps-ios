@@ -89,7 +89,7 @@ struct AppFeatureTests {
 
     await store.send(.didTapNextRideOverlayButton) {
       $0.mapFeatureState.rideEvents = events
-      $0.isEventListPresented = true
+      $0.destination = .rideEvents(RideEvents.State(rideEvents: events))
     }
     
     await store.receive(\.map.focusNextRide)
@@ -113,12 +113,12 @@ struct AppFeatureTests {
 
     await store.send(.didTapNextRideOverlayButton) {
       $0.mapFeatureState.rideEvents = events
-      $0.isEventListPresented = true
+      $0.destination = .rideEvents(RideEvents.State(rideEvents: events))
     }
     await store.receive(\.map.focusNextRide)
     
     await store.send(.dismissEventList) {
-      $0.isEventListPresented = false
+      $0.destination = nil
       $0.mapFeatureState.rideEvents = []
     }
   }
@@ -246,7 +246,7 @@ struct AppFeatureTests {
     store.exhaustivity = .off
 
     await store.send(.onAppear) {
-      $0.isWhatsNewPresented = true
+      $0.destination = .whatsNew(WhatsNew.State())
     }
   }
 
@@ -283,7 +283,7 @@ struct AppFeatureTests {
     store.exhaustivity = .off
 
     await store.send(.onAppear) {
-      $0.isWhatsNewPresented = true
+      $0.destination = .whatsNew(WhatsNew.State())
     }
   }
 
@@ -296,7 +296,7 @@ struct AppFeatureTests {
     locationManager.requestAlwaysAuthorization = {}
     locationManager.set = { @Sendable _ in }
 
-    var state = AppFeature.State()
+    let state = AppFeature.State()
     state.$lastSeenWhatsNewVersion.withLock { $0 = "5.0.0" } // already seen, not a fresh install
 
     let store = TestStore(
@@ -321,13 +321,13 @@ struct AppFeatureTests {
 
     await store.send(.onAppear)
 
-    #expect(store.state.isWhatsNewPresented == false)
+    #expect(store.state.destination == nil)
   }
 
   @Test
   func `dismissing WhatsNew records the current version`() async {
     var state = AppFeature.State()
-    state.isWhatsNewPresented = true
+    state.destination = .whatsNew(WhatsNew.State())
 
     let store = TestStore(
       initialState: state,
@@ -338,7 +338,7 @@ struct AppFeatureTests {
     )
 
     await store.send(.whatsNewDismissed) {
-      $0.isWhatsNewPresented = false
+      $0.destination = nil
       $0.$lastSeenWhatsNewVersion.withLock { $0 = "4.8.0" }
     }
   }

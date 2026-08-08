@@ -1,49 +1,101 @@
+import ComposableArchitecture
 import L10n
 import SharedKeys
 import SharedModels
 import Styleguide
 import SwiftUI
 
+@Reducer
+public struct WhatsNew: Sendable {
+  public init() {}
+	
+  @ObservableState
+  public struct State: Equatable, Sendable {
+    public init() {}
+  }
+	
+  public enum Action {
+    case closeButtonTapped
+    case continueButtonTapped
+  }
+	
+  public var body: some ReducerOf<Self> {
+    Reduce { _, action in
+      switch action {
+      case .continueButtonTapped:
+        .none
+      case .closeButtonTapped:
+        .none
+      }
+    }
+  }
+}
+
+// MARK: - Views
+
 /// "What's New" onboarding sheet shown once after updating to a version with new
 /// features. Presentational — the gating/dismissal live in `AppFeature`
-struct WhatsNewSheet: View {
+public struct WhatsNewSheet: View {
+  let store: StoreOf<WhatsNew>
+	
   @Shared(.userSettings) private var userSettings: UserSettings
-  var onContinue: () -> Void
-
-  var body: some View {
+  
+  public var body: some View {
     NavigationStack {
       ScrollView {
         VStack(spacing: .grid(6)) {
-          heroImage
-            .resizable()
-            .scaledToFit()
-            .clipShape(RoundedRectangle(cornerRadius: .grid(5)))
-            .accessibilityHidden(true)
-            .animation(.snappy, value: userSettings.highlightActiveRiders)
-
-          Text(L10n.WhatsNew.header)
-            .font(.headline)
-            .foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity, alignment: .leading)
-
           VStack(spacing: .grid(4)) {
-            FeatureCard(
-              title: L10n.Settings.HighlightActiveRiders.label,
-              description: L10n.WhatsNew.HighlightActiveRiders.description,
-              isOn: Binding($userSettings.highlightActiveRiders)
-            )
+            FeatureCard {
+              VStack(spacing: .grid(3)) {
+                Text(L10n.Settings.HighlightActiveRiders.label)
+                  .font(.headline)
 
-            FeatureCard(
-              title: L10n.Settings.Observationmode.title,
-              description: L10n.WhatsNew.ObservationMode.description,
-              isOn: Binding($userSettings.isObservationModeEnabled)
-            )
+                Divider()
+									
+                heroImage
+                  .resizable()
+                  .scaledToFit()
+                  .clipShape(RoundedRectangle(cornerRadius: .grid(5)))
+                  .accessibilityHidden(true)
+                  .animation(.snappy, value: userSettings.highlightActiveRiders)
+									
+                VStack(alignment: .leading, spacing: .grid(2)) {
+                  Text(L10n.WhatsNew.HighlightActiveRiders.description)
+                    .foregroundStyle(.secondary)
+										
+                  Toggle(isOn: Binding($userSettings.highlightActiveRiders)) {
+                    Text(L10n.Settings.HighlightActiveRiders.label)
+                      .font(.body)
+                  }
+                }
+              }
+            }
+							
+            Section {
+              FeatureCard {
+                VStack(spacing: .grid(3)) {
+                  VStack(alignment: .leading, spacing: .grid(2)) {
+                    Toggle(isOn: Binding($userSettings.isObservationModeEnabled)) {
+                      Text(L10n.Settings.Observationmode.title)
+                        .font(.body)
+                    }
+											
+                    Text(L10n.WhatsNew.ObservationMode.description)
+                      .foregroundStyle(.secondary)
+                  }
+                }
+              }
+            } header: {
+              Text(L10n.Settings.title)
+            }
           }
         }
         .padding()
       }
       .safeAreaInset(edge: .bottom) {
-        Button(action: onContinue) {
+        Button {
+          store.send(.continueButtonTapped)
+        } label: {
           Text(L10n.WhatsNew.continue)
             .frame(maxWidth: .infinity)
         }
@@ -51,6 +103,16 @@ struct WhatsNewSheet: View {
         .padding()
       }
     }
+    .toolbar {
+      ToolbarItem(placement: .primaryAction) {
+        Button {
+          store.send(.closeButtonTapped)
+        } label: {
+          Text(L10n.Close.Button.label)
+        }
+      }
+    }
+    .tint(.brand500)
     .presentationDetents([.large])
   }
 
@@ -60,34 +122,23 @@ struct WhatsNewSheet: View {
   }
 }
 
-private struct FeatureCard: View {
-  let title: String
-  let description: String
-  let isOn: Binding<Bool>
-	
+private struct FeatureCard<Content: View>: View {
+  @ViewBuilder let content: Content
+
   var body: some View {
-    HStack(alignment: .top, spacing: .grid(4)) {
-      VStack(alignment: .leading, spacing: .grid(1)) {
-        Text(title)
-          .font(.headline)
-        Text(description)
-          .foregroundStyle(.secondary)
-      }
-
-      Spacer(minLength: .grid(2))
-
-      Toggle(title, isOn: isOn)
-        .labelsHidden()
-        .tint(.brand500)
-    }
-    .padding()
-    .background(.regularMaterial)
-    .clipShape(.rect(cornerRadius: .grid(5)))
+    content
+      .padding()
+      .background(.regularMaterial)
+      .clipShape(.rect(cornerRadius: .grid(5)))
   }
 }
 
+// MARK: - Preview
+
 #Preview {
-  WhatsNewSheet {
-    print("continue")
-  }
+  WhatsNewSheet(
+    store: Store(initialState: WhatsNew.State()) {
+      WhatsNew()
+    }
+  )
 }
