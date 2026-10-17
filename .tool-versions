@@ -6,4 +6,4 @@
 # (managed by pre-commit, not brew). See that file for their versions.
 
 swiftgen 6.6.3
-pre-commit 4.0.1
+pre-commit 4.7.0

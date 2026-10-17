@@ -177,7 +177,11 @@ public struct SettingsFeature: Sendable {
           state.isImportingGPXRoute = false
           return .run { send in
             let accessing = url.startAccessingSecurityScopedResource()
-            defer { if accessing { url.stopAccessingSecurityScopedResource() } }
+            defer {
+              if accessing {
+                url.stopAccessingSecurityScopedResource()
+              }
+            }
             do {
               guard let data = try? Data(contentsOf: url) else {
                 await send(.gpxImportFailed(URLError(.cannotOpenFile)))
