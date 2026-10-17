@@ -262,8 +262,7 @@ private struct ImageAttachmentsView: View {
               Color.gray.opacity(0.2)
             case let .success(image):
               image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+                .resizable().scaledToFit()
                 .frame(height: 180)
                 .cornerRadius(8)
                 .onTapGesture {

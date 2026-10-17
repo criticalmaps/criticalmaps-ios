@@ -304,8 +304,7 @@ private struct SupportSection: View {
       backgroundColor: Color(UIColor.hex(0x332F38)),
       bottomImage: {
         Asset.ghLogo.swiftUIImage
-          .resizable()
-          .aspectRatio(contentMode: .fit)
+          .resizable().scaledToFit()
           .frame(width: 150, height: 150, alignment: .bottomTrailing)
           .opacity(0.4)
           .accessibilityHidden(true)
@@ -322,8 +321,7 @@ private struct SupportSection: View {
       backgroundColor: .translateRowBackground,
       bottomImage: {
         Asset.translate.swiftUIImage
-          .resizable()
-          .aspectRatio(contentMode: .fit)
+          .resizable().scaledToFit()
           .frame(width: 135, height: 135, alignment: .bottomTrailing)
           .accessibilityHidden(true)
       },
@@ -339,8 +337,7 @@ private struct SupportSection: View {
       backgroundColor: .cmInRowBackground,
       bottomImage: {
         Asset.cmDotInLogo.swiftUIImage
-          .resizable()
-          .aspectRatio(contentMode: .fit)
+          .resizable().scaledToFit()
           .frame(width: 160, height: 160, alignment: .bottomTrailing)
           .accessibilityHidden(true)
       },
@@ -429,8 +426,7 @@ private struct AppVersionView: View {
               .strokeBorder(Color.border, lineWidth: 1)
           )
         Asset.cmLogoC.swiftUIImage
-          .resizable()
-          .aspectRatio(contentMode: .fit)
+          .resizable().scaledToFit()
           .frame(width: 48, height: 48, alignment: .center)
       }
       .accessibilityHidden(true)
