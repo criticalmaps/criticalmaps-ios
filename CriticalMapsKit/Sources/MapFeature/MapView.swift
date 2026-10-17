@@ -95,12 +95,10 @@ struct MapView: ViewRepresentable {
   }
 
   func setNextRideAnnotation(in mapView: MKMapView) {
-    if let nextRide {
-      if mapView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {
-        let nextRideAnnotation = CriticalMassAnnotation(ride: nextRide)
-        guard nextRide.coordinate != nil else { return }
-        mapView.addAnnotation(nextRideAnnotation!)
-      }
+    if let nextRide, mapView.annotations.compactMap({ $0 as? CriticalMassAnnotation }).isEmpty {
+      let nextRideAnnotation = CriticalMassAnnotation(ride: nextRide)
+      guard nextRide.coordinate != nil else { return }
+      mapView.addAnnotation(nextRideAnnotation!)
     }
   }
 

@@ -7,12 +7,12 @@
 
 repos:
   - repo: https://github.com/nicklockwood/SwiftFormat
-    rev: "0.61.1"
+    rev: "0.64.0"
     hooks:
       - id: swiftformat
 
   - repo: https://github.com/realm/SwiftLint
-    rev: "0.62.2"
+    rev: "0.65.1"
     hooks:
       - id: swiftlint
         alias: swiftlint-fix

@@ -167,16 +167,13 @@ func queryMonth(for date: () -> Date = Date.init, calendar: Calendar = .current)
 /// Finds the last Friday of a given month and year
 private func findLastFriday(in month: Int, year: Int, calendar: Calendar) -> Date? {
   let dateComponents = DateComponents(year: year, month: month)
-  guard let firstDay = calendar.date(from: dateComponents) else { return nil }
-  guard let range = calendar.range(of: .day, in: .month, for: firstDay) else { return nil }
+  guard let firstDay = calendar.date(from: dateComponents), let range = calendar.range(of: .day, in: .month, for: firstDay) else { return nil }
 
   // Find all Fridays in the month and return the last one
   var fridays: [Date] = []
   for day in range {
-    if let date = calendar.date(from: DateComponents(year: year, month: month, day: day)) {
-      if calendar.component(.weekday, from: date) == 6 { // Friday = 6
-        fridays.append(date)
-      }
+    if let date = calendar.date(from: DateComponents(year: year, month: month, day: day)), calendar.component(.weekday, from: date) == 6 { // Friday = 6
+      fridays.append(date)
     }
   }
   return fridays.last

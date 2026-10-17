@@ -1,3 +1,4 @@
+import CoreLocation
 import Dependencies
 import DependenciesMacros
 import Foundation
@@ -65,8 +66,12 @@ public enum RiderActivityFilter {
 
       for other in riders where other.id != rider.id {
         let distance = rider.coordinate.distance(to: other.coordinate)
-        if distance <= longRangeMeters { longRange += 1 }
-        if distance <= shortRangeMeters { shortRange += 1 }
+        if distance <= longRangeMeters {
+          longRange += 1
+        }
+        if distance <= shortRangeMeters {
+          shortRange += 1
+        }
       }
 
       if isActive(shortRange: shortRange, longRange: longRange) {
@@ -83,8 +88,6 @@ public enum RiderActivityFilter {
       || (shortRange > 1 && longRange < 7)
   }
 }
-
-import CoreLocation
 
 extension Coordinate {
   func distance(to other: Coordinate) -> CLLocationDistance {

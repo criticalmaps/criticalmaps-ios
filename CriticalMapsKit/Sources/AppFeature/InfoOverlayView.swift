@@ -16,29 +16,27 @@ struct InfoOverlayView: View {
   let isInPrivacyZone: Bool
 
   var body: some View {
-    Group {
-      if #available(iOS 26, *) {
-        InfoOverlayGlassContent(
-          isExpanded: $isExpanded,
-          progress: $progress,
-          cycleStartTime: cycleStartTime,
-          ridersCountLabel: ridersCountLabel,
-          isInPrivacyZone: isInPrivacyZone
-        )
-      } else {
-        InfoOverlayLegacyContent(
-          isExpanded: $isExpanded,
-          cycleStartTime: cycleStartTime,
-          ridersCountLabel: ridersCountLabel,
-          isInPrivacyZone: isInPrivacyZone
-        )
-        .padding(.grid(2))
-        .background(
-          .regularMaterial,
-          in: RoundedRectangle(cornerRadius: .grid(isExpanded ? 3 : 20), style: .continuous)
-        )
-        .accessibleAnimation(.snappy(duration: 0.3), value: isExpanded)
-      }
+    if #available(iOS 26, *) {
+      InfoOverlayGlassContent(
+        isExpanded: $isExpanded,
+        progress: $progress,
+        cycleStartTime: cycleStartTime,
+        ridersCountLabel: ridersCountLabel,
+        isInPrivacyZone: isInPrivacyZone
+      )
+    } else {
+      InfoOverlayLegacyContent(
+        isExpanded: $isExpanded,
+        cycleStartTime: cycleStartTime,
+        ridersCountLabel: ridersCountLabel,
+        isInPrivacyZone: isInPrivacyZone
+      )
+      .padding(.grid(2))
+      .background(
+        .regularMaterial,
+        in: RoundedRectangle(cornerRadius: .grid(isExpanded ? 3 : 20), style: .continuous)
+      )
+      .accessibleAnimation(.snappy(duration: 0.3), value: isExpanded)
     }
   }
 }
