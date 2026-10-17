@@ -446,6 +446,49 @@ struct AppFeatureTests {
   }
   
   @Test
+  func `Becoming active with an overdue cycle restarts timer and fetches locations`() async {
+    let now = date()
+    var state = AppFeature.State()
+    state.requestTimer.cycleStartTime = now.addingTimeInterval(-300)
+
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.continuousClock = TestClock()
+        $0.apiService.getRiders = { [] }
+        $0.date = .constant(now)
+      }
+    )
+    store.exhaustivity = .off
+
+    await store.send(.didBecomeActive)
+    await store.receive(\.requestTimer.startTimer) {
+      $0.requestTimer.isTimerActive = true
+      $0.requestTimer.cycleStartTime = now
+    }
+    await store.receive(\.fetchLocations)
+    await store.skipInFlightEffects()
+  }
+
+  @Test
+  func `Becoming active mid-cycle does nothing`() async {
+    let now = date()
+    var state = AppFeature.State()
+    state.requestTimer.cycleStartTime = now.addingTimeInterval(-10)
+
+    let store = TestStore(
+      initialState: state,
+      reducer: { AppFeature() },
+      withDependencies: {
+        $0.date = .constant(now)
+      }
+    )
+
+    await store.send(.didBecomeActive)
+  }
+
+  @Test
   func `Full cycle triggers fetch messages when social view is open`() async {
     var state = AppFeature.State()
     state.destination = .social(SocialFeature.State())
