@@ -251,8 +251,9 @@ extension LocationManager {
   }
 }
 
+@MainActor
 public extension AlertState where Action == MapFeature.Action {
-  @MainActor static let goToSettingsAlert = Self(
+  static let goToSettingsAlert = Self(
     title: { TextState(L10n.Location.Alert.provideAccessToLocationService) },
     actions: {
       ButtonState<MapFeature.Action> { TextState(L10n.Settings.title) }
@@ -260,9 +261,9 @@ public extension AlertState where Action == MapFeature.Action {
     }
   )
   
-  @MainActor static let provideAuth = Self(title: { TextState(L10n.Location.Alert.provideAuth) })
-  @MainActor static let servicesOff = Self(title: { TextState(L10n.Location.Alert.serviceIsOff) })
-  @MainActor static let provideAccessToLocationService = Self(
+  static let provideAuth = Self(title: { TextState(L10n.Location.Alert.provideAuth) })
+  static let servicesOff = Self(title: { TextState(L10n.Location.Alert.serviceIsOff) })
+  static let provideAccessToLocationService = Self(
     title: { TextState(L10n.Location.Alert.provideAccessToLocationService) }
   )
 }

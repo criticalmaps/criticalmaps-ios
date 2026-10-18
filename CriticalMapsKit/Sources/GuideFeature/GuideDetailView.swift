@@ -44,18 +44,15 @@ struct DIImage: View {
   }
     
   var body: some View {
-    Group {
-      if colorScheme == .dark {
-        img.colorInvert()
-      } else {
-        img
-      }
+    if colorScheme == .dark {
+      img.colorInvert()
+    } else {
+      img
     }
   }
   
   var img: some View {
     image
-      .resizable()
-      .aspectRatio(contentMode: .fit)
+      .resizable().scaledToFit()
   }
 }
