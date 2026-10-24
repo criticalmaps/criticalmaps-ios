@@ -97,6 +97,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
     case destination(PresentationAction<Destination.Action>)
     case onAppear
     case onDisappear
+    case didBecomeActive
     case fetchLocations
     case fetchLocationsResponse(Result<[Rider], any Error>)
     case postLocation
@@ -133,6 +134,7 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
   @Dependency(\.locationManager) var locationManager
   @Dependency(\.mainQueue) var mainQueue
   @Dependency(\.nextRideService) var nextRideService
+  @Dependency(\.serverConfiguration) var serverConfiguration
   @Dependency(\.uiApplicationClient) var uiApplicationClient
   @Dependency(\.uuid) var uuid
 
@@ -199,6 +201,22 @@ public struct AppFeature: Sendable { // swiftlint:disable:this type_body_length
 				
       case .onDisappear:
         return .none
+
+      case .didBecomeActive:
+        // While the app was suspended the poll timer could not fire, so the
+        // countdown sits at zero until the stale sleep finally resumes. If the
+        // cycle is overdue, restart it and fetch right away instead.
+        guard let cycleStartTime = state.requestTimer.cycleStartTime else {
+          return .none
+        }
+        let elapsed = date.now.timeIntervalSince(cycleStartTime)
+        guard elapsed >= TimeInterval(serverConfiguration.pollIntervalSeconds) else {
+          return .none
+        }
+        return .merge(
+          .send(.requestTimer(.startTimer)),
+          .send(.fetchLocations)
+        )
 				
       case .fetchLocations:
         state.isRequestingRiderLocations = true

@@ -12,6 +12,7 @@ public struct AppView: View {
   
   @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+  @Environment(\.scenePhase) private var scenePhase
   
   public init(store: StoreOf<AppFeature>) {
     self.store = store
@@ -46,6 +47,11 @@ public struct AppView: View {
     }
     .onAppear { store.send(.onAppear) }
     .onDisappear { store.send(.onDisappear) }
+    .onChange(of: scenePhase) { _, newPhase in
+      if newPhase == .active {
+        store.send(.didBecomeActive)
+      }
+    }
     .sheet(
       item: $store.scope(\.$destination.rideEvents, action: \.destination.rideEvents),
       onDismiss: { store.send(.dismissEventList) }
