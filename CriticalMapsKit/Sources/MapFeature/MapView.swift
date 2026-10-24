@@ -114,6 +114,14 @@ struct MapView: ViewRepresentable {
     if !updatedAnnotations.addedAnnotations.isEmpty {
       mapView.addAnnotations(updatedAnnotations.addedAnnotations)
     }
+    // The count is otherwise only refreshed when the visible region changes,
+    // so recount after new rider positions arrive. Deferred because the
+    // binding must not be written during a view update.
+    if !updatedAnnotations.removedAnnotations.isEmpty || !updatedAnnotations.addedAnnotations.isEmpty {
+      DispatchQueue.main.async {
+        setRiderAnnotationsCount(mapView)
+      }
+    }
   }
 
   func centerRider(in mapView: MKMapView) {
